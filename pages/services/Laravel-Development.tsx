@@ -243,7 +243,7 @@ useEffect(() => {
                                     delivering tailored web solutions to businesses since 2020. Laravel is one of the
                                     most popular and robust PHP frameworks, known for its elegant syntax, high
                                     scalability, and ability to streamline
-                                    the <Link href={'/pages/services/Software-Development.tsx'}
+                                    the <Link href={'/services/Software-Development'}
                                               className={`relative border-b pb-[0.17em] ${
                                                   isDayTime ? 'border-gray-400 hover:border-black' : 'border-gray-800 hover:border-white'
                                               }`}>software development</Link> lifecycle. As
@@ -1094,7 +1094,7 @@ useEffect(() => {
                         </button>
                         {onIndex === 0 && (
                             <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                Laravel is a free, open-source <Link href={'/pages/services/PHP-Development.tsx'}
+                                Laravel is a free, open-source <Link href={'/services/PHP-Development'}
                                                                      className={`relative border-b pb-[0.05em] ${
                                                                          isDayTime ? 'border-gray-400 hover:border-black' : 'border-gray-800 hover:border-white'
                                                                      }`}>PHP</Link> framework designed to simplify and
@@ -1158,7 +1158,7 @@ useEffect(() => {
                         {onIndex === 2 && (
                             <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
                                 PHP is a versatile scripting language commonly used
-                                for <Link href={'/pages/services/Web-Development.tsx'}
+                                for <Link href={'/services/Web-Development'}
                                           className={`relative border-b pb-[0.05em] ${
                                               isDayTime ? 'border-gray-400 hover:border-black' : 'border-gray-800 hover:border-white'
                                           }`}>web development</Link>. Laravel is a robust web application framework
@@ -1245,11 +1245,11 @@ useEffect(() => {
                         {onIndex === 5 && (
                             <p className="mt-4 text-[0.85em] text-justify tracking-normal leading-[1.5]text-gray-400">
                                 While Laravel is primarily a backend framework, it integrates seamlessly with front-end
-                                technologies like <Link href={'/pages/services/Vuejs-Development.tsx'}
+                                technologies like <Link href={'/services/Vuejs-Development'}
                                                         className={`relative border-b pb-[0.05em] ${
                                                             isDayTime ? 'border-gray-400 hover:border-black' : 'border-gray-800 hover:border-white'
                                                         }`}>Vue.js</Link> and <Link
-                                href={'/pages/services/Reactjs-Development.tsx'}
+                                href={'/services/Reactjs-Development'}
                                 className={`relative border-b pb-[0.05em] ${
                                     isDayTime ? 'border-gray-400 hover:border-black' : 'border-gray-800 hover:border-white'
                                 }`}>React</Link> to deliver dynamic,
@@ -1277,7 +1277,7 @@ useEffect(() => {
                             <p className="mt-4 text-[0.85em] text-justify tracking-normal leading-[1.5]text-gray-400">
                                 Laravel serves as a powerful backend system for mobile applications. Although primarily
                                 a web framework, Laravel enables the development of RESTful APIs
-                                that <Link href={'/pages/services/Mobile-Application-Development.tsx'}
+                                that <Link href={'/services/Mobile-Application-Development'}
                                            className={`relative border-b pb-[0.05em] ${
                                                isDayTime ? 'border-gray-400 hover:border-black' : 'border-gray-800 hover:border-white'
                                            }`}>mobile apps</Link> can seamlessly communicate with. This approach allows

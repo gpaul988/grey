@@ -424,7 +424,7 @@ useEffect(() => {
                                     <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
                                         React.js is the go-to library for building highly interactive and efficient user
                                         interfaces. Unlike
-                                        native <Link href={'/pages/services/Javascript.tsx'}
+                                        native <Link href={'/services/Javascript'}
                                                      className={`border-b pb-[0.02em] ${
                                                          isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                      }`}>JavaScript</Link>, which re-renders the entire page on
@@ -451,7 +451,7 @@ useEffect(() => {
                                             className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Brand specific design</span>
                                     </div>
                                     <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        We develop custom <Link href={'/pages/services/ui-ux-design.tsx'}
+                                        We develop custom <Link href={'/services/ui-ux-design'}
                                                                 className={`border-b pb-[0.02em] ${
                                                                     isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                                 }`}>UI</Link> components and reusable design libraries
@@ -592,7 +592,7 @@ useEffect(() => {
                                     </div>
                                     <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
                                         Using server-side rendering (SSR), we enhance
-                                        both <Link href={'/pages/services/seo.tsx'}
+                                        both <Link href={'/services/seo'}
                                                    className={`border-b pb-[0.02em] ${
                                                        isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                    }`}>SEO</Link> and performance by
@@ -773,11 +773,11 @@ useEffect(() => {
                                 At Grey InfoTech, we build fast, modern web applications using React, combining
                                 efficiency, scalability, and a smooth user experience. With reusable components and a
                                 modular approach, we ensure consistent, high-quality interfaces. For
-                                mobile, <Link href={'/pages/services/React-Native-Development.tsx'}
+                                mobile, <Link href={'/services/React-Native-Development'}
                                               className={`border-b pb-[0.02em] ${
                                                   isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                               }`}>React Native</Link> lets us deliver visually rich, high-performance
-                                apps on Android and <Link href={'/pages/services/ios-development.tsx'}
+                                apps on Android and <Link href={'/services/ios-development'}
                                                           className={`border-b pb-[0.02em] ${
                                                               isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                           }`}>iOS</Link> from a

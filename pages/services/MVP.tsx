@@ -309,7 +309,7 @@ useEffect(() => {
                                     Turning an idea into a successful digital product takes more than inspiration—it
                                     requires structured planning, disciplined execution, and the ability to adapt
                                     quickly to user and market feedback. Our Minimum Viable Product
-                                    (MVP) <Link href={'/pages/services/Software-Development.tsx'}
+                                    (MVP) <Link href={'/services/Software-Development'}
                                                 className={`border-b pb-[0.1em] ${
                                                     isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                 }`}>software development</Link> service is designed to help businesses
@@ -396,7 +396,7 @@ useEffect(() => {
                             MVP App Development
                         </h3>
                         <p className='text-justify text-[0.85em] font-[400]'>
-                            Building <Link href={'/pages/services/Mobile-Application-Development.tsx'}
+                            Building <Link href={'/services/Mobile-Application-Development'}
                                            className={`border-b pb-[0.1em] ${
                                                isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                            }`}>mobile applications</Link> with MVP principles allows businesses to
@@ -405,7 +405,7 @@ useEffect(() => {
                             focusing on core functionality first, we help you validate your concept quickly and make
                             data-driven decisions for future enhancements. Our team specialises in native and
                             cross-platform app development for both Android
-                            and <Link href={'/pages/services/ios-development.tsx'} className={`border-b pb-[0.1em] ${
+                            and <Link href={'/services/ios-development'} className={`border-b pb-[0.1em] ${
                             isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                         }`}>iOS</Link>, ensuring that your app not only
                             meets technical standards but is also user-centric and market-ready from day one. Whether
@@ -433,7 +433,7 @@ useEffect(() => {
                         </h3>
                         <p className='text-justify text-[0.85em] font-[400]'>
                             From single-page applications to complex, dynamic websites, our
-                            MVP <Link href={'/pages/services/Web-Development.tsx'} className={`border-b pb-[0.1em] ${
+                            MVP <Link href={'/services/Web-Development'} className={`border-b pb-[0.1em] ${
                             isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                         }`}>web development</Link> service is designed to deliver scalable, user-focused digital
                             solutions that adapt to your business needs. We prioritise speed to market without
@@ -811,7 +811,7 @@ useEffect(() => {
                                 enabling rapid development and clean, maintainable code. It’s ideal for startups and
                                 growing teams looking to launch scalable products quickly and efficiently.
                             </p>
-                            <Link href={'/pages/services/Ruby-on-Rails.tsx'}
+                            <Link href={'/services/Ruby-on-Rails'}
                                   className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                 <div className={"w-full h-full peer"}>
                                 <span
@@ -839,7 +839,7 @@ useEffect(() => {
                         <div className={'lg:ml-0'}>
                             <h6 className={'text-[2em] font-[600] mb-2'}>Node.js</h6>
                             <p className={'text-[0.873em] text-justify'}>
-                                A high-performance <Link href={'/pages/services/Javascript.tsx'}
+                                A high-performance <Link href={'/services/Javascript'}
                                                          className={`border-b pb-[0.1em] ${
                                                              isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                          }`}>JavaScript</Link> runtime built on Chrome’s V8 engine,
@@ -847,7 +847,7 @@ useEffect(() => {
                                 server-side scripting and scalable, real-time network applications. It’s ideal for
                                 building fast, data-intensive solutions across distributed systems.
                             </p>
-                            <Link href={'/pages/services/Nodejs-Development.tsx'}
+                            <Link href={'/services/Nodejs-Development'}
                                   className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                 <div className={"w-full h-full peer"}>
                                 <span
@@ -876,14 +876,14 @@ useEffect(() => {
                             <h6 className={'text-[2em] font-[600] mb-2'}>Next.js</h6>
                             <p className={'text-[0.873em] text-justify'}>
                                 A powerful framework for building server-rendered <Link
-                                href={'/pages/services/Reactjs-Development.tsx'}
+                                href={'/services/Reactjs-Development'}
                                 className={`border-b pb-[0.1em] ${
                                     isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                 }`}>React</Link> applications,
                                 offering improved performance, SEO optimisation, and a seamless development experience.
                                 It&#39;s ideal for creating fast, scalable web applications with minimal configuration.
                             </p>
-                            <Link href={'/pages/services/Nextjs-Development.tsx'}
+                            <Link href={'/services/Nextjs-Development'}
                                   className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                 <div className={"w-full h-full peer"}>
                                 <span
@@ -911,7 +911,7 @@ useEffect(() => {
                         <div className={'lg:ml-0'}>
                             <h6 className={'text-[2em] font-[600] mb-2'}>Laravel</h6>
                             <p className={'text-[0.873em] text-justify'}>
-                                A widely used <Link href={'/pages/services/PHP-Development.tsx'}
+                                A widely used <Link href={'/services/PHP-Development'}
                                                     className={`border-b pb-[0.1em] ${
                                                         isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                     }`}>PHP</Link> framework that combines elegant syntax with powerful
@@ -919,7 +919,7 @@ useEffect(() => {
                                 routing, security, and database management, making it ideal for building scalable and
                                 maintainable applications efficiently.
                             </p>
-                            <Link href={'/pages/services/Laravel-Development.tsx'}
+                            <Link href={'/services/Laravel-Development'}
                                   className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                 <div className={"w-full h-full peer"}>
                                 <span
@@ -987,7 +987,7 @@ useEffect(() => {
                                     rich user experiences across browsers and devices, powering everything from simple
                                     UI interactions to complex, data-driven applications.
                                 </p>
-                                <Link href={'/pages/services/Javascript.tsx'}
+                                <Link href={'/services/Javascript'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1016,14 +1016,14 @@ useEffect(() => {
                                 <h6 className={'text-[2em] font-[600] mb-2'}>React</h6>
                                 <p className={'text-[0.873em] text-justify'}>
                                     A leading JavaScript library for
-                                    building <Link href={'/pages/services/ui-ux-design.tsx'}
+                                    building <Link href={'/services/ui-ux-design'}
                                                    className={`border-b pb-[0.1em] ${
                                                        isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black'
                                                    }`}>UI</Link>, allowing developers to create reusable components and
                                     deliver fast, efficient rendering. It’s ideal for building scalable,
                                     high-performance web and mobile applications.
                                 </p>
-                                <Link href={'/pages/services/Reactjs-Development.tsx'}
+                                <Link href={'/services/Reactjs-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1056,7 +1056,7 @@ useEffect(() => {
                                     scalable, maintainable applications with a smooth learning curve and strong
                                     community support.
                                 </p>
-                                <Link href={'/pages/services/Vuejs-Development.tsx'}
+                                <Link href={'/services/Vuejs-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1088,7 +1088,7 @@ useEffect(() => {
                                     development features, improving code quality, scalability, and long-term
                                     maintainability in complex applications.
                                 </p>
-                                <Link href={'/pages/services/Typescript.tsx'}
+                                <Link href={'/services/Typescript'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1322,7 +1322,7 @@ useEffect(() => {
                 </div>
 
                 {/* Healthcare Apps */}
-                <Link href='../industries/fintech.tsx' id={'fintech'} className='relative'>
+                <Link href='/industries/fintech' id={'fintech'} className='relative'>
                     <div
                         className={`grid lg:grid-cols-2 grid-cols-1 lg:mb-8 mb-6 gap-4 border-b-[1px] lg:pb-[2em] pb-[2em] ${isDayTime ? 'text-gray-300 hover:text-black' : 'text-gray-700 hover:text-white'} group`}>
                         <div className='relative'>
@@ -1389,7 +1389,7 @@ useEffect(() => {
                     actionable MVPs, helping you take the first step toward a successful product. Get in touch today to
                     explore how we can support your development journey and turn your concept into reality.
                 </p>
-                <Link href='../contact.tsx'>
+                <Link href='/contact'>
                     <button
                         className='relative mx-auto inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em]  border tracking-tighter  rounded-full py-2 px-6'>
                         <span
@@ -1710,7 +1710,7 @@ useEffect(() => {
                     <h2 className='lg:text-[3em] text-[1.5em] font-[600] tracking-tighter leading-[1.1] pb-6 text-center'>
                         Ready to start the <br className={'lg:block md:block hidden'}/>conversation?
                     </h2><br/>
-                    <Link href='../contact.tsx' className='flex items-center justify-center-safe text-center'>
+                    <Link href='/contact' className='flex items-center justify-center-safe text-center'>
                         <button
                             className='relative mx-auto inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em] border tracking-tighter rounded-full py-2 px-6'>
                         <span

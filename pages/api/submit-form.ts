@@ -107,6 +107,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         }
 
+        // Email is best-effort. The lead is already persisted to the admin
+        // database above, so a missing/failed SMTP config must NOT fail the
+        // submission. If SMTP isn't configured, skip email and return success.
+        const smtpConfigured = Boolean(
+            process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS && process.env.SMTP_FROM
+        );
+        if (!smtpConfigured) {
+            console.warn('SMTP not configured — lead saved to dashboard, skipping email notifications.');
+            return res.status(200).json({
+                success: true,
+                message: 'Your message has been received successfully!',
+            });
+        }
+
         const host = getEnvVar('SMTP_HOST');
         const port = Number(process.env.SMTP_PORT || 587);
         const secure = port === 465;

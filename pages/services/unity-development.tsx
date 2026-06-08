@@ -485,7 +485,7 @@ useEffect(() => {
                                         Mobile gaming is a rapidly expanding global industry, and at Grey InfoTech, we
                                         leverage Unity’s powerful cross-platform capabilities to deliver high-quality
                                         mobile games tailored for both <Link
-                                        href={'/pages/services/ios-development.tsx'}
+                                        href={'/services/ios-development'}
                                         className={`border-b pb-[0.05em] ${isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'}`}>iOS</Link> and
                                         Android devices. As a seasoned Unity mobile game development partner, we combine
                                         creative innovation with technical expertise to transform your concepts into
@@ -518,7 +518,7 @@ useEffect(() => {
                                     </div>
                                     <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
                                         <Link
-                                            href={'/pages/services/Web-Application.tsx'}
+                                            href={'/services/Web-Application'}
                                             className={`border-b pb-[0.05em] ${isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'}`}>Web-based</Link> gaming
                                         is experiencing rapid growth, and Unity’s powerful, flexible platform offers
                                         unparalleled opportunities to deliver engaging, accessible experiences to a wide
@@ -984,7 +984,7 @@ useEffect(() => {
                         <h2 className='lg:text-[3em] text-[1.5em] font-[600] tracking-tighter leading-[1.1] pb-6 text-center'>
                             Ready to start the <br className={'lg:block md:block hidden'}/>conversation?
                         </h2><br/>
-                        <Link href='../contact.tsx' className='flex items-center justify-center-safe text-center'>
+                        <Link href='/contact' className='flex items-center justify-center-safe text-center'>
                             <button
                                 className='relative mx-auto inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em] border tracking-tighter rounded-full py-2 px-6'>
                         <span
@@ -1017,7 +1017,7 @@ useEffect(() => {
                             business goals, clarify priorities, and uncover essential insights that shape the direction
                             of the solution.<br/><br/>
                             Our team—typically including a business analyst, product and project
-                            managers, <Link href={'/pages/services/ui-ux-design.tsx'}
+                            managers, <Link href={'/services/ui-ux-design'}
                                             className={`border-b pb-[0.02em] ${
                                                 isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                             }`}>UX/UI designer</Link>, and technical leads—works to understand your

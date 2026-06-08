@@ -34,7 +34,7 @@ const CookiesPolicy = () => {
                     </h1>
                     <p className="text-[15px] text-gray-600 mb-6">
                         <a className='text-black font-bold'>This Website Will:</a> Track the pages you visits via
-                        <Link href='/grey_infotech/pages/seo' className='text-black font-bold'> Google</Link> Analytics.
+                        <Link href='/services/seo' className='text-black font-bold'> Google</Link> Analytics.
                     </p>
                     <h1 className="lg:text-5xl md:text-4xl text-2xl font-bold text-gray-800 mb-6">
                         Targeting Cookies

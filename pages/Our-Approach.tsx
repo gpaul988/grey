@@ -77,7 +77,7 @@ const OurApproach = () => {
                         <h2 className="text-3xl font-bold mb-4">Discovery</h2>
                         <p className="text-[16px] text-gray-600  lg:px-0 text-left mb-6">
                             If guideline prices are agreeable, we can begin a more detailed planning phase for
-                            your project. The <Link href="/grey_infotech/pages/discovery-phase"
+                            your project. The <Link href="/services/discovery-phase"
                                                     className='text-gray-800 hover:text-teal-600 font-bold underline decoration-gray-300 underline-offset-[7px]'>discovery
                             phase</Link> is key to understanding your requirements in detail.
                             We take everything into account, and this includes your deadlines, budget, how your
@@ -224,11 +224,11 @@ const OurApproach = () => {
                             may arise. Going live might be only the beginning, and we are always available to assist
                             with
                             future upgrades that will help your business succeed. Our <Link
-                            href='/grey_infotech/pages/seo'
+                            href='/services/seo'
                             className='text-gray-800 hover:text-teal-600 font-bold underline decoration-gray-300 underline-offset-[7px]'> SEO</Link> and
                             SEM experts can help you enhance your site&#39;s ranks and attract a larger
                             audience. <br/><br/>
-                            <Link href='/grey_infotech/pages/digital-marketing'
+                            <Link href='/services/digital-marketing'
                                   className='text-gray-800 hover:text-teal-600 font-bold underline decoration-gray-300 underline-offset-[7px]'>Learn
                                 More About Our SEO and Marketing Services {'>'}</Link>
 

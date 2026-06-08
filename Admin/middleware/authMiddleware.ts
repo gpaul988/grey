@@ -1,10 +1,10 @@
 import type { NextFunction, Request, Response } from 'express';
-import { adminPath } from '../config/adminPaths';
+import { adminPath, LOGIN_PATH } from '../config/adminPaths';
 
 /** Page guard — redirects unauthenticated users to login. */
 export const ensureAuth = (req: Request, res: Response, next: NextFunction) => {
     if (req.session.user) return next();
-    return res.redirect(adminPath('/login'));
+    return res.redirect(LOGIN_PATH);
 };
 
 /** API guard — returns 401 JSON instead of redirecting. */

@@ -693,7 +693,7 @@ const Startups = () => {
                 </Link>
 
                 {/* Healthcare and Fitness */}
-                <Link href='./industries/healthcare.tsx' className='relative'>
+                <Link href='/industries/healthcare' className='relative'>
                     <div
                         className={`grid lg:grid-cols-2 grid-cols-1 lg:mb-10 mb-8 gap-4 border-b-[1px] lg:pb-[3em] pb-[2em] ${isDayTime ? 'text-gray-500 hover:text-white' : 'text-gray-500 hover:text-black'} group`}>
                         <div className='relative'>
@@ -827,7 +827,7 @@ const Startups = () => {
                         <div>
                             <p className='text-[0.873em] font-[400] justify-center tracking-normal text-justify leading-[1.5] lg:-ml-[3em]'>
                                 All the advantages of traditional software are present in a bespoke or
-                                custom <Link href='services/Web-Application.tsx'
+                                custom <Link href='/services/Web-Application'
                                              className={`border-b py-[0.2em] ${
                                                  isDayTime
                                                      ? 'border-gray-300 hover:border-gray-800'

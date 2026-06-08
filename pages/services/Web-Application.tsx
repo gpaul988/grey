@@ -632,7 +632,7 @@ const WebApplication = () => {
                                     <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
                                         One of the most in-demand web application solutions we deliver is customer
                                         portals. Businesses turn to us to improve customer service, enhance loyalty, and
-                                        boost <Link href={'/pages/services/branding.tsx'}
+                                        boost <Link href={'/services/branding'}
                                                     className={`border-b pb-[0.01em] ${
                                                         isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                     }`}>brand</Link> engagement through tailored, user-friendly portals.
@@ -902,7 +902,7 @@ const WebApplication = () => {
                                 <h6 className={'text-[2em] font-[600] mb-2'}>NEXT.js</h6>
                                 <p className={'text-[0.873em] text-justify'}>
                                     A powerful framework for building
-                                    server-rendered <Link href={'/pages/services/Reactjs-Development.tsx'}
+                                    server-rendered <Link href={'/services/Reactjs-Development'}
                                                           className={`border-b pb-[0.01em] ${isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'}`}>React</Link> applications,
                                     offering a seamless development experience, improved SEO, and enhanced performance
                                     out of the box. With features like automatic routing, server-side rendering, and
@@ -910,7 +910,7 @@ const WebApplication = () => {
                                     it ideal for modern web applications that demand speed, reliability, and
                                     flexibility.
                                 </p>
-                                <Link href={'/pages/services/Nextjs-Development.tsx'}
+                                <Link href={'/services/Nextjs-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -944,7 +944,7 @@ const WebApplication = () => {
                                     scalability, making it an ideal choice for building complex, enterprise-grade
                                     systems with efficiency and long-term stability in mind.
                                 </p>
-                                <Link href={'/pages/services/PHP-Development.tsx'}
+                                <Link href={'/services/PHP-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -978,7 +978,7 @@ const WebApplication = () => {
                                     while maintaining reliability and long-term maintainability—ideal for
                                     enterprise-grade solutions and cross-platform deployment.
                                 </p>
-                                <Link href={'/pages/services/Net-Development.tsx'}
+                                <Link href={'/services/Net-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1006,17 +1006,17 @@ const WebApplication = () => {
                             <div className={'lg:ml-0'}>
                                 <h6 className={'text-[2em] font-[600] mb-2'}>Laravel</h6>
                                 <p className={'text-[0.873em] text-justify'}>
-                                    A widely adopted <Link href={'/pages/services/PHP-Development.tsx'}
+                                    A widely adopted <Link href={'/services/PHP-Development'}
                                                            className={`border-b pb-[0.01em] ${isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'}`}>PHP</Link> framework
                                     known for its elegant syntax, developer-friendly
-                                    tools, and powerful features that streamline <Link href={'/Web-Application'}
+                                    tools, and powerful features that streamline <Link href={'/services/Web-Application'}
                                                                                        className={`border-b pb-[0.01em] ${isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'}`}>web
                                     application</Link> development. With
                                     built-in support for routing, authentication, caching, and more, Laravel enables the
                                     rapid creation of secure, maintainable, and scalable applications—making it a
                                     preferred choice for businesses seeking efficient and modern PHP-based solutions.
                                 </p>
-                                <Link href={'/pages/services/Laravel-Development.tsx'}
+                                <Link href={'/services/Laravel-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1050,7 +1050,7 @@ const WebApplication = () => {
                                     to build powerful, scalable applications quickly—making it a strong choice for
                                     startups and enterprises alike seeking fast time-to-market and robust architecture
                                 </p>
-                                <Link href={'/pages/services/Ruby-on-Rails.tsx'}
+                                <Link href={'/services/Ruby-on-Rails'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1078,7 +1078,7 @@ const WebApplication = () => {
                             <div className={'lg:ml-0'}>
                                 <h6 className={'text-[2em] font-[600] mb-2'}>Node.js</h6>
                                 <p className={'text-[0.873em] text-justify'}>
-                                    A high-performance <Link href={'/pages/services/Javascript.tsx'}
+                                    A high-performance <Link href={'/services/Javascript'}
                                                              className={`border-b pb-[0.1em] ${
                                                                  isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                              }`}>JavaScript</Link> runtime built on Chrome’s V8 engine,
@@ -1088,7 +1088,7 @@ const WebApplication = () => {
                                     such as APIs, real-time services, and microservices—enabling efficient development
                                     and performance at scale across diverse platforms.
                                 </p>
-                                <Link href={'/pages/services/Nodejs-Development.tsx'}
+                                <Link href={'/services/Nodejs-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1153,7 +1153,7 @@ const WebApplication = () => {
                                     Angular enables us to create complex applications with high performance, strong
                                     structure, and seamless user experiences across platforms.
                                 </p>
-                                <Link href={'/pages/services/angular-development.tsx'}
+                                <Link href={'/services/angular-development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1187,7 +1187,7 @@ const WebApplication = () => {
                                     management. Whether it’s a dynamic single-page application or a complex web
                                     platform, we use React to deliver fast, responsive, and scalable user experiences.
                                 </p>
-                                <Link href={'/pages/services/Reactjs-Development.tsx'}
+                                <Link href={'/services/Reactjs-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1261,7 +1261,7 @@ const WebApplication = () => {
                                     us to rapidly develop dynamic applications while maintaining scalability, clean code
                                     architecture, and an excellent user experience.
                                 </p>
-                                <Link href={'/pages/services/Vuejs-Development.tsx'}
+                                <Link href={'/services/Vuejs-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1295,7 +1295,7 @@ const WebApplication = () => {
                                     ensures your application is not only high-performing but also future-ready and
                                     impactful.
                                 </p>
-                                <Link href={'/pages/services/Javascript.tsx'}
+                                <Link href={'/services/Javascript'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1939,7 +1939,7 @@ const WebApplication = () => {
                         <h2 className='lg:text-[3em] text-[1.5em] font-[600] tracking-tighter leading-[1.1] pb-6 text-center'>
                             Ready to start the <br className={'lg:block md:block hidden'}/>conversation?
                         </h2><br/>
-                        <Link href='../contact.tsx' className='flex items-center justify-center-safe text-center'>
+                        <Link href='/contact' className='flex items-center justify-center-safe text-center'>
                             <button
                                 className='relative mx-auto inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em] border tracking-tighter rounded-full py-2 px-6'>
                         <span
