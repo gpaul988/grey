@@ -1242,7 +1242,7 @@ const CrmDevelopment = () => {
                                                                className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-black' : 'hover:border-white'}`}>real
                                         estate</Link>, <Link href={'/industries/retail'}
                                                              className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-black' : 'hover:border-white'}`}>retail</Link>,
-                                        manufacturing, <Link href={'/industries/.tsx'}
+                                        manufacturing, <Link href={'/industries/travel-and-hospitality'}
                                                              className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-black' : 'hover:border-white'}`}>hospitality</Link>,
                                         and professional services sectors with pre-configured compliance features,
                                         industry-specific regulatory requirements, and vertical-focused functionality

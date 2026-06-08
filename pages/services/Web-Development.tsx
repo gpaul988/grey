@@ -462,7 +462,7 @@ useEffect(() => {
                                         web application, we ensure every detail enhances usability and drives user
                                         satisfaction.<br/><br/>
                                         From day one, our approach is iterative and results-driven. We start fast,
-                                        developing an early <Link href={'/pages/services/MVP.tsx'}
+                                        developing an early <Link href={'/services/MVP'}
                                                                   className={`border-b pb-[0.02em] ${
                                                                       isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                                   }`}>MVP</Link> to test key features and workflows.
@@ -730,7 +730,7 @@ useEffect(() => {
                                 <h6 className={'text-[2em] font-[600] mb-2'}>NEXT.js</h6>
                                 <p className={'text-[0.873em] text-justify'}>
                                     A powerful framework for building
-                                    server-rendered <Link href={'/pages/services/Reactjs-Development.tsx'}
+                                    server-rendered <Link href={'/services/Reactjs-Development'}
                                                           className={`border-b pb-[0.01em] ${isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black'}`}>React</Link> applications,
                                     offering a seamless development experience, improved SEO, and enhanced performance
                                     out of the box. With features like automatic routing, server-side rendering, and
@@ -738,7 +738,7 @@ useEffect(() => {
                                     it ideal for modern web applications that demand speed, reliability, and
                                     flexibility.
                                 </p>
-                                <Link href={'/pages/services/Nextjs-Development.tsx'}
+                                <Link href={'/services/Nextjs-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -772,7 +772,7 @@ useEffect(() => {
                                     scalability, making it an ideal choice for building complex, enterprise-grade
                                     systems with efficiency and long-term stability in mind.
                                 </p>
-                                <Link href={'/pages/services/PHP-Development.tsx'}
+                                <Link href={'/services/PHP-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -806,7 +806,7 @@ useEffect(() => {
                                     while maintaining reliability and long-term maintainability—ideal for
                                     enterprise-grade solutions and cross-platform deployment.
                                 </p>
-                                <Link href={'/pages/services/Net-Development.tsx'}
+                                <Link href={'/services/Net-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -834,18 +834,18 @@ useEffect(() => {
                             <div className={'lg:ml-0'}>
                                 <h6 className={'text-[2em] font-[600] mb-2'}>Laravel</h6>
                                 <p className={'text-[0.873em] text-justify'}>
-                                    A widely adopted <Link href={'/pages/services/PHP-Development.tsx'}
+                                    A widely adopted <Link href={'/services/PHP-Development'}
                                                            className={`border-b pb-[0.01em] ${isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black'}`}>PHP</Link> framework
                                     known for its elegant syntax, developer-friendly
                                     tools, and powerful features that streamline <Link
-                                    href={'/pages/services/Web-Application.tsx'}
+                                    href={'/services/Web-Application'}
                                     className={`border-b pb-[0.01em] ${isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black'}`}>web
                                     application</Link> development. With
                                     built-in support for routing, authentication, caching, and more, Laravel enables the
                                     rapid creation of secure, maintainable, and scalable applications—making it a
                                     preferred choice for businesses seeking efficient and modern PHP-based solutions.
                                 </p>
-                                <Link href={'/pages/services/Laravel-Development.tsx'}
+                                <Link href={'/services/Laravel-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -879,7 +879,7 @@ useEffect(() => {
                                     to build powerful, scalable applications quickly—making it a strong choice for
                                     startups and enterprises alike seeking fast time-to-market and robust architecture
                                 </p>
-                                <Link href={'/pages/services/Ruby-on-Rails.tsx'}
+                                <Link href={'/services/Ruby-on-Rails'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -907,7 +907,7 @@ useEffect(() => {
                             <div className={'lg:ml-0'}>
                                 <h6 className={'text-[2em] font-[600] mb-2'}>Node.js</h6>
                                 <p className={'text-[0.873em] text-justify'}>
-                                    A high-performance <Link href={'/pages/services/Javascript.tsx'}
+                                    A high-performance <Link href={'/services/Javascript'}
                                                              className={`border-b pb-[0.1em] ${
                                                                  isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black'
                                                              }`}>JavaScript</Link> runtime built on Chrome’s V8 engine,
@@ -917,7 +917,7 @@ useEffect(() => {
                                     such as APIs, real-time services, and microservices—enabling efficient development
                                     and performance at scale across diverse platforms.
                                 </p>
-                                <Link href={'/pages/services/Nodejs-Development.tsx'}
+                                <Link href={'/services/Nodejs-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -983,7 +983,7 @@ useEffect(() => {
                                     Angular enables us to create complex applications with high performance, strong
                                     structure, and seamless user experiences across platforms.
                                 </p>
-                                <Link href={'/pages/services/angular-development.tsx'}
+                                <Link href={'/services/angular-development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1017,7 +1017,7 @@ useEffect(() => {
                                     management. Whether it’s a dynamic single-page application or a complex web
                                     platform, we use React to deliver fast, responsive, and scalable user experiences.
                                 </p>
-                                <Link href={'/pages/services/Reactjs-Development.tsx'}
+                                <Link href={'/services/Reactjs-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1091,7 +1091,7 @@ useEffect(() => {
                                     us to rapidly develop dynamic applications while maintaining scalability, clean code
                                     architecture, and an excellent user experience.
                                 </p>
-                                <Link href={'/pages/services/Vuejs-Development.tsx'}
+                                <Link href={'/services/Vuejs-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1125,7 +1125,7 @@ useEffect(() => {
                                     ensures your application is not only high-performing but also future-ready and
                                     impactful.
                                 </p>
-                                <Link href={'/pages/services/Javascript.tsx'}
+                                <Link href={'/services/Javascript'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1807,7 +1807,7 @@ useEffect(() => {
                         {onIndex === 1 && (
                             <p className="mt-4 text-[0.873em] font-[200] text-justify tracking-normal leading-[1.5]text-gray-400">
                                 Yes, we do. We develop high-quality mobile applications for
-                                both <Link href={'/pages/services/ios-development.tsx'}
+                                both <Link href={'/services/ios-development'}
                                            className={`border-b pb-[0.05em] ${
                                                isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black'
                                            }`}>iOS</Link> and Android,
@@ -1861,7 +1861,7 @@ useEffect(() => {
                         {onIndex === 3 && (
                             <p className="mt-4 text-[0.873em] font-[200] text-justify tracking-normal leading-[1.5]text-gray-400">
                                 Every successful project begins with a
-                                thorough <Link href={'/pages/services/discovery-phase.tsx'}
+                                thorough <Link href={'/services/discovery-phase'}
                                                className={`border-b pb-[0.05em] ${
                                                    isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black'
                                                }`}>discovery phase</Link>—where we collaborate

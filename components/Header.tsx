@@ -297,7 +297,7 @@ const Header: React.FC = () => {
                 {name: 'Real Estate', href: '/industries/real-estate'},
                 {name: 'Retail', href: '/industries/retail'},
                 {name: 'SAAS', href: '/industries/saas'},
-                {name: 'Travel and Hospitality', href: '/industries/travel-and-.tsx'},
+                {name: 'Travel and Hospitality', href: '/industries/travel-and-hospitality'},
                 {name: 'HR-Tech', href: '/industries/hr-tech'},
             ],
         },

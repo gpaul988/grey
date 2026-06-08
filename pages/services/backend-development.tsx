@@ -260,7 +260,7 @@ useEffect(() => {
                                     enables core functionality, manages data securely, and ensures performance at scale.
                                     As part of our end-to-end web development services, we specialize in back-end
                                     development that forms the foundation of your software, web application, <Link
-                                    href={'/pages/services/Mobile-Application-Development.tsx'}
+                                    href={'/services/Mobile-Application-Development'}
                                     className={`border-b pb-[0.05em] ${
                                         isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                     }`}>mobile app</Link>, or website. Our team designs and builds scalable server-side
@@ -410,7 +410,7 @@ useEffect(() => {
                             tightly integrated with its front-end for optimal performance. We build back-end systems
                             that support seamless data synchronization, real-time communication, and secure
                             transactions—creating a smooth and responsive user experience
-                            across <Link href={'/pages/services/ios-development.tsx'}
+                            across <Link href={'/services/ios-development'}
                                          className={`border-b pb-[0.05em] ${
                                              isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                          }`}>iOS</Link>, Android, and cross-platform applications. Whether you&#39;re
@@ -493,7 +493,7 @@ useEffect(() => {
                         </h3>
                         <p className='text-justify text-[0.85em] font-[400]'>
                             Leverage the power of leading cloud platforms like AWS,
-                            <Link href={'/pages/services/seo.tsx'}
+                            <Link href={'/services/seo'}
                                   className={`border-b pb-[0.05em] ${
                                       isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                   }`}>Google</Link> Cloud, and Microsoft Azure to
@@ -984,7 +984,7 @@ useEffect(() => {
                                 <h6 className={'text-[2em] font-[600] mb-2'}>NEXT.js</h6>
                                 <p className={'text-[0.873em] text-justify'}>
                                     A powerful framework for building
-                                    server-rendered <Link href={'/pages/services/Reactjs-Development.tsx'}
+                                    server-rendered <Link href={'/services/Reactjs-Development'}
                                                           className={`border-b pb-[0.01em] ${isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'}`}>React</Link> applications,
                                     offering a seamless development experience, improved SEO, and enhanced performance
                                     out of the box. With features like automatic routing, server-side rendering, and
@@ -992,7 +992,7 @@ useEffect(() => {
                                     it ideal for modern web applications that demand speed, reliability, and
                                     flexibility.
                                 </p>
-                                <Link href={'/pages/services/Nextjs-Development.tsx'}
+                                <Link href={'/services/Nextjs-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1026,7 +1026,7 @@ useEffect(() => {
                                     scalability, making it an ideal choice for building complex, enterprise-grade
                                     systems with efficiency and long-term stability in mind.
                                 </p>
-                                <Link href={'/pages/services/PHP-Development.tsx'}
+                                <Link href={'/services/PHP-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1060,7 +1060,7 @@ useEffect(() => {
                                     while maintaining reliability and long-term maintainability—ideal for
                                     enterprise-grade solutions and cross-platform deployment.
                                 </p>
-                                <Link href={'/pages/services/Net-Development.tsx'}
+                                <Link href={'/services/Net-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1088,18 +1088,18 @@ useEffect(() => {
                             <div className={'lg:ml-0'}>
                                 <h6 className={'text-[2em] font-[600] mb-2'}>Laravel</h6>
                                 <p className={'text-[0.873em] text-justify'}>
-                                    A widely adopted <Link href={'/pages/services/PHP-Development.tsx'}
+                                    A widely adopted <Link href={'/services/PHP-Development'}
                                                            className={`border-b pb-[0.01em] ${isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'}`}>PHP</Link> framework
                                     known for its elegant syntax, developer-friendly
                                     tools, and powerful features that streamline <Link
-                                    href={'/pages/services/Web-Application.tsx'}
+                                    href={'/services/Web-Application'}
                                     className={`border-b pb-[0.01em] ${isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'}`}>web
                                     application</Link> development. With
                                     built-in support for routing, authentication, caching, and more, Laravel enables the
                                     rapid creation of secure, maintainable, and scalable applications—making it a
                                     preferred choice for businesses seeking efficient and modern PHP-based solutions.
                                 </p>
-                                <Link href={'/pages/services/Laravel-Development.tsx'}
+                                <Link href={'/services/Laravel-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1133,7 +1133,7 @@ useEffect(() => {
                                     to build powerful, scalable applications quickly—making it a strong choice for
                                     startups and enterprises alike seeking fast time-to-market and robust architecture
                                 </p>
-                                <Link href={'/pages/services/Ruby-on-Rails.tsx'}
+                                <Link href={'/services/Ruby-on-Rails'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1161,7 +1161,7 @@ useEffect(() => {
                             <div className={'lg:ml-0'}>
                                 <h6 className={'text-[2em] font-[600] mb-2'}>Node.js</h6>
                                 <p className={'text-[0.873em] text-justify'}>
-                                    A high-performance <Link href={'/pages/services/Javascript.tsx'}
+                                    A high-performance <Link href={'/services/Javascript'}
                                                              className={`border-b pb-[0.1em] ${
                                                                  isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                              }`}>JavaScript</Link> runtime built on Chrome’s V8 engine,
@@ -1171,7 +1171,7 @@ useEffect(() => {
                                     such as APIs, real-time services, and microservices—enabling efficient development
                                     and performance at scale across diverse platforms.
                                 </p>
-                                <Link href={'/pages/services/Nodejs-Development.tsx'}
+                                <Link href={'/services/Nodejs-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1658,19 +1658,19 @@ useEffect(() => {
                         {onIndex === 3 && (
                             <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
                                 Common programming languages for back-end development
-                                include <Link href={'/pages/services/Python-Development.tsx'}
+                                include <Link href={'/services/Python-Development'}
                                               className={`border-b pb-[0.1em] ${
                                                   isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black'
-                                              }`}>Python</Link>, <Link href={'/pages/services/Javascript.tsx'}
+                                              }`}>Python</Link>, <Link href={'/services/Javascript'}
                                                                        className={`border-b pb-[0.1em] ${
                                                                            isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black'
                                                                        }`}>Java</Link>, <Link
-                                href={'/pages/services/PHP-Development.tsx'} className={`border-b pb-[0.1em] ${
+                                href={'/services/PHP-Development'} className={`border-b pb-[0.1em] ${
                                 isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black'
-                            }`}>PHP</Link>, <Link href={'/pages/services/Ruby-on-Rails.tsx'}
+                            }`}>PHP</Link>, <Link href={'/services/Ruby-on-Rails'}
                                                   className={`border-b pb-[0.1em] ${
                                                       isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black'
-                                                  }`}>Ruby</Link>, <Link href={'/pages/services/Nodejs-Development.tsx'}
+                                                  }`}>Ruby</Link>, <Link href={'/services/Nodejs-Development'}
                                                                          className={`border-b pb-[0.1em] ${
                                                                              isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black'
                                                                          }`}>Node.js</Link> (JavaScript), and C#. Each

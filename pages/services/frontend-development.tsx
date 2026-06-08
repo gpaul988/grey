@@ -462,7 +462,7 @@ useEffect(() => {
                             </h3>
                             <p className='text-justify text-[0.85em] font-[400] hover:border-animation'>
                                 We build fast, interactive Single Page Applications (SPAs) using powerful frameworks
-                                like React, <Link href={'/pages/services/Vuejs-Development.tsx'}
+                                like React, <Link href={'/services/Vuejs-Development'}
                                                   className={`border-b pb-[0.01em] ${
                                                       isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black'
                                                   }`}>Vue.js</Link>, and Angular. These technologies allow us to create
@@ -708,7 +708,7 @@ useEffect(() => {
                                 as code splitting, lazy loading, caching strategies, and image compression. These
                                 improvements lead to significantly faster load times, smoother interactions, and reduced
                                 bounce rates. Not only does this enhance the overall user experience, but it also boosts
-                                your <Link href={'/pages/services/seo.tsx'}
+                                your <Link href={'/services/seo'}
                                            className={`border-b pb-[0.05em] ${
                                                isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black'
                                            }`}>SEO</Link> performance and increases the likelihood of repeat visits and
@@ -958,7 +958,7 @@ useEffect(() => {
                                     Angular enables us to create complex applications with high performance, strong
                                     structure, and seamless user experiences across platforms.
                                 </p>
-                                <Link href={'/pages/services/angular-development.tsx'}
+                                <Link href={'/services/angular-development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -992,7 +992,7 @@ useEffect(() => {
                                     management. Whether it’s a dynamic single-page application or a complex web
                                     platform, we use React to deliver fast, responsive, and scalable user experiences.
                                 </p>
-                                <Link href={'/pages/services/Reactjs-Development.tsx'}
+                                <Link href={'/services/Reactjs-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1066,7 +1066,7 @@ useEffect(() => {
                                     us to rapidly develop dynamic applications while maintaining scalability, clean code
                                     architecture, and an excellent user experience.
                                 </p>
-                                <Link href={'/pages/services/Vuejs-Development.tsx'}
+                                <Link href={'/services/Vuejs-Development'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
@@ -1100,7 +1100,7 @@ useEffect(() => {
                                     ensures your application is not only high-performing but also future-ready and
                                     impactful.
                                 </p>
-                                <Link href={'/pages/services/Javascript.tsx'}
+                                <Link href={'/services/Javascript'}
                                       className={"w-auto h-auto mt-4 transition-all hover:scale-up-center flex relative"}>
                                     <div className={"w-full h-full peer"}>
                                 <span
