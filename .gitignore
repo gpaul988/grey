@@ -38,4 +38,19 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# admin backend
+/Admin/data/*.db
+/Admin/data/*.db-shm
+/Admin/data/*.db-wal
+/Admin/node_modules
+/Admin/**/node_modules
+config.env
 next-env.d.ts
+
+# Admin backend (Express + SQLite)
+Admin/data/*.db
+Admin/data/*.db-shm
+Admin/data/*.db-wal
+Admin/node_modules
+**/node_modules

@@ -1,248 +1,49 @@
 <%- contentFor('html_attribute') %>
-
 <%- contentFor('extra_css') %>
-
-    <!-- dropzone css -->
-<link rel="stylesheet" href="/vendor/dropzone/dropzone.css" type="text/css" />
-
-<%- contentFor('body_attribute') %>
-
 <%- contentFor('content') %>
+
+<% const pc = ticket.priority==='urgent'?'danger':(ticket.priority==='high'?'warning':(ticket.priority==='low'?'secondary':'info'));
+   const sc = ticket.status==='open'?'danger':(ticket.status==='pending'?'warning':(ticket.status==='resolved'?'success':'secondary')); %>
+
+<%- include('./partials/page-title', { title: 'Ticket #' + ticket.id, subtitle: 'Support' }) %>
 
 <div class="row">
     <div class="col-xl-8">
         <div class="card">
-            <div class="card-header border-bottom border-dashed">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h4 class="mb-1">Adminto Admin Dashboard Re-design</h4>
-                        <p class="fw-semibold mb-0"><span class="badge bg-danger">Urgent</span> </p>
-                    </div>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-toggle drop-arrow-none card-drop"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="ri-more-2-fill fs-18"></i>
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">
-                                <i class='ti ti-paperclip me-1'></i>Attachment
-                            </a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">
-                                <i class='ti ti-pencil me-1'></i>Edit
-                            </a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">
-                                <i class='ti ti-copy me-1'></i>Mark as Duplicate
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item text-danger">
-                                <i class='ti ti-trash me-1'></i>Delete
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-4 col-sm-6">
-                        <div class="d-flex align-items-start">
-                            <div class="me-2 align-self-center">
-                                <i class="ri-hashtag h2 m-0 text-muted"></i>
-                            </div>
-                            <div class="flex-1 overflow-hidden">
-                                <p class="mb-1 text-muted fs-12">Task ID</p>
-                                <h5 class="m-0 text-truncate">
-                                    #MN2048
-                                </h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <div class="d-flex align-items-start">
-                            <div class="me-2 align-self-center">
-                                <img src="/images/users/avatar-2.jpg" alt=""
-                                    class="avatar-sm rounded-circle">
-                            </div>
-                            <div class="flex-1 overflow-hidden">
-                                <p class="mb-1 text-muted fs-12">Assign to</p>
-                                <h5 class="m-0 text-truncate">
-                                    Darnell McCormick
-                                </h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <div class="d-flex align-items-start">
-                            <div class="me-2 align-self-center">
-                                <i class="ri-calendar-event-line h2 m-0 text-muted"></i>
-                            </div>
-                            <div class="flex-1 overflow-hidden">
-                                <p class="mb-1 text-muted fs-12">Due Date</p>
-                                <h5 class="m-0 text-truncate">
-                                    Today 10 AM
-                                </h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-4">
+                <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
                     <div>
-                        <h5>Overview:</h5>
-                        <p class="text-muted">We've completely redesigned and enhanced our admin dashboard to provide a more intuitive, efficient, and user-friendly experience. With a modern interface, improved navigation, and responsive design, the new dashboard offers a seamless experience across all devices, ensuring smoother workflows and enhanced functionality for all users</p>
-                        <div class="mt-3">
-                            <h5>Tags :</h5>
-                            <div>
-                                <a href="#" class="badge badge-soft-primary p-1">Photoshop</a>
-                                <a href="#" class="badge badge-soft-primary p-1">Html</a>
-                                <a href="#" class="badge badge-soft-primary p-1">Css</a>
-                                <a href="#" class="badge badge-soft-primary p-1">Bootstrap</a>
-                            </div>
-                        </div>
+                        <h4 class="mb-1"><%= ticket.subject %></h4>
+                        <small class="text-muted">From <strong><%= ticket.requester %></strong> <%= ticket.requester_email ? '· ' + ticket.requester_email : '' %> · <%= timeAgo(ticket.created_at) %></small>
                     </div>
-
-                    <div class="mt-4">
-                        <h5>Checklists/Sub-tasks</h5>
-                        <div class="form-check mt-2">
-                            <input class="form-check-input" type="checkbox" id="checklistcheck01">
-                            <label class="form-check-label strikethrough" for="checklistcheck01">
-                                Find out the old contract documents
-                            </label>
-                        </div>
-
-                        <div class="form-check mt-1">
-                            <input class="form-check-input" type="checkbox" id="checklistcheck02">
-                            <label class="form-check-label strikethrough" for="checklistcheck02">
-                                Organize meeting sales associates to understand need in detail
-                            </label>
-                        </div>
-
-                        <div class="form-check mt-1">
-                            <input class="form-check-input" type="checkbox" id="checklistcheck03">
-                            <label class="form-check-label strikethrough" for="checklistcheck03">
-                                Make sure to cover every small details
-                            </label>
-                        </div>
-
-                        <!-- end sub tasks/checklists -->
+                    <div class="d-flex gap-1">
+                        <span class="badge text-capitalize bg-<%= pc %>-subtle text-<%= pc %>"><%= ticket.priority %></span>
+                        <span class="badge text-capitalize bg-<%= sc %>-subtle text-<%= sc %>" id="statusBadge"><%= ticket.status %></span>
                     </div>
                 </div>
-            </div>
-        </div>
+                <% if (ticket.body) { %>
+                <div class="border rounded p-3 bg-light bg-opacity-50 mb-4"><%= ticket.body %></div>
+                <% } %>
 
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center border-bottom border-dashed">
-                <h5 class="header-title">Attachments</h5>
-                <div class="dropdown float-end">
-                    <a href="#" class="dropdown-toggle drop-arrow-none card-drop"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="ri-more-2-fill fs-18"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <i class='ti ti-paperclip me-1'></i>Attachment
-                        </a>
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <i class='ti ti-pencil me-1'></i>Edit
-                        </a>
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <i class='ti ti-copy me-1'></i>Mark as Duplicate
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item text-danger">
-                            <i class='ti ti-trash me-1'></i>Delete
-                        </a>
-                    </div> <!-- end dropdown menu-->
-                </div> <!-- end dropdown-->
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
+                <h5 class="mb-3">Conversation</h5>
+                <div id="thread">
+                    <% if (!messages.length) { %><p class="text-muted" id="emptyThread">No replies yet.</p><% } %>
+                    <% messages.forEach((m) => { %>
+                    <div class="d-flex mb-3 <%= m.is_staff ? 'flex-row-reverse text-end' : '' %>">
+                        <div class="<%= m.is_staff ? 'ms-2' : 'me-2' %>">
+                            <span class="avatar-sm"><span class="avatar-title bg-<%= m.is_staff ? 'primary' : 'secondary' %>-subtle text-<%= m.is_staff ? 'primary' : 'secondary' %> rounded-circle"><%= (m.author||'?').charAt(0) %></span></span>
+                        </div>
                         <div>
-                            <form action="/" method="post" class="dropzone" id="myAwesomeDropzone"
-                                data-plugin="dropzone" data-previews-container="#file-previews"
-                                data-upload-preview-template="#uploadPreviewTemplate">
-                                <div class="fallback">
-                                    <input name="file" type="file" />
-                                </div>
-
-                                <div class="dz-message needsclick">
-                                    <i class="h2 text-muted ri-upload-2-line d-inline-block"></i>
-                                    <h4>Drop files here or click to upload.</h4>
-                                </div>
-                            </form>
+                            <div class="p-2 px-3 rounded bg-<%= m.is_staff ? 'primary-subtle' : 'light' %> d-inline-block"><%= m.body %></div>
+                            <div><small class="text-muted"><%= m.author %> · <%= timeAgo(m.created_at) %></small></div>
                         </div>
                     </div>
+                    <% }) %>
+                </div>
 
-                    <div class="col-sm-6">
-                        <div class="mt-4 mt-md-0">
-                            <div class="card border mb-2">
-                                <div class="p-2">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <div class="avatar-sm">
-                                                <span
-                                                    class="avatar-title badge-soft-primary text-primary rounded">
-                                                    ZIP
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col ps-0">
-                                            <a href="javascript:void(0);"
-                                                class="text-muted fw-semibold">Minton-sketch-design.zip</a>
-                                            <p class="mb-0 fs-12">2.3 MB</p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Button -->
-                                            <a href="javascript:void(0);"
-                                                class="btn btn-link fs-16 text-muted">
-                                                <i class="ri-download-2-line"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card border mb-0">
-                                <div class="p-2">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <div class="avatar-sm">
-                                                <span
-                                                    class="avatar-title bg-secondary rounded text-light">
-                                                    .MP4
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col ps-0">
-                                            <a href="javascript:void(0);"
-                                                class="text-muted fw-semibold">Admin-bug-report.mp4</a>
-                                            <p class="mb-0 fs-12">7.05 MB</p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Button -->
-                                            <a href="javascript:void(0);"
-                                                class="btn btn-link fs-16 text-muted">
-                                                <i class="ri-download-2-line"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Preview -->
-                            <div class="dropzone-previews mt-2" id="file-previews"></div>
-
-                        </div>
-                    </div>
+                <div class="mt-3">
+                    <textarea id="replyBody" class="form-control mb-2" rows="3" placeholder="Type your reply..."></textarea>
+                    <button class="btn btn-primary" id="btnReply"><i class="ti ti-send"></i> Send reply</button>
                 </div>
             </div>
         </div>
@@ -250,131 +51,44 @@
 
     <div class="col-xl-4">
         <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center border-bottom border-dashed">
-                <h4 class="header-title">Comments (51)</h4>
-                <div>
-                    <select class="form-select form-select-sm">
-                        <option selected="">Recent</option>
-                        <option value="1">Most Helpful</option>
-                        <option value="2">High to Low</option>
-                        <option value="3">Low to High</option>
-                    </select>
-                </div>
-            </div>
+            <div class="card-header"><h5 class="card-title mb-0">Manage</h5></div>
             <div class="card-body">
-                <div class="d-flex">
-                    <img class="me-2 rounded-circle" src="/images/users/avatar-3.jpg"
-                        alt="Generic placeholder image" height="32">
-                    <div class="flex-1">
-                        <h5 class="mt-0">Barry Gould
-                            <small class="text-muted fw-normal float-end">5 hours ago</small>
-                        </h5>
-                        Nice work, makes me think of The Money Pit.
-
-                        <br />
-                        <a href="javascript: void(0);" class="text-muted fs-13 d-inline-block mt-2">
-                            <i class="ti ti-corner-up-left"></i> Reply
-                        </a>
-
-                        <div class="d-flex align-items-start mt-3">
-                            <a class="pe-2" href="#">
-                                <img src="/images/users/avatar-4.jpg" class="rounded-circle"
-                                    alt="Generic placeholder image" height="32">
-                            </a>
-                            <div class="flex-1">
-                                <h5 class="mt-0">Louis Hill
-                                    <small class="text-muted fw-normal float-end">3 hours ago</small>
-                                </h5>
-                                i'm in the middle of a timelapse animation myself! (Very different
-                                though.) Awesome stuff.
-
-                                <br />
-                                <a href="javascript: void(0);"
-                                    class="text-muted fs-13 d-inline-block mt-2">
-                                    <i class="ti ti-corner-up-left"></i> Reply
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="d-flex align-items-start mt-3">
-                    <img class="me-2 rounded-circle" src="/images/users/avatar-5.jpg"
-                        alt="Generic placeholder image" height="32">
-                    <div class="flex-1">
-                        <h5 class="mt-0">Aaron Wilson
-                            <small class="text-muted fw-normal float-end">1 day ago</small>
-                        </h5>
-                        It would be very nice to have.
-
-                        <br />
-                        <a href="javascript: void(0);" class="text-muted fs-13 d-inline-block mt-2">
-                            <i class="ti ti-corner-up-left"></i> Reply
-                        </a>
-                    </div>
-                </div>
-
-                <div class="text-center mt-2">
-                    <a href="javascript:void(0);" class="text-danger">
-                        <i class="ti ti-loader ti-spin me-1"></i> Load more
-                    </a>
-                </div>
-
-                <div class="border rounded mt-4">
-                    <form action="#" class="comment-area-box">
-                        <textarea rows="3" class="form-control border-0 resize-none"
-                            placeholder="Your comment..."></textarea>
-                        <div class="p-2 bg-light d-flex justify-content-between align-items-center">
-                            <div>
-                                <a href="#" class="btn btn-sm px-1 btn-light">
-                                    <i class="ti ti-upload"></i>
-                                </a>
-                                <a href="#" class="btn btn-sm px-1 btn-light">
-                                    <i class="ti ti-at"></i>
-                                </a>
-                            </div>
-                            <button type="submit" class="btn btn-sm btn-success">
-                                <i class="ti ti-send me-1"></i>Submit
-                            </button>
-                        </div>
-                    </form>
-                </div> <!-- end .border-->
-
-            </div> <!-- end card-body-->
-        </div>
-        <!-- end card-->
-    </div>
-</div>
-<!-- end row -->
-
-<!-- file preview template -->
-<div class="d-none" id="uploadPreviewTemplate">
-    <div class="card mb-2 shadow-none border">
-        <div class="p-2">
-            <div class="row align-items-center">
-                <div class="col-auto">
-                    <img data-dz-thumbnail src="#" class="avatar-sm rounded bg-light" alt="">
-                </div>
-                <div class="col ps-0">
-                    <a href="javascript:void(0);" class="text-muted fw-bold" data-dz-name></a>
-                    <p class="mb-0" data-dz-size></p>
-                </div>
-                <div class="col-auto">
-                    <!-- Button -->
-                    <a href="" class="btn btn-link btn-lg text-muted" data-dz-remove>
-                        <i class="fe-x"></i>
-                    </a>
-                </div>
+                <label class="form-label">Status</label>
+                <select id="selStatus" class="form-select mb-3">
+                    <option value="open" <%= ticket.status==='open'?'selected':'' %>>Open</option>
+                    <option value="pending" <%= ticket.status==='pending'?'selected':'' %>>Pending</option>
+                    <option value="resolved" <%= ticket.status==='resolved'?'selected':'' %>>Resolved</option>
+                    <option value="closed" <%= ticket.status==='closed'?'selected':'' %>>Closed</option>
+                </select>
+                <label class="form-label">Priority</label>
+                <select id="selPriority" class="form-select mb-3">
+                    <option value="low" <%= ticket.priority==='low'?'selected':'' %>>Low</option>
+                    <option value="medium" <%= ticket.priority==='medium'?'selected':'' %>>Medium</option>
+                    <option value="high" <%= ticket.priority==='high'?'selected':'' %>>High</option>
+                    <option value="urgent" <%= ticket.priority==='urgent'?'selected':'' %>>Urgent</option>
+                </select>
+                <button class="btn btn-soft-primary w-100 mb-2" id="btnUpdate">Update ticket</button>
+                <a href="/admin/tickets" class="btn btn-light w-100">Back to tickets</a>
             </div>
         </div>
     </div>
 </div>
-
 
 <%- contentFor('extra_javascript') %>
-
-<!-- Dropzone File Upload js -->
-<script src="/vendor/dropzone/dropzone-min.js"></script>
-
-<!-- File Upload Demo js -->
-<script src="/js/components/form-fileupload.js"></script>
+<%- include('./partials/admin-api-helper') %>
+<script>
+(function () {
+    const id = <%= ticket.id %>;
+    const F = (i) => document.getElementById(i);
+    F('btnReply').addEventListener('click', async () => {
+        const body = F('replyBody').value.trim();
+        if (!body) return AdminAPI.toast('Reply cannot be empty', true);
+        const r = await AdminAPI.post('/tickets/' + id + '/reply', { body });
+        if (r.ok) { AdminAPI.toast('Reply sent'); location.reload(); } else AdminAPI.toast(r.message, true);
+    });
+    F('btnUpdate').addEventListener('click', async () => {
+        const r = await AdminAPI.patch('/tickets/' + id, { status: F('selStatus').value, priority: F('selPriority').value });
+        if (r.ok) { AdminAPI.toast('Ticket updated'); location.reload(); } else AdminAPI.toast(r.message, true);
+    });
+})();
+</script>

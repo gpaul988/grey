@@ -1,0 +1,99 @@
+<%- contentFor('html_attribute') %>
+<%- contentFor('extra_css') %>
+<%- contentFor('content') %>
+
+<%- include('./partials/page-title', { title: title, subtitle: 'Content' }) %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h4 class="card-title mb-0">Case Studies <span class="badge bg-primary-subtle text-primary ms-1"><%= caseStudies.length %></span></h4>
+                <button class="btn btn-sm btn-primary" id="btnNew"><i class="ti ti-plus"></i> New Case Study</button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-centered mb-0">
+                    <thead class="bg-light bg-opacity-50">
+                        <tr><th>Title</th><th>Client</th><th>Industry</th><th>Published</th><th>Updated</th><th class="text-end">Action</th></tr>
+                    </thead>
+                    <tbody>
+                        <% if (!caseStudies.length) { %><tr><td colspan="6" class="text-center text-muted py-4">No case studies yet.</td></tr><% } %>
+                        <% caseStudies.forEach((c) => { %>
+                        <tr>
+                            <td><div class="fw-medium"><%= c.title %></div><small class="text-muted">/<%= c.slug %></small></td>
+                            <td><%= c.client || '—' %></td>
+                            <td><%= c.industry || '—' %></td>
+                            <td><span class="badge bg-<%= c.published?'success':'secondary' %>-subtle text-<%= c.published?'success':'secondary' %>"><%= c.published ? 'Published' : 'Draft' %></span></td>
+                            <td class="text-muted fs-13"><%= timeAgo(c.updated_at || c.created_at) %></td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-soft-primary btn-edit"
+                                    data-id="<%= c.id %>" data-title="<%= c.title %>" data-client="<%= c.client||'' %>" data-industry="<%= c.industry||'' %>"
+                                    data-image="<%= c.image||'' %>" data-published="<%= c.published %>"
+                                    data-summary="<%- (c.summary||'').replace(/"/g,'&quot;') %>" data-results="<%- (c.results||'').replace(/"/g,'&quot;') %>"
+                                    data-body="<%- (c.body||'').replace(/"/g,'&quot;') %>"><i class="ti ti-edit"></i></button>
+                                <button class="btn btn-sm btn-soft-danger btn-del" data-id="<%= c.id %>"><i class="ti ti-trash"></i></button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="csModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="mTitle">New Case Study</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <input type="hidden" id="f_id">
+                <div class="row g-3">
+                    <div class="col-md-8"><label class="form-label">Title *</label><input id="f_title" class="form-control"></div>
+                    <div class="col-md-4 d-flex align-items-end"><div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="f_published"><label class="form-check-label" for="f_published">Published</label></div></div>
+                    <div class="col-md-6"><label class="form-label">Client</label><input id="f_client" class="form-control"></div>
+                    <div class="col-md-6"><label class="form-label">Industry</label><input id="f_industry" class="form-control"></div>
+                    <div class="col-12"><label class="form-label">Image URL</label><input id="f_image" class="form-control"></div>
+                    <div class="col-12"><label class="form-label">Summary</label><textarea id="f_summary" class="form-control" rows="2"></textarea></div>
+                    <div class="col-12"><label class="form-label">Results (e.g. "+40% conversions")</label><input id="f_results" class="form-control"></div>
+                    <div class="col-12"><label class="form-label">Body</label><textarea id="f_body" class="form-control" rows="5"></textarea></div>
+                </div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-light" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="btnSave">Save</button></div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('extra_javascript') %>
+<%- include('./partials/admin-api-helper') %>
+<script>
+(function () {
+    const modal = new bootstrap.Modal('#csModal');
+    const F = (id) => document.getElementById(id);
+    function open(d) {
+        F('f_id').value = d.id || ''; F('mTitle').textContent = d.id ? 'Edit Case Study' : 'New Case Study';
+        F('f_title').value = d.title || ''; F('f_client').value = d.client || ''; F('f_industry').value = d.industry || '';
+        F('f_image').value = d.image || ''; F('f_summary').value = d.summary || ''; F('f_results').value = d.results || '';
+        F('f_body').value = d.body || ''; F('f_published').checked = d.published === '1' || d.published === 1;
+        modal.show();
+    }
+    F('btnNew').addEventListener('click', () => open({}));
+    document.querySelectorAll('.btn-edit').forEach(b => b.addEventListener('click', () => open(b.dataset)));
+    F('btnSave').addEventListener('click', async () => {
+        const id = F('f_id').value;
+        const payload = {
+            title: F('f_title').value.trim(), client: F('f_client').value.trim(), industry: F('f_industry').value.trim(),
+            image: F('f_image').value.trim(), summary: F('f_summary').value.trim(), results: F('f_results').value.trim(),
+            body: F('f_body').value.trim(), published: F('f_published').checked,
+        };
+        if (!payload.title) return AdminAPI.toast('Title required', true);
+        const r = id ? await AdminAPI.patch('/case-studies/' + id, payload) : await AdminAPI.post('/case-studies', payload);
+        if (r.ok) { AdminAPI.toast(r.message); location.reload(); } else AdminAPI.toast(r.message, true);
+    });
+    document.querySelectorAll('.btn-del').forEach(b => b.addEventListener('click', async () => {
+        if (!confirm('Delete this case study?')) return;
+        const r = await AdminAPI.del('/case-studies/' + b.dataset.id);
+        if (r.ok) { AdminAPI.toast('Deleted'); b.closest('tr').remove(); } else AdminAPI.toast(r.message, true);
+    }));
+})();
+</script>
