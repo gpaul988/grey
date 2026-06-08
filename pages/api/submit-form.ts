@@ -1,6 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import nodemailer from 'nodemailer';
 import {IncomingForm, type Fields, type Files, type File} from 'formidable';
+import {Submissions} from '../../Admin/models';
 
 export const config = {
     api: {bodyParser: false},
@@ -65,6 +66,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         if (!name || !email) {
             return res.status(400).json({success: false, message: 'Name and email are required.'});
+        }
+
+        // Persist the lead to the admin database so it appears in the dashboard
+        // even if email delivery later fails. Never block submission on a DB error.
+        try {
+            Submissions.create({
+                name,
+                email,
+                phone: getField(fields.phone) || null,
+                subject: subject || null,
+                project_type: projectType || null,
+                budget: getField(fields.budget) || null,
+                message: getField(fields.message) || getField(fields.details) || null,
+                source: 'website',
+                status: 'new',
+            });
+        } catch (dbErr) {
+            console.error('Submission DB insert failed:', dbErr);
         }
 
         const emailBody = Object.entries(fields)

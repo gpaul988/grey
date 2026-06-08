@@ -1,0 +1,117 @@
+<%- contentFor('html_attribute') %>
+<%- contentFor('extra_css') %>
+<%- contentFor('content') %>
+
+<%- include('./partials/page-title', { title: title, subtitle: 'CRM' }) %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h4 class="card-title mb-0">Leads <span class="badge bg-primary-subtle text-primary ms-1"><%= leads.length %></span></h4>
+                <div class="d-flex gap-2">
+                    <input type="search" id="searchBox" class="form-control form-control-sm" placeholder="Search..." style="width:200px;">
+                    <button class="btn btn-sm btn-primary" id="btnNew"><i class="ti ti-plus"></i> New Lead</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-centered mb-0" id="tbl">
+                    <thead class="bg-light bg-opacity-50">
+                        <tr><th>Name / Email</th><th>Company</th><th>Source</th><th>Stage</th><th>Value</th><th>Owner</th><th>Added</th><th class="text-end">Action</th></tr>
+                    </thead>
+                    <tbody>
+                        <% if (!leads.length) { %><tr><td colspan="8" class="text-center text-muted py-4">No leads yet.</td></tr><% } %>
+                        <% leads.forEach((l) => { const owner = users.find(u => u.id === l.owner_id); %>
+                        <tr data-search="<%= (l.name+' '+l.email+' '+(l.company||'')).toLowerCase() %>">
+                            <td><div class="fw-medium"><%= l.name %></div><small class="text-muted"><%= l.email %></small></td>
+                            <td><%= l.company || '—' %></td>
+                            <td class="text-capitalize"><%= l.source %></td>
+                            <td><span class="badge text-capitalize bg-<%= l.stage==='won'?'success':(l.stage==='lost'?'danger':'info') %>-subtle text-<%= l.stage==='won'?'success':(l.stage==='lost'?'danger':'info') %>"><%= l.stage %></span></td>
+                            <td class="fw-medium"><%= fmtMoney(l.value) %></td>
+                            <td><%= owner ? owner.name : '—' %></td>
+                            <td class="text-muted fs-13"><%= timeAgo(l.created_at) %></td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-soft-primary btn-edit"
+                                    data-id="<%= l.id %>" data-name="<%= l.name %>" data-email="<%= l.email %>"
+                                    data-company="<%= l.company||'' %>" data-phone="<%= l.phone||'' %>" data-source="<%= l.source %>"
+                                    data-stage="<%= l.stage %>" data-value="<%= l.value %>" data-owner="<%= l.owner_id||'' %>"
+                                    data-notes="<%- (l.notes||'').replace(/"/g,'&quot;') %>"><i class="ti ti-edit"></i></button>
+                                <button class="btn btn-sm btn-soft-danger btn-del" data-id="<%= l.id %>"><i class="ti ti-trash"></i></button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="leadModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="mTitle">New Lead</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <input type="hidden" id="f_id">
+                <div class="row g-3">
+                    <div class="col-md-6"><label class="form-label">Name *</label><input id="f_name" class="form-control"></div>
+                    <div class="col-md-6"><label class="form-label">Email *</label><input id="f_email" type="email" class="form-control"></div>
+                    <div class="col-md-6"><label class="form-label">Company</label><input id="f_company" class="form-control"></div>
+                    <div class="col-md-6"><label class="form-label">Phone</label><input id="f_phone" class="form-control"></div>
+                    <div class="col-md-4"><label class="form-label">Source</label>
+                        <select id="f_source" class="form-select"><option>website</option><option>referral</option><option>social</option><option>email</option><option>other</option></select></div>
+                    <div class="col-md-4"><label class="form-label">Stage</label>
+                        <select id="f_stage" class="form-select"><option value="new">New</option><option value="contacted">Contacted</option><option value="qualified">Qualified</option><option value="proposal">Proposal</option><option value="won">Won</option><option value="lost">Lost</option></select></div>
+                    <div class="col-md-4"><label class="form-label">Value (NGN)</label><input id="f_value" type="number" class="form-control" value="0"></div>
+                    <div class="col-md-6"><label class="form-label">Owner</label>
+                        <select id="f_owner" class="form-select"><option value="">Unassigned</option><% users.forEach(u=>{ %><option value="<%= u.id %>"><%= u.name %></option><% }) %></select></div>
+                    <div class="col-12"><label class="form-label">Notes</label><textarea id="f_notes" class="form-control" rows="3"></textarea></div>
+                </div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-light" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="btnSave">Save</button></div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('extra_javascript') %>
+<%- include('./partials/admin-api-helper') %>
+<script>
+(function () {
+    const modal = new bootstrap.Modal('#leadModal');
+    const F = (id) => document.getElementById(id);
+    function open(data) {
+        F('f_id').value = data.id || '';
+        F('mTitle').textContent = data.id ? 'Edit Lead' : 'New Lead';
+        F('f_name').value = data.name || ''; F('f_email').value = data.email || '';
+        F('f_company').value = data.company || ''; F('f_phone').value = data.phone || '';
+        F('f_source').value = data.source || 'website'; F('f_stage').value = data.stage || 'new';
+        F('f_value').value = data.value || 0; F('f_owner').value = data.owner || '';
+        F('f_notes').value = data.notes || '';
+        modal.show();
+    }
+    F('btnNew').addEventListener('click', () => open({}));
+    document.querySelectorAll('.btn-edit').forEach(b => b.addEventListener('click', () => open(b.dataset)));
+    F('btnSave').addEventListener('click', async () => {
+        const id = F('f_id').value;
+        const payload = {
+            name: F('f_name').value.trim(), email: F('f_email').value.trim(),
+            company: F('f_company').value.trim(), phone: F('f_phone').value.trim(),
+            source: F('f_source').value, stage: F('f_stage').value,
+            value: Number(F('f_value').value) || 0, owner_id: F('f_owner').value || null,
+            notes: F('f_notes').value.trim(),
+        };
+        if (!payload.name || !payload.email) return AdminAPI.toast('Name and email required', true);
+        const r = id ? await AdminAPI.patch('/leads/' + id, payload) : await AdminAPI.post('/leads', payload);
+        if (r.ok) { AdminAPI.toast(r.message); location.reload(); } else AdminAPI.toast(r.message, true);
+    });
+    document.querySelectorAll('.btn-del').forEach(b => b.addEventListener('click', async () => {
+        if (!confirm('Delete this lead?')) return;
+        const r = await AdminAPI.del('/leads/' + b.dataset.id);
+        if (r.ok) { AdminAPI.toast('Deleted'); b.closest('tr').remove(); } else AdminAPI.toast(r.message, true);
+    }));
+    F('searchBox').addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase();
+        document.querySelectorAll('#tbl tbody tr[data-search]').forEach(tr => tr.style.display = (!q || tr.dataset.search.includes(q)) ? '' : 'none');
+    });
+})();
+</script>

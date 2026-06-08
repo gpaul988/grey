@@ -1,4 +1,5 @@
-<% if (title) { %>
+<% const _sub = (typeof subtitle !== 'undefined') ? subtitle : null; %>
+<% if (typeof title !== 'undefined' && title) { %>
 <div class="page-title-head d-flex align-items-center gap-2">
     <div class="flex-grow-1">
         <h4 class="fs-16 text-uppercase fw-bold mb-0"><%- title %></h4>
@@ -6,9 +7,9 @@
 
     <div class="text-end">
         <ol class="breadcrumb m-0 py-0 fs-13">
-            <li class="breadcrumb-item"><a href="javascript: void(0);">Grey_InfoTech</a></li>
-            <% if (subtitle) { %>
-            <li class="breadcrumb-item"><a href="javascript: void(0);"><%- subtitle %></a></li>
+            <li class="breadcrumb-item"><a href="/admin/dashboard">Grey_InfoTech</a></li>
+            <% if (_sub) { %>
+            <li class="breadcrumb-item"><a href="javascript: void(0);"><%- _sub %></a></li>
             <% } %>
             <li class="breadcrumb-item active"><%- title %></li>
         </ol>

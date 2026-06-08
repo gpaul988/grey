@@ -10,7 +10,9 @@ import { parse } from 'node:url';
 import { ADMIN_BASE_PATH } from './Admin/config/adminPaths';
 import { ensureAuth } from './Admin/middleware/authMiddleware';
 import adminRoutes from './Admin/routes/admin';
+import apiRoutes from './Admin/routes/api';
 import authRoutes from './Admin/routes/auth';
+import { dashboardStats } from './Admin/models';
 
 dotenv.config({ path: './config.env' });
 
@@ -57,8 +59,29 @@ app.use(ADMIN_BASE_PATH, (req, res, nextMiddleware) => {
   res.locals.frontendBaseUrl = process.env.FRONTEND_BASE_URL || '/';
   res.locals.backendBaseUrl = process.env.BACKEND_BASE_URL || `${ADMIN_BASE_PATH}`;
   res.locals.adminBasePath = ADMIN_BASE_PATH;
+  // Derive active nav key from the path (e.g. /admin/leads -> "leads")
+  const seg = (req.path || '/').split('/').filter(Boolean)[0] || 'dashboard';
+  res.locals.activeNav = seg === 'index' || seg === 'home' ? 'dashboard' : seg;
+  // Sidebar badge counts (only when logged in; never break the request)
+  if (req.session.user) {
+    try {
+      const s = dashboardStats();
+      res.locals.navBadges = {
+        newSubmissions: s.newSubmissions,
+        openTickets: s.openTickets,
+        unreadConvos: s.unreadConvos,
+      };
+    } catch {
+      res.locals.navBadges = null;
+    }
+  } else {
+    res.locals.navBadges = null;
+  }
   nextMiddleware();
 });
+
+// JSON CRUD API (auth enforced inside the router via ensureApiAuth)
+app.use(`${ADMIN_BASE_PATH}/api`, apiRoutes);
 
 app.use(ADMIN_BASE_PATH, authRoutes);
 app.use(ADMIN_BASE_PATH, ensureAuth, adminRoutes);

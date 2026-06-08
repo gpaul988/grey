@@ -1,0 +1,40 @@
+<script>
+// Shared admin API helper (fetch wrapper + toast). Available as window.AdminAPI.
+window.AdminAPI = (function () {
+    const BASE = '/admin/api';
+    async function req(method, path, body) {
+        try {
+            const opts = { method, headers: { 'Accept': 'application/json' } };
+            if (body !== undefined) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
+            const res = await fetch(BASE + path, opts);
+            const data = await res.json().catch(() => ({ ok: false, message: 'Bad response' }));
+            return data;
+        } catch (e) {
+            return { ok: false, message: 'Network error' };
+        }
+    }
+    function toast(msg, isError) {
+        let host = document.getElementById('admin-toast-host');
+        if (!host) {
+            host = document.createElement('div');
+            host.id = 'admin-toast-host';
+            host.style.cssText = 'position:fixed;top:1rem;right:1rem;z-index:2000;display:flex;flex-direction:column;gap:.5rem;';
+            document.body.appendChild(host);
+        }
+        const el = document.createElement('div');
+        el.className = 'toast align-items-center text-bg-' + (isError ? 'danger' : 'success') + ' border-0 show';
+        el.role = 'alert';
+        el.innerHTML = '<div class="d-flex"><div class="toast-body">' + msg + '</div>'
+            + '<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button></div>';
+        host.appendChild(el);
+        setTimeout(() => el.remove(), 4000);
+    }
+    return {
+        get: (p) => req('GET', p),
+        post: (p, b) => req('POST', p, b || {}),
+        patch: (p, b) => req('PATCH', p, b || {}),
+        del: (p) => req('DELETE', p),
+        toast,
+    };
+})();
+</script>

@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3000",
+    "dev": "tsx server.ts",
+    "dev:next": "next dev -p 3000",
     "build": "next build",
-    "start": "next start -p 3000",
+    "start": "NODE_ENV=production tsx server.ts",
+    "start:next": "next start -p 3000",
+    "seed": "tsx Admin/db/seed.ts",
+    "seed:reset": "rm -f Admin/data/grey.db && tsx Admin/db/seed.ts",
     "migrate-admin-assets": "node scripts/migrate-admin-assets.js",
     "lint": "eslint"
   },
@@ -14,15 +18,19 @@
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@fortawesome/react-fontawesome": "^3.3.1",
     "@heroicons/react": "^2.2.0",
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^12.10.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.18.2",
+    "express-validator": "^7.3.2",
     "formidable": "^3.5.4",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.14.0",
+    "multer": "^2.1.1",
     "next": "^16.2.6",
     "nodemailer": "^8.0.7",
     "react": "19.2.6",
@@ -34,11 +42,14 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/better-sqlite3": "^7.6.13",
     "@types/cookie-parser": "^1.4.10",
     "@types/express": "^5.0.5",
     "@types/express-ejs-layouts": "^2.5.4",
     "@types/express-session": "^1.18.2",
     "@types/formidable": "^3.5.1",
+    "@types/multer": "^2.1.0",
     "@types/node": "^25.6.2",
     "@types/nodemailer": "^8.0.0",
     "@types/react": "^19.2.14",
@@ -50,5 +61,8 @@
     "tailwindcss": "^4",
     "tsx": "^4.20.6",
     "typescript": "^6.0.3"
+  },
+  "allowScripts": {
+    "better-sqlite3@12.10.0": true
   }
 }
