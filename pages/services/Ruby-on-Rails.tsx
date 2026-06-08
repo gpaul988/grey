@@ -258,7 +258,7 @@ useEffect(() => {
                             <div>
                                 <p>
                                     At Grey InfoTech, we leverage our deep expertise in Ruby on Rails to develop
-                                    powerful, scalable <Link href={'/pages/services/Web-Application.tsx'}
+                                    powerful, scalable <Link href={'/services/Web-Application'}
                                                              className={`border-b pb-[0.01em] ${isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black'}`}>web
                                     applications</Link> tailored to your business needs. From
                                     feature-rich online marketplaces that connect buyers and sellers to intuitive
@@ -301,7 +301,7 @@ useEffect(() => {
                                 Ruby on Rails, originally developed by David Heinemeier Hansson of 37signals, was built
                                 to support the creation of tailored web applications and websites. Its flexibility makes
                                 it suitable for a wide range of solutions, from content management systems
-                                and <Link href={'/pages/industries/e-commerce-development.tsx'}
+                                and <Link href={'/industries/e-commerce-development'}
                                           className={`border-b pb-[0.01em] ${isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'}`}>ecommerce</Link> platforms
                                 to internal company tools like intranets, workflow automation, and project
                                 management software. This makes it an exceptionally versatile framework.

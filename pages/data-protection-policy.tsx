@@ -214,7 +214,7 @@ const DataProtectionPolicy = () => {
                     </p>
                     <p className="text-[15px] text-gray-600 mb-6">
                         We shall only process your Personal Data to fulfil and/or enable us to satisfy the terms of our
-                        obligations and responsibilities in our role as your <Link href='/public'
+                        obligations and responsibilities in our role as your <Link href='/company'
                                                                                 className='text-gray-700 font-bold hover:text-teal-700'> digital
                         agency </Link> or for any other specific purposes
                         permitted by the Enactments. Should we deem it necessary to process your Personal Data for

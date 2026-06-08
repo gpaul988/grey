@@ -1088,7 +1088,7 @@ useEffect(() => {
                         <h2 className='lg:text-[3em] text-[1.5em] font-[600] tracking-tighter leading-[1.1] pb-6 text-center'>
                             Ready to start the <br className={'lg:block md:block hidden'}/>conversation?
                         </h2><br/>
-                        <Link href='../contact.tsx' className='flex items-center justify-center-safe text-center'>
+                        <Link href='/contact' className='flex items-center justify-center-safe text-center'>
                             <button
                                 className='relative mx-auto inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em] border tracking-tighter rounded-full py-2 px-6'>
                         <span
@@ -1766,7 +1766,7 @@ useEffect(() => {
                                     src={src} // Should be like "/assets/health/patient_app.jpg"
                                     width={800}
                                     height={545}
-                                    alt=""
+                                    alt="Oil and gas technology solution showcase"
                                     className="object-fill flex-shrink-0"
                                 />
                             ))}

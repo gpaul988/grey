@@ -251,12 +251,12 @@ useEffect(() => {
                     </div>
                     <div className='lg:-ml-[8em]'>
                         <p className='text-[0.85em] font-[400] lg:-mt-[0.2em] rounded-none leading-[1.5]'>
-                            Hybrid <Link href={'/pages/services/Mobile-Application-Development.tsx'}
+                            Hybrid <Link href={'/services/Mobile-Application-Development'}
                                          className={`border-b pb-[0.05em] ${
                                              isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                          }`}>mobile app</Link> development is an efficient approach that blends the
                             flexibility of web
-                            technologies like HTML5, CSS, and <Link href={'/pages/services/Javascript.tsx'}
+                            technologies like HTML5, CSS, and <Link href={'/services/Javascript'}
                                                                     className={`border-b pb-[0.05em] ${
                                                                         isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                                     }`}>JavaScript</Link> with the capabilities of
@@ -356,7 +356,7 @@ useEffect(() => {
                                             className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>User experience</span>
                                     </div>
                                     <p className={'text-justify leading-[1.5] text-[0.873em] font-[300]'}>
-                                        <Link href={'/pages/services/React-Native-Development.tsx'}
+                                        <Link href={'/services/React-Native-Development'}
                                               className={`border-b pb-[0.05em] ${
                                                   isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                               }`}>React Native</Link> is a powerful, industry-leading framework backed
@@ -392,7 +392,7 @@ useEffect(() => {
                                         technologies
                                         like HTML, CSS, and JavaScript. Known for its flexibility and scalability, Ionic
                                         allows businesses to deliver cross-platform applications with a single codebase.
-                                        With its extensive <Link href={'/pages/services/ui-ux-design.tsx'}
+                                        With its extensive <Link href={'/services/ui-ux-design'}
                                                                  className={`border-b pb-[0.05em] ${
                                                                      isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                                  }`}>UI</Link> component library and seamless
@@ -603,7 +603,7 @@ useEffect(() => {
                                 direction
                                 of the solution.<br/><br/>
                                 Our team—typically including a business analyst, product and project
-                                managers, <Link href={'/pages/services/ui-ux-design.tsx'}
+                                managers, <Link href={'/services/ui-ux-design'}
                                                 className={`border-b pb-[0.02em] ${
                                                     isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                 }`}>UX/UI designer</Link>, and technical leads—works to understand your

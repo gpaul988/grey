@@ -114,7 +114,7 @@ const SoftwareDevelopment = () => {
                     bespoke mobile applications that not only meet your goals but also deliver meaningful value to your
                     users. Whether you&#39;re looking to drive engagement, streamline operations, or open up new revenue
                     streams, we build <Link
-                    href={'/pages/services/Mobile-Application-Development.tsx'}
+                    href={'/services/Mobile-Application-Development'}
                     className={`border-b pb-[0.05em] ${isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'}`}>mobile
                     app</Link> that stand out for the right reasons—functionally, visually, and strategically.
                 </>
@@ -126,7 +126,7 @@ const SoftwareDevelopment = () => {
             description: (
                 <>
                     Our team has successfully delivered mobile applications across a wide range of industries,
-                    including <Link href={'/pages/industries/fintech.tsx'} className={`border-b pb-[0.05em] ${
+                    including <Link href={'/industries/fintech'} className={`border-b pb-[0.05em] ${
                     isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                 }}`}>fintech</Link>, proptech, healthcare, retail, and more. Backed by a portfolio of
                     award-winning solutions, we bring deep technical expertise and domain knowledge to every project.
@@ -452,25 +452,25 @@ const SoftwareDevelopment = () => {
                                         At Grey InfoTech, our expert software development team creates responsive web
                                         applications that perform seamlessly across all devices—mobile, tablet, and
                                         desktop. Leveraging modern technologies and frameworks such as Microsoft <Link
-                                        href={'/pages/services/Net-Development.tsx'}
+                                        href={'/services/Net-Development'}
                                         className={`border-b pb-[0.02em] ${
                                             isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
-                                        }`}>.NET</Link>, <Link href={'/pages/services/Javascript.tsx'}
+                                        }`}>.NET</Link>, <Link href={'/services/Javascript'}
                                                                className={`border-b pb-[0.02em] ${
                                                                    isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                                }`}>JavaScript</Link>, <Link
-                                        href={'/pages/services/PHP-Development.tsx'}
+                                        href={'/services/PHP-Development'}
                                         className={`border-b pb-[0.02em] ${
                                             isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                         }`}>PHP</Link>, <Link
-                                        href={'/pages/services/Reactjs-Development.tsx'}
+                                        href={'/services/Reactjs-Development'}
                                         className={`border-b pb-[0.02em] ${
                                             isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
-                                        }`}>React</Link>, <Link href={'/pages/services/Vuejs-Development.tsx'}
+                                        }`}>React</Link>, <Link href={'/services/Vuejs-Development'}
                                                                 className={`border-b pb-[0.02em] ${
                                                                     isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                                 }`}>Vue.js</Link>, and <Link
-                                        href={'/pages/services/angular-development.tsx'}
+                                        href={'/services/angular-development'}
                                         className={`border-b pb-[0.02em] ${
                                             isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                         }`}>Angular</Link>, we deliver custom software
@@ -504,7 +504,7 @@ const SoftwareDevelopment = () => {
                                         you need to validate your concept before fully committing resources. Our expert
                                         team of product developers and consultants supports you at every stage—from
                                         initial planning, creating detailed specifications, and designing prototypes, to
-                                        delivering your Minimum Viable Product (<Link href={'/pages/services/MVP.tsx'}
+                                        delivering your Minimum Viable Product (<Link href={'/services/MVP'}
                                                                                       className={`border-b pb-[0.02em] ${
                                                                                           isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                                                       }`}>MVP</Link>). We’re here to
@@ -532,7 +532,7 @@ const SoftwareDevelopment = () => {
                                     </div>
                                     <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
                                         Many businesses enhance customer service, build loyalty, and
-                                        strengthen <Link href={'/pages/services/branding.tsx'}
+                                        strengthen <Link href={'/services/branding'}
                                                          className={`border-b pb-[0.05em] ${
                                                              isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                          }`}>brand</Link> awareness by developing custom business
@@ -610,10 +610,10 @@ const SoftwareDevelopment = () => {
                                     </div>
                                     <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
                                         We work across all major mobile platforms, including Apple’s <Link
-                                        href={'/pages/services/ios-development.tsx'}
+                                        href={'/services/ios-development'}
                                         className={`border-b pb-[0.05em] ${
                                             isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
-                                        }`}>iOS</Link> and <Link href={'/pages/services/seo.tsx'}
+                                        }`}>iOS</Link> and <Link href={'/services/seo'}
                                                                  className={`border-b pb-[0.05em] ${
                                                                      isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                                  }`}>Google’s</Link> Android, to deliver

@@ -267,7 +267,7 @@ useEffect(() => {
                             <div>
                                 <p>
                                     Whether you&#39;re a startup launching your first digital product or an
-                                    established <Link href={'/pages/industries/e-commerce-development.tsx'}
+                                    established <Link href={'/industries/e-commerce-development'}
                                                       className={`relative border-b pb-[0.01em] ${
                                                           isDayTime ? 'border-gray-400 hover:border-black' : 'border-gray-800 hover:border-white'
                                                       }`}>eCommerce</Link> business expanding into B2B, we offer a

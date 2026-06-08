@@ -388,7 +388,7 @@ useEffect(() => {
                                         We deliver React Native development with a strong focus on best-in-class user
                                         interface and experience design. Our team creates visually compelling, intuitive
                                         mobile applications that not only reflect
-                                        your <Link href={'/pages/services/branding.tsx'}
+                                        your <Link href={'/services/branding'}
                                                    className={`border-b pb-[0.02em] ${
                                                        isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                    }`}>brand</Link> identity but also
@@ -565,7 +565,7 @@ useEffect(() => {
                                     React Native, an open-source extension of React.js developed by Meta (formerly
                                     Facebook), has been empowering businesses since its release in 2015 by enabling the
                                     development of native mobile applications across platforms such
-                                    as <Link href={'/pages/services/ios-development.tsx'}
+                                    as <Link href={'/services/ios-development'}
                                              className={`border-b pb-[0.02em] ${
                                                  isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                              }`}>iOS</Link>, Android, and
@@ -581,12 +581,12 @@ useEffect(() => {
                                     At Grey InfoTech, we harness the full potential of React Native to deliver mobile
                                     applications that combine the speed and efficiency of web technologies with the
                                     robust performance of native apps. Using familiar tools
-                                    like <Link href={'/pages/services/Javascript.tsx'}
+                                    like <Link href={'/services/Javascript'}
                                                className={`border-b pb-[0.02em] ${
                                                    isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                }`}>JavaScript</Link> and JSX, our developers craft scalable, intuitive
                                     applications tailored to your audience and business goals. React
-                                    Native’s <Link href={'/pages/services/ui-ux-design.tsx'}
+                                    Native’s <Link href={'/services/ui-ux-design'}
                                                    className={`border-b pb-[0.02em] ${
                                                        isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                    }`}>UI</Link> framework allows us to build beautiful, seamless
@@ -811,12 +811,12 @@ useEffect(() => {
                     <div>
                         <p className='text-[0.873em] font-[400] justify-center text-justify leading-[1.5] lg:-ml-[3em] tracking-noromal'>
                             At Grey InfoTech, we’ve worked with businesses
-                            in <Link href={'/pages/industries/fintech.tsx'}
+                            in <Link href={'/industries/fintech'}
                                      className={`border-b pb-[0.02em] ${
                                          isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                      }`}>FinTech</Link>, PropTech, SciTech, and
                             TravelTech, using our industry knowledge to build React Native solutions aligned with your
-                            goals. In the <Link href={'/pages/services/discovery-phase.tsx'}
+                            goals. In the <Link href={'/services/discovery-phase'}
                                                 className={`border-b pb-[0.02em] ${
                                                     isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                                 }`}>discovery phase</Link>, we focus on understanding your vision to

@@ -355,7 +355,7 @@ useEffect(() => {
                             of loyal Apple users. Launching on the App Store gives your app credibility, visibility, and
                             access to a trusted global marketplace.
                         </p>
-                        <Link href={'/pages/services/ios-development.tsx'}
+                        <Link href={'/services/ios-development'}
                               className={"w-auto h-auto mt-3 transition-all hover:scale-up-center flex relative"}>
                             <div className={"w-full h-full peer"}>
                                 <span
@@ -414,13 +414,13 @@ useEffect(() => {
                             React Native <br className={'lg:block md:block hidden'}/>App Development
                         </h3>
                         <p className='text-justify text-[0.85em] font-[400]'>
-                            <Link href={'/pages/services/React-Native-Development.tsx'}
+                            <Link href={'/services/React-Native-Development'}
                                   className={`relative border-b pb-[0.17em] ${
                                       isDayTime ? 'border-gray-400 hover:border-black' : 'border-gray-800 hover:border-white'
                                   }`}>React Native</Link> app development harnesses Facebook’s powerful open-source
                             framework
                             to build high-performance mobile apps with a single codebase. Our skilled React developers
-                            use <Link href={'/pages/services/Javascript.tsx'}
+                            use <Link href={'/services/Javascript'}
                                       className={`relative border-b pb-[0.17em] ${
                                           isDayTime ? 'border-gray-400 hover:border-black' : 'border-gray-800 hover:border-white'
                                       }`}>JavaScript</Link> to create feature-rich, cross-platform applications for both
@@ -429,7 +429,7 @@ useEffect(() => {
                             an efficient, scalable solution ideal for businesses looking to launch quickly without
                             compromising quality.
                         </p>
-                        <Link href={'/pages/services/React-Native-Development.tsx'}
+                        <Link href={'/services/React-Native-Development'}
                               className={"w-auto h-auto mt-3 transition-all hover:scale-up-center flex relative"}>
                             <div className={"w-full h-full peer"}>
                                 <span
@@ -468,7 +468,7 @@ useEffect(() => {
                             tablets, and smartwatches, ensuring a seamless and engaging experience across the entire
                             ecosystem.
                         </p>
-                        <Link href={'/pages/services/android-development.tsx'}
+                        <Link href={'/services/android-development'}
                               className={"w-auto h-auto mt-3 transition-all hover:scale-up-center flex relative"}>
                             <div className={"w-full h-full peer"}>
                                 <span
@@ -501,7 +501,7 @@ useEffect(() => {
                             Ionic App Development
                         </h3>
                         <p className='text-justify text-[0.85em] font-[400]'>
-                            The <Link href={'/www.ionicframework.com'} className={`relative border-b pb-[0.17em] ${
+                            The <Link href={'https://ionicframework.com'} target='_blank' rel='noopener noreferrer' className={`relative border-b pb-[0.17em] ${
                             isDayTime ? 'border-gray-400 hover:border-black' : 'border-gray-800 hover:border-white'
                         }`}>Ionic framework</Link> streamlines cross-platform app development by using familiar web
                             technologies—HTML, CSS, and JavaScript—to create powerful apps for both iOS and Android.
@@ -529,18 +529,18 @@ useEffect(() => {
                             Hybrid App Development
                         </h3>
                         <p className='text-justify text-[0.85em] font-[400]'>
-                            <Link href={'/pages/services/hybrid-app-development.tsx'}
+                            <Link href={'/services/hybrid-app-development'}
                                   className={`relative border-b pb-[0.05em] ${
                                       isDayTime ? 'border-gray-400 hover:border-black' : 'border-gray-800 hover:border-white'
                                   }`}>Hybrid app</Link> development merges the best of native and <Link
-                            href={'/pages/services/Web-Application.tsx'} className={`relative border-b pb-[0.05em] ${
+                            href={'/services/Web-Application'} className={`relative border-b pb-[0.05em] ${
                             isDayTime ? 'border-gray-400 hover:border-black' : 'border-gray-800 hover:border-white'
                         }`}>web applications</Link>, enabling a single codebase to run seamlessly on both iOS and
                             Android platforms. Built with technologies like HTML, CSS, and JavaScript, hybrid apps offer
                             faster development cycles, easier maintenance, and excellent scalability—making them a
                             smart, cost-effective choice for businesses aiming to reach a wider audience efficiently.
                         </p>
-                        <Link href={'/pages/services/hybrid-app-development.tsx'}
+                        <Link href={'/services/hybrid-app-development'}
                               className={"w-auto h-auto mt-3 transition-all hover:scale-up-center flex relative"}>
                             <div className={"w-full h-full peer"}>
                                 <span
@@ -733,7 +733,7 @@ useEffect(() => {
                                     From clean layouts and seamless navigation to thoughtful interactions, every detail
                                     is designed to enhance usability and engagement. Whether you&#39;re building for
                                     consumers or enterprise users, we ensure the app&#39;s interface reflects your <Link
-                                    href={'/pages/services/branding.tsx/'} className={`relative border-b pb-[0.17em] ${
+                                    href={'/services/branding'} className={`relative border-b pb-[0.17em] ${
                                     isDayTime ? 'border-gray-400 hover:border-black' : 'border-gray-800 hover:border-white'
                                 }`}>brand</Link> identity and delivers a consistent, high-quality user experience across
                                     every screen.
@@ -1458,7 +1458,7 @@ useEffect(() => {
                     <h2 className='lg:text-[3em] text-[1.5em] font-[600] tracking-tighter leading-[1.1] pb-6 text-center'>
                         Ready To Start The <br className={'lg:block md:block hidden'}/>Conversation?
                     </h2><br/>
-                    <Link href='../contact.tsx' className='flex items-center justify-center-safe text-center'>
+                    <Link href='/contact' className='flex items-center justify-center-safe text-center'>
                         <button
                             className='relative mx-auto inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em] border tracking-tighter rounded-full py-2 px-6'>
                         <span
@@ -1534,7 +1534,7 @@ useEffect(() => {
                                 and complexity of the project, the number of platforms (iOS, Android), and the specific
                                 features required. We’ve delivered apps under tight deadlines and across various
                                 devices. Through an initial consultation and a structured <Link
-                                href={'/pages/services/discovery-phase.tsx'}
+                                href={'/services/discovery-phase'}
                                 className={`border-b pb-1 ${
                                     isDayTime ? 'border-gray-300 hover:border-white' : 'border-gray-700 hover:border-black'
                                 }`}>discovery phase</Link>, we’ll gain a
@@ -1566,7 +1566,7 @@ useEffect(() => {
                                 consistent communication, faster iteration, and full accountability from start to
                                 finish. As registered Apple and Android developers, we also manage the full deployment
                                 process—ensuring your app is successfully launched on both the Apple App Store
-                                and <Link href={'/pages/services/seo.tsx'} className={`border-b pb-1 ${
+                                and <Link href={'/services/seo'} className={`border-b pb-1 ${
                                 isDayTime ? 'border-gray-300 hover:border-white' : 'border-gray-700 hover:border-black'
                             }`}>Google</Link> Play, in compliance with platform requirements.
                             </p>

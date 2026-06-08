@@ -1,6 +1,6 @@
 import express, { type Request, type Response } from 'express';
 
-import { adminPath } from '../config/adminPaths';
+import { adminPath, LOGIN_PATH, REGISTER_PATH, LOGOUT_PATH } from '../config/adminPaths';
 import { redirectIfAuth } from '../middleware/authMiddleware';
 import { Users, logActivity } from '../models';
 import { isEmail, str } from '../utils/helpers';
@@ -29,11 +29,6 @@ const renderRegister = (res: Response, options: RenderOptions = {}) => {
         formValues: options.formValues || {},
     });
 };
-
-route.get('/', (req: Request, res: Response) => {
-    if (req.session.user) return res.redirect(adminPath('/dashboard'));
-    return res.redirect(adminPath('/login'));
-});
 
 route.get('/login', redirectIfAuth, (_req: Request, res: Response) => renderLogin(res));
 
@@ -94,12 +89,12 @@ route.post('/register', redirectIfAuth, async (req: Request, res: Response) => {
 route.get('/logout', (req: Request, res: Response) => {
     const u = req.session.user;
     if (u) logActivity({ user_id: u.id, user_name: u.name, action: 'logout', entity: 'auth' });
-    if (!req.session) return res.redirect(adminPath('/login'));
-    req.session.destroy(() => res.redirect(adminPath('/login')));
+    if (!req.session) return res.redirect(LOGIN_PATH);
+    req.session.destroy(() => res.redirect(LOGIN_PATH));
 });
 
-route.get('/auth-login', (_req, res) => res.redirect(adminPath('/login')));
-route.get('/auth-register', (_req, res) => res.redirect(adminPath('/register')));
-route.get('/auth-logout', (_req, res) => res.redirect(adminPath('/logout')));
+route.get('/auth-login', (_req, res) => res.redirect(LOGIN_PATH));
+route.get('/auth-register', (_req, res) => res.redirect(REGISTER_PATH));
+route.get('/auth-logout', (_req, res) => res.redirect(LOGOUT_PATH));
 
 export default route;
