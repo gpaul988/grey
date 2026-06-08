@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en" <%- html_attribute || '' %> >
+<html lang="en" <%- (typeof html_attribute !== 'undefined' ? html_attribute : '') %> >
 <head>
     <%- include('./title-meta') %>
-    <%- extra_css %>
+    <%- (typeof extra_css !== 'undefined' ? extra_css : '') %>
     <%- include ('./head-css') %>
 </head>
 
-<body <%- body_attribute %>>
+<body <%- (typeof body_attribute !== 'undefined' ? body_attribute : '') %>>
 
 <div class="wrapper">
     <%- include ('./menu') %>
@@ -15,7 +15,7 @@
 
         <div class="page-container">
 
-            <%- content %>
+            <%- (typeof content !== 'undefined' ? content : '') %>
 
         </div>
 
@@ -27,7 +27,7 @@
 <%- include('./customizer') %>
 
 <%- include ('./footer-scripts') %>
-<%- extra_javascript %>
+<%- (typeof extra_javascript !== 'undefined' ? extra_javascript : '') %>
 
 </body>
 </html>

@@ -1,0 +1,145 @@
+<%- contentFor('html_attribute') %>
+<%- contentFor('extra_css') %>
+<%- contentFor('content') %>
+
+<%- include('./partials/page-title', { title: title, subtitle: 'Inbox' }) %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h4 class="card-title mb-0">Form Submissions <span class="badge bg-primary-subtle text-primary ms-1"><%= submissions.length %></span></h4>
+                <div class="d-flex gap-2">
+                    <select id="statusFilter" class="form-select form-select-sm" style="width:auto;">
+                        <option value="">All statuses</option>
+                        <option value="new">New</option>
+                        <option value="read">Read</option>
+                        <option value="replied">Replied</option>
+                        <option value="archived">Archived</option>
+                        <option value="spam">Spam</option>
+                    </select>
+                    <input type="search" id="searchBox" class="form-control form-control-sm" placeholder="Search..." style="width:200px;">
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-centered mb-0" id="subTable">
+                    <thead class="bg-light bg-opacity-50">
+                        <tr>
+                            <th>Name / Email</th><th>Subject</th><th>Project</th><th>Budget</th><th>Source</th><th>Status</th><th>Received</th><th class="text-end">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (!submissions.length) { %>
+                        <tr><td colspan="8" class="text-center text-muted py-4">No submissions yet.</td></tr>
+                        <% } %>
+                        <% submissions.forEach((s) => { %>
+                        <tr data-id="<%= s.id %>" data-status="<%= s.status %>" data-search="<%= (s.name + ' ' + s.email + ' ' + (s.subject||'') + ' ' + (s.message||'')).toLowerCase() %>">
+                            <td>
+                                <div class="fw-medium"><%= s.name %></div>
+                                <small class="text-muted"><%= s.email %><% if (s.phone) { %> · <%= s.phone %><% } %></small>
+                            </td>
+                            <td><%= s.subject || '—' %></td>
+                            <td><%= s.project_type || '—' %></td>
+                            <td><%= s.budget || '—' %></td>
+                            <td><span class="text-capitalize"><%= s.source %></span></td>
+                            <td>
+                                <span class="badge text-capitalize bg-<%= s.status==='new'?'danger':(s.status==='replied'?'success':(s.status==='spam'?'dark':'secondary')) %>-subtle text-<%= s.status==='new'?'danger':(s.status==='replied'?'success':(s.status==='spam'?'dark':'secondary')) %>"><%= s.status %></span>
+                            </td>
+                            <td class="text-muted fs-13"><%= timeAgo(s.created_at) %></td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-soft-primary btn-view"
+                                    data-id="<%= s.id %>"
+                                    data-name="<%= s.name %>" data-email="<%= s.email %>" data-phone="<%= s.phone || '' %>"
+                                    data-subject="<%= s.subject || '' %>" data-project="<%= s.project_type || '' %>"
+                                    data-budget="<%= s.budget || '' %>" data-message="<%- (s.message||'').replace(/"/g,'&quot;') %>"
+                                    data-status="<%= s.status %>"><i class="ti ti-eye"></i></button>
+                                <button class="btn btn-sm btn-soft-danger btn-del" data-id="<%= s.id %>"><i class="ti ti-trash"></i></button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- View / status modal -->
+<div class="modal fade" id="viewModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Submission Details</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="mId">
+                <div class="row g-3">
+                    <div class="col-md-6"><label class="form-label text-muted fs-13">Name</label><p id="mName" class="fw-medium mb-0"></p></div>
+                    <div class="col-md-6"><label class="form-label text-muted fs-13">Email</label><p id="mEmail" class="fw-medium mb-0"></p></div>
+                    <div class="col-md-6"><label class="form-label text-muted fs-13">Phone</label><p id="mPhone" class="fw-medium mb-0"></p></div>
+                    <div class="col-md-6"><label class="form-label text-muted fs-13">Project Type</label><p id="mProject" class="fw-medium mb-0"></p></div>
+                    <div class="col-md-6"><label class="form-label text-muted fs-13">Budget</label><p id="mBudget" class="fw-medium mb-0"></p></div>
+                    <div class="col-md-6"><label class="form-label text-muted fs-13">Subject</label><p id="mSubject" class="fw-medium mb-0"></p></div>
+                    <div class="col-12"><label class="form-label text-muted fs-13">Message</label><p id="mMessage" class="border rounded p-2 bg-light bg-opacity-50 mb-0"></p></div>
+                    <div class="col-md-6">
+                        <label class="form-label">Update status</label>
+                        <select id="mStatus" class="form-select">
+                            <option value="new">New</option><option value="read">Read</option>
+                            <option value="replied">Replied</option><option value="archived">Archived</option><option value="spam">Spam</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="mReply" class="btn btn-soft-success" target="_blank"><i class="ti ti-mail"></i> Reply by email</a>
+                <button class="btn btn-primary" id="mSave">Save status</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('extra_javascript') %>
+<%- include('./partials/admin-api-helper') %>
+<script>
+(function () {
+    const modal = new bootstrap.Modal('#viewModal');
+    document.querySelectorAll('.btn-view').forEach((b) => b.addEventListener('click', () => {
+        const d = b.dataset;
+        document.getElementById('mId').value = d.id;
+        document.getElementById('mName').textContent = d.name;
+        document.getElementById('mEmail').textContent = d.email;
+        document.getElementById('mPhone').textContent = d.phone || '—';
+        document.getElementById('mProject').textContent = d.project || '—';
+        document.getElementById('mBudget').textContent = d.budget || '—';
+        document.getElementById('mSubject').textContent = d.subject || '—';
+        document.getElementById('mMessage').textContent = d.message || '—';
+        document.getElementById('mStatus').value = d.status;
+        document.getElementById('mReply').href = 'mailto:' + d.email + '?subject=Re: ' + encodeURIComponent(d.subject || 'Your enquiry to Grey InfoTech');
+        modal.show();
+    }));
+    document.getElementById('mSave').addEventListener('click', async () => {
+        const id = document.getElementById('mId').value;
+        const status = document.getElementById('mStatus').value;
+        const r = await AdminAPI.patch('/submissions/' + id, { status });
+        if (r.ok) { AdminAPI.toast('Status updated'); location.reload(); } else AdminAPI.toast(r.message, true);
+    });
+    document.querySelectorAll('.btn-del').forEach((b) => b.addEventListener('click', async () => {
+        if (!confirm('Delete this submission?')) return;
+        const r = await AdminAPI.del('/submissions/' + b.dataset.id);
+        if (r.ok) { AdminAPI.toast('Deleted'); b.closest('tr').remove(); } else AdminAPI.toast(r.message, true);
+    }));
+    // filter + search
+    const apply = () => {
+        const st = document.getElementById('statusFilter').value;
+        const q = document.getElementById('searchBox').value.toLowerCase();
+        document.querySelectorAll('#subTable tbody tr[data-id]').forEach((tr) => {
+            const okSt = !st || tr.dataset.status === st;
+            const okQ = !q || tr.dataset.search.includes(q);
+            tr.style.display = (okSt && okQ) ? '' : 'none';
+        });
+    };
+    document.getElementById('statusFilter').addEventListener('change', apply);
+    document.getElementById('searchBox').addEventListener('input', apply);
+})();
+</script>
