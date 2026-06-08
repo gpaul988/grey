@@ -40,11 +40,14 @@ app.use('/images', express.static(path.join(adminPublicPath, 'images')));
 app.use('/vendor', express.static(path.join(adminPublicPath, 'vendor')));
 app.use('/fonts', express.static(path.join(adminPublicPath, 'fonts')));
 
-app.use(ADMIN_BASE_PATH, express.urlencoded({ extended: true }));
-app.use(ADMIN_BASE_PATH, express.json());
-app.use(ADMIN_BASE_PATH, cookieParser());
+// Body parsing, cookies and session applied at the ROOT so that the
+// top-level auth routes (/login, /register, /logout) share the same
+// session as the /admin dashboard.
+app.use(['/login', '/register', '/logout', ADMIN_BASE_PATH], express.urlencoded({ extended: true }));
+app.use(['/login', '/register', '/logout', ADMIN_BASE_PATH], express.json());
+app.use(['/login', '/register', '/logout', ADMIN_BASE_PATH], cookieParser());
 app.use(
-  ADMIN_BASE_PATH,
+  ['/login', '/register', '/logout', ADMIN_BASE_PATH],
   session({
     resave: false,
     saveUninitialized: false,
@@ -53,12 +56,16 @@ app.use(
   })
 );
 
-app.use(ADMIN_BASE_PATH, (req, res, nextMiddleware) => {
+app.use(['/login', '/register', '/logout', ADMIN_BASE_PATH], (req, res, nextMiddleware) => {
   res.locals.user = req.session.user || null;
   res.locals.currentYear = new Date().getFullYear();
   res.locals.frontendBaseUrl = process.env.FRONTEND_BASE_URL || '/';
   res.locals.backendBaseUrl = process.env.BACKEND_BASE_URL || `${ADMIN_BASE_PATH}`;
   res.locals.adminBasePath = ADMIN_BASE_PATH;
+  // Clean root-level auth URLs for the EJS auth views.
+  res.locals.loginPath = '/login';
+  res.locals.registerPath = '/register';
+  res.locals.logoutPath = '/logout';
   // Derive active nav key from the path (e.g. /admin/leads -> "leads")
   const seg = (req.path || '/').split('/').filter(Boolean)[0] || 'dashboard';
   res.locals.activeNav = seg === 'index' || seg === 'home' ? 'dashboard' : seg;
@@ -83,7 +90,13 @@ app.use(ADMIN_BASE_PATH, (req, res, nextMiddleware) => {
 // JSON CRUD API (auth enforced inside the router via ensureApiAuth)
 app.use(`${ADMIN_BASE_PATH}/api`, apiRoutes);
 
+// Auth (login / register / logout) lives at the ROOT so the public URL is
+// /login instead of /admin/login. Mounted at both root and /admin for
+// backwards compatibility with old links.
+app.use('/', authRoutes);
 app.use(ADMIN_BASE_PATH, authRoutes);
+
+// Protected admin dashboard + CRUD pages.
 app.use(ADMIN_BASE_PATH, ensureAuth, adminRoutes);
 
 nextApp.prepare().then(() => {
