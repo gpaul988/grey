@@ -1,0 +1,234 @@
+@import "tailwindcss";
+
+@tailwind utilities;
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #2dd4bf; /* teal-400 */
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.constant-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hover-button {
+    position: relative;
+    padding: 1em 2em;
+    background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0, 128, 255, 0.5), transparent 100%);
+    outline: none;
+    cursor: pointer;
+    overflow: hidden;
+    transition: background 0.3s ease;
+}
+
+.hover-button:hover {
+    background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0, 128, 255, 0.8), transparent 80%);
+}
+
+.mobile-menu {
+    overflow-y: scroll; /* Enable vertical scrolling */
+    -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.mobile-menu::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for WebKit-based browsers */
+}
+
+/* Default cursor for the entire page */
+body {
+    cursor: default;
+}
+
+/* Custom cursor for the carousel */
+.carousel-container {
+    cursor: grab;
+    position: relative;
+}
+
+.carousel-container .custom-cursor {
+    content: "drag";
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    background-color: #319795; /* teal-650 */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+/* Show custom cursor only inside the carousel */
+.carousel-container.active .custom-cursor {
+    opacity: 1;
+}
+
+.carousel-image {
+    margin: 0; /* Remove extra margin */
+    padding: 0; /* Remove extra padding */
+}
+
+.carousel {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+.track {
+    display: flex;
+    animation: scrollLeft 20s linear infinite;
+}
+
+.image {
+    flex-shrink: 0;
+    width: 170px;
+    height: auto;
+    margin-right: 50px; /* Add spacing between images */
+}
+
+@keyframes scrollLeft {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-80%);
+    }
+}
+
+header {
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* css */
+/* Add these rules (append to ../app/globals.css) */
+
+@keyframes blob {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    25% {
+        transform: translate(20px, -50px) scale(1.1);
+    }
+    50% {
+        transform: translate(-20px, 20px) scale(0.9);
+    }
+    75% {
+        transform: translate(50px, 50px) scale(1.05);
+    }
+}
+
+@keyframes gradient {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes spin-slow {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin-reverse {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes pulse-slow {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+}
+
+.animate-blob {
+    animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+    animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+    animation-delay: 4s;
+}
+
+.animate-gradient {
+    background-size: 200% auto;
+    animation: gradient 3s ease infinite;
+}
+
+.animate-spin-slow {
+    animation: spin-slow 20s linear infinite;
+}
+
+.animate-spin-reverse {
+    animation: spin-reverse 15s linear infinite;
+}
+
+.animate-pulse-slow {
+    animation: pulse-slow 3s ease-in-out infinite;
+}
+
+.tawk-chat-offset {
+    bottom: 220px !important;
+    right: 20px !important;
+    z-index: 2147483647 !important;
+}
+
+
+/* Tawk launcher position override */
+iframe[src*="embed.tawk.to"],
+iframe[src*="tawk.to"],
+.tawk-minified,
+.tawk-button,
+.tawk-chat-window,
+#tawkchat-container,
+#tawkchat-iframe-container,
+#tawkchat-minified-box {
+    bottom: 220px !important;
+    right: 20px !important;
+    z-index: 2147483647 !important;
+    transform: translateY(0) !important;
+}
+
+/* If Tawk injects a wrapping iframe container */
+[id*="tawk"] {
+    bottom: 220px !important;
+    right: 20px !important;
+    z-index: 2147483647 !important;
+}

@@ -1,0 +1,11 @@
+
+> grey@0.1.0 dev
+> next dev -p 3000
+
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.129:3000
+- Environments: .env.local, .env
+✓ Ready in 1962ms
+
+ GET /login 200 in 10.9s (next.js: 1093ms, application-code: 9.8s)
