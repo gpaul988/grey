@@ -51,3 +51,11 @@ Other (1): support
 - [x] empty alt="" on healthcare + oil-and-gas Image -> descriptive alt
 - [x] Verified: ALL internal hrefs across pages+components resolve to real routes (0 missing)
 - [x] Smoke test: new pages return HTTP 200 on dev server
+
+## CONTENT-DEPTH UPGRADE — DONE (this session)
+- [x] ServicePageTemplate upgraded: video hero (fintech/healthcare style), heroStats, topImages, solutionsIntro, rotating reasons[] (framer-motion), ctaHeading/ctaBody. title/solutionsHeading now ReactNode.
+- [x] All 5 service pages rewritten rich (6 solutions, 4 reasons, 6 FAQs, 3 testimonials, 5 stats, video hero)
+- [x] All 11 industry stubs rewritten rich — saas & travel-and-hospitality completed this session (travel uses /assets/travel/hero.webm)
+- [x] Header travel-and-hospitality href verified correct (no .tsx bug)
+- [x] `next build` PASSES clean — all pages compiled static, 0 errors
+- [x] Audit: no broken .tsx hrefs; raw <img> only in email template (submit-form.ts) + 1 pre-existing crm file; next/image alts present

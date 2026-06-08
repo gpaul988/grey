@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState, type ReactNode} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import CountUp from 'react-countup';
+import {AnimatePresence, motion} from 'framer-motion';
 import {ArrowLeft, ArrowRight, Quote} from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -26,19 +27,37 @@ export interface StatItem {
     suffix?: string;
 }
 
+export interface HeroStat {
+    label: string;
+    value: string; // e.g. "8+"
+}
+
 export interface Testimonial {
     name: string;
     title: string;
     message: ReactNode;
 }
 
-export interface ServicePageProps {
-    /** Big H1 in the hero */
+export interface ReasonItem {
+    id: number;
     title: string;
+    description: ReactNode;
+    image: string;
+}
+
+export interface ServicePageProps {
+    /** Big H1 in the hero — pass an array for a two-line headline */
+    title: ReactNode;
     /** Lead paragraph under the hero title */
     intro: ReactNode;
-    /** Hero image src (under /public) */
-    heroImage: string;
+    /** Hero background video src (under /public). Falls back to /assets/hero/hero.mp4 */
+    heroVideo?: string;
+    /** Optional poster / fallback hero image when no video is desired */
+    heroImage?: string;
+    /** Small inline stats shown on the right of the hero (defaults provided) */
+    heroStats?: HeroStat[];
+    /** Optional pair of images shown directly below the hero intro */
+    topImages?: [string, string];
     /** Optional mid section image */
     midImage?: string;
     /** Small uppercase eyebrow in the intro section */
@@ -48,8 +67,16 @@ export interface ServicePageProps {
     /** Two-column intro body paragraphs */
     introBody: [ReactNode, ReactNode];
     /** "Our X Solutions" heading */
-    solutionsHeading: string;
+    solutionsHeading: ReactNode;
+    /** Optional lead paragraph beside the solutions heading */
+    solutionsIntro?: ReactNode;
     solutions: SolutionItem[];
+    /** Optional "Why Grey InfoTech" rotating reasons */
+    reasons?: ReasonItem[];
+    /** Heading for the closing CTA block */
+    ctaHeading?: ReactNode;
+    /** Body copy for the closing CTA block */
+    ctaBody?: ReactNode;
     faqs?: FaqItem[];
     stats?: StatItem[];
     testimonials?: Testimonial[];
@@ -57,10 +84,16 @@ export interface ServicePageProps {
 
 const defaultStats: StatItem[] = [
     {label: 'Years Experience', value: 8, suffix: '+'},
-    {label: 'Team Members', value: 10, suffix: '+'},
+    {label: 'Team Members', value: 13, suffix: '+'},
     {label: 'Products Launched', value: 150, suffix: '+'},
     {label: 'Projects Delivered', value: 200, suffix: '+'},
     {label: 'Client Satisfaction', value: 98, suffix: '%'},
+];
+
+const defaultHeroStats: HeroStat[] = [
+    {label: 'Years Experience', value: '8+'},
+    {label: 'Team Members', value: '13+'},
+    {label: 'Products Launched', value: '123+'},
 ];
 
 const defaultPartners = [
@@ -79,13 +112,20 @@ const defaultPartners = [
 const ServicePageTemplate: React.FC<ServicePageProps> = ({
     title,
     intro,
+    heroVideo = '/assets/hero/hero.mp4',
     heroImage,
+    heroStats = defaultHeroStats,
+    topImages,
     midImage,
     eyebrow,
     introHeading,
     introBody,
     solutionsHeading,
+    solutionsIntro,
     solutions,
+    reasons = [],
+    ctaHeading,
+    ctaBody,
     faqs = [],
     stats = defaultStats,
     testimonials = [],
@@ -96,6 +136,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
     const [activeId, setActiveId] = useState<string>('');
     const [openFaq, setOpenFaq] = useState<number | null>(null);
     const [current, setCurrent] = useState(0);
+    const [activeIndex, setActiveIndex] = useState(0);
 
     // Floating button visibility
     useEffect(() => {
@@ -155,6 +196,15 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
         return () => window.removeEventListener('scroll', handleScroll);
     }, [solutions]);
 
+    // Rotating "Why Grey InfoTech" reasons
+    useEffect(() => {
+        if (!reasons.length) return;
+        const interval = setInterval(() => {
+            setActiveIndex(prev => (prev + 1) % reasons.length);
+        }, 5000);
+        return () => clearInterval(interval);
+    }, [reasons]);
+
     const scrollToSection = (target: string) => {
         const section = document.getElementById(target);
         if (section) {
@@ -174,21 +224,52 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${isVisible ? 'mb-16' : 'mb-0'}`}
             />
 
-            {/* Hero Section */}
+            {/* Hero Section — video background, fintech/healthcare style */}
             <div id={'hero'}
-                 className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                <h1 className={`border-b pb-[0.5em] border-gray-500/50 px-0 constant-text lg:text-[5.45em] md:text-[5.45em] sm:text-[2em] text-[2.5em] lg:mt-[2.5em] md:mt-[2.5em] mt-[1em] leading-[1.1] font-[600]`}>
-                    {title}
-                </h1>
-                <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>{intro}</p>
-                <div className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] md:mt-[3em] bg-gray-300/10'}>
+                 className={'relative overflow-hidden lg:w-full lg:h-[720px] justify-center items-center md:w-full md:h-[700px] w-full h-[640px] pb-6'}>
+                {heroVideo ? (
+                    <video
+                        src={heroVideo}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="lg:w-full lg:h-[720px] md:w-full md:h-[700px] w-full h-[640px] object-cover"
+                    />
+                ) : heroImage ? (
                     <Image
                         src={heroImage}
-                        alt={title}
-                        width={1920}
-                        height={1080}
-                        style={{objectFit: 'cover', objectPosition: 'center'}}
+                        alt={typeof title === 'string' ? title : 'hero'}
+                        fill
+                        priority
+                        className="object-cover"
                     />
+                ) : null}
+                {/* readability overlay */}
+                <div className="absolute inset-0 bg-black/40"/>
+                <div
+                    className={'absolute top-0 left-0 w-full h-full flex flex-col justify-center items-start text-start px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] text-white'}>
+                    <div
+                        className="flex flex-col justify-start items-start border-b pb-[0.3em] border-gray-400/50 max-w-full w-full mx-auto">
+                        <h1
+                            className={'px-0 constant-text lg:text-[5.35em] md:text-[4.4em] sm:text-[3.5em] text-[2em] lg:mt-[3em] md:mt-[3em] mt-[4em] w-auto h-auto leading-[1.1] font-[600]'}>
+                            {title}
+                        </h1>
+                    </div>
+                    <div
+                        className={'relative grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 lg:mt-[1em] md:mt-[1em] mt-[0.5em] w-full max-w-full mx-auto'}>
+                        <div className={'lg:-mr-[4em] md:-mr-[1em] lg:mt-[1em] md:mt-[1em]'}>
+                            <p className={'text-[0.87em] font-[300]'}>{intro}</p>
+                        </div>
+                        <div className={'relative grid lg:grid-cols-3 lg:gap-8 lg:ml-[13em]'}>
+                            {heroStats.map((s, i) => (
+                                <div key={i} className={'border-0 lg:block md:hidden sm:hidden hidden'}>
+                                    <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>{s.value}</h6>
+                                    <p className={'text-[0.7em] font-[300]'}>{s.label}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -217,6 +298,22 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                 </div>
             </section>
 
+            {/* Top images */}
+            {topImages && (
+                <div className={`${isDayTime ? 'bg-black' : 'bg-white'}`}>
+                    <div className={'relative lg:max-w-full w-full lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[5em] md:pb-[5em] pb-[2em] mx-auto h-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'}>
+                        <div className={'relative grid lg:grid-cols-2 h-auto md:grid-cols-2 grid-cols-1 gap-6'}>
+                            <div className={'h-auto w-full max-w-full'}>
+                                <Image src={topImages[0]} alt={'detail'} width={1396} height={1440}/>
+                            </div>
+                            <div>
+                                <Image src={topImages[1]} alt={'detail'} width={1396} height={1440}/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Solutions */}
             <div className={`lg:pt-[2em] md:pt-[2em] pt-[1em] ${isDayTime ? 'bg-white' : 'bg-black'}`}>
                 <div className={'relative lg:pt-[3em] md:pt-[3em] pt-[1em] lg:pb-[6em] md:pb-[6em] pb-[1em] lg:mt-[3em] md:mt-[3em] mt-[1em] lg:mb-[6em] md:mb-[6em] mb-[1em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]'}>
@@ -226,6 +323,13 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                 {solutionsHeading}
                             </h2>
                         </div>
+                        {solutionsIntro && (
+                            <div>
+                                <p className='text-[0.87em] font-[400] justify-center text-justify leading-[1.5] lg:-ml-[7.5em] tracking-normal'>
+                                    {solutionsIntro}
+                                </p>
+                            </div>
+                        )}
                     </div>
                     <div className='grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-16 lg:mt-28 md:mt-28 mt-6 px-6 max-w-full w-full mx-auto h-full'>
                         <div className='lg:sticky md:sticky top-28 lg:h-screen md:h-screen lg:mr-[11em] overflow-hidden'>
@@ -281,11 +385,66 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                     <Image
                         className={'object-fill'}
                         src={midImage}
-                        alt={title}
+                        alt={typeof title === 'string' ? title : 'detail'}
                         width={2560}
                         height={1440}
                         style={{objectFit: 'fill', objectPosition: 'center'}}
                     />
+                </div>
+            )}
+
+            {/* Why Grey InfoTech (rotating reasons) */}
+            {reasons.length > 0 && (
+                <div className={`${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
+                    <div className={'relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] lg:py-[5em] py-10'}>
+                        <h2 className={'lg:text-[3em] text-[1.8em] font-[600] leading-[1.1] mb-[0.8em]'}>
+                            Why Grey InfoTech
+                        </h2>
+                        <div className={'grid lg:grid-cols-2 grid-cols-1 gap-10 items-center'}>
+                            <div className={'space-y-4'}>
+                                {reasons.map((r, i) => (
+                                    <button
+                                        key={r.id}
+                                        onClick={() => setActiveIndex(i)}
+                                        className={`block w-full text-left border-b border-gray-500/30 pb-4 transition-opacity ${activeIndex === i ? 'opacity-100' : 'opacity-50'}`}
+                                    >
+                                        <h3 className={'text-[1.4em] font-[500] mb-2'}>{r.title}</h3>
+                                        <AnimatePresence>
+                                            {activeIndex === i && (
+                                                <motion.p
+                                                    initial={{opacity: 0, height: 0}}
+                                                    animate={{opacity: 1, height: 'auto'}}
+                                                    exit={{opacity: 0, height: 0}}
+                                                    className={'text-[0.85em] font-[300] leading-[1.6] text-justify overflow-hidden'}
+                                                >
+                                                    {r.description}
+                                                </motion.p>
+                                            )}
+                                        </AnimatePresence>
+                                    </button>
+                                ))}
+                            </div>
+                            <div className={'relative h-[420px] w-full rounded-2xl overflow-hidden'}>
+                                <AnimatePresence mode={'wait'}>
+                                    <motion.div
+                                        key={reasons[activeIndex].id}
+                                        initial={{opacity: 0}}
+                                        animate={{opacity: 1}}
+                                        exit={{opacity: 0}}
+                                        transition={{duration: 0.5}}
+                                        className={'absolute inset-0'}
+                                    >
+                                        <Image
+                                            src={reasons[activeIndex].image}
+                                            alt={reasons[activeIndex].title}
+                                            fill
+                                            className={'object-cover'}
+                                        />
+                                    </motion.div>
+                                </AnimatePresence>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             )}
 
@@ -371,13 +530,13 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
             <div className={`${isDayTime ? 'bg-black' : 'bg-white'}`}>
                 <div className={`relative lg:py-14 md:py-16 lg:mb-16 md:mb-16 mb-5 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${isDayTime ? 'text-white' : 'text-black'}`}>
                     <h1 className={'lg:text-[5em] md:text-[4em] sm:text-[3em] text-[2em] font-[600] leading-[1.1] mb-[0.6em]'}>
-                        Your trusted <br className={'lg:block md:block hidden'}/>digital partner
+                        {ctaHeading || (<>Your trusted <br className={'lg:block md:block hidden'}/>digital partner</>)}
                     </h1>
                     <p className={'text-[0.873em] font-[300] leading-[1.5] text-justify lg:pr-[33em] mb-10'}>
-                        We specialize in crafting high-impact marketing websites, innovative web apps, and mobile
-                        applications that drive real results. From funded startups to established businesses, we&#39;ve
-                        helped a wide range of clients bring their digital products to life—delivering standout
-                        experiences that fuel growth, engagement, and long-term success.
+                        {ctaBody || (<>We specialize in crafting high-impact marketing websites, innovative web apps, and mobile
+                            applications that drive real results. From funded startups to established businesses, we&#39;ve
+                            helped a wide range of clients bring their digital products to life—delivering standout
+                            experiences that fuel growth, engagement, and long-term success.</>)}
                     </p>
                     <Link href='/contact'>
                         <button className='relative mx-auto inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em] border tracking-tighter rounded-full py-2 px-6'>
