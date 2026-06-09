@@ -139,6 +139,7 @@ export default function TawkChat({propertyId, widgetId, offsetPx}: TawkChatProps
             resizeTimer = window.setTimeout(() => tryApply(), 50);
         };
 
+        // eslint-disable-next-line prefer-const
         mutationObserver = new MutationObserver(() => scheduleApply());
         mutationObserver.observe(document.body, {childList: true, subtree: true, attributes: true});
 

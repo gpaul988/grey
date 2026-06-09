@@ -18,7 +18,8 @@ db.pragma('foreign_keys = ON');
 // to avoid the circular-import race (schema.ts would otherwise re-require this
 // module before its default export is assigned).
 try {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+     
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { migrate } = require('./schema') as typeof import('./schema');
     migrate(db);
 } catch (err) {

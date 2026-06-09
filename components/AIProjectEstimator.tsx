@@ -599,7 +599,7 @@ export default function AIProjectEstimator() {
         const industry = INDUSTRY_OPTIONS[industryTier];
 
         // Base cost from budget tier
-        let baseNgn = budget.baseNgn;
+        const baseNgn = budget.baseNgn;
 
         // Add service costs (each service adds 300K)
         const serviceCost = Math.max(0, selectedServices.length) * 300_000;

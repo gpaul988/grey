@@ -27,7 +27,7 @@ function WishlistInner() {
     };
     useEffect(load, [router]);
     // re-load when wishlist changes
-    useEffect(() => { if (customer) load(); /* eslint-disable-next-line */ }, [wishlistIds.length]);
+    useEffect(() => { if (customer) load();   }, [wishlistIds.length]);
 
     if (loading) return <div className="st-card h-64 animate-pulse" />;
 

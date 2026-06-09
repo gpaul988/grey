@@ -94,7 +94,7 @@ function CheckoutInner() {
         }
     };
 
-    const startPayment = async (method: string, orderNumber: string, amount: number) => {
+    const startPayment = async (method: string, orderNumber: string, _amount: number) => {
         if (method === 'bank_transfer' || method === 'monnify') {
             router.push(`/store/orders/${orderNumber}`);
             return;
