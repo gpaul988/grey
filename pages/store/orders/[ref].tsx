@@ -23,7 +23,7 @@ export default function OrderPage() {
 function OrderInner() {
     const router = useRouter();
     const config = useContext(ConfigContext);
-    const { ref, verify, gateway, reference, transaction_id, trxref, status: flwStatus } = router.query as Record<string, string>;
+    const { ref, verify, gateway, reference, transaction_id, trxref } = router.query as Record<string, string>;
     const [order, setOrder] = useState<Order | null>(null);
     const [loading, setLoading] = useState(true);
     const [verifying, setVerifying] = useState(false);

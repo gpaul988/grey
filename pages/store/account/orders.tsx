@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import StoreShell from '@/components/store/StoreShell';
-import { useStore } from '@/components/store/StoreContext';
 import { api } from '@/components/store/lib';
 import { FiPackage } from 'react-icons/fi';
 
@@ -16,7 +15,6 @@ export default function OrdersPage() {
 
 function OrdersInner() {
     const router = useRouter();
-    const { customer } = useStore();
     const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(true);
 

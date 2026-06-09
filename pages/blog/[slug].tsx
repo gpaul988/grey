@@ -466,7 +466,7 @@ export default function BlogPost() {
                 }`}>
                     <h3 className="text-2xl font-semibold mb-3">Have a project or idea?</h3>
                     <p className={`mb-6 text-base ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}>
-                        Let's discuss how we can help you build what's next.
+                        Let&apos;s discuss how we can help you build what&apos;s next.
                     </p>
                     <Link
                         href="/contact"

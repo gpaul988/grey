@@ -6,7 +6,8 @@ import type DatabaseType from 'better-sqlite3';
  * Falls back to requiring ./index when called without an argument.
  */
 export function migrate(database?: DatabaseType.Database): void {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+     
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const db = database ?? (require('./index') as typeof import('./index')).default;
     db.exec(`
     CREATE TABLE IF NOT EXISTS users (

@@ -274,7 +274,7 @@ const Blog = () => {
                 <div
                     className="mx-auto max-w-[90rem] lg:px-[4.5em] flex flex-col md:flex-row items-center justify-between gap-8">
                     <h2 className="text-4xl md:text-5xl font-semibold leading-tight">
-                        Let's make<br/>something incredible.
+                        Let&apos;s make<br/>something incredible.
                     </h2>
                     <Link
                         href="/contact"

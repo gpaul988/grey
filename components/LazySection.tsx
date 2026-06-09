@@ -56,7 +56,7 @@ export const LazySection = React.forwardRef<
         }, [threshold, rootMargin, onVisible]);
 
         return (
-            <div ref={divRef as any} className={className}>
+            <div ref={divRef as React.Ref<HTMLDivElement>} className={className}>
                 {isVisible ? children : fallback}
             </div>
         );
