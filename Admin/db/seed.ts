@@ -2,8 +2,10 @@ import db from './index';
 import { migrate } from './schema';
 import {
     Users, Submissions, Leads, Clients, Projects, Tickets, TicketMessages,
-    Invoices, CaseStudies, BlogPosts, Conversations, Messages, nextInvoiceNumber,
+    Invoices, CaseStudies, BlogPosts, Conversations, Messages, Participants,
+    Verification, nextInvoiceNumber,
 } from '../models';
+import { sendSetPasswordEmail, appOrigin } from '../utils/mailer';
 
 const SEED_ADMIN_EMAIL = process.env.SEED_ADMIN_EMAIL || 'hello@greyinfotech.com.ng';
 const SEED_ADMIN_PASSWORD = process.env.SEED_ADMIN_PASSWORD || 'GreyAdmin@2026';
@@ -17,19 +19,38 @@ async function seed() {
         return;
     }
 
-    // --- Users / team ---
+    // --- Super admin (CEO / founder) ---
+    // Created with NO password and unverified: a set-password + verification
+    // email is sent so Graham activates the account himself. Falls back to a
+    // printed dev link when SMTP isn't configured.
+    const ceo = await Users.create({
+        name: 'Graham Sobiribo Paul',
+        email: 'graham@greyinfotech.com.ng',
+        role: 'superadmin',
+        phone: '+234 802 809 5571',
+        email_verified: false,
+        status: 'pending',
+    });
+    {
+        const { token, code } = Verification.issue({ subjectType: 'user', subjectId: ceo.id, email: ceo.email, purpose: 'set_password' });
+        const sent = await sendSetPasswordEmail({ to: ceo.email, name: ceo.name, token, verificationId: code, audience: 'team', roleLabel: 'Super Admin (CEO)' });
+        console.log(`CEO super-admin seeded (${ceo.email}). Verification ID: ${code}`);
+        if (!sent) console.log(`  -> Dev set-password link: ${appOrigin()}/set-password/${token}`);
+    }
+
+    // --- Users / team (pre-verified so they can log in immediately) ---
     const admin = await Users.create({
         name: 'Grey InfoTech Admin', email: SEED_ADMIN_EMAIL, password: SEED_ADMIN_PASSWORD, role: 'admin',
-        phone: '+234 802 809 5571',
+        phone: '+234 802 809 5571', email_verified: true,
     });
-    const manager = await Users.create({ name: 'Project Manager', email: 'pm@greyinfotech.com.ng', password: 'GreyTeam@2026', role: 'manager' });
-    await Users.create({ name: 'Support Agent', email: 'support@greyinfotech.com.ng', password: 'GreyTeam@2026', role: 'staff' });
+    const manager = await Users.create({ name: 'Project Manager', email: 'pm@greyinfotech.com.ng', password: 'GreyTeam@2026', role: 'manager', email_verified: true });
+    await Users.create({ name: 'Support Agent', email: 'support@greyinfotech.com.ng', password: 'GreyTeam@2026', role: 'staff', email_verified: true });
     console.log('Users seeded.');
 
     // --- Clients ---
-    const c1 = Clients.create({ name: 'Ada Okafor', email: 'ada@taskflow.io', company: 'TaskFlow Inc', phone: '+234 803 111 2222', avatar: null });
-    const c2 = Clients.create({ name: 'Tunde Bello', email: 'tunde@naijapay.ng', company: 'NaijaPay', phone: '+234 805 333 4444', avatar: null });
-    const c3 = Clients.create({ name: 'Grace Eze', email: 'grace@medlink.africa', company: 'MedLink Africa', phone: '+234 807 555 6666', avatar: null });
+    const c1 = await Clients.create({ name: 'Ada Okafor', email: 'ada@taskflow.io', company: 'TaskFlow Inc', phone: '+234 803 111 2222', password: 'ClientPass@2026', email_verified: true });
+    const c2 = await Clients.create({ name: 'Tunde Bello', email: 'tunde@naijapay.ng', company: 'NaijaPay', phone: '+234 805 333 4444', password: 'ClientPass@2026', email_verified: true });
+    const c3 = await Clients.create({ name: 'Grace Eze', email: 'grace@medlink.africa', company: 'MedLink Africa', phone: '+234 807 555 6666', password: 'ClientPass@2026', email_verified: true });
     console.log('Clients seeded.');
 
     // --- Submissions (contact inbox) ---
@@ -93,6 +114,9 @@ async function seed() {
     const conv2 = Conversations.create({ client_id: c2.id, subject: 'Proposal questions', last_message: 'I will review and revert.', unread: 0 });
     Messages.create({ conversation_id: conv2.id, sender: 'client', sender_name: 'Tunde Bello', body: 'Got the proposal, a few questions on timeline.' });
     Messages.create({ conversation_id: conv2.id, sender: 'staff', sender_name: 'Grey InfoTech Admin', body: 'Happy to walk you through it. I will review and revert.' });
+    // Register the owning client as a participant in each conversation.
+    Participants.add({ conversation_id: conv1.id, participant_type: 'client', participant_id: c1.id, name: 'Ada Okafor' });
+    Participants.add({ conversation_id: conv2.id, participant_type: 'client', participant_id: c2.id, name: 'Tunde Bello' });
     console.log('Conversations seeded.');
 
     console.log('\n=== SEED COMPLETE ===');
