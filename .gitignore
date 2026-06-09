@@ -54,3 +54,6 @@ Admin/data/*.db-shm
 Admin/data/*.db-wal
 Admin/node_modules
 **/node_modules
+
+# local push token (never commit)
+.git-push.env
