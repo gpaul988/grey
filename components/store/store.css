@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  --st-bg: #0b0f14;
+  --st-surface: #121821;
+  --st-surface-2: #1a2230;
+  --st-border: #243042;
+  --st-teal: #2dd4bf;
+  --st-teal-600: #14b8a6;
+  --st-text: #e6edf3;
+  --st-muted: #8b97a8;
+}
+
+.store-root {
+  background: var(--st-bg);
+  color: var(--st-text);
+  min-height: 100vh;
+  font-family: var(--font-roboto), system-ui, -apple-system, sans-serif;
+}
+
+.store-root *::-webkit-scrollbar { width: 8px; height: 8px; }
+.store-root *::-webkit-scrollbar-thumb { background: var(--st-teal); border-radius: 8px; }
+
+.st-card {
+  background: var(--st-surface);
+  border: 1px solid var(--st-border);
+  border-radius: 16px;
+}
+
+.st-btn {
+  background: var(--st-teal);
+  color: #04130f;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all .18s ease;
+}
+.st-btn:hover { background: var(--st-teal-600); transform: translateY(-1px); }
+.st-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+.st-btn-ghost {
+  background: var(--st-surface-2);
+  color: var(--st-text);
+  border: 1px solid var(--st-border);
+  border-radius: 10px;
+  transition: all .18s ease;
+}
+.st-btn-ghost:hover { border-color: var(--st-teal); color: var(--st-teal); }
+
+.st-input {
+  background: var(--st-surface-2);
+  border: 1px solid var(--st-border);
+  border-radius: 10px;
+  color: var(--st-text);
+  padding: 10px 14px;
+  width: 100%;
+  outline: none;
+  transition: border .18s ease;
+}
+.st-input:focus { border-color: var(--st-teal); }
+.st-input::placeholder { color: var(--st-muted); }
+
+.st-link { color: var(--st-muted); transition: color .15s ease; }
+.st-link:hover { color: var(--st-teal); }
+
+.st-badge {
+  background: rgba(45, 212, 191, .12);
+  color: var(--st-teal);
+  border: 1px solid rgba(45, 212, 191, .25);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 10px;
+}
+
+.st-hover-card { transition: transform .2s ease, border-color .2s ease; }
+.st-hover-card:hover { transform: translateY(-4px); border-color: var(--st-teal); }
+
+@keyframes st-fade-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.st-fade { animation: st-fade-up .5s ease both; }

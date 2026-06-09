@@ -114,6 +114,50 @@
                 </a>
             </li>
 
+            <li class="side-nav-title">Store</li>
+
+            <li class="side-nav-item">
+                <a href="/admin/store/products" class="side-nav-link<%= isActive('store/products') || isActive('store/product') ? ' active' : '' %>">
+                    <span class="menu-icon"><i class="ti ti-device-laptop"></i></span>
+                    <span class="menu-text"> Products </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/store/orders" class="side-nav-link<%= isActive('store/orders') || isActive('store/order') ? ' active' : '' %>">
+                    <span class="menu-icon"><i class="ti ti-shopping-cart"></i></span>
+                    <span class="menu-text"> Orders </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/store/customers" class="side-nav-link<%= isActive('store/customers') || isActive('store/customer') ? ' active' : '' %>">
+                    <span class="menu-icon"><i class="ti ti-users"></i></span>
+                    <span class="menu-text"> Customers </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/store/categories" class="side-nav-link<%= isActive('store/categories') ? ' active' : '' %>">
+                    <span class="menu-icon"><i class="ti ti-category"></i></span>
+                    <span class="menu-text"> Categories </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/store/brands" class="side-nav-link<%= isActive('store/brands') ? ' active' : '' %>">
+                    <span class="menu-icon"><i class="ti ti-building-store"></i></span>
+                    <span class="menu-text"> Brands </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/store/settings" class="side-nav-link<%= isActive('store/settings') ? ' active' : '' %>">
+                    <span class="menu-icon"><i class="ti ti-settings-2"></i></span>
+                    <span class="menu-text"> Store Settings </span>
+                </a>
+            </li>
+
             <li class="side-nav-title">Operations</li>
 
             <li class="side-nav-item">

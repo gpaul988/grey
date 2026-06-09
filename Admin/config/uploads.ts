@@ -46,3 +46,16 @@ export const fileUpload = multer({
     }),
     limits: { fileSize: 15 * 1024 * 1024 },
 });
+
+/** Multer instance for product/brand images (5 MB cap, image only). */
+export const productUpload = multer({
+    storage: multer.diskStorage({
+        destination: (_req, _file, cb) => cb(null, ensureUploadDir('products')),
+        filename: (_req, file, cb) => cb(null, safeName(file.originalname)),
+    }),
+    limits: { fileSize: 5 * 1024 * 1024 },
+    fileFilter: (_req, file, cb) => {
+        if (IMAGE_TYPES.includes(file.mimetype)) cb(null, true);
+        else cb(new Error('Only image files are allowed'));
+    },
+});

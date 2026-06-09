@@ -1,8 +1,9 @@
 import express, { type Request, type Response } from 'express';
-import { ensureApiAuth, requireRole } from '../middleware/authMiddleware';
+import { ensureApiAuth, requireRole, requirePermission } from '../middleware/authMiddleware';
 import {
     Users, Submissions, Leads, Clients, Projects, Tickets, TicketMessages,
     Invoices, CaseStudies, BlogPosts, Conversations, Messages,
+    Products, ProductCategories, ProductBrands, Customers, Orders, ProductReviews, Coupons,
     logActivity, nextInvoiceNumber, dashboardStats,
 } from '../models';
 import { slugify, str, toFloat, toInt, isEmail } from '../utils/helpers';
@@ -381,6 +382,87 @@ api.delete('/users/:id', requireRole('admin'), (req, res) => {
     Users.delete(id);
     logActivity({ ...actor(req), action: 'delete', entity: 'user', entity_id: id });
     ok(res, null, 'User deleted');
+});
+
+/* ================= STORE API ================= */
+
+/* ---- Products ---- */
+api.delete('/store/products/:id', requirePermission('store.manage'), (req, res) => {
+    const id = toInt(req.params.id);
+    const p = Products.find(id);
+    if (!p) return fail(res, 'Product not found', 404);
+    Products.delete(id);
+    logActivity({ ...actor(req), action: 'delete', entity: 'product', entity_id: id, detail: p.name });
+    ok(res, null, 'Product deleted');
+});
+api.patch('/store/products/:id/status', requirePermission('store.manage'), (req, res) => {
+    const updated = Products.update(toInt(req.params.id), { status: str(req.body.status) });
+    if (!updated) return fail(res, 'Not found', 404);
+    ok(res, updated, 'Status updated');
+});
+
+/* ---- Categories ---- */
+api.delete('/store/categories/:id', requirePermission('store.manage'), (req, res) => {
+    ProductCategories.delete(toInt(req.params.id));
+    logActivity({ ...actor(req), action: 'delete', entity: 'category', entity_id: toInt(req.params.id) });
+    ok(res, null, 'Category deleted');
+});
+
+/* ---- Brands ---- */
+api.delete('/store/brands/:id', requirePermission('store.manage'), (req, res) => {
+    ProductBrands.delete(toInt(req.params.id));
+    logActivity({ ...actor(req), action: 'delete', entity: 'brand', entity_id: toInt(req.params.id) });
+    ok(res, null, 'Brand deleted');
+});
+
+/* ---- Orders ---- */
+api.post('/store/orders/:id/status', requirePermission('store.manage'), (req, res) => {
+    const id = toInt(req.params.id);
+    const order = Orders.find(id);
+    if (!order) return fail(res, 'Order not found', 404);
+    if (req.body.status) Orders.updateStatus(id, str(req.body.status));
+    if (req.body.payment_status) {
+        const newPay = str(req.body.payment_status);
+        Orders.updatePayment(id, { payment_status: newPay, payment_method: order.payment_method || undefined, payment_gateway: order.payment_gateway || undefined, payment_ref: order.payment_ref || undefined });
+        // When an admin marks a previously-unpaid order as paid (e.g. confirming a bank transfer), bump coupon usage.
+        if (newPay === 'paid' && order.payment_status !== 'paid' && order.coupon_code) {
+            try { Coupons.incrementUsage(order.coupon_code); } catch { /* noop */ }
+        }
+    }
+    logActivity({ ...actor(req), action: 'update', entity: 'order', entity_id: id, detail: `status=${req.body.status}` });
+    ok(res, null, 'Order updated');
+});
+api.post('/store/orders/:id/confirm-payment', requirePermission('store.manage'), (req, res) => {
+    const id = toInt(req.params.id);
+    const order = Orders.find(id);
+    if (!order) return fail(res, 'Order not found', 404);
+    Orders.updatePayment(id, { payment_status: 'paid', payment_method: order.payment_method || 'bank_transfer', payment_gateway: order.payment_gateway || 'bank_transfer', payment_ref: order.payment_ref || order.order_number });
+    Orders.updateStatus(id, 'confirmed');
+    if (order.payment_status !== 'paid' && order.coupon_code) { try { Coupons.incrementUsage(order.coupon_code); } catch { /* noop */ } }
+    logActivity({ ...actor(req), action: 'confirm_payment', entity: 'order', entity_id: id, detail: order.order_number });
+    ok(res, null, 'Payment confirmed');
+});
+api.post('/store/orders/:id/notes', requirePermission('store.manage'), (req, res) => {
+    Orders.updateStaffNotes(toInt(req.params.id), str(req.body.notes));
+    ok(res, null, 'Notes saved');
+});
+
+/* ---- Customers ---- */
+api.post('/store/customers/:id/status', requirePermission('store.manage'), (req, res) => {
+    const updated = Customers.update(toInt(req.params.id), { status: str(req.body.status) });
+    if (!updated) return fail(res, 'Not found', 404);
+    logActivity({ ...actor(req), action: 'update', entity: 'customer', entity_id: updated.id, detail: `status=${updated.status}` });
+    ok(res, updated, 'Customer updated');
+});
+
+/* ---- Reviews ---- */
+api.post('/store/reviews/:id/approve', requirePermission('store.manage'), (req, res) => {
+    ProductReviews.approve(toInt(req.params.id));
+    ok(res, null, 'Review approved');
+});
+api.post('/store/reviews/:id/reject', requirePermission('store.manage'), (req, res) => {
+    ProductReviews.reject(toInt(req.params.id));
+    ok(res, null, 'Review rejected');
 });
 
 export default api;

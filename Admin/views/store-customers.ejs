@@ -1,0 +1,56 @@
+<%- contentFor('html_attribute') %>
+
+<%- contentFor('extra_css') %>
+<link rel="stylesheet" href="/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css"><link rel="stylesheet" href="/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css">
+
+<%- contentFor('content') %>
+
+    <%- include('./partials/page-title', {title: 'Customers', subtitle: 'Store'}) %>
+
+    <div class="card">
+        <div class="card-header"><h4 class="card-title">Store Customers</h4></div>
+        <div class="card-body">
+            <table id="customersTable" class="table table-striped dt-responsive nowrap w-100">
+                <thead>
+                    <tr><th>Name</th><th>Email</th><th>Phone</th><th>Location</th><th>Orders</th><th>Status</th><th>Joined</th><th>Actions</th></tr>
+                </thead>
+                <tbody>
+                    <% customers.forEach(c => { %>
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <% if(c.avatar) { %>
+                                <img src="<%= c.avatar %>" class="rounded-circle" style="width:36px;height:36px;object-fit:cover">
+                                <% } else { %>
+                                <div class="avatar-xs rounded-circle bg-primary-subtle d-flex align-items-center justify-content-center flex-shrink-0">
+                                    <span class="text-primary fw-semibold small"><%= (c.first_name[0]+(c.last_name[0]||'')).toUpperCase() %></span>
+                                </div>
+                                <% } %>
+                                <div>
+                                    <strong><%= c.first_name %> <%= c.last_name %></strong>
+                                    <% if(c.password_hash !== undefined) { %><br><small class="badge bg-primary-subtle text-primary">Has Account</small><% } %>
+                                </div>
+                            </div>
+                        </td>
+                        <td><%= c.email || '—' %></td>
+                        <td><%= c.phone %></td>
+                        <td><%= [c.city, c.state].filter(Boolean).join(', ') || '—' %></td>
+                        <td><span class="badge bg-info-subtle text-info"><%= c.order_count || 0 %></span></td>
+                        <td>
+                            <span class="badge bg-<%= c.status === 'active' ? 'success' : 'danger' %>-subtle text-<%= c.status === 'active' ? 'success' : 'danger' %>"><%= c.status %></span>
+                        </td>
+                        <td><small><%= new Date(c.created_at).toLocaleDateString('en-NG') %></small></td>
+                        <td><a href="/admin/store/customers/<%= c.id %>" class="btn btn-sm btn-soft-primary">View</a></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<%- contentFor('extra_javascript') %>
+<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+<script>$(function(){ $('#customersTable').DataTable({ responsive:true, order:[[6,'desc']], columnDefs:[{orderable:false,targets:[7]}] }); });</script>

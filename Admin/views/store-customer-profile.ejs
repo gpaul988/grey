@@ -1,0 +1,110 @@
+<%- contentFor('html_attribute') %>
+
+<%- contentFor('content') %>
+
+    <%- include('./partials/page-title', {title: customer.first_name + ' ' + customer.last_name, subtitle: 'Store / Customers'}) %>
+
+    <div class="row g-3">
+        <div class="col-xl-4">
+            <div class="card text-center mb-3">
+                <div class="card-body pt-4">
+                    <% if(customer.avatar) { %>
+                    <img src="<%= customer.avatar %>" class="rounded-circle mb-3" style="width:90px;height:90px;object-fit:cover">
+                    <% } else { %>
+                    <div class="mx-auto mb-3 rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width:90px;height:90px">
+                        <span class="text-white fs-2 fw-bold"><%= customer.first_name[0] %><%= customer.last_name[0] %></span>
+                    </div>
+                    <% } %>
+                    <h5 class="mb-1"><%= customer.first_name %> <%= customer.last_name %></h5>
+                    <% if(customer.email) { %><p class="text-muted small mb-1"><%= customer.email %></p><% } %>
+                    <p class="text-muted small mb-2"><%= customer.phone %></p>
+                    <span class="badge bg-<%= customer.status === 'active' ? 'success' : 'danger' %>-subtle text-<%= customer.status === 'active' ? 'success' : 'danger' %> mb-2"><%= customer.status %></span>
+                    <% if(customer.email_verified) { %><span class="badge bg-primary-subtle text-primary mb-2 ms-1">Verified</span><% } %>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header"><h6 class="card-title mb-0">Bio Data</h6></div>
+                <div class="card-body">
+                    <table class="table table-sm table-borderless mb-0">
+                        <tr><th class="text-muted w-40">Gender</th><td><%= customer.gender || '—' %></td></tr>
+                        <tr><th class="text-muted">DOB</th><td><%= customer.date_of_birth || '—' %></td></tr>
+                        <tr><th class="text-muted">Address</th><td><%= customer.address || '—' %></td></tr>
+                        <tr><th class="text-muted">City</th><td><%= customer.city || '—' %></td></tr>
+                        <tr><th class="text-muted">State</th><td><%= customer.state || '—' %></td></tr>
+                        <tr><th class="text-muted">Country</th><td><%= customer.country %></td></tr>
+                        <tr><th class="text-muted">Joined</th><td><%= new Date(customer.created_at).toLocaleDateString('en-NG') %></td></tr>
+                        <tr><th class="text-muted">Last Login</th><td><%= customer.last_login ? new Date(customer.last_login).toLocaleDateString('en-NG') : 'Never' %></td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Status Actions -->
+            <div class="card">
+                <div class="card-body">
+                    <% if(customer.status === 'active') { %>
+                    <button class="btn btn-danger w-100" onclick="setStatus('suspended')">Suspend Customer</button>
+                    <% } else { %>
+                    <button class="btn btn-success w-100" onclick="setStatus('active')">Activate Customer</button>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-8">
+            <% if(customer.bio) { %>
+            <div class="card mb-3">
+                <div class="card-header"><h6 class="card-title mb-0">About</h6></div>
+                <div class="card-body"><p class="mb-0"><%= customer.bio %></p></div>
+            </div>
+            <% } %>
+
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="card-title mb-0">Order History</h6>
+                    <span class="badge bg-primary-subtle text-primary"><%= orders.length %> orders</span>
+                </div>
+                <div class="card-body p-0">
+                    <% if(orders.length === 0) { %>
+                    <div class="text-center py-4 text-muted"><i class="ti ti-shopping-cart-off fs-2 d-block mb-2"></i>No orders yet</div>
+                    <% } else { %>
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead class="table-light">
+                                <tr><th>Order #</th><th>Total</th><th>Payment</th><th>Status</th><th>Date</th><th></th></tr>
+                            </thead>
+                            <tbody>
+                                <% orders.forEach(o => { %>
+                                <tr>
+                                    <td><strong class="text-primary">#<%= o.order_number %></strong></td>
+                                    <td><%- fmtMoney(o.total) %></td>
+                                    <td>
+                                        <% const ps = {paid:'success',unpaid:'secondary',pending:'warning',failed:'danger',refunded:'info'}[o.payment_status] || 'secondary' %>
+                                        <span class="badge bg-<%= ps %>-subtle text-<%= ps %>"><%= o.payment_status %></span>
+                                    </td>
+                                    <td>
+                                        <% const sc = {pending:'warning',confirmed:'info',processing:'primary',shipped:'info',delivered:'success',cancelled:'danger',refunded:'secondary'}[o.status] || 'secondary' %>
+                                        <span class="badge bg-<%= sc %>-subtle text-<%= sc %>"><%= o.status %></span>
+                                    </td>
+                                    <td><small><%= new Date(o.created_at).toLocaleDateString('en-NG') %></small></td>
+                                    <td><a href="/admin/store/orders/<%= o.id %>" class="btn btn-xs btn-soft-primary">View</a></td>
+                                </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<%- contentFor('extra_javascript') %>
+<script>
+function setStatus(status) {
+    fetch('/admin/api/store/customers/<%= customer.id %>/status', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({status})
+    }).then(r=>r.json()).then(d=>{ if(d.ok) location.reload(); else Swal.fire('Error',d.error,'error'); });
+}
+</script>

@@ -1,0 +1,177 @@
+<%- contentFor('html_attribute') %>
+
+<%- contentFor('content') %>
+
+    <%- include('./partials/page-title', {title: 'Store Settings', subtitle: 'Store'}) %>
+
+    <% const _isSuper = (typeof isSuperadmin !== 'undefined') ? isSuperadmin : false; %>
+
+    <form method="POST" action="/admin/store/settings">
+        <div class="row g-3">
+            <!-- General Store Settings -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header"><h5 class="card-title mb-0"><i class="ti ti-settings me-2"></i>General</h5></div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Store Name</label>
+                                <input type="text" name="store.name" class="form-control" value="<%= s['store.name'] || '' %>">
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label class="form-label">Currency</label>
+                                <input type="text" name="store.currency" class="form-control" value="<%= s['store.currency'] || 'NGN' %>">
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label class="form-label">Symbol</label>
+                                <input type="text" name="store.currency_symbol" class="form-control" value="<%= s['store.currency_symbol'] || '₦' %>">
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label class="form-label">Shipping Fee</label>
+                                <input type="number" name="store.shipping_fee" class="form-control" value="<%= s['store.shipping_fee'] || '0' %>">
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label class="form-label">Tax Rate (%)</label>
+                                <input type="number" name="store.tax_rate" class="form-control" value="<%= s['store.tax_rate'] || '0' %>" step="0.01">
+                            </div>
+                        </div>
+                        <hr>
+                        <input type="hidden" name="store.usd_section" value="1">
+                        <div class="row align-items-end">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label d-block">Multi-currency (USD)</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="store.usd_enabled" value="1" <%= s['store.usd_enabled'] === '1' ? 'checked' : '' %>>
+                                    <label class="form-check-label">Allow customers to shop in USD</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">USD Exchange Rate (₦ per $1)</label>
+                                <input type="number" name="store.usd_rate" class="form-control" value="<%= s['store.usd_rate'] || '1600' %>" step="0.01" placeholder="1600">
+                                <small class="text-muted">Used to convert ₦ prices to USD when no override is set.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <% if(!_isSuper) { %>
+            <div class="col-12">
+                <div class="alert alert-warning"><i class="ti ti-lock me-2"></i>Only the Super Admin can configure payment gateways.</div>
+            </div>
+            <% } %>
+
+            <!-- Payment Gateways (superadmin only) -->
+            <% if(_isSuper) { %>
+
+            <!-- Paystack -->
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0"><i class="ti ti-credit-card me-2 text-primary"></i>Paystack</h5>
+                        <div class="form-check form-switch mb-0">
+                            <input class="form-check-input" type="checkbox" name="payment.paystack.enabled" value="1" <%= s['payment.paystack.enabled'] === '1' ? 'checked' : '' %>>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Public Key</label>
+                            <input type="text" name="payment.paystack.public_key" class="form-control" value="<%= s['payment.paystack.public_key'] || '' %>" placeholder="pk_test_...">
+                        </div>
+                        <div class="mb-0">
+                            <label class="form-label">Secret Key</label>
+                            <input type="password" name="payment.paystack.secret_key" class="form-control" value="<%= s['payment.paystack.secret_key'] || '' %>" placeholder="sk_test_...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flutterwave -->
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0"><i class="ti ti-credit-card me-2 text-warning"></i>Flutterwave</h5>
+                        <div class="form-check form-switch mb-0">
+                            <input class="form-check-input" type="checkbox" name="payment.flutterwave.enabled" value="1" <%= s['payment.flutterwave.enabled'] === '1' ? 'checked' : '' %>>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Public Key</label>
+                            <input type="text" name="payment.flutterwave.public_key" class="form-control" value="<%= s['payment.flutterwave.public_key'] || '' %>" placeholder="FLWPUBK_TEST-...">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Secret Key</label>
+                            <input type="password" name="payment.flutterwave.secret_key" class="form-control" value="<%= s['payment.flutterwave.secret_key'] || '' %>" placeholder="FLWSECK_TEST-...">
+                        </div>
+                        <div class="mb-0">
+                            <label class="form-label">Webhook Secret Hash</label>
+                            <input type="password" name="payment.flutterwave.webhook_hash" class="form-control" value="<%= s['payment.flutterwave.webhook_hash'] || '' %>" placeholder="verif-hash for live webhooks">
+                            <small class="text-muted">Set this same value in your Flutterwave dashboard webhook settings.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Monnify -->
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0"><i class="ti ti-building-bank me-2 text-info"></i>Monnify</h5>
+                        <div class="form-check form-switch mb-0">
+                            <input class="form-check-input" type="checkbox" name="payment.monnify.enabled" value="1" <%= s['payment.monnify.enabled'] === '1' ? 'checked' : '' %>>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">API Key</label>
+                            <input type="text" name="payment.monnify.api_key" class="form-control" value="<%= s['payment.monnify.api_key'] || '' %>" placeholder="MK_TEST_...">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Secret Key</label>
+                            <input type="password" name="payment.monnify.secret_key" class="form-control" value="<%= s['payment.monnify.secret_key'] || '' %>">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Contract Code</label>
+                            <input type="text" name="payment.monnify.contract_code" class="form-control" value="<%= s['payment.monnify.contract_code'] || '' %>">
+                        </div>
+                        <div class="mb-0">
+                            <label class="form-label">Base URL</label>
+                            <input type="text" name="payment.monnify.base_url" class="form-control" value="<%= s['payment.monnify.base_url'] || 'https://sandbox.monnify.com' %>">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bank Transfer -->
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0"><i class="ti ti-cash me-2 text-success"></i>Direct Bank Transfer</h5>
+                        <div class="form-check form-switch mb-0">
+                            <input class="form-check-input" type="checkbox" name="payment.bank_transfer.enabled" value="1" <%= s['payment.bank_transfer.enabled'] === '1' ? 'checked' : '' %>>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Bank Name</label>
+                            <input type="text" name="payment.bank_transfer.bank_name" class="form-control" value="<%= s['payment.bank_transfer.bank_name'] || '' %>">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Account Number</label>
+                            <input type="text" name="payment.bank_transfer.account_number" class="form-control" value="<%= s['payment.bank_transfer.account_number'] || '' %>">
+                        </div>
+                        <div class="mb-0">
+                            <label class="form-label">Account Name</label>
+                            <input type="text" name="payment.bank_transfer.account_name" class="form-control" value="<%= s['payment.bank_transfer.account_name'] || '' %>">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary"><i class="ti ti-device-floppy me-1"></i>Save Settings</button>
+            </div>
+        </div>
+    </form>

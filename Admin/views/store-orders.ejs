@@ -1,0 +1,98 @@
+<%- contentFor('html_attribute') %>
+
+<%- contentFor('extra_css') %>
+<link rel="stylesheet" href="/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css"><link rel="stylesheet" href="/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css">
+
+<%- contentFor('content') %>
+
+    <%- include('./partials/page-title', {title: 'Orders', subtitle: 'Store'}) %>
+
+    <!-- Stats Row -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body py-3">
+                    <h4 class="mb-0 text-primary"><%= stats.total %></h4>
+                    <p class="text-muted mb-0 small">Total Orders</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body py-3">
+                    <h4 class="mb-0 text-warning"><%= stats.pending %></h4>
+                    <p class="text-muted mb-0 small">Pending</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body py-3">
+                    <h4 class="mb-0 text-success"><%= stats.delivered %></h4>
+                    <p class="text-muted mb-0 small">Delivered</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body py-3">
+                    <h4 class="mb-0 text-info"><%- fmtMoney(stats.revenue) %></h4>
+                    <p class="text-muted mb-0 small">Paid Revenue</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><h4 class="card-title">All Orders</h4></div>
+        <div class="card-body">
+            <table id="ordersTable" class="table table-striped dt-responsive nowrap w-100">
+                <thead>
+                    <tr>
+                        <th>Order #</th>
+                        <th>Customer</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Payment</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% orders.forEach(o => { %>
+                    <% const custName = o.customer_type === 'guest' ? (o.guest_name || 'Guest') : o.customer_name || 'Customer'; %>
+                    <tr>
+                        <td><strong class="text-primary">#<%= o.order_number %></strong></td>
+                        <td>
+                            <%= custName %>
+                            <br><small class="text-muted"><%= o.customer_type === 'guest' ? 'Guest' : 'Account' %></small>
+                        </td>
+                        <td><span class="badge bg-info-subtle text-info"><%= o.item_count %> item(s)</span></td>
+                        <td><strong><%- fmtMoney(o.total) %></strong></td>
+                        <td>
+                            <% const ps = {paid:'success',unpaid:'secondary',pending:'warning',failed:'danger',refunded:'info'}[o.payment_status] || 'secondary' %>
+                            <span class="badge bg-<%= ps %>-subtle text-<%= ps %>"><%= o.payment_status %></span>
+                            <% if(o.payment_method) { %><br><small class="text-muted"><%= o.payment_method %></small><% } %>
+                        </td>
+                        <td>
+                            <% const sc = {pending:'warning',confirmed:'info',processing:'primary',shipped:'info',delivered:'success',cancelled:'danger',refunded:'secondary'}[o.status] || 'secondary' %>
+                            <span class="badge bg-<%= sc %>-subtle text-<%= sc %>"><%= o.status %></span>
+                        </td>
+                        <td><small><%= new Date(o.created_at).toLocaleDateString('en-NG', {day:'numeric',month:'short',year:'numeric'}) %></small></td>
+                        <td>
+                            <a href="/admin/store/orders/<%= o.id %>" class="btn btn-sm btn-soft-primary">View</a>
+                        </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<%- contentFor('extra_javascript') %>
+<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+<script>$(function(){ $('#ordersTable').DataTable({ responsive:true, order:[[6,'desc']], columnDefs:[{orderable:false,targets:[7]}] }); });</script>

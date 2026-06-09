@@ -1,0 +1,81 @@
+<%- contentFor('html_attribute') %>
+
+<%- contentFor('content') %>
+
+    <%- include('./partials/page-title', {title: 'Categories', subtitle: 'Store'}) %>
+
+    <div class="row g-3">
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-header"><h5 class="card-title mb-0">Add Category</h5></div>
+                <div class="card-body">
+                    <form method="POST" action="/admin/store/categories">
+                        <div class="mb-3">
+                            <label class="form-label">Name <span class="text-danger">*</span></label>
+                            <input type="text" name="name" class="form-control" required placeholder="e.g. Laptops">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Icon (Tabler class)</label>
+                            <input type="text" name="icon" class="form-control" placeholder="ti ti-device-laptop">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Parent Category</label>
+                            <select name="parent_id" class="form-select">
+                                <option value="">— None (top-level) —</option>
+                                <% categories.filter(c=>!c.parent_id).forEach(c => { %>
+                                <option value="<%= c.id %>"><%= c.name %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea name="description" class="form-control" rows="2"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100"><i class="ti ti-plus me-1"></i>Add Category</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-header"><h5 class="card-title mb-0">All Categories (<%= categories.length %>)</h5></div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead class="table-light">
+                                <tr><th>Icon</th><th>Name</th><th>Slug</th><th>Parent</th><th>Products</th><th>Actions</th></tr>
+                            </thead>
+                            <tbody>
+                                <% categories.forEach(c => { %>
+                                <% const parent = categories.find(x=>x.id===c.parent_id); %>
+                                <tr>
+                                    <td><% if(c.icon) { %><i class="<%= c.icon %> fs-4"></i><% } else { %>—<% } %></td>
+                                    <td><strong><%= c.name %></strong></td>
+                                    <td><code><%= c.slug %></code></td>
+                                    <td><%= parent ? parent.name : '—' %></td>
+                                    <td><span class="badge bg-info-subtle text-info"><%= c.product_count || 0 %></span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-soft-danger btn-del-cat" data-id="<%= c.id %>" data-name="<%= c.name %>"><i class="ti ti-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<%- contentFor('extra_javascript') %>
+<script src="/vendor/sweetalert2/sweetalert2.min.js"></script>
+<script>
+document.querySelectorAll('.btn-del-cat').forEach(function(b){
+  b.addEventListener('click', function(){
+    var id=b.dataset.id, name=b.dataset.name;
+    Swal.fire({ title:'Delete category?', text:name, icon:'warning', showCancelButton:true, confirmButtonColor:'#d33' })
+      .then(function(r){ if(r.isConfirmed) fetch('/admin/api/store/categories/'+id,{method:'DELETE'}).then(function(r){return r.json();}).then(function(d){ if(d.ok) location.reload(); else Swal.fire('Error', d.error||'Failed','error'); }); });
+  });
+});
+</script>

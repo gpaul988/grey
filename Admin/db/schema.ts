@@ -301,4 +301,234 @@ export function migrate(database?: DatabaseType.Database): void {
   addColumnIfMissing('users', 'verified_at', 'TEXT');
   // Link a conversation to a project for client messaging context.
   addColumnIfMissing('conversations', 'project_id', 'INTEGER');
+
+  // ---- Biodata columns for users (team) ----
+  addColumnIfMissing('users', 'bio', 'TEXT');
+  addColumnIfMissing('users', 'date_of_birth', 'TEXT');
+  addColumnIfMissing('users', 'gender', 'TEXT');
+  addColumnIfMissing('users', 'address', 'TEXT');
+  addColumnIfMissing('users', 'city', 'TEXT');
+  addColumnIfMissing('users', 'state', 'TEXT');
+  addColumnIfMissing('users', 'country', "TEXT NOT NULL DEFAULT 'Nigeria'");
+  addColumnIfMissing('users', 'linkedin', 'TEXT');
+  addColumnIfMissing('users', 'twitter', 'TEXT');
+  addColumnIfMissing('users', 'whatsapp', 'TEXT');
+
+  // ---- Biodata columns for clients ----
+  addColumnIfMissing('clients', 'bio', 'TEXT');
+  addColumnIfMissing('clients', 'date_of_birth', 'TEXT');
+  addColumnIfMissing('clients', 'gender', 'TEXT');
+  addColumnIfMissing('clients', 'address', 'TEXT');
+  addColumnIfMissing('clients', 'city', 'TEXT');
+  addColumnIfMissing('clients', 'state', 'TEXT');
+  addColumnIfMissing('clients', 'country', "TEXT NOT NULL DEFAULT 'Nigeria'");
+  addColumnIfMissing('clients', 'website', 'TEXT');
+  addColumnIfMissing('clients', 'industry', 'TEXT');
+
+  // ---- Store: multi-currency + coupons (added incrementally) ----
+  const tableExists = (t: string): boolean =>
+    !!db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name=?").get(t);
+  if (tableExists('products')) addColumnIfMissing('products', 'price_usd', 'REAL');
+  if (tableExists('orders')) {
+    addColumnIfMissing('orders', 'coupon_code', 'TEXT');
+    addColumnIfMissing('orders', 'currency', "TEXT NOT NULL DEFAULT 'NGN'");
+  }
+
+  // ---- Store: new tables ----
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS store_settings (
+      id            INTEGER PRIMARY KEY AUTOINCREMENT,
+      key           TEXT    NOT NULL UNIQUE,
+      value         TEXT    NOT NULL DEFAULT '',
+      updated_at    TEXT    NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS product_categories (
+      id            INTEGER PRIMARY KEY AUTOINCREMENT,
+      name          TEXT    NOT NULL,
+      slug          TEXT    NOT NULL UNIQUE,
+      parent_id     INTEGER REFERENCES product_categories(id) ON DELETE SET NULL,
+      icon          TEXT,
+      description   TEXT,
+      sort_order    INTEGER NOT NULL DEFAULT 0,
+      created_at    TEXT    NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS product_brands (
+      id            INTEGER PRIMARY KEY AUTOINCREMENT,
+      name          TEXT    NOT NULL,
+      slug          TEXT    NOT NULL UNIQUE,
+      logo          TEXT,
+      description   TEXT,
+      created_at    TEXT    NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS products (
+      id            INTEGER PRIMARY KEY AUTOINCREMENT,
+      name          TEXT    NOT NULL,
+      slug          TEXT    NOT NULL UNIQUE,
+      sku           TEXT    UNIQUE,
+      category_id   INTEGER REFERENCES product_categories(id) ON DELETE SET NULL,
+      brand_id      INTEGER REFERENCES product_brands(id) ON DELETE SET NULL,
+      description   TEXT,
+      specs         TEXT    NOT NULL DEFAULT '{}',
+      price         REAL    NOT NULL DEFAULT 0,
+      compare_price REAL,
+      stock         INTEGER NOT NULL DEFAULT 0,
+      images        TEXT    NOT NULL DEFAULT '[]',
+      thumbnail     TEXT,
+      status        TEXT    NOT NULL DEFAULT 'draft',
+      featured      INTEGER NOT NULL DEFAULT 0,
+      tags          TEXT    NOT NULL DEFAULT '[]',
+      weight        REAL,
+      created_at    TEXT    NOT NULL DEFAULT (datetime('now')),
+      updated_at    TEXT    NOT NULL DEFAULT (datetime('now'))
+    );
+    CREATE INDEX IF NOT EXISTS idx_products_category ON products(category_id);
+    CREATE INDEX IF NOT EXISTS idx_products_brand ON products(brand_id);
+    CREATE INDEX IF NOT EXISTS idx_products_status ON products(status);
+
+    CREATE TABLE IF NOT EXISTS customers (
+      id            INTEGER PRIMARY KEY AUTOINCREMENT,
+      first_name    TEXT    NOT NULL,
+      last_name     TEXT    NOT NULL,
+      email         TEXT    UNIQUE,
+      phone         TEXT    NOT NULL,
+      address       TEXT,
+      city          TEXT,
+      state         TEXT,
+      country       TEXT    NOT NULL DEFAULT 'Nigeria',
+      bio           TEXT,
+      date_of_birth TEXT,
+      gender        TEXT,
+      avatar        TEXT,
+      password_hash TEXT,
+      email_verified INTEGER NOT NULL DEFAULT 0,
+      verified_at   TEXT,
+      last_login    TEXT,
+      status        TEXT    NOT NULL DEFAULT 'active',
+      created_at    TEXT    NOT NULL DEFAULT (datetime('now')),
+      updated_at    TEXT    NOT NULL DEFAULT (datetime('now'))
+    );
+    CREATE INDEX IF NOT EXISTS idx_customers_email ON customers(email);
+    CREATE INDEX IF NOT EXISTS idx_customers_phone ON customers(phone);
+
+    CREATE TABLE IF NOT EXISTS orders (
+      id               INTEGER PRIMARY KEY AUTOINCREMENT,
+      order_number     TEXT    NOT NULL UNIQUE,
+      customer_id      INTEGER REFERENCES customers(id) ON DELETE SET NULL,
+      customer_type    TEXT    NOT NULL DEFAULT 'guest',
+      guest_name       TEXT,
+      guest_email      TEXT,
+      guest_phone      TEXT,
+      shipping_address TEXT    NOT NULL DEFAULT '{}',
+      billing_address  TEXT    NOT NULL DEFAULT '{}',
+      status           TEXT    NOT NULL DEFAULT 'pending',
+      payment_status   TEXT    NOT NULL DEFAULT 'unpaid',
+      payment_method   TEXT,
+      payment_gateway  TEXT,
+      payment_ref      TEXT,
+      payment_data     TEXT    NOT NULL DEFAULT '{}',
+      subtotal         REAL    NOT NULL DEFAULT 0,
+      shipping_fee     REAL    NOT NULL DEFAULT 0,
+      tax              REAL    NOT NULL DEFAULT 0,
+      discount         REAL    NOT NULL DEFAULT 0,
+      total            REAL    NOT NULL DEFAULT 0,
+      notes            TEXT,
+      staff_notes      TEXT,
+      created_at       TEXT    NOT NULL DEFAULT (datetime('now')),
+      updated_at       TEXT    NOT NULL DEFAULT (datetime('now'))
+    );
+    CREATE INDEX IF NOT EXISTS idx_orders_customer ON orders(customer_id);
+    CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(status);
+    CREATE INDEX IF NOT EXISTS idx_orders_payment_status ON orders(payment_status);
+
+    CREATE TABLE IF NOT EXISTS order_items (
+      id            INTEGER PRIMARY KEY AUTOINCREMENT,
+      order_id      INTEGER NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+      product_id    INTEGER REFERENCES products(id) ON DELETE SET NULL,
+      product_name  TEXT    NOT NULL,
+      product_image TEXT,
+      product_sku   TEXT,
+      quantity      INTEGER NOT NULL DEFAULT 1,
+      unit_price    REAL    NOT NULL DEFAULT 0,
+      total_price   REAL    NOT NULL DEFAULT 0
+    );
+    CREATE INDEX IF NOT EXISTS idx_order_items_order ON order_items(order_id);
+
+    CREATE TABLE IF NOT EXISTS cart_sessions (
+      id          INTEGER PRIMARY KEY AUTOINCREMENT,
+      session_key TEXT    NOT NULL UNIQUE,
+      items       TEXT    NOT NULL DEFAULT '[]',
+      created_at  TEXT    NOT NULL DEFAULT (datetime('now')),
+      updated_at  TEXT    NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS product_reviews (
+      id            INTEGER PRIMARY KEY AUTOINCREMENT,
+      product_id    INTEGER NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+      customer_id   INTEGER REFERENCES customers(id) ON DELETE SET NULL,
+      reviewer_name TEXT    NOT NULL,
+      rating        INTEGER NOT NULL DEFAULT 5,
+      comment       TEXT,
+      status        TEXT    NOT NULL DEFAULT 'pending',
+      created_at    TEXT    NOT NULL DEFAULT (datetime('now'))
+    );
+    CREATE INDEX IF NOT EXISTS idx_reviews_product ON product_reviews(product_id);
+
+    CREATE TABLE IF NOT EXISTS coupons (
+      id            INTEGER PRIMARY KEY AUTOINCREMENT,
+      code          TEXT    NOT NULL UNIQUE,
+      type          TEXT    NOT NULL DEFAULT 'percent',
+      value         REAL    NOT NULL DEFAULT 0,
+      min_subtotal  REAL    NOT NULL DEFAULT 0,
+      max_discount  REAL,
+      usage_limit   INTEGER,
+      used_count    INTEGER NOT NULL DEFAULT 0,
+      starts_at     TEXT,
+      expires_at    TEXT,
+      status        TEXT    NOT NULL DEFAULT 'active',
+      created_at    TEXT    NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS wishlists (
+      id          INTEGER PRIMARY KEY AUTOINCREMENT,
+      customer_id INTEGER NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
+      product_id  INTEGER NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+      created_at  TEXT    NOT NULL DEFAULT (datetime('now')),
+      UNIQUE(customer_id, product_id)
+    );
+  `);
+
+  // ---- Store default settings (idempotent) ----
+  const insertSetting = db.prepare(
+    `INSERT OR IGNORE INTO store_settings (key, value) VALUES (@key, @value)`
+  );
+  const defaultSettings: Record<string, string> = {
+    'store.name': 'Grey TechStore',
+    'store.currency': 'NGN',
+    'store.currency_symbol': '\u20a6',
+    'store.shipping_fee': '2500',
+    'store.tax_rate': '0',
+    'store.usd_enabled': '1',
+    'store.usd_rate': '1600',
+    'payment.paystack.enabled': '0',
+    'payment.paystack.public_key': '',
+    'payment.paystack.secret_key': '',
+    'payment.flutterwave.enabled': '0',
+    'payment.flutterwave.public_key': '',
+    'payment.flutterwave.secret_key': '',
+    'payment.monnify.enabled': '0',
+    'payment.monnify.api_key': '',
+    'payment.monnify.secret_key': '',
+    'payment.monnify.contract_code': '',
+    'payment.monnify.base_url': 'https://sandbox.monnify.com',
+    'payment.bank_transfer.enabled': '1',
+    'payment.bank_transfer.bank_name': '',
+    'payment.bank_transfer.account_number': '',
+    'payment.bank_transfer.account_name': '',
+  };
+  for (const [key, value] of Object.entries(defaultSettings)) {
+    insertSetting.run({ key, value });
+  }
 }

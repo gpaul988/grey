@@ -6,6 +6,7 @@ import {
     Verification, nextInvoiceNumber,
 } from '../models';
 import { sendSetPasswordEmail, appOrigin } from '../utils/mailer';
+import { seedStore } from './seed-store';
 
 const SEED_ADMIN_EMAIL = process.env.SEED_ADMIN_EMAIL || 'hello@greyinfotech.com.ng';
 const SEED_ADMIN_PASSWORD = process.env.SEED_ADMIN_PASSWORD || 'GreyAdmin@2026';
@@ -118,6 +119,9 @@ async function seed() {
     Participants.add({ conversation_id: conv1.id, participant_type: 'client', participant_id: c1.id, name: 'Ada Okafor' });
     Participants.add({ conversation_id: conv2.id, participant_type: 'client', participant_id: c2.id, name: 'Tunde Bello' });
     console.log('Conversations seeded.');
+
+    // --- Store catalog (products, brands, categories, coupons) ---
+    seedStore();
 
     console.log('\n=== SEED COMPLETE ===');
     console.log(`Admin login: ${SEED_ADMIN_EMAIL} / ${SEED_ADMIN_PASSWORD}`);
