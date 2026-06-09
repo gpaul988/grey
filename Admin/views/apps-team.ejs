@@ -38,6 +38,9 @@
                                 <button class="btn btn-sm btn-soft-info btn-perms" data-id="<%= u.id %>" data-name="<%= u.name %>" data-role="<%= u.role %>" title="Permissions"><i class="ti ti-shield-lock"></i></button>
                                 <% } %>
                                 <button class="btn btn-sm btn-soft-primary btn-edit" data-id="<%= u.id %>" data-name="<%= u.name %>" data-email="<%= u.email %>" data-role="<%= u.role %>" data-phone="<%= u.phone||'' %>" data-status="<%= u.status %>"><i class="ti ti-edit"></i></button>
+                                <% if (u.status !== 'active') { %>
+                                <button class="btn btn-sm btn-soft-success btn-setup" data-id="<%= u.id %>" data-email="<%= u.email %>" title="Send set-password link"><i class="ti ti-mail-forward"></i></button>
+                                <% } %>
                                 <% if (u.role !== 'superadmin') { %>
                                 <button class="btn btn-sm btn-soft-danger btn-del" data-id="<%= u.id %>"><i class="ti ti-trash"></i></button>
                                 <% } %>
@@ -128,6 +131,22 @@
         if (!confirm('Delete this member?')) return;
         const r = await AdminAPI.del('/users/' + b.dataset.id);
         if (r.ok) { AdminAPI.toast('Deleted'); b.closest('tr').remove(); } else AdminAPI.toast(r.message, true);
+    }));
+
+    /* ---------- Send set-password / verification link ---------- */
+    document.querySelectorAll('.btn-setup').forEach(b => b.addEventListener('click', async () => {
+        const email = b.dataset.email || 'this user';
+        if (!confirm('Send a set-password / verification link to ' + email + '?')) return;
+        b.disabled = true;
+        const r = await AdminAPI.post('/users/' + b.dataset.id + '/send-setup-link');
+        b.disabled = false;
+        if (r.ok) {
+            AdminAPI.toast(r.message);
+            // When SMTP isn't configured the link is returned so it can be shared manually.
+            if (r.data && r.data.link) {
+                window.prompt('Copy this set-password link and send it to ' + email + ':', r.data.link);
+            }
+        } else AdminAPI.toast(r.message, true);
     }));
 
     /* ---------- Permissions ---------- */
