@@ -1,18 +1,18 @@
 <!doctype html>
-<html lang="en" <%- html_attribute  || '' %>>
+<html lang="en" <%- (typeof html_attribute !== 'undefined' && html_attribute) || '' %>>
 
 <head>
     <%- include('./title-meta') %>
         <%- include ('./head-css') %>
-            <%- extra_css %>
+            <%- (typeof extra_css !== 'undefined' && extra_css) || '' %>
 </head>
 
-<body <%- body_attribute %>>
+<body <%- (typeof body_attribute !== 'undefined' && body_attribute) || '' %>>
 
-     <%- content %>
+     <%- (typeof content !== 'undefined' && content) || '' %>
 
     <%- include ('./footer-scripts') %>
-    <%- extra_javascript %>
+    <%- (typeof extra_javascript !== 'undefined' && extra_javascript) || '' %>
 
 </body>
 

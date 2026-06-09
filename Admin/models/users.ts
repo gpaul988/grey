@@ -18,24 +18,33 @@ export const UsersModel = {
         return row ? stripPassword(row) : null;
     },
 
+    /** Raw record incl. password_hash — for auth flows only. */
+    findRaw(id: number): User | null {
+        return (db.prepare('SELECT * FROM users WHERE id = ?').get(id) as User | undefined) ?? null;
+    },
+
     findByEmail(email: string): User | null {
-        const row = db.prepare('SELECT * FROM users WHERE email = ?').get(email) as User | undefined;
+        const row = db.prepare('SELECT * FROM users WHERE email = ?').get(email.toLowerCase()) as User | undefined;
         return row ?? null;
     },
 
     async create(data: {
         name: string;
         email: string;
-        password: string;
+        password?: string;       // optional: invited users set it later via link
         role?: string;
         phone?: string;
         avatar?: string;
+        status?: string;
+        email_verified?: boolean;
     }): Promise<SafeUser> {
-        const hash = await bcrypt.hash(data.password, 12);
+        // A null hash means "must set password via verification link".
+        const hash = data.password ? await bcrypt.hash(data.password, 12) : null;
+        const verified = data.email_verified ? 1 : 0;
         const info = db
             .prepare(
-                `INSERT INTO users (name, email, password_hash, role, phone, avatar)
-                 VALUES (@name, @email, @password_hash, @role, @phone, @avatar)`
+                `INSERT INTO users (name, email, password_hash, role, phone, avatar, status, email_verified, verified_at)
+                 VALUES (@name, @email, @password_hash, @role, @phone, @avatar, @status, @email_verified, @verified_at)`
             )
             .run({
                 name: data.name,
@@ -44,8 +53,28 @@ export const UsersModel = {
                 role: data.role || 'staff',
                 phone: data.phone || null,
                 avatar: data.avatar || null,
+                status: data.status || (data.password ? 'active' : 'pending'),
+                email_verified: verified,
+                verified_at: verified ? new Date().toISOString() : null,
             });
         return this.find(Number(info.lastInsertRowid))!;
+    },
+
+    /** Mark a user's email as verified and activate the account. */
+    markVerified(id: number): SafeUser | null {
+        db.prepare(
+            "UPDATE users SET email_verified=1, verified_at=datetime('now'), status='active', updated_at=datetime('now') WHERE id=@id"
+        ).run({ id });
+        return this.find(id);
+    },
+
+    /** Set/replace a password (used by the set-password verification flow). */
+    async setPassword(id: number, password: string): Promise<SafeUser | null> {
+        const hash = await bcrypt.hash(password, 12);
+        db.prepare(
+            "UPDATE users SET password_hash=@hash, email_verified=1, verified_at=datetime('now'), status='active', updated_at=datetime('now') WHERE id=@id"
+        ).run({ id, hash });
+        return this.find(id);
     },
 
     async update(
@@ -90,7 +119,8 @@ export const UsersModel = {
 
     async verify(email: string, password: string): Promise<User | null> {
         const user = this.findByEmail(email.toLowerCase());
-        if (!user || user.status !== 'active') return null;
+        if (!user || user.status !== 'active' || !user.password_hash) return null;
+        if (!user.email_verified) return null;
         const ok = await bcrypt.compare(password, user.password_hash);
         return ok ? user : null;
     },

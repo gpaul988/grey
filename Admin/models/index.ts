@@ -7,9 +7,14 @@ import type {
     ProjectBrief, Upload,
 } from '../db/types';
 import { ClientsModel } from './clients';
+import { ClientStaffModel } from './clientStaff';
+import { Participants } from './participants';
+import { Verification } from './verification';
 
 export const Users = UsersModel;
 export const Clients = ClientsModel;
+export const ClientStaff = ClientStaffModel;
+export { Participants, Verification };
 
 export const Submissions = createRepo<Submission>('submissions', [
     'name', 'email', 'phone', 'subject', 'project_type', 'budget', 'message', 'source', 'status',

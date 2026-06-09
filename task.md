@@ -1,43 +1,46 @@
-# Grey Infotech — Big Build (multi-phase)
+# Grey Build — New Requirements (session)
 
-## Run command (production, stays alive on 4GB)
-  npx next build   (capped heap) THEN  ./run-server.sh   on port 3000
-  Dev mode OOMs — always prod build.
-  Admin login: hello@greyinfotech.com.ng / GreyAdmin@2026
-  Seed client pw: ClientPass@2026 (only for NEW clients; old 3 seeded clients have no pw)
+## Goals
+1. **Email verification system** — on account creation, send unique-ID verification email; user verifies before active.
+2. **Super admin / CEO** — Graham Sobiribo Paul, graham@greyinfotech.com.ng. Seeded as `superadmin` role, must verify email + set password via link.
+3. **Client staff sub-accounts** — client can add 2-3 staff to a conversation ONLY after payment verified (client has ≥1 paid invoice).
+4. **Profile picture change** — all users (team + clients + client-staff) can change avatar.
+5. **Gap audit** — find missing pieces, build, fix all errors/warnings.
+6. Push to GitHub when done.
 
-## DECISIONS
-- AI assistant SKIPPED (no LLM key). Keep Tawk.io for human chat.
-- Magic-link client login is primary; password login secondary.
-- Permissions: config/permissions.ts (role defaults + per-user JSON override in users.permissions).
-- Migrations run automatically + synchronously on boot (db/index.ts passes db into migrate(db)).
+## Plan
+- [x] Audit current state (models, routes, schema, server)
+- [ ] Central mailer util: `Admin/utils/mailer.ts` (reuse SMTP-optional pattern, dev fallback logs link)
+- [ ] Schema: `email_verifications` table (token, target user/client, purpose), `client_staff` table, `conversation_participants`, add `email_verified`/`verified_at` + `superadmin` role.
+- [ ] Types updates
+- [ ] Users model: superadmin support, verification token create/verify, setPassword
+- [ ] Clients model: staff sub-accounts + payment-gated participant add
+- [ ] Verification model
+- [ ] Auth routes: register triggers verification email; `/verify-email/:token` page; `/set-password/:token`
+- [ ] Avatar upload for clients & client-staff (portal)
+- [ ] API: client-staff CRUD gated by payment; conversation participants
+- [ ] Seed: CEO superadmin (unverified, invite link)
+- [ ] Permissions: superadmin all + above admin
+- [ ] EJS: verify-email view, set-password view, team UI superadmin badge
+- [ ] Build (`npx next build`), fix all TS errors/warnings
+- [ ] Start prod server, smoke test
+- [ ] Commit + push
 
-## PHASES
-- P1 = profiles + roles/permissions + dashboard graphs  <- IN PROGRESS
-- P2 = client portal (magic-link login, projects/progress, invoices, brief form, file uploads, messaging)
-- P3 = SKIPPED (AI)
-- P4 = frontend pulls from backend + update Next/deps + gap audit
+## Notes
+- Dev OOMs — always prod build then run-server.sh
+- Magic-link infra already exists for clients (client_tokens). Reuse pattern.
+- Payment verified = client has invoice with status='paid'.
 
-## P1 COMPLETE ✓ (committed)
-## P1 PROGRESS
-1. [x] Add new types (Client w/ pw, ClientToken, ProjectBrief, Upload) — types.ts
-2. [x] Schema: clients pw/status/last_login, users.permissions, conversations.project_id,
-       new tables client_tokens/project_briefs/uploads. addColumnIfMissing helper.
-3. [x] Boot migration synchronous (migrate(db)) — VERIFIED tables+cols exist.
-4. [x] models/clients.ts — magic-link createLoginToken/verifyToken, verifyPassword, CRUD. VERIFIED round-trip.
-5. [x] models/index.ts — Clients=ClientsModel, ProjectBriefs, Uploads repos. Removed dup line.
-6. [x] seed.ts — clients created with await + passwords.
-7. [x] config/permissions.ts — userCan/effectivePermissions.
-8. [ ] FULL next build + run-server.sh smoke test  <- DOING NOW
-9. [x] Avatar upload (multer) /admin/profile/avatar — VERIFIED end-to-end (save+serve+db+session).
-       Wire into apps-user-profile.ejs.
-10.[x] Roles/permissions UI in apps-team.ejs (grouped checkboxes, delta-stored) + requirePermission enforced on 11 admin page routes + requireApiPermission helper. VERIFIED: staff granted team.view->200, revoked invoices.view->403. Middleware hydrates perms from DB.
-    TODO polish: hide sidebar nav items user lacks permission for (partials/sidenav).
-11.[x] Dashboard graphs: chartData() aggregations (leads/submissions line, revenue area, projects donut, tickets bar) -> ApexCharts in index.ejs. VERIFIED via screenshot, live data renders.
-
-## P2 (later)
-- Client portal: /portal login via token, dashboard projects/progress, invoices,
-  project brief form, file uploads, ticket, two-way messaging (conversations/messages).
-
-## P4 (later)
-- Frontend services/portfolio/blog/FAQ/pricing from backend; update Next.js+deps; gap audit.
+## DONE (this session)
+- [x] Mailer (SMTP-optional, dev links)
+- [x] Schema: email_verifications, client_staff, conversation_participants, project_briefs, email_verified col, superadmin role
+- [x] Verification model + flows (verify-email, set-password) for team + clients + client_staff
+- [x] CEO superadmin seeded (graham@greyinfotech.com.ng, unverified -> set-password link)
+- [x] Client staff sub-accounts (max 3), payment-gated (>=1 paid invoice)
+- [x] Conversation participants (add/remove staff, owner+paid gated)
+- [x] Profile avatar upload: team (/admin/profile/avatar) + clients/staff (/portal/profile/avatar)
+- [x] Portal: login (pw + magic-link), dashboard, staff, messages, brief form
+- [x] Fixed portal view render: bypass express-ejs-layouts via direct ejs.renderFile (include-in-closure bug)
+- [x] Build clean (npx next build), prod server smoke-tested all routes 200
+- [x] Verified payment gate blocks unpaid client; superadmin badge shows on team page
+- [ ] Commit + push to origin/admin-backend

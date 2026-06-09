@@ -13,8 +13,8 @@ export function migrate(database?: DatabaseType.Database): void {
       id            INTEGER PRIMARY KEY AUTOINCREMENT,
       name          TEXT    NOT NULL,
       email         TEXT    NOT NULL UNIQUE,
-      password_hash TEXT    NOT NULL,
-      role          TEXT    NOT NULL DEFAULT 'staff',  -- admin | manager | staff
+      password_hash TEXT,                              -- NULL = must set via verification link
+      role          TEXT    NOT NULL DEFAULT 'staff',  -- superadmin | admin | manager | staff
       avatar        TEXT,
       phone         TEXT,
       status        TEXT    NOT NULL DEFAULT 'active',  -- active | suspended
@@ -217,6 +217,51 @@ export function migrate(database?: DatabaseType.Database): void {
       updated_at    TEXT    NOT NULL DEFAULT (datetime('now'))
     );
 
+    /* ---- Email verification / set-password tokens (team users + clients) ---- */
+    CREATE TABLE IF NOT EXISTS email_verifications (
+      id            INTEGER PRIMARY KEY AUTOINCREMENT,
+      subject_type  TEXT    NOT NULL,                 -- 'user' | 'client'
+      subject_id    INTEGER NOT NULL,
+      email         TEXT    NOT NULL,
+      token         TEXT    NOT NULL UNIQUE,
+      code          TEXT    NOT NULL,                 -- human-readable unique verification ID
+      purpose       TEXT    NOT NULL DEFAULT 'verify', -- verify | set_password
+      used_at       TEXT,
+      expires_at    TEXT    NOT NULL,
+      created_at    TEXT    NOT NULL DEFAULT (datetime('now'))
+    );
+    CREATE INDEX IF NOT EXISTS idx_email_verifications_token ON email_verifications(token);
+
+    /* ---- Client staff sub-accounts (a client company's own team members) ---- */
+    CREATE TABLE IF NOT EXISTS client_staff (
+      id            INTEGER PRIMARY KEY AUTOINCREMENT,
+      client_id     INTEGER NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
+      name          TEXT    NOT NULL,
+      email         TEXT    NOT NULL,
+      avatar        TEXT,
+      password_hash TEXT,
+      role_title    TEXT,                              -- free-text job title
+      status        TEXT    NOT NULL DEFAULT 'invited', -- invited | active | suspended
+      email_verified INTEGER NOT NULL DEFAULT 0,
+      last_login    TEXT,
+      created_at    TEXT    NOT NULL DEFAULT (datetime('now')),
+      UNIQUE (client_id, email)
+    );
+    CREATE INDEX IF NOT EXISTS idx_client_staff_client ON client_staff(client_id);
+
+    /* ---- Conversation participants (client + their invited staff) ---- */
+    CREATE TABLE IF NOT EXISTS conversation_participants (
+      id              INTEGER PRIMARY KEY AUTOINCREMENT,
+      conversation_id INTEGER NOT NULL REFERENCES conversations(id) ON DELETE CASCADE,
+      participant_type TEXT   NOT NULL,                -- 'client' | 'client_staff' | 'staff'
+      participant_id  INTEGER NOT NULL,
+      name            TEXT,
+      added_by        TEXT,
+      created_at      TEXT    NOT NULL DEFAULT (datetime('now')),
+      UNIQUE (conversation_id, participant_type, participant_id)
+    );
+    CREATE INDEX IF NOT EXISTS idx_conv_participants_conv ON conversation_participants(conversation_id);
+
     /* ---- File uploads attached to clients / projects / briefs ---- */
     CREATE TABLE IF NOT EXISTS uploads (
       id          INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -245,8 +290,15 @@ export function migrate(database?: DatabaseType.Database): void {
   addColumnIfMissing('clients', 'password_hash', 'TEXT');
   addColumnIfMissing('clients', 'status', "TEXT NOT NULL DEFAULT 'active'");
   addColumnIfMissing('clients', 'last_login', 'TEXT');
+  // Email-verification state for client portal accounts.
+  addColumnIfMissing('clients', 'email_verified', 'INTEGER NOT NULL DEFAULT 0');
+  addColumnIfMissing('clients', 'verified_at', 'TEXT');
   // Per-user custom permission overrides (JSON map), beyond the base role.
   addColumnIfMissing('users', 'permissions', 'TEXT');
+  // Email-verification state for team accounts. Existing/seeded users are
+  // treated as already verified so we never lock anyone out on upgrade.
+  addColumnIfMissing('users', 'email_verified', 'INTEGER NOT NULL DEFAULT 0');
+  addColumnIfMissing('users', 'verified_at', 'TEXT');
   // Link a conversation to a project for client messaging context.
   addColumnIfMissing('conversations', 'project_id', 'INTEGER');
 }

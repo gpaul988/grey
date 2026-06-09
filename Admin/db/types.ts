@@ -2,12 +2,14 @@ export interface User {
     id: number;
     name: string;
     email: string;
-    password_hash: string;
-    role: 'admin' | 'manager' | 'staff';
+    password_hash: string | null;
+    role: 'superadmin' | 'admin' | 'manager' | 'staff';
     avatar: string | null;
     phone: string | null;
-    status: 'active' | 'suspended';
+    status: 'active' | 'suspended' | 'pending';
     permissions: string | null; // JSON map of feature->bool overrides
+    email_verified: number;     // 0 | 1
+    verified_at: string | null;
     created_at: string;
     updated_at: string;
 }
@@ -52,11 +54,52 @@ export interface Client {
     avatar: string | null;
     password_hash: string | null;
     status: 'active' | 'suspended';
+    email_verified: number;     // 0 | 1
+    verified_at: string | null;
     last_login: string | null;
     created_at: string;
 }
 
 export type SafeClient = Omit<Client, 'password_hash'>;
+
+export interface EmailVerification {
+    id: number;
+    subject_type: 'user' | 'client' | 'client_staff';
+    subject_id: number;
+    email: string;
+    token: string;
+    code: string;
+    purpose: 'verify' | 'set_password';
+    used_at: string | null;
+    expires_at: string;
+    created_at: string;
+}
+
+export interface ClientStaff {
+    id: number;
+    client_id: number;
+    name: string;
+    email: string;
+    avatar: string | null;
+    password_hash: string | null;
+    role_title: string | null;
+    status: 'invited' | 'active' | 'suspended';
+    email_verified: number;
+    last_login: string | null;
+    created_at: string;
+}
+
+export type SafeClientStaff = Omit<ClientStaff, 'password_hash'>;
+
+export interface ConversationParticipant {
+    id: number;
+    conversation_id: number;
+    participant_type: 'client' | 'client_staff' | 'staff';
+    participant_id: number;
+    name: string | null;
+    added_by: string | null;
+    created_at: string;
+}
 
 export interface ClientToken {
     id: number;

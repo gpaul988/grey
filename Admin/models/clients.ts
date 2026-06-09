@@ -45,12 +45,14 @@ export const ClientsModel = {
         avatar?: string;
         password?: string;
         status?: string;
+        email_verified?: boolean;
     }): Promise<SafeClient> {
         const hash = data.password ? await bcrypt.hash(data.password, 12) : null;
+        const verified = data.email_verified ? 1 : 0;
         const info = db
             .prepare(
-                `INSERT INTO clients (name, email, company, phone, avatar, password_hash, status)
-                 VALUES (@name, @email, @company, @phone, @avatar, @password_hash, @status)`
+                `INSERT INTO clients (name, email, company, phone, avatar, password_hash, status, email_verified, verified_at)
+                 VALUES (@name, @email, @company, @phone, @avatar, @password_hash, @status, @email_verified, @verified_at)`
             )
             .run({
                 name: data.name,
@@ -60,8 +62,36 @@ export const ClientsModel = {
                 avatar: data.avatar || null,
                 password_hash: hash,
                 status: data.status || 'active',
+                email_verified: verified,
+                verified_at: verified ? new Date().toISOString() : null,
             });
         return this.find(Number(info.lastInsertRowid))!;
+    },
+
+    markVerified(id: number): SafeClient | null {
+        db.prepare(
+            "UPDATE clients SET email_verified=1, verified_at=datetime('now'), status='active' WHERE id=?"
+        ).run(id);
+        return this.find(id);
+    },
+
+    async setPassword(id: number, password: string): Promise<SafeClient | null> {
+        const hash = await bcrypt.hash(password, 12);
+        db.prepare(
+            "UPDATE clients SET password_hash=@hash, email_verified=1, verified_at=datetime('now'), status='active' WHERE id=@id"
+        ).run({ id, hash });
+        return this.find(id);
+    },
+
+    /**
+     * Payment gate: a client is "payment-verified" once they have at least one
+     * invoice marked paid. This unlocks adding staff to conversations.
+     */
+    hasPaid(clientId: number): boolean {
+        const row = db
+            .prepare("SELECT COUNT(*) AS c FROM invoices WHERE client_id = ? AND status = 'paid'")
+            .get(clientId) as { c: number };
+        return row.c > 0;
     },
 
     async update(

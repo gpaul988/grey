@@ -2,7 +2,7 @@
 <%- contentFor('extra_css') %>
 <%- contentFor('content') %>
 
-<% const isAdmin = (typeof user !== 'undefined' && user && user.role === 'admin'); %>
+<% const isAdmin = (typeof user !== 'undefined' && user && (user.role === 'admin' || user.role === 'superadmin')); %>
 
 <%- include('./partials/page-title', { title: title, subtitle: 'Administration' }) %>
 
@@ -28,16 +28,19 @@
                                 </div>
                             </td>
                             <td><%= u.email %></td>
-                            <td><span class="badge text-capitalize bg-<%= u.role==='admin'?'danger':(u.role==='manager'?'warning':'info') %>-subtle text-<%= u.role==='admin'?'danger':(u.role==='manager'?'warning':'info') %>"><%= u.role %></span></td>
+                            <% var roleColor = u.role==='superadmin'?'dark':(u.role==='admin'?'danger':(u.role==='manager'?'warning':'info')); %>
+                            <td><span class="badge text-capitalize bg-<%= roleColor %>-subtle text-<%= roleColor %>"><%= u.role==='superadmin' ? 'Super Admin' : u.role %></span></td>
                             <td><%= u.phone || '—' %></td>
                             <td><span class="badge bg-<%= u.status==='active'?'success':'secondary' %>-subtle text-<%= u.status==='active'?'success':'secondary' %> text-capitalize"><%= u.status %></span></td>
                             <% if (isAdmin) { %>
                             <td class="text-end">
-                                <% if (u.role !== 'admin') { %>
+                                <% if (u.role !== 'admin' && u.role !== 'superadmin') { %>
                                 <button class="btn btn-sm btn-soft-info btn-perms" data-id="<%= u.id %>" data-name="<%= u.name %>" data-role="<%= u.role %>" title="Permissions"><i class="ti ti-shield-lock"></i></button>
                                 <% } %>
                                 <button class="btn btn-sm btn-soft-primary btn-edit" data-id="<%= u.id %>" data-name="<%= u.name %>" data-email="<%= u.email %>" data-role="<%= u.role %>" data-phone="<%= u.phone||'' %>" data-status="<%= u.status %>"><i class="ti ti-edit"></i></button>
+                                <% if (u.role !== 'superadmin') { %>
                                 <button class="btn btn-sm btn-soft-danger btn-del" data-id="<%= u.id %>"><i class="ti ti-trash"></i></button>
+                                <% } %>
                             </td>
                             <% } %>
                         </tr>
@@ -60,7 +63,7 @@
                 <div class="mb-3"><label class="form-label">Email *</label><input id="f_email" type="email" class="form-control"></div>
                 <div class="mb-3"><label class="form-label">Phone</label><input id="f_phone" class="form-control"></div>
                 <div class="row">
-                    <div class="col-6 mb-3"><label class="form-label">Role</label><select id="f_role" class="form-select"><option value="staff">Staff</option><option value="manager">Manager</option><option value="admin">Admin</option></select></div>
+                    <div class="col-6 mb-3"><label class="form-label">Role</label><select id="f_role" class="form-select"><option value="staff">Staff</option><option value="manager">Manager</option><option value="admin">Admin</option><% if (typeof user !== 'undefined' && user && user.role === 'superadmin') { %><option value="superadmin">Super Admin</option><% } %></select></div>
                     <div class="col-6 mb-3"><label class="form-label">Status</label><select id="f_status" class="form-select"><option value="active">Active</option><option value="suspended">Suspended</option></select></div>
                 </div>
                 <div class="mb-3"><label class="form-label" id="pwLabel">Password *</label><input id="f_password" type="password" class="form-control" placeholder="Min 8 characters"></div>

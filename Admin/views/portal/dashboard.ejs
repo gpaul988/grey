@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en"><head><%- include('_head') %></head>
+<body>
+  <%- include('_nav') %>
+  <div class="container pb-5">
+
+    <div id="flash"></div>
+    <script>
+      (function(){
+        var q = new URLSearchParams(location.search), f = document.getElementById('flash'), html='';
+        if (q.has('saved')) html += '<div class="alert alert-success py-2">Profile photo updated.</div>';
+        if (q.has('brief')) html += '<div class="alert alert-success py-2">Your project brief was submitted. Our team will review it shortly.</div>';
+        if (q.has('err'))   html += '<div class="alert alert-warning py-2">'+ (q.get('err')||'Something went wrong') +'</div>';
+        f.innerHTML = html;
+      })();
+    </script>
+
+    <!-- Header / profile -->
+    <div class="card p-4 mb-4">
+      <div class="d-flex flex-wrap align-items-center gap-3">
+        <% var av = (me && me.avatar) ? me.avatar : '' %>
+        <% if (av) { %><img src="<%= av %>" class="avatar-lg"><% } else { %>
+          <span class="avatar-lg d-inline-flex align-items-center justify-content-center"><i class="bi bi-person fs-2 text-muted"></i></span>
+        <% } %>
+        <div class="flex-grow-1">
+          <h4 class="mb-0">Welcome, <%= (me && me.name) ? me.name : (client ? client.name : 'there') %></h4>
+          <div class="text-muted small"><%= me ? me.email : '' %>
+            <% if (me && me.kind === 'client_staff') { %><span class="chip bg-light text-muted ms-2">Team member</span><% } %>
+            <% if (paid) { %><span class="chip ms-2" style="background:#d1fae5;color:#047857;">Active client</span>
+            <% } else { %><span class="chip bg-light text-muted ms-2">Payment pending</span><% } %>
+          </div>
+        </div>
+        <form method="POST" action="/portal/profile/avatar" enctype="multipart/form-data" class="d-flex align-items-center gap-2">
+          <input type="file" name="avatar" accept="image/*" class="form-control form-control-sm" style="max-width:200px;" required>
+          <button class="btn btn-sm btn-teal">Update photo</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- Projects -->
+      <div class="col-lg-7">
+        <div class="card p-4 h-100">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="mb-0"><i class="bi bi-kanban text-teal"></i> My Projects</h5>
+            <a href="/portal/messages" class="small text-teal">Open messages →</a>
+          </div>
+          <% if (!projects || projects.length === 0) { %>
+            <p class="text-muted small mb-0">No projects yet. Submit a brief below to get started.</p>
+          <% } else { %>
+            <% projects.forEach(function(pr){ var pct = Math.max(0, Math.min(100, pr.progress || 0)); %>
+              <div class="border rounded p-3 mb-3">
+                <div class="d-flex justify-content-between">
+                  <strong><%= pr.title || pr.name %></strong>
+                  <span class="chip bg-light text-muted text-capitalize"><%= pr.status || 'active' %></span>
+                </div>
+                <% if (pr.description) { %><div class="text-muted small mt-1"><%= pr.description %></div><% } %>
+                <div class="progress mt-2" style="height:8px;">
+                  <div class="progress-bar" style="width:<%= pct %>%;background:var(--teal);"></div>
+                </div>
+                <div class="small text-muted mt-1"><%= pct %>% complete<% if (pr.deadline) { %> · due <%= pr.deadline %><% } %></div>
+              </div>
+            <% }) %>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- Invoices -->
+      <div class="col-lg-5">
+        <div class="card p-4 h-100">
+          <h5 class="mb-3"><i class="bi bi-receipt text-teal"></i> Invoices</h5>
+          <% if (!invoices || invoices.length === 0) { %>
+            <p class="text-muted small mb-0">No invoices yet.</p>
+          <% } else { %>
+            <div class="table-responsive">
+              <table class="table table-sm align-middle mb-0">
+                <thead><tr class="small text-muted"><th>Invoice</th><th>Amount</th><th>Status</th></tr></thead>
+                <tbody>
+                  <% invoices.forEach(function(inv){
+                       var st = (inv.status||'unpaid').toLowerCase();
+                       var cls = st==='paid' ? 'background:#d1fae5;color:#047857;' : (st==='overdue' ? 'background:#fee2e2;color:#b91c1c;' : 'background:#fef3c7;color:#92400e;'); %>
+                    <tr>
+                      <td class="small"><%= inv.number || ('#'+inv.id) %></td>
+                      <td class="small">₦<%= Number(inv.amount||0).toLocaleString() %></td>
+                      <td><span class="chip text-capitalize" style="<%= cls %>"><%= st %></span></td>
+                    </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project brief -->
+    <div class="card p-4 mt-4">
+      <h5 class="mb-3"><i class="bi bi-pencil-square text-teal"></i> Submit a project brief</h5>
+      <p class="text-muted small">Tell us about a new project or design needs. The more detail, the better.</p>
+      <form method="POST" action="/portal/brief" class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label small">Project title</label>
+          <input name="title" class="form-control" placeholder="e.g. Company website redesign" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label small">Service</label>
+          <select name="service" class="form-select">
+            <option value="">Choose…</option>
+            <option>Web Development</option>
+            <option>Mobile App</option>
+            <option>Branding &amp; Design</option>
+            <option>UI/UX Design</option>
+            <option>Digital Marketing</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <% if (projects && projects.length) { %>
+        <div class="col-md-6">
+          <label class="form-label small">Link to existing project (optional)</label>
+          <select name="project_id" class="form-select">
+            <option value="">— None —</option>
+            <% projects.forEach(function(pr){ %><option value="<%= pr.id %>"><%= pr.title || pr.name %></option><% }) %>
+          </select>
+        </div>
+        <% } %>
+        <div class="col-md-6">
+          <label class="form-label small">Target audience</label>
+          <input name="target_audience" class="form-control" placeholder="Who is this for?">
+        </div>
+        <div class="col-12">
+          <label class="form-label small">Goals</label>
+          <textarea name="goals" rows="2" class="form-control" placeholder="What should this achieve?"></textarea>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label small">Design style</label>
+          <input name="design_style" class="form-control" placeholder="Modern, minimal, bold…">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label small">Colour preferences</label>
+          <input name="color_prefs" class="form-control" placeholder="e.g. teal, navy, white">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label small">Reference links</label>
+          <input name="references_links" class="form-control" placeholder="Sites/designs you like">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label small">Budget range</label>
+          <input name="budget_range" class="form-control" placeholder="₦…">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label small">Timeline</label>
+          <input name="timeline" class="form-control" placeholder="e.g. 4 weeks">
+        </div>
+        <div class="col-12">
+          <label class="form-label small">Anything else</label>
+          <textarea name="details" rows="3" class="form-control" placeholder="Other details, features, must-haves…"></textarea>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-teal fw-semibold">Submit brief</button>
+        </div>
+      </form>
+
+      <% if (briefs && briefs.length) { %>
+        <hr class="my-4">
+        <h6 class="text-muted">Submitted briefs</h6>
+        <ul class="list-group list-group-flush">
+          <% briefs.forEach(function(b){ %>
+            <li class="list-group-item px-0 d-flex justify-content-between">
+              <span><%= b.title %> <span class="text-muted small">· <%= b.service || 'general' %></span></span>
+              <span class="chip bg-light text-muted text-capitalize"><%= b.status || 'submitted' %></span>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+    </div>
+
+  </div>
+</body></html>

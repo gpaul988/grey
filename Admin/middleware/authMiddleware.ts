@@ -7,11 +7,13 @@ import { Users } from '../models';
  * Build the permission-check subject from the session, hydrating the latest
  * `permissions` overrides from the DB (the session only stores basic identity).
  */
+type Role = 'superadmin' | 'admin' | 'manager' | 'staff';
+
 const permissionSubject = (
-    sessionUser: { id: number; role: 'admin' | 'manager' | 'staff' } | undefined
-): { role: 'admin' | 'manager' | 'staff'; permissions?: string | null } | null => {
+    sessionUser: { id: number; role: Role } | undefined
+): { role: Role; permissions?: string | null } | null => {
     if (!sessionUser) return null;
-    if (sessionUser.role === 'admin') return { role: 'admin' };
+    if (sessionUser.role === 'admin' || sessionUser.role === 'superadmin') return { role: sessionUser.role };
     const permissions = Users.getPermissions(sessionUser.id);
     return { role: sessionUser.role, permissions };
 };

@@ -6,7 +6,7 @@
  * (stored as JSON in users.permissions). Admins always get everything.
  */
 
-export type Role = 'admin' | 'manager' | 'staff';
+export type Role = 'superadmin' | 'admin' | 'manager' | 'staff';
 
 export interface PermissionDef {
     key: string;
@@ -56,6 +56,8 @@ export const ALL_KEYS = PERMISSIONS.map((p) => p.key);
 
 /** Default permission set per role. */
 const ROLE_DEFAULTS: Record<Role, string[]> = {
+    // Super admin (CEO) gets everything — top of the hierarchy.
+    superadmin: ALL_KEYS,
     // Admin gets everything (handled by short-circuit below, but list anyway).
     admin: ALL_KEYS,
     // Manager: everything except team/permission management & settings.
@@ -95,7 +97,7 @@ export function parseOverrides(raw: string | null | undefined): Record<string, b
 
 /** Resolve the effective permission set for a user. */
 export function effectivePermissions(role: Role, overridesRaw: string | null | undefined): Set<string> {
-    if (role === 'admin') return new Set(ALL_KEYS);
+    if (role === 'admin' || role === 'superadmin') return new Set(ALL_KEYS);
     const base = new Set(roleDefaults(role));
     const overrides = parseOverrides(overridesRaw);
     for (const [key, allowed] of Object.entries(overrides)) {
@@ -110,6 +112,6 @@ export function userCan(
     key: string
 ): boolean {
     if (!user) return false;
-    if (user.role === 'admin') return true;
+    if (user.role === 'admin' || user.role === 'superadmin') return true;
     return effectivePermissions(user.role, user.permissions).has(key);
 }
