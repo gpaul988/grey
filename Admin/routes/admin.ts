@@ -12,6 +12,7 @@ import {
 import { formatMoney, timeAgo, toInt } from '../utils/helpers';
 import { avatarUpload, publicUrl } from '../config/uploads';
 import { PERMISSIONS, effectivePermissions } from '../config/permissions';
+import storeRoutes from './store';
 
 const route = express.Router();
 const viewsRoot = path.join(process.cwd(), 'Admin', 'views');
@@ -160,6 +161,9 @@ route.post('/profile/avatar', (req, res) => {
         res.redirect(adminPath('/profile?saved=1'));
     });
 });
+
+/* ---------------- Store sub-routes ---------------- */
+route.use('/store', storeRoutes);
 
 /* ---------------- Generic template view fallback (demo pages) ---------------- */
 route.get('/:viewName', async (req: Request, res: Response, next) => {

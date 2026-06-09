@@ -12,6 +12,7 @@ import { Participants } from './participants';
 import { Verification } from './verification';
 
 export const Users = UsersModel;
+export { Products, ProductCategories, ProductBrands, Customers, Orders, StoreSettings, ProductReviews, Coupons, Wishlists } from './store';
 export const Clients = ClientsModel;
 export const ClientStaff = ClientStaffModel;
 export { Participants, Verification };

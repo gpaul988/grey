@@ -46,6 +46,9 @@ export const PERMISSIONS: PermissionDef[] = [
     { key: 'casestudies.view', label: 'View case studies', group: 'Content' },
     { key: 'casestudies.manage', label: 'Manage case studies', group: 'Content' },
 
+    { key: 'store.view', label: 'View store (products, orders, customers)', group: 'Store' },
+    { key: 'store.manage', label: 'Manage store products & orders', group: 'Store' },
+
     { key: 'team.view', label: 'View team', group: 'Administration' },
     { key: 'team.manage', label: 'Manage team & permissions', group: 'Administration' },
     { key: 'activity.view', label: 'View activity log', group: 'Administration' },
@@ -77,6 +80,7 @@ const ROLE_DEFAULTS: Record<Role, string[]> = {
         'messages.view', 'messages.send',
         'blog.view',
         'casestudies.view',
+        'store.view',
     ],
 };
 
