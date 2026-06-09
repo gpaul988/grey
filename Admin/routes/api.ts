@@ -4,9 +4,11 @@ import {
     Users, Submissions, Leads, Clients, Projects, Tickets, TicketMessages,
     Invoices, CaseStudies, BlogPosts, Conversations, Messages,
     Products, ProductCategories, ProductBrands, Customers, Orders, ProductReviews, Coupons,
+    Verification,
     logActivity, nextInvoiceNumber, dashboardStats,
 } from '../models';
 import { slugify, str, toFloat, toInt, isEmail } from '../utils/helpers';
+import { sendSetPasswordEmail, smtpConfigured, appOrigin } from '../utils/mailer';
 import { ALL_KEYS, roleDefaults, type Role } from '../config/permissions';
 
 const api = express.Router();
@@ -341,6 +343,47 @@ api.post('/users', requireRole('admin'), async (req, res) => {
     logActivity({ ...actor(req), action: 'create', entity: 'user', entity_id: user.id, detail: email });
     ok(res, user, 'User created');
 });
+/* Send (or resend) a "set password" verification link to a user.
+   Works for invited users AND the superadmin who has no password yet.
+   Returns the link in the response when SMTP isn't configured (dev/manual). */
+api.post('/users/:id/send-setup-link', requireRole('admin'), async (req, res) => {
+    const id = toInt(req.params.id);
+    const user = Users.find(id);
+    if (!user) return fail(res, 'User not found', 404);
+
+    const { token, code } = Verification.issue({
+        subjectType: 'user',
+        subjectId: user.id,
+        email: user.email,
+        purpose: 'set_password',
+    });
+
+    const roleLabel = user.role === 'superadmin' ? 'Super Admin'
+        : user.role.charAt(0).toUpperCase() + user.role.slice(1);
+    const delivered = await sendSetPasswordEmail({
+        to: user.email,
+        name: user.name,
+        token,
+        verificationId: code,
+        audience: 'team',
+        roleLabel,
+    });
+
+    logActivity({ ...actor(req), action: 'send-setup-link', entity: 'user', entity_id: user.id, detail: `${user.email} (${code})` });
+
+    const link = `${appOrigin()}/set-password/${token}`;
+    // Only expose the raw link when we couldn't actually email it.
+    const payload: { email: string; code: string; delivered: boolean; link?: string } = {
+        email: user.email, code, delivered,
+    };
+    if (!delivered) payload.link = link;
+
+    const message = delivered
+        ? `Setup link emailed to ${user.email}.`
+        : `SMTP not configured — share this link manually with ${user.email}.`;
+    ok(res, payload, message);
+});
+
 api.patch('/users/:id', requireRole('admin'), async (req, res) => {
     const data: { name?: string; email?: string; role?: string; phone?: string; status?: string; password?: string } = {};
     ['name', 'email', 'role', 'phone', 'status'].forEach((f) => { if (f in req.body) (data as Record<string, string>)[f] = str(req.body[f]); });
