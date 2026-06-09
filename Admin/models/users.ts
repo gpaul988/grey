@@ -75,6 +75,19 @@ export const UsersModel = {
         db.prepare('DELETE FROM users WHERE id = ?').run(id);
     },
 
+    /** Save a user's per-feature permission overrides (JSON map or null to clear). */
+    setPermissions(id: number, overrides: Record<string, boolean> | null): SafeUser | null {
+        const json = overrides && Object.keys(overrides).length ? JSON.stringify(overrides) : null;
+        db.prepare("UPDATE users SET permissions=@permissions, updated_at=datetime('now') WHERE id=@id").run({ id, permissions: json });
+        return this.find(id);
+    },
+
+    /** Raw permissions JSON string for a user. */
+    getPermissions(id: number): string | null {
+        const row = db.prepare('SELECT permissions FROM users WHERE id = ?').get(id) as { permissions: string | null } | undefined;
+        return row?.permissions ?? null;
+    },
+
     async verify(email: string, password: string): Promise<User | null> {
         const user = this.findByEmail(email.toLowerCase());
         if (!user || user.status !== 'active') return null;

@@ -3,12 +3,15 @@ import path from 'node:path';
 import express, { type Request, type Response } from 'express';
 
 import { adminPath } from '../config/adminPaths';
+import { requirePermission } from '../middleware/authMiddleware';
 import {
     Users, Submissions, Leads, Clients, Projects, Tickets, TicketMessages,
     Invoices, CaseStudies, BlogPosts, Conversations, Messages, Activity,
-    dashboardStats,
+    dashboardStats, chartData, logActivity,
 } from '../models';
 import { formatMoney, timeAgo, toInt } from '../utils/helpers';
+import { avatarUpload, publicUrl } from '../config/uploads';
+import { PERMISSIONS, effectivePermissions } from '../config/permissions';
 
 const route = express.Router();
 const viewsRoot = path.join(process.cwd(), 'Admin', 'views');
@@ -31,6 +34,7 @@ route.get('/dashboard', (_req: Request, res: Response) => {
         title: 'Dashboard',
         ...baseLocals,
         stats,
+        charts: chartData(6),
         recentSubmissions: Submissions.all().slice(0, 6),
         recentLeads: Leads.all().slice(0, 6),
         activeProjects: Projects.where('status', 'active').slice(0, 5),
@@ -43,19 +47,19 @@ route.get('/home', (_req, res) => res.redirect(adminPath('/dashboard')));
 route.get('/', (_req, res) => res.redirect(adminPath('/dashboard')));
 
 /* ---------------- Data-backed feature pages ---------------- */
-route.get('/submissions', (_req, res) => {
+route.get('/submissions', requirePermission('submissions.view'), (_req, res) => {
     res.render('apps-submissions', { title: 'Submissions', ...baseLocals, submissions: Submissions.all() });
 });
 
-route.get('/leads', (_req, res) => {
+route.get('/leads', requirePermission('leads.view'), (_req, res) => {
     res.render('apps-leads', { title: 'Leads', ...baseLocals, leads: Leads.all(), users: Users.all() });
 });
 
-route.get('/projects', (_req, res) => {
+route.get('/projects', requirePermission('projects.view'), (_req, res) => {
     res.render('apps-projects', { title: 'Projects', ...baseLocals, projects: Projects.all(), clients: Clients.all(), users: Users.all() });
 });
 
-route.get('/tickets', (_req, res) => {
+route.get('/tickets', requirePermission('tickets.view'), (_req, res) => {
     res.render('apps-tickets', { title: 'Tickets', ...baseLocals, tickets: Tickets.all(), users: Users.all() });
 });
 
@@ -68,7 +72,7 @@ route.get('/ticket/:id', (req, res, next) => {
     });
 });
 
-route.get('/invoices', (_req, res) => {
+route.get('/invoices', requirePermission('invoices.view'), (_req, res) => {
     res.render('apps-invoices', { title: 'Invoices', ...baseLocals, invoices: Invoices.all() });
 });
 
@@ -81,19 +85,19 @@ route.get('/invoice/:id', (req, res, next) => {
     });
 });
 
-route.get('/invoice-create', (_req, res) => {
+route.get('/invoice-create', requirePermission('invoices.manage'), (_req, res) => {
     res.render('apps-invoice-create', { title: 'Create Invoice', ...baseLocals, clients: Clients.all() });
 });
 
-route.get('/clients', (_req, res) => {
+route.get('/clients', requirePermission('clients.view'), (_req, res) => {
     res.render('apps-user-contacts', { title: 'Clients', ...baseLocals, clients: Clients.all() });
 });
 
-route.get('/case-studies', (_req, res) => {
+route.get('/case-studies', requirePermission('casestudies.view'), (_req, res) => {
     res.render('apps-case-studies', { title: 'Case Studies', ...baseLocals, caseStudies: CaseStudies.all() });
 });
 
-route.get('/blog', (_req, res) => {
+route.get('/blog', requirePermission('blog.view'), (_req, res) => {
     res.render('apps-blog', { title: 'Blog', ...baseLocals, posts: BlogPosts.all() });
 });
 
@@ -109,17 +113,52 @@ route.get('/chat', (req, res) => {
     });
 });
 
-route.get('/team', (_req, res) => {
-    res.render('apps-team', { title: 'Team', ...baseLocals, users: Users.all() });
+route.get('/team', requirePermission('team.view'), (_req, res) => {
+    const users = Users.all();
+    // Compute each user's effective permission set so the UI can pre-check boxes.
+    const effective: Record<number, string[]> = {};
+    for (const u of users) {
+        effective[u.id] = Array.from(effectivePermissions(u.role, u.permissions));
+    }
+    res.render('apps-team', {
+        title: 'Team', ...baseLocals, users,
+        permissionDefs: PERMISSIONS,
+        effectivePerms: effective,
+    });
 });
 
-route.get('/activity', (_req, res) => {
+route.get('/activity', requirePermission('activity.view'), (_req, res) => {
     res.render('apps-activity', { title: 'Activity Log', ...baseLocals, activity: Activity.all().slice(0, 100) });
 });
 
 route.get('/profile', (req, res) => {
     const u = req.session.user ? Users.find(req.session.user.id) : null;
-    res.render('apps-user-profile', { title: 'My Profile', ...baseLocals, profile: u });
+    res.render('apps-user-profile', {
+        title: 'My Profile', ...baseLocals, profile: u,
+        flash: typeof req.query.saved !== 'undefined' ? 'Profile updated.' : null,
+        flashError: typeof req.query.err !== 'undefined' ? String(req.query.err) : null,
+    });
+});
+
+/* Upload / replace own avatar. */
+route.post('/profile/avatar', (req, res) => {
+    const sessionUser = req.session.user;
+    if (!sessionUser) return res.redirect(adminPath('/profile'));
+    avatarUpload.single('avatar')(req, res, async (err: unknown) => {
+        if (err) {
+            const msg = err instanceof Error ? err.message : 'Upload failed';
+            return res.redirect(adminPath(`/profile?err=${encodeURIComponent(msg)}`));
+        }
+        const file = (req as Request & { file?: { filename: string } }).file;
+        if (!file) return res.redirect(adminPath('/profile?err=No file selected'));
+        const url = publicUrl('avatars', file.filename);
+        const updated = await Users.update(sessionUser.id, { avatar: url });
+        if (updated) {
+            req.session.user = { ...sessionUser, avatar: url };
+            logActivity({ user_id: sessionUser.id, user_name: sessionUser.name, action: 'update', entity: 'avatar', entity_id: sessionUser.id });
+        }
+        res.redirect(adminPath('/profile?saved=1'));
+    });
 });
 
 /* ---------------- Generic template view fallback (demo pages) ---------------- */

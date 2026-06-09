@@ -13,7 +13,14 @@
     <div class="col-xl-4">
         <div class="card">
             <div class="card-body text-center">
-                <img src="<%= p.avatar || '/images/users/avatar-1.jpg' %>" class="rounded-circle mb-3" width="96" height="96" alt="avatar">
+                <% if (typeof flash !== 'undefined' && flash) { %><div class="alert alert-success py-2"><%= flash %></div><% } %>
+                <% if (typeof flashError !== 'undefined' && flashError) { %><div class="alert alert-danger py-2"><%= flashError %></div><% } %>
+                <img src="<%= p.avatar || '/images/users/avatar-1.jpg' %>" class="rounded-circle mb-3" width="96" height="96" alt="avatar" style="object-fit:cover;">
+                <form action="<%= adminBasePath %>/profile/avatar" method="post" enctype="multipart/form-data" class="mb-3">
+                    <input type="file" name="avatar" accept="image/*" class="form-control form-control-sm mb-2" required>
+                    <button type="submit" class="btn btn-sm btn-outline-primary w-100"><i class="ti ti-upload me-1"></i>Update photo</button>
+                    <p class="text-muted fs-12 mt-1 mb-0">JPEG, PNG, WebP or GIF · max 2&nbsp;MB</p>
+                </form>
                 <h4 class="mb-1"><%= p.name %></h4>
                 <p class="text-muted mb-2 text-capitalize"><%= p.role %></p>
                 <span class="badge bg-<%= p.status==='active'?'success':'secondary' %>-subtle text-<%= p.status==='active'?'success':'secondary' %> text-capitalize"><%= p.status %></span>

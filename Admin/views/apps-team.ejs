@@ -33,6 +33,9 @@
                             <td><span class="badge bg-<%= u.status==='active'?'success':'secondary' %>-subtle text-<%= u.status==='active'?'success':'secondary' %> text-capitalize"><%= u.status %></span></td>
                             <% if (isAdmin) { %>
                             <td class="text-end">
+                                <% if (u.role !== 'admin') { %>
+                                <button class="btn btn-sm btn-soft-info btn-perms" data-id="<%= u.id %>" data-name="<%= u.name %>" data-role="<%= u.role %>" title="Permissions"><i class="ti ti-shield-lock"></i></button>
+                                <% } %>
                                 <button class="btn btn-sm btn-soft-primary btn-edit" data-id="<%= u.id %>" data-name="<%= u.name %>" data-email="<%= u.email %>" data-role="<%= u.role %>" data-phone="<%= u.phone||'' %>" data-status="<%= u.status %>"><i class="ti ti-edit"></i></button>
                                 <button class="btn btn-sm btn-soft-danger btn-del" data-id="<%= u.id %>"><i class="ti ti-trash"></i></button>
                             </td>
@@ -67,8 +70,34 @@
     </div>
 </div>
 
+<!-- Permissions modal -->
+<div class="modal fade" id="permModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Permissions — <span id="pmName"></span></h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted fs-13">Toggle exactly what <span id="pmName2"></span> can access. Base role: <span id="pmRole" class="fw-semibold text-capitalize"></span>. Unchecked items are denied even if the role normally allows them.</p>
+                <input type="hidden" id="pm_id">
+                <div class="d-flex justify-content-end gap-2 mb-2">
+                    <button type="button" class="btn btn-sm btn-light" id="pmSelectAll">Select all</button>
+                    <button type="button" class="btn btn-sm btn-light" id="pmReset">Reset to role defaults</button>
+                </div>
+                <div class="row g-3" id="pmGroups"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" id="pmSave">Save permissions</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <%- contentFor('extra_javascript') %>
 <%- include('./partials/admin-api-helper') %>
+<script id="permData" type="application/json"><%- JSON.stringify({ defs: permissionDefs, effective: effectivePerms }) %></script>
 <script>
 (function () {
     const modal = new bootstrap.Modal('#uModal');
@@ -97,6 +126,60 @@
         const r = await AdminAPI.del('/users/' + b.dataset.id);
         if (r.ok) { AdminAPI.toast('Deleted'); b.closest('tr').remove(); } else AdminAPI.toast(r.message, true);
     }));
+
+    /* ---------- Permissions ---------- */
+    const PERM = JSON.parse(document.getElementById('permData').textContent || '{}');
+    const DEFS = PERM.defs || [];
+    const EFFECTIVE = PERM.effective || {};
+    const ROLE_DEFAULTS = {
+        manager: DEFS.map(d => d.key).filter(k => k !== 'team.manage' && k !== 'settings.manage'),
+        staff: ['dashboard.view','submissions.view','leads.view','clients.view','projects.view','projects.manage','briefs.view','tickets.view','tickets.manage','invoices.view','messages.view','messages.send','blog.view','casestudies.view'],
+    };
+    const permModal = document.getElementById('permModal') ? new bootstrap.Modal('#permModal') : null;
+
+    function renderGroups(checked) {
+        const groups = {};
+        DEFS.forEach(d => { (groups[d.group] = groups[d.group] || []).push(d); });
+        const html = Object.entries(groups).map(([g, items]) => `
+            <div class="col-md-6">
+                <h6 class="text-uppercase fs-12 text-muted mb-2">${g}</h6>
+                ${items.map(it => `
+                    <div class="form-check mb-1">
+                        <input class="form-check-input pm-cb" type="checkbox" id="pm_${it.key}" data-key="${it.key}" ${checked.has(it.key) ? 'checked' : ''}>
+                        <label class="form-check-label" for="pm_${it.key}">${it.label}</label>
+                    </div>`).join('')}
+            </div>`).join('');
+        document.getElementById('pmGroups').innerHTML = html;
+    }
+
+    function openPerms(d) {
+        document.getElementById('pm_id').value = d.id;
+        document.getElementById('pmName').textContent = d.name;
+        document.getElementById('pmName2').textContent = d.name;
+        document.getElementById('pmRole').textContent = d.role;
+        renderGroups(new Set(EFFECTIVE[d.id] || []));
+        permModal && permModal.show();
+    }
+
+    document.querySelectorAll('.btn-perms').forEach(b => b.addEventListener('click', () => openPerms(b.dataset)));
+
+    const pmSelectAll = document.getElementById('pmSelectAll');
+    pmSelectAll && pmSelectAll.addEventListener('click', () => document.querySelectorAll('.pm-cb').forEach(c => c.checked = true));
+    const pmReset = document.getElementById('pmReset');
+    pmReset && pmReset.addEventListener('click', () => {
+        const role = document.getElementById('pmRole').textContent;
+        const defaults = new Set(ROLE_DEFAULTS[role] || []);
+        document.querySelectorAll('.pm-cb').forEach(c => c.checked = defaults.has(c.dataset.key));
+    });
+    const pmSave = document.getElementById('pmSave');
+    pmSave && pmSave.addEventListener('click', async () => {
+        const id = document.getElementById('pm_id').value;
+        const permissions = {};
+        document.querySelectorAll('.pm-cb').forEach(c => { permissions[c.dataset.key] = c.checked; });
+        const r = await AdminAPI.patch('/users/' + id + '/permissions', { permissions });
+        if (r.ok) { AdminAPI.toast('Permissions updated'); EFFECTIVE[id] = Object.keys(permissions).filter(k => permissions[k]); permModal && permModal.hide(); }
+        else AdminAPI.toast(r.message, true);
+    });
 })();
 </script>
 <% } %>

@@ -1,29 +1,43 @@
-# Backend fix task
+# Grey Infotech — Big Build (multi-phase)
 
-## Root cause
-- `npx tsx server.ts` (dev mode) OOM-killed in 4GB box during Next.js on-demand compile. Confirmed via dmesg oom-kill.
-- Fix: added 4GB swap + run in PRODUCTION mode (`NODE_ENV=production tsx server.ts`) after `next build`. Prod mode serves prebuilt pages = low memory.
+## Run command (production, stays alive on 4GB)
+  npx next build   (capped heap) THEN  ./run-server.sh   on port 3000
+  Dev mode OOMs — always prod build.
+  Admin login: hello@greyinfotech.com.ng / GreyAdmin@2026
+  Seed client pw: ClientPass@2026 (only for NEW clients; old 3 seeded clients have no pw)
 
-## Tasks
-1. [x] Add 4GB swap
-2. [ ] next build (capped heap)
-3. [ ] Start server in production mode, verify it stays alive
-4. [ ] Verify login flow works (POST /admin/login -> dashboard)
-5. [ ] Add top-level /login route -> serves admin login (user wants URL /login not /admin/login)
-6. [ ] Footer already points to /login (confirmed line 30). Make /login actually work.
-7. [ ] Verify admin CRUD pages load (projects, tickets, invoices, etc.)
-8. [ ] SMTP_HOST missing -> contact form 500s. Make it graceful (don't crash, log instead).
+## DECISIONS
+- AI assistant SKIPPED (no LLM key). Keep Tawk.io for human chat.
+- Magic-link client login is primary; password login secondary.
+- Permissions: config/permissions.ts (role defaults + per-user JSON override in users.permissions).
+- Migrations run automatically + synchronously on boot (db/index.ts passes db into migrate(db)).
 
-## Notes
-- Admin login: hello@greyinfotech.com.ng / GreyAdmin@2026
-- ADMIN_BASE_PATH = /admin, auth routes mounted at /admin
+## PHASES
+- P1 = profiles + roles/permissions + dashboard graphs  <- IN PROGRESS
+- P2 = client portal (magic-link login, projects/progress, invoices, brief form, file uploads, messaging)
+- P3 = SKIPPED (AI)
+- P4 = frontend pulls from backend + update Next/deps + gap audit
 
-## RESULT — ALL DONE ✓
-- Root cause of "backend not working": dev-mode Next.js OOM-killed (4GB box). Fixed by 4GB swap + running PRODUCTION mode (next build + NODE_ENV=production tsx server.ts). Server now stays alive.
-- /login now the canonical login URL (was /admin/login). Footer link -> /login works. /admin/login kept for backward compat.
-- Auth redirects (logout, guards, register links) all use clean /login,/register,/logout root URLs.
-- Contact form no longer 500s without SMTP — lead saved to DB, returns success.
-- Verified: login->dashboard, logout->/login, guard redirect->/login, lead persists to submissions inbox.
+## P1 COMPLETE ✓ (committed)
+## P1 PROGRESS
+1. [x] Add new types (Client w/ pw, ClientToken, ProjectBrief, Upload) — types.ts
+2. [x] Schema: clients pw/status/last_login, users.permissions, conversations.project_id,
+       new tables client_tokens/project_briefs/uploads. addColumnIfMissing helper.
+3. [x] Boot migration synchronous (migrate(db)) — VERIFIED tables+cols exist.
+4. [x] models/clients.ts — magic-link createLoginToken/verifyToken, verifyPassword, CRUD. VERIFIED round-trip.
+5. [x] models/index.ts — Clients=ClientsModel, ProjectBriefs, Uploads repos. Removed dup line.
+6. [x] seed.ts — clients created with await + passwords.
+7. [x] config/permissions.ts — userCan/effectivePermissions.
+8. [ ] FULL next build + run-server.sh smoke test  <- DOING NOW
+9. [x] Avatar upload (multer) /admin/profile/avatar — VERIFIED end-to-end (save+serve+db+session).
+       Wire into apps-user-profile.ejs.
+10.[x] Roles/permissions UI in apps-team.ejs (grouped checkboxes, delta-stored) + requirePermission enforced on 11 admin page routes + requireApiPermission helper. VERIFIED: staff granted team.view->200, revoked invoices.view->403. Middleware hydrates perms from DB.
+    TODO polish: hide sidebar nav items user lacks permission for (partials/sidenav).
+11.[x] Dashboard graphs: chartData() aggregations (leads/submissions line, revenue area, projects donut, tickets bar) -> ApexCharts in index.ejs. VERIFIED via screenshot, live data renders.
 
-## Run command (production, stays alive on 4GB):
-  ./run-server.sh   (NODE_ENV=production, capped heap) on port 3000
+## P2 (later)
+- Client portal: /portal login via token, dashboard projects/progress, invoices,
+  project brief form, file uploads, ticket, two-way messaging (conversations/messages).
+
+## P4 (later)
+- Frontend services/portfolio/blog/FAQ/pricing from backend; update Next.js+deps; gap audit.

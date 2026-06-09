@@ -27,9 +27,9 @@ async function seed() {
     console.log('Users seeded.');
 
     // --- Clients ---
-    const c1 = Clients.create({ name: 'Ada Okafor', email: 'ada@taskflow.io', company: 'TaskFlow Inc', phone: '+234 803 111 2222', avatar: null });
-    const c2 = Clients.create({ name: 'Tunde Bello', email: 'tunde@naijapay.ng', company: 'NaijaPay', phone: '+234 805 333 4444', avatar: null });
-    const c3 = Clients.create({ name: 'Grace Eze', email: 'grace@medlink.africa', company: 'MedLink Africa', phone: '+234 807 555 6666', avatar: null });
+    const c1 = await Clients.create({ name: 'Ada Okafor', email: 'ada@taskflow.io', company: 'TaskFlow Inc', phone: '+234 803 111 2222', password: 'ClientPass@2026' });
+    const c2 = await Clients.create({ name: 'Tunde Bello', email: 'tunde@naijapay.ng', company: 'NaijaPay', phone: '+234 805 333 4444', password: 'ClientPass@2026' });
+    const c3 = await Clients.create({ name: 'Grace Eze', email: 'grace@medlink.africa', company: 'MedLink Africa', phone: '+234 807 555 6666', password: 'ClientPass@2026' });
     console.log('Clients seeded.');
 
     // --- Submissions (contact inbox) ---

@@ -120,6 +120,39 @@
     </div>
 </div>
 
+<!-- Charts -->
+<div class="row">
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="card-title mb-0">Leads &amp; Submissions <span class="text-muted fs-13 fw-normal">· last 6 months</span></h4>
+            </div>
+            <div class="card-body"><div id="chartLeads" style="min-height:300px;"></div></div>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="card">
+            <div class="card-header"><h4 class="card-title mb-0">Projects by Status</h4></div>
+            <div class="card-body"><div id="chartProjects" style="min-height:300px;"></div></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-header"><h4 class="card-title mb-0">Revenue Collected <span class="text-muted fs-13 fw-normal">· paid invoices / month</span></h4></div>
+            <div class="card-body"><div id="chartRevenue" style="min-height:300px;"></div></div>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="card">
+            <div class="card-header"><h4 class="card-title mb-0">Tickets by Status</h4></div>
+            <div class="card-body"><div id="chartTickets" style="min-height:300px;"></div></div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <!-- Recent submissions -->
     <div class="col-xl-6">
@@ -244,3 +277,67 @@
         </div>
     </div>
 </div>
+
+<%- contentFor('extra_javascript') %>
+<script src="/vendor/apexcharts/apexcharts.min.js"></script>
+<script id="dashChartData" type="application/json"><%- JSON.stringify(charts) %></script>
+<script>
+(function () {
+    if (typeof ApexCharts === 'undefined') return;
+    var D = JSON.parse(document.getElementById('dashChartData').textContent || '{}');
+    var money = function (v) { return '₦' + (Number(v) || 0).toLocaleString(); };
+    var cap = function (s) { return (s || '').replace(/_/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); }); };
+
+    // 1) Leads & Submissions — line
+    new ApexCharts(document.querySelector('#chartLeads'), {
+        chart: { type: 'line', height: 300, toolbar: { show: false } },
+        series: [
+            { name: 'Leads', data: D.leads || [] },
+            { name: 'Submissions', data: D.submissions || [] }
+        ],
+        xaxis: { categories: D.labels || [] },
+        colors: ['#5b73e8', '#10c469'],
+        stroke: { curve: 'smooth', width: 3 },
+        markers: { size: 4 },
+        legend: { position: 'top' },
+        grid: { borderColor: '#f1f3fa' }
+    }).render();
+
+    // 2) Projects by status — donut
+    var pKeys = Object.keys(D.projectStatus || {});
+    new ApexCharts(document.querySelector('#chartProjects'), {
+        chart: { type: 'donut', height: 300 },
+        series: pKeys.map(function (k) { return D.projectStatus[k]; }),
+        labels: pKeys.map(cap),
+        colors: ['#5b73e8', '#10c469', '#f9bc0b', '#6c757d', '#ff5c75'],
+        legend: { position: 'bottom' },
+        noData: { text: 'No projects yet' }
+    }).render();
+
+    // 3) Revenue — area
+    new ApexCharts(document.querySelector('#chartRevenue'), {
+        chart: { type: 'area', height: 300, toolbar: { show: false } },
+        series: [{ name: 'Revenue', data: D.revenue || [] }],
+        xaxis: { categories: D.labels || [] },
+        colors: ['#10c469'],
+        stroke: { curve: 'smooth', width: 2 },
+        fill: { type: 'gradient', gradient: { opacityFrom: 0.4, opacityTo: 0.05 } },
+        dataLabels: { enabled: false },
+        yaxis: { labels: { formatter: money } },
+        tooltip: { y: { formatter: money } },
+        grid: { borderColor: '#f1f3fa' }
+    }).render();
+
+    // 4) Tickets by status — bar
+    var tKeys = Object.keys(D.ticketStatus || {});
+    new ApexCharts(document.querySelector('#chartTickets'), {
+        chart: { type: 'bar', height: 300, toolbar: { show: false } },
+        series: [{ name: 'Tickets', data: tKeys.map(function (k) { return D.ticketStatus[k]; }) }],
+        xaxis: { categories: tKeys.map(cap) },
+        colors: ['#ff5c75'],
+        plotOptions: { bar: { borderRadius: 4, distributed: true, columnWidth: '45%' } },
+        legend: { show: false },
+        noData: { text: 'No tickets yet' }
+    }).render();
+})();
+</script>

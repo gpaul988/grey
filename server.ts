@@ -39,6 +39,8 @@ app.use('/js', express.static(path.join(adminPublicPath, 'js')));
 app.use('/images', express.static(path.join(adminPublicPath, 'images')));
 app.use('/vendor', express.static(path.join(adminPublicPath, 'vendor')));
 app.use('/fonts', express.static(path.join(adminPublicPath, 'fonts')));
+// User-generated uploads (avatars, client files). Served read-only.
+app.use('/uploads', express.static(path.join(adminPublicPath, 'uploads')));
 
 // Body parsing, cookies and session applied at the ROOT so that the
 // top-level auth routes (/login, /register, /logout) share the same

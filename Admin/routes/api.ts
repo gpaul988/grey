@@ -6,6 +6,7 @@ import {
     logActivity, nextInvoiceNumber, dashboardStats,
 } from '../models';
 import { slugify, str, toFloat, toInt, isEmail } from '../utils/helpers';
+import { ALL_KEYS, roleDefaults, type Role } from '../config/permissions';
 
 const api = express.Router();
 api.use(ensureApiAuth);
@@ -80,18 +81,25 @@ api.delete('/leads/:id', (req, res) => {
 
 /* ---------------- Clients ---------------- */
 api.get('/clients', (_req, res) => ok(res, Clients.all()));
-api.post('/clients', (req, res) => {
+api.post('/clients', async (req, res) => {
     const name = str(req.body.name); const email = str(req.body.email);
     if (!name || !email) return fail(res, 'Name and email are required');
-    if (Clients.findBy('email', email.toLowerCase())) return fail(res, 'Client with this email exists');
-    const row = Clients.create({ name, email: email.toLowerCase(), company: str(req.body.company), phone: str(req.body.phone), avatar: null });
+    if (Clients.findByEmail(email.toLowerCase())) return fail(res, 'Client with this email exists');
+    const row = await Clients.create({
+        name,
+        email: email.toLowerCase(),
+        company: str(req.body.company),
+        phone: str(req.body.phone),
+        password: str(req.body.password) || undefined,
+    });
     logActivity({ ...actor(req), action: 'create', entity: 'client', entity_id: row.id });
     ok(res, row, 'Client created');
 });
-api.patch('/clients/:id', (req, res) => {
+api.patch('/clients/:id', async (req, res) => {
     const data: Record<string, unknown> = {};
-    ['name', 'email', 'company', 'phone'].forEach((f) => { if (f in req.body) data[f] = str(req.body[f]); });
-    const row = Clients.update(toInt(req.params.id), data);
+    ['name', 'email', 'company', 'phone', 'status'].forEach((f) => { if (f in req.body) data[f] = str(req.body[f]); });
+    if (str(req.body.password)) data.password = str(req.body.password);
+    const row = await Clients.update(toInt(req.params.id), data);
     return row ? ok(res, row, 'Client updated') : fail(res, 'Not found', 404);
 });
 api.delete('/clients/:id', (req, res) => { Clients.delete(toInt(req.params.id)); ok(res, null, 'Client deleted'); });
@@ -341,6 +349,32 @@ api.patch('/users/:id', requireRole('admin'), async (req, res) => {
     logActivity({ ...actor(req), action: 'update', entity: 'user', entity_id: user.id });
     ok(res, user, 'User updated');
 });
+/* Save per-user permission overrides. Body: { permissions: { "key": true|false, ... } }.
+   We store only the DIFFERENCE from role defaults so toggling roles stays sane. */
+api.patch('/users/:id/permissions', requireRole('admin'), (req, res) => {
+    const id = toInt(req.params.id);
+    const target = Users.find(id);
+    if (!target) return fail(res, 'Not found', 404);
+    if (target.role === 'admin') return fail(res, 'Admins already have all permissions');
+
+    const incoming = (req.body && typeof req.body.permissions === 'object' && req.body.permissions) || {};
+    const granted = new Set<string>();
+    for (const key of ALL_KEYS) {
+        if (incoming[key] === true || incoming[key] === 'true' || incoming[key] === 'on') granted.add(key);
+    }
+    // Store only deltas vs the role defaults.
+    const defaults = new Set(roleDefaults(target.role as Role));
+    const overrides: Record<string, boolean> = {};
+    for (const key of ALL_KEYS) {
+        const want = granted.has(key);
+        const base = defaults.has(key);
+        if (want !== base) overrides[key] = want;
+    }
+    const user = Users.setPermissions(id, Object.keys(overrides).length ? overrides : null);
+    logActivity({ ...actor(req), action: 'update', entity: 'permissions', entity_id: id, detail: target.name });
+    ok(res, user, 'Permissions updated');
+});
+
 api.delete('/users/:id', requireRole('admin'), (req, res) => {
     const id = toInt(req.params.id);
     if (id === req.session.user?.id) return fail(res, 'You cannot delete your own account');

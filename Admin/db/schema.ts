@@ -1,9 +1,13 @@
-import db from './index';
+import type DatabaseType from 'better-sqlite3';
 
 /**
  * Creates all tables if they do not exist. Idempotent — safe to run on every boot.
+ * Accepts the db instance directly to avoid a circular-import race with ./index.
+ * Falls back to requiring ./index when called without an argument.
  */
-export function migrate(): void {
+export function migrate(database?: DatabaseType.Database): void {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const db = database ?? (require('./index') as typeof import('./index')).default;
     db.exec(`
     CREATE TABLE IF NOT EXISTS users (
       id            INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -180,5 +184,69 @@ export function migrate(): void {
     CREATE INDEX IF NOT EXISTS idx_invoices_status ON invoices(status);
     CREATE INDEX IF NOT EXISTS idx_blog_status ON blog_posts(status);
     CREATE INDEX IF NOT EXISTS idx_messages_conv ON messages(conversation_id);
+
+    /* ---- Client portal auth: magic-link login tokens ---- */
+    CREATE TABLE IF NOT EXISTS client_tokens (
+      id          INTEGER PRIMARY KEY AUTOINCREMENT,
+      client_id   INTEGER NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
+      token       TEXT    NOT NULL UNIQUE,
+      purpose     TEXT    NOT NULL DEFAULT 'login',   -- login | invite
+      used_at     TEXT,
+      expires_at  TEXT    NOT NULL,
+      created_at  TEXT    NOT NULL DEFAULT (datetime('now'))
+    );
+    CREATE INDEX IF NOT EXISTS idx_client_tokens_token ON client_tokens(token);
+
+    /* ---- Project brief: what the client wants + design preferences ---- */
+    CREATE TABLE IF NOT EXISTS project_briefs (
+      id            INTEGER PRIMARY KEY AUTOINCREMENT,
+      client_id     INTEGER NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
+      project_id    INTEGER REFERENCES projects(id) ON DELETE SET NULL,
+      service       TEXT,
+      title         TEXT    NOT NULL,
+      goals         TEXT,
+      target_audience TEXT,
+      design_style  TEXT,
+      color_prefs   TEXT,
+      references_links TEXT,
+      budget_range  TEXT,
+      timeline      TEXT,
+      details       TEXT,
+      status        TEXT    NOT NULL DEFAULT 'submitted', -- submitted | reviewing | accepted | in_progress | done
+      created_at    TEXT    NOT NULL DEFAULT (datetime('now')),
+      updated_at    TEXT    NOT NULL DEFAULT (datetime('now'))
+    );
+
+    /* ---- File uploads attached to clients / projects / briefs ---- */
+    CREATE TABLE IF NOT EXISTS uploads (
+      id          INTEGER PRIMARY KEY AUTOINCREMENT,
+      client_id   INTEGER REFERENCES clients(id) ON DELETE CASCADE,
+      project_id  INTEGER REFERENCES projects(id) ON DELETE SET NULL,
+      brief_id    INTEGER REFERENCES project_briefs(id) ON DELETE SET NULL,
+      uploader    TEXT    NOT NULL DEFAULT 'client',  -- client | staff
+      uploader_id INTEGER,
+      filename    TEXT    NOT NULL,
+      original    TEXT    NOT NULL,
+      mime        TEXT,
+      size        INTEGER NOT NULL DEFAULT 0,
+      url         TEXT    NOT NULL,
+      created_at  TEXT    NOT NULL DEFAULT (datetime('now'))
+    );
   `);
+
+  /* ---------------- Idempotent column migrations ---------------- */
+  const addColumnIfMissing = (table: string, column: string, definition: string): void => {
+    const cols = db.prepare(`PRAGMA table_info(${table})`).all() as { name: string }[];
+    if (!cols.some((c) => c.name === column)) {
+      db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`);
+    }
+  };
+
+  addColumnIfMissing('clients', 'password_hash', 'TEXT');
+  addColumnIfMissing('clients', 'status', "TEXT NOT NULL DEFAULT 'active'");
+  addColumnIfMissing('clients', 'last_login', 'TEXT');
+  // Per-user custom permission overrides (JSON map), beyond the base role.
+  addColumnIfMissing('users', 'permissions', 'TEXT');
+  // Link a conversation to a project for client messaging context.
+  addColumnIfMissing('conversations', 'project_id', 'INTEGER');
 }
