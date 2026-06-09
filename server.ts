@@ -12,6 +12,7 @@ import { ensureAuth } from './Admin/middleware/authMiddleware';
 import adminRoutes from './Admin/routes/admin';
 import apiRoutes from './Admin/routes/api';
 import authRoutes from './Admin/routes/auth';
+import portalRoutes from './Admin/routes/portal';
 import { dashboardStats } from './Admin/models';
 
 dotenv.config({ path: './config.env' });
@@ -39,15 +40,26 @@ app.use('/js', express.static(path.join(adminPublicPath, 'js')));
 app.use('/images', express.static(path.join(adminPublicPath, 'images')));
 app.use('/vendor', express.static(path.join(adminPublicPath, 'vendor')));
 app.use('/fonts', express.static(path.join(adminPublicPath, 'fonts')));
+// User-generated uploads (avatars, client files). Served read-only.
+app.use('/uploads', express.static(path.join(adminPublicPath, 'uploads')));
+
+// Paths that share the Express session/body-parsing stack. Includes the
+// email-verification, set-password and client-portal routes added later.
+const SESSION_PATHS = [
+  '/login', '/register', '/logout',
+  '/verify-email', '/set-password',
+  '/portal',
+  ADMIN_BASE_PATH,
+];
 
 // Body parsing, cookies and session applied at the ROOT so that the
 // top-level auth routes (/login, /register, /logout) share the same
 // session as the /admin dashboard.
-app.use(['/login', '/register', '/logout', ADMIN_BASE_PATH], express.urlencoded({ extended: true }));
-app.use(['/login', '/register', '/logout', ADMIN_BASE_PATH], express.json());
-app.use(['/login', '/register', '/logout', ADMIN_BASE_PATH], cookieParser());
+app.use(SESSION_PATHS, express.urlencoded({ extended: true }));
+app.use(SESSION_PATHS, express.json());
+app.use(SESSION_PATHS, cookieParser());
 app.use(
-  ['/login', '/register', '/logout', ADMIN_BASE_PATH],
+  SESSION_PATHS,
   session({
     resave: false,
     saveUninitialized: false,
@@ -56,7 +68,7 @@ app.use(
   })
 );
 
-app.use(['/login', '/register', '/logout', ADMIN_BASE_PATH], (req, res, nextMiddleware) => {
+app.use(SESSION_PATHS, (req, res, nextMiddleware) => {
   res.locals.user = req.session.user || null;
   res.locals.currentYear = new Date().getFullYear();
   res.locals.frontendBaseUrl = process.env.FRONTEND_BASE_URL || '/';
@@ -90,11 +102,14 @@ app.use(['/login', '/register', '/logout', ADMIN_BASE_PATH], (req, res, nextMidd
 // JSON CRUD API (auth enforced inside the router via ensureApiAuth)
 app.use(`${ADMIN_BASE_PATH}/api`, apiRoutes);
 
-// Auth (login / register / logout) lives at the ROOT so the public URL is
-// /login instead of /admin/login. Mounted at both root and /admin for
-// backwards compatibility with old links.
+// Auth (login / register / logout / verify-email / set-password) lives at the
+// ROOT so public URLs are clean (e.g. /login, /verify-email/:token). Mounted at
+// both root and /admin for backwards compatibility with old links.
 app.use('/', authRoutes);
 app.use(ADMIN_BASE_PATH, authRoutes);
+
+// Client portal (magic-link login, dashboard, staff, messaging) under /portal.
+app.use('/portal', portalRoutes);
 
 // Protected admin dashboard + CRUD pages.
 app.use(ADMIN_BASE_PATH, ensureAuth, adminRoutes);

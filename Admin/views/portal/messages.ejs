@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en"><head><%- include('_head') %></head>
+<body>
+  <%- include('_nav') %>
+  <div class="container pb-5">
+
+    <h4 class="mb-3"><i class="bi bi-chat-dots text-teal"></i> Messages</h4>
+    <% if (info) { %><div class="alert alert-success py-2"><%= info %></div><% } %>
+    <% if (error) { %><div class="alert alert-warning py-2"><%= error %></div><% } %>
+
+    <div class="row g-4">
+      <!-- Conversation list -->
+      <div class="col-lg-4">
+        <div class="card p-2">
+          <% if (!conversations || conversations.length === 0) { %>
+            <p class="text-muted small p-3 mb-0">No conversations yet. Our team will reach out here.</p>
+          <% } else { %>
+            <% conversations.forEach(function(c){ var on = active && c.id === active.id; %>
+              <a href="/portal/messages?c=<%= c.id %>" class="d-block p-3 rounded <%= on ? 'text-white' : 'text-dark' %>" style="<%= on ? 'background:var(--teal);' : '' %>">
+                <div class="d-flex justify-content-between">
+                  <strong><%= c.subject || ('Conversation #'+c.id) %></strong>
+                  <% if (c.unread) { %><span class="chip bg-danger text-white"><%= c.unread %></span><% } %>
+                </div>
+                <div class="small <%= on ? 'text-white-50' : 'text-muted' %>" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><%= c.last_message || '' %></div>
+              </a>
+            <% }) %>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- Active thread -->
+      <div class="col-lg-8">
+        <% if (!active) { %>
+          <div class="card p-4"><p class="text-muted mb-0">Select a conversation to view messages.</p></div>
+        <% } else { %>
+          <div class="card p-4 mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="mb-0"><%= active.subject || ('Conversation #'+active.id) %></h5>
+            </div>
+
+            <!-- Participants -->
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+              <span class="small text-muted">In this chat:</span>
+              <% (participants||[]).forEach(function(pt){ %>
+                <span class="chip bg-light d-inline-flex align-items-center gap-1">
+                  <%= pt.name %>
+                  <% if (isOwner && paid && pt.participant_type === 'client_staff') { %>
+                    <a href="#" onclick="document.getElementById('rm-<%= pt.participant_id %>').submit();return false;" class="text-danger ms-1"><i class="bi bi-x"></i></a>
+                    <form id="rm-<%= pt.participant_id %>" method="POST" action="/portal/messages/<%= active.id %>/participants/<%= pt.participant_id %>/remove" class="d-none"></form>
+                  <% } %>
+                </span>
+              <% }) %>
+            </div>
+
+            <!-- Add staff to conversation -->
+            <% if (isOwner) { %>
+              <% if (!paid) { %>
+                <div class="alert alert-light border small text-muted py-2"><i class="bi bi-lock"></i> Add team members to conversations after your first payment.</div>
+              <% } else if (staff && staff.length) { %>
+                <form method="POST" action="/portal/messages/<%= active.id %>/participants" class="d-flex gap-2 mb-3" style="max-width:420px;">
+                  <select name="staff_id" class="form-select form-select-sm" required>
+                    <option value="">Add team member…</option>
+                    <% staff.forEach(function(s){ %><option value="<%= s.id %>"><%= s.name %></option><% }) %>
+                  </select>
+                  <button class="btn btn-sm btn-teal">Add</button>
+                </form>
+              <% } %>
+            <% } %>
+
+            <!-- Messages -->
+            <div class="mb-3" style="max-height:420px;overflow-y:auto;">
+              <% if (!messages || messages.length === 0) { %>
+                <p class="text-muted small">No messages yet.</p>
+              <% } else { %>
+                <% messages.forEach(function(m){ var out = (m.sender === 'client' || m.sender === 'client_staff'); %>
+                  <div class="d-flex mb-2 <%= out ? 'justify-content-end' : 'justify-content-start' %>">
+                    <div class="<%= out ? 'msg-out' : 'msg-in' %> p-2 px-3 rounded" style="max-width:75%;">
+                      <div class="small <%= out ? 'text-white-50' : 'text-muted' %>"><%= m.sender_name || (out ? 'You' : 'Grey Team') %></div>
+                      <div><%= m.body %></div>
+                    </div>
+                  </div>
+                <% }) %>
+              <% } %>
+            </div>
+
+            <!-- Reply -->
+            <form method="POST" action="/portal/messages/<%= active.id %>/reply" class="d-flex gap-2">
+              <input name="body" class="form-control" placeholder="Write a reply…" autocomplete="off" required>
+              <button class="btn btn-teal">Send</button>
+            </form>
+          </div>
+        <% } %>
+      </div>
+    </div>
+
+  </div>
+</body></html>

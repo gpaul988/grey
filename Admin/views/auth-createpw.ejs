@@ -10,51 +10,48 @@ class="h-100"
 <div class="auth-bg d-flex min-vh-100">
     <div class="row g-0 justify-content-center w-100 m-xxl-5 px-xxl-4 m-3">
         <div class="col-xxl-3 col-lg-5 col-md-6">
-            <a href="index" class="auth-brand d-flex justify-content-center mb-2">
+            <a href="/" class="auth-brand d-flex justify-content-center mb-2">
                 <img src="/images/logo-dark.png" alt="dark logo" height="26" class="logo-dark">
                 <img src="/images/logo.png" alt="logo light" height="26" class="logo-light">
             </a>
 
-            <p class="fw-semibold mb-4 text-center text-muted fs-15">Admin Panel Design by Coderthemes</p>
+            <p class="fw-semibold mb-4 text-center text-muted fs-15">Grey InfoTech Admin</p>
 
-            <div class="card overflow-hidden text-center p-xxl-4 p-3 mb-0">
+            <div class="card overflow-hidden p-xxl-4 p-3 mb-0">
 
-                <h4 class="fw-semibold mb-2 fs-20">Create New Password</h4>
+                <h4 class="fw-semibold mb-2 fs-20 text-center">Set Your Password</h4>
+                <% if (typeof name !== 'undefined' && name) { %>
+                    <p class="text-muted mb-3 text-center">Welcome, <strong><%= name %></strong>. Create a password to activate your account.</p>
+                <% } else { %>
+                    <p class="text-muted mb-3 text-center">Create a secure password to activate your account.</p>
+                <% } %>
 
-                <p class="text-muted mb-2">Please create your new password.</p>
-                <p class="mb-4">Need password suggestion ? <a href="#!"
-                        class="link-dark fw-semibold text-decoration-underline">Suggestion</a></p>
+                <% if (typeof formError !== 'undefined' && formError) { %>
+                    <div class="alert alert-danger py-2"><%= formError %></div>
+                <% } %>
 
-
-                <form action="index" class="text-start mb-3">
-
+                <form action="/set-password/<%= token %>" method="POST" class="text-start mb-3">
                     <div class="mb-3">
-                        <label class="form-label" for="new-password">Create New Password <small
-                                class="text-info ms-1">Must be at least 8 characters</small></label>
-                        <input type="password" id="new-password" name="new-password" class="form-control"
-                            placeholder="New Password">
+                        <label class="form-label" for="password">New Password <small class="text-info ms-1">Min 8 characters</small></label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="New password" required minlength="8">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="re-password">Reenter New Password</label>
-                        <input type="password" id="re-password" name="re-password" class="form-control"
-                            placeholder="Reenter Password">
+                        <label class="form-label" for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Re-enter password" required minlength="8">
                     </div>
                     <div class="mb-2 d-grid">
-                        <button class="btn btn-primary fw-semibold" type="submit">Create New Password</button>
+                        <button class="btn btn-primary fw-semibold" type="submit">Set Password &amp; Verify</button>
                     </div>
                 </form>
 
-                <p class="text-muted fs-14 mb-0">
-                    Back To <a href="auth-login" class="fw-semibold text-danger ms-1">Login !</a>
+                <p class="text-muted fs-14 mb-0 text-center">
+                    Back to <a href="<%= typeof loginPath !== 'undefined' ? loginPath : '/login' %>" class="fw-semibold text-primary ms-1">Login</a>
                 </p>
             </div>
 
             <p class="mt-3 text-center mb-0">
-                <script>document.write(new Date().getFullYear())</script> © Adminto - By <span
-                    class="fw-bold text-decoration-underline text-uppercase text-reset fs-12">Coderthemes</span>
+                <%= new Date().getFullYear() %> © Grey InfoTech
             </p>
         </div>
     </div>
 </div>
-
-<%- contentFor('extra_javascript') %>

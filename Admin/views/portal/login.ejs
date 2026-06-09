@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><%- include('_head') %></head>
+<body class="d-flex align-items-center min-vh-100">
+  <div class="container" style="max-width:430px;">
+    <div class="text-center mb-4"><span class="brand fs-2">Grey InfoTech</span><div class="text-muted">Client Portal</div></div>
+    <div class="card p-4 shadow-sm">
+      <h5 class="mb-3">Sign in</h5>
+      <% if (verified) { %><div class="alert alert-success py-2">Email verified — you can sign in now.</div><% } %>
+      <% if (info) { %><div class="alert alert-success py-2"><%= info %></div><% } %>
+      <% if (error) { %><div class="alert alert-warning py-2"><%= error %></div><% } %>
+      <form method="POST" action="/portal/login">
+        <div class="mb-3">
+          <label class="form-label small">Email</label>
+          <input type="email" name="email" class="form-control" placeholder="you@company.com" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label small">Password <span class="text-muted">(leave blank to get a magic link)</span></label>
+          <input type="password" name="password" class="form-control" placeholder="••••••••">
+        </div>
+        <button class="btn btn-teal w-100 fw-semibold">Sign in</button>
+      </form>
+      <p class="text-muted small mt-3 mb-0">No password? Enter just your email and we'll email you a secure one-time sign-in link.</p>
+    </div>
+    <p class="text-center text-muted small mt-3"><%= new Date().getFullYear() %> © Grey InfoTech</p>
+  </div>
+</body></html>

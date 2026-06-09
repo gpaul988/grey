@@ -138,6 +138,9 @@ class="auth-shell"
                                 <p class="text-muted mb-0">Use your account credentials to access the admin dashboard.</p>
                             </div>
 
+                            <% if (typeof formInfo !== 'undefined' && formInfo) { %>
+                                <div class="alert alert-success border-0 rounded-3 mb-4"><%= formInfo %></div>
+                            <% } %>
                             <% if (typeof formError !== 'undefined' && formError) { %>
                                 <div class="alert alert-danger border-0 rounded-3 mb-4"><%= formError %></div>
                             <% } %>
