@@ -74,16 +74,12 @@ route.post('/login', redirectIfAuth, async (req: Request, res: Response) => {
         return renderLogin(res, { formError: 'Invalid email or password.', formValues: { email } });
     }
 
-    // Password is correct. Now enforce account state with actionable messages.
-    if (!matched.email_verified || matched.status !== 'active') {
-        const pending = String(matched.status || '').toLowerCase() === 'pending';
+    // Password is correct. Email verification is NOT required to log in — an
+    // unverified account with a valid password is allowed through. We only
+    // block accounts that have been explicitly disabled by an admin.
+    if (String(matched.status || '').toLowerCase() === 'disabled') {
         return renderLogin(res, {
-            formError: pending
-                ? 'This account is not activated yet. Open the "Set your password" link from your invitation ' +
-                  'email to activate it, then log in.'
-                : !matched.email_verified
-                  ? 'Your email is not verified yet. Please check your inbox for the verification link.'
-                  : 'This account is disabled. Contact your administrator.',
+            formError: 'This account is disabled. Contact your administrator.',
             formValues: { email },
         });
     }
