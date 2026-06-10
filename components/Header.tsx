@@ -381,7 +381,7 @@ const Header: React.FC = () => {
                                                 {/* Services Submenu Dropdown */}
                                                 <div
                                                     className={`absolute top-full left-[-4em] rounded-lg transition-all duration-300 transform ${isServicesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4'}`}
-                                                    style={{ width: '51rem' }}
+                                                    style={{width: '51rem'}}
                                                 >
                                                     <div className="flex gap-2 p-4">
                                                         {servicesSubmenuSections.map((section, sectionIndex) => (
@@ -438,7 +438,7 @@ const Header: React.FC = () => {
                                                 {/* Industries Submenu Dropdown */}
                                                 <div
                                                     className={`absolute top-full left-[-1.2em] rounded-lg transition-all duration-300 transform ${isIndustriesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4'}`}
-                                                    style={{ width: '35rem' }}
+                                                    style={{width: '35rem'}}
                                                 >
                                                     <div className="flex gap-2 p-4">
                                                         {industriesSubmenuSections.map((section, sectionIndex) => (
@@ -486,11 +486,12 @@ const Header: React.FC = () => {
                                                 {/* Technologies Submenu Dropdown */}
                                                 <div
                                                     className={`absolute top-full left-[-1.2em] rounded-lg transition-all duration-300 transform ${isTechnologiesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4'}`}
-                                                    style={{ width: '35rem' }}
+                                                    style={{width: '35rem'}}
                                                 >
                                                     <div className="flex gap-2 p-4">
                                                         {technologiesSubmenuSections.map((section, sectionIndex) => (
-                                                            <div key={`tech-section-${sectionIndex}`} className="flex-1  p-2 space-y-2">
+                                                            <div key={`tech-section-${sectionIndex}`}
+                                                                 className="flex-1  p-2 space-y-2">
                                                                 <ul className="space-y-3">
                                                                     {section.items.map((item, itemIndex) => (
                                                                         <li key={item.name || `tech-item-${itemIndex}`}>
@@ -498,7 +499,8 @@ const Header: React.FC = () => {
                                                                                 href={item.href}
                                                                                 className={`group block text-white hover:text-teal-200 transition-colors duration-200 ${isActiveRoute(item.href) ? 'text-teal-200' : ''}`}
                                                                             >
-                                                                                        <span className="text-base font-light leading-relaxed group-hover:translate-x-1 transition-transform duration-200 inline-block">
+                                                                                        <span
+                                                                                            className="text-base font-light leading-relaxed group-hover:translate-x-1 transition-transform duration-200 inline-block">
                                                                                     {item.name}
                                                                                 </span>
                                                                             </Link>
