@@ -1,3 +1,5 @@
+'use client';
+
 import React, {useEffect, useMemo, useState, useCallback} from 'react';
 import {useRouter} from 'next/router';
 import Header from '../../components/Header';
@@ -5,508 +7,457 @@ import Footer from '../../components/Footer';
 import '../../app/globals.css';
 import Link from 'next/link';
 import Image from 'next/image';
-import {getBlogPostBySlug, blogPosts} from '../../data/blogPosts';
-import type {BlogPost} from '../../data/blogPosts';
-import {getBlogImage} from '../../data/blogMedia';
-import {getBlogPostMeta} from '../../data/blogMeta';
+import {FaArrowLeft, FaClock, FaLinkedin, FaTwitter, FaFacebook, FaLink} from 'react-icons/fa';
 
-export default function BlogPost() {
+interface BlogPostDetails {
+    slug: string;
+    title: string;
+    excerpt: string;
+    body: string;
+    cover: string;
+    tag: string;
+    readTime: string;
+    date: string;
+    author: string;
+    authorRole?: string;
+    authorAvatar?: string;
+}
+
+const BlogArticlePage = () => {
     const router = useRouter();
     const {slug} = router.query;
     const [isDayTime, setIsDayTime] = useState(true);
-    const [post, setPost] = useState<BlogPost | undefined>();
+    const [post, setPost] = useState<BlogPostDetails | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [copied, setCopied] = useState(false);
 
     useEffect(() => {
         const updateThemeByTime = () => {
             const hour = new Date().getHours();
             setIsDayTime(hour >= 6 && hour < 18);
         };
-
         updateThemeByTime();
         const intervalId = setInterval(updateThemeByTime, 60_000);
         return () => clearInterval(intervalId);
     }, []);
 
-    useEffect(() => {
-        if (slug && typeof slug === 'string') {
-            const foundPost = getBlogPostBySlug(slug);
-            setPost(foundPost);
+    // Selections corresponding to seeded blog posts
+    const staticPostsContent: Record<string, BlogPostDetails> = {
+        'designing-for-scale': {
+            slug: 'designing-for-scale',
+            title: 'Designing for Scale: What Growing Teams Miss',
+            tag: 'Product Strategy',
+            readTime: '6 min read',
+            date: '2026-05-28',
+            excerpt: 'Practical patterns for avoiding rework when your product starts moving from MVP to growth stage.',
+            cover: '/assets/ui-ux/hero.jpg',
+            author: 'Damilola Shofoluwe',
+            authorRole: 'Product Director',
+            authorAvatar: '/favicon.svg',
+            body: `When you are shipping fast at the MVP stage, design decisions often prioritize speed over structure. This works beautifully until it does not. We have seen countless teams hit a wall around 50–100k users. The patterns that got them there suddenly become bottlenecks. Features interact in waves no one predicted. Performance degrades. User friction compounds.
+
+## Async clarity beats sync perfection
+Rather than endless alignment meetings, document decisions clearly and let teams move in parallel. This requires discipline, but it is the only way to maintain velocity at scale. Build self-contained service packages that do not require synchronous locking during daily tasks.
+
+## Systems before features
+Before you add post-notification aggregation or advanced filtering, get your core data model and API response patterns right. One small mistake here costs you months of rework later. Implement strict schema audits, consistent envelope outputs, and keep your memory allocations linear.
+
+## Friction surfaces early
+The best teams instrument their products heavily from day one. Not for vanity metrics — for real friction points. Where do users get stuck? Where do they drop off? What paths are slow? Use query analyzers and client tracing to spot and resolve drops immediately.
+
+## Progressive enhancement over rewrites
+Fresh starts feel good but waste months. Instead, incrementally upgrade your systems. Keep shipping features while you strengthen the foundation. Rebuild small endpoints behind proxies rather than restarting from zero.`
+        },
+        'scope-mvp-delivery': {
+            slug: 'scope-mvp-delivery',
+            title: 'How to Scope an MVP Without Slowing Delivery',
+            tag: 'Venture Build',
+            readTime: '5 min read',
+            date: '2026-05-21',
+            excerpt: 'A lightweight framework we use to protect budget while still delivering measurable user value.',
+            cover: '/assets/startup/market.jpg',
+            author: 'Godwin Paul',
+            authorRole: 'Technical Cofounder',
+            authorAvatar: '/favicon.svg',
+            body: `Scope creep kills MVPs. But too little scope leaves you with a toy instead of a testable product. We have found a simple framework that balances both.
+
+## The Must-Should-Could model
+Identify features based on delivery tiers:
+- Must: Core value prop that users would pay for.
+- Should: Features that make the experience feel complete.
+- Could: Nice-to-haves that do not block launch.
+
+Most teams get this backwards. They build everything and ship late. Instead, ship Must + best Should features, then let real usage guide what is next.
+
+## Time-box by layer
+Structure MVP timelines strictly:
+- Backend configuration: 2 weeks max.
+- Frontend compilation: 2 weeks max.
+- Polish & security testing: 1 week.
+
+This forces trade-offs, prevents over-engineering, and keeps team momentum high by shipping something real within a month.
+
+## Measure from day one
+Do not wait for "launch" to start collecting data. Instrument your MVP to understand what users actually do, not what you assumed they would do. Let telemetry and actual usage data guide your revision budgets.`
+        },
+        'refactor-vs-rebuild': {
+            slug: 'refactor-vs-rebuild',
+            title: 'When to Refactor vs When to Rebuild Codebases',
+            tag: 'Engineering',
+            readTime: '7 min read',
+            date: '2026-05-14',
+            excerpt: 'Signals that indicate whether incremental modernization or a full reset is the better business move.',
+            cover: '/assets/node/hero.jpg',
+            author: 'Efe Otuama',
+            authorRole: 'Senior System Engineer',
+            authorAvatar: '/favicon.svg',
+            body: `The refactor-or-rebuild decision has killed more engineering momentum than almost any other choice. Most teams default to refactoring because it feels safer. But sometimes rebuilding is faster, cheaper, and less risky.
+
+## Core arguments for Refactoring
+Incremental upgrades work best if:
+- Your core architecture is sound but execution is messy.
+- You have strong test coverage to work against.
+- The team knows why the current code is structured that way.
+- Most of your system can stay, just parts need updating.
+
+## Hard indicators for a Rebuild
+Commit to a fresh foundation if:
+- Your architecture has fundamental flaws (wrong database pattern, bad abstractions).
+- You have almost no tests and can not safely make edits.
+- More than 60% of the files require complete rewrite.
+- New team members struggle to understand basic patterns.
+
+## Parallel Building as a compromise
+Keep the old system alive while you build the new one. Gradually route traffic to the new version. This lowers risk dramatically and gives you an escape hatch if problems emerge.`
         }
+    };
+
+    // Load blog post details
+    useEffect(() => {
+        if (!slug || typeof slug !== 'string') return;
+        setIsLoading(true);
+
+        const fetchPost = async () => {
+            // First check dynamic sqlite database
+            try {
+                const res = await fetch('/admin/api/blog');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.success && Array.isArray(data.data)) {
+                        const matchedDb = data.data.find((p: any) => p.slug === slug);
+                        if (matchedDb) {
+                            let parsedTags: string[] = [];
+                            try {
+                                parsedTags = JSON.parse(matchedDb.tags || '[]');
+                            } catch (e) {
+                                parsedTags = matchedDb.tags ? [matchedDb.tags] : [];
+                            }
+                            setPost({
+                                slug: matchedDb.slug,
+                                title: matchedDb.title,
+                                excerpt: matchedDb.excerpt || '',
+                                body: matchedDb.body || '',
+                                cover: matchedDb.cover || '/assets/ui-ux/hero.jpg',
+                                tag: parsedTags[0] || 'Technical',
+                                readTime: matchedDb.read_time || '5 min read',
+                                date: matchedDb.published_at || new Date().toISOString().slice(0, 10),
+                                author: matchedDb.author || 'Grey InfoTech',
+                                authorRole: 'Technical Contributor',
+                                authorAvatar: '/favicon.svg'
+                            });
+                            setIsLoading(false);
+                            return;
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error('Failed to query DB for slug:', err);
+            }
+
+            // Fallback to static post content
+            const foundStatic = staticPostsContent[slug] || null;
+
+            setPost(foundStatic);
+            setIsLoading(false);
+        };
+
+        fetchPost();
     }, [slug]);
 
-    // Ensure hooks order remains stable between renders by calling useMemo
-    // even when `post` is undefined. When `post` is not available we return
-    // safe defaults so that later render logic can safely check values.
-    const meta = useMemo(() => {
-        return post ? getBlogPostMeta(post) : {
-            heroImage: '',
-            publishedAt: '',
-            tags: [],
-            authorAvatar: '',
-            author: '',
-            authorRole: ''
-        };
-    }, [post]);
-
-    const relatedPosts = useMemo(() => {
+    // Parse Headings out of the body for the Floating Table of Contents
+    const headings = useMemo(() => {
         if (!post) return [];
-        return blogPosts.filter(p => p.tag === post.tag && p.slug !== post.slug).slice(0, 3);
-    }, [post]);
+        const lines = post.body.split('\n');
+        const found: { text: string; id: string; }[] = [];
+        const slugify = (text: string) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
-    // Build content blocks and insert images between paragraphs for a more
-    // magazine-like layout. Also extract headings to build a table-of-contents
-    // similar to the Lightflows structure (headings are paragraphs wrapped in **...**).
-    const {contentBlocks, headings} = useMemo(() => {
-        if (!post) return {
-            contentBlocks: [] as Array<{ type: string; text?: string; key?: string; id?: string; src?: string }>,
-            headings: [] as Array<{ id: string; text: string }>
-        };
-
-        const paragraphs = post.content.split('\n\n').map(p => p.trim()).filter(Boolean);
-        const blocks: Array<{ type: string; text?: string; key?: string; id?: string; src?: string }> = [];
-        const foundHeadings: Array<{ id: string; text: string }> = [];
-        const inlineImages = [
-            getBlogImage(post.slug, post.tag),
-            '/assets/mvp/start.jpg',
-            '/assets/services/product-design.jpg',
-            '/assets/ui-ux/hero.jpg',
-            '/assets/startup/market.jpg',
-            '/assets/node/hero.jpg',
-            '/assets/seo/hero.jpg',
-        ];
-
-        const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-
-        paragraphs.forEach((paragraph, i) => {
-            // detect bold-heading style **Heading**
-            if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
-                const text = paragraph.replace(/\*\*/g, '').trim();
-                const id = slugify(text || `heading-${i}`);
-                foundHeadings.push({id, text});
-                blocks.push({type: 'heading', text, key: `${post.slug}-h-${i}`, id});
-                return;
-            }
-
-            // list detection: keep as paragraph block but will render as list if contains `- ` lines
-            blocks.push({type: 'paragraph', text: paragraph, key: `${post.slug}-p-${i}`});
-
-            // Insert an image after every 3 paragraphs (adjustable)
-            if ((i + 1) % 3 === 0 && i !== paragraphs.length - 1) {
-                const imageIndex = Math.floor((i + 1) / 3) - 1;
-                blocks.push({
-                    type: 'image',
-                    key: `${post.slug}-img-${i}`,
-                    src: inlineImages[imageIndex % inlineImages.length],
+        for (const line of lines) {
+            if (line.startsWith('## ')) {
+                const text = line.replace('## ', '').trim();
+                found.push({
+                    text,
+                    id: slugify(text)
                 });
             }
-        });
-
-        return {contentBlocks: blocks, headings: foundHeadings};
+        }
+        return found;
     }, [post]);
 
-    // Share helpers (stable hooks placed before early return so Hooks order is consistent)
-    const [copied, setCopied] = useState(false);
-    const [shareOpen, setShareOpen] = useState(false);
-    const shareUrl = useMemo(() => {
-        if (typeof window !== 'undefined') return window.location.href;
-        return `https://example.com${router.asPath || ''}`;
-    }, [router.asPath]);
+    // Split body into stylized paragraphs and headers for display matching ChatGPT meets Shopify
+    const bodyElements = useMemo(() => {
+        if (!post) return [];
+        const paragraphs = post.body.split('\n\n').map(p => p.trim()).filter(Boolean);
+        const slugify = (text: string) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
-    const twitterShare = useMemo(() => `https://twitter.com/intent/tweet?text=${encodeURIComponent(post?.title || '')}&url=${encodeURIComponent(shareUrl)}`, [post?.title, shareUrl]);
-    const linkedinShare = useMemo(() => `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, [shareUrl]);
-    const facebookShare = useMemo(() => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, [shareUrl]);
+        return paragraphs.map((para, i) => {
+            if (para.startsWith('## ')) {
+                const text = para.replace('## ', '').trim();
+                return {
+                    type: 'heading',
+                    text,
+                    id: slugify(text),
+                    key: `h-${i}`
+                };
+            }
+            if (para.startsWith('- ') || para.startsWith('* ')) {
+                return {
+                    type: 'list',
+                    items: para.split('\n').map(line => line.replace(/^[-*]\s/, '').trim()),
+                    key: `l-${i}`
+                };
+            }
+            return {
+                type: 'paragraph',
+                text: para,
+                key: `p-${i}`
+            };
+        });
+    }, [post]);
 
-    const handleCopy = useCallback(async () => {
+    const handleCopyLink = useCallback(async () => {
         try {
-            await navigator.clipboard.writeText(shareUrl);
-            setCopied(true);
-            setShareOpen(true);
-            setTimeout(() => setCopied(false), 2000);
+            if (typeof window !== 'undefined') {
+                await navigator.clipboard.writeText(window.location.href);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+            }
         } catch (e) {
-            /* ignore */
         }
-    }, [shareUrl]);
+    }, []);
 
-    if (!post) {
+    if (isLoading) {
         return (
             <div
-                className={`${isDayTime ? 'bg-white text-black' : 'bg-black text-white'} min-h-screen transition-colors duration-500`}>
+                className={`${isDayTime ? 'bg-white text-black' : 'bg-black text-white'} min-h-screen flex flex-col justify-between transition-colors`}>
                 <Header/>
-                <div className="mx-auto max-w-[90rem] px-4 sm:px-6 md:px-10 lg:px-[4.5em] py-20">
-                    <p>Loading...</p>
+                <div className="flex-grow flex items-center justify-center">
+                    <p className="text-sm font-semibold tracking-wider text-zinc-500 uppercase animate-pulse">Loading
+                        article details...</p>
                 </div>
                 <Footer/>
             </div>
         );
     }
 
+    if (!post) {
+        return (
+            <div
+                className={`${isDayTime ? 'bg-white text-black' : 'bg-[#0a0a0a] text-white'} min-h-screen flex flex-col justify-between transition-colors`}>
+                <Header/>
+                <div className="flex-grow flex flex-col items-center justify-center p-6 text-center">
+                    <h2 className="text-2xl font-bold mb-4">Article Not Found</h2>
+                    <p className="text-zinc-500 max-w-sm mb-6 text-sm">We couldn't locate this blog article.</p>
+                    <Link href="/blog"
+                          className="px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider bg-teal-600 text-white">
+                        Browse All Articles
+                    </Link>
+                </div>
+                <Footer/>
+            </div>
+        );
+    }
+
+    const themeBg = isDayTime ? 'bg-[#fcfbf9] text-[#121212]' : 'bg-[#0f0e0c] text-[#f7f5f0]';
+    const cellBg = isDayTime ? 'bg-[#f4f2ee]' : 'bg-[#181613]';
+    const sectionBorder = isDayTime ? 'border-zinc-200' : 'border-zinc-800/80';
+    const contentColor = isDayTime ? 'text-zinc-700' : 'text-zinc-300';
 
     return (
-        <div
-            className={`${isDayTime ? 'bg-white text-black' : 'bg-black text-white'} min-h-screen transition-colors duration-500`}>
+        <div className={`min-h-screen ${themeBg} transition-colors duration-500 font-sans flex flex-col`}>
             <Header/>
 
-            <main className="mx-auto max-w-[100rem] px-4 sm:px-6 md:px-10 lg:px-[4.5em] py-16 md:py-20 lg:py-24">
-                <article
-                    className="mt-54 grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_320px] gap-12 xl:gap-16 items-start">
+            {/* Back Button Sub-header */}
+            <div className={`pt-28 pb-4 border-b ${sectionBorder} bg-transparent`}>
+                <div className="max-w-6xl mx-auto px-6">
+                    <Link href="/blog"
+                          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-teal-600 hover:text-teal-500 transition-colors">
+                        <FaArrowLeft/> Back to Blog Index
+                    </Link>
+                </div>
+            </div>
+
+            {/* Core Article Layout */}
+            <main className="flex-grow max-w-6xl w-full mx-auto px-6 py-12">
+                {/* Title and Metadata */}
+                <div className="max-w-3xl mb-10">
+                    <span
+                        className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-teal-500/10 text-teal-600 inline-block mb-4">
+                        {post.tag}
+                    </span>
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.12]">
+                        {post.title}
+                    </h1>
+                    <div className="flex items-center gap-4 mt-6 text-xs text-zinc-400 font-medium">
+                        <span className="font-bold text-zinc-700 dark:text-zinc-300">{post.author}</span>
+                        <span>•</span>
+                        <span>{post.date}</span>
+                        <span>•</span>
+                        <span className="flex items-center gap-1"><FaClock/> {post.readTime}</span>
+                    </div>
+                </div>
+
+                {/* Cover Image */}
+                <div
+                    className={`relative aspect-video w-full rounded-[2.5rem] overflow-hidden border ${sectionBorder} mb-12`}>
+                    <Image
+                        src={post.cover}
+                        alt={post.title}
+                        fill
+                        priority
+                        referrerPolicy="no-referrer"
+                        className="object-cover"
+                        sizes="100vw"
+                    />
+                </div>
+
+                {/* Columns: Sidebar (TOC) + Article Body Column + Sidebar (CTA) */}
+                <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_240px] gap-10 xl:gap-14 items-start">
+                    {/* Left Sidebar: Table of Contents */}
+                    <aside
+                        className="sticky top-28 self-start hidden lg:block border-r border-zinc-500/15 pr-6 font-medium">
+                        <h4 className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-4">Table of
+                            Contents</h4>
+                        {headings.length > 0 ? (
+                            <ul className="space-y-3.5 text-xs text-left">
+                                {headings.map((h, i) => (
+                                    <li key={i}>
+                                        <a href={`#${h.id}`}
+                                           className="block text-zinc-500 hover:text-teal-600 transition-colors py-0.5 leading-tight">
+                                            {h.text}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p className="text-[10px] text-zinc-500 font-normal">Standard Editorial format.</p>
+                        )}
+
+                        {/* Social Shares */}
+                        <div className="mt-10 pt-8 border-t border-zinc-500/15">
+                            <h4 className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-4">Share
+                                Article</h4>
+                            <div className="flex gap-4 text-sm text-zinc-500">
+                                <button onClick={handleCopyLink} className="hover:text-teal-600 transition-colors"
+                                        title="Copy Link">
+                                    <FaLink/>
+                                </button>
+                                <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}`}
+                                   target="_blank" rel="noopener noreferrer"
+                                   className="hover:text-teal-500 transition-colors">
+                                    <FaTwitter/>
+                                </a>
+                                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
+                                   className="hover:text-teal-700 transition-colors">
+                                    <FaLinkedin/>
+                                </a>
+                                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
+                                   className="hover:text-teal-600 transition-colors">
+                                    <FaFacebook/>
+                                </a>
+                            </div>
+                            {copied && <span className="text-[10px] text-teal-600 font-bold block mt-2 animate-pulse">Link Copied!</span>}
+                        </div>
+                    </aside>
+
+                    {/* Central Column: Article Body */}
                     <div className="min-w-0">
-                        {/* Topic and title block (Lightflows-like: topic at the top) */}
-                        <div className="max-w-4xl mb-6 text-left">
-
-                            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight">
-                                {post.title}
-                            </h1>
-                            <div className="mt-3 flex items-center justify-start gap-4 text-sm text-gray-500 flex-wrap">
-                                <div className="flex items-center gap-3">
-                                    <div className="relative w-8 h-8 rounded-full overflow-hidden bg-gray-200">
-                                        <Image src={meta.authorAvatar || '/favicon.svg'} alt={meta.author} fill
-                                               className="object-cover"/>
-                                    </div>
-                                    <div className="text-left">
-                                        <div className="font-medium text-gray-900">{meta.author}</div>
-                                        <div className="text-xs text-gray-500">{meta.authorRole}</div>
-                                    </div>
-                                </div>
-                                <div>•</div>
-                                <div>{meta.publishedAt}</div>
-                                <div>•</div>
-                                <div>{post.readTime}</div>
-                            </div>
-                        </div>
-
-                        {/* Hero image (moved below title for Lightflows-like structure) */}
-                        <div className="relative w-full rounded-3xl overflow-hidden mb-10">
-                            <div className="relative w-full h-[420px] sm:h-[480px] md:h-[560px] lg:h-[640px]">
-                                <Image
-                                    src={meta.heroImage || getBlogImage(post.slug, post.tag)}
-                                    alt={post.title}
-                                    fill
-                                    className="object-cover"
-                                    priority
-                                    sizes="100vw"
-                                />
-                                <div
-                                    className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/10"/>
-                            </div>
-                        </div>
-
-                        {/* Lead / summary card under hero (Lightflows style) */}
-                        <div className="max-w-3xl mx-auto mb-12">
-                            <div className="p-6 rounded-xl bg-gray-50 border border-gray-100">
-                                <p className="text-lg md:text-xl leading-relaxed text-gray-700">
+                        {/* Excerpt Lead paragraph */}
+                        {post.excerpt && (
+                            <div className="p-6 rounded-2xl bg-teal-500/5 border border-teal-500/10 mb-8">
+                                <p className="text-base sm:text-lg font-medium leading-relaxed text-teal-800/90 dark:text-teal-400">
                                     {post.excerpt}
                                 </p>
                             </div>
-                        </div>
+                        )}
 
-                        {/* Author & meta row (below hero) */}
-                        <div className="flex items-center justify-between gap-6 mb-8">
-                            <div className="flex items-center gap-4">
-                                <div className="relative w-14 h-14 rounded-full overflow-hidden bg-gray-200">
-                                    <Image src={meta.authorAvatar || '/favicon.svg'} alt={meta.author} fill
-                                           className="object-cover"/>
-                                </div>
-                                <div>
-                                    <p className="font-semibold text-gray-900 dark:text-white">{meta.author}</p>
-                                    <p className="text-sm text-gray-500">{meta.authorRole} • {meta.publishedAt}</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                {/* Share button with click popup showing social handles */}
-                                <div className="relative inline-block text-left">
-                                    <button
-                                        type="button"
-                                        onClick={() => setShareOpen(prev => !prev)}
-                                        className="inline-flex items-center px-3 py-1.5 border rounded text-sm text-gray-600 hover:bg-gray-100"
-                                    >
-                                        Share
-                                    </button>
-
-                                    <div
-                                        className={`absolute right-0 mt-2 flex-col w-52 bg-white border rounded shadow-lg p-2 z-20 ${shareOpen ? 'flex' : 'hidden'}`}>
-                                        <a href={twitterShare} target="_blank" rel="noopener noreferrer"
-                                           className="flex items-center gap-2 px-2 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                 viewBox="0 0 24 24" fill="currentColor">
-                                                <path
-                                                    d="M22 4.01c-.63.28-1.3.48-2 .57.72-.43 1.27-1.12 1.53-1.94-.68.4-1.44.68-2.24.84C18.6 2.6 17.5 2 16.3 2c-2.03 0-3.67 1.64-3.67 3.67 0 .29.03.57.1.84C9.69 6.36 6.14 4.65 3.9 2.1c-.32.55-.5 1.18-.5 1.86 0 1.28.65 2.41 1.65 3.07-.6-.02-1.16-.18-1.65-.45v.05c0 1.8 1.28 3.3 2.97 3.64-.31.09-.64.14-.98.14-.24 0-.48-.02-.71-.07.48 1.5 1.86 2.6 3.5 2.63C6.6 16.6 5 17.16 3.26 17.16c-.2 0-.39-.01-.58-.03 1.14.73 2.5 1.16 3.97 1.16 4.76 0 7.37-3.95 7.37-7.37v-.34c.5-.36.94-.8 1.28-1.3.43-.65.69-1.43.69-2.27 0-.16 0-.32-.02-.48.97-.7 1.7-1.56 2.32-2.55z"/>
-                                            </svg>
-                                            Twitter
-                                        </a>
-                                        <a href={linkedinShare} target="_blank" rel="noopener noreferrer"
-                                           className="flex items-center gap-2 px-2 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                 viewBox="0 0 24 24" fill="currentColor">
-                                                <path
-                                                    d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4v12h-4zM8.5 8h3.7v1.6h.1c.5-.9 1.7-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.6V20h-4v-5.2c0-1.2 0-2.8-1.8-2.8-1.8 0-2.1 1.4-2.1 2.7V20h-4z"/>
-                                            </svg>
-                                            LinkedIn
-                                        </a>
-                                        <a href={facebookShare} target="_blank" rel="noopener noreferrer"
-                                           className="flex items-center gap-2 px-2 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                 viewBox="0 0 24 24" fill="currentColor">
-                                                <path
-                                                    d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.12 8.44 9.88v-6.99H7.9v-2.9h2.54V9.4c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.62.77-1.62 1.56v1.87h2.77l-.44 2.9h-2.33V22C18.34 21.12 22 16.99 22 12z"/>
-                                            </svg>
-                                            Facebook
-                                        </a>
-                                        <button onClick={handleCopy}
-                                                className="flex items-center gap-2 px-2 py-2 text-sm text-gray-700 hover:bg-gray-50 text-left">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                 viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M3 13h2v8h12v2H3a2 2 0 0 1-2-2V13h2zM21 3v12h-2V5H9V3h12z"/>
-                                            </svg>
-                                            {copied ? 'Copied' : 'Copy link'}
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Article content: render content blocks with images between paragraphs */}
-                        <div className={`space-y-8 ${isDayTime ? 'text-gray-700' : 'text-gray-200'}`}>
-                            {contentBlocks.map((block, idx) => {
-                                if (block.type === 'heading') {
+                        {/* Block body content mapped */}
+                        <div className="space-y-6 text-sm sm:text-base leading-relaxed">
+                            {bodyElements.map((el) => {
+                                if (el.type === 'heading') {
                                     return (
-                                        <h2 id={block.id} key={block.key || idx}
-                                            className={`text-2xl font-bold mt-10 mb-4 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                            {block.text}
+                                        <h2 id={el.id} key={el.key}
+                                            className="text-xl sm:text-2xl font-bold mt-10 mb-4 pt-4 border-t border-zinc-500/10 tracking-tight">
+                                            {el.text}
                                         </h2>
                                     );
                                 }
-
-                                if (block.type === 'paragraph') {
-                                    const paragraph = block.text || '';
-
-                                    if (paragraph.includes('- ')) {
-                                        return (
-                                            <ul key={block.key || idx}
-                                                className="list-disc list-inside space-y-2 ml-2 text-base leading-relaxed">
-                                                {paragraph.split('\n').filter(line => line.trim()).map((item, i) => (
-                                                    <li key={i}
-                                                        className="ml-4">{item.replace(/^[-•]\s/, '').trim()}</li>
-                                                ))}
-                                            </ul>
-                                        );
-                                    }
-
-                                    // Lead paragraph styling: make the very first paragraph larger
-                                    if (idx === 0) {
-                                        return (
-                                            <p key={block.key || idx}
-                                               className="text-xl md:text-2xl leading-relaxed text-gray-800">
-                                                {paragraph}
-                                            </p>
-                                        );
-                                    }
-
+                                if (el.type === 'list' && el.items) {
                                     return (
-                                        <p key={block.key || idx} className="text-base md:text-lg leading-relaxed">
-                                            {paragraph}
-                                        </p>
+                                        <ul key={el.key} className="list-disc list-inside ml-4 space-y-2 font-medium">
+                                            {el.items.map((it, idx) => (
+                                                <li key={idx} className={contentColor}>{it}</li>
+                                            ))}
+                                        </ul>
                                     );
                                 }
-
-                                if (block.type === 'image') {
-                                    return (
-                                        <div key={block.key || idx} className="rounded-2xl overflow-hidden">
-                                            <Image
-                                                src={block.src || getBlogImage(post.slug, post.tag)}
-                                                alt={post.title}
-                                                width={1200}
-                                                height={675}
-                                                className="object-cover w-full h-auto rounded-2xl"
-                                                sizes="(max-width: 768px) 100vw, 50vw"
-                                            />
-                                        </div>
-                                    );
-                                }
-
-                                return null;
+                                return (
+                                    <p key={el.key} className={contentColor}>
+                                        {el.text}
+                                    </p>
+                                );
                             })}
                         </div>
 
-                        {/* Tags */}
-                        <div className="flex flex-wrap gap-2 mt-14 pt-10 border-t border-gray-100">
-                            {meta.tags.map((tag) => (
-                                <Link
-                                    key={tag}
-                                    href={`/blog?tag=${tag.toLowerCase()}`}
-                                    className="text-sm text-gray-500 border border-gray-200 px-3 py-1 rounded-full hover:border-gray-400 hover:text-gray-800 transition-colors"
-                                >
-                                    {tag}
-                                </Link>
-                            ))}
-                        </div>
-
-                        {/* Author bio */}
-                        <div className="flex gap-5 p-6 rounded-2xl bg-gray-50 border border-gray-100 mt-10">
-                            <div className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0 bg-gray-200">
-                                <Image src={meta.authorAvatar} alt={meta.author} fill className="object-cover"
-                                       sizes="56px"/>
+                        {/* Author Bio Card at bottom */}
+                        <div
+                            className={`mt-16 p-6 sm:p-8 rounded-3xl ${cellBg} border ${sectionBorder} flex gap-4 sm:gap-6 items-start`}>
+                            <div
+                                className="relative w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden flex-shrink-0 bg-zinc-200">
+                                <Image src={post.authorAvatar || '/favicon.svg'} alt={post.author} fill
+                                       className="object-cover"/>
                             </div>
                             <div>
-                                <p className="font-semibold text-gray-900 mb-0.5">{meta.author}</p>
-                                <p className="text-sm text-gray-500 mb-2">{meta.authorRole}</p>
-                                <p className="text-sm text-gray-600 leading-relaxed">
-                                    Our editorial team shares practical guidance on building digital products, improving
-                                    UX, and scaling software systems.
+                                <h4 className="text-base font-bold mb-1">{post.author}</h4>
+                                <p className="text-xs text-zinc-400 mb-3">{post.authorRole || 'Contributor Director'}</p>
+                                <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed">
+                                    Writes regularly on digital products strategy, microservice engineering, UX
+                                    diagnostics, and venture launches. Feel free to connect to discover robust systems.
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    {/* Sidebar */}
-                    <aside className="xl:sticky xl:top-24 self-start w-full xl:w-[320px] space-y-8">
+                    {/* Right Sidebar: Dynamic CTA */}
+                    <aside className="sticky top-28 self-start w-full gap-8 space-y-8">
                         <div
-                            className={`p-6 rounded-2xl border ${isDayTime ? 'bg-white border-gray-200' : 'bg-zinc-950 border-zinc-800'}`}>
-                            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">On this
-                                page</p>
-                            <ul className="space-y-2 text-sm text-left">
-                                {headings.length > 0 ? (
-                                    headings.map(h => (
-                                        <li key={h.id}>
-                                            <a href={`#${h.id}`}
-                                               className="block text-left text-gray-500 hover:text-gray-900 transition-colors py-0.5">{h.text}</a>
-                                        </li>
-                                    ))
-                                ) : (
-                                    meta.tags.map((tag) => (
-                                        <li key={tag}>
-                                            <Link href={`/blog?tag=${tag.toLowerCase()}`}
-                                                  className="block text-left text-gray-500 hover:text-gray-900 transition-colors py-0.5">
-                                                {tag}
-                                            </Link>
-                                        </li>
-                                    ))
-                                )}
-                            </ul>
-                        </div>
-
-                        <div
-                            className={`p-6 rounded-2xl border ${isDayTime ? 'bg-white border-gray-200' : 'bg-zinc-950 border-zinc-800'}`}>
-                            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">Post
-                                details</p>
-                            <div className="space-y-3 text-sm text-gray-500">
-                                <p><span className="font-medium text-gray-700">Category:</span> {post.tag}</p>
-                                <p><span className="font-medium text-gray-700">Published:</span> {meta.publishedAt}</p>
-                                <p><span className="font-medium text-gray-700">Read time:</span> {post.readTime}</p>
-                            </div>
-                        </div>
-
-                        <div
-                            className={`p-6 rounded-2xl border ${isDayTime ? 'bg-gray-50 border-gray-100' : 'bg-zinc-900 border-zinc-800'}`}>
-                            <h3 className="text-lg font-semibold mb-3">Need help with a similar project?</h3>
-                            <p className="text-sm text-gray-500 mb-4 leading-relaxed">
-                                We can help you shape the content, structure, and imagery for your own blog and case
-                                studies.
+                            className={`p-6 rounded-2xl border ${isDayTime ? 'bg-zinc-50 border-zinc-200' : 'bg-[#141311] border-zinc-800'} text-left`}>
+                            <h3 className="text-base font-bold mb-3">Enterprise SaaS & Mobile Audits</h3>
+                            <p className="text-xs text-zinc-400 leading-relaxed mb-4">
+                                Our development team optimizes slow web routes and deploys high-volume cloud systems.
+                                Sit down with us to examine your codebase.
                             </p>
                             <Link href="/contact"
-                                  className="inline-flex px-5 py-2.5 rounded-full bg-gray-900 text-white text-sm font-medium hover:bg-gray-700 transition-colors">
-                                Start a project
+                                  className="w-full text-center px-4 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wide bg-teal-600 block text-white hover:bg-teal-500 transition-colors">
+                                Talk to engineers
                             </Link>
                         </div>
                     </aside>
-                </article>
-
-                {/* Related Articles */}
-                {relatedPosts.length > 0 && (
-                    <section className={`py-16 border-t mt-16 ${isDayTime ? 'border-gray-200' : 'border-zinc-800'}`}>
-                        <h3 className="text-2xl md:text-3xl font-semibold mb-8">Related posts</h3>
-                        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                            {relatedPosts.map((relatedPost, idx) => (
-                                <Link
-                                    key={relatedPost.slug}
-                                    href={`/blog/${relatedPost.slug}`}
-                                    className="group"
-                                >
-                                    <div
-                                        className={`${idx !== relatedPosts.length - 1 ? `border-b ${isDayTime ? 'border-gray-200' : 'border-zinc-800'}` : ''} pb-6`}>
-                                        <div
-                                            className={`relative w-full aspect-[16/9] rounded-2xl overflow-hidden mb-4 ${isDayTime ? 'bg-gray-100' : 'bg-zinc-900'}`}>
-                                            <Image
-                                                src={getBlogImage(relatedPost.slug, relatedPost.tag)}
-                                                alt={relatedPost.title}
-                                                fill
-                                                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                                sizes="(max-width: 768px) 100vw, 50vw"
-                                            />
-                                        </div>
-                                        <div className="flex items-center gap-4 mb-4">
-                                            <span
-                                                className={`text-xs font-semibold tracking-widest uppercase ${isDayTime ? 'text-teal-600' : 'text-teal-400'}`}>
-                                                {relatedPost.tag}
-                                            </span>
-                                            <span
-                                                className={`text-xs ${isDayTime ? 'text-gray-500' : 'text-gray-400'}`}>
-                                                {relatedPost.readTime}
-                                            </span>
-                                        </div>
-                                        <h4 className={`text-xl font-semibold leading-snug mb-3 transition-colors ${
-                                            isDayTime
-                                                ? 'text-black group-hover:text-teal-600'
-                                                : 'text-white group-hover:text-teal-400'
-                                        }`}>
-                                            {relatedPost.title}
-                                        </h4>
-                                        <p className={`${isDayTime ? 'text-gray-600' : 'text-gray-300'} text-sm leading-relaxed`}>
-                                            {relatedPost.excerpt}
-                                        </p>
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
-                    </section>
-                )}
-
-                {/* CTA */}
-                <section className={`mt-16 py-12 px-8 rounded-lg ${
-                    isDayTime ? 'bg-gray-50' : 'bg-zinc-900'
-                }`}>
-                    <h3 className="text-2xl font-semibold mb-3">Have a project or idea?</h3>
-                    <p className={`mb-6 text-base ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}>
-                        Let&apos;s discuss how we can help you build what&apos;s next.
-                    </p>
-                    <Link
-                        href="/contact"
-                        className={`inline-flex px-6 py-3 rounded font-semibold text-sm transition-colors ${
-                            isDayTime
-                                ? 'bg-black text-white hover:bg-gray-900'
-                                : 'bg-white text-black hover:bg-gray-100'
-                        }`}
-                    >
-                        Start a conversation
-                    </Link>
-                </section>
+                </div>
             </main>
 
             <Footer/>
         </div>
     );
-}
+};
 
-// Get all paths for static generation
-export async function getStaticPaths() {
-    return {
-        paths: blogPosts.map(post => ({
-            params: {slug: post.slug}
-        })),
-        fallback: 'blocking'
-    };
-}
-
-// Generate props for each post
-export async function getStaticProps({params}: { params: { slug: string } }) {
-    const post = getBlogPostBySlug(params.slug);
-
-    if (!post) {
-        return {notFound: true};
-    }
-
-    return {
-        props: {post},
-        revalidate: 60
-    };
-}
-
+export default BlogArticlePage;

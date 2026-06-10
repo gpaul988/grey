@@ -22,7 +22,7 @@ const port = Number(process.env.PORT || 3000);
 const adminPublicPath = path.join(process.cwd(), 'Admin', 'public');
 const adminViewsPath = path.join(process.cwd(), 'Admin', 'views');
 
-const nextApp = next({ dev, hostname, port, turbopack: false });
+const nextApp = next({dev, hostname, port});
 const handle = nextApp.getRequestHandler();
 
 const app = express();
