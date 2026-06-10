@@ -64,19 +64,31 @@ route.post('/login', redirectIfAuth, async (req: Request, res: Response) => {
         return renderLogin(res, { formError: 'Please enter a valid email address.', formValues: { email } });
     }
 
-    // Distinguish "unverified" from "wrong credentials" for a clearer message.
-    const existing = Users.findByEmail(email);
-    if (existing && !existing.email_verified) {
+    // Check the PASSWORD first (ignoring verification/status). This way a wrong
+    // password never produces the confusing "not verified" message — common
+    // when browser autofill submits a different saved account.
+    const matched = await Users.checkPassword(email, password);
+    if (!matched) {
+        // Wrong password or unknown email — single message to avoid leaking
+        // which accounts exist.
+        return renderLogin(res, { formError: 'Invalid email or password.', formValues: { email } });
+    }
+
+    // Password is correct. Now enforce account state with actionable messages.
+    if (!matched.email_verified || matched.status !== 'active') {
+        const pending = String(matched.status || '').toLowerCase() === 'pending';
         return renderLogin(res, {
-            formError: 'Your email is not verified yet. Please check your inbox for the verification link.',
+            formError: pending
+                ? 'This account is not activated yet. Open the "Set your password" link from your invitation ' +
+                  'email to activate it, then log in.'
+                : !matched.email_verified
+                  ? 'Your email is not verified yet. Please check your inbox for the verification link.'
+                  : 'This account is disabled. Contact your administrator.',
             formValues: { email },
         });
     }
 
-    const user = await Users.verify(email, password);
-    if (!user) {
-        return renderLogin(res, { formError: 'Invalid email or password.', formValues: { email } });
-    }
+    const user = matched;
 
     req.session.user = { id: user.id, name: user.name, email: user.email, role: user.role, avatar: user.avatar };
     logActivity({ user_id: user.id, user_name: user.name, action: 'login', entity: 'auth' });

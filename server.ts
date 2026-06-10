@@ -5,7 +5,7 @@ import expressLayouts from 'express-ejs-layouts';
 import session from 'express-session';
 import next from 'next';
 import path from 'node:path';
-import {urlToHttpOptions} from 'node:url';
+import {parse} from 'node:url';
 
 import {ADMIN_BASE_PATH} from './Admin/config/adminPaths';
 import {ensureAuth} from './Admin/middleware/authMiddleware';
@@ -126,14 +126,9 @@ app.use('/portal', portalRoutes);
 app.use(ADMIN_BASE_PATH, ensureAuth, adminRoutes);
 
 function getRequestUrl(req: express.Request): Parameters<typeof handle>[2] {
-    const protocol = req.headers['x-forwarded-proto']?.toString().split(',')[0] || req.protocol || 'http';
-    const host = req.headers.host || `${hostname}:${port}`;
-    const url = new URL(req.originalUrl || req.url || '/', `${protocol}://${host}`);
-    const parsedUrl = urlToHttpOptions(url) as Parameters<typeof handle>[2];
-
-    parsedUrl.query = Object.fromEntries(url.searchParams.entries());
-
-    return parsedUrl;
+    // Next's request handler expects a parsed URL with pathname + query.
+    // `parse(url, true)` is the shape Next's own custom-server examples use.
+    return parse(req.originalUrl || req.url || '/', true);
 }
 
 nextApp.prepare().then(() => {

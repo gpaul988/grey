@@ -125,6 +125,18 @@ export const UsersModel = {
         return ok ? user : null;
     },
 
+    /**
+     * Validate ONLY the password against the stored hash, ignoring
+     * verification/active status. Lets the login route tell "wrong password"
+     * apart from "correct password but account not activated yet".
+     */
+    async checkPassword(email: string, password: string): Promise<User | null> {
+        const user = this.findByEmail(email.toLowerCase());
+        if (!user || !user.password_hash) return null;
+        const ok = await bcrypt.compare(password, user.password_hash);
+        return ok ? user : null;
+    },
+
     count(): number {
         return (db.prepare('SELECT COUNT(*) AS c FROM users').get() as { c: number }).c;
     },
