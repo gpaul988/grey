@@ -10,6 +10,9 @@ interface RenderOptions {
     formError?: string;
     formInfo?: string;
     formValues?: { name?: string; email?: string };
+    // When set, the view shows a contextual action button.
+    resendEmail?: string;   // show "Resend verification link" for this email
+    showLoginLink?: boolean; // show "Go to login" link
 }
 
 const route = express.Router();
@@ -21,6 +24,8 @@ const renderLogin = (res: Response, options: RenderOptions = {}) => {
         formError: options.formError || '',
         formInfo: options.formInfo || '',
         formValues: options.formValues || {},
+        resendEmail: options.resendEmail || '',
+        showLoginLink: options.showLoginLink || false,
     });
 };
 
@@ -31,8 +36,23 @@ const renderRegister = (res: Response, options: RenderOptions = {}) => {
         formError: options.formError || '',
         formInfo: options.formInfo || '',
         formValues: options.formValues || {},
+        resendEmail: options.resendEmail || '',
+        showLoginLink: options.showLoginLink || false,
     });
 };
+
+/**
+ * Issue + email a fresh verification link for a user. Returns the dev link
+ * string (only when SMTP is off and not in production) so callers can surface
+ * it on the page during testing.
+ */
+async function resendVerification(user: { id: number; name: string; email: string }): Promise<string> {
+    const { token, code } = Verification.issue({ subjectType: 'user', subjectId: user.id, email: user.email, purpose: 'verify' });
+    await sendVerificationEmail({ to: user.email, name: user.name, token, verificationId: code, audience: 'team' });
+    return !smtpConfigured() && process.env.NODE_ENV !== 'production'
+        ? ` Verification link (dev): /verify-email/${token}`
+        : '';
+}
 
 /** Render the email-verification result page. */
 const renderVerify = (
@@ -74,13 +94,23 @@ route.post('/login', redirectIfAuth, async (req: Request, res: Response) => {
         return renderLogin(res, { formError: 'Invalid email or password.', formValues: { email } });
     }
 
-    // Password is correct. Email verification is NOT required to log in — an
-    // unverified account with a valid password is allowed through. We only
-    // block accounts that have been explicitly disabled by an admin.
+    // Password is correct. Block explicitly disabled accounts.
     if (String(matched.status || '').toLowerCase() === 'disabled') {
         return renderLogin(res, {
             formError: 'This account is disabled. Contact your administrator.',
             formValues: { email },
+        });
+    }
+
+    // Unverified accounts cannot log in. Auto-resend a fresh verification link
+    // and tell the user, with a button to resend again if needed.
+    if (!matched.email_verified) {
+        const devLink = await resendVerification(matched);
+        return renderLogin(res, {
+            formError: `Your email isn't verified yet. We've sent a new verification link to ${email}. ` +
+                `Please verify, then log in.${devLink}`,
+            formValues: { email },
+            resendEmail: email,
         });
     }
 
@@ -111,8 +141,23 @@ route.post('/register', redirectIfAuth, async (req: Request, res: Response) => {
     if (password !== confirmPassword) {
         return renderRegister(res, { formError: 'Passwords do not match.', formValues: { name, email } });
     }
-    if (Users.findByEmail(email)) {
-        return renderRegister(res, { formError: 'An account with this email already exists.', formValues: { name, email } });
+    const existing = Users.findByEmail(email);
+    if (existing) {
+        if (existing.email_verified) {
+            // Already verified — point them to login.
+            return renderRegister(res, {
+                formError: 'An account with this email already exists and is verified. Please log in instead.',
+                formValues: { name, email },
+                showLoginLink: true,
+            });
+        }
+        // Exists but not verified — offer to resend the verification link.
+        return renderRegister(res, {
+            formError: 'An account with this email already exists but isn\'t verified yet. ' +
+                'Use the button below to resend the verification link.',
+            formValues: { name, email },
+            resendEmail: email,
+        });
     }
 
     // First registered user becomes admin; subsequent self-registrations are staff.
@@ -152,6 +197,30 @@ route.get('/verify-email/:token', (req: Request, res: Response) => {
     Users.markVerified(rec.subject_id);
     logActivity({ user_id: rec.subject_id, action: 'verify-email', entity: 'auth' });
     return renderVerify(res, { ok: true, title: 'Email verified', message: 'Your email has been verified. You can now log in to your account.', loginLink: true });
+});
+
+/* ---------------- Resend verification link ---------------- */
+route.post('/resend-verification', async (req: Request, res: Response) => {
+    const email = str(req.body.email).toLowerCase();
+    // Always respond the same way to avoid leaking which emails exist.
+    const genericInfo = `If an unverified account exists for ${email}, a new verification link has been sent.`;
+    if (!isEmail(email)) {
+        return renderLogin(res, { formError: 'Please enter a valid email address.', formValues: { email } });
+    }
+    const user = Users.findByEmail(email);
+    if (user && !user.email_verified) {
+        const devLink = await resendVerification(user);
+        logActivity({ user_id: user.id, user_name: user.name, action: 'resend-verification', entity: 'auth' });
+        return renderLogin(res, { formInfo: `${genericInfo}${devLink}`, formValues: { email } });
+    }
+    if (user && user.email_verified) {
+        return renderLogin(res, {
+            formInfo: 'This account is already verified — you can log in.',
+            formValues: { email },
+            showLoginLink: true,
+        });
+    }
+    return renderLogin(res, { formInfo: genericInfo, formValues: { email } });
 });
 
 /* ---------------- Set / create password (invited users & CEO) ---------------- */

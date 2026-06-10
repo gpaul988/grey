@@ -17,6 +17,7 @@ function LoginInner() {
     const [form, setForm] = useState({ email: '', password: '' });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [showPw, setShowPw] = useState(false);
 
     const submit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -35,7 +36,12 @@ function LoginInner() {
             <p className="text-[var(--st-muted)] text-sm mb-6">Sign in to your Grey TechStore account.</p>
             <form onSubmit={submit} className="space-y-4">
                 <input type="email" required placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="st-input" />
-                <input type="password" required placeholder="Password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} className="st-input" />
+                <div className="relative">
+                    <input type={showPw ? 'text' : 'password'} required placeholder="Password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} className="st-input pr-16" />
+                    <button type="button" onClick={() => setShowPw((v) => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-[var(--st-teal)]">
+                        {showPw ? 'Hide' : 'Show'}
+                    </button>
+                </div>
                 {error && <p className="text-red-400 text-sm">{error}</p>}
                 <button disabled={loading} className="st-btn w-full py-3">{loading ? 'Signing in…' : 'Sign In'}</button>
             </form>

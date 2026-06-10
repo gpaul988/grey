@@ -26,21 +26,23 @@ async function seed() {
     // left email_verified=false on purpose; login does NOT require email
     // verification (only disabled accounts are blocked). status is 'active'
     // so it's a fully usable account.
+    // Core admins are seeded VERIFIED + active so they can log in immediately.
+    // (Login requires a verified email; self-registered users must verify via
+    // the emailed link, but these built-in accounts are trusted.)
     const ceo = await Users.create({
         name: 'Graham Sobiribo Paul',
         email: 'graham@greyinfotech.com.ng',
         password: '1Uriel2Sobiribo3',
         role: 'superadmin',
         phone: '+234 802 809 5571',
-        email_verified: false,
+        email_verified: true,
         status: 'active',
     });
     console.log(`CEO super-admin seeded (${ceo.email}) with direct password.`);
 
-    // --- Admin (password set directly, unverified, login allowed) ---
     const admin = await Users.create({
         name: 'Grey InfoTech Admin', email: SEED_ADMIN_EMAIL, password: SEED_ADMIN_PASSWORD, role: 'admin',
-        phone: '+234 802 809 5571', email_verified: false, status: 'active',
+        phone: '+234 802 809 5571', email_verified: true, status: 'active',
     });
     const manager = await Users.create({ name: 'Project Manager', email: 'pm@greyinfotech.com.ng', password: 'GreyTeam@2026', role: 'manager', email_verified: true });
     await Users.create({ name: 'Support Agent', email: 'support@greyinfotech.com.ng', password: 'GreyTeam@2026', role: 'staff', email_verified: true });
@@ -142,19 +144,20 @@ async function ensureCoreAdmins() {
         { name: 'Support Agent', email: 'support@greyinfotech.com.ng', password: 'GreyTeam@2026', role: 'staff' },
     ];
     const bcrypt = (await import('bcryptjs')).default;
-    // Reset password + activate WITHOUT touching email_verified (kept false).
+    // Reset password + activate + VERIFY these trusted built-in admins so they
+    // can always log in (login now requires a verified email).
     const repairExisting = db.prepare(
-        "UPDATE users SET password_hash=@hash, status='active', updated_at=datetime('now') WHERE lower(email)=lower(@email)"
+        "UPDATE users SET password_hash=@hash, status='active', email_verified=1, verified_at=COALESCE(verified_at, datetime('now')), updated_at=datetime('now') WHERE lower(email)=lower(@email)"
     );
     for (const t of team) {
         const existing = Users.findByEmail(t.email);
         if (existing) {
             const hash = await bcrypt.hash(t.password, 12);
             repairExisting.run({ email: t.email, hash });
-            console.log(`  repaired ${t.email} -> active + password reset (verify untouched)`);
+            console.log(`  repaired ${t.email} -> active + verified + password reset`);
         } else {
-            await Users.create({ name: t.name, email: t.email, password: t.password, role: t.role, email_verified: false, status: 'active' });
-            console.log(`  created ${t.email} -> active`);
+            await Users.create({ name: t.name, email: t.email, password: t.password, role: t.role, email_verified: true, status: 'active' });
+            console.log(`  created ${t.email} -> active + verified`);
         }
     }
 }
