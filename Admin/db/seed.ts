@@ -16,7 +16,9 @@ async function seed() {
     console.log('Schema migrated.');
 
     if (Users.count() > 0) {
-        console.log('Database already seeded. Skipping. (delete Admin/data/grey.db to re-seed)');
+        console.log('Database already seeded — running idempotent admin repair instead of full seed.');
+        await ensureCoreAdmins();
+        console.log('Admin repair done. (delete Admin/data/grey.db to re-seed from scratch)');
         return;
     }
 
@@ -125,6 +127,34 @@ async function seed() {
 
     console.log('\n=== SEED COMPLETE ===');
     console.log(`Admin login: ${SEED_ADMIN_EMAIL} / ${SEED_ADMIN_PASSWORD}`);
+}
+
+/**
+ * Idempotent repair for the core team logins. Safe to run on a populated
+ * production DB: it never duplicates rows and guarantees the standard admin
+ * accounts exist, are email-verified and active so they can log in.
+ * The superadmin (graham@) is intentionally left as pending/unverified — it
+ * activates itself via the set-password invitation link.
+ */
+async function ensureCoreAdmins() {
+    const team: { name: string; email: string; password: string; role: string }[] = [
+        { name: 'Grey InfoTech Admin', email: SEED_ADMIN_EMAIL, password: SEED_ADMIN_PASSWORD, role: 'admin' },
+        { name: 'Project Manager', email: 'pm@greyinfotech.com.ng', password: 'GreyTeam@2026', role: 'manager' },
+        { name: 'Support Agent', email: 'support@greyinfotech.com.ng', password: 'GreyTeam@2026', role: 'staff' },
+    ];
+    const verifyExisting = db.prepare(
+        "UPDATE users SET email_verified=1, verified_at=datetime('now'), status='active', updated_at=datetime('now') WHERE lower(email)=lower(@email)"
+    );
+    for (const t of team) {
+        const existing = Users.findByEmail(t.email);
+        if (existing) {
+            verifyExisting.run({ email: t.email });
+            console.log(`  repaired ${t.email} -> active + verified`);
+        } else {
+            await Users.create({ name: t.name, email: t.email, password: t.password, role: t.role, email_verified: true });
+            console.log(`  created ${t.email} -> active + verified`);
+        }
+    }
 }
 
 seed()
