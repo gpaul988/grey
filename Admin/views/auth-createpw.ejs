@@ -33,16 +33,44 @@ class="h-100"
                 <form action="/set-password/<%= token %>" method="POST" class="text-start mb-3">
                     <div class="mb-3">
                         <label class="form-label" for="password">New Password <small class="text-info ms-1">Min 8 characters</small></label>
-                        <input type="password" id="password" name="password" class="form-control" placeholder="New password" required minlength="8">
+                        <div class="input-group">
+                            <input type="password" id="password" name="password" class="form-control" placeholder="New password" required minlength="8">
+                            <button type="button" class="btn btn-outline-secondary toggle-password" data-target="password" aria-label="Show password">
+                                <i class="ri-eye-line"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="confirmPassword">Confirm Password</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Re-enter password" required minlength="8">
+                        <div class="input-group">
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Re-enter password" required minlength="8">
+                            <button type="button" class="btn btn-outline-secondary toggle-password" data-target="confirmPassword" aria-label="Show password">
+                                <i class="ri-eye-line"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="mb-2 d-grid">
                         <button class="btn btn-primary fw-semibold" type="submit">Set Password &amp; Verify</button>
                     </div>
                 </form>
+                <script>
+                    document.querySelectorAll('.toggle-password').forEach(function (btn) {
+                        btn.addEventListener('click', function () {
+                            var input = document.getElementById(btn.getAttribute('data-target'));
+                            if (!input) return;
+                            var icon = btn.querySelector('i');
+                            if (input.type === 'password') {
+                                input.type = 'text';
+                                if (icon) icon.className = 'ri-eye-off-line';
+                                btn.setAttribute('aria-label', 'Hide password');
+                            } else {
+                                input.type = 'password';
+                                if (icon) icon.className = 'ri-eye-line';
+                                btn.setAttribute('aria-label', 'Show password');
+                            }
+                        });
+                    });
+                </script>
 
                 <p class="text-muted fs-14 mb-0 text-center">
                     Back to <a href="<%= typeof loginPath !== 'undefined' ? loginPath : '/login' %>" class="fw-semibold text-primary ms-1">Login</a>

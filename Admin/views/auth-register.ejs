@@ -140,6 +140,18 @@ class="auth-shell"
                                 <div class="alert alert-danger border-0 rounded-3 mb-4"><%= formError %></div>
                             <% } %>
 
+                            <% if (typeof resendEmail !== 'undefined' && resendEmail) { %>
+                                <form action="/resend-verification" method="post" class="mb-4">
+                                    <input type="hidden" name="email" value="<%= resendEmail %>">
+                                    <button type="submit" class="btn btn-outline-primary w-100">
+                                        <i class="ri-mail-send-line me-1"></i> Resend verification link
+                                    </button>
+                                </form>
+                            <% } %>
+                            <% if (typeof showLoginLink !== 'undefined' && showLoginLink) { %>
+                                <a href="<%= loginPath %>" class="btn btn-primary w-100 mb-4">Go to login</a>
+                            <% } %>
+
                             <form id="register-form" action="<%= registerPath %>" method="post" class="row g-3">
                                 <div class="col-12">
                                     <label for="name" class="form-label">Full name</label>
@@ -167,12 +179,22 @@ class="auth-shell"
 
                                 <div class="col-md-6">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Create password" required>
+                                    <div class="input-group input-group-lg">
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Create password" required>
+                                        <button type="button" class="btn btn-outline-secondary toggle-password" data-target="password" aria-label="Show password">
+                                            <i class="ri-eye-line"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="confirmPassword" class="form-label">Confirm password</label>
-                                    <input type="password" class="form-control form-control-lg" id="confirmPassword" name="confirmPassword" placeholder="Repeat password" required>
+                                    <div class="input-group input-group-lg">
+                                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Repeat password" required>
+                                        <button type="button" class="btn btn-outline-secondary toggle-password" data-target="confirmPassword" aria-label="Show password">
+                                            <i class="ri-eye-line"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <div class="col-12">
@@ -200,3 +222,21 @@ class="auth-shell"
 </div>
 
 <%- contentFor('extra_javascript') %>
+<script>
+    document.querySelectorAll('.toggle-password').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var input = document.getElementById(btn.getAttribute('data-target'));
+            if (!input) return;
+            var icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                if (icon) icon.className = 'ri-eye-off-line';
+                btn.setAttribute('aria-label', 'Hide password');
+            } else {
+                input.type = 'password';
+                if (icon) icon.className = 'ri-eye-line';
+                btn.setAttribute('aria-label', 'Show password');
+            }
+        });
+    });
+</script>
