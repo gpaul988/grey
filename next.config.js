@@ -4,12 +4,7 @@ const nextConfig = {
         unoptimized: true,
         formats: ["image/avif", "image/webp"],
     },
-    // Add this:
-    experimental: {
-        turbo: {
-            enabled: false,
-        },
-    },
+
 };
 
 module.exports = nextConfig;
