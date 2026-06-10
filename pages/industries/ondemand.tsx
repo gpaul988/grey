@@ -1,7 +1,7 @@
 import React from 'react';
 import ServicePageTemplate from '@/components/ServicePageTemplate';
 
-const OnDemand = () => (
+const Ondemand = () => (
     <ServicePageTemplate
         title={<>On-Demand Software <br className={'lg:block md:block hidden'}/>Development Services</>}
         heroVideo="/assets/hero/hero.mp4"
@@ -129,4 +129,4 @@ const OnDemand = () => (
     />
 );
 
-export default OnDemand;
+export default Ondemand;
