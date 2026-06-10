@@ -3,10 +3,9 @@
 <%- contentFor('extra_css') %>
 <style>
     body {
-        background:
-            radial-gradient(circle at top left, rgba(13, 110, 253, 0.12), transparent 28%),
-            radial-gradient(circle at bottom right, rgba(88, 80, 236, 0.14), transparent 24%),
-            #f4f7fb;
+        background: radial-gradient(circle at top left, rgba(13, 110, 253, 0.12), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(88, 80, 236, 0.14), transparent 24%),
+        #f4f7fb;
     }
 
     .auth-shell {
@@ -93,10 +92,11 @@ class="auth-shell"
                 <div class="row g-0">
                     <div class="col-lg-5 auth-hero d-flex flex-column justify-content-between">
                         <div>
-                            <a href="<%= adminBasePath %>/dashboard" class="d-inline-flex align-items-center mb-4 text-white text-decoration-none">
+                            <a href="<%= adminBasePath %>/dashboard"
+                               class="d-inline-flex align-items-center mb-4 text-white text-decoration-none">
                                 <img src="/logon.png" alt="Grey InfoTech logo" class="auth-mini-logo me-2">
-                                <span class="fw-semibold fs-5">Grey InfoTech</span>
-                            </a>
+
+                            </a><br/>
 
                             <span class="auth-badge mb-3">
                                 <i class="ri-shield-check-line"></i>
@@ -104,7 +104,8 @@ class="auth-shell"
                             </span>
 
                             <h2 class="fw-bold mb-3">Sign in to your workspace</h2>
-                            <p class="auth-copy mb-4">A clean Porto-inspired sign-in experience with a streamlined footer action and a clear path to registration.</p>
+                            <p class="auth-copy mb-4">A clean Porto-inspired sign-in experience with a streamlined
+                                footer action and a clear path to registration.</p>
 
                             <ul class="list-unstyled auth-feature-list mb-0">
                                 <li class="d-flex align-items-center gap-2">
@@ -123,7 +124,9 @@ class="auth-shell"
                         </div>
 
                         <div class="mt-4 pt-2 auth-copy small">
-                            &copy; <script>document.write(new Date().getFullYear())</script> Grey InfoTech
+                            &copy;
+                            <script>document.write(new Date().getFullYear())</script>
+                            Grey InfoTech
                         </div>
                     </div>
 
@@ -135,7 +138,8 @@ class="auth-shell"
                                     <span class="text-uppercase fw-semibold text-primary small">Welcome back</span>
                                 </div>
                                 <h3 class="fw-bold mb-2">Log in to continue</h3>
-                                <p class="text-muted mb-0">Use your account credentials to access the admin dashboard.</p>
+                                <p class="text-muted mb-0">Use your account credentials to access the admin
+                                    dashboard.</p>
                             </div>
 
                             <% if (typeof formInfo !== 'undefined' && formInfo) { %>
@@ -149,31 +153,32 @@ class="auth-shell"
                                 <div class="col-12">
                                     <label for="email" class="form-label">Email address</label>
                                     <input
-                                        type="email"
-                                        class="form-control form-control-lg"
-                                        id="email"
-                                        name="email"
-                                        placeholder="name@example.com"
-                                        value="<%= formValues.email || '' %>"
-                                        autocomplete="username"
-                                        required>
+                                            type="email"
+                                            class="form-control form-control-lg"
+                                            id="email"
+                                            name="email"
+                                            placeholder="name@example.com"
+                                            value="<%= formValues.email || '' %>"
+                                            autocomplete="username"
+                                            required>
                                 </div>
 
                                 <div class="col-12">
                                     <label for="password" class="form-label">Password</label>
                                     <input
-                                        type="password"
-                                        class="form-control form-control-lg"
-                                        id="password"
-                                        name="password"
-                                        placeholder="Enter your password"
-                                        autocomplete="current-password"
-                                        required>
+                                            type="password"
+                                            class="form-control form-control-lg"
+                                            id="password"
+                                            name="password"
+                                            placeholder="Enter your password"
+                                            autocomplete="current-password"
+                                            required>
                                 </div>
 
                                 <div class="col-12 d-flex flex-wrap justify-content-between align-items-center gap-2">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="remember-me" name="remember">
+                                        <input type="checkbox" class="form-check-input" id="remember-me"
+                                               name="remember">
                                         <label class="form-check-label" for="remember-me">Remember me</label>
                                     </div>
                                 </div>
@@ -184,7 +189,8 @@ class="auth-shell"
 
                                 <div class="col-12 text-center">
                                     <span class="text-muted small">Don't have an account?</span>
-                                    <a href="<%= registerPath %>" class="text-decoration-none fw-semibold ms-1">Create account</a>
+                                    <a href="<%= registerPath %>" class="text-decoration-none fw-semibold ms-1">Create
+                                        account</a>
                                 </div>
                             </form>
                         </div>
