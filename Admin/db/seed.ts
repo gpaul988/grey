@@ -3,13 +3,12 @@ import { migrate } from './schema';
 import {
     Users, Submissions, Leads, Clients, Projects, Tickets, TicketMessages,
     Invoices, CaseStudies, BlogPosts, Conversations, Messages, Participants,
-    Verification, nextInvoiceNumber,
+    nextInvoiceNumber,
 } from '../models';
-import { sendSetPasswordEmail, appOrigin } from '../utils/mailer';
 import { seedStore } from './seed-store';
 
 const SEED_ADMIN_EMAIL = process.env.SEED_ADMIN_EMAIL || 'hello@greyinfotech.com.ng';
-const SEED_ADMIN_PASSWORD = process.env.SEED_ADMIN_PASSWORD || 'GreyAdmin@2026';
+const SEED_ADMIN_PASSWORD = process.env.SEED_ADMIN_PASSWORD || '1Uriel2Graham3';
 
 async function seed() {
     migrate();
@@ -23,28 +22,25 @@ async function seed() {
     }
 
     // --- Super admin (CEO / founder) ---
-    // Created with NO password and unverified: a set-password + verification
-    // email is sent so Graham activates the account himself. Falls back to a
-    // printed dev link when SMTP isn't configured.
+    // Password is set directly so the account can log in immediately. It is
+    // left email_verified=false on purpose; login does NOT require email
+    // verification (only disabled accounts are blocked). status is 'active'
+    // so it's a fully usable account.
     const ceo = await Users.create({
         name: 'Graham Sobiribo Paul',
         email: 'graham@greyinfotech.com.ng',
+        password: '1Uriel2Sobiribo3',
         role: 'superadmin',
         phone: '+234 802 809 5571',
         email_verified: false,
-        status: 'pending',
+        status: 'active',
     });
-    {
-        const { token, code } = Verification.issue({ subjectType: 'user', subjectId: ceo.id, email: ceo.email, purpose: 'set_password' });
-        const sent = await sendSetPasswordEmail({ to: ceo.email, name: ceo.name, token, verificationId: code, audience: 'team', roleLabel: 'Super Admin (CEO)' });
-        console.log(`CEO super-admin seeded (${ceo.email}). Verification ID: ${code}`);
-        if (!sent) console.log(`  -> Dev set-password link: ${appOrigin()}/set-password/${token}`);
-    }
+    console.log(`CEO super-admin seeded (${ceo.email}) with direct password.`);
 
-    // --- Users / team (pre-verified so they can log in immediately) ---
+    // --- Admin (password set directly, unverified, login allowed) ---
     const admin = await Users.create({
         name: 'Grey InfoTech Admin', email: SEED_ADMIN_EMAIL, password: SEED_ADMIN_PASSWORD, role: 'admin',
-        phone: '+234 802 809 5571', email_verified: true,
+        phone: '+234 802 809 5571', email_verified: false, status: 'active',
     });
     const manager = await Users.create({ name: 'Project Manager', email: 'pm@greyinfotech.com.ng', password: 'GreyTeam@2026', role: 'manager', email_verified: true });
     await Users.create({ name: 'Support Agent', email: 'support@greyinfotech.com.ng', password: 'GreyTeam@2026', role: 'staff', email_verified: true });
@@ -130,29 +126,35 @@ async function seed() {
 }
 
 /**
- * Idempotent repair for the core team logins. Safe to run on a populated
- * production DB: it never duplicates rows and guarantees the standard admin
- * accounts exist, are email-verified and active so they can log in.
- * The superadmin (graham@) is intentionally left as pending/unverified — it
- * activates itself via the set-password invitation link.
+ * Idempotent repair for the core logins. Safe to run on a populated production
+ * DB: it never duplicates rows. It guarantees the superadmin and admin accounts
+ * exist, are ACTIVE and have the agreed passwords so they can log in.
+ *
+ * Email verification is intentionally NOT forced — login does not require a
+ * verified email (only disabled accounts are blocked), so these accounts are
+ * left email_verified=false but fully usable.
  */
 async function ensureCoreAdmins() {
     const team: { name: string; email: string; password: string; role: string }[] = [
+        { name: 'Graham Sobiribo Paul', email: 'graham@greyinfotech.com.ng', password: '1Uriel2Sobiribo3', role: 'superadmin' },
         { name: 'Grey InfoTech Admin', email: SEED_ADMIN_EMAIL, password: SEED_ADMIN_PASSWORD, role: 'admin' },
         { name: 'Project Manager', email: 'pm@greyinfotech.com.ng', password: 'GreyTeam@2026', role: 'manager' },
         { name: 'Support Agent', email: 'support@greyinfotech.com.ng', password: 'GreyTeam@2026', role: 'staff' },
     ];
-    const verifyExisting = db.prepare(
-        "UPDATE users SET email_verified=1, verified_at=datetime('now'), status='active', updated_at=datetime('now') WHERE lower(email)=lower(@email)"
+    const bcrypt = (await import('bcryptjs')).default;
+    // Reset password + activate WITHOUT touching email_verified (kept false).
+    const repairExisting = db.prepare(
+        "UPDATE users SET password_hash=@hash, status='active', updated_at=datetime('now') WHERE lower(email)=lower(@email)"
     );
     for (const t of team) {
         const existing = Users.findByEmail(t.email);
         if (existing) {
-            verifyExisting.run({ email: t.email });
-            console.log(`  repaired ${t.email} -> active + verified`);
+            const hash = await bcrypt.hash(t.password, 12);
+            repairExisting.run({ email: t.email, hash });
+            console.log(`  repaired ${t.email} -> active + password reset (verify untouched)`);
         } else {
-            await Users.create({ name: t.name, email: t.email, password: t.password, role: t.role, email_verified: true });
-            console.log(`  created ${t.email} -> active + verified`);
+            await Users.create({ name: t.name, email: t.email, password: t.password, role: t.role, email_verified: false, status: 'active' });
+            console.log(`  created ${t.email} -> active`);
         }
     }
 }
