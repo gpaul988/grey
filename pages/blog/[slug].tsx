@@ -9,43 +9,38 @@ import {getBlogPostBySlug, blogPosts} from '../../data/blogPosts';
 import type {BlogPost} from '../../data/blogPosts';
 import {getBlogImage} from '../../data/blogMedia';
 import {getBlogPostMeta} from '../../data/blogMeta';
+import AIProjectEstimator from "@/components/AIProjectEstimator";
 
-export default function BlogPost() {
+export default function BlogPostPage() {
     const router = useRouter();
     const {slug} = router.query;
     const [isDayTime, setIsDayTime] = useState(true);
     const [post, setPost] = useState<BlogPost | undefined>();
+    const [copied, setCopied] = useState(false);
+    const [shareOpen, setShareOpen] = useState(false);
+    const [tocOpen, setTocOpen] = useState(false);
 
     useEffect(() => {
-        const updateThemeByTime = () => {
-            const hour = new Date().getHours();
-            setIsDayTime(hour >= 6 && hour < 18);
+        const update = () => {
+            const h = new Date().getHours();
+            setIsDayTime(h >= 6 && h < 18);
         };
-
-        updateThemeByTime();
-        const intervalId = setInterval(updateThemeByTime, 60_000);
-        return () => clearInterval(intervalId);
+        update();
+        const id = setInterval(update, 60_000);
+        return () => clearInterval(id);
     }, []);
 
     useEffect(() => {
-        if (slug && typeof slug === 'string') {
-            const foundPost = getBlogPostBySlug(slug);
-            setPost(foundPost);
-        }
+        if (slug && typeof slug === 'string') setPost(getBlogPostBySlug(slug));
     }, [slug]);
 
-    // Ensure hooks order remains stable between renders by calling useMemo
-    // even when `post` is undefined. When `post` is not available we return
-    // safe defaults so that later render logic can safely check values.
-    const meta = useMemo(() => {
-        return post ? getBlogPostMeta(post) : {
-            heroImage: '',
-            publishedAt: '',
-            tags: [],
-            authorAvatar: '',
-            author: '',
-            authorRole: ''
-        };
+    const meta = useMemo(() => post ? getBlogPostMeta(post) : {
+        heroImage: '',
+        publishedAt: '',
+        tags: [],
+        authorAvatar: '',
+        author: '',
+        authorRole: ''
     }, [post]);
 
     const relatedPosts = useMemo(() => {
@@ -53,15 +48,11 @@ export default function BlogPost() {
         return blogPosts.filter(p => p.tag === post.tag && p.slug !== post.slug).slice(0, 3);
     }, [post]);
 
-    // Build content blocks and insert images between paragraphs for a more
-    // magazine-like layout. Also extract headings to build a table-of-contents
-    // similar to the Lightflows structure (headings are paragraphs wrapped in **...**).
     const {contentBlocks, headings} = useMemo(() => {
         if (!post) return {
             contentBlocks: [] as Array<{ type: string; text?: string; key?: string; id?: string; src?: string }>,
-            headings: [] as Array<{ id: string; text: string }>
+            headings: [] as Array<{ id: string; text: string }>,
         };
-
         const paragraphs = post.content.split('\n\n').map(p => p.trim()).filter(Boolean);
         const blocks: Array<{ type: string; text?: string; key?: string; id?: string; src?: string }> = [];
         const foundHeadings: Array<{ id: string; text: string }> = [];
@@ -72,13 +63,10 @@ export default function BlogPost() {
             '/assets/ui-ux/hero.jpg',
             '/assets/startup/market.jpg',
             '/assets/node/hero.jpg',
-            '/assets/seo/hero.jpg',
         ];
-
         const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
         paragraphs.forEach((paragraph, i) => {
-            // detect bold-heading style **Heading**
             if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
                 const text = paragraph.replace(/\*\*/g, '').trim();
                 const id = slugify(text || `heading-${i}`);
@@ -86,97 +74,104 @@ export default function BlogPost() {
                 blocks.push({type: 'heading', text, key: `${post.slug}-h-${i}`, id});
                 return;
             }
-
-            // list detection: keep as paragraph block but will render as list if contains `- ` lines
             blocks.push({type: 'paragraph', text: paragraph, key: `${post.slug}-p-${i}`});
-
-            // Insert an image after every 3 paragraphs (adjustable)
-            if ((i + 1) % 3 === 0 && i !== paragraphs.length - 1) {
-                const imageIndex = Math.floor((i + 1) / 3) - 1;
+            if ((i + 1) % 4 === 0 && i !== paragraphs.length - 1) {
+                const idx = Math.floor((i + 1) / 4) - 1;
                 blocks.push({
                     type: 'image',
                     key: `${post.slug}-img-${i}`,
-                    src: inlineImages[imageIndex % inlineImages.length],
+                    src: inlineImages[idx % inlineImages.length]
                 });
             }
         });
-
         return {contentBlocks: blocks, headings: foundHeadings};
     }, [post]);
 
-    // Share helpers (stable hooks placed before early return so Hooks order is consistent)
-    const [copied, setCopied] = useState(false);
-    const [shareOpen, setShareOpen] = useState(false);
-    const shareUrl = useMemo(() => {
-        if (typeof window !== 'undefined') return window.location.href;
-        return `https://example.com${router.asPath || ''}`;
-    }, [router.asPath]);
-
+    const shareUrl = useMemo(() => typeof window !== 'undefined' ? window.location.href : `https://greyinfotech.com.ng${router.asPath || ''}`, [router.asPath]);
     const twitterShare = useMemo(() => `https://twitter.com/intent/tweet?text=${encodeURIComponent(post?.title || '')}&url=${encodeURIComponent(shareUrl)}`, [post?.title, shareUrl]);
     const linkedinShare = useMemo(() => `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, [shareUrl]);
-    const facebookShare = useMemo(() => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, [shareUrl]);
 
     const handleCopy = useCallback(async () => {
         try {
             await navigator.clipboard.writeText(shareUrl);
             setCopied(true);
-            setShareOpen(true);
             setTimeout(() => setCopied(false), 2000);
-        } catch (e) {
-            /* ignore */
+        } catch { /* ignore */
         }
     }, [shareUrl]);
 
+    const bg = isDayTime ? 'bg-white text-black' : 'bg-black text-white';
+
     if (!post) {
         return (
-            <div
-                className={`${isDayTime ? 'bg-white text-black' : 'bg-black text-white'} min-h-screen transition-colors duration-500`}>
+            <div className={`${bg} min-h-screen`}>
                 <Header/>
                 <div className="mx-auto max-w-[90rem] px-4 sm:px-6 md:px-10 lg:px-[4.5em] py-20">
-                    <p>Loading...</p>
+                    <p className={isDayTime ? 'text-gray-500' : 'text-gray-400'}>Loading…</p>
                 </div>
                 <Footer/>
             </div>
         );
     }
 
-
     return (
-        <div
-            className={`${isDayTime ? 'bg-white text-black' : 'bg-black text-white'} min-h-screen transition-colors duration-500`}>
+        <div className={`${bg} min-h-screen transition-colors duration-500`}>
             <Header/>
 
-            <main className="mx-auto max-w-[100rem] px-4 sm:px-6 md:px-10 lg:px-[4.5em] py-16 md:py-20 lg:py-24">
-                <article
-                    className="mt-54 grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_320px] gap-12 xl:gap-16 items-start">
-                    <div className="min-w-0">
-                        {/* Topic and title block (Lightflows-like: topic at the top) */}
-                        <div className="max-w-4xl mb-6 text-left">
+            {/* ── Breadcrumb ── */}
+            <div className={`border-b ${isDayTime ? 'border-gray-100' : 'border-zinc-800'}`}>
+                <div
+                    className="mx-auto max-w-[100rem] px-4 sm:px-6 md:px-10 lg:px-[4.5em] py-3.5 flex items-center gap-2 text-xs">
+                    <Link href="/blog"
+                          className={`transition-colors ${isDayTime ? 'text-gray-400 hover:text-gray-700' : 'text-gray-500 hover:text-gray-300'}`}>Blog</Link>
+                    <span className={isDayTime ? 'text-gray-300' : 'text-gray-600'}>/</span>
+                    <span
+                        className={`font-semibold uppercase tracking-wider ${isDayTime ? 'text-teal-600' : 'text-teal-400'}`}>{post.tag}</span>
+                </div>
+            </div>
 
-                            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight">
+            <main className="mx-auto max-w-[100rem] px-4 sm:px-6 md:px-10 lg:px-[4.5em] py-14 md:py-20">
+                <article className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_300px] gap-12 xl:gap-16 items-start">
+
+                    {/* ── Main column ── */}
+                    <div className="min-w-0">
+
+                        {/* Category + Title */}
+                        <div className="max-w-3xl mb-8">
+                            <span
+                                className={`text-xs font-semibold uppercase tracking-widest block mb-4 ${isDayTime ? 'text-teal-600' : 'text-teal-400'}`}>{post.tag}</span>
+                            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.08] tracking-tight mb-6">
                                 {post.title}
                             </h1>
-                            <div className="mt-3 flex items-center justify-start gap-4 text-sm text-gray-500 flex-wrap">
-                                <div className="flex items-center gap-3">
-                                    <div className="relative w-8 h-8 rounded-full overflow-hidden bg-gray-200">
-                                        <Image src={meta.authorAvatar || '/favicon.svg'} alt={meta.author} fill
-                                               className="object-cover"/>
+                            {/* Author + date inline */}
+                            <div
+                                className={`flex flex-wrap items-center gap-4 text-sm ${isDayTime ? 'text-gray-500' : 'text-gray-400'}`}>
+                                <div className="flex items-center gap-2.5">
+                                    <div
+                                        className="relative w-8 h-8 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                                        {meta.authorAvatar ? (
+                                            <Image src={meta.authorAvatar} alt={meta.author} fill
+                                                   className="object-cover" sizes="32px"/>
+                                        ) : (
+                                            <div
+                                                className="w-full h-full bg-teal-100 flex items-center justify-center text-teal-600 text-xs font-bold">
+                                                {meta.author.charAt(0)}
+                                            </div>
+                                        )}
                                     </div>
-                                    <div className="text-left">
-                                        <div className="font-medium text-gray-900">{meta.author}</div>
-                                        <div className="text-xs text-gray-500">{meta.authorRole}</div>
-                                    </div>
+                                    <span
+                                        className={`font-medium ${isDayTime ? 'text-gray-700' : 'text-gray-200'}`}>{meta.author}</span>
                                 </div>
-                                <div>•</div>
-                                <div>{meta.publishedAt}</div>
-                                <div>•</div>
-                                <div>{post.readTime}</div>
+                                <span className={isDayTime ? 'text-gray-300' : 'text-gray-700'}>·</span>
+                                <span>{meta.publishedAt}</span>
+                                <span className={isDayTime ? 'text-gray-300' : 'text-gray-700'}>·</span>
+                                <span>{post.readTime}</span>
                             </div>
                         </div>
 
-                        {/* Hero image (moved below title for Lightflows-like structure) */}
+                        {/* Hero image */}
                         <div className="relative w-full rounded-3xl overflow-hidden mb-10">
-                            <div className="relative w-full h-[420px] sm:h-[480px] md:h-[560px] lg:h-[640px]">
+                            <div className="relative w-full h-[380px] sm:h-[440px] md:h-[520px] lg:h-[600px]">
                                 <Image
                                     src={meta.heroImage || getBlogImage(post.slug, post.tag)}
                                     alt={post.title}
@@ -185,300 +180,264 @@ export default function BlogPost() {
                                     priority
                                     sizes="100vw"
                                 />
-                                <div
-                                    className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/10"/>
+                                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/5"/>
                             </div>
                         </div>
 
-                        {/* Lead / summary card under hero (Lightflows style) */}
-                        <div className="max-w-3xl mx-auto mb-12">
-                            <div className="p-6 rounded-xl bg-gray-50 border border-gray-100">
-                                <p className="text-lg md:text-xl leading-relaxed text-gray-700">
-                                    {post.excerpt}
-                                </p>
-                            </div>
+                        {/* Lead summary card */}
+                        <div
+                            className={`max-w-3xl mb-12 p-6 md:p-8 rounded-2xl border-l-4 border-teal-400 ${isDayTime ? 'bg-teal-50/60' : 'bg-teal-900/10'}`}>
+                            <p className={`text-lg md:text-xl leading-relaxed ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}>{post.excerpt}</p>
                         </div>
 
-                        {/* Author & meta row (below hero) */}
-                        <div className="flex items-center justify-between gap-6 mb-8">
-                            <div className="flex items-center gap-4">
-                                <div className="relative w-14 h-14 rounded-full overflow-hidden bg-gray-200">
-                                    <Image src={meta.authorAvatar || '/favicon.svg'} alt={meta.author} fill
-                                           className="object-cover"/>
-                                </div>
-                                <div>
-                                    <p className="font-semibold text-gray-900 dark:text-white">{meta.author}</p>
-                                    <p className="text-sm text-gray-500">{meta.authorRole} • {meta.publishedAt}</p>
-                                </div>
+                        {/* Mobile TOC toggle */}
+                        {headings.length > 0 && (
+                            <div className="xl:hidden mb-10">
+                                <button
+                                    type="button"
+                                    onClick={() => setTocOpen(p => !p)}
+                                    className={`flex items-center justify-between w-full text-sm font-medium px-4 py-3 rounded-xl border ${isDayTime ? 'border-gray-200 text-gray-700' : 'border-zinc-700 text-gray-300'}`}
+                                >
+                                    <span>Table of contents</span>
+                                    <svg className={`w-4 h-4 transition-transform ${tocOpen ? 'rotate-180' : ''}`}
+                                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                              d="M19 9l-7 7-7-7"/>
+                                    </svg>
+                                </button>
+                                {tocOpen && (
+                                    <ul className={`mt-2 space-y-1.5 px-4 py-3 rounded-xl border text-sm ${isDayTime ? 'border-gray-100 bg-gray-50' : 'border-zinc-800 bg-zinc-900'}`}>
+                                        {headings.map(h => (
+                                            <li key={h.id}>
+                                                <a href={`#${h.id}`} onClick={() => setTocOpen(false)}
+                                                   className={`block py-0.5 transition-colors ${isDayTime ? 'text-gray-500 hover:text-gray-900' : 'text-gray-400 hover:text-white'}`}>{h.text}</a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
                             </div>
-                            <div className="flex items-center gap-3">
-                                {/* Share button with click popup showing social handles */}
-                                <div className="relative inline-block text-left">
-                                    <button
-                                        type="button"
-                                        onClick={() => setShareOpen(prev => !prev)}
-                                        className="inline-flex items-center px-3 py-1.5 border rounded text-sm text-gray-600 hover:bg-gray-100"
-                                    >
-                                        Share
-                                    </button>
+                        )}
 
-                                    <div
-                                        className={`absolute right-0 mt-2 flex-col w-52 bg-white border rounded shadow-lg p-2 z-20 ${shareOpen ? 'flex' : 'hidden'}`}>
-                                        <a href={twitterShare} target="_blank" rel="noopener noreferrer"
-                                           className="flex items-center gap-2 px-2 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                 viewBox="0 0 24 24" fill="currentColor">
-                                                <path
-                                                    d="M22 4.01c-.63.28-1.3.48-2 .57.72-.43 1.27-1.12 1.53-1.94-.68.4-1.44.68-2.24.84C18.6 2.6 17.5 2 16.3 2c-2.03 0-3.67 1.64-3.67 3.67 0 .29.03.57.1.84C9.69 6.36 6.14 4.65 3.9 2.1c-.32.55-.5 1.18-.5 1.86 0 1.28.65 2.41 1.65 3.07-.6-.02-1.16-.18-1.65-.45v.05c0 1.8 1.28 3.3 2.97 3.64-.31.09-.64.14-.98.14-.24 0-.48-.02-.71-.07.48 1.5 1.86 2.6 3.5 2.63C6.6 16.6 5 17.16 3.26 17.16c-.2 0-.39-.01-.58-.03 1.14.73 2.5 1.16 3.97 1.16 4.76 0 7.37-3.95 7.37-7.37v-.34c.5-.36.94-.8 1.28-1.3.43-.65.69-1.43.69-2.27 0-.16 0-.32-.02-.48.97-.7 1.7-1.56 2.32-2.55z"/>
-                                            </svg>
-                                            Twitter
-                                        </a>
-                                        <a href={linkedinShare} target="_blank" rel="noopener noreferrer"
-                                           className="flex items-center gap-2 px-2 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                 viewBox="0 0 24 24" fill="currentColor">
-                                                <path
-                                                    d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4v12h-4zM8.5 8h3.7v1.6h.1c.5-.9 1.7-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.6V20h-4v-5.2c0-1.2 0-2.8-1.8-2.8-1.8 0-2.1 1.4-2.1 2.7V20h-4z"/>
-                                            </svg>
-                                            LinkedIn
-                                        </a>
-                                        <a href={facebookShare} target="_blank" rel="noopener noreferrer"
-                                           className="flex items-center gap-2 px-2 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                 viewBox="0 0 24 24" fill="currentColor">
-                                                <path
-                                                    d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.12 8.44 9.88v-6.99H7.9v-2.9h2.54V9.4c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.62.77-1.62 1.56v1.87h2.77l-.44 2.9h-2.33V22C18.34 21.12 22 16.99 22 12z"/>
-                                            </svg>
-                                            Facebook
-                                        </a>
-                                        <button onClick={handleCopy}
-                                                className="flex items-center gap-2 px-2 py-2 text-sm text-gray-700 hover:bg-gray-50 text-left">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                 viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M3 13h2v8h12v2H3a2 2 0 0 1-2-2V13h2zM21 3v12h-2V5H9V3h12z"/>
-                                            </svg>
-                                            {copied ? 'Copied' : 'Copy link'}
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Article content: render content blocks with images between paragraphs */}
-                        <div className={`space-y-8 ${isDayTime ? 'text-gray-700' : 'text-gray-200'}`}>
+                        {/* Article body */}
+                        <div className={`space-y-7 ${isDayTime ? 'text-gray-700' : 'text-gray-200'}`}>
                             {contentBlocks.map((block, idx) => {
                                 if (block.type === 'heading') {
                                     return (
                                         <h2 id={block.id} key={block.key || idx}
-                                            className={`text-2xl font-bold mt-10 mb-4 ${isDayTime ? 'text-black' : 'text-white'}`}>
+                                            className={`text-2xl md:text-3xl font-bold mt-12 mb-3 scroll-mt-24 ${isDayTime ? 'text-black' : 'text-white'}`}>
                                             {block.text}
                                         </h2>
                                     );
                                 }
-
                                 if (block.type === 'paragraph') {
-                                    const paragraph = block.text || '';
-
-                                    if (paragraph.includes('- ')) {
+                                    const para = block.text || '';
+                                    if (para.includes('\n- ') || para.startsWith('- ')) {
                                         return (
-                                            <ul key={block.key || idx}
-                                                className="list-disc list-inside space-y-2 ml-2 text-base leading-relaxed">
-                                                {paragraph.split('\n').filter(line => line.trim()).map((item, i) => (
-                                                    <li key={i}
-                                                        className="ml-4">{item.replace(/^[-•]\s/, '').trim()}</li>
+                                            <ul key={block.key || idx} className="list-none space-y-2.5 ml-0">
+                                                {para.split('\n').filter(l => l.trim()).map((item, i) => (
+                                                    <li key={i} className="flex items-start gap-3">
+                                                        <span
+                                                            className="w-1.5 h-1.5 rounded-full bg-teal-500 mt-2.5 shrink-0"/>
+                                                        <span
+                                                            className="text-base md:text-lg leading-relaxed">{item.replace(/^[-•]\s/, '').trim()}</span>
+                                                    </li>
                                                 ))}
                                             </ul>
                                         );
                                     }
-
-                                    // Lead paragraph styling: make the very first paragraph larger
                                     if (idx === 0) {
-                                        return (
-                                            <p key={block.key || idx}
-                                               className="text-xl md:text-2xl leading-relaxed text-gray-800">
-                                                {paragraph}
-                                            </p>
-                                        );
+                                        return <p key={block.key || idx}
+                                                  className="text-xl md:text-2xl leading-relaxed text-gray-800 font-[400]">{para}</p>;
                                     }
-
-                                    return (
-                                        <p key={block.key || idx} className="text-base md:text-lg leading-relaxed">
-                                            {paragraph}
-                                        </p>
-                                    );
+                                    return <p key={block.key || idx}
+                                              className="text-base md:text-lg leading-[1.8]">{para}</p>;
                                 }
-
                                 if (block.type === 'image') {
                                     return (
-                                        <div key={block.key || idx} className="rounded-2xl overflow-hidden">
-                                            <Image
-                                                src={block.src || getBlogImage(post.slug, post.tag)}
-                                                alt={post.title}
-                                                width={1200}
-                                                height={675}
-                                                className="object-cover w-full h-auto rounded-2xl"
-                                                sizes="(max-width: 768px) 100vw, 50vw"
-                                            />
-                                        </div>
+                                        <figure key={block.key || idx} className="my-10">
+                                            <div className="rounded-2xl overflow-hidden">
+                                                <Image
+                                                    src={block.src || getBlogImage(post.slug, post.tag)}
+                                                    alt={post.title}
+                                                    width={1200} height={675}
+                                                    className="object-cover w-full h-auto rounded-2xl"
+                                                    sizes="(max-width:768px) 100vw, 70vw"
+                                                />
+                                            </div>
+                                        </figure>
                                     );
                                 }
-
                                 return null;
                             })}
                         </div>
 
                         {/* Tags */}
-                        <div className="flex flex-wrap gap-2 mt-14 pt-10 border-t border-gray-100">
-                            {meta.tags.map((tag) => (
-                                <Link
-                                    key={tag}
-                                    href={`/blog?tag=${tag.toLowerCase()}`}
-                                    className="text-sm text-gray-500 border border-gray-200 px-3 py-1 rounded-full hover:border-gray-400 hover:text-gray-800 transition-colors"
-                                >
+                        <div
+                            className={`flex flex-wrap gap-2 mt-14 pt-10 border-t ${isDayTime ? 'border-gray-100' : 'border-zinc-800'}`}>
+                            {meta.tags.map(tag => (
+                                <Link key={tag} href={`/blog?tag=${tag.toLowerCase()}`}
+                                      className={`text-sm border px-3 py-1 rounded-full transition-colors ${isDayTime ? 'text-gray-500 border-gray-200 hover:border-gray-400 hover:text-gray-800' : 'text-gray-400 border-zinc-700 hover:border-zinc-500 hover:text-white'}`}>
                                     {tag}
                                 </Link>
                             ))}
                         </div>
 
-                        {/* Author bio */}
-                        <div className="flex gap-5 p-6 rounded-2xl bg-gray-50 border border-gray-100 mt-10">
-                            <div className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0 bg-gray-200">
-                                <Image src={meta.authorAvatar} alt={meta.author} fill className="object-cover"
-                                       sizes="56px"/>
+                        {/* Share row */}
+                        <div
+                            className={`flex items-center justify-between gap-4 mt-8 pt-8 border-t ${isDayTime ? 'border-gray-100' : 'border-zinc-800'}`}>
+                            <div className="flex items-center gap-3">
+                                <div
+                                    className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 bg-gray-200">
+                                    {meta.authorAvatar ? (
+                                        <Image src={meta.authorAvatar} alt={meta.author} fill className="object-cover"
+                                               sizes="48px"/>
+                                    ) : (
+                                        <div
+                                            className="w-full h-full bg-teal-100 flex items-center justify-center text-teal-600 font-bold">
+                                            {meta.author.charAt(0)}
+                                        </div>
+                                    )}
+                                </div>
+                                <div>
+                                    <p className={`font-semibold text-sm ${isDayTime ? 'text-gray-900' : 'text-white'}`}>{meta.author}</p>
+                                    <p className={`text-xs ${isDayTime ? 'text-gray-500' : 'text-gray-400'}`}>{meta.authorRole || 'Grey InfoTech Editorial'} · {meta.publishedAt}</p>
+                                </div>
                             </div>
-                            <div>
-                                <p className="font-semibold text-gray-900 mb-0.5">{meta.author}</p>
-                                <p className="text-sm text-gray-500 mb-2">{meta.authorRole}</p>
-                                <p className="text-sm text-gray-600 leading-relaxed">
-                                    Our editorial team shares practical guidance on building digital products, improving
-                                    UX, and scaling software systems.
-                                </p>
+                            <div className="relative flex items-center gap-2">
+                                <a href={twitterShare} target="_blank" rel="noopener noreferrer"
+                                   className={`w-9 h-9 flex items-center justify-center rounded-full border transition-colors ${isDayTime ? 'border-gray-200 text-gray-500 hover:bg-gray-100' : 'border-zinc-700 text-gray-400 hover:bg-zinc-900'}`}
+                                   aria-label="Share on Twitter">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                        <path
+                                            d="M22 4.01c-.63.28-1.3.48-2 .57.72-.43 1.27-1.12 1.53-1.94-.68.4-1.44.68-2.24.84C18.6 2.6 17.5 2 16.3 2c-2.03 0-3.67 1.64-3.67 3.67 0 .29.03.57.1.84C9.69 6.36 6.14 4.65 3.9 2.1c-.32.55-.5 1.18-.5 1.86 0 1.28.65 2.41 1.65 3.07-.6-.02-1.16-.18-1.65-.45v.05c0 1.8 1.28 3.3 2.97 3.64-.31.09-.64.14-.98.14-.24 0-.48-.02-.71-.07.48 1.5 1.86 2.6 3.5 2.63C6.6 16.6 5 17.16 3.26 17.16c-.2 0-.39-.01-.58-.03 1.14.73 2.5 1.16 3.97 1.16 4.76 0 7.37-3.95 7.37-7.37v-.34c.5-.36.94-.8 1.28-1.3.43-.65.69-1.43.69-2.27 0-.16 0-.32-.02-.48.97-.7 1.7-1.56 2.32-2.55z"/>
+                                    </svg>
+                                </a>
+                                <a href={linkedinShare} target="_blank" rel="noopener noreferrer"
+                                   className={`w-9 h-9 flex items-center justify-center rounded-full border transition-colors ${isDayTime ? 'border-gray-200 text-gray-500 hover:bg-gray-100' : 'border-zinc-700 text-gray-400 hover:bg-zinc-900'}`}
+                                   aria-label="Share on LinkedIn">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                        <path
+                                            d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4v12h-4zM8.5 8h3.7v1.6h.1c.5-.9 1.7-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.6V20h-4v-5.2c0-1.2 0-2.8-1.8-2.8-1.8 0-2.1 1.4-2.1 2.7V20h-4z"/>
+                                    </svg>
+                                </a>
+                                <button onClick={handleCopy}
+                                        className={`w-9 h-9 flex items-center justify-center rounded-full border transition-colors ${isDayTime ? 'border-gray-200 text-gray-500 hover:bg-gray-100' : 'border-zinc-700 text-gray-400 hover:bg-zinc-900'}`}
+                                        aria-label="Copy link">
+                                    {copied ? (
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                             stroke="currentColor" strokeWidth="2">
+                                            <path d="M20 6L9 17l-5-5"/>
+                                        </svg>
+                                    ) : (
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                             stroke="currentColor" strokeWidth="2">
+                                            <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/>
+                                            <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>
+                                        </svg>
+                                    )}
+                                </button>
                             </div>
                         </div>
                     </div>
 
-                    {/* Sidebar */}
-                    <aside className="xl:sticky xl:top-24 self-start w-full xl:w-[320px] space-y-8">
-                        <div
-                            className={`p-6 rounded-2xl border ${isDayTime ? 'bg-white border-gray-200' : 'bg-zinc-950 border-zinc-800'}`}>
-                            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">On this
-                                page</p>
-                            <ul className="space-y-2 text-sm text-left">
-                                {headings.length > 0 ? (
-                                    headings.map(h => (
+                    {/* ── Sidebar ── */}
+                    <aside className="xl:sticky xl:top-24 self-start w-full xl:w-[300px] space-y-6">
+
+                        {/* Table of contents */}
+                        {headings.length > 0 && (
+                            <div
+                                className={`p-5 rounded-2xl border hidden xl:block ${isDayTime ? 'bg-white border-gray-100 shadow-sm' : 'bg-zinc-950 border-zinc-800'}`}>
+                                <p className={`text-xs font-semibold uppercase tracking-widest mb-4 ${isDayTime ? 'text-gray-400' : 'text-gray-500'}`}>On
+                                    this page</p>
+                                <ul className="space-y-2 text-sm">
+                                    {headings.map(h => (
                                         <li key={h.id}>
                                             <a href={`#${h.id}`}
-                                               className="block text-left text-gray-500 hover:text-gray-900 transition-colors py-0.5">{h.text}</a>
+                                               className={`block py-0.5 transition-colors ${isDayTime ? 'text-gray-500 hover:text-gray-900' : 'text-gray-400 hover:text-white'}`}>{h.text}</a>
                                         </li>
-                                    ))
-                                ) : (
-                                    meta.tags.map((tag) => (
-                                        <li key={tag}>
-                                            <Link href={`/blog?tag=${tag.toLowerCase()}`}
-                                                  className="block text-left text-gray-500 hover:text-gray-900 transition-colors py-0.5">
-                                                {tag}
-                                            </Link>
-                                        </li>
-                                    ))
-                                )}
-                            </ul>
-                        </div>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
 
+                        {/* Post details */}
                         <div
-                            className={`p-6 rounded-2xl border ${isDayTime ? 'bg-white border-gray-200' : 'bg-zinc-950 border-zinc-800'}`}>
-                            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">Post
+                            className={`p-5 rounded-2xl border ${isDayTime ? 'bg-white border-gray-100 shadow-sm' : 'bg-zinc-950 border-zinc-800'}`}>
+                            <p className={`text-xs font-semibold uppercase tracking-widest mb-4 ${isDayTime ? 'text-gray-400' : 'text-gray-500'}`}>Post
                                 details</p>
-                            <div className="space-y-3 text-sm text-gray-500">
-                                <p><span className="font-medium text-gray-700">Category:</span> {post.tag}</p>
-                                <p><span className="font-medium text-gray-700">Published:</span> {meta.publishedAt}</p>
-                                <p><span className="font-medium text-gray-700">Read time:</span> {post.readTime}</p>
+                            <div className="space-y-2.5 text-sm">
+                                <div className="flex justify-between"><span
+                                    className={isDayTime ? 'text-gray-400' : 'text-gray-500'}>Category</span><span
+                                    className="font-medium">{post.tag}</span></div>
+                                <div className="flex justify-between"><span
+                                    className={isDayTime ? 'text-gray-400' : 'text-gray-500'}>Published</span><span
+                                    className="font-medium">{meta.publishedAt}</span></div>
+                                <div className="flex justify-between"><span
+                                    className={isDayTime ? 'text-gray-400' : 'text-gray-500'}>Read time</span><span
+                                    className="font-medium">{post.readTime}</span></div>
                             </div>
                         </div>
 
+                        {/* CTA card */}
                         <div
-                            className={`p-6 rounded-2xl border ${isDayTime ? 'bg-gray-50 border-gray-100' : 'bg-zinc-900 border-zinc-800'}`}>
-                            <h3 className="text-lg font-semibold mb-3">Need help with a similar project?</h3>
-                            <p className="text-sm text-gray-500 mb-4 leading-relaxed">
-                                We can help you shape the content, structure, and imagery for your own blog and case
-                                studies.
+                            className={`p-5 rounded-2xl border ${isDayTime ? 'bg-teal-50 border-teal-100' : 'bg-teal-900/10 border-teal-800/30'}`}>
+                            <h3 className={`text-base font-semibold mb-2 ${isDayTime ? 'text-gray-900' : 'text-white'}`}>Need
+                                help with a project?</h3>
+                            <p className={`text-sm mb-4 leading-relaxed ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
+                                We build, design, and ship digital products for founders and growing teams.
                             </p>
                             <Link href="/contact"
-                                  className="inline-flex px-5 py-2.5 rounded-full bg-gray-900 text-white text-sm font-medium hover:bg-gray-700 transition-colors">
+                                  className={`block w-full text-center px-4 py-2.5 rounded-full text-sm font-semibold transition-colors ${isDayTime ? 'bg-gray-900 text-white hover:bg-gray-700' : 'bg-white text-black hover:bg-gray-100'}`}>
                                 Start a project
                             </Link>
                         </div>
                     </aside>
                 </article>
 
-                {/* Related Articles */}
+                {/* ── Related posts ── */}
                 {relatedPosts.length > 0 && (
                     <section className={`py-16 border-t mt-16 ${isDayTime ? 'border-gray-200' : 'border-zinc-800'}`}>
-                        <h3 className="text-2xl md:text-3xl font-semibold mb-8">Related posts</h3>
+                        <div className="flex items-end justify-between mb-10">
+                            <h3 className="text-2xl md:text-3xl font-semibold">Related posts</h3>
+                            <Link href="/blog"
+                                  className={`text-sm font-medium underline underline-offset-4 ${isDayTime ? 'text-gray-500 hover:text-gray-900' : 'text-gray-400 hover:text-white'}`}>
+                                All posts →
+                            </Link>
+                        </div>
                         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                            {relatedPosts.map((relatedPost, idx) => (
-                                <Link
-                                    key={relatedPost.slug}
-                                    href={`/blog/${relatedPost.slug}`}
-                                    className="group"
-                                >
+                            {relatedPosts.map(rp => (
+                                <Link key={rp.slug} href={`/blog/${rp.slug}`} className="group flex flex-col gap-4">
                                     <div
-                                        className={`${idx !== relatedPosts.length - 1 ? `border-b ${isDayTime ? 'border-gray-200' : 'border-zinc-800'}` : ''} pb-6`}>
-                                        <div
-                                            className={`relative w-full aspect-[16/9] rounded-2xl overflow-hidden mb-4 ${isDayTime ? 'bg-gray-100' : 'bg-zinc-900'}`}>
-                                            <Image
-                                                src={getBlogImage(relatedPost.slug, relatedPost.tag)}
-                                                alt={relatedPost.title}
-                                                fill
-                                                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                                sizes="(max-width: 768px) 100vw, 50vw"
-                                            />
-                                        </div>
-                                        <div className="flex items-center gap-4 mb-4">
-                                            <span
-                                                className={`text-xs font-semibold tracking-widest uppercase ${isDayTime ? 'text-teal-600' : 'text-teal-400'}`}>
-                                                {relatedPost.tag}
-                                            </span>
-                                            <span
-                                                className={`text-xs ${isDayTime ? 'text-gray-500' : 'text-gray-400'}`}>
-                                                {relatedPost.readTime}
-                                            </span>
-                                        </div>
-                                        <h4 className={`text-xl font-semibold leading-snug mb-3 transition-colors ${
-                                            isDayTime
-                                                ? 'text-black group-hover:text-teal-600'
-                                                : 'text-white group-hover:text-teal-400'
-                                        }`}>
-                                            {relatedPost.title}
-                                        </h4>
-                                        <p className={`${isDayTime ? 'text-gray-600' : 'text-gray-300'} text-sm leading-relaxed`}>
-                                            {relatedPost.excerpt}
-                                        </p>
+                                        className={`relative w-full aspect-[16/10] rounded-2xl overflow-hidden ${isDayTime ? 'bg-gray-100' : 'bg-zinc-900'}`}>
+                                        <Image src={getBlogImage(rp.slug, rp.tag)} alt={rp.title} fill
+                                               className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                               sizes="(max-width:768px) 100vw, 33vw"/>
                                     </div>
+                                    <div
+                                        className={`flex items-center gap-2 text-xs ${isDayTime ? 'text-gray-400' : 'text-gray-500'}`}>
+                                        <span
+                                            className={`font-semibold uppercase tracking-wider ${isDayTime ? 'text-teal-600' : 'text-teal-400'}`}>{rp.tag}</span>
+                                        <span>·</span>
+                                        <span>{rp.readTime}</span>
+                                    </div>
+                                    <h4 className={`text-lg font-semibold leading-snug transition-colors ${isDayTime ? 'text-gray-900 group-hover:text-teal-600' : 'text-white group-hover:text-teal-400'}`}>
+                                        {rp.title}
+                                    </h4>
+                                    <p className={`text-sm leading-relaxed line-clamp-2 ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>{rp.excerpt}</p>
                                 </Link>
                             ))}
                         </div>
                     </section>
                 )}
 
-                {/* CTA */}
-                <section className={`mt-16 py-12 px-8 rounded-lg ${
-                    isDayTime ? 'bg-gray-50' : 'bg-zinc-900'
-                }`}>
-                    <h3 className="text-2xl font-semibold mb-3">Have a project or idea?</h3>
-                    <p className={`mb-6 text-base ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}>
-                        Let&apos;s discuss how we can help you build what&apos;s next.
-                    </p>
-                    <Link
-                        href="/contact"
-                        className={`inline-flex px-6 py-3 rounded font-semibold text-sm transition-colors ${
-                            isDayTime
-                                ? 'bg-black text-white hover:bg-gray-900'
-                                : 'bg-white text-black hover:bg-gray-100'
-                        }`}
-                    >
-                        Start a conversation
-                    </Link>
-                </section>
+                {/* ── CTA ── */}
+                <div
+                    className={`relative py-8 mx-auto px-4 sm:px-[2em] md:px-[3.2em] lg:px-[4.6em] max-w-full w-full h-auto ${
+                        isDayTime ? 'bg-teal-100 text-teal-900' : 'bg-teal-950 text-white'
+                    }`}
+                >
+                    <AIProjectEstimator/>
+                </div>
             </main>
 
             <Footer/>
@@ -486,27 +445,12 @@ export default function BlogPost() {
     );
 }
 
-// Get all paths for static generation
 export async function getStaticPaths() {
-    return {
-        paths: blogPosts.map(post => ({
-            params: {slug: post.slug}
-        })),
-        fallback: 'blocking'
-    };
+    return {paths: blogPosts.map(post => ({params: {slug: post.slug}})), fallback: 'blocking'};
 }
 
-// Generate props for each post
 export async function getStaticProps({params}: { params: { slug: string } }) {
     const post = getBlogPostBySlug(params.slug);
-
-    if (!post) {
-        return {notFound: true};
-    }
-
-    return {
-        props: {post},
-        revalidate: 60
-    };
+    if (!post) return {notFound: true};
+    return {props: {post}, revalidate: 60};
 }
-

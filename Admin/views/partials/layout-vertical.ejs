@@ -10,7 +10,7 @@
 
 <div class="wrapper">
     <%- include ('./menu') %>
-    
+
     <div class="page-content">
 
         <div class="page-container">
@@ -28,6 +28,12 @@
 
 <%- include ('./footer-scripts') %>
 <%- (typeof extra_javascript !== 'undefined' ? extra_javascript : '') %>
+
+
+<!-- SSE toast container (bottom-right) -->
+<div id="sse-toast-container"
+     class="toast-container position-fixed bottom-0 end-0 p-3"
+     style="z-index:1100;"></div>
 
 </body>
 </html>

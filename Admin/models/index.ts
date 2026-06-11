@@ -1,21 +1,33 @@
 import db from '../db';
-import { createRepo } from './crud';
-import { UsersModel } from './users';
+import {createRepo} from './crud';
+import {UsersModel} from './users';
 import type {
     Submission, Lead, Project, Ticket, TicketMessage,
     Invoice, CaseStudy, BlogPost, Conversation, Message, ActivityLog,
     ProjectBrief, Upload,
 } from '../db/types';
-import { ClientsModel } from './clients';
-import { ClientStaffModel } from './clientStaff';
-import { Participants } from './participants';
-import { Verification } from './verification';
+import {ClientsModel} from './clients';
+import {ClientStaffModel} from './clientStaff';
+import {Participants} from './participants';
+import {Verification} from './verification';
 
 export const Users = UsersModel;
-export { Products, ProductCategories, ProductBrands, Customers, Orders, StoreSettings, ProductReviews, Coupons, Wishlists } from './store';
+export {
+    Products,
+    ProductCategories,
+    ProductBrands,
+    Customers,
+    Orders,
+    StoreSettings,
+    ProductReviews,
+    Coupons,
+    Wishlists
+} from './store';
 export const Clients = ClientsModel;
 export const ClientStaff = ClientStaffModel;
-export { Participants, Verification };
+export {Participants, Verification};
+
+export {SiteSettings} from './settings';
 
 export const Submissions = createRepo<Submission>('submissions', [
     'name', 'email', 'phone', 'subject', 'project_type', 'budget', 'message', 'source', 'status',
@@ -42,11 +54,17 @@ export const Invoices = createRepo<Invoice>('invoices', [
 ]);
 
 export const CaseStudies = createRepo<CaseStudy>('case_studies', [
+    // original fields
     'title', 'slug', 'client', 'industry', 'summary', 'body', 'image', 'results', 'published',
+    // extended fields (Lightflows /work-style template)
+    'hero_image', 'tagline', 'services', 'sections', 'website',
 ]);
 
 export const BlogPosts = createRepo<BlogPost>('blog_posts', [
+    // original fields
     'title', 'slug', 'excerpt', 'body', 'cover', 'author', 'tags', 'status', 'published_at',
+    // extended fields (Lightflows-style template)
+    'read_time', 'hero_image', 'author_avatar', 'author_role', 'sections',
 ]);
 
 export const Conversations = createRepo<Conversation>('conversations', [
@@ -97,7 +115,9 @@ export function logActivity(entry: {
 /** Next invoice number, e.g. INV-2026-0007 */
 export function nextInvoiceNumber(): string {
     const year = new Date().getFullYear();
-    const count = (db.prepare(`SELECT COUNT(*) AS c FROM invoices WHERE number LIKE ?`).get(`INV-${year}-%`) as { c: number }).c;
+    const count = (db.prepare(`SELECT COUNT(*) AS c
+                               FROM invoices
+                               WHERE number LIKE ?`).get(`INV-${year}-%`) as { c: number }).c;
     return `INV-${year}-${String(count + 1).padStart(4, '0')}`;
 }
 
@@ -108,7 +128,7 @@ function lastNMonths(n: number): { key: string; label: string }[] {
     for (let i = n - 1; i >= 0; i--) {
         const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
         const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-        out.push({ key, label: d.toLocaleString('en', { month: 'short' }) });
+        out.push({key, label: d.toLocaleString('en', {month: 'short'})});
     }
     return out;
 }
@@ -116,18 +136,23 @@ function lastNMonths(n: number): { key: string; label: string }[] {
 /** Count rows of a table grouped by month (created_at) over the last N months. */
 function monthlyCounts(table: string, months: { key: string }[], dateCol = 'created_at'): number[] {
     const rows = db
-        .prepare(`SELECT strftime('%Y-%m', ${dateCol}) AS m, COUNT(*) AS c FROM ${table} GROUP BY m`)
+        .prepare(`SELECT strftime('%Y-%m', ${dateCol}) AS m, COUNT(*) AS c
+                  FROM ${table}
+                  GROUP BY m`)
         .all() as { m: string; c: number }[];
     const map = new Map(rows.map((r) => [r.m, r.c]));
     return months.map((mm) => map.get(mm.key) ?? 0);
 }
 
 /** Sum a column of a table grouped by month over the last N months. */
-function monthlySum(table: string, column: string, months: { key: string }[], where = '', dateCol = 'created_at'): number[] {
+function monthlySum(table: string, column: string, months: {
+    key: string
+}[], where = '', dateCol = 'created_at'): number[] {
     const rows = db
         .prepare(
-            `SELECT strftime('%Y-%m', ${dateCol}) AS m, COALESCE(SUM(${column}),0) AS s
-             FROM ${table} ${where ? `WHERE ${where}` : ''} GROUP BY m`
+            `SELECT strftime('%Y-%m', ${dateCol}) AS m, COALESCE(SUM(${column}), 0) AS s
+             FROM ${table} ${where ? `WHERE ${where}` : ''}
+             GROUP BY m`
         )
         .all() as { m: string; s: number }[];
     const map = new Map(rows.map((r) => [r.m, r.s]));
@@ -136,7 +161,9 @@ function monthlySum(table: string, column: string, months: { key: string }[], wh
 
 /** Count rows grouped by an arbitrary column (e.g. status). */
 function countsByColumn(table: string, column: string): Record<string, number> {
-    const rows = db.prepare(`SELECT ${column} AS k, COUNT(*) AS c FROM ${table} GROUP BY ${column}`).all() as { k: string; c: number }[];
+    const rows = db.prepare(`SELECT ${column} AS k, COUNT(*) AS c
+                             FROM ${table}
+                             GROUP BY ${column}`).all() as { k: string; c: number }[];
     const out: Record<string, number> = {};
     for (const r of rows) out[r.k ?? 'unknown'] = r.c;
     return out;

@@ -218,6 +218,12 @@ export interface CaseStudy {
     image: string | null;
     results: string | null;
     published: number;
+    // Extended fields (Lightflows-style)
+    hero_image: string | null;
+    tagline: string | null;
+    services: string; // JSON array
+    sections: string; // JSON array of {title,body,image,caption}
+    website: string | null;
     created_at: string;
     updated_at: string;
 }
@@ -233,6 +239,12 @@ export interface BlogPost {
     tags: string; // JSON
     status: 'draft' | 'published';
     published_at: string | null;
+    // Extended fields (Lightflows-style)
+    read_time: string | null;
+    hero_image: string | null;
+    author_avatar: string | null;
+    author_role: string | null;
+    sections: string; // JSON array of {title,body,image,caption}
     created_at: string;
     updated_at: string;
 }

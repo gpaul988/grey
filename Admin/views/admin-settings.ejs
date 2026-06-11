@@ -1,0 +1,410 @@
+<%- contentFor('html_attribute') %>
+<%- contentFor('extra_css') %>
+<%- contentFor('content') %>
+
+<%- include('./partials/page-title', { title: 'Settings', subtitle: 'Administration' }) %>
+
+<div id="settingsAlert" class="alert d-none mb-3" role="alert"></div>
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs nav-bordered mb-3" id="settingsTabs">
+    <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-general"><i
+                    class="ti ti-settings me-1"></i>General</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-smtp"><i class="ti ti-mail me-1"></i>Email
+            / SMTP</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-roles"><i
+                    class="ti ti-shield-lock me-1"></i>Role Defaults</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-tickets"><i class="ti ti-ticket me-1"></i>Tickets</a>
+    </li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-danger"><i
+                    class="ti ti-alert-triangle me-1"></i>Danger Zone</a></li>
+</ul>
+
+<div class="tab-content">
+
+    <!-- ── GENERAL ─────────────────────────────────────── -->
+    <div class="tab-pane fade show active" id="tab-general">
+        <div class="card">
+            <div class="card-header"><h5 class="card-title mb-0">Site Information</h5></div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Company name</label>
+                        <input class="form-control setting-input" data-key="site.name"
+                               value="<%= settings['site.name'] || 'Grey InfoTech Ltd.' %>">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Support email</label>
+                        <input type="email" class="form-control setting-input" data-key="site.support_email"
+                               value="<%= settings['site.support_email'] || 'hello@greyinfotech.com.ng' %>">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Phone</label>
+                        <input class="form-control setting-input" data-key="site.phone"
+                               value="<%= settings['site.phone'] || '+2348028095571' %>">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Website URL</label>
+                        <input class="form-control setting-input" data-key="site.url"
+                               value="<%= settings['site.url'] || 'https://www.greyinfotech.com.ng' %>">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Address</label>
+                        <input class="form-control setting-input" data-key="site.address"
+                               value="<%= settings['site.address'] || '9 Godfrey Tata Close, Rumuewhara New Layout, Rivers State' %>">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Business hours</label>
+                        <input class="form-control setting-input" data-key="site.hours"
+                               value="<%= settings['site.hours'] || 'Mon–Fri, 9am–6pm WAT' %>">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Timezone</label>
+                        <select class="form-select setting-input" data-key="site.timezone">
+                            <% ['Africa/Lagos', 'UTC', 'Europe/London', 'America/New_York'].forEach(tz => { %>
+                                <option value="<%= tz %>" <%= (settings['site.timezone'] || 'Africa/Lagos') === tz ? 'selected' : '' %>><%= tz %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Date format</label>
+                        <select class="form-select setting-input" data-key="site.date_format">
+                            <% ['DD/MM/YYYY', 'MM/DD/YYYY', 'YYYY-MM-DD'].forEach(f => { %>
+                                <option value="<%= f %>" <%= (settings['site.date_format'] || 'DD/MM/YYYY') === f ? 'selected' : '' %>><%= f %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-3 text-end">
+                    <button class="btn btn-primary btn-save" data-section="general">
+                        <i class="ti ti-device-floppy me-1"></i> Save changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── SMTP ────────────────────────────────────────── -->
+    <div class="tab-pane fade" id="tab-smtp">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Email / SMTP</h5>
+                <span class="badge bg-<%= (settings['smtp.host'] || process && process.env && process.env.SMTP_HOST) ? 'success' : 'secondary' %>-subtle text-<%= (settings['smtp.host']) ? 'success' : 'secondary' %>">
+                    <%= settings['smtp.host'] ? 'Configured' : 'Not configured' %>
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info py-2 fs-13">
+                    <i class="ti ti-info-circle me-1"></i>
+                    These settings override the <code>.env</code> SMTP variables at runtime. Leave blank to fall back to
+                    environment variables.
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <label class="form-label">SMTP Host</label>
+                        <input class="form-control setting-input" data-key="smtp.host"
+                               value="<%= settings['smtp.host'] || '' %>" placeholder="e.g. mail.greyinfotech.com.ng">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Port</label>
+                        <input type="number" class="form-control setting-input" data-key="smtp.port"
+                               value="<%= settings['smtp.port'] || '587' %>">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Username</label>
+                        <input class="form-control setting-input" data-key="smtp.user"
+                               value="<%= settings['smtp.user'] || '' %>">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control setting-input" data-key="smtp.pass"
+                               value="<%= settings['smtp.pass'] || '' %>" autocomplete="new-password">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">From address</label>
+                        <input class="form-control setting-input" data-key="smtp.from"
+                               value="<%= settings['smtp.from'] || '' %>"
+                               placeholder="Grey InfoTech <hello@greyinfotech.com.ng>">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Contact / support inbox</label>
+                        <input class="form-control setting-input" data-key="smtp.contact_to"
+                               value="<%= settings['smtp.contact_to'] || '' %>" placeholder="hello@greyinfotech.com.ng">
+                    </div>
+                </div>
+                <div class="mt-3 d-flex justify-content-between align-items-center">
+                    <button class="btn btn-soft-primary btn-sm" id="btnTestSmtp">
+                        <i class="ti ti-send me-1"></i> Send test email
+                    </button>
+                    <button class="btn btn-primary btn-save" data-section="smtp">
+                        <i class="ti ti-device-floppy me-1"></i> Save changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── ROLE DEFAULTS ───────────────────────────────── -->
+    <div class="tab-pane fade" id="tab-roles">
+        <div class="card">
+            <div class="card-header"><h5 class="card-title mb-0">Role Default Permissions</h5></div>
+            <div class="card-body">
+                <div class="alert alert-warning py-2 fs-13">
+                    <i class="ti ti-alert-triangle me-1"></i>
+                    <strong>superadmin</strong> and <strong>admin</strong> always have all permissions and cannot be
+                    restricted here.
+                    Changes here affect <strong>manager</strong> and <strong>staff</strong> defaults for new users.
+                </div>
+
+                <% const groups = [...new Set(permissions.map(p => p.group))];
+                const roleList = ['manager', 'staff'];
+                const savedRolePerms = {};
+                roleList.forEach(r => {
+                    try {
+                        savedRolePerms[r] = JSON.parse(settings['role.' + r + '.permissions'] || 'null');
+                    } catch {
+                        savedRolePerms[r] = null;
+                    }
+                });
+                %>
+
+                <ul class="nav nav-pills mb-3" id="roleTab">
+                    <% roleList.forEach((r, i) => { %>
+                        <li class="nav-item">
+                            <a class="nav-link <%= i === 0 ? 'active' : '' %>" data-bs-toggle="pill"
+                               href="#role-<%= r %>">
+                                <%= r.charAt(0).toUpperCase() + r.slice(1) %>
+                            </a>
+                        </li>
+                    <% }); %>
+                </ul>
+
+                <div class="tab-content" id="roleTabContent">
+                    <% roleList.forEach((role, ri) => { %>
+                        <div class="tab-pane fade <%= ri === 0 ? 'show active' : '' %>" id="role-<%= role %>">
+                            <% groups.forEach(group => { %>
+                                <h6 class="text-muted text-uppercase fs-12 mb-2 mt-3"><%= group %></h6>
+                                <div class="row g-2 mb-1">
+                                    <% permissions.filter(p => p.group === group).forEach(p => {
+                                        const checked = savedRolePerms[role]
+                                                ? savedRolePerms[role][p.key] !== false
+                                                : (role === 'manager' ? !['team.manage', 'settings.manage'].includes(p.key) : ['dashboard.view', 'submissions.view', 'leads.view', 'clients.view', 'projects.view', 'projects.manage', 'briefs.view', 'tickets.view', 'tickets.manage', 'invoices.view', 'messages.view', 'messages.send', 'blog.view', 'casestudies.view', 'store.view'].includes(p.key));
+                                    %>
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input role-perm-check"
+                                                   type="checkbox"
+                                                   data-role="<%= role %>"
+                                                   data-key="<%= p.key %>"
+                                                   id="rp_<%= role %>_<%= p.key.replace(/\./g, '_') %>"
+                                                    <%= checked ? 'checked' : '' %>>
+                                            <label class="form-check-label fs-13"
+                                                   for="rp_<%= role %>_<%= p.key.replace(/\./g, '_') %>">
+                                                <%= p.label %>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <% }); %>
+                                </div>
+                            <% }); %>
+                            <div class="mt-3 text-end">
+                                <button class="btn btn-primary btn-save-role" data-role="<%= role %>">
+                                    <i class="ti ti-device-floppy me-1"></i> Save <%= role %> defaults
+                                </button>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── TICKETS ─────────────────────────────────────── -->
+    <div class="tab-pane fade" id="tab-tickets">
+        <div class="card">
+            <div class="card-header"><h5 class="card-title mb-0">Ticket Settings</h5></div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Auto-assign new tickets to</label>
+                        <select class="form-select setting-input" data-key="tickets.auto_assignee">
+                            <option value="">— None (unassigned) —</option>
+                            <%# users passed via res.locals would go here — for now kept dynamic %>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Default priority</label>
+                        <select class="form-select setting-input" data-key="tickets.default_priority">
+                            <% ['low', 'medium', 'high', 'urgent'].forEach(p => { %>
+                                <option value="<%= p %>" <%= (settings['tickets.default_priority'] || 'medium') === p ? 'selected' : '' %>>
+                                    <%= p.charAt(0).toUpperCase() + p.slice(1) %>
+                                </option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">SLA response target (hours)</label>
+                        <input type="number" class="form-control setting-input" data-key="tickets.sla_hours"
+                               value="<%= settings['tickets.sla_hours'] || '24' %>" min="1">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Auto-close after (days of inactivity, 0 = never)</label>
+                        <input type="number" class="form-control setting-input" data-key="tickets.auto_close_days"
+                               value="<%= settings['tickets.auto_close_days'] || '0' %>" min="0">
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input setting-input" type="checkbox" data-key="tickets.notify_team"
+                                   id="notifyTeam"
+                                    <%= (settings['tickets.notify_team'] || '1') === '1' ? 'checked' : '' %>>
+                            <label class="form-check-label" for="notifyTeam">Email team when a new ticket
+                                arrives</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input setting-input" type="checkbox"
+                                   data-key="tickets.notify_requester" id="notifyRequester"
+                                    <%= (settings['tickets.notify_requester'] || '1') === '1' ? 'checked' : '' %>>
+                            <label class="form-check-label" for="notifyRequester">Send confirmation email to
+                                requester</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 text-end">
+                    <button class="btn btn-primary btn-save" data-section="tickets">
+                        <i class="ti ti-device-floppy me-1"></i> Save changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── DANGER ZONE ─────────────────────────────────── -->
+    <div class="tab-pane fade" id="tab-danger">
+        <div class="card border-danger">
+            <div class="card-header bg-danger-subtle"><h5 class="card-title mb-0 text-danger"><i
+                            class="ti ti-alert-triangle me-1"></i>Danger Zone</h5></div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+                        <div>
+                            <h6 class="mb-1">Clear activity log</h6>
+                            <small class="text-muted">Permanently delete all activity log entries. Cannot be
+                                undone.</small>
+                        </div>
+                        <button class="btn btn-sm btn-outline-danger" id="btnClearActivity">Clear log</button>
+                    </div>
+                    <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+                        <div>
+                            <h6 class="mb-1">Reset all site settings</h6>
+                            <small class="text-muted">Wipe all custom settings and revert to defaults.</small>
+                        </div>
+                        <button class="btn btn-sm btn-outline-danger" id="btnResetSettings">Reset settings</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><!-- /tab-content -->
+
+<%- contentFor('extra_javascript') %>
+<%- include('./partials/admin-api-helper') %>
+<script>
+    (function () {
+        const alert = (msg, type = 'success') => {
+            const el = document.getElementById('settingsAlert');
+            el.className = `alert alert-${type}`;
+            el.textContent = msg;
+            el.classList.remove('d-none');
+            setTimeout(() => el.classList.add('d-none'), 4000);
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+
+        // ── Collect inputs from a tab section ──────────────────────────────────
+        function collectSection(section) {
+            const pairs = {};
+            document.querySelectorAll(`#tab-${section} .setting-input`).forEach(el => {
+                const key = el.dataset.key;
+                if (!key) return;
+                if (el.type === 'checkbox') {
+                    pairs[key] = el.checked ? '1' : '0';
+                } else {
+                    pairs[key] = el.value;
+                }
+            });
+            return pairs;
+        }
+
+        // ── Save a section ─────────────────────────────────────────────────────
+        document.querySelectorAll('.btn-save').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const section = btn.dataset.section;
+                const pairs = collectSection(section);
+                btn.disabled = true;
+                const r = await AdminAPI.patch('/settings', pairs);
+                if (r.ok === false) {
+                    alert(r.message || 'Save failed.', 'danger');
+                } else {
+                    alert(r.message || 'Settings saved.');
+                }
+                btn.disabled = false;
+            });
+        });
+
+        // ── Save role defaults ─────────────────────────────────────────────────
+        document.querySelectorAll('.btn-save-role').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const role = btn.dataset.role;
+                const perms = {};
+                document.querySelectorAll(`.role-perm-check[data-role="${role}"]`).forEach(cb => {
+                    perms[cb.dataset.key] = cb.checked;
+                });
+                btn.disabled = true;
+                const r = await AdminAPI.patch('/settings', {[`role.${role}.permissions`]: JSON.stringify(perms)});
+                if (r.ok === false) {
+                    alert(r.message || 'Save failed.', 'danger');
+                } else {
+                    alert(`${role.charAt(0).toUpperCase() + role.slice(1)} defaults saved.`);
+                }
+                btn.disabled = false;
+            });
+        });
+
+        // ── Test SMTP ──────────────────────────────────────────────────────────
+        document.getElementById('btnTestSmtp')?.addEventListener('click', async () => {
+            const btn = document.getElementById('btnTestSmtp');
+            btn.disabled = true;
+            btn.textContent = 'Sending…';
+            const r = await AdminAPI.post('/settings/test-email');
+            if (r.ok === false) {
+                alert(r.message || 'Failed to send test email.', 'danger');
+            } else {
+                alert(r.message || 'Test email sent.');
+            }
+            btn.disabled = false;
+            btn.innerHTML = '<i class="ti ti-send me-1"></i> Send test email';
+        });
+
+        // ── Danger: Clear activity log ─────────────────────────────────────────
+        document.getElementById('btnClearActivity')?.addEventListener('click', async () => {
+            if (!confirm('Clear all activity log entries? This cannot be undone.')) return;
+            const r = await AdminAPI.del('/activity');
+            alert(r.ok === false ? (r.message || 'Failed.') : 'Activity log cleared.', r.ok === false ? 'danger' : 'success');
+        });
+
+        // ── Danger: Reset settings ─────────────────────────────────────────────
+        document.getElementById('btnResetSettings')?.addEventListener('click', async () => {
+            if (!confirm('Reset all site settings to defaults? This cannot be undone.')) return;
+            const r = await AdminAPI.del('/settings');
+            if (r.ok === false) {
+                alert(r.message || 'Failed.', 'danger');
+            } else {
+                alert('Settings reset. Reloading…');
+                setTimeout(() => location.reload(), 1500);
+            }
+        });
+
+    })();
+</script>

@@ -1,4 +1,4 @@
-import nodemailer, { type Transporter, type SendMailOptions } from 'nodemailer';
+import nodemailer, {type Transporter, type SendMailOptions} from 'nodemailer';
 
 /**
  * Central transactional mailer for the admin/portal app.
@@ -10,7 +10,7 @@ import nodemailer, { type Transporter, type SendMailOptions } from 'nodemailer';
  */
 
 const FROM = process.env.SMTP_FROM || 'Grey InfoTech <hello@greyinfotech.com.ng>';
-const BRAND = 'Grey InfoTech';
+const BRAND = 'Grey InfoTech Ltd.';
 const TEAL = '#14b8a6';
 
 export function smtpConfigured(): boolean {
@@ -27,6 +27,7 @@ export function appOrigin(): string {
 }
 
 let cached: Transporter | null = null;
+
 function transporter(): Transporter | null {
     if (!smtpConfigured()) return null;
     if (cached) return cached;
@@ -35,7 +36,7 @@ function transporter(): Transporter | null {
         host: process.env.SMTP_HOST,
         port,
         secure: port === 465,
-        auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+        auth: {user: process.env.SMTP_USER, pass: process.env.SMTP_PASS},
     });
     return cached;
 }
@@ -92,6 +93,7 @@ export async function sendMail(opts: { to: string; subject: string; html: string
 
 /* ------------------------------------------------------------------ */
 /* Ready-made transactional templates                                  */
+
 /* ------------------------------------------------------------------ */
 
 /** Email-verification message with a unique verification ID + link. */
@@ -114,7 +116,11 @@ export async function sendVerificationEmail(args: {
       <p>Your verification ID is <strong style="letter-spacing:1px;">${args.verificationId}</strong>.</p>
       ${emailButton('Verify my email', url)}
       <p style="font-size:13px;color:#888;">This link expires in 24 hours. If you did not request this, you can ignore this email.</p>`;
-    return sendMail({ to: args.to, subject: `Verify your ${BRAND} account`, html: emailShell('Confirm your email', inner) });
+    return sendMail({
+        to: args.to,
+        subject: `Verify your ${BRAND} account`,
+        html: emailShell('Confirm your email', inner)
+    });
 }
 
 /** Invite a user/CEO to set their password (also verifies email in one step). */
@@ -139,7 +145,11 @@ export async function sendSetPasswordEmail(args: {
       <p>Your account reference is <strong style="letter-spacing:1px;">${args.verificationId}</strong>. Click below to verify your email and set your password.</p>
       ${emailButton('Verify & set password', url)}
       <p style="font-size:13px;color:#888;">This secure link expires in 24 hours.</p>`;
-    return sendMail({ to: args.to, subject: `Set up your ${BRAND} account`, html: emailShell('Set your password', inner) });
+    return sendMail({
+        to: args.to,
+        subject: `Set up your ${BRAND} account`,
+        html: emailShell('Set your password', inner)
+    });
 }
 
 /** Magic-link login email for client portal. */
@@ -150,7 +160,7 @@ export async function sendClientLoginLink(args: { to: string; name: string; toke
       <p>Use the secure link below to sign in to your ${BRAND} client portal.</p>
       ${emailButton('Sign in to portal', url)}
       <p style="font-size:13px;color:#888;">This link expires in 30 minutes and can be used once.</p>`;
-    return sendMail({ to: args.to, subject: `Your ${BRAND} portal sign-in link`, html: emailShell('Sign in', inner) });
+    return sendMail({to: args.to, subject: `Your ${BRAND} portal sign-in link`, html: emailShell('Sign in', inner)});
 }
 
 /** Notify a client-staff member they were added to a project conversation. */
@@ -169,5 +179,9 @@ export async function sendStaffInviteEmail(args: {
       <p>Verify your email and set a password to join the discussion.</p>
       ${emailButton('Join the conversation', url)}
       <p style="font-size:13px;color:#888;">This secure link expires in 24 hours.</p>`;
-    return sendMail({ to: args.to, subject: `You've been added to a ${BRAND} conversation`, html: emailShell('Join the conversation', inner) });
+    return sendMail({
+        to: args.to,
+        subject: `You've been added to a ${BRAND} conversation`,
+        html: emailShell('Join the conversation', inner)
+    });
 }
