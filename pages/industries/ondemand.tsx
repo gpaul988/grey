@@ -1,7 +1,7 @@
 import React from 'react';
 import ServicePageTemplate from '@/components/ServicePageTemplate';
 
-const OnDemand = () => (
+const Ondemand = () => (
     <ServicePageTemplate
         title={<>On-Demand Software <br className={'lg:block md:block hidden'}/>Development Services</>}
         heroVideo="/assets/hero/hero.mp4"
@@ -13,7 +13,8 @@ const OnDemand = () => (
                 payments that connect customers, providers and services instantly.
             </>
         }
-        eyebrow={<>On-demand platforms <br className={'lg:block md:block hidden'}/>that move at your customers&apos; pace</>}
+        eyebrow={<>On-demand platforms <br className={'lg:block md:block hidden'}/>that move at your
+            customers&apos; pace</>}
         introHeading={<>The On-Demand Economy <br className={'lg:block md:block hidden'}/>How We Power It</>}
         introBody={[
             <>
@@ -35,7 +36,8 @@ const OnDemand = () => (
                 expands.
             </>,
         ]}
-        solutionsHeading={<>On-Demand <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
+        solutionsHeading={<>On-Demand <br className={'lg:block md:block hidden'}/>Development <br
+            className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
                 From customer and provider apps to dispatch, payments and analytics, Grey InfoTech delivers the
@@ -114,19 +116,52 @@ const OnDemand = () => (
             platforms that connect demand and supply in real time. Let&apos;s bring convenience to your customers—and
             scale to your business.</>}
         faqs={[
-            {q: 'What kinds of on-demand apps do you build?', a: 'Ride-hailing and mobility, food and grocery delivery, home and professional services, healthcare-on-demand, courier and B2B logistics, and custom marketplaces. If it connects customers with providers in real time, we can build it.'},
-            {q: 'Do you build all the apps—customer, provider and admin?', a: 'Yes. We deliver the full ecosystem: the customer app, the provider/driver app, and the admin and operations console, all sharing one scalable back-end so the platform works as a coherent whole.'},
-            {q: 'How do you handle real-time tracking and dispatch?', a: 'We use geolocation, real-time messaging and routing to match requests with the nearest provider, optimise routes and give customers live tracking, keeping wait times low and utilisation high.'},
-            {q: 'Can the platform handle demand spikes?', a: 'Absolutely. We architect scalable cloud back-ends with load balancing, caching and autoscaling so your platform stays fast and reliable during rushes and rapid growth.'},
-            {q: 'How are payments handled?', a: 'We integrate secure in-app payments, wallets, split payments, surge pricing, tips, refunds and automated provider payouts, so money moves smoothly and transparently.'},
-            {q: 'Can you launch an MVP quickly then scale?', a: 'Yes. We can ship a focused MVP to validate your market fast, then grow the same platform with new features, regions and capacity as you scale—no costly rewrites.'},
+            {
+                q: 'What kinds of on-demand apps do you build?',
+                a: 'Ride-hailing and mobility, food and grocery delivery, home and professional services, healthcare-on-demand, courier and B2B logistics, and custom marketplaces. If it connects customers with providers in real time, we can build it.'
+            },
+            {
+                q: 'Do you build all the apps—customer, provider and admin?',
+                a: 'Yes. We deliver the full ecosystem: the customer app, the provider/driver app, and the admin and operations console, all sharing one scalable back-end so the platform works as a coherent whole.'
+            },
+            {
+                q: 'How do you handle real-time tracking and dispatch?',
+                a: 'We use geolocation, real-time messaging and routing to match requests with the nearest provider, optimise routes and give customers live tracking, keeping wait times low and utilisation high.'
+            },
+            {
+                q: 'Can the platform handle demand spikes?',
+                a: 'Absolutely. We architect scalable cloud back-ends with load balancing, caching and autoscaling so your platform stays fast and reliable during rushes and rapid growth.'
+            },
+            {
+                q: 'How are payments handled?',
+                a: 'We integrate secure in-app payments, wallets, split payments, surge pricing, tips, refunds and automated provider payouts, so money moves smoothly and transparently.'
+            },
+            {
+                q: 'Can you launch an MVP quickly then scale?',
+                a: 'Yes. We can ship a focused MVP to validate your market fast, then grow the same platform with new features, regions and capacity as you scale—no costly rewrites.'
+            },
         ]}
         testimonials={[
-            {name: 'Bola Akintola', title: 'Founder, RideNaija', message: <>Grey InfoTech built our ride-hailing platform—rider app, driver app and dispatch—and it handled launch-day demand without a hitch. Real-time tracking works flawlessly.</>},
-            {name: 'Janet Owusu', title: 'CEO, FreshDrop', message: <>Our grocery delivery platform scales beautifully through peak hours thanks to their architecture. The operations console gives us total control.</>},
-            {name: 'Chukwuma Eze', title: 'COO, HomeFix', message: <>They turned our home-services idea into a real marketplace with booking, payments and ratings. We launched fast and have grown steadily ever since.</>},
+            {
+                name: 'Bola Akintola',
+                title: 'Founder, RideNaija',
+                message: <>Grey InfoTech built our ride-hailing platform—rider app, driver app and dispatch—and it
+                    handled launch-day demand without a hitch. Real-time tracking works flawlessly.</>
+            },
+            {
+                name: 'Janet Owusu',
+                title: 'CEO, FreshDrop',
+                message: <>Our grocery delivery platform scales beautifully through peak hours thanks to their
+                    architecture. The operations console gives us total control.</>
+            },
+            {
+                name: 'Chukwuma Eze',
+                title: 'COO, HomeFix',
+                message: <>They turned our home-services idea into a real marketplace with booking, payments and
+                    ratings. We launched fast and have grown steadily ever since.</>
+            },
         ]}
     />
 );
 
-export default OnDemand;
+export default Ondemand;
