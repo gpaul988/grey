@@ -5,6 +5,7 @@ import expressLayouts from 'express-ejs-layouts';
 import session from 'express-session';
 import next from 'next';
 import path from 'node:path';
+import {parse} from 'node:url';
 
 import {ADMIN_BASE_PATH} from './Admin/config/adminPaths';
 import {ensureAuth} from './Admin/middleware/authMiddleware';
@@ -124,30 +125,17 @@ app.use('/portal', portalRoutes);
 // Protected admin dashboard and CRUD pages.
 app.use(ADMIN_BASE_PATH, ensureAuth, adminRoutes);
 
-// ---------------------------------------------------------------------------
-// Next.js request handler
-// ---------------------------------------------------------------------------
-
-/**
- * Converts an Express request's URL into the shape Next.js's request handler
- * expects: a WHATWG URL parsed against a stable base origin.
- *
- * Previously used the deprecated `url.parse()` (Node DEP0169). The WHATWG
- * URL constructor is the modern, spec-compliant replacement.
- */
-function getRequestUrl(req: express.Request): URL {
-    const raw = req.originalUrl || req.url || '/';
-    // A base origin is required by the URL constructor when `raw` is a
-    // relative path. It is only used to satisfy the parser — Next's handler
-    // reads pathname + search from the resulting object.
-    const base = `http://${hostname}:${port}`;
-    return new URL(raw, base);
+function getRequestUrl(req: express.Request): Parameters<typeof handle>[2] {
+    // Next's request handler expects a parsed URL with pathname + query.
+    // `parse(url, true)` is the shape Next's own custom-server examples use.
+    return parse(req.originalUrl || req.url || '/', true);
 }
 
 nextApp.prepare().then(() => {
     app.all('/{*splat}', async (req, res) => {
         try {
             const parsedUrl = getRequestUrl(req);
+
             await handle(req, res, parsedUrl);
         } catch (error) {
             console.error('Error handling request:', req.url, error);
