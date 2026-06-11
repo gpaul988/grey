@@ -94,7 +94,7 @@ const Support: React.FC = () => {
             title: 'Raise a Ticket',
             desc: 'Report an issue or request through our contact form to open a ticket.',
             cta: 'Open a ticket',
-            href: '/contact',
+            href: '/open-ticket',
             external: false,
         },
         {
@@ -155,7 +155,8 @@ const Support: React.FC = () => {
                     {channels.map((c, i) => {
                         const inner = (
                             <>
-                                <div className="w-12 h-12 rounded-xl bg-gray-900 text-white flex items-center justify-center mb-4">
+                                <div
+                                    className="w-12 h-12 rounded-xl bg-gray-900 text-white flex items-center justify-center mb-4">
                                     {c.icon}
                                 </div>
                                 <h3 className="text-lg font-semibold mb-2">{c.title}</h3>
