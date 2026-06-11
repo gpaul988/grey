@@ -434,21 +434,21 @@ const HrTech = () => {
                         </p>
                     </div>
 
-                    <div
-                        className={'relative grid lg:grid-cols-3 lg:gap-8 lg:ml-[13em]'}>
-                        <div className={'border-0 lg:block md:hidden sm:hidden hidden'}>
-                            <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>8+</h6>
-                            <p className={'text-[0.7em] font-[300]'}>Years Experience</p>
+                     <div
+                            className={'relative grid lg:grid-cols-3 lg:gap-8 lg:ml-[13em]'}>
+                            <div className={'border-0 lg:block md:hidden sm:hidden hidden'}>
+                                <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>8+</h6>
+                                <p className={'text-[0.7em] font-[300]'}>Years Experience</p>
+                            </div>
+                            <div className={'border-0 lg:block md:hidden sm:hidden hidden'}>
+                                <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>13+</h6>
+                                <p className={'text-[0.7em] font-[300]'}>Team Members</p>
+                            </div>
+                            <div className={'border-0 lg:block md:hidden sm:hidden hidden'}>
+                                <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>123+</h6>
+                                <p className={'text-[0.7em] font-[300]'}>Products Launched</p>
+                            </div>
                         </div>
-                        <div className={'border-0 lg:block md:hidden sm:hidden hidden'}>
-                            <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>13+</h6>
-                            <p className={'text-[0.7em] font-[300]'}>Team Members</p>
-                        </div>
-                        <div className={'border-0 lg:block md:hidden sm:hidden hidden'}>
-                            <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>123+</h6>
-                            <p className={'text-[0.7em] font-[300]'}>Products Launched</p>
-                        </div>
-                    </div>
                 </div>
 
                 <div className="relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10">

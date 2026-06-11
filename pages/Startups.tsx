@@ -665,7 +665,7 @@ const Startups = () => {
                 </div>
 
                 {/* on-Demand Service Apps */}
-                <Link href='/industries/Ondemand' className='relative'>
+                <Link href='/industries/On-demand' className='relative'>
                     <div
                         className={`grid lg:grid-cols-2 grid-cols-1 lg:mb-10 mb-8 gap-4 border-b-[1px] lg:pb-[3em] pb-[2em] ${isDayTime ? 'text-gray-500 hover:text-white' : 'text-gray-500 hover:text-black'} group`}>
                         <div className='relative'>
