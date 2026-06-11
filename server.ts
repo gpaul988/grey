@@ -8,6 +8,7 @@ import path from 'node:path';
 import {parse} from 'node:url';
 
 import {ADMIN_BASE_PATH} from './Admin/config/adminPaths';
+import sseRouter from './Admin/routes/sse';
 import {ensureAuth} from './Admin/middleware/authMiddleware';
 import adminRoutes from './Admin/routes/admin';
 import apiRoutes from './Admin/routes/api';
@@ -110,6 +111,9 @@ app.use(SESSION_PATHS, (req, res, nextMiddleware) => {
 
     nextMiddleware();
 });
+
+// Server-Sent Events — real-time push to admin tabs (no polling needed).
+app.use(ADMIN_BASE_PATH, sseRouter);
 
 // JSON CRUD API. Auth is enforced inside the router via ensureApiAuth.
 app.use(`${ADMIN_BASE_PATH}/api`, apiRoutes);

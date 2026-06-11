@@ -14,23 +14,46 @@
             <div class="table-responsive">
                 <table class="table table-hover table-centered mb-0">
                     <thead class="bg-light bg-opacity-50">
-                        <tr><th>Title</th><th>Client</th><th>Industry</th><th>Published</th><th>Updated</th><th class="text-end">Action</th></tr>
+                        <tr><th>Title</th><th>Client</th><th>Industry</th><th>Services</th><th>Published</th><th>Updated</th><th class="text-end">Action</th></tr>
                     </thead>
                     <tbody>
-                        <% if (!caseStudies.length) { %><tr><td colspan="6" class="text-center text-muted py-4">No case studies yet.</td></tr><% } %>
-                        <% caseStudies.forEach((c) => { %>
+                        <% if (!caseStudies.length) { %><tr><td colspan="7" class="text-center text-muted py-4">No case studies yet.</td></tr><% } %>
+                        <% caseStudies.forEach((c) => {
+                            let services=[], sections=[];
+                            try { services = JSON.parse(c.services||'[]'); } catch(e){}
+                            try { sections = JSON.parse(c.sections||'[]'); } catch(e){}
+                        %>
                         <tr>
-                            <td><div class="fw-medium"><%= c.title %></div><small class="text-muted">/<%= c.slug %></small></td>
+                            <td>
+                                <div class="fw-medium"><%= c.title %></div>
+                                <small class="text-muted">/<%= c.slug %></small>
+                                <% if (c.tagline) { %><div class="text-muted fs-12 fst-italic mt-1 text-truncate" style="max-width:260px"><%= c.tagline %></div><% } %>
+                                <% if (sections.length) { %><small class="text-muted">· <%= sections.length %> section<%= sections.length!==1?'s':'' %></small><% } %>
+                            </td>
                             <td><%= c.client || '—' %></td>
                             <td><%= c.industry || '—' %></td>
+                            <td>
+                                <% services.slice(0,2).forEach(s=>{ %><span class="badge bg-light text-dark me-1"><%= s %></span><% }) %>
+                                <% if (services.length > 2) { %><span class="text-muted fs-12">+<%= services.length - 2 %></span><% } %>
+                            </td>
                             <td><span class="badge bg-<%= c.published?'success':'secondary' %>-subtle text-<%= c.published?'success':'secondary' %>"><%= c.published ? 'Published' : 'Draft' %></span></td>
                             <td class="text-muted fs-13"><%= timeAgo(c.updated_at || c.created_at) %></td>
                             <td class="text-end">
                                 <button class="btn btn-sm btn-soft-primary btn-edit"
-                                    data-id="<%= c.id %>" data-title="<%= c.title %>" data-client="<%= c.client||'' %>" data-industry="<%= c.industry||'' %>"
-                                    data-image="<%= c.image||'' %>" data-published="<%= c.published %>"
-                                    data-summary="<%- (c.summary||'').replace(/"/g,'&quot;') %>" data-results="<%- (c.results||'').replace(/"/g,'&quot;') %>"
-                                    data-body="<%- (c.body||'').replace(/"/g,'&quot;') %>"><i class="ti ti-edit"></i></button>
+                                    data-id="<%= c.id %>"
+                                    data-title="<%= c.title %>"
+                                    data-client="<%= c.client||'' %>"
+                                    data-industry="<%= c.industry||'' %>"
+                                    data-tagline="<%- (c.tagline||'').replace(/"/g,'&quot;') %>"
+                                    data-image="<%= c.image||'' %>"
+                                    data-hero-image="<%= c.hero_image||'' %>"
+                                    data-website="<%= c.website||'' %>"
+                                    data-published="<%= c.published %>"
+                                    data-summary="<%- (c.summary||'').replace(/"/g,'&quot;') %>"
+                                    data-results="<%- (c.results||'').replace(/"/g,'&quot;') %>"
+                                    data-body="<%- (c.body||'').replace(/"/g,'&quot;') %>"
+                                    data-services="<%- JSON.stringify(services).replace(/"/g,'&quot;') %>"
+                                    data-sections="<%- JSON.stringify(sections).replace(/"/g,'&quot;') %>"><i class="ti ti-edit"></i></button>
                                 <button class="btn btn-sm btn-soft-danger btn-del" data-id="<%= c.id %>"><i class="ti ti-trash"></i></button>
                             </td>
                         </tr>
@@ -42,24 +65,83 @@
     </div>
 </div>
 
+<!-- Case Study Modal -->
 <div class="modal fade" id="csModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
-            <div class="modal-header"><h5 class="modal-title" id="mTitle">New Case Study</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-header border-bottom">
+                <h5 class="modal-title" id="mTitle">New Case Study</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
             <div class="modal-body">
                 <input type="hidden" id="f_id">
-                <div class="row g-3">
-                    <div class="col-md-8"><label class="form-label">Title *</label><input id="f_title" class="form-control"></div>
-                    <div class="col-md-4 d-flex align-items-end"><div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="f_published"><label class="form-check-label" for="f_published">Published</label></div></div>
-                    <div class="col-md-6"><label class="form-label">Client</label><input id="f_client" class="form-control"></div>
-                    <div class="col-md-6"><label class="form-label">Industry</label><input id="f_industry" class="form-control"></div>
-                    <div class="col-12"><label class="form-label">Image URL</label><input id="f_image" class="form-control"></div>
-                    <div class="col-12"><label class="form-label">Summary</label><textarea id="f_summary" class="form-control" rows="2"></textarea></div>
-                    <div class="col-12"><label class="form-label">Results (e.g. "+40% conversions")</label><input id="f_results" class="form-control"></div>
-                    <div class="col-12"><label class="form-label">Body</label><textarea id="f_body" class="form-control" rows="5"></textarea></div>
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs mb-4" id="csTabs">
+                    <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#cs-tab-meta" type="button">Project info</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#cs-tab-content" type="button">Content</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#cs-tab-sections" type="button">Sections <span class="badge bg-primary-subtle text-primary ms-1" id="csSectionCount">0</span></button></li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <!-- Project info Tab -->
+                    <div class="tab-pane fade show active" id="cs-tab-meta">
+                        <div class="row g-3">
+                            <div class="col-md-8"><label class="form-label fw-medium">Title <span class="text-danger">*</span></label><input id="f_title" class="form-control" placeholder="e.g. Healthcare Platform Transformation"></div>
+                            <div class="col-md-4 d-flex align-items-end pb-1">
+                                <div class="form-check form-switch ms-1">
+                                    <input class="form-check-input" type="checkbox" id="f_published">
+                                    <label class="form-check-label fw-medium" for="f_published">Published</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6"><label class="form-label fw-medium">Client</label><input id="f_client" class="form-control" placeholder="Company or individual name"></div>
+                            <div class="col-md-6"><label class="form-label fw-medium">Industry</label><input id="f_industry" class="form-control" placeholder="e.g. Fintech, Healthcare, SaaS"></div>
+                            <div class="col-12"><label class="form-label fw-medium">Tagline <span class="text-muted fw-normal">(shown as pull-quote on detail page)</span></label><input id="f_tagline" class="form-control" placeholder='e.g. "From broken booking to seamless patient journey — in 10 weeks."'></div>
+                            <div class="col-12">
+                                <label class="form-label fw-medium">Services <span class="text-muted fw-normal">(one per line — shown as pills on listing and detail page)</span></label>
+                                <textarea id="f_services_raw" class="form-control" rows="4" placeholder="UX Design&#10;Web Development&#10;Backend Engineering&#10;DevOps"></textarea>
+                            </div>
+                            <div class="col-md-6"><label class="form-label fw-medium">Thumbnail image URL <span class="text-muted fw-normal">(listing card)</span></label><input id="f_image" class="form-control" placeholder="/assets/..."></div>
+                            <div class="col-md-6"><label class="form-label fw-medium">Hero image URL <span class="text-muted fw-normal">(detail page banner)</span></label><input id="f_hero_image" class="form-control" placeholder="/assets/..."></div>
+                            <div class="col-md-8"><label class="form-label fw-medium">Results <span class="text-muted fw-normal">(short summary, e.g. "+62% conversions · −40% support tickets")</span></label><input id="f_results" class="form-control"></div>
+                            <div class="col-md-4"><label class="form-label fw-medium">Client website</label><input id="f_website" class="form-control" placeholder="https://..."></div>
+                        </div>
+                    </div>
+
+                    <!-- Content Tab -->
+                    <div class="tab-pane fade" id="cs-tab-content">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label fw-medium">Summary <span class="text-muted fw-normal">(1–2 sentences shown on listing card)</span></label>
+                                <textarea id="f_summary" class="form-control" rows="2" placeholder="Brief summary of the challenge and approach."></textarea>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-medium">Body <span class="text-muted fw-normal">(intro narrative — the "story" of the project)</span></label>
+                                <div class="alert alert-light py-2 mb-2 fs-13">
+                                    <i class="ti ti-bulb me-1 text-warning"></i> Write 2–4 paragraphs. Keep paragraphs separated by a blank line. Detailed breakdowns go in <strong>Sections</strong>.
+                                </div>
+                                <textarea id="f_body" class="form-control" rows="10" placeholder="The client approached us with…&#10;&#10;We began with a two-week discovery phase…&#10;&#10;Our proposed solution was…"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sections Tab -->
+                    <div class="tab-pane fade" id="cs-tab-sections">
+                        <div class="mb-3 d-flex justify-content-between align-items-center">
+                            <p class="mb-0 fs-13 text-muted">Each section has a heading, body text, and an optional image. Sections appear sequentially after the intro on the case study detail page.</p>
+                            <button type="button" class="btn btn-sm btn-outline-primary ms-3" id="btnAddCsSection"><i class="ti ti-plus"></i> Add section</button>
+                        </div>
+                        <div id="csSectionsContainer" class="d-flex flex-column gap-3"></div>
+                        <p class="text-muted fs-13 mt-3" id="csNoSectionsMsg">No sections yet — click "Add section" to add the first one.</p>
+                    </div>
+
                 </div>
             </div>
-            <div class="modal-footer"><button class="btn btn-light" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="btnSave">Save</button></div>
+            <div class="modal-footer border-top">
+                <button class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" id="btnSave"><i class="ti ti-device-floppy me-1"></i>Save case study</button>
+            </div>
         </div>
     </div>
 </div>
@@ -70,28 +152,115 @@
 (function () {
     const modal = new bootstrap.Modal('#csModal');
     const F = (id) => document.getElementById(id);
+    let sections = [];
+
+    function escAttr(s){ return String(s).replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+    function escText(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    /* ── sections builder ── */
+    function renderSections() {
+        const container = F('csSectionsContainer');
+        const noMsg = F('csNoSectionsMsg');
+        const badge = F('csSectionCount');
+        badge.textContent = sections.length || '';
+        badge.style.display = sections.length ? 'inline' : 'none';
+        noMsg.style.display = sections.length ? 'none' : 'block';
+        container.innerHTML = '';
+        sections.forEach((s, i) => {
+            const card = document.createElement('div');
+            card.className = 'card border-0 bg-light rounded-3 p-0';
+            card.innerHTML = `
+            <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge bg-secondary-subtle text-secondary">Section ${i + 1}</span>
+                    <div class="d-flex gap-1">
+                        ${i > 0 ? `<button type="button" class="btn btn-sm btn-ghost-secondary btn-move-up" data-idx="${i}" title="Move up"><i class="ti ti-arrow-up"></i></button>` : ''}
+                        ${i < sections.length - 1 ? `<button type="button" class="btn btn-sm btn-ghost-secondary btn-move-down" data-idx="${i}" title="Move down"><i class="ti ti-arrow-down"></i></button>` : ''}
+                        <button type="button" class="btn btn-sm btn-soft-danger btn-remove-section" data-idx="${i}"><i class="ti ti-trash"></i></button>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-12"><input class="form-control form-control-sm sec-title" placeholder="Section heading (e.g. Discovery & Research)" value="${escAttr(s.title||'')}" data-idx="${i}"></div>
+                    <div class="col-12"><textarea class="form-control form-control-sm sec-body" rows="5" placeholder="Section narrative — what happened, decisions made, outcomes…" data-idx="${i}">${escText(s.body||'')}</textarea></div>
+                    <div class="col-md-8"><input class="form-control form-control-sm sec-image" placeholder="Image URL (optional)" value="${escAttr(s.image||'')}" data-idx="${i}"></div>
+                    <div class="col-md-4"><input class="form-control form-control-sm sec-caption" placeholder="Caption" value="${escAttr(s.caption||'')}" data-idx="${i}"></div>
+                </div>
+            </div>`;
+            container.appendChild(card);
+        });
+        container.querySelectorAll('.sec-title').forEach(el => el.addEventListener('input', e => { sections[+e.target.dataset.idx].title = e.target.value; }));
+        container.querySelectorAll('.sec-body').forEach(el => el.addEventListener('input', e => { sections[+e.target.dataset.idx].body = e.target.value; }));
+        container.querySelectorAll('.sec-image').forEach(el => el.addEventListener('input', e => { sections[+e.target.dataset.idx].image = e.target.value; }));
+        container.querySelectorAll('.sec-caption').forEach(el => el.addEventListener('input', e => { sections[+e.target.dataset.idx].caption = e.target.value; }));
+        container.querySelectorAll('.btn-remove-section').forEach(el => el.addEventListener('click', e => { sections.splice(+e.currentTarget.dataset.idx, 1); renderSections(); }));
+        container.querySelectorAll('.btn-move-up').forEach(el => el.addEventListener('click', e => { const i=+e.currentTarget.dataset.idx; [sections[i-1],sections[i]]=[sections[i],sections[i-1]]; renderSections(); }));
+        container.querySelectorAll('.btn-move-down').forEach(el => el.addEventListener('click', e => { const i=+e.currentTarget.dataset.idx; [sections[i],sections[i+1]]=[sections[i+1],sections[i]]; renderSections(); }));
+    }
+
+    F('btnAddCsSection').addEventListener('click', () => {
+        sections.push({title:'',body:'',image:'',caption:''});
+        renderSections();
+        bootstrap.Tab.getOrCreateInstance(document.querySelector('[data-bs-target="#cs-tab-sections"]')).show();
+    });
+
+    /* ── open ── */
     function open(d) {
-        F('f_id').value = d.id || ''; F('mTitle').textContent = d.id ? 'Edit Case Study' : 'New Case Study';
-        F('f_title').value = d.title || ''; F('f_client').value = d.client || ''; F('f_industry').value = d.industry || '';
-        F('f_image').value = d.image || ''; F('f_summary').value = d.summary || ''; F('f_results').value = d.results || '';
-        F('f_body').value = d.body || ''; F('f_published').checked = d.published === '1' || d.published === 1;
+        F('f_id').value = d.id || '';
+        F('mTitle').textContent = d.id ? 'Edit Case Study' : 'New Case Study';
+        F('f_title').value = d.title || '';
+        F('f_client').value = d.client || '';
+        F('f_industry').value = d.industry || '';
+        F('f_tagline').value = d.tagline || '';
+        F('f_image').value = d.image || '';
+        F('f_hero_image').value = d.heroImage || d['hero-image'] || '';
+        F('f_website').value = d.website || '';
+        F('f_results').value = d.results || '';
+        F('f_summary').value = d.summary || '';
+        F('f_body').value = d.body || '';
+        F('f_published').checked = d.published === '1' || d.published === 1 || d.published === true;
+
+        /* services: JSON array → one per line */
+        let svcArr = [];
+        try { svcArr = JSON.parse(d.services || '[]'); } catch(e) {}
+        F('f_services_raw').value = svcArr.join('\n');
+
+        try { sections = JSON.parse(d.sections || '[]'); } catch(e) { sections = []; }
+        renderSections();
+        bootstrap.Tab.getOrCreateInstance(document.querySelector('[data-bs-target="#cs-tab-meta"]')).show();
         modal.show();
     }
+
     F('btnNew').addEventListener('click', () => open({}));
     document.querySelectorAll('.btn-edit').forEach(b => b.addEventListener('click', () => open(b.dataset)));
+
+    /* ── save ── */
     F('btnSave').addEventListener('click', async () => {
         const id = F('f_id').value;
+        /* parse services textarea → JSON array */
+        const servicesArr = F('f_services_raw').value.split('\n').map(s => s.trim()).filter(Boolean);
         const payload = {
-            title: F('f_title').value.trim(), client: F('f_client').value.trim(), industry: F('f_industry').value.trim(),
-            image: F('f_image').value.trim(), summary: F('f_summary').value.trim(), results: F('f_results').value.trim(),
-            body: F('f_body').value.trim(), published: F('f_published').checked,
+            title: F('f_title').value.trim(),
+            client: F('f_client').value.trim(),
+            industry: F('f_industry').value.trim(),
+            tagline: F('f_tagline').value.trim(),
+            image: F('f_image').value.trim(),
+            hero_image: F('f_hero_image').value.trim(),
+            website: F('f_website').value.trim(),
+            results: F('f_results').value.trim(),
+            summary: F('f_summary').value.trim(),
+            body: F('f_body').value.trim(),
+            published: F('f_published').checked,
+            services: JSON.stringify(servicesArr),
+            sections: JSON.stringify(sections),
         };
-        if (!payload.title) return AdminAPI.toast('Title required', true);
+        if (!payload.title) return AdminAPI.toast('Title is required', true);
         const r = id ? await AdminAPI.patch('/case-studies/' + id, payload) : await AdminAPI.post('/case-studies', payload);
         if (r.ok) { AdminAPI.toast(r.message); location.reload(); } else AdminAPI.toast(r.message, true);
     });
+
+    /* ── delete ── */
     document.querySelectorAll('.btn-del').forEach(b => b.addEventListener('click', async () => {
-        if (!confirm('Delete this case study?')) return;
+        if (!confirm('Delete this case study? This cannot be undone.')) return;
         const r = await AdminAPI.del('/case-studies/' + b.dataset.id);
         if (r.ok) { AdminAPI.toast('Deleted'); b.closest('tr').remove(); } else AdminAPI.toast(r.message, true);
     }));

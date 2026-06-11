@@ -1,9 +1,9 @@
 <%
-    const u = (typeof user !== 'undefined' && user) ? user : { name: 'Grey Admin', role: 'admin', avatar: null };
-    const roleLabel = { admin: 'Administrator', manager: 'Manager', staff: 'Staff' }[u.role] || 'Staff';
-    const avatar = u.avatar || '/images/users/avatar-1.jpg';
-    const cur = (typeof activeNav !== 'undefined' && activeNav) ? activeNav : '';
-    const isActive = (k) => cur === k ? ' active' : '';
+const u = (typeof user !== 'undefined' && user) ? user : {name: 'Grey Admin', role: 'admin', avatar: null};
+const roleLabel = {admin: 'Administrator', manager: 'Manager', staff: 'Staff'}[u.role] || 'Staff';
+const avatar = u.avatar || '/images/users/avatar-1.jpg';
+const cur = (typeof activeNav !== 'undefined' && activeNav) ? activeNav : '';
+const isActive = (k) => cur === k ? ' active' : '';
 %>
 <!-- Sidenav Menu Start -->
 <div class="sidenav-menu">
@@ -41,7 +41,7 @@
         <div class="sidenav-user">
             <div class="dropdown-center text-center">
                 <a class="topbar-link dropdown-toggle text-reset drop-arrow-none px-2" data-bs-toggle="dropdown"
-                    type="button" aria-haspopup="false" aria-expanded="false">
+                   type="button" aria-haspopup="false" aria-expanded="false">
                     <img src="<%= avatar %>" width="46" class="rounded-circle" alt="user-image">
                     <span class="d-flex gap-1 sidenav-user-name my-2">
                         <span>
@@ -92,7 +92,8 @@
                     <span class="menu-icon"><i class="ti ti-mail-opened"></i></span>
                     <span class="menu-text"> Form Submissions </span>
                     <% if (typeof navBadges !== 'undefined' && navBadges && navBadges.newSubmissions) { %>
-                    <span class="badge bg-danger rounded-pill"><%= navBadges.newSubmissions %></span>
+                        <span class="badge bg-danger rounded-pill"
+                              data-badge="newSubmissions"><%= navBadges.newSubmissions %></span>
                     <% } %>
                 </a>
             </li>
@@ -109,7 +110,8 @@
                     <span class="menu-icon"><i class="ti ti-message"></i></span>
                     <span class="menu-text"> Client Chat </span>
                     <% if (typeof navBadges !== 'undefined' && navBadges && navBadges.unreadConvos) { %>
-                    <span class="badge bg-primary rounded-pill"><%= navBadges.unreadConvos %></span>
+                        <span class="badge bg-primary rounded-pill"
+                              data-badge="unreadConvos"><%= navBadges.unreadConvos %></span>
                     <% } %>
                 </a>
             </li>
@@ -117,28 +119,32 @@
             <li class="side-nav-title">Store</li>
 
             <li class="side-nav-item">
-                <a href="/admin/store/products" class="side-nav-link<%= isActive('store/products') || isActive('store/product') ? ' active' : '' %>">
+                <a href="/admin/store/products"
+                   class="side-nav-link<%= isActive('store/products') || isActive('store/product') ? ' active' : '' %>">
                     <span class="menu-icon"><i class="ti ti-device-laptop"></i></span>
                     <span class="menu-text"> Products </span>
                 </a>
             </li>
 
             <li class="side-nav-item">
-                <a href="/admin/store/orders" class="side-nav-link<%= isActive('store/orders') || isActive('store/order') ? ' active' : '' %>">
+                <a href="/admin/store/orders"
+                   class="side-nav-link<%= isActive('store/orders') || isActive('store/order') ? ' active' : '' %>">
                     <span class="menu-icon"><i class="ti ti-shopping-cart"></i></span>
                     <span class="menu-text"> Orders </span>
                 </a>
             </li>
 
             <li class="side-nav-item">
-                <a href="/admin/store/customers" class="side-nav-link<%= isActive('store/customers') || isActive('store/customer') ? ' active' : '' %>">
+                <a href="/admin/store/customers"
+                   class="side-nav-link<%= isActive('store/customers') || isActive('store/customer') ? ' active' : '' %>">
                     <span class="menu-icon"><i class="ti ti-users"></i></span>
                     <span class="menu-text"> Customers </span>
                 </a>
             </li>
 
             <li class="side-nav-item">
-                <a href="/admin/store/categories" class="side-nav-link<%= isActive('store/categories') ? ' active' : '' %>">
+                <a href="/admin/store/categories"
+                   class="side-nav-link<%= isActive('store/categories') ? ' active' : '' %>">
                     <span class="menu-icon"><i class="ti ti-category"></i></span>
                     <span class="menu-text"> Categories </span>
                 </a>
@@ -172,7 +178,8 @@
                     <span class="menu-icon"><i class="ti ti-ticket"></i></span>
                     <span class="menu-text"> Support Tickets </span>
                     <% if (typeof navBadges !== 'undefined' && navBadges && navBadges.openTickets) { %>
-                    <span class="badge bg-warning rounded-pill"><%= navBadges.openTickets %></span>
+                        <span class="badge bg-warning rounded-pill"
+                              data-badge="openTickets"><%= navBadges.openTickets %></span>
                     <% } %>
                 </a>
             </li>
@@ -208,21 +215,30 @@
             </li>
 
             <% if (u.role === 'admin' || u.role === 'manager') { %>
-            <li class="side-nav-title">Administration</li>
+                <li class="side-nav-title">Administration</li>
 
-            <li class="side-nav-item">
-                <a href="/admin/team" class="side-nav-link<%= isActive('team') %>">
-                    <span class="menu-icon"><i class="ti ti-user-shield"></i></span>
-                    <span class="menu-text"> Team </span>
-                </a>
-            </li>
+                <li class="side-nav-item">
+                    <a href="/admin/team" class="side-nav-link<%= isActive('team') %>">
+                        <span class="menu-icon"><i class="ti ti-user-shield"></i></span>
+                        <span class="menu-text"> Team </span>
+                    </a>
+                </li>
 
-            <li class="side-nav-item">
-                <a href="/admin/activity" class="side-nav-link<%= isActive('activity') %>">
-                    <span class="menu-icon"><i class="ti ti-history"></i></span>
-                    <span class="menu-text"> Activity Log </span>
-                </a>
-            </li>
+                <li class="side-nav-item">
+                    <a href="/admin/activity" class="side-nav-link<%= isActive('activity') %>">
+                        <span class="menu-icon"><i class="ti ti-history"></i></span>
+                        <span class="menu-text"> Activity Log </span>
+                    </a>
+                </li>
+            <% } %>
+
+            <% if (u.role === 'admin' || u.role === 'superadmin') { %>
+                <li class="side-nav-item">
+                    <a href="/admin/settings" class="side-nav-link<%= isActive('settings') %>">
+                        <span class="menu-icon"><i class="ti ti-settings-2"></i></span>
+                        <span class="menu-text"> Settings </span>
+                    </a>
+                </li>
             <% } %>
 
             <li class="side-nav-item">

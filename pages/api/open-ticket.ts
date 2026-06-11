@@ -1,9 +1,107 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import nodemailer from 'nodemailer';
+import path from 'node:path';
+import fs from 'node:fs';
 import {Tickets} from '../../Admin/models';
+import {broadcast, broadcastStats} from '../../Admin/routes/sse';
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+function smtpOk(): boolean {
+    return Boolean(
+        process.env.SMTP_HOST &&
+        process.env.SMTP_USER &&
+        process.env.SMTP_PASS &&
+        process.env.SMTP_FROM,
+    );
+}
+
+function makeTransporter() {
+    const port = Number(process.env.SMTP_PORT || 587);
+    return nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port,
+        secure: port === 465,
+        auth: {user: process.env.SMTP_USER, pass: process.env.SMTP_PASS},
+    });
+}
+
+/**
+ * Reads good.png from /public and returns a nodemailer CID attachment object.
+ * Returns null if the file is missing, so the rest of the email still sends.
+ */
+function logoAttachment(): { filename: string; cid: string; content: Buffer; encoding: 'base64' } | null {
+    try {
+        const logoPath = path.join(process.cwd(), 'public', 'good.png');
+        const content = fs.readFileSync(logoPath);
+        return {filename: 'good.png', cid: 'grey-logo@greyinfotech', content, encoding: 'base64'};
+    } catch {
+        return null;
+    }
+}
+
+/** Shared branded email signature block using good.png as the logo. */
+function emailSignature(): string {
+    return `
+<table cellspacing="0" cellpadding="0" style="border-collapse:collapse;font-family:'Georgia Pro',Georgia,serif;margin-top:8px;">
+<p style="font-size:16px;color:#555;margin:0 0 12px;">Best regards,</p>
+  <tr>
+    <td style="border-right:3px solid #009999;padding:0 18px 0 0;vertical-align:top;">
+      <img src="cid:grey-logo@greyinfotech" alt="Grey InfoTech" width="80" height="80"
+           style="display:block;border-radius:8px;" />
+    </td>
+    <td style="padding:0 0 0 18px;vertical-align:top;">
+      <p style="margin:0 0 2px;font-size:20px;font-weight:700;color:#009999;line-height:1.2;">Grey InfoTech Ltd.</p>
+      <p style="margin:0 0 6px;font-size:13px;color:#333;">Support | <strong style="color:#009999;">GREY INFOTECH Limited</strong></p>
+      <p style="margin:0 0 2px;font-size:12px;color:#555;">
+        <strong style="color:#009999;">A:</strong>&nbsp;9 Godfrey Tata Close, Rumuewhara New Layout,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Off Eneka–Igwurita Road, Rivers State, Nigeria
+      </p>
+      <p style="margin:0 0 2px;font-size:12px;color:#009999;"><strong>P:</strong>&nbsp;+2348028095571</p>
+      <p style="margin:0 0 2px;font-size:12px;">
+        <strong style="color:#009999;">E:</strong>&nbsp;<a href="mailto:hello@greyinfotech.com.ng" style="color:#009999;text-decoration:none;">hello@greyinfotech.com.ng</a>
+      </p>
+      <p style="margin:0;font-size:12px;">
+        <strong style="color:#009999;">W:</strong>&nbsp;<a href="https://www.greyinfotech.com.ng" style="color:#009999;text-decoration:none;">www.greyinfotech.com.ng</a>
+      </p>
+    </td>
+  </tr>
+</table>`;
+}
+
+/** Full email shell: header + body content + divider + signature. */
+function emailShell(title: string, innerHtml: string): string {
+    return `
+<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#222;max-width:600px;margin:0 auto;padding:28px;border:1px solid #e5e7eb;border-radius:12px;background:#ffffff;">
+  <!-- Logo header -->
+  <div style="text-align:center;margin-bottom:20px;">
+    <img src="cid:grey-logo@greyinfotech" alt="Grey InfoTech" width="64" height="64"
+         style="display:inline-block;border-radius:10px;" />
+  </div>
+
+  <!-- Title -->
+  <h2 style="font-size:19px;color:#111;margin:0 0 16px;border-bottom:2px solid #009999;padding-bottom:10px;">${title}</h2>
+
+  <!-- Body -->
+  ${innerHtml}
+
+  <!-- Divider + Signature -->
+  <div style="margin-top:28px;padding-top:16px;border-top:1px solid #e5e7eb;">
+    ${emailSignature()}
+  </div>
+</div>`;
+}
+
+// ---------------------------------------------------------------------------
+// Handler
+// ---------------------------------------------------------------------------
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== 'POST') return res.status(405).json({success: false, message: 'Method not allowed'});
+    if (req.method !== 'POST') {
+        return res.status(405).json({success: false, message: 'Method not allowed'});
+    }
 
     const {name, email, subject, priority, description} = req.body;
 
@@ -16,7 +114,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(400).json({success: false, message: 'Please enter a valid email address.'});
     }
 
-    // Save to admin DB
+    // ── Persist to DB ────────────────────────────────────────────────────────
     let ticket: ReturnType<typeof Tickets.create> | null = null;
     try {
         ticket = Tickets.create({
@@ -33,9 +131,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(500).json({success: false, message: 'Failed to save ticket. Please try again.'});
     }
 
-    // Email notifications (best-effort — never block if SMTP not configured)
-    const smtpOk = Boolean(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS && process.env.SMTP_FROM);
-    if (!smtpOk) {
+    // ── Email notifications (best-effort) ────────────────────────────────────
+    if (!smtpOk()) {
+        broadcast('ticket', {action: 'create', ticket});
+        broadcastStats();
         return res.status(200).json({
             success: true,
             message: 'Your ticket has been submitted successfully.',
@@ -43,68 +142,72 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
     }
 
+    const ticketRef = `GIT-${String(ticket.id).padStart(6, '0')}`;
+    const teamTo = process.env.CONTACT_TO || 'hello@greyinfotech.com.ng';
+    const from = process.env.SMTP_FROM!;
+    const logo = logoAttachment();
+    const attachments = logo ? [logo] : [];
+
     try {
-        const port = Number(process.env.SMTP_PORT || 587);
-        const transporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST,
-            port,
-            secure: port === 465,
-            auth: {user: process.env.SMTP_USER, pass: process.env.SMTP_PASS},
-        });
+        const transporter = makeTransporter();
 
-        const teamTo = process.env.CONTACT_TO || 'hello@greyinfotech.com.ng';
-        const from = process.env.SMTP_FROM!;
-        const ticketRef = `GIT-${String(ticket.id).padStart(6, '0')}`;
+        // 1. Notify the support team ─────────────────────────────────────────
+        const teamBody = `
+<table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:16px;">
+  <tr><td style="padding:5px 0;color:#555;width:110px;">From</td>
+      <td style="padding:5px 0;font-weight:600;">${name} &lt;${email}&gt;</td></tr>
+  <tr><td style="padding:5px 0;color:#555;">Ticket ref</td>
+      <td style="padding:5px 0;font-weight:700;color:#009999;">#${ticketRef}</td></tr>
+  <tr><td style="padding:5px 0;color:#555;">Subject</td>
+      <td style="padding:5px 0;">${subject}</td></tr>
+  <tr><td style="padding:5px 0;color:#555;">Priority</td>
+      <td style="padding:5px 0;text-transform:capitalize;">${priority || 'medium'}</td></tr>
+</table>
+${description
+            ? `<div style="padding:14px;background:#f9fafb;border-left:4px solid #009999;border-radius:0 8px 8px 0;font-size:14px;line-height:1.7;color:#333;">
+        ${String(description).replace(/\n/g, '<br/>')}
+       </div>`
+            : ''}`;
 
-        // 1. Notify the team
         await transporter.sendMail({
             from,
             to: teamTo,
             replyTo: email,
             subject: `[New Ticket #${ticketRef}] ${subject}`,
-            html: `
-<div style="font-family:Arial,sans-serif;font-size:15px;color:#222;max-width:560px;margin:0 auto;padding:24px;border:1px solid #eee;border-radius:12px;">
-  <div style="text-align:center;margin-bottom:18px;"><span style="font-size:20px;font-weight:700;color:#14b8a6;">Grey InfoTech</span></div>
-  <h2 style="font-size:18px;color:#111;margin:0 0 14px;">New Support Ticket — #${ticketRef}</h2>
-  <table style="width:100%;border-collapse:collapse;font-size:14px;">
-    <tr><td style="padding:6px 0;color:#555;width:120px;">From</td><td style="padding:6px 0;font-weight:600;">${name} &lt;${email}&gt;</td></tr>
-    <tr><td style="padding:6px 0;color:#555;">Subject</td><td style="padding:6px 0;">${subject}</td></tr>
-    <tr><td style="padding:6px 0;color:#555;">Priority</td><td style="padding:6px 0;text-transform:capitalize;">${priority || 'medium'}</td></tr>
-  </table>
-  ${description ? `<div style="margin-top:16px;padding:14px;background:#f9f9f9;border-radius:8px;font-size:14px;line-height:1.6;color:#333;">${description.replace(/\n/g, '<br/>')}</div>` : ''}
-  <div style="margin-top:26px;padding-top:14px;border-top:1px solid #eee;font-size:12px;color:#777;">
-    Grey InfoTech &middot; Port Harcourt, Rivers State, Nigeria<br/>
-    <a href="https://www.greyinfotech.com.ng" style="color:#0072c6;">www.greyinfotech.com.ng</a>
-  </div>
-</div>`,
+            html: emailShell(`New Support Ticket — #${ticketRef}`, teamBody),
+            attachments,
         }).catch(e => console.error('Team email failed:', e));
 
-        // 2. Confirmation to requester
+        // 2. Confirmation to the requester ────────────────────────────────────
+        const clientBody = `
+<p style="margin:0 0 12px;">Hi <strong>${name}</strong>,</p>
+<p style="margin:0 0 12px;">
+  Thanks for reaching out. We've received your request, and our team will
+  respond within one business day (Mon–Sat, 8 am–5 pm WAT).
+</p>
+<div style="margin:18px 0;padding:14px 18px;background:#f0fdfa;border-left:4px solid #009999;border-radius:0 8px 8px 0;">
+  <div style="font-size:12px;color:#555;margin-bottom:4px;">Your ticket reference</div>
+  <div style="font-size:22px;font-weight:700;color:#0f766e;letter-spacing:1.5px;">#${ticketRef}</div>
+</div>
+<p style="font-size:14px;color:#555;margin:0 0 12px;">
+  You can reply directly to this email to add more information to your ticket.
+  Our team's reply will also be delivered to this address — no account needed.
+</p>`;
+
         await transporter.sendMail({
             from,
             to: email,
+            replyTo: teamTo,
             subject: `We received your ticket — #${ticketRef}`,
-            html: `
-<div style="font-family:Arial,sans-serif;font-size:15px;color:#222;max-width:560px;margin:0 auto;padding:24px;border:1px solid #eee;border-radius:12px;">
-  <div style="text-align:center;margin-bottom:18px;"><span style="font-size:20px;font-weight:700;color:#14b8a6;">Grey InfoTech</span></div>
-  <h2 style="font-size:18px;color:#111;margin:0 0 14px;">Your ticket has been received</h2>
-  <p>Hi ${name},</p>
-  <p>Thanks for reaching out. We've created a support ticket for your request and our team will respond within one business day.</p>
-  <div style="margin:18px 0;padding:14px 18px;background:#f0fdfa;border-left:4px solid #14b8a6;border-radius:0 8px 8px 0;">
-    <div style="font-size:13px;color:#555;margin-bottom:4px;">Your ticket reference</div>
-    <div style="font-size:20px;font-weight:700;color:#0f766e;letter-spacing:1px;">#${ticketRef}</div>
-  </div>
-  <p style="font-size:14px;color:#555;">You can reply directly to this email if you need to add more information.</p>
-  <p>Best regards,<br/><div><table id="gmail-table_0" cellspacing="0" cellpadding="0" style="color: rgb(36, 36, 36); border-collapse: collapse; border-spacing: 0px;"><tbody><tr><td style="border-right: 3pt solid rgb(0, 153, 153); padding: 0cm 9pt 0cm 0cm; vertical-align: top; width: 120.5pt; height: 114.15pt;" class="cursor-default-hover"><p style="line-height: 1.38; margin: 0cm 0cm 8pt; font-family: Aptos, sans-serif; font-size: 12pt;"><span style="color: rgb(0, 0, 0); line-height: 1em;"><u>​<img data-surl="cid:ii_mq977ync0" src="blob:https://mail.google.com/1b5a352e-dfaf-4ce1-b047-c9b54390f757" alt="image.png" width="171" height="171" class="cursor-default-hover"></u></span></p></td><td style="padding: 0cm; vertical-align: top; width: 518.75pt; height: 114.15pt;"><div><table id="gmail-x_x_x_table_0" cellspacing="0" cellpadding="0" style="margin-left: 2.8pt; width: 477.3pt; border-collapse: collapse; border-spacing: 0px;"><tbody><tr><td style="padding: 0cm; vertical-align: top; width: 636.395px; height: 15.65pt; box-sizing: border-box;"><p style="line-height: 1.38; margin: 0cm; font-family: Aptos, sans-serif; font-size: 12pt;"><span style="font-family: &quot;Georgia Pro&quot;, serif; font-size: 24pt; color: rgb(0, 153, 153); line-height: 36.8px;"><b class="cursor-default-hover">​Grey InfoTech Ltd. Team</b></span></p></td></tr><tr><td style="padding: 0cm 0cm 3pt; width: 636.395px; height: 0.7pt; box-sizing: border-box;"><p style="line-height: 1.38; margin: 0cm; font-family: Aptos, sans-serif; font-size: 12pt;"><span style="font-family: &quot;Georgia Pro&quot;, serif; font-size: 14pt; color: rgb(0, 0, 0); line-height: 21.4667px;" class="cursor-default-hover">Support |
-</span><span style="font-family: &quot;Georgia Pro&quot;, serif; font-size: 14pt; color: rgb(0, 153, 153); line-height: 21.4667px;"><b class="cursor-default-hover">GREY INFOTECH Limited.</b></span></p></td></tr><tr><td style="padding: 0cm; vertical-align: top; width: 636.395px; height: 15.65pt; box-sizing: border-box;"><p style="line-height: 1.38; margin: 0cm; font-family: Aptos, sans-serif; font-size: 12pt;" class="cursor-default-hover"><span style="color: rgb(0, 153, 153); line-height: 1em;"><b>A:</b>&nbsp;</span><span style="color: rgb(0, 0, 0); line-height: 1em;" class="cursor-default-hover">9 <span zeum4c1="PR_1_0" data-ddnwab="PR_1_0" aria-invalid="spelling" class="LI ng">Godfery</span> Tata Close, <span zeum4c1="PR_2_0" data-ddnwab="PR_2_0" aria-invalid="spelling" class="LI ng">Rumuewhara</span> New Layout,<br>
-&nbsp;Off Eneka - <span zeum4c1="PR_3_0" data-ddnwab="PR_3_0" aria-invalid="spelling" class="LI ng">Igwurita</span> Road, Rivers State, Nigeria</span></p></td></tr><tr><td style="padding: 0cm; vertical-align: top; width: 636.395px; height: 15.65pt; box-sizing: border-box;"><p style="line-height: 1.38; margin: 0cm 0cm 2pt; font-family: Aptos, sans-serif; font-size: 12pt;" class="cursor-default-hover"><span style="color: rgb(0, 153, 153); line-height: 1em;" class="cursor-default-hover"><b>P:</b>&nbsp;+2348028095571&nbsp;&nbsp;</span></p></td></tr><tr><td style="padding: 0cm; vertical-align: top; width: 636.395px; height: 15.65pt; box-sizing: border-box;" class="cursor-default-hover"><p style="line-height: 1.38; margin: 0cm 0cm 2pt; font-family: Aptos, sans-serif; font-size: 12pt;" class="cursor-default-hover"><span style="color: rgb(0, 153, 153); line-height: 1em;"><b>E:</b>&nbsp;hello<a href="mailto:graham@greyinfotech.com.ng" title="mailto:graham@greyinfotech.com.ng" style="color: rgb(0, 153, 153); text-decoration: none; margin: 0px;">@greyinfotech.com.ng</a></span><span style="color: rgb(0, 0, 0); line-height: 1em;" class="cursor-default-hover">&nbsp;
- &nbsp;</span></p><div style="line-height: 1.38; margin: 0cm 0cm 2pt; font-family: Aptos, sans-serif; font-size: 12pt; color: rgb(0, 153, 153);" class="cursor-default-hover"><span style="line-height: 1em;" class="cursor-default-hover"><b>W:</b>&nbsp;www.greyinfotech.com.ng</span></div></td></tr></tbody></table></div></td></tr></tbody></table></div>
-</div>`,
+            html: emailShell('Your ticket has been received', clientBody),
+            attachments,
         }).catch(e => console.error('Confirmation email failed:', e));
 
     } catch (emailErr) {
         console.error('Email setup failed:', emailErr);
     }
 
+    broadcast('ticket', {action: 'create', ticket});
+    broadcastStats();
     return res.status(200).json({success: true, message: 'Ticket submitted successfully.', ticketId: ticket.id});
 }

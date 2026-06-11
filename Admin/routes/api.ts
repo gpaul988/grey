@@ -1,5 +1,8 @@
-import express, { type Request, type Response } from 'express';
-import { ensureApiAuth, requireRole, requirePermission } from '../middleware/authMiddleware';
+import express, {type Request, type Response} from 'express';
+import nodemailer from 'nodemailer';
+import path from 'node:path';
+import fs from 'node:fs';
+import {ensureApiAuth, requireRole, requirePermission} from '../middleware/authMiddleware';
 import {
     Users, Submissions, Leads, Clients, Projects, Tickets, TicketMessages,
     Invoices, CaseStudies, BlogPosts, Conversations, Messages,
@@ -7,16 +10,18 @@ import {
     Verification,
     logActivity, nextInvoiceNumber, dashboardStats,
 } from '../models';
-import { slugify, str, toFloat, toInt, isEmail } from '../utils/helpers';
-import { sendSetPasswordEmail, smtpConfigured, appOrigin } from '../utils/mailer';
-import { ALL_KEYS, roleDefaults, type Role } from '../config/permissions';
+import {slugify, str, toFloat, toInt, isEmail} from '../utils/helpers';
+import {sendSetPasswordEmail, smtpConfigured, appOrigin} from '../utils/mailer';
+import {ALL_KEYS, roleDefaults, type Role} from '../config/permissions';
+import {SiteSettings} from '../models/settings';
+import {broadcast, broadcastStats} from './sse';
 
 const api = express.Router();
 api.use(ensureApiAuth);
 
-const ok = (res: Response, data: unknown = null, message = 'OK') => res.json({ ok: true, message, data });
-const fail = (res: Response, message: string, status = 400) => res.status(status).json({ ok: false, message });
-const actor = (req: Request) => ({ user_id: req.session.user?.id ?? null, user_name: req.session.user?.name ?? null });
+const ok = (res: Response, data: unknown = null, message = 'OK') => res.json({ok: true, message, data});
+const fail = (res: Response, message: string, status = 400) => res.status(status).json({ok: false, message});
+const actor = (req: Request) => ({user_id: req.session.user?.id ?? null, user_name: req.session.user?.name ?? null});
 
 /* ---------------- Dashboard ---------------- */
 api.get('/stats', (_req, res) => ok(res, dashboardStats()));
@@ -32,14 +37,20 @@ api.get('/submissions/:id', (req, res) => {
     return row ? ok(res, row) : fail(res, 'Not found', 404);
 });
 api.patch('/submissions/:id', (req, res) => {
-    const updated = Submissions.update(toInt(req.params.id), { status: str(req.body.status) });
+    const updated = Submissions.update(toInt(req.params.id), {status: str(req.body.status)});
     if (!updated) return fail(res, 'Not found', 404);
-    logActivity({ ...actor(req), action: 'update', entity: 'submission', entity_id: updated.id, detail: `status=${updated.status}` });
+    logActivity({
+        ...actor(req),
+        action: 'update',
+        entity: 'submission',
+        entity_id: updated.id,
+        detail: `status=${updated.status}`
+    });
     ok(res, updated, 'Submission updated');
 });
 api.delete('/submissions/:id', (req, res) => {
     Submissions.delete(toInt(req.params.id));
-    logActivity({ ...actor(req), action: 'delete', entity: 'submission', entity_id: toInt(req.params.id) });
+    logActivity({...actor(req), action: 'delete', entity: 'submission', entity_id: toInt(req.params.id)});
     ok(res, null, 'Submission deleted');
 });
 
@@ -63,29 +74,34 @@ api.post('/leads', (req, res) => {
         value: toFloat(req.body.value), owner_id: req.body.owner_id ? toInt(req.body.owner_id) : null,
         notes: str(req.body.notes),
     });
-    logActivity({ ...actor(req), action: 'create', entity: 'lead', entity_id: row.id, detail: name });
+    logActivity({...actor(req), action: 'create', entity: 'lead', entity_id: row.id, detail: name});
+    broadcast('lead', {action: 'create', lead: row});
+    broadcastStats();
     ok(res, row, 'Lead created');
 });
 api.patch('/leads/:id', (req, res) => {
     const data: Record<string, unknown> = {};
-    ['name', 'email', 'company', 'phone', 'source', 'stage', 'notes'].forEach((f) => { if (f in req.body) data[f] = str(req.body[f]); });
+    ['name', 'email', 'company', 'phone', 'source', 'stage', 'notes'].forEach((f) => {
+        if (f in req.body) data[f] = str(req.body[f]);
+    });
     if ('value' in req.body) data.value = toFloat(req.body.value);
     if ('owner_id' in req.body) data.owner_id = req.body.owner_id ? toInt(req.body.owner_id) : null;
     const row = Leads.update(toInt(req.params.id), data);
     if (!row) return fail(res, 'Not found', 404);
-    logActivity({ ...actor(req), action: 'update', entity: 'lead', entity_id: row.id });
+    logActivity({...actor(req), action: 'update', entity: 'lead', entity_id: row.id});
     ok(res, row, 'Lead updated');
 });
 api.delete('/leads/:id', (req, res) => {
     Leads.delete(toInt(req.params.id));
-    logActivity({ ...actor(req), action: 'delete', entity: 'lead', entity_id: toInt(req.params.id) });
+    logActivity({...actor(req), action: 'delete', entity: 'lead', entity_id: toInt(req.params.id)});
     ok(res, null, 'Lead deleted');
 });
 
 /* ---------------- Clients ---------------- */
 api.get('/clients', (_req, res) => ok(res, Clients.all()));
 api.post('/clients', async (req, res) => {
-    const name = str(req.body.name); const email = str(req.body.email);
+    const name = str(req.body.name);
+    const email = str(req.body.email);
     if (!name || !email) return fail(res, 'Name and email are required');
     if (Clients.findByEmail(email.toLowerCase())) return fail(res, 'Client with this email exists');
     const row = await Clients.create({
@@ -95,17 +111,22 @@ api.post('/clients', async (req, res) => {
         phone: str(req.body.phone),
         password: str(req.body.password) || undefined,
     });
-    logActivity({ ...actor(req), action: 'create', entity: 'client', entity_id: row.id });
+    logActivity({...actor(req), action: 'create', entity: 'client', entity_id: row.id});
     ok(res, row, 'Client created');
 });
 api.patch('/clients/:id', async (req, res) => {
     const data: Record<string, unknown> = {};
-    ['name', 'email', 'company', 'phone', 'status'].forEach((f) => { if (f in req.body) data[f] = str(req.body[f]); });
+    ['name', 'email', 'company', 'phone', 'status'].forEach((f) => {
+        if (f in req.body) data[f] = str(req.body[f]);
+    });
     if (str(req.body.password)) data.password = str(req.body.password);
     const row = await Clients.update(toInt(req.params.id), data);
     return row ? ok(res, row, 'Client updated') : fail(res, 'Not found', 404);
 });
-api.delete('/clients/:id', (req, res) => { Clients.delete(toInt(req.params.id)); ok(res, null, 'Client deleted'); });
+api.delete('/clients/:id', (req, res) => {
+    Clients.delete(toInt(req.params.id));
+    ok(res, null, 'Client deleted');
+});
 
 /* ---------------- Projects ---------------- */
 api.get('/projects', (req, res) => {
@@ -120,29 +141,37 @@ api.post('/projects', (req, res) => {
     const name = str(req.body.name);
     if (!name) return fail(res, 'Project name is required');
     const row = Projects.create({
-        name, client_id: req.body.client_id ? toInt(req.body.client_id) : null, client_name: str(req.body.client_name),
-        status: str(req.body.status) || 'planning', progress: toInt(req.body.progress), budget: toFloat(req.body.budget),
-        start_date: str(req.body.start_date) || null, end_date: str(req.body.end_date) || null,
-        description: str(req.body.description), manager_id: req.body.manager_id ? toInt(req.body.manager_id) : null,
+        name,
+        client_id: req.body.client_id ? toInt(req.body.client_id) : null,
+        client_name: str(req.body.client_name),
+        status: str(req.body.status) || 'planning',
+        progress: toInt(req.body.progress),
+        budget: toFloat(req.body.budget),
+        start_date: str(req.body.start_date) || null,
+        end_date: str(req.body.end_date) || null,
+        description: str(req.body.description),
+        manager_id: req.body.manager_id ? toInt(req.body.manager_id) : null,
     });
-    logActivity({ ...actor(req), action: 'create', entity: 'project', entity_id: row.id, detail: name });
+    logActivity({...actor(req), action: 'create', entity: 'project', entity_id: row.id, detail: name});
     ok(res, row, 'Project created');
 });
 api.patch('/projects/:id', (req, res) => {
     const data: Record<string, unknown> = {};
-    ['name', 'client_name', 'status', 'description', 'start_date', 'end_date'].forEach((f) => { if (f in req.body) data[f] = str(req.body[f]); });
+    ['name', 'client_name', 'status', 'description', 'start_date', 'end_date'].forEach((f) => {
+        if (f in req.body) data[f] = str(req.body[f]);
+    });
     if ('progress' in req.body) data.progress = toInt(req.body.progress);
     if ('budget' in req.body) data.budget = toFloat(req.body.budget);
     if ('client_id' in req.body) data.client_id = req.body.client_id ? toInt(req.body.client_id) : null;
     if ('manager_id' in req.body) data.manager_id = req.body.manager_id ? toInt(req.body.manager_id) : null;
     const row = Projects.update(toInt(req.params.id), data);
     if (!row) return fail(res, 'Not found', 404);
-    logActivity({ ...actor(req), action: 'update', entity: 'project', entity_id: row.id });
+    logActivity({...actor(req), action: 'update', entity: 'project', entity_id: row.id});
     ok(res, row, 'Project updated');
 });
 api.delete('/projects/:id', (req, res) => {
     Projects.delete(toInt(req.params.id));
-    logActivity({ ...actor(req), action: 'delete', entity: 'project', entity_id: toInt(req.params.id) });
+    logActivity({...actor(req), action: 'delete', entity: 'project', entity_id: toInt(req.params.id)});
     ok(res, null, 'Project deleted');
 });
 
@@ -155,38 +184,150 @@ api.get('/tickets/:id', (req, res) => {
     const ticket = Tickets.find(toInt(req.params.id));
     if (!ticket) return fail(res, 'Not found', 404);
     const messages = TicketMessages.where('ticket_id', ticket.id).reverse();
-    ok(res, { ticket, messages });
+    ok(res, {ticket, messages});
 });
 api.post('/tickets', (req, res) => {
-    const subject = str(req.body.subject); const requester = str(req.body.requester);
+    const subject = str(req.body.subject);
+    const requester = str(req.body.requester);
     if (!subject || !requester) return fail(res, 'Subject and requester are required');
     const row = Tickets.create({
         subject, requester, requester_email: str(req.body.requester_email),
         priority: str(req.body.priority) || 'medium', status: 'open',
         assignee_id: req.body.assignee_id ? toInt(req.body.assignee_id) : null, body: str(req.body.body),
     });
-    logActivity({ ...actor(req), action: 'create', entity: 'ticket', entity_id: row.id, detail: subject });
+    logActivity({...actor(req), action: 'create', entity: 'ticket', entity_id: row.id, detail: subject});
+    broadcast('ticket', {action: 'create', ticket: row});
+    broadcastStats();
     ok(res, row, 'Ticket created');
 });
 api.patch('/tickets/:id', (req, res) => {
     const data: Record<string, unknown> = {};
-    ['subject', 'priority', 'status'].forEach((f) => { if (f in req.body) data[f] = str(req.body[f]); });
+    ['subject', 'priority', 'status'].forEach((f) => {
+        if (f in req.body) data[f] = str(req.body[f]);
+    });
     if ('assignee_id' in req.body) data.assignee_id = req.body.assignee_id ? toInt(req.body.assignee_id) : null;
     const row = Tickets.update(toInt(req.params.id), data);
     if (!row) return fail(res, 'Not found', 404);
-    logActivity({ ...actor(req), action: 'update', entity: 'ticket', entity_id: row.id });
+    logActivity({...actor(req), action: 'update', entity: 'ticket', entity_id: row.id});
     ok(res, row, 'Ticket updated');
 });
-api.post('/tickets/:id/reply', (req, res) => {
+api.post('/tickets/:id/reply', async (req, res) => {
     const ticket = Tickets.find(toInt(req.params.id));
     if (!ticket) return fail(res, 'Not found', 404);
+
     const body = str(req.body.body);
     if (!body) return fail(res, 'Message body required');
-    const msg = TicketMessages.create({ ticket_id: ticket.id, author: req.session.user?.name || 'Staff', is_staff: 1, body });
-    Tickets.update(ticket.id, { status: 'pending' });
+
+    // Persist the message and update ticket status
+    const msg = TicketMessages.create({
+        ticket_id: ticket.id,
+        author: req.session.user?.name || 'Support',
+        is_staff: 1,
+        body,
+    });
+    Tickets.update(ticket.id, {status: 'pending'});
+    broadcast('ticket', {action: 'reply', ticketId: ticket.id});
+    broadcastStats();
+
+    // ── Email the client/customer (best-effort) ──────────────────────────────
+    // Works for any email — registered users, guests, unregistered customers.
+    const clientEmail = ticket.requester_email;
+    if (clientEmail && smtpConfigured()) {
+        try {
+            const ticketRef = `GIT-${String(ticket.id).padStart(6, '0')}`;
+            const teamAddress = process.env.CONTACT_TO || 'hello@greyinfotech.com.ng';
+            const from = process.env.SMTP_FROM!;
+            const staffName = req.session.user?.name || 'Support Team';
+            const origin = appOrigin();
+
+            // Logo attachment (good.png from /public)
+            let attachments: object[] = [];
+            try {
+                const logoPath = path.join(process.cwd(), 'public', 'good.png');
+                const content = fs.readFileSync(logoPath);
+                attachments = [{filename: 'good.png', cid: 'grey-logo@greyinfotech', content, encoding: 'base64'}];
+            } catch { /* logo missing — send without it */
+            }
+
+            // Email signature block
+            const signature = `
+<table cellspacing="0" cellpadding="0" style="border-collapse:collapse;font-family:'Georgia Pro',Georgia,serif;margin-top:8px;">
+  <tr>
+    <td style="border-right:3px solid #009999;padding:0 18px 0 0;vertical-align:top;">
+      <img src="cid:grey-logo@greyinfotech" alt="Grey InfoTech" width="72" height="72"
+           style="display:block;border-radius:8px;" />
+    </td>
+    <td style="padding:0 0 0 18px;vertical-align:top;">
+      <p style="margin:0 0 2px;font-size:20px;font-weight:700;color:#009999;line-height:1.2;">Grey InfoTech Ltd.</p>
+      <p style="margin:0 0 6px;font-size:13px;color:#333;">Support | <strong style="color:#009999;">GREY INFOTECH Limited</strong></p>
+      <p style="margin:0 0 2px;font-size:12px;color:#555;"><strong style="color:#009999;">A:</strong>&nbsp;9 Godfrey Tata Close, Rumuewhara New Layout,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Off Eneka–Igwurita Road, Rivers State, Nigeria</p>
+      <p style="margin:0 0 2px;font-size:12px;color:#009999;"><strong>P:</strong>&nbsp;+2348028095571</p>
+      <p style="margin:0 0 2px;font-size:12px;"><strong style="color:#009999;">E:</strong>&nbsp;<a href="mailto:hello@greyinfotech.com.ng" style="color:#009999;text-decoration:none;">hello@greyinfotech.com.ng</a></p>
+      <p style="margin:0;font-size:12px;"><strong style="color:#009999;">W:</strong>&nbsp;<a href="https://www.greyinfotech.com.ng" style="color:#009999;text-decoration:none;">www.greyinfotech.com.ng</a></p>
+    </td>
+  </tr>
+</table>`;
+
+            const html = `
+<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#222;max-width:600px;margin:0 auto;padding:28px;border:1px solid #e5e7eb;border-radius:12px;background:#ffffff;">
+  <div style="text-align:center;margin-bottom:20px;">
+    <img src="cid:grey-logo@greyinfotech" alt="Grey InfoTech" width="64" height="64" style="display:inline-block;border-radius:10px;" />
+  </div>
+  <h2 style="font-size:19px;color:#111;margin:0 0 16px;border-bottom:2px solid #009999;padding-bottom:10px;">
+    Reply to your ticket — #${ticketRef}
+  </h2>
+
+  <p style="margin:0 0 12px;">Hi <strong>${ticket.requester || 'there'}</strong>,</p>
+  <p style="margin:0 0 16px;">
+    <strong>${staffName}</strong> from our support team has replied to your ticket
+    (<strong>#${ticketRef}</strong>: ${ticket.subject}).
+  </p>
+
+  <!-- Staff reply bubble -->
+  <div style="padding:16px 18px;background:#f0fdfa;border-left:4px solid #009999;border-radius:0 8px 8px 0;font-size:14px;line-height:1.75;color:#1a1a1a;margin-bottom:20px;">
+    ${body.replace(/\n/g, '<br/>')}
+  </div>
+
+  <p style="font-size:14px;color:#555;margin:0 0 12px;">
+    <strong>Reply directly to this email</strong> to respond — you do not need an account.
+    Your reply will go straight to our support team and be added to your ticket thread.
+  </p>
+
+  <div style="margin-top:28px;padding-top:16px;border-top:1px solid #e5e7eb;">
+    ${signature}
+  </div>
+</div>`;
+
+            const smtpPort = Number(process.env.SMTP_PORT || 587);
+            const tx = nodemailer.createTransport({
+                host: process.env.SMTP_HOST,
+                port: smtpPort,
+                secure: smtpPort === 465,
+                auth: {user: process.env.SMTP_USER, pass: process.env.SMTP_PASS},
+            });
+
+            await tx.sendMail({
+                from,
+                to: clientEmail,
+                // Reply-to points back to the team inbox so the customer's
+                // email reply lands in the support queue, not a no-reply address.
+                replyTo: teamAddress,
+                subject: `[#${ticketRef}] Re: ${ticket.subject}`,
+                html,
+                attachments,
+            });
+        } catch (mailErr) {
+            // Never block the API response over a mail failure
+            console.error('[ticket reply] email failed:', mailErr);
+        }
+    }
+
     ok(res, msg, 'Reply added');
 });
-api.delete('/tickets/:id', (req, res) => { Tickets.delete(toInt(req.params.id)); ok(res, null, 'Ticket deleted'); });
+api.delete('/tickets/:id', (req, res) => {
+    Tickets.delete(toInt(req.params.id));
+    ok(res, null, 'Ticket deleted');
+});
 
 /* ---------------- Invoices ---------------- */
 api.get('/invoices', (req, res) => {
@@ -201,7 +342,10 @@ api.post('/invoices', (req, res) => {
     const client_name = str(req.body.client_name);
     if (!client_name) return fail(res, 'Client name is required');
     const items = Array.isArray(req.body.items) ? req.body.items : [];
-    const amount = items.reduce((s: number, it: { qty?: number; rate?: number }) => s + (toFloat(it.qty) * toFloat(it.rate)), 0);
+    const amount = items.reduce((s: number, it: {
+        qty?: number;
+        rate?: number
+    }) => s + (toFloat(it.qty) * toFloat(it.rate)), 0);
     const tax = toFloat(req.body.tax);
     const row = Invoices.create({
         number: nextInvoiceNumber(), client_id: req.body.client_id ? toInt(req.body.client_id) : null,
@@ -210,14 +354,19 @@ api.post('/invoices', (req, res) => {
         issued_date: str(req.body.issued_date) || null, due_date: str(req.body.due_date) || null,
         items: JSON.stringify(items), notes: str(req.body.notes),
     });
-    logActivity({ ...actor(req), action: 'create', entity: 'invoice', entity_id: row.id, detail: row.number });
+    logActivity({...actor(req), action: 'create', entity: 'invoice', entity_id: row.id, detail: row.number});
     ok(res, row, 'Invoice created');
 });
 api.patch('/invoices/:id', (req, res) => {
     const data: Record<string, unknown> = {};
-    ['client_name', 'client_email', 'currency', 'status', 'issued_date', 'due_date', 'notes'].forEach((f) => { if (f in req.body) data[f] = str(req.body[f]); });
+    ['client_name', 'client_email', 'currency', 'status', 'issued_date', 'due_date', 'notes'].forEach((f) => {
+        if (f in req.body) data[f] = str(req.body[f]);
+    });
     if ('items' in req.body && Array.isArray(req.body.items)) {
-        const amount = req.body.items.reduce((s: number, it: { qty?: number; rate?: number }) => s + (toFloat(it.qty) * toFloat(it.rate)), 0);
+        const amount = req.body.items.reduce((s: number, it: {
+            qty?: number;
+            rate?: number
+        }) => s + (toFloat(it.qty) * toFloat(it.rate)), 0);
         data.items = JSON.stringify(req.body.items);
         data.amount = amount;
         data.total = amount + toFloat(req.body.tax);
@@ -225,10 +374,13 @@ api.patch('/invoices/:id', (req, res) => {
     }
     const row = Invoices.update(toInt(req.params.id), data);
     if (!row) return fail(res, 'Not found', 404);
-    logActivity({ ...actor(req), action: 'update', entity: 'invoice', entity_id: row.id });
+    logActivity({...actor(req), action: 'update', entity: 'invoice', entity_id: row.id});
     ok(res, row, 'Invoice updated');
 });
-api.delete('/invoices/:id', (req, res) => { Invoices.delete(toInt(req.params.id)); ok(res, null, 'Invoice deleted'); });
+api.delete('/invoices/:id', (req, res) => {
+    Invoices.delete(toInt(req.params.id));
+    ok(res, null, 'Invoice deleted');
+});
 
 /* ---------------- Case studies ---------------- */
 api.get('/case-studies', (_req, res) => ok(res, CaseStudies.all()));
@@ -238,21 +390,37 @@ api.post('/case-studies', (req, res) => {
     let slug = str(req.body.slug) || slugify(title);
     if (CaseStudies.findBy('slug', slug)) slug = `${slug}-${Date.now().toString(36)}`;
     const row = CaseStudies.create({
+        // original fields
         title, slug, client: str(req.body.client), industry: str(req.body.industry),
         summary: str(req.body.summary), body: str(req.body.body), image: str(req.body.image),
         results: str(req.body.results), published: req.body.published ? 1 : 0,
+        // extended fields
+        hero_image: str(req.body.hero_image),
+        tagline: str(req.body.tagline),
+        services: str(req.body.services) || '[]',
+        sections: str(req.body.sections) || '[]',
+        website: str(req.body.website),
     });
-    logActivity({ ...actor(req), action: 'create', entity: 'case_study', entity_id: row.id, detail: title });
+    logActivity({...actor(req), action: 'create', entity: 'case_study', entity_id: row.id, detail: title});
     ok(res, row, 'Case study created');
 });
 api.patch('/case-studies/:id', (req, res) => {
     const data: Record<string, unknown> = {};
-    ['title', 'client', 'industry', 'summary', 'body', 'image', 'results'].forEach((f) => { if (f in req.body) data[f] = str(req.body[f]); });
+    // original fields
+    ['title', 'client', 'industry', 'summary', 'body', 'image', 'results',
+        // extended fields
+        'hero_image', 'tagline', 'services', 'sections', 'website',
+    ].forEach((f) => {
+        if (f in req.body) data[f] = str(req.body[f]);
+    });
     if ('published' in req.body) data.published = req.body.published ? 1 : 0;
     const row = CaseStudies.update(toInt(req.params.id), data);
     return row ? ok(res, row, 'Case study updated') : fail(res, 'Not found', 404);
 });
-api.delete('/case-studies/:id', (req, res) => { CaseStudies.delete(toInt(req.params.id)); ok(res, null, 'Case study deleted'); });
+api.delete('/case-studies/:id', (req, res) => {
+    CaseStudies.delete(toInt(req.params.id));
+    ok(res, null, 'Case study deleted');
+});
 
 /* ---------------- Blog ---------------- */
 api.get('/blog', (_req, res) => ok(res, BlogPosts.all()));
@@ -268,16 +436,29 @@ api.post('/blog', (req, res) => {
     const status = str(req.body.status) || 'draft';
     const tags = Array.isArray(req.body.tags) ? req.body.tags : str(req.body.tags).split(',').map((t) => t.trim()).filter(Boolean);
     const row = BlogPosts.create({
+        // original fields
         title, slug, excerpt: str(req.body.excerpt), body: str(req.body.body), cover: str(req.body.cover),
         author: str(req.body.author) || 'Grey InfoTech', tags: JSON.stringify(tags), status,
         published_at: status === 'published' ? (str(req.body.published_at) || new Date().toISOString().slice(0, 10)) : null,
+        // extended fields
+        read_time: str(req.body.read_time),
+        hero_image: str(req.body.hero_image),
+        author_avatar: str(req.body.author_avatar),
+        author_role: str(req.body.author_role),
+        sections: str(req.body.sections) || '[]',
     });
-    logActivity({ ...actor(req), action: 'create', entity: 'blog_post', entity_id: row.id, detail: title });
+    logActivity({...actor(req), action: 'create', entity: 'blog_post', entity_id: row.id, detail: title});
     ok(res, row, 'Post created');
 });
 api.patch('/blog/:id', (req, res) => {
     const data: Record<string, unknown> = {};
-    ['title', 'excerpt', 'body', 'cover', 'author', 'status', 'published_at'].forEach((f) => { if (f in req.body) data[f] = str(req.body[f]); });
+    // original fields
+    ['title', 'excerpt', 'body', 'cover', 'author', 'status', 'published_at',
+        // extended fields
+        'read_time', 'hero_image', 'author_avatar', 'author_role', 'sections',
+    ].forEach((f) => {
+        if (f in req.body) data[f] = str(req.body[f]);
+    });
     if ('tags' in req.body) {
         const tags = Array.isArray(req.body.tags) ? req.body.tags : str(req.body.tags).split(',').map((t) => t.trim()).filter(Boolean);
         data.tags = JSON.stringify(tags);
@@ -285,10 +466,13 @@ api.patch('/blog/:id', (req, res) => {
     if (data.status === 'published' && !data.published_at) data.published_at = new Date().toISOString().slice(0, 10);
     const row = BlogPosts.update(toInt(req.params.id), data);
     if (!row) return fail(res, 'Not found', 404);
-    logActivity({ ...actor(req), action: 'update', entity: 'blog_post', entity_id: row.id });
+    logActivity({...actor(req), action: 'update', entity: 'blog_post', entity_id: row.id});
     ok(res, row, 'Post updated');
 });
-api.delete('/blog/:id', (req, res) => { BlogPosts.delete(toInt(req.params.id)); ok(res, null, 'Post deleted'); });
+api.delete('/blog/:id', (req, res) => {
+    BlogPosts.delete(toInt(req.params.id));
+    ok(res, null, 'Post deleted');
+});
 
 /* ---------------- Conversations / chat ---------------- */
 api.get('/conversations', (_req, res) => ok(res, Conversations.all('updated_at DESC')));
@@ -296,16 +480,21 @@ api.get('/conversations/:id', (req, res) => {
     const conv = Conversations.find(toInt(req.params.id));
     if (!conv) return fail(res, 'Not found', 404);
     const messages = Messages.where('conversation_id', conv.id).reverse();
-    Conversations.update(conv.id, { unread: 0 });
-    ok(res, { conversation: conv, messages });
+    Conversations.update(conv.id, {unread: 0});
+    ok(res, {conversation: conv, messages});
 });
 api.post('/conversations/:id/messages', (req, res) => {
     const conv = Conversations.find(toInt(req.params.id));
     if (!conv) return fail(res, 'Not found', 404);
     const body = str(req.body.body);
     if (!body) return fail(res, 'Message body required');
-    const msg = Messages.create({ conversation_id: conv.id, sender: 'staff', sender_name: req.session.user?.name || 'Staff', body });
-    Conversations.update(conv.id, { last_message: body, unread: 0 });
+    const msg = Messages.create({
+        conversation_id: conv.id,
+        sender: 'staff',
+        sender_name: req.session.user?.name || 'Staff',
+        body
+    });
+    Conversations.update(conv.id, {last_message: body, unread: 0});
     ok(res, msg, 'Message sent');
 });
 
@@ -314,7 +503,9 @@ api.patch('/me', async (req, res) => {
     const id = req.session.user?.id;
     if (!id) return fail(res, 'Not authenticated', 401);
     const data: { name?: string; email?: string; phone?: string; password?: string } = {};
-    ['name', 'email', 'phone'].forEach((f) => { if (f in req.body) (data as Record<string, string>)[f] = str(req.body[f]); });
+    ['name', 'email', 'phone'].forEach((f) => {
+        if (f in req.body) (data as Record<string, string>)[f] = str(req.body[f]);
+    });
     if (data.email && !isEmail(data.email)) return fail(res, 'Invalid email');
     if (str(req.body.password)) {
         if (str(req.body.password).length < 8) return fail(res, 'Password must be at least 8 characters');
@@ -327,20 +518,28 @@ api.patch('/me', async (req, res) => {
         req.session.user.name = user.name;
         req.session.user.email = user.email;
     }
-    logActivity({ ...actor(req), action: 'update', entity: 'profile', entity_id: id });
+    logActivity({...actor(req), action: 'update', entity: 'profile', entity_id: id});
     ok(res, user, 'Profile updated');
 });
 
 /* ---------------- Users / team ---------------- */
 api.get('/users', requireRole('admin', 'manager'), (_req, res) => ok(res, Users.all()));
 api.post('/users', requireRole('admin'), async (req, res) => {
-    const name = str(req.body.name); const email = str(req.body.email); const password = str(req.body.password);
+    const name = str(req.body.name);
+    const email = str(req.body.email);
+    const password = str(req.body.password);
     if (!name || !email || !password) return fail(res, 'Name, email and password are required');
     if (!isEmail(email)) return fail(res, 'Invalid email');
     if (password.length < 8) return fail(res, 'Password must be at least 8 characters');
     if (Users.findByEmail(email.toLowerCase())) return fail(res, 'A user with this email already exists');
-    const user = await Users.create({ name, email, password, role: str(req.body.role) || 'staff', phone: str(req.body.phone) });
-    logActivity({ ...actor(req), action: 'create', entity: 'user', entity_id: user.id, detail: email });
+    const user = await Users.create({
+        name,
+        email,
+        password,
+        role: str(req.body.role) || 'staff',
+        phone: str(req.body.phone)
+    });
+    logActivity({...actor(req), action: 'create', entity: 'user', entity_id: user.id, detail: email});
     ok(res, user, 'User created');
 });
 /* Send (or resend) a "set password" verification link to a user.
@@ -351,7 +550,7 @@ api.post('/users/:id/send-setup-link', requireRole('admin'), async (req, res) =>
     const user = Users.find(id);
     if (!user) return fail(res, 'User not found', 404);
 
-    const { token, code } = Verification.issue({
+    const {token, code} = Verification.issue({
         subjectType: 'user',
         subjectId: user.id,
         email: user.email,
@@ -369,7 +568,13 @@ api.post('/users/:id/send-setup-link', requireRole('admin'), async (req, res) =>
         roleLabel,
     });
 
-    logActivity({ ...actor(req), action: 'send-setup-link', entity: 'user', entity_id: user.id, detail: `${user.email} (${code})` });
+    logActivity({
+        ...actor(req),
+        action: 'send-setup-link',
+        entity: 'user',
+        entity_id: user.id,
+        detail: `${user.email} (${code})`
+    });
 
     const link = `${appOrigin()}/set-password/${token}`;
     // Only expose the raw link when we couldn't actually email it.
@@ -385,12 +590,21 @@ api.post('/users/:id/send-setup-link', requireRole('admin'), async (req, res) =>
 });
 
 api.patch('/users/:id', requireRole('admin'), async (req, res) => {
-    const data: { name?: string; email?: string; role?: string; phone?: string; status?: string; password?: string } = {};
-    ['name', 'email', 'role', 'phone', 'status'].forEach((f) => { if (f in req.body) (data as Record<string, string>)[f] = str(req.body[f]); });
+    const data: {
+        name?: string;
+        email?: string;
+        role?: string;
+        phone?: string;
+        status?: string;
+        password?: string
+    } = {};
+    ['name', 'email', 'role', 'phone', 'status'].forEach((f) => {
+        if (f in req.body) (data as Record<string, string>)[f] = str(req.body[f]);
+    });
     if (str(req.body.password)) data.password = str(req.body.password);
     const user = await Users.update(toInt(req.params.id), data);
     if (!user) return fail(res, 'Not found', 404);
-    logActivity({ ...actor(req), action: 'update', entity: 'user', entity_id: user.id });
+    logActivity({...actor(req), action: 'update', entity: 'user', entity_id: user.id});
     ok(res, user, 'User updated');
 });
 /* Save per-user permission overrides. Body: { permissions: { "key": true|false, ... } }.
@@ -415,7 +629,7 @@ api.patch('/users/:id/permissions', requireRole('admin'), (req, res) => {
         if (want !== base) overrides[key] = want;
     }
     const user = Users.setPermissions(id, Object.keys(overrides).length ? overrides : null);
-    logActivity({ ...actor(req), action: 'update', entity: 'permissions', entity_id: id, detail: target.name });
+    logActivity({...actor(req), action: 'update', entity: 'permissions', entity_id: id, detail: target.name});
     ok(res, user, 'Permissions updated');
 });
 
@@ -423,7 +637,7 @@ api.delete('/users/:id', requireRole('admin'), (req, res) => {
     const id = toInt(req.params.id);
     if (id === req.session.user?.id) return fail(res, 'You cannot delete your own account');
     Users.delete(id);
-    logActivity({ ...actor(req), action: 'delete', entity: 'user', entity_id: id });
+    logActivity({...actor(req), action: 'delete', entity: 'user', entity_id: id});
     ok(res, null, 'User deleted');
 });
 
@@ -435,11 +649,11 @@ api.delete('/store/products/:id', requirePermission('store.manage'), (req, res) 
     const p = Products.find(id);
     if (!p) return fail(res, 'Product not found', 404);
     Products.delete(id);
-    logActivity({ ...actor(req), action: 'delete', entity: 'product', entity_id: id, detail: p.name });
+    logActivity({...actor(req), action: 'delete', entity: 'product', entity_id: id, detail: p.name});
     ok(res, null, 'Product deleted');
 });
 api.patch('/store/products/:id/status', requirePermission('store.manage'), (req, res) => {
-    const updated = Products.update(toInt(req.params.id), { status: str(req.body.status) });
+    const updated = Products.update(toInt(req.params.id), {status: str(req.body.status)});
     if (!updated) return fail(res, 'Not found', 404);
     ok(res, updated, 'Status updated');
 });
@@ -447,14 +661,14 @@ api.patch('/store/products/:id/status', requirePermission('store.manage'), (req,
 /* ---- Categories ---- */
 api.delete('/store/categories/:id', requirePermission('store.manage'), (req, res) => {
     ProductCategories.delete(toInt(req.params.id));
-    logActivity({ ...actor(req), action: 'delete', entity: 'category', entity_id: toInt(req.params.id) });
+    logActivity({...actor(req), action: 'delete', entity: 'category', entity_id: toInt(req.params.id)});
     ok(res, null, 'Category deleted');
 });
 
 /* ---- Brands ---- */
 api.delete('/store/brands/:id', requirePermission('store.manage'), (req, res) => {
     ProductBrands.delete(toInt(req.params.id));
-    logActivity({ ...actor(req), action: 'delete', entity: 'brand', entity_id: toInt(req.params.id) });
+    logActivity({...actor(req), action: 'delete', entity: 'brand', entity_id: toInt(req.params.id)});
     ok(res, null, 'Brand deleted');
 });
 
@@ -466,23 +680,41 @@ api.post('/store/orders/:id/status', requirePermission('store.manage'), (req, re
     if (req.body.status) Orders.updateStatus(id, str(req.body.status));
     if (req.body.payment_status) {
         const newPay = str(req.body.payment_status);
-        Orders.updatePayment(id, { payment_status: newPay, payment_method: order.payment_method || undefined, payment_gateway: order.payment_gateway || undefined, payment_ref: order.payment_ref || undefined });
+        Orders.updatePayment(id, {
+            payment_status: newPay,
+            payment_method: order.payment_method || undefined,
+            payment_gateway: order.payment_gateway || undefined,
+            payment_ref: order.payment_ref || undefined
+        });
         // When an admin marks a previously-unpaid order as paid (e.g. confirming a bank transfer), bump coupon usage.
         if (newPay === 'paid' && order.payment_status !== 'paid' && order.coupon_code) {
-            try { Coupons.incrementUsage(order.coupon_code); } catch { /* noop */ }
+            try {
+                Coupons.incrementUsage(order.coupon_code);
+            } catch { /* noop */
+            }
         }
     }
-    logActivity({ ...actor(req), action: 'update', entity: 'order', entity_id: id, detail: `status=${req.body.status}` });
+    logActivity({...actor(req), action: 'update', entity: 'order', entity_id: id, detail: `status=${req.body.status}`});
     ok(res, null, 'Order updated');
 });
 api.post('/store/orders/:id/confirm-payment', requirePermission('store.manage'), (req, res) => {
     const id = toInt(req.params.id);
     const order = Orders.find(id);
     if (!order) return fail(res, 'Order not found', 404);
-    Orders.updatePayment(id, { payment_status: 'paid', payment_method: order.payment_method || 'bank_transfer', payment_gateway: order.payment_gateway || 'bank_transfer', payment_ref: order.payment_ref || order.order_number });
+    Orders.updatePayment(id, {
+        payment_status: 'paid',
+        payment_method: order.payment_method || 'bank_transfer',
+        payment_gateway: order.payment_gateway || 'bank_transfer',
+        payment_ref: order.payment_ref || order.order_number
+    });
     Orders.updateStatus(id, 'confirmed');
-    if (order.payment_status !== 'paid' && order.coupon_code) { try { Coupons.incrementUsage(order.coupon_code); } catch { /* noop */ } }
-    logActivity({ ...actor(req), action: 'confirm_payment', entity: 'order', entity_id: id, detail: order.order_number });
+    if (order.payment_status !== 'paid' && order.coupon_code) {
+        try {
+            Coupons.incrementUsage(order.coupon_code);
+        } catch { /* noop */
+        }
+    }
+    logActivity({...actor(req), action: 'confirm_payment', entity: 'order', entity_id: id, detail: order.order_number});
     ok(res, null, 'Payment confirmed');
 });
 api.post('/store/orders/:id/notes', requirePermission('store.manage'), (req, res) => {
@@ -492,9 +724,15 @@ api.post('/store/orders/:id/notes', requirePermission('store.manage'), (req, res
 
 /* ---- Customers ---- */
 api.post('/store/customers/:id/status', requirePermission('store.manage'), (req, res) => {
-    const updated = Customers.update(toInt(req.params.id), { status: str(req.body.status) });
+    const updated = Customers.update(toInt(req.params.id), {status: str(req.body.status)});
     if (!updated) return fail(res, 'Not found', 404);
-    logActivity({ ...actor(req), action: 'update', entity: 'customer', entity_id: updated.id, detail: `status=${updated.status}` });
+    logActivity({
+        ...actor(req),
+        action: 'update',
+        entity: 'customer',
+        entity_id: updated.id,
+        detail: `status=${updated.status}`
+    });
     ok(res, updated, 'Customer updated');
 });
 
@@ -507,5 +745,30 @@ api.post('/store/reviews/:id/reject', requirePermission('store.manage'), (req, r
     ProductReviews.reject(toInt(req.params.id));
     ok(res, null, 'Review rejected');
 });
+
+/* ---------------- Site Settings ---------------- */
+api.get('/settings', requirePermission('settings.manage'), (_req, res) => {
+    ok(res, SiteSettings.all());
+});
+
+api.patch('/settings', requirePermission('settings.manage'), (req, res) => {
+    const pairs = req.body as Record<string, string>;
+    if (!pairs || typeof pairs !== 'object') return fail(res, 'Body must be a key-value object');
+    // Sanitise: only string values, strip anything blank
+    const clean: Record<string, string> = {};
+    for (const [k, v] of Object.entries(pairs)) {
+        if (typeof k === 'string' && k.trim()) clean[k.trim()] = String(v ?? '');
+    }
+    SiteSettings.setMany(clean);
+    logActivity({
+        ...actor(req),
+        action: 'update',
+        entity: 'settings',
+        entity_id: 0,
+        detail: Object.keys(clean).join(', ')
+    });
+    ok(res, SiteSettings.all(), 'Settings saved');
+});
+
 
 export default api;
