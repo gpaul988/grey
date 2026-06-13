@@ -10,6 +10,7 @@
                 <div class="card-header"><h5 class="card-title mb-0">Create Coupon</h5></div>
                 <div class="card-body">
                     <form method="POST" action="/admin/store/coupons">
+                                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
                         <div class="mb-3">
                             <label class="form-label">Code <span class="text-danger">*</span></label>
                             <input type="text" name="code" class="form-control text-uppercase" required placeholder="e.g. WELCOME10">
@@ -98,7 +99,8 @@
                                             data-starts="<%= c.starts_at ? c.starts_at.slice(0,10) : '' %>" data-expires="<%= c.expires_at ? c.expires_at.slice(0,10) : '' %>" data-status="<%= c.status %>">
                                             <i class="ti ti-edit"></i>
                                         </button>
-                                        <form method="POST" action="/admin/store/coupons/<%= c.id %>/delete" class="d-inline frm-del">
+                                        <form method="POST" action="/admin/store/coupons/<%= c.id %>
+                                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">/delete" class="d-inline frm-del">
                                             <button type="submit" class="btn btn-sm btn-soft-danger"><i class="ti ti-trash"></i></button>
                                         </form>
                                     </td>
@@ -116,6 +118,7 @@
     <div class="modal fade" id="editModal" tabindex="-1">
         <div class="modal-dialog">
             <form class="modal-content" method="POST" id="editForm">
+                                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
                 <div class="modal-header"><h5 class="modal-title">Edit Coupon</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
                 <div class="modal-body">
                     <div class="mb-3"><label class="form-label">Code</label><input name="code" id="e_code" class="form-control text-uppercase" required></div>

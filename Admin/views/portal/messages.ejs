@@ -57,7 +57,8 @@
               <% if (!paid) { %>
                 <div class="alert alert-light border small text-muted py-2"><i class="bi bi-lock"></i> Add team members to conversations after your first payment.</div>
               <% } else if (staff && staff.length) { %>
-                <form method="POST" action="/portal/messages/<%= active.id %>/participants" class="d-flex gap-2 mb-3" style="max-width:420px;">
+                <form method="POST" action="/portal/messages/<%= active.id %>
+                                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">/participants" class="d-flex gap-2 mb-3" style="max-width:420px;">
                   <select name="staff_id" class="form-select form-select-sm" required>
                     <option value="">Add team member…</option>
                     <% staff.forEach(function(s){ %><option value="<%= s.id %>"><%= s.name %></option><% }) %>
@@ -84,7 +85,8 @@
             </div>
 
             <!-- Reply -->
-            <form method="POST" action="/portal/messages/<%= active.id %>/reply" class="d-flex gap-2">
+            <form method="POST" action="/portal/messages/<%= active.id %>
+                                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">/reply" class="d-flex gap-2">
               <input name="body" class="form-control" placeholder="Write a reply…" autocomplete="off" required>
               <button class="btn btn-teal">Send</button>
             </form>

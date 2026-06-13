@@ -2,9 +2,16 @@
 // Shared admin API helper (fetch wrapper + toast). Available as window.AdminAPI.
 window.AdminAPI = (function () {
     const BASE = '/admin/api';
+    // CSRF token is rendered into a <meta> tag by the layout; every mutating
+    // request must send it back via the x-csrf-token header (double-submit).
+    function csrf() {
+        const m = document.querySelector('meta[name="csrf-token"]');
+        return m ? m.getAttribute('content') : '';
+    }
     async function req(method, path, body) {
         try {
             const opts = { method, headers: { 'Accept': 'application/json' } };
+            if (method !== 'GET' && method !== 'HEAD') { opts.headers['x-csrf-token'] = csrf(); }
             if (body !== undefined) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
             const res = await fetch(BASE + path, opts);
             const data = await res.json().catch(() => ({ ok: false, message: 'Bad response' }));

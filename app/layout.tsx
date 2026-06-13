@@ -7,7 +7,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import React from "react";
 import TawkChat from "@/components/TawkChat";
-import {OrganizationSchema} from "@/components/StructuredData";
+import {OrganizationSchema, WebSiteSchema} from "@/components/StructuredData";
+import {ThemeProvider, themeInitScript} from "@/components/ThemeProvider";
+import AIChat from "@/components/AIChat";
+import {SITE} from "@/lib/seo";
 
 const merriweather = Merriweather({
     variable: "--font-merriweather",
@@ -25,7 +28,7 @@ const roboto = Roboto({
 
 // FIX: metadataBase enables relative OG/canonical URLs to resolve correctly
 export const metadata: Metadata = {
-    metadataBase: new URL("https://greyinfotech.com.ng"),
+    metadataBase: new URL(SITE.url),
 
     // FIX: title template so child pages get "Page | Grey InfoTech" automatically
     title: {
@@ -34,7 +37,6 @@ export const metadata: Metadata = {
         template: "%s | Grey InfoTech",
     },
 
-    // FIX: descriptive, keyword-rich description (old one was too thin for SEO)
     description:
         "Grey InfoTech is a web design, web & mobile app development, and digital marketing agency in Port Harcourt, Nigeria. We build scalable, user-centered digital solutions for startups and enterprises.",
 
@@ -51,25 +53,21 @@ export const metadata: Metadata = {
         "MVP Development Port Harcourt",
     ],
 
-    authors: [{name: "Grey InfoTech", url: "https://greyinfotech.com.ng"}],
+    authors: [{name: "Grey InfoTech", url: SITE.url}],
     creator: "Grey InfoTech",
     publisher: "Grey InfoTech Ltd.",
 
-    // FIX: canonical URL — was completely missing (audit flagged this)
-    alternates: {
-        canonical: "https://greyinfotech.com.ng",
-    },
+    alternates: {canonical: SITE.url},
 
-    // FIX: Open Graph tags — were ALL missing (og:title/description/image)
     openGraph: {
         title: "Grey InfoTech - Creative Digital Solutions",
         description:
             "Innovative web design, development, and mobile apps tailored to your business goals.",
-        url: "https://greyinfotech.com.ng",
+        url: SITE.url,
         siteName: "Grey InfoTech",
         images: [
             {
-                url: "/og-image.png", // place a 1200x630 image in /public
+                url: "/og-image.png",
                 width: 1200,
                 height: 630,
                 alt: "Grey InfoTech - Creative Digital Solutions",
@@ -79,15 +77,14 @@ export const metadata: Metadata = {
         locale: "en_NG",
     },
 
-    // FIX: Twitter card for proper link previews on X
     twitter: {
         card: "summary_large_image",
         title: "Grey InfoTech - Web Design & Development",
         description: "Transform your business with innovative digital solutions.",
         images: ["/og-image.png"],
+        creator: SITE.twitter,
     },
 
-    // FIX: explicit robots directives for better crawling
     robots: {
         index: true,
         follow: true,
@@ -100,15 +97,22 @@ export const metadata: Metadata = {
         },
     },
 
+    manifest: "/manifest.json",
+
     icons: {
         icon: "/favicon.ico",
         apple: "/apple-touch-icon.png",
     },
 
+    appleWebApp: {
+        capable: true,
+        statusBarStyle: "black-translucent",
+        title: "Grey InfoTech",
+    },
+
     category: "technology",
 };
 
-// FIX: viewport is now its own export (Next.js 14+ requirement, not inside metadata)
 export const viewport: Viewport = {
     width: "device-width",
     initialScale: 1,
@@ -116,7 +120,7 @@ export const viewport: Viewport = {
     userScalable: true,
     themeColor: [
         {media: "(prefers-color-scheme: light)", color: "#ffffff"},
-        {media: "(prefers-color-scheme: dark)", color: "#000000"},
+        {media: "(prefers-color-scheme: dark)", color: "#05070d"},
     ],
 };
 
@@ -127,31 +131,37 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
+        <head>
+            {/* FIX (FOUC): set the theme class before first paint */}
+            <script dangerouslySetInnerHTML={{__html: themeInitScript}}/>
+        </head>
         <body
             className={`${merriweather.variable} ${roboto.variable} antialiased`}
         >
-        {/* FIX: Skip-to-content link for keyboard/screen-reader users (WCAG) */}
-        <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:rounded focus:bg-black focus:px-4 focus:py-2 focus:text-white"
-        >
-            Skip to main content
-        </a>
+        <ThemeProvider>
+            {/* Skip-to-content link for keyboard/screen-reader users (WCAG) */}
+            <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:rounded focus:bg-black focus:px-4 focus:py-2 focus:text-white"
+            >
+                Skip to main content
+            </a>
 
-        {/* FIX: Organization structured data (Schema.org) for rich results */}
-        <OrganizationSchema/>
+            {/* Structured data (Schema.org) for rich results — now with real sameAs links */}
+            <OrganizationSchema socialLinks={[...SITE.socials]}/>
+            <WebSiteSchema/>
 
-        <Header/>
+            <Header/>
 
-        <TawkChat
-            propertyId="6a1ba828a3242d1c2ed9db1d"
-            widgetId="1jpu0ho3p"
-        />
+            {/* semantic <main> landmark + id target for skip link */}
+            <main id="main-content">{children}</main>
 
-        {/* FIX: semantic <main> landmark + id target for skip link */}
-        <main id="main-content">{children}</main>
+            <Footer/>
 
-        <Footer/>
+            {/* Live human chat (Tawk) + AI assistant run side-by-side */}
+            <TawkChat propertyId="6a1ba828a3242d1c2ed9db1d" widgetId="1jpu0ho3p"/>
+            <AIChat/>
+        </ThemeProvider>
         </body>
         </html>
     );

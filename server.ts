@@ -15,6 +15,16 @@ import apiRoutes from './Admin/routes/api';
 import authRoutes from './Admin/routes/auth';
 import portalRoutes from './Admin/routes/portal';
 import {dashboardStats} from './Admin/models';
+import {
+    securityHeaders,
+    globalLimiter,
+    authLimiter,
+    formLimiter,
+    doubleCsrfProtection,
+    csrfErrorHandler,
+    exposeCsrfToken,
+    requireSessionSecret,
+} from './Admin/middleware/security';
 
 dotenv.config({path: './config.env'});
 
@@ -29,11 +39,24 @@ const handle = nextApp.getRequestHandler();
 
 const app = express();
 
+// Trust the reverse proxy (cPanel/Passenger/Cloudflare) so secure cookies,
+// rate-limit IP detection and protocol checks work correctly behind it.
+app.set('trust proxy', 1);
+
 app.set('views', adminViewsPath);
 app.set('view engine', 'ejs');
 app.set('layout', 'partials/layout-vertical');
 
 app.use(expressLayouts);
+
+// --- Security layer (audit C3, C4, C5) ---------------------------------------
+// Security headers + CSP on every response.
+app.use(securityHeaders);
+// Global flood protection (static assets are skipped inside the limiter).
+app.use(globalLimiter);
+// Strict limiters on the sensitive auth/form surfaces.
+app.use(['/login', '/register', '/portal/login', `${ADMIN_BASE_PATH}/login`], authLimiter);
+app.use(['/api/submit-form', '/api/open-ticket'], formLimiter);
 
 // Serve legacy admin assets so existing EJS templates keep working.
 app.use('/css', express.static(path.join(adminPublicPath, 'css')));
@@ -66,15 +89,26 @@ app.use(SESSION_PATHS, cookieParser());
 app.use(
     SESSION_PATHS,
     session({
+        name: 'grey.sid',
         resave: false,
         saveUninitialized: false,
-        secret: process.env.SESSION_SECRET || 'grey-admin-session',
+        // Fail-fast secret — never silently falls back in production (audit C2).
+        secret: requireSessionSecret('SESSION_SECRET', 'grey-admin-session-dev-only'),
         cookie: {
             httpOnly: true,
             sameSite: 'lax',
+            secure: !dev, // HTTPS-only cookies in production
+            maxAge: 1000 * 60 * 60 * 8, // 8h admin session
         },
     }),
 );
+
+// CSRF protection on the session-bearing routes. Safe (GET/HEAD/OPTIONS)
+// requests are ignored by the library; mutating requests must carry a token.
+// exposeCsrfToken makes `csrfToken` available to every EJS view so the
+// existing forms can embed a hidden _csrf field (audit C3).
+app.use(SESSION_PATHS, exposeCsrfToken);
+app.use(SESSION_PATHS, doubleCsrfProtection);
 
 app.use(SESSION_PATHS, (req, res, nextMiddleware) => {
     res.locals.user = req.session.user || null;
@@ -128,6 +162,9 @@ app.use('/portal', portalRoutes);
 
 // Protected admin dashboard and CRUD pages.
 app.use(ADMIN_BASE_PATH, ensureAuth, adminRoutes);
+
+// Clean 403 response when a CSRF token is missing/invalid (audit C3).
+app.use(csrfErrorHandler);
 
 function getRequestUrl(req: express.Request): Parameters<typeof handle>[2] {
     // Next's request handler expects a parsed URL with pathname + query.

@@ -57,3 +57,5 @@ Admin/node_modules
 
 # local push token (never commit)
 .git-push.env
+!.env.example
+!config.env.example

@@ -1,3 +1,4 @@
+'use client';
 import React, {useState} from 'react';
 import {submitNotification, emailValid, boolString} from '@/lib/forms/api';
 

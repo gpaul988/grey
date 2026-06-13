@@ -25,6 +25,7 @@
     <div class="card p-4 mb-4 <%= paid ? '' : 'locked' %>">
       <h6 class="mb-3">Invite a team member</h6>
       <form method="POST" action="/portal/staff" class="row g-3">
+                                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
         <div class="col-md-5">
           <label class="form-label small">Full name</label>
           <input name="name" class="form-control" <%= paid ? '' : 'disabled' %> required>
@@ -61,7 +62,8 @@
                   <td class="small"><%= s.role_title || '—' %></td>
                   <td><% if (s.email_verified) { %><span class="chip" style="background:#d1fae5;color:#047857;">Active</span><% } else { %><span class="chip bg-light text-muted">Invited</span><% } %></td>
                   <td class="text-end">
-                    <form method="POST" action="/portal/staff/<%= s.id %>/delete" onsubmit="return confirm('Remove this team member?')">
+                    <form method="POST" action="/portal/staff/<%= s.id %>
+                                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">/delete" onsubmit="return confirm('Remove this team member?')">
                       <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
                     </form>
                   </td>

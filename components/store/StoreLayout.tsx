@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from '@/lib/routerCompat';
 import { useStore } from './StoreContext';
 import { displayUnit, formatPrice } from './lib';
 import { FiShoppingCart, FiSearch, FiUser, FiHeart, FiX, FiTrash2, FiMenu, FiGitMerge } from 'react-icons/fi';

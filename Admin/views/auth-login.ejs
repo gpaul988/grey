@@ -147,6 +147,7 @@ class="auth-shell"
 
                             <% if (typeof resendEmail !== 'undefined' && resendEmail) { %>
                                 <form action="/resend-verification" method="post" class="mb-4">
+                                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
                                     <input type="hidden" name="email" value="<%= resendEmail %>">
                                     <button type="submit" class="btn btn-outline-primary w-100">
                                         <i class="ri-mail-send-line me-1"></i>Resend verification link

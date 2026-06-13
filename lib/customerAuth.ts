@@ -3,7 +3,21 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { Customers } from '../Admin/models';
 import type { SafeCustomer } from '../Admin/models/store';
 
-const SECRET = process.env.CUSTOMER_SESSION_SECRET || process.env.SESSION_SECRET || 'grey-store-dev-secret-change-me';
+/**
+ * Resolve the signing secret. In production we refuse to fall back to a
+ * hardcoded value (audit C2) — a missing secret throws at boot instead of
+ * silently shipping a publicly-known key.
+ */
+function resolveSecret(): string {
+    const s = process.env.CUSTOMER_SESSION_SECRET || process.env.SESSION_SECRET;
+    if (s && s.length >= 16) return s;
+    if (process.env.NODE_ENV === 'production') {
+        throw new Error('[security] CUSTOMER_SESSION_SECRET/SESSION_SECRET missing in production.');
+    }
+    return 'grey-store-dev-secret-change-me';
+}
+
+const SECRET = resolveSecret();
 const COOKIE = 'grey_customer';
 const MAX_AGE = 60 * 60 * 24 * 30; // 30 days
 
