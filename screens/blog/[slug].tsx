@@ -106,18 +106,18 @@ export default function BlogPostPage() {
     if (!post) {
         return (
             <div className={`${bg} min-h-screen`}>
-                <Header/>
+                {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
                 <div className="mx-auto max-w-[90rem] px-4 sm:px-6 md:px-10 lg:px-[4.5em] py-20">
                     <p className={isDayTime ? 'text-gray-500' : 'text-gray-400'}>Loading…</p>
                 </div>
-                <Footer/>
+                {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
             </div>
         );
     }
 
     return (
         <div className={`${bg} min-h-screen transition-colors duration-500`}>
-            <Header/>
+            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
 
             {/* ── Breadcrumb ── */}
             <div className={`border-b ${isDayTime ? 'border-gray-100' : 'border-zinc-800'}`}>
@@ -441,7 +441,7 @@ export default function BlogPostPage() {
                 </div>
             </main>
 
-            <Footer/>
+            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>
     );
 }

@@ -9,7 +9,7 @@ import '@/app/globals.css';
 const Careers: React.FC = () => {
     return (
         <div className="bg-gray-50 text-black min-h-screen pb-12">
-            <Header/>
+            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
             <div className="relative w-full h-[70vh] mb-20">
                 <Image
                     src="/assets/header/careers.jpg"
@@ -74,7 +74,7 @@ const Careers: React.FC = () => {
                      ***/}
                 </div>
             </div>
-            <Footer/>
+            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>
     );
 };

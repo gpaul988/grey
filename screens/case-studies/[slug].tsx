@@ -192,18 +192,18 @@ export default function CaseStudyDetail() {
     if (!study) {
         return (
             <div className={`${bg} min-h-screen`}>
-                <Header/>
+                {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
                 <div className="max-w-[90rem] mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] py-20">
                     <p className={isDayTime ? 'text-gray-600' : 'text-gray-400'}>Loading…</p>
                 </div>
-                <Footer/>
+                {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
             </div>
         );
     }
 
     return (
         <div className={`${bg} min-h-screen transition-colors duration-500`}>
-            <Header/>
+            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
 
             {/* ── Hero ── */}
             <section className="relative w-full aspect-[16/7] max-h-[720px] overflow-hidden">
@@ -370,7 +370,7 @@ export default function CaseStudyDetail() {
                 <AIProjectEstimator/>
             </div>
 
-            <Footer/>
+            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>
     );
 }

@@ -31,6 +31,7 @@ class="h-100"
                 <% } %>
 
                 <form action="/set-password/<%= token %>" method="POST" class="text-start mb-3">
+                    <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
                     <div class="mb-3">
                         <label class="form-label" for="password">New Password <small class="text-info ms-1">Min 8 characters</small></label>
                         <div class="input-group">

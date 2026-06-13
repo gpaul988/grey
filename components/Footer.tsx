@@ -9,7 +9,7 @@ import {FormComponent} from "@/components/FormComponent";
 import {BsThreads} from "react-icons/bs";
 
 
-// Custom CSS for the infinite scroll animation
+// Custom CSS for the infinite scroll animation + futuristic FX (additive).
 const customStyles = `
   @keyframes scrollUp {
     0% {
@@ -22,6 +22,53 @@ const customStyles = `
   
   .scroll-container {
     animation: scrollUp 50s linear infinite;
+  }
+
+  /* --- Futuristic footer enhancements (added, non-breaking) --- */
+  @keyframes greyAccentSlide {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+  .grey-accent-bar {
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(90deg, #14b8a6, #06b6d4, #6366f1, #06b6d4, #14b8a6);
+    background-size: 200% 100%;
+    animation: greyAccentSlide 6s linear infinite;
+    box-shadow: 0 0 18px rgba(20,184,166,0.55);
+  }
+  .grey-grid-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(99,102,241,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(20,184,166,0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 70%);
+  }
+  .grey-social {
+    position: relative;
+    display: inline-flex;
+    transition: transform .25s ease, color .25s ease, filter .25s ease;
+  }
+  .grey-social:hover {
+    transform: translateY(-3px) scale(1.12);
+    color: #fff;
+    filter: drop-shadow(0 0 8px rgba(6,182,212,0.9));
+  }
+  @keyframes greyFloatUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .grey-totop {
+    animation: greyFloatUp .4s ease both;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .grey-totop:hover {
+    transform: translateY(-4px) scale(1.06);
+    box-shadow: 0 10px 30px rgba(20,184,166,0.5);
   }
 `;
 
@@ -132,8 +179,12 @@ const Footer = () => {
     return (
         <>
             <style dangerouslySetInnerHTML={{__html: customStyles}}/>
+            {/* Futuristic animated accent bar (added) */}
+            <div className="grey-accent-bar" aria-hidden="true"/>
             <footer
-                className="bg-black/75 text-white min-h-auto flex flex-col mx-auto w-full px-6 sm:px-12 md:px-20 lg:px-[4.6em]">
+                className="relative bg-black/75 text-white min-h-auto flex flex-col mx-auto w-full px-6 sm:px-12 md:px-20 lg:px-[4.6em]">
+                {/* Subtle animated tech-grid glow backdrop (added, decorative) */}
+                <div className="grey-grid-glow" aria-hidden="true"/>
                 {/* Main Footer Content */}
                 <div className="flex-1 py-12">
                     {/* Hero Section */}
@@ -264,31 +315,31 @@ const Footer = () => {
                             {/* Social Media Icons */}
                             <div className="flex space-x-3 order-2 md:order-1 mb-4 w-full">
                                 <Link href="https://www.instagram.com/greyinfotechltd"
-                                      className="text-gray-400 hover:text-white transition-colors">
+                                      className="grey-social text-gray-400 hover:text-white transition-colors">
                                     <FaInstagram size={20}/>
                                 </Link>
                                 <Link href="https://www.facebook.com/greyinfotechltd"
-                                      className="text-gray-400 hover:text-white transition-colors">
+                                      className="grey-social text-gray-400 hover:text-white transition-colors">
                                     <FaFacebook size={20}/>
                                 </Link>
                                 <Link href="https://www.threads.com/@greyinfotechltd"
-                                      className="text-gray-400 hover:text-white transition-colors">
+                                      className="grey-social text-gray-400 hover:text-white transition-colors">
                                     <BsThreads size={20}/>
                                 </Link>
                                 <Link href="https://www.x.com/greyinfotechltd"
-                                      className="text-gray-400 hover:text-white transition-colors">
+                                      className="grey-social text-gray-400 hover:text-white transition-colors">
                                     <FaTwitter size={20}/>
                                 </Link>
                                 <Link href="https://www.linkedin.com/company/greyinfotechltd"
-                                      className="text-gray-400 hover:text-white transition-colors">
+                                      className="grey-social text-gray-400 hover:text-white transition-colors">
                                     <FaLinkedin size={20}/>
                                 </Link>
-                                <Link href="https://www.gitblab.com/grey-infotech"
-                                      className="text-gray-400 hover:text-white transition-colors">
+                                <Link href="https://github.com/GREY-INFOTECH-LTD"
+                                      className="grey-social text-gray-400 hover:text-white transition-colors">
                                     <FaGithub size={20}/>
                                 </Link>
                                 <Link href="https://www.gitlab.com/grey-infotech"
-                                      className="text-gray-400 hover:text-white transition-colors">
+                                      className="grey-social text-gray-400 hover:text-white transition-colors">
                                     <FaGitlab size={20}/>
                                 </Link>
                             </div>
@@ -368,6 +419,21 @@ const Footer = () => {
                             ))}
                         </div>
                     </div>
+                </div>
+
+                {/* Back-to-top (added, futuristic) */}
+                <div className="flex justify-center pb-8">
+                    <button
+                        type="button"
+                        onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+                        aria-label="Back to top"
+                        className="grey-totop inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-gradient-to-r from-teal-500/20 via-cyan-500/20 to-indigo-500/20 px-5 py-2.5 text-sm font-medium text-cyan-100 backdrop-blur-sm hover:text-white"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7"/>
+                        </svg>
+                        Back to top
+                    </button>
                 </div>
             </footer>
 

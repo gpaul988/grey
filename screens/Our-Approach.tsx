@@ -8,7 +8,7 @@ import Link from "next/link";
 const OurApproach = () => {
     return (
         (<div className="bg-gray-50 text-black min-h-screen lg:pb-12 pb-0">
-            <Header/>
+            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
             <div className="relative w-full h-[70vh] lg:mb-20 mb-9">
                 <Image
                     src="/assets/header/approach.jpg"
@@ -248,7 +248,7 @@ const OurApproach = () => {
                     </div>
                 </section>
             </div>
-            <Footer/>
+            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>)
     );
 };

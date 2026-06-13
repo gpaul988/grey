@@ -46,7 +46,7 @@ const Contact: React.FC = () => {
 
     return (
         <div className="bg-gray-100 text-black min-h-screen flex flex-col">
-            <Header/>
+            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
 
             {/* Video Header */}
             <ContactHeroSection videoSrc="/assets/header/contact.mp4"/>
@@ -123,7 +123,7 @@ const Contact: React.FC = () => {
                     />
                 </div>
             </motion.div>
-            <Footer/>
+            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>
     );
 };

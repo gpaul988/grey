@@ -7,7 +7,7 @@ import Link from "next/link";
 const CookiesPolicy = () => {
     return (
         <div className="bg-gray-50 text-black min-h-screen pb-12">
-            <Header/>
+            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
             <div
                 className="relative top-0 left-0 lg:pl-12 md:pl-12 sm:pl-8 w-full h-full flex flex-col py-48 mb-20 justify-center items-start bg-black">
                 <h1 className="text-white lg:text-7xl md:text-5xl text-4xl sm:text-4xl  mb-1 font-bold">Cookies
@@ -50,7 +50,7 @@ const CookiesPolicy = () => {
                     <div className="mt-8 flex flex-col border-b md:flex-row justify-between items-center"/>
                 </div>
             </div>
-            <Footer/>
+            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>
     );
 };
