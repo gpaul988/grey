@@ -1,11 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Products, Customers, Orders, StoreSettings, Coupons } from '../../../Admin/models';
 import { getCustomer, setCustomerCookie } from '../../../lib/customerAuth';
+import { rateLimit } from '../../../lib/apiGuard';
 
 interface CartItemInput { id: number; quantity: number }
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+    // Throttle order creation per IP to prevent checkout/order spam.
+    if (!rateLimit(req, res, { key: 'checkout', limit: 20, windowMs: 10 * 60_000 })) return;
 
     const {
         items, customer_type, payment_method,

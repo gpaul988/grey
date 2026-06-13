@@ -7,6 +7,7 @@
     <% const _isSuper = (typeof isSuperadmin !== 'undefined') ? isSuperadmin : false; %>
 
     <form method="POST" action="/admin/store/settings">
+                                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
         <div class="row g-3">
             <!-- General Store Settings -->
             <div class="col-12">

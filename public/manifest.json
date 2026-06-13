@@ -1,0 +1,25 @@
+{
+  "name": "Grey InfoTech Limited",
+  "short_name": "Grey InfoTech",
+  "description": "Web design, web & mobile app development, and digital marketing agency in Port Harcourt, Nigeria.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#000000",
+  "theme_color": "#0f766e",
+  "categories": ["business", "technology", "productivity"],
+  "lang": "en-NG",
+  "dir": "ltr",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Request a Quote", "short_name": "Quote", "url": "/quote-request" },
+    { "name": "Our Services", "short_name": "Services", "url": "/services/Web-Development" },
+    { "name": "Contact", "short_name": "Contact", "url": "/contact" }
+  ]
+}

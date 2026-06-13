@@ -41,3 +41,55 @@ export function OrganizationSchema({
         />
     );
 }
+
+/**
+ * WebSite schema with SearchAction — enables the sitelinks search box in
+ * Google results and reinforces the canonical site identity.
+ */
+export function WebSiteSchema() {
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "Grey InfoTech",
+        url: "https://greyinfotech.com.ng",
+        potentialAction: {
+            "@type": "SearchAction",
+            target: {
+                "@type": "EntryPoint",
+                urlTemplate: "https://greyinfotech.com.ng/blog?q={search_term_string}",
+            },
+            "query-input": "required name=search_term_string",
+        },
+    };
+    return (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{__html: JSON.stringify(schema)}}
+            suppressHydrationWarning
+        />
+    );
+}
+
+/**
+ * BreadcrumbList schema generator — call from any page that wants breadcrumbs
+ * in search results. items: [{name, url}] in order from Home → current page.
+ */
+export function BreadcrumbSchema({items}: {items: {name: string; url: string}[]}) {
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: items.map((it, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: it.name,
+            item: it.url,
+        })),
+    };
+    return (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{__html: JSON.stringify(schema)}}
+            suppressHydrationWarning
+        />
+    );
+}

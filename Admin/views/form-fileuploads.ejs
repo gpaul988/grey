@@ -22,6 +22,7 @@
         <form action="/" method="post" class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone"
             data-previews-container="#file-previews"
             data-upload-preview-template="#uploadPreviewTemplate">
+                                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
             <div class="fallback">
                 <input name="file" type="file" multiple />
             </div>

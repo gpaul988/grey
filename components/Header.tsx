@@ -7,6 +7,7 @@ import Image from 'next/image';
 import {usePathname} from "next/navigation";
 import {ChevronDown, Menu, X} from "lucide-react";
 import {FormComponent} from "@/components/FormComponent";
+import ThemeToggle from "@/components/ThemeToggle";
 
 interface MenuItem {
     label: string;
@@ -523,6 +524,8 @@ const Header: React.FC = () => {
                                     );
                                 })}
                             </nav>
+                            {/* Theme toggle (desktop) */}
+                            <ThemeToggle className="hidden lg:inline-flex mr-3 scale-90"/>
                             {/* CTA Button */}
                             <button
                                 onClick={() => setIsModalOpen(true)}
@@ -531,7 +534,8 @@ const Header: React.FC = () => {
                                 Start Your Project
                             </button>
                             {/* Mobile menu button */}
-                            <div className="lg:hidden">
+                            <div className="lg:hidden flex items-center gap-2">
+                                <ThemeToggle className="scale-90"/>
                                 <button
                                     type="button"
                                     className="text-white hover:text-gray-300 focus:outline-none focus:text-gray-300 transition-colors duration-200"

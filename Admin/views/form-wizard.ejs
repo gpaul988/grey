@@ -366,6 +366,7 @@
 
                             <div class="tab-pane" id="first">
                                 <form id="accountForm" method="post" action="#" class="form-horizontal">
+                                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="row mb-3">
@@ -400,6 +401,7 @@
 
                             <div class="tab-pane fade" id="second">
                                 <form id="profileForm" method="post" action="#" class="form-horizontal">
+                                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="row mb-3">
@@ -436,6 +438,7 @@
 
                             <div class="tab-pane fade" id="third">
                                 <form id="otherForm" method="post" action="#" class="form-horizontal">
+                                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="text-center">

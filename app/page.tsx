@@ -1,12 +1,9 @@
-import React from 'react';
-import Home from "@/pages/Home";
+import type {Metadata} from 'next';
+import {buildMetadata} from '@/lib/seo';
+import Screen from '@/screens/Home';
 
-const page = () => {
-    return (
-        <main>
-            <Home/>
-        </main>
-    );
-};
+export const metadata: Metadata = buildMetadata('/');
 
-export default page;
+export default function Page() {
+    return <Screen/>;
+}

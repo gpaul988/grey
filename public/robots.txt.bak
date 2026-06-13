@@ -1,0 +1,16 @@
+# Grey InfoTech Limited — robots.txt
+User-agent: *
+Allow: /
+
+# Block admin, portal and API surfaces from indexing
+Disallow: /admin
+Disallow: /portal
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+Disallow: /store/account
+Disallow: /store/checkout
+Disallow: /store/cart
+
+# Sitemap
+Sitemap: https://greyinfotech.com.ng/sitemap.xml
