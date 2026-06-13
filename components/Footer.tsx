@@ -133,30 +133,41 @@ const Footer = () => {
         <>
             <style dangerouslySetInnerHTML={{__html: customStyles}}/>
             <footer
-                className="bg-black/75 text-white min-h-screen flex flex-col mx-auto w-full px-6 sm:px-12 md:px-20 lg:px-[4.6em]">
+                className="bg-black/75 text-white min-h-auto flex flex-col mx-auto w-full px-6 sm:px-12 md:px-20 lg:px-[4.6em]">
                 {/* Main Footer Content */}
                 <div className="flex-1 py-12">
                     {/* Hero Section */}
                     <div
-                        className="text-start mx-auto">
-                        <h1 className="lg:text-[5.5em] md:text-[3.5em] text-[1.5em] font-bold leading-none lg:mb-6 md:mb-4 mb-2">
-                            Let&#39;s create<br/>
-                            <span className={'text-teal-400'}>something</span> exceptional<span
-                            className={'text-teal-400'}>.</span>
-                        </h1>
-                        <Link href="tel:+2348028095571"
-                              className="lg:text-[2em] md:text-[1.5em] text-[1.5em] font-medium block lg:mb-6 md:mb-4 mb-2 text-teal-400">
-                            802<span className={'text-white'}>-809</span>-5571
-                        </Link>
-                        <button
-                            onClick={() => setIsModalOpen(true)}
-                            className="group rounded-full text-[1em] font-medium py-[0.40em] px-[0.90em] border transition-colors text-teal-500 hover:text-teal-300 border-teal-500 hover:border-teal-300 duration-300 lg:mb-20 md:mb-20 mb-12 flex items-center"
-                        >
-                            Start a project
-                            <span className="inline-block transition-transform group-hover:translate-x-2 ml-2">
-                            →
-                          </span>
-                        </button>
+                        className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 lg:gap-16 mx-auto lg:mb-14 md:mb-12 mb-8">
+                        {/* Left – heading (takes 2/3 on md+) */}
+                        <div className="order-1 md:col-span-2 text-start ">
+                            <h1 className="lg:text-[5.5em] md:text-[3.5em] text-[1.5em] font-bold leading-none lg:mb-6 md:mb-4 mb-2">
+                                Let&apos;s create<br/>
+                                <span className="text-teal-400">something</span> exceptional
+                                <span className="text-teal-400">.</span>
+                            </h1>
+                        </div>
+
+                        {/* Right – phone + CTA (takes 1/3 on md+) */}
+                        <div
+                            className="order-2 md:col-span-1 flex flex-col justify-end text-end lg:items-end md:items-end items-start ">
+                            <Link
+                                href="tel:+2348028095571"
+                                className="lg:text-[2em] md:text-[1.5em] text-[1.5em] font-medium block lg:mb-6 md:mb-4 mb-2 text-teal-400"
+                            >
+                                802<span className="text-white">-809</span>-5571
+                            </Link>
+
+                            <button
+                                onClick={() => setIsModalOpen(true)}
+                                className="relative group rounded-full text-[1em] font-medium py-[0.40em] px-[0.90em] border transition-colors text-teal-500 hover:text-teal-300 border-teal-500 hover:border-teal-300 duration-300 lg:mb-20 md:mb-20 mb-12 flex items-center w-fit"
+                            >
+                                Start a project
+                                <span className="inline-block transition-transform group-hover:translate-x-2 ml-2">
+        →
+      </span>
+                            </button>
+                        </div>
                     </div>
 
                     {/* Footer Links Grid */}
@@ -164,7 +175,7 @@ const Footer = () => {
                         className="mx-auto grid lg:grid-cols-5 md:grid-cols-4 grid-cols-1 lg:gap-10 md:gap-10 gap-4 w-full">
                         {/* Logo */}
                         <div className="order-1 md:col-span-4 md:order-1 lg:col-span-1 lg:order-0">
-                            <div className="text-4xl font-bold mb-8">
+                            <div className="text-4xl font-bold mb-4">
                                 <Link href="/#">
                                     <Image
                                         src={'/footer.svg'}
@@ -178,7 +189,7 @@ const Footer = () => {
                         </div>
 
                         {/* Discovery Column */}
-                        <div className="text-[0.8em] font-medium mb-6 order-2 md:order-2">
+                        <div className="text-[0.8em] font-medium mb-4 order-2 md:order-2">
                             <ul className="space-y-3 text-gray-400">
                                 <li><Link href="/services/ui-ux-design" className="hover:text-white transition-colors">UX
                                     & UI design</Link>
@@ -212,12 +223,9 @@ const Footer = () => {
                         </div>
 
                         {/* Work Column */}
-                        <div className="text-[0.8em] font-medium mb-6 order-2 md:order-2">
+                        <div className="text-[0.8em] font-medium mb-4 order-2 md:order-2">
                             <ul className="space-y-3 text-gray-400">
                                 <li><Link href="/company" className="hover:text-white transition-colors">Company</Link>
-                                </li>
-                                <li><Link href="/portfolio"
-                                          className="hover:text-white transition-colors">Portfolio</Link>
                                 </li>
                                 <li><Link href="/case-studies" className="hover:text-white transition-colors">Case
                                     Studies</Link>
@@ -228,11 +236,14 @@ const Footer = () => {
                                 <li><Link href="/contact" className="hover:text-white transition-colors">Contact
                                     us</Link>
                                 </li>
+                                <li><Link href="/support"
+                                          className="hover:text-white transition-colors">Support</Link>
+                                </li>
                             </ul>
                         </div>
 
                         {/* For Startups Column */}
-                        <div className="text-[0.8em] font-medium mb-6 order-2 md:order-2">
+                        <div className="text-[0.8em] font-medium mb-4 order-2 md:order-2">
                             <ul className="space-y-3 text-gray-400">
                                 <li><Link href="/Startups" className="hover:text-white transition-colors">For
                                     startups</Link>
@@ -245,8 +256,6 @@ const Footer = () => {
                                 <li><Link href="/industries/healthcare" className="hover:text-white transition-colors">Healthcare
                                     app</Link>
                                 </li>
-                                <li><Link href="https://linktr.ee/greyinfotechltd"
-                                          className="hover:text-white transition-colors">Linktree</Link></li>
                             </ul>
                         </div>
 
@@ -291,7 +300,7 @@ const Footer = () => {
                                     <p className="text-gray-400 text-[0.8em] leading-[1.3]">
                                         9 Godfery Tata Close,<br/>
                                         Rumuewhara New-Layout,<br/>
-                                        Off Eneka-Igwuruta ROad,<br/>
+                                        Off Eneka-Igwuruta Road,<br/>
                                         Rivers State<br/>
                                         500102
                                     </p>
@@ -306,12 +315,6 @@ const Footer = () => {
                                         501101
                                     </p>
                                 </div>
-                                <Link
-                                    href={backendLoginUrl}
-                                    className="inline-flex items-center justify-center text-[0.9em] font-medium text-teal-400 transition-colors hover:text-teal-300"
-                                >
-                                    login
-                                </Link>
                             </div>
                         </div>
                     </div>
@@ -320,7 +323,7 @@ const Footer = () => {
                 {/* Bottom Section */}
                 <div className="w-full max-w-full mx-auto ">
                     {/* Legal Links */}
-                    <div className="mb-4">
+                    <div className="mb-2">
                         <div
                             className="flex flex-col md:flex-row md:justify-between items-center text-[0.873em] text-gray-400">
                             {/* Footer Links */}
@@ -330,10 +333,13 @@ const Footer = () => {
                                 <Link href="/data-protection-policy" className="hover:text-white">Data Protection
                                     Policy</Link>
                                 <Link href="/Links" className="hover:text-white">Links</Link>
+                                <Link href="https://linktr.ee/greyinfotechltd"
+                                      className="hover:text-white">Linktree</Link>
+                                <Link href={backendLoginUrl} className="hover:text-white">login</Link>
                             </div>
 
                             {/* Copyright */}
-                            <div className="mb-4 md:mb-0">
+                            <div className="mb-2 md:mb-0">
                                 <p><Link href='#'>Grey InfoTech</Link> © 2017 - 2026</p>
                             </div>
                         </div>
