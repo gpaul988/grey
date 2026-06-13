@@ -1,12 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Wishlists } from '../../../Admin/models';
 import { requireCustomer } from '../../../lib/customerAuth';
+import { rateLimit } from '../../../lib/apiGuard';
 
 function safeJson<T>(s: string | null | undefined, fallback: T): T {
     try { return s ? JSON.parse(s) : fallback; } catch { return fallback; }
 }
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
+    // Light throttle to stop toggle spam / scraping.
+    if (!rateLimit(req, res, { key: 'wishlist', limit: 60, windowMs: 60_000 })) return;
+
     const customer = requireCustomer(req, res);
     if (!customer) return;
 

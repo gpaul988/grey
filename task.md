@@ -62,3 +62,11 @@
 ## NOTE
 - `next build` prints EXIT_1 (spurious Turbopack worker teardown under low mem) but artifacts are complete & valid. App runs via custom server (tsx server.ts), not `next start`, so this is cosmetic.
 - Added 4GB swap to survive build OOM.
+
+## ✅ STORE API HARDENING (2026-06-13)
+- [x] payment/init: zod (gateway enum + reference), rate-limit (20/10min), generic 502 error (no internal leak)
+- [x] payment/verify: rate-limit (30/10min), generic 502 error (no leak)
+- [x] wishlist: rate-limit (60/min) + already requireCustomer
+- [x] Confirmed already-hardened: auth/login (brute-force limit, no enum leak), auth/register (zod+sanitize), checkout (zod+limit), webhook (HMAC-SHA512 paystack + verif-hash flutterwave signature verify)
+- [x] payment/init amounts come from trusted DB order, NOT client (no tamper)
+- [x] typecheck clean ; endpoints verified: init→400 on bad input, wishlist→401 unauth, ai chat streams

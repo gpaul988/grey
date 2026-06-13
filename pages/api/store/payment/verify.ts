@@ -1,9 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Orders } from '../../../../Admin/models';
 import { paystackVerify, flutterwaveVerifyByTxId, markOrderPaid, markOrderFailed } from '../../../../lib/payments';
+import { rateLimit } from '../../../../lib/apiGuard';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST' && req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
+    if (!rateLimit(req, res, { key: 'payment-verify', limit: 30, windowMs: 10 * 60_000 })) return;
     const src = req.method === 'GET' ? req.query : req.body;
     const { gateway, reference, transaction_id } = (src || {}) as Record<string, string>;
     if (!gateway) return res.status(400).json({ error: 'gateway required' });
@@ -39,6 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         return res.status(400).json({ error: 'Unsupported gateway' });
     } catch (e) {
-        return res.status(500).json({ error: (e as Error).message || 'Verification failed' });
+        console.error('[payment/verify]', (e as Error)?.message || e);
+        return res.status(502).json({ error: 'Payment verification failed. Please try again.' });
     }
 }
