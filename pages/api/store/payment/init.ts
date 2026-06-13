@@ -1,6 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { z } from 'zod';
 import { Orders, StoreSettings } from '../../../../Admin/models';
 import { paystackInit, flutterwaveInit } from '../../../../lib/payments';
+import { rateLimit, validate } from '../../../../lib/apiGuard';
 
 function baseUrl(req: NextApiRequest): string {
     const proto = (req.headers['x-forwarded-proto'] as string) || 'http';
@@ -8,10 +10,19 @@ function baseUrl(req: NextApiRequest): string {
     return `${proto}://${host}`;
 }
 
+const schema = z.object({
+    reference: z.string().trim().min(1).max(64),
+    gateway: z.enum(['paystack', 'flutterwave']),
+});
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-    const { reference, gateway } = req.body || {};
-    if (!reference || !gateway) return res.status(400).json({ error: 'reference and gateway required' });
+    // Throttle payment-init per IP to prevent gateway abuse / order probing.
+    if (!rateLimit(req, res, { key: 'payment-init', limit: 20, windowMs: 10 * 60_000 })) return;
+
+    const data = validate(schema, req, res);
+    if (!data) return;
+    const { reference, gateway } = data;
 
     const order = Orders.findByNumber(String(reference));
     if (!order) return res.status(404).json({ error: 'Order not found' });
@@ -45,6 +56,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         return res.status(400).json({ error: 'Unsupported gateway for server init' });
     } catch (e) {
-        return res.status(500).json({ error: (e as Error).message || 'Payment init failed' });
+        // Log full detail server-side; return a generic message to the client
+        // so gateway/internal errors are never leaked to the browser.
+        console.error('[payment/init]', (e as Error)?.message || e);
+        return res.status(502).json({ error: 'Payment initialization failed. Please try again.' });
     }
 }
