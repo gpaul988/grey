@@ -17,6 +17,7 @@
                 <% if (typeof flashError !== 'undefined' && flashError) { %><div class="alert alert-danger py-2"><%= flashError %></div><% } %>
                 <img src="<%= p.avatar || '/images/users/avatar-1.jpg' %>" class="rounded-circle mb-3" width="96" height="96" alt="avatar" style="object-fit:cover;">
                 <form action="<%= adminBasePath %>/profile/avatar" method="post" enctype="multipart/form-data" class="mb-3">
+                    <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
                     <input type="file" name="avatar" accept="image/*" class="form-control form-control-sm mb-2" required>
                     <button type="submit" class="btn btn-sm btn-outline-primary w-100"><i class="ti ti-upload me-1"></i>Update photo</button>
                     <p class="text-muted fs-12 mt-1 mb-0">JPEG, PNG, WebP or GIF · max 2&nbsp;MB</p>

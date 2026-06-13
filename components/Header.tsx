@@ -36,6 +36,8 @@ const Header: React.FC = () => {
     const [isMobileTechnologiesOpen, setIsMobileTechnologiesOpen] = useState<boolean>(false);
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    // Futuristic: scroll progress (0-100) for the top reading-progress beam
+    const [scrollProgress, setScrollProgress] = useState<number>(0);
 
     const [headerTheme, setHeaderTheme] = useState({
         background: 'bg-black/60',
@@ -63,6 +65,11 @@ const Header: React.FC = () => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
             setIsScrolled(currentScrollY > 0);
+
+            // Futuristic: compute reading-progress (% of page scrolled)
+            const docEl = document.documentElement;
+            const maxScroll = (docEl.scrollHeight - docEl.clientHeight) || 1;
+            setScrollProgress(Math.min(100, Math.max(0, (currentScrollY / maxScroll) * 100)));
 
             if (currentScrollY > lastScrollY) setShowHeader(false);
             else if (currentScrollY > 0) setShowHeader(true);
@@ -327,6 +334,37 @@ const Header: React.FC = () => {
 
     return (
         <>
+            {/* Futuristic: keyframes for the animated progress beam + CTA glow */}
+            <style>{`
+                @keyframes greyBeamFlow {
+                    0% { background-position: 0% 50%; }
+                    100% { background-position: 200% 50%; }
+                }
+                @keyframes greyCtaPulse {
+                    0%, 100% { box-shadow: 0 0 0 0 rgba(56,189,248,0.45); }
+                    50% { box-shadow: 0 0 22px 4px rgba(56,189,248,0.25); }
+                }
+                .grey-progress-beam {
+                    background: linear-gradient(90deg, #38bdf8, #a855f7, #38bdf8);
+                    background-size: 200% 100%;
+                    animation: greyBeamFlow 3s linear infinite;
+                    box-shadow: 0 0 10px rgba(56,189,248,0.7);
+                }
+                .grey-cta-glow { animation: greyCtaPulse 3.5s ease-in-out infinite; }
+                .grey-cta-glow:hover { animation-play-state: paused; }
+            `}</style>
+
+            {/* Futuristic: top reading-progress beam (additive, non-blocking) */}
+            {!isModalOpen && !isMobileMenuOpen && (
+                <div className="fixed top-0 left-0 right-0 z-[60] h-[3px] pointer-events-none">
+                    <div
+                        className="grey-progress-beam h-full transition-[width] duration-150 ease-out"
+                        style={{width: `${scrollProgress}%`}}
+                        aria-hidden="true"
+                    />
+                </div>
+            )}
+
             {/* Submenu fullscreen background overlay */}
             {(isServicesOpen || isIndustriesOpen || isTechnologiesOpen) && !isModalOpen && (
                 <div
@@ -517,7 +555,7 @@ const Header: React.FC = () => {
                                         <Link
                                             key={item.label}
                                             href={item.href}
-                                            className={`text-white hover:text-gray-300 transition-colors duration-200 text-base font-normal relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300 hover:after:w-full ${isActiveRoute(item.href) ? 'after:w-full' : ''}`}
+                                            className={`text-white hover:text-cyan-300 transition-colors duration-200 text-base font-normal relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-cyan-400 after:to-purple-500 after:rounded-full after:shadow-[0_0_8px_rgba(56,189,248,0.6)] after:transition-all after:duration-300 hover:after:w-full ${isActiveRoute(item.href) ? 'after:w-full' : ''}`}
                                         >
                                             {item.label}
                                         </Link>
@@ -529,7 +567,7 @@ const Header: React.FC = () => {
                             {/* CTA Button */}
                             <button
                                 onClick={() => setIsModalOpen(true)}
-                                className="rounded-full text-[1em] lg:block hidden font-medium py-[0.40em] px-[0.90em] border transition text-teal-400 hover:text-teal-600 border-teal-400 hover:border-teal-600"
+                                className="grey-cta-glow rounded-full text-[1em] lg:block hidden font-medium py-[0.40em] px-[0.90em] border transition-all duration-300 text-teal-400 hover:text-white hover:bg-teal-500/20 border-teal-400 hover:border-teal-300 hover:scale-105"
                             >
                                 Start Your Project
                             </button>

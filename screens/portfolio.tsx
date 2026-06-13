@@ -56,7 +56,7 @@ const Portfolio = () => {
 
     return (
         <div className={`${isDayTime ? 'bg-white text-black' : 'bg-black text-white'} min-h-screen transition-colors duration-500`}>
-            <Header />
+            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header />}
 
             <section className="relative w-full h-[320px] md:h-[380px] lg:h-[800px] overflow-hidden">
                 <video
@@ -182,7 +182,7 @@ const Portfolio = () => {
                     </div>
                 </section>
             </main>
-            <Footer />
+            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer />}
         </div>
     );
 };

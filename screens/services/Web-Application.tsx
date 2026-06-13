@@ -269,7 +269,7 @@ const WebApplication = () => {
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} relative h-auto`}>
-            <Header/>
+            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
             <FloatingButton
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
@@ -2346,7 +2346,7 @@ const WebApplication = () => {
                 </div>
             </div>
 
-            <Footer/>
+            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>
     );
 };

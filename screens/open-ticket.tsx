@@ -127,7 +127,7 @@ const OpenTicket: React.FC = () => {
         const ref = `GIT-${String(ticketId || 0).padStart(4, '0')}`;
         return (
             <div className={`${bg} min-h-screen flex flex-col transition-colors duration-500`}>
-                <Header/>
+                {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
                 <main className="flex-1 flex items-center justify-center px-4 py-20">
                     <motion.div
                         initial={{opacity: 0, scale: 0.95, y: 20}}
@@ -176,14 +176,14 @@ const OpenTicket: React.FC = () => {
                         </div>
                     </motion.div>
                 </main>
-                <Footer/>
+                {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
             </div>
         );
     }
 
     return (
         <div className={`${bg} min-h-screen flex flex-col transition-colors duration-500`}>
-            <Header/>
+            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
 
             {/* Hero */}
             <section className="relative bg-gradient-to-br from-gray-900 to-gray-800 text-white">
@@ -353,7 +353,7 @@ const OpenTicket: React.FC = () => {
                 </form>
             </main>
 
-            <Footer/>
+            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>
     );
 };

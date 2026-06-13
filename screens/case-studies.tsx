@@ -98,7 +98,7 @@ const CaseStudies: React.FC = () => {
 
     return (
         <div className={`${bg} min-h-screen transition-colors duration-500`}>
-            <Header/>
+            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
 
             {/* ── Hero video banner ── */}
             <section className="relative w-full h-[320px] md:h-[380px] lg:h-[800px] overflow-hidden">
@@ -279,7 +279,7 @@ const CaseStudies: React.FC = () => {
                 <AIProjectEstimator/>
             </div>
 
-            <Footer/>
+            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>
     );
 };

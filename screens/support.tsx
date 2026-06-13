@@ -111,7 +111,7 @@ const Support: React.FC = () => {
 
     return (
         <div className="bg-gray-100 text-black min-h-screen flex flex-col">
-            <Header/>
+            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
 
             {/* Hero */}
             <section className={`relative bg-gradient-to-br ${heroBg} text-white`}>
@@ -297,7 +297,7 @@ const Support: React.FC = () => {
                 </motion.div>
             </main>
 
-            <Footer/>
+            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>
     );
 };
