@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     // FIX: title template so child pages get "Page | Grey InfoTech" automatically
     title: {
         default:
-            "Grey InfoTech Limited - Web Design & Development Agency | Port Harcourt, Nigeria",
+            "Grey InfoTech Ltd. - Web Design & Development Agency | Port Harcourt, Nigeria",
         template: "%s | Grey InfoTech",
     },
 
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
 
     authors: [{name: "Grey InfoTech", url: "https://greyinfotech.com.ng"}],
     creator: "Grey InfoTech",
-    publisher: "Grey InfoTech Limited",
+    publisher: "Grey InfoTech Ltd.",
 
     // FIX: canonical URL — was completely missing (audit flagged this)
     alternates: {
