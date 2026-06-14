@@ -1408,6 +1408,36 @@ export function migrate(database?: DatabaseType.Database): void {
             );
     `);
 
+    // ---- Content: Partners / Client logos + Client reviews (testimonials) ----
+    db.exec(`
+        CREATE TABLE IF NOT EXISTS partners
+        (
+            id         INTEGER PRIMARY KEY AUTOINCREMENT,
+            name       TEXT    NOT NULL,
+            logo       TEXT    NOT NULL DEFAULT '',
+            url        TEXT    NOT NULL DEFAULT '',
+            sort_order INTEGER NOT NULL DEFAULT 0,
+            active     INTEGER NOT NULL DEFAULT 1,
+            created_at TEXT    NOT NULL DEFAULT (datetime('now')),
+            updated_at TEXT    NOT NULL DEFAULT (datetime('now'))
+        );
+
+        CREATE TABLE IF NOT EXISTS client_reviews
+        (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            author      TEXT    NOT NULL,
+            role        TEXT    NOT NULL DEFAULT '',
+            company     TEXT    NOT NULL DEFAULT '',
+            avatar      TEXT    NOT NULL DEFAULT '',
+            quote       TEXT    NOT NULL,
+            rating      INTEGER NOT NULL DEFAULT 5,
+            sort_order  INTEGER NOT NULL DEFAULT 0,
+            active      INTEGER NOT NULL DEFAULT 1,
+            created_at  TEXT    NOT NULL DEFAULT (datetime('now')),
+            updated_at  TEXT    NOT NULL DEFAULT (datetime('now'))
+        );
+    `);
+
     // ---- Store default settings (idempotent) ----
     const insertSetting = db.prepare(
         `INSERT

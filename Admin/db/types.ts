@@ -249,6 +249,31 @@ export interface BlogPost {
     updated_at: string;
 }
 
+export interface Partner {
+    id: number;
+    name: string;
+    logo: string;
+    url: string;
+    sort_order: number;
+    active: number;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface ClientReview {
+    id: number;
+    author: string;
+    role: string;
+    company: string;
+    avatar: string;
+    quote: string;
+    rating: number;
+    sort_order: number;
+    active: number;
+    created_at: string;
+    updated_at: string;
+}
+
 export interface Conversation {
     id: number;
     client_id: number | null;

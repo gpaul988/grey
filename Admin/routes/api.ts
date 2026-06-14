@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import {ensureApiAuth, requireRole, requirePermission} from '../middleware/authMiddleware';
 import {
     Users, Submissions, Leads, Clients, Projects, Tickets, TicketMessages,
-    Invoices, CaseStudies, BlogPosts, Conversations, Messages,
+    Invoices, CaseStudies, BlogPosts, Partners, ClientReviews, Conversations, Messages,
     Products, ProductCategories, ProductBrands, Customers, Orders, ProductReviews, Coupons,
     Verification,
     logActivity, nextInvoiceNumber, dashboardStats,
@@ -472,6 +472,95 @@ api.patch('/blog/:id', (req, res) => {
 api.delete('/blog/:id', (req, res) => {
     BlogPosts.delete(toInt(req.params.id));
     ok(res, null, 'Post deleted');
+});
+
+/* ---------------- Partners / Client logos ---------------- */
+api.get('/partners', (_req, res) => ok(res, Partners.all('sort_order ASC, id ASC')));
+api.post('/partners', (req, res) => {
+    const name = str(req.body.name);
+    if (!name) return fail(res, 'Name is required');
+    const row = Partners.create({
+        name,
+        logo: str(req.body.logo),
+        url: str(req.body.url),
+        sort_order: toInt(req.body.sort_order) || 0,
+        active: req.body.active === undefined ? 1 : (req.body.active ? 1 : 0),
+    });
+    logActivity({...actor(req), action: 'create', entity: 'partner', entity_id: row.id, detail: name});
+    ok(res, row, 'Partner added');
+});
+api.patch('/partners/:id', (req, res) => {
+    const data: Record<string, unknown> = {};
+    ['name', 'logo', 'url'].forEach((f) => {
+        if (f in req.body) data[f] = str(req.body[f]);
+    });
+    if ('sort_order' in req.body) data.sort_order = toInt(req.body.sort_order) || 0;
+    if ('active' in req.body) data.active = req.body.active ? 1 : 0;
+    const row = Partners.update(toInt(req.params.id), data);
+    return row ? ok(res, row, 'Partner updated') : fail(res, 'Not found', 404);
+});
+api.delete('/partners/:id', (req, res) => {
+    Partners.delete(toInt(req.params.id));
+    ok(res, null, 'Partner deleted');
+});
+
+/* ---------------- Client reviews (testimonials) ---------------- */
+api.get('/reviews', (_req, res) => ok(res, ClientReviews.all('sort_order ASC, id ASC')));
+api.post('/reviews', (req, res) => {
+    const author = str(req.body.author);
+    const quote = str(req.body.quote);
+    if (!author) return fail(res, 'Author is required');
+    if (!quote) return fail(res, 'Quote is required');
+    const rating = Math.max(1, Math.min(5, toInt(req.body.rating) || 5));
+    const row = ClientReviews.create({
+        author,
+        role: str(req.body.role),
+        company: str(req.body.company),
+        avatar: str(req.body.avatar),
+        quote,
+        rating,
+        sort_order: toInt(req.body.sort_order) || 0,
+        active: req.body.active === undefined ? 1 : (req.body.active ? 1 : 0),
+    });
+    logActivity({...actor(req), action: 'create', entity: 'client_review', entity_id: row.id, detail: author});
+    ok(res, row, 'Review added');
+});
+api.patch('/reviews/:id', (req, res) => {
+    const data: Record<string, unknown> = {};
+    ['author', 'role', 'company', 'avatar', 'quote'].forEach((f) => {
+        if (f in req.body) data[f] = str(req.body[f]);
+    });
+    if ('rating' in req.body) data.rating = Math.max(1, Math.min(5, toInt(req.body.rating) || 5));
+    if ('sort_order' in req.body) data.sort_order = toInt(req.body.sort_order) || 0;
+    if ('active' in req.body) data.active = req.body.active ? 1 : 0;
+    const row = ClientReviews.update(toInt(req.params.id), data);
+    return row ? ok(res, row, 'Review updated') : fail(res, 'Not found', 404);
+});
+api.delete('/reviews/:id', (req, res) => {
+    ClientReviews.delete(toInt(req.params.id));
+    ok(res, null, 'Review deleted');
+});
+
+/* ---------------- Content placement settings ---------------- */
+const PLACEMENT_KEYS = {partners: 'content.partners.pages', reviews: 'content.reviews.pages'} as const;
+const DEFAULT_PAGES = ['home', 'about', 'services', 'industries', 'portfolio'];
+api.get('/content-placement', (_req, res) => {
+    const parse = (k: string) => {
+        try {
+            const v = SiteSettings.get(k);
+            return v ? JSON.parse(v) as string[] : DEFAULT_PAGES;
+        } catch {
+            return DEFAULT_PAGES;
+        }
+    };
+    ok(res, {partners: parse(PLACEMENT_KEYS.partners), reviews: parse(PLACEMENT_KEYS.reviews)});
+});
+api.post('/content-placement', (req, res) => {
+    const sanitize = (v: unknown) => Array.isArray(v) ? v.map((x) => str(x)).filter(Boolean) : [];
+    if ('partners' in req.body) SiteSettings.set(PLACEMENT_KEYS.partners, JSON.stringify(sanitize(req.body.partners)));
+    if ('reviews' in req.body) SiteSettings.set(PLACEMENT_KEYS.reviews, JSON.stringify(sanitize(req.body.reviews)));
+    logActivity({...actor(req), action: 'update', entity: 'content_placement'});
+    ok(res, null, 'Placement saved');
 });
 
 /* ---------------- Conversations / chat ---------------- */

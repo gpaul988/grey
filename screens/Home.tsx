@@ -4,6 +4,7 @@ import React, {useEffect, useRef, useState, useMemo} from 'react';
 import '@/app/globals.css'
 import {LiaLongArrowAltDownSolid} from "react-icons/lia";
 import FloatingButton from "@/components/FloatingButton";
+import SocialProof from "@/components/SocialProof";
 import Link from "next/link";
 import Image from "next/image";
 import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
@@ -1457,6 +1458,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+            <SocialProof page="home"/>
         </div>
     );
 };

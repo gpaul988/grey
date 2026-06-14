@@ -2,6 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import SocialProof from '@/components/SocialProof';
 import '@/app/globals.css';
 import Link from 'next/link';
 
@@ -182,6 +183,7 @@ const Portfolio = () => {
                     </div>
                 </section>
             </main>
+            <SocialProof page="portfolio"/>
             {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer />}
         </div>
     );

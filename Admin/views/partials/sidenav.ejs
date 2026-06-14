@@ -221,6 +221,20 @@ const isActive = (k) => cur === k ? ' active' : '';
                 </a>
             </li>
 
+            <li class="side-nav-item">
+                <a href="/admin/partners" class="side-nav-link<%= isActive('partners') %>">
+                    <span class="menu-icon"><i class="ti ti-building-store"></i></span>
+                    <span class="menu-text"> Partners &amp; Logos </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/reviews" class="side-nav-link<%= isActive('reviews') %>">
+                    <span class="menu-icon"><i class="ti ti-star"></i></span>
+                    <span class="menu-text"> Client Reviews </span>
+                </a>
+            </li>
+
             <% if (u.role === 'admin' || u.role === 'manager') { %>
                 <li class="side-nav-title">Administration</li>
 

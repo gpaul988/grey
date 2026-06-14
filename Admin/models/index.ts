@@ -4,7 +4,7 @@ import {UsersModel} from './users';
 import type {
     Submission, Lead, Project, Ticket, TicketMessage,
     Invoice, CaseStudy, BlogPost, Conversation, Message, ActivityLog,
-    ProjectBrief, Upload,
+    ProjectBrief, Upload, Partner, ClientReview,
 } from '../db/types';
 import {ClientsModel} from './clients';
 import {ClientStaffModel} from './clientStaff';
@@ -65,6 +65,14 @@ export const BlogPosts = createRepo<BlogPost>('blog_posts', [
     'title', 'slug', 'excerpt', 'body', 'cover', 'author', 'tags', 'status', 'published_at',
     // extended fields (Lightflows-style template)
     'read_time', 'hero_image', 'author_avatar', 'author_role', 'sections',
+]);
+
+export const Partners = createRepo<Partner>('partners', [
+    'name', 'logo', 'url', 'sort_order', 'active',
+]);
+
+export const ClientReviews = createRepo<ClientReview>('client_reviews', [
+    'author', 'role', 'company', 'avatar', 'quote', 'rating', 'sort_order', 'active',
 ]);
 
 export const Conversations = createRepo<Conversation>('conversations', [
