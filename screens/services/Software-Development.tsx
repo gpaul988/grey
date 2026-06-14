@@ -7,55 +7,7 @@ import Footer from "@/components/Footer";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import CountUp from "react-countup";
-import {ArrowLeft, ArrowRight, Quote} from "lucide-react";
 import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
-
-// Testimonial data
-const testimonials = [
-    {
-        name: "Joseph Oluwadaisi",
-        title: "CEO, AfroTech Digital",
-        image: "/assets/ui-ux/joe.jpeg",
-        message:
-            "Grey Infotech transformed the front-end design of our ASP.NET website (Afrotech Digital) for logged-in" +
-            "users, and the results exceeded our expectations. Their attention to detail and user-focused approach delivered" +
-            "a sleek, modern interface that truly elevated our platform."
-    },
-    {
-        name: "Stephen Bright",
-        title: "CTO, Infinte Graphix",
-        image: "/assets/ui-ux/bright.jpeg",
-        message:
-            "They completely overhauled the UI/UX of our internal dashboard, delivering a clean, intuitive experience that" +
-            "has significantly improved usability. The feedback from our users has been overwhelmingly positive, reflecting" +
-            "the impact of their thoughtful, user-centered design approach."
-    },
-    {
-        name: "Priyanka Peeramsetty",
-        title: "Founder, Fintrix",
-        image: "/assets/ui-ux/priyanka.png",
-        message:
-            "We partnered with Grey InfoTech for a major front-end revamp, and the experience was seamless from start to finish." +
-            "Their collaborative process, attention to detail, and design expertise resulted in a final product that far exceeded our expectations."
-    },
-    {
-        name: "Esther Luchi",
-        title: "Product Manager, Poawd Ltd.",
-        image: "/assets/ui-ux/ledu.jpeg",
-        message:
-            "Outstanding communication, precise attention to detail, and exceptional design quality—Grey InfoTech delivers across" +
-            "the board. Highly recommended for any UI-focused project aiming for polished, professional, and impactful results."
-    },
-    {
-        name: "Dr. Alison Crasto",
-        title: "Senior Project Executive, Cognizant",
-        image: "/assets/ui-ux/anushk.png",
-        message:
-            "Grey Infotech Ltd. did a fantastic job handling our front-end and UI/UX project. Their team was responsive," +
-            "detail-oriented, and delivered a clean, user-friendly interface that exceeded our expectations. It was a smooth" +
-            "and professional experience from start to finish. Highly recommended!"
-    }
-];
 
 const SoftwareDevelopment = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -230,29 +182,6 @@ const SoftwareDevelopment = () => {
         {label: 'Successful rebrands', value: 27, suffix: '+'},
         {label: 'Increase in Website Traffic', value: 350, suffix: '%'},
     ];
-
-    // Testimonial carousel hook
-    const [current, setCurrent] = useState(0);
-
-    const prev = () => setCurrent((current - 1 + testimonials.length) % testimonials.length);
-    const next = () => setCurrent((current + 1) % testimonials.length);
-
-    const {name, title, image, message} = testimonials[current];
-
-    // Partners Section hook
-    const partners = [
-        {id: 1, name: 'Partner 1', dayImage: 'poawd.svg', nightImage: 'poawd1.svg'},
-        {id: 2, name: 'Partner 2', dayImage: 'hub.svg', nightImage: 'hub1.svg'},
-        {id: 3, name: 'Partner 3', dayImage: 'car.svg', nightImage: 'car1.svg'},
-        {id: 4, name: 'Partner 4', dayImage: 'pet.svg', nightImage: 'pet1.svg'},
-        {id: 5, name: 'Partner 5', dayImage: 'sew.svg', nightImage: 'sew1.svg'},
-        {id: 6, name: 'Partner 6', dayImage: 'tim.svg', nightImage: 'tim1.svg'},
-        {id: 7, name: 'Partner 7', dayImage: 'pat.svg', nightImage: 'pat1.svg'},
-        {id: 8, name: 'Partner 8', dayImage: 'kow.svg', nightImage: 'kow1.svg'},
-        {id: 9, name: 'Partner 9', dayIma5ge: 'afro.svg', nightImage: 'afro1.svg'},
-        {id: 10, name: 'Partner 10', dayImage: 'cane.svg', nightImage: 'cane1.svg'},
-    ];
-
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
             {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
@@ -701,50 +630,6 @@ const SoftwareDevelopment = () => {
                 </div>
             </div>
 
-            {/* Testimonials */}
-            <div
-                className={`relative py-24 lg:mb-16 mb-10 max-w-full w-full -mt-[5em] h-auto ${
-                    isDayTime ? 'bg-black' : 'bg-white'
-                }`}>
-                <div
-                    className={`relative mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 gap-6 ${
-                        isDayTime ? 'text-white' : 'text-black'
-                    }`}>
-                    <div>
-                        <h5 className="uppercase text-xs font-[500] tracking-widest mb-4">What our clients say</h5>
-                    </div>
-                    <div className={'lg:ml-[-20em] md:ml-[-20em] sm:ml-[-10em]'}>
-                        <div
-                            className="flex items-start gap-4 text-[1.5em] font-[500] mb-6">
-                            <Quote className="w-6 h-6 shrink-0"/>
-                            <p className="leading-tight border-b-[0.1em] border-gray-300/20 pb-12">
-                                {message}
-                            </p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <Image
-                                src={image}
-                                alt={name}
-                                width={50}
-                                height={50}
-                                className="rounded-full object-cover"
-                            />
-                            <div>
-                                <p className="font-semibold text-[1.3em]">{name}</p>
-                                <p className="text-[0.8em] ">{title}</p>
-                            </div>
-                        </div>
-                        <div className="flex justify-end gap-4 mt-1">
-                            <button onClick={prev} className="">
-                                <ArrowLeft className="w-8 h-6"/>
-                            </button>
-                            <button onClick={next} className="">
-                                <ArrowRight className="w-8 h-6"/>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             {/* Why Choose Grey InfoTech */}
             <div className={`${isDayTime ? 'bg-white' : 'bg-black'}`}>
@@ -865,26 +750,6 @@ const SoftwareDevelopment = () => {
                 </div>
             </div>
 
-            {/* Partners Sections */}
-            <div id={'partners'}
-                 className={`relative max-w-full lg:mb-36 py-6 mx-auto px-4 sm:px-6 lg:px-[4.6em] h-auto overflow-hidden ${
-                     isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
-                <div className={`justify-self-start text-start lg:mt-12 mt-6 lg:mb-12 mb-6`}>
-                    <h3 className={'text-[1em] font-[600]'}>Our partners</h3>
-                </div>
-                <div className={`grid lg:grid-cols-5 grid-cols-2 gap-6 lg:pb-12 lg:mb-10 mb-8`}>
-                    {partners.map((partner) => (
-                        <div key={partner.id} className={`flex justify-center items-center`}>
-                            <Image
-                                src={`/assets/partners/${isDayTime ? partner.dayImage : partner.nightImage}`}
-                                alt={partner.name}
-                                width={100}
-                                height={100}
-                            />
-                        </div>
-                    ))}
-                </div>
-            </div>
 
             {/* Last image*/}
             <div id={'last image'} className={'lg:-mt-[10em] h-auto max-w-full w-full mx-auto'}>

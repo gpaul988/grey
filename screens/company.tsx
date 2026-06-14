@@ -5,115 +5,11 @@ import FloatingButton from "@/components/FloatingButton";
 import Slider from "react-slick";
 import Image from "next/image";
 import Link from "next/link";
-import {ArrowLeft, ArrowRight, Quote} from "lucide-react";
 import Footer from "@/components/Footer";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CountUp from "react-countup";
 import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
-
-// Testimonial data
-const testimonials = [
-    {
-        name: "Ibrahim Okon",
-        title: "CTO, CargoLoop",
-        message: (
-            <>
-                Grey InfoTech developed the backend that powered our logistics platform with speed and reliability.
-                Their system stayed stable and efficient throughout our operations. They were a dependable partner
-                through it all.
-            </>
-        ),
-    },
-    {
-        name: "Amina Bakari",
-        title: "Product Manager, MedReach Tanzania",
-        message: (
-            <>
-                heir team created a secure and user-friendly platform connecting patients to medical professionals. The
-                solution remained impactful throughout our active years.
-            </>
-        )
-    },
-    {
-        name: "Sola Adeyeye",
-        title: "Head of Digital Strategy, EduSphere",
-        message: (
-            <>
-                Grey InfoTech built a scalable platform that served thousands of learners with stability and ease of
-                use. Their professionalism was exceptional.
-            </>
-        )
-    },
-    {
-        name: "Jean-Paul Mumbere",
-        title: "CTO, CivicConnect",
-        message: (
-            <>
-                Their team crafted a powerful multilingual site for community engagement, helping us reach diverse
-                audiences.
-            </>
-        )
-    },
-    {
-        name: "Kemi Oladapo",
-        title: "Director of Technology, FinNova",
-        message: (
-            <>
-                Grey InfoTech delivered a secure and scalable financial platform that was critical to our success. Their
-                expertise was unmatched.
-            </>
-        )
-    },
-    {
-        name: "Thapelo Mokoena",
-        title: "CTO, AgroLink",
-        message: (
-            <>
-                Their team enabled us to connect farmers to vital services reliably. Their system remained core to our
-                operations.
-            </>
-        )
-    },
-    {
-        name: "Fatoumata Sissoko",
-        title: "Head of Digital Systems, HealthBridge",
-        message: (
-            <>
-                Grey InfoTech empowered clinics and mobile units with real-time data management, greatly improving
-                healthcare delivery.
-            </>
-        )
-    },
-    {
-        name: "Adaeze Nwosu",
-        title: "Chief Product Officer, HealthNet Systems",
-        message: (
-            <>
-                Their expertise brought our health platform to life with a responsive, intuitive UI that users love.
-            </>
-        )
-    },
-    {
-        name: "Tunde Balogun",
-        title: "Founder & CEO, EduTrack Africa ",
-        message: (
-            <>
-                The interface Grey InfoTech built boosted our student engagement by over 60%. Their professionalism was
-                exceptional.
-            </>
-        )
-    },
-    {
-        name: "Sylvia Essien",
-        title: "COO, LogiFleet Solutions ",
-        message: (
-            <>
-                Their team delivered a sleek and powerful dashboard that impressed clients and investors alike.
-            </>
-        )
-    },
-];
 
 // Our Approach
 const reasons = [
@@ -295,27 +191,6 @@ const Company = () => {
     }, []);
 
     // Partners Section hook
-    const partners = [
-        {id: 1, name: 'Partner 1', dayImage: 'poawd.svg', nightImage: 'poawd1.svg'},
-        {id: 2, name: 'Partner 2', dayImage: 'hub.svg', nightImage: 'hub1.svg'},
-        {id: 3, name: 'Partner 3', dayImage: 'car.svg', nightImage: 'car1.svg'},
-        {id: 4, name: 'Partner 4', dayImage: 'pet.svg', nightImage: 'pet1.svg'},
-        {id: 5, name: 'Partner 5', dayImage: 'sew.svg', nightImage: 'sew1.svg'},
-        {id: 6, name: 'Partner 6', dayImage: 'tim.svg', nightImage: 'tim1.svg'},
-        {id: 7, name: 'Partner 7', dayImage: 'pat.svg', nightImage: 'pat1.svg'},
-        {id: 8, name: 'Partner 8', dayImage: 'kow.svg', nightImage: 'kow1.svg'},
-        {id: 9, name: 'Partner 9', dayImage: 'afro.svg', nightImage: 'afro1.svg'},
-        {id: 10, name: 'Partner 10', dayImage: 'cane.svg', nightImage: 'cane1.svg'},
-    ];
-
-    // Testimonial carousel hook
-    const [current, setCurrent] = useState(0);
-
-    const prev = () => setCurrent((current - 1 + testimonials.length) % testimonials.length);
-    const next = () => setCurrent((current + 1) % testimonials.length);
-
-    const {name, title, message} = testimonials[current];
-
     // Why Grey infoTech For Your App Project Hook
 
     useEffect(() => {
@@ -1025,66 +900,7 @@ const Company = () => {
                 </div>
             </div>
 
-            {/* Testimonials */}
-            <div
-                className={`relative -mt-[2.5em] lg:pt-[5em] md:pt-[5em] pt-[2em] -mb-[11em] max-w-full w-full  h-screen ${
-                    isDayTime ? 'bg-white' : 'bg-black'
-                }`}>
-                <div
-                    className={`relative mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 gap-6 ${
-                        isDayTime ? 'text-black' : 'text-white'
-                    }`}>
-                    <div>
-                        <h5 className="uppercase text-xs font-[500] tracking-widest mb-4">What our clients say</h5>
-                    </div>
-                    <div className={'lg:ml-[-20em] md:ml-[-20em] sm:ml-[-10em]'}>
-                        <div
-                            className="flex items-start gap-4 text-[2em] font-[500] mb-6">
-                            <Quote className="w-6 h-6 shrink-0"/>
-                            <p className="leading-tight text-justify border-b-[0.1em] border-gray-300/20 pb-20">
-                                {message}
-                            </p>
-                        </div>
-                        <div className="flex ml-10 items-center gap-4">
-                            <div>
-                                <p className="font-semibold text-[1.3em]">{name}</p>
-                                <p className="text-[0.8em] ">{title}</p>
-                            </div>
-                        </div>
-                        <div className="flex justify-end gap-4 mt-1">
-                            <button onClick={prev} className="">
-                                <ArrowLeft className="w-8 h-6"/>
-                            </button>
-                            <button onClick={next} className="">
-                                <ArrowRight className="w-8 h-6"/>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            {/* Partners Sections */}
-            <div id={'partners'}
-                 className={`relative max-w-full lg:pb-[10em] mx-auto px-4 sm:px-6 lg:px-[4.6em] h-auto overflow-hidden ${
-                     isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
-                <div className={`justify-self-start text-start lg:pt-[5em] md:pt-[5em] pt-[2em] lg:mb-12 mb-6`}>
-                    <h3 className={'text-[1em] font-[600]'}>Our partners</h3>
-                </div>
-                <div className={`grid lg:grid-cols-5 grid-cols-2 gap-6 lg:pb-[5em] md:pb-[5em] pb-[2em]`}>
-                    {partners.map((partner) => (
-                        <div key={partner.id} className={`flex justify-center items-center`}>
-                            <Image
-                                src={`/assets/partners/${isDayTime ? partner.dayImage || 'default.svg' : partner.nightImage || 'default.svg'}`}
-                                alt={partner.name}
-                                width={100}
-                                height={100}
-                            />
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>
     );
 };

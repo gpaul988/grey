@@ -5,58 +5,9 @@ import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import Link from "next/link";
 import CountUp from "react-countup";
-import {ArrowLeft, ArrowRight, Quote} from "lucide-react";
 import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import Footer from "@/components/Footer";
 
-
-// Testimonial data
-const testimonials = [
-    {
-        name: "Zanele Khumalo",
-        title: "Head of Product, TaskFlow Inc",
-        message: (
-            <>
-                Their team was instrumental in building the core of our productivity suite using Ruby on
-                Rails. Their speed, reliability, and clean code practices helped us meet deadlines and launch with
-                confidence. It’s been a seamless experience from start to finish.
-            </>
-        ),
-    },
-    {
-        name: "Kofi Boateng",
-        title: "Technical Director, PropEdge Technologies",
-        message: (
-            <>
-                They delivered a robust and scalable Ruby on Rails backend that now powers our property
-                analytics platform. Their team demonstrated deep technical expertise and a clear understanding of our
-                goals. We’re seeing better performance and easier maintenance than ever before.
-            </>
-        )
-    },
-    {
-        name: "Chinedu Ncube",
-        title: "Lead Solutions Architect, PayCore Solutions",
-        message: (
-            <>
-                We needed a secure, high-performance backend for our financial platform, and Grey InfoTech delivered
-                with Ruby on Rails. They handled everything from architecture to deployment with precision and
-                professionalism. They’re a trusted partner for any critical system.
-            </>
-        )
-    },
-    {
-        name: "Fatima Keita",
-        title: "Product Delivery Manager, LogiFleet Systems",
-        message: (
-            <>
-                Our experience with Grey InfoTech&#39;s Ruby on Rails development was outstanding. They built a tailored
-                logistics platform that is fast, secure, and easy to scale. Their proactive communication and technical
-                skill made them a true extension of our internal team.
-            </>
-        )
-    }
-];
 
 const RubyOnRails = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -162,29 +113,6 @@ useEffect(() => {
         {label: 'Successful rebrands', value: 27, suffix: '+'},
         {label: 'Increase in Website Traffic', value: 350, suffix: '%'},
     ];
-
-    // Testimonial carousel hook
-    const [current, setCurrent] = useState(0);
-
-    const prev = () => setCurrent((current - 1 + testimonials.length) % testimonials.length);
-    const next = () => setCurrent((current + 1) % testimonials.length);
-
-    const {name, title, message} = testimonials[current];
-
-    // Partners Section hook
-    const partners = [
-        {id: 1, name: 'Partner 1', dayImage: 'poawd1.svg', nightImage: 'poawd.svg'},
-        {id: 2, name: 'Partner 2', dayImage: 'hub1.svg', nightImage: 'hub.svg'},
-        {id: 3, name: 'Partner 3', dayImage: 'car1.svg', nightImage: 'car.svg'},
-        {id: 4, name: 'Partner 4', dayImage: 'pet1.svg', nightImage: 'pet.svg'},
-        {id: 5, name: 'Partner 5', dayImage: 'sew1.svg', nightImage: 'sew.svg'},
-        {id: 6, name: 'Partner 6', dayImage: 'tim1.svg', nightImage: 'tim.svg'},
-        {id: 7, name: 'Partner 7', dayImage: 'pat1.svg', nightImage: 'pat.svg'},
-        {id: 8, name: 'Partner 8', dayImage: 'kow1.svg', nightImage: 'kow.svg'},
-        {id: 9, name: 'Partner 9', dayImage: 'afro1.svg', nightImage: 'afro.svg'},
-        {id: 10, name: 'Partner 10', dayImage: 'cane1.svg', nightImage: 'cane.svg'},
-    ];
-
     // FAQ Hook
     const [onIndex, setOnIndex] = useState<number | null>(null);
 
@@ -1093,64 +1021,7 @@ useEffect(() => {
                 </div>
             </div>
 
-            {/* Testimonials */}
-            <div
-                className={`relative -mt-20 py-24 lg:mb-16 mb-10 max-w-full w-full  h-auto ${
-                    isDayTime ? 'bg-black' : 'bg-white'
-                }`}>
-                <div
-                    className={`relative mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 gap-6 ${
-                        isDayTime ? 'text-white' : 'text-black'
-                    }`}>
-                    <div>
-                        <h5 className="uppercase text-xs font-[500] tracking-widest mb-4">What our clients say</h5>
-                    </div>
-                    <div className={'lg:ml-[-20em] md:ml-[-20em] sm:ml-[-10em]'}>
-                        <div
-                            className="flex items-start gap-4 text-[1.5em] font-[500] mb-6">
-                            <Quote className="w-6 h-6 shrink-0"/>
-                            <p className="leading-tight text-justify border-b-[0.1em] border-gray-300/20 pb-12">
-                                {message}
-                            </p>
-                        </div>
-                        <div className="flex ml-10 items-center gap-4">
-                            <div>
-                                <p className="font-semibold text-[1.3em]">{name}</p>
-                                <p className="text-[0.8em] ">{title}</p>
-                            </div>
-                        </div>
-                        <div className="flex justify-end gap-4 mt-1">
-                            <button onClick={prev} className="">
-                                <ArrowLeft className="w-8 h-6"/>
-                            </button>
-                            <button onClick={next} className="">
-                                <ArrowRight className="w-8 h-6"/>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            {/* Partners Sections */}
-            <div id={'partners'}
-                 className={`relative lg:-mt-[4em] md:-mt-[3em] max-w-full lg:mb-36 py-6 mx-auto px-4 sm:px-6 lg:px-[4.6em] h-auto overflow-hidden ${
-                     isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
-                <div className={`justify-self-start text-start lg:mt-12 mt-6 lg:mb-12 mb-6`}>
-                    <h3 className={'text-[1em] font-[600]'}>Our partners</h3>
-                </div>
-                <div className={`grid lg:grid-cols-5 grid-cols-2 gap-6 lg:pb-12 lg:mb-10 mb-8`}>
-                    {partners.map((partner) => (
-                        <div key={partner.id} className={`flex justify-center items-center`}>
-                            <Image
-                                src={`/assets/partners/${isDayTime ? partner.dayImage : partner.nightImage}`}
-                                alt={partner.name}
-                                width={100}
-                                height={100}
-                            />
-                        </div>
-                    ))}
-                </div>
-            </div>
 
             {/* FAQ section */}
             <div id={'FAQ'}

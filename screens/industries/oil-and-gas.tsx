@@ -5,7 +5,6 @@ import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import Link from "next/link";
-import {ArrowLeft, ArrowRight, Quote} from "lucide-react";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import Footer from "@/components/Footer";
 import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
@@ -16,42 +15,6 @@ import {PiTruck} from "react-icons/pi";
 import {SlEnergy} from "react-icons/sl";
 import {FaCode, FaRocket} from "react-icons/fa";
 
-
-// Testimonial data
-const testimonials = [
-    {
-        name: "Nneka Okoye",
-        title: "CTO, AgroLink ",
-        message: (
-            <>
-                They delivered an innovative, scalable solution that transformed how we connected farmers to markets
-                across Nigeria. Their team&#39;s expertise and commitment helped us launch quickly and efficiently.
-            </>
-        ),
-    },
-    {
-        name: "Kwesi Boateng",
-        title: "CEO, FinServe ",
-        message: (
-            <>
-                Partnering with Grey InfoTech was a game-changer for our digital lending platform. Their deep technical
-                knowledge and agile approach enabled us to meet tight deadlines without compromising quality. Grey
-                InfoTech is a trusted partner for any company looking to innovate in the fintech space.
-            </>
-        )
-    },
-    {
-        name: "Amina Diallo",
-        title: "Head of Product, MedConnect",
-        message: (
-            <>
-                Their team understood our vision from day one and built a user-friendly, secure healthcare app that
-                truly meets the needs of our community. Their professionalism and responsiveness made the entire
-                development process seamless and stress-free. We highly recommend them.
-            </>
-        )
-    }
-];
 
 // Reasons
 const reasons = [
@@ -659,15 +622,6 @@ useEffect(() => {
         "Hospital and Clinic Panel": ["/assets/health/hospital_clinic.jpg"],
         "Apps For Medical Professionals": ["/assets/health/professional.jpg"],
     };
-
-    // Testimonial carousel hook
-    const [current, setCurrent] = useState(0);
-
-    const prev = () => setCurrent((current - 1 + testimonials.length) % testimonials.length);
-    const next = () => setCurrent((current + 1) % testimonials.length);
-
-    const {name, title, message} = testimonials[current];
-
     // FAQ Hook
     const [onIndex, setOnIndex] = useState<number | null>(null);
 
@@ -2260,43 +2214,6 @@ useEffect(() => {
                 </div>
             </div>
 
-            {/* Testimonials */}
-            <div
-                className={`relative lg:pt-[6em] md:pt-[6em] pt-[2em] lg:pb-[6em] md:pb-[6em] pb-[2em] max-w-full w-full  h-auto ${
-                    isDayTime ? 'bg-white' : 'bg-black'
-                }`}>
-                <div
-                    className={`relative mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 gap-6 ${
-                        isDayTime ? 'text-black' : 'text-white'
-                    }`}>
-                    <div>
-                        <h5 className="uppercase text-xs font-[500] tracking-widest mb-4">What our clients say</h5>
-                    </div>
-                    <div className={'lg:ml-[-20em] md:ml-[-20em]'}>
-                        <div
-                            className="flex items-start gap-4 text-[1.5em] font-[500] mb-6">
-                            <Quote className="w-6 h-6 shrink-0"/>
-                            <p className="leading-tight text-justify border-b-[0.1em] border-gray-300/20 pb-12">
-                                {message}
-                            </p>
-                        </div>
-                        <div className="flex ml-10 items-center gap-4">
-                            <div>
-                                <p className="font-semibold text-[1.3em]">{name}</p>
-                                <p className="text-[0.8em] ">{title}</p>
-                            </div>
-                        </div>
-                        <div className="flex justify-end gap-4 mt-1">
-                            <button onClick={prev} className="">
-                                <ArrowLeft className="w-8 h-6"/>
-                            </button>
-                            <button onClick={next} className="">
-                                <ArrowRight className="w-8 h-6"/>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             {/* FAQ section */}
             <div id={'FAQ'}
