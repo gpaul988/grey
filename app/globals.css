@@ -386,12 +386,12 @@ body::after {
    right) via TawkChat's top-offset logic, so the right-side stack reads:
    Voice on top, then Tawk live chat. AIChat stays bottom-LEFT. */
 .grey-voice-fab {
-    position: fixed; right: 22px; top: 104px; z-index: 2147483000;
+    position: fixed; right: 22px; bottom: 100px; z-index: 2147483000;
     display: flex; flex-direction: row-reverse; align-items: center; gap: 10px;
 }
 .grey-voice-fab .grey-voice-heard { text-align: right; }
 @media (max-width: 480px) {
-    .grey-voice-fab { right: 16px; top: 88px; }
+    .grey-voice-fab { right: 16px; bottom: 90px; }
 }
 .grey-voice-heard {
     max-width: 240px; font-size: 12px; color: #e2e8f0;

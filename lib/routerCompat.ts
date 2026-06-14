@@ -12,11 +12,10 @@
  * Usage: replace `import {useRouter} from 'next/router'`
  *        with    `import {useRouter} from '@/lib/routerCompat'`
  */
-import {useMemo} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import {
     useRouter as useAppRouter,
     usePathname,
-    useSearchParams,
     useParams,
 } from 'next/navigation';
 
@@ -43,8 +42,20 @@ function toHref(url: Url): string {
 export function useRouter() {
     const router = useAppRouter();
     const pathname = usePathname();
-    const search = useSearchParams();
     const params = useParams();
+
+    // Read search params from the URL on the client AFTER mount instead of via
+    // `useSearchParams()`. Calling `useSearchParams()` at render time forces a
+    // CSR bailout and requires every consuming page to be wrapped in a Suspense
+    // boundary, which broke static prerendering across the site. Reading them
+    // post-mount keeps the same `router.query` surface without the bailout.
+    const [search, setSearch] = useState<URLSearchParams | null>(null);
+    useEffect(() => {
+        const read = () => setSearch(new URLSearchParams(window.location.search));
+        read();
+        window.addEventListener('popstate', read);
+        return () => window.removeEventListener('popstate', read);
+    }, [pathname]);
 
     return useMemo(() => {
         // Merge dynamic params + search params into a single query object,

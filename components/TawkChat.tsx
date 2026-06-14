@@ -6,87 +6,95 @@ declare global {
     interface Window {
         Tawk_API?: {
             onLoad?: () => void;
+            setAttributes?: (attrs: Record<string, string>, cb?: () => void) => void;
         };
         Tawk_LoadStart?: Date;
+        Tawk_SSOToken?: string;
     }
 }
 
 export type TawkChatProps = {
     propertyId: string;
     widgetId: string;
+    /** Bottom offset in px — nudges Tawk above the voice FAB. Default 80. */
     offsetPx?: number;
 };
 
-export default function TawkChat({propertyId, widgetId, offsetPx}: TawkChatProps) {
+export default function TawkChat({propertyId, widgetId, offsetPx = 80}: TawkChatProps) {
     useEffect(() => {
         if (!propertyId || !widgetId) return;
 
         const scriptId = 'tawkto-embed-script';
-        const fallbackOffset = typeof offsetPx === 'number' ? offsetPx : 24;
-        const floatingButtonSelector = '[data-request-quote-floating-button="true"]';
+
+        // ── Suppress known Tawk internal noise ────────────────────────────
         const originalConsoleError = console.error.bind(console);
-
-        window.Tawk_API = window.Tawk_API || {};
-        window.Tawk_LoadStart = new Date();
-
-        // Tawk's embed can emit `console.error(true)` during its internal loading flow.
-        // Filter only that exact noise so Next.js dev overlay doesn't surface it as an app error.
         console.error = (...args: unknown[]) => {
             try {
                 if (args.length === 1 && args[0] === true) {
                     const stack = new Error().stack || '';
-                    if (stack.includes('embed.tawk.to') || stack.includes('twk-chunk-common')) {
-                        return;
-                    }
+                    if (stack.includes('embed.tawk.to') || stack.includes('twk-chunk-common')) return;
                 }
-            } catch {
-                // ignore
-            }
-
+            } catch { /* ignore */ }
             originalConsoleError(...args);
         };
 
-        // Tawk's vendor bundle can throw `t.$_Tawk.i18next is not a function`
-        // as an UNHANDLED promise rejection while it bootstraps its visitor
-        // i18n state (a known Tawk-internal race). It is harmless and not
-        // actionable on our side, but Next's dev overlay surfaces it as an app
-        // crash. Swallow ONLY that specific Tawk-origin noise.
         const isTawkNoise = (val: unknown): boolean => {
             try {
                 const msg =
                     typeof val === 'string'
                         ? val
                         : (val as {message?: string; stack?: string})?.message ||
-                          (val as {stack?: string})?.stack ||
-                          '';
+                          (val as {stack?: string})?.stack || '';
                 const stack = (val as {stack?: string})?.stack || '';
                 return (
                     /i18next is not a function|\$_Tawk/i.test(String(msg)) ||
                     /embed\.tawk\.to|twk-(chunk|vendor)/i.test(String(stack))
                 );
-            } catch {
-                return false;
-            }
+            } catch { return false; }
         };
         const onRejection = (e: PromiseRejectionEvent) => {
-            if (isTawkNoise(e.reason)) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-            }
+            if (isTawkNoise(e.reason)) { e.preventDefault(); e.stopImmediatePropagation(); }
         };
         const onError = (e: ErrorEvent) => {
             if (isTawkNoise(e.error) || isTawkNoise(e.message) || /tawk\.to/i.test(e.filename || '')) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
+                e.preventDefault(); e.stopImmediatePropagation();
             }
         };
         window.addEventListener('unhandledrejection', onRejection, true);
         window.addEventListener('error', onError, true);
+        // ──────────────────────────────────────────────────────────────────
 
-        // If a global Tawk script already exists (for example injected in _document), don't duplicate it
-        const existingTawkScript = document.querySelector('script[src*="embed.tawk.to"]');
+        // Let Tawk position itself naturally (bottom-right).
+        // We only apply its official CSS-variable offset to push it above
+        // the voice FAB button which sits at bottom-right as well.
+        window.Tawk_API = window.Tawk_API || {};
+        window.Tawk_LoadStart = new Date();
 
-        if (!existingTawkScript && !document.getElementById(scriptId)) {
+        const applyOffset = () => {
+            try {
+                // Tawk respects --tawk-bottom-offset CSS variable on its iframe containers.
+                // Also directly style the iframes we can find.
+                document.querySelectorAll<HTMLIFrameElement>(
+                    'iframe[src*="tawk.to"], [id*="tawk"] iframe, [class*="tawk"] iframe'
+                ).forEach((el) => {
+                    // Only adjust bottom-anchored (launcher) iframes, not full-panel ones
+                    const rect = el.getBoundingClientRect();
+                    if (rect.height < 100) {
+                        // small = launcher button
+                        el.style.setProperty('bottom', `${offsetPx}px`, 'important');
+                    }
+                });
+            } catch { /* cross-origin — can't touch */ }
+        };
+
+        const prevOnLoad = window.Tawk_API.onLoad;
+        window.Tawk_API.onLoad = function () {
+            if (prevOnLoad) try { prevOnLoad(); } catch (e) { /* ignore */ }
+            applyOffset();
+        };
+
+        // Inject script once
+        if (!document.getElementById(scriptId) && !document.querySelector('script[src*="embed.tawk.to"]')) {
             const script = document.createElement('script');
             script.id = scriptId;
             script.async = true;
@@ -96,143 +104,14 @@ export default function TawkChat({propertyId, widgetId, offsetPx}: TawkChatProps
             document.body.appendChild(script);
         }
 
-        const getFloatingButtonOffset = () => {
-            const button = document.querySelector<HTMLElement>(floatingButtonSelector);
-            if (!button) return null;
-
-            const style = window.getComputedStyle(button);
-            if (style.display === 'none' || style.visibility === 'hidden') return null;
-
-            const rect = button.getBoundingClientRect();
-            if (!rect.width || !rect.height) return null;
-
-            // `bottom-8` = 32px. Add the button's height and a little breathing room.
-            return 32 + Math.ceil(rect.height) + 16;
-        };
-
-        const getDesiredOffset = () => getFloatingButtonOffset() ?? fallbackOffset;
-
-        // Anchor the Tawk launcher to the TOP-RIGHT, directly BELOW the voice
-        // command FAB. The voice FAB sits at top:104px with a ~56px button, so
-        // we drop the Tawk launcher to top:~172px on the right. We force `top`
-        // and neutralise the vendor's default `bottom` so it doesn't fight us.
-        const TAWK_TOP_PX = 172;
-        const pinTopRight = (node: HTMLElement) => {
-            node.style.setProperty('top', `${TAWK_TOP_PX}px`, 'important');
-            node.style.setProperty('bottom', 'auto', 'important');
-            node.style.setProperty('right', '22px', 'important');
-        };
-
-        // Find injected Tawk elements and pin them to the top-right.
-        // Tawk injects its launcher/iframes with RANDOM ids (no "tawk" token),
-        // so we can't rely on id/class. We collect explicit Tawk matches PLUS
-        // any fixed-position <iframe> whose src is tawk.to OR that is a small
-        // fixed iframe anchored to the bottom — that's Tawk's launcher. We
-        // exclude our own widgets (.grey-voice-fab and the Request-Quote button).
-        const isOurWidget = (el: HTMLElement) =>
-            el.closest('.grey-voice-fab') != null ||
-            el.matches(floatingButtonSelector) ||
-            el.closest(floatingButtonSelector) != null;
-
-        const collectTawkNodes = (): HTMLElement[] => {
-            const out = new Set<HTMLElement>();
-            const explicit = document.querySelectorAll<HTMLElement>(
-                '[id*="tawk"], [class*="tawk"], iframe[src*="tawk.to"], iframe[title*="chat" i]',
-            );
-            explicit.forEach((n) => out.add(n));
-
-            // Heuristic: fixed/sticky iframes anchored near the bottom edge that
-            // aren't ours — Tawk's launcher + chat window.
-            document.querySelectorAll<HTMLIFrameElement>('iframe').forEach((n) => {
-                if (isOurWidget(n)) return;
-                const c = window.getComputedStyle(n);
-                if ((c.position === 'fixed' || c.position === 'sticky') && c.bottom !== 'auto') {
-                    out.add(n);
-                }
-            });
-            return Array.from(out).filter((n) => !isOurWidget(n));
-        };
-
-        const applyOffset = (_offset: number) => {
-            const nodes = collectTawkNodes();
-
-            let applied = false;
-            for (const node of nodes) {
-                try {
-                    const style = window.getComputedStyle(node);
-                    if (style.position === 'fixed' || style.position === 'sticky') {
-                        pinTopRight(node);
-                        if (node.parentElement && !isOurWidget(node.parentElement)) {
-                            const pStyle = window.getComputedStyle(node.parentElement);
-                            if (pStyle.position === 'fixed' || pStyle.position === 'sticky') {
-                                pinTopRight(node.parentElement);
-                            }
-                        }
-                        applied = true;
-                    }
-                } catch (err) {
-                    // If cross-origin iframe access throws, still try inline styles
-                    try {
-                        pinTopRight(node);
-                        applied = true;
-                    } catch (e) {
-                        // ignore and continue
-                    }
-                }
-            }
-
-            return applied;
-        };
-
-        let intervalId: number | undefined;
-        let mutationObserver: MutationObserver | undefined;
-        let resizeTimer: number | undefined;
-
-        const tryApply = () => {
-            const px = getDesiredOffset();
-            if (!px) return;
-
-            // try immediate
-            if (applyOffset(px)) return;
-
-            if (intervalId) window.clearInterval(intervalId);
-            intervalId = window.setInterval(() => {
-                applyOffset(getDesiredOffset());
-            }, 500);
-
-            // attach to Tawk onLoad callback if available
-            try {
-                if (window.Tawk_API) {
-                    const prev = window.Tawk_API.onLoad;
-                    window.Tawk_API.onLoad = function () {
-                        if (prev) try { prev(); } catch (e) {}
-                        applyOffset(getDesiredOffset());
-                    };
-                }
-            } catch (e) {
-                // ignore
-            }
-        };
-
-        const scheduleApply = () => {
-            window.clearTimeout(resizeTimer);
-            resizeTimer = window.setTimeout(() => tryApply(), 50);
-        };
-
-        // eslint-disable-next-line prefer-const
-        mutationObserver = new MutationObserver(() => scheduleApply());
-        mutationObserver.observe(document.body, {childList: true, subtree: true, attributes: true});
-
-        window.addEventListener('resize', scheduleApply);
-        scheduleApply();
+        // Observe DOM for Tawk nodes appearing and nudge bottom offset
+        const observer = new MutationObserver(() => applyOffset());
+        observer.observe(document.body, {childList: true, subtree: false});
 
         return () => {
-            if (intervalId) window.clearInterval(intervalId);
-            if (mutationObserver) mutationObserver.disconnect();
-            window.removeEventListener('resize', scheduleApply);
+            observer.disconnect();
             window.removeEventListener('unhandledrejection', onRejection, true);
             window.removeEventListener('error', onError, true);
-            if (resizeTimer) window.clearTimeout(resizeTimer);
             console.error = originalConsoleError;
         };
     }, [propertyId, widgetId, offsetPx]);
