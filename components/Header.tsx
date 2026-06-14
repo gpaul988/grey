@@ -664,7 +664,9 @@ const Header: React.FC = () => {
                                 <SiteSearch variant="desktop"/>
                             </div>
                             {/* Theme toggle (desktop) */}
-                            <ThemeToggle className="hidden lg:inline-flex mr-3 scale-90"/>
+                            <div className="hidden lg:block mr-3">
+                                <ThemeToggle className="scale-90" layoutGroupId="theme-glow-desktop"/>
+                            </div>
                             {/* CTA Button */}
                             <button
                                 onClick={() => setIsModalOpen(true)}
@@ -674,7 +676,7 @@ const Header: React.FC = () => {
                             </button>
                             {/* Mobile menu button */}
                             <div className="lg:hidden flex items-center gap-2">
-                                <ThemeToggle className="scale-90"/>
+                                <ThemeToggle className="scale-90" layoutGroupId="theme-glow-mobile"/>
                                 <button
                                     type="button"
                                     className="text-white hover:text-gray-300 focus:outline-none focus:text-gray-300 transition-colors duration-200"

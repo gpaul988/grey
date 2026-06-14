@@ -15,8 +15,23 @@ const OPTIONS: {key: Theme; icon: React.ReactNode; label: string}[] = [
     {key: 'dark', icon: <Moon size={15}/>, label: 'Dark'},
 ];
 
-export default function ThemeToggle({className = ''}: {className?: string}) {
+let toggleSeq = 0;
+
+export default function ThemeToggle({
+    className = '',
+    layoutGroupId,
+}: {
+    className?: string;
+    /** Unique id so multiple ThemeToggle instances on one page don't share a
+     *  framer-motion layoutId (which made the glow indicator render twice). */
+    layoutGroupId?: string;
+}) {
     const {theme, setTheme} = useTheme();
+    // Stable unique id per mounted instance.
+    const glowId = React.useMemo(
+        () => layoutGroupId ?? `theme-glow-${++toggleSeq}`,
+        [layoutGroupId],
+    );
     return (
         <div
             role="radiogroup"
@@ -37,7 +52,7 @@ export default function ThemeToggle({className = ''}: {className?: string}) {
                     >
                         {active && (
                             <motion.span
-                                layoutId="theme-glow"
+                                layoutId={glowId}
                                 transition={{type: 'spring', stiffness: 420, damping: 32}}
                                 className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-teal-400 to-cyan-500 shadow-[0_0_18px_-2px_rgba(45,212,191,0.7)]"
                             />
