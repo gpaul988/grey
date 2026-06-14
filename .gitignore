@@ -59,3 +59,4 @@ Admin/node_modules
 .git-push.env
 !.env.example
 !config.env.example
+.env.push

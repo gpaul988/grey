@@ -168,8 +168,13 @@ export default function RootLayout({
             <TawkChat propertyId="6a1ba828a3242d1c2ed9db1d" widgetId="1jpu0ho3p"/>
             <AIChat/>
 
-            {/* Hands-free voice navigation (on-device, opt-in, privacy-safe) */}
-            <VoiceCommander/>
+            {/* Hands-free voice navigation (on-device, opt-in, privacy-safe).
+                Wrapped in Suspense because it reads useSearchParams via the
+                routerCompat shim, which otherwise forces a CSR bailout and
+                breaks static prerendering of pages. */}
+            <React.Suspense fallback={null}>
+                <VoiceCommander/>
+            </React.Suspense>
             </PersonalizationProvider>
         </ThemeProvider>
         </body>
