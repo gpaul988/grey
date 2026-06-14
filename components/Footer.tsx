@@ -365,6 +365,9 @@ const Footer = () => {
                                 <li><Link href="/support"
                                           className="hover:text-white transition-colors">Support</Link>
                                 </li>
+                                <li><Link href="/audit"
+                                          className="hover:text-white transition-colors">Free Site Audit</Link>
+                                </li>
                             </ul>
                         </div>
 
