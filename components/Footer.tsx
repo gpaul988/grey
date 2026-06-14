@@ -5,6 +5,7 @@ import '../app/globals.css'
 import {FaFacebook, FaGithub, FaInstagram, FaLinkedin, FaTwitter, FaGitlab} from "react-icons/fa6";
 import Image from "next/image";
 import Link from "next/link";
+import {usePathname} from "next/navigation";
 import {FormComponent} from "@/components/FormComponent";
 import {BsThreads} from "react-icons/bs";
 
@@ -70,11 +71,73 @@ const customStyles = `
     transform: translateY(-4px) scale(1.06);
     box-shadow: 0 10px 30px rgba(20,184,166,0.5);
   }
+
+  /* --- EXTREME futuristic footer layer (additive) --- */
+  @keyframes greyMeshDrift {
+    0%   { transform: translate3d(-6%, 0, 0) scale(1.1); opacity:.5; }
+    50%  { transform: translate3d(6%, 3%, 0) scale(1.25); opacity:.8; }
+    100% { transform: translate3d(-6%, 0, 0) scale(1.1); opacity:.5; }
+  }
+  @keyframes greyGridPan {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 48px 48px, 48px 48px; }
+  }
+  @keyframes greyHueSpin { 0% { filter: hue-rotate(0); } 100% { filter: hue-rotate(360deg); } }
+  @keyframes greyScanFooter {
+    0% { transform: translateY(0); opacity:0; }
+    10% { opacity:.85; }
+    100% { transform: translateY(100%); opacity:0; }
+  }
+
+  /* Animated holographic mesh blobs behind the footer */
+  .grey-mesh { position:absolute; inset:-30% -10%; pointer-events:none; z-index:0; filter:blur(70px); mix-blend-mode:screen; will-change:transform; }
+  .grey-mesh.m1 { background: radial-gradient(35% 50% at 20% 30%, rgba(20,184,166,.40), transparent 70%); animation: greyMeshDrift 16s ease-in-out infinite; }
+  .grey-mesh.m2 { background: radial-gradient(35% 50% at 80% 20%, rgba(99,102,241,.38), transparent 70%); animation: greyMeshDrift 20s ease-in-out infinite reverse; }
+  .grey-mesh.m3 { background: radial-gradient(30% 45% at 55% 80%, rgba(6,182,212,.30), transparent 70%); animation: greyMeshDrift 24s ease-in-out infinite; }
+
+  /* Panning tech grid (upgrade over the static glow) */
+  .grey-grid-glow { animation: greyGridPan 8s linear infinite; }
+
+  /* Horizontal neon scan sweeping the footer */
+  .grey-scan-footer {
+    position:absolute; left:0; right:0; top:0; height:120px; z-index:0; pointer-events:none;
+    background: linear-gradient(180deg, rgba(6,182,212,.18), transparent);
+    animation: greyScanFooter 7s ease-in-out infinite;
+  }
+
+  /* Social icons get an animated halo ring on hover */
+  .grey-social::before {
+    content:""; position:absolute; inset:-8px; border-radius:9999px; z-index:-1;
+    background: conic-gradient(from 0deg, #14b8a6, #06b6d4, #6366f1, #14b8a6);
+    background-size:200% 200%; filter:blur(6px); opacity:0; transition:opacity .3s;
+    animation: greyAccentSlide 3s linear infinite;
+  }
+  .grey-social:hover::before { opacity:.85; }
+
+  /* Glowing pill CTA helper for the footer login/cta */
+  .grey-glow-pill { position:relative; isolation:isolate; transition: transform .25s ease; }
+  .grey-glow-pill:hover { transform: translateY(-2px) scale(1.04); }
+  .grey-glow-pill::before {
+    content:""; position:absolute; inset:-2px; border-radius:inherit; z-index:-1;
+    background: conic-gradient(from 0deg, #14b8a6, #6366f1, #ec4899, #14b8a6);
+    background-size:200% 200%; filter:blur(7px); opacity:0; transition:opacity .3s;
+    animation: greyAccentSlide 3s linear infinite;
+  }
+  .grey-glow-pill:hover::before { opacity:.9; }
+
+  /* Thicker, richer animated accent bar */
+  .grey-accent-bar { height: 3px; background: linear-gradient(90deg, #14b8a6, #06b6d4, #6366f1, #ec4899, #06b6d4, #14b8a6); background-size: 300% 100%; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .grey-mesh, .grey-grid-glow, .grey-scan-footer, .grey-social::before,
+    .grey-glow-pill::before, .grey-accent-bar { animation: none !important; }
+  }
 `;
 
 const Footer = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const backendLoginUrl = '/login';
+    const pathname = usePathname();
 
     // State to manage modal visibility
     useEffect(() => {
@@ -176,17 +239,29 @@ const Footer = () => {
         </>)
     ];
 
+    // The /store/* routes render their own storefront footer via StoreLayout.
+    // Suppress the global site footer there to prevent a duplicated footer.
+    // Additive guard — placed after all hooks so hook order stays stable.
+    if (pathname?.startsWith('/store')) {
+        return null;
+    }
+
     return (
         <>
             <style dangerouslySetInnerHTML={{__html: customStyles}}/>
             {/* Futuristic animated accent bar (added) */}
             <div className="grey-accent-bar" aria-hidden="true"/>
             <footer
-                className="relative bg-black/75 text-white min-h-auto flex flex-col mx-auto w-full px-6 sm:px-12 md:px-20 lg:px-[4.6em]">
-                {/* Subtle animated tech-grid glow backdrop (added, decorative) */}
+                className="relative overflow-hidden bg-black/75 text-white min-h-auto flex flex-col mx-auto w-full px-6 sm:px-12 md:px-20 lg:px-[4.6em]">
+                {/* Holographic mesh blobs + neon scan (decorative, behind content) */}
+                <span className="grey-mesh m1" aria-hidden="true"/>
+                <span className="grey-mesh m2" aria-hidden="true"/>
+                <span className="grey-mesh m3" aria-hidden="true"/>
+                <span className="grey-scan-footer" aria-hidden="true"/>
+                {/* Animated tech-grid glow backdrop (added, decorative) */}
                 <div className="grey-grid-glow" aria-hidden="true"/>
                 {/* Main Footer Content */}
-                <div className="flex-1 py-12">
+                <div className="relative z-10 flex-1 py-12">
                     {/* Hero Section */}
                     <div
                         className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 lg:gap-16 mx-auto lg:mb-14 md:mb-12 mb-8">

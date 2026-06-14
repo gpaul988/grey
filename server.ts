@@ -1,3 +1,7 @@
+// IMPORTANT: must be the very first import so process.env is populated
+// (from config.env) before any module that reads env at import time runs.
+import './Admin/config/env';
+
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';

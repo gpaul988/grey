@@ -145,6 +145,17 @@ export function csrfErrorHandler(err: unknown, req: Request, res: Response, next
 
 /** Makes a csrfToken available to every EJS view via res.locals. */
 export function exposeCsrfToken(req: Request, res: Response, next: NextFunction) {
+    // The CSRF token is bound to the session identifier (req.sessionID). With
+    // express-session `saveUninitialized:false`, a brand-new session is NOT
+    // persisted on the GET that renders the form, so the POST arrives with a
+    // *different* sessionID and the double-submit check fails (403 "Invalid or
+    // missing CSRF token"). Touching the session here forces `grey.sid` to be
+    // issued on the GET, keeping the identifier stable across GET -> POST.
+    const sess = (req as Request & {session?: Record<string, unknown>}).session;
+    if (sess) {
+        // Mark the session so express-session persists it and sets the cookie.
+        sess.csrfBootstrap = true;
+    }
     try {
         res.locals.csrfToken = generateCsrfToken(req, res);
     } catch {
