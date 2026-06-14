@@ -1,0 +1,182 @@
+<%- contentFor('html_attribute') %>
+<%- contentFor('extra_css') %>
+<%- contentFor('content') %>
+
+<%- include('./partials/page-title', { title: title, subtitle: 'Content' }) %>
+
+<!-- Placement card -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h4 class="card-title mb-0"><i class="ti ti-layout-grid me-1"></i> Show client reviews on pages</h4>
+                <button class="btn btn-sm btn-success" id="btnSavePlacement"><i class="ti ti-device-floppy"></i> Save placement</button>
+            </div>
+            <div class="card-body">
+                <p class="text-muted fs-13 mb-3">Tick the pages where the rotating client-review slider should appear.</p>
+                <div class="d-flex flex-wrap gap-3" id="placementBoxes">
+                    <% ['home','about','services','industries','portfolio'].forEach((pg) => { %>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input pl-page" type="checkbox" value="<%= pg %>" id="pl_<%= pg %>">
+                        <label class="form-check-label text-capitalize fw-medium" for="pl_<%= pg %>"><%= pg %></label>
+                    </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reviews list -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h4 class="card-title mb-0">Client Reviews <span class="badge bg-primary-subtle text-primary ms-1"><%= reviews.length %></span></h4>
+                <button class="btn btn-sm btn-primary" id="btnNew"><i class="ti ti-plus"></i> Add review</button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-centered mb-0">
+                    <thead class="bg-light bg-opacity-50">
+                        <tr><th>Author</th><th>Quote</th><th>Rating</th><th>Order</th><th>Active</th><th class="text-end">Action</th></tr>
+                    </thead>
+                    <tbody>
+                        <% if (!reviews.length) { %><tr><td colspan="6" class="text-center text-muted py-4">No reviews yet.</td></tr><% } %>
+                        <% reviews.forEach((r) => { %>
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <% if (r.avatar) { %><img src="<%= r.avatar %>" alt="<%= r.author %>" style="width:34px;height:34px;border-radius:50%;object-fit:cover"><% } %>
+                                    <div>
+                                        <div class="fw-medium"><%= r.author %></div>
+                                        <small class="text-muted"><%= [r.role, r.company].filter(Boolean).join(' · ') || '—' %></small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><div class="text-muted fs-13 text-truncate" style="max-width:340px"><%= r.quote %></div></td>
+                            <td><span class="text-warning"><% for (let i=0;i<r.rating;i++){ %>★<% } %></span></td>
+                            <td><span class="badge bg-light text-dark"><%= r.sort_order %></span></td>
+                            <td><span class="badge bg-<%= r.active?'success':'secondary' %>-subtle text-<%= r.active?'success':'secondary' %>"><%= r.active ? 'Active' : 'Hidden' %></span></td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-soft-primary btn-edit"
+                                    data-id="<%= r.id %>"
+                                    data-author="<%- (r.author||'').replace(/"/g,'&quot;') %>"
+                                    data-role="<%- (r.role||'').replace(/"/g,'&quot;') %>"
+                                    data-company="<%- (r.company||'').replace(/"/g,'&quot;') %>"
+                                    data-avatar="<%- (r.avatar||'').replace(/"/g,'&quot;') %>"
+                                    data-quote="<%- (r.quote||'').replace(/"/g,'&quot;') %>"
+                                    data-rating="<%= r.rating %>"
+                                    data-sort="<%= r.sort_order %>"
+                                    data-active="<%= r.active %>"><i class="ti ti-edit"></i></button>
+                                <button class="btn btn-sm btn-soft-danger btn-del" data-id="<%= r.id %>"><i class="ti ti-trash"></i></button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Review Modal -->
+<div class="modal fade" id="rModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header border-bottom">
+                <h5 class="modal-title" id="mTitle">Add review</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="f_id">
+                <div class="row g-3">
+                    <div class="col-md-6"><label class="form-label fw-medium">Author <span class="text-danger">*</span></label><input id="f_author" class="form-control" placeholder="e.g. Jane Doe"></div>
+                    <div class="col-md-6"><label class="form-label fw-medium">Rating</label>
+                        <select id="f_rating" class="form-select">
+                            <option value="5">★★★★★ (5)</option>
+                            <option value="4">★★★★ (4)</option>
+                            <option value="3">★★★ (3)</option>
+                            <option value="2">★★ (2)</option>
+                            <option value="1">★ (1)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6"><label class="form-label fw-medium">Role / title</label><input id="f_role" class="form-control" placeholder="e.g. CTO"></div>
+                    <div class="col-md-6"><label class="form-label fw-medium">Company</label><input id="f_company" class="form-control" placeholder="e.g. Acme Corp"></div>
+                    <div class="col-12"><label class="form-label fw-medium">Avatar image URL <span class="text-muted fw-normal">(optional)</span></label><input id="f_avatar" class="form-control" placeholder="https://..."></div>
+                    <div class="col-12"><label class="form-label fw-medium">Quote <span class="text-danger">*</span></label><textarea id="f_quote" class="form-control" rows="4" placeholder="What the client said about working with Grey InfoTech."></textarea></div>
+                    <div class="col-6"><label class="form-label fw-medium">Sort order</label><input id="f_sort" type="number" class="form-control" value="0"></div>
+                    <div class="col-6 d-flex align-items-end pb-1">
+                        <div class="form-check form-switch ms-1">
+                            <input class="form-check-input" type="checkbox" id="f_active" checked>
+                            <label class="form-check-label fw-medium" for="f_active">Active</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-top">
+                <button class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" id="btnSave"><i class="ti ti-device-floppy me-1"></i>Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('extra_javascript') %>
+<%- include('./partials/admin-api-helper') %>
+<script>
+(function () {
+    const modal = new bootstrap.Modal('#rModal');
+    const F = (id) => document.getElementById(id);
+
+    /* ── placement ── */
+    AdminAPI.get('/content-placement').then((r) => {
+        if (!r.ok) return;
+        const on = (r.data.reviews || []);
+        document.querySelectorAll('.pl-page').forEach((cb) => { cb.checked = on.includes(cb.value); });
+    });
+    F('btnSavePlacement').addEventListener('click', async () => {
+        const reviews = Array.from(document.querySelectorAll('.pl-page')).filter(c => c.checked).map(c => c.value);
+        const r = await AdminAPI.post('/content-placement', { reviews });
+        AdminAPI.toast(r.ok ? 'Placement saved' : (r.message || 'Failed'), !r.ok);
+    });
+
+    /* ── CRUD ── */
+    F('btnNew').addEventListener('click', () => {
+        F('mTitle').textContent = 'Add review';
+        F('f_id').value = ''; F('f_author').value = ''; F('f_role').value = '';
+        F('f_company').value = ''; F('f_avatar').value = ''; F('f_quote').value = '';
+        F('f_rating').value = '5'; F('f_sort').value = '0'; F('f_active').checked = true;
+        modal.show();
+    });
+    document.querySelectorAll('.btn-edit').forEach((b) => b.addEventListener('click', () => {
+        const d = b.dataset;
+        F('mTitle').textContent = 'Edit review';
+        F('f_id').value = d.id; F('f_author').value = d.author || ''; F('f_role').value = d.role || '';
+        F('f_company').value = d.company || ''; F('f_avatar').value = d.avatar || ''; F('f_quote').value = d.quote || '';
+        F('f_rating').value = d.rating || '5'; F('f_sort').value = d.sort || '0'; F('f_active').checked = d.active === '1';
+        modal.show();
+    }));
+    document.querySelectorAll('.btn-del').forEach((b) => b.addEventListener('click', async () => {
+        if (!confirm('Delete this review?')) return;
+        const r = await AdminAPI.del('/reviews/' + b.dataset.id);
+        if (r.ok) location.reload(); else AdminAPI.toast(r.message || 'Failed', true);
+    }));
+    F('btnSave').addEventListener('click', async () => {
+        const payload = {
+            author: F('f_author').value.trim(),
+            role: F('f_role').value.trim(),
+            company: F('f_company').value.trim(),
+            avatar: F('f_avatar').value.trim(),
+            quote: F('f_quote').value.trim(),
+            rating: parseInt(F('f_rating').value, 10) || 5,
+            sort_order: parseInt(F('f_sort').value, 10) || 0,
+            active: F('f_active').checked,
+        };
+        if (!payload.author) return AdminAPI.toast('Author is required', true);
+        if (!payload.quote) return AdminAPI.toast('Quote is required', true);
+        const id = F('f_id').value;
+        const r = id ? await AdminAPI.patch('/reviews/' + id, payload) : await AdminAPI.post('/reviews', payload);
+        if (r.ok) location.reload(); else AdminAPI.toast(r.message || 'Failed', true);
+    });
+})();
+</script>

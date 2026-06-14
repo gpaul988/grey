@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import SocialProof from "@/components/SocialProof";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CountUp from "react-countup";
@@ -899,6 +900,7 @@ const Company = () => {
                     </section>
                 </div>
             </div>
+            <SocialProof page="about"/>
 
 
         </div>

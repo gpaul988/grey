@@ -6,7 +6,7 @@ import {adminPath} from '../config/adminPaths';
 import {requirePermission} from '../middleware/authMiddleware';
 import {
     Users, Submissions, Leads, Clients, Projects, Tickets, TicketMessages,
-    Invoices, CaseStudies, BlogPosts, Conversations, Messages, Activity,
+    Invoices, CaseStudies, BlogPosts, Partners, ClientReviews, Conversations, Messages, Activity,
     dashboardStats, chartData, logActivity,
 } from '../models';
 import {formatMoney, timeAgo, toInt} from '../utils/helpers';
@@ -111,6 +111,14 @@ route.get('/case-studies', requirePermission('casestudies.view'), (_req, res) =>
 
 route.get('/blog', requirePermission('blog.view'), (_req, res) => {
     res.render('apps-blog', {title: 'Blog', ...baseLocals, posts: BlogPosts.all()});
+});
+
+route.get('/partners', requirePermission('blog.view'), (_req, res) => {
+    res.render('apps-partners', {title: 'Partners & Logos', ...baseLocals, partners: Partners.all('sort_order ASC, id ASC')});
+});
+
+route.get('/reviews', requirePermission('blog.view'), (_req, res) => {
+    res.render('apps-reviews', {title: 'Client Reviews', ...baseLocals, reviews: ClientReviews.all('sort_order ASC, id ASC')});
 });
 
 route.get('/chat', (req, res) => {
