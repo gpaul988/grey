@@ -1,0 +1,145 @@
+<%- contentFor('html_attribute') %>
+<%- contentFor('extra_css') %>
+<style>
+    .gx-audit-input { background: rgba(255,255,255,.02); }
+    .gx-sev { display:inline-block; padding:.12rem .5rem; border-radius:.4rem; font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; }
+    .gx-sev-critical { color:#ff4d6d; background:rgba(255,77,109,.14); }
+    .gx-sev-high { color:#ff8a3d; background:rgba(255,138,61,.14); }
+    .gx-sev-medium { color:#e0a800; background:rgba(255,210,77,.16); }
+    .gx-sev-low { color:#3d7aff; background:rgba(122,162,255,.16); }
+    .gx-sev-pass { color:#1aa179; background:rgba(54,224,160,.16); }
+    .gx-finding { border:1px solid rgba(0,0,0,.06); border-radius:.6rem; padding:.7rem .85rem; margin-bottom:.55rem; }
+    .gx-ring { width:88px; height:88px; border-radius:50%; display:grid; place-items:center; }
+    .gx-ring-inner { width:70px; height:70px; border-radius:50%; display:grid; place-items:center; background:var(--bs-card-bg, #fff); }
+    .gx-bar { height:6px; border-radius:6px; background:rgba(0,0,0,.08); overflow:hidden; }
+    .gx-bar > span { display:block; height:100%; border-radius:6px; }
+</style>
+
+<%- contentFor('content') %>
+
+<%- include('./partials/page-title', { title: title, subtitle: 'Tools' }) %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-1">Website &amp; GitHub Repo Audit</h4>
+                <p class="text-muted mb-3">Run live security, performance, SEO and engineering checks. Blunt findings, no sugar-coating.</p>
+                <form id="gxAuditForm" class="row g-2 align-items-end">
+                    <div class="col-md-5">
+                        <label class="form-label small fw-semibold">Website URL</label>
+                        <input type="url" id="gxWebsite" class="form-control gx-audit-input" placeholder="https://example.com">
+                    </div>
+                    <div class="col-md-5">
+                        <label class="form-label small fw-semibold">GitHub Repo URL</label>
+                        <input type="text" id="gxRepo" class="form-control gx-audit-input" placeholder="https://github.com/owner/repo">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" id="gxRun" class="btn btn-primary w-100">Run Audit</button>
+                    </div>
+                </form>
+                <div id="gxError" class="alert alert-danger mt-3 d-none mb-0"></div>
+                <div id="gxLoading" class="text-muted small mt-3 d-none">
+                    <span class="spinner-border spinner-border-sm me-1"></span> Running audit — up to ~20s…
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="gxResult"></div>
+
+<%- contentFor('extra_javascript') %>
+<script>
+(function () {
+    var form = document.getElementById('gxAuditForm');
+    var errBox = document.getElementById('gxError');
+    var loading = document.getElementById('gxLoading');
+    var result = document.getElementById('gxResult');
+    var runBtn = document.getElementById('gxRun');
+
+    function gradeColor(s) {
+        if (s >= 90) return '#1aa179';
+        if (s >= 70) return '#6c9a2e';
+        if (s >= 50) return '#cc9a00';
+        if (s >= 30) return '#cc6a1f';
+        return '#d6334f';
+    }
+    var SEV = ['critical','high','medium','low','pass'];
+    function sevRank(s){ return {critical:5,high:4,medium:3,low:2,pass:1}[s] || 0; }
+    function esc(t){ var d=document.createElement('div'); d.textContent=t==null?'':String(t); return d.innerHTML; }
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        errBox.classList.add('d-none');
+        result.innerHTML = '';
+        var website = document.getElementById('gxWebsite').value.trim();
+        var repo = document.getElementById('gxRepo').value.trim();
+        if (!website && !repo) {
+            errBox.textContent = 'Enter a website URL, a GitHub repo URL, or both.';
+            errBox.classList.remove('d-none');
+            return;
+        }
+        loading.classList.remove('d-none');
+        runBtn.disabled = true;
+        fetch('/api/audit/run', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            credentials: 'same-origin',
+            body: JSON.stringify({website: website, repo: repo}),
+        })
+        .then(function (r) { return r.json().then(function (j) { return {ok: r.ok, j: j}; }); })
+        .then(function (res) {
+            if (!res.ok) {
+                var msg = res.j.error || (res.j.errors && Object.values(res.j.errors)[0]) || 'Audit failed.';
+                throw new Error(msg);
+            }
+            render(res.j);
+        })
+        .catch(function (err) {
+            errBox.textContent = err.message || 'Audit failed. Try again.';
+            errBox.classList.remove('d-none');
+        })
+        .finally(function () {
+            loading.classList.add('d-none');
+            runBtn.disabled = false;
+        });
+    });
+
+    function render(rep) {
+        var c = gradeColor(rep.overallScore);
+        var deg = Math.round(rep.overallScore / 100 * 360);
+        var html = '';
+        html += '<div class="card"><div class="card-body d-flex flex-wrap align-items-center gap-3">';
+        html += '<div class="gx-ring" style="background:conic-gradient(' + c + ' ' + deg + 'deg, rgba(0,0,0,.08) ' + deg + 'deg)">';
+        html += '<div class="gx-ring-inner"><div class="text-center"><div class="fw-bold fs-4" style="color:' + c + '">' + esc(rep.grade) + '</div><div class="small text-muted">' + rep.overallScore + '/100</div></div></div></div>';
+        html += '<div class="flex-grow-1"><h5 class="mb-1">Overall verdict</h5><p class="text-muted mb-2">' + esc(rep.summary) + '</p>';
+        if (rep.target.website) html += '<span class="badge bg-light text-dark me-1">🌐 ' + esc(rep.target.website) + '</span>';
+        if (rep.target.repo) html += '<span class="badge bg-light text-dark">📦 ' + esc(rep.target.repo) + '</span>';
+        html += '</div></div></div>';
+
+        rep.sections.forEach(function (s) {
+            var sc = gradeColor(s.score);
+            html += '<div class="card"><div class="card-body">';
+            html += '<div class="d-flex justify-content-between align-items-center mb-2"><h5 class="mb-0">' + esc(s.name) + '</h5>';
+            html += '<span class="badge" style="color:' + sc + ';background:' + sc + '22">' + s.score + '/100</span></div>';
+            html += '<div class="gx-bar mb-3"><span style="width:' + s.score + '%;background:' + sc + '"></span></div>';
+            var fs = s.findings.slice().sort(function (a, b) { return sevRank(b.severity) - sevRank(a.severity); });
+            if (!fs.length) {
+                html += '<p class="text-success small mb-0">No issues found in this section. Clean.</p>';
+            } else {
+                fs.forEach(function (f) {
+                    html += '<div class="gx-finding"><div><span class="gx-sev gx-sev-' + f.severity + '">' + f.severity + '</span> <strong>' + esc(f.title) + '</strong></div>';
+                    html += '<div class="small text-muted mt-1">' + esc(f.detail) + '</div>';
+                    if (f.fix) html += '<div class="small mt-1"><strong>Fix:</strong> ' + esc(f.fix) + '</div>';
+                    html += '</div>';
+                });
+            }
+            html += '</div></div>';
+        });
+
+        html += '<p class="text-muted small text-center">Generated ' + new Date(rep.generatedAt).toLocaleString() + ' · Grey InfoTech Audit Engine</p>';
+        result.innerHTML = html;
+    }
+})();
+</script>

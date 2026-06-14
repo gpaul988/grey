@@ -42,6 +42,11 @@ function LoginInner() {
                         {showPw ? 'Hide' : 'Show'}
                     </button>
                 </div>
+                <div className="flex justify-end -mt-1">
+                    <Link href="/store/account/forgot-password" className="text-xs font-semibold text-[var(--st-teal)] hover:underline">
+                        Forgot password?
+                    </Link>
+                </div>
                 {error && <p className="text-red-400 text-sm">{error}</p>}
                 <button disabled={loading} className="st-btn w-full py-3">{loading ? 'Signing in…' : 'Sign In'}</button>
             </form>

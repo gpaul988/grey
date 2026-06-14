@@ -1146,6 +1146,18 @@ export function migrate(database?: DatabaseType.Database): void {
         CREATE INDEX IF NOT EXISTS idx_customers_email ON customers(email);
         CREATE INDEX IF NOT EXISTS idx_customers_phone ON customers(phone);
 
+        CREATE TABLE IF NOT EXISTS customer_password_resets
+        (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            customer_id INTEGER NOT NULL REFERENCES customers (id) ON DELETE CASCADE,
+            token_hash  TEXT    NOT NULL,
+            expires_at  TEXT    NOT NULL,
+            used_at     TEXT,
+            created_at  TEXT    NOT NULL DEFAULT (datetime('now'))
+        );
+        CREATE INDEX IF NOT EXISTS idx_cpr_token ON customer_password_resets(token_hash);
+        CREATE INDEX IF NOT EXISTS idx_cpr_customer ON customer_password_resets(customer_id);
+
         CREATE TABLE IF NOT EXISTS orders
         (
             id

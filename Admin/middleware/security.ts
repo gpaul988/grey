@@ -13,6 +13,19 @@ import type {NextFunction, Request, Response} from 'express';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import {doubleCsrf} from 'csrf-csrf';
+import dotenv from 'dotenv';
+import path from 'node:path';
+
+// FIX: when this module is imported from a Next.js API route (e.g.
+// pages/api/store/*), the Express server's `Admin/config/env` bootstrap has
+// NOT run in that module context, so process.env.CSRF_SECRET is empty and the
+// "development-only fallback" warning fires on every request. Loading env here
+// idempotently (dotenv won't override already-set vars) guarantees the real
+// secrets are present no matter which runtime imports this file first.
+if (!process.env.CSRF_SECRET || !process.env.SESSION_SECRET) {
+    dotenv.config({path: path.join(process.cwd(), 'config.env')});
+    dotenv.config();
+}
 
 const isProd = process.env.NODE_ENV === 'production';
 

@@ -143,6 +143,10 @@ route.get('/activity', requirePermission('activity.view'), (_req, res) => {
     res.render('apps-activity', {title: 'Activity Log', ...baseLocals, activity: Activity.all().slice(0, 100)});
 });
 
+route.get('/audit', (_req, res) => {
+    res.render('apps-audit', {title: 'Audit Tool', ...baseLocals});
+});
+
 route.get('/profile', (req, res) => {
     const u = req.session.user ? Users.find(req.session.user.id) : null;
     res.render('apps-user-profile', {

@@ -1,5 +1,8 @@
 import db from '../db';
 import bcrypt from 'bcryptjs';
+import crypto from 'node:crypto';
+
+const sha256 = (s: string) => crypto.createHash('sha256').update(s).digest('hex');
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -408,6 +411,50 @@ export const Customers = {
   },
   touchLogin(id: number): void {
     db.prepare("UPDATE customers SET last_login=datetime('now') WHERE id=?").run(id);
+  },
+
+  // ─── Password reset ────────────────────────────────────────────────────────
+  /**
+   * Create a single-use password reset token for the given email.
+   * Returns the RAW token (to embed in the email link) and the customer, or
+   * null if no account exists for that email. We store only a SHA-256 hash of
+   * the token; any previous unused tokens for the customer are invalidated.
+   * Token lifetime: 60 minutes.
+   */
+  createPasswordReset(email: string): { token: string; customer: SafeCustomer } | null {
+    const row = this.findByEmail(email);
+    if (!row) return null;
+    // Invalidate prior unused tokens for this customer.
+    db.prepare("UPDATE customer_password_resets SET used_at=datetime('now') WHERE customer_id=? AND used_at IS NULL").run(row.id);
+    const token = crypto.randomBytes(32).toString('hex');
+    db.prepare(
+      "INSERT INTO customer_password_resets (customer_id, token_hash, expires_at) VALUES (?,?,datetime('now','+60 minutes'))",
+    ).run(row.id, sha256(token));
+    return { token, customer: this.find(row.id)! };
+  },
+
+  /** Validate a raw reset token. Returns the customer id if valid + unexpired + unused. */
+  validateResetToken(token: string): number | null {
+    if (!token) return null;
+    const rec = db
+      .prepare(
+        "SELECT customer_id FROM customer_password_resets WHERE token_hash=? AND used_at IS NULL AND expires_at > datetime('now')",
+      )
+      .get(sha256(token)) as { customer_id: number } | undefined;
+    return rec ? rec.customer_id : null;
+  },
+
+  /** Consume a reset token and set a new password. Returns true on success. */
+  resetPassword(token: string, newPassword: string): boolean {
+    const customerId = this.validateResetToken(token);
+    if (!customerId) return false;
+    const hash = bcrypt.hashSync(newPassword, 12);
+    const tx = db.transaction(() => {
+      db.prepare("UPDATE customers SET password_hash=?, updated_at=datetime('now') WHERE id=?").run(hash, customerId);
+      db.prepare("UPDATE customer_password_resets SET used_at=datetime('now') WHERE token_hash=? AND used_at IS NULL").run(sha256(token));
+    });
+    tx();
+    return true;
   },
 };
 

@@ -237,8 +237,13 @@ body::before {
   display: flex; align-items: flex-start; justify-content: center;
   padding-top: 12vh;
   opacity: 0; transition: opacity .2s var(--grey-fx-ease);
+  /* FIX: when closed the backdrop is invisible (opacity:0) but was still
+     capturing all clicks across the screen (position:fixed; inset:0),
+     making admin login inputs and every page unclickable. */
+  pointer-events: none;
+  visibility: hidden;
 }
-.greyfx-cmdk-backdrop.open { opacity: 1; }
+.greyfx-cmdk-backdrop.open { opacity: 1; pointer-events: auto; visibility: visible; }
 .greyfx-cmdk {
   width: min(620px, 92vw);
   background: rgba(var(--grey-fx-glass) / .92);
