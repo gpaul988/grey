@@ -332,26 +332,113 @@ const Header: React.FC = () => {
         setIsTechnologiesOpen(false);
     };
 
+    // The /store/* routes ship their own self-contained storefront chrome
+    // (StoreLayout header + footer). Suppress the global site header there to
+    // avoid a duplicated header/footer. Additive guard — nothing removed.
+    if (pathname?.startsWith('/store')) {
+        return null;
+    }
+
     return (
         <>
-            {/* Futuristic: keyframes for the animated progress beam + CTA glow */}
+            {/* ============================================================
+                FUTURISTIC HEADER FX LAYER (additive — nothing removed)
+                Holographic beam, aurora drift, neon nav, scanline, magnetic CTA
+               ============================================================ */}
             <style>{`
                 @keyframes greyBeamFlow {
                     0% { background-position: 0% 50%; }
                     100% { background-position: 200% 50%; }
                 }
                 @keyframes greyCtaPulse {
-                    0%, 100% { box-shadow: 0 0 0 0 rgba(56,189,248,0.45); }
-                    50% { box-shadow: 0 0 22px 4px rgba(56,189,248,0.25); }
+                    0%, 100% { box-shadow: 0 0 0 0 rgba(56,189,248,0.45), 0 0 0 0 rgba(168,85,247,0.0); }
+                    50% { box-shadow: 0 0 26px 5px rgba(56,189,248,0.30), 0 0 50px 8px rgba(168,85,247,0.18); }
                 }
+                @keyframes greyAuroraDrift {
+                    0%   { transform: translate3d(-8%, 0, 0) scale(1.05); opacity:.55; }
+                    50%  { transform: translate3d(8%, 2%, 0) scale(1.15); opacity:.85; }
+                    100% { transform: translate3d(-8%, 0, 0) scale(1.05); opacity:.55; }
+                }
+                @keyframes greyScan {
+                    0% { transform: translateY(-100%); opacity: 0; }
+                    12% { opacity: .9; }
+                    100% { transform: translateY(420%); opacity: 0; }
+                }
+                @keyframes greyHueShift {
+                    0% { filter: hue-rotate(0deg); }
+                    100% { filter: hue-rotate(360deg); }
+                }
+                @keyframes greyFloatY {
+                    0%,100% { transform: translateY(0); }
+                    50% { transform: translateY(-3px); }
+                }
+
+                /* Holographic top progress beam */
                 .grey-progress-beam {
-                    background: linear-gradient(90deg, #38bdf8, #a855f7, #38bdf8);
-                    background-size: 200% 100%;
-                    animation: greyBeamFlow 3s linear infinite;
-                    box-shadow: 0 0 10px rgba(56,189,248,0.7);
+                    background: linear-gradient(90deg, #22d3ee, #38bdf8, #a855f7, #ec4899, #22d3ee);
+                    background-size: 300% 100%;
+                    animation: greyBeamFlow 4s linear infinite;
+                    box-shadow: 0 0 14px rgba(56,189,248,0.8), 0 0 28px rgba(168,85,247,0.45);
                 }
-                .grey-cta-glow { animation: greyCtaPulse 3.5s ease-in-out infinite; }
-                .grey-cta-glow:hover { animation-play-state: paused; }
+
+                /* CTA: magnetic neon glow + animated conic border */
+                .grey-cta-glow {
+                    position: relative;
+                    animation: greyCtaPulse 3.5s ease-in-out infinite;
+                    transition: transform .25s cubic-bezier(.2,.8,.2,1);
+                    isolation: isolate;
+                }
+                .grey-cta-glow:hover { transform: translateY(-2px) scale(1.04); }
+                .grey-cta-glow::before {
+                    content: "";
+                    position: absolute; inset: -2px; z-index: -1; border-radius: inherit;
+                    background: conic-gradient(from 0deg, #22d3ee, #a855f7, #ec4899, #22d3ee);
+                    background-size: 200% 200%;
+                    filter: blur(7px); opacity: 0; transition: opacity .3s;
+                    animation: greyBeamFlow 3s linear infinite;
+                }
+                .grey-cta-glow:hover::before { opacity: .9; }
+
+                /* Aurora layers that drift behind the header */
+                .grey-aurora {
+                    position: absolute; inset: -60% -10% auto -10%; height: 320%;
+                    pointer-events: none; z-index: 0; filter: blur(60px);
+                    mix-blend-mode: screen; will-change: transform;
+                }
+                .grey-aurora.a1 { background: radial-gradient(40% 60% at 20% 40%, rgba(34,211,238,.45), transparent 70%); animation: greyAuroraDrift 14s ease-in-out infinite; }
+                .grey-aurora.a2 { background: radial-gradient(40% 60% at 70% 30%, rgba(168,85,247,.40), transparent 70%); animation: greyAuroraDrift 18s ease-in-out infinite reverse; }
+                .grey-aurora.a3 { background: radial-gradient(35% 50% at 50% 60%, rgba(236,72,153,.28), transparent 70%); animation: greyAuroraDrift 22s ease-in-out infinite; }
+
+                /* Scanline sweep over the header bar */
+                .grey-scanline {
+                    position: absolute; left: 0; right: 0; top: 0; height: 2px;
+                    background: linear-gradient(90deg, transparent, rgba(34,211,238,.9), rgba(168,85,247,.7), transparent);
+                    pointer-events: none; animation: greyScan 6s ease-in-out infinite;
+                }
+
+                /* Neon underline for nav links (applies to existing after:* spans too) */
+                .grey-nav-neon { position: relative; }
+                .grey-nav-neon::after {
+                    content: ""; position: absolute; left: 0; bottom: -4px; height: 2px; width: 0;
+                    background: linear-gradient(90deg, #22d3ee, #a855f7, #ec4899);
+                    box-shadow: 0 0 10px rgba(56,189,248,.9), 0 0 18px rgba(168,85,247,.6);
+                    transition: width .3s cubic-bezier(.2,.8,.2,1);
+                    border-radius: 2px;
+                }
+                .grey-nav-neon:hover::after { width: 100%; }
+
+                /* Glass chip behind the logo */
+                .grey-logo-orbit { position: relative; animation: greyFloatY 5s ease-in-out infinite; }
+                .grey-logo-orbit::before {
+                    content: ""; position: absolute; inset: -40% -30%; z-index: -1;
+                    background: radial-gradient(50% 60% at 50% 50%, rgba(56,189,248,.30), transparent 70%);
+                    filter: blur(18px); animation: greyHueShift 12s linear infinite;
+                }
+
+                @media (prefers-reduced-motion: reduce) {
+                    .grey-progress-beam, .grey-cta-glow, .grey-cta-glow::before,
+                    .grey-aurora, .grey-scanline, .grey-logo-orbit, .grey-logo-orbit::before { animation: none !important; }
+                }
             `}</style>
 
             {/* Futuristic: top reading-progress beam (additive, non-blocking) */}
@@ -382,9 +469,18 @@ const Header: React.FC = () => {
                                                                             ${showHeader ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}
                                                                             ${isScrolled ? '' : ''}`}
                 >
-                    <div className="container max-w-full relative mx-auto w-full h-auto px-4 lg:px-[4.6em]">
+                    {/* Futuristic aurora + scanline layers (decorative, behind content) */}
+                    {isScrolled && (
+                        <>
+                            <span className="grey-aurora a1" aria-hidden="true"/>
+                            <span className="grey-aurora a2" aria-hidden="true"/>
+                            <span className="grey-aurora a3" aria-hidden="true"/>
+                            <span className="grey-scanline" aria-hidden="true"/>
+                        </>
+                    )}
+                    <div className="container max-w-full relative z-10 mx-auto w-full h-auto px-4 lg:px-[4.6em]">
                         <div className="flex items-center justify-between h-auto">
-                            <div className="shrink-0">
+                            <div className="shrink-0 grey-logo-orbit">
                                 <Link href="/#">
                                     <Image
                                         src="/logon.png"
@@ -410,7 +506,7 @@ const Header: React.FC = () => {
                                                 onMouseLeave={handleServicesMouseLeave}
                                             >
                                                 <button
-                                                    className={`text-white hover:text-gray-300 transition-colors duration-200 text-base font-normal relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300 hover:after:w-full ${isActiveRoute(item.href) ? 'border-b-2 border-white after:w-full' : ''}`}
+                                                    className={`grey-nav-neon text-white hover:text-gray-300 transition-colors duration-200 text-base font-normal relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300 hover:after:w-full ${isActiveRoute(item.href) ? 'border-b-2 border-white after:w-full' : ''}`}
                                                     aria-expanded={isServicesOpen}
                                                     aria-haspopup="true"
                                                     type="button"
@@ -467,7 +563,7 @@ const Header: React.FC = () => {
                                                 onMouseLeave={handleIndustriesMouseLeave}
                                             >
                                                 <button
-                                                    className={`text-white hover:text-gray-300 transition-colors duration-200 text-base font-normal relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300 hover:after:w-full ${isActiveRoute(item.href) ? 'border-b-2 border-white after:w-full' : ''}`}
+                                                    className={`grey-nav-neon text-white hover:text-gray-300 transition-colors duration-200 text-base font-normal relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300 hover:after:w-full ${isActiveRoute(item.href) ? 'border-b-2 border-white after:w-full' : ''}`}
                                                     aria-expanded={isIndustriesOpen}
                                                     aria-haspopup="true"
                                                     type="button"
@@ -515,7 +611,7 @@ const Header: React.FC = () => {
                                                 onMouseLeave={handleTechnologiesMouseLeave}
                                             >
                                                 <button
-                                                    className={`text-white hover:text-gray-300 transition-colors duration-200 text-base font-normal relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300 hover:after:w-full ${isActiveRoute(item.href) ? 'border-b-2 border-white after:w-full' : ''}`}
+                                                    className={`grey-nav-neon text-white hover:text-gray-300 transition-colors duration-200 text-base font-normal relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300 hover:after:w-full ${isActiveRoute(item.href) ? 'border-b-2 border-white after:w-full' : ''}`}
                                                     aria-expanded={isTechnologiesOpen}
                                                     aria-haspopup="true"
                                                     type="button"
