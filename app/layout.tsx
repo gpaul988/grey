@@ -11,6 +11,9 @@ import {OrganizationSchema, WebSiteSchema} from "@/components/StructuredData";
 import {ThemeProvider, themeInitScript} from "@/components/ThemeProvider";
 import AIChat from "@/components/AIChat";
 import {SITE} from "@/lib/seo";
+import {PersonalizationProvider} from "@/components/futuristic/PersonalizationProvider";
+import ParallaxProvider from "@/components/futuristic/ParallaxProvider";
+import VoiceCommander from "@/components/futuristic/VoiceCommander";
 
 const merriweather = Merriweather({
     variable: "--font-merriweather",
@@ -139,6 +142,9 @@ export default function RootLayout({
             className={`${merriweather.variable} ${roboto.variable} antialiased`}
         >
         <ThemeProvider>
+            <PersonalizationProvider>
+            {/* Publishes pointer/tilt as CSS vars for parallax (capability-gated, no camera) */}
+            <ParallaxProvider/>
             {/* Skip-to-content link for keyboard/screen-reader users (WCAG) */}
             <a
                 href="#main-content"
@@ -161,6 +167,10 @@ export default function RootLayout({
             {/* Live human chat (Tawk) + AI assistant run side-by-side */}
             <TawkChat propertyId="6a1ba828a3242d1c2ed9db1d" widgetId="1jpu0ho3p"/>
             <AIChat/>
+
+            {/* Hands-free voice navigation (on-device, opt-in, privacy-safe) */}
+            <VoiceCommander/>
+            </PersonalizationProvider>
         </ThemeProvider>
         </body>
         </html>

@@ -13,6 +13,8 @@ import CountUp from "react-countup";
 import {FaStar, FaGoogle, FaLinkedin} from "react-icons/fa6";
 import {FaFileAlt} from "react-icons/fa";
 import AIProjectEstimator from '@/components/AIProjectEstimator';
+import WebGLHero from '@/components/futuristic/WebGLHero';
+import {usePersonalization} from '@/components/futuristic/PersonalizationProvider';
 
 
 // Testimonial data
@@ -66,6 +68,8 @@ const Home = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
+    // Privacy-safe personalization (daypart greeting + returning-visitor tone)
+    const {greeting, returning, ready: personalReady} = usePersonalization();
 
     // FAQ section hook
     const [onIndex, setOnIndex] = useState<number | null>(null);
@@ -216,19 +220,27 @@ const Home = () => {
                     playsInline
                     className="absolute inset-0 w-full h-full object-cover object-center bg-black/cover"
                 />
+                {/* Futuristic WebGL layer (auto-falls back to CSS aurora on weak devices / reduced-motion) */}
+                <WebGLHero className="absolute inset-0 z-[5] opacity-60 pointer-events-none mix-blend-screen"/>
                 <div
                     className={`absolute inset-0 z-10 flex flex-col justify-center items-start text-start lg:max-w-[90em] px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] ${
                         isDayTime ? 'text-white ' : 'text-white'
                     }`}
                 >
                     <br/><br/>
-                    <h1 className={`${isDayTime ? 'text-black' : 'text-white'} lg:text-[87px] text-[45px] lg:leading-[1.1] md:leading-[1.1] leading-[1.2] font-[600] lg:mb-6`}>
+                    {personalReady && greeting && (
+                        <span className={`grey-parallax-soft inline-flex items-center gap-2 rounded-full px-3 py-1 mb-2 text-xs font-medium backdrop-blur-sm border ${isDayTime ? 'bg-white/40 border-teal-700/30 text-teal-900' : 'bg-white/10 border-white/20 text-teal-100'}`}>
+                            <span className="h-1.5 w-1.5 rounded-full bg-teal-400 animate-pulse"/>
+                            {returning ? `Welcome back — ${greeting}` : greeting}
+                        </span>
+                    )}
+                    <h1 className={`grey-parallax-mid ${isDayTime ? 'text-black' : 'text-white'} lg:text-[87px] text-[45px] lg:leading-[1.1] md:leading-[1.1] leading-[1.2] font-[600] lg:mb-6`}>
                         <br/>
                         <span className={`${isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>Engineering</span><br/>Scalable
                         Digital<br/> <span
                         className={`${isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>Platforms for<br/>Modern Businesses</span>
                     </h1><br/><br/>
-                    <h3 className={`${isDayTime ? 'text-teal-500' : 'text-white'} contents lg:text-[17.4px] leading-[1.18] font-[400]`}>
+                    <h3 className={`grey-parallax-soft ${isDayTime ? 'text-teal-500' : 'text-white'} contents lg:text-[17.4px] leading-[1.18] font-[400]`}>
                         Grey InfoTech Limited builds secure, scalable web applications, SaaS platforms, and enterprise
                         software solutions for startups and growing businesses across Africa and globally.
                     </h3>
