@@ -2,83 +2,227 @@
 
 <%- contentFor('extra_css') %>
 <style>
+    :root {
+        --gx-accent: #1d6fd7;
+        --gx-accent-2: #5850ec;
+        --gx-accent-3: #00d1b2;
+        --gx-ink: #0a1226;
+    }
+
     body {
+        background: radial-gradient(120% 120% at 8% 0%, #0b1430 0%, #060b1c 45%, #04060f 100%);
+        color: #e8edf7;
+        overflow-x: hidden;
+    }
+
+    /* animated aurora field behind everything */
+    body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
         background:
-            radial-gradient(circle at top left, rgba(13, 110, 253, 0.12), transparent 28%),
-            radial-gradient(circle at bottom right, rgba(88, 80, 236, 0.14), transparent 24%),
-            #f4f7fb;
+            radial-gradient(40% 50% at 15% 12%, rgba(29, 111, 215, .35), transparent 60%),
+            radial-gradient(45% 45% at 88% 6%, rgba(88, 80, 236, .32), transparent 60%),
+            radial-gradient(50% 55% at 75% 95%, rgba(0, 209, 178, .22), transparent 60%);
+        background-size: 160% 160%;
+        animation: gx-aurora 24s cubic-bezier(.22, 1, .36, 1) infinite alternate;
+    }
+
+    @keyframes gx-aurora {
+        0%   { background-position: 0% 0%, 100% 0%, 80% 100%; }
+        100% { background-position: 25% 15%, 75% 10%, 55% 85%; }
+    }
+
+    #gx-particles {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        opacity: .55;
     }
 
     .auth-shell {
         min-height: 100vh;
         display: flex;
         align-items: center;
+        position: relative;
+        z-index: 1;
     }
 
+    /* holographic glass card */
     .auth-card {
-        border: 0;
+        border: 1px solid rgba(120, 160, 255, .18);
         border-radius: 28px;
         overflow: hidden;
-        box-shadow: 0 24px 80px rgba(15, 23, 42, 0.14);
-    }
-
-    .auth-hero {
-        background: linear-gradient(160deg, #16213e 0%, #0f4c81 55%, #1d6fd7 100%);
-        color: #fff;
-        padding: 3rem;
+        background: rgba(12, 18, 38, .55);
+        backdrop-filter: blur(20px) saturate(140%);
+        -webkit-backdrop-filter: blur(20px) saturate(140%);
+        box-shadow: 0 40px 120px -40px rgba(0, 0, 0, .8),
+                    0 0 0 1px rgba(120, 160, 255, .06) inset;
         position: relative;
     }
 
+    /* animated neon gradient frame */
+    .auth-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 28px;
+        padding: 1px;
+        background: linear-gradient(130deg,
+            rgba(29, 111, 215, .9), transparent 35%, transparent 65%, rgba(88, 80, 236, .9));
+        background-size: 200% 200%;
+        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+                mask-composite: exclude;
+        animation: gx-frame 8s linear infinite;
+        pointer-events: none;
+    }
+
+    @keyframes gx-frame { to { background-position: 200% 0; } }
+
+    .auth-hero {
+        background:
+            linear-gradient(160deg, rgba(13, 26, 58, .9) 0%, rgba(15, 76, 129, .75) 55%, rgba(29, 111, 215, .65) 100%);
+        color: #fff;
+        padding: 3.25rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* drifting holographic blob */
     .auth-hero::after {
         content: '';
         position: absolute;
         inset: auto -20% -35% auto;
-        width: 260px;
-        height: 260px;
+        width: 320px;
+        height: 320px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.08);
-        filter: blur(2px);
+        background: radial-gradient(circle, rgba(0, 209, 178, .4), transparent 65%);
+        filter: blur(18px);
+        animation: gx-float 14s ease-in-out infinite alternate;
     }
+
+    /* panning tech grid */
+    .auth-hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(rgba(120, 160, 255, .08) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(120, 160, 255, .08) 1px, transparent 1px);
+        background-size: 34px 34px;
+        mask-image: radial-gradient(circle at 30% 30%, #000, transparent 80%);
+        animation: gx-grid 20s linear infinite;
+    }
+
+    @keyframes gx-float {
+        from { transform: translate(0, 0) scale(1); }
+        to   { transform: translate(-26px, -22px) scale(1.12); }
+    }
+    @keyframes gx-grid { to { background-position: 34px 34px; } }
 
     .auth-badge {
         display: inline-flex;
         align-items: center;
         gap: .45rem;
-        padding: .45rem .8rem;
+        padding: .5rem .9rem;
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.12);
+        background: rgba(0, 209, 178, .14);
+        border: 1px solid rgba(0, 209, 178, .35);
+        color: #8ff3e2;
         font-weight: 600;
-        font-size: .85rem;
-        letter-spacing: .03em;
+        font-size: .82rem;
+        letter-spacing: .04em;
+        position: relative;
+        z-index: 1;
+    }
+    .auth-badge i { animation: gx-pulse 2.2s ease-in-out infinite; }
+    @keyframes gx-pulse { 50% { opacity: .4; } }
+
+    .auth-hero > div { position: relative; z-index: 1; }
+
+    .auth-hero h2 {
+        background: linear-gradient(120deg, #fff, #bcd4ff 60%, #8ff3e2);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
     .auth-form-panel {
-        padding: 2rem;
-        background: #fff;
+        padding: 2.5rem;
+        background: rgba(8, 13, 28, .35);
+        position: relative;
+        z-index: 1;
     }
 
-    .auth-footer {
-        background: #f8fafc;
-        border-top: 1px solid #e7edf5;
+    .auth-mini-logo { height: 30px; }
+    .auth-copy { color: rgba(220, 230, 250, .8); }
+    .auth-feature-list li + li { margin-top: .85rem; }
+    .auth-feature-list i { color: #6ee7d3; }
+
+    /* glassy inputs with focus glow */
+    .auth-form-panel .form-label { color: #cdd8ef; font-weight: 500; }
+    .auth-form-panel .form-control,
+    .auth-form-panel .input-group-text,
+    .auth-form-panel .btn-outline-secondary {
+        background: rgba(255, 255, 255, .04);
+        border-color: rgba(120, 160, 255, .22);
+        color: #eaf0fc;
+        border-radius: 12px;
+    }
+    .auth-form-panel .form-control::placeholder { color: rgba(200, 212, 240, .4); }
+    .auth-form-panel .form-control:focus {
+        background: rgba(255, 255, 255, .06);
+        border-color: var(--gx-accent);
+        box-shadow: 0 0 0 4px rgba(29, 111, 215, .22),
+                    0 10px 30px -14px rgba(29, 111, 215, .6);
+        color: #fff;
     }
 
-    .auth-mini-logo {
-        height: 30px;
+    .auth-form-panel .btn-primary {
+        border: 0;
+        background: linear-gradient(120deg, var(--gx-accent), var(--gx-accent-2));
+        box-shadow: 0 14px 34px -12px rgba(29, 111, 215, .8);
+        position: relative;
+        overflow: hidden;
+        transition: transform .2s cubic-bezier(.22, 1, .36, 1), box-shadow .25s, filter .2s;
+        letter-spacing: .02em;
     }
+    .auth-form-panel .btn-primary::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .35), transparent);
+        transform: translateX(-120%);
+        transition: transform .6s cubic-bezier(.22, 1, .36, 1);
+    }
+    .auth-form-panel .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 20px 44px -12px rgba(29, 111, 215, .95);
+        filter: saturate(115%);
+    }
+    .auth-form-panel .btn-primary:hover::after { transform: translateX(120%); }
+    .auth-form-panel .btn-primary:active { transform: translateY(0) scale(.985); }
 
-    .auth-copy {
-        color: rgba(255, 255, 255, 0.82);
-    }
-
-    .auth-feature-list li + li {
-        margin-top: .8rem;
-    }
+    .auth-form-panel .text-primary,
+    .auth-form-panel a.fw-semibold { color: #8fb6ff !important; }
+    .auth-form-panel h3 { color: #fff; }
+    .auth-form-panel .text-muted { color: rgba(200, 212, 240, .55) !important; }
 
     @media (max-width: 991.98px) {
-        .auth-hero,
-        .auth-form-panel {
-            padding: 1.5rem;
+        .auth-hero, .auth-form-panel { padding: 1.75rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        body::before, .auth-card::before, .auth-hero::after,
+        .auth-hero::before, .auth-badge i, .auth-form-panel .btn-primary::after {
+            animation: none !important;
         }
+        #gx-particles { display: none; }
+        .auth-form-panel .btn-primary:hover { transform: none; }
     }
 </style>
 
@@ -86,6 +230,7 @@
 class="auth-shell"
 
 <%- contentFor('content') %>
+<canvas id="gx-particles" aria-hidden="true"></canvas>
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-12 col-xl-10">
@@ -218,6 +363,65 @@ class="auth-shell"
 
 <%- contentFor('extra_javascript') %>
 <script>
+    /* Futuristic particle constellation — lightweight, reduced-motion aware. */
+    (function () {
+        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var canvas = document.getElementById('gx-particles');
+        if (!canvas || reduce) { if (canvas) canvas.style.display = 'none'; return; }
+        var ctx = canvas.getContext('2d');
+        var w, h, pts, raf, mouse = { x: -999, y: -999 };
+
+        function size() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+            var count = Math.min(90, Math.floor((w * h) / 18000));
+            pts = [];
+            for (var i = 0; i < count; i++) {
+                pts.push({
+                    x: Math.random() * w, y: Math.random() * h,
+                    vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35,
+                    r: Math.random() * 1.6 + .6
+                });
+            }
+        }
+
+        function frame() {
+            ctx.clearRect(0, 0, w, h);
+            for (var i = 0; i < pts.length; i++) {
+                var p = pts[i];
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0 || p.x > w) p.vx *= -1;
+                if (p.y < 0 || p.y > h) p.vy *= -1;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(140,180,255,.7)';
+                ctx.fill();
+                for (var j = i + 1; j < pts.length; j++) {
+                    var q = pts[j], dx = p.x - q.x, dy = p.y - q.y, d = dx * dx + dy * dy;
+                    if (d < 16000) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
+                        ctx.strokeStyle = 'rgba(90,130,236,' + (1 - d / 16000) * .25 + ')';
+                        ctx.lineWidth = .6; ctx.stroke();
+                    }
+                }
+                var mdx = p.x - mouse.x, mdy = p.y - mouse.y, md = mdx * mdx + mdy * mdy;
+                if (md < 26000) {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y); ctx.lineTo(mouse.x, mouse.y);
+                    ctx.strokeStyle = 'rgba(0,209,178,' + (1 - md / 26000) * .4 + ')';
+                    ctx.lineWidth = .7; ctx.stroke();
+                }
+            }
+            raf = requestAnimationFrame(frame);
+        }
+
+        window.addEventListener('pointermove', function (e) { mouse.x = e.clientX; mouse.y = e.clientY; });
+        window.addEventListener('pointerleave', function () { mouse.x = mouse.y = -999; });
+        window.addEventListener('resize', size);
+        size(); frame();
+    })();
+
     document.querySelectorAll('.toggle-password').forEach(function (btn) {
         btn.addEventListener('click', function () {
             var input = document.getElementById(btn.getAttribute('data-target'));
