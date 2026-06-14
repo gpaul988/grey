@@ -6,37 +6,9 @@ import FloatingButton from "@/components/FloatingButton";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
-import {ArrowLeft, ArrowRight, Quote} from "lucide-react";
 import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
 import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 
-
-// Testimonial data
-const testimonials = [
-    {
-        name: "Moses Nwafor Onyekwelu",
-        title: "CEO, POAWD Limited",
-        image: "/assets/mvp/moses.jpg",
-        message:
-            "Grey InfoTech Limited helped us build an MVP that was not only functional but also aligned perfectly with our " +
-            "vision. Their expertise in rapidly prototyping and iterating the product allowed us to test our concept quickly " +
-            "in the market. The result? We were able to secure investor interest and move forward with confidence. The Grey InfoTech " +
-            "team’s commitment to delivering high-quality results within tight timelines was truly impressive. We couldn’t have asked " +
-            "for a better partner for our MVP development."
-    },
-    {
-        name: "Samuel F. Karibi",
-        title: "COO, Inifite Graphix",
-        image: "/assets/mvp/samuel.jpg",
-        message:
-            "We approached Grey InfoTech with a tight deadline and a rough idea for our MVP. What they delivered exceeded our " +
-            "expectations. They guided us through every step of the process, from defining core features to ensuring scalability " +
-            "for future growth. The MVP they built helped us validate our business model quickly, and thanks to their expertise, " +
-            "we’ve been able to secure new clients and funding. The team’s ability to deliver on time, within budget, and with " +
-            "exceptional quality makes them our go-to for future projects."
-    },
-
-];
 
 // Reasons
 const reasons = [
@@ -201,29 +173,6 @@ useEffect(() => {
             setActiveId(target); // Ensure the arrow icon is displayed when a section is clicked
         }
     };
-
-    // Testimonial carousel hook
-    const [current, setCurrent] = useState(0);
-
-    const prev = () => setCurrent((current - 1 + testimonials.length) % testimonials.length);
-    const next = () => setCurrent((current + 1) % testimonials.length);
-
-    const {name, title, image, message} = testimonials[current];
-
-    // Partners Section hook
-    const partners = [
-        {id: 1, name: 'Partner 1', dayImage: 'poawd.svg', nightImage: 'poawd1.svg'},
-        {id: 2, name: 'Partner 2', dayImage: 'hub.svg', nightImage: 'hub1.svg'},
-        {id: 3, name: 'Partner 3', dayImage: 'car.svg', nightImage: 'car1.svg'},
-        {id: 4, name: 'Partner 4', dayImage: 'pet.svg', nightImage: 'pet1.svg'},
-        {id: 5, name: 'Partner 5', dayImage: 'sew.svg', nightImage: 'sew1.svg'},
-        {id: 6, name: 'Partner 6', dayImage: 'tim.svg', nightImage: 'tim1.svg'},
-        {id: 7, name: 'Partner 7', dayImage: 'pat.svg', nightImage: 'pat1.svg'},
-        {id: 8, name: 'Partner 8', dayImage: 'kow.svg', nightImage: 'kow1.svg'},
-        {id: 9, name: 'Partner 9', dayIma5ge: 'afro.svg', nightImage: 'afro1.svg'},
-        {id: 10, name: 'Partner 10', dayImage: 'cane.svg', nightImage: 'cane1.svg'},
-    ];
-
     // Why Work hook
     useEffect(() => {
         const interval = setInterval(() => {
@@ -1406,50 +1355,6 @@ useEffect(() => {
                 </Link>
             </div>
 
-            {/* Testimonials */}
-            <div
-                className={`relative lg:mt-14 md:mt-14 sm:mt-12 mt-8 py-24 lg:mb-16 mb-10 max-w-full w-full  h-auto ${
-                    isDayTime ? 'bg-black' : 'bg-white'
-                }`}>
-                <div
-                    className={`relative mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 gap-6 ${
-                        isDayTime ? 'text-white' : 'text-black'
-                    }`}>
-                    <div>
-                        <h5 className="uppercase text-xs font-[500] tracking-widest mb-4">What our clients say</h5>
-                    </div>
-                    <div className={'lg:ml-[-20em] md:ml-[-20em] sm:ml-[-10em]'}>
-                        <div
-                            className="flex items-start gap-4 text-[1.5em] font-[500] mb-6">
-                            <Quote className="w-6 h-6 shrink-0"/>
-                            <p className="leading-tight border-b-[0.1em] border-gray-300/20 pb-12">
-                                {message}
-                            </p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <Image
-                                src={image}
-                                alt={name}
-                                width={50}
-                                height={50}
-                                className="rounded-full object-cover"
-                            />
-                            <div>
-                                <p className="font-semibold text-[1.3em]">{name}</p>
-                                <p className="text-[0.8em] ">{title}</p>
-                            </div>
-                        </div>
-                        <div className="flex justify-end gap-4 mt-1">
-                            <button onClick={prev} className="">
-                                <ArrowLeft className="w-8 h-6"/>
-                            </button>
-                            <button onClick={next} className="">
-                                <ArrowRight className="w-8 h-6"/>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             {/* Stages of Our MVP Development Process */}
             <div id={'stages'}
@@ -1590,26 +1495,6 @@ useEffect(() => {
                 </section>
             </div>
 
-            {/* Partners Sections */}
-            <div id={'partners'}
-                 className={`relative lg:-mt-[12em] max-w-full lg:my-12 lg:mb-36 py-6 mx-auto px-4 sm:px-6 lg:px-[4.6em] h-auto overflow-hidden ${
-                     isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
-                <div className={`justify-self-start text-start lg:mt-12 mt-6 lg:mb-12 mb-6`}>
-                    <h3 className={'text-[1em] font-[600]'}>Our partners</h3>
-                </div>
-                <div className={`grid lg:grid-cols-5 grid-cols-2 gap-6 lg:pb-12 lg:mb-10 mb-8`}>
-                    {partners.map((partner) => (
-                        <div key={partner.id} className={`flex justify-center items-center`}>
-                            <Image
-                                src={`/assets/partners/${isDayTime ? partner.dayImage : partner.nightImage}`}
-                                alt={partner.name}
-                                width={100}
-                                height={100}
-                            />
-                        </div>
-                    ))}
-                </div>
-            </div>
 
             {/* last */}
             <div className="relative w-full h-auto">

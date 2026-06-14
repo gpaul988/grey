@@ -179,20 +179,6 @@ const WebApplication = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Partners Section hook
-    const partners = [
-        {id: 1, name: 'Partner 1', dayImage: 'poawd.svg', nightImage: 'poawd1.svg'},
-        {id: 2, name: 'Partner 2', dayImage: 'hub.svg', nightImage: 'hub1.svg'},
-        {id: 3, name: 'Partner 3', dayImage: 'car.svg', nightImage: 'car1.svg'},
-        {id: 4, name: 'Partner 4', dayImage: 'pet.svg', nightImage: 'pet1.svg'},
-        {id: 5, name: 'Partner 5', dayImage: 'sew.svg', nightImage: 'sew1.svg'},
-        {id: 6, name: 'Partner 6', dayImage: 'tim.svg', nightImage: 'tim1.svg'},
-        {id: 7, name: 'Partner 7', dayImage: 'pat.svg', nightImage: 'pat1.svg'},
-        {id: 8, name: 'Partner 8', dayImage: 'kow.svg', nightImage: 'kow1.svg'},
-        {id: 9, name: 'Partner 9', dayImage: 'afro.svg', nightImage: 'afro1.svg'},
-        {id: 10, name: 'Partner 10', dayImage: 'cane.svg', nightImage: 'cane1.svg'},
-    ];
-
     // Why Grey infoTech For Your App Project Hook
     useEffect(() => {
         const interval = setInterval(() => {
@@ -1814,28 +1800,6 @@ const WebApplication = () => {
                 </div>
             </div>
 
-            {/* Partners Sections */}
-            <div className={`lg:-mt-[18em] md:-mt-[18em] ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
-                <div id={'partners'}
-                     className={`relative lg:mt-[5em] md:mt-[5em] mt-[2em] lg:mb-[5em] md:mb-[5em] mb-[2em] lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[5em] md:pb-[5em] pb-[2em] max-w-full mx-auto px-4 sm:px-6 lg:px-[4.6em] h-auto overflow-hidden `}>
-                    <div
-                        className={`justify-self-start text-start lg:pt-[5em] md:pt-[5em] pt-[2em] lg:mb-16 md:mb-16 mb-8`}>
-                        <h3 className={'text-[1em] font-[600]'}>Our partners</h3>
-                    </div>
-                    <div className={`grid lg:grid-cols-5 grid-cols-2 gap-6 lg:pb-[5em] md:pb-[5em] pb-[2em]`}>
-                        {partners.map((partner) => (
-                            <div key={partner.id} className={`flex justify-center items-center`}>
-                                <Image
-                                    src={`/assets/partners/${isDayTime ? partner.dayImage || 'default.svg' : partner.nightImage || 'default.svg'}`}
-                                    alt={partner.name}
-                                    width={100}
-                                    height={100}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
 
             {/* Last image*/}
             <div id={'last-image'} className={'h-auto lg:-mt-[5em] md:-mt-[5em] -mt-[2em] max-w-full w-full mx-auto'}>

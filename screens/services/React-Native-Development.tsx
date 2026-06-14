@@ -6,46 +6,8 @@ import FloatingButton from "@/components/FloatingButton";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
-import {ArrowLeft, ArrowRight, Quote} from "lucide-react";
 import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 
-
-// Testimonial data
-const testimonials = [
-    {
-        name: "Sylvia Essien ",
-        title: "COO, FinPlus Capital ",
-        message: (
-            <>
-                Working with Grey InfoTech on our React Native app was a fantastic experience. They built a performant,
-                user-friendly app that perfectly fits our business needs and accelerates our digital growth. Their team
-                is reliable, skilled, and truly customer-focused.
-            </>
-        ),
-    },
-    {
-        name: "Tunde Balogun",
-        title: "Founder & CEO, EduTrack Africa",
-        message: (
-            <>
-                Thanks to Grey InfoTech’s React Native development, our app now offers a smooth, responsive shopping
-                experience that keeps customers coming back. Their agile approach and clear communication made the
-                entire process stress-free and efficient.
-            </>
-        )
-    },
-    {
-        name: "Michael Adeyemi",
-        title: "CTO, HealthNet Systems",
-        message: (
-            <>
-                Their expertise enabled us to launch a high-quality, cross-platform mobile app faster than we imagined.
-                Their team’s attention to detail and deep understanding of mobile UX have helped us reach more users
-                with a seamless experience on both iOS and Android.
-            </>
-        )
-    }
-];
 
 const ReactNativeDevelopment = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -142,28 +104,6 @@ useEffect(() => {
             setActiveId(target); // Ensure the arrow icon is displayed when a section is clicked
         }
     };
-
-    // Partners Section hook
-    const partners = [
-        {id: 1, name: 'Partner 1', dayImage: 'poawd.svg', nightImage: 'poawd1.svg'},
-        {id: 2, name: 'Partner 2', dayImage: 'hub.svg', nightImage: 'hub1.svg'},
-        {id: 3, name: 'Partner 3', dayImage: 'car.svg', nightImage: 'car1.svg'},
-        {id: 4, name: 'Partner 4', dayImage: 'pet.svg', nightImage: 'pet1.svg'},
-        {id: 5, name: 'Partner 5', dayImage: 'sew.svg', nightImage: 'sew1.svg'},
-        {id: 6, name: 'Partner 6', dayImage: 'tim.svg', nightImage: 'tim1.svg'},
-        {id: 7, name: 'Partner 7', dayImage: 'pat.svg', nightImage: 'pat1.svg'},
-        {id: 8, name: 'Partner 8', dayImage: 'kow.svg', nightImage: 'kow1.svg'},
-        {id: 9, name: 'Partner 9', dayImage: 'afro.svg', nightImage: 'afro1.svg'},
-        {id: 10, name: 'Partner 10', dayImage: 'cane.svg', nightImage: 'cane1.svg'},
-    ];
-
-    // Testimonial carousel hook
-    const [current, setCurrent] = useState(0);
-
-    const prev = () => setCurrent((current - 1 + testimonials.length) % testimonials.length);
-    const next = () => setCurrent((current + 1) % testimonials.length);
-
-    const {name, title, message} = testimonials[current];
 
     // FAQ Hook
     const [onIndex, setOnIndex] = useState<number | null>(null);
@@ -1090,64 +1030,7 @@ useEffect(() => {
                 </div>
             </div>
 
-            {/* Partners Sections */}
-            <div id={'partners'}
-                 className={`relative max-w-full  mx-auto px-4 sm:px-6 lg:px-[4.6em] h-auto overflow-hidden ${
-                     isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
-                <div className={`justify-self-start text-start lg:pt-[5em] md:pt-[5em] pt-[2em] lg:mb-12 mb-6`}>
-                    <h3 className={'text-[1em] font-[600]'}>Our partners</h3>
-                </div>
-                <div className={`grid lg:grid-cols-5 grid-cols-2 gap-6 lg:pb-[5em] md:pb-[5em] pb-[2em]`}>
-                    {partners.map((partner) => (
-                        <div key={partner.id} className={`flex justify-center items-center`}>
-                            <Image
-                                src={`/assets/partners/${isDayTime ? partner.dayImage || 'default.svg' : partner.nightImage || 'default.svg'}`}
-                                alt={partner.name}
-                                width={100}
-                                height={100}
-                            />
-                        </div>
-                    ))}
-                </div>
-            </div>
 
-            {/* Testimonials */}
-            <div
-                className={`relative lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[5em] md:pb-[5em] pb-[2em] max-w-full w-full  h-auto ${
-                    isDayTime ? 'bg-white' : 'bg-black'
-                }`}>
-                <div
-                    className={`relative mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 gap-6 ${
-                        isDayTime ? 'text-black' : 'text-white'
-                    }`}>
-                    <div>
-                        <h5 className="uppercase text-xs font-[500] tracking-widest mb-4">What our clients say</h5>
-                    </div>
-                    <div className={'lg:ml-[-20em] md:ml-[-20em] sm:ml-[-10em]'}>
-                        <div
-                            className="flex items-start gap-4 text-[2em] font-[500] mb-6">
-                            <Quote className="w-6 h-6 shrink-0"/>
-                            <p className="leading-tight text-justify border-b-[0.1em] border-gray-300/20 pb-12">
-                                {message}
-                            </p>
-                        </div>
-                        <div className="flex ml-10 items-center gap-4">
-                            <div>
-                                <p className="font-semibold text-[1.3em]">{name}</p>
-                                <p className="text-[0.8em] ">{title}</p>
-                            </div>
-                        </div>
-                        <div className="flex justify-end gap-4 mt-1">
-                            <button onClick={prev} className="">
-                                <ArrowLeft className="w-8 h-6"/>
-                            </button>
-                            <button onClick={next} className="">
-                                <ArrowRight className="w-8 h-6"/>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             {/* FAQ section */}
             <div id={'FAQ'}

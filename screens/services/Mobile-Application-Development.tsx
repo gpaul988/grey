@@ -47,37 +47,6 @@ const reasons = [
     },
 ];
 
-// Testimonial data
-const testimonials = [
-    {
-        name: "Fatima Bello",
-        title: "Operations Lead, AgroNova Solutions",
-        image: "/assets/mad/fatima.jpg",
-        message:
-            "Grey InfoTech Limited delivered exactly what we needed—a user-friendly, high-performance mobile app that our " +
-            "clients love. Their team worked efficiently, communicated clearly, and ensured we stayed on track from concept " +
-            "to launch. We highly recommend them for any serious mobile app project."
-    },
-    {
-        name: "James Ekundayo",
-        title: "CEO, RideSwift",
-        image: "/assets/mad/james.jpg",
-        message:
-            "Our experience with Grey InfoTech was outstanding. They took our complex requirements and built a beautiful, " +
-            "functional app that runs flawlessly on both iOS and Android. Their professionalism and attention to detail stood " +
-            "out throughout the entire process."
-    },
-    {
-        name: "Anita Mohammed",
-        title: "Head of Digital, HealthNest Technologies",
-        image: "/assets/ui-ux/anita.jpg",
-        message:
-            "We partnered with Grey InfoTech for a major front-end revamp, and the experience was seamless from start to finish." +
-            "Their collaborative process, attention to detail, and design expertise resulted in a final product that far exceeded our expectations."
-    }
-
-];
-
 const MobileApplicationDevelopment = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
@@ -205,15 +174,6 @@ useEffect(() => {
         {label: 'Successful rebrands', value: 27, suffix: '+'},
         {label: 'Increase in Website Traffic', value: 350, suffix: '%'},
     ];
-
-    // Testimonial carousel hook
-    const [current, setCurrent] = useState(0);
-
-    const prev = () => setCurrent((current - 1 + testimonials.length) % testimonials.length);
-    const next = () => setCurrent((current + 1) % testimonials.length);
-
-    const {name, title, image, message} = testimonials[current];
-
     // App project hook
     useEffect(() => {
         const interval = setInterval(() => {
@@ -1321,50 +1281,6 @@ useEffect(() => {
                 </div>
             </div>
 
-            {/* Testimonials */}
-            <div
-                className={`relative lg:mt-14 md:mt-14 sm:mt-12 mt-8 py-24 lg:mb-16 mb-10 max-w-full w-full  h-auto ${
-                    isDayTime ? 'bg-black' : 'bg-white'
-                }`}>
-                <div
-                    className={`relative mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 gap-6 ${
-                        isDayTime ? 'text-white' : 'text-black'
-                    }`}>
-                    <div>
-                        <h5 className="uppercase text-xs font-[500] tracking-widest mb-4">What our clients say</h5>
-                    </div>
-                    <div className={'lg:ml-[-20em] md:ml-[-20em] sm:ml-[-10em]'}>
-                        <div
-                            className="flex items-start gap-4 text-[1.5em] font-[500] mb-6">
-                            <Quote className="w-6 h-6 shrink-0"/>
-                            <p className="leading-tight border-b-[0.1em] border-gray-300/20 pb-12">
-                                {message}
-                            </p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <Image
-                                src={image}
-                                alt={name}
-                                width={50}
-                                height={50}
-                                className="rounded-full object-cover"
-                            />
-                            <div>
-                                <p className="font-semibold text-[1.3em]">{name}</p>
-                                <p className="text-[0.8em] ">{title}</p>
-                            </div>
-                        </div>
-                        <div className="flex justify-end gap-4 mt-1">
-                            <button onClick={prev} className="">
-                                <ArrowLeft className="w-8 h-6"/>
-                            </button>
-                            <button onClick={next} className="">
-                                <ArrowRight className="w-8 h-6"/>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             {/* Team  */}
             <Image

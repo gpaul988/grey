@@ -7,50 +7,9 @@ import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import Link from "next/link";
 import CountUp from "react-countup";
-import {ArrowLeft, ArrowRight, Quote} from "lucide-react";
 import {motion, useScroll, useTransform} from "framer-motion";
 import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 
-
-// Testimonial data
-const testimonials = [
-    {
-        name: "Ifeanyi Okoro",
-        title: "Head of Product, MedConnect Africa",
-        message: (
-            <>
-                Working with Grey InfoTech was a game-changer for us at VeloPay. Their frontend team brought our product
-                vision to life with sleek, responsive designs and outstanding performance across all devices. User
-                engagement soared by over 30% within the first two weeks after launch. It’s rare to find a tech partner
-                that understands both user experience and business needs so well.
-            </>
-        ),
-    },
-    {
-        name: "Lerato Maseko",
-        title: "CTO, Jua Marketplace",
-        message: (
-            <>
-                We approached Grey InfoTech to revamp our customer portal, and they delivered beyond expectations. The
-                new interface is intuitive, modern, and extremely fast. Our support tickets dropped by 40% simply
-                because users now find everything they need with ease. Their team was professional, responsive, and
-                truly cared about the outcome. Highly recommended.
-            </>
-        )
-    },
-    {
-        name: "Brian Muthoni",
-        title: "Senior Software Engineer, DataPulse Analytics",
-        message: (
-            <>
-                Grey InfoTech’s frontend services elevated our entire platform. What stood out most was their attention
-                to detail and commitment to performance. They not only delivered pixel-perfect UIs but also optimized
-                our web app to load seamlessly even in rural areas with slower internet. Our users love it, and so do
-                we!
-            </>
-        )
-    }
-];
 
 const FrontendDevelopment = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -200,29 +159,6 @@ useEffect(() => {
         {label: 'Successful rebrands', value: 27, suffix: '+'},
         {label: 'Increase in Website Traffic', value: 350, suffix: '%'},
     ];
-
-    // Testimonial carousel hook
-    const [current, setCurrent] = useState(0);
-
-    const prev = () => setCurrent((current - 1 + testimonials.length) % testimonials.length);
-    const next = () => setCurrent((current + 1) % testimonials.length);
-
-    const {name, title, message} = testimonials[current];
-
-    // Partners Section hook
-    const partners = [
-        {id: 1, name: 'Partner 1', dayImage: 'poawd.svg', nightImage: 'poawd1.svg'},
-        {id: 2, name: 'Partner 2', dayImage: 'hub.svg', nightImage: 'hub1.svg'},
-        {id: 3, name: 'Partner 3', dayImage: 'car.svg', nightImage: 'car1.svg'},
-        {id: 4, name: 'Partner 4', dayImage: 'pet.svg', nightImage: 'pet1.svg'},
-        {id: 5, name: 'Partner 5', dayImage: 'sew.svg', nightImage: 'sew1.svg'},
-        {id: 6, name: 'Partner 6', dayImage: 'tim.svg', nightImage: 'tim1.svg'},
-        {id: 7, name: 'Partner 7', dayImage: 'pat.svg', nightImage: 'pat1.svg'},
-        {id: 8, name: 'Partner 8', dayImage: 'kow.svg', nightImage: 'kow1.svg'},
-        {id: 9, name: 'Partner 9', dayImage: 'afro.svg', nightImage: 'afro1.svg'},
-        {id: 10, name: 'Partner 10', dayImage: 'cane.svg', nightImage: 'cane1.svg'},
-    ];
-
     // FAQ Hook
     const [onIndex, setOnIndex] = useState<number | null>(null);
 
@@ -1337,43 +1273,6 @@ useEffect(() => {
                 </div>
             </div>
 
-            {/* Testimonials */}
-            <div
-                className={`relative -mt-20 py-24 lg:mb-16 mb-10 max-w-full w-full  h-auto ${
-                    isDayTime ? 'bg-black' : 'bg-white'
-                }`}>
-                <div
-                    className={`relative mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 gap-6 ${
-                        isDayTime ? 'text-white' : 'text-black'
-                    }`}>
-                    <div>
-                        <h5 className="uppercase text-xs font-[500] tracking-widest mb-4">What our clients say</h5>
-                    </div>
-                    <div className={'lg:ml-[-20em] md:ml-[-20em] sm:ml-[-10em]'}>
-                        <div
-                            className="flex items-start gap-4 text-[1.5em] font-[500] mb-6">
-                            <Quote className="w-6 h-6 shrink-0"/>
-                            <p className="leading-tight text-justify border-b-[0.1em] border-gray-300/20 pb-12">
-                                {message}
-                            </p>
-                        </div>
-                        <div className="flex ml-10 items-center gap-4">
-                            <div>
-                                <p className="font-semibold text-[1.3em]">{name}</p>
-                                <p className="text-[0.8em] ">{title}</p>
-                            </div>
-                        </div>
-                        <div className="flex justify-end gap-4 mt-1">
-                            <button onClick={prev} className="">
-                                <ArrowLeft className="w-8 h-6"/>
-                            </button>
-                            <button onClick={next} className="">
-                                <ArrowRight className="w-8 h-6"/>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             {/* Back-end development process */}
             <div className={`${isDayTime ? 'bg-white' : 'bg-black'}`}>
@@ -1466,26 +1365,6 @@ useEffect(() => {
                 </div>
             </div>
 
-            {/* Partners Sections */}
-            <div id={'partners'}
-                 className={`relative max-w-full lg:mb-36 py-6 mx-auto px-4 sm:px-6 lg:px-[4.6em] h-auto overflow-hidden ${
-                     isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
-                <div className={`justify-self-start text-start lg:mt-12 mt-6 lg:mb-12 mb-6`}>
-                    <h3 className={'text-[1em] font-[600]'}>Our partners</h3>
-                </div>
-                <div className={`grid lg:grid-cols-5 grid-cols-2 gap-6 lg:pb-12 lg:mb-10 mb-8`}>
-                    {partners.map((partner) => (
-                        <div key={partner.id} className={`flex justify-center items-center`}>
-                            <Image
-                                src={`/assets/partners/${isDayTime ? partner.dayImage : partner.nightImage}`}
-                                alt={partner.name}
-                                width={100}
-                                height={100}
-                            />
-                        </div>
-                    ))}
-                </div>
-            </div>
 
             {/* Last image*/}
             <div id={'last image'} className={'lg:-mt-[10em] h-auto max-w-full w-full mx-auto'}>
