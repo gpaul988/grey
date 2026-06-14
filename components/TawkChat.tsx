@@ -46,6 +46,43 @@ export default function TawkChat({propertyId, widgetId, offsetPx}: TawkChatProps
             originalConsoleError(...args);
         };
 
+        // Tawk's vendor bundle can throw `t.$_Tawk.i18next is not a function`
+        // as an UNHANDLED promise rejection while it bootstraps its visitor
+        // i18n state (a known Tawk-internal race). It is harmless and not
+        // actionable on our side, but Next's dev overlay surfaces it as an app
+        // crash. Swallow ONLY that specific Tawk-origin noise.
+        const isTawkNoise = (val: unknown): boolean => {
+            try {
+                const msg =
+                    typeof val === 'string'
+                        ? val
+                        : (val as {message?: string; stack?: string})?.message ||
+                          (val as {stack?: string})?.stack ||
+                          '';
+                const stack = (val as {stack?: string})?.stack || '';
+                return (
+                    /i18next is not a function|\$_Tawk/i.test(String(msg)) ||
+                    /embed\.tawk\.to|twk-(chunk|vendor)/i.test(String(stack))
+                );
+            } catch {
+                return false;
+            }
+        };
+        const onRejection = (e: PromiseRejectionEvent) => {
+            if (isTawkNoise(e.reason)) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            }
+        };
+        const onError = (e: ErrorEvent) => {
+            if (isTawkNoise(e.error) || isTawkNoise(e.message) || /tawk\.to/i.test(e.filename || '')) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            }
+        };
+        window.addEventListener('unhandledrejection', onRejection, true);
+        window.addEventListener('error', onError, true);
+
         // If a global Tawk script already exists (for example injected in _document), don't duplicate it
         const existingTawkScript = document.querySelector('script[src*="embed.tawk.to"]');
 
@@ -150,6 +187,8 @@ export default function TawkChat({propertyId, widgetId, offsetPx}: TawkChatProps
             if (intervalId) window.clearInterval(intervalId);
             if (mutationObserver) mutationObserver.disconnect();
             window.removeEventListener('resize', scheduleApply);
+            window.removeEventListener('unhandledrejection', onRejection, true);
+            window.removeEventListener('error', onError, true);
             if (resizeTimer) window.clearTimeout(resizeTimer);
             console.error = originalConsoleError;
         };

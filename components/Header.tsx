@@ -8,6 +8,7 @@ import {usePathname} from "next/navigation";
 import {ChevronDown, Menu, X} from "lucide-react";
 import {FormComponent} from "@/components/FormComponent";
 import ThemeToggle from "@/components/ThemeToggle";
+import SiteSearch from "@/components/SiteSearch";
 
 interface MenuItem {
     label: string;
@@ -658,6 +659,10 @@ const Header: React.FC = () => {
                                     );
                                 })}
                             </nav>
+                            {/* Futuristic site search (desktop) */}
+                            <div className="hidden lg:block mr-3">
+                                <SiteSearch variant="desktop"/>
+                            </div>
                             {/* Theme toggle (desktop) */}
                             <ThemeToggle className="hidden lg:inline-flex mr-3 scale-90"/>
                             {/* CTA Button */}
@@ -729,6 +734,11 @@ const Header: React.FC = () => {
                                     />
                                 </Link>
                             </div>
+                        </div>
+
+                        {/* Futuristic site search (mobile) */}
+                        <div className="mb-6">
+                            <SiteSearch variant="mobile"/>
                         </div>
 
                         {/* Mobile Navigation */}
