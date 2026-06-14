@@ -112,33 +112,76 @@ export default function TawkChat({propertyId, widgetId, offsetPx}: TawkChatProps
 
         const getDesiredOffset = () => getFloatingButtonOffset() ?? fallbackOffset;
 
-        // Try to find injected Tawk elements and apply an inline bottom offset.
-        const applyOffset = (offset: number) => {
-            if (!offset) return false;
+        // Anchor the Tawk launcher to the TOP-RIGHT, directly BELOW the voice
+        // command FAB. The voice FAB sits at top:104px with a ~56px button, so
+        // we drop the Tawk launcher to top:~172px on the right. We force `top`
+        // and neutralise the vendor's default `bottom` so it doesn't fight us.
+        const TAWK_TOP_PX = 172;
+        const pinTopRight = (node: HTMLElement) => {
+            node.style.setProperty('top', `${TAWK_TOP_PX}px`, 'important');
+            node.style.setProperty('bottom', 'auto', 'important');
+            node.style.setProperty('right', '22px', 'important');
+        };
 
-            const selector = '[id*="tawk"], [class*="tawk"], iframe[src*="tawk.to"]';
-            const nodes = Array.from(document.querySelectorAll<HTMLElement>(selector));
+        // Find injected Tawk elements and pin them to the top-right.
+        // Tawk injects its launcher/iframes with RANDOM ids (no "tawk" token),
+        // so we can't rely on id/class. We collect explicit Tawk matches PLUS
+        // any fixed-position <iframe> whose src is tawk.to OR that is a small
+        // fixed iframe anchored to the bottom — that's Tawk's launcher. We
+        // exclude our own widgets (.grey-voice-fab and the Request-Quote button).
+        const isOurWidget = (el: HTMLElement) =>
+            el.closest('.grey-voice-fab') != null ||
+            el.matches(floatingButtonSelector) ||
+            el.closest(floatingButtonSelector) != null;
 
+        const collectTawkNodes = (): HTMLElement[] => {
+            const out = new Set<HTMLElement>();
+            const explicit = document.querySelectorAll<HTMLElement>(
+                '[id*="tawk"], [class*="tawk"], iframe[src*="tawk.to"], iframe[title*="chat" i]',
+            );
+            explicit.forEach((n) => out.add(n));
+
+            // Heuristic: fixed/sticky iframes anchored near the bottom edge that
+            // aren't ours — Tawk's launcher + chat window.
+            document.querySelectorAll<HTMLIFrameElement>('iframe').forEach((n) => {
+                if (isOurWidget(n)) return;
+                const c = window.getComputedStyle(n);
+                if ((c.position === 'fixed' || c.position === 'sticky') && c.bottom !== 'auto') {
+                    out.add(n);
+                }
+            });
+            return Array.from(out).filter((n) => !isOurWidget(n));
+        };
+
+        const applyOffset = (_offset: number) => {
+            const nodes = collectTawkNodes();
+
+            let applied = false;
             for (const node of nodes) {
                 try {
                     const style = window.getComputedStyle(node);
                     if (style.position === 'fixed' || style.position === 'sticky') {
-                        node.style.bottom = `${offset}px`;
-                        if (node.parentElement) node.parentElement.style.bottom = `${offset}px`;
-                        return true;
+                        pinTopRight(node);
+                        if (node.parentElement && !isOurWidget(node.parentElement)) {
+                            const pStyle = window.getComputedStyle(node.parentElement);
+                            if (pStyle.position === 'fixed' || pStyle.position === 'sticky') {
+                                pinTopRight(node.parentElement);
+                            }
+                        }
+                        applied = true;
                     }
                 } catch (err) {
-                    // If cross-origin iframe access throws, still try setting inline style on the element
+                    // If cross-origin iframe access throws, still try inline styles
                     try {
-                        node.style.bottom = `${offset}px`;
-                        return true;
+                        pinTopRight(node);
+                        applied = true;
                     } catch (e) {
                         // ignore and continue
                     }
                 }
             }
 
-            return false;
+            return applied;
         };
 
         let intervalId: number | undefined;

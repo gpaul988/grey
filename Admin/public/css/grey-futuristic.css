@@ -45,8 +45,15 @@ body::before {
   100% { background-position: 20% 10%, 80% 8%, 60% 90%; }
 }
 
-/* keep real content above the backdrop */
-.app-topbar, .sidenav-menu, .page-container, .content-page, .wrapper > * {
+/* keep real content above the backdrop WITHOUT clobbering the base theme's
+   layout positioning. The base admin theme positions .sidenav-menu as
+   position:fixed and .app-topbar as position:sticky — forcing position:relative
+   on them collapses the whole layout into normal flow (sidebar stacks on top,
+   pushing the topbar/content far down the page). So we only raise z-index here
+   and let each element keep its own position value. */
+.app-topbar { z-index: 100; }
+.sidenav-menu { z-index: 1000; }
+.page-container, .content-page, .page-content {
   position: relative;
   z-index: 1;
 }
