@@ -35,6 +35,8 @@ function computeSystem(): 'light' | 'dark' {
 export function ThemeProvider({children}: {children: React.ReactNode}) {
     const [theme, setThemeState] = useState<Theme>('system');
     const [resolved, setResolved] = useState<'light' | 'dark'>('light');
+    // Ambient lux from AmbientLightSensor (null = unsupported/unknown).
+    const [ambientLux, setAmbientLux] = useState<number | null>(null);
 
     // Hydrate from storage once.
     useEffect(() => {
@@ -42,12 +44,48 @@ export function ThemeProvider({children}: {children: React.ReactNode}) {
         setThemeState(saved);
     }, []);
 
-    // Recompute resolved theme whenever theme changes or system updates.
+    // Ambient light sensor (progressive enhancement). When the device exposes
+    // an AmbientLightSensor and the user is on "system", dark rooms -> dark UI,
+    // bright rooms -> light UI, with smooth transitions. Manual choice always
+    // wins; we never override an explicit light/dark selection.
+    useEffect(() => {
+        // @ts-expect-error AmbientLightSensor is experimental / not in TS libs
+        if (typeof window === 'undefined' || typeof window.AmbientLightSensor === 'undefined') return;
+        let sensor: any;
+        try {
+            // @ts-expect-error experimental constructor
+            sensor = new window.AmbientLightSensor({frequency: 1});
+            sensor.addEventListener('reading', () => {
+                if (typeof sensor.illuminance === 'number') setAmbientLux(sensor.illuminance);
+            });
+            sensor.addEventListener('error', () => setAmbientLux(null));
+            sensor.start();
+        } catch {
+            setAmbientLux(null);
+        }
+        return () => {
+            try {
+                sensor?.stop?.();
+            } catch {
+                /* no-op */
+            }
+        };
+    }, []);
+
+    // Recompute resolved theme whenever theme changes, system updates, or the
+    // ambient light reading changes.
     useEffect(() => {
         const apply = () => {
-            const r = theme === 'system' ? computeSystem() : theme;
+            let r = theme === 'system' ? computeSystem() : theme;
+            // On "system", let ambient light fine-tune: a dark room nudges to
+            // dark, a bright room nudges to light. Threshold ~ typical indoor lux.
+            if (theme === 'system' && ambientLux != null) {
+                r = ambientLux < 30 ? 'dark' : ambientLux > 120 ? 'light' : r;
+            }
             setResolved(r);
             const root = document.documentElement;
+            // Smooth, GPU-friendly cross-fade between themes (added once).
+            root.classList.add('grey-theme-transition');
             root.classList.toggle('dark', r === 'dark');
             root.setAttribute('data-theme', r);
             root.style.colorScheme = r;
@@ -61,7 +99,7 @@ export function ThemeProvider({children}: {children: React.ReactNode}) {
             mq.removeEventListener('change', apply);
             clearInterval(interval);
         };
-    }, [theme]);
+    }, [theme, ambientLux]);
 
     const setTheme = useCallback((t: Theme) => {
         setThemeState(t);
