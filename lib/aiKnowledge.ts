@@ -148,11 +148,12 @@ export interface RetrievedDoc {
  * Score each KB doc against the query (keyword overlap + tag boosting +
  * phrase bonus). Returns the top matches as FLAT docs ({title,url,text,score}).
  */
-export function retrieve(query: string, k = 3): RetrievedDoc[] {
+export function retrieve(query: string, k = 3, extra: KbDoc[] = []): RetrievedDoc[] {
     const q = query.toLowerCase();
     const qTokens = new Set(tokenize(query));
 
-    const scored = KB.map((doc) => {
+    const corpus = extra.length ? [...KB, ...extra] : KB;
+    const scored = corpus.map((doc) => {
         const haystack = (doc.title + ' ' + doc.body + ' ' + (doc.tags || []).join(' ')).toLowerCase();
         const docTokens = tokenize(haystack);
         let score = 0;
@@ -188,11 +189,14 @@ export function buildContext(matches: RetrievedDoc[]): string {
  * is configured (or the LLM call fails). Grounded purely in retrieved KB.
  * Returns both the prose answer and the citable sources.
  */
-export function localAnswer(query: string): {
+export function localAnswer(
+    query: string,
+    extra: KbDoc[] = [],
+): {
     answer: string;
     sources: {title: string; url: string}[];
 } {
-    const matches = retrieve(query, 3);
+    const matches = retrieve(query, 3, extra);
     const sources = matches.map((m) => ({title: m.title, url: m.url}));
 
     if (!matches.length) {

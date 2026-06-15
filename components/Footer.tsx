@@ -443,7 +443,7 @@ const Footer = () => {
                             </div>
 
                             {/* Office Information */}
-                            <div className="space-y-2 order-1 md:order-2 mb-6">
+                            <div className="space-y-3 order-1 md:order-2 mb-6">
                                 <div>
                                     <h4 className="text-white text-[0.87em] font-medium">Main office</h4>
                                     <p className="text-gray-400 text-[0.8em] leading-[1.3]">
@@ -454,60 +454,45 @@ const Footer = () => {
                                         500102
                                     </p>
                                 </div>
-                                <div>
-                                    <h4 className="text-white text-[0.87em] font-medium">Branch office</h4>
-                                    <p className="text-gray-400 text-[0.8em] leading-[1.3]">
-                                        26 Alpha Gardens Estate,<br/>
-                                        Apajo Farm Road,<br/>
-                                        Akpajo-Eleme,<br/>
-                                        Rivers State<br/>
-                                        501101
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    {/* Newsletter signup (futuristic) — placed below the office addresses */}
-                    <div className="mx-auto mt-12 w-full">
-                        <div className="relative overflow-hidden rounded-2xl border border-cyan-400/20 bg-gradient-to-r from-teal-500/10 via-cyan-500/10 to-indigo-500/10 p-6 sm:p-8">
-                            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-                                <div className="max-w-xl">
-                                    <h3 className="text-[1.4em] font-semibold text-white">
+                                {/* Compact newsletter signup — sits right below the main office address */}
+                                <div className="rounded-xl border border-cyan-400/20 bg-gradient-to-r from-teal-500/10 via-cyan-500/10 to-indigo-500/10 p-3">
+                                    <h4 className="text-white text-[0.85em] font-medium">
                                         Stay in the <span className="text-teal-400">loop</span>
-                                    </h3>
-                                    <p className="mt-1 text-[0.85em] text-gray-400">
-                                        Product updates, fresh case studies and tech insights — straight to your inbox. No spam.
+                                    </h4>
+                                    <p className="mt-0.5 text-gray-400 text-[0.72em] leading-[1.3]">
+                                        Updates & insights to your inbox. No spam.
                                     </p>
+                                    <form onSubmit={handleSubscribe} className="mt-2">
+                                        <div className="flex items-stretch gap-1.5">
+                                            <input
+                                                type="email"
+                                                required
+                                                value={subEmail}
+                                                onChange={(e) => setSubEmail(e.target.value)}
+                                                placeholder="you@company.com"
+                                                aria-label="Email address"
+                                                className="min-w-0 flex-1 rounded-lg border border-cyan-400/20 bg-white/5 px-3 py-2 text-[0.78em] text-white placeholder-gray-500 outline-none transition focus:border-cyan-400/50 focus:ring-1 focus:ring-cyan-400/20"
+                                            />
+                                            <button
+                                                type="submit"
+                                                disabled={subStatus === 'loading'}
+                                                aria-label="Subscribe"
+                                                className="shrink-0 rounded-lg bg-gradient-to-r from-teal-500 via-cyan-500 to-indigo-500 px-3 py-2 text-[0.78em] font-semibold text-white shadow shadow-cyan-500/20 transition hover:shadow-cyan-400/40 disabled:opacity-60"
+                                            >
+                                                {subStatus === 'loading' ? '…' : 'Subscribe'}
+                                            </button>
+                                        </div>
+                                        {subMsg && (
+                                            <p
+                                                className={`mt-1.5 text-[0.72em] ${subStatus === 'ok' ? 'text-teal-400' : 'text-rose-400'}`}
+                                                aria-live="polite"
+                                            >
+                                                {subMsg}
+                                            </p>
+                                        )}
+                                    </form>
                                 </div>
-                                <form onSubmit={handleSubscribe} className="w-full max-w-md">
-                                    <div className="flex flex-col gap-2 sm:flex-row">
-                                        <input
-                                            type="email"
-                                            required
-                                            value={subEmail}
-                                            onChange={(e) => setSubEmail(e.target.value)}
-                                            placeholder="you@company.com"
-                                            aria-label="Email address"
-                                            className="flex-1 rounded-full border border-cyan-400/20 bg-white/5 px-5 py-3 text-[0.85em] text-white placeholder-gray-500 outline-none transition focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20"
-                                        />
-                                        <button
-                                            type="submit"
-                                            disabled={subStatus === 'loading'}
-                                            className="shrink-0 rounded-full bg-gradient-to-r from-teal-500 via-cyan-500 to-indigo-500 px-6 py-3 text-[0.85em] font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:shadow-cyan-400/40 disabled:opacity-60"
-                                        >
-                                            {subStatus === 'loading' ? 'Subscribing…' : 'Subscribe'}
-                                        </button>
-                                    </div>
-                                    {subMsg && (
-                                        <p
-                                            className={`mt-2 text-[0.78em] ${subStatus === 'ok' ? 'text-teal-400' : 'text-rose-400'}`}
-                                            aria-live="polite"
-                                        >
-                                            {subMsg}
-                                        </p>
-                                    )}
-                                </form>
                             </div>
                         </div>
                     </div>

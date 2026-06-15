@@ -30,7 +30,11 @@ export default function FaqScreen() {
 
     const tabs = useMemo(() => ['All', ...categories.map((c) => c.name)], [categories]);
 
-    const visible = useMemo(() => {
+    const PER_PAGE = 15;
+    const [page, setPage] = useState(1);
+
+    // Filtered categories (by active tab + search) — still grouped for display.
+    const filtered = useMemo(() => {
         const q = query.trim().toLowerCase();
         const src = active === 'All' ? categories : categories.filter((c) => c.name === active);
         if (!q) return src;
@@ -44,7 +48,33 @@ export default function FaqScreen() {
             .filter((c) => c.items.length);
     }, [categories, active, query]);
 
-    const totalShown = visible.reduce((n, c) => n + c.items.length, 0);
+    const totalShown = filtered.reduce((n, c) => n + c.items.length, 0);
+    const totalPages = Math.max(1, Math.ceil(totalShown / PER_PAGE));
+
+    // Reset to first page whenever the filter/search changes or results shrink.
+    useEffect(() => {
+        setPage(1);
+    }, [active, query]);
+
+    // Slice the flattened result set to the current page (15 per page), then
+    // regroup the visible slice back into its categories for rendering.
+    const visible = useMemo(() => {
+        const start = (page - 1) * PER_PAGE;
+        const end = start + PER_PAGE;
+        let idx = 0;
+        const out: typeof filtered = [];
+        for (const cat of filtered) {
+            const pageItems = [];
+            for (const item of cat.items) {
+                if (idx >= start && idx < end) pageItems.push(item);
+                idx++;
+                if (idx >= end) break;
+            }
+            if (pageItems.length) out.push({...cat, items: pageItems});
+            if (idx >= end) break;
+        }
+        return out;
+    }, [filtered, page]);
 
     return (
         <main className="relative min-h-screen overflow-hidden bg-[#05070f] text-white">
@@ -197,6 +227,64 @@ export default function FaqScreen() {
                             </div>
                         </div>
                     ))
+                )}
+
+                {/* Pagination — 15 FAQs per page */}
+                {!loading && totalShown > PER_PAGE && (
+                    <div className="mt-8 flex flex-col items-center gap-3">
+                        <p className="text-xs text-gray-500">
+                            Showing {(page - 1) * PER_PAGE + 1}–{Math.min(page * PER_PAGE, totalShown)} of {totalShown}
+                        </p>
+                        <div className="flex items-center gap-1.5">
+                            <button
+                                onClick={() => {
+                                    setPage((p) => Math.max(1, p - 1));
+                                    setOpen(null);
+                                    if (typeof window !== 'undefined') window.scrollTo({top: 0, behavior: 'smooth'});
+                                }}
+                                disabled={page === 1}
+                                className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-300 transition hover:border-cyan-400/40 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                            >
+                                ← Prev
+                            </button>
+                            <div className="flex flex-wrap items-center justify-center gap-1.5">
+                                {Array.from({length: totalPages}, (_, i) => i + 1)
+                                    .filter((p) => p === 1 || p === totalPages || Math.abs(p - page) <= 1)
+                                    .map((p, i, arr) => (
+                                        <React.Fragment key={p}>
+                                            {i > 0 && p - arr[i - 1] > 1 && (
+                                                <span className="px-1 text-gray-600">…</span>
+                                            )}
+                                            <button
+                                                onClick={() => {
+                                                    setPage(p);
+                                                    setOpen(null);
+                                                    if (typeof window !== 'undefined') window.scrollTo({top: 0, behavior: 'smooth'});
+                                                }}
+                                                className={`h-9 min-w-9 rounded-full px-3 text-sm transition ${
+                                                    p === page
+                                                        ? 'border border-cyan-400/60 bg-gradient-to-r from-teal-500/30 to-indigo-500/30 text-white'
+                                                        : 'border border-white/10 bg-white/5 text-gray-400 hover:text-white'
+                                                }`}
+                                            >
+                                                {p}
+                                            </button>
+                                        </React.Fragment>
+                                    ))}
+                            </div>
+                            <button
+                                onClick={() => {
+                                    setPage((p) => Math.min(totalPages, p + 1));
+                                    setOpen(null);
+                                    if (typeof window !== 'undefined') window.scrollTo({top: 0, behavior: 'smooth'});
+                                }}
+                                disabled={page === totalPages}
+                                className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-300 transition hover:border-cyan-400/40 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                            >
+                                Next →
+                            </button>
+                        </div>
+                    </div>
                 )}
 
                 {/* CTA */}
