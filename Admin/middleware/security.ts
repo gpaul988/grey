@@ -15,6 +15,8 @@ import rateLimit from 'express-rate-limit';
 import {doubleCsrf} from 'csrf-csrf';
 import dotenv from 'dotenv';
 import path from 'node:path';
+import fs from 'node:fs';
+import crypto from 'node:crypto';
 
 // FIX: when this module is imported from a Next.js API route (e.g.
 // pages/api/store/*), the Express server's `Admin/config/env` bootstrap has
@@ -30,21 +32,73 @@ if (!process.env.CSRF_SECRET || !process.env.SESSION_SECRET) {
 const isProd = process.env.NODE_ENV === 'production';
 
 /**
- * Returns a strong session secret or throws in production when one is missing.
- * Never silently falls back to a hardcoded value in production (audit C2).
+ * Self-healing secret store.
+ *
+ * Goal: the app must ALWAYS boot and never reject create/update/delete with a
+ * CSRF/session error — even when no SESSION_SECRET / CSRF_SECRET env var is
+ * configured (e.g. a fresh prod deploy). Instead of throwing, we lazily
+ * generate a cryptographically strong (256-bit) secret ONCE and persist it to a
+ * gitignored file on the data volume. Every subsequent boot reuses the exact
+ * same value, so CSRF tokens stay valid across requests and restarts.
+ *
+ * Precedence: explicit env var (>=16 chars) > persisted auto-secret > freshly
+ * generated + persisted. This keeps it secure (random, stable, never hardcoded)
+ * with zero required configuration.
  */
-export function requireSessionSecret(name: string, devFallback: string): string {
-    const value = process.env[name];
-    if (value && value.length >= 16) return value;
-    if (isProd) {
-        throw new Error(
-            `[security] ${name} is missing or too short. Refusing to start in production with an insecure secret.`,
-        );
+const SECRETS_FILE = path.join(process.cwd(), 'Admin', 'data', '.secrets.json');
+
+function loadPersistedSecrets(): Record<string, string> {
+    try {
+        return JSON.parse(fs.readFileSync(SECRETS_FILE, 'utf8')) as Record<string, string>;
+    } catch {
+        return {};
     }
-    // Development convenience only — clearly marked, never used in prod.
-    // eslint-disable-next-line no-console
-    console.warn(`[security] ${name} not set — using a development-only fallback. DO NOT use in production.`);
-    return devFallback;
+}
+
+function savePersistedSecret(name: string, value: string): void {
+    try {
+        fs.mkdirSync(path.dirname(SECRETS_FILE), {recursive: true});
+        const current = loadPersistedSecrets();
+        current[name] = value;
+        fs.writeFileSync(SECRETS_FILE, JSON.stringify(current, null, 2), {mode: 0o600});
+    } catch (err) {
+        // Read-only FS fallback: keep the in-memory value for this process so the
+        // app still works for the lifetime of the run.
+        console.warn(`[security] could not persist ${name}: ${(err as Error)?.message}`);
+    }
+}
+
+const memSecrets: Record<string, string> = {};
+
+/**
+ * Returns a strong secret for `name`. Never throws, never returns a weak
+ * hardcoded value — auto-generates and persists a 256-bit secret if needed so
+ * the app always works without manual env configuration.
+ */
+export function requireSessionSecret(name: string, _devFallback?: string): string {
+    // 1. Explicit env var wins (operator-provided).
+    const fromEnv = process.env[name];
+    if (fromEnv && fromEnv.length >= 16) return fromEnv;
+
+    // 2. Reuse the same auto-secret for the life of this process.
+    if (memSecrets[name]) return memSecrets[name];
+
+    // 3. Reuse a previously persisted auto-secret (stable across restarts).
+    const persisted = loadPersistedSecrets()[name];
+    if (persisted && persisted.length >= 16) {
+        memSecrets[name] = persisted;
+        return persisted;
+    }
+
+    // 4. Generate a fresh strong secret, persist it, and use it.
+    const generated = crypto.randomBytes(32).toString('hex');
+    memSecrets[name] = generated;
+    savePersistedSecret(name, generated);
+    if (!isProd) {
+        // eslint-disable-next-line no-console
+        console.info(`[security] ${name} auto-generated and persisted (set the env var to override).`);
+    }
+    return generated;
 }
 
 /**
