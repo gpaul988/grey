@@ -12,6 +12,7 @@
  */
 import {NextRequest} from 'next/server';
 import {retrieve, localAnswer} from '@/lib/aiKnowledge';
+import {liveDocs} from '@/lib/aiKnowledgeLive';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -72,7 +73,10 @@ export async function POST(req: NextRequest) {
         return new Response('Empty or oversized message', {status: 400});
     }
 
-    const docs = retrieve(lastUser, 4);
+    // Live grounding corpus: admin-managed FAQs (from DB) + curated page content,
+    // merged with the static KB. Cached in-process so it's always current.
+    const live = liveDocs();
+    const docs = retrieve(lastUser, 6, live);
     const context = docs
         .map((d) => `# ${d.title} (${d.url})\n${d.text}`)
         .join('\n\n');
@@ -86,7 +90,7 @@ export async function POST(req: NextRequest) {
 
     // ---- Fallback: local lexical answer, streamed word-by-word ----
     if (!apiKey) {
-        const {answer, sources: localSources} = localAnswer(lastUser);
+        const {answer, sources: localSources} = localAnswer(lastUser, live);
         const stream = new ReadableStream({
             async start(controller) {
                 const words = answer.split(' ');
@@ -132,7 +136,7 @@ export async function POST(req: NextRequest) {
 
     if (!upstream.ok || !upstream.body) {
         // Graceful degradation to local answer if the provider errors.
-        const {answer, sources: localSources} = localAnswer(lastUser);
+        const {answer, sources: localSources} = localAnswer(lastUser, live);
         const stream = new ReadableStream({
             start(controller) {
                 controller.enqueue(encoder.encode(sse({delta: answer})));
