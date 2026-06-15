@@ -1,0 +1,85 @@
+<%- contentFor('html_attribute') %>
+<%- contentFor('extra_css') %>
+<style>.kpi .av{font-size:1.6rem;font-weight:700;font-variant-numeric:tabular-nums}.kpi .lbl{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:#94a3b8}</style>
+<%- contentFor('content') %>
+
+<%- include('./partials/page-title', { title: title, subtitle: 'Marketing' }) %>
+
+<div class="d-flex justify-content-end mb-3">
+    <select id="range" class="form-select form-select-sm w-auto"><option value="7">Last 7 days</option><option value="30" selected>Last 30 days</option><option value="90">Last 90 days</option></select>
+</div>
+
+<div class="row" id="kpis">
+    <% const kpiDefs = [
+        {k:'pageviews', l:'Page Views', i:'ti-eye', c:'primary'},
+        {k:'clicks', l:'Tracked Clicks', i:'ti-click', c:'info'},
+        {k:'conversions', l:'Conversions', i:'ti-target-arrow', c:'success'},
+        {k:'subscribers', l:'Subscribers', i:'ti-mail', c:'warning'},
+        {k:'adImpressions', l:'Ad Impressions', i:'ti-ad', c:'secondary'},
+        {k:'adClicks', l:'Ad Clicks', i:'ti-pointer', c:'danger'},
+    ]; %>
+    <% kpiDefs.forEach((d) => { %>
+    <div class="col-md-4 col-xl-2">
+        <div class="card kpi"><div class="card-body d-flex align-items-center gap-3">
+            <span class="avatar-sm bg-<%= d.c %>-subtle text-<%= d.c %> rounded d-inline-grid" style="place-items:center;width:42px;height:42px"><i class="ti <%= d.i %> fs-20"></i></span>
+            <div><div class="av" data-kpi="<%= d.k %>">—</div><div class="lbl"><%= d.l %></div></div>
+        </div></div>
+    </div>
+    <% }) %>
+</div>
+
+<div class="row">
+    <div class="col-xl-8">
+        <div class="card"><div class="card-header"><h4 class="card-title mb-0">Traffic & engagement</h4></div><div class="card-body"><div id="trend" style="min-height:300px"></div></div></div>
+    </div>
+    <div class="col-xl-4">
+        <div class="card"><div class="card-header d-flex justify-content-between"><h4 class="card-title mb-0">Ad CTR</h4><span class="badge bg-success-subtle text-success" id="ctrBadge">—</span></div><div class="card-body text-center"><div id="ctrGauge" style="min-height:240px"></div></div></div>
+    </div>
+    <div class="col-12">
+        <div class="card"><div class="card-header"><h4 class="card-title mb-0">Top pages</h4></div>
+            <div class="table-responsive"><table class="table table-centered mb-0"><thead class="bg-light bg-opacity-50"><tr><th>Path</th><th class="text-end">Views</th></tr></thead><tbody id="topPages"><tr><td colspan="2" class="text-center text-muted py-3">Loading…</td></tr></tbody></table></div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('extra_javascript') %>
+<script src="/vendor/apexcharts/apexcharts.min.js"></script>
+<%- include('./partials/admin-api-helper') %>
+<script>
+(function () {
+    let trendChart, ctrChart;
+    async function load(days) {
+        const r = await AdminAPI.get('/analytics/summary?days='+days);
+        if (!r.ok) return;
+        const d = r.data;
+        document.querySelectorAll('[data-kpi]').forEach(el => { el.textContent = (d[el.dataset.kpi] ?? 0).toLocaleString(); });
+        document.getElementById('ctrBadge').textContent = (d.adCtr||0) + '%';
+
+        // build daily series
+        const byDay = {};
+        (d.series||[]).forEach(s => { byDay[s.d] = byDay[s.d] || {pageview:0,click:0,conversion:0}; byDay[s.d][s.type] = s.c; });
+        const days2 = Object.keys(byDay).sort();
+        const opts = {
+            chart:{type:'area',height:300,toolbar:{show:false}}, dataLabels:{enabled:false},
+            stroke:{curve:'smooth',width:2}, colors:['#6366f1','#06b6d4','#22c55e'],
+            fill:{type:'gradient',gradient:{opacityFrom:.35,opacityTo:.05}},
+            xaxis:{categories:days2}, legend:{position:'top'},
+            series:[
+                {name:'Pageviews', data:days2.map(x=>byDay[x].pageview)},
+                {name:'Clicks', data:days2.map(x=>byDay[x].click)},
+                {name:'Conversions', data:days2.map(x=>byDay[x].conversion)},
+            ],
+        };
+        if (trendChart) trendChart.updateOptions(opts); else { trendChart=new ApexCharts(document.querySelector('#trend'), opts); trendChart.render(); }
+
+        const gauge = { chart:{type:'radialBar',height:240}, series:[d.adCtr||0], colors:['#22c55e'],
+            plotOptions:{radialBar:{hollow:{size:'62%'},dataLabels:{value:{formatter:(v)=>v+'%',fontSize:'22px'},name:{show:false}}}}, labels:['CTR'] };
+        if (ctrChart) ctrChart.updateOptions(gauge); else { ctrChart=new ApexCharts(document.querySelector('#ctrGauge'), gauge); ctrChart.render(); }
+
+        const tp=document.getElementById('topPages');
+        tp.innerHTML = (d.topPages&&d.topPages.length) ? d.topPages.map(p=>`<tr><td class="fw-medium">${p.path||'/'}</td><td class="text-end">${p.c}</td></tr>`).join('') : '<tr><td colspan="2" class="text-center text-muted py-3">No data yet.</td></tr>';
+    }
+    document.getElementById('range').addEventListener('change', (e)=>load(e.target.value));
+    load(30);
+})();
+</script>

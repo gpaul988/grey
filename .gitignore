@@ -60,3 +60,4 @@ Admin/node_modules
 !.env.example
 !config.env.example
 .env.push
+scripts/faqs-extracted.json

@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import db from './index';
 import { migrate } from './schema';
 import {
@@ -10,6 +12,52 @@ import { seedStore } from './seed-store';
 const SEED_ADMIN_EMAIL = process.env.SEED_ADMIN_EMAIL || 'hello@greyinfotech.com.ng';
 const SEED_ADMIN_PASSWORD = process.env.SEED_ADMIN_PASSWORD || '1Uriel2Graham3';
 
+/**
+ * Idempotently seed the FAQ knowledge base from the migrated content in
+ * faqs-seed.json (extracted from the legacy inline FAQ sections). Safe to run
+ * on every boot: inserts only questions not already present (matched by a
+ * normalised question string), so admin edits/additions are never overwritten.
+ */
+function seedFaqs() {
+    const file = path.join(__dirname, 'faqs-seed.json');
+    if (!fs.existsSync(file)) {
+        console.log('  faqs-seed.json not found — skipping FAQ seed.');
+        return;
+    }
+    let rows: { question: string; answer: string; category: string; sort_order?: number }[];
+    try {
+        rows = JSON.parse(fs.readFileSync(file, 'utf8'));
+    } catch {
+        console.log('  faqs-seed.json unreadable — skipping FAQ seed.');
+        return;
+    }
+
+    const norm = (s: string) => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    const existing = new Set(
+        (db.prepare('SELECT question FROM faqs').all() as { question: string }[]).map((r) => norm(r.question))
+    );
+    const maxRow = db.prepare('SELECT COALESCE(MAX(sort_order),0) AS m FROM faqs').get() as { m: number };
+    let sort = maxRow.m;
+    const insert = db.prepare(
+        `INSERT INTO faqs (question, answer, category, sort_order, active, created_at, updated_at)
+         VALUES (@question, @answer, @category, @sort_order, 1, @ts, @ts)`
+    );
+    const now = new Date().toISOString();
+    let inserted = 0;
+    const tx = db.transaction(() => {
+        for (const r of rows) {
+            const k = norm(r.question);
+            if (!r.question || !r.answer || existing.has(k)) continue;
+            existing.add(k);
+            sort += 1;
+            insert.run({ question: r.question, answer: r.answer, category: r.category || 'General', sort_order: sort, ts: now });
+            inserted++;
+        }
+    });
+    tx();
+    console.log(`  FAQs seeded: +${inserted} new (total ${(db.prepare('SELECT COUNT(*) AS c FROM faqs').get() as { c: number }).c}).`);
+}
+
 async function seed() {
     migrate();
     console.log('Schema migrated.');
@@ -17,6 +65,7 @@ async function seed() {
     if (Users.count() > 0) {
         console.log('Database already seeded — running idempotent admin repair instead of full seed.');
         await ensureCoreAdmins();
+        seedFaqs();
         console.log('Admin repair done. (delete Admin/data/grey.db to re-seed from scratch)');
         return;
     }
@@ -122,6 +171,9 @@ async function seed() {
 
     // --- Store catalog (products, brands, categories, coupons) ---
     seedStore();
+
+    // --- FAQ knowledge base (migrated from legacy inline FAQ sections) ---
+    seedFaqs();
 
     console.log('\n=== SEED COMPLETE ===');
     console.log(`Admin login: ${SEED_ADMIN_EMAIL} / ${SEED_ADMIN_PASSWORD}`);

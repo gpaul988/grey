@@ -115,14 +115,6 @@ const Education = () => (
         ctaBody={<>From LMS platforms and virtual classrooms to school management systems, Grey InfoTech builds
             EdTech that engages learners and empowers educators. Let&apos;s create a learning experience that
             delivers real outcomes.</>}
-        faqs={[
-            {q: 'What education software do you build?', a: 'Learning management systems, virtual classrooms, e-learning web and mobile apps, school and institution management systems, assessment tools, and analytics platforms—for schools, universities, training providers and EdTech startups.'},
-            {q: 'Can you build live virtual classrooms?', a: 'Yes. We develop live video classrooms with interactive whiteboards, chat, breakout rooms and recording, so teaching feels engaging in real time and remains available on demand.'},
-            {q: 'How do you keep learners engaged?', a: 'Through interactive content, gamification, microlearning, progress tracking and thoughtful UX—plus adaptive learning paths and analytics that personalise the experience and help educators support each learner.'},
-            {q: 'Do you build administrative features too?', a: 'Absolutely. We build the full administrative backbone—enrolment, attendance, scheduling, grading, fees, reporting and parent/teacher portals—so institutions run smoothly.'},
-            {q: 'How do you protect student data?', a: 'We apply strong security, encryption and access control, with attention to the privacy regulations governing student and minor data, so sensitive information stays protected.'},
-            {q: 'Can the platform handle exam-season traffic?', a: 'Yes. We architect scalable cloud infrastructure so your platform stays fast and reliable during exam periods, enrolment peaks and rapid growth.'},
-        ]}
         testimonials={[
             {name: 'Funmi Adebayo', title: 'Founder, LearnBridge', message: <>Grey InfoTech built our LMS and mobile app, and engagement soared. Course completion rates are the best we&apos;ve ever seen. They clearly understand learners.</>},
             {name: 'Joseph Mwangi', title: 'IT Director, Summit Academy', message: <>Their school management system transformed our admin—enrolment, grading and parent portals all in one place. It even held up flawlessly through exam season.</>},

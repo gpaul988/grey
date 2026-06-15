@@ -116,14 +116,6 @@ const IoTDevelopment = () => (
         ctaBody={<>From firmware to cloud dashboards, Grey InfoTech builds secure, scalable IoT systems that turn
             connected devices into actionable intelligence. Let&apos;s engineer a connected product your customers
             and operators can rely on.</>}
-        faqs={[
-            {q: 'Do you build both the hardware firmware and the cloud software?', a: 'Yes. We deliver the full IoT stack—embedded firmware on the device, secure connectivity, the cloud platform that ingests and processes data, and the dashboards or apps that present it. We can also work alongside your existing hardware partner.'},
-            {q: 'Which cloud platforms do you use for IoT?', a: 'We work with AWS IoT, Azure IoT Hub and Google Cloud IoT, choosing based on your existing infrastructure, scale and budget. We design for device management, secure messaging and horizontal scale from the start.'},
-            {q: 'How do you secure IoT devices?', a: 'Security is built in from day one: unique device identity, secure provisioning, encrypted transport (TLS), signed over-the-air updates, and continuous monitoring. We treat the device, network and cloud as one threat surface and harden each layer.'},
-            {q: 'Can you support over-the-air (OTA) updates?', a: 'Absolutely. We design firmware and infrastructure for safe, signed OTA updates with rollback, so you can patch security issues and ship new features to your entire fleet without recalling devices.'},
-            {q: 'What about edge computing and analytics?', a: 'Where latency, bandwidth or privacy require it, we push filtering, aggregation and even ML inference to the edge, then combine it with cloud analytics for predictive maintenance, anomaly detection and smarter automation.'},
-            {q: 'Can you scale from a prototype to a large fleet?', a: 'Yes. We architect cloud back-ends to ingest and process millions of messages and manage large device fleets, so the prototype we build today scales cleanly into full production tomorrow.'},
-        ]}
         stats={[
             {label: 'Years Experience', value: 8, suffix: '+'},
             {label: 'Team Members', value: 13, suffix: '+'},

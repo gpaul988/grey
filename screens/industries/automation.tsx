@@ -113,14 +113,6 @@ const Automation = () => (
         ctaBody={<>From workflow automation and RPA to AI-driven processes, Grey InfoTech eliminates manual effort
             and connects your systems. Let&apos;s find your biggest time-drains and turn them into measurable
             efficiency.</>}
-        faqs={[
-            {q: 'What processes are good candidates for automation?', a: 'High-volume, repetitive, rule-based tasks with clear inputs and outputs—data entry, reconciliation, reporting, approvals, onboarding and cross-system updates. During discovery we map your workflows and prioritise the ones with the strongest return.'},
-            {q: 'What is the difference between workflow automation and RPA?', a: 'Workflow automation orchestrates steps and handoffs across a process, usually via APIs. RPA uses software bots to operate existing applications—even those without APIs—mimicking user actions. We use whichever fits, and often combine them.'},
-            {q: 'Can automation use AI?', a: 'Yes. We add AI for tasks rules can\u2019t handle alone—document understanding, classification, NLP and predictive decisioning—always with human oversight where decisions carry risk.'},
-            {q: 'Will automation integrate with our existing software?', a: 'Absolutely. We connect CRMs, ERPs, accounting, support tools and databases through APIs, webhooks and integration platforms so data flows automatically and stays in sync.'},
-            {q: 'How do you ensure automation is reliable and safe?', a: 'We build in logging, alerting, audit trails, error-handling and human-in-the-loop controls, then monitor and maintain the automation so it keeps running correctly as your systems and rules change.'},
-            {q: 'How quickly will we see results?', a: 'Many automations pay back within weeks of go-live by removing hours of manual work. We focus on high-ROI processes first so the value is visible early, then expand from there.'},
-        ]}
         testimonials={[
             {name: 'Ifeanyi Okeke', title: 'Operations Director, LedgerPro', message: <>Grey InfoTech automated our invoice reconciliation with RPA and document AI. What took a team two days now runs overnight, error-free. The ROI was obvious within a month.</>},
             {name: 'Sarah Mutua', title: 'Head of Ops, CareConnect', message: <>They connected our CRM, scheduling and billing so data flows automatically. No more re-keying, far fewer mistakes, and our staff focus on patients instead of paperwork.</>},

@@ -116,14 +116,6 @@ const FlutterDevelopment = () => (
         ctaBody={<>Whether you&apos;re validating an MVP or scaling a product to thousands of users, Grey InfoTech
             builds Flutter apps that are fast, beautiful and maintainable. One codebase, every platform—let&apos;s
             bring your app to life.</>}
-        faqs={[
-            {q: 'Why choose Flutter over native development?', a: 'Flutter lets you ship to iOS, Android, web and desktop from one codebase, cutting development and maintenance cost while keeping near-native performance. It is ideal when you want a consistent experience everywhere and faster iteration. We will still recommend native if your app needs deep platform-specific capabilities we cannot serve well in Flutter.'},
-            {q: 'Will my Flutter app feel native?', a: 'Yes. Flutter compiles to native ARM code and renders its own pixel-perfect UI, so apps run smoothly at 60–120fps and respect platform conventions. Users typically cannot tell a well-built Flutter app from a native one.'},
-            {q: 'Can you publish to the App Store and Google Play?', a: 'Absolutely. We handle the full release process—signing, store listings, compliance and CI/CD pipelines—so your app reaches both stores reliably, with smooth update cycles afterwards.'},
-            {q: 'Can you take over or improve an existing Flutter app?', a: 'Yes. We audit existing codebases, fix performance and architecture issues, add features and stabilise releases. We can also migrate older apps to current Flutter and Dart versions.'},
-            {q: 'How do you ensure the app stays maintainable?', a: 'We use clean layered architecture, predictable state management (Riverpod or BLoC), dependency injection, automated tests and clear documentation, so your team or ours can extend the app confidently for years.'},
-            {q: 'Do you provide support after launch?', a: 'Yes. We offer maintenance plans covering monitoring, bug fixes, OS and Flutter updates, and new feature development, keeping your app stable, secure and current.'},
-        ]}
         stats={[
             {label: 'Years Experience', value: 8, suffix: '+'},
             {label: 'Team Members', value: 13, suffix: '+'},

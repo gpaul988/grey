@@ -7,6 +7,7 @@ import {requirePermission} from '../middleware/authMiddleware';
 import {
     Users, Submissions, Leads, Clients, Projects, Tickets, TicketMessages,
     Invoices, CaseStudies, BlogPosts, Partners, ClientReviews, Conversations, Messages, Activity,
+    Ads, Subscribers, Announcements, PageSeos, Media, PartnerInquiries, Faqs,
     dashboardStats, chartData, logActivity,
 } from '../models';
 import {formatMoney, timeAgo, toInt} from '../utils/helpers';
@@ -115,6 +116,32 @@ route.get('/blog', requirePermission('blog.view'), (_req, res) => {
 
 route.get('/partners', requirePermission('blog.view'), (_req, res) => {
     res.render('apps-partners', {title: 'Partners & Logos', ...baseLocals, partners: Partners.all('sort_order ASC, id ASC')});
+});
+
+/* ---------------- Marketing & Growth ---------------- */
+route.get('/ads', requirePermission('blog.view'), (_req, res) => {
+    res.render('apps-ads', {title: 'Ads & Adverts', ...baseLocals, ads: Ads.all('sort_order ASC, id DESC')});
+});
+route.get('/faqs', requirePermission('blog.view'), (_req, res) => {
+    res.render('apps-faqs', {title: 'FAQ Manager', ...baseLocals, faqs: Faqs.all('sort_order ASC, id ASC')});
+});
+route.get('/partner-inquiries', requirePermission('blog.view'), (_req, res) => {
+    res.render('apps-partner-inquiries', {title: 'Partner Inquiries', ...baseLocals, inquiries: PartnerInquiries.all('created_at DESC')});
+});
+route.get('/subscribers', requirePermission('blog.view'), (_req, res) => {
+    res.render('apps-subscribers', {title: 'Subscribers', ...baseLocals, subscribers: Subscribers.all('created_at DESC')});
+});
+route.get('/announcement', requirePermission('blog.view'), (_req, res) => {
+    res.render('apps-announcement', {title: 'Announcement Bar', ...baseLocals, announcements: Announcements.all('created_at DESC')});
+});
+route.get('/media', requirePermission('blog.view'), (_req, res) => {
+    res.render('apps-media', {title: 'Media Library', ...baseLocals, media: Media.all('created_at DESC')});
+});
+route.get('/seo', requirePermission('blog.view'), (_req, res) => {
+    res.render('apps-seo', {title: 'SEO Manager', ...baseLocals, seo: PageSeos.all('path ASC')});
+});
+route.get('/analytics', requirePermission('blog.view'), (_req, res) => {
+    res.render('apps-analytics', {title: 'Analytics', ...baseLocals});
 });
 
 route.get('/reviews', requirePermission('blog.view'), (_req, res) => {

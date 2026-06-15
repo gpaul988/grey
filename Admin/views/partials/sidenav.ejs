@@ -234,6 +234,56 @@ const isActive = (k) => cur === k ? ' active' : '';
                     <span class="menu-text"> Client Reviews </span>
                 </a>
             </li>
+            <li class="side-nav-item">
+                <a href="/admin/faqs" class="side-nav-link<%= isActive('faqs') %>">
+                    <span class="menu-icon"><i class="ti ti-help-circle"></i></span>
+                    <span class="menu-text"> FAQ Manager </span>
+                </a>
+            </li>
+
+            <li class="side-nav-title">Marketing &amp; Growth</li>
+            <li class="side-nav-item">
+                <a href="/admin/ads" class="side-nav-link<%= isActive('ads') %>">
+                    <span class="menu-icon"><i class="ti ti-speakerphone"></i></span>
+                    <span class="menu-text"> Ads &amp; Adverts </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="/admin/announcement" class="side-nav-link<%= isActive('announcement') %>">
+                    <span class="menu-icon"><i class="ti ti-bell-ringing"></i></span>
+                    <span class="menu-text"> Announcement Bar </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="/admin/partner-inquiries" class="side-nav-link<%= isActive('partner-inquiries') %>">
+                    <span class="menu-icon"><i class="ti ti-inbox"></i></span>
+                    <span class="menu-text"> Partner Inquiries </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="/admin/subscribers" class="side-nav-link<%= isActive('subscribers') %>">
+                    <span class="menu-icon"><i class="ti ti-mail-opened"></i></span>
+                    <span class="menu-text"> Subscribers </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="/admin/analytics" class="side-nav-link<%= isActive('analytics') %>">
+                    <span class="menu-icon"><i class="ti ti-chart-histogram"></i></span>
+                    <span class="menu-text"> Analytics </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="/admin/seo" class="side-nav-link<%= isActive('seo') %>">
+                    <span class="menu-icon"><i class="ti ti-world-search"></i></span>
+                    <span class="menu-text"> SEO Manager </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="/admin/media" class="side-nav-link<%= isActive('media') %>">
+                    <span class="menu-icon"><i class="ti ti-photo"></i></span>
+                    <span class="menu-text"> Media Library </span>
+                </a>
+            </li>
 
             <% if (u.role === 'admin' || u.role === 'manager') { %>
                 <li class="side-nav-title">Administration</li>

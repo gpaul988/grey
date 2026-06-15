@@ -127,14 +127,6 @@ const TravelAndHospitality = () => (
         ctaBody={<>From booking platforms and property management to guest apps and OTA integrations, Grey
             InfoTech turns travel and hospitality ambition into reliable, scalable technology. Let&apos;s map
             your guest journey and build software that fills rooms and earns loyalty.</>}
-        faqs={[
-            {q: 'Can you handle real-time availability and pricing?', a: 'Yes. We build real-time availability, dynamic pricing and secure booking flows that stay accurate and fast even during flash sales and peak demand, with confirmations, flexible cancellation rules and abandoned-cart recovery built in.'},
-            {q: 'Do you integrate with OTAs and booking engines?', a: 'Absolutely. We connect with OTAs, GDS and channel managers using two-way sync so your inventory and rates stay consistent across every platform, preventing overbooking and rate-parity issues.'},
-            {q: 'Can you build guest-facing apps?', a: 'Yes. We develop guest apps for mobile check-in and check-out, in-stay service requests, digital room keys, concierge messaging and loyalty programmes that enhance the experience and reduce front-desk load.'},
-            {q: 'Do you support tour and activity operators?', a: 'We do. We build platforms for itinerary design, scheduling, capacity management, ticketing and digital vouchers, including multi-day packages, guide and resource allocation, and seasonal pricing.'},
-            {q: 'Can you provide revenue and occupancy analytics?', a: 'Yes. We build dashboards that surface occupancy, RevPAR, booking pace, channel performance and guest behaviour, with forecasting and reporting so you can price intelligently and anticipate demand.'},
-            {q: 'Will the platform scale through peak seasons?', a: 'Reliability at peak is a core design goal. We engineer for scale and resilience using scalable cloud infrastructure, caching and monitoring so your systems stay fast and dependable when demand spikes.'},
-        ]}
         stats={[
             {label: 'Years Experience', value: 8, suffix: '+'},
             {label: 'Team Members', value: 13, suffix: '+'},

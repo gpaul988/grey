@@ -14,6 +14,9 @@ import {SITE} from "@/lib/seo";
 import {PersonalizationProvider} from "@/components/futuristic/PersonalizationProvider";
 import ParallaxProvider from "@/components/futuristic/ParallaxProvider";
 import VoiceCommander from "@/components/futuristic/VoiceCommander";
+import Preloader from "@/components/futuristic/Preloader";
+import CookieConsent from "@/components/futuristic/CookieConsent";
+import AnnouncementBar from "@/components/futuristic/AnnouncementBar";
 
 const merriweather = Merriweather({
     variable: "--font-merriweather",
@@ -143,6 +146,10 @@ export default function RootLayout({
         >
         <ThemeProvider>
             <PersonalizationProvider>
+            {/* First-load-only futuristic boot sequence */}
+            <Preloader/>
+            {/* GDPR cookie consent manager */}
+            <CookieConsent/>
             {/* Publishes pointer/tilt as CSS vars for parallax (capability-gated, no camera) */}
             <ParallaxProvider/>
             {/* Skip-to-content link for keyboard/screen-reader users (WCAG) */}
@@ -156,6 +163,9 @@ export default function RootLayout({
             {/* Structured data (Schema.org) for rich results — now with real sameAs links */}
             <OrganizationSchema socialLinks={[...SITE.socials]}/>
             <WebSiteSchema/>
+
+            {/* Schedule-aware promo / announcement strip above the header */}
+            <AnnouncementBar/>
 
             <Header/>
 

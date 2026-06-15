@@ -5,7 +5,6 @@ import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import Link from "next/link";
 import CountUp from "react-countup";
-import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import Footer from "@/components/Footer";
 
 
@@ -113,14 +112,6 @@ useEffect(() => {
         {label: 'Successful rebrands', value: 27, suffix: '+'},
         {label: 'Increase in Website Traffic', value: 350, suffix: '%'},
     ];
-    // FAQ Hook
-    const [onIndex, setOnIndex] = useState<number | null>(null);
-
-    const toggleFAQ = (index: number) => {
-        setOnIndex(onIndex === index ? null : index);
-    }
-
-
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} relative h-auto`}>
             {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
@@ -1023,148 +1014,7 @@ useEffect(() => {
 
 
 
-            {/* FAQ section */}
-            <div id={'FAQ'}
-                 className={`relative lg:-mt-[9em] md:-mt-[5em] lg:py-36 mb-28 ${isDayTime ? 'bg-black' : 'bg-white'}`}>
-                <div
-                    className={`relative mx-auto px-4 sm:px-[2em] md:px-[3.2em] lg:px-[4.6em] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                    <div className={'border-b-[1px] lg:pb-[2em] pb-[1em] mb-28 '}>
-                        <h2 className='lg:text-[3.2em] md:text-[3.2em] sm:text-[1.5em] text-[1em] font-[500] leading-[1.2] tracking-tight mb-6'>
-                            Frequently Asked Ruby <br className={'lg:block md:block hidden'}/>On Rails Questions
-                        </h2>
-                        <p className='text-[0.873em] font-[400] lg:-mt-[0.2em] rounded-none leading-[1.5]'>
-                            Have questions about whether Ruby on Rails is the right fit for your technical needs?<br
-                            className={'lg:block md:block hidden'}/>
-                            We&#39;re here to provide the clarity and answers you need.
-                        </p>
-                    </div>
-                </div>
-                <div className='relative mx-auto px-4 sm:px-6 lg:px-[12em] space-y-2'>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(0)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none"
-                        >
-                            <span>What is Ruby on Rails used for?</span>
-                            {onIndex === 0 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.2em] text-[1em] text-gray-600`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.2em] text-[1em] text-gray-600`}/>
-                            )}
-                        </button>
-                        {onIndex === 0 && (
-                            <p className="mt-4 text-[0.873em] font-[200] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                Ruby on Rails is a powerful and versatile <Link
-                                href='/services/Web-Development'
-                                className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}>
-                                web development</Link> framework widely adopted for
-                                building dynamic, feature-rich web applications. Known for its efficiency and
-                                developer-friendly conventions, Rails is used to create a wide variety of solutions,
-                                including content management systems (CMS), e-commerce platforms, customer relationship
-                                management (CRM) tools, project management applications, and other bespoke systems
-                                tailored to unique business needs. Its foundation on the Model-View-Controller (MVC)
-                                architecture, combined with a strong emphasis on convention over configuration, allows
-                                for rapid development without compromising code quality or scalability. This makes it
-                                particularly well-suited for businesses that require fast, reliable deployment of robust
-                                web applications. Whether you’re launching a startup or expanding enterprise operations,
-                                Ruby on Rails offers a flexible, maintainable, and user-friendly framework that supports
-                                growth and innovation across industries.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(1)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span>Why choose Ruby on Rails for web app development?</span>
-                            {onIndex === 1 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.2em] text-[1em] text-gray-600`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.2em] text-[1em] text-gray-600`}/>
-                            )}
-                        </button>
-                        {onIndex === 1 && (
-                            <p className="mt-4 text-[0.873em] font-[200] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                Choosing Ruby on Rails for your web application development is a strategic decision that
-                                combines efficiency, scalability, and cost-effectiveness. Its streamlined framework
-                                allows for faster development cycles, helping you bring products to market quickly
-                                without compromising on quality. With a strong emphasis on convention over
-                                configuration, Rails simplifies complex tasks and reduces development overhead. Backed
-                                by a vibrant community and extensive library of tools, our team can build robust,
-                                high-performing web apps that are easy to maintain and scale. Best of all, it supports
-                                long-term growth while keeping costs manageable—so you can focus on delivering an
-                                exceptional user experience that drives business success.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(2)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span>How long does it take to build a Ruby on Rails app?</span>
-                            {onIndex === 2 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.2em] text-[1em] text-gray-600`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.2em] text-[1em] text-gray-600`}/>
-                            )}
-                        </button>
-                        {onIndex === 2 && (
-                            <p className="mt-4 text-[0.873em] font-[200] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                The time required to build a Ruby on Rails application depends largely on the
-                                complexity, scope, and specific requirements of the project. A basic app with standard
-                                features may take a few weeks to a couple of months, whereas more complex, feature-rich
-                                applications—such as those involving custom integrations, third-party APIs, or advanced
-                                user roles—can take several months or more. Key factors that influence the timeline
-                                include the level of customisation, number of features, performance requirements, and
-                                integration with external systems. At Grey InfoTech, we streamline this process by
-                                working closely with you to define a clear project plan from the outset. With
-                                experienced Ruby on Rails developers, structured workflows, and ongoing collaboration,
-                                we help accelerate development while ensuring quality, scalability, and a smooth
-                                delivery.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(3)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span className={'leading-[1.3]'}>
-                                How are you different from other Ruby on Rails <br className={'not-sr-only'}/>development agencies in the UK?
-                            </span>
-                            {onIndex === 3 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.2em] text-[1em] text-gray-600`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.2em] text-[1em] text-gray-600`}/>
-                            )}
-                        </button>
-                        {onIndex === 3 && (
-                            <p className="mt-4 text-[0.873em] font-[200] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                We build Ruby on Rails applications using a proven development methodology refined
-                                through years of hands-on experience. This structured yet flexible approach is applied
-                                consistently across all client projects to ensure efficiency, clarity, and progress at
-                                every stage. Understanding the complexities involved in web app development, we provide
-                                expert guidance from your initial inquiry through to launch—and beyond. Each phase of
-                                the process is tailored to your organisation’s specific goals, challenges, and
-                                workflows, resulting in a custom solution that aligns perfectly with your business
-                                objectives. Our focus is not just on delivering code, but on creating lasting value
-                                through thoughtful, scalable, and maintainable applications.
-                            </p>
-                        )}
-                    </div>
-                </div>
-            </div>
+            
 
             {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>

@@ -113,14 +113,6 @@ const Retail = () => (
         ctaBody={<>From POS and inventory to e-commerce and omnichannel, Grey InfoTech builds retail software that
             grows sales and unifies your operation. Let&apos;s create a shopping experience customers love—online and
             in store.</>}
-        faqs={[
-            {q: 'What retail software do you build?', a: 'Point-of-sale systems, inventory and order management, e-commerce storefronts, omnichannel platforms, loyalty and personalisation, and analytics—for single stores, multi-location chains and D2C brands.'},
-            {q: 'What does omnichannel actually mean for my business?', a: 'It means your online and in-store channels share the same inventory, pricing, customer and order data in real time—so customers can buy online and collect in store, return anywhere, and feel recognised everywhere. We build that unified backbone.'},
-            {q: 'Will the POS work if the internet goes down?', a: 'Yes. We build POS that operates offline and syncs automatically when connectivity returns, so your shop floor keeps selling no matter what.'},
-            {q: 'Can you integrate payments securely?', a: 'Absolutely. We integrate secure payment providers to PCI standards, supporting cards, wallets and local payment methods online and in store.'},
-            {q: 'How do you handle peak-season traffic?', a: 'We architect scalable cloud infrastructure so your platform stays fast and reliable during Black Friday, flash sales and festive peaks, when performance matters most.'},
-            {q: 'Can you build loyalty and personalisation?', a: 'Yes. We build loyalty programs, targeted offers and recommendation engines that increase repeat purchases and customer lifetime value by making every shopper feel known.'},
-        ]}
         testimonials={[
             {name: 'Adaeze Nnamdi', title: 'Founder, StyleHub', message: <>Grey InfoTech unified our online store and physical shops onto one platform. Inventory finally matches reality and customers can buy online, collect in store. Sales are up across the board.</>},
             {name: 'Sipho Dlamini', title: 'Retail Director, MartPlus', message: <>Their POS and inventory system works flawlessly across all our branches—even offline. The real-time stock visibility ended our overselling problems for good.</>},

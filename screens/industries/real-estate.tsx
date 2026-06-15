@@ -113,14 +113,6 @@ const RealEstate = () => (
         ctaHeading={<>Move property <br className={'lg:block md:block hidden'}/>faster</>}
         ctaBody={<>From listing portals and property management to CRM and virtual tours, Grey InfoTech builds
             PropTech that closes deals and streamlines operations. Let&apos;s transform how you do property.</>}
-        faqs={[
-            {q: 'What real estate software do you build?', a: 'Property listing portals, property and tenancy management systems, agent and brokerage CRMs, virtual tour integrations, transaction and e-signature tools, and analytics platforms—for brokerages, property managers, developers and PropTech startups.'},
-            {q: 'Can you build virtual tours and 360° walkthroughs?', a: 'Yes. We integrate immersive virtual tours, 360° walkthroughs and video so properties can be explored remotely, widening your market reach and speeding up buyer decisions.'},
-            {q: 'Do you build property management features?', a: 'Absolutely. We build end-to-end management—listings, tenants, leases, maintenance requests, rent collection and reporting—so owners and managers control their portfolios from one platform.'},
-            {q: 'Can you handle online payments and e-signatures?', a: 'Yes. We integrate secure payments, e-signatures and document management so transactions complete faster with a clear, auditable record for all parties.'},
-            {q: 'How do you protect sensitive data?', a: 'Through encryption, strict access control and secure cloud architecture, with attention to the privacy regulations governing financial and personal data in property transactions.'},
-            {q: 'Will the platform scale to large portfolios?', a: 'Yes. We architect scalable cloud infrastructure so your platform handles large portfolios, high listing volumes and heavy traffic without slowing down.'},
-        ]}
         testimonials={[
             {name: 'Chinwe Okafor', title: 'MD, PrimeHomes Realty', message: <>Grey InfoTech built our listing portal and agent CRM, and our lead conversion jumped. The map search and virtual tours genuinely set us apart from competitors.</>},
             {name: 'Thabo Nkosi', title: 'Founder, RentEase', message: <>Their property management platform put listings, tenants, maintenance and rent collection in one place. Our admin workload dropped dramatically.</>},

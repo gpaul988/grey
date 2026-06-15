@@ -114,14 +114,6 @@ const Biotech = () => (
         ctaBody={<>From LIMS and research platforms to bioinformatics and compliant data systems, Grey InfoTech
             builds software for life sciences. Let&apos;s engineer tools that bring rigour, scale and insight to your
             research.</>}
-        faqs={[
-            {q: 'What biotech and life-science software do you build?', a: 'LIMS and lab software, electronic lab notebooks, research data platforms, sample-tracking systems, bioinformatics pipelines, and compliant cloud platforms for managing and analysing biological and clinical data.'},
-            {q: 'Do you understand regulatory compliance?', a: 'Yes. We engineer with data integrity, auditability, validation and access control as core requirements, mindful of standards like GxP and HIPAA and relevant data-protection regulations. We work closely with your quality and compliance teams.'},
-            {q: 'Can you handle large genomic or research datasets?', a: 'Absolutely. We build automated bioinformatics pipelines and scalable cloud infrastructure designed to process high-volume biological data reliably and visualise results clearly.'},
-            {q: 'Can your software integrate with lab instruments?', a: 'Yes. We integrate with laboratory instruments and existing scientific tools so results flow automatically into your systems with full traceability, reducing manual transcription and error.'},
-            {q: 'How do you protect sensitive data?', a: 'Through encryption, strict access control, audit logging and secure cloud architecture, with attention to the privacy regulations governing health and research data, so your most sensitive information stays protected.'},
-            {q: 'Can you apply AI to our research data?', a: 'Yes. We use analytics and machine learning for pattern discovery, classification and prediction on complex datasets, surfacing insight that accelerates research while keeping results interpretable and trustworthy.'},
-        ]}
         testimonials={[
             {name: 'Dr. Ada Nwankwo', title: 'Lab Director, GenomeCare', message: <>Grey InfoTech built our LIMS with full sample traceability and instrument integration. Our throughput rose and audits became painless. They understood the science.</>},
             {name: 'Dr. Kwame Asante', title: 'Head of Research, BioSphere Labs', message: <>Their bioinformatics pipeline processes our sequencing data reliably and at scale. What used to take days of manual work now runs automatically.</>},

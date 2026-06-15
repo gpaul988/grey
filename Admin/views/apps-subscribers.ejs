@@ -1,0 +1,40 @@
+<%- contentFor('html_attribute') %>
+<%- contentFor('extra_css') %>
+<%- contentFor('content') %>
+
+<%- include('./partials/page-title', { title: title, subtitle: 'Marketing' }) %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h4 class="card-title mb-0"><i class="ti ti-mail-opened me-1"></i> Newsletter Subscribers <span class="badge bg-primary-subtle text-primary ms-1"><%= subscribers.length %></span></h4>
+                <a class="btn btn-sm btn-soft-success" href="/admin/api/subscribers/export/csv"><i class="ti ti-download"></i> Export CSV</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-centered mb-0 align-middle">
+                    <thead class="bg-light bg-opacity-50"><tr><th>Email</th><th>Name</th><th>Source</th><th>Status</th><th>Joined</th><th class="text-end">Action</th></tr></thead>
+                    <tbody>
+                        <% if (!subscribers.length) { %><tr><td colspan="6" class="text-center text-muted py-4">No subscribers yet.</td></tr><% } %>
+                        <% subscribers.forEach((s) => { %>
+                        <tr>
+                            <td class="fw-medium"><%= s.email %></td>
+                            <td><%= s.name || '—' %></td>
+                            <td><span class="badge bg-light text-dark"><%= s.source %></span></td>
+                            <td><span class="badge bg-<%= s.status==='subscribed'?'success':'secondary' %>-subtle text-<%= s.status==='subscribed'?'success':'secondary' %>"><%= s.status %></span></td>
+                            <td class="fs-12 text-muted"><%= s.created_at ? s.created_at.slice(0,10) : '' %></td>
+                            <td class="text-end"><button class="btn btn-sm btn-soft-danger btn-del" data-id="<%= s.id %>"><i class="ti ti-trash"></i></button></td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('extra_javascript') %>
+<%- include('./partials/admin-api-helper') %>
+<script>
+document.querySelectorAll('.btn-del').forEach(b => b.addEventListener('click', async () => { if (!confirm('Remove this subscriber?')) return; const r = await AdminAPI.del('/subscribers/'+b.dataset.id); if (r.ok) location.reload(); else AdminAPI.toast(r.message||'Failed', true); }));
+</script>

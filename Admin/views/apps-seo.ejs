@@ -1,0 +1,67 @@
+<%- contentFor('html_attribute') %>
+<%- contentFor('extra_css') %>
+<%- contentFor('content') %>
+
+<%- include('./partials/page-title', { title: title, subtitle: 'Marketing' }) %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h4 class="card-title mb-0"><i class="ti ti-world-search me-1"></i> SEO Overrides <span class="badge bg-primary-subtle text-primary ms-1"><%= seo.length %></span></h4>
+                <button class="btn btn-sm btn-primary" id="btnNew"><i class="ti ti-plus"></i> Add override</button>
+            </div>
+            <div class="card-body"><p class="text-muted fs-13 mb-0">Override the meta title, description, keywords and social image for any page path (e.g. <code>/partners</code>). Pages without an override use their built-in defaults.</p></div>
+            <div class="table-responsive">
+                <table class="table table-hover table-centered mb-0 align-middle">
+                    <thead class="bg-light bg-opacity-50"><tr><th>Path</th><th>Title</th><th>Description</th><th class="text-end">Action</th></tr></thead>
+                    <tbody>
+                        <% if (!seo.length) { %><tr><td colspan="4" class="text-center text-muted py-4">No overrides yet.</td></tr><% } %>
+                        <% seo.forEach((s) => { %>
+                        <tr>
+                            <td class="fw-medium"><code><%= s.path %></code></td>
+                            <td class="text-truncate" style="max-width:220px"><%= s.title || '—' %></td>
+                            <td class="text-truncate text-muted fs-12" style="max-width:280px"><%= s.description || '—' %></td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-soft-primary btn-edit" data-json="<%- JSON.stringify(s).replace(/"/g,'&quot;') %>"><i class="ti ti-edit"></i></button>
+                                <button class="btn btn-sm btn-soft-danger btn-del" data-id="<%= s.id %>"><i class="ti ti-trash"></i></button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="sModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered modal-lg"><div class="modal-content">
+    <div class="modal-header border-bottom"><h5 class="modal-title" id="mTitle">Add SEO override</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+    <div class="modal-body"><input type="hidden" id="f_id"><div class="row g-3">
+        <div class="col-12"><label class="form-label fw-medium">Page path <span class="text-danger">*</span></label><input id="f_path" class="form-control" placeholder="/partners"></div>
+        <div class="col-12"><label class="form-label fw-medium">Meta title</label><input id="f_title" class="form-control" maxlength="70"><div class="form-text">Keep under ~60 characters.</div></div>
+        <div class="col-12"><label class="form-label fw-medium">Meta description</label><textarea id="f_desc" class="form-control" rows="3" maxlength="180"></textarea><div class="form-text">Keep under ~160 characters.</div></div>
+        <div class="col-md-6"><label class="form-label fw-medium">Keywords</label><input id="f_kw" class="form-control" placeholder="comma, separated"></div>
+        <div class="col-md-6"><label class="form-label fw-medium">OG image URL</label><input id="f_og" class="form-control" placeholder="https://..."></div>
+    </div></div>
+    <div class="modal-footer border-top"><button class="btn btn-light" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="btnSave"><i class="ti ti-device-floppy me-1"></i>Save</button></div>
+</div></div></div>
+
+<%- contentFor('extra_javascript') %>
+<%- include('./partials/admin-api-helper') %>
+<script>
+(function () {
+    const modal=new bootstrap.Modal('#sModal'); const F=(id)=>document.getElementById(id);
+    F('btnNew').addEventListener('click', () => { F('mTitle').textContent='Add SEO override'; F('f_id').value=''; ['f_path','f_title','f_desc','f_kw','f_og'].forEach(i=>F(i).value=''); modal.show(); });
+    document.querySelectorAll('.btn-edit').forEach(b => b.addEventListener('click', () => {
+        const s=JSON.parse(b.dataset.json); F('mTitle').textContent='Edit SEO override'; F('f_id').value=s.id;
+        F('f_path').value=s.path||''; F('f_title').value=s.title||''; F('f_desc').value=s.description||''; F('f_kw').value=s.keywords||''; F('f_og').value=s.og_image||''; modal.show();
+    }));
+    document.querySelectorAll('.btn-del').forEach(b => b.addEventListener('click', async () => { if (!confirm('Remove override?')) return; const r=await AdminAPI.del('/page-seo/'+b.dataset.id); if (r.ok) location.reload(); else AdminAPI.toast(r.message||'Failed', true); }));
+    F('btnSave').addEventListener('click', async () => {
+        const payload={ path:F('f_path').value.trim(), title:F('f_title').value.trim(), description:F('f_desc').value.trim(), keywords:F('f_kw').value.trim(), og_image:F('f_og').value.trim() };
+        if (!payload.path) return AdminAPI.toast('Path is required', true);
+        const r=await AdminAPI.post('/page-seo', payload); if (r.ok) location.reload(); else AdminAPI.toast(r.message||'Failed', true);
+    });
+})();
+</script>

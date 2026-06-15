@@ -4,7 +4,6 @@ import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import Link from "next/link";
-import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import Footer from "@/components/Footer";
 
 const NetDevelopment = () => {
@@ -99,14 +98,6 @@ useEffect(() => {
             setActiveId(target); // Ensure the arrow icon is displayed when a section is clicked
         }
     };
-
-    // FAQ Hook
-    const [onIndex, setOnIndex] = useState<number | null>(null);
-
-    const toggleFAQ = (index: number) => {
-        setOnIndex(onIndex === index ? null : index);
-    }
-
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
@@ -708,159 +699,7 @@ useEffect(() => {
 
 
 
-            {/* FAQ section */}
-            <div id={'FAQ'}
-                 className={`relative lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[5em] md:pb-[5em] pb-[2em] lg:mb-[8em] md:mb-[8em] mb-[4em] ${isDayTime ? 'bg-white' : 'bg-black'}`}>
-                <div
-                    className={`relative mx-auto px-4 sm:px-[2em] md:px-[3.2em] lg:px-[4.6em] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                    <div className={'border-b-[1px] lg:pb-[2em] pb-[1em] mb-28 '}>
-                        <h2 className='capitalize lg:text-[3em] md:text-[2em] sm:text-[1em] font-[500] leading-[1.2] tracking-tight mb-8'>
-                            Frequently asked <br className={'lg:block md:block hidden'}/>.NET questions
-                        </h2>
-                        <p className={'text-[0.873em] font-[300] leading-[1.3]'}>
-                            .NET is a powerful and flexible backend framework known for building secure, scalable<br
-                            className={'lg:block md:block hidden'}/>
-                            applications. Backed by Microsoft and widely used across industries, it’s a trusted <br
-                            className={'lg:block md:block hidden'}/>choice
-                            for creating high-performance software. Have questions? We’re here to help.
-                        </p>
-                    </div>
-                </div>
-                <div className='relative mx-auto px-4 sm:px-6 lg:px-[12em] space-y-2'>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-100 text-gray-700 hover:text-black' : 'border-gray-400 text-gray-300 hover:text-white'}`}>
-                        <button
-                            onClick={() => toggleFAQ(0)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none"
-                        >
-                            <span>What are the advantages of using .NET for software development needs?</span>
-                            {onIndex === 0 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            )}
-                        </button>
-                        {onIndex === 0 && (
-                            <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                At Grey InfoTech, we position ourselves as your reliable digital partner—fully aligned
-                                with your business goals and committed to delivering measurable value. Our skilled .NET
-                                engineers integrate seamlessly with your team, fostering close collaboration, clear
-                                communication, and full transparency throughout the development lifecycle. We focus on
-                                building strong, results-driven partnerships that go beyond technical delivery, ensuring
-                                that every solution we develop supports your long-term objectives, accelerates your
-                                digital initiatives, and contributes to your overall business success.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-100 text-gray-700 hover:text-black' : 'border-gray-400 text-gray-300 hover:text-white'}`}>
-                        <button
-                            onClick={() => toggleFAQ(1)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span>How scalable is .NET and can it accommodate business growth?</span>
-                            {onIndex === 1 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            )}
-                        </button>
-                        {onIndex === 1 && (
-                            <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                .NET is a highly scalable and flexible framework, making it ideal for businesses aiming
-                                to grow and evolve efficiently. Its architecture allows our developers to build
-                                applications that seamlessly adapt to changing requirements and user demands, ensuring
-                                long-term reliability. As your workload increases, .NET maintains consistent performance
-                                and stability, enabling your systems to scale without disruption—supporting your growth
-                                without compromising speed, efficiency, or user experience.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-100 text-gray-700 hover:text-black' : 'border-gray-400 text-gray-300 hover:text-white'}`}>
-                        <button
-                            onClick={() => toggleFAQ(2)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span className={'leading-[1.3]'}>What security features does .NET offer and how does it ensure <br
-                                className={'lg:block md:block hidden'}/>the safety of applications?</span>
-                            {onIndex === 2 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            )}
-                        </button>
-                        {onIndex === 2 && (
-                            <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                .NET offers a robust security infrastructure designed to protect your applications and
-                                data at every level. With features like code access security, role-based security, and
-                                advanced encryption, it ensures that only authorised users can access specific resources
-                                and functionality. Additionally, .NET’s built-in safeguards help defend against common
-                                web vulnerabilities—such as cross-site scripting (XSS), SQL injection, and cross-site
-                                request forgery (CSRF)—providing a secure foundation for handling sensitive information
-                                and maintaining user trust.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-100 text-gray-700 hover:text-black' : 'border-gray-400 text-gray-300 hover:text-white'}`}>
-                        <button
-                            onClick={() => toggleFAQ(3)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span>Can .NET integrate with existing technology stacks and databases seamlessly?</span>
-                            {onIndex === 3 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            )}
-                        </button>
-                        {onIndex === 3 && (
-                            <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                .NET offers seamless integration with a wide range of technology stacks and databases,
-                                including Microsoft Azure, Microsoft SQL Server, and other enterprise-grade systems. Its
-                                interoperability with multiple programming languages—such as C#, F#, and VB.NET—makes it
-                                highly adaptable for diverse application needs and development environments. This
-                                flexibility allows businesses to build interconnected, scalable solutions that fit
-                                smoothly into their existing infrastructure while supporting future expansion and
-                                innovation.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-100 text-gray-700 hover:text-black' : 'border-gray-400 text-gray-300 hover:text-white'}`}>
-                        <button
-                            onClick={() => toggleFAQ(4)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span className={'leading-[1.3]'}>What is the cost structure associated with implementing and maintaining <br
-                                className={'lg:block md:block hidden'}/>.NET for a business?</span>
-                            {onIndex === 4 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            )}
-                        </button>
-                        {onIndex === 4 && (
-                            <p className="mt-4 text-[0.85em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                The cost of implementing and maintaining a .NET solution varies based on your project’s
-                                specific requirements, including complexity, development time, licensing, and ongoing
-                                support needs. However, .NET’s efficiency, scalability, and seamless integration
-                                capabilities often make it a cost-effective choice for businesses. Its ability to
-                                support long-term growth, reduce maintenance overhead, and deliver reliable performance
-                                ensures strong return on investment, especially for organisations seeking a robust and
-                                future-ready development framework.
-                            </p>
-                        )}
-                    </div>
-                </div>
-            </div>
+            
 
             {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>

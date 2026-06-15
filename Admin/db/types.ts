@@ -274,6 +274,109 @@ export interface ClientReview {
     updated_at: string;
 }
 
+export interface PartnerInquiry {
+    id: number;
+    company: string;
+    contact_name: string;
+    email: string;
+    phone: string | null;
+    website: string | null;
+    country: string | null;
+    reg_authority: string | null;
+    reg_number: string | null;
+    partnership_type: string | null;
+    message: string | null;
+    status: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Faq {
+    id: number;
+    question: string;
+    answer: string;
+    category: string;
+    sort_order: number;
+    active: number;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Ad {
+    id: number;
+    title: string;
+    body: string;
+    image: string;
+    link_url: string;
+    cta_label: string;
+    placement: string;
+    share_caption: string;
+    variant: string;
+    status: string;
+    starts_at: string | null;
+    ends_at: string | null;
+    impressions: number;
+    clicks: number;
+    sort_order: number;
+    active: number;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Subscriber {
+    id: number;
+    email: string;
+    name: string;
+    source: string;
+    status: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Announcement {
+    id: number;
+    message: string;
+    link_url: string;
+    link_label: string;
+    variant: string;
+    active: number;
+    starts_at: string | null;
+    ends_at: string | null;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface PageSeo {
+    id: number;
+    path: string;
+    title: string;
+    description: string;
+    keywords: string;
+    og_image: string;
+    updated_at: string;
+    created_at: string;
+}
+
+export interface AnalyticsEvent {
+    id: number;
+    type: string;
+    path: string;
+    ref: string;
+    label: string;
+    ua: string;
+    created_at: string;
+}
+
+export interface MediaAsset {
+    id: number;
+    url: string;
+    filename: string;
+    mime: string;
+    size: number;
+    alt: string;
+    created_at: string;
+}
+
 export interface Conversation {
     id: number;
     client_id: number | null;
