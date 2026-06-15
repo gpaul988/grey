@@ -1436,6 +1436,127 @@ export function migrate(database?: DatabaseType.Database): void {
             created_at  TEXT    NOT NULL DEFAULT (datetime('now')),
             updated_at  TEXT    NOT NULL DEFAULT (datetime('now'))
         );
+
+        -- ---- Partnership inquiries (submitted from /partners page) ----
+        CREATE TABLE IF NOT EXISTS partner_inquiries
+        (
+            id               INTEGER PRIMARY KEY AUTOINCREMENT,
+            company          TEXT    NOT NULL,
+            contact_name     TEXT    NOT NULL,
+            email            TEXT    NOT NULL,
+            phone            TEXT,
+            website          TEXT,
+            country          TEXT,
+            reg_authority    TEXT,            -- e.g. CAC (Nigeria) or equivalent body
+            reg_number       TEXT,            -- registration / incorporation number
+            partnership_type TEXT,            -- Technology | Reseller | Referral | Strategic | Integration | Other
+            message          TEXT,
+            status           TEXT    NOT NULL DEFAULT 'new', -- new | reviewing | approved | declined | archived
+            created_at       TEXT    NOT NULL DEFAULT (datetime('now')),
+            updated_at       TEXT    NOT NULL DEFAULT (datetime('now'))
+        );
+
+        -- ---- FAQs (central FAQ page + admin CRUD) ----
+        CREATE TABLE IF NOT EXISTS faqs
+        (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            question    TEXT    NOT NULL,
+            answer      TEXT    NOT NULL,
+            category    TEXT    NOT NULL DEFAULT 'General',
+            sort_order  INTEGER NOT NULL DEFAULT 0,
+            active      INTEGER NOT NULL DEFAULT 1,
+            created_at  TEXT    NOT NULL DEFAULT (datetime('now')),
+            updated_at  TEXT    NOT NULL DEFAULT (datetime('now'))
+        );
+
+        -- ---- Ads / Adverts (frontend banners + social share) ----
+        CREATE TABLE IF NOT EXISTS ads
+        (
+            id            INTEGER PRIMARY KEY AUTOINCREMENT,
+            title         TEXT    NOT NULL,
+            body          TEXT    NOT NULL DEFAULT '',
+            image         TEXT    NOT NULL DEFAULT '',   -- upload URL or external URL
+            link_url      TEXT    NOT NULL DEFAULT '',   -- destination on CTA click
+            cta_label     TEXT    NOT NULL DEFAULT 'Learn more',
+            placement     TEXT    NOT NULL DEFAULT 'home_banner',
+            share_caption TEXT    NOT NULL DEFAULT '',   -- caption pushed to social share intents
+            variant       TEXT    NOT NULL DEFAULT 'gradient', -- gradient | image | minimal
+            status        TEXT    NOT NULL DEFAULT 'draft',    -- draft | published
+            starts_at     TEXT,
+            ends_at       TEXT,
+            impressions   INTEGER NOT NULL DEFAULT 0,
+            clicks        INTEGER NOT NULL DEFAULT 0,
+            sort_order    INTEGER NOT NULL DEFAULT 0,
+            active        INTEGER NOT NULL DEFAULT 1,
+            created_at    TEXT    NOT NULL DEFAULT (datetime('now')),
+            updated_at    TEXT    NOT NULL DEFAULT (datetime('now'))
+        );
+
+        -- ---- Newsletter subscribers ----
+        CREATE TABLE IF NOT EXISTS subscribers
+        (
+            id         INTEGER PRIMARY KEY AUTOINCREMENT,
+            email      TEXT    NOT NULL UNIQUE,
+            name       TEXT    NOT NULL DEFAULT '',
+            source     TEXT    NOT NULL DEFAULT 'footer',
+            status     TEXT    NOT NULL DEFAULT 'subscribed', -- subscribed | unsubscribed
+            created_at TEXT    NOT NULL DEFAULT (datetime('now')),
+            updated_at TEXT    NOT NULL DEFAULT (datetime('now'))
+        );
+
+        -- ---- Site-wide announcement bar ----
+        CREATE TABLE IF NOT EXISTS announcements
+        (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            message     TEXT    NOT NULL,
+            link_url    TEXT    NOT NULL DEFAULT '',
+            link_label  TEXT    NOT NULL DEFAULT '',
+            variant     TEXT    NOT NULL DEFAULT 'info', -- info | success | warning | promo
+            active      INTEGER NOT NULL DEFAULT 1,
+            starts_at   TEXT,
+            ends_at     TEXT,
+            created_at  TEXT    NOT NULL DEFAULT (datetime('now')),
+            updated_at  TEXT    NOT NULL DEFAULT (datetime('now'))
+        );
+
+        -- ---- Per-page SEO overrides ----
+        CREATE TABLE IF NOT EXISTS page_seo
+        (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            path        TEXT    NOT NULL UNIQUE,
+            title       TEXT    NOT NULL DEFAULT '',
+            description TEXT    NOT NULL DEFAULT '',
+            keywords    TEXT    NOT NULL DEFAULT '',
+            og_image    TEXT    NOT NULL DEFAULT '',
+            updated_at  TEXT    NOT NULL DEFAULT (datetime('now')),
+            created_at  TEXT    NOT NULL DEFAULT (datetime('now'))
+        );
+
+        -- ---- Lightweight analytics events ----
+        CREATE TABLE IF NOT EXISTS analytics_events
+        (
+            id         INTEGER PRIMARY KEY AUTOINCREMENT,
+            type       TEXT    NOT NULL DEFAULT 'pageview', -- pageview | click | conversion
+            path       TEXT    NOT NULL DEFAULT '',
+            ref        TEXT    NOT NULL DEFAULT '',
+            label      TEXT    NOT NULL DEFAULT '',
+            ua         TEXT    NOT NULL DEFAULT '',
+            created_at TEXT    NOT NULL DEFAULT (datetime('now'))
+        );
+        CREATE INDEX IF NOT EXISTS idx_analytics_created ON analytics_events(created_at);
+        CREATE INDEX IF NOT EXISTS idx_analytics_type ON analytics_events(type);
+
+        -- ---- Media / asset library ----
+        CREATE TABLE IF NOT EXISTS media
+        (
+            id         INTEGER PRIMARY KEY AUTOINCREMENT,
+            url        TEXT    NOT NULL,
+            filename   TEXT    NOT NULL DEFAULT '',
+            mime       TEXT    NOT NULL DEFAULT '',
+            size       INTEGER NOT NULL DEFAULT 0,
+            alt        TEXT    NOT NULL DEFAULT '',
+            created_at TEXT    NOT NULL DEFAULT (datetime('now'))
+        );
     `);
 
     // ---- Store default settings (idempotent) ----

@@ -8,9 +8,12 @@ import {
     Invoices, CaseStudies, BlogPosts, Partners, ClientReviews, Conversations, Messages,
     Products, ProductCategories, ProductBrands, Customers, Orders, ProductReviews, Coupons,
     Verification,
+    Ads, Subscribers, Announcements, PageSeos, AnalyticsEvents, Media,
+    PartnerInquiries, Faqs,
     logActivity, nextInvoiceNumber, dashboardStats,
 } from '../models';
 import {slugify, str, toFloat, toInt, isEmail} from '../utils/helpers';
+import {adUpload, mediaUpload, publicUrl} from '../config/uploads';
 import {sendSetPasswordEmail, smtpConfigured, appOrigin} from '../utils/mailer';
 import {ALL_KEYS, roleDefaults, type Role} from '../config/permissions';
 import {SiteSettings} from '../models/settings';
@@ -561,6 +564,225 @@ api.post('/content-placement', (req, res) => {
     if ('reviews' in req.body) SiteSettings.set(PLACEMENT_KEYS.reviews, JSON.stringify(sanitize(req.body.reviews)));
     logActivity({...actor(req), action: 'update', entity: 'content_placement'});
     ok(res, null, 'Placement saved');
+});
+
+/* ============================================================
+   MARKETING & GROWTH MODULES
+   ============================================================ */
+
+/* ---------------- Image upload (ads + media) ---------------- */
+api.post('/upload/ad', adUpload.single('image'), (req, res) => {
+    if (!req.file) return fail(res, 'No file uploaded');
+    ok(res, {url: publicUrl('ads', req.file.filename)}, 'Uploaded');
+});
+api.post('/upload/media', mediaUpload.single('image'), (req, res) => {
+    if (!req.file) return fail(res, 'No file uploaded');
+    const url = publicUrl('media', req.file.filename);
+    const row = Media.create({
+        url,
+        filename: req.file.originalname,
+        mime: req.file.mimetype,
+        size: req.file.size,
+        alt: str(req.body.alt),
+    });
+    ok(res, row, 'Uploaded');
+});
+
+/* ---------------- Ads / Adverts ---------------- */
+const adFields = (b: Record<string, unknown>) => {
+    const data: Record<string, unknown> = {};
+    ['title', 'body', 'image', 'link_url', 'cta_label', 'placement', 'share_caption', 'variant', 'status']
+        .forEach((f) => { if (f in b) data[f] = str(b[f]); });
+    ['starts_at', 'ends_at'].forEach((f) => { if (f in b) data[f] = str(b[f]) || null; });
+    if ('sort_order' in b) data.sort_order = toInt(b.sort_order) || 0;
+    if ('active' in b) data.active = b.active ? 1 : 0;
+    return data;
+};
+api.get('/ads', (_req, res) => ok(res, Ads.all('sort_order ASC, id DESC')));
+api.post('/ads', (req, res) => {
+    const title = str(req.body.title);
+    if (!title) return fail(res, 'Title is required');
+    const row = Ads.create({
+        title,
+        body: str(req.body.body),
+        image: str(req.body.image),
+        link_url: str(req.body.link_url),
+        cta_label: str(req.body.cta_label) || 'Learn more',
+        placement: str(req.body.placement) || 'home_banner',
+        share_caption: str(req.body.share_caption),
+        variant: str(req.body.variant) || 'gradient',
+        status: str(req.body.status) || 'draft',
+        starts_at: str(req.body.starts_at) || null,
+        ends_at: str(req.body.ends_at) || null,
+        sort_order: toInt(req.body.sort_order) || 0,
+        active: req.body.active === undefined ? 1 : (req.body.active ? 1 : 0),
+    });
+    logActivity({...actor(req), action: 'create', entity: 'ad', entity_id: row.id, detail: title});
+    ok(res, row, 'Ad created');
+});
+api.patch('/ads/:id', (req, res) => {
+    const row = Ads.update(toInt(req.params.id), adFields(req.body));
+    return row ? ok(res, row, 'Ad updated') : fail(res, 'Not found', 404);
+});
+api.post('/ads/:id/duplicate', (req, res) => {
+    const src = Ads.find(toInt(req.params.id));
+    if (!src) return fail(res, 'Not found', 404);
+    const copy = Ads.create({
+        title: `${src.title} (copy)`, body: src.body, image: src.image, link_url: src.link_url,
+        cta_label: src.cta_label, placement: src.placement, share_caption: src.share_caption,
+        variant: src.variant, status: 'draft', sort_order: src.sort_order, active: 0,
+    });
+    ok(res, copy, 'Ad duplicated');
+});
+api.delete('/ads/:id', (req, res) => {
+    Ads.delete(toInt(req.params.id));
+    ok(res, null, 'Ad deleted');
+});
+
+/* ---------------- Newsletter subscribers ---------------- */
+api.get('/subscribers', (_req, res) => ok(res, Subscribers.all('created_at DESC')));
+api.delete('/subscribers/:id', (req, res) => {
+    Subscribers.delete(toInt(req.params.id));
+    ok(res, null, 'Subscriber removed');
+});
+api.get('/subscribers/export/csv', (_req, res) => {
+    const rows = Subscribers.all('created_at DESC');
+    const head = 'email,name,source,status,created_at\n';
+    const body = rows.map((r) =>
+        [r.email, r.name, r.source, r.status, r.created_at].map((v) => `"${String(v ?? '').replace(/"/g, '""')}"`).join(',')
+    ).join('\n');
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename="subscribers.csv"');
+    res.send(head + body);
+});
+
+/* ---------------- Announcement bar ---------------- */
+api.get('/announcements', (_req, res) => ok(res, Announcements.all('created_at DESC')));
+api.post('/announcements', (req, res) => {
+    const message = str(req.body.message);
+    if (!message) return fail(res, 'Message is required');
+    const row = Announcements.create({
+        message,
+        link_url: str(req.body.link_url),
+        link_label: str(req.body.link_label),
+        variant: str(req.body.variant) || 'info',
+        active: req.body.active ? 1 : 0,
+        starts_at: str(req.body.starts_at) || null,
+        ends_at: str(req.body.ends_at) || null,
+    });
+    ok(res, row, 'Announcement created');
+});
+api.patch('/announcements/:id', (req, res) => {
+    const data: Record<string, unknown> = {};
+    ['message', 'link_url', 'link_label', 'variant'].forEach((f) => { if (f in req.body) data[f] = str(req.body[f]); });
+    ['starts_at', 'ends_at'].forEach((f) => { if (f in req.body) data[f] = str(req.body[f]) || null; });
+    if ('active' in req.body) data.active = req.body.active ? 1 : 0;
+    const row = Announcements.update(toInt(req.params.id), data);
+    return row ? ok(res, row, 'Announcement updated') : fail(res, 'Not found', 404);
+});
+api.delete('/announcements/:id', (req, res) => {
+    Announcements.delete(toInt(req.params.id));
+    ok(res, null, 'Announcement deleted');
+});
+
+/* ---------------- Per-page SEO ---------------- */
+api.get('/page-seo', (_req, res) => ok(res, PageSeos.all('path ASC')));
+api.post('/page-seo', (req, res) => {
+    const p = str(req.body.path);
+    if (!p) return fail(res, 'Path is required');
+    const existing = PageSeos.findBy('path', p);
+    const data = {
+        path: p,
+        title: str(req.body.title),
+        description: str(req.body.description),
+        keywords: str(req.body.keywords),
+        og_image: str(req.body.og_image),
+    };
+    const row = existing ? PageSeos.update(existing.id, data) : PageSeos.create(data);
+    ok(res, row, 'SEO saved');
+});
+api.delete('/page-seo/:id', (req, res) => {
+    PageSeos.delete(toInt(req.params.id));
+    ok(res, null, 'SEO override removed');
+});
+
+/* ---------------- Analytics summary ---------------- */
+api.get('/analytics/summary', (req, res) => {
+    const days = Math.min(90, Math.max(1, toInt(req.query.days) || 30));
+    const since = `datetime('now','-${days} days')`;
+    const raw = AnalyticsEvents.raw;
+    const count = (type: string) =>
+        (raw.prepare(`SELECT COUNT(*) c FROM analytics_events WHERE type=? AND created_at >= ${since}`).get(type) as {c: number}).c;
+    const series = raw.prepare(
+        `SELECT date(created_at) d, type, COUNT(*) c FROM analytics_events
+         WHERE created_at >= ${since} GROUP BY d, type ORDER BY d ASC`
+    ).all() as {d: string; type: string; c: number}[];
+    const topPages = raw.prepare(
+        `SELECT path, COUNT(*) c FROM analytics_events WHERE type='pageview' AND created_at >= ${since}
+         GROUP BY path ORDER BY c DESC LIMIT 8`
+    ).all() as {path: string; c: number}[];
+    const adImpr = (Ads.sum('impressions') as number) || 0;
+    const adClicks = (Ads.sum('clicks') as number) || 0;
+    ok(res, {
+        days,
+        pageviews: count('pageview'),
+        clicks: count('click'),
+        conversions: count('conversion'),
+        subscribers: Subscribers.count(),
+        partnerInquiries: PartnerInquiries.count(),
+        adImpressions: adImpr,
+        adClicks: adClicks,
+        adCtr: adImpr ? Math.round((adClicks / adImpr) * 1000) / 10 : 0,
+        series,
+        topPages,
+    });
+});
+
+/* ---------------- Media library ---------------- */
+api.get('/media', (_req, res) => ok(res, Media.all('created_at DESC')));
+api.delete('/media/:id', (req, res) => {
+    Media.delete(toInt(req.params.id));
+    ok(res, null, 'Asset removed');
+});
+
+/* ---------------- Partner inquiries (inbox) ---------------- */
+api.get('/partner-inquiries', (_req, res) => ok(res, PartnerInquiries.all('created_at DESC')));
+api.patch('/partner-inquiries/:id', (req, res) => {
+    const row = PartnerInquiries.update(toInt(req.params.id), {status: str(req.body.status) || 'new'});
+    return row ? ok(res, row, 'Status updated') : fail(res, 'Not found', 404);
+});
+api.delete('/partner-inquiries/:id', (req, res) => {
+    PartnerInquiries.delete(toInt(req.params.id));
+    ok(res, null, 'Inquiry deleted');
+});
+
+/* ---------------- FAQs ---------------- */
+api.get('/faqs', (_req, res) => ok(res, Faqs.all('sort_order ASC, id ASC')));
+api.post('/faqs', (req, res) => {
+    const question = str(req.body.question);
+    const answer = str(req.body.answer);
+    if (!question) return fail(res, 'Question is required');
+    if (!answer) return fail(res, 'Answer is required');
+    const row = Faqs.create({
+        question, answer,
+        category: str(req.body.category) || 'General',
+        sort_order: toInt(req.body.sort_order) || 0,
+        active: req.body.active === undefined ? 1 : (req.body.active ? 1 : 0),
+    });
+    logActivity({...actor(req), action: 'create', entity: 'faq', entity_id: row.id, detail: question});
+    ok(res, row, 'FAQ added');
+});
+api.patch('/faqs/:id', (req, res) => {
+    const data: Record<string, unknown> = {};
+    ['question', 'answer', 'category'].forEach((f) => { if (f in req.body) data[f] = str(req.body[f]); });
+    if ('sort_order' in req.body) data.sort_order = toInt(req.body.sort_order) || 0;
+    if ('active' in req.body) data.active = req.body.active ? 1 : 0;
+    const row = Faqs.update(toInt(req.params.id), data);
+    return row ? ok(res, row, 'FAQ updated') : fail(res, 'Not found', 404);
+});
+api.delete('/faqs/:id', (req, res) => {
+    Faqs.delete(toInt(req.params.id));
+    ok(res, null, 'FAQ deleted');
 });
 
 /* ---------------- Conversations / chat ---------------- */

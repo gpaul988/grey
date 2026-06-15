@@ -7,7 +7,6 @@ import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import Link from 'next/link';
 import {AnimatePresence, motion} from "framer-motion";
-import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 
 
 // Reasons
@@ -178,14 +177,6 @@ useEffect(() => {
             clearInterval(interval);
         }; // Clean up the interval on unmount
     }, []);
-
-    // FAQ Hook
-    const [onIndex, setOnIndex] = useState<number | null>(null);
-
-    const toggleFAQ = (index: number) => {
-        setOnIndex(onIndex === index ? null : index);
-    }
-
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
@@ -1050,190 +1041,7 @@ useEffect(() => {
             </div>
 
 
-            {/* FAQ section */}
-            <div id={'FAQ'} className={`relative lg:py-24 md:py-24 mb-16 ${isDayTime ? 'bg-gray-950' : 'bg-gray-50'}`}>
-                <div
-                    className={`relative mx-auto px-4 sm:px-[2em] md:px-[3.2em] lg:px-[4.6em] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                    <div className={'border-b-[1px] lg:pb-[2em] pb-[1em] mb-28 '}>
-                        <h2 className='lg:text-[3em] capitalize md:text-[2em] sm:text-[1em] font-[500] leading-[1.2] tracking-tight mb-8'>
-                            Frequently asked Unity <br className={'lg:block md:block hidden'}/>development questions
-                        </h2>
-                    </div>
-                </div>
-                <div className='relative mx-auto px-4 sm:px-6 lg:px-[12em] mb-[3em] space-y-2'>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(0)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none"
-                        >
-                            <span>How can I find the right partner for my project?</span>
-                            {onIndex === 0 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] ${isDayTime ? 'text-teal-800' : 'text-teal-400'}`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] ${isDayTime ? 'text-teal-800' : 'text-teal-400'}`}/>
-                            )}
-                        </button>
-                        {onIndex === 0 && (
-                            <p className="mt-4 text-[0.873em] font-[200] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                Finding the right partner for your game development project is critical to success. At
-                                Grey InfoTech, we bring years of experience and deep expertise in Unity technologies to
-                                the table. As a trusted Unity game development company, we’ve built a proven track
-                                record of delivering high-quality, impactful games across multiple platforms. With our
-                                skilled team and commitment to excellence, we’re the reliable partner you need to bring
-                                your vision to life.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(1)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span>Why would I choose Unity?</span>
-                            {onIndex === 1 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] ${isDayTime ? 'text-teal-800' : 'text-teal-400'}`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] ${isDayTime ? 'text-teal-800' : 'text-teal-400'}`}/>
-                            )}
-                        </button>
-                        {onIndex === 1 && (
-                            <p className="mt-4 text-[0.873em] font-[200] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                Unity stands out as a premier game development engine, known for its versatility,
-                                cross-platform compatibility, and powerful feature set. It empowers developers to create
-                                high-performance games across mobile, desktop, web, AR, and VR platforms. With its vast
-                                ecosystem of tools, plugins, and community support, Unity significantly accelerates
-                                development time while maintaining creative flexibility—making it an ideal choice for
-                                businesses looking to build engaging, scalable gaming experiences.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(2)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span>Why should I use Unity for game development?</span>
-                            {onIndex === 2 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] ${isDayTime ? 'text-teal-800' : 'text-teal-400'}`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] ${isDayTime ? 'text-teal-800' : 'text-teal-400'}`}/>
-                            )}
-                        </button>
-                        {onIndex === 2 && (
-                            <p className="mt-4 text-[0.873em] font-[200] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                Unity’s prominence in the game development industry is well-earned. It provides
-                                developers with a comprehensive ecosystem that combines performance optimisation, a
-                                user-friendly interface, and scalable architecture. These features enable efficient
-                                development cycles and ensure high-quality output. Whether you&#39;re targeting mobile,
-                                desktop, console, or VR platforms, Unity makes it possible to build engaging, immersive
-                                games that captivate players and drive business growth across diverse markets.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(3)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span className={'leading-[1.3]'}>What is Unity game development?</span>
-                            {onIndex === 3 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] ${isDayTime ? 'text-teal-800' : 'text-teal-400'}`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] ${isDayTime ? 'text-teal-800' : 'text-teal-400'}`}/>
-                            )}
-                        </button>
-                        {onIndex === 3 && (
-                            <p className="mt-4 text-[0.873em] font-[200] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                Unity game development typically follows a structured pipeline that includes concept and
-                                design, coding and development, testing and debugging, and final deployment. Each stage
-                                is critical, ensuring that the game is not only visually engaging and technically sound
-                                but also thoroughly tested for quality and performance. This systematic approach allows
-                                developers to refine every detail, resulting in a polished product that meets user
-                                expectations and stands out in the competitive gaming market.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(4)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span>How do I hire Unity game developers?</span>
-                            {onIndex === 4 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] ${isDayTime ? 'text-teal-800' : 'text-teal-400'}`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] ${isDayTime ? 'text-teal-800' : 'text-teal-400'}`}/>
-                            )}
-                        </button>
-                        {onIndex === 4 && (
-                            <p className="mt-4 text-[0.85em] font-[200] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                Hiring Unity game developers becomes seamless when you partner with an experienced Unity
-                                game development company like Grey InfoTech. With a skilled team ready to turn your game
-                                concepts into engaging, high-performance experiences, we provide end-to-end development
-                                services that simplify the process and accelerate your path to market.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(5)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span className={'leading-[1.3]'}>Why would I outsource Unity game development?</span>
-                            {onIndex === 5 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] ${isDayTime ? 'text-teal-800' : 'text-teal-400'}`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] ${isDayTime ? 'text-teal-800' : 'text-teal-400'}`}/>
-                            )}
-                        </button>
-                        {onIndex === 5 && (
-                            <p className="mt-4 text-[0.85em] font-[200] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                Outsourcing Unity game development offers strategic advantages such as cost efficiency,
-                                access to specialised talent, and accelerated development timelines. At Grey InfoTech,
-                                our outsourced game development services are designed to streamline your production
-                                process while delivering high-quality, scalable results that align with your business
-                                goals.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(6)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span>How long does it take to create a game with Unity?</span>
-                            {onIndex === 6 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] ${isDayTime ? 'text-teal-800' : 'text-teal-400'}`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] ${isDayTime ? 'text-teal-800' : 'text-teal-400'}`}/>
-                            )}
-                        </button>
-                        {onIndex === 6 && (
-                            <p className="mt-4 text-[0.85em] font-[200] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                Timelines vary based on project complexity, but Unity’s efficiency and adaptability help
-                                accelerate the development process. At Grey InfoTech, our seasoned team leverages these
-                                strengths to ensure timely delivery without compromising on quality—no matter the scale
-                                of your game.
-                            </p>
-                        )}
-                    </div>
-                </div>
-            </div>
+            
 
             {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>

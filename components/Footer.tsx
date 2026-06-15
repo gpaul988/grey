@@ -139,6 +139,37 @@ const Footer = () => {
     const backendLoginUrl = '/login';
     const pathname = usePathname();
 
+    // Newsletter signup state
+    const [subEmail, setSubEmail] = useState('');
+    const [subStatus, setSubStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle');
+    const [subMsg, setSubMsg] = useState('');
+
+    const handleSubscribe = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (subStatus === 'loading') return;
+        setSubStatus('loading');
+        setSubMsg('');
+        try {
+            const r = await fetch('/api/subscribe', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({email: subEmail, source: 'footer'}),
+            });
+            const d = await r.json();
+            if (r.ok && d.success) {
+                setSubStatus('ok');
+                setSubMsg(d.message || "You're on the list.");
+                setSubEmail('');
+            } else {
+                setSubStatus('error');
+                setSubMsg(d.message || 'Could not subscribe.');
+            }
+        } catch {
+            setSubStatus('error');
+            setSubMsg('Network error. Please try again.');
+        }
+    };
+
     // State to manage modal visibility
     useEffect(() => {
         if (isModalOpen) {
@@ -296,6 +327,50 @@ const Footer = () => {
                         </div>
                     </div>
 
+                    {/* Newsletter signup (futuristic) */}
+                    <div className="mx-auto mb-12 w-full">
+                        <div className="relative overflow-hidden rounded-2xl border border-cyan-400/20 bg-gradient-to-r from-teal-500/10 via-cyan-500/10 to-indigo-500/10 p-6 sm:p-8">
+                            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+                                <div className="max-w-xl">
+                                    <h3 className="text-[1.4em] font-semibold text-white">
+                                        Stay in the <span className="text-teal-400">loop</span>
+                                    </h3>
+                                    <p className="mt-1 text-[0.85em] text-gray-400">
+                                        Product updates, fresh case studies and tech insights — straight to your inbox. No spam.
+                                    </p>
+                                </div>
+                                <form onSubmit={handleSubscribe} className="w-full max-w-md">
+                                    <div className="flex flex-col gap-2 sm:flex-row">
+                                        <input
+                                            type="email"
+                                            required
+                                            value={subEmail}
+                                            onChange={(e) => setSubEmail(e.target.value)}
+                                            placeholder="you@company.com"
+                                            aria-label="Email address"
+                                            className="flex-1 rounded-full border border-cyan-400/20 bg-white/5 px-5 py-3 text-[0.85em] text-white placeholder-gray-500 outline-none transition focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20"
+                                        />
+                                        <button
+                                            type="submit"
+                                            disabled={subStatus === 'loading'}
+                                            className="shrink-0 rounded-full bg-gradient-to-r from-teal-500 via-cyan-500 to-indigo-500 px-6 py-3 text-[0.85em] font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:shadow-cyan-400/40 disabled:opacity-60"
+                                        >
+                                            {subStatus === 'loading' ? 'Subscribing…' : 'Subscribe'}
+                                        </button>
+                                    </div>
+                                    {subMsg && (
+                                        <p
+                                            className={`mt-2 text-[0.78em] ${subStatus === 'ok' ? 'text-teal-400' : 'text-rose-400'}`}
+                                            aria-live="polite"
+                                        >
+                                            {subMsg}
+                                        </p>
+                                    )}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Footer Links Grid */}
                     <div
                         className="mx-auto grid lg:grid-cols-5 md:grid-cols-4 grid-cols-1 lg:gap-10 md:gap-10 gap-4 w-full">
@@ -367,6 +442,9 @@ const Footer = () => {
                                 </li>
                                 <li><Link href="/audit"
                                           className="hover:text-white transition-colors">Free Site Audit</Link>
+                                </li>
+                                <li><Link href="/faq"
+                                          className="hover:text-white transition-colors">See all FAQs</Link>
                                 </li>
                             </ul>
                         </div>

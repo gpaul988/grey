@@ -116,14 +116,6 @@ const PythonDevelopment = () => (
         ctaBody={<>From scalable APIs and data pipelines to automation and machine learning, Grey InfoTech delivers
             Python systems that perform and endure. Let&apos;s turn your toughest requirements into clean, reliable
             software.</>}
-        faqs={[
-            {q: 'Which Python frameworks do you work with?', a: 'We work with Django, FastAPI and Flask for web and APIs, plus the broader data and ML ecosystem—Pandas, NumPy, scikit-learn, PyTorch, TensorFlow and Airflow. We pick the right tool for your performance, complexity and team needs.'},
-            {q: 'Can you build machine learning into our product?', a: 'Yes. We handle the full ML lifecycle—data preparation, model training, evaluation, deployment behind reliable APIs, and monitoring in production—for use cases like forecasting, recommendation, classification, NLP and computer vision.'},
-            {q: 'Is Python fast enough for high-traffic systems?', a: 'For most workloads, yes—especially with async frameworks like FastAPI, efficient data access, caching and horizontal scaling. Where raw CPU performance is critical, we optimise hot paths or integrate lower-level components, so Python rarely becomes the bottleneck.'},
-            {q: 'Can you modernise our existing Python application?', a: 'Absolutely. We refactor legacy code, migrate to current Python versions and frameworks, add automated tests, and improve architecture and performance—bringing ageing systems up to modern standards safely.'},
-            {q: 'Do you handle deployment and DevOps?', a: 'Yes. We containerise with Docker, build CI/CD pipelines, deploy to AWS, Azure or GCP, and set up monitoring, logging and autoscaling so your Python services stay reliable and observable in production.'},
-            {q: 'Can you build data pipelines and automation?', a: 'Definitely. We design ETL and data pipelines with tools like Airflow and Pandas, and build automation for scraping, reporting, integrations and scheduled workflows that remove manual effort and reduce errors.'},
-        ]}
         stats={[
             {label: 'Years Experience', value: 8, suffix: '+'},
             {label: 'Team Members', value: 13, suffix: '+'},

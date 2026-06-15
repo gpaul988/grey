@@ -4,7 +4,8 @@ import {UsersModel} from './users';
 import type {
     Submission, Lead, Project, Ticket, TicketMessage,
     Invoice, CaseStudy, BlogPost, Conversation, Message, ActivityLog,
-    ProjectBrief, Upload, Partner, ClientReview,
+    ProjectBrief, Upload, Partner, ClientReview, PartnerInquiry, Faq,
+    Ad, Subscriber, Announcement, PageSeo, AnalyticsEvent, MediaAsset,
 } from '../db/types';
 import {ClientsModel} from './clients';
 import {ClientStaffModel} from './clientStaff';
@@ -73,6 +74,40 @@ export const Partners = createRepo<Partner>('partners', [
 
 export const ClientReviews = createRepo<ClientReview>('client_reviews', [
     'author', 'role', 'company', 'avatar', 'quote', 'rating', 'sort_order', 'active',
+]);
+
+export const PartnerInquiries = createRepo<PartnerInquiry>('partner_inquiries', [
+    'company', 'contact_name', 'email', 'phone', 'website', 'country',
+    'reg_authority', 'reg_number', 'partnership_type', 'message', 'status',
+]);
+
+export const Faqs = createRepo<Faq>('faqs', [
+    'question', 'answer', 'category', 'sort_order', 'active',
+]);
+
+export const Ads = createRepo<Ad>('ads', [
+    'title', 'body', 'image', 'link_url', 'cta_label', 'placement', 'share_caption',
+    'variant', 'status', 'starts_at', 'ends_at', 'impressions', 'clicks', 'sort_order', 'active',
+]);
+
+export const Subscribers = createRepo<Subscriber>('subscribers', [
+    'email', 'name', 'source', 'status',
+]);
+
+export const Announcements = createRepo<Announcement>('announcements', [
+    'message', 'link_url', 'link_label', 'variant', 'active', 'starts_at', 'ends_at',
+]);
+
+export const PageSeos = createRepo<PageSeo>('page_seo', [
+    'path', 'title', 'description', 'keywords', 'og_image',
+]);
+
+export const AnalyticsEvents = createRepo<AnalyticsEvent>('analytics_events', [
+    'type', 'path', 'ref', 'label', 'ua',
+]);
+
+export const Media = createRepo<MediaAsset>('media', [
+    'url', 'filename', 'mime', 'size', 'alt',
 ]);
 
 export const Conversations = createRepo<Conversation>('conversations', [

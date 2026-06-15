@@ -1,0 +1,61 @@
+<%- contentFor('html_attribute') %>
+<%- contentFor('extra_css') %>
+<%- contentFor('content') %>
+
+<%- include('./partials/page-title', { title: title, subtitle: 'Marketing' }) %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header"><h4 class="card-title mb-0"><i class="ti ti-inbox me-1"></i> Partner Inquiries <span class="badge bg-primary-subtle text-primary ms-1"><%= inquiries.length %></span></h4></div>
+            <div class="table-responsive">
+                <table class="table table-hover table-centered mb-0 align-middle">
+                    <thead class="bg-light bg-opacity-50">
+                        <tr><th>Company</th><th>Contact</th><th>Type</th><th>Registration</th><th>Received</th><th style="width:150px">Status</th><th class="text-end">Action</th></tr>
+                    </thead>
+                    <tbody>
+                        <% if (!inquiries.length) { %><tr><td colspan="7" class="text-center text-muted py-4">No partner inquiries yet.</td></tr><% } %>
+                        <% inquiries.forEach((q) => { %>
+                        <tr>
+                            <td class="fw-medium"><%= q.company %><% if (q.website) { %><div class="fs-12"><a href="<%= q.website %>" target="_blank" rel="noopener" class="text-info"><%= q.website %></a></div><% } %></td>
+                            <td><%= q.contact_name %><div class="fs-12 text-muted"><a href="mailto:<%= q.email %>"><%= q.email %></a><% if (q.phone) { %> · <%= q.phone %><% } %></div></td>
+                            <td><span class="badge bg-info-subtle text-info"><%= q.partnership_type || '—' %></span></td>
+                            <td class="fs-12"><%= q.reg_authority || '—' %><br><span class="text-muted"><%= q.reg_number || '' %></span></td>
+                            <td class="fs-12 text-muted"><%= q.created_at ? q.created_at.slice(0,16) : '' %></td>
+                            <td>
+                                <select class="form-select form-select-sm st" data-id="<%= q.id %>">
+                                    <% ['new','reviewing','approved','declined','archived'].forEach((s) => { %>
+                                    <option value="<%= s %>" <%= q.status===s?'selected':'' %>><%= s %></option>
+                                    <% }) %>
+                                </select>
+                            </td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-soft-secondary btn-view" data-json="<%- JSON.stringify(q).replace(/"/g,'&quot;') %>"><i class="ti ti-eye"></i></button>
+                                <button class="btn btn-sm btn-soft-danger btn-del" data-id="<%= q.id %>"><i class="ti ti-trash"></i></button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="vModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header border-bottom"><h5 class="modal-title" id="vTitle">Inquiry</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body" id="vBody"></div></div></div></div>
+
+<%- contentFor('extra_javascript') %>
+<%- include('./partials/admin-api-helper') %>
+<script>
+(function () {
+    const F=(id)=>document.getElementById(id); const modal=new bootstrap.Modal('#vModal');
+    document.querySelectorAll('.st').forEach(s => s.addEventListener('change', async () => { const r = await AdminAPI.patch('/partner-inquiries/'+s.dataset.id, {status:s.value}); AdminAPI.toast(r.ok?'Status updated':(r.message||'Failed'), !r.ok); }));
+    document.querySelectorAll('.btn-del').forEach(b => b.addEventListener('click', async () => { if (!confirm('Delete this inquiry?')) return; const r = await AdminAPI.del('/partner-inquiries/'+b.dataset.id); if (r.ok) location.reload(); else AdminAPI.toast(r.message||'Failed', true); }));
+    document.querySelectorAll('.btn-view').forEach(b => b.addEventListener('click', () => {
+        const q = JSON.parse(b.dataset.json); F('vTitle').textContent = q.company;
+        const row = (k,v) => v ? `<div class="d-flex justify-content-between border-bottom py-2"><span class="text-muted">${k}</span><span class="fw-medium text-end">${v}</span></div>` : '';
+        F('vBody').innerHTML = row('Contact', q.contact_name)+row('Email', q.email)+row('Phone', q.phone)+row('Website', q.website)+row('Country', q.country)+row('Reg. authority', q.reg_authority)+row('Reg. number', q.reg_number)+row('Type', q.partnership_type)+row('Status', q.status)+(q.message?`<div class="mt-3"><div class="text-muted mb-1">Message</div><div class="p-2 bg-light rounded">${q.message}</div></div>`:'');
+        modal.show();
+    }));
+})();
+</script>

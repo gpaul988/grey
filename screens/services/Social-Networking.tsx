@@ -113,14 +113,6 @@ const SocialNetworking = () => (
         ctaBody={<>From real-time feeds and chat to moderation and scale, Grey InfoTech builds social platforms
             engineered to engage and grow. Let&apos;s build a community your users love—and that&apos;s ready for the
             day it takes off.</>}
-        faqs={[
-            {q: 'Can you build a social app that scales to millions of users?', a: 'Yes. We architect for scale from the start—horizontally scalable services, efficient feed fan-out, caching, search, media CDNs and observability—so your platform grows smoothly from launch to millions of active users.'},
-            {q: 'Do you implement real-time chat and feeds?', a: 'Absolutely. We use WebSockets and proven real-time infrastructure to deliver instant messaging, live feeds, presence and notifications that feel immediate even at high concurrency.'},
-            {q: 'How do you handle content moderation and safety?', a: 'We build a full trust and safety layer: automated and manual moderation, reporting and blocking, spam and abuse prevention, privacy controls and admin tooling—protecting your community and brand.'},
-            {q: 'Can you build for both web and mobile?', a: 'Yes. We build responsive web apps and native or cross-platform mobile apps (including Flutter and React Native), sharing a common API and real-time back-end so the experience is consistent everywhere.'},
-            {q: 'What about monetisation?', a: 'We can integrate subscriptions, in-app purchases, ads, creator payouts and tipping, designing monetisation that fits your community without harming the experience that keeps users engaged.'},
-            {q: 'How do you keep users engaged and retained?', a: 'We design engagement mechanics—personalised feeds, well-timed notifications, reactions, gamification and discovery—backed by analytics that show what works, so you can grow retention with data.'},
-        ]}
         stats={[
             {label: 'Years Experience', value: 8, suffix: '+'},
             {label: 'Team Members', value: 13, suffix: '+'},

@@ -114,14 +114,6 @@ const Logistics = () => (
         ctaBody={<>From fleet and route optimisation to real-time tracking and warehouse systems, Grey InfoTech
             builds logistics software that cuts cost and delivers on time. Let&apos;s bring visibility and efficiency
             to your supply chain.</>}
-        faqs={[
-            {q: 'What logistics software do you build?', a: 'Transportation management systems, fleet and route optimisation, real-time tracking, warehouse management systems, supply-chain platforms, and driver and customer apps—for couriers, freight, distribution and e-commerce fulfilment.'},
-            {q: 'Can you provide real-time shipment tracking?', a: 'Yes. We integrate GPS and telematics to deliver live location, ETAs and proactive notifications, giving full visibility to your team and your customers and reducing support enquiries.'},
-            {q: 'How does route optimisation reduce cost?', a: 'By minimising distance and time, balancing loads and accounting for constraints, optimised routing increases deliveries per shift and cuts fuel and labour cost—savings that compound across your fleet.'},
-            {q: 'Can you integrate with our carriers and ERP?', a: 'Absolutely. We integrate with carriers, telematics devices, ERPs and e-commerce platforms so data flows automatically across your operation without manual re-entry.'},
-            {q: 'Do you build warehouse management features?', a: 'Yes. We build WMS capabilities—inventory, picking, packing, barcode/scanning workflows and stock accuracy—so fulfilment is fast, accurate and fully visible.'},
-            {q: 'Will the system scale with our network?', a: 'Yes. We architect resilient, scalable platforms that keep performing as your volumes, fleet and geographic coverage grow, because logistics cannot tolerate downtime.'},
-        ]}
         testimonials={[
             {name: 'Emeka Obi', title: 'Operations Head, SwiftHaul', message: <>Grey InfoTech built our TMS and route optimisation, and our fuel costs dropped while deliveries per day went up. Real-time tracking ended the constant where-is-my-shipment calls.</>},
             {name: 'Lerato Dube', title: 'CEO, CargoLink', message: <>Their warehouse and supply-chain platform gave us visibility we never had. Stock accuracy improved dramatically and fulfilment is far faster.</>},

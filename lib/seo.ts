@@ -122,6 +122,16 @@ const STATIC: Record<string, SeoEntry> = {
         title: 'Contact Grey InfoTech — Let’s Build Something',
         description: 'Reach Grey InfoTech by WhatsApp, Calendly, live chat or our contact form. Based in Port Harcourt, serving clients worldwide.',
     },
+    '/partners': {
+        title: 'Partner With Grey InfoTech — Join Our Ecosystem',
+        description: 'Become a technology, cloud, reseller, referral or integration partner of Grey InfoTech. Apply to join our partner ecosystem powering solutions across Africa and beyond.',
+        keywords: ['Grey InfoTech partners', 'technology partnership Nigeria', 'reseller program', 'integration partner', 'partner ecosystem'],
+    },
+    '/faq': {
+        title: 'FAQ — Frequently Asked Questions | Grey InfoTech',
+        description: 'Answers about Grey InfoTech\u2019s services, process, pricing, timelines and support. Find what you need or talk to our team.',
+        keywords: ['Grey InfoTech FAQ', 'web development questions', 'pricing FAQ', 'support questions Nigeria'],
+    },
     '/support': {
         title: 'Support — Help & Assistance | Grey InfoTech',
         description: 'Get help, open a ticket and find answers. Grey InfoTech support is here for you.',

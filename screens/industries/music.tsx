@@ -112,14 +112,6 @@ const Music = () => (
         ctaHeading={<>Build the sound <br className={'lg:block md:block hidden'}/>of tomorrow</>}
         ctaBody={<>From streaming platforms and artist tools to royalty systems, Grey InfoTech builds music
             software that delights listeners and empowers creators. Let&apos;s bring your music platform to life.</>}
-        faqs={[
-            {q: 'What music software do you build?', a: 'Streaming platforms, music and audio apps, artist and label tools, recommendation engines, royalty and rights-management systems, social and live music apps, and the audio infrastructure behind them—for streaming startups, creators and labels.'},
-            {q: 'How do you ensure smooth audio playback?', a: 'We use adaptive bitrate streaming and CDN-backed delivery so audio plays instantly and gaplessly across devices and connection speeds, with offline support where needed.'},
-            {q: 'Can you build music recommendations?', a: 'Yes. We engineer recommendation engines, curated playlists and powerful search using machine learning, surfacing the right tracks to keep listeners engaged and help artists get discovered.'},
-            {q: 'How do you handle royalties and rights?', a: 'We build systems that accurately track plays, calculate splits across rights-holders, and automate transparent payouts, helping keep your platform fair, trusted and compliant.'},
-            {q: 'Can you support millions of listeners?', a: 'Absolutely. We architect scalable cloud and streaming infrastructure that grows from launch to mass adoption without degrading playback quality.'},
-            {q: 'How is content protected?', a: 'We apply strong security and access controls to protect audio content and rights, and integrate secure payments for subscriptions and purchases.'},
-        ]}
         testimonials={[
             {name: 'Tega Okoro', title: 'Founder, AfroWave', message: <>Grey InfoTech built our streaming platform with flawless playback and smart recommendations. Our listeners stay engaged for hours and artists love the analytics.</>},
             {name: 'Naledi Khumalo', title: 'CEO, SoundLink', message: <>Their royalty system finally gave our artists transparent, accurate payouts. That trust transformed our relationships with creators.</>},

@@ -130,14 +130,6 @@ const Saas = () => (
         ctaBody={<>From multi-tenant architecture and billing to onboarding and enterprise readiness, Grey
             InfoTech builds SaaS products that acquire, activate and retain. Let&apos;s scope your product, model
             the economics, and ship something customers keep paying for.</>}
-        faqs={[
-            {q: 'Can you take a SaaS from idea to launch?', a: 'Yes. We work end to end—from validating the concept and building a focused MVP through architecture, billing, deployment and scale. You get the same senior team across the whole journey, so you can launch fast and grow confidently.'},
-            {q: 'How do you handle subscription billing?', a: 'We integrate Stripe, Paystack and similar providers to support tiered plans, free trials, proration, usage-based metering and automated renewals. We also implement webhooks, invoicing, dunning for failed payments and revenue reporting so your billing stays accurate and resilient.'},
-            {q: 'Is the platform built to scale?', a: 'Absolutely. We use secure multi-tenant architecture, infrastructure-as-code, CI/CD pipelines, automated testing and monitoring so your product stays fast and reliable as your customer base and team expand.'},
-            {q: 'Can you make our product enterprise-ready?', a: 'Yes. We add SSO (SAML/OIDC), SCIM provisioning, granular permissions, audit logging and data export, and help you build the security posture needed to pass procurement and compliance reviews—without over-engineering before you need it.'},
-            {q: 'Do you provide a public API and integrations?', a: 'We build well-documented public APIs, webhooks and integration layers, including connectors to the tools your customers already use. This extends your reach and makes your product stickier and harder to replace.'},
-            {q: 'How do you help reduce churn?', a: 'We treat retention as a design problem. Through guided onboarding, contextual in-app nudges, lifecycle email and clear value dashboards, we shorten time-to-value and reduce early churn—the single biggest lever on SaaS growth.'},
-        ]}
         stats={[
             {label: 'Years Experience', value: 8, suffix: '+'},
             {label: 'Team Members', value: 13, suffix: '+'},

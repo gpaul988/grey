@@ -4,7 +4,6 @@ import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import Link from "next/link";
-import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import Footer from "@/components/Footer";
 import CountUp from "react-countup";
 
@@ -110,14 +109,6 @@ const PhpDevelopment = () => {
         {label: 'Successful rebrands', value: 27, suffix: '+'},
         {label: 'Increase in Website Traffic', value: 350, suffix: '%'},
     ];
-
-    // FAQ Hook
-    const [onIndex, setOnIndex] = useState<number | null>(null);
-
-    const toggleFAQ = (index: number) => {
-        setOnIndex(onIndex === index ? null : index);
-    }
-
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
@@ -783,168 +774,7 @@ const PhpDevelopment = () => {
 
 
 
-            {/* FAQ section */}
-            <div id={'FAQ'}
-                 className={`relative lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[5em] md:pb-[5em] pb-[2em] lg:mb-[8em] md:mb-[8em] mb-[4em] ${isDayTime ? 'bg-black' : 'bg-white'}`}>
-                <div
-                    className={`relative mx-auto px-4 sm:px-[2em] md:px-[3.2em] lg:px-[4.6em] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                    <div className={'border-b-[1px] lg:pb-[2em] pb-[1em] mb-28 '}>
-                        <h2 className='capitalize lg:text-[3em] md:text-[2em] sm:text-[1em] font-[500] leading-[1.2] tracking-tight mb-8'>
-                            Frequently asked <br className={'lg:block md:block hidden'}/>PHP questions
-                        </h2>
-                        <p className={'font-[300] text-[0.87em] leading-[1.2] '}>
-                            PHP is widely regarded as one of the top backend frameworks, known for its broad adoption
-                            <br className={'lg:block md:block hidden'}/>and ongoing development. Its reliability,
-                            scalability, and
-                            efficiency make it a go-to choice for <br className={'lg:block md:block hidden'}/>businesses
-                            of all
-                            sizes. Still have questions about PHP? We’re here to provide the answers.
-                        </p>
-                    </div>
-                </div>
-                <div className='relative mx-auto px-4 sm:px-6 lg:px-[12em] space-y-2'>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(0)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none"
-                        >
-                            <span>What is PHP and what is it used for?</span>
-                            {onIndex === 0 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            )}
-                        </button>
-                        {onIndex === 0 && (
-                            <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                PHP is a powerful open-source server-side scripting language widely used for building
-                                dynamic websites and robust web applications. Known for its flexibility and efficiency,
-                                PHP enables developers to process form data, manage sessions, interact with various
-                                databases, manipulate server files, and create secure, interactive digital experiences.
-                                Its adaptability makes it suitable for projects of all sizes—from small business
-                                websites to large-scale platforms like WordPress, Magento, and even Facebook. With
-                                strong community support, extensive libraries, and continuous updates, PHP remains a
-                                reliable and cost-effective choice for businesses seeking scalable, high-performance
-                                backend solutions.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(1)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span>How does PHP differ from other programming languages?</span>
-                            {onIndex === 1 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            )}
-                        </button>
-                        {onIndex === 1 && (
-                            <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                PHP differentiates itself through its user-friendly syntax, making it accessible to
-                                developers across all experience levels—from beginners to seasoned professionals. Its
-                                cross-platform compatibility allows it to run seamlessly on various operating systems
-                                and web servers, giving businesses greater flexibility in deployment. This adaptability,
-                                combined with its vast library support and strong community backing, makes PHP a
-                                practical and versatile choice for developing a wide range of web applications
-                                efficiently and cost-effectively.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(2)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span>What are the key features and benefits of using PHP?</span>
-                            {onIndex === 2 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            )}
-                        </button>
-                        {onIndex === 2 && (
-                            <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                The key features and benefits of PHP lie in its ability to rapidly build and deploy web
-                                applications, making it an ideal choice for businesses seeking quick turnaround times.
-                                Its open-source nature ensures cost-effectiveness, eliminating licensing fees while
-                                providing robust performance. PHP also offers seamless integration with popular
-                                databases like MySQL, PostgreSQL, and MongoDB, allowing for efficient data handling and
-                                scalability. Additionally, its extensive library of built-in extensions simplifies
-                                complex development tasks—enabling developers to create secure, feature-rich, and highly
-                                functional applications with minimal overhead. Backed by a large and active community,
-                                PHP continues to evolve, offering dependable support and continual innovation.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(3)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span>What are the best practices for secure PHP development?</span>
-                            {onIndex === 3 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            )}
-                        </button>
-                        {onIndex === 3 && (
-                            <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                Secure PHP development involves a proactive approach to mitigating vulnerabilities and
-                                protecting user data. This includes implementing strong validation and sanitization
-                                methods to prevent common threats like SQL injection, cross-site scripting (XSS), and
-                                cross-site request forgery (CSRF). Developers must also stay current with the latest PHP
-                                security patches and follow best practices in secure coding to avoid introducing flaws.
-                                Regular security audits, proper session management, and the use of encryption for
-                                sensitive data transmission and storage further strengthen application integrity. By
-                                prioritising these practices, businesses can build reliable PHP applications that
-                                safeguard both users and digital assets.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(4)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span>How can PHP be integrated with various databases and frameworks?</span>
-                            {onIndex === 4 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            )}
-                        </button>
-                        {onIndex === 4 && (
-                            <p className="mt-4 text-[0.85em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                PHP is highly compatible with powerful frameworks like <Link
-                                href='/services/Laravel-Development'
-                                className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}>
-                                Laravel</Link> and Symfony, which
-                                streamline the development of complex, scalable web applications. Its seamless
-                                integration with a wide range of databases—including MySQL, PostgreSQL, and
-                                MongoDB—supports efficient data management and flexible backend architectures. Widely
-                                trusted by major platforms like WordPress and Facebook, PHP demonstrates proven
-                                reliability and adaptability, making it a cornerstone technology for robust,
-                                high-performing digital solutions across industries.
-                            </p>
-                        )}
-                    </div>
-                </div>
-            </div>
+            
 
             {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>

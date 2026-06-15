@@ -4,7 +4,6 @@ import '@/app/globals.css'
 import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
-import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 
@@ -103,14 +102,6 @@ useEffect(() => {
             setActiveId(target); // Ensure the arrow icon is displayed when a section is clicked
         }
     };
-
-    // FAQ Hook
-    const [onIndex, setOnIndex] = useState<number | null>(null);
-
-    const toggleFAQ = (index: number) => {
-        setOnIndex(onIndex === index ? null : index);
-    }
-
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
@@ -935,178 +926,7 @@ useEffect(() => {
 
 
 
-            {/* FAQ section */}
-            <div id={'FAQ'}
-                 className={`relative lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[10em] md:pb-[10em] pb-[2em] lg:mb-[10em] md:mb-[10em] mb-[4em] ${isDayTime ? 'bg-black' : 'bg-white'}`}>
-                <div
-                    className={`relative mx-auto px-4 sm:px-[2em] md:px-[3.2em] lg:px-[4.6em] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                    <div className={'border-b-[1px] lg:pb-[2em] pb-[1em] mb-28 '}>
-                        <h2 className='capitalize lg:text-[3em] md:text-[2em] sm:text-[1em] font-[500] leading-[1.2] tracking-tight mb-8'>
-                            Frequently Asked <br className={'lg:block md:block hidden'}/>Vue.js Questions
-                        </h2>
-                        <p className={'text-[0.873em] font-[300] leading-[1.3]'}>
-                            Here are some of the most frequently asked questions about Vue.js—covering its features,
-                            <br className={'lg:block md:block hidden'}/>benefits, and why it’s a top choice for modern
-                            web
-                            development.
-                        </p>
-                    </div>
-                </div>
-                <div className='relative mx-auto px-4 sm:px-6 lg:px-[12em] space-y-2'>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(0)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none"
-                        >
-                            <span>What is Vue.js used for?</span>
-                            {onIndex === 0 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            )}
-                        </button>
-                        {onIndex === 0 && (
-                            <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                Vue.js is a powerful and flexible JavaScript framework designed for building modern,
-                                interactive user interfaces and high-performing Single-Page Applications (SPAs). Its
-                                component-based architecture promotes code reusability, scalability, and
-                                maintainability—making it an ideal choice for businesses seeking efficient front-end
-                                solutions. Vue.js supports a wide range of development use cases, including custom web
-                                applications, dynamic dashboards, interactive platforms, Progressive Web Apps (PWAs),
-                                web-based games, and server-side rendered applications using frameworks like Nuxt.js.
-                                Its simplicity, combined with seamless integration capabilities, allows for faster
-                                development cycles and a reduced time-to-market, even in complex environments.<br/><br/>
-
-                                Web applications built with Vue.js leverage core web technologies such as HTML, CSS, and
-                                JavaScript, and are hosted on web servers while accessed through standard browsers like
-                                Chrome, Firefox, and Safari. This approach ensures broad accessibility, responsive
-                                design, and consistent performance across devices—delivering an engaging and reliable
-                                user experience that supports long-term business growth.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(1)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span>Why choose Vue.js for software development?</span>
-                            {onIndex === 1 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            )}
-                        </button>
-                        {onIndex === 1 && (
-                            <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                Vue.js stands out as a leading framework for modern <Link
-                                href='/services/Software-Development'
-                                className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}>software
-                                development</Link>, valued for its
-                                gentle learning curve, adaptability, and strong performance focus. Its modular,
-                                component-based architecture enables scalable, maintainable code—making it suitable for
-                                projects of any size, from lightweight interfaces to complex enterprise-grade systems.
-                                Backed by a vibrant community and extensive ecosystem, Vue.js supports seamless
-                                integration with existing technologies and third-party libraries, allowing for faster
-                                development cycles and streamlined workflows. This combination of flexibility,
-                                efficiency, and developer accessibility positions Vue.js as a strategic choice for
-                                businesses aiming to build robust, future-ready digital solutions.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(2)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span className={'leading-[1.3]'}>How long does it take to build a Vue.js app?</span>
-                            {onIndex === 2 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            )}
-                        </button>
-                        {onIndex === 2 && (
-                            <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                The timeline for developing a Vue.js application can vary significantly based on project
-                                scope, complexity, and specific requirements. Small to mid-sized applications with
-                                standard functionality may take anywhere from a few weeks to a couple of months, while
-                                larger, more complex solutions—especially those requiring advanced features, custom
-                                integrations, or enterprise-level scalability—can span several months to a year or more.
-                                Key factors influencing development time include the level of customization, integration
-                                with third-party services, availability of reusable components, and the depth of quality
-                                assurance and testing required. A thorough project assessment and clear planning are
-                                essential for accurately defining timelines and ensuring efficient delivery.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(3)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span>Can you build an MVP with Vue.js?</span>
-                            {onIndex === 3 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            )}
-                        </button>
-                        {onIndex === 3 && (
-                            <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                Vue.js is a highly effective framework for building Minimum Viable Products (<Link
-                                href='/services/MVP'
-                                className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}>MVPs</Link>),
-                                offering the simplicity, flexibility, and speed needed to bring early-stage ideas to
-                                market efficiently. Its intuitive syntax and rapid development capabilities allow teams
-                                to focus on core features, quickly prototype user interfaces, and iterate based on
-                                real-time user feedback. The component-based architecture promotes code reusability and
-                                scalability, making it easier to expand or refine the product as requirements evolve.
-                                Whether for a web application, single-page interface, or lightweight mobile app, Vue.js
-                                equips startups and businesses with the tools to validate concepts, reduce
-                                time-to-market, and showcase core functionality with minimal overhead.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(4)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span
-                                className={'leading-[1.3]'}>How are you different to other Vue.js agencies?</span>
-                            {onIndex === 4 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.5em] text-[1em] text-gray-500`}/>
-                            )}
-                        </button>
-                        {onIndex === 4 && (
-                            <p className="mt-4 text-[0.85em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                At Grey InfoTech, we build Vue.js applications using a proven, structured approach
-                                developed through years of hands-on experience across diverse projects. Our
-                                tried-and-tested methodology emphasizes efficient, incremental development to ensure
-                                clarity, control, and continuous progress at every stage. We recognize that application
-                                development can be complex, which is why we provide end-to-end guidance—from initial
-                                consultation through to launch and ongoing support. Every step of the process is
-                                tailored to your organization’s specific goals, ensuring a solution that aligns with
-                                your vision, timeline, and long-term business objectives.
-                            </p>
-                        )}
-                    </div>
-                </div>
-            </div>
+            
 
             {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>

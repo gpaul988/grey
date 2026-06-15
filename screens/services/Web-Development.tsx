@@ -8,7 +8,6 @@ import Image from "next/image";
 import Link from "next/link";
 import CountUp from "react-countup";
 import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
-import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 
 
 // why grey infotech
@@ -195,14 +194,6 @@ useEffect(() => {
             clearInterval(interval);
         }; // Clean up the interval on unmount
     }, []);
-
-    // FAQ Hook
-    const [onIndex, setOnIndex] = useState<number | null>(null);
-
-    const toggleFAQ = (index: number) => {
-        setOnIndex(onIndex === index ? null : index);
-    }
-
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} relative h-auto`}>
@@ -1608,158 +1599,7 @@ useEffect(() => {
                 </div>
             </div>
 
-            {/* FAQ section */}
-            <div id={'FAQ'} className={`relative lg:py-36 mb-28 ${isDayTime ? 'bg-black' : 'bg-white'}`}>
-                <div
-                    className={`relative mx-auto px-4 sm:px-[2em] md:px-[3.2em] lg:px-[4.6em] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                    <div className={'border-b-[1px] lg:pb-[2em] pb-[1em] mb-28 '}>
-                        <h2 className='lg:text-[3.2em] md:text-[3.2em] sm:text-[1.5em] text-[1em] font-[500] leading-[1.2] tracking-tight mb-6'>
-                            Web Development <br className={'lg:block md:block hidden'}/>FAQs
-                        </h2>
-                        <p className='text-[0.873em] font-[400] lg:-mt-[0.2em] rounded-none leading-[1.5]'>We’re a
-                            development company you can trust with your project.</p>
-                    </div>
-                </div>
-                <div className='relative mx-auto px-4 sm:px-6 lg:px-[12em] space-y-2'>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(0)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none"
-                        >
-                            <span>What kind of web development projects do you do?</span>
-                            {onIndex === 0 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.2em] text-[1em] text-gray-600`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.2em] text-[1em] text-gray-600`}/>
-                            )}
-                        </button>
-                        {onIndex === 0 && (
-                            <p className="mt-4 text-[0.873em] font-[200] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                From eCommerce platforms and CMS development to custom feature builds and third-party
-                                integrations—when it comes to web development, chances are we’ve done it.<br/><br/>
-                                With experience across hundreds of projects, we’ve delivered everything from simple
-                                one-page WordPress sites to complex, large-scale eCommerce platforms for well-known
-                                brands. What sets us apart is our ability to take proven, reliable technologies and
-                                apply them creatively to deliver digital products that are not only robust and scalable,
-                                but truly impactful for your business.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(1)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span>Do you develop mobile apps?</span>
-                            {onIndex === 1 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.2em] text-[1em] text-gray-600`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.2em] text-[1em] text-gray-600`}/>
-                            )}
-                        </button>
-                        {onIndex === 1 && (
-                            <p className="mt-4 text-[0.873em] font-[200] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                Yes, we do. We develop high-quality mobile applications for
-                                both <Link href={'/services/ios-development'}
-                                           className={`border-b pb-[0.05em] ${
-                                               isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black'
-                                           }`}>iOS</Link> and Android,
-                                complete with the robust back-end systems and APIs needed to deliver seamless
-                                functionality. From initial planning and UI/UX design to full-stack development and
-                                deployment, we manage the entire process in-house. Whether you’re building a standalone
-                                app or extending an existing platform, we create fast, scalable, and user-friendly
-                                solutions tailored to your business needs.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(2)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span>What tech should my website or app be built on?</span>
-                            {onIndex === 2 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.2em] text-[1em] text-gray-600`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.2em] text-[1em] text-gray-600`}/>
-                            )}
-                        </button>
-                        {onIndex === 2 && (
-                            <p className="mt-4 text-[0.873em] font-[200] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                While some developers push their favourite tools, we believe that’s putting technology
-                                before purpose. There’s no single “right” tech—only the right tech for your unique
-                                goals. That’s why we take the time to understand your current stack, your long-term
-                                vision, and the features that matter most to your users. From there, we recommend the
-                                most efficient and scalable solution to bring your product to life—balancing
-                                performance, maintainability, and future growth.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(3)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span className={'leading-[1.3]'}>What does your web development process look like?</span>
-                            {onIndex === 3 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.2em] text-[1em] text-gray-600`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.2em] text-[1em] text-gray-600`}/>
-                            )}
-                        </button>
-                        {onIndex === 3 && (
-                            <p className="mt-4 text-[0.873em] font-[200] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                Every successful project begins with a
-                                thorough <Link href={'/services/discovery-phase'}
-                                               className={`border-b pb-[0.05em] ${
-                                                   isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black'
-                                               }`}>discovery phase</Link>—where we collaborate
-                                with you to clarify your vision, define project scope, and establish clear, measurable
-                                goals. This foundational step ensures alignment and sets the stage for a smooth
-                                development journey. From there, we guide you through an iterative process of building,
-                                sharing, and refining your product, keeping you engaged and informed at every milestone.
-                                Our approach prioritizes transparency and collaboration, so your feedback shapes the
-                                outcome and your product evolves to meet real-world needs.
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        className={`border-b py-4 ${isDayTime ? 'border-gray-400 text-gray-300 hover:text-white' : 'border-gray-100 text-gray-700 hover:text-black'}`}>
-                        <button
-                            onClick={() => toggleFAQ(4)}
-                            className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none">
-                            <span>Does web development affect SEO?</span>
-                            {onIndex === 4 ? (
-                                <AiOutlineMinus
-                                    className={`lg:text-[1.2em] text-[1em] text-gray-600`}/>
-                            ) : (
-                                <AiOutlinePlus
-                                    className={`lg:text-[1.2em] text-[1em] text-gray-600`}/>
-                            )}
-                        </button>
-                        {onIndex === 4 && (
-                            <p className="mt-4 text-[0.85em] font-[200] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                Web development and search engine performance are closely intertwined, especially as
-                                Google places increasing importance on page loading speed. Today, the speed and
-                                responsiveness of your website or application directly influence not only user
-                                experience but also your visibility in search results. A fast, well-optimized site helps
-                                attract and retain visitors, improves engagement, and ultimately drives more traffic and
-                                conversions. Investing in performance is no longer optional—it’s essential for staying
-                                competitive and discoverable in the digital landscape.
-                            </p>
-                        )}
-                    </div>
-                </div>
-            </div>
+            
 
             {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>

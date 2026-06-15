@@ -134,14 +134,6 @@ const BlockchainDevelopment = () => (
         ctaBody={<>From smart contracts and DeFi to tokenisation and enterprise ledgers, Grey InfoTech turns
             blockchain ambition into secure, production-ready systems. Let&apos;s scope your idea, model the risks,
             and ship something your users—and your auditors—can trust.</>}
-        faqs={[
-            {q: 'Which blockchain platforms do you work with?', a: 'We work across Ethereum and EVM-compatible chains (Polygon, BSC, Arbitrum, Optimism), Solana, and permissioned ledgers like Hyperledger Fabric. We choose the right platform based on your performance, cost, finality and governance requirements rather than defaulting to a single ecosystem.'},
-            {q: 'Do you audit smart contracts?', a: 'Yes. Every contract goes through automated static analysis, comprehensive unit and fuzz testing, invariant verification, and a structured manual security review before deployment. For high-value systems we also coordinate independent third-party audits and help you run a responsible disclosure or bug-bounty programme.'},
-            {q: 'Can blockchain integrate with our existing systems?', a: 'Absolutely. We build APIs, oracles, indexers and middleware that bridge on-chain logic with your existing databases, ERPs, payment rails and back-office tools, so blockchain becomes part of your stack rather than an isolated silo.'},
-            {q: 'How do you handle gas costs and scalability?', a: 'We optimise contract storage and execution paths, batch operations where possible, and use Layer-2 networks or app-chains when they fit. We benchmark gas usage throughout development so cost is a design constraint, not a surprise at launch.'},
-            {q: 'Is blockchain the right solution for my problem?', a: 'Not always—and we will tell you honestly. During discovery we assess whether decentralisation genuinely adds value through trust, traceability or disintermediation. If a conventional database serves you better, we say so. We only recommend blockchain where it earns its place.'},
-            {q: 'Do we own the code and keys?', a: 'Yes. You retain full ownership of all source code, deployment artefacts and cryptographic keys. We follow strict key-management practices and hand over complete documentation so your team can operate and extend the system independently.'},
-        ]}
         stats={[
             {label: 'Years Experience', value: 8, suffix: '+'},
             {label: 'Team Members', value: 13, suffix: '+'},

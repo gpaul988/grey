@@ -4,7 +4,6 @@ import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import {ArrowLeft, ArrowRight, Quote} from "lucide-react";
-import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import Footer from "@/components/Footer";
 import '@/app/globals.css';
 
@@ -261,58 +260,6 @@ const integrations = [
     },
 ];
 
-const faqs = [
-    {
-        question: "What is HR technology?",
-        answer:
-            "HR technology encompasses the software and hardware solutions designed to automate and optimize human resources functions within an organization. These technologies cover a broad spectrum of HR activities, including recruitment, payroll processing, performance management, employee data administration, and compliance tracking. By leveraging HR technology, businesses can enhance operational efficiency, improve data accuracy, and streamline workflows, ultimately driving better workforce management and strategic decision-making.",
-    },
-    {
-        question: "How can HR technology improve employee engagement?",
-        answer:
-            "HR technology enhances employee engagement by delivering robust tools for seamless communication, continuous feedback, and meaningful recognition. Additionally, it optimizes key HR processes such as onboarding, training, and benefits administration, making them more efficient, accessible, and user-centric—ultimately driving productivity and workforce satisfaction.",
-    },
-    {
-        question: "What are the benefits of integrating HR technology into a corporate website?",
-        answer:
-            "Integrating HR technology into a corporate website delivers multiple advantages, including streamlined recruitment workflows, enhanced employee self-service options, and real-time access to essential HR services. It also strengthens data management and security while ensuring a consistent and seamless employee experience across all digital touchpoints.",
-    },
-    {
-        question: "How does HR technology assist in the recruitment process?",
-        answer:
-            "HR technology greatly improves the recruitment process by automating critical tasks such as job posting, applicant tracking, candidate screening, and communication management. Furthermore, it offers advanced analytics and reporting capabilities, enabling organizations to measure recruitment effectiveness and optimize sourcing strategies.",
-    },
-    {
-        question: "What should be considered when choosing an HR technology solution?",
-        answer:
-            "When selecting an HR technology solution, organizations must carefully assess several critical factors to ensure alignment with their strategic goals. Key considerations include a thorough understanding of the specific HR challenges and requirements unique to the business, as well as the solution’s ease of use and intuitive user interface to drive adoption. Equally important is the technology’s ability to seamlessly integrate with existing systems and workflows, ensuring operational continuity. Scalability and flexibility are essential to accommodate future growth and evolving business needs.",
-    },
-    {
-        question: "Can HR technology help in compliance and regulatory requirements?",
-        answer:
-            "HR technology plays a crucial role in supporting compliance and regulatory adherence by automating record-keeping processes, maintaining data accuracy, and delivering timely notifications of legal and regulatory updates. This automation enables organizations to efficiently manage labor law requirements and other regulatory obligations, reducing risk and ensuring consistent compliance across all HR functions.",
-    },
-    {
-        question: "How does HR technology impact data security?",
-        answer:
-            "HR technology solutions are typically equipped with advanced security features designed to safeguard sensitive employee information. These include data encryption, secure storage protocols, role-based access controls, and routine security audits. Such measures are essential for protecting confidential HR data, ensuring regulatory compliance, and maintaining employee trust in digital systems.",
-    },
-    {
-        question: "Is HR technology suitable for small businesses?",
-        answer:
-            "Absolutely—HR technology solutions are designed to serve businesses of all sizes, including small and growing enterprises. Many platforms offer scalable features and flexible pricing models, allowing organizations to tailor functionality to their specific operational needs and budget constraints. This ensures that even smaller companies can leverage modern HR tools to drive efficiency and support growth.",
-    },
-    {
-        question: "What is the future of HR technology?",
-        answer:
-            "The future of HR technology is poised to be shaped by greater integration of artificial intelligence, machine learning, and automation—enabling more intelligent, efficient, and predictive HR processes. Emerging trends also include the rise of employee experience platforms that personalize interactions, the use of advanced analytics to drive data-informed decision-making, and enhanced mobile accessibility to support a flexible, on-the-go workforce.",
-    },
-    {
-        question: "How does HR technology facilitate remote work?",
-        answer:
-            "HR technology plays a vital role in enabling and supporting remote work by offering digital tools for virtual recruitment, online training, remote onboarding, performance management, and employee engagement—all accessible from any location. These capabilities help organizations maintain productivity, foster collaboration, and ensure a cohesive employee experience across geographically distributed teams.",
-    },
-];
 
 const HrTech = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -320,7 +267,6 @@ const HrTech = () => {
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
     const [current, setCurrent] = useState(0);
-    const [onIndex, setOnIndex] = useState<number | null>(null);
 
     const [isDayTime, setIsDayTime] = useState<boolean>(() => {
         const hour = new Date().getHours();
@@ -400,9 +346,6 @@ const HrTech = () => {
     const prev = () => setCurrent((value) => (value - 1 + testimonials.length) % testimonials.length);
     const next = () => setCurrent((value) => (value + 1) % testimonials.length);
 
-    const toggleFAQ = (index: number) => {
-        setOnIndex((value) => (value === index ? null : index));
-    };
 
     const {name, title, message} = testimonials[current];
 
@@ -923,59 +866,7 @@ const HrTech = () => {
                 </div>
             </div>
 
-            {/* FAQ */}
-            <div
-                id="FAQ"
-                className={`relative lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[10em] md:pb-[10em] pb-[2em] lg:mb-[10em] md:mb-[10em] mb-[4em] ${isDayTime ? 'bg-black' : 'bg-white'}`}
-            >
-                <div
-                    className={`relative mx-auto px-4 sm:px-[2em] md:px-[3.2em] lg:px-[4.6em] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                    <div className="border-b-[1px] lg:pb-[2em] pb-[1em] mb-28">
-                        <h2 className="capitalize lg:text-[3em] md:text-[2em] sm:text-[1em] font-[500] leading-[1.2] tracking-tight mb-8">
-                            Frequently Asked <br className="lg:block md:block hidden"/>HR Tech Questions
-                        </h2>
-
-                        <p className="text-[0.873em] font-[300] leading-[1.3]">
-                            These FAQs address key topics around HR technology and solutions, offering insights <br
-                            className="lg:block md:block hidden"/>into
-                            their importance, functionality, and impact on today’s business operations.
-                        </p>
-                    </div>
-                </div>
-
-                <div className="relative mx-auto px-4 sm:px-6 lg:px-[12em] space-y-2">
-                    {faqs.map((faq, index) => (
-                        <div
-                            key={faq.question}
-                            className={`border-b py-4 ${
-                                isDayTime
-                                    ? 'border-gray-400 text-gray-300 hover:text-white'
-                                    : 'border-gray-100 text-gray-700 hover:text-black'
-                            }`}
-                        >
-                            <button
-                                type="button"
-                                onClick={() => toggleFAQ(index)}
-                                className="w-full flex items-center text-start justify-between lg:text-[1.5em] md:text-[1em] sm:text-base font-[500] focus:outline-none"
-                                aria-expanded={onIndex === index}
-                            >
-                                <span className="leading-[1.3]">{faq.question}</span>
-                                {onIndex === index ? (
-                                    <AiOutlineMinus className="lg:text-[1.5em] text-[1em] text-gray-500"/>
-                                ) : (
-                                    <AiOutlinePlus className="lg:text-[1.5em] text-[1em] text-gray-500"/>
-                                )}
-                            </button>
-
-                            {onIndex === index && (
-                                <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5] text-gray-400">
-                                    {faq.answer}
-                                </p>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            </div>
+            
 
             {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>

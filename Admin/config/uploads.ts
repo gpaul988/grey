@@ -47,6 +47,32 @@ export const fileUpload = multer({
     limits: { fileSize: 15 * 1024 * 1024 },
 });
 
+/** Multer instance for ad creatives (5 MB cap, image only). */
+export const adUpload = multer({
+    storage: multer.diskStorage({
+        destination: (_req, _file, cb) => cb(null, ensureUploadDir('ads')),
+        filename: (_req, file, cb) => cb(null, safeName(file.originalname)),
+    }),
+    limits: { fileSize: 5 * 1024 * 1024 },
+    fileFilter: (_req, file, cb) => {
+        if (IMAGE_TYPES.includes(file.mimetype)) cb(null, true);
+        else cb(new Error('Only image files are allowed'));
+    },
+});
+
+/** Multer instance for the media library (8 MB cap, image only). */
+export const mediaUpload = multer({
+    storage: multer.diskStorage({
+        destination: (_req, _file, cb) => cb(null, ensureUploadDir('media')),
+        filename: (_req, file, cb) => cb(null, safeName(file.originalname)),
+    }),
+    limits: { fileSize: 8 * 1024 * 1024 },
+    fileFilter: (_req, file, cb) => {
+        if (IMAGE_TYPES.includes(file.mimetype)) cb(null, true);
+        else cb(new Error('Only image files are allowed'));
+    },
+});
+
 /** Multer instance for product/brand images (5 MB cap, image only). */
 export const productUpload = multer({
     storage: multer.diskStorage({
