@@ -3,11 +3,12 @@
 This app runs locally with `tsx server.ts` — a custom Express server that serves
 **both** the Next.js frontend and the `/admin` EJS panel. cPanel can run it, but
 it boots Node through **Phusion Passenger**, which needs a plain `.js` startup
-file and cannot run TypeScript directly. The included **`app.js`** bridges that
+file and cannot run TypeScript directly. The included **`server.js`** (and its
+identical alias **`app.js`**) bridges that
 gap (it spawns `tsx server.ts` for you), so everything that works on localhost
 works on cPanel.
 
-> TL;DR — startup file = `app.js`. Do the 8 steps below, set env vars, rebuild
+> TL;DR — startup file = `server.js` (or `app.js`, they're equivalent). Do the 8 steps below, set env vars, rebuild
 > `better-sqlite3`, make sure SSL is on. Done.
 
 ---
@@ -59,7 +60,7 @@ Upload the whole project to your cPanel app folder (e.g.
 - **Application mode:** Production
 - **Application root:** the folder you uploaded to (e.g. `greyinfotech`)
 - **Application URL:** your domain / subdomain
-- **Application startup file:** `app.js`   ← important
+- **Application startup file:** `server.js`  (or `app.js` — identical)   ← important
 
 Click **Create**.
 
