@@ -201,24 +201,48 @@ export function localAnswer(
 
     if (!matches.length) {
         return {
-            answer: `I can help with our services, pricing, industries, the online store, and how to get in touch. Could you rephrase that? You can also reach the team directly at ${COMPANY.email} or on WhatsApp ${COMPANY.whatsapp}.`,
+            answer: `Not sure on that one. Reach the team at ${COMPANY.email} or WhatsApp ${COMPANY.whatsapp}.`,
             sources,
         };
     }
 
-    let answer = matches[0].text;
-    if (matches[1]) {
-        answer += ` You might also find this useful: ${matches[1].title} — see ${matches[1].url}.`;
-    }
-    answer += ` Want specifics? Tell me about your project, or reach us at ${COMPANY.email} / WhatsApp ${COMPANY.whatsapp}.`;
+    // Keep it short and answer-first. FAQ docs store "question\nanswer", so
+    // drop a leading question line and reply with the answer itself.
+    const answer = brief(answerText(matches[0].text), 1, 200);
     return {answer, sources};
+}
+
+/**
+ * If the doc text is a "question\nanswer" pair (FAQ shape), return just the
+ * answer so the assistant responds directly instead of echoing the question.
+ */
+function answerText(text: string): string {
+    const nl = (text || '').indexOf('\n');
+    if (nl === -1) return text;
+    const first = text.slice(0, nl).trim();
+    const rest = text.slice(nl + 1).trim();
+    // Treat the first line as a question if it ends with "?" or is short.
+    if (rest && (first.endsWith('?') || first.length < 100)) return rest;
+    return text;
+}
+
+/**
+ * Trim text to the first `maxSentences` sentences and a hard character cap so
+ * the no-LLM fallback stays short and to the point.
+ */
+function brief(text: string, maxSentences = 2, maxChars = 320): string {
+    const clean = (text || '').replace(/\s+/g, ' ').trim();
+    const parts = clean.match(/[^.!?]+[.!?]+/g);
+    let out = parts ? parts.slice(0, maxSentences).join(' ').trim() : clean;
+    if (out.length > maxChars) out = out.slice(0, maxChars - 1).trimEnd() + '…';
+    return out || clean.slice(0, maxChars);
 }
 
 export const SYSTEM_PROMPT = `You are "Grey AI", the friendly, concise assistant for ${COMPANY.legalName}, a web/mobile/AI development and digital marketing agency in ${COMPANY.location}.
 
 Rules:
 - Answer ONLY using the provided CONTEXT about Grey InfoTech. If the context doesn't cover it, say you're not sure and point the user to ${COMPANY.email} or WhatsApp ${COMPANY.whatsapp}.
-- Be warm, brief, and helpful (2-5 sentences). Use plain language.
-- When relevant, suggest the most useful page (a path like /services/... or /contact).
-- Never invent pricing numbers, clients, or guarantees not in the context. For pricing, explain it depends on scope and steer them to /quote-request.
-- You are NOT a replacement for the human team; for complex/sales questions, offer the contact options or live chat.`;
+- BE BRIEF: 1-2 short sentences, max ~40 words. Get straight to the point. No filler, no preamble, no repeating the question.
+- One link max, only if it clearly helps (a path like /services/... or /contact).
+- Never invent pricing, clients, or guarantees. For pricing, say it depends on scope and point to /quote-request.
+- For complex/sales questions, briefly offer the contact options.`;
