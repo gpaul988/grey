@@ -61,3 +61,6 @@ Admin/node_modules
 !config.env.example
 .env.push
 scripts/faqs-extracted.json
+
+# Auto-generated runtime secrets (never commit)
+Admin/data/.secrets.json
