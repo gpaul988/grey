@@ -379,6 +379,9 @@ const Footer = () => {
                                 <li><Link href="/contact" className="hover:text-white transition-colors">Contact
                                     us</Link>
                                 </li>
+                                <li><Link href="/partners" className="hover:text-white transition-colors">Partner with
+                                    us</Link>
+                                </li>
                                 <li><Link href="/support"
                                           className="hover:text-white transition-colors">Support</Link>
                                 </li>
@@ -456,7 +459,8 @@ const Footer = () => {
                                 </div>
 
                                 {/* Compact newsletter signup — sits right below the main office address */}
-                                <div className="rounded-xl border border-cyan-400/20 bg-gradient-to-r from-teal-500/10 via-cyan-500/10 to-indigo-500/10 p-3">
+                                <div
+                                    className="rounded-xl border border-cyan-400/20 bg-gradient-to-r from-teal-500/10 via-cyan-500/10 to-indigo-500/10 p-3">
                                     <h4 className="text-white text-[0.85em] font-medium">
                                         Stay in the <span className="text-teal-400">loop</span>
                                     </h4>
@@ -556,7 +560,8 @@ const Footer = () => {
                         aria-label="Back to top"
                         className="grey-totop inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-gradient-to-r from-teal-500/20 via-cyan-500/20 to-indigo-500/20 px-5 py-2.5 text-sm font-medium text-cyan-100 backdrop-blur-sm hover:text-white"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7"/>
                         </svg>
                         Back to top
