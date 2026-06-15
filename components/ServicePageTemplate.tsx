@@ -8,6 +8,7 @@ import {AnimatePresence, motion} from 'framer-motion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingButton from '@/components/FloatingButton';
+import {useIsDayTime} from './useIsDayTime';
 
 export interface SolutionItem {
     id: string;          // "01"
@@ -134,20 +135,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
     }, []);
 
     // Day/Night theme
-    const [isDayTime, setIsDayTime] = useState<boolean>(() => {
-        const hour = new Date().getHours();
-        return hour >= 6 && hour < 18;
-    });
-    useEffect(() => {
-        const id = setInterval(() => {
-            const hour = new Date().getHours();
-            setIsDayTime(prev => {
-                const next = hour >= 6 && hour < 18;
-                return prev === next ? prev : next;
-            });
-        }, 60_000);
-        return () => clearInterval(id);
-    }, []);
+    const isDayTime = useIsDayTime();
 
     // Intro background invert on scroll
     useEffect(() => {

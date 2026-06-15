@@ -9,25 +9,15 @@ import {blogPosts} from '../data/blogPosts';
 import Image from 'next/image';
 import {getBlogImage} from '../data/blogMedia';
 import AIProjectEstimator from "@/components/AIProjectEstimator";
+import {useIsDayTime} from '../components/useIsDayTime';
 
 const CATEGORIES = ['All', ...Array.from(new Set(blogPosts.map(p => p.tag))).sort()];
 
 const Blog = () => {
-    const [isDayTime, setIsDayTime] = useState(true);
+    const isDayTime = useIsDayTime();
     const [activeCategory, setActiveCategory] = useState('All');
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 9;
-
-    useEffect(() => {
-        const update = () => {
-            const h = new Date().getHours();
-            setIsDayTime(h >= 6 && h < 18);
-        };
-        update();
-        const id = setInterval(update, 60_000);
-        return () => clearInterval(id);
-    }, []);
-
     const allPosts = [...blogPosts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     const filtered = activeCategory === 'All' ? allPosts : allPosts.filter(p => p.tag === activeCategory);
     const totalPages = Math.ceil(filtered.length / postsPerPage);

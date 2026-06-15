@@ -4,6 +4,7 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {AnimatePresence, motion} from 'framer-motion';
 import {ChevronDown, Sparkles} from 'lucide-react';
 import QuoteRequest from '@/components/QuoteRequest';
+import {useIsDayTime} from './useIsDayTime';
 
 type BudgetTier = 'starter' | 'small-business' | 'growth' | 'scale' | 'enterprise' | 'custom' | 'other';
 type TimelineTier =
@@ -491,23 +492,11 @@ export default function AIProjectEstimator() {
     const [customServiceInput, setCustomServiceInput] = useState('');
     const [customFeatureInput, setCustomFeatureInput] = useState('');
 
-    const [isDayTime, setIsDayTime] = useState(true);
+    const isDayTime = useIsDayTime();
     const [isQuoteOpen, setIsQuoteOpen] = useState(false);
 
     const quoteWrapRef = useRef<HTMLDivElement | null>(null);
     useOutsideAlerter(quoteWrapRef, () => setIsQuoteOpen(false));
-
-    useEffect(() => {
-        const update = () => {
-            const hour = new Date().getHours();
-            setIsDayTime(hour >= 6 && hour < 18);
-        };
-
-        update();
-        const id = window.setInterval(update, 60_000);
-        return () => window.clearInterval(id);
-    }, []);
-
     const toggle = (value: string, setter: React.Dispatch<React.SetStateAction<string[]>>) => {
         setter(prev => (prev.includes(value) ? prev.filter(p => p !== value) : [...prev, value]));
     };

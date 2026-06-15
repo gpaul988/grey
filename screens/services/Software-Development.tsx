@@ -8,6 +8,7 @@ import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import CountUp from "react-countup";
 import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
+import {useIsDayTime} from '../../components/useIsDayTime';
 
 const SoftwareDevelopment = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -32,13 +33,8 @@ const SoftwareDevelopment = () => {
     }, []);
 
     // isDaytime react hook
-    const [isDayTime, setIsDayTime] = useState(true);
+    const isDayTime = useIsDayTime();
 
-    useEffect(() => {
-        // Determine if it's day or night based on the current hour
-        const hour = new Date().getHours();
-        setIsDayTime(hour >= 6 && hour < 18); // Daytime is between 6 AM and 6 PM
-    }, []);
 
     const reasons = [
         {

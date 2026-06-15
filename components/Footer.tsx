@@ -8,6 +8,7 @@ import Link from "next/link";
 import {usePathname} from "next/navigation";
 import {FormComponent} from "@/components/FormComponent";
 import {BsThreads} from "react-icons/bs";
+import {useIsDayTime} from './useIsDayTime';
 
 
 // Custom CSS for the infinite scroll animation + futuristic FX (additive).
@@ -188,23 +189,8 @@ const Footer = () => {
     }, [isModalOpen]);
 
     // isDaytime react hook
-    const [isDayTime, setIsDayTime] = useState<boolean>(() => {
-        const hour = new Date().getHours();
-        return hour >= 6 && hour < 18;
-    });
+    const isDayTime = useIsDayTime();
 
-// Optional: if you want the value to update over time, use an interval (does not set state synchronously on mount)
-    useEffect(() => {
-        const id = setInterval(() => {
-            const hour = new Date().getHours();
-            setIsDayTime(prev => {
-                const next = hour >= 6 && hour < 18;
-                return prev === next ? prev : next;
-            });
-        }, 60_000); // check every minute
-
-        return () => clearInterval(id);
-    }, []);
 
     const scrollingMessages = [
         (<>
@@ -324,50 +310,6 @@ const Footer = () => {
         →
       </span>
                             </button>
-                        </div>
-                    </div>
-
-                    {/* Newsletter signup (futuristic) */}
-                    <div className="mx-auto mb-12 w-full">
-                        <div className="relative overflow-hidden rounded-2xl border border-cyan-400/20 bg-gradient-to-r from-teal-500/10 via-cyan-500/10 to-indigo-500/10 p-6 sm:p-8">
-                            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-                                <div className="max-w-xl">
-                                    <h3 className="text-[1.4em] font-semibold text-white">
-                                        Stay in the <span className="text-teal-400">loop</span>
-                                    </h3>
-                                    <p className="mt-1 text-[0.85em] text-gray-400">
-                                        Product updates, fresh case studies and tech insights — straight to your inbox. No spam.
-                                    </p>
-                                </div>
-                                <form onSubmit={handleSubscribe} className="w-full max-w-md">
-                                    <div className="flex flex-col gap-2 sm:flex-row">
-                                        <input
-                                            type="email"
-                                            required
-                                            value={subEmail}
-                                            onChange={(e) => setSubEmail(e.target.value)}
-                                            placeholder="you@company.com"
-                                            aria-label="Email address"
-                                            className="flex-1 rounded-full border border-cyan-400/20 bg-white/5 px-5 py-3 text-[0.85em] text-white placeholder-gray-500 outline-none transition focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20"
-                                        />
-                                        <button
-                                            type="submit"
-                                            disabled={subStatus === 'loading'}
-                                            className="shrink-0 rounded-full bg-gradient-to-r from-teal-500 via-cyan-500 to-indigo-500 px-6 py-3 text-[0.85em] font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:shadow-cyan-400/40 disabled:opacity-60"
-                                        >
-                                            {subStatus === 'loading' ? 'Subscribing…' : 'Subscribe'}
-                                        </button>
-                                    </div>
-                                    {subMsg && (
-                                        <p
-                                            className={`mt-2 text-[0.78em] ${subStatus === 'ok' ? 'text-teal-400' : 'text-rose-400'}`}
-                                            aria-live="polite"
-                                        >
-                                            {subMsg}
-                                        </p>
-                                    )}
-                                </form>
-                            </div>
                         </div>
                     </div>
 
@@ -522,6 +464,50 @@ const Footer = () => {
                                         501101
                                     </p>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Newsletter signup (futuristic) — placed below the office addresses */}
+                    <div className="mx-auto mt-12 w-full">
+                        <div className="relative overflow-hidden rounded-2xl border border-cyan-400/20 bg-gradient-to-r from-teal-500/10 via-cyan-500/10 to-indigo-500/10 p-6 sm:p-8">
+                            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+                                <div className="max-w-xl">
+                                    <h3 className="text-[1.4em] font-semibold text-white">
+                                        Stay in the <span className="text-teal-400">loop</span>
+                                    </h3>
+                                    <p className="mt-1 text-[0.85em] text-gray-400">
+                                        Product updates, fresh case studies and tech insights — straight to your inbox. No spam.
+                                    </p>
+                                </div>
+                                <form onSubmit={handleSubscribe} className="w-full max-w-md">
+                                    <div className="flex flex-col gap-2 sm:flex-row">
+                                        <input
+                                            type="email"
+                                            required
+                                            value={subEmail}
+                                            onChange={(e) => setSubEmail(e.target.value)}
+                                            placeholder="you@company.com"
+                                            aria-label="Email address"
+                                            className="flex-1 rounded-full border border-cyan-400/20 bg-white/5 px-5 py-3 text-[0.85em] text-white placeholder-gray-500 outline-none transition focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20"
+                                        />
+                                        <button
+                                            type="submit"
+                                            disabled={subStatus === 'loading'}
+                                            className="shrink-0 rounded-full bg-gradient-to-r from-teal-500 via-cyan-500 to-indigo-500 px-6 py-3 text-[0.85em] font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:shadow-cyan-400/40 disabled:opacity-60"
+                                        >
+                                            {subStatus === 'loading' ? 'Subscribing…' : 'Subscribe'}
+                                        </button>
+                                    </div>
+                                    {subMsg && (
+                                        <p
+                                            className={`mt-2 text-[0.78em] ${subStatus === 'ok' ? 'text-teal-400' : 'text-rose-400'}`}
+                                            aria-live="polite"
+                                        >
+                                            {subMsg}
+                                        </p>
+                                    )}
+                                </form>
                             </div>
                         </div>
                     </div>

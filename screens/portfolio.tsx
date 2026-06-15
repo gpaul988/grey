@@ -5,21 +5,10 @@ import Footer from '@/components/Footer';
 import SocialProof from '@/components/SocialProof';
 import '@/app/globals.css';
 import Link from 'next/link';
+import {useIsDayTime} from '../components/useIsDayTime';
 
 const Portfolio = () => {
-    const [isDayTime, setIsDayTime] = useState(true);
-
-    useEffect(() => {
-        const updateThemeByTime = () => {
-            const hour = new Date().getHours();
-            setIsDayTime(hour >= 6 && hour < 18);
-        };
-
-        updateThemeByTime();
-        const intervalId = setInterval(updateThemeByTime, 60_000);
-        return () => clearInterval(intervalId);
-    }, []);
-
+    const isDayTime = useIsDayTime();
     const works = [
         {
             title: 'SaaS Analytics Platform',

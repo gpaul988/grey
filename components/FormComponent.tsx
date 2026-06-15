@@ -6,6 +6,7 @@ import React, {
     useRef,
     memo
 } from 'react';
+import {useIsDayTime} from './useIsDayTime';
 
 const FORM_TYPE = 'FormComponent' as const;
 
@@ -174,13 +175,7 @@ const FormComponent: React.FC = () => {
     const [errors, setErrors] = useState<FormErrors>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submissionStatus, setSubmissionStatus] = useState<string | null>(null);
-    const [isDayTime, setIsDayTime] = useState(true);
-
-    useEffect(() => {
-        const hr = new Date().getHours();
-        setIsDayTime(hr >= 6 && hr < 18);
-    }, []);
-
+    const isDayTime = useIsDayTime();
     const validate = useCallback((): FormErrors => {
         const e: FormErrors = {};
         const req: (keyof FormDataShape)[] = [

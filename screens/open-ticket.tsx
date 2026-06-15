@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import '@/app/globals.css';
 import {motion} from 'framer-motion';
 import {FaTicketAlt, FaCheckCircle, FaExclamationCircle} from 'react-icons/fa';
+import {useIsDayTime} from '../components/useIsDayTime';
 
 const PRIORITIES = [
     {value: 'low', label: 'Low', desc: 'General question or minor issue'},
@@ -36,7 +37,7 @@ interface FormState {
 }
 
 const OpenTicket: React.FC = () => {
-    const [isDayTime, setIsDayTime] = useState(true);
+    const isDayTime = useIsDayTime();
     const [form, setForm] = useState<FormState>({
         name: '',
         email: '',
@@ -50,17 +51,6 @@ const OpenTicket: React.FC = () => {
     const [submitted, setSubmitted] = useState(false);
     const [ticketId, setTicketId] = useState<number | null>(null);
     const [serverError, setServerError] = useState('');
-
-    useEffect(() => {
-        const update = () => {
-            const h = new Date().getHours();
-            setIsDayTime(h >= 6 && h < 18);
-        };
-        update();
-        const id = setInterval(update, 60_000);
-        return () => clearInterval(id);
-    }, []);
-
     const bg = isDayTime ? 'bg-white text-black' : 'bg-black text-white';
     const inputCls = `w-full rounded-xl border px-4 py-3 text-sm outline-none transition-all focus:ring-2 ${
         isDayTime

@@ -9,6 +9,7 @@ import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "rea
 import {FaCode, FaPencilRuler, FaRocket, FaSearch, FaShieldAlt, FaVial,} from "react-icons/fa";
 import Footer from "@/components/Footer";
 import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
+import {useIsDayTime} from '../../components/useIsDayTime';
 
 
 // Reasons
@@ -195,20 +196,7 @@ const Healthcare = () => {
     }, []);
 
     // isDaytime react hook
-    const [isDayTime, setIsDayTime] = useState<boolean>(() => {
-  const hour = new Date().getHours();
-  return hour >= 6 && hour < 18;
-});
-
-    useEffect(() => {
-  const interval = setInterval(() => {
-    const hour = new Date().getHours();
-    setIsDayTime(hour >= 6 && hour < 18);
-  }, 60 * 1000); // check once per minute
-
-  return () => clearInterval(interval);
-}, []);
-
+    const isDayTime = useIsDayTime();
     // Introductory section hook
     useEffect(() => {
         const handleScroll = () => {

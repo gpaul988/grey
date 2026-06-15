@@ -1,9 +1,10 @@
 'use client';
 import React, {useEffect, useState} from 'react';
+import {useIsDayTime} from './useIsDayTime';
 
 const CookieNotification: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false);
-    const [isDayTime, setIsDayTime] = useState(true);
+    const isDayTime = useIsDayTime();
 
     useEffect(() => {
         // Check if the user has already accepted cookies
@@ -13,11 +14,6 @@ const CookieNotification: React.FC = () => {
         }
     }, []);
 
-    useEffect(() => {
-        // Determine if it's day or night based on the current hour
-        const hour = new Date().getHours();
-        setIsDayTime(hour >= 6 && hour < 18); // Daytime is between 6 AM and 6 PM
-    }, []);
 
     if (!isVisible) return null;
 

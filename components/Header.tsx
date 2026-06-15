@@ -9,6 +9,7 @@ import {ChevronDown, Menu, X} from "lucide-react";
 import {FormComponent} from "@/components/FormComponent";
 import ThemeToggle from "@/components/ThemeToggle";
 import SiteSearch from "@/components/SiteSearch";
+import {useIsDayTime} from './useIsDayTime';
 
 interface MenuItem {
     label: string;
@@ -49,10 +50,7 @@ const Header: React.FC = () => {
     const [showHeader, setShowHeader] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
 
-    const isDayTime = (() => {
-        const hour = new Date().getHours();
-        return hour >= 6 && hour < 18;
-    })();
+    const isDayTime = useIsDayTime();
 
     const pathname = usePathname();
     const servicesRef = useRef<HTMLDivElement>(null);
