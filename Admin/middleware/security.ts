@@ -71,7 +71,15 @@ export const securityHeaders = helmet({
             'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com', 'https://cdn.jsdelivr.net'],
             'font-src': ["'self'", 'data:', 'https://fonts.gstatic.com', 'https://*.tawk.to'],
             'img-src': ["'self'", 'data:', 'blob:', 'https:'],
-            'connect-src': ["'self'", 'https://*.tawk.to', 'wss://*.tawk.to', 'https://api.calendly.com'],
+            'connect-src': [
+                "'self'",
+                'https://*.tawk.to',
+                'wss://*.tawk.to',
+                'https://api.calendly.com',
+                'https://api.iconify.design',
+                'https://api.simplesvg.com',
+                'https://api.unisvg.com',
+            ],
             'frame-src': [
                 "'self'",
                 'https://www.google.com',
