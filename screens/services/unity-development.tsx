@@ -7,6 +7,7 @@ import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import Link from 'next/link';
 import {AnimatePresence, motion} from "framer-motion";
+import {useIsDayTime} from '../../components/useIsDayTime';
 
 
 // Reasons
@@ -89,23 +90,8 @@ const UnityDevelopment = () => {
     }, []);
 
     // isDaytime react hook
-   const [isDayTime, setIsDayTime] = useState<boolean>(() => {
-  const hour = new Date().getHours();
-  return hour >= 6 && hour < 18;
-});
+   const isDayTime = useIsDayTime();
 
-// Optional: if you want the value to update over time, use an interval (does not set state synchronously on mount)
-useEffect(() => {
-  const id = setInterval(() => {
-    const hour = new Date().getHours();
-    setIsDayTime(prev => {
-      const next = hour >= 6 && hour < 18;
-      return prev === next ? prev : next;
-    });
-  }, 60_000); // check every minute
-
-  return () => clearInterval(id);
-}, []);
 
     // Introductory section hook
     useEffect(() => {

@@ -11,26 +11,16 @@ import type {BlogPost} from '../../data/blogPosts';
 import {getBlogImage} from '../../data/blogMedia';
 import {getBlogPostMeta} from '../../data/blogMeta';
 import AIProjectEstimator from "@/components/AIProjectEstimator";
+import {useIsDayTime} from '../../components/useIsDayTime';
 
 export default function BlogPostPage() {
     const router = useRouter();
     const {slug} = router.query;
-    const [isDayTime, setIsDayTime] = useState(true);
+    const isDayTime = useIsDayTime();
     const [post, setPost] = useState<BlogPost | undefined>();
     const [copied, setCopied] = useState(false);
     const [shareOpen, setShareOpen] = useState(false);
     const [tocOpen, setTocOpen] = useState(false);
-
-    useEffect(() => {
-        const update = () => {
-            const h = new Date().getHours();
-            setIsDayTime(h >= 6 && h < 18);
-        };
-        update();
-        const id = setInterval(update, 60_000);
-        return () => clearInterval(id);
-    }, []);
-
     useEffect(() => {
         if (slug && typeof slug === 'string') setPost(getBlogPostBySlug(slug));
     }, [slug]);

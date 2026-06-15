@@ -6,6 +6,7 @@ import Image from "next/image";
 import {ArrowLeft, ArrowRight, Quote} from "lucide-react";
 import Footer from "@/components/Footer";
 import '@/app/globals.css';
+import {useIsDayTime} from '../../components/useIsDayTime';
 
 const testimonials = [
     {
@@ -268,10 +269,7 @@ const HrTech = () => {
     const [activeId, setActiveId] = useState<string>("");
     const [current, setCurrent] = useState(0);
 
-    const [isDayTime, setIsDayTime] = useState<boolean>(() => {
-        const hour = new Date().getHours();
-        return hour >= 6 && hour < 18;
-    });
+    const isDayTime = useIsDayTime();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -283,19 +281,6 @@ const HrTech = () => {
 
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
-
-    useEffect(() => {
-        const id = setInterval(() => {
-            const hour = new Date().getHours();
-            setIsDayTime((prev) => {
-                const next = hour >= 6 && hour < 18;
-                return prev === next ? prev : next;
-            });
-        }, 60_000);
-
-        return () => clearInterval(id);
-    }, []);
-
     useEffect(() => {
         const handleIntroScroll = () => {
             if (!sectionRef.current) return;

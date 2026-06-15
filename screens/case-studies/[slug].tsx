@@ -8,6 +8,7 @@ import '@/app/globals.css';
 import Link from 'next/link';
 import Image from 'next/image';
 import AIProjectEstimator from "@/components/AIProjectEstimator";
+import {useIsDayTime} from '../../components/useIsDayTime';
 
 // ─── Static data (mirrors the listing page) ──────────────────────────────────
 const STATIC_STUDIES = [
@@ -172,18 +173,7 @@ const STATIC_STUDIES = [
 export default function CaseStudyDetail() {
     const router = useRouter();
     const {slug} = router.query;
-    const [isDayTime, setIsDayTime] = useState(true);
-
-    useEffect(() => {
-        const update = () => {
-            const h = new Date().getHours();
-            setIsDayTime(h >= 6 && h < 18);
-        };
-        update();
-        const id = setInterval(update, 60_000);
-        return () => clearInterval(id);
-    }, []);
-
+    const isDayTime = useIsDayTime();
     const study = STATIC_STUDIES.find(s => s.slug === slug);
     const related = STATIC_STUDIES.filter(s => s.slug !== slug).slice(0, 3);
 

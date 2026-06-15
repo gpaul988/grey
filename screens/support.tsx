@@ -16,6 +16,7 @@ import {
     FaPhoneAlt,
     FaChevronDown,
 } from 'react-icons/fa';
+import {useIsDayTime} from '../components/useIsDayTime';
 
 const fadeUp: { transition: Transition } = {
     transition: {duration: 0.6, ease: [0.22, 1, 0.36, 1]},
@@ -54,21 +55,8 @@ const Support: React.FC = () => {
     const whatsappMessage = "Hello Grey InfoTech, I need support with my project.";
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
-    const [isDayTime, setIsDayTime] = useState<boolean>(() => {
-        const hour = new Date().getHours();
-        return hour >= 6 && hour < 18;
-    });
+    const isDayTime = useIsDayTime();
 
-    useEffect(() => {
-        const id = setInterval(() => {
-            const hour = new Date().getHours();
-            setIsDayTime(prev => {
-                const next = hour >= 6 && hour < 18;
-                return prev === next ? prev : next;
-            });
-        }, 60_000);
-        return () => clearInterval(id);
-    }, []);
 
     const [openFaq, setOpenFaq] = useState<number | null>(0);
 

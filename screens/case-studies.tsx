@@ -7,6 +7,7 @@ import '@/app/globals.css';
 import Link from 'next/link';
 import Image from 'next/image';
 import AIProjectEstimator from "@/components/AIProjectEstimator";
+import {useIsDayTime} from '../components/useIsDayTime';
 
 // ─── Static seed data (will be progressively replaced by DB records via API) ───
 const STATIC_STUDIES = [
@@ -75,19 +76,8 @@ const STATIC_STUDIES = [
 const ALL_INDUSTRIES = ['All', ...Array.from(new Set(STATIC_STUDIES.map(s => s.industry))).sort()];
 
 const CaseStudies: React.FC = () => {
-    const [isDayTime, setIsDayTime] = useState(true);
+    const isDayTime = useIsDayTime();
     const [activeIndustry, setActiveIndustry] = useState('All');
-
-    useEffect(() => {
-        const update = () => {
-            const h = new Date().getHours();
-            setIsDayTime(h >= 6 && h < 18);
-        };
-        update();
-        const id = setInterval(update, 60_000);
-        return () => clearInterval(id);
-    }, []);
-
     const filtered = activeIndustry === 'All'
         ? STATIC_STUDIES
         : STATIC_STUDIES.filter(s => s.industry === activeIndustry);
