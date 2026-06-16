@@ -207,6 +207,22 @@ function getRequestUrl(req: express.Request): Parameters<typeof handle>[2] {
     return parse(req.originalUrl || req.url || '/', true);
 }
 
+// Global safety net: catch any unhandled promise rejections so the Passenger
+// worker never dies silently (which shows Phusion's generic 500 page).
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('[server] Unhandled promise rejection:', reason, '\nAt:', promise);
+    // Do NOT exit — let the process keep serving other requests.
+});
+
+process.on('uncaughtException', (err) => {
+    console.error('[server] Uncaught exception:', err);
+    // Do NOT exit for non-fatal errors. Only exit for truly unrecoverable ones.
+    if ((err as NodeJS.ErrnoException).code === 'ERR_DLOPEN_FAILED') {
+        // Native module failure — log and continue (DB falls back to MemoryStore).
+        return;
+    }
+});
+
 nextApp.prepare().then(() => {
     app.all('/{*splat}', async (req, res) => {
         try {
@@ -215,7 +231,9 @@ nextApp.prepare().then(() => {
             await handle(req, res, parsedUrl);
         } catch (error) {
             console.error('Error handling request:', req.url, error);
-            res.status(500).send('internal server error');
+            if (!res.headersSent) {
+                res.status(500).send('internal server error');
+            }
         }
     });
 
@@ -223,4 +241,9 @@ nextApp.prepare().then(() => {
         console.log(`> Ready on http://${hostname}:${port}`);
         console.log(`> Admin on http://${hostname}:${port}${ADMIN_BASE_PATH}`);
     });
+}).catch((err) => {
+    // Next.js failed to prepare — log the full error so it's visible in
+    // passenger.log, then exit so Passenger can restart with a clean state.
+    console.error('[server] FATAL: Next.js failed to prepare:', err);
+    process.exit(1);
 });
