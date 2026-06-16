@@ -201,6 +201,24 @@ app.use(ADMIN_BASE_PATH, ensureAuth, adminRoutes);
 // Clean 403 response when a CSRF token is missing/invalid (audit C3).
 app.use(csrfErrorHandler);
 
+// Global Express error handler — catches anything thrown inside route handlers
+// (multer size errors, body-parser errors, unexpected throws).
+// Must be LAST middleware (4-arg signature) so Express recognises it as an
+// error handler. Returns JSON for /api/* and HTML for everything else so
+// Passenger always gets a proper response instead of hanging or showing its
+// own generic 500 page.
+app.use((err: Error & { status?: number; code?: string }, req: express.Request, res: express.Response, _next: express.NextFunction) => {
+    const status = (err as { status?: number }).status || 500;
+    console.error('[server] Express error handler caught:', err.message || err);
+    if (!res.headersSent) {
+        if (req.path.startsWith('/api/') || req.path.startsWith(`${ADMIN_BASE_PATH}/api/`)) {
+            res.status(status).json({ ok: false, error: err.message || 'Internal server error' });
+        } else {
+            res.status(status).send(`<h1>${status}</h1><p>${err.message || 'Internal server error'}</p>`);
+        }
+    }
+});
+
 function getRequestUrl(req: express.Request): Parameters<typeof handle>[2] {
     // Next's request handler expects a parsed URL with pathname + query.
     // `parse(url, true)` is the shape Next's own custom-server examples use.

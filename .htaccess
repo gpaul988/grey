@@ -1,0 +1,71 @@
+# Grey Infotech — cPanel Apache → Phusion Passenger proxy rules
+# ============================================================================
+# This file tells Apache to hand ALL requests off to the Passenger Node.js app
+# instead of serving PHP / static files directly from the document root.
+#
+# Prerequisites (set in cPanel "Setup Node.js App"):
+#   Application root : /home/greyinf1/public_html/grey
+#   Application URL  : greyinfotech.com.ng  (or subdomain)
+#   Application startup file: server.js
+#   Node version     : 18+ (20/22 recommended)
+# ============================================================================
+
+Options -MultiViews
+Options -Indexes
+
+# Tell Apache to trust the X-Forwarded-* headers Passenger injects so that
+# Express's `app.set('trust proxy', 1)` works correctly (secure cookies, etc.)
+RequestHeader set X-Forwarded-Proto "https" env=HTTPS
+
+# ── Passenger integration ──────────────────────────────────────────────────────
+# cPanel generates these PassengerBase* directives automatically; keep them as-is
+# if cPanel already injected them. Otherwise these fallback values apply.
+PassengerNodejs /home/greyinf1/nodevenv/public_html/grey/20/bin/node
+PassengerAppRoot /home/greyinf1/public_html/grey
+PassengerAppType node
+PassengerStartupFile server.js
+
+# ── Rewrite: send everything to Passenger ─────────────────────────────────────
+RewriteEngine On
+
+# Skip Apache's own .well-known (Let's Encrypt ACME challenges)
+RewriteRule ^\.well-known/ - [L]
+
+# If the request is for a real file or directory that exists, serve it directly
+# (e.g. public/images, fonts, icons). This prevents Passenger from intercepting
+# static asset requests, which is faster and avoids Node involvement for assets.
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Everything else → Passenger Node.js app
+RewriteRule ^ /server.js [L]
+
+# ── Security headers ──────────────────────────────────────────────────────────
+# Supplement the headers set by Express middleware (security.ts).
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ── Compression (speeds up Next.js JS/CSS bundles) ────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml font/woff2
+</IfModule>
+
+# ── Cache static assets aggressively ─────────────────────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg         "access plus 1 year"
+  ExpiresByType image/png          "access plus 1 year"
+  ExpiresByType image/webp         "access plus 1 year"
+  ExpiresByType image/gif          "access plus 1 year"
+  ExpiresByType image/svg+xml      "access plus 1 year"
+  ExpiresByType font/woff2         "access plus 1 year"
+  ExpiresByType font/woff          "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType text/css           "access plus 1 month"
+</IfModule>

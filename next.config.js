@@ -31,7 +31,20 @@ const nextConfig = {
         // almost every <Image> 404/500 in production while dev looks fine.
         // Serving the original files directly fixes it everywhere.
         unoptimized: true,
-        formats: ["image/avif", "image/webp"],
+        // NOTE: `formats` is intentionally omitted — it has no effect when
+        // unoptimized:true and triggers a Next.js 16 deprecation warning.
+    },
+
+    // ─── Suppress noisy dev/build warnings ────────────────────────────────
+    typescript: {
+        // Type errors are checked separately via `tsc --noEmit`. Don't block
+        // the build on type errors so a cPanel deploy can always succeed.
+        ignoreBuildErrors: false,
+    },
+
+    eslint: {
+        // ESLint is run separately in CI. Don't slow down the production build.
+        ignoreDuringBuilds: true,
     },
 };
 
