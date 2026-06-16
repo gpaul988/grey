@@ -20,10 +20,13 @@ Error: Could not locate the bindings file. Tried: ... better_sqlite3.node
 ```
 This compiles the `.node` binary locally on cPanel's server.
 
-## 3. Build Next.js (Optional if Passenger doesn't auto-run it)
+## 3. Build Next.js (CRITICAL)
 ```bash
 npm run build
 ```
+⚠️ **CRITICAL**: This creates the `.next` directory that Passenger needs.  
+If you skip this, the server will fail with "Could not find a production build in the '.next' directory."  
+This step is NOT optional — it must complete successfully before Passenger restart.
 
 ## 4. Check Node Version
 In cPanel's "Setup Node.js App":

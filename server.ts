@@ -10,6 +10,7 @@ import session from 'express-session';
 import next from 'next';
 import path from 'node:path';
 import {parse} from 'node:url';
+import fs from 'node:fs';
 
 import {ADMIN_BASE_PATH} from './Admin/config/adminPaths';
 import sseRouter from './Admin/routes/sse';
@@ -37,6 +38,19 @@ const hostname = process.env.HOSTNAME || 'localhost';
 const port = Number(process.env.PORT || 3000);
 const adminPublicPath = path.join(process.cwd(), 'Admin', 'public');
 const adminViewsPath = path.join(process.cwd(), 'Admin', 'views');
+const nextBuildPath = path.join(process.cwd(), '.next');
+
+// Pre-flight: on production, if .next is missing, fail loudly with instructions
+// (cPanel deployments often skip `npm run build`)
+if (!dev && !fs.existsSync(nextBuildPath)) {
+    console.error(
+        '\n❌ STARTUP ERROR: Next.js build missing.\n' +
+        'The .next directory does not exist. Run on cPanel:\n' +
+        '  npm run build\n' +
+        'Then restart Passenger.\n'
+    );
+    process.exit(1);
+}
 
 const nextApp = next({dev, hostname, port});
 const handle = nextApp.getRequestHandler();
