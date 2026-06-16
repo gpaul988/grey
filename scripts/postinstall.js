@@ -23,8 +23,10 @@ if (isDev || process.env.CI) {
 
 console.log('[postinstall] Starting post-install setup...');
 
-// Ensure Admin/data directory exists (needed for .secrets.json)
-const adminDataDir = path.join(__dirname, '..', 'Admin', 'data');
+// Resolve project root relative to where npm runs it from
+// (can be /home/.../lib or /home/.../public_html/grey depending on cPanel setup)
+const projectRoot = path.resolve(process.cwd());
+const adminDataDir = path.join(projectRoot, 'Admin', 'data');
 if (!fs.existsSync(adminDataDir)) {
   try {
     fs.mkdirSync(adminDataDir, { recursive: true });
@@ -38,7 +40,7 @@ if (!fs.existsSync(adminDataDir)) {
 console.log('[postinstall] Attempting to rebuild better-sqlite3...');
 try {
   execSync('npm rebuild better-sqlite3 --build-from-source', {
-    cwd: path.join(__dirname, '..'),
+    cwd: projectRoot,
     stdio: 'inherit',
     timeout: 5 * 60 * 1000, // 5 minute timeout
   });
