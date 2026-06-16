@@ -10,8 +10,6 @@ import session from 'express-session';
 import next from 'next';
 import path from 'node:path';
 import {parse} from 'node:url';
-import fs from 'node:fs';
-import {execSync} from 'node:child_process';
 
 import {ADMIN_BASE_PATH} from './Admin/config/adminPaths';
 import sseRouter from './Admin/routes/sse';
@@ -39,50 +37,6 @@ const hostname = process.env.HOSTNAME || 'localhost';
 const port = Number(process.env.PORT || 3000);
 const adminPublicPath = path.join(process.cwd(), 'Admin', 'public');
 const adminViewsPath = path.join(process.cwd(), 'Admin', 'views');
-const nextBuildPath = path.join(process.cwd(), '.next');
-
-// Pre-flight: on production, if .next is missing, try to build it
-// (needed on cPanel where deployment often skips npm run build)
-if (!dev && !fs.existsSync(nextBuildPath)) {
-    console.log('[server] .next missing, checking npm dependencies...');
-    
-    // If node_modules looks corrupted (missing key files), clean and reinstall
-    const nodeModulesPath = path.join(process.cwd(), 'node_modules');
-    const hasNodeModules = fs.existsSync(nodeModulesPath);
-    
-    if (!hasNodeModules) {
-        console.log('[server] node_modules missing, running npm ci...');
-        try {
-            execSync('npm ci --omit=dev', {
-                cwd: process.cwd(),
-                stdio: 'inherit',
-                timeout: 10 * 60 * 1000, // 10 min
-            });
-            console.log('[server] ✅ Dependencies installed');
-        } catch (err) {
-            console.error('[server] ❌ npm ci failed. Try on cPanel Terminal:\n' +
-                '  rm -rf node_modules && npm cache clean --force && npm ci --omit=dev\n');
-            process.exit(1);
-        }
-    }
-    
-    console.log('[server] Building Next.js...');
-    try {
-        execSync('npm run build', {
-            cwd: process.cwd(),
-            stdio: 'inherit',
-            timeout: 5 * 60 * 1000, // 5 min timeout
-        });
-        console.log('[server] ✅ Build succeeded');
-    } catch (err) {
-        console.error(
-            '[server] ❌ Build failed. Run manually on cPanel:\n' +
-            '  cd /home/greyinf1/public_html/grey && npm run build\n',
-            err
-        );
-        process.exit(1);
-    }
-}
 
 const nextApp = next({dev, hostname, port});
 const handle = nextApp.getRequestHandler();

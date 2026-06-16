@@ -32,9 +32,49 @@
 'use strict';
 
 const path = require('node:path');
-const { spawn } = require('node:child_process');
+const fs = require('node:fs');
+const { spawn, execSync } = require('node:child_process');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'production';
+
+const projectRoot = __dirname;
+const nextBuildPath = path.join(projectRoot, '.next');
+const nodeModulesPath = path.join(projectRoot, 'node_modules');
+
+console.log('[server.js] Starting pre-flight checks...');
+
+// ── Pre-flight: Install dependencies if missing ──────────────────────────────
+if (!fs.existsSync(nodeModulesPath)) {
+  console.log('[server.js] node_modules missing, installing dependencies...');
+  try {
+    execSync('npm ci --omit=dev', {
+      cwd: projectRoot,
+      stdio: 'inherit',
+      timeout: 15 * 60 * 1000, // 15 min
+    });
+    console.log('[server.js] ✅ Dependencies installed');
+  } catch (err) {
+    console.error('[server.js] ❌ npm ci failed:', err.message);
+    process.exit(1);
+  }
+}
+
+// ── Pre-flight: Build Next.js if missing ──────────────────────────────────
+if (!fs.existsSync(nextBuildPath)) {
+  console.log('[server.js] .next missing, building Next.js...');
+  try {
+    execSync('npm run build', {
+      cwd: projectRoot,
+      stdio: 'inherit',
+      timeout: 10 * 60 * 1000, // 10 min
+    });
+    console.log('[server.js] ✅ Next.js build succeeded');
+  } catch (err) {
+    console.error('[server.js] ❌ Build failed:', err.message);
+    console.error('Try manually: cd /home/greyinf1/public_html/grey && npm run build');
+    process.exit(1);
+  }
+}
 
 // Resolve the locally-installed tsx CLI (no global install required).
 let tsxBin;
