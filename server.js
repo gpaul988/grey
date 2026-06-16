@@ -88,6 +88,44 @@ if (!fs.existsSync(nodeModulesPath)) {
   }
 }
 
+// ── Pre-flight: ensure better-sqlite3 native binary matches this Node ─────────
+// better-sqlite3 is a native C++ addon: its compiled binary MUST match the
+// exact Node ABI it runs under. On cPanel the binary is often missing or built
+// for a different Node version, producing:
+//   "Could not locate the bindings file ... better_sqlite3.node"
+// which knocks out the DB and the SQLite session store. Detect a missing/
+// mismatched binary and rebuild it from source BEFORE the app starts.
+(function ensureSqliteBinding() {
+  const bsqlite = path.join(nodeModulesPath, 'better-sqlite3');
+  if (!fs.existsSync(bsqlite)) return; // not installed yet; install step handles it
+  const binary = path.join(bsqlite, 'build', 'Release', 'better_sqlite3.node');
+  let ok = false;
+  try {
+    // Cheapest reliable check: actually require it. If the ABI is wrong or the
+    // file is missing, this throws — exactly the failure we want to pre-empt.
+    require(bsqlite);
+    ok = true;
+  } catch {
+    ok = false;
+  }
+  if (ok && fs.existsSync(binary)) return; // healthy
+  console.log('[server.js] better-sqlite3 native binary missing/mismatched — rebuilding...');
+  try {
+    execSync('npm rebuild better-sqlite3 --build-from-source', {
+      cwd: projectRoot,
+      stdio: 'inherit',
+      timeout: 10 * 60 * 1000,
+    });
+    console.log('[server.js] ✅ better-sqlite3 rebuilt');
+  } catch (err) {
+    console.error(
+      '[server.js] ❌ better-sqlite3 rebuild failed:', err.message,
+      '\n   Run manually: npm rebuild better-sqlite3 --build-from-source',
+    );
+    // Do not exit: the app falls back to MemoryStore and still serves pages.
+  }
+})();
+
 // ── Pre-flight: Build Next.js if missing ──────────────────────────────────
 if (!fs.existsSync(nextBuildPath)) {
   console.log('[server.js] .next missing, building Next.js...');
