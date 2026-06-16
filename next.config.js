@@ -11,6 +11,19 @@ const nextConfig = {
     //   "build": "next build --webpack"
     // (The old `experimental.turbo` key is gone and just emits a warning.)
 
+    // ─── Low-memory build (cPanel shared hosting) ──────────────────────────
+    // Shared hosting caps process memory hard. Next's default parallel build
+    // workers each hold a full compiler copy, and the OS SIGKILLs them when the
+    // box runs out of RAM (build dies with "exited with code: null, signal:
+    // SIGKILL"). Force a SINGLE worker to keep peak memory low.
+    experimental: {
+        workerThreads: false,
+        cpus: 1,
+    },
+
+    // Source maps roughly double build memory/disk. Not needed in prod.
+    productionBrowserSourceMaps: false,
+
     images: {
         // cPanel/Passenger shared hosting cannot reliably run Next's on-the-fly
         // image optimizer (/_next/image): `sharp` is often missing/unbuildable
