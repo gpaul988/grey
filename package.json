@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "preinstall": "node scripts/clean-npm-cache.js || true",
     "dev": "NODE_ENV=development tsx server.ts",
     "dev:next": "next dev -p 3000",
     "build": "next build",
@@ -71,9 +70,6 @@
     "eslint-config-next": "16.2.9",
     "tailwindcss": "^4",
     "typescript": "^6.0.3"
-  },
-  "allowScripts": {
-    "better-sqlite3@12.10.0": true
   },
   "overrides": {
     "camera-controls": "3.0.1"
