@@ -90,45 +90,114 @@ if (!fs.existsSync(nodeModulesPath)) {
 
 // ── Pre-flight: ensure better-sqlite3 native binary matches this Node ─────────
 // better-sqlite3 is a native C++ addon: its compiled binary MUST match the
-// exact Node ABI it runs under. On cPanel the binary is often missing or built
-// for a different Node version, producing:
-//   "Could not locate the bindings file ... better_sqlite3.node"
-// which knocks out the DB and the SQLite session store. Detect a missing/
-// mismatched binary and rebuild it from source BEFORE the app starts.
+// exact Node ABI and glibc version it runs under. On cPanel / CentOS 7 the
+// prebuilt binary (compiled on Ubuntu 22.04, requires GLIBC_2.38) will fail to
+// load. The ONLY fix is to rebuild from source using the server's own compiler.
+//
+// REQUIREMENTS on cPanel server (run once via SSH if this keeps failing):
+//   yum install -y python3 make gcc gcc-c++   (CentOS 7)
+//   OR: contact host to install build tools
+//   THEN: cd /home/greyinf1/public_html/grey && npm rebuild better-sqlite3 --build-from-source
 (function ensureSqliteBinding() {
   const bsqlite = path.join(nodeModulesPath, 'better-sqlite3');
   if (!fs.existsSync(bsqlite)) return; // not installed yet; install step handles it
-  const binary = path.join(bsqlite, 'build', 'Release', 'better_sqlite3.node');
+
   let ok = false;
+  let loadErr = null;
   try {
-    // Cheapest reliable check: actually require it. If the ABI is wrong or the
+    // Cheapest reliable check: actually require it. If glibc is wrong or the
     // file is missing, this throws — exactly the failure we want to pre-empt.
     require(bsqlite);
     ok = true;
-  } catch {
+  } catch (e) {
     ok = false;
+    loadErr = e;
   }
-  if (ok && fs.existsSync(binary)) return; // healthy
-  console.log('[server.js] better-sqlite3 native binary missing/mismatched — rebuilding...');
-  try {
-    execSync('npm rebuild better-sqlite3 --build-from-source', {
-      cwd: projectRoot,
-      stdio: 'inherit',
-      timeout: 10 * 60 * 1000,
-    });
-    console.log('[server.js] ✅ better-sqlite3 rebuilt');
-  } catch (err) {
-    console.error(
-      '[server.js] ❌ better-sqlite3 rebuild failed:', err.message,
-      '\n   Run manually: npm rebuild better-sqlite3 --build-from-source',
-    );
-    // Do not exit: the app falls back to MemoryStore and still serves pages.
+  if (ok) {
+    console.log('[server.js] ✅ better-sqlite3 binary OK');
+    return;
+  }
+
+  console.log('[server.js] better-sqlite3 binary failed to load:');
+  console.log('  Error:', loadErr && loadErr.message);
+  console.log('[server.js] Attempting rebuild from source (this may take a few minutes)...');
+  console.log('[server.js] NOTE: Requires python3 + make + gcc on the server.');
+  console.log('[server.js] If this fails, run on server via SSH:');
+  console.log('  cd /home/greyinf1/public_html/grey && npm rebuild better-sqlite3 --build-from-source');
+
+  // Try multiple strategies in order.
+  const rebuildStrategies = [
+    // Strategy 1: standard rebuild from source
+    'npm rebuild better-sqlite3 --build-from-source',
+    // Strategy 2: explicit node-pre-gyp with --build-from-source
+    `"${path.join(projectRoot, 'node_modules', '.bin', 'node-pre-gyp')}" rebuild --directory="${path.join(nodeModulesPath, 'better-sqlite3')}"`,
+    // Strategy 3: node-gyp directly
+    `node-gyp rebuild --directory="${path.join(nodeModulesPath, 'better-sqlite3')}"`,
+  ];
+
+  let rebuilt = false;
+  for (const cmd of rebuildStrategies) {
+    try {
+      console.log(`[server.js] Trying: ${cmd}`);
+      execSync(cmd, {
+        cwd: projectRoot,
+        stdio: 'inherit',
+        timeout: 12 * 60 * 1000,
+        env: { ...process.env, npm_config_build_from_source: 'true' },
+      });
+      // Verify it actually works now
+      delete require.cache[require.resolve(bsqlite)];
+      require(bsqlite);
+      rebuilt = true;
+      console.log('[server.js] ✅ better-sqlite3 rebuilt successfully');
+      break;
+    } catch (rebuildErr) {
+      console.error(`[server.js] Strategy failed: ${rebuildErr.message && rebuildErr.message.split('\n')[0]}`);
+    }
+  }
+
+  if (!rebuilt) {
+    console.error('[server.js] ❌ All rebuild strategies failed.');
+    console.error('[server.js] The app will use MemoryStore (sessions reset on restart).');
+    console.error('[server.js] To fix permanently, SSH into the server and run:');
+    console.error('  cd /home/greyinf1/public_html/grey');
+    console.error('  npm rebuild better-sqlite3 --build-from-source');
+    console.error('  # If that fails, ensure build tools are installed:');
+    console.error('  # sudo yum install -y python3 make gcc gcc-c++ (CentOS/RHEL)');
+    // Do NOT exit — server falls back to MemoryStore and still serves all pages.
   }
 })();
 
-// ── Pre-flight: Build Next.js if missing ──────────────────────────────────
-if (!fs.existsSync(nextBuildPath)) {
-  console.log('[server.js] .next missing, building Next.js...');
+// ── Pre-flight: Build Next.js if missing or stale ─────────────────────────
+// Checks two conditions:
+//   1. .next directory doesn't exist → always build
+//   2. .next/BUILD_ID exists but app code is NEWER than it → stale build,
+//      rebuild to avoid serving old JS against new server code (causes 500s).
+function needsNextBuild() {
+  if (!fs.existsSync(nextBuildPath)) return true;
+  const buildIdFile = path.join(nextBuildPath, 'BUILD_ID');
+  if (!fs.existsSync(buildIdFile)) return true;
+
+  // Check if any key source files are newer than the last build.
+  const buildMtime = fs.statSync(buildIdFile).mtimeMs;
+  const checkFiles = [
+    path.join(projectRoot, 'package.json'),
+    path.join(projectRoot, 'next.config.js'),
+    path.join(projectRoot, 'next.config.ts'),
+    path.join(projectRoot, 'server.ts'),
+  ];
+  for (const f of checkFiles) {
+    if (fs.existsSync(f) && fs.statSync(f).mtimeMs > buildMtime) {
+      console.log(`[server.js] Source file newer than build: ${path.basename(f)} — triggering rebuild`);
+      return true;
+    }
+  }
+  return false;
+}
+
+if (needsNextBuild()) {
+  const reason = !fs.existsSync(nextBuildPath) ? '.next missing' : 'source files changed';
+  console.log(`[server.js] Building Next.js (${reason})...`);
   // Always use the local next binary directly (not npx, not global).
   // Force Webpack via --webpack: cPanel's nodevenv symlinks node_modules
   // outside the Turbopack filesystem root, causing a panic. Cap the V8 heap
@@ -144,7 +213,7 @@ if (!fs.existsSync(nextBuildPath)) {
     execSync(buildCmd, {
       cwd: projectRoot,
       stdio: 'inherit',
-      timeout: 10 * 60 * 1000, // 10 min
+      timeout: 15 * 60 * 1000, // 15 min (longer for slow shared hosting)
     });
     console.log('[server.js] ✅ Next.js build succeeded');
   } catch (err) {
