@@ -12,7 +12,9 @@
     "seed:reset": "rm -f Admin/data/grey.db && tsx Admin/db/seed.ts",
     "migrate-admin-assets": "node scripts/migrate-admin-assets.js",
     "lint": "eslint",
-    "rebuild:sqlite": "npm rebuild better-sqlite3 --build-from-source"
+    "rebuild:sqlite": "npm rebuild better-sqlite3 --build-from-source",
+    "install:prod": "NODE_OPTIONS=--max-old-space-size=512 npm install --omit=dev --no-audit --no-fund --prefer-offline",
+    "install:cpanel": "npm install --omit=dev --no-audit --no-fund --maxsockets=1 --legacy-peer-deps"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
