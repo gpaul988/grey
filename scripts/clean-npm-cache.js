@@ -9,8 +9,9 @@ const path = require('path');
 const {execSync} = require('child_process');
 
 const dirs = [
+    // Only remove node_modules — NEVER delete package-lock.json,
+    // npm ci requires it and deleting it breaks the install cycle.
     path.join(process.cwd(), 'node_modules'),
-    path.join(process.cwd(), 'package-lock.json'),
 ];
 
 console.log('[clean-npm-cache] Removing corrupted npm artifacts...');
