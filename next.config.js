@@ -1,15 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     // ─── Turbopack disabled ────────────────────────────────────────────────
-    // cPanel's Node virtualenv symlinks node_modules outside the project root.
-    // Turbopack resolves symlinks and panics with:
+    // cPanel's Node virtualenv symlinks node_modules OUTSIDE the project root
+    // (e.g. /home/<user>/nodevenv/...). Next.js 16 defaults `next build` to
+    // Turbopack, which resolves that symlink and panics with:
     //   "Symlink [project]/node_modules is invalid, it points out of the
     //    filesystem root"
-    // Webpack handles virtualenv symlinks correctly — always use it on cPanel.
-    // To re-enable Turbopack locally: TURBOPACK=1 next build
-    experimental: {
-        turbo: undefined,
-    },
+    // Webpack follows the symlink correctly. There is NO config key to disable
+    // Turbopack in Next 16 — it must be forced via the CLI flag in package.json:
+    //   "build": "next build --webpack"
+    // (The old `experimental.turbo` key is gone and just emits a warning.)
 
     images: {
         // cPanel/Passenger shared hosting cannot reliably run Next's on-the-fly
