@@ -358,7 +358,7 @@ const Footer = () => {
                                     engine optimisation</Link></li>
                                 <li><Link href="/services/Laravel-Development"
                                           className="hover:text-white transition-colors">Laravel
-                                    partners</Link></li>
+                                    Development</Link></li>
                                 <li><Link href="/services/cms-development"
                                           className="hover:text-white transition-colors">Drupal
                                     development services</Link></li>
@@ -517,7 +517,6 @@ const Footer = () => {
                                 <Link href="/Links" className="hover:text-white">Links</Link>
                                 <Link href="https://linktr.ee/greyinfotechltd"
                                       className="hover:text-white">Linktree</Link>
-                                <Link href={backendLoginUrl} className="hover:text-white">login</Link>
                             </div>
 
                             {/* Copyright */}
