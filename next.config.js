@@ -41,11 +41,6 @@ const nextConfig = {
         // the build on type errors so a cPanel deploy can always succeed.
         ignoreBuildErrors: false,
     },
-
-    eslint: {
-        // ESLint is run separately in CI. Don't slow down the production build.
-        ignoreDuringBuilds: true,
-    },
 };
 
 module.exports = nextConfig;
