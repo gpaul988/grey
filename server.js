@@ -77,10 +77,16 @@ if (!fs.existsSync(nodeModulesPath)) {
 // ── Pre-flight: Build Next.js if missing ──────────────────────────────────
 if (!fs.existsSync(nextBuildPath)) {
   console.log('[server.js] .next missing, building Next.js...');
-  // Use npx to ensure next CLI is found even if PATH doesn't include node_modules/.bin
-  const buildCmd = fs.existsSync(path.join(projectRoot, 'node_modules', '.bin', 'next'))
-    ? path.join(projectRoot, 'node_modules', '.bin', 'next') + ' build'
-    : 'npx next build';
+  // Always use the local next binary directly (not npx, not global).
+  // Pass NEXT_TURBOPACK=0 to force Webpack — cPanel's nodevenv symlinks
+  // node_modules outside the Turbopack filesystem root causing a panic.
+  const nextBin = path.join(projectRoot, 'node_modules', '.bin', 'next');
+  if (!fs.existsSync(nextBin)) {
+    console.error('[server.js] ❌ next binary not found at', nextBin);
+    console.error('Run: npm install --omit=dev  in the project directory first.');
+    process.exit(1);
+  }
+  const buildCmd = `NEXT_TURBOPACK=0 "${nextBin}" build`;
   try {
     execSync(buildCmd, {
       cwd: projectRoot,
