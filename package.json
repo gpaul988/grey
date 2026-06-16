@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "preinstall": "node scripts/clean-npm-cache.js || true",
-    "dev": "tsx server.ts",
+    "dev": "NODE_ENV=development tsx server.ts",
     "dev:next": "next dev -p 3000",
     "build": "next build",
     "start": "NODE_ENV=production tsx server.ts",
