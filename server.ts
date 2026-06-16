@@ -11,6 +11,7 @@ import next from 'next';
 import path from 'node:path';
 import {parse} from 'node:url';
 import fs from 'node:fs';
+import {execSync} from 'node:child_process';
 
 import {ADMIN_BASE_PATH} from './Admin/config/adminPaths';
 import sseRouter from './Admin/routes/sse';
@@ -40,16 +41,25 @@ const adminPublicPath = path.join(process.cwd(), 'Admin', 'public');
 const adminViewsPath = path.join(process.cwd(), 'Admin', 'views');
 const nextBuildPath = path.join(process.cwd(), '.next');
 
-// Pre-flight: on production, if .next is missing, fail loudly with instructions
-// (cPanel deployments often skip `npm run build`)
+// Pre-flight: on production, if .next is missing, try to build it
+// (needed on cPanel where deployment often skips npm run build)
 if (!dev && !fs.existsSync(nextBuildPath)) {
-    console.error(
-        '\n❌ STARTUP ERROR: Next.js build missing.\n' +
-        'The .next directory does not exist. Run on cPanel:\n' +
-        '  npm run build\n' +
-        'Then restart Passenger.\n'
-    );
-    process.exit(1);
+    console.log('[server] .next missing, attempting to build...');
+    try {
+        execSync('npm run build', {
+            cwd: process.cwd(),
+            stdio: 'inherit',
+            timeout: 5 * 60 * 1000, // 5 min timeout
+        });
+        console.log('[server] ✅ Build succeeded');
+    } catch (err) {
+        console.error(
+            '[server] ❌ Build failed. Run manually on cPanel:\n' +
+            '  cd /home/greyinf1/public_html/grey && npm run build\n',
+            err
+        );
+        process.exit(1);
+    }
 }
 
 const nextApp = next({dev, hostname, port});
