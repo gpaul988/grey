@@ -43,6 +43,20 @@ const nodeModulesPath = path.join(projectRoot, 'node_modules');
 
 console.log('[server.js] Starting pre-flight checks...');
 
+// ── Pre-flight: warn loudly if config.env is missing ─────────────────────────
+// The app loads secrets (SESSION_SECRET, payment keys, SMTP) from config.env.
+// If it's absent, dotenv loads 0 vars and payments/email/secure sessions break
+// silently. config.env holds live secrets so it is NOT in git — it must be
+// created on the server from config.env.example.
+if (!fs.existsSync(path.join(projectRoot, 'config.env')) &&
+    !fs.existsSync(path.join(projectRoot, '.env'))) {
+  console.warn(
+    '\n[server.js] ⚠️  No config.env (or .env) found — secrets will be EMPTY.\n' +
+    '   Payments, SMTP email and secure sessions will not work.\n' +
+    '   Fix: cp config.env.example config.env  then fill in the values.\n',
+  );
+}
+
 // ── Pre-flight: Install dependencies if missing ──────────────────────────────
 if (!fs.existsSync(nodeModulesPath)) {
   console.log('[server.js] node_modules missing, installing dependencies...');
@@ -78,15 +92,16 @@ if (!fs.existsSync(nodeModulesPath)) {
 if (!fs.existsSync(nextBuildPath)) {
   console.log('[server.js] .next missing, building Next.js...');
   // Always use the local next binary directly (not npx, not global).
-  // Pass NEXT_TURBOPACK=0 to force Webpack — cPanel's nodevenv symlinks
-  // node_modules outside the Turbopack filesystem root causing a panic.
+  // Force Webpack via --webpack: cPanel's nodevenv symlinks node_modules
+  // outside the Turbopack filesystem root, causing a panic. Cap the V8 heap
+  // so the build doesn't get SIGKILL'd on low-RAM shared hosting.
   const nextBin = path.join(projectRoot, 'node_modules', '.bin', 'next');
   if (!fs.existsSync(nextBin)) {
     console.error('[server.js] ❌ next binary not found at', nextBin);
     console.error('Run: npm install --omit=dev  in the project directory first.');
     process.exit(1);
   }
-  const buildCmd = `NEXT_TURBOPACK=0 "${nextBin}" build`;
+  const buildCmd = `NODE_OPTIONS=--max-old-space-size=1024 "${nextBin}" build --webpack`;
   try {
     execSync(buildCmd, {
       cwd: projectRoot,

@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import expressLayouts from 'express-ejs-layouts';
 import session from 'express-session';
+import SqliteStoreFactory from 'better-sqlite3-session-store';
 import next from 'next';
 import path from 'node:path';
 import {parse} from 'node:url';
@@ -84,6 +85,31 @@ const SESSION_PATHS = [
     ADMIN_BASE_PATH,
 ];
 
+// Build a persistent SQLite-backed session store. Reuses the app's existing
+// better-sqlite3 connection. If the native module can't load (e.g. cPanel
+// before `npm rebuild better-sqlite3`), fall back to MemoryStore so the server
+// still boots — the fix is to rebuild the native module, not to crash.
+function buildSessionStore(): session.Store | undefined {
+    try {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        const {getDb} = require('./Admin/db') as typeof import('./Admin/db');
+        const SqliteStore = SqliteStoreFactory(session);
+        return new SqliteStore({
+            client: getDb(),
+            // express-session entries live in a dedicated table; expired rows
+            // are reaped automatically.
+            expired: {clear: true, intervalMs: 1000 * 60 * 15}, // sweep every 15m
+        }) as unknown as session.Store;
+    } catch (err) {
+        console.warn(
+            '[session] SQLite store unavailable, falling back to MemoryStore. ' +
+                'Run `npm rebuild better-sqlite3 --build-from-source`. Reason:',
+            (err as Error).message,
+        );
+        return undefined; // express-session defaults to MemoryStore
+    }
+}
+
 // Body parsing, cookies and session applied at the ROOT so that the
 // top-level auth routes (/login, /register, /logout) share the same
 // session as the /admin dashboard.
@@ -94,6 +120,11 @@ app.use(
     SESSION_PATHS,
     session({
         name: 'grey.sid',
+        // Persistent SQLite session store — survives restarts, no memory leak.
+        // Reuses the app's existing better-sqlite3 connection (single handle).
+        // Falls back to the default MemoryStore only if the native module isn't
+        // built yet (cPanel cold start) so the server never fails to boot.
+        store: buildSessionStore(),
         resave: false,
         saveUninitialized: false,
         // Fail-fast secret — never silently falls back in production (audit C2).
