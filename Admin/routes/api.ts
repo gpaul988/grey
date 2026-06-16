@@ -571,21 +571,29 @@ api.post('/content-placement', (req, res) => {
    ============================================================ */
 
 /* ---------------- Image upload (ads + media) ---------------- */
-api.post('/upload/ad', adUpload.single('image'), (req, res) => {
-    if (!req.file) return fail(res, 'No file uploaded');
-    ok(res, {url: publicUrl('ads', req.file.filename)}, 'Uploaded');
-});
-api.post('/upload/media', mediaUpload.single('image'), (req, res) => {
-    if (!req.file) return fail(res, 'No file uploaded');
-    const url = publicUrl('media', req.file.filename);
-    const row = Media.create({
-        url,
-        filename: req.file.originalname,
-        mime: req.file.mimetype,
-        size: req.file.size,
-        alt: str(req.body.alt),
+// Use multer's callback form so file-type/size errors return clean JSON
+// instead of crashing the worker with an unhandled Express error.
+api.post('/upload/ad', (req, res) => {
+    adUpload.single('image')(req, res, (err: unknown) => {
+        if (err) return fail(res, (err as Error).message || 'Upload error');
+        if (!req.file) return fail(res, 'No file uploaded');
+        ok(res, {url: publicUrl('ads', req.file.filename)}, 'Uploaded');
     });
-    ok(res, row, 'Uploaded');
+});
+api.post('/upload/media', (req, res) => {
+    mediaUpload.single('image')(req, res, (err: unknown) => {
+        if (err) return fail(res, (err as Error).message || 'Upload error');
+        if (!req.file) return fail(res, 'No file uploaded');
+        const url = publicUrl('media', req.file.filename);
+        const row = Media.create({
+            url,
+            filename: req.file.originalname,
+            mime: req.file.mimetype,
+            size: req.file.size,
+            alt: str(req.body.alt),
+        });
+        ok(res, row, 'Uploaded');
+    });
 });
 
 /* ---------------- Ads / Adverts ---------------- */
