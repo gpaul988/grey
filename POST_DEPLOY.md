@@ -9,11 +9,16 @@ npm ci --omit=dev
 ```
 ⚠️ **Critical**: Use `npm ci`, NOT `npm install`. It reads `package-lock.json` and is deterministic.
 
-## 2. Rebuild Native Modules
+## 2. Rebuild Native Modules (CRITICAL)
 ```bash
-npm rebuild better-sqlite3
+npm rebuild better-sqlite3 --build-from-source
 ```
-This ensures `better-sqlite3` is compiled against cPanel's Node version.
+⚠️ **CRITICAL**: `better-sqlite3` is a native C++ module. The prebuilt binary from npm won't work on cPanel.  
+You MUST rebuild it against cPanel's Node version or it will fail with:
+```
+Error: Could not locate the bindings file. Tried: ... better_sqlite3.node
+```
+This compiles the `.node` binary locally on cPanel's server.
 
 ## 3. Build Next.js (Optional if Passenger doesn't auto-run it)
 ```bash
