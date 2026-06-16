@@ -42,8 +42,12 @@ try {
   tsxBin = require.resolve('tsx/cli');
 } catch (err) {
   console.error(
-    '[server.js] Could not locate the "tsx" CLI. Run `npm ci` (or ' +
-      '`npm install`) on the server so dependencies are installed.\n',
+    '[server.js] STARTUP ERROR: npm dependencies not fully installed.\n' +
+    'On cPanel, after pushing new code:\n' +
+    '  1. SSH: cd /home/greyinf1/public_html/grey && npm ci --omit=dev\n' +
+    '  2. npm rebuild better-sqlite3 (required for cPanel Node version)\n' +
+    '  3. Passenger will auto-restart the app\n\n' +
+    'Details:\n',
     err,
   );
   process.exit(1);
