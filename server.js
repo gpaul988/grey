@@ -46,24 +46,43 @@ console.log('[server.js] Starting pre-flight checks...');
 // ── Pre-flight: Install dependencies if missing ──────────────────────────────
 if (!fs.existsSync(nodeModulesPath)) {
   console.log('[server.js] node_modules missing, installing dependencies...');
+  const lockfileExists = fs.existsSync(path.join(projectRoot, 'package-lock.json'));
+  const installCmd = lockfileExists ? 'npm ci --omit=dev' : 'npm install --omit=dev';
+  console.log(`[server.js] Using: ${installCmd}`);
   try {
-    execSync('npm ci --omit=dev', {
+    execSync(installCmd, {
       cwd: projectRoot,
       stdio: 'inherit',
       timeout: 15 * 60 * 1000, // 15 min
     });
     console.log('[server.js] ✅ Dependencies installed');
   } catch (err) {
-    console.error('[server.js] ❌ npm ci failed:', err.message);
-    process.exit(1);
+    console.error(`[server.js] ❌ ${installCmd} failed:`, err.message);
+    // Last resort: plain npm install
+    if (lockfileExists) {
+      console.log('[server.js] Retrying with npm install --omit=dev ...');
+      try {
+        execSync('npm install --omit=dev', { cwd: projectRoot, stdio: 'inherit', timeout: 15 * 60 * 1000 });
+        console.log('[server.js] ✅ Dependencies installed (fallback)');
+      } catch (err2) {
+        console.error('[server.js] ❌ Fallback install failed:', err2.message);
+        process.exit(1);
+      }
+    } else {
+      process.exit(1);
+    }
   }
 }
 
 // ── Pre-flight: Build Next.js if missing ──────────────────────────────────
 if (!fs.existsSync(nextBuildPath)) {
   console.log('[server.js] .next missing, building Next.js...');
+  // Use npx to ensure next CLI is found even if PATH doesn't include node_modules/.bin
+  const buildCmd = fs.existsSync(path.join(projectRoot, 'node_modules', '.bin', 'next'))
+    ? path.join(projectRoot, 'node_modules', '.bin', 'next') + ' build'
+    : 'npx next build';
   try {
-    execSync('npm run build', {
+    execSync(buildCmd, {
       cwd: projectRoot,
       stdio: 'inherit',
       timeout: 10 * 60 * 1000, // 10 min
