@@ -44,7 +44,29 @@ const nextBuildPath = path.join(process.cwd(), '.next');
 // Pre-flight: on production, if .next is missing, try to build it
 // (needed on cPanel where deployment often skips npm run build)
 if (!dev && !fs.existsSync(nextBuildPath)) {
-    console.log('[server] .next missing, attempting to build...');
+    console.log('[server] .next missing, checking npm dependencies...');
+    
+    // If node_modules looks corrupted (missing key files), clean and reinstall
+    const nodeModulesPath = path.join(process.cwd(), 'node_modules');
+    const hasNodeModules = fs.existsSync(nodeModulesPath);
+    
+    if (!hasNodeModules) {
+        console.log('[server] node_modules missing, running npm ci...');
+        try {
+            execSync('npm ci --omit=dev', {
+                cwd: process.cwd(),
+                stdio: 'inherit',
+                timeout: 10 * 60 * 1000, // 10 min
+            });
+            console.log('[server] ✅ Dependencies installed');
+        } catch (err) {
+            console.error('[server] ❌ npm ci failed. Try on cPanel Terminal:\n' +
+                '  rm -rf node_modules && npm cache clean --force && npm ci --omit=dev\n');
+            process.exit(1);
+        }
+    }
+    
+    console.log('[server] Building Next.js...');
     try {
         execSync('npm run build', {
             cwd: process.cwd(),

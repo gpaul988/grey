@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "preinstall": "node scripts/clean-npm-cache.js || true",
     "dev": "tsx server.ts",
     "dev:next": "next dev -p 3000",
     "build": "next build",
