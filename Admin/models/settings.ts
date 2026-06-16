@@ -7,23 +7,36 @@ import db from '../db';
  * update SMTP / site config from the dashboard without touching .env.
  */
 
-// ── Prepared statements ──────────────────────────────────────────────────────
+// ── Lazy prepared statements ─────────────────────────────────────────────────
+// Prepared statements are initialized on first use, not on module load.
+// This prevents crashes if better-sqlite3 isn't built yet (e.g., cPanel).
 
-const stmtGet = db.prepare<{ key: string }>('SELECT value FROM site_settings WHERE key = @key');
-const stmtUpsert = db.prepare<{ key: string; value: string }>(
-    `INSERT INTO site_settings (key, value, updated_at)
-     VALUES (@key, @value, datetime('now')) ON CONFLICT(key) DO
-    UPDATE SET value = excluded.value, updated_at = datetime('now')`
-);
-const stmtAll = db.prepare('SELECT key, value FROM site_settings ORDER BY key');
-const stmtReset = db.prepare('DELETE FROM site_settings');
+let stmtGet: ReturnType<typeof db.prepare> | null = null;
+let stmtUpsert: ReturnType<typeof db.prepare> | null = null;
+let stmtAll: ReturnType<typeof db.prepare> | null = null;
+let stmtReset: ReturnType<typeof db.prepare> | null = null;
+
+function getStmt<T>(name: string, query: string) {
+    if (name === 'get' && !stmtGet) {
+        stmtGet = db.prepare<{ key: string }>(query);
+    } else if (name === 'upsert' && !stmtUpsert) {
+        stmtUpsert = db.prepare<{ key: string; value: string }>(query);
+    } else if (name === 'all' && !stmtAll) {
+        stmtAll = db.prepare(query);
+    } else if (name === 'reset' && !stmtReset) {
+        stmtReset = db.prepare(query);
+    }
+    const stmts: Record<string, any> = { get: stmtGet, upsert: stmtUpsert, all: stmtAll, reset: stmtReset };
+    return stmts[name];
+}
 
 // ── API ───────────────────────────────────────────────────────────────────────
 
 export const SiteSettings = {
     /** Get a single setting value, or '' if unset. */
     get(key: string): string {
-        const row = stmtGet.get({key}) as { value: string } | undefined;
+        const stmt = getStmt('get', 'SELECT value FROM site_settings WHERE key = @key');
+        const row = stmt.get({key}) as { value: string } | undefined;
         return row?.value ?? '';
     },
 
@@ -37,27 +50,30 @@ export const SiteSettings = {
 
     /** Set a single key. */
     set(key: string, value: string): void {
-        stmtUpsert.run({key, value});
+        const stmt = getStmt('upsert', 'INSERT INTO site_settings (key, value, updated_at) VALUES (@key, @value, datetime(\'now\')) ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = datetime(\'now\')');
+        stmt.run({key, value});
     },
 
     /** Set multiple keys atomically. */
     setMany(pairs: Record<string, string>): void {
         db.transaction(() => {
             for (const [key, value] of Object.entries(pairs)) {
-                stmtUpsert.run({key, value});
+                this.set(key, value);
             }
         })();
     },
 
     /** Return all settings as a plain object. */
     all(): Record<string, string> {
-        const rows = stmtAll.all() as { key: string; value: string }[];
+        const stmt = getStmt('all', 'SELECT key, value FROM site_settings ORDER BY key');
+        const rows = stmt.all() as { key: string; value: string }[];
         return Object.fromEntries(rows.map(r => [r.key, r.value]));
     },
 
     /** Delete all settings rows (Danger Zone reset). */
     reset(): void {
-        stmtReset.run();
+        const stmt = getStmt('reset', 'DELETE FROM site_settings');
+        stmt.run();
     },
 
     // ── SMTP convenience helpers ─────────────────────────────────────────────
