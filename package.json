@@ -15,8 +15,7 @@
     "rebuild:sqlite": "npm rebuild better-sqlite3 --build-from-source",
     "install:prod": "NODE_OPTIONS=--max-old-space-size=512 npm install --omit=dev --no-audit --no-fund --prefer-offline",
     "install:cpanel": "NODE_OPTIONS=--max-old-space-size=256 npm install --omit=dev --no-audit --no-fund --prefer-offline --maxsockets=1",
-    "cpanel:full": "bash scripts/cpanel-install.sh",
-    "postinstall": "node scripts/postinstall.js"
+    "cpanel:full": "bash scripts/cpanel-install.sh"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
