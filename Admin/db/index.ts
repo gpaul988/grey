@@ -9,22 +9,38 @@ if (!fs.existsSync(DATA_DIR)) {
 
 const DB_PATH = process.env.DB_PATH || path.join(DATA_DIR, 'grey.db');
 
-const db = new Database(DB_PATH);
-db.pragma('journal_mode = WAL');
-db.pragma('foreign_keys = ON');
+// Lazy-load database: don't create it until first use.
+// This prevents startup crash if better-sqlite3 native module isn't built yet (e.g., cPanel).
+let db: Database.Database | null = null;
 
-// Run schema migrations synchronously on boot (idempotent), so new tables/
-// columns exist before any model query. We pass `db` explicitly into migrate()
-// to avoid the circular-import race (schema.ts would otherwise re-require this
-// module before its default export is assigned).
-try {
-     
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { migrate } = require('./schema') as typeof import('./schema');
-    migrate(db);
-} catch (err) {
-    console.error('DB migrate failed:', err);
+function getDb(): Database.Database {
+    if (!db) {
+        try {
+            db = new Database(DB_PATH);
+            db.pragma('journal_mode = WAL');
+            db.pragma('foreign_keys = ON');
+            
+            // Run schema migrations on first connection
+            // eslint-disable-next-line @typescript-eslint/no-require-imports
+            const { migrate } = require('./schema') as typeof import('./schema');
+            migrate(db);
+            
+            console.log('[DB] Connected and migrated');
+        } catch (err) {
+            console.error('[DB] Failed to initialize:', err);
+            throw err;
+        }
+    }
+    return db;
 }
 
-export default db;
-export { DB_PATH, DATA_DIR };
+export default new Proxy({} as Database.Database, {
+    get(target, prop) {
+        return Reflect.get(getDb(), prop as string | symbol);
+    },
+    set(target, prop, value) {
+        return Reflect.set(getDb(), prop as string | symbol, value);
+    },
+});
+
+export { DB_PATH, DATA_DIR, getDb };
