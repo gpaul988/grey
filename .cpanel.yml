@@ -1,0 +1,9 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/greyinf1/public_html/grey/
+    - /bin/mkdir -p $DEPLOYPATH
+    - /bin/cp -r * $DEPLOYPATH
+    - cd $DEPLOYPATH
+    - /usr/local/bin/npm ci --omit=dev
+    - /usr/local/bin/npm run build
