@@ -22,8 +22,6 @@
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@fortawesome/react-fontawesome": "^3.3.1",
     "@heroicons/react": "^2.2.0",
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.6.1",
     "@tailwindcss/postcss": "^4",
     "babel-plugin-react-compiler": "1.0.0",
     "bcryptjs": "^3.0.3",
@@ -54,7 +52,6 @@
     "sharp": "^0.35.1",
     "slick-carousel": "^1.8.1",
     "tailwindcss": "^4",
-    "three": "^0.171.0",
     "tsx": "^4.22.4",
     "typescript": "^6.0.3",
     "zod": "^4.4.3"
