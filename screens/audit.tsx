@@ -234,10 +234,6 @@ function ShareModal({isOpen, onClose, report}: {isOpen: boolean; onClose: () => 
         </div>
     );
 }
-            </div>
-        </main>
-    );
-}
 
 function Report({report}: {report: AuditReportExtended}) {
     const [shareOpen, setShareOpen] = React.useState(false);
