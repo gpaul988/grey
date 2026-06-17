@@ -57,7 +57,7 @@ jobs:
           NODE_ENV: test
 
       - name: Upload coverage
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           files: ./coverage/coverage-final.json
 
@@ -101,9 +101,30 @@ jobs:
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
 
+      - name: Build Next.js
+        run: npm run build
+        env:
+          DATABASE_URL: postgresql://grey:password@localhost:5432/grey_e2e
+          NODE_ENV: test
+
+      - name: Start application in background
+        run: |
+          npm run start > /tmp/server.log 2>&1 &
+          echo $! > /tmp/server.pid
+          sleep 5
+        env:
+          DATABASE_URL: postgresql://grey:password@localhost:5432/grey_e2e
+          NODE_ENV: test
+          PORT: 3000
+
       - name: Run E2E tests
         run: npm run test:e2e
         env:
           DATABASE_URL: postgresql://grey:password@localhost:5432/grey_e2e
+          BASE_URL: http://localhost:3000
           NODE_ENV: test
-          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 0
+          CI: true
+
+      - name: Stop application
+        if: always()
+        run: kill $(cat /tmp/server.pid) 2>/dev/null || true

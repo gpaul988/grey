@@ -57,11 +57,11 @@ export default defineConfig({
   // Global teardown (runs once after all tests)
   globalTeardown: undefined,
 
-  // WebServer configuration (auto-start dev server if not running)
-  webServer: {
+  // WebServer configuration (auto-start server if not running)
+  webServer: process.env.CI ? undefined : {
     command: 'npm run dev',
     url: baseURL,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
     timeout: 120_000,
   },
 
