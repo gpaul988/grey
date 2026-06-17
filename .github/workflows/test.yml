@@ -1,0 +1,109 @@
+name: Test
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: grey
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: grey_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+      redis:
+        image: redis:7
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm test -- --run --coverage
+        env:
+          DATABASE_URL: postgresql://grey:password@localhost:5432/grey_test
+          REDIS_URL: redis://localhost:6379
+          ENCRYPTION_KEY: test-encryption-key-64-chars-0123456789abcdef
+          NODE_ENV: test
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage/coverage-final.json
+
+      - name: Build Next.js
+        run: npm run build
+        env:
+          DATABASE_URL: postgresql://grey:password@localhost:5432/grey_test
+          REDIS_URL: redis://localhost:6379
+          ENCRYPTION_KEY: test-encryption-key-64-chars-0123456789abcdef
+          NODE_ENV: test
+
+  test-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: test
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: grey
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: grey_e2e
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run E2E tests
+        run: npm run test:e2e
+        env:
+          DATABASE_URL: postgresql://grey:password@localhost:5432/grey_e2e
+          NODE_ENV: test
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 0
