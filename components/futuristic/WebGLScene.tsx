@@ -9,7 +9,7 @@
  * Imported ONLY via next/dynamic({ssr:false}) from WebGLHero, so three.js is
  * code-split out of the main bundle and only fetched on capable devices.
  */
-import React, {useMemo, useRef} from 'react';
+import React, {useMemo, useRef, useEffect} from 'react';
 import {Canvas, useFrame} from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -83,23 +83,33 @@ function Particles({count = 700}: {count?: number}) {
 
 export default function WebGLScene({particleCount = 700}: {particleCount?: number}) {
     const pointer = useRef({x: 0, y: 0});
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    // Handle pointer move with useEffect + event listener to avoid serialization issues
+    useEffect(() => {
+        const handlePointerMove = (e: PointerEvent) => {
+            pointer.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+            pointer.current.y = (e.clientY / window.innerHeight) * 2 - 1;
+        };
+
+        window.addEventListener('pointermove', handlePointerMove);
+        return () => window.removeEventListener('pointermove', handlePointerMove);
+    }, []);
 
     return (
-        <Canvas
-            dpr={[1, 1.6]}
-            gl={{antialias: true, alpha: true, powerPreference: 'high-performance'}}
-            camera={{position: [0, 0, 5], fov: 50}}
-            onPointerMove={(e) => {
-                pointer.current.x = (e.clientX / window.innerWidth) * 2 - 1;
-                pointer.current.y = (e.clientY / window.innerHeight) * 2 - 1;
-            }}
-            style={{width: '100%', height: '100%'}}
-        >
-            <ambientLight intensity={0.6} />
-            <pointLight position={[5, 5, 5]} intensity={1.2} color="#22d3ee" />
-            <pointLight position={[-5, -3, 2]} intensity={0.8} color="#a855f7" />
-            <Core pointer={pointer} />
-            <Particles count={particleCount} />
-        </Canvas>
+        <div ref={containerRef} style={{width: '100%', height: '100%'}}>
+            <Canvas
+                dpr={[1, 1.6]}
+                gl={{antialias: true, alpha: true, powerPreference: 'high-performance'}}
+                camera={{position: [0, 0, 5], fov: 50}}
+                style={{width: '100%', height: '100%'}}
+            >
+                <ambientLight intensity={0.6} />
+                <pointLight position={[5, 5, 5]} intensity={1.2} color="#22d3ee" />
+                <pointLight position={[-5, -3, 2]} intensity={0.8} color="#a855f7" />
+                <Core pointer={pointer} />
+                <Particles count={particleCount} />
+            </Canvas>
+        </div>
     );
 }
