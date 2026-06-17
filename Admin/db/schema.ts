@@ -1557,6 +1557,32 @@ export function migrate(database?: DatabaseType.Database): void {
             alt        TEXT    NOT NULL DEFAULT '',
             created_at TEXT    NOT NULL DEFAULT (datetime('now'))
         );
+
+        -- ---- Website & GitHub audits ----
+        CREATE TABLE IF NOT EXISTS audits
+        (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            website     TEXT,                           -- audited website URL
+            repo        TEXT,                           -- audited GitHub repo
+            overall_score INTEGER NOT NULL DEFAULT 0,  -- 0-100
+            grade       TEXT    NOT NULL DEFAULT 'F',  -- A-F
+            summary     TEXT    NOT NULL DEFAULT '',   -- verdict summary
+            sections    TEXT    NOT NULL DEFAULT '[]', -- JSON: AuditSection[]
+            findings    TEXT    NOT NULL DEFAULT '[]', -- JSON: all findings denormalized
+            external_id TEXT    NOT NULL UNIQUE,       -- nanoid() for shareable URLs
+            is_public   INTEGER NOT NULL DEFAULT 1,    -- 1=public, 0=private
+            view_count  INTEGER NOT NULL DEFAULT 0,    -- shareable link views
+            ip_address  TEXT,                          -- requester IP (for analytics)
+            user_agent  TEXT,                          -- requester user agent
+            expires_at  TEXT,                          -- auto-delete after 30 days
+            created_at  TEXT    NOT NULL DEFAULT (datetime('now')),
+            updated_at  TEXT    NOT NULL DEFAULT (datetime('now'))
+        );
+        CREATE INDEX IF NOT EXISTS idx_audits_external_id ON audits(external_id);
+        CREATE INDEX IF NOT EXISTS idx_audits_website ON audits(website);
+        CREATE INDEX IF NOT EXISTS idx_audits_repo ON audits(repo);
+        CREATE INDEX IF NOT EXISTS idx_audits_created ON audits(created_at);
+        CREATE INDEX IF NOT EXISTS idx_audits_expires ON audits(expires_at);
     `);
 
     // ---- Store default settings (idempotent) ----

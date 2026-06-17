@@ -2,6 +2,7 @@ import type {NextApiRequest, NextApiResponse} from 'next';
 import {z} from 'zod';
 import {rateLimit, validate} from '../../../lib/apiGuard';
 import {runAudit} from '../../../lib/audit/engine';
+import {saveAudit} from '../../../lib/audit/repository';
 
 const schema = z
     .object({
@@ -35,7 +36,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     try {
         const report = await runAudit({website: data.website, repo: data.repo});
-        return res.status(200).json(report);
+
+        // Save to database for history + shareable links
+        const ipAddress = req.headers['x-forwarded-for'] as string || req.socket.remoteAddress;
+        const userAgent = req.headers['user-agent'];
+        const stored = saveAudit(report, ipAddress, userAgent);
+
+        // Return report + shareable URL
+        return res.status(200).json({
+            ...report,
+            id: stored.id,
+            externalId: stored.externalId,
+            shareUrl: `/audit-report/${stored.externalId}`,
+        });
     } catch (err: any) {
         return res.status(500).json({error: err?.message || 'Audit failed. Try again.'});
     }

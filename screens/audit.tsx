@@ -19,12 +19,17 @@ function gradeColor(score: number): string {
     return '#ff4d6d';
 }
 
+interface AuditReportExtended extends AuditReport {
+    externalId?: string;
+    shareUrl?: string;
+}
+
 export default function AuditScreen() {
     const [website, setWebsite] = useState('');
     const [repo, setRepo] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const [report, setReport] = useState<AuditReport | null>(null);
+    const [report, setReport] = useState<AuditReportExtended | null>(null);
 
     const run = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -43,7 +48,7 @@ export default function AuditScreen() {
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data?.error || (data?.errors && Object.values(data.errors)[0]) || 'Audit failed.');
-            setReport(data as AuditReport);
+            setReport(data as AuditReportExtended);
         } catch (err: any) {
             setError(err?.message || 'Audit failed. Try again.');
         } finally {
@@ -132,7 +137,121 @@ export default function AuditScreen() {
     );
 }
 
-function Report({report}: {report: AuditReport}) {
+function ShareModal({isOpen, onClose, report}: {isOpen: boolean; onClose: () => void; report: AuditReportExtended}) {
+    if (!isOpen) return null;
+
+    const shareUrl = typeof window !== 'undefined' && report.shareUrl ? `${window.location.origin}${report.shareUrl}` : '';
+
+    const handleCopy = () => {
+        if (shareUrl) {
+            navigator.clipboard.writeText(shareUrl);
+            alert('Share link copied to clipboard!');
+        }
+    };
+
+    return (
+        <div
+            style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: 'rgba(0,0,0,.6)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 50,
+            }}
+            onClick={onClose}
+        >
+            <div
+                style={{
+                    background: '#0a0e1a',
+                    border: '1px solid #06b6d4',
+                    borderRadius: '16px',
+                    padding: '32px',
+                    maxWidth: '500px',
+                    width: '90vw',
+                    boxShadow: '0 25px 50px -12px rgba(6, 182, 212, .2)',
+                }}
+                onClick={(e) => e.stopPropagation()}
+            >
+                <h3 style={{fontSize: '20px', fontWeight: 'bold', marginBottom: '16px', color: 'white'}}>Share Report</h3>
+                <p style={{fontSize: '14px', color: '#cbd5e1', marginBottom: '20px'}}>
+                    This report is public. Share it with anyone using the link below:
+                </p>
+
+                <div style={{display: 'flex', gap: '8px', marginBottom: '20px'}}>
+                    <input
+                        type="text"
+                        value={shareUrl}
+                        readOnly
+                        style={{
+                            flex: 1,
+                            padding: '12px',
+                            background: '#1e293b',
+                            border: '1px solid #334155',
+                            borderRadius: '8px',
+                            color: '#e2e8f0',
+                            fontSize: '14px',
+                        }}
+                    />
+                    <button
+                        onClick={handleCopy}
+                        style={{
+                            padding: '12px 20px',
+                            background: '#06b6d4',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            fontWeight: 'bold',
+                            fontSize: '14px',
+                        }}
+                    >
+                        Copy
+                    </button>
+                </div>
+
+                <button
+                    onClick={onClose}
+                    style={{
+                        width: '100%',
+                        padding: '12px',
+                        background: 'transparent',
+                        border: '1px solid #475569',
+                        borderRadius: '8px',
+                        color: '#cbd5e1',
+                        cursor: 'pointer',
+                        fontSize: '14px',
+                        fontWeight: '500',
+                    }}
+                >
+                    Close
+                </button>
+            </div>
+        </div>
+    );
+}
+            </div>
+        </main>
+    );
+}
+
+function Report({report}: {report: AuditReportExtended}) {
+    const [shareOpen, setShareOpen] = React.useState(false);
+
+    const handleExportJSON = () => {
+        if (!report.externalId) return;
+        window.location.href = `/api/audit/export/${report.externalId}?format=json`;
+    };
+
+    const handleExportHTML = () => {
+        if (!report.externalId) return;
+        window.location.href = `/api/audit/export/${report.externalId}?format=html`;
+    };
+
     return (
         <section className="mt-12">
             <div className="grey-glass rounded-2xl p-6 sm:p-8">
@@ -163,9 +282,62 @@ function Report({report}: {report: AuditReport}) {
                 ))}
             </div>
 
-            <p className="mt-6 text-center text-xs text-slate-500">
-                Generated {new Date(report.generatedAt).toLocaleString()} · Grey InfoTech Audit Engine
+            {/* Export & Share Buttons */}
+            <div className="mt-8 flex flex-wrap gap-3 justify-center sm:justify-start">
+                <button
+                    onClick={() => setShareOpen(true)}
+                    className="inline-flex items-center gap-2 rounded-lg border border-cyan-400/40 bg-cyan-400/5 px-4 py-2 text-sm font-semibold text-cyan-300 transition hover:bg-cyan-400/15"
+                >
+                    🔗 Share Report
+                </button>
+                <button
+                    onClick={handleExportJSON}
+                    className="inline-flex items-center gap-2 rounded-lg border border-indigo-400/40 bg-indigo-400/5 px-4 py-2 text-sm font-semibold text-indigo-300 transition hover:bg-indigo-400/15"
+                >
+                    📋 JSON Export
+                </button>
+                <button
+                    onClick={handleExportHTML}
+                    className="inline-flex items-center gap-2 rounded-lg border border-emerald-400/40 bg-emerald-400/5 px-4 py-2 text-sm font-semibold text-emerald-300 transition hover:bg-emerald-400/15"
+                >
+                    📄 Print/PDF
+                </button>
+            </div>
+
+            {/* Support CTA */}
+            <div className="mt-10 rounded-2xl border-2 border-cyan-400/40 bg-gradient-to-br from-cyan-500/10 via-indigo-500/5 to-transparent p-8 text-center">
+                <h3 className="text-2xl font-bold text-white">Need Help Fixing These Issues?</h3>
+                <p className="mt-3 text-base leading-relaxed text-slate-300">
+                    Our team of senior full-stack engineers specializes in turning audit findings into production-grade software. 
+                    Whether it's security hardening, performance optimization, or architecture refactoring — we've got you covered.
+                </p>
+
+                <div className="mt-6 grid gap-4 sm:grid-cols-3">
+                    <div className="rounded-xl bg-white/5 p-4 backdrop-blur-sm">
+                        <p className="text-sm font-semibold text-cyan-300">📞 Phone</p>
+                        <p className="mt-1 text-base text-white">+234 802 809 5571</p>
+                    </div>
+                    <div className="rounded-xl bg-white/5 p-4 backdrop-blur-sm">
+                        <p className="text-sm font-semibold text-cyan-300">💬 WhatsApp</p>
+                        <p className="mt-1 text-base text-white">Direct Message Support</p>
+                    </div>
+                    <div className="rounded-xl bg-white/5 p-4 backdrop-blur-sm">
+                        <p className="text-sm font-semibold text-cyan-300">✉️ Email</p>
+                        <p className="mt-1 text-base text-white">hello@greyinfotech.com.ng</p>
+                    </div>
+                </div>
+
+                <p className="mt-6 text-xs text-slate-400">
+                    <strong className="text-slate-300">Grey InfoTech Limited</strong> · Port Harcourt, Nigeria<br/>
+                    Building software that doesn't suck since 2015.
+                </p>
+            </div>
+
+            <p className="mt-8 text-center text-xs text-slate-500">
+                Generated {new Date(report.generatedAt).toLocaleString()} · Grey InfoTech Audit Engine · Report ID: {report.externalId}
             </p>
+
+            <ShareModal isOpen={shareOpen} onClose={() => setShareOpen(false)} report={report} />
         </section>
     );
 }
