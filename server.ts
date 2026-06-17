@@ -30,6 +30,7 @@ import {
     exposeCsrfToken,
     requireSessionSecret,
 } from './Admin/middleware/security';
+import {logger, correlationIdMiddleware} from './lib/logger';
 
 dotenv.config({path: './config.env'});
 
@@ -47,6 +48,10 @@ const app = express();
 // Trust the reverse proxy (cPanel/Passenger/Cloudflare) so secure cookies,
 // rate-limit IP detection and protocol checks work correctly behind it.
 app.set('trust proxy', 1);
+
+// --- Logging & Correlation ID (for request tracing across all services) -------
+// Add correlation ID to all requests + log incoming/outgoing
+app.use(correlationIdMiddleware);
 
 app.set('views', adminViewsPath);
 app.set('view engine', 'ejs');
