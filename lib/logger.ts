@@ -18,13 +18,32 @@ import fs from 'fs';
 import path from 'path';
 
 // Ensure log directory exists
-const logDir = process.env.LOG_DIR || '/var/log/grey';
+const logDir = (() => {
+  const envDir = process.env.LOG_DIR;
+  if (envDir) return envDir;
+  
+  // Production: try /var/log/grey
+  if (process.env.NODE_ENV === 'production') {
+    try {
+      const prodDir = '/var/log/grey';
+      if (!fs.existsSync(prodDir)) {
+        fs.mkdirSync(prodDir, { recursive: true });
+      }
+      return prodDir;
+    } catch (e) {
+      console.warn('⚠️ Could not create /var/log/grey, using .logs instead');
+    }
+  }
+  
+  // Fallback: .logs in project root
+  return '.logs';
+})();
+
 if (!fs.existsSync(logDir)) {
   try {
     fs.mkdirSync(logDir, { recursive: true });
   } catch (e) {
-    // Fallback to temp if no permission
-    console.log('⚠️ Could not create log dir, using temp');
+    console.warn('⚠️ Could not create log directory, logging may not work');
   }
 }
 
