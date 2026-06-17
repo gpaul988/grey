@@ -17,6 +17,7 @@ import VoiceCommander from "@/components/futuristic/VoiceCommander";
 import Preloader from "@/components/futuristic/Preloader";
 import CookieConsent from "@/components/futuristic/CookieConsent";
 import AnnouncementBar from "@/components/futuristic/AnnouncementBar";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 const merriweather = Merriweather({
     variable: "--font-merriweather",
@@ -149,6 +150,7 @@ export default function RootLayout({
         <body
             className={`${merriweather.variable} ${roboto.variable} antialiased`}
         >
+        <ErrorBoundary>
         <ThemeProvider>
             <PersonalizationProvider>
             {/* First-load-only futuristic boot sequence */}
@@ -192,6 +194,7 @@ export default function RootLayout({
             </React.Suspense>
             </PersonalizationProvider>
         </ThemeProvider>
+        </ErrorBoundary>
         </body>
         </html>
     );

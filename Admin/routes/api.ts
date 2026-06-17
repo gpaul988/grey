@@ -18,9 +18,13 @@ import {sendSetPasswordEmail, smtpConfigured, appOrigin} from '../utils/mailer';
 import {ALL_KEYS, roleDefaults, type Role} from '../config/permissions';
 import {SiteSettings} from '../models/settings';
 import {broadcast, broadcastStats} from './sse';
+import twoFaRoutes from './twofa';
 
 const api = express.Router();
 api.use(ensureApiAuth);
+
+// Mount 2FA routes
+api.use('/2fa', twoFaRoutes);
 
 const ok = (res: Response, data: unknown = null, message = 'OK') => res.json({ok: true, message, data});
 const fail = (res: Response, message: string, status = 400) => res.status(status).json({ok: false, message});
