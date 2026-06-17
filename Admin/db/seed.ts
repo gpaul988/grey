@@ -9,8 +9,30 @@ import {
 } from '../models';
 import { seedStore } from './seed-store';
 
-const SEED_ADMIN_EMAIL = process.env.SEED_ADMIN_EMAIL || 'hello@greyinfotech.com.ng';
-const SEED_ADMIN_PASSWORD = process.env.SEED_ADMIN_PASSWORD || '1Uriel2Graham3';
+// ⚠️ CRITICAL: All seed passwords MUST come from environment variables.
+// DO NOT hardcode plaintext passwords here. Use process.env.SEED_*_PASSWORD
+// Set these in your .env.local or deployment environment.
+// There is NO fallback default — if the env var is missing, the seed will fail loudly.
+
+function getRequiredEnv(key: string): string {
+    const value = process.env[key];
+    if (!value) {
+        throw new Error(`${key} env var is required but not set. This is a production credential — never hardcode it.`);
+    }
+    return value;
+}
+
+const SEED_SUPERADMIN_EMAIL = 'graham@greyinfotech.com.ng';
+const SEED_SUPERADMIN_PASSWORD = getRequiredEnv('SEED_SUPERADMIN_PASSWORD');
+
+const SEED_ADMIN_EMAIL = process.env.SEED_ADMIN_EMAIL || 'admin@greyinfotech.com.ng';
+const SEED_ADMIN_PASSWORD = getRequiredEnv('SEED_ADMIN_PASSWORD');
+
+const SEED_MANAGER_EMAIL = 'pm@greyinfotech.com.ng';
+const SEED_MANAGER_PASSWORD = getRequiredEnv('SEED_MANAGER_PASSWORD');
+
+const SEED_STAFF_EMAIL = 'support@greyinfotech.com.ng';
+const SEED_STAFF_PASSWORD = getRequiredEnv('SEED_STAFF_PASSWORD');
 
 /**
  * Idempotently seed the FAQ knowledge base from the migrated content in
@@ -71,30 +93,42 @@ async function seed() {
     }
 
     // --- Super admin (CEO / founder) ---
-    // Password is set directly so the account can log in immediately. It is
-    // left email_verified=false on purpose; login does NOT require email
-    // verification (only disabled accounts are blocked). status is 'active'
-    // so it's a fully usable account.
+    // Password comes from SEED_SUPERADMIN_PASSWORD env var (REQUIRED, no fallback)
     // Core admins are seeded VERIFIED + active so they can log in immediately.
-    // (Login requires a verified email; self-registered users must verify via
-    // the emailed link, but these built-in accounts are trusted.)
     const ceo = await Users.create({
         name: 'Graham Sobiribo Paul',
-        email: 'graham@greyinfotech.com.ng',
-        password: '1Uriel2Sobiribo3',
+        email: SEED_SUPERADMIN_EMAIL,
+        password: SEED_SUPERADMIN_PASSWORD,
         role: 'superadmin',
         phone: '+234 802 809 5571',
         email_verified: true,
         status: 'active',
     });
-    console.log(`CEO super-admin seeded (${ceo.email}) with direct password.`);
+    console.log(`CEO super-admin seeded (${ceo.email}).`);
 
     const admin = await Users.create({
-        name: 'Grey InfoTech Admin', email: SEED_ADMIN_EMAIL, password: SEED_ADMIN_PASSWORD, role: 'admin',
-        phone: '+234 802 809 5571', email_verified: true, status: 'active',
+        name: 'Grey InfoTech Admin',
+        email: SEED_ADMIN_EMAIL,
+        password: SEED_ADMIN_PASSWORD,
+        role: 'admin',
+        phone: '+234 802 809 5571',
+        email_verified: true,
+        status: 'active',
     });
-    const manager = await Users.create({ name: 'Project Manager', email: 'pm@greyinfotech.com.ng', password: 'GreyTeam@2026', role: 'manager', email_verified: true });
-    await Users.create({ name: 'Support Agent', email: 'support@greyinfotech.com.ng', password: 'GreyTeam@2026', role: 'staff', email_verified: true });
+    const manager = await Users.create({
+        name: 'Project Manager',
+        email: SEED_MANAGER_EMAIL,
+        password: SEED_MANAGER_PASSWORD,
+        role: 'manager',
+        email_verified: true,
+    });
+    await Users.create({
+        name: 'Support Agent',
+        email: SEED_STAFF_EMAIL,
+        password: SEED_STAFF_PASSWORD,
+        role: 'staff',
+        email_verified: true,
+    });
     console.log('Users seeded.');
 
     // --- Clients ---
@@ -182,18 +216,17 @@ async function seed() {
 /**
  * Idempotent repair for the core logins. Safe to run on a populated production
  * DB: it never duplicates rows. It guarantees the superadmin and admin accounts
- * exist, are ACTIVE and have the agreed passwords so they can log in.
+ * exist, are ACTIVE and have the correct passwords from env vars.
  *
- * Email verification is intentionally NOT forced — login does not require a
- * verified email (only disabled accounts are blocked), so these accounts are
- * left email_verified=false but fully usable.
+ * ⚠️ CRITICAL: All passwords come from environment variables (SEED_*_PASSWORD).
+ * If any env var is missing, this function will fail loudly. Never hardcode secrets.
  */
 async function ensureCoreAdmins() {
     const team: { name: string; email: string; password: string; role: string }[] = [
-        { name: 'Graham Sobiribo Paul', email: 'graham@greyinfotech.com.ng', password: '1Uriel2Sobiribo3', role: 'superadmin' },
+        { name: 'Graham Sobiribo Paul', email: SEED_SUPERADMIN_EMAIL, password: SEED_SUPERADMIN_PASSWORD, role: 'superadmin' },
         { name: 'Grey InfoTech Admin', email: SEED_ADMIN_EMAIL, password: SEED_ADMIN_PASSWORD, role: 'admin' },
-        { name: 'Project Manager', email: 'pm@greyinfotech.com.ng', password: 'GreyTeam@2026', role: 'manager' },
-        { name: 'Support Agent', email: 'support@greyinfotech.com.ng', password: 'GreyTeam@2026', role: 'staff' },
+        { name: 'Project Manager', email: SEED_MANAGER_EMAIL, password: SEED_MANAGER_PASSWORD, role: 'manager' },
+        { name: 'Support Agent', email: SEED_STAFF_EMAIL, password: SEED_STAFF_PASSWORD, role: 'staff' },
     ];
     const bcrypt = (await import('bcryptjs')).default;
     // Reset password + activate + VERIFY these trusted built-in admins so they
@@ -206,7 +239,7 @@ async function ensureCoreAdmins() {
         if (existing) {
             const hash = await bcrypt.hash(t.password, 12);
             repairExisting.run({ email: t.email, hash });
-            console.log(`  repaired ${t.email} -> active + verified + password reset`);
+            console.log(`  repaired ${t.email} -> active + verified`);
         } else {
             await Users.create({ name: t.name, email: t.email, password: t.password, role: t.role, email_verified: true, status: 'active' });
             console.log(`  created ${t.email} -> active + verified`);

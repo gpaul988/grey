@@ -38,13 +38,35 @@ export const avatarUpload = multer({
     },
 });
 
-/** Multer instance for general client file uploads (15 MB cap). */
+/**
+ * Multer instance for general client file uploads (15 MB cap).
+ * ⚠️ This instance is currently unused. If wired up for ticket attachments or
+ * other features, ensure user input is validated to prevent arbitrary file uploads.
+ * Currently has a permissive fileFilter (no MIME restrictions) — safe only because
+ * it's not used. If used, add MIME-type filtering below.
+ */
+const SAFE_FILE_TYPES = [
+    'application/pdf',
+    'text/plain',
+    'image/jpeg',
+    'image/png',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+];
+
 export const fileUpload = multer({
     storage: multer.diskStorage({
         destination: (_req, _file, cb) => cb(null, ensureUploadDir('files')),
         filename: (_req, file, cb) => cb(null, safeName(file.originalname)),
     }),
     limits: { fileSize: 15 * 1024 * 1024 },
+    fileFilter: (_req, file, cb) => {
+        if (SAFE_FILE_TYPES.includes(file.mimetype)) {
+            cb(null, true);
+        } else {
+            cb(new Error(`File type not allowed: ${file.mimetype}. Allowed types: PDF, TXT, JPG, PNG, DOC, DOCX.`));
+        }
+    },
 });
 
 /** Multer instance for ad creatives (5 MB cap, image only). */
