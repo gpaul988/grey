@@ -1,0 +1,41 @@
+
+> grey@0.1.0 build
+> NODE_OPTIONS=--max-old-space-size=512 next build --webpack
+
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+▲ Next.js 16.2.9 (webpack)
+- Experiments (use with caution):
+  · cpus: 1
+
+  Creating an optimized production build ...
+
+<--- Last few GCs --->
+
+[2105:0x46a39000]    17971 ms: Mark-Compact 504.7 (514.5) -> 504.2 (516.3) MB, pooled: 0.0 MB, 360.84 / 0.00 ms (average mu = 0.126, current mu = 0.018) allocation failure; scavenge might not succeed
+[2105:0x46a39000]    18256 ms: Mark-Compact 504.2 (516.3) -> 504.2 (516.0) MB, pooled: 0.0 MB, 284.33 / 0.00 ms (average mu = 0.066, current mu = 0.000) allocation failure; scavenge might not succeed
+
+FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory
+----- Native stack trace -----
+
+ 1: 0x81b53b node::OOMErrorHandler(char const*, v8::OOMDetails const&) [/usr/bin/node]
+ 2: 0xc5c49b  [/usr/bin/node]
+ 3: 0xeccb95  [/usr/bin/node]
+ 4: 0xecbc35  [/usr/bin/node]
+ 5: 0xebd653  [/usr/bin/node]
+ 6: 0xe97176  [/usr/bin/node]
+ 7: 0xe95959  [/usr/bin/node]
+ 8: 0x14d734d  [/usr/bin/node]
+ 9: 0x14d57e4  [/usr/bin/node]
+10: 0x151384d  [/usr/bin/node]
+11: 0x160b298  [/usr/bin/node]
+12: 0xce8c6b  [/usr/bin/node]
+13: 0x160cb13  [/usr/bin/node]
+14: 0x1edeebf  [/usr/bin/node]
+15: 0xa4ccee  [/usr/bin/node]
+16: 0x7fdf3a09eb7b  [/lib/x86_64-linux-gnu/libc.so.6]
+17: 0x7fdf3a11c7f8  [/lib/x86_64-linux-gnu/libc.so.6]
+Next.js build worker exited with code: null and signal: SIGABRT

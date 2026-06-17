@@ -1,0 +1,11 @@
+# Exclude large cache and temporary files from .next/
+# Keep only essential production build files
+
+# Large development build cache
+dev/
+cache/
+diagnostics/
+
+# These can be regenerated
+*.tsbuildinfo
+.next/static/
