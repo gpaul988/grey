@@ -12,7 +12,7 @@ import CountUp from "react-countup";
 import {FaStar, FaGoogle, FaLinkedin} from "react-icons/fa6";
 import {FaFileAlt} from "react-icons/fa";
 import AIProjectEstimator from '@/components/AIProjectEstimator';
-import WebGLHero from '@/components/futuristic/WebGLHero';
+
 import AdBanner from '@/components/futuristic/AdBanner';
 import {usePersonalization} from '@/components/futuristic/PersonalizationProvider';
 import {useIsDayTime} from '../components/useIsDayTime';
@@ -131,8 +131,7 @@ const Home = () => {
                     playsInline
                     className="absolute inset-0 w-full h-full object-cover object-center bg-black/cover"
                 />
-                {/* Futuristic WebGL layer (auto-falls back to CSS aurora on weak devices / reduced-motion) */}
-                <WebGLHero className="absolute inset-0 z-[5] opacity-60 pointer-events-none mix-blend-screen"/>
+                {/* Simple video hero - no overlay */}
                 <div
                     className={`absolute inset-0 z-10 flex flex-col justify-center items-start text-start lg:max-w-[90em] px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] ${
                         isDayTime ? 'text-white ' : 'text-white'
