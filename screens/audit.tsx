@@ -237,6 +237,7 @@ function ShareModal({isOpen, onClose, report}: {isOpen: boolean; onClose: () => 
 
 function Report({report}: {report: AuditReportExtended}) {
     const [shareOpen, setShareOpen] = React.useState(false);
+    const [showDetails, setShowDetails] = React.useState(false);
 
     const handleExportJSON = () => {
         if (!report.externalId) return;
@@ -271,6 +272,27 @@ function Report({report}: {report: AuditReportExtended}) {
                     </div>
                 </div>
             </div>
+
+            {report.detailedSummary && (
+                <div className="mt-6 grey-glass rounded-2xl p-6 sm:p-8">
+                    <button
+                        onClick={() => setShowDetails(!showDetails)}
+                        className="flex items-center justify-between w-full text-left"
+                    >
+                        <h3 className="text-lg font-bold text-white">Detailed Analysis & Recommendations</h3>
+                        <span className="text-xl text-cyan-300">{showDetails ? '−' : '+'}</span>
+                    </button>
+                    {showDetails && (
+                        <div className="mt-4 text-sm text-slate-300 whitespace-pre-wrap leading-relaxed prose prose-invert max-w-none">
+                            {report.detailedSummary.split('\n').map((line, i) => (
+                                <p key={i} className={line.startsWith('**') ? 'font-bold text-white mt-3' : line.startsWith('-') ? 'ml-4' : ''}>
+                                    {line.replace(/\*\*/g, '')}
+                                </p>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
 
             <div className="mt-6 grid gap-5">
                 {report.sections.map((s) => (
@@ -384,23 +406,40 @@ function SectionCard({section}: {section: AuditSection}) {
 }
 
 function FindingRow({f}: {f: Finding}) {
+    const [expanded, setExpanded] = React.useState(false);
     const m = SEV_META[f.severity];
     return (
         <li className="rounded-xl border p-3.5" style={{borderColor: m.ring, background: m.bg}}>
-            <div className="flex flex-wrap items-center gap-2">
-                <span
-                    className="rounded-md px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider"
-                    style={{color: m.color, background: `${m.color}1f`}}
-                >
-                    {m.label}
-                </span>
-                <span className="text-sm font-semibold text-white">{f.title}</span>
+            <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="flex flex-wrap items-center gap-2">
+                    <span
+                        className="rounded-md px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider"
+                        style={{color: m.color, background: `${m.color}1f`}}
+                    >
+                        {m.label}
+                    </span>
+                    <span className="text-sm font-semibold text-white">{f.title}</span>
+                </div>
+                {f.implementation && (
+                    <button
+                        onClick={() => setExpanded(!expanded)}
+                        className="text-xs text-slate-400 hover:text-cyan-300 transition"
+                    >
+                        {expanded ? '−' : '+'}
+                    </button>
+                )}
             </div>
             <p className="mt-1.5 text-sm text-slate-300">{f.detail}</p>
             {f.fix && (
                 <p className="mt-1.5 text-xs text-slate-400">
                     <span className="font-semibold text-slate-300">Fix:</span> {f.fix}
                 </p>
+            )}
+            {expanded && f.implementation && (
+                <div className="mt-3 rounded-lg bg-black/30 p-3 border border-slate-600/30">
+                    <p className="text-xs font-semibold text-cyan-300 mb-2">Implementation:</p>
+                    <p className="text-xs text-slate-300 whitespace-pre-wrap font-mono">{f.implementation}</p>
+                </div>
             )}
         </li>
     );
