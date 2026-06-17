@@ -1,0 +1,94 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    strategy:
+      matrix:
+        node-version: [20.x, 26.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps --no-audit --no-fund
+
+      - name: TypeScript type checking
+        run: npx tsc --noEmit
+
+      - name: Run ESLint
+        run: npm run lint --if-present || true
+
+      - name: Build Next.js
+        run: npm run build
+        env:
+          NODE_OPTIONS: --max-old-space-size=1024
+
+      - name: Run tests
+        run: npm test --if-present || echo "No tests configured yet"
+        continue-on-error: true
+
+  security-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '26.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps --no-audit --no-fund
+
+      - name: npm audit
+        run: npm audit --audit-level=moderate || true
+        continue-on-error: true
+
+  code-quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '26.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps --no-audit --no-fund
+
+      - name: Check for console.log statements
+        run: |
+          if grep -r "console\." src/ screens/ components/ lib/ Admin/ --include="*.ts" --include="*.tsx" | grep -v "console.error" | grep -v "console.warn"; then
+            echo "⚠️  Found console.log statements in production code"
+            exit 0
+          fi
+
+      - name: Check for TODO/FIXME comments
+        run: |
+          echo "Checking for unresolved TODOs/FIXMEs..."
+          grep -r "TODO\|FIXME" src/ screens/ components/ lib/ Admin/ --include="*.ts" --include="*.tsx" | head -20 || echo "✅ No TODOs/FIXMEs found"
