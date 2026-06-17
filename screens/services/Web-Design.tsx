@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Footer from "@/components/Footer";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import CountUp from "react-countup";
@@ -133,19 +134,7 @@ const WebDesign = () => {
                     An experienced web design agency specializing in UX-focused, mobile-optimized, and fully responsive
                     websites tailored for performance and user engagement.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/wd/hero.jpg'}
-                        alt={'Web Design Agency Hero'}
-                        width={1536}
-                        height={876}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/wd/hero.mp4" videoMobile="/assets/wd/hero-mobile.mp4" posterImage="/assets/wd/hero.jpg" />
             </div>
 
             {/* Introductory section */}

@@ -4,6 +4,7 @@ import '@/app/globals.css';
 import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
 import CountUp from "react-countup";
@@ -235,19 +236,7 @@ const Seo = () => {
                     there. Request a free SEO audit from one of our experts and discover <br
                     className={'lg:block md:block hidden'}/>what’s holding your site back.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/seo/hero.jpg'}
-                        alt={'SEO'}
-                        width={1920}
-                        height={1080}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/seo/hero.mp4" videoMobile="/assets/seo/hero-mobile.mp4" posterImage="/assets/seo/hero.jpg" />
             </div>
 
             {/* Introductory section */}

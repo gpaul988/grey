@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Footer from "@/components/Footer";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
@@ -112,19 +113,7 @@ const LaravelDevelopment = () => {
                     className={'lg:block md:block hidden'}/>
                     We develop modern Laravel applications, websites and software.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/laravel/hero.jpg'}
-                        alt={'Laravel Development Hero'}
-                        width={1536}
-                        height={864}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/laravel/hero.mp4" videoMobile="/assets/laravel/hero-mobile.mp4" posterImage="/assets/laravel/hero.jpg" />
             </div>
 
             {/* Introductory section */}

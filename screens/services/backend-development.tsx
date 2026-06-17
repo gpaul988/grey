@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import CountUp from "react-countup";
 import {motion, useScroll, useTransform} from "framer-motion";
@@ -128,19 +129,7 @@ const isDayTime = useIsDayTime();
                     Robust, scalable back-end solutions that are customized for you. Create safe, effective processes
                     that promote growth and performance.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/back/hero.jpg'}
-                        alt={'Backend Development Hero'}
-                        width={1920}
-                        height={1080}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/back/hero.mp4" videoMobile="/assets/back/hero-mobile.mp4" posterImage="/assets/back/hero.jpg" />
             </div>
 
             {/* Introductory section */}

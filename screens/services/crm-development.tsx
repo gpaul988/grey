@@ -4,6 +4,7 @@ import '@/app/globals.css';
 import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import {useIsDayTime} from '../../components/useIsDayTime';
@@ -816,19 +817,7 @@ const CrmDevelopment = () => {
                     intuitive systems that help you nurture leads, close deals faster, and build lasting customer
                     relationships while providing actionable insights to fuel your success.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/crm/hero.jpg'}
-                        alt={'CRM Development Services'}
-                        width={1920}
-                        height={1080}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/crm/hero.mp4" videoMobile="/assets/crm/hero-mobile.mp4" posterImage="/assets/crm/hero.jpg" />
             </div>
 
             {/* Introductory section */}

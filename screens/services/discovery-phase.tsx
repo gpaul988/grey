@@ -3,6 +3,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import Footer from "@/components/Footer";
@@ -188,19 +189,7 @@ const DiscoveryPhase = () => {
                     Unlock your product’s potential with strategic roadmapping and user-focused design — built to drive
                     market success and elevate user satisfaction.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/disc/hero.jpg'}
-                        alt={'Discovery Phase'}
-                        width={1920}
-                        height={1080}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/disc/hero.mp4" videoMobile="/assets/disc/hero-mobile.mp4" posterImage="/assets/disc/hero.jpg" />
             </div>
 
             {/* Introductory section */}

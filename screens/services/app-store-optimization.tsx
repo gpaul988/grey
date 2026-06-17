@@ -4,6 +4,7 @@ import '@/app/globals.css';
 import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import CountUp from "react-countup";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
@@ -174,19 +175,7 @@ const AppStoreOptimization = () => {
                     Did you know over 65% of app downloads come from app store searches? Let us help your app get
                     discovered, ranked higher, and downloaded more with expert App Store Optimization.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/aso/hero.jpg'}
-                        alt={'ASO'}
-                        width={1920}
-                        height={1080}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/aso/hero.mp4" videoMobile="/assets/aso/hero-mobile.mp4" posterImage="/assets/aso/hero.jpg" />
             </div>
 
             {/* Introductory section */}

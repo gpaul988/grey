@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from 'next/link';
 import {AnimatePresence, motion} from "framer-motion";
 import {useIsDayTime} from '../../components/useIsDayTime';
@@ -187,19 +188,7 @@ const UnityDevelopment = () => {
                     scalable, high-quality solutions that align with our <br
                     className={'lg:block md:block hidden'}/>clients&#39; business goals.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/unity/hero.jpg'}
-                        alt={'Unity Development Hero'}
-                        width={1920}
-                        height={1080}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/unity/hero.mp4" videoMobile="/assets/unity/hero-mobile.mp4" posterImage="/assets/unity/hero.jpg" />
             </div>
 
             {/* Introductory section */}

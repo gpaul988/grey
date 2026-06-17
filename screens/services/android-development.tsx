@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
@@ -105,19 +106,7 @@ const AndroidDevelopment = () => {
                     Android, developed by Google, is a leading platform for global app development, powering a wide
                     range of devices from smartphones and tablets to wearables like Android Wear.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/android/hero.jpg'}
-                        alt={'Android App Development Hero'}
-                        width={1536}
-                        height={864}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/android/hero.mp4" videoMobile="/assets/android/hero-mobile.mp4" posterImage="/assets/android/hero.jpg" />
             </div>
 
             {/* Introductory section */}

@@ -4,6 +4,7 @@ import '@/app/globals.css';
 import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import {AiFillCaretUp, AiFillCaretDown} from "react-icons/ai";
 import Footer from "@/components/Footer";
@@ -480,19 +481,7 @@ const ErpDevelopment = () => {
                     className={'lg:block md:block hidden'}/>real-time insights that drive informed decision-making and
                     sustainable growth across your organization.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/erp/hero.jpg'}
-                        alt={'ERP Development Services'}
-                        width={1920}
-                        height={1080}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/erp/hero.mp4" videoMobile="/assets/erp/hero-mobile.mp4" posterImage="/assets/erp/hero.jpg" />
             </div>
 
             {/* Introductory section */}

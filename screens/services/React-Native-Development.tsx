@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Footer from "@/components/Footer";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
@@ -111,19 +112,7 @@ const ReactNativeDevelopment = () => {
                 <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
                     With React Native development, we can build an stunning mobile app for your business – fast.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/rnad/hero.jpg'}
-                        alt={'React Native App Development Hero'}
-                        width={1536}
-                        height={864}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/rnad/hero.mp4" videoMobile="/assets/rnad/hero-mobile.mp4" posterImage="/assets/rnad/hero.jpg" />
             </div>
 
             {/* Introductory section */}
