@@ -25,10 +25,10 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   timeout: 30_000,
 
-  // Output (use separate folders to avoid clash)
+  // Output - use completely separate folders
   reporter: [
-    ['html', {outputFolder: 'test-results/html-report'}],
-    ['junit', {outputFile: 'test-results/junit.xml'}],
+    ['html', {outputFolder: '.playwright/html-report'}],
+    ['junit', {outputFile: '.playwright/junit.xml'}],
     ['list'],
   ],
 
