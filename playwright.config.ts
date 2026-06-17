@@ -25,9 +25,9 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   timeout: 30_000,
 
-  // Output
+  // Output (use separate folders to avoid clash)
   reporter: [
-    ['html', {outputFolder: 'test-results/html'}],
+    ['html', {outputFolder: 'test-results/html-report'}],
     ['junit', {outputFile: 'test-results/junit.xml'}],
     ['list'],
   ],

@@ -65,3 +65,4 @@ scripts/faqs-extracted.json
 
 # Auto-generated runtime secrets (never commit)
 Admin/data/.secrets.json
+.logs
