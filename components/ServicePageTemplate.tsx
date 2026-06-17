@@ -8,6 +8,7 @@ import {AnimatePresence, motion} from 'framer-motion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingButton from '@/components/FloatingButton';
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import {useIsDayTime} from './useIsDayTime';
 
 export interface SolutionItem {
@@ -52,8 +53,10 @@ export interface ServicePageProps {
     title: ReactNode;
     /** Lead paragraph under the hero title */
     intro: ReactNode;
-    /** Hero background video src (under /public). Falls back to /assets/hero/hero.mp4 */
+    /** Hero background video src for desktop (under /public). Falls back to /assets/hero/hero.mp4 */
     heroVideo?: string;
+    /** Hero background video src for mobile (640px optimized). Falls back to heroVideo */
+    heroVideoMobile?: string;
     /** Optional poster / fallback hero image when no video is desired */
     heroImage?: string;
     /** Small inline stats shown on the right of the hero (defaults provided) */
@@ -102,6 +105,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
     title,
     intro,
     heroVideo = '/assets/hero/hero.mp4',
+    heroVideoMobile,
     heroImage,
     heroStats = defaultHeroStats,
     topImages,
@@ -198,53 +202,46 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${isVisible ? 'mb-16' : 'mb-0'}`}
             />
 
-            {/* Hero Section — video background, fintech/healthcare style */}
-            <div id={'hero'}
-                 className={'relative overflow-hidden lg:w-full lg:h-[720px] justify-center items-center md:w-full md:h-[700px] w-full h-[640px] pb-6'}>
-                {heroVideo ? (
-                    <video
-                        src={heroVideo}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="lg:w-full lg:h-[720px] md:w-full md:h-[700px] w-full h-[640px] object-cover"
-                    />
-                ) : heroImage ? (
-                    <Image
-                        src={heroImage}
-                        alt={typeof title === 'string' ? title : 'hero'}
-                        fill
-                        priority
-                        className="object-cover"
-                    />
-                ) : null}
-                {/* readability overlay */}
-                <div className="absolute inset-0 bg-black/40"/>
-                <div
-                    className={'absolute top-0 left-0 w-full h-full flex flex-col justify-center items-start text-start px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] text-white'}>
+            {/* Hero Section — responsive video background */}
+            <div id="hero">
+                <ResponsiveVideoHero
+                    videoDesktop={heroVideo}
+                    videoMobile={heroVideoMobile || heroVideo}
+                    posterImage={heroImage}
+                    posterAlt={typeof title === 'string' ? title : 'hero'}
+                    overlayOpacity={0.4}
+                    heights={{
+                        mobile: 'h-[640px]',
+                        tablet: 'md:h-[700px]',
+                        desktop: 'lg:h-[720px]',
+                    }}
+                    className="rounded-none"
+                >
                     <div
-                        className="flex flex-col justify-start items-start border-b pb-[0.3em] border-gray-400/50 max-w-full w-full mx-auto">
-                        <h1
-                            className={'px-0 constant-text lg:text-[5.35em] md:text-[4.4em] sm:text-[3.5em] text-[2em] lg:mt-[3em] md:mt-[3em] mt-[4em] w-auto h-auto leading-[1.1] font-[600]'}>
-                            {title}
-                        </h1>
-                    </div>
-                    <div
-                        className={'relative grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 lg:mt-[1em] md:mt-[1em] mt-[0.5em] w-full max-w-full mx-auto'}>
-                        <div className={'lg:-mr-[4em] md:-mr-[1em] lg:mt-[1em] md:mt-[1em]'}>
-                            <p className={'text-[0.87em] font-[300]'}>{intro}</p>
+                        className={'absolute top-0 left-0 w-full h-full flex flex-col justify-center items-start text-start px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] text-white'}>
+                        <div
+                            className="flex flex-col justify-start items-start border-b pb-[0.3em] border-gray-400/50 max-w-full w-full mx-auto">
+                            <h1
+                                className={'px-0 constant-text lg:text-[5.35em] md:text-[4.4em] sm:text-[3.5em] text-[2em] lg:mt-[3em] md:mt-[3em] mt-[4em] w-auto h-auto leading-[1.1] font-[600]'}>
+                                {title}
+                            </h1>
                         </div>
-                        <div className={'relative grid lg:grid-cols-3 lg:gap-8 lg:ml-[13em]'}>
-                            {heroStats.map((s, i) => (
-                                <div key={i} className={'border-0 lg:block md:hidden sm:hidden hidden'}>
-                                    <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>{s.value}</h6>
-                                    <p className={'text-[0.7em] font-[300]'}>{s.label}</p>
-                                </div>
-                            ))}
+                        <div
+                            className={'relative grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 lg:mt-[1em] md:mt-[1em] mt-[0.5em] w-full max-w-full mx-auto'}>
+                            <div className={'lg:-mr-[4em] md:-mr-[1em] lg:mt-[1em] md:mt-[1em]'}>
+                                <p className={'text-[0.87em] font-[300]'}>{intro}</p>
+                            </div>
+                            <div className={'relative grid lg:grid-cols-3 lg:gap-8 lg:ml-[13em]'}>
+                                {heroStats.map((s, i) => (
+                                    <div key={i} className={'border-0 lg:block md:hidden sm:hidden hidden'}>
+                                        <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>{s.value}</h6>
+                                        <p className={'text-[0.7em] font-[300]'}>{s.label}</p>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
-                </div>
+                </ResponsiveVideoHero>
             </div>
 
             {/* Introductory section */}
