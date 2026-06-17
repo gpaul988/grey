@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Footer from "@/components/Footer";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
@@ -110,19 +111,7 @@ const NodejsDevelopment = () => {
                     Boost your digital goods with Node.js solutions that are quick, scalable, and effective for your
                     company&#39;s requirements.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/node/hero.jpg'}
-                        alt={'Node Development Hero'}
-                        width={1920}
-                        height={1080}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/node/hero.mp4" videoMobile="/assets/node/hero-mobile.mp4" posterImage="/assets/node/hero.jpg" />
             </div>
 
             {/* Introductory section */}

@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
@@ -106,19 +107,7 @@ const HybridAppDevelopment = () => {
                 <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
                     Power your apps with flexible hybrid development.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/hybrid/hero.jpg'}
-                        alt={'Hybrid Hero'}
-                        width={1920}
-                        height={1080}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/hybrid/hero.mp4" videoMobile="/assets/hybrid/hero-mobile.mp4" posterImage="/assets/hybrid/hero.jpg" />
             </div>
 
             {/* Introductory section */}

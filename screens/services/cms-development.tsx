@@ -4,6 +4,7 @@ import '@/app/globals.css';
 import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import Footer from "@/components/Footer";
@@ -629,19 +630,7 @@ const CmsDevelopment = () => {
                     className={'lg:block md:block hidden'}/>to efficiently create, manage, and update content across
                     your digital presence, ensuring seamless control and growth.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/cms/hero.jpg'}
-                        alt={'CMS Development Services'}
-                        width={1920}
-                        height={1080}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/cms/hero.mp4" videoMobile="/assets/cms/hero-mobile.mp4" posterImage="/assets/cms/hero.jpg" />
             </div>
 
             {/* Introductory section */}

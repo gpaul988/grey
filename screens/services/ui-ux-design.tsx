@@ -4,6 +4,7 @@ import '@/app/globals.css'
 import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import CountUp from 'react-countup';
@@ -178,19 +179,7 @@ const UiUxDesign = () => {
                 </h1>
                 <p className={'lg:mt-[4em] mt-[1.5em] text-[0.8em] font-[400]'}>Innovative UX and design solutions
                     that increase user involvement and boost the online presence of your company</p>
-                <div
-                    className={'relative w-full max-w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/ui-ux/hero.jpg'}
-                        alt={'Grey Infotech UI UX Design'}
-                        width={1920}
-                        height={1080}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/ui-ux/hero.mp4" videoMobile="/assets/ui-ux/hero-mobile.mp4" posterImage="/assets/ui-ux/hero.jpg" />
             </div>
 
             {/* Introductory section */}

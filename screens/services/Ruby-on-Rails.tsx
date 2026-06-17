@@ -3,6 +3,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import CountUp from "react-countup";
 import Footer from "@/components/Footer";
@@ -121,19 +122,7 @@ const RubyOnRails = () => {
                     InfoTech, we deliver cost-effective, innovative solutions that streamline user experiences and
                     support your business growth.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/ror/hero.jpg'}
-                        alt={'Web Development Agency Hero'}
-                        width={1536}
-                        height={876}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/ror/hero.mp4" videoMobile="/assets/ror/hero-mobile.mp4" posterImage="/assets/ror/hero.jpg" />
             </div>
 
             {/* Introductory section */}

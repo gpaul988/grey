@@ -4,6 +4,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import CountUp from "react-countup";
 import Footer from "@/components/Footer";
 import {useIsDayTime} from '../../components/useIsDayTime';
@@ -118,19 +119,7 @@ const Branding = () => {
                     className={'lg:block md:block hidden'}/>enhancing recognition, and
                     driving long-term brand value.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em]  md:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/brand/hero.jpg'}
-                        alt={'brand'}
-                        width={1920}
-                        height={1080}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/brand/hero.mp4" videoMobile="/assets/brand/hero-mobile.mp4" posterImage="/assets/brand/hero.jpg" />
             </div>
 
             {/* Introductory section */}

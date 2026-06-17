@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Footer from "@/components/Footer";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
 import {useIsDayTime} from '../../components/useIsDayTime';
@@ -194,19 +195,7 @@ const Mvp = () => {
                     seasoned
                     startup experts.
                 </p>
-                <div
-                    className={'relative w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/mvp/hero.jpg'}
-                        alt={'MVP Hero'}
-                        width={1620}
-                        height={1080}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/mvp/hero.mp4" videoMobile="/assets/mvp/hero-mobile.mp4" posterImage="/assets/mvp/hero.jpg" />
             </div>
 
             {/* Introductory section */}

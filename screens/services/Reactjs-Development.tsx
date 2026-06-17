@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Footer from "@/components/Footer";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
@@ -118,19 +119,7 @@ const ReactjsDevelopment = () => {
                     tailored to
                     business needs.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/react/hero.jpg'}
-                        alt={'React.js Development Hero'}
-                        width={1536}
-                        height={864}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/react/hero.mp4" videoMobile="/assets/react/hero-mobile.mp4" posterImage="/assets/react/hero.jpg" />
             </div>
 
             {/* Introductory section */}

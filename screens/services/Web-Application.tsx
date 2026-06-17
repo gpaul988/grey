@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Footer from "@/components/Footer";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import CountUp from "react-countup";
 import {AnimatePresence, motion} from "framer-motion";
@@ -254,19 +255,7 @@ const WebApplication = () => {
                     and
                     meet evolving customer needs.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/wad/hero.jpg'}
-                        alt={'Web Application Development Hero'}
-                        width={1536}
-                        height={876}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/wad/hero.mp4" videoMobile="/assets/wad/hero-mobile.mp4" posterImage="/assets/wad/hero.jpg" />
             </div>
 
             {/* Introductory section */}

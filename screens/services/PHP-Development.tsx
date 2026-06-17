@@ -3,6 +3,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import CountUp from "react-countup";
@@ -120,19 +121,7 @@ const PhpDevelopment = () => {
                     all
                     businesses in between.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/php/hero.jpg'}
-                        alt={'PHP Development Hero'}
-                        width={1920}
-                        height={1080}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/php/hero.mp4" videoMobile="/assets/php/hero-mobile.mp4" posterImage="/assets/php/hero.jpg" />
             </div>
 
             {/* Introductory section */}

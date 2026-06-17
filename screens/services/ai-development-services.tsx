@@ -4,6 +4,7 @@ import '@/app/globals.css';
 import Footer from "@/components/Footer";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import CountUp from "react-countup";
 import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
@@ -209,19 +210,7 @@ const AiDevelopmentServices = () => {
                     Empower your company with next-generation AI solutions designed to simplify processes, strengthen
                     business insights, and ignite innovation.
                 </p>
-                <div
-                    className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/ads/hero.jpg'}
-                        alt={'Artificial Intelligence Development Hero'}
-                        width={1920}
-                        height={1080}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
+                <ResponsiveVideoHero videoDesktop="/assets/ads/hero.mp4" videoMobile="/assets/ads/hero-mobile.mp4" posterImage="/assets/ads/hero.jpg" />
             </div>
 
             {/* Introductory section */}
