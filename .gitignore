@@ -15,6 +15,7 @@
 
 # next.js
 /.next/
+!/build-manifests/
 /out/
 
 # production
