@@ -3,8 +3,55 @@ import db from '../db';
 /**
  * Lightweight generic table repository for straightforward CRUD entities.
  * Uses parameterized statements (safe from SQL injection).
+ *
+ * ⚠️ SECURITY: table, columns, and orderBy are NOT parameterized because they
+ * are structural identifiers, not values. Callers MUST ensure these come from
+ * trusted/hardcoded sources, not user input. See validate() below.
+ *
+ * If a field is ever sourced from user input (e.g., a query param), it MUST
+ * be validated against a whitelist first using validateColumn().
  */
+
+/** Whitelist of safe column names for dynamic queries. Add to this list as needed. */
+const SAFE_COLUMNS = new Set([
+    'id', 'email', 'name', 'password', 'password_hash', 'role', 'status',
+    'created_at', 'updated_at', 'verified_at', 'phone', 'company',
+    'subject', 'body', 'priority', 'assignee_id', 'client_id',
+]);
+
+/** Whitelist of safe table names for dynamic queries. Add to this list as needed. */
+const SAFE_TABLES = new Set([
+    'users', 'clients', 'leads', 'projects', 'tickets', 'invoices',
+    'conversations', 'messages', 'submissions',
+]);
+
+/**
+ * Validate that a column name is in the safe whitelist. Use this BEFORE
+ * passing user-controlled input to any dynamic column references.
+ *
+ * Example:
+ *   const field = req.query.sortBy; // user input
+ *   validateColumn(field); // throws if not safe
+ *   repo.all(`${field} ASC`); // now safe
+ */
+export function validateColumn(name: string): void {
+    if (!SAFE_COLUMNS.has(name.toLowerCase())) {
+        throw new Error(`Unsafe column: ${name}. Not in whitelist.`);
+    }
+}
+
+/**
+ * Validate that a table name is safe. Similar to validateColumn().
+ */
+export function validateTable(name: string): void {
+    if (!SAFE_TABLES.has(name.toLowerCase())) {
+        throw new Error(`Unsafe table: ${name}. Not in whitelist.`);
+    }
+}
+
 export function createRepo<T extends { id: number }>(table: string, columns: string[]) {
+    // Trust the hardcoded table/columns at definition time
+    // (they come from our models, not user input)
     const cols = columns.join(', ');
 
     return {
