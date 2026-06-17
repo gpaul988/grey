@@ -5,6 +5,7 @@ const PythonDevelopment = () => (
     <ServicePageTemplate
         title={<>Python <br className={'lg:block md:block hidden'}/>Development Services</>}
         heroVideo="/assets/hero/hero.mp4"
+        heroVideoMobile="/assets/hero/hero.mp4"
         midImage="/assets/services/services.jpg"
         topImages={['/assets/services/Development.jpg', '/assets/services/Research-strategy.jpg']}
         intro={

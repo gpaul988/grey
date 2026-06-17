@@ -5,6 +5,7 @@ const SocialNetworking = () => (
     <ServicePageTemplate
         title={<>Social Networking <br className={'lg:block md:block hidden'}/>App Development</>}
         heroVideo="/assets/hero/hero.mp4"
+        heroVideoMobile="/assets/hero/hero.mp4"
         midImage="/assets/services/services.jpg"
         topImages={['/assets/services/product-design.jpg', '/assets/services/Web-App-Development-company.jpg']}
         intro={
