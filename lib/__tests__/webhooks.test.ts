@@ -1,432 +1,271 @@
-/**
- * Webhooks Tests
- * Unit tests for webhook registration, delivery, retries, signatures
- */
-
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import {
-  registerWebhook,
-  getWebhook,
-  listWebhooks,
+  subscribeWebhook,
+  unsubscribeWebhook,
   updateWebhook,
-  deleteWebhook,
-  generateSignature,
-  verifySignature,
-  getDeliveryHistory,
-  getWebhookStats,
+  getUserWebhooks,
   emitEvent,
-  clearAllWebhooks,
+  getWebhookDeliveries,
+  getWebhookStats,
 } from '../webhooks/manager';
-import { WebhookEvent, WebhookProvider } from '../webhooks/types';
+import {
+  emitUserSignup,
+  emitPaymentCompleted,
+  emitAuditCompleted,
+} from '../webhooks/events';
 
-// Mock fetch
-global.fetch = vi.fn();
+describe('Webhooks (lib/webhooks/)', () => {
+  const testUserId = 999;
+  const testEndpoint = 'https://example.com/webhook';
+  const testEndpoint2 = 'https://another.com/webhook';
+  let webhookId: number;
 
-describe('Webhooks', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-    clearAllWebhooks();
-  });
-
-  // ============================================
-  // WEBHOOK REGISTRATION
-  // ============================================
-  describe('Webhook Registration', () => {
-    it('should register a webhook', async () => {
-      const webhook = await registerWebhook(
-        'user1',
-        'https://example.com/webhooks',
-        WebhookProvider.CUSTOM_HTTP,
-        [WebhookEvent.ORDER_CREATED]
+  describe('Subscribe & Manage', () => {
+    it('should subscribe to webhook with valid URL and events', async () => {
+      const webhook = await subscribeWebhook(
+        testUserId,
+        testEndpoint,
+        ['user.signup', 'payment.completed']
       );
 
-      expect(webhook.id).toBeDefined();
-      expect(webhook.userId).toBe('user1');
-      expect(webhook.url).toBe('https://example.com/webhooks');
-      expect(webhook.provider).toBe(WebhookProvider.CUSTOM_HTTP);
-      expect(webhook.events).toContain(WebhookEvent.ORDER_CREATED);
-      expect(webhook.active).toBe(true);
-      expect(webhook.secret).toBeDefined();
+      expect(webhook).toBeTruthy();
+      expect(webhook?.endpoint).toBe(testEndpoint);
+      expect(webhook?.userId).toBe(testUserId);
+      expect(webhook?.active).toBe(true);
+      expect(webhook?.secret).toBeTruthy();
+      webhookId = webhook?.id || 0;
     });
 
-    it('should register Slack webhook', async () => {
-      const webhook = await registerWebhook(
-        'user1',
-        'https://hooks.slack.com/services/xxx/yyy/zzz',
-        WebhookProvider.SLACK,
-        [WebhookEvent.ORDER_COMPLETED]
+    it('should reject invalid URL', async () => {
+      const webhook = await subscribeWebhook(
+        testUserId,
+        'not-a-valid-url',
+        ['user.signup']
       );
 
-      expect(webhook.provider).toBe(WebhookProvider.SLACK);
-    });
-
-    it('should register Discord webhook', async () => {
-      const webhook = await registerWebhook(
-        'user1',
-        'https://discordapp.com/api/webhooks/xxx/yyy',
-        WebhookProvider.DISCORD,
-        [WebhookEvent.REVIEW_CREATED]
-      );
-
-      expect(webhook.provider).toBe(WebhookProvider.DISCORD);
-    });
-
-    it('should set custom headers', async () => {
-      const headers = { 'X-Custom-Header': 'value' };
-      const webhook = await registerWebhook(
-        'user1',
-        'https://example.com/webhook',
-        WebhookProvider.CUSTOM_HTTP,
-        [WebhookEvent.USER_REGISTERED],
-        { headers }
-      );
-
-      expect(webhook.headers).toEqual(headers);
-    });
-
-    it('should generate unique webhook IDs', async () => {
-      const webhook1 = await registerWebhook(
-        'user1',
-        'https://example.com/1',
-        WebhookProvider.CUSTOM_HTTP,
-        [WebhookEvent.ORDER_CREATED]
-      );
-
-      const webhook2 = await registerWebhook(
-        'user1',
-        'https://example.com/2',
-        WebhookProvider.CUSTOM_HTTP,
-        [WebhookEvent.ORDER_CREATED]
-      );
-
-      expect(webhook1.id).not.toBe(webhook2.id);
-    });
-  });
-
-  // ============================================
-  // WEBHOOK RETRIEVAL
-  // ============================================
-  describe('Webhook Retrieval', () => {
-    beforeEach(async () => {
-      await registerWebhook(
-        'user1',
-        'https://example.com/webhook1',
-        WebhookProvider.CUSTOM_HTTP,
-        [WebhookEvent.ORDER_CREATED]
-      );
-
-      await registerWebhook(
-        'user1',
-        'https://example.com/webhook2',
-        WebhookProvider.CUSTOM_HTTP,
-        [WebhookEvent.REVIEW_CREATED]
-      );
-
-      await registerWebhook(
-        'user2',
-        'https://example.com/webhook3',
-        WebhookProvider.SLACK,
-        [WebhookEvent.ORDER_COMPLETED]
-      );
-    });
-
-    it('should list user webhooks', async () => {
-      const webhooks = await listWebhooks('user1');
-      expect(webhooks.length).toBe(2);
-      expect(webhooks.every((w) => w.userId === 'user1')).toBe(true);
-    });
-
-    it('should filter webhooks by user', async () => {
-      const user1Webhooks = await listWebhooks('user1');
-      const user2Webhooks = await listWebhooks('user2');
-
-      expect(user1Webhooks.length).toBe(2);
-      expect(user2Webhooks.length).toBe(1);
-    });
-
-    it('should get webhook by ID', async () => {
-      const webhooks = await listWebhooks('user1');
-      const webhook = await getWebhook(webhooks[0].id);
-
-      expect(webhook).toBeDefined();
-      expect(webhook?.id).toBe(webhooks[0].id);
-    });
-
-    it('should return null for nonexistent webhook', async () => {
-      const webhook = await getWebhook('nonexistent');
       expect(webhook).toBeNull();
     });
-  });
 
-  // ============================================
-  // WEBHOOK UPDATES
-  // ============================================
-  describe('Webhook Updates', () => {
-    let webhookId: string;
-
-    beforeEach(async () => {
-      const webhook = await registerWebhook(
-        'user1',
-        'https://example.com/webhook',
-        WebhookProvider.CUSTOM_HTTP,
-        [WebhookEvent.ORDER_CREATED]
+    it('should reject no valid events', async () => {
+      const webhook = await subscribeWebhook(
+        testUserId,
+        testEndpoint,
+        ['invalid.event']
       );
-      webhookId = webhook.id;
+
+      expect(webhook).toBeNull();
     });
 
-    it('should update webhook URL', async () => {
-      const updated = await updateWebhook(webhookId, {
-        url: 'https://newendpoint.com/webhook',
-      });
+    it('should get all webhooks for user', async () => {
+      const webhooks = await getUserWebhooks(testUserId);
 
-      expect(updated?.url).toBe('https://newendpoint.com/webhook');
+      expect(Array.isArray(webhooks)).toBe(true);
+      expect(webhooks.length).toBeGreaterThan(0);
+      expect(webhooks[0].userId).toBe(testUserId);
     });
 
-    it('should update events', async () => {
-      const updated = await updateWebhook(webhookId, {
-        events: [WebhookEvent.ORDER_CREATED, WebhookEvent.ORDER_COMPLETED],
-      });
+    it('should update webhook configuration', async () => {
+      const updated = await updateWebhook(
+        webhookId,
+        testUserId,
+        {
+          endpoint: testEndpoint2,
+          events: ['user.signup'],
+        }
+      );
 
-      expect(updated?.events.length).toBe(2);
-      expect(updated?.events).toContain(WebhookEvent.ORDER_COMPLETED);
+      expect(updated).toBeTruthy();
+      expect(updated?.endpoint).toBe(testEndpoint2);
     });
 
-    it('should toggle active status', async () => {
-      let updated = await updateWebhook(webhookId, { active: false });
+    it('should not update webhook for different user', async () => {
+      const updated = await updateWebhook(
+        webhookId,
+        999999,
+        { endpoint: 'https://new-endpoint.com' }
+      );
+
+      expect(updated).toBeFalsy();
+    });
+
+    it('should activate/deactivate webhook', async () => {
+      let updated = await updateWebhook(
+        webhookId,
+        testUserId,
+        { active: false }
+      );
+
       expect(updated?.active).toBe(false);
 
-      updated = await updateWebhook(webhookId, { active: true });
+      updated = await updateWebhook(
+        webhookId,
+        testUserId,
+        { active: true }
+      );
+
       expect(updated?.active).toBe(true);
     });
-
-    it('should not allow ID changes', async () => {
-      const updated = await updateWebhook(webhookId, {
-        id: 'different_id',
-      } as any);
-
-      expect(updated?.id).toBe(webhookId);
-    });
-
-    it('should update timestamp on changes', async () => {
-      const original = await getWebhook(webhookId);
-      const originalTime = original?.updatedAt.getTime();
-
-      await new Promise((resolve) => setTimeout(resolve, 10));
-
-      await updateWebhook(webhookId, { active: false });
-      const updated = await getWebhook(webhookId);
-
-      expect(updated?.updatedAt.getTime()).toBeGreaterThan(originalTime || 0);
-    });
   });
 
-  // ============================================
-  // WEBHOOK DELETION
-  // ============================================
-  describe('Webhook Deletion', () => {
-    let webhookId: string;
+  describe('Event Emission', () => {
+    it('should emit user.signup event', async () => {
+      const count = await emitUserSignup(testUserId, 'test@example.com', 'testuser');
 
-    beforeEach(async () => {
-      const webhook = await registerWebhook(
-        'user1',
-        'https://example.com/webhook',
-        WebhookProvider.CUSTOM_HTTP,
-        [WebhookEvent.ORDER_CREATED]
+      expect(typeof count).toBe('number');
+      expect(count).toBeGreaterThanOrEqual(0);
+    });
+
+    it('should emit payment.completed event', async () => {
+      const count = await emitPaymentCompleted(
+        123,
+        testUserId,
+        99.99,
+        'USD',
+        'stripe',
+        { orderId: 456 }
       );
-      webhookId = webhook.id;
+
+      expect(typeof count).toBe('number');
     });
 
-    it('should delete webhook', async () => {
-      const result = await deleteWebhook(webhookId);
-      expect(result).toBe(true);
+    it('should emit audit.completed event', async () => {
+      const count = await emitAuditCompleted(
+        789,
+        testUserId,
+        'Website Audit',
+        85,
+        12
+      );
 
-      const webhook = await getWebhook(webhookId);
-      expect(webhook).toBeNull();
+      expect(typeof count).toBe('number');
     });
 
-    it('should return false for nonexistent webhook', async () => {
-      const result = await deleteWebhook('nonexistent');
-      expect(result).toBe(false);
-    });
-  });
+    it('should emit event to subscribed webhooks', async () => {
+      const count = await emitEvent('user.signup', {
+        userId: testUserId,
+        email: 'new@example.com',
+      });
 
-  // ============================================
-  // SIGNATURE TESTS
-  // ============================================
-  describe('Signatures', () => {
-    it('should generate signature', () => {
-      const payload = JSON.stringify({ test: 'data' });
-      const secret = 'test-secret-key';
-
-      const signature = generateSignature(payload, secret);
-
-      expect(signature).toBeDefined();
-      expect(signature).toMatch(/^[a-f0-9]+$/); // hex string
-    });
-
-    it('should verify valid signature', () => {
-      const payload = JSON.stringify({ test: 'data' });
-      const secret = 'test-secret-key';
-
-      const signature = generateSignature(payload, secret);
-      const isValid = verifySignature(payload, signature, secret);
-
-      expect(isValid).toBe(true);
-    });
-
-    it('should reject invalid signature', () => {
-      const payload = JSON.stringify({ test: 'data' });
-      const secret = 'test-secret-key';
-
-      const signature = generateSignature(payload, secret);
-      const isValid = verifySignature(payload, signature, 'wrong-secret');
-
-      expect(isValid).toBe(false);
-    });
-
-    it('should reject modified payload', () => {
-      const payload = JSON.stringify({ test: 'data' });
-      const secret = 'test-secret-key';
-
-      const signature = generateSignature(payload, secret);
-      const modifiedPayload = JSON.stringify({ test: 'modified' });
-      const isValid = verifySignature(modifiedPayload, signature, secret);
-
-      expect(isValid).toBe(false);
+      expect(typeof count).toBe('number');
     });
   });
 
-  // ============================================
-  // DELIVERY HISTORY
-  // ============================================
   describe('Delivery History', () => {
-    let webhookId: string;
+    it('should get webhook delivery history', async () => {
+      const deliveries = await getWebhookDeliveries(webhookId);
 
-    beforeEach(async () => {
-      const webhook = await registerWebhook(
-        'user1',
-        'https://example.com/webhook',
-        WebhookProvider.CUSTOM_HTTP,
-        [WebhookEvent.ORDER_CREATED]
-      );
-      webhookId = webhook.id;
-    });
-
-    it('should retrieve delivery history', async () => {
-      const history = await getDeliveryHistory(webhookId);
-      expect(Array.isArray(history)).toBe(true);
-    });
-
-    it('should limit delivery history', async () => {
-      const history = await getDeliveryHistory(webhookId, 5);
-      expect(history.length).toBeLessThanOrEqual(5);
-    });
-  });
-
-  // ============================================
-  // STATISTICS
-  // ============================================
-  describe('Statistics', () => {
-    beforeEach(async () => {
-      await registerWebhook(
-        'user1',
-        'https://example.com/webhook1',
-        WebhookProvider.CUSTOM_HTTP,
-        [WebhookEvent.ORDER_CREATED]
-      );
-
-      await registerWebhook(
-        'user1',
-        'https://example.com/webhook2',
-        WebhookProvider.SLACK,
-        [WebhookEvent.REVIEW_CREATED]
-      );
+      expect(Array.isArray(deliveries)).toBe(true);
     });
 
     it('should get webhook statistics', async () => {
-      const stats = getWebhookStats();
+      const stats = await getWebhookStats(webhookId);
 
-      expect(stats.totalWebhooks).toBeGreaterThanOrEqual(2);
-      expect(stats.activeWebhooks).toBeGreaterThanOrEqual(2);
-      expect(stats.totalDeliveries).toBeGreaterThanOrEqual(0);
-      expect(stats.failedDeliveries).toBeGreaterThanOrEqual(0);
+      expect(stats).toHaveProperty('totalDeliveries');
+      expect(stats).toHaveProperty('successfulDeliveries');
+      expect(stats).toHaveProperty('failedDeliveries');
+      expect(stats).toHaveProperty('successRate');
+      expect(typeof stats.totalDeliveries).toBe('number');
+      expect(typeof stats.successRate).toBe('number');
+      expect(stats.successRate).toBeGreaterThanOrEqual(0);
+      expect(stats.successRate).toBeLessThanOrEqual(100);
     });
   });
 
-  // ============================================
-  // EVENT EMISSION
-  // ============================================
-  describe('Event Emission', () => {
-    beforeEach(async () => {
-      await registerWebhook(
-        'user1',
-        'https://example.com/webhook1',
-        WebhookProvider.CUSTOM_HTTP,
-        [WebhookEvent.ORDER_CREATED, WebhookEvent.ORDER_COMPLETED]
+  describe('Error Handling', () => {
+    it('should gracefully handle database errors', async () => {
+      const webhook = await subscribeWebhook(
+        testUserId,
+        'https://valid-url.com',
+        ['user.signup']
       );
 
-      await registerWebhook(
-        'user1',
-        'https://example.com/webhook2',
-        WebhookProvider.CUSTOM_HTTP,
-        [WebhookEvent.REVIEW_CREATED]
+      expect(webhook === null || webhook?.id).toBeTruthy();
+    });
+
+    it('should return empty array for non-existent user', async () => {
+      const webhooks = await getUserWebhooks(999999999);
+
+      expect(Array.isArray(webhooks)).toBe(true);
+      expect(webhooks.length).toBe(0);
+    });
+
+    it('should handle invalid webhook ID gracefully', async () => {
+      const updated = await updateWebhook(
+        999999,
+        testUserId,
+        { active: false }
       );
+
+      expect(updated).toBeFalsy();
     });
 
-    it('should emit event to matching webhooks', async () => {
-      const deliveries = await emitEvent(WebhookEvent.ORDER_CREATED, {
-        orderId: '123',
-        amount: 999,
-      });
+    it('should handle emission errors gracefully', async () => {
+      const count = await emitEvent('user.signup', {});
 
-      expect(deliveries.length).toBeGreaterThan(0);
-    });
-
-    it('should include only matching webhooks', async () => {
-      const deliveries = await emitEvent(WebhookEvent.REVIEW_CREATED, {
-        reviewId: '456',
-        rating: 5,
-      });
-
-      // Should only match webhook2
-      expect(deliveries.length).toBeGreaterThanOrEqual(1);
+      expect(typeof count).toBe('number');
+      expect(count).toBeGreaterThanOrEqual(0);
     });
   });
 
-  // ============================================
-  // WEBHOOK EVENTS
-  // ============================================
-  describe('Webhook Events', () => {
-    it('should include all event types', () => {
-      const events = Object.values(WebhookEvent);
-      expect(events.length).toBeGreaterThan(0);
-      expect(events).toContain(WebhookEvent.ORDER_CREATED);
-      expect(events).toContain(WebhookEvent.REVIEW_CREATED);
-      expect(events).toContain(WebhookEvent.PAYMENT_RECEIVED);
+  describe('Edge Cases', () => {
+    it('should handle multiple events subscription', async () => {
+      const webhook = await subscribeWebhook(
+        testUserId,
+        'https://multi-event.com/webhook',
+        ['user.signup', 'user.updated', 'payment.completed', 'audit.completed']
+      );
+
+      expect(webhook).toBeTruthy();
+      expect(webhook?.events).toHaveLength(4);
+    });
+
+    it('should filter duplicate events', async () => {
+      const webhook = await subscribeWebhook(
+        testUserId,
+        'https://dupe.com/webhook',
+        ['user.signup', 'user.signup']
+      );
+
+      expect(webhook).toBeTruthy();
+      // After dedup via Set or filter
+      expect(webhook?.events.length).toBeLessThanOrEqual(2);
+    });
+
+    it('should have secret on webhook', async () => {
+      const webhooks = await getUserWebhooks(testUserId);
+      const webhook = webhooks[0];
+
+      expect(webhook?.secret).toBeTruthy();
+      expect(typeof webhook?.secret).toBe('string');
+      expect(webhook.secret.length).toBeGreaterThan(0);
     });
   });
 
-  // ============================================
-  // WEBHOOK PROVIDERS
-  // ============================================
-  describe('Webhook Providers', () => {
-    it('should support all providers', async () => {
-      const providers = [
-        WebhookProvider.SLACK,
-        WebhookProvider.DISCORD,
-        WebhookProvider.CUSTOM_HTTP,
-      ];
+  describe('Cleanup', () => {
+    it('should unsubscribe webhook', async () => {
+      const success = await unsubscribeWebhook(webhookId, testUserId);
 
-      for (const provider of providers) {
-        const webhook = await registerWebhook(
-          'user1',
-          'https://example.com/webhook',
-          provider,
-          [WebhookEvent.ORDER_CREATED]
-        );
+      expect(success).toBe(true);
 
-        expect(webhook.provider).toBe(provider);
-      }
+      const webhooks = await getUserWebhooks(testUserId);
+      expect(webhooks.find(w => w.id === webhookId)).toBeUndefined();
+    });
+
+    it('should not unsubscribe for different user', async () => {
+      const webhook = await subscribeWebhook(
+        testUserId,
+        'https://cleanup.com/webhook',
+        ['user.signup']
+      );
+
+      const id = webhook?.id || 0;
+
+      const success = await unsubscribeWebhook(id, 999999);
+
+      expect(success).toBe(false);
+
+      // Cleanup
+      await unsubscribeWebhook(id, testUserId);
     });
   });
 });

@@ -1,377 +1,339 @@
-/**
- * Webhook Manager
- * Handle webhook registration, event delivery, retries
- */
+import { eq, and, desc } from 'drizzle-orm';
+import { getDb } from '../db';
+import { webhookSubscriptions, webhookDeliveries } from '../db/schema';
 
-import crypto from 'crypto';
-import {
-  WebhookEvent,
-  WebhookProvider,
-  type WebhookEndpoint,
-  type WebhookPayload,
-  type WebhookDelivery,
-} from './types';
+export interface WebhookPayload {
+  event: string;
+  timestamp: number;
+  data: Record<string, any>;
+}
 
-// In-memory storage for development
-const webhooks = new Map<string, WebhookEndpoint>();
-const deliveries = new Map<string, WebhookDelivery>();
-
-/**
- * Clear all webhooks and deliveries (for testing)
- */
-export function clearAllWebhooks(): void {
-  webhooks.clear();
-  deliveries.clear();
+export interface WebhookSubscription {
+  id: number;
+  userId: number;
+  endpoint: string;
+  events: string[];
+  active: boolean;
+  secret: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 /**
- * Register a webhook endpoint
+ * Generate a secure webhook secret
  */
-export async function registerWebhook(
-  userId: string,
-  url: string,
-  provider: WebhookProvider,
-  events: WebhookEvent[],
-  options?: { headers?: Record<string, string> }
-): Promise<WebhookEndpoint> {
-  const id = `wh_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-  const secret = crypto.randomBytes(32).toString('hex');
-
-  const webhook: WebhookEndpoint = {
-    id,
-    userId,
-    url,
-    provider,
-    events,
-    active: true,
-    headers: options?.headers,
-    secret,
-    retryCount: 3,
-    retryInterval: 60,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  };
-
-  webhooks.set(id, webhook);
-  return webhook;
+function generateSecret(): string {
+  return Buffer.from(crypto.getRandomValues(new Uint8Array(32))).toString('hex');
 }
 
 /**
- * Get webhook by ID
+ * Subscribe a webhook URL to events
  */
-export async function getWebhook(id: string): Promise<WebhookEndpoint | null> {
-  return webhooks.get(id) || null;
+export async function subscribeWebhook(
+  userId: number,
+  endpoint: string,
+  events: string[]
+): Promise<WebhookSubscription | null> {
+  const db = getDb();
+
+  try {
+    // Validate URL
+    try {
+      new URL(endpoint);
+    } catch {
+      throw new Error('Invalid webhook URL');
+    }
+
+    // Validate events
+    const validEvents = ['user.signup', 'user.updated', 'payment.completed', 'audit.completed'];
+    const filtered = events.filter(e => validEvents.includes(e));
+    if (filtered.length === 0) {
+      throw new Error('No valid events specified');
+    }
+
+    const result = await db.insert(webhookSubscriptions).values({
+      userId,
+      endpoint,
+      events: JSON.stringify(filtered),
+      active: true,
+      secret: generateSecret(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }).returning();
+
+    return result[0] as any;
+  } catch (error) {
+    console.error('Subscribe webhook error:', error);
+    return null;
+  }
 }
 
 /**
- * List webhooks for user
+ * Unsubscribe a webhook
  */
-export async function listWebhooks(userId: string): Promise<WebhookEndpoint[]> {
-  return Array.from(webhooks.values()).filter((w) => w.userId === userId);
+export async function unsubscribeWebhook(
+  webhookId: number,
+  userId: number
+): Promise<boolean> {
+  const db = getDb();
+
+  try {
+    const result = await db
+      .delete(webhookSubscriptions)
+      .where(and(eq(webhookSubscriptions.id, webhookId), eq(webhookSubscriptions.userId, userId)));
+
+    return (result as any).rowCount > 0;
+  } catch (error) {
+    console.error('Unsubscribe webhook error:', error);
+    return false;
+  }
 }
 
 /**
- * Update webhook
+ * Update webhook configuration
  */
 export async function updateWebhook(
-  id: string,
-  updates: Partial<WebhookEndpoint>
-): Promise<WebhookEndpoint | null> {
-  const webhook = webhooks.get(id);
-  if (!webhook) return null;
+  webhookId: number,
+  userId: number,
+  updates: {
+    endpoint?: string;
+    events?: string[];
+    active?: boolean;
+  }
+): Promise<WebhookSubscription | null> {
+  const db = getDb();
 
-  const updated = {
-    ...webhook,
-    ...updates,
-    id: webhook.id, // Don't allow ID change
-    userId: webhook.userId, // Don't allow user change
-    updatedAt: new Date(),
-  };
-
-  webhooks.set(id, updated);
-  return updated;
-}
-
-/**
- * Delete webhook
- */
-export async function deleteWebhook(id: string): Promise<boolean> {
-  return webhooks.delete(id);
-}
-
-/**
- * Generate HMAC signature for webhook
- */
-export function generateSignature(payload: string, secret: string): string {
-  return crypto.createHmac('sha256', secret).update(payload).digest('hex');
-}
-
-/**
- * Verify webhook signature
- */
-export function verifySignature(
-  payload: string,
-  signature: string,
-  secret: string
-): boolean {
-  const expected = generateSignature(payload, secret);
-  return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected));
-}
-
-/**
- * Send webhook to endpoint
- */
-export async function sendWebhook<T = any>(
-  webhook: WebhookEndpoint,
-  event: WebhookEvent,
-  data: T
-): Promise<WebhookDelivery> {
-  const payload: WebhookPayload<T> = {
-    id: `evt_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-    event,
-    timestamp: new Date(),
-    data,
-    retryCount: 0,
-  };
-
-  const payloadString = JSON.stringify(payload);
-  const signature = webhook.secret
-    ? generateSignature(payloadString, webhook.secret)
-    : undefined;
-
-  const delivery: WebhookDelivery = {
-    id: `del_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-    webhookId: webhook.id,
-    event,
-    payload,
-    attemptNumber: 1,
-    failed: false,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  };
-
-  // Record delivery
-  deliveries.set(delivery.id, delivery);
-
-  // Send based on provider
   try {
-    if (webhook.provider === WebhookProvider.SLACK) {
-      await sendToSlack(webhook.url, payload, signature);
-    } else if (webhook.provider === WebhookProvider.DISCORD) {
-      await sendToDiscord(webhook.url, payload, signature);
-    } else if (webhook.provider === WebhookProvider.CUSTOM_HTTP) {
-      await sendToCustomHTTP(webhook.url, payload, signature, webhook.headers);
+    if (updates.endpoint) {
+      try {
+        new URL(updates.endpoint);
+      } catch {
+        throw new Error('Invalid webhook URL');
+      }
     }
 
-    delivery.statusCode = 200;
-    delivery.completedAt = new Date();
-  } catch (error: any) {
-    delivery.statusCode = error.statusCode || 500;
-    delivery.responseBody = error.message;
-    delivery.failed = true;
-    delivery.nextRetryAt = new Date(
-      Date.now() + webhook.retryInterval * 1000
-    );
-  }
+    const updateObj: any = { updatedAt: new Date() };
+    if (updates.endpoint) updateObj.endpoint = updates.endpoint;
+    if (updates.events) updateObj.events = JSON.stringify(updates.events);
+    if (updates.active !== undefined) updateObj.active = updates.active;
 
-  deliveries.set(delivery.id, delivery);
-  return delivery;
+    const result = await db
+      .update(webhookSubscriptions)
+      .set(updateObj)
+      .where(and(eq(webhookSubscriptions.id, webhookId), eq(webhookSubscriptions.userId, userId)))
+      .returning();
+
+    return result[0] as any;
+  } catch (error) {
+    console.error('Update webhook error:', error);
+    return null;
+  }
 }
 
 /**
- * Send webhook to Slack
+ * Get all webhooks for a user
  */
-async function sendToSlack(
-  url: string,
+export async function getUserWebhooks(userId: number): Promise<WebhookSubscription[]> {
+  const db = getDb();
+
+  try {
+    const results = await db
+      .select()
+      .from(webhookSubscriptions)
+      .where(eq(webhookSubscriptions.userId, userId));
+
+    return results.map(r => ({
+      ...r,
+      events: Array.isArray(r.events) ? r.events : JSON.parse(r.events as any),
+    })) as any;
+  } catch (error) {
+    console.error('Get user webhooks error:', error);
+    return [];
+  }
+}
+
+/**
+ * Emit an event to all subscribed webhooks
+ */
+export async function emitEvent(
+  event: string,
+  data: Record<string, any>
+): Promise<number> {
+  const db = getDb();
+  let deliveredCount = 0;
+
+  try {
+    // Find all webhooks subscribed to this event
+    const subs = await db
+      .select()
+      .from(webhookSubscriptions)
+      .where(eq(webhookSubscriptions.active, true));
+
+    for (const sub of subs) {
+      const subEvents = Array.isArray(sub.events) ? sub.events : JSON.parse(sub.events as any);
+      if (!subEvents.includes(event)) continue;
+
+      const payload: WebhookPayload = {
+        event,
+        timestamp: Date.now(),
+        data,
+      };
+
+      // Deliver asynchronously
+      deliverWebhook(
+        sub.id,
+        sub.endpoint as string,
+        payload,
+        sub.secret as string
+      ).catch(e => console.error(`Webhook delivery error for ${sub.id}:`, e));
+
+      deliveredCount++;
+    }
+  } catch (error) {
+    console.error('Emit event error:', error);
+  }
+
+  return deliveredCount;
+}
+
+/**
+ * Deliver a webhook payload with HMAC signature
+ */
+export async function deliverWebhook(
+  subscriptionId: number,
+  endpoint: string,
   payload: WebhookPayload,
-  signature?: string
-): Promise<void> {
-  const message = {
-    blocks: [
-      {
-        type: 'section',
-        text: {
-          type: 'mrkdwn',
-          text: `*${payload.event}*\n${JSON.stringify(payload.data, null, 2)}`,
+  secret: string,
+  retries: number = 3
+): Promise<boolean> {
+  const db = getDb();
+  let lastError = '';
+  let statusCode = 0;
+
+  // Create HMAC signature
+  const crypto = require('crypto');
+  const signature = crypto
+    .createHmac('sha256', secret)
+    .update(JSON.stringify(payload))
+    .digest('hex');
+
+  for (let attempt = 0; attempt < retries; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Webhook-Event': payload.event,
+          'X-Webhook-Timestamp': payload.timestamp.toString(),
+          'X-Webhook-Signature': signature,
         },
-      },
-      {
-        type: 'context',
-        elements: [
-          {
-            type: 'mrkdwn',
-            text: `_${payload.timestamp.toISOString()}_`,
-          },
-        ],
-      },
-    ],
-  };
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      });
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      ...(signature && { 'X-Signature': signature }),
-    },
-    body: JSON.stringify(message),
-  });
+      clearTimeout(timeoutId);
+      statusCode = response.status;
 
-  if (!response.ok) {
-    throw new Error(`Slack error: ${response.statusText}`);
-  }
-}
+      if (response.ok) {
+        // Log successful delivery
+        await db.insert(webhookDeliveries).values({
+          subscriptionId,
+          eventType: payload.event,
+          payload: JSON.stringify(payload),
+          statusCode: 200,
+          response: JSON.stringify({ success: true }),
+          retries: attempt,
+          createdAt: new Date(),
+        }).catch(e => console.error('Log delivery error:', e));
 
-/**
- * Send webhook to Discord
- */
-async function sendToDiscord(
-  url: string,
-  payload: WebhookPayload,
-  signature?: string
-): Promise<void> {
-  const embed = {
-    title: payload.event,
-    description: JSON.stringify(payload.data, null, 2),
-    timestamp: payload.timestamp.toISOString(),
-    color: 0x0099ff,
-  };
+        return true;
+      }
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      ...(signature && { 'X-Signature': signature }),
-    },
-    body: JSON.stringify({ embeds: [embed] }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`Discord error: ${response.statusText}`);
-  }
-}
-
-/**
- * Send webhook to custom HTTP endpoint
- */
-async function sendToCustomHTTP(
-  url: string,
-  payload: WebhookPayload,
-  signature?: string,
-  headers?: Record<string, string>
-): Promise<void> {
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      ...(signature && { 'X-Signature': signature }),
-      ...headers,
-    },
-    body: JSON.stringify(payload),
-  });
-
-  if (!response.ok) {
-    throw new Error(`HTTP error: ${response.statusText}`);
-  }
-}
-
-/**
- * Retry failed delivery
- */
-export async function retryDelivery(
-  deliveryId: string,
-  webhook: WebhookEndpoint
-): Promise<WebhookDelivery | null> {
-  const delivery = deliveries.get(deliveryId);
-  if (!delivery) return null;
-
-  if (delivery.attemptNumber >= webhook.retryCount) {
-    delivery.failed = true;
-    return delivery;
-  }
-
-  const newDelivery = {
-    ...delivery,
-    id: `del_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-    attemptNumber: delivery.attemptNumber + 1,
-    updatedAt: new Date(),
-  };
-
-  deliveries.set(newDelivery.id, newDelivery);
-
-  // Re-send
-  try {
-    if (webhook.provider === WebhookProvider.SLACK) {
-      await sendToSlack(webhook.url, delivery.payload, webhook.secret);
-    } else if (webhook.provider === WebhookProvider.DISCORD) {
-      await sendToDiscord(webhook.url, delivery.payload, webhook.secret);
-    } else if (webhook.provider === WebhookProvider.CUSTOM_HTTP) {
-      await sendToCustomHTTP(webhook.url, delivery.payload, webhook.secret, webhook.headers);
+      lastError = `HTTP ${response.status}`;
+    } catch (error) {
+      lastError = (error as Error).message;
     }
 
-    newDelivery.statusCode = 200;
-    newDelivery.completedAt = new Date();
-  } catch (error: any) {
-    newDelivery.statusCode = error.statusCode || 500;
-    newDelivery.failed = true;
-    newDelivery.nextRetryAt = new Date(
-      Date.now() + webhook.retryInterval * 1000 * newDelivery.attemptNumber
-    );
+    // Exponential backoff: 1s, 2s, 4s
+    if (attempt < retries - 1) {
+      await new Promise(r => setTimeout(r, 1000 * Math.pow(2, attempt)));
+    }
   }
 
-  deliveries.set(newDelivery.id, newDelivery);
-  return newDelivery;
+  // Log failed delivery
+  await db.insert(webhookDeliveries).values({
+    subscriptionId,
+    eventType: payload.event,
+    payload: JSON.stringify(payload),
+    statusCode,
+    response: JSON.stringify({ error: lastError }),
+    retries,
+    createdAt: new Date(),
+  }).catch(e => console.error('Log delivery error:', e));
+
+  return false;
 }
 
 /**
- * Get delivery history
+ * Get webhook delivery history
  */
-export async function getDeliveryHistory(
-  webhookId: string,
-  limit: number = 20
-): Promise<WebhookDelivery[]> {
-  return Array.from(deliveries.values())
-    .filter((d) => d.webhookId === webhookId)
-    .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
-    .slice(0, limit);
-}
+export async function getWebhookDeliveries(
+  subscriptionId: number,
+  limit: number = 50
+): Promise<any[]> {
+  const db = getDb();
 
-/**
- * Emit event to all registered webhooks
- */
-export async function emitEvent<T = any>(
-  event: WebhookEvent,
-  data: T
-): Promise<WebhookDelivery[]> {
-  const activeWebhooks = Array.from(webhooks.values()).filter(
-    (w) => w.active && w.events.includes(event)
-  );
+  try {
+    const results = await db
+      .select()
+      .from(webhookDeliveries)
+      .where(eq(webhookDeliveries.subscriptionId, subscriptionId))
+      .orderBy(desc(webhookDeliveries.createdAt))
+      .limit(limit);
 
-  const deliveries_list: WebhookDelivery[] = [];
-
-  for (const webhook of activeWebhooks) {
-    const delivery = await sendWebhook(webhook, event, data);
-    deliveries_list.push(delivery);
+    return results;
+  } catch (error) {
+    console.error('Get deliveries error:', error);
+    return [];
   }
-
-  return deliveries_list;
 }
 
 /**
  * Get webhook statistics
  */
-export function getWebhookStats(): {
-  totalWebhooks: number;
-  activeWebhooks: number;
+export async function getWebhookStats(subscriptionId: number): Promise<{
   totalDeliveries: number;
+  successfulDeliveries: number;
   failedDeliveries: number;
-} {
-  const webhooksList = Array.from(webhooks.values());
-  const deliveriesList = Array.from(deliveries.values());
+  successRate: number;
+}> {
+  const db = getDb();
 
-  return {
-    totalWebhooks: webhooksList.length,
-    activeWebhooks: webhooksList.filter((w) => w.active).length,
-    totalDeliveries: deliveriesList.length,
-    failedDeliveries: deliveriesList.filter((d) => d.failed).length,
-  };
+  try {
+    const all = await db
+      .select()
+      .from(webhookDeliveries)
+      .where(eq(webhookDeliveries.subscriptionId, subscriptionId));
+
+    const successful = all.filter((d: any) => d.statusCode === 200).length;
+    const total = all.length;
+
+    return {
+      totalDeliveries: total,
+      successfulDeliveries: successful,
+      failedDeliveries: total - successful,
+      successRate: total > 0 ? (successful / total) * 100 : 0,
+    };
+  } catch (error) {
+    console.error('Get stats error:', error);
+    return {
+      totalDeliveries: 0,
+      successfulDeliveries: 0,
+      failedDeliveries: 0,
+      successRate: 0,
+    };
+  }
 }
