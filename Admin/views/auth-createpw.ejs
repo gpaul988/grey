@@ -19,8 +19,10 @@ class="h-100"
 
             <div class="card overflow-hidden p-xxl-4 p-3 mb-0">
 
-                <h4 class="fw-semibold mb-2 fs-20 text-center">Set Your Password</h4>
-                <% if (typeof name !== 'undefined' && name) { %>
+                <h4 class="fw-semibold mb-2 fs-20 text-center"><%= (typeof isResetPassword !== 'undefined' && isResetPassword) ? 'Reset Your Password' : 'Set Your Password' %></h4>
+                <% if (typeof isResetPassword !== 'undefined' && isResetPassword) { %>
+                    <p class="text-muted mb-3 text-center">Enter a new password below to reset your account.</p>
+                <% } else if (typeof name !== 'undefined' && name) { %>
                     <p class="text-muted mb-3 text-center">Welcome, <strong><%= name %></strong>. Create a password to activate your account.</p>
                 <% } else { %>
                     <p class="text-muted mb-3 text-center">Create a secure password to activate your account.</p>
@@ -29,8 +31,11 @@ class="h-100"
                 <% if (typeof formError !== 'undefined' && formError) { %>
                     <div class="alert alert-danger py-2"><%= formError %></div>
                 <% } %>
+                <% if (typeof formInfo !== 'undefined' && formInfo) { %>
+                    <div class="alert alert-info py-2"><%= formInfo %></div>
+                <% } %>
 
-                <form action="/set-password/<%= token %>" method="POST" class="text-start mb-3">
+                <form action="<%= (typeof isResetPassword !== 'undefined' && isResetPassword) ? '/admin/reset-password/' : '/set-password/' %><%= token %>" method="POST" class="text-start mb-3">
                     <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
                     <div class="mb-3">
                         <label class="form-label" for="password">New Password <small class="text-info ms-1">Min 8 characters</small></label>
@@ -51,7 +56,7 @@ class="h-100"
                         </div>
                     </div>
                     <div class="mb-2 d-grid">
-                        <button class="btn btn-primary fw-semibold" type="submit">Set Password &amp; Verify</button>
+                        <button class="btn btn-primary fw-semibold" type="submit"><%= (typeof isResetPassword !== 'undefined' && isResetPassword) ? 'Reset Password' : 'Set Password &amp; Verify' %></button>
                     </div>
                 </form>
                 <script>
