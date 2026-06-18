@@ -17,6 +17,7 @@ import AdBanner from '@/components/futuristic/AdBanner';
 import WebGLHero from '@/components/futuristic/WebGLHero';
 import {usePersonalization} from '@/components/futuristic/PersonalizationProvider';
 import {useIsDayTime} from '../components/useIsDayTime';
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 
 
 const Home = () => {
@@ -121,48 +122,56 @@ const Home = () => {
                 className={`fixed bottom-6 right-6 z-9999 transition-all duration-300 ${isVisible ? 'mb-16' : 'mb-0'}`}
             />
 
-            {/* Hero Section */}
-            <div id="hero"
-                 className="relative overflow-hidden  lg:w-full lg:h-[720px] md:w-full md:h-[700px] w-full h-[700px] pb-6">
-                <video
-                    src="/assets/hero/hero.mp4"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="absolute inset-0 w-full h-full object-cover object-center bg-black/cover"
-                />
-                <WebGLHero className="absolute inset-0 z-[5] opacity-60 pointer-events-none mix-blend-screen"/>
-                {/* Simple video hero - no overlay */}
-                <div
-                    className={`absolute inset-0 z-10 flex flex-col justify-center items-start text-start lg:max-w-[90em] px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] ${
-                        isDayTime ? 'text-white ' : 'text-white'
-                    }`}
+            {/* Hero Section - Responsive Video */}
+            <div id="hero" className="relative">
+                <ResponsiveVideoHero
+                    videoDesktop="/assets/hero/hero.mp4"
+                    videoMobile="/assets/hero/hero-mobile.mp4"
+                    posterImage="/assets/hero/hero.jpg"
+                    overlayOpacity={0.3}
+                    heights={{
+                        mobile: 'h-[600px] sm:h-[650px]',
+                        tablet: 'md:h-[700px]',
+                        desktop: 'lg:h-[720px] xl:h-[720px]',
+                    }}
+                    className="pb-6 rounded-none"
                 >
-                    <br/><br/>
-                    {personalReady && greeting && (
-                        <span className={`grey-parallax-soft inline-flex items-center gap-2 rounded-full px-3 py-1 mb-2 text-xs font-medium backdrop-blur-sm border ${isDayTime ? 'bg-white/40 border-teal-700/30 text-teal-900' : 'bg-white/10 border-white/20 text-teal-100'}`}>
-                            <span className="h-1.5 w-1.5 rounded-full bg-teal-400 animate-pulse"/>
-                            {returning ? `Welcome back — ${greeting}` : greeting}
-                        </span>
-                    )}
-                    <h1 className={`grey-parallax-mid ${isDayTime ? 'text-black' : 'text-white'} lg:text-[87px] text-[45px] lg:leading-[1.1] md:leading-[1.1] leading-[1.2] font-[600] lg:mb-6`}>
-                        <br/>
-                        <span className={`${isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>Engineering</span><br/>Scalable
-                        Digital<br/> <span
-                        className={`${isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>Platforms for<br/>Modern Businesses</span>
-                    </h1><br/><br/>
-                    <h3 className={`grey-parallax-soft ${isDayTime ? 'text-teal-500' : 'text-white'} contents lg:text-[17.4px] leading-[1.18] font-[400]`}>
-                        Grey InfoTech Limited builds secure, scalable web applications, SaaS platforms, and enterprise
-                        software solutions for startups and growing businesses across Africa and globally.
-                    </h3>
-                </div>
-                <div className='absolute top-[88%] items-center left-[40em] w-full h-full flex flex-col'>
-                    <LiaLongArrowAltDownSolid
-                        className={`${isDayTime ? 'text-black' : 'text-white'} text-5xl text-center transition-transform duration-500 ease-in-out hover:scale-125 cursor-pointer`}
-                        onClick={scrollToContent}
-                    />
-                </div>
+                    {/* WebGL Hero Overlay - on top of video */}
+                    <WebGLHero className="absolute inset-0 z-[5] opacity-60 pointer-events-none mix-blend-screen" />
+                    
+                    {/* Text content */}
+                    <div
+                        className={`relative z-10 flex flex-col justify-center items-start text-start lg:max-w-[90em] ${
+                            isDayTime ? 'text-white ' : 'text-white'
+                        }`}
+                    >
+                        <br/><br/>
+                        {personalReady && greeting && (
+                            <span className={`grey-parallax-soft inline-flex items-center gap-2 rounded-full px-3 py-1 mb-2 text-xs font-medium backdrop-blur-sm border ${isDayTime ? 'bg-white/40 border-teal-700/30 text-teal-900' : 'bg-white/10 border-white/20 text-teal-100'}`}>
+                                <span className="h-1.5 w-1.5 rounded-full bg-teal-400 animate-pulse"/>
+                                {returning ? `Welcome back — ${greeting}` : greeting}
+                            </span>
+                        )}
+                        <h1 className={`grey-parallax-mid ${isDayTime ? 'text-black' : 'text-white'} lg:text-[87px] text-[45px] lg:leading-[1.1] md:leading-[1.1] leading-[1.2] font-[600] lg:mb-6`}>
+                            <br/>
+                            <span className={`${isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>Engineering</span><br/>Scalable
+                            Digital<br/> <span
+                            className={`${isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>Platforms for<br/>Modern Businesses</span>
+                        </h1><br/><br/>
+                        <h3 className={`grey-parallax-soft ${isDayTime ? 'text-teal-500' : 'text-white'} contents lg:text-[17.4px] leading-[1.18] font-[400]`}>
+                            Grey InfoTech Limited builds secure, scalable web applications, SaaS platforms, and enterprise
+                            software solutions for startups and growing businesses across Africa and globally.
+                        </h3>
+                    </div>
+                    
+                    {/* Scroll indicator */}
+                    <div className='absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-10'>
+                        <LiaLongArrowAltDownSolid
+                            className={`${isDayTime ? 'text-black' : 'text-white'} text-5xl text-center transition-transform duration-500 ease-in-out hover:scale-125 cursor-pointer`}
+                            onClick={scrollToContent}
+                        />
+                    </div>
+                </ResponsiveVideoHero>
             </div>
 
             {/* Introductory section */}
