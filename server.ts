@@ -18,6 +18,7 @@ import {ensureAuth} from './Admin/middleware/authMiddleware';
 import adminRoutes from './Admin/routes/admin';
 import apiRoutes from './Admin/routes/api';
 import authRoutes from './Admin/routes/auth';
+import meRoutes from './Admin/routes/me';
 import portalRoutes from './Admin/routes/portal';
 import {dashboardStats} from './Admin/models';
 import {
@@ -192,6 +193,9 @@ app.use(ADMIN_BASE_PATH, sseRouter);
 
 // GraphQL API endpoint (Phase 9A)
 app.use('/api/graphql', express.json(), graphqlMiddleware);
+
+// Current user endpoint (for localStorage on frontend)
+app.use('/api', meRoutes);
 
 // JSON CRUD API. Auth is enforced inside the router via ensureApiAuth.
 app.use(`${ADMIN_BASE_PATH}/api`, apiRoutes);

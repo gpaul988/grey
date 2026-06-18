@@ -1,6 +1,6 @@
 import db from '../db';
 import {createRepo} from './crud';
-import {UsersModel} from './users';
+import {UsersModel} from './users-pg';  // ← Changed to PostgreSQL version
 import type {
     Submission, Lead, Project, Ticket, TicketMessage,
     Invoice, CaseStudy, BlogPost, Conversation, Message, ActivityLog,
