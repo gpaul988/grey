@@ -150,7 +150,8 @@ export const resolvers = {
 
     orders: async (
       _parent: any,
-      args: { userId?: string; page?: number; pageSize?: number }
+      args: { userId?: string; page?: number; pageSize?: number },
+      _context: GraphQLContext
     ) => {
       // Placeholder
       return {
@@ -217,7 +218,8 @@ export const resolvers = {
     // ========== USER MUTATIONS ==========
     createUser: async (
       _parent: any,
-      args: { email: string; name: string; password: string }
+      args: { email: string; name: string; password: string },
+      _context: GraphQLContext
     ) => {
       // Hash password, insert into DB
       // Placeholder
@@ -234,7 +236,8 @@ export const resolvers = {
 
     updateUser: async (
       _parent: any,
-      args: { id: string; name?: string; avatar?: string }
+      args: { id: string; name?: string; avatar?: string },
+      _context: GraphQLContext
     ) => {
       // Update in DB
       return {
@@ -284,7 +287,8 @@ export const resolvers = {
 
     updateService: async (
       _parent: any,
-      args: { id: string; name?: string; description?: string; price?: number }
+      args: { id: string; name?: string; description?: string; price?: number },
+      _context: GraphQLContext
     ) => {
       // Update in DB, invalidate cache
       await invalidateCache('services:all:1');
@@ -335,7 +339,8 @@ export const resolvers = {
 
     updateProduct: async (
       _parent: any,
-      args: { id: string; price?: number; inventory?: number }
+      args: { id: string; price?: number; inventory?: number },
+      _context: GraphQLContext
     ) => {
       return {
         id: args.id,
@@ -379,7 +384,8 @@ export const resolvers = {
 
     updateOrderStatus: async (
       _parent: any,
-      args: { id: string; status: string }
+      args: { id: string; status: string },
+      _context: GraphQLContext
     ) => {
       return {
         id: args.id,
@@ -429,7 +435,8 @@ export const resolvers = {
 
     updateReview: async (
       _parent: any,
-      args: { id: string; rating?: number; comment?: string }
+      args: { id: string; rating?: number; comment?: string },
+      _context: GraphQLContext
     ) => {
       return {
         id: args.id,
@@ -538,21 +545,21 @@ export const resolvers = {
   },
 
   Service: {
-    orders: async (parent: any) => {
+    orders: async (parent: any, _args: any, _context: GraphQLContext) => {
       // Placeholder
       return [];
     },
-    reviews: async (parent: any) => {
+    reviews: async (parent: any, _args: any, _context: GraphQLContext) => {
       // Placeholder
       return [];
     },
   },
 
   Product: {
-    orders: async (parent: any) => {
+    orders: async (parent: any, _args: any, _context: GraphQLContext) => {
       return [];
     },
-    reviews: async (parent: any) => {
+    reviews: async (parent: any, _args: any, _context: GraphQLContext) => {
       return [];
     },
   },
