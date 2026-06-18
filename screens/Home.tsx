@@ -126,13 +126,13 @@ const Home = () => {
             <div id="hero" className="relative">
                 <ResponsiveVideoHero
                     videoDesktop="/assets/hero/hero.mp4"
-                    videoMobile="/assets/hero/hero-mobile.mp4"
+                    videoMobile="/assets/hero/hero.mp4"
                     posterImage="/assets/hero/hero.jpg"
                     overlayOpacity={0.3}
                     heights={{
                         mobile: 'h-[600px] sm:h-[650px]',
                         tablet: 'md:h-[700px]',
-                        desktop: 'lg:h-[720px] xl:h-[720px]',
+                        desktop: 'lg:h-[850px] xl:h-[850px]',
                     }}
                     className="pb-6 rounded-none"
                 >
@@ -141,7 +141,7 @@ const Home = () => {
                     
                     {/* Text content */}
                     <div
-                        className={`relative z-10 flex flex-col justify-center items-start text-start lg:max-w-[90em] ${
+                        className={`relative z-10 mt-24 flex flex-col justify-center items-start text-start lg:max-w-[90em] ${
                             isDayTime ? 'text-white ' : 'text-white'
                         }`}
                     >
