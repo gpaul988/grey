@@ -164,9 +164,9 @@ export const parseAndAnalyze = (code: string): Partial<CodeAnalysisResult> => {
         'typescript',
         'jsx',
         'decorators-legacy',
-        ['pipelineOperator', { proposal: 'minimal' }],
+        // Pipeline operator not needed for basic parsing
       ],
-    });
+    } as any);
 
     let functionCount = 0;
     let classCount = 0;

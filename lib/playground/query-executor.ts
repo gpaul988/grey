@@ -14,7 +14,7 @@ export interface ExecutionResult {
 
 export interface QueryValidationResult {
   valid: boolean;
-  errors: GraphQLError[];
+  errors: Array<GraphQLError | { message: string }>;
 }
 
 // Simple GraphQL schema for playground
@@ -56,7 +56,7 @@ export const validateGraphQLQuery = (query: string): QueryValidationResult => {
 
     return {
       valid: errors.length === 0,
-      errors,
+      errors: [...errors],
     };
   } catch (error) {
     return {
