@@ -1,7 +1,9 @@
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
+import * as schema from './db/schema';
 
 let pool: Pool | null = null;
+let dbInstance: ReturnType<typeof drizzle> | null = null;
 
 /**
  * Get or create PostgreSQL connection pool
@@ -35,10 +37,25 @@ export function getPool(): Pool {
 }
 
 /**
- * Drizzle ORM instance with PostgreSQL
+ * Get Drizzle ORM instance with PostgreSQL
  */
-export const db = drizzle({
-  client: getPool(),
+export function getDb() {
+  if (!dbInstance) {
+    dbInstance = drizzle({
+      client: getPool(),
+      schema,
+    });
+  }
+  return dbInstance;
+}
+
+/**
+ * Drizzle ORM instance (lazy-loaded)
+ */
+export const db = new Proxy({} as any, {
+  get(_, prop) {
+    return getDb()[prop as keyof typeof dbInstance];
+  },
 });
 
 /**
