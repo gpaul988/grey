@@ -174,15 +174,35 @@ export default function AdminDashboard() {
     window.URL.revokeObjectURL(url);
   };
 
-  // Export to PDF (basic version using html2canvas + jspdf)
+  // Export to PDF (server-side rendering)
   const exportToPDF = async () => {
     try {
-      // For now, show a message that PDF export is being prepared
-      alert('PDF export requires additional setup. CSV export available now.');
-      // Full implementation would use: import html2canvas from 'html2canvas'; import jsPDF from 'jspdf';
+      const response = await fetch('/api/admin/export/pdf', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Token': localStorage.getItem('admin-token') || '',
+        },
+        body: JSON.stringify(metrics),
+      });
+
+      if (!response.ok) {
+        throw new Error('PDF export failed');
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `dashboard-export-${new Date().toISOString().split('T')[0]}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
     } catch (err) {
       console.error('PDF export failed:', err);
-      alert('PDF export failed. Please try again.');
+      alert('PDF export failed. Using CSV instead.');
+      exportToCSV();
     }
   };
 
