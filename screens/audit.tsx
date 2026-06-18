@@ -3,7 +3,8 @@
 
 import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import { useSearchParams } from 'next/navigation';
 import type {AuditReport, AuditSection, Finding, Severity} from '@/lib/audit/engine';
 
 const SEV_META: Record<Severity, {label: string; color: string; ring: string; bg: string}> = {
@@ -28,16 +29,46 @@ interface AuditReportExtended extends AuditReport {
 }
 
 export default function AuditScreen() {
+    const searchParams = useSearchParams();
     const [website, setWebsite] = useState('');
     const [repo, setRepo] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [report, setReport] = useState<AuditReportExtended | null>(null);
 
-    const run = async (e: React.FormEvent) => {
-        e.preventDefault();
+    // Load URL parameters on mount
+    useEffect(() => {
+        if (!searchParams) return;
+        
+        const websiteParam = searchParams.get('website');
+        const repoParam = searchParams.get('repo');
+        const autoRun = searchParams.get('auto') === 'true';
+        
+        if (websiteParam) setWebsite(decodeURIComponent(websiteParam));
+        if (repoParam) setRepo(decodeURIComponent(repoParam));
+        
+        // Auto-run audit if both params present and auto=true
+        if (autoRun && (websiteParam || repoParam)) {
+            setTimeout(() => {
+                handleRun({
+                    preventDefault: () => {},
+                    currentTarget: {
+                        website: decodeURIComponent(websiteParam || ''),
+                        repo: decodeURIComponent(repoParam || ''),
+                    },
+                } as any);
+            }, 100);
+        }
+    }, [searchParams]);
+
+    const handleRun = async (e: React.FormEvent | any) => {
+        if (e?.preventDefault) e.preventDefault();
+        
+        const webVal = e?.currentTarget?.website || website;
+        const repoVal = e?.currentTarget?.repo || repo;
+        
         setError('');
-        if (!website.trim() && !repo.trim()) {
+        if (!webVal.trim() && !repoVal.trim()) {
             setError('Enter a website URL, a GitHub repo URL, or both.');
             return;
         }
@@ -47,7 +78,7 @@ export default function AuditScreen() {
             const res = await fetch('/api/audit/run', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({website: website.trim(), repo: repo.trim()}),
+                body: JSON.stringify({website: webVal.trim(), repo: repoVal.trim()}),
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data?.error || (data?.errors && Object.values(data.errors)[0]) || 'Audit failed.');
@@ -75,7 +106,7 @@ export default function AuditScreen() {
                     </p>
                 </header>
 
-                <form onSubmit={run} className="grey-glass grey-neon-border mx-auto mt-10 max-w-3xl rounded-2xl p-5 sm:p-7">
+                <form onSubmit={handleRun} className="grey-glass grey-neon-border mx-auto mt-10 max-w-3xl rounded-2xl p-5 sm:p-7">
                     <div className="grid gap-4 sm:grid-cols-2">
                         <label className="block">
                             <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-slate-400">
