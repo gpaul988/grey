@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       const result = await executeGraphQLQuery(query, variables, timeout || 5000);
-      return res.status(200).json({ success: true, ...result });
+      return res.status(200).json(result);
     } else {
       // REST
       if (!method || !url) {
@@ -32,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       const result = await executeRESTQuery(method, url, body, timeout || 5000);
-      return res.status(200).json({ success: true, ...result });
+      return res.status(200).json(result);
     }
   } catch (error) {
     console.error('Query execution error:', error);

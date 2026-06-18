@@ -50,6 +50,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             shareUrl: `/audit-report/${stored.externalId}`,
         });
     } catch (err: any) {
-        return res.status(500).json({error: err?.message || 'Audit failed. Try again.'});
+        console.error('Audit error:', err);
+        return res.status(500).json({error: 'Audit failed. Try again.'});
     }
 }

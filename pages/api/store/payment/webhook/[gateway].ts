@@ -61,6 +61,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         return res.status(400).json({ error: 'Unknown gateway' });
     } catch (e) {
-        return res.status(500).json({ error: (e as Error).message || 'Webhook error' });
+        console.error('Webhook error:', e);
+        return res.status(500).json({ error: 'Webhook processing failed' });
     }
 }
