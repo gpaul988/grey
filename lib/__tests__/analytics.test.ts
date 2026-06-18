@@ -3,9 +3,14 @@ import { trackEvent, getEventStats, getCohortData } from '@/lib/analytics';
 
 // Mock database and redis
 vi.mock('@/lib/db', () => ({
+  getPool: vi.fn(),
   db: {
     query: vi.fn(),
   },
+}));
+
+vi.mock('@/lib/db-raw', () => ({
+  query: vi.fn(),
 }));
 
 vi.mock('@/lib/redis-client', () => ({
@@ -18,12 +23,16 @@ vi.mock('@/lib/redis-client', () => ({
   },
 }));
 
-import { db } from '@/lib/db';
+import { db, getPool } from '@/lib/db';
+import { query as rawQuery } from '@/lib/db-raw';
 import redis from '@/lib/redis-client';
 
 describe('Analytics', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    // Setup default mocks for db.query and rawQuery
+    (db.query as any).mockResolvedValue({ rows: [] });
+    (rawQuery as any).mockResolvedValue({ rows: [] });
   });
 
   describe('trackEvent', () => {
@@ -101,7 +110,7 @@ describe('Analytics', () => {
         ],
       };
 
-      (db.query as any).mockResolvedValue(mockResult);
+      (rawQuery as any).mockResolvedValue(mockResult);
 
       const stats = await getEventStats('30d');
 
@@ -111,17 +120,17 @@ describe('Analytics', () => {
     });
 
     it('should support different timeframes', async () => {
-      (db.query as any).mockResolvedValue({ rows: [] });
+      (rawQuery as any).mockResolvedValue({ rows: [] });
 
       await getEventStats('24h');
       await getEventStats('7d');
       await getEventStats('30d');
 
-      expect(db.query).toHaveBeenCalledTimes(3);
+      expect(rawQuery).toHaveBeenCalledTimes(3);
     });
 
     it('should return empty object on error', async () => {
-      (db.query as any).mockRejectedValue(new Error('DB error'));
+      (rawQuery as any).mockRejectedValue(new Error('DB error'));
 
       const stats = await getEventStats('30d');
 
@@ -139,7 +148,7 @@ describe('Analytics', () => {
         ],
       };
 
-      (db.query as any).mockResolvedValue(mockResult);
+      (rawQuery as any).mockResolvedValue(mockResult);
 
       const cohorts = await getCohortData('device', '30d');
 
@@ -156,7 +165,7 @@ describe('Analytics', () => {
         ],
       };
 
-      (db.query as any).mockResolvedValue(mockResult);
+      (rawQuery as any).mockResolvedValue(mockResult);
 
       const cohorts = await getCohortData('channel', '30d');
 
@@ -165,7 +174,7 @@ describe('Analytics', () => {
     });
 
     it('should return empty object on error', async () => {
-      (db.query as any).mockRejectedValue(new Error('DB error'));
+      (rawQuery as any).mockRejectedValue(new Error('DB error'));
 
       const cohorts = await getCohortData('property', '30d');
 
@@ -186,7 +195,7 @@ describe('Analytics', () => {
 
   describe('edge cases', () => {
     it('should handle empty results gracefully', async () => {
-      (db.query as any).mockResolvedValue({ rows: [] });
+      (rawQuery as any).mockResolvedValue({ rows: [] });
 
       const stats = await getEventStats('30d');
       expect(stats).toEqual({});
