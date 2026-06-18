@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { getMetrics } from '@/lib/dashboard-stats';
+import { getDashboardStats, getRatingDistribution, getRecommendationMetrics } from '@/lib/dashboard-stats';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 vi.mock('@/lib/db', () => ({
@@ -112,9 +112,9 @@ describe('Admin Dashboard', () => {
     });
   });
 
-  describe('getMetrics()', () => {
+  describe('getDashboardStats()', () => {
     it('should aggregate user statistics', async () => {
-      const metrics = await getMetrics({ startDate: new Date('2026-06-01') });
+      const metrics = await getDashboardStats();
 
       // Should count all users created after startDate
       expect(metrics).toBeDefined();

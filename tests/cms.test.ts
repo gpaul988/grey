@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import jwt from 'jsonwebtoken';
 import { db } from '@/lib/db';
 import { cmsPages } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
@@ -26,9 +27,16 @@ describe('CMS Endpoints', () => {
     jsonMock = vi.fn();
     statusMock = vi.fn().mockReturnValue({ json: jsonMock });
 
+    // Generate a valid JWT token for tests
+    const token = jwt.sign(
+      { userId: 1, email: 'admin@example.com', role: 'admin' },
+      process.env.JWT_SECRET || 'secret',
+      { expiresIn: '7d' }
+    );
+
     req = {
       headers: {
-        authorization: 'Bearer test-token',
+        authorization: `Bearer ${token}`,
       },
       method: 'POST',
       body: {},
@@ -49,7 +57,7 @@ describe('CMS Endpoints', () => {
       req.body = {
         title: 'Getting Started',
         slug: 'getting-started',
-        type: 'guide',
+        type: 'doc',
         content: '# Getting Started Guide',
         published: false,
       };
@@ -61,7 +69,7 @@ describe('CMS Endpoints', () => {
               id: 1,
               title: 'Getting Started',
               slug: 'getting-started',
-              type: 'guide',
+              type: 'doc',
               content: '# Getting Started Guide',
               published: false,
               createdAt: new Date(),
