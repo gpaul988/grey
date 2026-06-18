@@ -1,149 +1,75 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { aggregateMetrics } from '../../../lib/admin/metrics';
-import { verifyAdminToken } from '../../../lib/admin/auth';
+import { getDb } from '@/lib/db';
+import { eq, sql } from 'drizzle-orm';
+import { users, services, payments, analyticsEvents, reviews } from '@/lib/db/schema';
 
-/**
- * WebSocket endpoint for real-time dashboard metrics
- * Usage: wss://domain/api/ws/dashboard?token=<admin_token>
- */
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const server = (res.socket as any)?.server;
-  if (!server?.ws) {
-    console.log('Initializing WebSocket server');
-
-    const WebSocketServer = require('ws').Server;
-    const wss = new WebSocketServer({ noServer: true });
-
-    // Upgrade HTTP to WebSocket
-    server?.on('upgrade', async (request: any, socket: any, head: any) => {
-      if (request.url?.startsWith('/api/ws/dashboard')) {
-        try {
-          // Extract token from query string
-          const url = new URL(request.url, `http://${request.headers.host}`);
-          const token = url.searchParams.get('token');
-
-          if (!token) {
-            console.warn('[WebSocket] Connection attempt without token');
-            socket.write('HTTP/1.1 401 Unauthorized\r\nContent-Type: application/json\r\n\r\n{"error":"Token required"}');
-            socket.destroy();
-            return;
-          }
-
-          // Verify token
-          const user = verifyAdminToken(token);
-          if (!user) {
-            console.warn(`[WebSocket] Invalid token attempted`);
-            socket.write('HTTP/1.1 401 Unauthorized\r\nContent-Type: application/json\r\n\r\n{"error":"Invalid token"}');
-            socket.destroy();
-            return;
-          }
-
-          console.log(`[WebSocket] Verified user: ${user.email}`);
-
-          // Upgrade connection
-          wss.handleUpgrade(request, socket, head, (ws: any) => {
-            handleConnection(ws, user.id);
-          });
-        } catch (err) {
-          console.error('[WebSocket] Upgrade error:', err);
-          socket.write('HTTP/1.1 500 Internal Server Error\r\n\r\n');
-          socket.destroy();
-          return;
-        }
-      }
-    });
-
-    if (server) {
-      server.ws = wss;
-    }
-  }
-
-  res.status(200).json({ message: 'WebSocket server running' });
+interface DashboardMetrics {
+  totalUsers: number;
+  activeUsers: number;
+  totalRevenue: number;
+  monthlyRevenue: number;
+  topServices: Array<{ name: string; count: number; revenue: number }>;
+  reviewsCount: number;
+  averageRating: number;
+  timestamp: Date;
 }
 
-/**
- * Handle new WebSocket connection
- */
-async function handleConnection(ws: any, userId: string) {
-  console.log(`Admin connected: ${userId}`);
-
-  // Send initial metrics
-  try {
-    const metrics = await aggregateMetrics();
-    ws.send(
-      JSON.stringify({
-        type: 'metrics',
-        payload: metrics,
-        timestamp: new Date(),
-      })
-    );
-  } catch (err) {
-    console.error('Failed to fetch metrics:', err);
-    ws.send(
-      JSON.stringify({
-        type: 'error',
-        message: 'Failed to fetch metrics',
-      })
-    );
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'GET') {
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // Set up periodic updates (every 1 minute)
-  const interval = setInterval(async () => {
-    if (ws.readyState !== 1) {
-      // WebSocket.OPEN
-      clearInterval(interval);
-      return;
-    }
+  try {
+    const db = getDb();
+    const now = new Date();
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
 
-    try {
-      const metrics = await aggregateMetrics();
-      ws.send(
-        JSON.stringify({
-          type: 'metrics',
-          payload: metrics,
-          timestamp: new Date(),
-        })
-      );
-    } catch (err) {
-      console.error('Failed to fetch metrics:', err);
-    }
-  }, 60 * 1000); // 1 minute
+    // Fetch metrics
+    const allUsers = await db.select().from(users);
+    const allPayments = await db.select().from(payments);
+    const allReviews = await db.select().from(reviews);
+    const allEvents = await db.select().from(analyticsEvents);
 
-  // Handle incoming messages
-  ws.on('message', async (data: string) => {
-    try {
-      const message = JSON.parse(data);
+    const userCount = allUsers.length;
+    const activeCount = allEvents.filter(e => {
+      const eventTime = new Date(e.timestamp);
+      return eventTime.getTime() > now.getTime() - 24 * 60 * 60 * 1000;
+    }).length;
 
-      if (message.type === 'ping') {
-        ws.send(JSON.stringify({ type: 'pong' }));
-      }
+    const totalRevenue = allPayments.reduce((sum, p) => sum + (typeof p.amount === 'number' ? p.amount : 0), 0);
+    const monthlyRevenue = allPayments
+      .filter(p => p.createdAt && new Date(p.createdAt) >= monthStart)
+      .reduce((sum, p) => sum + (typeof p.amount === 'number' ? p.amount : 0), 0);
 
-      if (message.type === 'refresh') {
-        const metrics = await aggregateMetrics();
-        ws.send(
-          JSON.stringify({
-            type: 'metrics',
-            payload: metrics,
-            timestamp: new Date(),
-          })
-        );
-      }
-    } catch (err) {
-      console.error('Failed to handle message:', err);
-    }
-  });
+    const reviewsCount = allReviews.length;
+    const approvedReviews = allReviews.filter(r => r.status === 'approved');
+    const averageRating = approvedReviews.length > 0
+      ? approvedReviews.reduce((sum, r) => sum + (typeof r.rating === 'number' ? r.rating : 0), 0) / approvedReviews.length
+      : 0;
 
-  // Clean up on disconnect
-  ws.on('close', () => {
-    console.log(`Admin disconnected: ${userId}`);
-    clearInterval(interval);
-  });
+    // Top services (mock - would need service link data)
+    const topServicesData = [
+      { name: 'React Services', count: 28, revenue: 1200 },
+      { name: 'Node.js Services', count: 22, revenue: 980 },
+      { name: 'Laravel Services', count: 18, revenue: 750 },
+    ];
 
-  ws.on('error', (err: Error) => {
-    console.error('WebSocket error:', err);
-    clearInterval(interval);
-  });
+    const metrics: DashboardMetrics = {
+      totalUsers: userCount,
+      activeUsers: activeCount,
+      totalRevenue,
+      monthlyRevenue,
+      topServices: topServicesData,
+      reviewsCount,
+      averageRating: Math.round(averageRating * 10) / 10,
+      timestamp: new Date(),
+    };
+
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Cache-Control', 'public, max-age=30, s-maxage=15');
+    return res.status(200).json(metrics);
+  } catch (error) {
+    console.error('[Dashboard API] Error:', error);
+    return res.status(500).json({ error: 'Failed to fetch dashboard metrics' });
+  }
 }
