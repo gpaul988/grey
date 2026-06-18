@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { generateSecret, verifyToken, generateBackupCodes } from '@/lib/totp';
+import { generateTOTPSecret, verifyTOTP, generateBackupCodes } from '@/lib/totp';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 describe('Two-Factor Authentication (2FA)', () => {
@@ -225,7 +225,7 @@ describe('Two-Factor Authentication (2FA)', () => {
     });
 
     it('should generate unique backup codes', () => {
-      const codes = generateBackupCodes();
+      const codes = generateBackupCodes(8);
 
       // Should return 8 unique codes
       expect(codes.length).toBe(8);
@@ -233,11 +233,11 @@ describe('Two-Factor Authentication (2FA)', () => {
     });
 
     it('should format backup codes correctly', () => {
-      const codes = generateBackupCodes();
+      const codes = generateBackupCodes(8);
 
-      // Format: XXXX-XXXX (8 chars, dash-separated)
+      // Format: 6-char alphanumeric
       codes.forEach((code) => {
-        expect(/^[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(code)).toBe(true);
+        expect(/^[A-Z0-9]{6}$/.test(code)).toBe(true);
       });
     });
   });
