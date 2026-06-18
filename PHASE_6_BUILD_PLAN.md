@@ -1,366 +1,325 @@
-# PHASE 6+: BUILD PLAN (Your Feature Stack)
+# Phase 6.6-6.10 Full Build Plan
 
-**Status:** Ready to build  
-**Date:** June 18, 2026  
-**Your Selections:** GraphQL + Search + Webhooks + i18n + Analytics + Payments + Voice AI + [TBD Unique Feature]
+## Objective
+Build 5 remaining differentiator features (AI Code Analyzer, Live Demos, API Playground, Performance Benchmarking, Tech Stack Scanner) without modifying existing code. Deploy cleanly to cPanel Node.js.
+
+## Strategy
+- **Additive only:** All new features in separate modules/APIs—zero breaking changes
+- **Free APIs:** GitHub free tier, free tools only (no paid APIs)
+- **cPanel compatible:** No exotic dependencies, standard Node.js patterns
+- **Testable:** Each feature has unit tests, all tests must pass
+- **Deployable:** No build-time config, env-based runtime config
+
+## Phase 6.6: AI Code Analyzer (8-10h)
+**Concept:** Scan GitHub repos → analyze code → recommend services
+
+### Files to Create
+```
+lib/ai/code-analyzer.ts          # Core analyzer logic (AST, patterns)
+lib/ai/github-scanner.ts         # GitHub API integration (Octokit)
+lib/ai/service-recommender.ts    # Service suggestion engine
+pages/api/ai/analyze-code.ts      # POST /api/ai/analyze-code
+pages/api/ai/scan-github.ts       # POST /api/ai/scan-github
+pages/api/ai/recommend.ts         # POST /api/ai/recommend
+components/AI/CodeAnalyzer.tsx    # UI component
+lib/__tests__/code-analyzer.test.ts # Tests
+```
+
+### Implementation Details
+- **Code Analysis:** Parse TypeScript/JavaScript, detect patterns (async, error handling, complexity)
+- **GitHub Scanning:** Public repos via Octokit (free auth or unauthenticated), analyze code quality metrics
+- **Recommendations:** Match detected tech stack → suggest grey.git services (Node.js → backend service, React → frontend, etc.)
+- **Performance:** Cache results, rate-limit API calls
+- **Dependencies:** octokit/rest, @babel/parser (free)
+
+### API Endpoints
+- `POST /api/ai/analyze-code` — Analyze code snippet
+- `POST /api/ai/scan-github` — Scan GitHub repo (owner/repo)
+- `POST /api/ai/recommend` — Get service recommendations (tech stack input)
+
+### Tests (8 tests)
+- Analyze code snippet
+- Detect language/patterns
+- Scan GitHub repo
+- Extract tech stack
+- Generate recommendations
+- Rate limiting
+- Error handling
+- Cache validation
 
 ---
 
-## BUILD ORDER (Sequential + Parallel)
+## Phase 6.7: Live Demo Environments (10-12h)
+**Concept:** Spin up isolated temporary demo instances on request
 
-### PRIORITY 1: Voice & Conversational AI (Futuristic Core)
-**Time:** 12-16 hours  
-**Impact:** Competitive differentiator, user engagement +50%
-
-**Includes:**
-1. **Voice Search** — Speak to search products/services
-2. **AI Chatbot** — Customer support, product recommendations
-3. **Voice Commands** — "Show me Node.js services" → Returns results
-4. **Real-time Transcription** — Web Speech API + Deepgram/Whisper
-5. **Voice Analytics** — Track voice queries, popular voice commands
-
-**Files to Create:**
+### Files to Create
 ```
-lib/voice/
-├── transcribe.ts         # Speech-to-text (Deepgram API)
-├── chatbot.ts           # AI chatbot (OpenAI/Claude integration)
-├── voice-commands.ts    # Command parsing & execution
-└── voice-analytics.ts   # Track voice interactions
-
-pages/api/voice/
-├── transcribe.ts        # POST audio → text
-├── chat.ts             # POST message → AI response
-├── commands.ts         # Execute voice commands
-└── analytics.ts        # Track voice events
-
-components/
-├── VoiceSearch.tsx     # Microphone UI + real-time transcription
-├── ChatBot.tsx         # Chat interface
-└── VoiceButton.tsx     # Voice command trigger
+lib/demo/demo-manager.ts          # Demo instance lifecycle
+lib/demo/docker-runner.ts         # Docker-based execution (optional, can use mock)
+lib/demo/cleanup.ts               # Cleanup scheduler
+pages/api/demo/start.ts           # POST /api/demo/start
+pages/api/demo/stop.ts            # POST /api/demo/stop
+pages/api/demo/status.ts          # GET /api/demo/status
+pages/api/demo/list.ts            # GET /api/demo/list
+components/Demo/DemoEnvironment.tsx # UI component
+lib/__tests__/demo-manager.test.ts  # Tests
 ```
 
-**Frontend Integration:**
-- Microphone button on search bar (sticky)
-- Chat widget (bottom-right corner, like Intercom)
-- Voice command trigger (keyboard shortcut: Ctrl+;)
+### Implementation Details
+- **Demo Manager:** Track active demos, sessions, timeouts (in-memory + DB)
+- **Docker Runner:** Spawn containers for service previews (or mock if cPanel doesn't support Docker)
+- **Cleanup:** Auto-kill demos after 1h, cleanup resources
+- **Security:** Isolated environments, rate-limit per user, no data persistence
+- **cPanel:** Use mock/local filesystem fallback if Docker unavailable
+- **Dependencies:** None (or `dockerode` if Docker available)
 
-**Backend APIs:**
-- `/api/voice/transcribe` — Send audio, get text
-- `/api/voice/chat` — Send message, get AI response
-- `/api/voice/commands` — Parse and execute commands
-- `/api/voice/analytics` — Get voice query stats
+### API Endpoints
+- `POST /api/demo/start` — Spin up demo (service type)
+- `POST /api/demo/stop` — Kill demo (demo ID)
+- `GET /api/demo/status` — Check demo status
+- `GET /api/demo/list` — List active demos
+
+### Tests (10 tests)
+- Start demo instance
+- Stop demo instance
+- Auto-cleanup on timeout
+- Resource limits
+- Session management
+- Error recovery
+- Rate limiting
+- Concurrent demos
+- Cleanup validation
+- Status tracking
 
 ---
 
-### PRIORITY 2: GraphQL API (Modern Interface)
-**Time:** 6-8 hours  
-**Complexity:** High  
-**Dependencies:** None (works with existing REST)
+## Phase 6.8: Interactive API Playground (6-8h)
+**Concept:** Execute GraphQL/REST queries live in browser
 
-**Files to Create:**
+### Files to Create
 ```
-lib/graphql/
-├── schema.ts          # GraphQL schema definition
-├── resolvers.ts       # Query/mutation resolvers
-├── context.ts         # Request context (user, etc.)
-└── middleware.ts      # Auth, rate limiting
-
-pages/api/graphql.ts   # Apollo Server endpoint
+lib/playground/query-executor.ts  # Execute GraphQL/REST
+lib/playground/sandbox.ts         # Safe query execution
+pages/api/playground/execute.ts   # POST /api/playground/execute
+pages/api/playground/schema.ts    # GET /api/playground/schema
+components/Playground/GraphQLPlayground.tsx # UI
+components/Playground/RESTPlayground.tsx    # UI
+lib/__tests__/query-executor.test.ts # Tests
 ```
 
-**What it covers:**
-- Query: `product(id)`, `products(filter)`, `reviews(productId)`
-- Query: `user`, `orders`, `recommendations`
-- Mutation: `createReview`, `updateUser`, `checkout`
-- Subscription: `orderStatusChanged`, `reviewPublished`
+### Implementation Details
+- **Query Executor:** Parse + validate GraphQL/REST, execute against live API
+- **Sandbox:** Timeout queries, memory limits, no mutation unless allowed
+- **Schema Introspection:** Export GraphQL schema for IDE
+- **Query History:** Track recent queries per session
+- **Validation:** Check query syntax, field existence, auth
+- **cPanel:** Native Node.js, no browser APIs needed
+- **Dependencies:** graphql, express-graphql (already have Apollo)
 
-**Example Query:**
-```graphql
-query GetProduct($id: ID!) {
-  product(id: $id) {
-    id
-    name
-    price
-    description
-    reviews(limit: 10) {
-      rating
-      text
-      author { name email }
-    }
-    relatedProducts { name price }
-  }
+### API Endpoints
+- `POST /api/playground/execute` — Execute GraphQL/REST query
+- `GET /api/playground/schema` — Get GraphQL schema
+- `POST /api/playground/validate` — Validate query without executing
+
+### Tests (7 tests)
+- Execute valid query
+- Reject invalid query
+- Timeout handling
+- Memory limits
+- Schema introspection
+- Query history
+- Auth validation
+
+---
+
+## Phase 6.9: Performance Benchmarking Tool (8-10h)
+**Concept:** Test & compare performance across services
+
+### Files to Create
+```
+lib/bench/benchmark-runner.ts     # Run performance tests
+lib/bench/metrics.ts              # Collect metrics (speed, memory, requests)
+lib/bench/comparator.ts           # Compare results
+pages/api/bench/run.ts            # POST /api/bench/run
+pages/api/bench/compare.ts        # POST /api/bench/compare
+pages/api/bench/results.ts        # GET /api/bench/results/:id
+components/Bench/BenchmarkDashboard.tsx # UI
+lib/__tests__/benchmark.test.ts   # Tests
+```
+
+### Implementation Details
+- **Benchmark Runner:** Execute functions, measure time/memory/heap
+- **Metrics:** Latency (p50, p95, p99), throughput, memory usage
+- **Comparison:** Baseline vs current, % improvement/regression
+- **Results:** Store in DB, export CSV/JSON
+- **Parallel:** Run multiple benchmarks concurrently
+- **cPanel:** Use native Node.js perf hooks
+- **Dependencies:** autocannon (lightweight HTTP benchmarking)
+
+### API Endpoints
+- `POST /api/bench/run` — Run benchmark on endpoint
+- `POST /api/bench/compare` — Compare two endpoints
+- `GET /api/bench/results/:id` — Fetch results
+
+### Tests (9 tests)
+- Run benchmark
+- Measure latency
+- Measure throughput
+- Memory profiling
+- Compare baselines
+- Parallel benchmarking
+- Results storage
+- CSV export
+- Error recovery
+
+---
+
+## Phase 6.10: Tech Stack Scanner (6-8h)
+**Concept:** Detect tech stack from websites
+
+### Files to Create
+```
+lib/scanner/tech-detector.ts      # Detect tech from headers, HTML, JS
+lib/scanner/website-crawler.ts    # Crawl website
+lib/scanner/tech-db.ts            # Tech signature database
+pages/api/scanner/scan.ts         # POST /api/scanner/scan
+pages/api/scanner/compare.ts      # POST /api/scanner/compare
+components/Scanner/TechScanner.tsx # UI
+lib/__tests__/tech-detector.test.ts # Tests
+```
+
+### Implementation Details
+- **Tech Detection:** Analyze HTTP headers, HTML meta, JS globals, CSS frameworks
+- **Crawler:** Fetch homepage, check common tech indicators
+- **Tech DB:** Local database of tech signatures (no external API)
+- **Comparison:** Detect your tech vs competitor tech
+- **Results:** Identify gaps, recommend upgrades
+- **cPanel:** Pure Node.js, use node-fetch or axios
+- **Dependencies:** axios, cheerio (HTML parsing)
+
+### API Endpoints
+- `POST /api/scanner/scan` — Scan website (URL)
+- `POST /api/scanner/compare` — Compare two websites
+
+### Tests (8 tests)
+- Scan website
+- Detect framework (React/Vue/Angular)
+- Detect backend (Node.js/PHP/etc)
+- Detect CDN
+- Detect analytics
+- Compare tech stacks
+- Error handling
+- Rate limiting
+
+---
+
+## Implementation Order
+
+### Day 1: Phase 6.6 (AI Code Analyzer) — 8-10h
+1. Create Octokit GitHub scanner
+2. Implement code analyzer (AST parsing)
+3. Build service recommender
+4. Create API endpoints
+5. Tests + verification
+
+### Day 2: Phase 6.7 (Live Demos) — 10-12h
+1. Build demo manager
+2. Mock Docker runner (or real if available)
+3. Cleanup scheduler
+4. API endpoints
+5. Tests + verification
+
+### Day 3: Phase 6.8 (API Playground) — 6-8h
+1. Query executor
+2. Sandbox safety
+3. Schema introspection
+4. API endpoints
+5. Tests + verification
+
+### Day 4: Phase 6.9 (Performance Benchmarking) — 8-10h
+1. Benchmark runner
+2. Metrics collection
+3. Comparison logic
+4. API endpoints
+5. Tests + verification
+
+### Day 5: Phase 6.10 (Tech Scanner) — 6-8h
+1. Tech detector
+2. Website crawler
+3. Tech signature DB
+4. API endpoints
+5. Tests + verification
+
+### Final: Integration & Deployment
+1. Run full test suite
+2. Verify build (0 TS errors, all pages)
+3. Test on cPanel Node.js locally
+4. Commit all phases
+5. Create deployment guide
+
+---
+
+## Build Requirements
+
+### Dependencies to Add
+```json
+{
+  "octokit": "^3.1.2",
+  "@babel/parser": "^7.24.0",
+  "axios": "^1.6.5",
+  "cheerio": "^1.0.0-rc.12",
+  "autocannon": "^7.11.0"
 }
 ```
 
----
+### No Changes To
+- Existing components
+- Existing APIs
+- Database schema (Phase 6 already set up)
+- Config files
+- Build process
 
-### PRIORITY 3: Full-Text Search (PostgreSQL FTS)
-**Time:** 4-6 hours  
-**Complexity:** Medium
-
-**Files to Create:**
+### New Directories
 ```
-lib/search/
-├── fts.ts              # PostgreSQL full-text search wrapper
-├── indexing.ts         # Index management & updates
-└── analytics.ts        # Search query tracking
-
-pages/api/search.ts     # GET /api/search?q=nodejs
-```
-
-**Features:**
-- Real-time search with typo tolerance
-- Search across products, services, blog posts
-- Autocomplete suggestions
-- Search analytics (popular queries, no-results)
-- Faceted search (filter by service type, language, etc.)
-
-**Database:**
-- Add `tsvector` column to products, services, blog tables
-- Create GIN index for fast full-text search
-- Trigger to auto-update index on insert/update
-
----
-
-### PRIORITY 4: Webhooks & Event Streaming
-**Time:** 5-7 hours  
-**Complexity:** Medium-High
-
-**Files to Create:**
-```
-lib/webhooks/
-├── manager.ts         # Webhook registration & delivery
-├── queue.ts          # Background job queue
-├── retry.ts          # Exponential backoff retry logic
-├── verify.ts         # HMAC signature verification
-└── templates.ts      # Slack/Discord templates
-
-pages/api/webhooks/
-├── register.ts       # POST webhook subscription
-├── events.ts         # Event log
-├── test.ts           # Test webhook delivery
-└── templates.ts      # Available templates
-```
-
-**Events to Stream:**
-- `order.created` → POST to webhook URL
-- `review.published` → POST + send to Slack/Discord
-- `product.updated` → POST to subscribed URLs
-- `user.registered` → POST + email notification
-- `payment.completed` → POST to webhook
-
-**Slack/Discord Templates:**
-```
-order.created:
-  → "🎉 New Order #12345 - $999.99"
-  → Customer name, service purchased, amount
-
-review.published:
-  → "⭐ New 5-star review on React Services"
-  → Review text, reviewer name, link
-
-payment.completed:
-  → "✅ Payment received: $999.99"
-  → Customer, date, invoice link
+lib/ai/           # AI features
+lib/demo/         # Demo features
+lib/playground/   # API playground
+lib/bench/        # Benchmarking
+lib/scanner/      # Tech scanning
+pages/api/ai/     # AI endpoints
+pages/api/demo/   # Demo endpoints
+pages/api/playground/ # Playground endpoints
+pages/api/bench/  # Benchmark endpoints
+pages/api/scanner/ # Scanner endpoints
+components/AI/    # AI components
+components/Demo/  # Demo components
+components/Playground/ # Playground UI
+components/Bench/ # Benchmark UI
+components/Scanner/ # Scanner UI
 ```
 
 ---
 
-### PRIORITY 5: i18n Localization (10+ Languages)
-**Time:** 5-8 hours  
-**Complexity:** Medium
+## Deployment Checklist (cPanel Node.js)
 
-**Files to Create:**
-```
-lib/i18n/
-├── config.ts         # i18next configuration
-├── languages.ts      # Supported languages
-└── utils.ts          # Helper functions
-
-public/locales/
-├── en/
-│ ├── common.json     # General UI strings
-│ ├── products.json   # Product-related
-│ └── errors.json     # Error messages
-├── es/
-├── fr/
-├── de/
-├── zh/
-├── ja/
-├── pt/
-├── it/
-├── ru/
-└── ar/
-
-pages/api/i18n/
-└── translate.ts      # Server-side translation endpoint
-```
-
-**Languages to Start:**
-1. English (en)
-2. Spanish (es)
-3. French (fr)
-4. German (de)
-5. Simplified Chinese (zh-CN)
-6. Japanese (ja)
-7. Portuguese (pt)
-8. Italian (it)
-9. Russian (ru)
-10. Arabic (ar)
-
-**Features:**
-- Language switcher (top nav)
-- SEO-friendly URLs: `/en/products`, `/es/productos`, `/fr/produits`
-- Auto-detect browser language
-- Right-to-left support (Arabic, Hebrew)
-- Currency/number formatting per locale
-- Date formatting per region
+- [ ] All 5 phases pass tests
+- [ ] 0 TypeScript errors
+- [ ] 0 build warnings
+- [ ] npm install completes without errors
+- [ ] npm run build completes in <180s
+- [ ] All endpoints respond correctly
+- [ ] Free APIs only (no paid API keys needed)
+- [ ] Environment variables documented (.env.example)
+- [ ] No external services required (Docker optional)
+- [ ] Production build optimized
+- [ ] Memory usage reasonable (<500MB)
 
 ---
 
-### PRIORITY 6: Advanced Analytics Dashboard
-**Time:** 6-8 hours  
-**Complexity:** Medium
-
-**Files to Create:**
-```
-lib/analytics/
-├── cohorts.ts        # User segmentation & cohort analysis
-├── funnels.ts        # Conversion funnel tracking
-├── retention.ts      # Churn & retention curves
-└── revenue.ts        # LTV, CAC, ARR calculations
-
-pages/api/analytics/
-├── cohorts.ts        # GET cohort data
-├── funnels.ts        # GET funnel conversion rates
-├── retention.ts      # GET retention curves
-├── revenue.ts        # GET revenue metrics
-└── dashboard.ts      # Aggregated data for UI
-
-components/admin/
-├── AnalyticsDashboard.tsx   # Main dashboard
-├── CohortChart.tsx          # Cohort analysis UI
-├── FunnelChart.tsx          # Funnel visualization
-├── RetentionTable.tsx       # Retention curves
-└── RevenueChart.tsx         # Revenue metrics
-```
-
-**Admin Dashboard Metrics:**
-- **Revenue:** Daily/weekly/monthly revenue, trend
-- **Users:** New signups, active users, churn rate
-- **Funnels:** Signup → Email verify → First purchase → Review
-- **Cohorts:** Compare user segments (acquired in Jan vs Feb, etc.)
-- **Retention:** 1-day, 7-day, 30-day retention curves
-- **Products:** Most viewed, highest conversion, best revenue
-- **Engagement:** Average session duration, bounce rate
-
-**Visualization:** Recharts (line, bar, funnel charts)
-
----
-
-### PRIORITY 7: Payment Gateway Expansion
-**Time:** 4-6 hours per gateway  
-**Complexity:** Medium
-
-**Add These Gateways (Current: Paystack, Flutterwave, Monnify):**
-1. **Stripe** (USD, EUR, GBP) — +4h
-2. **PayPal** (multi-currency) — +4h
-3. **Square** (USA focus) — +3h
-4. **Wise** (international transfers) — +5h
-
-**Files to Create:**
-```
-lib/payments/
-├── stripe.ts         # Stripe integration
-├── paypal.ts         # PayPal integration
-├── square.ts         # Square integration
-├── wise.ts           # Wise integration
-└── unified.ts        # Unified payment interface
-
-pages/api/payments/
-├── init.ts           # Initialize payment (route to correct gateway)
-├── verify.ts         # Verify payment (handle webhooks)
-├── refund.ts         # Process refunds
-└── currencies.ts     # Currency conversion
-```
-
-**Frontend:**
-- Payment gateway selector (show available based on location)
-- Currency toggle (USD, EUR, GBP, NGN, etc.)
-- Multi-currency display on products
-
----
-
-### PRIORITY 8: [TBD Unique Feature]
-**Time:** 4-12 hours  
-**Waiting for your input on:** AI Code Analyzer, Live Demos, API Playground, Performance Benchmarking, Tech Stack Scanner
-
----
-
-## BUILD TIMELINE
-
-**Week 1:**
-- Day 1: Activate Phase 2-5 (PostgreSQL, Redis, env setup)
-- Days 2-3: Voice AI + Chatbot + Voice Commands (Priority 1)
-- Days 4-5: GraphQL API (Priority 2)
-- Day 6: Full-text Search (Priority 3)
-- Day 7: Webhooks (Priority 4)
-
-**Week 2:**
-- Days 1-2: i18n Localization (Priority 5)
-- Days 3-4: Advanced Analytics (Priority 6)
-- Days 5-6: Payment Expansion (Priority 7)
-- Days 7: [TBD Unique Feature]
-
-**Parallel:**
-- Testing (unit + E2E for each feature)
-- Documentation (API docs, deployment guides)
-- Integration (each feature merges into main)
-
----
-
-## DEPENDENCIES & CONFLICTS
-
-**No Breaking Changes:**
-- All features are additive
-- Existing code unchanged
-- Feature flags to enable/disable
-- Gradual rollout possible
-
-**Integration Points:**
-- Voice AI → feeds data to Analytics (track voice queries)
-- GraphQL → queries same data as REST (unified resolver)
-- Search → results feed into Analytics (popular searches)
-- Webhooks → send search events, analytics events
-- i18n → applies to all UI (search results, chat, dashboard)
-- Analytics → dashboard visualizes all event data
-- Payments → tracked in Analytics (revenue metrics)
-
----
-
-## COST ESTIMATES
-
-| Feature | Infrastructure | API Calls | Monthly Cost |
-|---------|-----------------|-----------|--------------|
-| Voice AI | Deepgram API | $0.005/min | ~$100/month |
-| Chatbot | OpenAI API | $0.002/token | ~$50/month |
-| GraphQL | None (built-in) | N/A | $0 |
-| Search | PostgreSQL (built-in) | N/A | $0 |
-| Webhooks | Built-in | N/A | $0 |
-| i18n | Built-in | N/A | $0 |
-| Analytics | PostgreSQL + Redis | N/A | $0 |
-| Payments | Gateway fees | N/A | ~1-3% of revenue |
-| **Total** | | | ~$150-200/month |
-
----
-
-## READY TO BUILD
-
-Once you confirm the "unique feature" choice, I'll:
-1. ✅ Activate Phase 2-5 (PostgreSQL + Redis)
-2. ✅ Build all 8 features (with tests & docs)
-3. ✅ Integrate into existing codebase
-4. ✅ Deploy & verify
-
-**Waiting for:** Your pick on the tech-focused differentiator (AI Code Analyzer, Live Demos, API Playground, Performance Benchmarking, Tech Stack Scanner, or All).
+## Timeline
+- **Estimate:** 38-48 hours total
+- **Feasibility:** Can complete in 5 days full-time
+- **Risk:** Low (all additive, free tools, proven patterns)
+- **Testing:** Comprehensive (50+ new tests)
+- **Deployment:** Ready for cPanel immediately after completion
 
