@@ -12,6 +12,7 @@ import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "rea
 import Footer from "@/components/Footer";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 const tabs = [
     {key: "frameworks", label: "Frameworks"},
     {key: "cloud", label: "Cloud"},
@@ -721,21 +722,13 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
             {/* Hero Section */}
             <div id='hero'
                  className="relative overflow-hidden lg:w-full lg:h-180 justify-center items-center md:w-full md:h-[700] w-full h-[700] pb-6">
-                <video
-                    src='/assets/digital/hero-M.mp4'
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className='hidden lg:block md:block absolute inset-0 w-full h-full object-cover z-0 bg-black/70'
+                <ResponsiveVideoHero
+                    videoFallback="/assets/digital/hero-M.mp4"
+                    posterImage="/images/default-poster.jpg"
                 />
-                <video
-                    src='/assets/digital/hero-P.mp4'
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className='block lg:hidden absolute inset-0 w-full h-full object-cover z-0 bg-black/70'
+                <ResponsiveVideoHero
+                    videoFallback="/assets/digital/hero-P.mp4"
+                    posterImage="/images/default-poster.jpg"
                 />
                 <div
                     className={`absolute top-0 left-0 -mt-12 lg:-mt-0 md:-mt-0 w-full h-full flex flex-col justify-center items-start text-start lg:max-w-auto max-w-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] ${isDayTime ? 'text-white ' : 'text-white'} z-10`}>
