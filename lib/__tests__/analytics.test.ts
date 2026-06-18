@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { trackEvent, getEventStats, getCohortData, getMetricsWithCache } from '@/lib/analytics';
+import { trackEvent, getEventStats, getCohortData } from '@/lib/analytics';
 
 // Mock database and redis
 vi.mock('@/lib/db', () => ({
