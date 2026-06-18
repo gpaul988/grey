@@ -267,7 +267,8 @@ export const resolvers = {
         price: number;
         technologies: string[];
         imageUrl?: string;
-      }
+      },
+      _context: GraphQLContext
     ) => {
       // Insert into DB, invalidate cache
       await invalidateCache('services:all:1');
