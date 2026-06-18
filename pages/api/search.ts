@@ -1,119 +1,145 @@
-/**
- * Search API Endpoint
- * Full-text search across services, products, blog, docs
- */
-
 import type { NextApiRequest, NextApiResponse } from 'next';
-import {
-  search,
-  searchServices,
-  searchProducts,
-  searchBlog,
-  searchDocs,
-  searchSimilar,
-  recordQuery,
-  getAutocomplete,
-  getSearchStats,
-} from '@/lib/search/fts';
+import { fullTextSearch, fuzzySearch, searchSuggestions, getSearchStats, SearchResult } from '@/lib/db/search';
 
 interface SearchResponse {
   success: boolean;
   query: string;
-  results: any[];
-  total: number;
-  page: number;
-  pageSize: number;
-  hasMore: boolean;
+  results: SearchResult[];
+  count: number;
+  took?: number; // milliseconds
   error?: string;
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<SearchResponse>) {
-  if (req.method !== 'GET') {
+interface SuggestionsResponse {
+  success: boolean;
+  suggestions: string[];
+  query: string;
+}
+
+interface StatsResponse {
+  success: boolean;
+  stats: {
+    services: number;
+    blogPosts: number;
+    audits: number;
+  };
+}
+
+type ApiResponse = SearchResponse | SuggestionsResponse | StatsResponse;
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<ApiResponse>
+) {
+  // Only allow GET and POST
+  if (req.method !== 'GET' && req.method !== 'POST') {
+    res.setHeader('Allow', ['GET', 'POST']);
     return res.status(405).json({
       success: false,
-      query: '',
+      error: 'Method not allowed',
+    } as any);
+  }
+
+  // Handle suggestions endpoint
+  if (req.query.action === 'suggestions') {
+    const query = (req.query.q as string)?.trim() || '';
+
+    if (!query || query.length < 1) {
+      return res.status(400).json({
+        success: false,
+        suggestions: [],
+        query: '',
+      } as SuggestionsResponse);
+    }
+
+    try {
+      const suggestions = await searchSuggestions(query, 10);
+      return res.status(200).json({
+        success: true,
+        suggestions,
+        query,
+      } as SuggestionsResponse);
+    } catch (error) {
+      console.error('Suggestions error:', error);
+      return res.status(500).json({
+        success: false,
+        suggestions: [],
+        query,
+      } as SuggestionsResponse);
+    }
+  }
+
+  // Handle stats endpoint
+  if (req.query.action === 'stats') {
+    try {
+      const stats = await getSearchStats();
+      return res.status(200).json({
+        success: true,
+        stats,
+      } as StatsResponse);
+    } catch (error) {
+      console.error('Stats error:', error);
+      return res.status(500).json({
+        success: false,
+        stats: { services: 0, blogPosts: 0, audits: 0 },
+      } as StatsResponse);
+    }
+  }
+
+  // Handle main search
+  const query = (req.query.q as string)?.trim() || '';
+  const type = (req.query.type as any)?.toLowerCase();
+  const limit = Math.min(parseInt(req.query.limit as string) || 20, 100); // Max 100
+  const fuzzy = req.query.fuzzy === 'true';
+
+  // Validate query
+  if (!query || query.length < 2) {
+    return res.status(400).json({
+      success: false,
+      query,
       results: [],
-      total: 0,
-      page: 1,
-      pageSize: 20,
-      hasMore: false,
-      error: 'Method not allowed. Use GET.',
-    });
+      count: 0,
+      error: 'Query must be at least 2 characters',
+    } as SearchResponse);
+  }
+
+  // Validate type if provided
+  const validTypes = ['service', 'blog', 'audit', 'doc'];
+  if (type && !validTypes.includes(type)) {
+    return res.status(400).json({
+      success: false,
+      query,
+      results: [],
+      count: 0,
+      error: `Type must be one of: ${validTypes.join(', ')}`,
+    } as SearchResponse);
   }
 
   try {
-    const { q, type, page = '1', limit = '20', similar } = req.query;
+    const startTime = Date.now();
 
-    // Validate query
-    const query = (q as string || '').trim();
-    if (query.length === 0) {
-      return res.status(400).json({
-        success: false,
-        query: '',
-        results: [],
-        total: 0,
-        page: 1,
-        pageSize: parseInt(limit as string),
-        hasMore: false,
-        error: 'Search query is required',
-      });
-    }
+    // Use fuzzy search or full-text search
+    const results = fuzzy
+      ? await fuzzySearch(query, limit)
+      : await fullTextSearch(query, type, limit);
 
-    const pageNum = Math.max(1, parseInt(page as string) || 1);
-    const pageSize = Math.min(100, Math.max(1, parseInt(limit as string) || 20));
-    const offset = (pageNum - 1) * pageSize;
+    const took = Date.now() - startTime;
 
-    // Record query for suggestions
-    recordQuery(query);
-
-    // Search by type
-    let result: any;
-    if (similar) {
-      // Similar documents
-      const similarDocs = searchSimilar(similar as string, pageSize);
-      result = {
-        results: similarDocs,
-        total: similarDocs.length,
-        query,
-      };
-    } else if (type === 'services') {
-      result = searchServices(query, { limit: pageSize, offset });
-    } else if (type === 'products') {
-      result = searchProducts(query, { limit: pageSize, offset });
-    } else if (type === 'blog') {
-      result = searchBlog(query, { limit: pageSize, offset });
-    } else if (type === 'docs') {
-      result = searchDocs(query, { limit: pageSize, offset });
-    } else {
-      // Global search
-      result = search(query, { limit: pageSize, offset });
-    }
-
-    // Add response metadata
-    const hasMore = offset + pageSize < result.total;
-
-    res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
     return res.status(200).json({
       success: true,
       query,
-      results: result.results || [],
-      total: result.total || 0,
-      page: pageNum,
-      pageSize,
-      hasMore,
-    });
-  } catch (error: any) {
-    console.error('[Search Error]', error);
-
+      results,
+      count: results.length,
+      took,
+    } as SearchResponse);
+  } catch (error) {
+    console.error('Search error:', error);
     return res.status(500).json({
       success: false,
-      query: (req.query.q as string) || '',
+      query,
       results: [],
-      total: 0,
-      page: 1,
-      pageSize: 20,
-      hasMore: false,
-      error: process.env.NODE_ENV === 'production' ? 'Search error' : error.message,
-    });
+      count: 0,
+      error: 'Search failed',
+    } as SearchResponse);
   }
 }
