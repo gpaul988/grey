@@ -1,276 +1,212 @@
+import { GraphQLSchema, GraphQLObjectType, GraphQLField, GraphQLString, GraphQLInt, GraphQLBoolean, GraphQLList, GraphQLNonNull, GraphQLInputObjectType, GraphQLEnumType } from 'graphql';
+
 /**
- * GraphQL Schema Definition
- * Complete typeDefs for Products, Orders, Services, Reviews, Users, Subscriptions
- * Apollo Server + Redis caching + DataLoader for N+1 prevention
+ * GraphQL Type Definitions
  */
 
-import { gql } from 'graphql-tag';
+// User Type
+export const UserType = new GraphQLObjectType({
+  name: 'User',
+  description: 'A user in the system',
+  fields: () => ({
+    id: { type: new GraphQLNonNull(GraphQLInt) },
+    name: { type: new GraphQLNonNull(GraphQLString) },
+    email: { type: new GraphQLNonNull(GraphQLString) },
+    role: { type: new GraphQLNonNull(GraphQLString) }, // superadmin | admin | manager | staff
+    avatar: { type: GraphQLString },
+    phone: { type: GraphQLString },
+    status: { type: new GraphQLNonNull(GraphQLString) }, // active | suspended
+    emailVerified: { type: new GraphQLNonNull(GraphQLBoolean) },
+    createdAt: { type: new GraphQLNonNull(GraphQLString) },
+    updatedAt: { type: new GraphQLNonNull(GraphQLString) },
+  }),
+});
 
-export const typeDefs = gql`
-  # ============================================
-  # SCALARS
-  # ============================================
-  scalar DateTime
-  scalar JSON
+// Service Type
+export const ServiceType = new GraphQLObjectType({
+  name: 'Service',
+  description: 'A service offered',
+  fields: () => ({
+    id: { type: new GraphQLNonNull(GraphQLInt) },
+    name: { type: new GraphQLNonNull(GraphQLString) },
+    slug: { type: new GraphQLNonNull(GraphQLString) },
+    description: { type: GraphQLString },
+    icon: { type: GraphQLString },
+    category: { type: GraphQLString },
+    tags: { type: new GraphQLList(GraphQLString) },
+    featured: { type: GraphQLBoolean },
+    createdAt: { type: new GraphQLNonNull(GraphQLString) },
+    updatedAt: { type: new GraphQLNonNull(GraphQLString) },
+  }),
+});
 
-  # ============================================
-  # ENUMS
-  # ============================================
-  enum ServiceCategory {
-    FRONTEND
-    BACKEND
-    FULLSTACK
-    DEVOPS
-    MOBILE
-    DESIGN
-    CONSULTING
-    TRAINING
-  }
+// Analytics Event Type
+export const AnalyticsEventType = new GraphQLObjectType({
+  name: 'AnalyticsEvent',
+  description: 'User behavior event',
+  fields: () => ({
+    id: { type: new GraphQLNonNull(GraphQLInt) },
+    userId: { type: GraphQLInt },
+    eventType: { type: new GraphQLNonNull(GraphQLString) }, // page_view | click | conversion
+    eventName: { type: new GraphQLNonNull(GraphQLString) },
+    sessionId: { type: GraphQLString },
+    url: { type: GraphQLString },
+    timestamp: { type: new GraphQLNonNull(GraphQLString) },
+  }),
+});
 
-  enum OrderStatus {
-    PENDING
-    CONFIRMED
-    IN_PROGRESS
-    COMPLETED
-    CANCELLED
-    REFUNDED
-  }
+// Payment Type
+export const PaymentType = new GraphQLObjectType({
+  name: 'Payment',
+  description: 'Payment transaction',
+  fields: () => ({
+    id: { type: new GraphQLNonNull(GraphQLInt) },
+    userId: { type: GraphQLInt },
+    email: { type: GraphQLString },
+    amount: { type: GraphQLString },
+    currency: { type: GraphQLString },
+    provider: { type: new GraphQLNonNull(GraphQLString) },
+    transactionId: { type: new GraphQLNonNull(GraphQLString) },
+    status: { type: new GraphQLNonNull(GraphQLString) },
+    description: { type: GraphQLString },
+    createdAt: { type: new GraphQLNonNull(GraphQLString) },
+  }),
+});
 
-  enum SubscriptionPlan {
-    STARTER
-    PROFESSIONAL
-    ENTERPRISE
-  }
+// Audit Type
+export const AuditType = new GraphQLObjectType({
+  name: 'Audit',
+  description: 'Security audit',
+  fields: () => ({
+    id: { type: new GraphQLNonNull(GraphQLInt) },
+    name: { type: new GraphQLNonNull(GraphQLString) },
+    description: { type: GraphQLString },
+    status: { type: new GraphQLNonNull(GraphQLString) },
+    score: { type: GraphQLInt },
+    reportUrl: { type: GraphQLString },
+    createdAt: { type: new GraphQLNonNull(GraphQLString) },
+  }),
+});
 
-  enum SubscriptionStatus {
-    ACTIVE
-    PAUSED
-    CANCELLED
-    EXPIRED
-  }
+// Query Input Types
+export const UserFilterInput = new GraphQLInputObjectType({
+  name: 'UserFilter',
+  fields: {
+    role: { type: GraphQLString },
+    status: { type: GraphQLString },
+  },
+});
 
-  # ============================================
-  # TYPES
-  # ============================================
-  type User {
-    id: ID!
-    email: String!
-    name: String!
-    avatar: String
-    role: String!
-    verified: Boolean!
-    createdAt: DateTime!
-    updatedAt: DateTime!
-    orders: [Order!]!
-    reviews: [Review!]!
-    subscription: Subscription
-  }
+export const ServiceFilterInput = new GraphQLInputObjectType({
+  name: 'ServiceFilter',
+  fields: {
+    category: { type: GraphQLString },
+    featured: { type: GraphQLBoolean },
+  },
+});
 
-  type Service {
-    id: ID!
-    name: String!
-    description: String!
-    category: ServiceCategory!
-    price: Float!
-    rating: Float
-    reviewCount: Int!
-    imageUrl: String
-    technologies: [String!]!
-    createdAt: DateTime!
-    orders: [Order!]!
-    reviews: [Review!]!
-  }
+// Root Query Type
+export const QueryType = new GraphQLObjectType({
+  name: 'Query',
+  fields: () => ({
+    // User queries
+    user: {
+      type: UserType,
+      args: { id: { type: new GraphQLNonNull(GraphQLInt) } },
+      resolve: (_, args, context) => context.db.query.users.findFirst({ where: (u, { eq }) => eq(u.id, args.id) }),
+    },
+    users: {
+      type: new GraphQLList(UserType),
+      args: {
+        filter: { type: UserFilterInput },
+        limit: { type: GraphQLInt, defaultValue: 100 },
+        offset: { type: GraphQLInt, defaultValue: 0 },
+      },
+      resolve: (_, args, context) => context.db.query.users.findMany({ limit: args.limit, offset: args.offset }),
+    },
+    me: {
+      type: UserType,
+      resolve: (_, __, context) => context.user,
+    },
 
-  type Product {
-    id: ID!
-    name: String!
-    description: String!
-    price: Float!
-    inventory: Int!
-    rating: Float
-    imageUrl: String
-    category: String!
-    createdAt: DateTime!
-    orders: [Order!]!
-    reviews: [Review!]!
-  }
+    // Service queries
+    service: {
+      type: ServiceType,
+      args: { id: { type: new GraphQLNonNull(GraphQLInt) } },
+      resolve: (_, args, context) => context.db.query.services.findFirst({ where: (s, { eq }) => eq(s.id, args.id) }),
+    },
+    services: {
+      type: new GraphQLList(ServiceType),
+      args: {
+        filter: { type: ServiceFilterInput },
+        limit: { type: GraphQLInt, defaultValue: 50 },
+      },
+      resolve: (_, args, context) => context.db.query.services.findMany({ limit: args.limit }),
+    },
+    serviceBySlug: {
+      type: ServiceType,
+      args: { slug: { type: new GraphQLNonNull(GraphQLString) } },
+      resolve: (_, args, context) => context.db.query.services.findFirst({ where: (s, { eq }) => eq(s.slug, args.slug) }),
+    },
 
-  type Order {
-    id: ID!
-    userId: ID!
-    user: User!
-    serviceId: ID
-    service: Service
-    productId: ID
-    product: Product
-    status: OrderStatus!
-    totalAmount: Float!
-    items: [OrderItem!]!
-    createdAt: DateTime!
-    updatedAt: DateTime!
-  }
+    // Analytics queries
+    analyticsEvents: {
+      type: new GraphQLList(AnalyticsEventType),
+      args: {
+        userId: { type: GraphQLInt },
+        eventType: { type: GraphQLString },
+        limit: { type: GraphQLInt, defaultValue: 100 },
+      },
+      resolve: (_, args, context) => context.db.query.analyticsEvents.findMany({ limit: args.limit }),
+    },
 
-  type OrderItem {
-    id: ID!
-    orderId: ID!
-    serviceId: ID
-    productId: ID
-    quantity: Int!
-    price: Float!
-    createdAt: DateTime!
-  }
+    // Payment queries
+    payment: {
+      type: PaymentType,
+      args: { id: { type: new GraphQLNonNull(GraphQLInt) } },
+      resolve: (_, args, context) => context.db.query.payments.findFirst({ where: (p, { eq }) => eq(p.id, args.id) }),
+    },
+    payments: {
+      type: new GraphQLList(PaymentType),
+      args: {
+        status: { type: GraphQLString },
+        limit: { type: GraphQLInt, defaultValue: 50 },
+      },
+      resolve: (_, args, context) => context.db.query.payments.findMany({ limit: args.limit }),
+    },
 
-  type Review {
-    id: ID!
-    userId: ID!
-    user: User!
-    serviceId: ID
-    service: Service
-    productId: ID
-    product: Product
-    rating: Int!
-    comment: String
-    helpful: Int!
-    createdAt: DateTime!
-    updatedAt: DateTime!
-  }
+    // Audit queries
+    audit: {
+      type: AuditType,
+      args: { id: { type: new GraphQLNonNull(GraphQLInt) } },
+      resolve: (_, args, context) => context.db.query.audits.findFirst({ where: (a, { eq }) => eq(a.id, args.id) }),
+    },
+    audits: {
+      type: new GraphQLList(AuditType),
+      args: { limit: { type: GraphQLInt, defaultValue: 50 } },
+      resolve: (_, args, context) => context.db.query.audits.findMany({ limit: args.limit }),
+    },
+  }),
+});
 
-  type Subscription {
-    id: ID!
-    userId: ID!
-    user: User!
-    plan: SubscriptionPlan!
-    status: SubscriptionStatus!
-    startDate: DateTime!
-    endDate: DateTime!
-    autoRenew: Boolean!
-    createdAt: DateTime!
-    updatedAt: DateTime!
-  }
+// Root Mutation Type
+export const MutationType = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: () => ({
+    // Placeholder mutations - will implement in next phase
+    updateUser: {
+      type: UserType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLInt) },
+        name: { type: GraphQLString },
+      },
+      resolve: () => null, // TODO: implement
+    },
+  }),
+});
 
-  type PaginatedOrders {
-    items: [Order!]!
-    total: Int!
-    page: Int!
-    pageSize: Int!
-    hasMore: Boolean!
-  }
-
-  type PaginatedServices {
-    items: [Service!]!
-    total: Int!
-    page: Int!
-    pageSize: Int!
-    hasMore: Boolean!
-  }
-
-  # ============================================
-  # QUERIES
-  # ============================================
-  type Query {
-    # User Queries
-    me: User
-    user(id: ID!): User
-    users(page: Int, pageSize: Int): [User!]!
-
-    # Service Queries
-    service(id: ID!): Service
-    services(
-      category: ServiceCategory
-      sortBy: String
-      page: Int
-      pageSize: Int
-    ): PaginatedServices!
-    searchServices(query: String!): [Service!]!
-
-    # Product Queries
-    product(id: ID!): Product
-    products(page: Int, pageSize: Int): [Product!]!
-    searchProducts(query: String!): [Product!]!
-
-    # Order Queries
-    order(id: ID!): Order
-    myOrders(page: Int, pageSize: Int): PaginatedOrders!
-    orders(userId: ID, page: Int, pageSize: Int): PaginatedOrders!
-
-    # Review Queries
-    review(id: ID!): Review
-    serviceReviews(serviceId: ID!): [Review!]!
-    productReviews(productId: ID!): [Review!]!
-
-    # Analytics Queries
-    orderStats: JSON!
-    serviceStats: JSON!
-    userStats: JSON!
-  }
-
-  # ============================================
-  # MUTATIONS
-  # ============================================
-  type Mutation {
-    # User Mutations
-    createUser(email: String!, name: String!, password: String!): User!
-    updateUser(id: ID!, name: String, avatar: String): User!
-    deleteUser(id: ID!): Boolean!
-
-    # Service Mutations
-    createService(
-      name: String!
-      description: String!
-      category: ServiceCategory!
-      price: Float!
-      technologies: [String!]!
-      imageUrl: String
-    ): Service!
-    updateService(id: ID!, name: String, description: String, price: Float): Service!
-    deleteService(id: ID!): Boolean!
-
-    # Product Mutations
-    createProduct(
-      name: String!
-      description: String!
-      price: Float!
-      inventory: Int!
-      category: String!
-      imageUrl: String
-    ): Product!
-    updateProduct(id: ID!, price: Float, inventory: Int): Product!
-    deleteProduct(id: ID!): Boolean!
-
-    # Order Mutations
-    createOrder(
-      serviceId: ID
-      productId: ID
-      quantity: Int
-      totalAmount: Float!
-    ): Order!
-    updateOrderStatus(id: ID!, status: OrderStatus!): Order!
-    cancelOrder(id: ID!): Order!
-
-    # Review Mutations
-    createReview(
-      serviceId: ID
-      productId: ID
-      rating: Int!
-      comment: String
-    ): Review!
-    updateReview(id: ID!, rating: Int, comment: String): Review!
-    deleteReview(id: ID!): Boolean!
-    helpfulReview(id: ID!): Review!
-
-    # Subscription Mutations
-    createSubscription(plan: SubscriptionPlan!): Subscription!
-    cancelSubscription(id: ID!): Subscription!
-    pauseSubscription(id: ID!): Subscription!
-    resumeSubscription(id: ID!): Subscription!
-  }
-
-  # ============================================
-  # SUBSCRIPTIONS
-  # ============================================
-  type Subscription {
-    orderCreated: Order!
-    orderUpdated(orderId: ID!): Order!
-    reviewCreated: Review!
-  }
-`;
+// Create the GraphQL Schema
+export const graphqlSchema = new GraphQLSchema({
+  query: QueryType,
+  mutation: MutationType,
+});

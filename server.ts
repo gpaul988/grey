@@ -31,6 +31,7 @@ import {
     requireSessionSecret,
 } from './Admin/middleware/security';
 import {logger, correlationIdMiddleware} from './lib/logger';
+import {graphqlMiddleware} from './lib/graphql/express';
 
 dotenv.config({path: './config.env'});
 
@@ -188,6 +189,9 @@ app.use(SESSION_PATHS, (req, res, nextMiddleware) => {
 
 // Server-Sent Events — real-time push to admin tabs (no polling needed).
 app.use(ADMIN_BASE_PATH, sseRouter);
+
+// GraphQL API endpoint (Phase 9A)
+app.use('/api/graphql', express.json(), graphqlMiddleware);
 
 // JSON CRUD API. Auth is enforced inside the router via ensureApiAuth.
 app.use(`${ADMIN_BASE_PATH}/api`, apiRoutes);
