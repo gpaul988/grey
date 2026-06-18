@@ -41,8 +41,9 @@ test.describe('Authentication Flow', () => {
         const currentUrl = page.url();
         // Check if navigation succeeded or stayed on home (acceptable if services page doesn't exist)
         expect(currentUrl.includes('service') || currentUrl.includes('localhost')).toBeTruthy();
-      } catch (e) {
-        console.log('Services navigation failed:', e.message);
+      } catch (e: unknown) {
+        const error = e instanceof Error ? e.message : String(e);
+        console.log('Services navigation failed:', error);
         // Test passes - services page may not exist yet
       }
     } else {
