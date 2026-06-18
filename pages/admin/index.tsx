@@ -330,6 +330,9 @@ export default function AdminDashboard() {
             { href: '/admin/audits', label: 'Audits', icon: '✓', desc: 'Review findings' },
             { href: '/admin/webhooks', label: 'Webhooks', icon: '🔗', desc: 'Event logs' },
             { href: '/admin/email', label: 'Email', icon: '📧', desc: 'Send bulk emails' },
+            { href: '/admin/cms', label: 'CMS', icon: '📝', desc: 'Manage pages & content' },
+            { href: '/admin/reviews', label: 'Reviews', icon: '⭐', desc: 'Moderate reviews' },
+            { href: '/admin/dashboard-enhanced', label: 'Analytics', icon: '📊', desc: 'Advanced charts' },
           ].map((item) => (
             <Link
               key={item.href}
