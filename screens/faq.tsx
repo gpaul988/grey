@@ -36,16 +36,19 @@ export default function FaqScreen() {
     const PER_PAGE = 15;
     const [page, setPage] = useState(1);
 
+    // Normalize text for accent-insensitive search
+    const normalize = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
     // Filtered categories (by active tab + search) — still grouped for display.
     const filtered = useMemo(() => {
-        const q = query.trim().toLowerCase();
+        const q = normalize(query.trim());
         const src = active === 'All' ? categories : categories.filter((c) => c.name === active);
-        if (!q) return src;
+        if (q.length === 0) return src;
         return src
             .map((c) => ({
                 ...c,
                 items: c.items.filter(
-                    (i) => i.question.toLowerCase().includes(q) || i.answer.toLowerCase().includes(q)
+                    (i) => normalize(i.question).includes(q) || normalize(i.answer).includes(q)
                 ),
             }))
             .filter((c) => c.items.length);

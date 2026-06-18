@@ -20,28 +20,39 @@ export default async function handler(
     // Upgrade HTTP to WebSocket
     server?.on('upgrade', async (request: any, socket: any, head: any) => {
       if (request.url?.startsWith('/api/ws/dashboard')) {
-        // Extract token from query string
-        const url = new URL(request.url, `http://${request.headers.host}`);
-        const token = url.searchParams.get('token');
+        try {
+          // Extract token from query string
+          const url = new URL(request.url, `http://${request.headers.host}`);
+          const token = url.searchParams.get('token');
 
-        if (!token) {
-          socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
+          if (!token) {
+            console.warn('[WebSocket] Connection attempt without token');
+            socket.write('HTTP/1.1 401 Unauthorized\r\nContent-Type: application/json\r\n\r\n{"error":"Token required"}');
+            socket.destroy();
+            return;
+          }
+
+          // Verify token
+          const user = verifyAdminToken(token);
+          if (!user) {
+            console.warn(`[WebSocket] Invalid token attempted`);
+            socket.write('HTTP/1.1 401 Unauthorized\r\nContent-Type: application/json\r\n\r\n{"error":"Invalid token"}');
+            socket.destroy();
+            return;
+          }
+
+          console.log(`[WebSocket] Verified user: ${user.email}`);
+
+          // Upgrade connection
+          wss.handleUpgrade(request, socket, head, (ws: any) => {
+            handleConnection(ws, user.id);
+          });
+        } catch (err) {
+          console.error('[WebSocket] Upgrade error:', err);
+          socket.write('HTTP/1.1 500 Internal Server Error\r\n\r\n');
           socket.destroy();
           return;
         }
-
-        // Verify token
-        const user = verifyAdminToken(token);
-        if (!user) {
-          socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
-          socket.destroy();
-          return;
-        }
-
-        // Upgrade connection
-        wss.handleUpgrade(request, socket, head, (ws: any) => {
-          handleConnection(ws, user.id);
-        });
       }
     });
 
