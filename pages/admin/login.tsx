@@ -15,8 +15,15 @@ export default function AdminLogin() {
     setError(null);
     setLoading(true);
 
+    if (!email || !password) {
+      setError('Email and password are required');
+      setLoading(false);
+      return;
+    }
+
     try {
-      const res = await fetch('/api/admin/auth/login', {
+      // Call PostgreSQL-backed login endpoint
+      const res = await fetch('/api/admin/auth/login-db', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -25,17 +32,18 @@ export default function AdminLogin() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error || 'Login failed');
+        setError(data.error || 'Login failed. Please check your credentials.');
         setLoading(false);
         return;
       }
 
-      // Save token
+      // Save JWT token (DB-backed)
       localStorage.setItem('admin-token', data.token);
 
       // Redirect to dashboard
-      router.push('/admin/dashboard');
+      router.push('/admin/index');
     } catch (err) {
+      console.error('Login error:', err);
       setError('Network error. Please try again.');
       setLoading(false);
     }

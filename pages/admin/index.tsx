@@ -12,6 +12,14 @@ import {
   SearchAnalyticsChart,
 } from '@/components/admin/DashboardCharts';
 
+interface AdminUser {
+  id: number;
+  email: string;
+  role: string;
+  isActive: boolean;
+  lastLogin?: string;
+}
+
 interface DashboardMetrics {
   users: {
     total: number;
@@ -62,6 +70,7 @@ const defaultMetrics: DashboardMetrics = {
 
 export default function AdminDashboard() {
   const router = useRouter();
+  const [user, setUser] = useState<AdminUser | null>(null);
   const [metrics, setMetrics] = useState<DashboardMetrics>(defaultMetrics);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -77,17 +86,21 @@ export default function AdminDashboard() {
           return;
         }
 
-        // Verify token with server
-        const res = await fetch('/api/admin/auth/verify', {
-          headers: { 'X-Admin-Token': token },
+        // Verify token and fetch user from DB
+        const res = await fetch('/api/admin/auth/me', {
+          headers: { 'Authorization': `Bearer ${token}` },
         });
 
         if (!res.ok) {
-          localStorage.removeItem('admin-token');
-          router.push('/admin/login');
+          if (res.status === 401) {
+            localStorage.removeItem('admin-token');
+            router.push('/admin/login');
+          }
           return;
         }
 
+        const data = await res.json();
+        setUser(data.user);
         setLoading(false);
       } catch (err) {
         console.error('Auth check failed:', err);
@@ -224,12 +237,14 @@ export default function AdminDashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-white">Admin Dashboard</h1>
-            <p className="text-sm text-slate-400">Real-time metrics & management</p>
+            <p className="text-sm text-slate-400">
+              {user ? `Logged in as ${user.email} (${user.role})` : 'Real-time metrics & management'}
+            </p>
           </div>
           <div className="flex items-center gap-4">
             <div className={`flex items-center gap-2 px-3 py-1 rounded text-sm ${isConnected ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
               <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`}></div>
-              {isConnected ? 'Live' : 'Offline'}
+              {isConnected ? 'Live' : 'Offline'} | PostgreSQL Auth ✅
             </div>
             <button
               onClick={() => {
