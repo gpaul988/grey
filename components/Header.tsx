@@ -9,7 +9,6 @@ import {ChevronDown, Menu, X} from "lucide-react";
 import {FormComponent} from "@/components/FormComponent";
 import ThemeToggle from "@/components/ThemeToggle";
 import SiteSearch from "@/components/SiteSearch";
-import {LanguageSwitcher} from "@/lib/i18n/client";
 import {useIsDayTime} from './useIsDayTime';
 
 interface MenuItem {
@@ -662,10 +661,6 @@ const Header: React.FC = () => {
                             <div className="hidden lg:block mr-3">
                                 <SiteSearch variant="desktop"/>
                             </div>
-                            {/* Language switcher (desktop) */}
-                            <div className="hidden lg:block mr-3 scale-75">
-                                <LanguageSwitcher/>
-                            </div>
                             {/* Theme toggle (desktop) */}
                             <div className="hidden lg:block mr-3">
                                 <ThemeToggle className="scale-90" layoutGroupId="theme-glow-desktop"/>
@@ -679,9 +674,6 @@ const Header: React.FC = () => {
                             </button>
                             {/* Mobile menu button */}
                             <div className="lg:hidden flex items-center gap-2">
-                                <div className="scale-50">
-                                    <LanguageSwitcher/>
-                                </div>
                                 <ThemeToggle className="scale-90" layoutGroupId="theme-glow-mobile"/>
                                 <button
                                     type="button"

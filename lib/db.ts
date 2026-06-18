@@ -37,7 +37,7 @@ export function getPool(): Pool {
 }
 
 /**
- * Get Drizzle ORM instance with PostgreSQL
+ * Get Drizzle ORM instance
  */
 export function getDb() {
   if (!dbInstance) {
@@ -52,11 +52,7 @@ export function getDb() {
 /**
  * Drizzle ORM instance (lazy-loaded)
  */
-export const db = new Proxy({} as any, {
-  get(_, prop) {
-    return getDb()[prop as keyof typeof dbInstance];
-  },
-});
+export const db = getDb();
 
 /**
  * Execute raw SQL query

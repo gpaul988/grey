@@ -48,7 +48,6 @@
     "better-sqlite3-session-store": "^0.1.0",
     "connect-redis": "^9.0.0",
     "cookie-parser": "^1.4.7",
-    "cors": "^2.8.6",
     "cross-env": "^10.1.0",
     "csrf-csrf": "^4.0.3",
     "dataloader": "^2.2.3",
@@ -94,6 +93,7 @@
     "stripe": "^22.2.1",
     "tailwindcss": "^4",
     "three": "^0.184.0",
+    "tsx": "^4.22.4",
     "typescript": "^6.0.3",
     "uuid": "^14.0.0",
     "vitest": "^4.1.9",
@@ -121,11 +121,9 @@
     "@types/speakeasy": "^2.0.10",
     "@vitejs/plugin-react": "^6.0.2",
     "@vitest/coverage-v8": "^4.1.9",
-    "drizzle-kit": "^0.31.10",
     "eslint": "^9.39.4",
     "eslint-config-next": "16.2.9",
     "pg-migrate": "^2.0.1",
-    "tsx": "^4.22.4",
     "vite": "^8.0.16"
   },
   "overrides": {
