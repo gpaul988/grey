@@ -113,13 +113,14 @@ export const resolvers = {
 
     products: async (
       _parent: any,
-      args: { page?: number; pageSize?: number }
+      args: { page?: number; pageSize?: number },
+      _context: GraphQLContext
     ) => {
       // Placeholder
       return [];
     },
 
-    searchProducts: async (_parent: any, args: { query: string }) => {
+    searchProducts: async (_parent: any, args: { query: string }, _context: GraphQLContext) => {
       // Placeholder
       return [];
     },
@@ -166,12 +167,12 @@ export const resolvers = {
       return context.reviewLoader.load(args.id);
     },
 
-    serviceReviews: async (_parent: any, args: { serviceId: string }) => {
+    serviceReviews: async (_parent: any, args: { serviceId: string }, _context: GraphQLContext) => {
       // Placeholder
       return [];
     },
 
-    productReviews: async (_parent: any, args: { productId: string }) => {
+    productReviews: async (_parent: any, args: { productId: string }, _context: GraphQLContext) => {
       // Placeholder
       return [];
     },
@@ -193,7 +194,7 @@ export const resolvers = {
       return stats;
     },
 
-    serviceStats: async (_parent: any, _args: any) => {
+    serviceStats: async (_parent: any, _args: any, _context: GraphQLContext) => {
       // Placeholder
       return {
         totalServices: 0,
@@ -202,7 +203,7 @@ export const resolvers = {
       };
     },
 
-    userStats: async (_parent: any, _args: any) => {
+    userStats: async (_parent: any, _args: any, _context: GraphQLContext) => {
       // Placeholder
       return {
         totalUsers: 0,
@@ -248,7 +249,7 @@ export const resolvers = {
       };
     },
 
-    deleteUser: async (_parent: any, args: { id: string }) => {
+    deleteUser: async (_parent: any, args: { id: string }, _context: GraphQLContext) => {
       // Delete from DB
       return true;
     },
@@ -300,7 +301,7 @@ export const resolvers = {
       };
     },
 
-    deleteService: async (_parent: any, args: { id: string }) => {
+    deleteService: async (_parent: any, args: { id: string }, _context: GraphQLContext) => {
       // Delete from DB
       await invalidateCache('services:all:1');
       return true;
@@ -348,7 +349,7 @@ export const resolvers = {
       };
     },
 
-    deleteProduct: async (_parent: any, args: { id: string }) => {
+    deleteProduct: async (_parent: any, args: { id: string }, _context: GraphQLContext) => {
       return true;
     },
 
@@ -391,7 +392,7 @@ export const resolvers = {
       };
     },
 
-    cancelOrder: async (_parent: any, args: { id: string }) => {
+    cancelOrder: async (_parent: any, args: { id: string }, _context: GraphQLContext) => {
       return {
         id: args.id,
         userId: '1',
@@ -441,11 +442,11 @@ export const resolvers = {
       };
     },
 
-    deleteReview: async (_parent: any, args: { id: string }) => {
+    deleteReview: async (_parent: any, args: { id: string }, _context: GraphQLContext) => {
       return true;
     },
 
-    helpfulReview: async (_parent: any, args: { id: string }) => {
+    helpfulReview: async (_parent: any, args: { id: string }, _context: GraphQLContext) => {
       return {
         id: args.id,
         userId: '1',
@@ -477,7 +478,7 @@ export const resolvers = {
       };
     },
 
-    cancelSubscription: async (_parent: any, args: { id: string }) => {
+    cancelSubscription: async (_parent: any, args: { id: string }, _context: GraphQLContext) => {
       return {
         id: args.id,
         userId: '1',
@@ -491,7 +492,7 @@ export const resolvers = {
       };
     },
 
-    pauseSubscription: async (_parent: any, args: { id: string }) => {
+    pauseSubscription: async (_parent: any, args: { id: string }, _context: GraphQLContext) => {
       return {
         id: args.id,
         userId: '1',
@@ -505,7 +506,7 @@ export const resolvers = {
       };
     },
 
-    resumeSubscription: async (_parent: any, args: { id: string }) => {
+    resumeSubscription: async (_parent: any, args: { id: string }, _context: GraphQLContext) => {
       return {
         id: args.id,
         userId: '1',

@@ -33,11 +33,15 @@ vi.mock('@paypal/checkout-server-sdk', () => ({
   },
 }));
 
-vi.mock('@/lib/db', () => ({
-  db: {
-    query: vi.fn(),
-  },
-}));
+vi.mock('@/lib/db', async () => {
+  const actual = await vi.importActual('@/lib/db');
+  return {
+    db: {
+      ...(actual as any).db,
+      query: vi.fn(),
+    },
+  };
+});
 
 import { db } from '@/lib/db';
 

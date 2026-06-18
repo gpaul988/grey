@@ -4,7 +4,7 @@
  */
 
 // Re-export event tracking functions from analytics/events
-export { trackEvent, getEventStats, getCohortData, getMetricsWithCache } from './analytics/events';
+export { trackEvent, getEventStats, getCohortData } from './analytics/events';
 
 let mpToken: string | null = null;
 
