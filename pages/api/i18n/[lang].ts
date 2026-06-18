@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { useServerTranslation, getLanguageFromPath } from '@/lib/i18n';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { lang, namespace = 'common' } = req.query;
@@ -9,13 +8,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const { t } = await useServerTranslation(lang, namespace);
+    // Load translation file from public locales directory
+    const translations = require(`../../../public/locales/${lang}/${namespace}.json`);
     
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Cache-Control', 'public, max-age=3600');
-    
-    // Return translation object for namespace
-    const translations = require(`../../../public/locales/${lang}/${namespace}.json`);
     
     return res.status(200).json(translations);
   } catch (error) {

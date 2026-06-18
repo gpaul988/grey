@@ -1,4 +1,7 @@
 'use client';
+
+
+import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css';
 import Footer from "@/components/Footer";
@@ -11,8 +14,7 @@ import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
 import Header from "@/components/Header";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
-const AiDevelopmentServices = () => {
-    const [isVisible, setIsVisible] = useState(false);
+const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");

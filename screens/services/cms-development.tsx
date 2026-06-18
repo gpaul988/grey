@@ -1,4 +1,7 @@
 'use client';
+
+
+import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css';
 import Header from "@/components/Header";
@@ -73,8 +76,7 @@ const data: Record<string, { name: string; logo: string }[]> = {
     ],
 };
 
-const CmsDevelopment = () => {
-    const [isVisible, setIsVisible] = useState(false);
+const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");

@@ -1,4 +1,7 @@
 'use client';
+
+
+import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import React, {useEffect, useState} from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -7,8 +10,7 @@ import '@/app/globals.css';
 import Link from 'next/link';
 import {useIsDayTime} from '../components/useIsDayTime';
 
-const Portfolio = () => {
-    const isDayTime = useIsDayTime();
+const Portfolio = () => {    const isDayTime = useIsDayTime();
     const works = [
         {
             title: 'SaaS Analytics Platform',

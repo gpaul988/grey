@@ -1,5 +1,8 @@
 'use client';
 
+
+import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
+
 import React, {useState} from 'react';
 import type {AuditReport, AuditSection, Finding, Severity} from '@/lib/audit/engine';
 
@@ -142,8 +145,7 @@ function ShareModal({isOpen, onClose, report}: {isOpen: boolean; onClose: () => 
 
     const shareUrl = typeof window !== 'undefined' && report.shareUrl ? `${window.location.origin}${report.shareUrl}` : '';
 
-    const handleCopy = () => {
-        if (shareUrl) {
+    const handleCopy = () => {        if (shareUrl) {
             navigator.clipboard.writeText(shareUrl);
             alert('Share link copied to clipboard!');
         }

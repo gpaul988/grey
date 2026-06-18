@@ -1,7 +1,34 @@
 {
-  "nav": {"home": "Início", "services": "Serviços", "products": "Produtos", "about": "Sobre", "contact": "Contato", "signin": "Entrar", "signup": "Cadastrar"},
-  "hero": {"title": "Soluções de Software Empresarial", "subtitle": "Construa, dimensione e gerencie sua presença digital com tecnologia de classe mundial"},
-  "cta": {"getStarted": "Começar", "learnMore": "Saiba mais", "viewDocs": "Ver documentação", "requestDemo": "Solicitar demonstração"},
-  "footer": {"copyright": "© 2026 Grey. Todos os direitos reservados.", "company": "Empresa", "resources": "Recursos", "legal": "Legal", "privacy": "Política de privacidade", "terms": "Termos de serviço"},
-  "errors": {"404": "Página não encontrada", "500": "Erro interno do servidor", "unauthorized": "Acesso não autorizado"}
+  "greeting": {
+    "morning": "Bom dia, {{name}}! ☀️",
+    "afternoon": "Boa tarde, {{name}}! 👋",
+    "evening": "Boa noite, {{name}}! 🌙",
+    "guest": "Convidado",
+    "yourName": "Seu Nome",
+    "enterName": "Digite seu nome",
+    "selectLanguage": "Selecionar Idioma",
+    "currentLocation": "Localização Atual"
+  },
+  "nav": {
+    "home": "Página Inicial",
+    "services": "Serviços",
+    "portfolio": "Portfólio",
+    "blog": "Blog",
+    "company": "Empresa",
+    "careers": "Carreiras",
+    "contact": "Contato",
+    "about": "Sobre Nós"
+  },
+  "common": {
+    "explore": "Explorar",
+    "learnMore": "Saiba Mais",
+    "getStarted": "Comece Agora",
+    "viewMore": "Ver Mais",
+    "back": "Voltar",
+    "next": "Próximo",
+    "previous": "Anterior",
+    "loading": "Carregando...",
+    "error": "Ocorreu um erro",
+    "success": "Sucesso!"
+  }
 }

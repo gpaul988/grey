@@ -1,7 +1,34 @@
 {
-  "nav": {"home": "الرئيسية", "services": "الخدمات", "products": "المنتجات", "about": "حول", "contact": "اتصل", "signin": "تسجيل الدخول", "signup": "تسجيل"},
-  "hero": {"title": "حلول البرامج للمؤسسات", "subtitle": "بناء وتوسيع وإدارة وجودك الرقمي بتكنولوجيا عالمية"},
-  "cta": {"getStarted": "ابدأ الآن", "learnMore": "تعرف على المزيد", "viewDocs": "عرض التوثيق", "requestDemo": "طلب عرض توضيحي"},
-  "footer": {"copyright": "© 2026 Grey. جميع الحقوق محفوظة.", "company": "الشركة", "resources": "الموارد", "legal": "قانوني", "privacy": "سياسة الخصوصية", "terms": "شروط الخدمة"},
-  "errors": {"404": "الصفحة غير موجودة", "500": "خطأ في الخادم", "unauthorized": "وصول مرفوض"}
+  "greeting": {
+    "morning": "صباح الخير، {{name}}! ☀️",
+    "afternoon": "مساء الخير، {{name}}! 👋",
+    "evening": "تصبح على خير، {{name}}! 🌙",
+    "guest": "ضيف",
+    "yourName": "اسمك",
+    "enterName": "أدخل اسمك",
+    "selectLanguage": "اختر اللغة",
+    "currentLocation": "الموقع الحالي"
+  },
+  "nav": {
+    "home": "الصفحة الرئيسية",
+    "services": "الخدمات",
+    "portfolio": "المحفظة",
+    "blog": "المدونة",
+    "company": "الشركة",
+    "careers": "الوظائف",
+    "contact": "اتصل",
+    "about": "من نحن"
+  },
+  "common": {
+    "explore": "استكشف",
+    "learnMore": "تعرف على المزيد",
+    "getStarted": "ابدأ",
+    "viewMore": "عرض المزيد",
+    "back": "العودة",
+    "next": "التالي",
+    "previous": "السابق",
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ",
+    "success": "نجح!"
+  }
 }

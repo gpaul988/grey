@@ -1,12 +1,14 @@
 import React from "react";
+
+
+import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import '@/app/globals.css';
 import Header from "../components/Header";
 import Image from "next/image";
 import Footer from "../components/Footer";
 import Link from "next/link";
 
-const OurApproach = () => {
-    return (
+const OurApproach = () => {    return (
         (<div className="bg-gray-50 text-black min-h-screen lg:pb-12 pb-0">
             {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
             <div className="relative w-full h-[70vh] lg:mb-20 mb-9">

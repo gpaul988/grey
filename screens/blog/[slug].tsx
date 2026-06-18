@@ -1,4 +1,7 @@
 'use client';
+
+
+import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import React, {useEffect, useMemo, useState, useCallback} from 'react';
 import {useRouter} from '@/lib/routerCompat';
 import Header from '@/components/Header';

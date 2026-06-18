@@ -1,0 +1,34 @@
+{
+  "greeting": {
+    "morning": "Ụtụtụ ọma, {{name}}! ☀️",
+    "afternoon": "Ehihie ọma, {{name}}! 👋",
+    "evening": "Mgbede ọma, {{name}}! 🌙",
+    "guest": "Emekonaụsu",
+    "yourName": "Aha Gị",
+    "enterName": "Debut aha gị",
+    "selectLanguage": "Horo Asụsụ",
+    "currentLocation": "Ebe Dị Ugbu A"
+  },
+  "nav": {
+    "home": "Ụlọ",
+    "services": "Ọrụ",
+    "portfolio": "Ọrụ M",
+    "blog": "Blog",
+    "company": "Kọmpụnị",
+    "careers": "Ọrụ",
+    "contact": "Kpọtụrụ",
+    "about": "Gbasara Anyị"
+  },
+  "common": {
+    "explore": "Nyochaa",
+    "learnMore": "Mụtụ Ọzọ",
+    "getStarted": "Malite",
+    "viewMore": "Hụ Ọzọ",
+    "back": "Laghachi",
+    "next": "Ọzọ",
+    "previous": "Nke Gara Aga",
+    "loading": "Na-alọ...",
+    "error": "Mwute eme",
+    "success": "Ịga nke ọma!"
+  }
+}

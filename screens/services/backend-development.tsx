@@ -1,4 +1,7 @@
 'use client';
+
+
+import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
 import Header from "@/components/Header";
@@ -12,8 +15,7 @@ import {motion, useScroll, useTransform} from "framer-motion";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
 
-const BackendDevelopment = () => {
-    const [isVisible, setIsVisible] = useState(false);
+const BackendDevelopment = () => {    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");

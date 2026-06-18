@@ -1,4 +1,7 @@
 'use client';
+
+
+import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
 import {AnimatePresence, motion} from 'framer-motion'
@@ -43,8 +46,7 @@ const reasons = [
     },
 ];
 
-const Startups = () => {
-    const [isVisible, setIsVisible] = useState(false);
+const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");

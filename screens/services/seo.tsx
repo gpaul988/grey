@@ -1,4 +1,7 @@
 'use client';
+
+
+import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import '@/app/globals.css';
 import Header from "@/components/Header";
@@ -11,8 +14,7 @@ import CountUp from "react-countup";
 import Footer from "@/components/Footer";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
-const Seo = () => {
-    const [isVisible, setIsVisible] = useState(false);
+const Seo = () => {    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");

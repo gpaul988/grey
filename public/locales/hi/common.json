@@ -1,0 +1,34 @@
+{
+  "greeting": {
+    "morning": "नमस्ते, {{name}}! ☀️",
+    "afternoon": "नमस्कार, {{name}}! 👋",
+    "evening": "शुभ संध्या, {{name}}! 🌙",
+    "guest": "अतिथि",
+    "yourName": "आपका नाम",
+    "enterName": "अपना नाम दर्ज करें",
+    "selectLanguage": "भाषा चुनें",
+    "currentLocation": "वर्तमान स्थान"
+  },
+  "nav": {
+    "home": "होम",
+    "services": "सेवाएं",
+    "portfolio": "पोर्टफोलियो",
+    "blog": "ब्लॉग",
+    "company": "कंपनी",
+    "careers": "कैरियर",
+    "contact": "संपर्क करें",
+    "about": "हमारे बारे में"
+  },
+  "common": {
+    "explore": "अन्वेषण करें",
+    "learnMore": "और जानें",
+    "getStarted": "शुरु करें",
+    "viewMore": "अधिक देखें",
+    "back": "पीछे",
+    "next": "अगला",
+    "previous": "पिछला",
+    "loading": "लोड हो रहा है...",
+    "error": "एक त्रुटि हुई",
+    "success": "सफलता!"
+  }
+}

@@ -1,4 +1,7 @@
 'use client';
+
+
+import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import React, {useEffect, useRef, useState} from 'react';
 import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
@@ -11,8 +14,7 @@ import CountUp from "react-countup";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
 
-const DiscoveryPhase = () => {
-    const [isVisible, setIsVisible] = useState(false);
+const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
