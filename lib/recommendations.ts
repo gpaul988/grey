@@ -1,184 +1,158 @@
-/**
- * AI Recommendations Engine
- * Uses collaborative filtering + content-based approach
- */
-
-import { db } from './db';
-
-interface UserInteraction {
-  userId: string;
-  serviceId: string;
-  type: 'view' | 'quote' | 'purchase'; // Different weights
-  timestamp: Date;
-}
-
-interface ServiceVector {
-  serviceId: string;
-  category: string;
-  price: number;
-  description: string;
-}
+import { db } from '@/lib/db';
+import { userBehavior, recommendations, reviews, services } from '@/lib/db/schema';
+import { eq, and, sql } from 'drizzle-orm';
+import { Decimal } from 'decimal.js';
 
 /**
- * Calculate cosine similarity between two vectors
+ * Generate AI recommendations for a user based on their behavior
  */
-function cosineSimilarity(a: number[], b: number[]): number {
-  const dotProduct = a.reduce((sum, x, i) => sum + x * b[i], 0);
-  const magA = Math.sqrt(a.reduce((sum, x) => sum + x * x, 0));
-  const magB = Math.sqrt(b.reduce((sum, x) => sum + x * x, 0));
-
-  if (magA === 0 || magB === 0) return 0;
-  return dotProduct / (magA * magB);
-}
-
-/**
- * Get recommendations for a user
- * Combines collaborative + content-based filtering
- */
-export async function getRecommendations(
-  userId: string,
-  limit: number = 5
-): Promise<string[]> {
+export async function generateRecommendations(userId: number, limit: number = 5) {
   try {
-    // Get user's interaction history
-    const userHistory = await getUserInteractions(userId);
+    // Get user's behavior history
+    const behaviors = await db
+      .select()
+      .from(userBehavior)
+      .where(eq(userBehavior.userId, userId))
+      .orderBy(userBehavior.timestamp)
+      .limit(50); // Last 50 actions
 
-    if (userHistory.length === 0) {
-      // Cold start: return trending/popular services
-      return getPopularServices(limit);
+    if (behaviors.length === 0) {
+      return []; // No behavior, no recommendations yet
+    }
+
+    // Get user's service preferences (services they interacted with)
+    const preferredServices = behaviors
+      .filter((b) => b.serviceId)
+      .map((b) => b.serviceId) as number[];
+
+    if (preferredServices.length === 0) {
+      // Fallback: recommend popular services
+      return await getPopularServices(limit, userId);
     }
 
     // Get all services
-    const allServices = await getAllServices();
+    const allServices = await db.select().from(services);
 
-    // Score each service based on collaborative + content similarity
-    const scores = new Map<string, number>();
-
-    for (const service of allServices) {
-      // Skip already viewed/purchased
-      if (userHistory.some(h => h.serviceId === service.serviceId)) {
-        continue;
-      }
-
-      let score = 0;
-
-      // Content-based: similarity to user's viewed services
-      for (const interaction of userHistory) {
-        const viewedService = allServices.find(s => s.serviceId === interaction.serviceId);
-        if (viewedService) {
-          const similarity = calculateServiceSimilarity(viewedService, service);
-          const weight = getInteractionWeight(interaction.type);
-          score += similarity * weight;
+    // Score each service
+    const scored = await Promise.all(
+      allServices.map(async (service) => {
+        if (preferredServices.includes(service.id)) {
+          return { service, score: 0 }; // Skip already viewed
         }
-      }
 
-      // Collaborative: similar users liked this
-      const collaborativeScore = await getCollaborativeScore(userId, service.serviceId);
-      score += collaborativeScore * 0.3; // 30% weight on collaborative
+        let score = 0;
 
-      scores.set(service.serviceId, score);
+        // 1. Behavior-based: similar category/tags
+        const categoryMatches = behaviors.filter(
+          (b) =>
+            b.serviceId &&
+            allServices.find((s) => s.id === b.serviceId)?.category === service.category
+        );
+        score += categoryMatches.length * 20;
+
+        // 2. Rating-based: highly rated services
+        const serviceReviews = await db
+          .select()
+          .from(reviews)
+          .where(
+            and(
+              eq(reviews.serviceId, service.id),
+              eq(reviews.status, 'approved')
+            )
+          );
+
+        if (serviceReviews.length > 0) {
+          const avgRating = serviceReviews.reduce((sum: number, r: any) => sum + r.rating, 0) / serviceReviews.length;
+          score += avgRating * 10;
+        }
+
+        // 3. Popularity: number of reviews
+        score += Math.min(serviceReviews.length, 50) * 2;
+
+        return { service, score };
+      })
+    );
+
+    // Sort by score and return top N
+    const topServices = scored
+      .filter((s) => s.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, limit);
+
+    // Save recommendations to DB
+    await db.delete(recommendations).where(eq(recommendations.userId, userId));
+
+    for (const { service, score } of topServices) {
+      const scoreValue = new Decimal(Math.round(score * 100) / 100).toString();
+      await db.insert(recommendations).values({
+        userId,
+        serviceId: service.id,
+        score: scoreValue,
+        reason: `Based on your interest in ${service.category || 'similar services'}`,
+        algorithm: 'behavior_based',
+      });
     }
 
-    // Return top recommendations
-    return Array.from(scores.entries())
-      .sort(([, a], [, b]) => b - a)
-      .slice(0, limit)
-      .map(([serviceId]) => serviceId);
+    return topServices;
   } catch (error) {
-    console.error('Recommendation error:', error);
-    return getPopularServices(limit);
+    console.error('Recommendations generation error:', error);
+    return [];
   }
 }
 
 /**
- * Get user interactions (views, quotes, purchases)
+ * Get popular services when user has no behavior
  */
-async function getUserInteractions(userId: string): Promise<UserInteraction[]> {
-  // Mock: fetch from analytics/logs
-  return [];
+async function getPopularServices(limit: number, userId: number) {
+  const allServices = await db.select().from(services).limit(limit);
+
+  // Score by reviews
+  const scored = await Promise.all(
+    allServices.map(async (service) => {
+      const serviceReviews = await db
+        .select()
+        .from(reviews)
+        .where(and(
+          eq(reviews.serviceId, service.id),
+          eq(reviews.status, 'approved')
+        ));
+
+      const avgRating = serviceReviews.length > 0 
+        ? serviceReviews.reduce((sum: number, r) => sum + r.rating, 0) / serviceReviews.length
+        : 0;
+
+      return { service, score: avgRating * 10 + Math.min(serviceReviews.length, 20) };
+    })
+  );
+
+  const topServices = scored
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit);
+
+  // Save to DB
+  for (const { service, score } of topServices) {
+    const scoreValue = new Decimal(Math.round(score * 100) / 100).toString();
+    await db.insert(recommendations).values({
+      userId,
+      serviceId: service.id,
+      score: scoreValue,
+      reason: 'Popular service',
+      algorithm: 'popularity',
+    });
+  }
+
+  return topServices;
 }
 
 /**
- * Get all services
+ * Track recommendation click/conversion
  */
-async function getAllServices(): Promise<ServiceVector[]> {
-  // Mock: fetch from database
-  return [];
-}
-
-/**
- * Calculate similarity between two services
- * Based on category, price range, description keywords
- */
-function calculateServiceSimilarity(a: ServiceVector, b: ServiceVector): number {
-  let similarity = 0;
-
-  // Category match (50%)
-  if (a.category === b.category) similarity += 0.5;
-
-  // Price proximity (30%)
-  const priceDiff = Math.abs(a.price - b.price);
-  const maxPrice = Math.max(a.price, b.price) || 1;
-  const priceProximity = 1 - priceDiff / maxPrice;
-  similarity += priceProximity * 0.3;
-
-  // Description similarity (20%)
-  const descriptionSim = descriptionSimilarity(a.description, b.description);
-  similarity += descriptionSim * 0.2;
-
-  return Math.min(similarity, 1);
-}
-
-/**
- * Simple text similarity (TF-IDF approximation)
- */
-function descriptionSimilarity(a: string, b: string): number {
-  const wordsA = new Set(a.toLowerCase().split(/\s+/));
-  const wordsB = new Set(b.toLowerCase().split(/\s+/));
-
-  const intersection = new Set([...wordsA].filter(w => wordsB.has(w)));
-  const union = new Set([...wordsA, ...wordsB]);
-
-  return intersection.size / union.size;
-}
-
-/**
- * Get interaction weight (views < quotes < purchases)
- */
-function getInteractionWeight(type: string): number {
-  const weights: Record<string, number> = {
-    view: 1,
-    quote: 5,
-    purchase: 10,
-  };
-  return weights[type] || 1;
-}
-
-/**
- * Get collaborative filtering score
- * Find similar users and see what they liked
- */
-async function getCollaborativeScore(userId: string, serviceId: string): Promise<number> {
-  // Mock: implement collaborative filtering
-  return 0;
-}
-
-/**
- * Get popular/trending services (for cold start)
- */
-async function getPopularServices(limit: number): Promise<string[]> {
-  // Mock: fetch trending services
-  return [];
-}
-
-/**
- * Track interaction for recommendation engine
- */
-export async function trackInteraction(
-  userId: string,
-  serviceId: string,
-  type: 'view' | 'quote' | 'purchase'
-) {
-  // Store in Redis for fast access, periodically sync to DB
-  // Implementation depends on your event logging setup
+export async function trackRecommendationClick(recommendationId: number, converted: boolean = false) {
+  return db
+    .update(recommendations)
+    .set({
+      clicked: true,
+      converted: converted,
+    })
+    .where(eq(recommendations.id, recommendationId));
 }

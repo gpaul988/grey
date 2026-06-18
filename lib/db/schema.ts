@@ -376,6 +376,8 @@ export const adminUsers = pgTable(
     role: text('role').notNull().default('admin'), // superadmin | admin | editor | viewer
     isActive: boolean('is_active').default(true),
     lastLogin: timestamp('last_login'),
+    totpSecret: text('totp_secret'), // TOTP 2FA secret
+    totpEnabled: boolean('totp_enabled').default(false),
     permissions: jsonb('permissions').default(sql`'[]'::jsonb`), // array of permission strings
     createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
     updatedAt: timestamp('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
@@ -384,5 +386,102 @@ export const adminUsers = pgTable(
     emailIdx: uniqueIndex('idx_admin_users_email').on(table.email),
     roleIdx: index('idx_admin_users_role').on(table.role),
     isActiveIdx: index('idx_admin_users_is_active').on(table.isActive),
+  })
+);
+
+/**
+ * Reviews - user reviews for services
+ */
+export const reviews = pgTable(
+  'reviews',
+  {
+    id: serial('id').primaryKey(),
+    userId: integer('user_id').notNull(),
+    serviceId: integer('service_id').notNull(),
+    rating: integer('rating').notNull(), // 1-5 stars
+    title: text('title'),
+    comment: text('comment'),
+    status: text('status').notNull().default('pending'), // pending | approved | rejected | spam
+    helpful: integer('helpful').default(0), // count of helpful votes
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    updatedAt: timestamp('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+  },
+  (table) => ({
+    userIdIdx: index('idx_reviews_user_id').on(table.userId),
+    serviceIdIdx: index('idx_reviews_service_id').on(table.serviceId),
+    statusIdx: index('idx_reviews_status').on(table.status),
+    ratingIdx: index('idx_reviews_rating').on(table.rating),
+  })
+);
+
+/**
+ * CMS Pages - for headless CMS (blog, docs, services)
+ */
+export const cmsPages = pgTable(
+  'cms_pages',
+  {
+    id: serial('id').primaryKey(),
+    slug: text('slug').notNull().unique(),
+    title: text('title').notNull(),
+    description: text('description'),
+    content: text('content'), // markdown or HTML
+    type: text('type').notNull(), // blog | doc | service | page
+    author: text('author'),
+    tags: jsonb('tags').default(sql`'[]'::jsonb`), // array of tags
+    published: boolean('published').default(false),
+    publishedAt: timestamp('published_at'),
+    featuredImage: text('featured_image'),
+    metadata: jsonb('metadata').default(sql`'{}'::jsonb`), // SEO, etc
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    updatedAt: timestamp('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+  },
+  (table) => ({
+    slugIdx: uniqueIndex('idx_cms_pages_slug').on(table.slug),
+    typeIdx: index('idx_cms_pages_type').on(table.type),
+    publishedIdx: index('idx_cms_pages_published').on(table.published),
+  })
+);
+
+/**
+ * User behavior tracking - for personalized recommendations
+ */
+export const userBehavior = pgTable(
+  'user_behavior',
+  {
+    id: serial('id').primaryKey(),
+    userId: integer('user_id').notNull(),
+    action: text('action').notNull(), // view | click | purchase | review | share
+    serviceId: integer('service_id'),
+    metadata: jsonb('metadata').default(sql`'{}'::jsonb`), // additional context
+    timestamp: timestamp('timestamp').default(sql`CURRENT_TIMESTAMP`).notNull(),
+  },
+  (table) => ({
+    userIdIdx: index('idx_user_behavior_user_id').on(table.userId),
+    actionIdx: index('idx_user_behavior_action').on(table.action),
+    serviceIdIdx: index('idx_user_behavior_service_id').on(table.serviceId),
+    timestampIdx: index('idx_user_behavior_timestamp').on(table.timestamp),
+  })
+);
+
+/**
+ * Recommendations - AI-generated personalized service suggestions
+ */
+export const recommendations = pgTable(
+  'recommendations',
+  {
+    id: serial('id').primaryKey(),
+    userId: integer('user_id').notNull(),
+    serviceId: integer('service_id').notNull(),
+    score: decimal('score', { precision: 5, scale: 2 }).notNull(), // 0-100 relevance score
+    reason: text('reason'), // why this was recommended
+    algorithm: text('algorithm').default('behavior_based'), // behavior_based | collaborative | content_based
+    clicked: boolean('clicked').default(false),
+    converted: boolean('converted').default(false),
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+  },
+  (table) => ({
+    userIdIdx: index('idx_recommendations_user_id').on(table.userId),
+    serviceIdIdx: index('idx_recommendations_service_id').on(table.serviceId),
+    scoreIdx: index('idx_recommendations_score').on(table.score),
   })
 );
