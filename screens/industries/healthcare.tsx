@@ -12,6 +12,7 @@ import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
 
+import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 // Reasons
 const reasons = [
     {
@@ -623,12 +624,9 @@ const Healthcare = () => {
             {/* Hero Section */}
             <div id={'hero'}
                  className={"relative overflow-hidden lg:w-full lg:h-180 justify-center items-center md:w-full md:h-[700] w-full h-[700] pb-6"}>
-                <video
-                    src="/assets/health/hero.webm"
-                    autoPlay
-                    loop
-                    muted
-                    className="lg:w-full lg:h-180 md:w-full md:h-[700] w-full h-[700] object-cover"
+                <ResponsiveVideoHero
+                    videoFallback="/assets/health/hero.webm"
+                    posterImage="/images/default-poster.jpg"
                 />
                 <div
                     className={`absolute top-0 left-0 w-full h-full flex flex-col justify-center items-start text-start lg:max-w-auto max-w-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] ${
