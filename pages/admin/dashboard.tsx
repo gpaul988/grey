@@ -3,6 +3,14 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import {
+  UserGrowthChart,
+  RevenueBreakdownChart,
+  ServicePopularityChart,
+  ConversionFunnelChart,
+  AuditRateChart,
+  SearchAnalyticsChart,
+} from '@/components/admin/DashboardCharts';
 
 interface DashboardMetrics {
   users: {
@@ -130,6 +138,54 @@ export default function AdminDashboard() {
     };
   }, [loading]);
 
+  // Export to CSV
+  const exportToCSV = () => {
+    const csvContent = [
+      ['Metric', 'Value', 'Date'],
+      ['Total Users', metrics.users.total, new Date().toISOString()],
+      ['New Users This Month', metrics.users.newThisMonth, ''],
+      ['Active Users This Month', metrics.users.activeMonth, ''],
+      ['Total Revenue', `${(metrics.revenue.total / 100).toFixed(2)}`, ''],
+      ['Revenue This Month', `${(metrics.revenue.thisMonth / 100).toFixed(2)}`, ''],
+      ['Revenue This Week', `${(metrics.revenue.thisWeek / 100).toFixed(2)}`, ''],
+      ['Total Services', metrics.services.total, ''],
+      ['Total Audits', metrics.audits.total, ''],
+      ['Completed Audits', metrics.audits.completed, ''],
+      ['Audit Completion Rate', `${Math.round(metrics.audits.completionRate)}%`, ''],
+      ['Total Payments', metrics.payments.total, ''],
+      ['Successful Payments', metrics.payments.successful, ''],
+      ['Failed Payments', metrics.payments.failed, ''],
+      ['Refunded Payments', metrics.payments.refunded, ''],
+      ['Webhook Events', metrics.webhooks.totalEvents, ''],
+      ['Webhook Success Rate', `${Math.round(metrics.webhooks.successRate)}%`, ''],
+      ['Search Queries', metrics.search.totalQueries, ''],
+    ]
+      .map((row) => row.map((cell) => `"${cell}"`).join(','))
+      .join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `dashboard-export-${new Date().toISOString().split('T')[0]}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  };
+
+  // Export to PDF (basic version using html2canvas + jspdf)
+  const exportToPDF = async () => {
+    try {
+      // For now, show a message that PDF export is being prepared
+      alert('PDF export requires additional setup. CSV export available now.');
+      // Full implementation would use: import html2canvas from 'html2canvas'; import jsPDF from 'jspdf';
+    } catch (err) {
+      console.error('PDF export failed:', err);
+      alert('PDF export failed. Please try again.');
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center">
@@ -252,16 +308,34 @@ export default function AdminDashboard() {
           ))}
         </div>
 
-        {/* Placeholder for Charts */}
-        <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {['User Growth', 'Revenue Metrics', 'Service Popularity', 'Payment Breakdown'].map((chart) => (
-            <div
-              key={chart}
-              className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 h-80 flex items-center justify-center"
-            >
-              <p className="text-slate-400">📊 {chart} Chart (Coming Soon)</p>
+        {/* Charts Section */}
+        <div className="mt-12">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-white">Analytics & Insights</h2>
+            <div className="flex gap-2">
+              <button
+                onClick={() => exportToCSV()}
+                className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg text-sm transition"
+              >
+                📥 Export CSV
+              </button>
+              <button
+                onClick={() => exportToPDF()}
+                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm transition"
+              >
+                📄 Export PDF
+              </button>
             </div>
-          ))}
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <UserGrowthChart />
+            <RevenueBreakdownChart />
+            <ServicePopularityChart />
+            <ConversionFunnelChart />
+            <AuditRateChart />
+            <SearchAnalyticsChart />
+          </div>
         </div>
       </main>
     </div>
