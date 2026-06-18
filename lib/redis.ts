@@ -3,6 +3,17 @@ import { createClient } from 'redis';
 let redisClient: any = null;
 
 /**
+ * Redis singleton for tests and external use
+ */
+export const redis = {
+  async get(key: string) { return (await getRedis()).get(key); },
+  async set(key: string, value: any) { return (await getRedis()).set(key, value); },
+  async del(key: string) { return (await getRedis()).del(key); },
+  async expire(key: string, ttl: number) { return (await getRedis()).expire(key, ttl); },
+  async lpush(key: string, value: any) { return (await getRedis()).lPush(key, value); },
+};
+
+/**
  * Get or create Redis client
  */
 export async function getRedis() {

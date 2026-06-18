@@ -7,7 +7,7 @@
 // In-memory search index for development/testing
 const searchIndex = new Map<string, any[]>();
 
-interface SearchableDocument {
+export interface SearchableDocument {
   id: string;
   type: 'service' | 'product' | 'blog' | 'doc';
   title: string;

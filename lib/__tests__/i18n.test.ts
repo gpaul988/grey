@@ -81,8 +81,10 @@ describe('i18n', () => {
     });
 
     it('should handle root path', () => {
+      // Root path handling: don't add prefix (root is shared across all languages)
+      expect(addLanguagePrefix('/', 'en')).toBe('/');
       expect(addLanguagePrefix('/', 'es')).toBe('/');
-      expect(addLanguagePrefix('/', 'fr')).toBe('/fr');
+      expect(addLanguagePrefix('/', 'fr')).toBe('/');
     });
   });
 

@@ -1,5 +1,8 @@
 import { StoreSettings, Orders, Coupons } from '../Admin/models';
 
+// Re-export payment configuration
+export { getPaymentConfig, type PaymentConfig, type PaymentGateway } from './payments/config';
+
 export interface GatewayResult {
     success: boolean;
     reference: string;
