@@ -362,3 +362,27 @@ export const userPreferences = pgTable(
     userIdIdx: uniqueIndex('idx_user_preferences_user_id').on(table.userId),
   })
 );
+
+/**
+ * Admin users - separate table for admin panel access control
+ * Roles: superadmin (full access), admin (manage content), editor (create content), viewer (read-only)
+ */
+export const adminUsers = pgTable(
+  'admin_users',
+  {
+    id: serial('id').primaryKey(),
+    email: text('email').notNull().unique(),
+    passwordHash: text('password_hash').notNull(),
+    role: text('role').notNull().default('admin'), // superadmin | admin | editor | viewer
+    isActive: boolean('is_active').default(true),
+    lastLogin: timestamp('last_login'),
+    permissions: jsonb('permissions').default(sql`'[]'::jsonb`), // array of permission strings
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    updatedAt: timestamp('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+  },
+  (table) => ({
+    emailIdx: uniqueIndex('idx_admin_users_email').on(table.email),
+    roleIdx: index('idx_admin_users_role').on(table.role),
+    isActiveIdx: index('idx_admin_users_is_active').on(table.isActive),
+  })
+);
