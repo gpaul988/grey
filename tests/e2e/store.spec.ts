@@ -37,7 +37,8 @@ test.describe('Store Flow', () => {
     if (await aboutLink.isVisible({timeout: 2000}).catch(() => false)) {
       await aboutLink.click();
       await page.waitForLoadState('networkidle');
-      expect(page.url()).toContain('about') || expect(page.url()).toContain('company');
+      const url = page.url();
+      expect(url.includes('about') || url.includes('company')).toBeTruthy();
     }
   });
 
@@ -66,7 +67,8 @@ test.describe('Store Flow', () => {
     await page.goto('/');
     // Wait for network to be idle
     await page.waitForLoadState('networkidle');
-    expect(page.url()).toContain('localhost') || expect(page.url()).toContain('http');
+    const url = page.url();
+    expect(url.includes('localhost') || url.includes('http')).toBeTruthy();
   });
 
   test('should handle navigation without errors', async ({page}) => {
