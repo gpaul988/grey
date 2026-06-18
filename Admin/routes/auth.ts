@@ -4,7 +4,7 @@ import { adminPath, LOGIN_PATH, REGISTER_PATH, LOGOUT_PATH } from '../config/adm
 import { redirectIfAuth } from '../middleware/authMiddleware';
 import { Users, Verification, logActivity } from '../models';
 import { isEmail, str } from '../utils/helpers';
-import { sendVerificationEmail, sendSetPasswordEmail, smtpConfigured } from '../utils/mailer';
+import { sendVerificationEmail, sendSetPasswordEmail, smtpConfigured, sendMail, emailShell, emailButton, appOrigin } from '../utils/mailer';
 
 interface RenderOptions {
     formError?: string;
@@ -267,6 +267,175 @@ route.get('/logout', (req: Request, res: Response) => {
     if (u) logActivity({ user_id: u.id, user_name: u.name, action: 'logout', entity: 'auth' });
     if (!req.session) return res.redirect(LOGIN_PATH);
     req.session.destroy(() => res.redirect(LOGIN_PATH));
+});
+
+/** Forgot Password - Request reset link */
+route.get('/forgot-password', redirectIfAuth, (_req: Request, res: Response) => {
+    res.render('auth-recoverpw', {
+        title: 'Forgot Password',
+        layout: 'partials/base-layout',
+        formError: '',
+        formInfo: '',
+    });
+});
+
+route.post('/forgot-password', redirectIfAuth, async (req: Request, res: Response) => {
+    const email = str(req.body.email).toLowerCase();
+
+    if (!email || !isEmail(email)) {
+        return res.render('auth-recoverpw', {
+            title: 'Forgot Password',
+            layout: 'partials/base-layout',
+            formError: 'Please enter a valid email address.',
+            formInfo: '',
+        });
+    }
+
+    const user = Users.findByEmail(email);
+    if (!user) {
+        // Don't reveal if account exists — show generic message
+        return res.render('auth-recoverpw', {
+            title: 'Forgot Password',
+            layout: 'partials/base-layout',
+            formError: '',
+            formInfo: 'If an account with this email exists, you will receive a password reset link shortly.',
+        });
+    }
+
+    // Issue reset token and send email
+    const { token } = Verification.issue({
+        subjectType: 'user',
+        subjectId: user.id,
+        email: user.email,
+        purpose: 'reset_password',
+    });
+
+    const resetLink = `${appOrigin()}/admin/reset-password/${token}`;
+    const inner = `
+      <p>Hi ${user.name},</p>
+      <p>We received a request to reset your password. Click the link below to create a new password.</p>
+      ${emailButton('Reset my password', resetLink)}
+      <p style="font-size:13px;color:#888;">This link expires in 24 hours. If you did not request this, you can safely ignore this email.</p>`;
+    
+    try {
+        await sendMail({
+            to: user.email,
+            subject: 'Reset Your Password',
+            html: emailShell('Password Reset Request', inner),
+        });
+    } catch (err) {
+        console.error('Failed to send reset email:', err);
+        // Still show success message to user (don't leak email errors)
+    }
+
+    // Show success page regardless (security best practice)
+    return res.render('auth-confirm-mail', {
+        title: 'Check Your Email',
+        layout: 'partials/base-layout',
+        success: true,
+        heading: 'Check Your Email',
+        message: `If an account with the email "${email}" exists, we've sent a password reset link. Please check your email and click the link to reset your password. The link expires in 24 hours.`,
+        loginPath: LOGIN_PATH,
+    });
+});
+
+/** Reset Password - Set new password with token */
+route.get('/reset-password/:token', (req: Request, res: Response) => {
+    const token = typeof req.params.token === 'string' ? req.params.token : '';
+    const rec = Verification.peek(token);
+
+    if (!rec || (rec.purpose as string) !== 'reset_password') {
+        return renderVerify(res, {
+            ok: false,
+            title: 'Invalid or Expired Link',
+            message: 'This password reset link is invalid or has expired. Please request a new reset link.',
+            loginLink: true,
+        });
+    }
+
+    if (rec.expires_at && new Date(rec.expires_at) < new Date()) {
+        return renderVerify(res, {
+            ok: false,
+            title: 'Link Expired',
+            message: 'This password reset link has expired. Please request a new reset link.',
+            loginLink: true,
+        });
+    }
+
+    res.render('auth-createpw', {
+        title: 'Reset Password',
+        layout: 'partials/base-layout',
+        token,
+        formError: '',
+        formInfo: 'Enter your new password below.',
+        isResetPassword: true,
+    });
+});
+
+route.post('/reset-password/:token', async (req: Request, res: Response) => {
+    const token = typeof req.params.token === 'string' ? req.params.token : '';
+    const password = str(req.body.password);
+    const confirmPassword = str(req.body.confirmPassword || req.body.confirm_password);
+
+    const rec = Verification.peek(token);
+    if (!rec || (rec.purpose as string) !== 'reset_password') {
+        return renderVerify(res, {
+            ok: false,
+            title: 'Invalid or Expired Link',
+            message: 'This password reset link is invalid or has expired. Please request a new reset link.',
+            loginLink: true,
+        });
+    }
+
+    if (!password || password.length < 8) {
+        return res.render('auth-createpw', {
+            title: 'Reset Password',
+            layout: 'partials/base-layout',
+            token,
+            formError: 'Password must be at least 8 characters.',
+            formInfo: 'Enter your new password below.',
+            isResetPassword: true,
+        });
+    }
+
+    if (password !== confirmPassword) {
+        return res.render('auth-createpw', {
+            title: 'Reset Password',
+            layout: 'partials/base-layout',
+            token,
+            formError: 'Passwords do not match.',
+            formInfo: 'Enter your new password below.',
+            isResetPassword: true,
+        });
+    }
+
+    // Update password
+    const user = Users.find(rec.subject_id);
+    if (!user) {
+        return renderVerify(res, {
+            ok: false,
+            title: 'Error',
+            message: 'User account not found. Please contact support.',
+            loginLink: true,
+        });
+    }
+
+    await Users.setPassword(rec.subject_id, password);
+    Verification.consume(token);
+
+    logActivity({
+        user_id: rec.subject_id,
+        user_name: user.name,
+        action: 'reset-password',
+        entity: 'auth',
+    });
+
+    return renderVerify(res, {
+        ok: true,
+        title: 'Password Reset',
+        message: 'Your password has been successfully reset. You can now log in with your new password.',
+        loginLink: true,
+    });
 });
 
 route.get('/auth-login', (_req, res) => res.redirect(LOGIN_PATH));

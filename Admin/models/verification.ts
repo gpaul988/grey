@@ -12,7 +12,7 @@ function makeCode(): string {
 }
 
 export type VerifySubject = 'user' | 'client' | 'client_staff';
-export type VerifyPurpose = 'verify' | 'set_password';
+export type VerifyPurpose = 'verify' | 'set_password' | 'reset_password';
 
 export const Verification = {
     /**
