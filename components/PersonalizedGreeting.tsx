@@ -22,29 +22,15 @@ export const PersonalizedGreeting = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showLanguageSelector, setShowLanguageSelector] = useState(false);
 
-  // Detect geolocation & fetch current user
+  // Detect geolocation
   useEffect(() => {
     const initializePreferences = async () => {
       try {
-        // Fetch current user from session (if logged in)
-        let username = '';
-        try {
-          const meResponse = await fetch('/api/me', { credentials: 'include' });
-          if (meResponse.ok) {
-            const user = await meResponse.json();
-            username = user.name;
-            localStorage.setItem('userName', username);
-          }
-        } catch (meError) {
-          console.warn('Could not fetch current user:', meError);
-        }
-
         // Check localStorage first
         const stored = localStorage.getItem('userPreferences');
         if (stored) {
           try {
             const parsed = JSON.parse(stored);
-            if (username) parsed.username = username; // Update with fetched name
             setPreferences(parsed);
             setIsLoading(false);
             return;
