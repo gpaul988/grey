@@ -271,3 +271,26 @@ export const getSystemInfo = async (): Promise<{
     };
   }
 };
+
+/**
+ * Get supported languages for Ollama
+ * Ollama (LLMs) naturally support all languages via text
+ */
+export const getSupportedLanguages = (): Record<string, string> => ({
+  en: 'English',
+  es: 'Spanish',
+  fr: 'French',
+  de: 'German',
+  pt: 'Portuguese',
+  ja: 'Japanese',
+  zh: 'Chinese',
+  ar: 'Arabic',
+  ru: 'Russian',
+  it: 'Italian',
+  hi: 'Hindi',
+  ko: 'Korean',
+  th: 'Thai',
+  vi: 'Vietnamese',
+  pl: 'Polish',
+  tr: 'Turkish',
+});
