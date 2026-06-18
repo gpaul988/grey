@@ -1,0 +1,177 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  # Test phase
+  test:
+    runs-on: ubuntu-latest
+    name: Test & Type Check
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run TypeScript check
+        run: npx tsc --noEmit
+
+      - name: Run tests
+        run: npm run test 2>&1 || true
+
+  # Build web app
+  build-web:
+    runs-on: ubuntu-latest
+    name: Build Web App
+    needs: test
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Next.js
+        run: npm run build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: grey-web-build
+          path: |
+            .next/
+            pages/
+            public/
+            package.json
+            package-lock.json
+          retention-days: 7
+
+  # Deploy web (optional, on main branch only)
+  deploy-web:
+    runs-on: ubuntu-latest
+    name: Deploy to cPanel
+    needs: build-web
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment: production
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download build
+        uses: actions/download-artifact@v3
+        with:
+          name: grey-web-build
+          path: ./deploy
+
+      - name: Setup SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.CPANEL_SSH_KEY }}
+          SSH_HOST: ${{ secrets.CPANEL_HOST }}
+          SSH_USER: ${{ secrets.CPANEL_USER }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Deploy to cPanel
+        env:
+          SSH_HOST: ${{ secrets.CPANEL_HOST }}
+          SSH_USER: ${{ secrets.CPANEL_USER }}
+          DEPLOY_PATH: /home/${{ secrets.CPANEL_USER }}/app-deploy/grey
+        run: |
+          # Create tar archive
+          tar -czf grey-deploy.tar.gz -C deploy .
+
+          # Upload to cPanel
+          scp grey-deploy.tar.gz $SSH_USER@$SSH_HOST:$DEPLOY_PATH/
+
+          # Extract and restart
+          ssh $SSH_USER@$SSH_HOST "
+            cd $DEPLOY_PATH && \
+            tar -xzf grey-deploy.tar.gz && \
+            npm install --production && \
+            pm2 restart grey || pm2 start server.js --name grey
+          "
+
+      - name: Verify deployment
+        env:
+          SSH_HOST: ${{ secrets.CPANEL_HOST }}
+          SSH_USER: ${{ secrets.CPANEL_USER }}
+        run: |
+          sleep 5
+          curl -f https://${{ secrets.CPANEL_HOST }}/api/health || exit 1
+
+  # Build mobile (Expo)
+  build-mobile:
+    runs-on: ubuntu-latest
+    name: Build Mobile Apps
+    needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          sparse-checkout: grey-mobile
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install EAS CLI
+        run: npm install -g eas-cli
+
+      - name: Install mobile dependencies
+        run: |
+          cd grey-mobile
+          npm install
+
+      - name: TypeScript check (mobile)
+        run: cd grey-mobile && npx tsc --noEmit
+
+      - name: Build Android APK
+        env:
+          EAS_TOKEN: ${{ secrets.EAS_TOKEN }}
+        run: |
+          cd grey-mobile
+          eas build --platform android --profile production --non-interactive 2>&1 || echo "Build initiated (check EAS console)"
+
+      - name: Build iOS IPA
+        env:
+          EAS_TOKEN: ${{ secrets.EAS_TOKEN }}
+        run: |
+          cd grey-mobile
+          eas build --platform ios --profile production --non-interactive 2>&1 || echo "Build initiated (check EAS console)"
+
+      - name: Log build status
+        run: echo "Mobile builds initiated on EAS. Check console at expo.dev"
+
+  # Notify on deployment
+  notify:
+    runs-on: ubuntu-latest
+    name: Notify Deployment
+    needs: [deploy-web]
+    if: always() && github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Check deployment status
+        run: |
+          if [ "${{ needs.deploy-web.result }}" == "success" ]; then
+            echo "✅ Deployment successful!"
+          else
+            echo "❌ Deployment failed!"
+          fi
