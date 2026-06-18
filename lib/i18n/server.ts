@@ -55,5 +55,8 @@ export const removeLanguagePrefix = (pathname: string): string => {
 
 export const addLanguagePrefix = (pathname: string, language: string): string => {
   const clean = removeLanguagePrefix(pathname);
+  // Root path stays as root (special case)
+  if (clean === '/') return '/';
+  // Non-root paths get language prefix
   return language === 'en' ? clean : `/${language}${clean}`;
 };
