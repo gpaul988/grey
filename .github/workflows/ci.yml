@@ -8,7 +8,7 @@ on:
 
 env:
   NODE_VERSION: '24'
-  NODE_OPTIONS: --max-old-space-size=1024
+  NODE_OPTIONS: --max-old-space-size=2048
 
 jobs:
   build-and-test:
@@ -41,7 +41,7 @@ jobs:
       - name: Build Next.js
         run: npm run build
         env:
-          NODE_OPTIONS: --max-old-space-size=1024
+          NODE_OPTIONS: --max-old-space-size=2048
 
       - name: Run tests
         run: npm test --if-present || echo "No tests configured yet"

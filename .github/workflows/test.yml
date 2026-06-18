@@ -8,7 +8,7 @@ on:
 
 env:
   NODE_VERSION: '24'
-  NODE_OPTIONS: --max-old-space-size=1024
+  NODE_OPTIONS: --max-old-space-size=2048
 
 jobs:
   test:
@@ -72,6 +72,7 @@ jobs:
           REDIS_URL: redis://localhost:6379
           ENCRYPTION_KEY: test-encryption-key-64-chars-0123456789abcdef
           NODE_ENV: test
+          NODE_OPTIONS: --max-old-space-size=2048
 
   test-e2e:
     runs-on: ubuntu-latest
@@ -113,6 +114,7 @@ jobs:
         env:
           DATABASE_URL: postgresql://grey:password@localhost:5432/grey_e2e
           NODE_ENV: test
+          NODE_OPTIONS: --max-old-space-size=2048
 
       - name: Start application in background
         run: |
