@@ -1,5 +1,6 @@
 'use client';
 
+
 import React, {useEffect, useRef, useState, useMemo} from 'react';
 import '@/app/globals.css'
 import {LiaLongArrowAltDownSolid} from "react-icons/lia";
@@ -20,8 +21,7 @@ import {useIsDayTime} from '../components/useIsDayTime';
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 
 
-const Home = () => {
-    const sectionRef = useRef<HTMLDivElement>(null);
+const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
     // Privacy-safe personalization (daypart greeting + returning-visitor tone)

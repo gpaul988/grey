@@ -1,5 +1,8 @@
 'use client';
 
+
+import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
+
 /**
  * FAQ — a single, futuristic FAQ hub for the whole site.
  * Pulls all active FAQs grouped by category from /api/faqs.

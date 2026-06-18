@@ -1,4 +1,7 @@
 'use client';
+
+
+import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import React, {useEffect, useRef, useState} from 'react';
 import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
@@ -92,8 +95,7 @@ const reasons = [
     },
 ];
 
-const Company = () => {
-    const [isVisible, setIsVisible] = useState(false);
+const Company = () => {    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeIndex, setActiveIndex] = useState(1);

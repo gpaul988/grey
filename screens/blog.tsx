@@ -1,5 +1,8 @@
 'use client';
 
+
+import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
+
 import React, {useEffect, useState} from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -13,8 +16,7 @@ import {useIsDayTime} from '../components/useIsDayTime';
 
 const CATEGORIES = ['All', ...Array.from(new Set(blogPosts.map(p => p.tag))).sort()];
 
-const Blog = () => {
-    const isDayTime = useIsDayTime();
+const Blog = () => {    const isDayTime = useIsDayTime();
     const [activeCategory, setActiveCategory] = useState('All');
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 9;

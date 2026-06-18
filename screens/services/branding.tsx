@@ -1,4 +1,7 @@
 'use client';
+
+
+import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import React, {useEffect, useRef, useState} from 'react';
 import Link from "next/link";
 import Header from "@/components/Header";
@@ -10,8 +13,7 @@ import Footer from "@/components/Footer";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
 
-const Branding = () => {
-    const [isVisible, setIsVisible] = useState(false);
+const Branding = () => {    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");

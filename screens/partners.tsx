@@ -1,5 +1,8 @@
 'use client';
 
+
+import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
+
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css';
 import Footer from '@/components/Footer';
@@ -67,8 +70,7 @@ const Partners: React.FC = () => {
     useEffect(() => {
         const el = heroRef.current;
         if (!el) return;
-        const onMove = (e: MouseEvent) => {
-            const r = el.getBoundingClientRect();
+        const onMove = (e: MouseEvent) => {            const r = el.getBoundingClientRect();
             const mx = (e.clientX - r.left) / r.width - 0.5;
             const my = (e.clientY - r.top) / r.height - 0.5;
             el.style.setProperty('--grey-mx', String(mx));

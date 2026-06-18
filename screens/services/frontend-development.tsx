@@ -1,4 +1,7 @@
 'use client';
+
+
+import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
 import Header from "@/components/Header";
@@ -12,8 +15,7 @@ import {motion, useScroll, useTransform} from "framer-motion";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
 
-const FrontendDevelopment = () => {
-    const [isVisible, setIsVisible] = useState(false);
+const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const firstImageRef = useRef<HTMLDivElement>(null);
     const frontRef = useRef<HTMLDivElement>(null);

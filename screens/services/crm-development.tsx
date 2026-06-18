@@ -1,4 +1,7 @@
 'use client';
+
+
+import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css';
 import Header from "@/components/Header";
@@ -15,8 +18,7 @@ interface Benefit {
     description: React.ReactNode;
 }
 
-const CrmDevelopment = () => {
-    const [isVisible, setIsVisible] = useState(false);
+const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");

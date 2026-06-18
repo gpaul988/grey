@@ -1,4 +1,7 @@
 'use client';
+
+
+import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 // typescript
 import React, {useEffect, useRef, useState, useMemo} from 'react';
 import '@/app/globals.css';
@@ -141,8 +144,7 @@ export default function GreyInfoTechProcess(): React.ReactElement {
     };
 
     useEffect(() => {
-        const onPointerMove = (e: PointerEvent) => {
-            setPointer({
+        const onPointerMove = (e: PointerEvent) => {            setPointer({
                 x: (e.clientX / window.innerWidth) * 2 - 1,
                 y: (e.clientY / window.innerHeight) * 2 - 1
             });
