@@ -169,7 +169,7 @@ Currently available through WebSocket:
 ### 1. Start Dev Server
 ```bash
 DATABASE_URL="postgresql://grey:grey_local@localhost:5432/grey_dev" \
-GITHUB_TOKEN="[REDACTED]" \
+GITHUB_TOKEN="<your-github-token>" \
 npm run dev
 ```
 
