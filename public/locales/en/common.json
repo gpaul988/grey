@@ -1,0 +1,34 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "products": "Products",
+    "about": "About",
+    "contact": "Contact",
+    "signin": "Sign In",
+    "signup": "Sign Up"
+  },
+  "hero": {
+    "title": "Enterprise Software Solutions",
+    "subtitle": "Build, scale, and manage your digital presence with world-class technology"
+  },
+  "cta": {
+    "getStarted": "Get Started",
+    "learnMore": "Learn More",
+    "viewDocs": "View Documentation",
+    "requestDemo": "Request Demo"
+  },
+  "footer": {
+    "copyright": "© 2026 Grey. All rights reserved.",
+    "company": "Company",
+    "resources": "Resources",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "errors": {
+    "404": "Page not found",
+    "500": "Internal server error",
+    "unauthorized": "Unauthorized access"
+  }
+}

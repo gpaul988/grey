@@ -1,0 +1,7 @@
+{
+  "nav": {"home": "Startseite", "services": "Dienstleistungen", "products": "Produkte", "about": "Über uns", "contact": "Kontakt", "signin": "Anmelden", "signup": "Registrieren"},
+  "hero": {"title": "Enterprise-Softwarelösungen", "subtitle": "Bauen, skalieren und verwalten Sie Ihre digitale Präsenz mit Weltklasse-Technologie"},
+  "cta": {"getStarted": "Jetzt starten", "learnMore": "Mehr erfahren", "viewDocs": "Dokumentation anzeigen", "requestDemo": "Demo anfordern"},
+  "footer": {"copyright": "© 2026 Grey. Alle Rechte vorbehalten.", "company": "Unternehmen", "resources": "Ressourcen", "legal": "Rechtliches", "privacy": "Datenschutz", "terms": "Nutzungsbedingungen"},
+  "errors": {"404": "Seite nicht gefunden", "500": "Interner Serverfehler", "unauthorized": "Zugriff verweigert"}
+}

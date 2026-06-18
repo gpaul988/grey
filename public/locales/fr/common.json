@@ -1,0 +1,34 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "services": "Services",
+    "products": "Produits",
+    "about": "À propos",
+    "contact": "Contact",
+    "signin": "Connexion",
+    "signup": "Inscription"
+  },
+  "hero": {
+    "title": "Solutions logicielles d'entreprise",
+    "subtitle": "Construire, développer et gérer votre présence numérique avec une technologie de classe mondiale"
+  },
+  "cta": {
+    "getStarted": "Commencer",
+    "learnMore": "En savoir plus",
+    "viewDocs": "Voir la documentation",
+    "requestDemo": "Demander une démo"
+  },
+  "footer": {
+    "copyright": "© 2026 Grey. Tous droits réservés.",
+    "company": "Entreprise",
+    "resources": "Ressources",
+    "legal": "Légal",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation"
+  },
+  "errors": {
+    "404": "Page non trouvée",
+    "500": "Erreur interne du serveur",
+    "unauthorized": "Accès non autorisé"
+  }
+}
