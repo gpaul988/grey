@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { z } from 'zod';
 import { generateAdminToken } from '../../../../lib/admin/auth';
+import { Users } from '../../../../Admin/models';
 
 const schema = z.object({
   email: z.string().email(),
@@ -8,9 +9,12 @@ const schema = z.object({
 });
 
 /**
- * Admin Login Endpoint
- * For now, uses hardcoded credentials from .env
- * In production, authenticate against database with hashed passwords
+ * Admin Login Endpoint - Uses Database Authentication
+ * @deprecated This endpoint is for legacy compatibility.
+ * Use Express route POST /login instead (Admin/routes/auth.ts)
+ * 
+ * The Express-based auth system is more secure and has proper session management.
+ * This API endpoint is kept for backward compatibility only.
  */
 export default async function handler(
   req: NextApiRequest,
@@ -23,32 +27,33 @@ export default async function handler(
   try {
     const data = schema.parse(req.body);
 
-    // TODO: In production, query database and verify hashed password
-    // For now, check against environment credentials
-    const adminEmail = process.env.SEED_ADMIN_EMAIL || 'admin@greyinfotech.com.ng';
-    const adminPassword = process.env.SEED_ADMIN_PASSWORD || 'ChangeThisInCPanel2024!';
-    const superadminEmail = process.env.SEED_SUPERADMIN_EMAIL || 'superadmin@greyinfotech.com.ng';
-    const superadminPassword = process.env.SEED_SUPERADMIN_PASSWORD || 'ChangeThisInCPanel2024!';
-
-    let role: 'superadmin' | 'admin' | 'manager' | null = null;
-    let name = '';
-
-    if (data.email === superadminEmail && data.password === superadminPassword) {
-      role = 'superadmin';
-      name = 'Super Admin';
-    } else if (data.email === adminEmail && data.password === adminPassword) {
-      role = 'admin';
-      name = 'Administrator';
-    } else {
+    // Authenticate against database using bcrypt-protected password
+    const matched = await Users.checkPassword(data.email, data.password);
+    
+    if (!matched) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
-    // Generate token
+    // Check if account is disabled
+    if (String(matched.status || '').toLowerCase() === 'disabled') {
+      return res.status(403).json({ error: 'This account is disabled. Contact your administrator.' });
+    }
+
+    // Check if email is verified
+    if (!matched.email_verified) {
+      return res.status(403).json({ error: 'Email not verified. Please check your email for verification link.' });
+    }
+
+    // Ensure role is valid AdminRole type
+    const validRoles = ['superadmin', 'admin', 'manager'];
+    const userRole = validRoles.includes(matched.role) ? matched.role : 'manager';
+
+    // Generate token with proper user data
     const token = generateAdminToken({
-      id: data.email,
-      email: data.email,
-      name,
-      role,
+      id: String(matched.id),
+      email: matched.email,
+      name: matched.name,
+      role: userRole as 'superadmin' | 'admin' | 'manager',
       createdAt: new Date(),
     });
 
@@ -60,10 +65,10 @@ export default async function handler(
     return res.status(200).json({
       token,
       user: {
-        id: data.email,
-        email: data.email,
-        name,
-        role,
+        id: matched.id,
+        email: matched.email,
+        name: matched.name,
+        role: userRole,
       },
     });
   } catch (error) {
