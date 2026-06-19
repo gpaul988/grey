@@ -111,43 +111,33 @@ export default function AdminDashboard() {
     checkAuth();
   }, [router]);
 
-  // Connect to WebSocket for real-time metrics
+  // Fetch dashboard metrics once after auth (REST, SQLite-backed).
+  // The previous WebSocket-based live feed was removed: no ws server runs in
+  // the standard (cPanel / local) deploy, so it left the page hanging.
   useEffect(() => {
     if (loading) return;
+    let cancelled = false;
 
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const token = localStorage.getItem('admin-token');
-    const ws = new WebSocket(`${protocol}//${window.location.host}/api/ws/dashboard?token=${token}`);
-
-    ws.onopen = () => {
-      setIsConnected(true);
-      console.log('Dashboard WebSocket connected');
-    };
-
-    ws.onmessage = (event) => {
+    const loadMetrics = async () => {
       try {
-        const data = JSON.parse(event.data);
-        if (data.type === 'metrics') {
-          setMetrics(data.payload);
+        const token = localStorage.getItem('admin-token');
+        const res = await fetch('/api/admin/metrics', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (!res.ok) return; // keep default zeros, no hard error
+        const data = await res.json();
+        if (!cancelled && data) {
+          setMetrics((prev) => ({ ...prev, ...(data.metrics ?? data) }));
+          setIsConnected(true);
         }
-      } catch (err) {
-        console.error('Failed to parse WebSocket message:', err);
+      } catch {
+        // Silent: dashboard still renders with default metrics.
       }
     };
 
-    ws.onerror = (event) => {
-      console.error('WebSocket error:', event);
-      setError('Real-time connection failed. Showing cached data.');
-    };
-
-    ws.onclose = () => {
-      setIsConnected(false);
-    };
-
+    loadMetrics();
     return () => {
-      if (ws.readyState === WebSocket.OPEN) {
-        ws.close();
-      }
+      cancelled = true;
     };
   }, [loading]);
 
@@ -244,7 +234,7 @@ export default function AdminDashboard() {
           <div className="flex items-center gap-4">
             <div className={`flex items-center gap-2 px-3 py-1 rounded text-sm ${isConnected ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
               <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`}></div>
-              {isConnected ? 'Live' : 'Offline'} | PostgreSQL Auth ✅
+              {isConnected ? 'Metrics loaded' : 'Cached'} | SQLite
             </div>
             <button
               onClick={() => {
@@ -321,16 +311,32 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Navigation to Features */}
+        {/* Primary call-to-action: unified Add New / Manage console */}
+        <Link
+          href="/admin/manage"
+          className="block bg-gradient-to-r from-indigo-600 to-cyan-600 rounded-lg p-6 mb-6 hover:from-indigo-500 hover:to-cyan-500 transition group"
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-xl font-bold text-white">➕ Add New / Manage Content</h3>
+              <p className="text-sm text-cyan-100 mt-1">
+                Create products, blog posts, case studies, invoices, tickets, FAQs, reviews &amp; more
+              </p>
+            </div>
+            <span className="text-3xl group-hover:translate-x-1 transition">→</span>
+          </div>
+        </Link>
+
+        {/* Navigation to Features — every tile points to a real route */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
-            { href: '/admin/users', label: 'Users', icon: '👥', desc: 'Manage users & permissions' },
-            { href: '/admin/services', label: 'Services', icon: '🚀', desc: 'Edit services' },
-            { href: '/admin/payments', label: 'Payments', icon: '💳', desc: 'Refunds & analytics' },
-            { href: '/admin/audits', label: 'Audits', icon: '✓', desc: 'Review findings' },
-            { href: '/admin/webhooks', label: 'Webhooks', icon: '🔗', desc: 'Event logs' },
-            { href: '/admin/email', label: 'Email', icon: '📧', desc: 'Send bulk emails' },
-            { href: '/admin/cms', label: 'CMS', icon: '📝', desc: 'Manage pages & content' },
+            { href: '/admin/manage?tab=product', label: 'Products', icon: '🛍️', desc: 'Add & manage store products' },
+            { href: '/admin/manage?tab=blogpost', label: 'Blog', icon: '📝', desc: 'Write & publish posts' },
+            { href: '/admin/manage?tab=casestudy', label: 'Case Studies', icon: '📁', desc: 'Showcase client work' },
+            { href: '/admin/manage?tab=invoice', label: 'Invoices', icon: '💳', desc: 'Create invoices' },
+            { href: '/admin/manage?tab=ticket', label: 'Tickets', icon: '🎫', desc: 'Support tickets' },
+            { href: '/admin/manage?tab=client', label: 'Clients', icon: '👤', desc: 'Add clients' },
+            { href: '/admin/cms', label: 'CMS', icon: '🗂️', desc: 'Manage pages & content' },
             { href: '/admin/reviews', label: 'Reviews', icon: '⭐', desc: 'Moderate reviews' },
             { href: '/admin/dashboard-enhanced', label: 'Analytics', icon: '📊', desc: 'Advanced charts' },
           ].map((item) => (

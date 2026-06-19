@@ -28,8 +28,14 @@ export default function AdminManagePage() {
   const router = useRouter();
   const [token, setToken] = useState('');
   const [loading, setLoading] = useState(true);
-  const [activeKey, setActiveKey] = useState(ENTITIES[0].key);
-  const [form, setForm] = useState<FormState>(() => defaultsFor(ENTITIES[0]));
+  const initialKey =
+    (typeof router.query.tab === 'string' &&
+      ENTITIES.find((e) => e.key === router.query.tab)?.key) ||
+    ENTITIES[0].key;
+  const [activeKey, setActiveKey] = useState(initialKey);
+  const [form, setForm] = useState<FormState>(
+    () => defaultsFor(ENTITIES.find((e) => e.key === initialKey) ?? ENTITIES[0]),
+  );
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -58,6 +64,19 @@ export default function AdminManagePage() {
       })
       .catch(() => router.push('/admin/login'));
   }, [router]);
+
+  // Sync active tab when the ?tab= query changes (deep links).
+  useEffect(() => {
+    const t = router.query.tab;
+    if (typeof t === 'string') {
+      const match = ENTITIES.find((e) => e.key === t);
+      if (match && match.key !== activeKey) {
+        setActiveKey(match.key);
+        setForm(defaultsFor(match));
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query.tab]);
 
   function selectEntity(key: string) {
     setActiveKey(key);
