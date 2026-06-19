@@ -27,7 +27,21 @@ function getDb(): Database.Database {
             
             console.log('[DB] Connected and migrated');
         } catch (err) {
-            console.error('[DB] Failed to initialize:', err);
+            const msg = err instanceof Error ? err.message : String(err);
+            // The classic native-binding mismatch: node_modules built under a
+            // different Node version than the one currently running. Print a
+            // short, actionable hint instead of a multi-page stack trace.
+            if (/bindings file|was compiled against a different Node|NODE_MODULE_VERSION/i.test(msg)) {
+                console.error(
+                    '[DB] better-sqlite3 native binding could not load for ' +
+                        `Node ${process.version} (ABI ${process.versions.modules}). ` +
+                        'This means node_modules was installed under a different Node version. ' +
+                        'Fix: ensure Node 20.x (`node -v`), then `npm run clean && npm install` ' +
+                        '(or `npm run rebuild:sqlite`).'
+                );
+            } else {
+                console.error('[DB] Failed to initialize:', err);
+            }
             throw err;
         }
     }
