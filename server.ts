@@ -247,10 +247,11 @@ process.on('uncaughtException', (err) => {
 });
 
 nextApp.prepare().then(() => {
-    app.all('/{*splat}', async (req, res) => {
+    // Catch-all for unmatched routes (must be LAST).
+    // Delegates to Next.js for page rendering (/pages routes and public files).
+    app.all('*', async (req, res) => {
         try {
             const parsedUrl = getRequestUrl(req);
-
             await handle(req, res, parsedUrl);
         } catch (error) {
             console.error('Error handling request:', req.url, error);
@@ -263,6 +264,7 @@ nextApp.prepare().then(() => {
     app.listen(port, () => {
         console.log(`> Ready on http://${hostname}:${port}`);
         console.log(`> Admin on http://${hostname}:${port}${ADMIN_BASE_PATH}`);
+        console.log(`> Admin API on http://${hostname}:${port}${ADMIN_BASE_PATH}/api`);
     });
 }).catch((err) => {
     // Next.js failed to prepare — log the full error so it's visible in
