@@ -114,6 +114,39 @@
     })();
 </script>
 
+<!--
+  Modal stacking fix.
+  The admin layout wraps content in `.page-content`/`.page-container`, both of
+  which are `position:relative; z-index:1` and therefore create their own
+  stacking contexts. A Bootstrap `.modal` (z-index ~1055) nested inside that
+  context is trapped, while Bootstrap appends `.modal-backdrop` directly to
+  <body> (z-index 1050) — so the backdrop paints OVER the modal, leaving the
+  screen dimmed and every control (incl. the Save button) unclickable
+  ("blur and stuck").
+
+  Fix: reparent each modal to <body> right before it shows so it escapes the
+  trapped stacking context and sits above its own backdrop. Applies globally to
+  every admin "Add / Edit" modal (FAQs, blog, reviews, ads, case studies, etc.).
+-->
+<script>
+    (function () {
+        'use strict';
+        function moveToBody(modalEl) {
+            if (modalEl && modalEl.parentElement !== document.body) {
+                document.body.appendChild(modalEl);
+            }
+        }
+        // Catch any modal as it begins to open (event bubbles to document).
+        document.addEventListener('show.bs.modal', function (ev) {
+            moveToBody(ev.target);
+        }, true);
+        // Safety net: also move all existing modals once Bootstrap is ready.
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.modal').forEach(moveToBody);
+        });
+    })();
+</script>
+
 <!-- Grey InfoTech — Futuristic admin enhancer (command palette, spotlight, ripple, live-badge flash) -->
 <script>window.__GREY_ADMIN_BASE__ = '<%= typeof adminBasePath !== "undefined" ? adminBasePath : "/admin" %>';</script>
 <script src="/js/grey-futuristic.js" defer></script>
