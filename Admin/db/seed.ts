@@ -5,6 +5,7 @@ import { migrate } from './schema';
 import {
     Users, Submissions, Leads, Clients, Projects, Tickets, TicketMessages,
     Invoices, CaseStudies, BlogPosts, Conversations, Messages, Participants,
+    Announcements, Ads,
     nextInvoiceNumber,
 } from '../models';
 import { seedStore } from './seed-store';
@@ -205,6 +206,33 @@ async function seed() {
 
     // --- Store catalog (products, brands, categories, coupons) ---
     seedStore();
+
+    // --- Announcements (top bar notifications) ---
+    Announcements.create({
+        message: '🚀 Unlock 25% off Enterprise Audits & Web Solutions this June',
+        link_url: 'https://greyinfotech.com.ng/services',
+        link_label: 'Explore Offers',
+        variant: 'success',
+        active: 1,
+        starts_at: '2026-06-19',
+        ends_at: '2026-06-30',
+    });
+    console.log('Announcements seeded.');
+
+    // --- Advertisements (home banner) ---
+    Ads.create({
+        title: 'Grey InfoTech — Enterprise Digital Transformation',
+        body: 'Scale your business with world-class audits, custom web apps, and strategic design.',
+        image: '/images/ads/enterprise.png',
+        link_url: 'https://greyinfotech.com.ng',
+        cta_label: 'Start Your Project',
+        placement: 'home_banner',
+        variant: 'gradient',
+        status: 'published',
+        active: 1,
+        sort_order: 0,
+    });
+    console.log('Ads seeded.');
 
     // --- FAQ knowledge base (migrated from legacy inline FAQ sections) ---
     seedFaqs();
