@@ -1,3 +1,6 @@
+> ⚠️ OUTDATED for the build step. cPanel (1GB RAM) cannot run `npm run build`.
+> Build locally/CI and upload the prebuilt `.next`. See **DEPLOY_CPANEL_PREBUILT.md**.
+
 # GREY PROJECT - CPANEL DEPLOYMENT READY ✅
 
 **Status**: Production-ready for cPanel Node.js Deployment  
