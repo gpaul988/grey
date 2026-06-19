@@ -41,6 +41,21 @@ const nextConfig = {
         // the build on type errors so a cPanel deploy can always succeed.
         ignoreBuildErrors: false,
     },
+
+    // ─── Root redirect ─────────────────────────────────────────────────────
+    // The app has no public homepage — it's an admin/client-portal system.
+    // Without this, visiting `/` returns a bare Next.js 404. Send visitors to
+    // the admin area (which itself redirects to /login when unauthenticated).
+    // Works identically in `next dev` and in the cPanel production build.
+    async redirects() {
+        return [
+            {
+                source: '/',
+                destination: '/admin',
+                permanent: false,
+            },
+        ];
+    },
 };
 
 module.exports = nextConfig;

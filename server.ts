@@ -10,7 +10,6 @@ import session from 'express-session';
 import SqliteStoreFactory from 'better-sqlite3-session-store';
 import next from 'next';
 import path from 'node:path';
-import {parse} from 'node:url';
 
 import {ADMIN_BASE_PATH} from './Admin/config/adminPaths';
 import sseRouter from './Admin/routes/sse';
@@ -225,9 +224,25 @@ app.use((err: Error & { status?: number; code?: string }, req: express.Request, 
 });
 
 function getRequestUrl(req: express.Request): Parameters<typeof handle>[2] {
-    // Next's request handler expects a parsed URL with pathname + query.
-    // `parse(url, true)` is the shape Next's own custom-server examples use.
-    return parse(req.originalUrl || req.url || '/', true);
+    // Next's request handler expects the legacy `UrlWithParsedQuery` shape
+    // (pathname + a parsed query object). The deprecated `url.parse(url, true)`
+    // produced exactly that, but Node now emits a DEP0169 security warning for
+    // it. Build the same shape from the modern WHATWG `URL` API instead so the
+    // warning is gone and the behaviour stays identical for Next.js.
+    const raw = req.originalUrl || req.url || '/';
+    const parsed = new URL(raw, `http://${req.headers.host || hostname}`);
+    const query: Record<string, string | string[]> = {};
+    for (const key of parsed.searchParams.keys()) {
+        if (key in query) continue;
+        const all = parsed.searchParams.getAll(key);
+        query[key] = all.length > 1 ? all : all[0];
+    }
+    return {
+        pathname: parsed.pathname,
+        query,
+        search: parsed.search || null,
+        href: parsed.pathname + parsed.search,
+    } as Parameters<typeof handle>[2];
 }
 
 // Global safety net: catch any unhandled promise rejections so the Passenger
@@ -249,7 +264,13 @@ process.on('uncaughtException', (err) => {
 nextApp.prepare().then(() => {
     // Catch-all for unmatched routes (must be LAST).
     // Delegates to Next.js for page rendering (/pages routes and public files).
-    app.all('*', async (req, res) => {
+    //
+    // NOTE: Express 5 ships path-to-regexp v8, which REMOVED support for the
+    // bare `'*'` string pattern (it now throws "Missing parameter name at
+    // index 1: *"). A pathless `app.use()` is the correct Express 5 way to
+    // register a final catch-all middleware — it matches every method and
+    // path, which is exactly what we want for delegating to Next.js.
+    app.use(async (req, res) => {
         try {
             const parsedUrl = getRequestUrl(req);
             await handle(req, res, parsedUrl);
