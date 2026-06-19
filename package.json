@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development tsx server.ts",
     "dev:next": "next dev -p 3000",
-    "build": "next build --webpack",
+    "build": "cross-env NODE_OPTIONS=--max-old-space-size=4096 next build --webpack",
     "start": "cross-env NODE_ENV=production tsx server.ts",
     "start:next": "next start -p 3000",
     "seed": "tsx Admin/db/seed.ts",
@@ -16,7 +16,8 @@
     "install:prod": "npm install --prefer-offline --no-audit --no-fund --maxsockets=1",
     "install:cpanel": "npm install --prefer-offline --no-audit --no-fund --maxsockets=1",
     "cpanel:full": "bash scripts/cpanel-install.sh",
-    "cpanel:post": "npm run build && npm run seed",
+    "cpanel:post": "npm run seed",
+    "cpanel:start": "cross-env NODE_ENV=production tsx server.ts",
     "clean": "rm -rf node_modules .next package-lock.json && npm cache clean --force",
     "test": "vitest",
     "test:ui": "vitest --ui",

@@ -19,6 +19,18 @@ import CookieConsent from "@/components/futuristic/CookieConsent";
 import AnnouncementBar from "@/components/futuristic/AnnouncementBar";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
+// ─── Render on-demand instead of pre-rendering all pages at build ──────────
+// This site is served by a long-running custom Express server (server.ts), not
+// `next start`, so there is NO benefit to statically pre-rendering every page
+// at build time — the live Node process renders them per request anyway.
+//
+// Pre-rendering all 92 routes in a single build pass held every rendered page
+// in memory at once and blew past cPanel's 1GB cap (peak ~1.8GB -> OOM/SIGABRT).
+// Forcing dynamic rendering at the root removes that build-time memory pressure
+// entirely while serving identical HTML to users. Content is static local data,
+// so per-request render cost is negligible.
+export const dynamic = "force-dynamic";
+
 const merriweather = Merriweather({
     variable: "--font-merriweather",
     subsets: ["latin"],

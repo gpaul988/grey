@@ -42,19 +42,24 @@ const nextConfig = {
         ignoreBuildErrors: false,
     },
 
-    // ─── Root redirect ─────────────────────────────────────────────────────
-    // The app has no public homepage — it's an admin/client-portal system.
-    // Without this, visiting `/` returns a bare Next.js 404. Send visitors to
-    // the admin area (which itself redirects to /login when unauthenticated).
-    // Works identically in `next dev` and in the cPanel production build.
-    async redirects() {
-        return [
-            {
-                source: '/',
-                destination: '/admin',
-                permanent: false,
-            },
-        ];
+    // ─── Build memory note (cPanel 1GB) ────────────────────────────────────
+    // This app pulls in heavy libs (three.js / @react-three, framer-motion,
+    // recharts, Sentry). A production build peaks at ~3GB RSS regardless of the
+    // JS heap cap (most of it is webpack's off-heap parsing of three.js). It
+    // therefore CANNOT be built on a 1GB shared-hosting box.
+    //
+    // The correct workflow is "build elsewhere, run on cPanel":
+    //   1. Run `npm run build` locally (or in CI) where RAM is plentiful.
+    //   2. Upload the project INCLUDING the generated `.next` folder to cPanel.
+    //   3. On cPanel run only `npm ci --omit=dev` + `npm start` (server.ts).
+    // See scripts/build-and-deploy.sh and CPANEL_READY.md for the full steps.
+    //
+    // `config.cache = false` is still applied below: it keeps the LOCAL build's
+    // peak RSS lower and avoids shipping a multi-hundred-MB .next/cache folder.
+    webpack: (config, {dev}) => {
+        if (dev) return config;
+        config.cache = false;
+        return config;
     },
 };
 
