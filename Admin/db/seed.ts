@@ -231,19 +231,47 @@ async function seed() {
     console.log('Announcements seeded.');
 
     // --- Advertisements (home banner) ---
-    Ads.create({
-        title: 'Grey InfoTech — Enterprise Digital Transformation',
-        body: 'Scale your business with world-class audits, custom web apps, and strategic design.',
-        image: '/images/ads/enterprise.png',
-        link_url: 'https://greyinfotech.com.ng',
-        cta_label: 'Start Your Project',
-        placement: 'home_banner',
-        variant: 'gradient',
-        status: 'published',
-        active: 1,
-        sort_order: 0,
-    });
-    console.log('Ads seeded.');
+    // Create sample ads with image support
+    const sampleAds = [
+        {
+            title: 'Transform Your Business With AI-Powered Solutions',
+            body: 'Unlock new possibilities with cutting-edge technology. From web apps to digital marketing.',
+            image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=400&fit=crop',
+            link_url: 'https://greyinfotech.com.ng/services',
+            cta_label: 'Explore Services',
+            placement: 'home_banner',
+            variant: 'image',
+            status: 'published',
+            active: 1,
+            sort_order: 0,
+        },
+        {
+            title: 'Web Design & Development For Your Next Big Idea',
+            body: 'Professional, scalable, user-centered digital solutions. Let\'s build something amazing.',
+            image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=400&fit=crop',
+            link_url: 'https://greyinfotech.com.ng/services/web-design',
+            cta_label: 'View Portfolio',
+            placement: 'home_banner',
+            variant: 'image',
+            status: 'published',
+            active: 0,
+            sort_order: 1,
+        },
+        {
+            title: 'Mobile Apps That Engage & Convert',
+            body: 'iOS & Android apps built with React Native & Flutter. Fast, beautiful, powerful.',
+            image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&h=400&fit=crop',
+            link_url: 'https://greyinfotech.com.ng/services/mobile-development',
+            cta_label: 'Start Building',
+            placement: 'home_banner',
+            variant: 'image',
+            status: 'published',
+            active: 0,
+            sort_order: 2,
+        },
+    ];
+    sampleAds.forEach(ad => Ads.create(ad));
+    console.log(`Ads seeded: ${sampleAds.length} sample ads created.`);
 
     // --- FAQ knowledge base (migrated from legacy inline FAQ sections) ---
     seedFaqs();
