@@ -14,7 +14,7 @@ import {FaStar, FaGoogle, FaLinkedin} from "react-icons/fa6";
 import {FaFileAlt} from "react-icons/fa";
 import AIProjectEstimator from '@/components/AIProjectEstimator';
 
-import AdBanner from '@/components/futuristic/AdBanner';
+import AdBannerWrapper from '@/components/futuristic/AdBannerWrapper';
 import WebGLHero from '@/components/futuristic/WebGLHero';
 import {usePersonalization} from '@/components/futuristic/PersonalizationProvider';
 import {useIsDayTime} from '../components/useIsDayTime';
@@ -911,7 +911,7 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
 
             
             {/* Featured promo banner (managed via admin /admin/ads) */}
-            <AdBanner placement="home_banner"/>
+            <AdBannerWrapper placement="home_banner"/>
             <SocialProof page="home"/>
         </div>
     );
