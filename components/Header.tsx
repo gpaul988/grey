@@ -117,9 +117,7 @@ const HeaderContent: React.FC = () => {
             if (technologiesRef.current && !technologiesRef.current.contains(event.target as Node)) {
                 setIsTechnologiesOpen(false);
             }
-            if (languageRef.current && !languageRef.current.contains(event.target as Node)) {
-                setIsLanguageMenuOpen(false);
-            }
+
         };
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
@@ -646,44 +644,7 @@ const HeaderContent: React.FC = () => {
                                     <ThemeToggle className="scale-90" layoutGroupId="theme-glow-desktop" />
                                 </div>
 
-                                {/* Language Selector */}
-                                <div ref={languageRef} className="relative">
-                                    <button
-                                        onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
-                                        className="flex items-center gap-1 px-3 py-1 rounded border border-cyan-400/50 text-cyan-300 hover:text-cyan-200 hover:border-cyan-300 transition text-xs sm:text-sm font-medium"
-                                        title={'Language'}
-                                        aria-expanded={isLanguageMenuOpen}
-                                        type="button"
-                                    >
-                                        <Globe size={14} className="shrink-0" />
-                                        <span className="hidden sm:inline">{getLanguageName(language)}</span>
-                                        <span className="sm:hidden">{language.split('-')[0].toUpperCase()}</span>
-                                        <ChevronDown size={14} className={`transition-transform ${isLanguageMenuOpen ? 'rotate-180' : ''}`} />
-                                    </button>
-
-                                    {/* Language Dropdown */}
-                                    {isLanguageMenuOpen && (
-                                        <div className="absolute top-full right-0 mt-1 bg-black/95 border border-cyan-400/30 rounded shadow-lg z-50 min-w-[200px] max-h-96 overflow-y-auto">
-                                            <div className="p-1">
-                                                {ALL_LANGUAGES.map((lang) => (
-                                                    <button
-                                                        key={lang.code}
-                                                        onClick={() => handleLanguageChange(lang.code)}
-                                                        className={`w-full text-left px-3 py-2 text-xs sm:text-sm rounded transition ${
-                                                            language === lang.code
-                                                                ? 'bg-cyan-500/30 text-cyan-200 font-semibold'
-                                                                : 'text-gray-300 hover:bg-cyan-500/20 hover:text-cyan-300'
-                                                        }`}
-                                                    >
-                                                        {lang.nativeName} <span className="text-gray-500 text-xs">({lang.code})</span>
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* CTA Button */}
+                                {/* CTA Button */
                                 <button
                                     onClick={() => setIsModalOpen(true)}
                                     className="grey-cta-glow rounded-full text-[1em] font-medium py-[0.40em] px-[0.90em] border transition-all duration-300 text-teal-400 hover:text-white hover:bg-teal-500/20 border-teal-400 hover:border-teal-300 hover:scale-105"
@@ -856,28 +817,7 @@ const HeaderContent: React.FC = () => {
                             ))}
                         </nav>
 
-                        {/* Mobile Language Selector */}
-                        <div className="mt-6 border-t border-gray-600 pt-6">
-                            <div className="text-white font-semibold mb-3">{'Language'}</div>
-                            <div className="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto">
-                                {ALL_LANGUAGES.map((lang) => (
-                                    <button
-                                        key={lang.code}
-                                        onClick={() => {
-                                            handleLanguageChange(lang.code);
-                                            toggleMobileMenu();
-                                        }}
-                                        className={`px-2 py-1 text-xs rounded transition ${
-                                            language === lang.code
-                                                ? 'bg-cyan-500/30 text-cyan-200 font-semibold'
-                                                : 'text-gray-300 hover:bg-cyan-500/20 hover:text-cyan-300'
-                                        }`}
-                                    >
-                                        {lang.nativeName}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
+
 
                         {/* Mobile CTA */}
                         <button
