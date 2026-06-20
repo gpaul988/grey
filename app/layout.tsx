@@ -3,21 +3,19 @@ import type {Metadata, Viewport} from "next";
 import {Merriweather, Roboto} from "next/font/google";
 // global css
 import "./globals.css";
-import Header from "@/components/Header";
+import HeaderWithGreeting from "@/components/HeaderWithGreeting";
 import Footer from "@/components/Footer";
 import React from "react";
 import TawkChat from "@/components/TawkChat";
 import {OrganizationSchema, WebSiteSchema} from "@/components/StructuredData";
-import {ThemeProvider, themeInitScript} from "@/components/ThemeProvider";
+import {themeInitScript} from "@/components/ThemeProvider";
 import AIChat from "@/components/AIChat";
 import {SITE} from "@/lib/seo";
-import {PersonalizationProvider} from "@/components/futuristic/PersonalizationProvider";
-import ParallaxProvider from "@/components/futuristic/ParallaxProvider";
-import VoiceCommander from "@/components/futuristic/VoiceCommander";
-import Preloader from "@/components/futuristic/Preloader";
-import CookieConsent from "@/components/futuristic/CookieConsent";
-import AnnouncementBar from "@/components/futuristic/AnnouncementBar";
-import ErrorBoundary from "@/components/ErrorBoundary";
+import AnnouncementBarWrapper from "@/components/futuristic/AnnouncementBarWrapper";
+import LayoutClient from "./LayoutClient";
+import { getLanguageFromHeaders } from "@/i18n.config";
+import { getAllTranslations } from "@/lib/translations";
+import { headers } from "next/headers";
 
 // ─── Render on-demand instead of pre-rendering all pages at build ──────────
 // This site is served by a long-running custom Express server (server.ts), not
@@ -148,13 +146,19 @@ export const viewport: Viewport = {
     ],
 };
 
-export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
+export default async function RootLayout({
+    children,
+}: Readonly<{
     children: React.ReactNode;
 }>) {
+    // Detect language server-side for initial SSR
+    const headersList = await headers();
+    const acceptLanguage = headersList.get('accept-language') || '';
+    const initialLanguage = getLanguageFromHeaders(acceptLanguage);
+    const initialTranslations = await getAllTranslations(initialLanguage);
+
     return (
-        <html lang="en" suppressHydrationWarning>
+        <html lang={initialLanguage} suppressHydrationWarning>
         <head>
             {/* FIX (FOUC): set the theme class before first paint */}
             <script dangerouslySetInnerHTML={{__html: themeInitScript}}/>
@@ -162,15 +166,7 @@ export default function RootLayout({
         <body
             className={`${merriweather.variable} ${roboto.variable} antialiased`}
         >
-        <ErrorBoundary>
-        <ThemeProvider>
-            <PersonalizationProvider>
-            {/* First-load-only futuristic boot sequence */}
-            <Preloader/>
-            {/* GDPR cookie consent manager */}
-            <CookieConsent/>
-            {/* Publishes pointer/tilt as CSS vars for parallax (capability-gated, no camera) */}
-            <ParallaxProvider/>
+        <LayoutClient initialLanguage={initialLanguage} initialTranslations={initialTranslations}>
             {/* Skip-to-content link for keyboard/screen-reader users (WCAG) */}
             <a
                 href="#main-content"
@@ -184,9 +180,9 @@ export default function RootLayout({
             <WebSiteSchema/>
 
             {/* Schedule-aware promo / announcement strip above the header */}
-            <AnnouncementBar/>
+            <AnnouncementBarWrapper/>
 
-            <Header/>
+            <HeaderWithGreeting/>
 
             {/* semantic <main> landmark + id target for skip link */}
             <main id="main-content">{children}</main>
@@ -196,17 +192,7 @@ export default function RootLayout({
             {/* Live human chat (Tawk) + AI assistant run side-by-side */}
             <TawkChat propertyId="6a1ba828a3242d1c2ed9db1d" widgetId="1jpu0ho3p"/>
             <AIChat/>
-
-            {/* Hands-free voice navigation (on-device, opt-in, privacy-safe).
-                Wrapped in Suspense because it reads useSearchParams via the
-                routerCompat shim, which otherwise forces a CSR bailout and
-                breaks static prerendering of pages. */}
-            <React.Suspense fallback={null}>
-                <VoiceCommander/>
-            </React.Suspense>
-            </PersonalizationProvider>
-        </ThemeProvider>
-        </ErrorBoundary>
+        </LayoutClient>
         </body>
         </html>
     );
