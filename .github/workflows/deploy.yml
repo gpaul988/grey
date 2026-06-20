@@ -61,16 +61,68 @@ jobs:
             package-lock.json
           retention-days: 7
 
-  # Deploy web (optional, on main branch only)
-  # Disabled: requires CPANEL_SSH_KEY, CPANEL_HOST, CPANEL_USER secrets
-  # Enable when secrets are configured
-  # deploy-web:
-  #   runs-on: ubuntu-latest
-  #   name: Deploy to cPanel
-  #   needs: build-web
-  #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-  #   environment: production
-  #   steps: []
+  # Deploy web to cPanel (main branch only)
+  deploy-web:
+    runs-on: ubuntu-latest
+    name: Deploy to cPanel
+    needs: build-web
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment: production
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: grey-web-build
+          path: ./build-output
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.CPANEL_SSH_KEY }}" > ~/.ssh/cpanel_key
+          chmod 600 ~/.ssh/cpanel_key
+          ssh-keyscan -H ${{ secrets.CPANEL_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
+
+      - name: Deploy to cPanel
+        run: |
+          DEPLOY_PATH="/home/${{ secrets.CPANEL_USER }}/public_html/grey"
+          
+          # Create deployment directory if it doesn't exist
+          ssh -i ~/.ssh/cpanel_key ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} \
+            "mkdir -p $DEPLOY_PATH && cd $DEPLOY_PATH && pwd"
+          
+          # Copy build files
+          scp -i ~/.ssh/cpanel_key -r ./build-output/.next/ \
+            ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:$DEPLOY_PATH/.next/
+          scp -i ~/.ssh/cpanel_key -r ./build-output/public/ \
+            ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:$DEPLOY_PATH/public/
+          scp -i ~/.ssh/cpanel_key ./build-output/package.json \
+            ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:$DEPLOY_PATH/
+          scp -i ~/.ssh/cpanel_key ./build-output/package-lock.json \
+            ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:$DEPLOY_PATH/ || true
+
+      - name: Install dependencies & restart
+        run: |
+          DEPLOY_PATH="/home/${{ secrets.CPANEL_USER }}/public_html/grey"
+          ssh -i ~/.ssh/cpanel_key ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} \
+            "cd $DEPLOY_PATH && npm ci --production && npm run build 2>&1 | tail -20"
+
+      - name: Verify deployment
+        run: |
+          DEPLOY_PATH="/home/${{ secrets.CPANEL_USER }}/public_html/grey"
+          ssh -i ~/.ssh/cpanel_key ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} \
+            "cd $DEPLOY_PATH && ls -la .next/static/ 2>/dev/null | head -5 && echo '✅ Deployment verified'"
+
+      - name: Cleanup SSH key
+        if: always()
+        run: rm -f ~/.ssh/cpanel_key
 
   # Build mobile (Expo) - Disabled: no grey-mobile directory
   # Uncomment when mobile app is ready
