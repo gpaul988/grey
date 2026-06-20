@@ -109,9 +109,9 @@ export async function transcribeStream(
 
   try {
     const url = new URL(DEEPGRAM_URL);
-    url.searchParams.se'nova';
-    url.searchParams.se'en';
-    url.searchParams.se'true';
+    url.searchParams.set('model', 'nova');
+    url.searchParams.set('language', 'en');
+    url.searchParams.set('smart_format', 'true');
 
     const response = await fetch(url.toString(), {
       method: 'POST',
