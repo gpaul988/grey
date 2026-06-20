@@ -465,7 +465,7 @@ const HeaderContent: React.FC = () => {
                             <div className="shrink-0 grey-logo-orbit">
                                 <Link href="/#">
                                     <Image
-                                        src="/logon.png"
+                                        src="/logo.gif"
                                         alt="Grey InfoTech Logo"
                                         width={300}
                                         height={50}
@@ -709,7 +709,7 @@ const HeaderContent: React.FC = () => {
                             <div className="mt-4 flex justify-start">
                                 <Link href={'#'}>
                                     <Image
-                                        src={'/logon.png'}
+                                        src={'/logo.gif'}
                                         alt="Grey InfoTech"
                                         width={300}
                                         height={80}
