@@ -1,50 +1,79 @@
-import { drizzle } from 'drizzle-orm/node-postgres';
+import { drizzle as drizzlePg } from 'drizzle-orm/node-postgres';
+import { drizzle as drizzleSqlite } from 'drizzle-orm/better-sqlite3';
 import { Pool } from 'pg';
+import Database from 'better-sqlite3';
 import * as schema from './db/schema';
 
-let pool: Pool | null = null;
-let dbInstance: ReturnType<typeof drizzle> | null = null;
+let pgPool: Pool | null = null;
+let sqliteDb: Database.Database | null = null;
+let dbInstance: any = null;
+
+/**
+ * Check if using SQLite (DATABASE_URL starts with 'file:')
+ */
+function isSQLite(): boolean {
+  const url = process.env.DATABASE_URL || '';
+  return url.startsWith('file:');
+}
 
 /**
  * Get or create PostgreSQL connection pool
  */
-export function getPool(): Pool {
-  if (pool) return pool;
+function getPgPool(): Pool {
+  if (pgPool) return pgPool;
 
-  const isDev = process.env.NODE_ENV === 'development';
-  const connectionString = process.env.DATABASE_URL || 
-    (isDev ? 'postgresql://user:password@localhost:5432/grey_dev' : undefined);
+  const connectionString = process.env.DATABASE_URL;
 
-  if (!connectionString && !isDev) {
-    throw new Error('DATABASE_URL not set in production');
+  if (!connectionString) {
+    throw new Error('DATABASE_URL not configured for PostgreSQL');
   }
 
-  pool = new Pool({
+  pgPool = new Pool({
     connectionString,
-    min: isDev ? 2 : 10,
-    max: isDev ? 10 : 100,
+    min: 2,
+    max: 10,
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000,
-    ssl: !isDev ? { rejectUnauthorized: false } : false,
+    ssl: false,
     statement_timeout: 30000,
   });
 
-  pool.on('error', (err) => {
-    console.error('Unexpected error on idle client', err);
+  pgPool.on('error', (err) => {
+    console.error('Unexpected PostgreSQL error', err);
   });
 
-  return pool;
+  return pgPool;
+}
+
+/**
+ * Get or create SQLite connection
+ */
+function getSqliteDb(): Database.Database {
+  if (sqliteDb) return sqliteDb;
+
+  const dbPath = (process.env.DATABASE_URL || 'file:./Admin/data/grey.db')
+    .replace('file:', '')
+    .replace('?', '');
+
+  sqliteDb = new Database(dbPath);
+  sqliteDb.pragma('journal_mode = WAL');
+  sqliteDb.pragma('foreign_keys = ON');
+
+  return sqliteDb;
 }
 
 /**
  * Get Drizzle ORM instance
  */
-export function getDb() {
+function getDb() {
   if (!dbInstance) {
-    dbInstance = drizzle({
-      client: getPool(),
-      schema,
-    });
+    if (isSQLite()) {
+      const db = getSqliteDb();
+      dbInstance = drizzleSqlite(db, { schema });
+    } else {
+      const pool = getPgPool();
+      dbInstance = drizzlePg({ client: pool, schema });
+    }
   }
   return dbInstance;
 }
@@ -58,16 +87,25 @@ export const db = getDb();
  * Execute raw SQL query
  */
 export async function query(sql: string, params?: any[]) {
-  const pool = getPool();
-  const result = await pool.query(sql, params);
-  return result.rows;
+  if (isSQLite()) {
+    const db = getSqliteDb();
+    const stmt = db.prepare(sql);
+    return stmt.all(params);
+  } else {
+    const pool = getPgPool();
+    const result = await pool.query(sql, params);
+    return result.rows;
+  }
 }
 
 /**
- * Get a single client connection (for transactions)
+ * Get a single client connection (for transactions) - PostgreSQL only
  */
 export async function getClient() {
-  const pool = getPool();
+  if (isSQLite()) {
+    throw new Error('getClient() not supported for SQLite');
+  }
+  const pool = getPgPool();
   return pool.connect();
 }
 
@@ -75,21 +113,22 @@ export async function getClient() {
  * Close pool (cleanup on shutdown)
  */
 export async function closePool(): Promise<void> {
-  if (pool) {
-    await pool.end();
-    pool = null;
+  if (pgPool) {
+    await pgPool.end();
+    pgPool = null;
   }
+  if (sqliteDb) {
+    sqliteDb.close();
+    sqliteDb = null;
+  }
+  dbInstance = null;
 }
 
 /**
- * Health check
+ * Get database type
  */
-export async function healthCheck(): Promise<boolean> {
-  try {
-    const result = await query('SELECT 1');
-    return result && result.length > 0;
-  } catch (e) {
-    console.error('Database health check failed:', e);
-    return false;
-  }
+export function getDbType(): 'sqlite' | 'postgresql' {
+  return isSQLite() ? 'sqlite' : 'postgresql';
 }
+
+export default db;
