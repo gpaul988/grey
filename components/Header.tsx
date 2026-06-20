@@ -465,11 +465,11 @@ const HeaderContent: React.FC = () => {
                             <div className="shrink-0 grey-logo-orbit">
                                 <Link href="/#">
                                     <Image
-                                        src="/logo.gif"
+                                        src="/logon.png"
                                         alt="Grey InfoTech Logo"
-                                        width={600}
-                                        height={120}
-                                        className="h-6 w-auto md:h-10 lg:h-12 object-contain"
+                                        width={300}
+                                        height={50}
+                                        className="h-5 w-auto md:h-8 lg:h-10 object-contain"
                                         priority
                                         loading="eager"
                                     />
@@ -709,11 +709,11 @@ const HeaderContent: React.FC = () => {
                             <div className="mt-4 flex justify-start">
                                 <Link href={'#'}>
                                     <Image
-                                        src={'/logo.gif'}
+                                        src={'/logon.png'}
                                         alt="Grey InfoTech"
-                                        width={600}
-                                        height={120}
-                                        className="h-6 w-auto md:h-10 lg:h-12 object-contain"
+                                        width={300}
+                                        height={80}
+                                        className="h-5 w-auto md:h-8 lg:h-10 object-contain"
                                         priority
                                         loading="eager"
                                     />
