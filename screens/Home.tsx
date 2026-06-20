@@ -15,8 +15,11 @@ import {FaFileAlt} from "react-icons/fa";
 import AIProjectEstimator from '@/components/AIProjectEstimator';
 
 import AdBanner from '@/components/futuristic/AdBanner';
+import AnnouncementBarWrapper from '@/components/futuristic/AnnouncementBarWrapper';
 import WebGLHero from '@/components/futuristic/WebGLHero';
 import {usePersonalization} from '@/components/futuristic/PersonalizationProvider';
+import { useI18n } from '@/lib/i18n-context';
+import { getAutoUserName } from '@/lib/get-user-name';
 import {useIsDayTime} from '../components/useIsDayTime';
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 
@@ -116,6 +119,25 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
         }
     };
 
+    // Get i18n
+    const { t, language } = useI18n();
+    const [userName, setUserName] = useState<string>('');
+    const [isMounted, setIsMounted] = useState(false);
+
+    // Auto-detect user name on mount
+    useEffect(() => {
+        setUserName(getAutoUserName());
+        setIsMounted(true);
+    }, []);
+
+    // Get greeting message based on time of day
+    const getGreetingMessage = () => {
+        const hour = new Date().getHours();
+        if (hour < 12) return t('greeting.morning', 'Good morning, working early');
+        if (hour < 18) return t('greeting.afternoon', 'Good afternoon, crushing it');
+        return t('greeting.evening', 'Good evening, working late');
+    };
+
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
             <FloatingButton
@@ -139,6 +161,11 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                     {/* WebGL Hero Overlay - on top of video */}
                     <WebGLHero className="absolute inset-0 z-[5] opacity-60 pointer-events-none mix-blend-screen" />
                     
+                    {/* Announcement Bar in Hero */}
+                    <div className="absolute top-0 left-0 right-0 z-[20]">
+                        <AnnouncementBarWrapper/>
+                    </div>
+
                     {/* Text content */}
                     <div
                         className={`relative z-10 mt-24 flex flex-col justify-center items-start text-start lg:max-w-[90em] ${
@@ -146,10 +173,10 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                         }`}
                     >
                         <br/><br/>
-                        {personalReady && greeting && (
+                        {isMounted && (
                             <span className={`grey-parallax-soft inline-flex items-center gap-2 rounded-full px-3 py-1 mb-2 text-xs font-medium backdrop-blur-sm border ${isDayTime ? 'bg-white/40 border-teal-700/30 text-teal-900' : 'bg-white/10 border-white/20 text-teal-100'}`}>
                                 <span className="h-1.5 w-1.5 rounded-full bg-teal-400 animate-pulse"/>
-                                {returning ? `Welcome back — ${greeting}` : greeting}
+                                {userName ? `${getGreetingMessage()}, ${userName}!` : getGreetingMessage()}
                             </span>
                         )}
                         <h1 className={`grey-parallax-mid ${isDayTime ? 'text-black' : 'text-white'} lg:text-[87px] text-[45px] lg:leading-[1.1] md:leading-[1.1] leading-[1.2] font-[600] lg:mb-6`}>
