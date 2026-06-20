@@ -644,7 +644,7 @@ const HeaderContent: React.FC = () => {
                                     <ThemeToggle className="scale-90" layoutGroupId="theme-glow-desktop" />
                                 </div>
 
-                                {/* CTA Button */
+                                {/* CTA Button */}
                                 <button
                                     onClick={() => setIsModalOpen(true)}
                                     className="grey-cta-glow rounded-full text-[1em] font-medium py-[0.40em] px-[0.90em] border transition-all duration-300 text-teal-400 hover:text-white hover:bg-teal-500/20 border-teal-400 hover:border-teal-300 hover:scale-105"
