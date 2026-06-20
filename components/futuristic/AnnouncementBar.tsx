@@ -29,16 +29,29 @@ export default function AnnouncementBar() {
 
     useEffect(() => {
         let alive = true;
+        console.log('[AnnouncementBar] Fetching from /api/announcement');
         fetch('/api/announcement')
-            .then((r) => r.json())
+            .then((r) => {
+                console.log('[AnnouncementBar] Response status:', r.status);
+                return r.json();
+            })
             .then((d: {announcement: Announcement | null}) => {
-                if (!alive || !d.announcement) return;
+                console.log('[AnnouncementBar] Received data:', d);
+                if (!alive || !d.announcement) {
+                    console.log('[AnnouncementBar] No announcement or component unmounted');
+                    return;
+                }
                 const dismissed = sessionStorage.getItem('grey-ann-dismissed');
-                if (dismissed === String(d.announcement.id)) return;
+                console.log('[AnnouncementBar] Dismissed ID in session:', dismissed, 'New ID:', d.announcement.id);
+                if (dismissed === String(d.announcement.id)) {
+                    console.log('[AnnouncementBar] This announcement was already dismissed');
+                    return;
+                }
+                console.log('[AnnouncementBar] Setting announcement:', d.announcement);
                 setAnn(d.announcement);
                 setOpen(true);
             })
-            .catch(() => {});
+            .catch((err) => console.error('[AnnouncementBar] Fetch error:', err));
         return () => {
             alive = false;
         };

@@ -57,12 +57,23 @@ export default function AdBanner({placement = 'home_banner'}: {placement?: strin
 
     useEffect(() => {
         let alive = true;
-        fetch(`/api/ads?placement=${encodeURIComponent(placement)}`)
-            .then((r) => r.json())
-            .then((d: {ads: Ad[]}) => {
-                if (alive && d.ads && d.ads.length) setAd(d.ads[0]);
+        const url = `/api/ads?placement=${encodeURIComponent(placement)}`;
+        console.log('[AdBanner] Fetching from', url);
+        fetch(url)
+            .then((r) => {
+                console.log('[AdBanner] Response status:', r.status);
+                return r.json();
             })
-            .catch(() => {});
+            .then((d: {ads: Ad[]}) => {
+                console.log('[AdBanner] Received ads:', d);
+                if (alive && d.ads && d.ads.length) {
+                    console.log('[AdBanner] Setting ad:', d.ads[0]);
+                    setAd(d.ads[0]);
+                } else {
+                    console.log('[AdBanner] No ads or component unmounted');
+                }
+            })
+            .catch((err) => console.error('[AdBanner] Fetch error:', err));
         return () => {
             alive = false;
         };
