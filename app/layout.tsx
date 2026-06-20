@@ -1,4 +1,5 @@
 import type {Metadata, Viewport} from "next";
+import Script from "next/script";
 // Google fonts
 import {Merriweather, Roboto} from "next/font/google";
 // global css
@@ -152,7 +153,11 @@ export default async function RootLayout({
         <html lang="en" suppressHydrationWarning>
         <head>
             {/* FIX (FOUC): set the theme class before first paint */}
-            <script dangerouslySetInnerHTML={{__html: themeInitScript}}/>
+            <Script
+                id="theme-init"
+                strategy="beforeInteractive"
+                dangerouslySetInnerHTML={{__html: themeInitScript}}
+            />
         </head>
         <body
             className={`${merriweather.variable} ${roboto.variable} antialiased`}
