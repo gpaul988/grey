@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, X, Globe } from "lucide-react";
+import { useI18n } from '@/lib/i18n-context';
+import { ALL_LANGUAGES, getLanguageName } from '@/lib/languages';
 import { FormComponent } from "@/components/FormComponent";
 import ThemeToggle from "@/components/ThemeToggle";
 import SiteSearch from "@/components/SiteSearch";
@@ -28,7 +30,10 @@ interface SubmenuSection {
 }
 
 const HeaderContent: React.FC = () => {
-            const [isServicesOpen, setIsServicesOpen] = useState<boolean>(false); const [isIndustriesOpen, setIsIndustriesOpen] = useState<boolean>(false);
+    const { language, setLanguage, t } = useI18n();
+    const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+    const [isServicesOpen, setIsServicesOpen] = useState<boolean>(false);
+    const [isIndustriesOpen, setIsIndustriesOpen] = useState<boolean>(false);
     const [isTechnologiesOpen, setIsTechnologiesOpen] = useState<boolean>(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
     const [isMobileServicesOpen, setIsMobileServicesOpen] = useState<boolean>(false);
@@ -53,7 +58,8 @@ const HeaderContent: React.FC = () => {
     const servicesRef = useRef<HTMLDivElement>(null);
     const industriesRef = useRef<HTMLDivElement>(null);
     const technologiesRef = useRef<HTMLDivElement>(null);
-        const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const languageRef = useRef<HTMLDivElement>(null);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     const mountedRef = useRef(false);
 
     // Detect breakpoint: <1631px width OR <991px height
@@ -113,7 +119,9 @@ const HeaderContent: React.FC = () => {
             if (technologiesRef.current && !technologiesRef.current.contains(event.target as Node)) {
                 setIsTechnologiesOpen(false);
             }
-
+            if (languageRef.current && !languageRef.current.contains(event.target as Node)) {
+                setIsLanguageMenuOpen(false);
+            }
         };
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
@@ -193,14 +201,14 @@ const HeaderContent: React.FC = () => {
     };
 
     const mainMenuItems: MenuItem[] = [
-        { label: 'Services', href: '/services', hasSubmenu: true },
-        { label: 'Industries', href: '/industries', hasSubmenu: true },
-        { label: 'Technologies', href: '/technologies', hasSubmenu: true },
-        { label: 'Blog', href: '/blog' },
-        { label: 'Company', href: '/company' },
-        { label: 'Startups', href: '/Startups' },
-        { label: 'Store', href: '/store' },
-        { label: 'Contact us', href: '/contact' },
+        { label: t('nav.services', 'Services'), href: '/services', hasSubmenu: true },
+        { label: t('nav.industries', 'Industries'), href: '/industries', hasSubmenu: true },
+        { label: t('nav.technologies', 'Technologies'), href: '/technologies', hasSubmenu: true },
+        { label: t('nav.blog', 'Blog'), href: '/blog' },
+        { label: t('nav.company', 'Company'), href: '/company' },
+        { label: t('nav.startups', 'Startups'), href: '/Startups' },
+        { label: t('nav.store', 'Store'), href: '/store' },
+        { label: t('nav.contact', 'Contact us'), href: '/contact' },
     ];
 
     const servicesSubmenuSections: SubmenuSection[] = [
@@ -321,7 +329,10 @@ const HeaderContent: React.FC = () => {
         setIsTechnologiesOpen(false);
     };
 
-    
+    const handleLanguageChange = (newLang: string) => {
+        setLanguage(newLang);
+        setIsLanguageMenuOpen(false);
+    };
 
     if (pathname?.startsWith('/store')) {
         return null;
@@ -477,7 +488,7 @@ const HeaderContent: React.FC = () => {
                             {!isBelowBreakpoint && (
                             <nav className="flex space-x-4 xl:space-x-6 items-center ml-auto mr-4">
                                 {mainMenuItems.map((item) => {
-                                    if (item.label === 'Services') {
+                                    if (item.label === t('nav.services', 'Services')) {
                                         return (
                                             <div
                                                 key={item.label}
@@ -526,7 +537,7 @@ const HeaderContent: React.FC = () => {
                                         );
                                     }
 
-                                    if (item.label === 'Industries') {
+                                    if (item.label === t('nav.industries', 'Industries')) {
                                         return (
                                             <div
                                                 key={item.label}
@@ -572,7 +583,7 @@ const HeaderContent: React.FC = () => {
                                         );
                                     }
 
-                                    if (item.label === 'Technologies') {
+                                    if (item.label === t('nav.technologies', 'Technologies')) {
                                         return (
                                             <div
                                                 key={item.label}
@@ -641,14 +652,49 @@ const HeaderContent: React.FC = () => {
                                     <ThemeToggle className="scale-90" layoutGroupId="theme-glow-desktop" />
                                 </div>
 
-                                {/* Language Selector - REMOVED (i18n disabled) */}
+                                {/* Language Selector */}
+                                <div ref={languageRef} className="relative">
+                                    <button
+                                        onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
+                                        className="flex items-center gap-1 px-3 py-1 rounded border border-cyan-400/50 text-cyan-300 hover:text-cyan-200 hover:border-cyan-300 transition text-xs sm:text-sm font-medium"
+                                        title={t('nav.language', 'Language')}
+                                        aria-expanded={isLanguageMenuOpen}
+                                        type="button"
+                                    >
+                                        <Globe size={14} className="shrink-0" />
+                                        <span className="hidden sm:inline">{getLanguageName(language)}</span>
+                                        <span className="sm:hidden">{language.split('-')[0].toUpperCase()}</span>
+                                        <ChevronDown size={14} className={`transition-transform ${isLanguageMenuOpen ? 'rotate-180' : ''}`} />
+                                    </button>
+
+                                    {/* Language Dropdown */}
+                                    {isLanguageMenuOpen && (
+                                        <div className="absolute top-full right-0 mt-1 bg-black/95 border border-cyan-400/30 rounded shadow-lg z-50 min-w-[200px] max-h-96 overflow-y-auto">
+                                            <div className="p-1">
+                                                {ALL_LANGUAGES.map((lang) => (
+                                                    <button
+                                                        key={lang.code}
+                                                        onClick={() => handleLanguageChange(lang.code)}
+                                                        className={`w-full text-left px-3 py-2 text-xs sm:text-sm rounded transition ${
+                                                            language === lang.code
+                                                                ? 'bg-cyan-500/30 text-cyan-200 font-semibold'
+                                                                : 'text-gray-300 hover:bg-cyan-500/20 hover:text-cyan-300'
+                                                        }`}
+                                                    >
+                                                        {lang.nativeName} <span className="text-gray-500 text-xs">({lang.code})</span>
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
 
                                 {/* CTA Button */}
                                 <button
                                     onClick={() => setIsModalOpen(true)}
                                     className="grey-cta-glow rounded-full text-[1em] font-medium py-[0.40em] px-[0.90em] border transition-all duration-300 text-teal-400 hover:text-white hover:bg-teal-500/20 border-teal-400 hover:border-teal-300 hover:scale-105"
                                 >
-                                    {'Start Your Project'}
+                                    {t('nav.startProject', 'Start Your Project')}
                                 </button>
                             </div>
                             )}
@@ -734,9 +780,9 @@ const HeaderContent: React.FC = () => {
                                             <button
                                                 className="flex items-center justify-between w-full text-white hover:text-gray-300 transition-colors duration-200 text-[1.5em] font-normal"
                                                 onClick={() => {
-                                                    if (item.label === 'Services') setIsMobileServicesOpen(!isMobileServicesOpen);
-                                                    else if (item.label === 'Industries') setIsMobileIndustriesOpen(!isMobileIndustriesOpen);
-                                                    else if (item.label === 'Technologies') setIsMobileTechnologiesOpen(!isMobileTechnologiesOpen);
+                                                    if (item.label === t('nav.services', 'Services')) setIsMobileServicesOpen(!isMobileServicesOpen);
+                                                    else if (item.label === t('nav.industries', 'Industries')) setIsMobileIndustriesOpen(!isMobileIndustriesOpen);
+                                                    else if (item.label === t('nav.technologies', 'Technologies')) setIsMobileTechnologiesOpen(!isMobileTechnologiesOpen);
                                                 }}
                                                 type="button"
                                             >
@@ -744,9 +790,9 @@ const HeaderContent: React.FC = () => {
                                                 <ChevronDown
                                                     size={18}
                                                     className={`transition-transform duration-200 ${
-                                                        (item.label === 'Services' && isMobileServicesOpen) ||
-                                                        (item.label === 'Industries' && isMobileIndustriesOpen) ||
-                                                        (item.label === 'Technologies' && isMobileTechnologiesOpen)
+                                                        (item.label === t('nav.services', 'Services') && isMobileServicesOpen) ||
+                                                        (item.label === t('nav.industries', 'Industries') && isMobileIndustriesOpen) ||
+                                                        (item.label === t('nav.technologies', 'Technologies') && isMobileTechnologiesOpen)
                                                             ? 'rotate-180'
                                                             : ''
                                                     }`}
@@ -756,23 +802,23 @@ const HeaderContent: React.FC = () => {
                                             {/* Mobile Submenu */}
                                             <div
                                                 className={`mt-3 space-y-2 overflow-hidden transition-all duration-300 ${
-                                                    (item.label === 'Services' && isMobileServicesOpen) ||
-                                                    (item.label === 'Industries' && isMobileIndustriesOpen) ||
-                                                    (item.label === 'Technologies' && isMobileTechnologiesOpen)
+                                                    (item.label === t('nav.services', 'Services') && isMobileServicesOpen) ||
+                                                    (item.label === t('nav.industries', 'Industries') && isMobileIndustriesOpen) ||
+                                                    (item.label === t('nav.technologies', 'Technologies') && isMobileTechnologiesOpen)
                                                         ? 'opacity-100'
                                                         : 'max-h-0 opacity-0'
                                                 }`}
                                                 style={{
-                                                    maxHeight: (item.label === 'Services' && isMobileServicesOpen) ||
-                                                    (item.label === 'Industries' && isMobileIndustriesOpen) ||
-                                                    (item.label === 'Technologies' && isMobileTechnologiesOpen)
+                                                    maxHeight: (item.label === t('nav.services', 'Services') && isMobileServicesOpen) ||
+                                                    (item.label === t('nav.industries', 'Industries') && isMobileIndustriesOpen) ||
+                                                    (item.label === t('nav.technologies', 'Technologies') && isMobileTechnologiesOpen)
                                                         ? '50rem'
                                                         : '0',
                                                 }}
                                             >
-                                                {(item.label === 'Services'
+                                                {(item.label === t('nav.services', 'Services')
                                                         ? servicesSubmenuSections
-                                                        : item.label === 'Industries'
+                                                        : item.label === t('nav.industries', 'Industries')
                                                             ? industriesSubmenuSections
                                                             : technologiesSubmenuSections
                                                 ).map((section: SubmenuSection, sectionIndex: number) => (
@@ -818,7 +864,7 @@ const HeaderContent: React.FC = () => {
 
                         {/* Mobile Language Selector */}
                         <div className="mt-6 border-t border-gray-600 pt-6">
-                            <div className="text-white font-semibold mb-3">{'Language'}</div>
+                            <div className="text-white font-semibold mb-3">{t('nav.language', 'Language')}</div>
                             <div className="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto">
                                 {ALL_LANGUAGES.map((lang) => (
                                     <button
@@ -848,7 +894,7 @@ const HeaderContent: React.FC = () => {
                                 toggleMobileMenu();
                             }}
                         >
-                            {'Start Your Project'}
+                            {t('nav.startProject', 'Start Your Project')}
                         </button>
                     </div>
                 </div>

@@ -1,0 +1,34 @@
+{
+  "greeting": {
+    "morning": "Habari za asubuhi, {{name}}! ☀️",
+    "afternoon": "Habari za jioni, {{name}}! 👋",
+    "evening": "Usiku mwema, {{name}}! 🌙",
+    "guest": "Mgeni",
+    "yourName": "Jina Lako",
+    "enterName": "Ingiza jina lako",
+    "selectLanguage": "Chagua Lugha",
+    "currentLocation": "Mahali Halisi"
+  },
+  "nav": {
+    "home": "Nyumbani",
+    "services": "Huduma",
+    "portfolio": "Kazi Zangu",
+    "blog": "Blogi",
+    "company": "Kampuni",
+    "careers": "Ajira",
+    "contact": "Wasiliana",
+    "about": "Kuhusu Sisi"
+  },
+  "common": {
+    "explore": "Tembea",
+    "learnMore": "Jifunze Zaidi",
+    "getStarted": "Anza",
+    "viewMore": "Tazama Zaidi",
+    "back": "Nyuma",
+    "next": "Inayofuata",
+    "previous": "Iliyotangulia",
+    "loading": "Inapakia...",
+    "error": "Kosa limetokea",
+    "success": "Imefanikiwa!"
+  }
+}

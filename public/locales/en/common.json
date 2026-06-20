@@ -1,0 +1,34 @@
+{
+  "greeting": {
+    "morning": "Good morning, {{name}}! ☀️",
+    "afternoon": "Good afternoon, {{name}}! 👋",
+    "evening": "Good evening, {{name}}! 🌙",
+    "guest": "Guest",
+    "yourName": "Your Name",
+    "enterName": "Enter your name",
+    "selectLanguage": "Select Language",
+    "currentLocation": "Current Location"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "blog": "Blog",
+    "company": "Company",
+    "careers": "Careers",
+    "contact": "Contact",
+    "about": "About Us"
+  },
+  "common": {
+    "explore": "Explore",
+    "learnMore": "Learn More",
+    "getStarted": "Get Started",
+    "viewMore": "View More",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success!"
+  }
+}
