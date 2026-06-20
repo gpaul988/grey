@@ -50,6 +50,7 @@ const HeaderContent: React.FC = () => {
     });
     const [showHeader, setShowHeader] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
+    const [isBelowBreakpoint, setIsBelowBreakpoint] = useState(false);
 
     const isDayTime = useIsDayTime();
     const pathname = usePathname();
@@ -60,6 +61,17 @@ const HeaderContent: React.FC = () => {
     const languageRef = useRef<HTMLDivElement>(null);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     const mountedRef = useRef(false);
+
+    // Detect breakpoint: <1631px width OR <991px height
+    useEffect(() => {
+        const handleResize = () => {
+            const isBelowThreshold = window.innerWidth < 1631 || window.innerHeight < 991;
+            setIsBelowBreakpoint(isBelowThreshold);
+        };
+        handleResize(); // Check on mount
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     // Scroll and header visibility
     useEffect(() => {
@@ -473,7 +485,8 @@ const HeaderContent: React.FC = () => {
                             </div>
 
                             {/* Desktop Menu */}
-                            <nav className="hidden lg:flex space-x-4 xl:space-x-6 items-center ml-auto mr-4">
+                            {!isBelowBreakpoint && (
+                            <nav className="flex space-x-4 xl:space-x-6 items-center ml-auto mr-4">
                                 {mainMenuItems.map((item) => {
                                     if (item.label === t('nav.services', 'Services')) {
                                         return (
@@ -627,9 +640,11 @@ const HeaderContent: React.FC = () => {
                                     );
                                 })}
                             </nav>
+                            )}
 
                             {/* Desktop: Search + Theme + Language */}
-                            <div className="hidden lg:flex items-center gap-3">
+                            {!isBelowBreakpoint && (
+                            <div className="flex items-center gap-3">
                                 <div>
                                     <SiteSearch variant="desktop" />
                                 </div>
@@ -682,9 +697,11 @@ const HeaderContent: React.FC = () => {
                                     {t('nav.startProject', 'Start Your Project')}
                                 </button>
                             </div>
+                            )}
 
                             {/* Mobile: Menu Button */}
-                            <div className="lg:hidden flex items-center gap-2">
+                            {isBelowBreakpoint && (
+                            <div className="flex items-center gap-2">
                                 <ThemeToggle className="scale-90" layoutGroupId="theme-glow-mobile" />
                                 <button
                                     type="button"
@@ -696,14 +713,16 @@ const HeaderContent: React.FC = () => {
                                     {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                                 </button>
                             </div>
+                            )}
                         </div>
                     </div>
                 </header>
             )}
 
             {/* Mobile Menu */}
+            {isBelowBreakpoint && (
             <div
-                className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${
+                className={`fixed inset-0 z-40 transition-all duration-300 ${
                     isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
                 }`}
             >
@@ -880,6 +899,7 @@ const HeaderContent: React.FC = () => {
                     </div>
                 </div>
             </div>
+            )}
 
             {/* Modal for FormComponent */}
             {isModalOpen && (
