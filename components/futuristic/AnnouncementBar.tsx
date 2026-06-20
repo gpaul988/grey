@@ -1,9 +1,8 @@
 'use client';
 
 /**
- * AnnouncementBar — a thin, dismissible futuristic bar that sits above the header.
- * Pulls the latest active announcement from /api/announcement (schedule-aware).
- * Dismissal is remembered per-announcement for the browser session.
+ * AnnouncementBar — Site-wide announcement banner
+ * Shows at the very top, above header. Shows ONCE per session.
  */
 
 import React, {useEffect, useState} from 'react';
@@ -25,68 +24,71 @@ const VARIANTS: Record<string, string> = {
 
 export default function AnnouncementBar() {
     const [ann, setAnn] = useState<Announcement | null>(null);
-    const [open, setOpen] = useState(false);
+    const [visible, setVisible] = useState(false);
 
     useEffect(() => {
+        // Only run once on mount
         let alive = true;
+
+        // Check if already dismissed
+        const dismissed = sessionStorage.getItem('grey-ann-dismissed');
+        if (dismissed === 'true') return;
+
         fetch('/api/announcement')
             .then((r) => r.json())
             .then((d: {announcement: Announcement | null}) => {
-                if (!alive) return;
-                if (!d.announcement) return;
-                // Check if this exact announcement was dismissed in THIS session
-                const dismissed = sessionStorage.getItem(`grey-ann-dismissed-${d.announcement.id}`);
-                if (dismissed === 'true') return;
+                if (!alive || !d.announcement) return;
                 setAnn(d.announcement);
-                setOpen(true);
+                setVisible(true);
             })
             .catch((err) => {
                 if (process.env.NODE_ENV === 'development') {
                     console.error('[AnnouncementBar] Fetch error:', err);
                 }
             });
+
         return () => {
             alive = false;
         };
     }, []);
 
     const dismiss = () => {
-        if (ann) {
-            sessionStorage.setItem(`grey-ann-dismissed-${ann.id}`, 'true');
-        }
-        setOpen(false);
+        setVisible(false);
+        sessionStorage.setItem('grey-ann-dismissed', 'true');
     };
 
-    const cls = VARIANTS[ann?.variant] || VARIANTS.gradient;
+    if (!ann || !visible) return null;
+
+    const cls = VARIANTS[ann.variant] || VARIANTS.gradient;
 
     return (
         <AnimatePresence>
-            {ann && open && (
+            {visible && (
                 <motion.div
                     initial={{height: 0, opacity: 0}}
                     animate={{height: 'auto', opacity: 1}}
                     exit={{height: 0, opacity: 0}}
-                    transition={{duration: 0.4, ease: [0.22, 1, 0.36, 1]}}
-                    className={`relative w-full z-[60] overflow-hidden ${cls}`}
+                    transition={{duration: 0.3, ease: 'easeInOut'}}
+                    className={`relative z-[70] w-full overflow-hidden ${cls}`}
                 >
-                    {/* subtle moving sheen */}
+                    {/* Animated sheen effect */}
                     <div
                         aria-hidden
                         className="pointer-events-none absolute inset-0 opacity-30"
                         style={{
-                            background:
-                                'linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.25) 50%, transparent 70%)',
+                            background: 'linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.25) 50%, transparent 70%)',
                             backgroundSize: '200% 100%',
                             animation: 'grey-ann-sheen 6s linear infinite',
                         }}
                     />
-                    <div className="relative mx-auto flex max-w-7xl items-center justify-center gap-3 px-4 py-2 text-center text-[0.82rem] font-medium tracking-wide">
+
+                    <div className="relative mx-auto flex max-w-full items-center justify-center gap-3 px-4 py-3 text-center text-sm font-medium tracking-wide">
                         <span className="inline-flex h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-current" />
                         <span className="truncate sm:whitespace-normal">{ann.message}</span>
                         {ann.link_url && (
                             <a
                                 href={ann.link_url}
-                                className="shrink-0 underline decoration-current/40 underline-offset-2 hover:decoration-current"
+                                className="shrink-0 underline decoration-current/40 underline-offset-2 hover:decoration-current transition"
                             >
                                 {ann.link_label || 'Learn more'} →
                             </a>
@@ -99,7 +101,7 @@ export default function AnnouncementBar() {
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="h-3.5 w-3.5"
+                                className="h-4 w-4"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -108,6 +110,7 @@ export default function AnnouncementBar() {
                             </svg>
                         </button>
                     </div>
+
                     <style>{`@keyframes grey-ann-sheen{0%{background-position:200% 0}100%{background-position:-200% 0}}`}</style>
                 </motion.div>
             )}
