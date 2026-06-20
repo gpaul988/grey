@@ -5,8 +5,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, X, Globe } from "lucide-react";
-import { useI18n } from '@/lib/i18n-context';
-import { ALL_LANGUAGES, getLanguageName } from '@/lib/languages';
 import { FormComponent } from "@/components/FormComponent";
 import ThemeToggle from "@/components/ThemeToggle";
 import SiteSearch from "@/components/SiteSearch";
@@ -30,8 +28,8 @@ interface SubmenuSection {
 }
 
 const HeaderContent: React.FC = () => {
-    const { language, setLanguage, t } = useI18n();
-    const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+    // Removed i18n
+    
     const [isServicesOpen, setIsServicesOpen] = useState<boolean>(false);
     const [isIndustriesOpen, setIsIndustriesOpen] = useState<boolean>(false);
     const [isTechnologiesOpen, setIsTechnologiesOpen] = useState<boolean>(false);
@@ -58,7 +56,7 @@ const HeaderContent: React.FC = () => {
     const servicesRef = useRef<HTMLDivElement>(null);
     const industriesRef = useRef<HTMLDivElement>(null);
     const technologiesRef = useRef<HTMLDivElement>(null);
-    const languageRef = useRef<HTMLDivElement>(null);
+    
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     const mountedRef = useRef(false);
 
@@ -201,14 +199,14 @@ const HeaderContent: React.FC = () => {
     };
 
     const mainMenuItems: MenuItem[] = [
-        { label: t('nav.services', 'Services'), href: '/services', hasSubmenu: true },
-        { label: t('nav.industries', 'Industries'), href: '/industries', hasSubmenu: true },
-        { label: t('nav.technologies', 'Technologies'), href: '/technologies', hasSubmenu: true },
-        { label: t('nav.blog', 'Blog'), href: '/blog' },
-        { label: t('nav.company', 'Company'), href: '/company' },
-        { label: t('nav.startups', 'Startups'), href: '/Startups' },
-        { label: t('nav.store', 'Store'), href: '/store' },
-        { label: t('nav.contact', 'Contact us'), href: '/contact' },
+        { label: 'Services', href: '/services', hasSubmenu: true },
+        { label: 'Industries', href: '/industries', hasSubmenu: true },
+        { label: 'Technologies', href: '/technologies', hasSubmenu: true },
+        { label: 'Blog', href: '/blog' },
+        { label: 'Company', href: '/company' },
+        { label: 'Startups', href: '/Startups' },
+        { label: 'Store', href: '/store' },
+        { label: 'Contact us', href: '/contact' },
     ];
 
     const servicesSubmenuSections: SubmenuSection[] = [
@@ -329,11 +327,7 @@ const HeaderContent: React.FC = () => {
         setIsTechnologiesOpen(false);
     };
 
-    const handleLanguageChange = (newLang: string) => {
-        setLanguage(newLang);
-        setIsLanguageMenuOpen(false);
-    };
-
+    
     if (pathname?.startsWith('/store')) {
         return null;
     }
@@ -488,7 +482,7 @@ const HeaderContent: React.FC = () => {
                             {!isBelowBreakpoint && (
                             <nav className="flex space-x-4 xl:space-x-6 items-center ml-auto mr-4">
                                 {mainMenuItems.map((item) => {
-                                    if (item.label === t('nav.services', 'Services')) {
+                                    if (item.label === 'Services') {
                                         return (
                                             <div
                                                 key={item.label}
@@ -537,7 +531,7 @@ const HeaderContent: React.FC = () => {
                                         );
                                     }
 
-                                    if (item.label === t('nav.industries', 'Industries')) {
+                                    if (item.label === 'Industries') {
                                         return (
                                             <div
                                                 key={item.label}
@@ -583,7 +577,7 @@ const HeaderContent: React.FC = () => {
                                         );
                                     }
 
-                                    if (item.label === t('nav.technologies', 'Technologies')) {
+                                    if (item.label === 'Technologies') {
                                         return (
                                             <div
                                                 key={item.label}
@@ -657,7 +651,7 @@ const HeaderContent: React.FC = () => {
                                     <button
                                         onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
                                         className="flex items-center gap-1 px-3 py-1 rounded border border-cyan-400/50 text-cyan-300 hover:text-cyan-200 hover:border-cyan-300 transition text-xs sm:text-sm font-medium"
-                                        title={t('nav.language', 'Language')}
+                                        title={'Language'}
                                         aria-expanded={isLanguageMenuOpen}
                                         type="button"
                                     >
@@ -694,7 +688,7 @@ const HeaderContent: React.FC = () => {
                                     onClick={() => setIsModalOpen(true)}
                                     className="grey-cta-glow rounded-full text-[1em] font-medium py-[0.40em] px-[0.90em] border transition-all duration-300 text-teal-400 hover:text-white hover:bg-teal-500/20 border-teal-400 hover:border-teal-300 hover:scale-105"
                                 >
-                                    {t('nav.startProject', 'Start Your Project')}
+                                    {'Start Your Project'}
                                 </button>
                             </div>
                             )}
@@ -780,9 +774,9 @@ const HeaderContent: React.FC = () => {
                                             <button
                                                 className="flex items-center justify-between w-full text-white hover:text-gray-300 transition-colors duration-200 text-[1.5em] font-normal"
                                                 onClick={() => {
-                                                    if (item.label === t('nav.services', 'Services')) setIsMobileServicesOpen(!isMobileServicesOpen);
-                                                    else if (item.label === t('nav.industries', 'Industries')) setIsMobileIndustriesOpen(!isMobileIndustriesOpen);
-                                                    else if (item.label === t('nav.technologies', 'Technologies')) setIsMobileTechnologiesOpen(!isMobileTechnologiesOpen);
+                                                    if (item.label === 'Services') setIsMobileServicesOpen(!isMobileServicesOpen);
+                                                    else if (item.label === 'Industries') setIsMobileIndustriesOpen(!isMobileIndustriesOpen);
+                                                    else if (item.label === 'Technologies') setIsMobileTechnologiesOpen(!isMobileTechnologiesOpen);
                                                 }}
                                                 type="button"
                                             >
@@ -790,9 +784,9 @@ const HeaderContent: React.FC = () => {
                                                 <ChevronDown
                                                     size={18}
                                                     className={`transition-transform duration-200 ${
-                                                        (item.label === t('nav.services', 'Services') && isMobileServicesOpen) ||
-                                                        (item.label === t('nav.industries', 'Industries') && isMobileIndustriesOpen) ||
-                                                        (item.label === t('nav.technologies', 'Technologies') && isMobileTechnologiesOpen)
+                                                        (item.label === 'Services' && isMobileServicesOpen) ||
+                                                        (item.label === 'Industries' && isMobileIndustriesOpen) ||
+                                                        (item.label === 'Technologies' && isMobileTechnologiesOpen)
                                                             ? 'rotate-180'
                                                             : ''
                                                     }`}
@@ -802,23 +796,23 @@ const HeaderContent: React.FC = () => {
                                             {/* Mobile Submenu */}
                                             <div
                                                 className={`mt-3 space-y-2 overflow-hidden transition-all duration-300 ${
-                                                    (item.label === t('nav.services', 'Services') && isMobileServicesOpen) ||
-                                                    (item.label === t('nav.industries', 'Industries') && isMobileIndustriesOpen) ||
-                                                    (item.label === t('nav.technologies', 'Technologies') && isMobileTechnologiesOpen)
+                                                    (item.label === 'Services' && isMobileServicesOpen) ||
+                                                    (item.label === 'Industries' && isMobileIndustriesOpen) ||
+                                                    (item.label === 'Technologies' && isMobileTechnologiesOpen)
                                                         ? 'opacity-100'
                                                         : 'max-h-0 opacity-0'
                                                 }`}
                                                 style={{
-                                                    maxHeight: (item.label === t('nav.services', 'Services') && isMobileServicesOpen) ||
-                                                    (item.label === t('nav.industries', 'Industries') && isMobileIndustriesOpen) ||
-                                                    (item.label === t('nav.technologies', 'Technologies') && isMobileTechnologiesOpen)
+                                                    maxHeight: (item.label === 'Services' && isMobileServicesOpen) ||
+                                                    (item.label === 'Industries' && isMobileIndustriesOpen) ||
+                                                    (item.label === 'Technologies' && isMobileTechnologiesOpen)
                                                         ? '50rem'
                                                         : '0',
                                                 }}
                                             >
-                                                {(item.label === t('nav.services', 'Services')
+                                                {(item.label === 'Services'
                                                         ? servicesSubmenuSections
-                                                        : item.label === t('nav.industries', 'Industries')
+                                                        : item.label === 'Industries'
                                                             ? industriesSubmenuSections
                                                             : technologiesSubmenuSections
                                                 ).map((section: SubmenuSection, sectionIndex: number) => (
@@ -864,7 +858,7 @@ const HeaderContent: React.FC = () => {
 
                         {/* Mobile Language Selector */}
                         <div className="mt-6 border-t border-gray-600 pt-6">
-                            <div className="text-white font-semibold mb-3">{t('nav.language', 'Language')}</div>
+                            <div className="text-white font-semibold mb-3">{'Language'}</div>
                             <div className="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto">
                                 {ALL_LANGUAGES.map((lang) => (
                                     <button
@@ -894,7 +888,7 @@ const HeaderContent: React.FC = () => {
                                 toggleMobileMenu();
                             }}
                         >
-                            {t('nav.startProject', 'Start Your Project')}
+                            {'Start Your Project'}
                         </button>
                     </div>
                 </div>
