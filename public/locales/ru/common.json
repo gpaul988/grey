@@ -1,0 +1,34 @@
+{
+  "greeting": {
+    "morning": "Доброе утро, {{name}}! ☀️",
+    "afternoon": "Добрый день, {{name}}! 👋",
+    "evening": "Добрый вечер, {{name}}! 🌙",
+    "guest": "Гость",
+    "yourName": "Ваше Имя",
+    "enterName": "Введите ваше имя",
+    "selectLanguage": "Выберите Язык",
+    "currentLocation": "Текущее Местоположение"
+  },
+  "nav": {
+    "home": "Главная",
+    "services": "Услуги",
+    "portfolio": "Портфолио",
+    "blog": "Блог",
+    "company": "Компания",
+    "careers": "Карьера",
+    "contact": "Контакт",
+    "about": "О Нас"
+  },
+  "common": {
+    "explore": "Исследовать",
+    "learnMore": "Узнать Больше",
+    "getStarted": "Начать",
+    "viewMore": "Показать Больше",
+    "back": "Назад",
+    "next": "Далее",
+    "previous": "Предыдущий",
+    "loading": "Загрузка...",
+    "error": "Произошла ошибка",
+    "success": "Успешно!"
+  }
+}

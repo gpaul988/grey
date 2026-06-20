@@ -1,0 +1,34 @@
+{
+  "greeting": {
+    "morning": "Bonjour, {{name}}! ☀️",
+    "afternoon": "Bon après-midi, {{name}}! 👋",
+    "evening": "Bonsoir, {{name}}! 🌙",
+    "guest": "Invité",
+    "yourName": "Votre Nom",
+    "enterName": "Entrez votre nom",
+    "selectLanguage": "Sélectionner la Langue",
+    "currentLocation": "Localisation Actuelle"
+  },
+  "nav": {
+    "home": "Accueil",
+    "services": "Services",
+    "portfolio": "Portefeuille",
+    "blog": "Blog",
+    "company": "Entreprise",
+    "careers": "Carrières",
+    "contact": "Contact",
+    "about": "À Propos"
+  },
+  "common": {
+    "explore": "Explorer",
+    "learnMore": "En Savoir Plus",
+    "getStarted": "Commencer",
+    "viewMore": "Afficher Plus",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "success": "Succès!"
+  }
+}
