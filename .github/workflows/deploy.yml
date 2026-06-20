@@ -50,7 +50,7 @@ jobs:
         run: npm run build
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: grey-web-build
           path: |
@@ -116,50 +116,22 @@ jobs:
           sleep 5
           curl -f https://${{ secrets.CPANEL_HOST }}/api/health || exit 1
 
-  # Build mobile (Expo)
-  build-mobile:
-    runs-on: ubuntu-latest
-    name: Build Mobile Apps
-    needs: test
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          sparse-checkout: grey-mobile
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'npm'
-
-      - name: Install EAS CLI
-        run: npm install -g eas-cli
-
-      - name: Install mobile dependencies
-        run: |
-          cd grey-mobile
-          npm install
-
-      - name: TypeScript check (mobile)
-        run: cd grey-mobile && npx tsc --noEmit
-
-      - name: Build Android APK
-        env:
-          EAS_TOKEN: ${{ secrets.EAS_TOKEN }}
-        run: |
-          cd grey-mobile
-          eas build --platform android --profile production --non-interactive 2>&1 || echo "Build initiated (check EAS console)"
-
-      - name: Build iOS IPA
-        env:
-          EAS_TOKEN: ${{ secrets.EAS_TOKEN }}
-        run: |
-          cd grey-mobile
-          eas build --platform ios --profile production --non-interactive 2>&1 || echo "Build initiated (check EAS console)"
-
-      - name: Log build status
-        run: echo "Mobile builds initiated on EAS. Check console at expo.dev"
+  # Build mobile (Expo) - Disabled: no grey-mobile directory
+  # Uncomment when mobile app is ready
+  # build-mobile:
+  #   runs-on: ubuntu-latest
+  #   name: Build Mobile Apps
+  #   needs: test
+  #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: '18'
+  #         cache: 'npm'
+  #     - name: Install EAS CLI
+  #       run: npm install -g eas-cli
 
   # Notify on deployment
   notify:
