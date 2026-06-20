@@ -26,11 +26,7 @@
     "test:coverage": "vitest --coverage",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed",
-    "test:e2e:debug": "playwright test --debug",
-    "i18n:analyze": "tsx -e \"import{translationManager}from'./lib/i18n/translation-manager';console.log(translationManager.getReport())\"",
-    "i18n:sync": "tsx -e \"import{translationManager}from'./lib/i18n/translation-manager';const r=translationManager.syncTranslations();console.log('Synced:',r)\"",
-    "i18n:types": "tsx scripts/generate-i18n-types.ts",
-    "i18n:validate": "tsx scripts/validate-translations.ts"
+    "test:e2e:debug": "playwright test --debug"
   },
   "engines": {
     "node": "20.x",
