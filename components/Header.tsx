@@ -467,9 +467,9 @@ const HeaderContent: React.FC = () => {
                                     <Image
                                         src="/logo.gif"
                                         alt="Grey InfoTech Logo"
-                                        width={300}
-                                        height={50}
-                                        className="h-5 w-auto md:h-8 lg:h-10 object-contain"
+                                        width={600}
+                                        height={120}
+                                        className="h-6 w-auto md:h-10 lg:h-12 object-contain"
                                         priority
                                         loading="eager"
                                     />
@@ -711,9 +711,9 @@ const HeaderContent: React.FC = () => {
                                     <Image
                                         src={'/logo.gif'}
                                         alt="Grey InfoTech"
-                                        width={300}
-                                        height={80}
-                                        className="h-5 w-auto md:h-8 lg:h-10 object-contain"
+                                        width={600}
+                                        height={120}
+                                        className="h-6 w-auto md:h-10 lg:h-12 object-contain"
                                         priority
                                         loading="eager"
                                     />
