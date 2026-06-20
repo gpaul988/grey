@@ -1,47 +1,65 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { db } from '@/lib/db';
-import { cmsPages } from '@/lib/db/schema';
-import { eq, and } from 'drizzle-orm';
-import { withAuth, SessionPayload } from '@/lib/auth';
+/**
+ * GET /api/admin/cms/list
+ * List CMS pages with filtering
+ *
+ * Authorization: Bearer <admin-jwt>
+ * Query params:
+ *   type?: 'blog' | 'doc' | 'service' | 'page'
+ *   published?: 'true' | 'false'
+ *   search?: string
+ *   limit?: number (default 50, max 100)
+ *   offset?: number (default 0)
+ *   sortBy?: 'createdAt' | 'publishedAt' | 'title'
+ *   sortOrder?: 'asc' | 'desc'
+ */
 
-export default withAuth(async (req: NextApiRequest, res: NextApiResponse, session: SessionPayload) => {
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { verifyAdminToken } from '@/lib/admin/auth';
+import CMS from '@/lib/cms';
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
+    res.setHeader('Allow', 'GET');
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    const { type, published, limit = '20', offset = '0' } = req.query;
-
-    const whereConditions: any[] = [];
-
-    if (type) {
-      whereConditions.push(eq(cmsPages.type, type as string));
+    // Verify admin token
+    const token = req.headers.authorization?.replace('Bearer ', '');
+    if (!token) {
+      return res.status(401).json({ error: 'Missing authorization token' });
     }
 
-    if (published === 'true') {
-      whereConditions.push(eq(cmsPages.published, true));
-    } else if (published === 'false') {
-      whereConditions.push(eq(cmsPages.published, false));
+    const user = verifyAdminToken(token);
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid or expired token' });
     }
 
-    const query = db.select().from(cmsPages);
-    
-    const pages = await (whereConditions.length > 0
-      ? query.where(and(...whereConditions))
-      : query
-    )
-      .orderBy(cmsPages.createdAt)
-      .limit(parseInt(limit as string))
-      .offset(parseInt(offset as string));
+    // Parse query parameters
+    const { type, published, search, limit, offset, sortBy, sortOrder } = req.query;
 
-    res.status(200).json({
-      data: pages,
-      count: pages.length,
-      limit: parseInt(limit as string),
-      offset: parseInt(offset as string),
+    const result = await CMS.list({
+      type: type ? (type as any) : undefined,
+      published: published === 'true' ? true : published === 'false' ? false : undefined,
+      search: search ? String(search) : undefined,
+      limit: limit ? Math.min(parseInt(String(limit), 10), 100) : 50,
+      offset: offset ? Math.max(parseInt(String(offset), 10), 0) : 0,
+      sortBy: sortBy ? (sortBy as any) : 'createdAt',
+      sortOrder: sortOrder === 'asc' ? 'asc' : 'desc',
     });
-  } catch (error: any) {
+
+    return res.status(200).json({
+      success: true,
+      data: result.pages,
+      pagination: {
+        total: result.total,
+        limit: limit ? Math.min(parseInt(String(limit), 10), 100) : 50,
+        offset: offset ? Math.max(parseInt(String(offset), 10), 0) : 0,
+      },
+    });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Failed to list CMS pages';
     console.error('CMS list error:', error);
-    res.status(500).json({ error: error.message || 'Failed to list CMS pages' });
+    return res.status(500).json({ error: message });
   }
-});
+}

@@ -37,3 +37,5 @@ global.fetch = vi.fn();
 
 // Setup environment variables for tests
 process.env.NEXT_PUBLIC_API_URL = 'http://localhost:3000';
+process.env.DATABASE_URL = process.env.DATABASE_URL || 'file:./Admin/data/grey.db';
+process.env.JWT_SECRET = process.env.JWT_SECRET || 'test-secret-key';

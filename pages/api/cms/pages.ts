@@ -1,34 +1,49 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { db } from '@/lib/db';
-import { cmsPages } from '@/lib/db/schema';
-import { eq, and } from 'drizzle-orm';
+/**
+ * GET /api/cms/pages
+ * Get published CMS pages (public endpoint)
+ *
+ * Query params:
+ *   type?: 'blog' | 'doc' | 'service' | 'page'
+ *   search?: string
+ *   limit?: number (default 50, max 100)
+ *   offset?: number (default 0)
+ *   sortOrder?: 'asc' | 'desc'
+ */
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-  try {
-    const { slug, type, limit = '10', offset = '0' } = req.query;
+import type { NextApiRequest, NextApiResponse } from 'next';
+import CMS from '@/lib/cms';
 
-    const whereConditions: any[] = [eq(cmsPages.published, true)];
-
-    if (slug) {
-      whereConditions.push(eq(cmsPages.slug, slug as string));
-    } else if (type) {
-      whereConditions.push(eq(cmsPages.type, type as string));
-    }
-
-    const pages = await db
-      .select()
-      .from(cmsPages)
-      .where(and(...whereConditions))
-      .orderBy(cmsPages.publishedAt)
-      .limit(parseInt(limit as string))
-      .offset(parseInt(offset as string));
-
-    res.status(200).json({
-      data: pages,
-      count: pages.length,
-    });
-  } catch (error: any) {
-    console.error('CMS public endpoint error:', error);
-    res.status(500).json({ error: error.message || 'Failed to fetch CMS pages' });
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'GET') {
+    res.setHeader('Allow', 'GET');
+    return res.status(405).json({ error: 'Method not allowed' });
   }
-};
+
+  try {
+    // Parse query parameters
+    const { type, search, limit, offset, sortOrder } = req.query;
+
+    const result = await CMS.getPublished({
+      type: type ? (type as any) : undefined,
+      limit: limit ? Math.min(parseInt(String(limit), 10), 100) : 50,
+      offset: offset ? Math.max(parseInt(String(offset), 10), 0) : 0,
+    });
+
+    // Cache for 5 minutes
+    res.setHeader('Cache-Control', 'public, max-age=300');
+
+    return res.status(200).json({
+      success: true,
+      data: result.pages,
+      pagination: {
+        total: result.total,
+        limit: limit ? Math.min(parseInt(String(limit), 10), 100) : 50,
+        offset: offset ? Math.max(parseInt(String(offset), 10), 0) : 0,
+      },
+    });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Failed to fetch CMS pages';
+    console.error('CMS pages error:', error);
+    return res.status(500).json({ error: message });
+  }
+}
