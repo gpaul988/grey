@@ -29,34 +29,22 @@ export default function AnnouncementBar() {
 
     useEffect(() => {
         let alive = true;
-        console.log('[AnnouncementBar] Fetching from /api/announcement');
         fetch('/api/announcement')
-            .then((r) => {
-                console.log('[AnnouncementBar] Response status:', r.status);
-                return r.json();
-            })
+            .then((r) => r.json())
             .then((d: {announcement: Announcement | null}) => {
-                console.log('[AnnouncementBar] Received data:', d);
-                if (!alive) {
-                    console.log('[AnnouncementBar] Component unmounted');
-                    return;
-                }
-                if (!d.announcement) {
-                    console.log('[AnnouncementBar] No announcement from API');
-                    return;
-                }
+                if (!alive) return;
+                if (!d.announcement) return;
                 // Check if this exact announcement was dismissed in THIS session
                 const dismissed = sessionStorage.getItem(`grey-ann-dismissed-${d.announcement.id}`);
-                console.log('[AnnouncementBar] Dismissed key:', `grey-ann-dismissed-${d.announcement.id}`, 'Value:', dismissed);
-                if (dismissed === 'true') {
-                    console.log('[AnnouncementBar] This announcement was already dismissed in this session');
-                    return;
-                }
-                console.log('[AnnouncementBar] Setting announcement:', d.announcement);
+                if (dismissed === 'true') return;
                 setAnn(d.announcement);
                 setOpen(true);
             })
-            .catch((err) => console.error('[AnnouncementBar] Fetch error:', err));
+            .catch((err) => {
+                if (process.env.NODE_ENV === 'development') {
+                    console.error('[AnnouncementBar] Fetch error:', err);
+                }
+            });
         return () => {
             alive = false;
         };
@@ -65,7 +53,6 @@ export default function AnnouncementBar() {
     const dismiss = () => {
         if (ann) {
             sessionStorage.setItem(`grey-ann-dismissed-${ann.id}`, 'true');
-            console.log('[AnnouncementBar] Dismissed announcement:', ann.id);
         }
         setOpen(false);
     };

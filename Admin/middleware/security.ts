@@ -115,6 +115,7 @@ export const securityHeaders = helmet({
                 "'self'",
                 "'unsafe-inline'", // Next.js inline bootstrap + EJS admin
                 "'unsafe-eval'",   // dev only; Next strips in prod build
+                'blob:',           // HMR (Hot Module Replacement) in development
                 'https://www.google.com',
                 'https://www.gstatic.com',
                 'https://embed.tawk.to',
