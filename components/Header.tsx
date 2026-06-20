@@ -462,11 +462,11 @@ const Header: React.FC = () => {
             {/* Main Header - only show when modal is not open */}
             {!isModalOpen && !isMobileMenuOpen && (
                 <header
-                    className={`fixed top-0 left-0 right-0  py-4 md:py-8 lg:py-8 w-full z-50 transition-transform duration-300
-                                                                            ${(isServicesOpen || isIndustriesOpen || isTechnologiesOpen) ? 'bg-transparent' : headerTheme.background}
-                                                                            ${headerTheme.textColor} ${headerTheme.blur} 
-                                                                            ${showHeader ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}
-                                                                            ${isScrolled ? '' : ''}`}
+                    className={`fixed top-0 left-0 right-0 py-2 sm:py-3 md:py-4 lg:py-5 w-full z-50 transition-transform duration-300 bg-black/60 text-white ${headerTheme.blur}`}
+                    style={{
+                        transform: showHeader ? 'translateY(0)' : 'translateY(-100%)',
+                        opacity: showHeader ? 1 : 0,
+                    }}
                 >
                     {/* Futuristic aurora + scanline layers (decorative, behind content) */}
                     {isScrolled && (

@@ -3,14 +3,21 @@ import {Announcements} from '../../Admin/models';
 import type {Announcement} from '../../Admin/db/types';
 
 function inWindow(a: Announcement, now: number): boolean {
+    // If no date window is set, the announcement is always active
+    if (!a.starts_at && !a.ends_at) return true;
+
+    // Parse start date (inclusive)
     if (a.starts_at) {
-        const s = new Date(a.starts_at).getTime();
-        if (!Number.isNaN(s) && now < s) return false;
+        const startMs = new Date(a.starts_at + 'T00:00:00Z').getTime();
+        if (!Number.isNaN(startMs) && now < startMs) return false;
     }
+
+    // Parse end date (inclusive – allows all of the end date)
     if (a.ends_at) {
-        const e = new Date(a.ends_at).getTime();
-        if (!Number.isNaN(e) && now > e) return false;
+        const endMs = new Date(a.ends_at + 'T23:59:59Z').getTime();
+        if (!Number.isNaN(endMs) && now > endMs) return false;
     }
+
     return true;
 }
 
