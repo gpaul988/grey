@@ -12,7 +12,7 @@ import {themeInitScript} from "@/components/ThemeProvider";
 import AIChat from "@/components/AIChat";
 import {SITE} from "@/lib/seo";
 import AnnouncementBarWrapper from "@/components/futuristic/AnnouncementBarWrapper";
-import { I18nProvider } from "@/lib/i18n-context";
+// i18n removed — using English only
 
 // ─── Render on-demand instead of pre-rendering all pages at build ──────────
 // This site is served by a long-running custom Express server (server.ts), not
@@ -157,34 +157,32 @@ export default async function RootLayout({
         <body
             className={`${merriweather.variable} ${roboto.variable} antialiased`}
         >
-            <I18nProvider>
-                {/* Skip-to-content link for keyboard/screen-reader users (WCAG) */}
-                <a
-                    href="#main-content"
-                    className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:rounded focus:bg-black focus:px-4 focus:py-2 focus:text-white"
-                >
-                    Skip to main content
-                </a>
+            {/* Skip-to-content link for keyboard/screen-reader users (WCAG) */}
+            <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:rounded focus:bg-black focus:px-4 focus:py-2 focus:text-white"
+            >
+                Skip to main content
+            </a>
 
-                {/* Structured data (Schema.org) for rich results — now with real sameAs links */}
-                <OrganizationSchema socialLinks={[...SITE.socials]}/>
-                <WebSiteSchema/>
+            {/* Structured data (Schema.org) for rich results — now with real sameAs links */}
+            <OrganizationSchema socialLinks={[...SITE.socials]}/>
+            <WebSiteSchema/>
 
-                {/* Schedule-aware promo / announcement strip above the header */}
-                <AnnouncementBarWrapper/>
+            {/* Schedule-aware promo / announcement strip above the header */}
+            <AnnouncementBarWrapper/>
 
-                {/* Header with language switcher in navbar */}
-                <Header/>
+            {/* Header with navigation in navbar */}
+            <Header/>
 
-                {/* semantic <main> landmark + id target for skip link */}
-                <main id="main-content">{children}</main>
+            {/* semantic <main> landmark + id target for skip link */}
+            <main id="main-content">{children}</main>
 
-                <Footer/>
+            <Footer/>
 
-                {/* Live human chat (Tawk) + AI assistant run side-by-side */}
-                <TawkChat propertyId="6a1ba828a3242d1c2ed9db1d" widgetId="1jpu0ho3p"/>
-                <AIChat/>
-            </I18nProvider>
+            {/* Live human chat (Tawk) + AI assistant run side-by-side */}
+            <TawkChat propertyId="6a1ba828a3242d1c2ed9db1d" widgetId="1jpu0ho3p"/>
+            <AIChat/>
         </body>
         </html>
     );
