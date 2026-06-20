@@ -3,7 +3,7 @@ import type {Metadata, Viewport} from "next";
 import {Merriweather, Roboto} from "next/font/google";
 // global css
 import "./globals.css";
-import HeaderWithGreeting from "@/components/HeaderWithGreeting";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import React from "react";
 import TawkChat from "@/components/TawkChat";
@@ -12,10 +12,6 @@ import {themeInitScript} from "@/components/ThemeProvider";
 import AIChat from "@/components/AIChat";
 import {SITE} from "@/lib/seo";
 import AnnouncementBarWrapper from "@/components/futuristic/AnnouncementBarWrapper";
-import LayoutClient from "./LayoutClient";
-import { getLanguageFromHeaders } from "@/i18n.config";
-import { getAllTranslations } from "@/lib/translations";
-import { headers } from "next/headers";
 
 // ─── Render on-demand instead of pre-rendering all pages at build ──────────
 // This site is served by a long-running custom Express server (server.ts), not
@@ -151,14 +147,8 @@ export default async function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    // Detect language server-side for initial SSR
-    const headersList = await headers();
-    const acceptLanguage = headersList.get('accept-language') || '';
-    const initialLanguage = getLanguageFromHeaders(acceptLanguage);
-    const initialTranslations = await getAllTranslations(initialLanguage);
-
     return (
-        <html lang={initialLanguage} suppressHydrationWarning>
+        <html lang="en" suppressHydrationWarning>
         <head>
             {/* FIX (FOUC): set the theme class before first paint */}
             <script dangerouslySetInnerHTML={{__html: themeInitScript}}/>
@@ -166,7 +156,6 @@ export default async function RootLayout({
         <body
             className={`${merriweather.variable} ${roboto.variable} antialiased`}
         >
-        <LayoutClient initialLanguage={initialLanguage} initialTranslations={initialTranslations}>
             {/* Skip-to-content link for keyboard/screen-reader users (WCAG) */}
             <a
                 href="#main-content"
@@ -182,7 +171,8 @@ export default async function RootLayout({
             {/* Schedule-aware promo / announcement strip above the header */}
             <AnnouncementBarWrapper/>
 
-            <HeaderWithGreeting/>
+            {/* Unified Header with integrated greeting + language switcher */}
+            <Header/>
 
             {/* semantic <main> landmark + id target for skip link */}
             <main id="main-content">{children}</main>
@@ -192,7 +182,6 @@ export default async function RootLayout({
             {/* Live human chat (Tawk) + AI assistant run side-by-side */}
             <TawkChat propertyId="6a1ba828a3242d1c2ed9db1d" widgetId="1jpu0ho3p"/>
             <AIChat/>
-        </LayoutClient>
         </body>
         </html>
     );

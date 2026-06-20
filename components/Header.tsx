@@ -1,15 +1,17 @@
 'use client';
 
-import React, {useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import '../app/globals.css';
 import Link from 'next/link';
 import Image from 'next/image';
-import {usePathname} from "next/navigation";
-import {ChevronDown, Menu, X} from "lucide-react";
-import {FormComponent} from "@/components/FormComponent";
+import { usePathname } from "next/navigation";
+import { ChevronDown, Menu, X, Globe } from "lucide-react";
+import { FormComponent } from "@/components/FormComponent";
 import ThemeToggle from "@/components/ThemeToggle";
 import SiteSearch from "@/components/SiteSearch";
-import {useIsDayTime} from './useIsDayTime';
+import { useIsDayTime } from './useIsDayTime';
+import { ALL_LANGUAGES, detectBrowserLanguage, getLanguageName, DEFAULT_LANGUAGE } from '@/lib/languages';
+import { getCoreTranslations } from '@/lib/translations-unified';
 
 interface MenuItem {
     label: string;
@@ -29,6 +31,17 @@ interface SubmenuSection {
 }
 
 const Header: React.FC = () => {
+    // i18n state
+    const [language, setLanguage] = useState<string>(DEFAULT_LANGUAGE);
+    const [translations, setTranslations] = useState(getCoreTranslations(DEFAULT_LANGUAGE));
+    const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+    const [userName, setUserName] = useState<string>('');
+    const [isEditingName, setIsEditingName] = useState(false);
+    const [tempName, setTempName] = useState<string>('');
+    const [timeOfDay, setTimeOfDay] = useState<'morning' | 'afternoon' | 'evening'>('afternoon');
+    const [isMounted, setIsMounted] = useState(false);
+
+    // Original header state
     const [isServicesOpen, setIsServicesOpen] = useState<boolean>(false);
     const [isIndustriesOpen, setIsIndustriesOpen] = useState<boolean>(false);
     const [isTechnologiesOpen, setIsTechnologiesOpen] = useState<boolean>(false);
@@ -38,9 +51,7 @@ const Header: React.FC = () => {
     const [isMobileTechnologiesOpen, setIsMobileTechnologiesOpen] = useState<boolean>(false);
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    // Futuristic: scroll progress (0-100) for the top reading-progress beam
     const [scrollProgress, setScrollProgress] = useState<number>(0);
-
     const [headerTheme, setHeaderTheme] = useState({
         background: 'bg-black/60',
         textColor: 'text-white',
@@ -56,16 +67,65 @@ const Header: React.FC = () => {
     const servicesRef = useRef<HTMLDivElement>(null);
     const industriesRef = useRef<HTMLDivElement>(null);
     const technologiesRef = useRef<HTMLDivElement>(null);
+    const languageRef = useRef<HTMLDivElement>(null);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     const mountedRef = useRef(false);
 
+    // Initialize language and user name on mount
+    useEffect(() => {
+        setIsMounted(true);
+        
+        // Get stored language preference or detect from browser
+        const storedLang = localStorage.getItem('grey-language');
+        const detectedLang = detectBrowserLanguage();
+        const initialLang = storedLang || detectedLang;
+        
+        setLanguage(initialLang);
+        setTranslations(getCoreTranslations(initialLang));
+        
+        // Get stored user name
+        const storedName = localStorage.getItem('grey-user-name') || '';
+        setUserName(storedName);
+        setTempName(storedName);
+        
+        // Detect time of day
+        const hour = new Date().getHours();
+        if (hour < 12) {
+            setTimeOfDay('morning');
+        } else if (hour < 18) {
+            setTimeOfDay('afternoon');
+        } else {
+            setTimeOfDay('evening');
+        }
+    }, []);
 
+    // Handle language change
+    const handleLanguageChange = (newLang: string) => {
+        setLanguage(newLang);
+        setTranslations(getCoreTranslations(newLang));
+        localStorage.setItem('grey-language', newLang);
+        setIsLanguageMenuOpen(false);
+    };
+
+    // Handle name save
+    const handleSaveName = () => {
+        const trimmed = tempName.trim();
+        setUserName(trimmed);
+        localStorage.setItem('grey-user-name', trimmed);
+        setIsEditingName(false);
+    };
+
+    const handleCancelName = () => {
+        setTempName(userName);
+        setIsEditingName(false);
+    };
+
+    // Original scroll handler
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
             setIsScrolled(currentScrollY > 0);
 
-            // Futuristic: compute reading-progress (% of page scrolled)
             const docEl = document.documentElement;
             const maxScroll = (docEl.scrollHeight - docEl.clientHeight) || 1;
             setScrollProgress(Math.min(100, Math.max(0, (currentScrollY / maxScroll) * 100)));
@@ -94,6 +154,7 @@ const Header: React.FC = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [lastScrollY]);
 
+    // Close dropdowns on outside click
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (servicesRef.current && !servicesRef.current.contains(event.target as Node)) {
@@ -105,18 +166,21 @@ const Header: React.FC = () => {
             if (technologiesRef.current && !technologiesRef.current.contains(event.target as Node)) {
                 setIsTechnologiesOpen(false);
             }
+            if (languageRef.current && !languageRef.current.contains(event.target as Node)) {
+                setIsLanguageMenuOpen(false);
+            }
         };
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    // Close mobile menu on route change
     useEffect(() => {
         if (!mountedRef.current) {
             mountedRef.current = true;
             return;
         }
 
-        // avoid synchronous setState in the effect to prevent cascading renders
         const id = window.setTimeout(() => {
             setIsMobileMenuOpen(false);
             setIsMobileServicesOpen(false);
@@ -127,10 +191,10 @@ const Header: React.FC = () => {
         return () => clearTimeout(id);
     }, [pathname]);
 
+    // Handle modal body scroll
     useEffect(() => {
         if (isModalOpen) {
             document.body.style.overflow = "hidden";
-            // window.scrollTo({top: 0, behavior: "smooth"});
         } else {
             document.body.style.overflow = "auto";
         }
@@ -139,6 +203,7 @@ const Header: React.FC = () => {
         };
     }, [isModalOpen]);
 
+    // Menu hover handlers
     const handleServicesMouseEnter = (): void => {
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
         setIsServicesOpen(true);
@@ -201,78 +266,77 @@ const Header: React.FC = () => {
     };
 
     const mainMenuItems: MenuItem[] = [
-        {label: 'Services', href: '/services', hasSubmenu: true},
-        {label: 'Industries', href: '/industries', hasSubmenu: true},
-        {label: 'Technologies', href: '/technologies', hasSubmenu: true},
-        {label: 'Blog', href: '/blog'},
-        {label: 'Company', href: '/company'},
-        {label: 'Startups', href: '/Startups'},
-        {label: 'Store', href: '/store'},
-        {label: 'Contact us', href: '/contact'},
+        { label: 'Services', href: '/services', hasSubmenu: true },
+        { label: 'Industries', href: '/industries', hasSubmenu: true },
+        { label: 'Technologies', href: '/technologies', hasSubmenu: true },
+        { label: 'Blog', href: '/blog' },
+        { label: 'Company', href: '/company' },
+        { label: 'Startups', href: '/Startups' },
+        { label: 'Store', href: '/store' },
+        { label: 'Contact us', href: '/contact' },
     ];
 
     const servicesSubmenuSections: SubmenuSection[] = [
         {
             title: 'DIGITAL & WEB',
             items: [
-                {name: 'App Store Optimisation', href: '/services/app-store-optimization'},
-                {name: 'Branding', href: '/services/branding'},
-                {name: 'CMS Development', href: '/services/cms-development'},
-                {name: 'CRM Development', href: '/services/crm-development'},
-                {name: 'ERP Development', href: '/services/erp-development'},
-                {name: 'Digital Marketing', href: '/services/digital-marketing'},
-                {name: 'Search Engine Optimisation', href: '/services/seo'},
-                {name: 'Social Networking', href: '/services/Social-Networking'},
-                {name: 'Web Application', href: '/services/Web-Application'},
-                {name: 'Web Design', href: '/services/Web-Design'},
-                {name: 'Web Development', href: '/services/Web-Development'},
+                { name: 'App Store Optimisation', href: '/services/app-store-optimization' },
+                { name: 'Branding', href: '/services/branding' },
+                { name: 'CMS Development', href: '/services/cms-development' },
+                { name: 'CRM Development', href: '/services/crm-development' },
+                { name: 'ERP Development', href: '/services/erp-development' },
+                { name: 'Digital Marketing', href: '/services/digital-marketing' },
+                { name: 'Search Engine Optimisation', href: '/services/seo' },
+                { name: 'Social Networking', href: '/services/Social-Networking' },
+                { name: 'Web Application', href: '/services/Web-Application' },
+                { name: 'Web Design', href: '/services/Web-Design' },
+                { name: 'Web Development', href: '/services/Web-Development' },
             ],
         },
         {
             title: 'COMPLIMENTARY SERVICES',
             items: [
-                {name: 'Android Development', href: '/services/android-development'},
-                {name: 'Blockchain Development', href: '/services/blockchain-development'},
-                {name: 'Cross Platform Development', href: '/services/cross-platform-development'},
-                {name: 'Flutter Development', href: '/services/flutter-development'},
-                {name: 'Hybrid Apps Development', href: '/services/hybrid-app-development'},
-                {name: 'ios Development', href: '/services/ios-development'},
-                {name: 'IoT Development', href: '/services/IoT-Development'},
-                {name: 'Mobile Application Development', href: '/services/Mobile-Application-Development'},
-                {name: 'MVP', href: '/services/MVP'},
-                {name: 'Software Development', href: '/services/Software-Development'},
-                {name: 'UI/UX Design', href: '/services/ui-ux-design'},
-                {name: 'Unity Development', href: '/services/unity-development'},
+                { name: 'Android Development', href: '/services/android-development' },
+                { name: 'Blockchain Development', href: '/services/blockchain-development' },
+                { name: 'Cross Platform Development', href: '/services/cross-platform-development' },
+                { name: 'Flutter Development', href: '/services/flutter-development' },
+                { name: 'Hybrid Apps Development', href: '/services/hybrid-app-development' },
+                { name: 'ios Development', href: '/services/ios-development' },
+                { name: 'IoT Development', href: '/services/IoT-Development' },
+                { name: 'Mobile Application Development', href: '/services/Mobile-Application-Development' },
+                { name: 'MVP', href: '/services/MVP' },
+                { name: 'Software Development', href: '/services/Software-Development' },
+                { name: 'UI/UX Design', href: '/services/ui-ux-design' },
+                { name: 'Unity Development', href: '/services/unity-development' },
             ],
         },
     ];
 
-    // Split technologies into Frontend and Backend sections for clearer navigation
     const technologiesSubmenuSections: SubmenuSection[] = [
         {
             title: 'FRONTEND',
             items: [
-                {name: 'Frontend Development', href: '/services/frontend-development'},
-                {name: 'React.js Development', href: '/services/Reactjs-Development'},
-                {name: 'Next.js Development', href: '/services/Nextjs-Development'},
-                {name: 'Angular Development', href: '/services/angular-development'},
-                {name: 'Vue.js Development', href: '/services/Vuejs-Development'},
-                {name: 'Javascript Development', href: '/services/Javascript'},
-                {name: 'Typescript Development', href: '/services/Typescript'},
-                {name: 'React Native development', href: '/services/React-Native-Development'},
+                { name: 'Frontend Development', href: '/services/frontend-development' },
+                { name: 'React.js Development', href: '/services/Reactjs-Development' },
+                { name: 'Next.js Development', href: '/services/Nextjs-Development' },
+                { name: 'Angular Development', href: '/services/angular-development' },
+                { name: 'Vue.js Development', href: '/services/Vuejs-Development' },
+                { name: 'Javascript Development', href: '/services/Javascript' },
+                { name: 'Typescript Development', href: '/services/Typescript' },
+                { name: 'React Native development', href: '/services/React-Native-Development' },
             ],
         },
         {
             title: 'BACKEND',
             items: [
-                {name: 'Backend Development', href: '/services/backend-development'},
-                {name: 'Node.js Development', href: '/services/Nodejs-Development'},
-                {name: 'Python Development', href: '/services/Python-Development'},
-                {name: 'PHP Development', href: '/services/PHP-Development'},
-                {name: 'Laravel Development', href: '/services/Laravel-Development'},
-                {name: '.Net Development', href: '/services/Net-Development'},
-                {name: 'Ruby on Rails Development', href: '/services/Ruby-on-Rails'},
-                {name: 'AI Development Services', href: '/services/ai-development-services'},
+                { name: 'Backend Development', href: '/services/backend-development' },
+                { name: 'Node.js Development', href: '/services/Nodejs-Development' },
+                { name: 'Python Development', href: '/services/Python-Development' },
+                { name: 'PHP Development', href: '/services/PHP-Development' },
+                { name: 'Laravel Development', href: '/services/Laravel-Development' },
+                { name: '.Net Development', href: '/services/Net-Development' },
+                { name: 'Ruby on Rails Development', href: '/services/Ruby-on-Rails' },
+                { name: 'AI Development Services', href: '/services/ai-development-services' },
             ],
         },
     ];
@@ -281,31 +345,31 @@ const Header: React.FC = () => {
         {
             title: '',
             items: [
-                {name: 'Automation', href: '/industries/automation'},
-                {name: 'Biotech', href: '/industries/biotech'},
-                {name: 'Education', href: '/industries/education'},
-                {name: 'e-Commerce', href: '/industries/e-commerce-development'},
-                {name: 'Fintech', href: '/industries/fintech'},
+                { name: 'Automation', href: '/industries/automation' },
+                { name: 'Biotech', href: '/industries/biotech' },
+                { name: 'Education', href: '/industries/education' },
+                { name: 'e-Commerce', href: '/industries/e-commerce-development' },
+                { name: 'Fintech', href: '/industries/fintech' },
             ],
         },
         {
             title: '',
             items: [
-                {name: 'Healthcare', href: '/industries/healthcare'},
-                {name: 'Logistics', href: '/industries/logistics'},
-                {name: 'Music', href: '/industries/music'},
-                {name: 'Oil and Gas', href: '/industries/oil-and-gas'},
-                {name: 'On-Demand', href: '/industries/ondemand'},
+                { name: 'Healthcare', href: '/industries/healthcare' },
+                { name: 'Logistics', href: '/industries/logistics' },
+                { name: 'Music', href: '/industries/music' },
+                { name: 'Oil and Gas', href: '/industries/oil-and-gas' },
+                { name: 'On-Demand', href: '/industries/ondemand' },
             ],
         },
         {
             title: '',
             items: [
-                {name: 'Real Estate', href: '/industries/real-estate'},
-                {name: 'Retail', href: '/industries/retail'},
-                {name: 'SAAS', href: '/industries/saas'},
-                {name: 'Travel and Hospitality', href: '/industries/travel-and-hospitality'},
-                {name: 'HR-Tech', href: '/industries/hr-tech'},
+                { name: 'Real Estate', href: '/industries/real-estate' },
+                { name: 'Retail', href: '/industries/retail' },
+                { name: 'SAAS', href: '/industries/saas' },
+                { name: 'Travel and Hospitality', href: '/industries/travel-and-hospitality' },
+                { name: 'HR-Tech', href: '/industries/hr-tech' },
             ],
         },
     ];
@@ -324,25 +388,23 @@ const Header: React.FC = () => {
         button.style.setProperty('--y', `${y}px`);
     };
 
-    // Overlay close handler
     const handleOverlayMouseLeave = () => {
         setIsServicesOpen(false);
         setIsIndustriesOpen(false);
         setIsTechnologiesOpen(false);
     };
 
-    // The /store/* routes ship their own self-contained storefront chrome
-    // (StoreLayout header + footer). Suppress the global site header there to
-    // avoid a duplicated header/footer. Additive guard — nothing removed.
     if (pathname?.startsWith('/store')) {
         return null;
     }
+
+    // Calculate responsive breakpoint for tablet (13.5 inches ≈ 1200px at standard DPI)
+    const isTabletView = typeof window !== 'undefined' && window.innerWidth < 1200;
 
     return (
         <>
             {/* ============================================================
                 FUTURISTIC HEADER FX LAYER (additive — nothing removed)
-                Holographic beam, aurora drift, neon nav, scanline, magnetic CTA
                ============================================================ */}
             <style>{`
                 @keyframes greyBeamFlow {
@@ -372,7 +434,6 @@ const Header: React.FC = () => {
                     50% { transform: translateY(-3px); }
                 }
 
-                /* Holographic top progress beam */
                 .grey-progress-beam {
                     background: linear-gradient(90deg, #22d3ee, #38bdf8, #a855f7, #ec4899, #22d3ee);
                     background-size: 300% 100%;
@@ -380,7 +441,6 @@ const Header: React.FC = () => {
                     box-shadow: 0 0 14px rgba(56,189,248,0.8), 0 0 28px rgba(168,85,247,0.45);
                 }
 
-                /* CTA: magnetic neon glow + animated conic border */
                 .grey-cta-glow {
                     position: relative;
                     animation: greyCtaPulse 3.5s ease-in-out infinite;
@@ -398,7 +458,6 @@ const Header: React.FC = () => {
                 }
                 .grey-cta-glow:hover::before { opacity: .9; }
 
-                /* Aurora layers that drift behind the header */
                 .grey-aurora {
                     position: absolute; inset: -60% -10% auto -10%; height: 320%;
                     pointer-events: none; z-index: 0; filter: blur(60px);
@@ -408,14 +467,12 @@ const Header: React.FC = () => {
                 .grey-aurora.a2 { background: radial-gradient(40% 60% at 70% 30%, rgba(168,85,247,.40), transparent 70%); animation: greyAuroraDrift 18s ease-in-out infinite reverse; }
                 .grey-aurora.a3 { background: radial-gradient(35% 50% at 50% 60%, rgba(236,72,153,.28), transparent 70%); animation: greyAuroraDrift 22s ease-in-out infinite; }
 
-                /* Scanline sweep over the header bar */
                 .grey-scanline {
                     position: absolute; left: 0; right: 0; top: 0; height: 2px;
                     background: linear-gradient(90deg, transparent, rgba(34,211,238,.9), rgba(168,85,247,.7), transparent);
                     pointer-events: none; animation: greyScan 6s ease-in-out infinite;
                 }
 
-                /* Neon underline for nav links (applies to existing after:* spans too) */
                 .grey-nav-neon { position: relative; }
                 .grey-nav-neon::after {
                     content: ""; position: absolute; left: 0; bottom: -4px; height: 2px; width: 0;
@@ -426,7 +483,6 @@ const Header: React.FC = () => {
                 }
                 .grey-nav-neon:hover::after { width: 100%; }
 
-                /* Glass chip behind the logo */
                 .grey-logo-orbit { position: relative; animation: greyFloatY 5s ease-in-out infinite; }
                 .grey-logo-orbit::before {
                     content: ""; position: absolute; inset: -40% -30%; z-index: -1;
@@ -438,20 +494,41 @@ const Header: React.FC = () => {
                     .grey-progress-beam, .grey-cta-glow, .grey-cta-glow::before,
                     .grey-aurora, .grey-scanline, .grey-logo-orbit, .grey-logo-orbit::before { animation: none !important; }
                 }
+
+                /* Greeting header styling */
+                .grey-greeting-bar {
+                    background: linear-gradient(135deg, rgba(20,184,166,0.08) 0%, rgba(34,211,238,0.08) 100%);
+                    border-bottom: 1px solid rgba(34,211,238,0.2);
+                }
+
+                /* Language menu responsive */
+                @media (max-width: 1199px) {
+                    .language-menu-dropdown {
+                        min-width: 200px;
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    .language-menu-dropdown {
+                        min-width: 150px;
+                        max-height: 400px;
+                        overflow-y: auto;
+                    }
+                }
             `}</style>
 
-            {/* Futuristic: top reading-progress beam (additive, non-blocking) */}
+            {/* Top progress beam */}
             {!isModalOpen && !isMobileMenuOpen && (
                 <div className="fixed top-0 left-0 right-0 z-[60] h-[3px] pointer-events-none">
                     <div
                         className="grey-progress-beam h-full transition-[width] duration-150 ease-out"
-                        style={{width: `${scrollProgress}%`}}
+                        style={{ width: `${scrollProgress}%` }}
                         aria-hidden="true"
                     />
                 </div>
             )}
 
-            {/* Submenu fullscreen background overlay */}
+            {/* Submenu overlay */}
             {(isServicesOpen || isIndustriesOpen || isTechnologiesOpen) && !isModalOpen && (
                 <div
                     className="fixed inset-0 z-40 bg-black/85 backdrop-blur-md transition-opacity duration-300"
@@ -459,26 +536,130 @@ const Header: React.FC = () => {
                 />
             )}
 
-            {/* Main Header - only show when modal is not open */}
+            {/* ============================================================
+                GREETING BAR (integrated into header)
+               ============================================================ */}
+            {!isModalOpen && !isMobileMenuOpen && isMounted && (
+                <div className="fixed top-[3px] left-0 right-0 z-50 grey-greeting-bar">
+                    <div className="container max-w-full mx-auto px-4 lg:px-[4.6em] py-2 sm:py-3">
+                        <div className="flex items-center justify-between gap-3 flex-wrap">
+                            {/* Left: Greeting + Name Editor */}
+                            <div className="flex-1 min-w-0">
+                                {!isEditingName ? (
+                                    <div
+                                        className="cursor-pointer hover:opacity-80 transition-opacity group"
+                                        onClick={() => {
+                                            setIsEditingName(true);
+                                            setTempName(userName);
+                                        }}
+                                        title={translations?.greeting?.editName}
+                                    >
+                                        <p className="text-xs sm:text-sm md:text-base font-medium text-white truncate">
+                                            <span className="text-cyan-300">
+                                                {translations?.greeting?.[timeOfDay] || 'Good afternoon'}
+                                            </span>
+                                            {userName ? (
+                                                <span>, <span className="text-teal-200 font-semibold">{userName}</span>! 💪</span>
+                                            ) : (
+                                                <span> 👋 <span className="text-gray-400 text-xs hidden sm:inline">(click to add name)</span></span>
+                                            )}
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center gap-2 flex-wrap">
+                                        <input
+                                            type="text"
+                                            value={tempName}
+                                            onChange={(e) => setTempName(e.target.value)}
+                                            placeholder={translations?.greeting?.enterName || 'Your name'}
+                                            autoFocus
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Enter') handleSaveName();
+                                                if (e.key === 'Escape') handleCancelName();
+                                            }}
+                                            className="px-2 py-1 bg-black/30 border border-cyan-400/50 rounded text-white placeholder-gray-400 text-xs sm:text-sm focus:outline-none focus:border-cyan-300"
+                                        />
+                                        <button
+                                            onClick={handleSaveName}
+                                            className="px-2 py-1 bg-teal-500/80 hover:bg-teal-500 rounded text-white text-xs font-medium transition"
+                                        >
+                                            {translations?.greeting?.save || 'Save'}
+                                        </button>
+                                        <button
+                                            onClick={handleCancelName}
+                                            className="px-2 py-1 bg-gray-600/80 hover:bg-gray-600 rounded text-white text-xs font-medium transition"
+                                        >
+                                            {translations?.greeting?.cancel || 'Cancel'}
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Right: Language Selector (Desktop + Tablet) */}
+                            <div
+                                ref={languageRef}
+                                className="relative"
+                            >
+                                <button
+                                    onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
+                                    className="flex items-center gap-1 px-2 sm:px-3 py-1 rounded border border-cyan-400/50 text-cyan-300 hover:text-cyan-200 hover:border-cyan-300 transition text-xs sm:text-sm font-medium"
+                                    title={translations?.language}
+                                    aria-expanded={isLanguageMenuOpen}
+                                    type="button"
+                                >
+                                    <Globe size={14} className="shrink-0" />
+                                    <span className="hidden sm:inline">{getLanguageName(language)}</span>
+                                    <span className="sm:hidden">{language.split('-')[0].toUpperCase()}</span>
+                                    <ChevronDown size={14} className={`transition-transform ${isLanguageMenuOpen ? 'rotate-180' : ''}`} />
+                                </button>
+
+                                {/* Language Dropdown */}
+                                {isLanguageMenuOpen && (
+                                    <div className="language-menu-dropdown absolute top-full right-0 mt-1 bg-black/95 border border-cyan-400/30 rounded shadow-lg z-50">
+                                        <div className="p-1 max-h-96 overflow-y-auto">
+                                            {ALL_LANGUAGES.map((lang) => (
+                                                <button
+                                                    key={lang.code}
+                                                    onClick={() => handleLanguageChange(lang.code)}
+                                                    className={`w-full text-left px-3 py-2 text-xs sm:text-sm rounded transition ${
+                                                        language === lang.code
+                                                            ? 'bg-cyan-500/30 text-cyan-200 font-semibold'
+                                                            : 'text-gray-300 hover:bg-cyan-500/20 hover:text-cyan-300'
+                                                    }`}
+                                                >
+                                                    {lang.nativeName} <span className="text-gray-500 text-xs">({lang.code})</span>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Main Header - offset by greeting bar height */}
             {!isModalOpen && !isMobileMenuOpen && (
                 <header
                     className={`fixed top-0 left-0 right-0 py-2 sm:py-3 md:py-4 lg:py-5 w-full z-50 transition-transform duration-300 bg-black/60 text-white ${headerTheme.blur}`}
                     style={{
                         transform: showHeader ? 'translateY(0)' : 'translateY(-100%)',
                         opacity: showHeader ? 1 : 0,
+                        marginTop: isMounted ? '60px' : '0',
                     }}
                 >
-                    {/* Futuristic aurora + scanline layers (decorative, behind content) */}
                     {isScrolled && (
                         <>
-                            <span className="grey-aurora a1" aria-hidden="true"/>
-                            <span className="grey-aurora a2" aria-hidden="true"/>
-                            <span className="grey-aurora a3" aria-hidden="true"/>
-                            <span className="grey-scanline" aria-hidden="true"/>
+                            <span className="grey-aurora a1" aria-hidden="true" />
+                            <span className="grey-aurora a2" aria-hidden="true" />
+                            <span className="grey-aurora a3" aria-hidden="true" />
+                            <span className="grey-scanline" aria-hidden="true" />
                         </>
                     )}
                     <div className="container max-w-full relative z-10 mx-auto w-full h-auto px-4 lg:px-[4.6em]">
-                        <div className="flex items-center justify-between h-auto">
+                        <div className="flex items-center justify-between h-auto gap-3 md:gap-4">
+                            {/* Logo */}
                             <div className="shrink-0 grey-logo-orbit">
                                 <Link href="/#">
                                     <Image
@@ -492,8 +673,9 @@ const Header: React.FC = () => {
                                     />
                                 </Link>
                             </div>
+
                             {/* Desktop Menu */}
-                            <nav className="hidden lg:flex space-x-6 items-center ml-auto mr-4">
+                            <nav className="hidden lg:flex space-x-4 xl:space-x-6 items-center ml-auto mr-4">
                                 {mainMenuItems.map((item) => {
                                     if (item.label === 'Services') {
                                         return (
@@ -512,15 +694,13 @@ const Header: React.FC = () => {
                                                 >
                                                     <span className="text-base font-normal">{item.label}</span>
                                                 </button>
-                                                {/* Services Submenu Dropdown */}
                                                 <div
                                                     className={`absolute top-full left-[-4em] rounded-lg transition-all duration-300 transform ${isServicesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4'}`}
                                                     style={{ width: '51rem' }}
                                                 >
                                                     <div className="flex gap-2 p-4">
                                                         {servicesSubmenuSections.map((section, sectionIndex) => (
-                                                            <div key={section.title || `section-${sectionIndex}`}
-                                                                 className="flex-1 p-2 space-y-2">
+                                                            <div key={section.title || `section-${sectionIndex}`} className="flex-1 p-2 space-y-2">
                                                                 <h3 className="text-teal-300 text-[0.7em] font-thin uppercase tracking-widest mb-2">
                                                                     {section.title}
                                                                 </h3>
@@ -531,16 +711,9 @@ const Header: React.FC = () => {
                                                                                 href={item.href}
                                                                                 className={`group block text-white hover:text-teal-200 transition-colors duration-200 ${isActiveRoute(item.href) ? 'text-teal-200' : ''}`}
                                                                             >
-                                                                                                                                                                                                <span
-                                                                                                                                                                                                    className="text-base font-light leading-relaxed group-hover:translate-x-1 transition-transform duration-200 inline-block">
-                                                                                                                                        {item.name}
-                                                                                                                                    </span>
-                                                                                {item.description && (
-                                                                                    <span
-                                                                                        className="block text-xs text-gray-400 mt-1 group-hover:text-gray-300 transition-colors duration-200">
-                                                                                                                                            {item.description}
-                                                                                                                                        </span>
-                                                                                )}
+                                                                                <span className="text-base font-light leading-relaxed group-hover:translate-x-1 transition-transform duration-200 inline-block">
+                                                                                    {item.name}
+                                                                                </span>
                                                                             </Link>
                                                                         </li>
                                                                     ))}
@@ -569,15 +742,13 @@ const Header: React.FC = () => {
                                                 >
                                                     <span className="text-base font-normal">{item.label}</span>
                                                 </button>
-                                                {/* Industries Submenu Dropdown */}
                                                 <div
                                                     className={`absolute top-full left-[-1.2em] rounded-lg transition-all duration-300 transform ${isIndustriesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4'}`}
                                                     style={{ width: '35rem' }}
                                                 >
                                                     <div className="flex gap-2 p-4">
                                                         {industriesSubmenuSections.map((section, sectionIndex) => (
-                                                            <div key={`industry-section-${sectionIndex}`}
-                                                                 className="flex-1  p-2 space-y-2">
+                                                            <div key={`industry-section-${sectionIndex}`} className="flex-1  p-2 space-y-2">
                                                                 <ul className="space-y-3">
                                                                     {section.items.map((item, itemIndex) => (
                                                                         <li key={item.name || `industry-item-${itemIndex}`}>
@@ -585,10 +756,9 @@ const Header: React.FC = () => {
                                                                                 href={item.href}
                                                                                 className={`group block text-white hover:text-teal-200 transition-colors duration-200 ${isActiveRoute(item.href) ? 'text-teal-200' : ''}`}
                                                                             >
-                                                                                                                                                                                                <span
-                                                                                                                                                                                                    className="text-base font-light leading-relaxed group-hover:translate-x-1 transition-transform duration-200 inline-block">
-                                                                                                                                        {item.name}
-                                                                                                                                    </span>
+                                                                                <span className="text-base font-light leading-relaxed group-hover:translate-x-1 transition-transform duration-200 inline-block">
+                                                                                    {item.name}
+                                                                                </span>
                                                                             </Link>
                                                                         </li>
                                                                     ))}
@@ -617,7 +787,6 @@ const Header: React.FC = () => {
                                                 >
                                                     <span className="text-base font-normal">{item.label}</span>
                                                 </button>
-                                                {/* Technologies Submenu Dropdown */}
                                                 <div
                                                     className={`absolute top-full left-[-1.2em] rounded-lg transition-all duration-300 transform ${isTechnologiesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4'}`}
                                                     style={{ width: '35rem' }}
@@ -632,7 +801,7 @@ const Header: React.FC = () => {
                                                                                 href={item.href}
                                                                                 className={`group block text-white hover:text-teal-200 transition-colors duration-200 ${isActiveRoute(item.href) ? 'text-teal-200' : ''}`}
                                                                             >
-                                                                                        <span className="text-base font-light leading-relaxed group-hover:translate-x-1 transition-transform duration-200 inline-block">
+                                                                                <span className="text-base font-light leading-relaxed group-hover:translate-x-1 transition-transform duration-200 inline-block">
                                                                                     {item.name}
                                                                                 </span>
                                                                             </Link>
@@ -657,24 +826,28 @@ const Header: React.FC = () => {
                                     );
                                 })}
                             </nav>
-                            {/* Futuristic site search (desktop) */}
-                            <div className="hidden lg:block mr-3">
-                                <SiteSearch variant="desktop"/>
+
+                            {/* Desktop: Search + Theme */}
+                            <div className="hidden lg:flex items-center gap-3">
+                                <div>
+                                    <SiteSearch variant="desktop" />
+                                </div>
+                                <div>
+                                    <ThemeToggle className="scale-90" layoutGroupId="theme-glow-desktop" />
+                                </div>
+
+                                {/* CTA Button */}
+                                <button
+                                    onClick={() => setIsModalOpen(true)}
+                                    className="grey-cta-glow rounded-full text-[1em] font-medium py-[0.40em] px-[0.90em] border transition-all duration-300 text-teal-400 hover:text-white hover:bg-teal-500/20 border-teal-400 hover:border-teal-300 hover:scale-105"
+                                >
+                                    Start Your Project
+                                </button>
                             </div>
-                            {/* Theme toggle (desktop) */}
-                            <div className="hidden lg:block mr-3">
-                                <ThemeToggle className="scale-90" layoutGroupId="theme-glow-desktop"/>
-                            </div>
-                            {/* CTA Button */}
-                            <button
-                                onClick={() => setIsModalOpen(true)}
-                                className="grey-cta-glow rounded-full text-[1em] lg:block hidden font-medium py-[0.40em] px-[0.90em] border transition-all duration-300 text-teal-400 hover:text-white hover:bg-teal-500/20 border-teal-400 hover:border-teal-300 hover:scale-105"
-                            >
-                                Start Your Project
-                            </button>
-                            {/* Mobile menu button */}
+
+                            {/* Mobile Menu Button */}
                             <div className="lg:hidden flex items-center gap-2">
-                                <ThemeToggle className="scale-90" layoutGroupId="theme-glow-mobile"/>
+                                <ThemeToggle className="scale-90" layoutGroupId="theme-glow-mobile" />
                                 <button
                                     type="button"
                                     className="text-white hover:text-gray-300 focus:outline-none focus:text-gray-300 transition-colors duration-200"
@@ -682,7 +855,7 @@ const Header: React.FC = () => {
                                     aria-expanded={isMobileMenuOpen}
                                     aria-label="Toggle mobile menu"
                                 >
-                                    {isMobileMenuOpen ? <X size={24}/> : <Menu size={24}/>}
+                                    {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                                 </button>
                             </div>
                         </div>
@@ -707,6 +880,7 @@ const Header: React.FC = () => {
                     className={`absolute top-0 right-0 h-full w-80 max-w-[85vw] bg-black/90 transform transition-transform duration-300 overflow-y-auto ${
                         isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
                     }`}
+                    style={{ marginTop: isMounted ? '60px' : '0' }}
                 >
                     <div className="p-6">
                         {/* Mobile Header */}
@@ -718,7 +892,7 @@ const Header: React.FC = () => {
                                     aria-label="Close mobile menu"
                                     type="button"
                                 >
-                                    <X size={24}/>
+                                    <X size={24} />
                                 </button>
                             </div>
                             <div className="mt-4 flex justify-start">
@@ -736,9 +910,9 @@ const Header: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Futuristic site search (mobile) */}
+                        {/* Mobile Search */}
                         <div className="mb-6">
-                            <SiteSearch variant="mobile"/>
+                            <SiteSearch variant="mobile" />
                         </div>
 
                         {/* Mobile Navigation */}
@@ -792,8 +966,7 @@ const Header: React.FC = () => {
                                                             ? industriesSubmenuSections
                                                             : technologiesSubmenuSections
                                                 ).map((section: SubmenuSection, sectionIndex: number) => (
-                                                    <div key={section.title || `mobile-section-${sectionIndex}`}
-                                                         className="ml-4">
+                                                    <div key={section.title || `mobile-section-${sectionIndex}`} className="ml-4">
                                                         {section.title && (
                                                             <h4 className="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-3">
                                                                 {section.title}
@@ -849,50 +1022,34 @@ const Header: React.FC = () => {
             </div>
 
             {/* Modal for FormComponent */}
-            {
-                isModalOpen && (
+            {isModalOpen && (
+                <div
+                    className={`fixed py-[2em] inset-0 z-50 ${isDayTime ? 'bg-white/85' : 'bg-black/85'} backdrop-blur-md w-full h-full overflow-auto overflow-x-hidden`}
+                >
                     <div
-                        className={`fixed py-[2em] inset-0 z-50 ${isDayTime ? 'bg-white/85' : 'bg-black/85'} backdrop-blur-md w-full h-full overflow-auto overflow-x-hidden`}
+                        className={`w-screen h-screen flex items-center justify-center p-8 relative`}
+                        style={{ minHeight: '100vh' }}
                     >
                         <div
-                            className={`w-screen h-screen flex items-center justify-center p-8 relative`}
-                            style={{minHeight: '100vh'}}
+                            className={`w-full h-full flex items-center justify-center p-8 relative`}
+                            style={{ minHeight: '100vh' }}
                         >
-                            <div
-                                className={`w-full h-full flex items-center justify-center p-8 relative`}
-                                style={{minHeight: '100vh'}}
+                            <button
+                                className={`absolute top-8 right-8 z-[60] p-2 rounded-full ${isDayTime ? 'bg-white/20 hover:bg-white/30' : 'bg-black/20 hover:bg-black/30'} transition-colors`}
+                                onClick={() => setIsModalOpen(false)}
+                                aria-label="Close form"
+                                type="button"
                             >
-                                <button
-                                    type="button"
-                                    onClick={() => setIsModalOpen(false)}
-                                    className={`absolute top-0 right-4 ${
-                                        isDayTime ? 'text-black' : 'text-white'
-                                    } hover:text-gray-300`}
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-10 w-10"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M6 18L18 6M6 6l12 12"
-                                        />
-                                    </svg>
-                                </button>
-                                <div
-                                    className={'top-[20%] md:mt-[5em] mt-[35em] lg:top-[10%] w-full max-w-full px-4'}>
-                                    <FormComponent/>
-                                </div>
-                            </div>
+                                <X size={24} className={isDayTime ? 'text-black' : 'text-white'} />
+                            </button>
+                            <FormComponent
+                                onClose={() => setIsModalOpen(false)}
+                                isDayTime={isDayTime}
+                            />
                         </div>
                     </div>
-                )
-            }
+                </div>
+            )}
         </>
     );
 };
