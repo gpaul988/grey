@@ -181,13 +181,12 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                         )}
                         <h1 className={`grey-parallax-mid ${isDayTime ? 'text-black' : 'text-white'} lg:text-[87px] text-[45px] lg:leading-[1.1] md:leading-[1.1] leading-[1.2] font-[600] lg:mb-6`}>
                             <br/>
-                            <span className={`${isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>Engineering</span><br/>Scalable
-                            Digital<br/> <span
-                            className={`${isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>Platforms for<br/>Modern Businesses</span>
+                            <span className={`${isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>{t('hero.title1', 'Engineering')}</span><br/>{t('hero.title2', 'Scalable')}
+                            {t('hero.title3', 'Digital')}<br/> <span
+                            className={`${isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>{t('hero.title4', 'Platforms for')}<br/>{t('hero.title5', 'Modern Businesses')}</span>
                         </h1><br/><br/>
                         <h3 className={`grey-parallax-soft ${isDayTime ? 'text-teal-500' : 'text-white'} contents lg:text-[17.4px] leading-[1.18] font-[400]`}>
-                            Grey InfoTech Limited builds secure, scalable web applications, SaaS platforms, and enterprise
-                            software solutions for startups and growing businesses across Africa and globally.
+                            {t('hero.description', 'Grey InfoTech Limited builds secure, scalable web applications, SaaS platforms, and enterprise software solutions for startups and growing businesses across Africa and globally.')}
                         </h3>
                     </div>
                     
@@ -223,26 +222,20 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                     className='relative grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'>
                     <div className=''>
                         <h6 className='constant-text lg:text-[0.8em] text-[0.7em] font-[400] lg:tracking-wider tracking-tight'>
-                            YOUR DIGITAL PARTNER
+                            {t('page.yourDigitalPartner', 'YOUR DIGITAL PARTNER')}
                         </h6>
                     </div>
                     <div className='lg:-ml-[19em]'>
                         <h3 className='lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] lg:mt-[0.01em] rounded-none lg:tracking-normal tracking-tight leading-[1.3] lg:pb-10 pb-6'>
-                            We Develop Digital <br/>Products Powered by Strategy & Data</h3>
+                            {t('page.developDigital', 'We Develop Digital')} <br/>{t('page.productsPowered', 'Products Powered by Strategy & Data')}</h3>
                         <div
                             className='grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]'>
                             <div>
-                                <p> We create and build web apps, digital platforms, and websites that help
-                                    businesses flourish. We provide unique, scalable solutions that are suited to
-                                    your specific needs, with an emphasis on creativity, data-driven
-                                    decision-making, and demonstrable outcomes.</p>
+                                <p> {t('page.createBuild', 'We create and build web apps, digital platforms, and websites that help businesses flourish. We provide unique, scalable solutions that are suited to your specific needs, with an emphasis on creativity, data-driven decision-making, and demonstrable outcomes.')}</p>
                             </div>
                             <div>
-                                <p> Our team makes sure your technology works as hard as you do, whether you&#39;re
-                                    optimizing your infrastructure, launching an <Link href='/services/MVP'
-                                                                                       className={`border-b-[0.1em] ${isDayTime ? 'border-gray-800' : 'border-gray-300'}`}> MVP</Link>,
-                                    or growing your online
-                                    presence.
+                                <p> {t('page.ourTeamMakes', 'Our team makes sure your technology works as hard as you do, whether you\'re optimizing your infrastructure, launching an')} <Link href='/services/MVP'
+                                                                                       className={`border-b-[0.1em] ${isDayTime ? 'border-gray-800' : 'border-gray-300'}`}> MVP</Link>, {t('page.orGrowing', 'or growing your online presence.')}
                                 </p>
                             </div>
                         </div>
@@ -262,7 +255,7 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                         isDayTime ? 'border-gray-200' : 'border-gray-700'
                     }`}
                 >
-                    <h3 className={'lg:text-[3.2em] md:text-[3em] text-[2em] font-[700]'}>Our services</h3>
+                    <h3 className={'lg:text-[3.2em] md:text-[3em] text-[2em] font-[700]'}>{t('page.ourServices', 'Our services')}</h3>
                 </div>
 
                 <div id={'service'}
@@ -273,7 +266,7 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
 
                         {/* Web Design & Development Section */}
                         <div className={`lg:mb-[15em] mb-14`} id={'web-design'}>
-                            <h2 className={`text-[1.5em] font-[500] mb-3`}>Web design & development</h2>
+                            <h2 className={`text-[1.5em] font-[500] mb-3`}>{t('page.webDesignDev', 'Web design & development')}</h2>
                             <div
                                 className={`flex flex-wrap gap-3 mb-3 text-[0.8em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
                                     <span
@@ -362,7 +355,7 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
 
                         {/* Mobile Application Section */}
                         <div className={`lg:mb-[15em] mb-14`} id={'mobile-app'}>
-                            <h2 className={`text-[1.5em] font-[500] mb-3`}>Mobile applications</h2>
+                            <h2 className={`text-[1.5em] font-[500] mb-3`}>{t('page.mobileApps', 'Mobile applications')}</h2>
                             <div
                                 className={`flex flex-wrap gap-3 mb-3 text-[0.8em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
                             <span
@@ -405,7 +398,7 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
 
                         {/* Digital Marketing Section */}
                         <div className={`lg:mb-[15em] mb-14`} id={'digital-market'}>
-                            <h2 className={`text-[1.5em] font-[500] mb-3`}>Digital Marketing and Strategy</h2>
+                            <h2 className={`text-[1.5em] font-[500] mb-3`}>{t('page.digitalMarketing', 'Digital Marketing and Strategy')}</h2>
                             <p className={'text-justify leading-[1.5] text-[0.81em] lg:mb-[3em] mb-[1.5em] font-[300]'}>In
                                 a competitive digital world, your online presence is your first impression. Whether
                                 you&#39;re in retail, healthcare, tech, or professional services, we ensure your brand
@@ -464,7 +457,7 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
 
                         {/* Digital Branding Section */}
                         <div className={`lg:mb-[15em] mb-14`} id={'branding'}>
-                            <h2 className={`text-[1.5em] font-[500] mb-3`}>Digital Branding and Brand Management</h2>
+                            <h2 className={`text-[1.5em] font-[500] mb-3`}>{t('page.digitalBranding', 'Digital Branding and Brand Management')}</h2>
                             <p className={'text-justify leading-[1.5] lg:mb-[3em] mb-[1.5em] text-[0.81em] font-[300]'}>
                                 Customer retention isn’t just about great products or services — it’s about creating a
                                 brand experience that connects and endures. In a crowded market, businesses need more
