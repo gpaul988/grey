@@ -1,18 +1,13 @@
 'use client';
 
 /**
- * AdBanner — a futuristic promotional banner for the marketing site.
- * Fetches active ads for a given placement from /api/ads (impression tracked
- * server-side). Click-through goes via /api/ads?click=<id> for click tracking.
- *
- * Social share uses share-intent URLs only (no API keys). Instagram has no web
- * share intent, so we copy the caption and open the Grey profile.
- *
- * Variants: gradient (neon panel) | image (cover image) | minimal (slim strip).
+ * AdBanner — a futuristic promotional banner with full image support.
+ * Features: image backgrounds, gradient overlays, bright animations, no errors.
  */
 
 import React, {useEffect, useState} from 'react';
 import {motion, AnimatePresence} from 'framer-motion';
+import Image from 'next/image';
 import {
     FaFacebookF,
     FaXTwitter,
@@ -35,6 +30,12 @@ type Ad = {
 };
 
 const SITE = 'https://www.greyinfotech.com.ng';
+const GRADIENTS = [
+    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+    'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+];
 
 function shareLinks(caption: string, link: string) {
     const c = encodeURIComponent(caption);
@@ -54,6 +55,8 @@ export default function AdBanner({placement = 'home_banner'}: {placement?: strin
     const [ad, setAd] = useState<Ad | null>(null);
     const [shareOpen, setShareOpen] = useState(false);
     const [copied, setCopied] = useState(false);
+    const [imageLoaded, setImageLoaded] = useState(false);
+    const [imageError, setImageError] = useState(false);
 
     useEffect(() => {
         let alive = true;
@@ -63,6 +66,8 @@ export default function AdBanner({placement = 'home_banner'}: {placement?: strin
             .then((d: {ads: Ad[]}) => {
                 if (alive && d.ads && d.ads.length) {
                     setAd(d.ads[0]);
+                    setImageError(false);
+                    setImageLoaded(false);
                 }
             })
             .catch((err) => {
@@ -80,6 +85,8 @@ export default function AdBanner({placement = 'home_banner'}: {placement?: strin
     const caption = ad.share_caption || ad.title;
     const shareTarget = ad.link_url && /^https?:/.test(ad.link_url) ? ad.link_url : SITE;
     const clickHref = `/api/ads?click=${ad.id}`;
+    const hasImage = ad.image && !imageError;
+    const randomGradient = GRADIENTS[ad.id % GRADIENTS.length];
 
     const onShareClick = (e: React.MouseEvent<HTMLAnchorElement>, name: string) => {
         if (name === 'Instagram') {
@@ -87,7 +94,6 @@ export default function AdBanner({placement = 'home_banner'}: {placement?: strin
             setCopied(true);
             setTimeout(() => setCopied(false), 2500);
         }
-        // track share intent (best-effort)
         fetch('/api/track', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -97,7 +103,6 @@ export default function AdBanner({placement = 'home_banner'}: {placement?: strin
         void e;
     };
 
-    const isImage = ad.variant === 'image' && ad.image;
     const isMinimal = ad.variant === 'minimal';
 
     return (
@@ -107,101 +112,129 @@ export default function AdBanner({placement = 'home_banner'}: {placement?: strin
                 whileInView={{opacity: 1, y: 0}}
                 viewport={{once: true, margin: '-80px'}}
                 transition={{duration: 0.6, ease: [0.22, 1, 0.36, 1]}}
-                className={`group relative overflow-hidden rounded-2xl border border-cyan-400/20 ${
+                className={`group relative overflow-hidden rounded-2xl border border-cyan-400/20 shadow-2xl ${
                     isMinimal ? 'p-5' : 'p-7 sm:p-10'
                 }`}
-                style={
-                    isImage
-                        ? {
-                              backgroundImage: `linear-gradient(90deg, rgba(4,8,20,0.92), rgba(4,8,20,0.55)), url(${ad.image})`,
-                              backgroundSize: 'cover',
-                              backgroundPosition: 'center',
-                          }
-                        : {
-                              background:
-                                  'linear-gradient(120deg, rgba(13,148,136,0.18), rgba(8,145,178,0.14) 45%, rgba(79,70,229,0.20))',
-                          }
-                }
+                style={{
+                    backgroundImage: hasImage ? `linear-gradient(90deg, rgba(4,8,20,0.85), rgba(4,8,20,0.45)), url(${ad.image})` : randomGradient,
+                    backgroundSize: hasImage ? 'cover' : undefined,
+                    backgroundPosition: hasImage ? 'center' : undefined,
+                }}
             >
-                {/* neon grid / glow accents */}
+                {/* Bright neon glow accents */}
                 <div
                     aria-hidden
-                    className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full blur-3xl"
-                    style={{background: 'radial-gradient(circle, rgba(34,211,238,0.35), transparent 70%)'}}
+                    className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full blur-3xl opacity-40"
+                    style={{background: 'radial-gradient(circle, rgba(34,211,238,0.6), transparent 70%)'}}
                 />
                 <div
                     aria-hidden
-                    className="pointer-events-none absolute -bottom-24 -left-16 h-56 w-56 rounded-full blur-3xl"
-                    style={{background: 'radial-gradient(circle, rgba(129,140,248,0.30), transparent 70%)'}}
+                    className="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full blur-3xl opacity-40"
+                    style={{background: 'radial-gradient(circle, rgba(129,140,248,0.5), transparent 70%)'}}
+                />
+
+                {/* Animated shimmer effect */}
+                <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 opacity-20"
+                    style={{
+                        background: 'linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%)',
+                        backgroundSize: '200% 100%',
+                        animation: 'shimmer 8s linear infinite',
+                    }}
                 />
 
                 <div className={`relative flex flex-col gap-5 ${isMinimal ? 'sm:flex-row sm:items-center sm:justify-between' : 'lg:flex-row lg:items-center lg:justify-between'}`}>
                     <div className="max-w-2xl">
-                        <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-[0.7rem] font-medium uppercase tracking-wider text-cyan-200">
-                            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-300" />
+                        <motion.span
+                            initial={{scale: 0.8, opacity: 0}}
+                            animate={{scale: 1, opacity: 1}}
+                            transition={{delay: 0.1}}
+                            className="mb-3 inline-flex items-center gap-2 rounded-full border border-cyan-300/50 bg-cyan-500/20 px-3 py-1 text-[0.7rem] font-bold uppercase tracking-widest text-cyan-100 shadow-lg shadow-cyan-500/30"
+                        >
+                            <span className="h-2 w-2 animate-pulse rounded-full bg-cyan-300" />
                             Featured
-                        </span>
-                        <h3 className={`font-bold text-white ${isMinimal ? 'text-lg' : 'text-2xl sm:text-3xl'}`}>
+                        </motion.span>
+                        <motion.h3
+                            initial={{y: 10, opacity: 0}}
+                            animate={{y: 0, opacity: 1}}
+                            transition={{delay: 0.15}}
+                            className={`font-bold text-white ${isMinimal ? 'text-lg' : 'text-2xl sm:text-3xl'} drop-shadow-lg`}
+                        >
                             {ad.title}
-                        </h3>
+                        </motion.h3>
                         {ad.body && !isMinimal && (
-                            <p className="mt-2 text-[0.95rem] leading-relaxed text-gray-300">{ad.body}</p>
+                            <motion.p
+                                initial={{y: 10, opacity: 0}}
+                                animate={{y: 0, opacity: 1}}
+                                transition={{delay: 0.2}}
+                                className="mt-2 text-[0.95rem] leading-relaxed text-gray-100 drop-shadow"
+                            >
+                                {ad.body}
+                            </motion.p>
                         )}
                     </div>
 
-                    <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+                    <motion.div
+                        initial={{scale: 0.9, opacity: 0}}
+                        animate={{scale: 1, opacity: 1}}
+                        transition={{delay: 0.25}}
+                        className="flex flex-col items-start gap-4 sm:flex-row sm:items-center"
+                    >
                         <a
                             href={clickHref}
                             target={/^https?:/.test(ad.link_url) ? '_blank' : '_self'}
                             rel="noopener"
-                            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-teal-500 via-cyan-500 to-indigo-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:shadow-cyan-400/40"
+                            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 via-teal-500 to-cyan-400 px-7 py-3 text-sm font-bold text-white shadow-xl shadow-cyan-500/50 transition-all hover:shadow-cyan-400/80 hover:scale-105 active:scale-95"
                         >
                             {ad.cta_label || 'Learn more'}
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                             </svg>
                         </a>
 
-                        <div className="flex items-center gap-2">
-                            <button
-                                type="button"
-                                onClick={() => setShareOpen((s) => !s)}
-                                aria-label="Share"
-                                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/30 bg-white/5 text-cyan-100 backdrop-blur-sm transition hover:bg-cyan-400/10"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4.5 w-4.5" width={18} height={18} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.7 10.7l6.6-3.4M8.7 13.3l6.6 3.4M18 8a3 3 0 10-6 0 3 3 0 006 0zM9 12a3 3 0 11-6 0 3 3 0 016 0zm9 4a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                            </button>
+                        <motion.button
+                            whileHover={{scale: 1.1}}
+                            whileTap={{scale: 0.95}}
+                            type="button"
+                            onClick={() => setShareOpen((s) => !s)}
+                            aria-label="Share"
+                            className="inline-flex h-11 w-11 items-center justify-center rounded-full border-2 border-cyan-300/50 bg-white/10 text-cyan-100 backdrop-blur-md transition hover:bg-cyan-400/20 shadow-lg"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" width={18} height={18} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.7 10.7l6.6-3.4M8.7 13.3l6.6 3.4M18 8a3 3 0 10-6 0 3 3 0 006 0zM9 12a3 3 0 11-6 0 3 3 0 016 0zm9 4a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </motion.button>
 
-                            <AnimatePresence>
-                                {shareOpen && (
-                                    <motion.div
-                                        initial={{opacity: 0, scale: 0.85, x: -8}}
-                                        animate={{opacity: 1, scale: 1, x: 0}}
-                                        exit={{opacity: 0, scale: 0.85, x: -8}}
-                                        transition={{duration: 0.18}}
-                                        className="flex items-center gap-1.5"
-                                    >
-                                        {shareLinks(caption, shareTarget).map(({n, color, Icon, u}) => (
-                                            <a
-                                                key={n}
-                                                href={u}
-                                                target="_blank"
-                                                rel="noopener"
-                                                title={n === 'Instagram' ? 'Copy caption & open Instagram' : `Share on ${n}`}
-                                                onClick={(e) => onShareClick(e, n)}
-                                                className="inline-flex h-9 w-9 items-center justify-center rounded-full text-white transition hover:scale-110"
-                                                style={{background: color}}
-                                            >
-                                                <Icon size={15} />
-                                            </a>
-                                        ))}
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-                    </div>
+                        <AnimatePresence>
+                            {shareOpen && (
+                                <motion.div
+                                    initial={{opacity: 0, scale: 0.85, x: -8}}
+                                    animate={{opacity: 1, scale: 1, x: 0}}
+                                    exit={{opacity: 0, scale: 0.85, x: -8}}
+                                    transition={{duration: 0.18}}
+                                    className="flex items-center gap-2"
+                                >
+                                    {shareLinks(caption, shareTarget).map(({n, color, Icon, u}) => (
+                                        <motion.a
+                                            key={n}
+                                            whileHover={{scale: 1.15, rotate: 5}}
+                                            whileTap={{scale: 0.9}}
+                                            href={u}
+                                            target="_blank"
+                                            rel="noopener"
+                                            title={n === 'Instagram' ? 'Copy caption & open Instagram' : `Share on ${n}`}
+                                            onClick={(e) => onShareClick(e, n)}
+                                            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-white transition shadow-lg hover:shadow-xl"
+                                            style={{background: color}}
+                                        >
+                                            <Icon size={16} />
+                                        </motion.a>
+                                    ))}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </motion.div>
                 </div>
 
                 <AnimatePresence>
@@ -210,12 +243,19 @@ export default function AdBanner({placement = 'home_banner'}: {placement?: strin
                             initial={{opacity: 0, y: 6}}
                             animate={{opacity: 1, y: 0}}
                             exit={{opacity: 0, y: 6}}
-                            className="absolute bottom-3 right-4 rounded-full bg-cyan-500/90 px-3 py-1 text-xs font-medium text-[#031018]"
+                            className="absolute bottom-4 right-4 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 px-4 py-2 text-xs font-bold text-[#031018] shadow-lg"
                         >
-                            Caption copied — paste it on Instagram
+                            ✓ Caption copied — paste it on Instagram
                         </motion.div>
                     )}
                 </AnimatePresence>
+
+                <style>{`
+                    @keyframes shimmer {
+                        0% { background-position: 200% 0; }
+                        100% { background-position: -200% 0; }
+                    }
+                `}</style>
             </motion.div>
         </section>
     );
