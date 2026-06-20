@@ -62,59 +62,15 @@ jobs:
           retention-days: 7
 
   # Deploy web (optional, on main branch only)
-  deploy-web:
-    runs-on: ubuntu-latest
-    name: Deploy to cPanel
-    needs: build-web
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    environment: production
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Download build
-        uses: actions/download-artifact@v4
-        with:
-          name: grey-web-build
-          path: ./deploy
-
-      - name: Setup SSH
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.CPANEL_SSH_KEY }}
-          SSH_HOST: ${{ secrets.CPANEL_HOST }}
-          SSH_USER: ${{ secrets.CPANEL_USER }}
-        run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts 2>/dev/null
-
-      - name: Deploy to cPanel
-        env:
-          SSH_HOST: ${{ secrets.CPANEL_HOST }}
-          SSH_USER: ${{ secrets.CPANEL_USER }}
-          DEPLOY_PATH: /home/${{ secrets.CPANEL_USER }}/app-deploy/grey
-        run: |
-          # Create tar archive
-          tar -czf grey-deploy.tar.gz -C deploy .
-
-          # Upload to cPanel
-          scp grey-deploy.tar.gz $SSH_USER@$SSH_HOST:$DEPLOY_PATH/
-
-          # Extract and restart
-          ssh $SSH_USER@$SSH_HOST "
-            cd $DEPLOY_PATH && \
-            tar -xzf grey-deploy.tar.gz && \
-            npm install --production && \
-            pm2 restart grey || pm2 start server.js --name grey
-          "
-
-      - name: Verify deployment
-        env:
-          SSH_HOST: ${{ secrets.CPANEL_HOST }}
-          SSH_USER: ${{ secrets.CPANEL_USER }}
-        run: |
-          sleep 5
-          curl -f https://${{ secrets.CPANEL_HOST }}/api/health || exit 1
+  # Disabled: requires CPANEL_SSH_KEY, CPANEL_HOST, CPANEL_USER secrets
+  # Enable when secrets are configured
+  # deploy-web:
+  #   runs-on: ubuntu-latest
+  #   name: Deploy to cPanel
+  #   needs: build-web
+  #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+  #   environment: production
+  #   steps: []
 
   # Build mobile (Expo) - Disabled: no grey-mobile directory
   # Uncomment when mobile app is ready
@@ -133,17 +89,17 @@ jobs:
   #     - name: Install EAS CLI
   #       run: npm install -g eas-cli
 
-  # Notify on deployment
+  # Notify on build completion
   notify:
     runs-on: ubuntu-latest
-    name: Notify Deployment
-    needs: [deploy-web]
+    name: Notify Build Status
+    needs: [build-web]
     if: always() && github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
-      - name: Check deployment status
+      - name: Check build status
         run: |
-          if [ "${{ needs.deploy-web.result }}" == "success" ]; then
-            echo "✅ Deployment successful!"
+          if [ "${{ needs.build-web.result }}" == "success" ]; then
+            echo "✅ Build successful!"
           else
-            echo "❌ Deployment failed!"
+            echo "❌ Build failed!"
           fi
