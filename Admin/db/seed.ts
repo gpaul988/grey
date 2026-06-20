@@ -9,6 +9,17 @@ import {
     nextInvoiceNumber,
 } from '../models';
 import { seedStore } from './seed-store';
+import { config } from 'dotenv';
+
+
+// Load .env.local before anything else
+const envPath = path.resolve(process.cwd(), '.env.local');
+console.log(`[SEED] Loading env from: ${envPath}`);
+const result = config({ path: envPath });
+if (result.error) {
+    console.warn(`[SEED] .env.local not found or unreadable: ${result.error.message}`);
+}
+console.log(`[SEED] Loaded ${Object.keys(result.parsed || {}).length} env vars`);
 
 // ⚠️ CRITICAL: All seed passwords MUST come from environment variables.
 // DO NOT hardcode plaintext passwords here. Use process.env.SEED_*_PASSWORD
