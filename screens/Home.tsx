@@ -232,7 +232,7 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                                 <p> {'We create and build web apps, digital platforms, and websites that help businesses flourish. We provide unique, scalable solutions that are suited to your specific needs, with an emphasis on creativity, data-driven decision-making, and demonstrable outcomes.'}</p>
                             </div>
                             <div>
-                                <p> {t('page.ourTeamMakes', 'Our team makes sure your technology works as hard as you do, whether you\'re optimizing your infrastructure, launching an')} <Link href='/services/MVP'
+                                <p> {'Our team makes sure your technology works as hard as you do, whether you\'re optimizing your infrastructure, launching an'} <Link href='/services/MVP'
                                                                                        className={`border-b-[0.1em] ${isDayTime ? 'border-gray-800' : 'border-gray-300'}`}> MVP</Link>, {'or growing your online presence.'}
                                 </p>
                             </div>
