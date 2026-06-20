@@ -57,18 +57,17 @@ export default function AnnouncementBar() {
         setOpen(false);
     };
 
-    if (!ann) return null;
-    const cls = VARIANTS[ann.variant] || VARIANTS.gradient;
+    const cls = VARIANTS[ann?.variant] || VARIANTS.gradient;
 
     return (
         <AnimatePresence>
-            {open && (
+            {ann && open && (
                 <motion.div
                     initial={{height: 0, opacity: 0}}
                     animate={{height: 'auto', opacity: 1}}
                     exit={{height: 0, opacity: 0}}
                     transition={{duration: 0.4, ease: [0.22, 1, 0.36, 1]}}
-                    className={`relative z-[60] overflow-hidden ${cls}`}
+                    className={`relative w-full z-[60] overflow-hidden ${cls}`}
                 >
                     {/* subtle moving sheen */}
                     <div
