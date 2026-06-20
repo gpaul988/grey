@@ -856,10 +856,7 @@ const HeaderContent: React.FC = () => {
                             >
                                 <X size={24} className={isDayTime ? 'text-black' : 'text-white'} />
                             </button>
-                            <FormComponent
-                                onClose={() => setIsModalOpen(false)}
-                                isDayTime={isDayTime}
-                            />
+                            <FormComponent />
                         </div>
                     </div>
                 </div>
