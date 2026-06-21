@@ -188,8 +188,8 @@ function PartnersCarousel({partners}: {partners: Partner[]}) {
                     align-items: center;
                     justify-content: center;
                     height: 88px;
-                    width: 176px;
-                    padding: 0 1.1rem;
+                    width: 88px;
+                    padding: 0.75rem;
                     border-radius: 16px;
                     background: rgba(255, 255, 255, 0.04);
                     border: 1px solid rgba(148, 163, 184, 0.16);
@@ -203,8 +203,8 @@ function PartnersCarousel({partners}: {partners: Partner[]}) {
                     box-shadow: 0 12px 36px -14px rgba(56, 189, 248, 0.45);
                 }
                 :global(.sp-logo-img) {
-                    height: 40px;
-                    max-width: 140px;
+                    height: 100%;
+                    width: 100%;
                     object-fit: contain;
                     filter: grayscale(1) opacity(0.78);
                     transition: filter 0.25s ease;
