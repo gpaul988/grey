@@ -203,7 +203,7 @@ function PartnersCarousel({partners}: {partners: Partner[]}) {
                     box-shadow: 0 12px 36px -14px rgba(56, 189, 248, 0.45);
                 }
                 :global(.sp-logo-img) {
-                    max-height: 52px;
+                    height: 40px;
                     max-width: 140px;
                     object-fit: contain;
                     filter: grayscale(1) opacity(0.78);
