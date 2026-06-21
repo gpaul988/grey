@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm';
-import { getPool } from '../db';
+import { getPgPool } from '../db';
 
 export interface SearchResult {
   id: number;
@@ -19,7 +19,7 @@ export async function fullTextSearch(
   type?: 'service' | 'blog' | 'audit' | 'doc',
   limit: number = 20
 ): Promise<SearchResult[]> {
-  const pool = getPool();
+  const pool = getPgPool();
   const searchTerm = query.toLowerCase().trim();
 
   if (!searchTerm || searchTerm.length < 2) {
@@ -143,7 +143,7 @@ export async function fuzzySearch(
   limit: number = 10,
   threshold: number = 0.3
 ): Promise<SearchResult[]> {
-  const pool = getPool();
+  const pool = getPgPool();
   const searchTerm = query.toLowerCase().trim();
 
   if (!searchTerm || searchTerm.length < 2) {
@@ -194,7 +194,7 @@ export async function searchSuggestions(
   query: string,
   limit: number = 5
 ): Promise<string[]> {
-  const pool = getPool();
+  const pool = getPgPool();
   const searchTerm = query.toLowerCase().trim();
 
   if (!searchTerm || searchTerm.length < 1) {
@@ -229,7 +229,7 @@ export async function getSearchStats(): Promise<{
   blogPosts: number;
   audits: number;
 }> {
-  const pool = getPool();
+  const pool = getPgPool();
 
   try {
     const result = await pool.query(`

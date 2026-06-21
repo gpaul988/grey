@@ -3,7 +3,7 @@ import { trackEvent, getEventStats, getCohortData } from '@/lib/analytics';
 
 // Mock database and redis
 vi.mock('@/lib/db', () => ({
-  getPool: vi.fn(),
+  getPgPool: vi.fn(),
   db: {
     query: vi.fn(),
   },
@@ -23,7 +23,7 @@ vi.mock('@/lib/redis-client', () => ({
   },
 }));
 
-import { db, getPool } from '@/lib/db';
+import { db, getPgPool } from '@/lib/db';
 import { query as rawQuery } from '@/lib/db-raw';
 import redis from '@/lib/redis-client';
 

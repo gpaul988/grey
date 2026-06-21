@@ -102,7 +102,7 @@ describe('Payments', () => {
     it('should handle multiple payment providers', () => {
       const config = getPaymentConfig();
 
-      const enabledProviders = [];
+      const enabledProviders: string[] = [];
       if (config.stripe.enabled) enabledProviders.push('stripe');
       if (config.paypal.enabled) enabledProviders.push('paypal');
 

@@ -193,7 +193,7 @@ export async function listCMSPages(options?: {
   const offset = options?.offset || 0;
   const sortOrder = options?.sortOrder === 'asc' ? 'asc' : 'desc';
 
-  const conditions = [];
+  const conditions: any[] = [];
 
   if (options?.published !== undefined) {
     conditions.push(eq(cmsPages.published, options.published === true));
