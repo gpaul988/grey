@@ -74,12 +74,11 @@ jobs:
         id: check-secrets
         run: |
           if [ -z "${{ secrets.CPANEL_SSH_KEY }}" ] || [ -z "${{ secrets.CPANEL_HOST }}" ] || [ -z "${{ secrets.CPANEL_USER }}" ]; then
-            echo "status=skip"
-            echo "⚠️  Skipping cPanel deployment - secrets not configured"
-            echo "Configure these secrets in GitHub: CPANEL_SSH_KEY, CPANEL_HOST, CPANEL_USER"
+            echo "status=skip" >> $GITHUB_OUTPUT
+            echo "Skipping cPanel deployment - secrets not configured"
           else
-            echo "status=deploy"
-          fi >> $GITHUB_OUTPUT
+            echo "status=deploy" >> $GITHUB_OUTPUT
+          fi
 
       - name: Setup Node.js
         if: steps.check-secrets.outputs.status == 'deploy'
@@ -107,22 +106,22 @@ jobs:
         if: steps.check-secrets.outputs.status == 'deploy'
         run: |
           DEPLOY_PATH="/home/${{ secrets.CPANEL_USER }}/public_html/grey"
-          echo "📦 Deploying to: $DEPLOY_PATH"
+          echo "Deploying to: $DEPLOY_PATH"
           
           # Create deployment directory if it doesn't exist
           ssh -i ~/.ssh/cpanel_key -o ConnectTimeout=10 ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} \
             "mkdir -p $DEPLOY_PATH && cd $DEPLOY_PATH && pwd"
           
           # Copy build files
-          echo "📂 Copying .next directory..."
+          echo "Copying .next directory..."
           scp -i ~/.ssh/cpanel_key -r ./build-output/.next/ \
             ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:$DEPLOY_PATH/.next/
           
-          echo "📂 Copying public directory..."
+          echo "Copying public directory..."
           scp -i ~/.ssh/cpanel_key -r ./build-output/public/ \
             ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:$DEPLOY_PATH/public/
           
-          echo "📄 Copying package files..."
+          echo "Copying package files..."
           scp -i ~/.ssh/cpanel_key ./build-output/package.json \
             ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:$DEPLOY_PATH/
           scp -i ~/.ssh/cpanel_key ./build-output/package-lock.json \
@@ -132,17 +131,17 @@ jobs:
         if: steps.check-secrets.outputs.status == 'deploy'
         run: |
           DEPLOY_PATH="/home/${{ secrets.CPANEL_USER }}/public_html/grey"
-          echo "📦 Installing dependencies on cPanel..."
+          echo "Installing dependencies on cPanel..."
           ssh -i ~/.ssh/cpanel_key -o ConnectTimeout=10 ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} \
-            "cd $DEPLOY_PATH && npm ci --production && echo '✅ Dependencies installed'"
+            "cd $DEPLOY_PATH && npm ci --production && echo 'Dependencies installed'"
 
       - name: Verify deployment
         if: steps.check-secrets.outputs.status == 'deploy'
         run: |
           DEPLOY_PATH="/home/${{ secrets.CPANEL_USER }}/public_html/grey"
-          echo "✅ Verifying deployment..."
+          echo "Verifying deployment..."
           ssh -i ~/.ssh/cpanel_key -o ConnectTimeout=10 ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} \
-            "cd $DEPLOY_PATH && ls -la .next/ 2>/dev/null | head -3 && echo '✅ Deployment verified'"
+            "cd $DEPLOY_PATH && ls -la .next/ 2>/dev/null | head -3 && echo 'Deployment verified'"
 
       - name: Cleanup SSH key
         if: always()
@@ -151,11 +150,13 @@ jobs:
       - name: Deployment skipped
         if: steps.check-secrets.outputs.status == 'skip'
         run: |
-          echo "⚠️  cPanel deployment skipped - secrets not configured"
+          echo "WARNING: cPanel deployment skipped - secrets not configured"
           echo "To enable cPanel deployment, add these secrets to your GitHub repository:"
           echo "  - CPANEL_SSH_KEY: Your cPanel SSH private key"
           echo "  - CPANEL_HOST: Your cPanel server hostname (e.g., server1.example.com)"
           echo "  - CPANEL_USER: Your cPanel username (e.g., greyinf1)"
+          echo ""
+          echo "See DEPLOYMENT_SECRETS.md for detailed setup instructions"
 
   # Notify on build completion
   notify:
@@ -167,8 +168,8 @@ jobs:
       - name: Check build status
         run: |
           if [ "${{ needs.build-web.result }}" == "success" ]; then
-            echo "✅ Build successful!"
+            echo "Build successful!"
           else
-            echo "❌ Build failed!"
+            echo "Build failed!"
             exit 1
           fi
