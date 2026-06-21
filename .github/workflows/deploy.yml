@@ -29,33 +29,48 @@ jobs:
       - name: Run TypeScript check
         run: npx tsc --noEmit
 
-      - name: Build Next.js for tests
-        run: npm run build
-
       - name: Start dev server for E2E tests
         run: |
-          npm run dev > /tmp/server.log 2>&1 &
+          echo "Starting Next.js dev server..."
+          npm run dev:next > /tmp/server.log 2>&1 &
           SERVER_PID=$!
           echo $SERVER_PID > /tmp/server.pid
+          echo "Server PID: $SERVER_PID"
           
-          # Wait for server to be ready
-          max_attempts=30
+          # Wait for server to be ready with longer timeout
+          max_attempts=60
           attempt=0
-          while ! curl -s http://localhost:3000 > /dev/null && [ $attempt -lt $max_attempts ]; do
-            sleep 2
+          while ! curl -s -f http://localhost:3000 > /dev/null 2>&1 && [ $attempt -lt $max_attempts ]; do
+            sleep 1
             attempt=$((attempt + 1))
-            echo "Waiting for server... (attempt $attempt/$max_attempts)"
+            if [ $((attempt % 10)) -eq 0 ]; then
+              echo "Waiting for server... (attempt $attempt/$max_attempts)"
+            fi
           done
           
           if [ $attempt -eq $max_attempts ]; then
-            echo "Server failed to start!"
-            cat /tmp/server.log
+            echo "ERROR: Server failed to start within ${max_attempts}s"
+            echo "=== Server logs (last 50 lines) ==="
+            tail -50 /tmp/server.log
             exit 1
           fi
-          echo "Server ready!"
+          echo "✓ Server ready after ${attempt}s"
+          echo "Testing connectivity..."
+          curl -v http://localhost:3000 2>&1 | head -20
 
       - name: Run E2E tests
-        run: npm run test:e2e
+        run: |
+          echo "Running E2E tests..."
+          npm run test:e2e
+          TEST_STATUS=$?
+          echo "Test exit code: $TEST_STATUS"
+          
+          if [ -f /tmp/server.log ]; then
+            echo "=== Server logs (last 30 lines) ==="
+            tail -30 /tmp/server.log
+          fi
+          
+          exit $TEST_STATUS
 
       - name: Stop dev server
         if: always()
