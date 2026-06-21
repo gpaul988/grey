@@ -10,7 +10,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     // Check if user has auth token
-    const token = typeof window !== 'undefined' ? localStorage.getItem('admin_token') : null;
+    const token = typeof window !== 'undefined' ? localStorage.getItem('admin-token') : null;
     if (!token) {
       router.push('/admin/login');
       return;
@@ -68,27 +68,59 @@ export default function AdminDashboard() {
         <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 backdrop-blur mb-8">
           <h2 className="text-xl font-bold text-white mb-6">Analytics & Insights</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* User Growth Chart */}
             <div className="bg-slate-900/50 rounded-lg p-4">
               <h3 className="text-white font-semibold mb-4">User Growth</h3>
               <div className="h-40 bg-slate-800/50 rounded flex items-center justify-center text-slate-500">
-                [Chart visualization will render here]
+                [Chart]
               </div>
             </div>
 
-            {/* Revenue Trend Chart */}
+            {/* Revenue Breakdown Chart */}
             <div className="bg-slate-900/50 rounded-lg p-4">
-              <h3 className="text-white font-semibold mb-4">Revenue Trend</h3>
+              <h3 className="text-white font-semibold mb-4">Revenue Breakdown</h3>
               <div className="h-40 bg-slate-800/50 rounded flex items-center justify-center text-slate-500">
-                [Chart visualization will render here]
+                [Chart]
+              </div>
+            </div>
+
+            {/* Service Popularity Chart */}
+            <div className="bg-slate-900/50 rounded-lg p-4">
+              <h3 className="text-white font-semibold mb-4">Service Popularity</h3>
+              <div className="h-40 bg-slate-800/50 rounded flex items-center justify-center text-slate-500">
+                [Chart]
+              </div>
+            </div>
+
+            {/* Conversion Funnel Chart */}
+            <div className="bg-slate-900/50 rounded-lg p-4">
+              <h3 className="text-white font-semibold mb-4">Conversion Funnel</h3>
+              <div className="h-40 bg-slate-800/50 rounded flex items-center justify-center text-slate-500">
+                [Chart]
+              </div>
+            </div>
+
+            {/* Daily Audit Rate Chart */}
+            <div className="bg-slate-900/50 rounded-lg p-4">
+              <h3 className="text-white font-semibold mb-4">Daily Audit Rate</h3>
+              <div className="h-40 bg-slate-800/50 rounded flex items-center justify-center text-slate-500">
+                [Chart]
+              </div>
+            </div>
+
+            {/* Top Search Queries Chart */}
+            <div className="bg-slate-900/50 rounded-lg p-4">
+              <h3 className="text-white font-semibold mb-4">Top Search Queries</h3>
+              <div className="h-40 bg-slate-800/50 rounded flex items-center justify-center text-slate-500">
+                [Chart]
               </div>
             </div>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-4 mb-8">
+        <div className="flex flex-wrap gap-4 mb-8">
           <button className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition">
             Export CSV
           </button>
@@ -99,14 +131,14 @@ export default function AdminDashboard() {
             href="/admin/faqs"
             className="px-6 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition inline-block"
           >
-            Manage FAQs
+            FAQs
           </a>
         </div>
 
         {/* Logout Button */}
         <button
           onClick={() => {
-            localStorage.removeItem('admin_token');
+            localStorage.removeItem('admin-token');
             router.push('/admin/login');
           }}
           className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition"
