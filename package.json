@@ -11,6 +11,7 @@
     "seed": "tsx Admin/db/seed.ts",
     "seed:reset": "rm -f Admin/data/grey.db && tsx Admin/db/seed.ts",
     "migrate-admin-assets": "node scripts/migrate-admin-assets.js",
+    "migrate:audits": "node scripts/migrate-audit-submissions.js",
     "lint": "eslint . --fix",
     "postinstall": "node scripts/verify-sqlite.js",
     "verify:sqlite": "node scripts/verify-sqlite.js",
