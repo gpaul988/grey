@@ -19,7 +19,7 @@ function isSQLite(): boolean {
 /**
  * Get or create PostgreSQL connection pool
  */
-function getPgPool(): Pool {
+export function getPgPool(): Pool {
   if (pgPool) return pgPool;
 
   const connectionString = process.env.DATABASE_URL;
@@ -65,7 +65,7 @@ function getSqliteDb(): Database.Database {
 /**
  * Get Drizzle ORM instance
  */
-function getDb() {
+export function getDb() {
   if (!dbInstance) {
     if (isSQLite()) {
       const db = getSqliteDb();
