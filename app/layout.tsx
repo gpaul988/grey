@@ -186,7 +186,12 @@ export default async function RootLayout({
             <Footer/>
 
             {/* Live human chat (Tawk) + AI assistant run side-by-side */}
-            <TawkChat propertyId="6a1ba828a3242d1c2ed9db1d" widgetId="1jpu0ho3p"/>
+            {process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID && process.env.NEXT_PUBLIC_TAWK_WIDGET_ID && (
+                <TawkChat 
+                    propertyId={process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID}
+                    widgetId={process.env.NEXT_PUBLIC_TAWK_WIDGET_ID}
+                />
+            )}
             <AIChat/>
         </body>
         </html>
