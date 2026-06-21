@@ -60,7 +60,7 @@ export default function SocialProof({page}: {page: string}) {
                 {showPartners && <PartnersCarousel partners={data.partners}/>}
                 {showReviews && <ReviewsSlider reviews={data.reviews}/>}
             </div>
-            <style jsx>{`
+            <style>{`
                 .sp-wrap {
                     position: relative;
                     padding: 4rem 1.25rem;
@@ -135,7 +135,7 @@ function PartnersCarousel({partners}: {partners: Partner[]}) {
                 ))}
             </div>
 
-            <style jsx>{`
+            <style>{`
                 .sp-partners {
                     text-align: center;
                 }
@@ -314,7 +314,7 @@ function ReviewsSlider({reviews}: {reviews: Review[]}) {
                 </div>
             )}
 
-            <style jsx>{`
+            <style>{`
                 .sp-reviews { text-align: center; }
                 .sp-eyebrow {
                     text-transform: uppercase;

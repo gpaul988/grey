@@ -138,7 +138,7 @@ const CustomDropdown: React.FC<{
                             {option}
                         </li>
                     ))}
-                    <style jsx>{`ul::-webkit-scrollbar {
+                    <style>{`ul::-webkit-scrollbar {
                         display: none;
                     }`}</style>
                 </ul>
