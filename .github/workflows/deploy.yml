@@ -55,13 +55,12 @@ jobs:
           name: grey-web-build
           path: |
             .next/
-            pages/
             public/
             package.json
             package-lock.json
           retention-days: 7
 
-  # Deploy web to cPanel (main branch only)
+  # Deploy web to cPanel (main branch only, optional if secrets not set)
   deploy-web:
     runs-on: ubuntu-latest
     name: Deploy to cPanel
@@ -71,19 +70,33 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Check if deployment secrets are configured
+        id: check-secrets
+        run: |
+          if [ -z "${{ secrets.CPANEL_SSH_KEY }}" ] || [ -z "${{ secrets.CPANEL_HOST }}" ] || [ -z "${{ secrets.CPANEL_USER }}" ]; then
+            echo "status=skip"
+            echo "⚠️  Skipping cPanel deployment - secrets not configured"
+            echo "Configure these secrets in GitHub: CPANEL_SSH_KEY, CPANEL_HOST, CPANEL_USER"
+          else
+            echo "status=deploy"
+          fi >> $GITHUB_OUTPUT
+
       - name: Setup Node.js
+        if: steps.check-secrets.outputs.status == 'deploy'
         uses: actions/setup-node@v3
         with:
           node-version: '20'
           cache: 'npm'
 
       - name: Download build artifact
+        if: steps.check-secrets.outputs.status == 'deploy'
         uses: actions/download-artifact@v4
         with:
           name: grey-web-build
           path: ./build-output
 
       - name: Setup SSH
+        if: steps.check-secrets.outputs.status == 'deploy'
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.CPANEL_SSH_KEY }}" > ~/.ssh/cpanel_key
@@ -91,55 +104,58 @@ jobs:
           ssh-keyscan -H ${{ secrets.CPANEL_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
 
       - name: Deploy to cPanel
+        if: steps.check-secrets.outputs.status == 'deploy'
         run: |
           DEPLOY_PATH="/home/${{ secrets.CPANEL_USER }}/public_html/grey"
+          echo "📦 Deploying to: $DEPLOY_PATH"
           
           # Create deployment directory if it doesn't exist
-          ssh -i ~/.ssh/cpanel_key ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} \
+          ssh -i ~/.ssh/cpanel_key -o ConnectTimeout=10 ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} \
             "mkdir -p $DEPLOY_PATH && cd $DEPLOY_PATH && pwd"
           
           # Copy build files
+          echo "📂 Copying .next directory..."
           scp -i ~/.ssh/cpanel_key -r ./build-output/.next/ \
             ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:$DEPLOY_PATH/.next/
+          
+          echo "📂 Copying public directory..."
           scp -i ~/.ssh/cpanel_key -r ./build-output/public/ \
             ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:$DEPLOY_PATH/public/
+          
+          echo "📄 Copying package files..."
           scp -i ~/.ssh/cpanel_key ./build-output/package.json \
             ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:$DEPLOY_PATH/
           scp -i ~/.ssh/cpanel_key ./build-output/package-lock.json \
             ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:$DEPLOY_PATH/ || true
 
       - name: Install dependencies & restart
+        if: steps.check-secrets.outputs.status == 'deploy'
         run: |
           DEPLOY_PATH="/home/${{ secrets.CPANEL_USER }}/public_html/grey"
-          ssh -i ~/.ssh/cpanel_key ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} \
-            "cd $DEPLOY_PATH && npm ci --production && npm run build 2>&1 | tail -20"
+          echo "📦 Installing dependencies on cPanel..."
+          ssh -i ~/.ssh/cpanel_key -o ConnectTimeout=10 ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} \
+            "cd $DEPLOY_PATH && npm ci --production && echo '✅ Dependencies installed'"
 
       - name: Verify deployment
+        if: steps.check-secrets.outputs.status == 'deploy'
         run: |
           DEPLOY_PATH="/home/${{ secrets.CPANEL_USER }}/public_html/grey"
-          ssh -i ~/.ssh/cpanel_key ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} \
-            "cd $DEPLOY_PATH && ls -la .next/static/ 2>/dev/null | head -5 && echo '✅ Deployment verified'"
+          echo "✅ Verifying deployment..."
+          ssh -i ~/.ssh/cpanel_key -o ConnectTimeout=10 ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} \
+            "cd $DEPLOY_PATH && ls -la .next/ 2>/dev/null | head -3 && echo '✅ Deployment verified'"
 
       - name: Cleanup SSH key
         if: always()
         run: rm -f ~/.ssh/cpanel_key
 
-  # Build mobile (Expo) - Disabled: no grey-mobile directory
-  # Uncomment when mobile app is ready
-  # build-mobile:
-  #   runs-on: ubuntu-latest
-  #   name: Build Mobile Apps
-  #   needs: test
-  #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: '18'
-  #         cache: 'npm'
-  #     - name: Install EAS CLI
-  #       run: npm install -g eas-cli
+      - name: Deployment skipped
+        if: steps.check-secrets.outputs.status == 'skip'
+        run: |
+          echo "⚠️  cPanel deployment skipped - secrets not configured"
+          echo "To enable cPanel deployment, add these secrets to your GitHub repository:"
+          echo "  - CPANEL_SSH_KEY: Your cPanel SSH private key"
+          echo "  - CPANEL_HOST: Your cPanel server hostname (e.g., server1.example.com)"
+          echo "  - CPANEL_USER: Your cPanel username (e.g., greyinf1)"
 
   # Notify on build completion
   notify:
@@ -154,4 +170,5 @@ jobs:
             echo "✅ Build successful!"
           else
             echo "❌ Build failed!"
+            exit 1
           fi
