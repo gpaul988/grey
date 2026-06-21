@@ -5,7 +5,6 @@ import { useState } from 'react';
 
 export default function AdminLogin() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -16,12 +15,12 @@ export default function AdminLogin() {
     setError('');
 
     try {
-      // For testing: accept any credentials and store token
-      if (email && password) {
-        localStorage.setItem('admin_token', 'test_token_' + Date.now());
+      // Accept any password for testing
+      if (password) {
+        localStorage.setItem('admin-token', 'test-token-' + Date.now());
         router.push('/admin');
       } else {
-        setError('Please enter email and password');
+        setError('Please enter password');
       }
     } catch (err) {
       setError('Login failed. Please try again.');
@@ -44,21 +43,11 @@ export default function AdminLogin() {
           )}
 
           <form onSubmit={handleLogin}>
-            <div className="mb-4">
-              <label className="block text-white font-medium mb-2">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2 bg-slate-900/50 border border-slate-700 text-white rounded-lg focus:outline-none focus:border-blue-500"
-                placeholder="admin@example.com"
-              />
-            </div>
-
             <div className="mb-6">
               <label className="block text-white font-medium mb-2">Password</label>
               <input
                 type="password"
+                name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-2 bg-slate-900/50 border border-slate-700 text-white rounded-lg focus:outline-none focus:border-blue-500"
