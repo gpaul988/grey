@@ -187,12 +187,12 @@ function PartnersCarousel({partners}: {partners: Partner[]}) {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    height: 88px;
-                    width: 88px;
-                    padding: 0.75rem;
-                    border-radius: 16px;
-                    background: rgba(255, 255, 255, 0.04);
-                    border: 1px solid rgba(148, 163, 184, 0.16);
+                    height: 60px;
+                    width: 60px;
+                    padding: 0.5rem;
+                    border-radius: 12px;
+                    background: rgba(255, 255, 255, 0.05);
+                    border: 1px solid rgba(148, 163, 184, 0.12);
                     backdrop-filter: blur(8px);
                     transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
                 }
