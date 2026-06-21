@@ -68,7 +68,7 @@ export const VoiceRecorder = ({
         mediaRecorderRef.current = null;
       };
 
-      mediaRecorder.onerror = (event) => {
+      mediaRecorder.onerror = (event: Event & { error?: any }) => {
         onError?.(new Error(`Recording error: ${event.error}`));
       };
 

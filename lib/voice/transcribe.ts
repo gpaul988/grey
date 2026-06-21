@@ -33,7 +33,6 @@ export async function transcribeAudio(audioBuffer: Buffer, options?: {
 
   try {
     const formData = new FormData();
-    // @ts-expect-error Buffer/Uint8Array type compatibility
     const audioBlob = new Blob([audioBuffer], { type: 'audio/wav' });
     formData.append('audio', audioBlob);
 
