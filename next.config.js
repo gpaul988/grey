@@ -1,15 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // ─── Turbopack disabled ────────────────────────────────────────────────
-    // cPanel's Node virtualenv symlinks node_modules OUTSIDE the project root
-    // (e.g. /home/<user>/nodevenv/...). Next.js 16 defaults `next build` to
-    // Turbopack, which resolves that symlink and panics with:
-    //   "Symlink [project]/node_modules is invalid, it points out of the
-    //    filesystem root"
-    // Webpack follows the symlink correctly. There is NO config key to disable
-    // Turbopack in Next 16 — it must be forced via the CLI flag in package.json:
-    //   "build": "next build --webpack"
-    // (The old `experimental.turbo` key is gone and just emits a warning.)
+    // ─── Turbopack enabled (Next.js 16 default) ────────────────────────────
+    // Use Turbopack for faster builds. Empty config means use all defaults.
+    turbopack: {},
 
     // ─── Low-memory build (cPanel shared hosting) ──────────────────────────
     // Shared hosting caps process memory hard. Next's default parallel build
@@ -53,14 +46,6 @@ const nextConfig = {
     //   2. Upload the project INCLUDING the generated `.next` folder to cPanel.
     //   3. On cPanel run only `npm ci --omit=dev` + `npm start` (server.ts).
     // See scripts/build-and-deploy.sh and CPANEL_READY.md for the full steps.
-    //
-    // `config.cache = false` is still applied below: it keeps the LOCAL build's
-    // peak RSS lower and avoids shipping a multi-hundred-MB .next/cache folder.
-    webpack: (config, {dev}) => {
-        if (dev) return config;
-        config.cache = false;
-        return config;
-    },
 };
 
 module.exports = nextConfig;
