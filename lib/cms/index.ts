@@ -196,7 +196,7 @@ export async function listCMSPages(options?: {
   const conditions = [];
 
   if (options?.published !== undefined) {
-    conditions.push(eq(cmsPages.published, options.published ? 1 : 0));
+    conditions.push(eq(cmsPages.published, options.published === true));
   }
 
   if (options?.type) {
