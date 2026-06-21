@@ -15,7 +15,6 @@ import {FaFileAlt} from "react-icons/fa";
 import AIProjectEstimator from '@/components/AIProjectEstimator';
 
 import AdBanner from '@/components/futuristic/AdBanner';
-import AnnouncementBarWrapper from '@/components/futuristic/AnnouncementBarWrapper';
 import WebGLHero from '@/components/futuristic/WebGLHero';
 import {usePersonalization} from '@/components/futuristic/PersonalizationProvider';
 import { getAutoUserName } from '@/lib/get-user-name';
@@ -158,11 +157,6 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                 >
                     {/* WebGL Hero Overlay - on top of video */}
                     <WebGLHero className="absolute inset-0 z-[5] opacity-60 pointer-events-none mix-blend-screen" />
-                    
-                    {/* Announcement Bar in Hero */}
-                    <div className="absolute top-0 left-0 right-0 z-[20]">
-                        <AnnouncementBarWrapper/>
-                    </div>
 
                     {/* Text content */}
                     <div
