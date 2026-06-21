@@ -21,7 +21,7 @@ export function markOrderPaid(orderNumber: string, gateway: string, reference: s
         payment_method: order.payment_method || gateway,
         payment_gateway: gateway,
         payment_ref: reference,
-        payment_data: raw ?? {},
+        payment_data: (raw as object) ?? {},
     });
     Orders.updateStatus(order.id, 'confirmed');
     if (order.coupon_code) {
@@ -35,7 +35,7 @@ export function markOrderFailed(orderNumber: string, gateway: string, raw?: unkn
     Orders.updatePayment(order.id, {
         payment_status: 'failed',
         payment_gateway: gateway,
-        payment_data: raw ?? {},
+        payment_data: (raw as object) ?? {},
     });
 }
 
