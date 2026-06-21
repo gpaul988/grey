@@ -26,8 +26,49 @@ jobs:
       - name: Run TypeScript check
         run: npx tsc --noEmit
 
-      - name: Run tests
-        run: npm run test 2>&1 || true
+      - name: Build Next.js for tests
+        run: npm run build
+
+      - name: Start dev server for E2E tests
+        run: |
+          npm run dev > /tmp/server.log 2>&1 &
+          SERVER_PID=$!
+          echo $SERVER_PID > /tmp/server.pid
+          
+          # Wait for server to be ready
+          max_attempts=30
+          attempt=0
+          while ! curl -s http://localhost:3000 > /dev/null && [ $attempt -lt $max_attempts ]; do
+            sleep 2
+            attempt=$((attempt + 1))
+            echo "Waiting for server... (attempt $attempt/$max_attempts)"
+          done
+          
+          if [ $attempt -eq $max_attempts ]; then
+            echo "Server failed to start!"
+            cat /tmp/server.log
+            exit 1
+          fi
+          echo "Server ready!"
+
+      - name: Run E2E tests
+        run: npm run test:e2e
+
+      - name: Stop dev server
+        if: always()
+        run: |
+          if [ -f /tmp/server.pid ]; then
+            kill $(cat /tmp/server.pid) 2>/dev/null || true
+            sleep 2
+          fi
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
 
   # Build web app
   build-web:
