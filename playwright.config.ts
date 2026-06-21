@@ -1,5 +1,11 @@
 import { defineConfig, devices } from '@playwright/test';
 
+// Configure reporters - HTML always, GitHub only in CI
+const reporters: any[] = [['html']];
+if (process.env.CI) {
+  reporters.push(['github']);
+}
+
 export default defineConfig({
   testDir: './e2e',
   testMatch: '**/*.spec.ts',
@@ -7,10 +13,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: 1,
-  reporter: [
-    ['html'],
-    ...(process.env.CI ? [['github']] : []),
-  ],
+  reporter: reporters,
   timeout: 30000, // 30 second timeout per test
   globalTimeout: 600000, // 10 minute global timeout
   use: {
