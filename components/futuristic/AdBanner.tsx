@@ -119,16 +119,23 @@ export default function AdBanner({placement = 'home_banner'}: {placement?: strin
                     className="group relative overflow-hidden rounded-3xl shadow-2xl"
                     style={{perspective: '1000px'}}
                 >
-                    {/* Background with image + dramatic overlay */}
+                    {/* Background with image */}
+                    {ad.image && (
+                        <img
+                            src={ad.image}
+                            alt={ad.title}
+                            className="absolute inset-0 z-0 h-full w-full object-cover"
+                            loading="lazy"
+                        />
+                    )}
+                    
+                    {/* Overlay gradient */}
                     <div
                         className="absolute inset-0 z-0"
                         style={{
-                            backgroundImage: ad.image
-                                ? `linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(10,20,40,0.5) 100%), url(${ad.image})`
+                            background: ad.image
+                                ? 'linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(10,20,40,0.4) 100%)'
                                 : 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                            backgroundAttachment: 'fixed',
                         }}
                     />
 
