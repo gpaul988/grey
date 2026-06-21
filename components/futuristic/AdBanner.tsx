@@ -109,16 +109,14 @@ export default function AdBanner({placement = 'home_banner'}: {placement?: strin
 
     return (
         <section className="relative mx-auto my-12 w-full max-w-7xl px-4">
-            <AnimatePresence mode="wait">
-                <motion.div
-                    key={ad.id}
-                    initial={{opacity: 0, y: 40, scale: 0.95}}
-                    animate={{opacity: 1, y: 0, scale: 1}}
-                    exit={{opacity: 0, y: 40, scale: 0.95}}
-                    transition={{duration: 0.6, ease: [0.22, 1, 0.36, 1]}}
-                    className="group relative overflow-hidden rounded-3xl shadow-2xl"
-                    style={{perspective: '1000px'}}
-                >
+            <motion.div
+                key={ad.id}
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+                transition={{duration: 0.4}}
+                className="group relative overflow-hidden rounded-3xl shadow-2xl"
+                style={{perspective: '1000px'}}
+            >
                     {/* Background with image */}
                     {ad.image && (
                         <img
@@ -369,8 +367,7 @@ export default function AdBanner({placement = 'home_banner'}: {placement?: strin
                             100% { background-position: 0% 50%; }
                         }
                     `}</style>
-                </motion.div>
-            </AnimatePresence>
+            </motion.div>
         </section>
     );
 }
