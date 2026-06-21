@@ -1,7 +1,7 @@
 'use client';
 
-
 import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
+import { AuditRequestFixModal } from '@/components/AuditRequestFixModal';
 
 import React, {useState, useEffect} from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -35,6 +35,7 @@ export default function AuditScreen() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [report, setReport] = useState<AuditReportExtended | null>(null);
+    const [showFixModal, setShowFixModal] = useState(false);
 
     // Load URL parameters on mount
     useEffect(() => {
@@ -165,7 +166,18 @@ export default function AuditScreen() {
                     </p>
                 )}
 
-                {report && <Report report={report} />}
+                {report && <Report report={report} onRequestFix={() => setShowFixModal(true)} />}
+
+                <AuditRequestFixModal
+                    isOpen={showFixModal}
+                    onClose={() => setShowFixModal(false)}
+                    auditReportId={report?.externalId}
+                    website={website}
+                    gitHubRepo={repo}
+                    onSuccess={() => {
+                        // Optional: Show success message or reset form
+                    }}
+                />
             </div>
         </main>
     );
@@ -268,7 +280,7 @@ function ShareModal({isOpen, onClose, report}: {isOpen: boolean; onClose: () => 
     );
 }
 
-function Report({report}: {report: AuditReportExtended}) {
+function Report({report, onRequestFix}: {report: AuditReportExtended; onRequestFix?: () => void}) {
     const [shareOpen, setShareOpen] = React.useState(false);
     const [showDetails, setShowDetails] = React.useState(false);
 
@@ -352,6 +364,12 @@ function Report({report}: {report: AuditReportExtended}) {
                     className="inline-flex items-center gap-2 rounded-lg border border-emerald-400/40 bg-emerald-400/5 px-4 py-2 text-sm font-semibold text-emerald-300 transition hover:bg-emerald-400/15"
                 >
                     📄 Print/PDF
+                </button>
+                <button
+                    onClick={onRequestFix}
+                    className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-cyan-500 to-indigo-500 px-4 py-2 text-sm font-semibold text-white shadow-lg transition hover:brightness-110"
+                >
+                    ⚡ Request Fix
                 </button>
             </div>
 

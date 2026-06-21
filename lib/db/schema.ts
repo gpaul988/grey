@@ -485,3 +485,43 @@ export const recommendations = pgTable(
     scoreIdx: index('idx_recommendations_score').on(table.score),
   })
 );
+
+/**
+ * Audit submissions - user submissions requesting fixes based on audit reports
+ */
+export const auditSubmissions = pgTable(
+  'audit_submissions',
+  {
+    id: serial('id').primaryKey(),
+    // User info
+    userName: text('user_name').notNull(),
+    userEmail: text('user_email').notNull(),
+    userPhone: text('user_phone'),
+    userCompany: text('user_company'),
+    // Audit details
+    auditReportId: text('audit_report_id'), // reference to audit report (external ID)
+    website: text('website'),
+    gitHubRepo: text('github_repo'),
+    // Request details
+    priority: text('priority').notNull().default('medium'), // critical | high | medium | low
+    budgetEstimate: text('budget_estimate'), // e.g., "$5000-$10000"
+    specificIssues: text('specific_issues'), // what they specifically want fixed
+    preferredContact: text('preferred_contact').notNull().default('email'), // email | phone | whatsapp
+    // Audit summary (stored as JSON)
+    auditData: jsonb('audit_data').default(sql`'{}'::jsonb`), // full audit report
+    // Status tracking
+    status: text('status').notNull().default('new'), // new | reviewed | quoted | in_progress | completed | archived
+    adminNotes: text('admin_notes'), // internal notes from admin
+    proposedSolution: text('proposed_solution'), // what we propose to fix
+    // Timestamps
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    updatedAt: timestamp('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    respondedAt: timestamp('responded_at'),
+  },
+  (table) => ({
+    emailIdx: index('idx_audit_submissions_email').on(table.userEmail),
+    statusIdx: index('idx_audit_submissions_status').on(table.status),
+    priorityIdx: index('idx_audit_submissions_priority').on(table.priority),
+    reportIdIdx: index('idx_audit_submissions_report_id').on(table.auditReportId),
+  })
+);
