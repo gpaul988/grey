@@ -21,14 +21,12 @@ test.describe('Admin Dashboard E2E', () => {
   });
 
   test('Dashboard layout loads', async ({ page }) => {
-    // Set token in localStorage to bypass login
-    await page.goto('/admin');
-    await page.evaluate(() => {
+    // Set token BEFORE navigating (prevents auth redirect race condition)
+    await page.addInitScript(() => {
       localStorage.setItem('admin-token', 'test-token-123');
     });
     
-    // Reload page
-    await page.reload();
+    await page.goto('/admin');
     
     // Check header exists
     await expect(page.locator('text=Admin Dashboard')).toBeVisible({ timeout: 5000 });
@@ -41,11 +39,10 @@ test.describe('Admin Dashboard E2E', () => {
   });
 
   test('Dashboard charts render', async ({ page }) => {
-    await page.goto('/admin');
-    await page.evaluate(() => {
+    await page.addInitScript(() => {
       localStorage.setItem('admin-token', 'test-token-123');
     });
-    await page.reload();
+    await page.goto('/admin');
     
     // Check charts section exists
     await expect(page.locator('text=Analytics & Insights')).toBeVisible({ timeout: 5000 });
@@ -60,11 +57,10 @@ test.describe('Admin Dashboard E2E', () => {
   });
 
   test('Export CSV button works', async ({ page }) => {
-    await page.goto('/admin');
-    await page.evaluate(() => {
+    await page.addInitScript(() => {
       localStorage.setItem('admin-token', 'test-token-123');
     });
-    await page.reload();
+    await page.goto('/admin');
     
     // Find and click CSV export button
     const csvButton = page.locator('button:has-text("Export CSV")');
@@ -80,11 +76,10 @@ test.describe('Admin Dashboard E2E', () => {
   });
 
   test('Export PDF button exists', async ({ page }) => {
-    await page.goto('/admin');
-    await page.evaluate(() => {
+    await page.addInitScript(() => {
       localStorage.setItem('admin-token', 'test-token-123');
     });
-    await page.reload();
+    await page.goto('/admin');
     
     // Find PDF export button
     const pdfButton = page.locator('button:has-text("Export PDF")');
@@ -92,27 +87,28 @@ test.describe('Admin Dashboard E2E', () => {
   });
 
   test('Navigation to FAQs page', async ({ page }) => {
-    await page.goto('/admin');
-    await page.evaluate(() => {
+    await page.addInitScript(() => {
       localStorage.setItem('admin-token', 'test-token-123');
     });
-    await page.reload();
+    await page.goto('/admin');
     
     // Find and click FAQs link
     const faqsLink = page.locator('a[href="/admin/faqs"]');
     await expect(faqsLink).toBeVisible({ timeout: 5000 });
     await faqsLink.click();
     
-    // Should navigate to FAQs page
+    // Should navigate to FAQs page (also needs token)
+    await page.addInitScript(() => {
+      localStorage.setItem('admin-token', 'test-token-123');
+    });
     await expect(page).toHaveURL('/admin/faqs');
   });
 
   test('Logout button works', async ({ page }) => {
-    await page.goto('/admin');
-    await page.evaluate(() => {
+    await page.addInitScript(() => {
       localStorage.setItem('admin-token', 'test-token-123');
     });
-    await page.reload();
+    await page.goto('/admin');
     
     // Find and click logout button
     await expect(page.locator('button:has-text("Logout")')).toBeVisible({ timeout: 5000 });
@@ -125,6 +121,9 @@ test.describe('Admin Dashboard E2E', () => {
 
 test.describe('Admin FAQs Page E2E', () => {
   test('FAQs page loads', async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem('admin-token', 'test-token-123');
+    });
     await page.goto('/admin/faqs');
     
     // Check page title
@@ -136,6 +135,9 @@ test.describe('Admin FAQs Page E2E', () => {
   });
 
   test('FAQs search works', async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem('admin-token', 'test-token-123');
+    });
     await page.goto('/admin/faqs');
     
     // Find search input
@@ -174,13 +176,12 @@ test.describe('Admin Login Page E2E', () => {
 
 test.describe('Performance Tests', () => {
   test('Dashboard loads in <3 seconds', async ({ page }) => {
-    const startTime = Date.now();
-    
-    await page.goto('/admin');
-    await page.evaluate(() => {
+    await page.addInitScript(() => {
       localStorage.setItem('admin-token', 'test-token-123');
     });
-    await page.reload();
+    
+    const startTime = Date.now();
+    await page.goto('/admin');
     
     // Wait for main content
     await expect(page.locator('text=Analytics & Insights')).toBeVisible({ timeout: 5000 });
@@ -190,11 +191,10 @@ test.describe('Performance Tests', () => {
   });
 
   test('Charts render without layout shift', async ({ page }) => {
-    await page.goto('/admin');
-    await page.evaluate(() => {
+    await page.addInitScript(() => {
       localStorage.setItem('admin-token', 'test-token-123');
     });
-    await page.reload();
+    await page.goto('/admin');
     
     // Get initial viewport
     const initialMetrics = await page.evaluate(() => window.innerHeight);
@@ -210,11 +210,10 @@ test.describe('Performance Tests', () => {
 
 test.describe('Accessibility Tests', () => {
   test('Dashboard is keyboard navigable', async ({ page }) => {
-    await page.goto('/admin');
-    await page.evaluate(() => {
+    await page.addInitScript(() => {
       localStorage.setItem('admin-token', 'test-token-123');
     });
-    await page.reload();
+    await page.goto('/admin');
     
     // Tab through buttons
     await page.keyboard.press('Tab');
@@ -225,11 +224,10 @@ test.describe('Accessibility Tests', () => {
   });
 
   test('Colors have sufficient contrast', async ({ page }) => {
-    await page.goto('/admin');
-    await page.evaluate(() => {
+    await page.addInitScript(() => {
       localStorage.setItem('admin-token', 'test-token-123');
     });
-    await page.reload();
+    await page.goto('/admin');
     
     // Check that text is visible
     const headerText = page.locator('h1, h2');
