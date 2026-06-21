@@ -6,8 +6,10 @@ export default defineConfig({
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : 1,
+  workers: 1,
   reporter: 'html',
+  timeout: 30000, // 30 second timeout per test
+  globalTimeout: 600000, // 10 minute global timeout
   use: {
     baseURL: 'http://localhost:3000',
     trace: 'on-first-retry',
@@ -24,6 +26,8 @@ export default defineConfig({
   webServer: {
     command: 'npm run dev',
     url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
+    // Always reuse existing server - GitHub Actions starts server separately
+    reuseExistingServer: true,
+    timeout: 120 * 1000, // 120 second timeout for server startup
   },
 });
