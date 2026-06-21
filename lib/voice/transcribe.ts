@@ -33,9 +33,8 @@ export async function transcribeAudio(audioBuffer: Buffer, options?: {
 
   try {
     const formData = new FormData();
-    // Convert Buffer to Uint8Array for Blob compatibility
-    const uint8Array = new Uint8Array(audioBuffer.buffer, audioBuffer.byteOffset, audioBuffer.byteLength);
-    const audioBlob = new Blob([uint8Array], { type: 'audio/wav' });
+    // Convert Buffer directly to Blob (safer than Uint8Array conversion)
+    const audioBlob = new Blob([audioBuffer], { type: 'audio/wav' });
     formData.append('audio', audioBlob);
 
     const queryParams = new URLSearchParams({
