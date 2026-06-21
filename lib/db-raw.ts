@@ -1,7 +1,7 @@
-import { getPool } from './db';
+import { getPgPool } from './db';
 
 export async function query(sql: string, params?: any[]) {
-  const pool = getPool();
+  const pool = getPgPool();
   try {
     const result = await pool.query(sql, params);
     return result;

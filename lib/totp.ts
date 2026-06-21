@@ -44,7 +44,7 @@ export function verifyTOTP(secret: string, token: string): boolean {
  * Generate backup codes
  */
 export function generateBackupCodes(count: number = 10): string[] {
-  const codes = [];
+  const codes: string[] = [];
   for (let i = 0; i < count; i++) {
     const code = Math.random().toString(36).substring(2, 8).toUpperCase();
     codes.push(code);

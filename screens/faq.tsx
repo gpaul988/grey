@@ -70,7 +70,7 @@ export default function FaqScreen() {
         let idx = 0;
         const out: typeof filtered = [];
         for (const cat of filtered) {
-            const pageItems = [];
+            const pageItems: typeof cat["items"] = [];
             for (const item of cat.items) {
                 if (idx >= start && idx < end) pageItems.push(item);
                 idx++;
