@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { cmsPages } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
+import { verifyAdminToken } from '@/lib/admin/auth';
 
 export async function GET(
   req: NextRequest,
@@ -37,11 +38,21 @@ export async function GET(
     // Check if published (for public access)
     const pageData = page[0] as any;
     if (!pageData.published) {
-      // TODO: Add auth check - allow access if user is admin
-      return NextResponse.json(
-        { error: 'Page not published' },
-        { status: 404 }
-      );
+      // Allow access if admin/superadmin
+      const authHeader = req.headers.get('authorization');
+      const isAdmin = authHeader?.startsWith('Bearer ') && 
+        (() => {
+          const token = authHeader.slice(7);
+          const user = verifyAdminToken(token);
+          return user && ['admin', 'superadmin'].includes(user.role);
+        })();
+
+      if (!isAdmin) {
+        return NextResponse.json(
+          { error: 'Page not published' },
+          { status: 404 }
+        );
+      }
     }
 
     return NextResponse.json({ page: pageData }, { status: 200 });
@@ -59,7 +70,18 @@ export async function PATCH(
   { params }: { params: { id: string } }
 ) {
   try {
-    // TODO: Add super admin authentication check
+    // Verify super admin authentication
+    const authHeader = req.headers.get('authorization');
+    if (!authHeader?.startsWith('Bearer ')) {
+      return NextResponse.json({ error: 'Unauthorized - no token' }, { status: 401 });
+    }
+
+    const token = authHeader.slice(7);
+    const user = verifyAdminToken(token);
+
+    if (!user || user.role !== 'superadmin') {
+      return NextResponse.json({ error: 'Unauthorized - super admin only' }, { status: 403 });
+    }
 
     const id = parseInt(params.id);
     const body = await req.json();
@@ -105,7 +127,18 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    // TODO: Add super admin authentication check
+    // Verify super admin authentication
+    const authHeader = req.headers.get('authorization');
+    if (!authHeader?.startsWith('Bearer ')) {
+      return NextResponse.json({ error: 'Unauthorized - no token' }, { status: 401 });
+    }
+
+    const token = authHeader.slice(7);
+    const user = verifyAdminToken(token);
+
+    if (!user || user.role !== 'superadmin') {
+      return NextResponse.json({ error: 'Unauthorized - super admin only' }, { status: 403 });
+    }
 
     const id = parseInt(params.id);
 
