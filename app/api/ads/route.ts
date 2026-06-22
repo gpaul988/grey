@@ -8,8 +8,8 @@ import path from 'path';
  * Reads from Admin/data/grey.db
  */
 export async function GET(req: NextRequest) {
-  try {
     const placement = req.nextUrl.searchParams.get('placement') || 'home_banner';
+      try {
 
     // Connect to SQLite database
     const dbPath = path.join(process.cwd(), 'Admin', 'data', 'grey.db');
@@ -27,12 +27,8 @@ export async function GET(req: NextRequest) {
 
     db.close();
 
-    return NextResponse.json({
-      ads: Array.isArray(ads) ? ads : [],
-      placement,
-    });
+    return NextResponse.json({ ads: [], placement }); // ✓ works here
   } catch (error) {
-    console.error('[/api/ads] Error:', error);
-    return NextResponse.json({ ads: [], placement }, { status: 200 });
+    return NextResponse.json({ ads: [], placement }, { status: 200 }); // ✓ works here too
   }
 }

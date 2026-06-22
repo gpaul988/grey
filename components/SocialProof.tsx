@@ -187,7 +187,7 @@ function PartnersCarousel({partners}: {partners: Partner[]}) {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    height: 60px;
+                    height: 64px;
                     width: 60px;
                     padding: 0.5rem;
                     border-radius: 12px;
