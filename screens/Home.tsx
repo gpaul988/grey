@@ -1,6 +1,5 @@
 'use client';
 
-
 import React, {useEffect, useRef, useState, useMemo} from 'react';
 import '@/app/globals.css'
 import {LiaLongArrowAltDownSolid} from "react-icons/lia";
@@ -13,14 +12,12 @@ import CountUp from "react-countup";
 import {FaStar, FaGoogle, FaLinkedin} from "react-icons/fa6";
 import {FaFileAlt} from "react-icons/fa";
 import AIProjectEstimator from '@/components/AIProjectEstimator';
-
 import AdBanner from '@/components/futuristic/AdBanner';
 import WebGLHero from '@/components/futuristic/WebGLHero';
 import {usePersonalization} from '@/components/futuristic/PersonalizationProvider';
 import { getAutoUserName } from '@/lib/get-user-name';
 import {useIsDayTime} from '../components/useIsDayTime';
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
-
 
 const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
@@ -146,11 +143,11 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                 <ResponsiveVideoHero
                     videoDesktop="/assets/hero/hero.mp4"
                     videoMobile="/assets/hero/hero.mp4"
-                    posterImage="/assets/hero/hero.jpg"
+                    posterImage="/assets/hero/hero.mp4"
                     overlayOpacity={0.3}
                     heights={{
                         mobile: 'h-[600px] sm:h-[650px]',
-                        tablet: 'md:h-[700px]',
+                        tablet: 'md:h-[720px]',
                         desktop: 'lg:h-[850px] xl:h-[850px]',
                     }}
                     className="pb-6 rounded-none"
@@ -183,7 +180,7 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                     </div>
                     
                     {/* Scroll indicator */}
-                    <div className='absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-10'>
+                    <div className='absolute bottom-6 left-5/6 transform -translate-x-1/2 flex flex-col items-center z-10'>
                         <LiaLongArrowAltDownSolid
                             className={`${isDayTime ? 'text-black' : 'text-white'} text-5xl text-center transition-transform duration-500 ease-in-out hover:scale-125 cursor-pointer`}
                             onClick={scrollToContent}
