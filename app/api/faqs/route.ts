@@ -1,97 +1,63 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
-import { faqs } from '@/lib/db/schema';
-import { eq, asc } from 'drizzle-orm';
+import Database from 'better-sqlite3';
+import path from 'path';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(req: NextRequest) {
-  try {
-    // Fetch all active FAQs, ordered by category then sort_order
-    const faqItems = await db
-      .select()
-      .from(faqs)
-      .where(eq(faqs.active, true))
-      .orderBy(asc(faqs.category), asc(faqs.sortOrder));
+function getDb() {
+  const dbPath = path.join(process.cwd(), 'Admin', 'data', 'grey.db');
+  const db = new Database(dbPath);
+  db.pragma('journal_mode = WAL');
+  db.pragma('foreign_keys = ON');
+  return db;
+}
 
-    // Group FAQs by category
-    const grouped: { [key: string]: typeof faqItems } = {};
-    
-    for (const item of faqItems) {
-      if (!grouped[item.category]) {
-        grouped[item.category] = [];
-      }
-      grouped[item.category].push(item);
+export async function GET(_req: NextRequest) {
+  try {
+    const db = getDb();
+    const rows = db.prepare(`
+      SELECT id, question, answer, category, sort_order
+      FROM faqs
+      WHERE active = 1
+      ORDER BY category ASC, sort_order ASC
+    `).all() as { id: number; question: string; answer: string; category: string; sort_order: number }[];
+    db.close();
+
+    // Group by category
+    const grouped: Record<string, { id: number; question: string; answer: string }[]> = {};
+    for (const row of rows) {
+      if (!grouped[row.category]) grouped[row.category] = [];
+      grouped[row.category].push({ id: row.id, question: row.question, answer: row.answer });
     }
 
-    // Convert to the expected format { name, items }
-    const categories = Object.entries(grouped).map(([name, items]) => ({
-      name,
-      items: items.map((item) => ({
-        id: item.id,
-        question: item.question,
-        answer: item.answer,
-      })),
-    }));
+    const categories = Object.entries(grouped).map(([name, items]) => ({ name, items }));
 
-    return NextResponse.json(
-      { 
-        success: true,
-        categories,
-        total: faqItems.length,
-      },
-      { status: 200 }
-    );
+    return NextResponse.json({ success: true, categories, total: rows.length }, { status: 200 });
   } catch (error) {
-    console.error('Error fetching FAQs:', error);
-    return NextResponse.json(
-      { 
-        error: 'Failed to fetch FAQs',
-        categories: [],
-      },
-      { status: 500 }
-    );
+    console.error('[/api/faqs] Error:', error);
+    return NextResponse.json({ error: 'Failed to fetch FAQs', categories: [] }, { status: 500 });
   }
 }
 
-// POST - Create a new FAQ (admin only)
 export async function POST(req: NextRequest) {
   try {
-    // TODO: Add admin auth check
     const body = await req.json();
-
     const { question, answer, category = 'General', sortOrder = 0 } = body;
 
     if (!question || !answer) {
-      return NextResponse.json(
-        { error: 'Missing required fields: question, answer' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Missing required fields: question, answer' }, { status: 400 });
     }
 
-    const result = await db
-      .insert(faqs)
-      .values({
-        question,
-        answer,
-        category,
-        sortOrder,
-        active: true,
-      })
-      .returning();
+    const db = getDb();
+    const result = db.prepare(`
+      INSERT INTO faqs (question, answer, category, sort_order, active)
+      VALUES (?, ?, ?, ?, 1)
+    `).run(question, answer, category, sortOrder);
+    db.close();
 
-    return NextResponse.json(
-      {
-        success: true,
-        faq: result[0],
-      },
-      { status: 201 }
-    );
+    return NextResponse.json({ success: true, faq: { id: result.lastInsertRowid, question, answer, category, sortOrder } }, { status: 201 });
   } catch (error) {
-    console.error('Error creating FAQ:', error);
-    return NextResponse.json(
-      { error: 'Failed to create FAQ' },
-      { status: 500 }
-    );
+    console.error('[/api/faqs] POST Error:', error);
+    return NextResponse.json({ error: 'Failed to create FAQ' }, { status: 500 });
   }
 }

@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
 
     db.close();
 
-    return NextResponse.json({ ads: [], placement }); // ✓ works here
+    return NextResponse.json({ ads, placement }); // fixed: return actual ads
   } catch (error) {
     return NextResponse.json({ ads: [], placement }, { status: 200 }); // ✓ works here too
   }
