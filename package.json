@@ -147,5 +147,14 @@
   "overrides": {
     "camera-controls": "3.0.1"
   },
-  "config": {}
+  "config": {},
+  "allowScripts": {
+    "better-sqlite3@12.11.1": true,
+    "@apollo/protobufjs@1.2.8": true,
+    "@sentry/cli@2.58.6": true,
+    "unrs-resolver@1.12.2": true,
+    "core-js@3.49.0": true,
+    "sharp@0.34.5": true,
+    "esbuild@0.28.1": true
+  }
 }

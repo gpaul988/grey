@@ -31,10 +31,11 @@ export async function transcribeAudio(audioBuffer: Buffer, options?: {
     };
   }
 
-  try {
+    try {
     const formData = new FormData();
-    // Convert Buffer directly to Blob (safer than Uint8Array conversion)
-    const audioBlob = new Blob([audioBuffer], { type: 'audio/wav' });
+    // Convert Buffer to Uint8Array for Blob compatibility
+    const uint8Array = new Uint8Array(audioBuffer);
+    const audioBlob = new Blob([uint8Array], { type: 'audio/wav' });
     formData.append('audio', audioBlob);
 
     const queryParams = new URLSearchParams({
