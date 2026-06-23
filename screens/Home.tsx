@@ -179,56 +179,12 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                         </h3>
                     </div>
                     
-                    {/* Scroll indicator - Futuristic */}
-                    <div className='absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-10 gap-2'>
-                        {/* Text label */}
-                        <span className={`text-xs lg:text-sm font-[500] tracking-widest uppercase ${isDayTime ? 'text-black/60' : 'text-white/60'} transition-all duration-300 group-hover:opacity-100`}>
-                            Scroll to explore
-                        </span>
-
-                        {/* Container with gradient border */}
-                        <div className='relative group'>
-                            {/* Animated glowing background */}
-                            <div className={`absolute inset-0 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${isDayTime ? 'bg-black/20' : 'bg-white/20'}`}></div>
-                            
-                            {/* Main scroll indicator */}
-                            <div className={`relative w-12 h-20 rounded-full border-2 flex items-start justify-center pt-2 transition-all duration-300 ${isDayTime ? 'border-black/40 hover:border-black/80' : 'border-white/40 hover:border-white/80'}`}>
-                                {/* Animated dot inside */}
-                                <motion.div
-                                    className={`w-1.5 h-3 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}
-                                    animate={{
-                                        y: [0, 12, 0],
-                                        opacity: [1, 0.3, 1]
-                                    }}
-                                    transition={{
-                                        duration: 2,
-                                        repeat: Infinity,
-                                        ease: 'easeInOut'
-                                    }}
-                                />
-                            </div>
-                        </div>
-
-                        {/* Clickable arrow below */}
-                        <motion.button
+                    {/* Scroll indicator */}
+                    <div className='absolute bottom-6 left-5/6 transform -translate-x-1/2 flex flex-col items-center z-10'>
+                        <LiaLongArrowAltDownSolid
+                            className={`${isDayTime ? 'text-black' : 'text-white'} text-5xl text-center transition-transform duration-500 ease-in-out hover:scale-125 cursor-pointer`}
                             onClick={scrollToContent}
-                            className={`cursor-pointer transition-all duration-300 p-2 rounded-lg ${isDayTime ? 'hover:bg-black/10' : 'hover:bg-white/10'}`}
-                            animate={{
-                                y: [0, 4, 0],
-                                opacity: [0.6, 1, 0.6]
-                            }}
-                            transition={{
-                                duration: 2.5,
-                                repeat: Infinity,
-                                ease: 'easeInOut'
-                            }}
-                            whileHover={{scale: 1.1}}
-                            whileTap={{scale: 0.95}}
-                        >
-                            <LiaLongArrowAltDownSolid
-                                className={`${isDayTime ? 'text-black' : 'text-white'} text-3xl`}
-                            />
-                        </motion.button>
+                        />
                     </div>
                 </ResponsiveVideoHero>
             </div>
@@ -670,7 +626,7 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
 
             {/* Trust Signals Section - Animated */}
             <div
-                className={`py-24 ${isDayTime ? 'bg-teal-800 text-white' : 'bg-teal-50 text-teal-800'}`}
+                className={`py-24 -mt-4 ${isDayTime ? 'bg-teal-800 text-white' : 'bg-teal-50 text-teal-800'}`}
             >
                 <div className="mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] lg:max-w-[90em]">
 
