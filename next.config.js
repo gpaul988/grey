@@ -1,8 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // ─── Turbopack enabled (Next.js 16 default) ────────────────────────────
-    // Use Turbopack for faster builds. Empty config means use all defaults.
+    // ─── Turbopack: configured with native module externals ───────────────
+    // better-sqlite3 is a native Node addon (.node binary). Turbopack cannot
+    // bundle native addons — they must be treated as external server packages
+    // so Node loads them directly at runtime instead of through the bundler.
     turbopack: {},
+
+    // ─── Native server packages (SQLite) ──────────────────────────────────
+    // Prevents Turbopack/webpack from trying to bundle better-sqlite3.
+    // This is the root cause fix for API routes returning 404 in dev.
+    serverExternalPackages: ['better-sqlite3'],
 
     // ─── Low-memory build (cPanel shared hosting) ──────────────────────────
     // Shared hosting caps process memory hard. Next's default parallel build
