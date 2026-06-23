@@ -1,6 +1,5 @@
 'use client';
 
-import Script from 'next/script';
 import { useEffect, useRef } from 'react';
 
 declare global {
@@ -25,21 +24,18 @@ export default function TawkChat({ propertyId, widgetId, offsetPx = 80 }: TawkCh
         if (injected.current) return;
         injected.current = true;
 
-        // ── Silence Tawk internal noise without re-throwing ──────────────
+        // ── Silence known Tawk internal noise ────────────────────────────
         const originalError = console.error.bind(console);
         const originalWarn  = console.warn.bind(console);
 
         const isTawkNoise = (...args: unknown[]): boolean => {
             try {
-                const joined = args.map(a =>
-                    typeof a === 'string' ? a : (a as { message?: string; stack?: string })?.message ?? String(a)
-                ).join(' ');
-                const stack = new Error().stack ?? '';
+                const joined = args
+                    .map(a => typeof a === 'string' ? a : String((a as {message?: string})?.message ?? a))
+                    .join(' ');
                 return (
-                    // Tawk error-report ping: single `true` value
                     (args.length === 1 && args[0] === true) ||
-                    /i18next is not a function|\$_Tawk|Tawk\/Logger/i.test(joined) ||
-                    /embed\.tawk\.to|twk-(chunk|vendor)/i.test(stack)
+                    /Tawk\/Logger|i18next is not a function|\$_Tawk/i.test(joined)
                 );
             } catch { return false; }
         };
@@ -47,34 +43,29 @@ export default function TawkChat({ propertyId, widgetId, offsetPx = 80 }: TawkCh
         console.error = (...args: unknown[]) => { if (!isTawkNoise(...args)) originalError(...args); };
         console.warn  = (...args: unknown[]) => { if (!isTawkNoise(...args)) originalWarn(...args); };
 
-        // ── Suppress unhandled Tawk promise rejections & script errors ────
+        // ── Suppress unhandled Tawk rejections & script errors ────────────
         const onRejection = (e: PromiseRejectionEvent) => {
-            try {
-                const msg = String((e.reason as { message?: string })?.message ?? e.reason ?? '');
-                if (/tawk\.to|twk-chunk|i18next/i.test(msg)) { e.preventDefault(); }
-            } catch { /* ignore */ }
+            const msg = String((e.reason as {message?: string})?.message ?? e.reason ?? '');
+            if (/tawk\.to|twk-chunk|i18next/i.test(msg)) e.preventDefault();
         };
         const onError = (e: ErrorEvent) => {
-            if (/tawk\.to/i.test(e.filename ?? '') || /tawk|twk/i.test(e.message ?? '')) {
+            if (/tawk\.to/i.test(e.filename ?? '') || /tawk|twk/i.test(e.message ?? ''))
                 e.preventDefault();
-            }
         };
         window.addEventListener('unhandledrejection', onRejection, true);
         window.addEventListener('error', onError, true);
 
-        // ── Pre-initialise Tawk BEFORE the script can fire ────────────────
-        window.Tawk_API        = window.Tawk_API ?? {};
-        window.Tawk_LoadStart  = new Date();
+        // ── Pre-init Tawk globals ─────────────────────────────────────────
+        window.Tawk_API       = window.Tawk_API ?? {};
+        window.Tawk_LoadStart = window.Tawk_LoadStart ?? new Date();
 
-        // ── Nudge launcher button above FAB once Tawk loads ───────────────
+        // ── Nudge launcher above FAB once loaded ──────────────────────────
         const nudge = () => {
             document
-                .querySelectorAll<HTMLElement>('#tawk-bubble-container, [id^="tawk-"], iframe[src*="tawk.to"]')
+                .querySelectorAll<HTMLElement>('[id^="tawk-"], iframe[src*="tawk.to"]')
                 .forEach(el => {
-                    const h = el.getBoundingClientRect().height;
-                    if (h === 0 || h < 120) {
+                    if (el.getBoundingClientRect().height < 120)
                         el.style.setProperty('bottom', `${offsetPx}px`, 'important');
-                    }
                 });
         };
 
@@ -87,6 +78,19 @@ export default function TawkChat({ propertyId, widgetId, offsetPx = 80 }: TawkCh
         const observer = new MutationObserver(nudge);
         observer.observe(document.body, { childList: true, subtree: false });
 
+        // ── Inject the Tawk embed script directly into <head> ─────────────
+        // Using DOM injection (not Next/Script) so it always fires regardless
+        // of Turbopack's script scheduling quirks.
+        if (!document.getElementById('tawkto-embed')) {
+            const s = document.createElement('script');
+            s.id       = 'tawkto-embed';
+            s.async    = true;
+            s.src      = `https://embed.tawk.to/${propertyId}/${widgetId}`;
+            s.charset  = 'UTF-8';
+            s.setAttribute('crossorigin', '*');
+            document.head.appendChild(s);
+        }
+
         return () => {
             observer.disconnect();
             window.removeEventListener('unhandledrejection', onRejection, true);
@@ -96,25 +100,5 @@ export default function TawkChat({ propertyId, widgetId, offsetPx = 80 }: TawkCh
         };
     }, [propertyId, widgetId, offsetPx]);
 
-    if (!propertyId || !widgetId) return null;
-
-    return (
-        <>
-            {/*
-              * Initialise Tawk globals SYNCHRONOUSLY so the embed script
-              * always finds them ready — even on fast connections / CDN cache hits.
-              */}
-            <Script id="tawk-init" strategy="beforeInteractive">
-                {`window.Tawk_API = window.Tawk_API || {};
-window.Tawk_LoadStart = new Date();`}
-            </Script>
-
-            <Script
-                id="tawkto-embed"
-                src={`https://embed.tawk.to/${propertyId}/${widgetId}`}
-                strategy="afterInteractive"
-                async
-            />
-        </>
-    );
+    return null;
 }
