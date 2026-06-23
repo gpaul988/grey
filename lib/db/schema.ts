@@ -487,6 +487,27 @@ export const recommendations = pgTable(
 );
 
 /**
+ * FAQs - frequently asked questions
+ */
+export const faqs = pgTable(
+  'faqs',
+  {
+    id: serial('id').primaryKey(),
+    question: text('question').notNull(),
+    answer: text('answer').notNull(),
+    category: text('category').notNull().default('General'),
+    sortOrder: integer('sort_order').default(0),
+    active: boolean('active').default(true),
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    updatedAt: timestamp('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+  },
+  (table) => ({
+    categoryIdx: index('idx_faqs_category').on(table.category),
+    activeIdx: index('idx_faqs_active').on(table.active),
+  })
+);
+
+/**
  * Audit submissions - user submissions requesting fixes based on audit reports
  */
 export const auditSubmissions = pgTable(

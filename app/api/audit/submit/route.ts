@@ -155,14 +155,41 @@ export async function POST(req: NextRequest) {
 // GET all submissions (admin only)
 export async function GET(req: NextRequest) {
   try {
-    // TODO: Add admin auth check here
+    // Check for admin authentication
+    const authHeader = req.headers.get('authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return NextResponse.json(
+        { error: 'Unauthorized: Missing or invalid authorization header' },
+        { status: 401 }
+      );
+    }
+
+    // TODO: Validate JWT token here against ADMIN_TOKEN or similar
+    // For now, we'll just check if the token exists
+    const token = authHeader.slice(7);
+    const adminToken = process.env.ADMIN_API_TOKEN;
+    
+    if (adminToken && token !== adminToken) {
+      return NextResponse.json(
+        { error: 'Unauthorized: Invalid admin token' },
+        { status: 401 }
+      );
+    }
+
     const submissions = await db
       .select()
       .from(auditSubmissions)
       .orderBy(desc(auditSubmissions.createdAt))
       .limit(100);
 
-    return NextResponse.json({ submissions }, { status: 200 });
+    return NextResponse.json(
+      { 
+        success: true,
+        submissions,
+        count: submissions.length,
+      }, 
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Error fetching submissions:', error);
     return NextResponse.json(
