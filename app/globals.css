@@ -49,6 +49,7 @@
 /* Default cursor for the entire page */
 body {
     cursor: default;
+    overflow-x: hidden;
 }
 
 /* Custom cursor for the carousel */

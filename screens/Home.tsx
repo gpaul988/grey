@@ -180,7 +180,7 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                     </div>
                     
                     {/* Scroll indicator */}
-                    <div className='absolute bottom-6 left-5/6 transform -translate-x-1/2 flex flex-col items-center z-10'>
+                    <div className='absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-10'>
                         <LiaLongArrowAltDownSolid
                             className={`${isDayTime ? 'text-black' : 'text-white'} text-5xl text-center transition-transform duration-500 ease-in-out hover:scale-125 cursor-pointer`}
                             onClick={scrollToContent}
