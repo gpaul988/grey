@@ -13,6 +13,7 @@
 import {NextRequest} from 'next/server';
 import {retrieve, localAnswer} from '@/lib/aiKnowledge';
 import {liveDocs} from '@/lib/aiKnowledgeLive';
+import {enrichWithWebResults, formatWebContext} from '@/lib/aiWebEnricher';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -22,11 +23,36 @@ interface ChatMessage {
     content: string;
 }
 
-const SYSTEM_PROMPT = `You are the Grey InfoTech assistant — sharp, concise, helpful.
-Grey InfoTech Limited is a web design, web & mobile app development, AI and digital marketing agency in Port Harcourt, Nigeria (founded 2017).
-Answer ONLY using the provided context. If it's not in the context, say you're not sure and point to /contact or WhatsApp (+234-802-809-5571).
-BE BRIEF: 1-2 short sentences, max ~40 words. Straight to the point — no preamble, no filler, don't restate the question. One helpful link max.
-Never invent prices; send pricing questions to /quote-request. Stay on-brand and professional.`;
+const SYSTEM_PROMPT = `You are a professional customer care AI assistant for Grey InfoTech Limited, a boutique web/mobile/AI development agency in Port Harcourt, Nigeria with 8+ years of proven expertise and 50+ successful projects.
+
+Your tone: professional, friendly, solution-focused. You're a trusted advisor helping clients make informed decisions about their digital projects.
+
+Instructions:
+1. Answer ONLY using the provided context about Grey InfoTech's services, team, process, and capabilities.
+2. If the question is not covered in context, be honest: "I'm not entirely sure on that—best to chat with our team at hello@greyinfotech.com.ng or +234-802-809-5571 on WhatsApp."
+3. BE CONCISE: 1-3 sentences max, ~60 words typical. Get straight to the answer—no preamble, no restating the question.
+4. For pricing/estimates: Always reference /quote-request or our AI Project Estimator, noting that cost depends on scope and complexity.
+5. For sales/complex needs: Briefly explain what we offer, then invite a conversation: "Interested? Let's talk—reach us at /contact or WhatsApp."
+6. Link sparingly (max 1 per response) and only when it directly helps the user (e.g., /services/... or /quote-request).
+7. Never invent project details, client names, pricing, or guarantees.
+8. Never forget: You're representing a professional agency trusted by startups and enterprises. Sound confident, knowledgeable, and approachable.`;
+
+// Enhanced system prompt for LLM-based responses
+const LLM_SYSTEM_PROMPT = `You are a professional customer care AI assistant for Grey InfoTech Limited, a web/mobile/AI development and digital marketing agency in Port Harcourt, Nigeria. You have 8+ years of industry expertise and 50+ delivered projects.
+
+Your role: Help prospects understand our services, capabilities, and process. Answer questions about tech stack, pricing, timeline, and fit. Be a trusted advisor, not just a chatbot.
+
+Tone: Professional, friendly, knowledgeable, concise. You understand both technical and business needs.
+
+Core rules:
+• Answer ONLY using the provided context. Never invent services, pricing, client names, or guarantees.
+• If context doesn't cover it, admit it and point to hello@greyinfotech.com.ng or WhatsApp +234-802-809-5571.
+• Be brief: 1-3 short sentences (~60 words), straight to the point. No filler, no repeating the question.
+• Pricing: Always send to /quote-request or mention our AI Project Estimator—explain that cost depends on scope, complexity, timeline.
+• For sales questions: Explain what we do, gauge fit, invite deeper conversation.
+• Use links sparingly (max 1 per response). Prioritize /services/..., /quote-request, /contact.
+• Sound confident and professional. You're representing a trusted digital partner, not a generic bot.
+• If asked "why you?" — highlight our 8+ years, 50+ projects, founder expertise, and commitment to transparency and measurable outcomes.`;
 
 function sse(data: object): string {
     return `data: ${JSON.stringify(data)}\n\n`;
@@ -78,10 +104,21 @@ export async function POST(req: NextRequest) {
     // merged with the static KB. Cached in-process so it's always current.
     const live = liveDocs();
     const docs = retrieve(lastUser, 6, live);
-    const context = docs
+    let context = docs
         .map((d) => `# ${d.title} (${d.url})\n${d.text}`)
         .join('\n\n');
-    const sources = docs.map((d) => ({title: d.title, url: d.url}));
+    let sources = docs.map((d) => ({title: d.title, url: d.url}));
+
+    // Optional: Enrich with recent web results for trending questions
+    // (e.g., "latest React patterns", "AI development in 2024")
+    const webResults = await enrichWithWebResults(lastUser, 2);
+    if (webResults.length > 0) {
+        context += formatWebContext(webResults);
+        sources = [
+            ...sources,
+            ...webResults.map((r) => ({title: r.title, url: r.url})),
+        ];
+    }
 
     const apiKey = process.env.OPENAI_API_KEY;
     const baseUrl = process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1';
@@ -117,10 +154,11 @@ export async function POST(req: NextRequest) {
     const payload = {
         model,
         stream: true,
-        temperature: 0.3,
+        temperature: 0.7, // Slightly higher for more natural, professional responses
+        top_p: 0.9,
         messages: [
-            {role: 'system', content: SYSTEM_PROMPT},
-            {role: 'system', content: `Context:\n${context}`},
+            {role: 'system', content: LLM_SYSTEM_PROMPT},
+            {role: 'system', content: `Knowledge Base:\n${context}`},
             ...trimmed,
             ...(body.message ? [{role: 'user', content: body.message}] : []),
         ],

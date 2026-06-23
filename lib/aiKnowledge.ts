@@ -32,8 +32,8 @@ export const KB: KbDoc[] = [
     {
         title: 'About Grey InfoTech',
         url: '/company',
-        body: `Grey InfoTech Limited is a web design, web & mobile app development, and digital marketing agency based in Port Harcourt, Nigeria. We build scalable, user-centered digital products for startups and enterprises — from discovery and UI/UX through engineering, launch, and growth.`,
-        tags: ['who are you', 'about', 'company', 'agency', 'location', 'where'],
+        body: `Grey InfoTech Limited is a web design, web & mobile app development, AI and digital marketing agency based in Port Harcourt, Nigeria. Founded in 2017, we've delivered 50+ projects across 15+ industries. We build scalable, user-centered digital products for startups and enterprises — from discovery and UI/UX through engineering, launch, and growth. We're 8+ years into the tech industry with expertise in helping founders validate ideas, build MVPs, scale infrastructure, and successfully exit.`,
+        tags: ['who are you', 'about', 'company', 'agency', 'location', 'where', 'founded', 'experience'],
     },
     {
         title: 'Services Overview',
@@ -110,14 +110,62 @@ export const KB: KbDoc[] = [
     {
         title: 'Contact Grey InfoTech',
         url: '/contact',
-        body: `You can reach Grey InfoTech via the contact page, by email at hello@greyinfotech.com.ng, or on WhatsApp at +234-802-809-5571. We're based in Port Harcourt, Nigeria and work with clients worldwide.`,
-        tags: ['contact', 'reach', 'email', 'phone', 'whatsapp', 'talk', 'call', 'get in touch'],
+        body: `You can reach Grey InfoTech via the contact page, by email at hello@greyinfotech.com.ng, or on WhatsApp at +234-802-809-5571. We're based in Port Harcourt, Nigeria and work with clients worldwide. For urgent matters, WhatsApp is fastest.`,
+        tags: ['contact', 'reach', 'email', 'phone', 'whatsapp', 'talk', 'call', 'get in touch', 'urgent'],
     },
     {
         title: 'Support & Tickets',
         url: '/support',
-        body: `Existing clients can open a support ticket for help with live projects. Use the support page or open a ticket and our team will respond.`,
-        tags: ['support', 'help', 'ticket', 'issue', 'problem'],
+        body: `Existing clients can open a support ticket for help with live projects. Use the support page or open a ticket and our team will respond within 24 hours.`,
+        tags: ['support', 'help', 'ticket', 'issue', 'problem', 'bug', 'urgent support'],
+    },
+    {
+        title: 'Web Design & Development Services',
+        url: '/services/Web-Design',
+        body: `We design and build fast, responsive, SEO-friendly websites and web apps including marketing sites, dashboards, e-commerce, and complex platforms. Our approach centers on user experience, strategic design, and proven conversion tactics. Stacks include Next.js, React, Vue, Node.js, Laravel, Tailwind CSS, and more — all optimized for performance, accessibility, and SEO.`,
+        tags: ['website', 'web design', 'web development', 'landing page', 'web app', 'seo-friendly', 'performance'],
+    },
+    {
+        title: 'Web Application Development',
+        url: '/services/Web-Application',
+        body: `We build custom web applications from concept through launch. Our process includes user research, wireframing, prototyping, design, development, testing, and deployment. Tech stacks vary: React + Node.js, Next.js + PostgreSQL, Vue + Django, Laravel + MySQL. Every app is built for scalability, security, and long-term maintenance.`,
+        tags: ['web app', 'application', 'custom software', 'saas', 'dashboard', 'platform', 'development'],
+    },
+    {
+        title: 'Tech Stack & Technologies',
+        url: '/services/Software-Development',
+        body: `We're proficient in: Frontend (React, Next.js, Vue, Angular, Tailwind CSS, Framer Motion), Backend (Node.js, Express, Django, Django Rest Framework, Laravel, Ruby on Rails, .NET), Mobile (React Native, Flutter, Swift, Kotlin, Expo), Databases (PostgreSQL, MongoDB, MySQL, Firebase), Cloud (AWS, GCP, Vercel, Netlify), AI/ML (OpenAI, LangChain, RAG, computer vision), Blockchain (Solidity, Web3.js, ERC standards), and DevOps (Docker, Kubernetes, CI/CD).`,
+        tags: ['tech stack', 'technologies', 'frameworks', 'languages', 'tools', 'react', 'node', 'flutter', 'django'],
+    },
+    {
+        title: 'AI Development Services',
+        url: '/services/ai-development-services',
+        body: `We build custom AI solutions including: AI chatbots and assistants, RAG knowledge systems and semantic search, LLM integrations, recommendation engines, computer vision, predictive analytics, and workflow automation. We work with OpenAI, Claude, Gemini, and open-source models. We can fine-tune models and build custom training pipelines.`,
+        tags: ['ai', 'artificial intelligence', 'chatbot', 'machine learning', 'llm', 'automation', 'gpt', 'openai', 'chatgpt', 'rag'],
+    },
+    {
+        title: 'Discovery & Strategy Phase',
+        url: '/services/discovery-phase',
+        body: `Our discovery phase ensures alignment before you spend on engineering. We conduct workshops, user interviews, competitive analysis, and technical feasibility assessments to define clear goals, validate assumptions, and create a roadmap. Typical discovery is 2-4 weeks and delivers a scope document, wireframes, technical architecture, timeline and cost estimate.`,
+        tags: ['discovery', 'strategy', 'planning', 'requirements', 'roadmap', 'scope', 'feasibility'],
+    },
+    {
+        title: 'Why Choose Grey InfoTech',
+        url: '/',
+        body: `Grey InfoTech brings 8+ years of proven expertise, 50+ successful projects, and deep understanding of startup challenges. We're committed to transparency, clear communication, and delivering measurable results. We don't just build features—we build scalable, user-centric products that drive real business growth. Client testimonials and case studies prove our track record across fintech, healthcare, logistics, education, and enterprise SaaS.`,
+        tags: ['why choose', 'benefits', 'advantages', 'why us', 'commitment', 'quality', 'reliability'],
+    },
+    {
+        title: 'Project Timeline & Process',
+        url: '/',
+        body: `Typical project timeline: 2-week discovery, 4-12 week engineering phase (depending on scope), 2-week testing/refinement, 1 week deployment. We follow agile methodology with bi-weekly demos, clear deliverables, and collaborative feedback loops. You own the product; we ensure quality, security, and maintainability at every step.`,
+        tags: ['timeline', 'duration', 'process', 'methodology', 'how long', 'agile', 'sprints'],
+    },
+    {
+        title: 'Team & Expertise',
+        url: '/careers',
+        body: `Our team includes senior full-stack engineers, product designers, mobile specialists, DevOps engineers, and growth marketers. All team members are vetted for technical depth and client communication skills. We work with extended partner networks for specialized services (blockchain audits, ML research, etc.) when needed.`,
+        tags: ['team', 'engineers', 'designers', 'developers', 'expertise', 'hiring', 'staff'],
     },
 ];
 

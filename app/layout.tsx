@@ -186,11 +186,18 @@ export default async function RootLayout({
             <Footer/>
 
             {/* Live human chat (Tawk) + AI assistant run side-by-side */}
-            {process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID && process.env.NEXT_PUBLIC_TAWK_WIDGET_ID && (
+            {process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID && process.env.NEXT_PUBLIC_TAWK_WIDGET_ID ? (
                 <TawkChat 
                     propertyId={process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID}
                     widgetId={process.env.NEXT_PUBLIC_TAWK_WIDGET_ID}
                 />
+            ) : (
+                process.env.NODE_ENV === 'development' && (
+                    <div className="fixed bottom-96 right-5 z-[89] hidden lg:block rounded-lg bg-amber-100 border border-amber-400 p-3 text-xs text-amber-900 max-w-xs">
+                        <strong>⚠️ Tawk.to not configured.</strong>
+                        <br/>Set NEXT_PUBLIC_TAWK_PROPERTY_ID and NEXT_PUBLIC_TAWK_WIDGET_ID in .env.local to enable live chat.
+                    </div>
+                )
             )}
             <AIChat/>
         </body>

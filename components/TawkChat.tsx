@@ -22,7 +22,10 @@ export type TawkChatProps = {
 
 export default function TawkChat({propertyId, widgetId, offsetPx = 80}: TawkChatProps) {
     useEffect(() => {
-        if (!propertyId || !widgetId) return;
+        if (!propertyId || !widgetId) {
+            console.warn('TawkChat: propertyId or widgetId missing. Set NEXT_PUBLIC_TAWK_PROPERTY_ID and NEXT_PUBLIC_TAWK_WIDGET_ID in .env.local');
+            return;
+        }
 
         const scriptId = 'tawkto-embed-script';
 
