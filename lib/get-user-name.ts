@@ -30,16 +30,16 @@ export function getAutoUserName(): string {
   let detectedName = '';
   
   // Try to detect browser type for a generic fallback name
-  if (userAgent.includes('Chrome')) {
-    detectedName = 'Chrome User';
-  } else if (userAgent.includes('Safari')) {
-    detectedName = 'Safari User';
+  if (userAgent.includes('Edge')) {
+    detectedName = 'Edge';
+  } else if (userAgent.includes('Chrome')) {
+    detectedName = 'Chrome';
   } else if (userAgent.includes('Firefox')) {
-    detectedName = 'Firefox User';
-  } else if (userAgent.includes('Edge')) {
-    detectedName = 'Edge User';
+    detectedName = 'Firefox';
+  } else if (userAgent.includes('Safari')) {
+    detectedName = 'Safari';
   } else {
-    detectedName = 'User';
+    detectedName = 'there';
   }
 
   // Cache it for consistency in the same session
