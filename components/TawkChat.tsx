@@ -1,6 +1,7 @@
 'use client';
 
-import {useEffect} from 'react';
+import Script from 'next/script';
+import { useEffect } from 'react';
 
 declare global {
     interface Window {
@@ -9,7 +10,6 @@ declare global {
             setAttributes?: (attrs: Record<string, string>, cb?: () => void) => void;
         };
         Tawk_LoadStart?: Date;
-        Tawk_SSOToken?: string;
     }
 }
 
@@ -26,8 +26,6 @@ export default function TawkChat({propertyId, widgetId, offsetPx = 80}: TawkChat
             console.warn('TawkChat: propertyId or widgetId missing. Set NEXT_PUBLIC_TAWK_PROPERTY_ID and NEXT_PUBLIC_TAWK_WIDGET_ID in .env.local');
             return;
         }
-
-        const scriptId = 'tawkto-embed-script';
 
         // ── Suppress known Tawk internal noise ────────────────────────────
         const originalConsoleError = console.error.bind(console);
@@ -55,6 +53,7 @@ export default function TawkChat({propertyId, widgetId, offsetPx = 80}: TawkChat
                 );
             } catch { return false; }
         };
+
         const onRejection = (e: PromiseRejectionEvent) => {
             if (isTawkNoise(e.reason)) { e.preventDefault(); e.stopImmediatePropagation(); }
         };
@@ -67,9 +66,7 @@ export default function TawkChat({propertyId, widgetId, offsetPx = 80}: TawkChat
         window.addEventListener('error', onError, true);
         // ──────────────────────────────────────────────────────────────────
 
-        // Let Tawk position itself naturally (bottom-right).
-        // We only apply its official CSS-variable offset to push it above
-        // the voice FAB button which sits at bottom-right as well.
+        // Set up Tawk API and offset logic
         window.Tawk_API = window.Tawk_API || {};
         window.Tawk_LoadStart = new Date();
 
@@ -96,17 +93,6 @@ export default function TawkChat({propertyId, widgetId, offsetPx = 80}: TawkChat
             applyOffset();
         };
 
-        // Inject script once
-        if (!document.getElementById(scriptId) && !document.querySelector('script[src*="embed.tawk.to"]')) {
-            const script = document.createElement('script');
-            script.id = scriptId;
-            script.async = true;
-            script.src = `https://embed.tawk.to/${propertyId}/${widgetId}`;
-            script.charset = 'UTF-8';
-            script.setAttribute('crossorigin', '*');
-            document.body.appendChild(script);
-        }
-
         // Observe DOM for Tawk nodes appearing and nudge bottom offset
         const observer = new MutationObserver(() => applyOffset());
         observer.observe(document.body, {childList: true, subtree: false});
@@ -119,5 +105,16 @@ export default function TawkChat({propertyId, widgetId, offsetPx = 80}: TawkChat
         };
     }, [propertyId, widgetId, offsetPx]);
 
-    return null;
+    if (!propertyId || !widgetId) return null;
+
+    return (
+        <Script
+            id="tawkto-embed-script"
+            src={`https://embed.tawk.to/${propertyId}/${widgetId}`}
+            strategy="afterInteractive"
+            async
+            charSet="UTF-8"
+            crossOrigin="anonymous"
+        />
+    );
 }
