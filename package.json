@@ -19,7 +19,7 @@
     "install:prod": "npm install --prefer-offline --no-audit --no-fund --maxsockets=1",
     "install:cpanel": "npm install --prefer-offline --no-audit --no-fund --maxsockets=1",
     "cpanel:full": "bash scripts/cpanel-install.sh",
-    "cpanel:post": "npm run seed",
+    "cpanel:post": "npm run bootstrap:db && npm run seed",
     "cpanel:start": "cross-env NODE_ENV=production tsx server.ts",
     "clean": "rm -rf node_modules .next package-lock.json && npm cache clean --force",
     "test": "vitest",
@@ -27,7 +27,8 @@
     "test:coverage": "vitest --coverage",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed",
-    "test:e2e:debug": "playwright test --debug"
+    "test:e2e:debug": "playwright test --debug",
+    "bootstrap:db": "node scripts/bootstrap-db.js"
   },
   "engines": {
     "node": "20.x",
