@@ -105,6 +105,12 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
     // isDaytime react hook
     const isDayTime = useIsDayTime();
 
+    // Hydration guard
+    const [isHydrated, setIsHydrated] = useState(false);
+    useEffect(() => {
+        setIsHydrated(true);
+    }, []);
+
 
     // Scroll to content function
     const scrollToContent = () => {
@@ -133,7 +139,7 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
     };
 
     return (
-        <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
+        <div className={`${isHydrated ? (isDayTime ? 'bg-white' : 'bg-black') : 'bg-white'} min-h-screen`}>
             <FloatingButton
                 className={`fixed bottom-6 right-6 z-9999 transition-all duration-300 ${isVisible ? 'mb-16' : 'mb-0'}`}
             />
@@ -157,24 +163,22 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
 
                     {/* Text content */}
                     <div
-                        className={`relative z-10 mt-24 flex flex-col justify-center items-start text-start lg:max-w-[90em] ${
-                            isDayTime ? 'text-white ' : 'text-white'
-                        }`}
+                        className={`relative z-10 mt-24 flex flex-col justify-center items-start text-start lg:max-w-[90em] text-white`}
                     >
                         <br/><br/>
                         {isMounted && (
-                            <span className={`grey-parallax-soft inline-flex items-center gap-2 rounded-full px-3 py-1 mb-2 text-xs font-medium backdrop-blur-sm border ${isDayTime ? 'bg-white/40 border-teal-700/30 text-teal-900' : 'bg-white/10 border-white/20 text-teal-100'}`}>
+                            <span className={`grey-parallax-soft inline-flex items-center gap-2 rounded-full px-3 py-1 mb-2 text-xs font-medium backdrop-blur-sm border ${isHydrated && isDayTime ? 'bg-white/40 border-teal-700/30 text-teal-900' : 'bg-white/10 border-white/20 text-teal-100'}`}>
                                 <span className="h-1.5 w-1.5 rounded-full bg-teal-400 animate-pulse"/>
                                 {userName ? `${getGreetingMessage()}, ${userName}!` : getGreetingMessage()}
                             </span>
                         )}
-                        <h1 className={`grey-parallax-mid ${isDayTime ? 'text-black' : 'text-white'} lg:text-[87px] text-[45px] lg:leading-[1.1] md:leading-[1.1] leading-[1.2] font-[600] lg:mb-6`}>
+                        <h1 className={`grey-parallax-mid ${isHydrated && isDayTime ? 'text-black' : 'text-white'} lg:text-[87px] text-[45px] lg:leading-[1.1] md:leading-[1.1] leading-[1.2] font-[600] lg:mb-6`}>
                             <br/>
-                            <span className={`${isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>{'Engineering'}</span><br/>{'Scalable'}
+                            <span className={`${isHydrated && isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>{'Engineering'}</span><br/>{'Scalable'}
                             {'Digital'}<br/> <span
-                            className={`${isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>{'Platforms for'}<br/>{'Modern Businesses'}</span>
+                            className={`${isHydrated && isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>{'Platforms for'}<br/>{'Modern Businesses'}</span>
                         </h1><br/><br/>
-                        <h3 className={`grey-parallax-soft ${isDayTime ? 'text-teal-500' : 'text-white'} contents lg:text-[17.4px] leading-[1.18] font-[400]`}>
+                        <h3 className={`grey-parallax-soft ${isHydrated && isDayTime ? 'text-teal-500' : 'text-white'} contents lg:text-[17.4px] leading-[1.18] font-[400]`}>
                             {'Grey InfoTech Limited builds secure, scalable web applications, SaaS platforms, and enterprise software solutions for startups and growing businesses across Africa and globally.'}
                         </h3>
                     </div>
@@ -182,7 +186,7 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                     {/* Scroll indicator */}
                     <div className='absolute bottom-6 left-5/6 transform -translate-x-1/2 flex flex-col items-center z-10'>
                         <LiaLongArrowAltDownSolid
-                            className={`${isDayTime ? 'text-black' : 'text-white'} text-5xl text-center transition-transform duration-500 ease-in-out hover:scale-125 cursor-pointer`}
+                            className={`${isHydrated && isDayTime ? 'text-black' : 'text-white'} text-5xl text-center transition-transform duration-500 ease-in-out hover:scale-125 cursor-pointer`}
                             onClick={scrollToContent}
                         />
                     </div>
