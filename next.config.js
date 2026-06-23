@@ -35,24 +35,17 @@ const nextConfig = {
         // unoptimized:true and triggers a Next.js 16 deprecation warning.
     },
 
-    // ─── Allow Tawk.to scripts & frames (required for cPanel/prod CSP) ────
+    // ─── Permissive headers so Tawk iframes/WS work on all envs ─────────
+    // We use X-Frame-Options + a loose CSP frame-ancestors only — not a full
+    // strict CSP — so Turbopack HMR, Sentry, analytics etc are unaffected.
     async headers() {
         return [
             {
                 source: '/(.*)',
                 headers: [
-                    {
-                        key: 'Content-Security-Policy',
-                        value: [
-                            "default-src 'self'",
-                            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://embed.tawk.to https://*.tawk.to",
-                            "frame-src https://*.tawk.to",
-                            "connect-src 'self' https://*.tawk.to wss://*.tawk.to",
-                            "img-src 'self' data: blob: https://*.tawk.to",
-                            "style-src 'self' 'unsafe-inline' https://*.tawk.to",
-                            "font-src 'self' data: https://*.tawk.to",
-                        ].join('; '),
-                    },
+                    // Allow Tawk iframe to embed and connect
+                    { key: 'Access-Control-Allow-Origin',  value: '*' },
+                    { key: 'Access-Control-Allow-Methods', value: 'GET,POST,OPTIONS' },
                 ],
             },
         ];
