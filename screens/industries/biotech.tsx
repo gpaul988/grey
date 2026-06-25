@@ -4,7 +4,7 @@ import ServicePageTemplate from '@/components/ServicePageTemplate';
 const Biotech = () => (
     <ServicePageTemplate
         title={<>Biotech Software <br className={'lg:block md:block hidden'}/>Development Services</>}
-        heroVideo="/assets/hero/hero.mp4"
+        heroVideo="/assets/hero/fin-hero.mp4"
         midImage="/assets/services/Research-strategy.jpg"
         topImages={['/assets/services/Development.jpg', '/assets/services/digital-transformatio.jpg']}
         intro={
