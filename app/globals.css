@@ -47,6 +47,10 @@
 }
 
 /* Default cursor for the entire page */
+html {
+    overflow-x: hidden; /* Prevent aurora blobs / off-canvas drawer from causing x-scroll */
+}
+
 body {
     cursor: default;
     overflow-x: hidden;

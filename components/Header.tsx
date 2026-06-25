@@ -386,7 +386,7 @@ const HeaderContent: React.FC = () => {
                 .grey-cta-glow:hover::before { opacity: .9; }
 
                 .grey-aurora {
-                    position: absolute; inset: -60% -10% auto -10%; height: 320%;
+                    position: absolute; inset: -60% 0 auto 0; height: 320%;
                     pointer-events: none; z-index: 0; filter: blur(60px);
                     mix-blend-mode: screen; will-change: transform;
                 }

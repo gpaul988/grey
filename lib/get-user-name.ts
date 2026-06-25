@@ -1,51 +1,25 @@
 /**
  * Auto-detect user name from browser API
- * Tries multiple sources: navigator.userAgent, Chrome user profile, localStorage fallback
+ * Returns empty string — browser-based detection is unreliable and produces poor UX
+ * (e.g., returning "Chrome" as the user's name). Greeting renders cleanly without a name.
  */
 
 export function getAutoUserName(): string {
-  // If running on server, return empty
-  if (typeof window === 'undefined') {
-    return '';
+  // Clear any stale cached browser-name values from previous builds
+  if (typeof window !== 'undefined') {
+    const stored = localStorage.getItem('grey-auto-user-name');
+    // Remove legacy browser-name entries (Chrome, Firefox, Safari, Edge, there)
+    const browserNames = ['Chrome', 'Firefox', 'Safari', 'Edge', 'there'];
+    if (stored && browserNames.includes(stored)) {
+      localStorage.removeItem('grey-auto-user-name');
+    } else if (stored) {
+      // User explicitly set their name — honour it
+      return stored;
+    }
   }
 
-  // Try to extract from navigator.userAgent profile name
-  const userAgent = navigator.userAgent;
-  
-  // Some browsers expose user profile in userAgent
-  // e.g., Chrome: "Mozilla/5.0 ... Chrome/... Chrome Profile Name"
-  // This is limited and not always available
-  
-  // Try to get from browser storage if previously detected
-  const storedName = localStorage.getItem('grey-auto-user-name');
-  if (storedName) {
-    return storedName;
-  }
-
-  // Try modern approach: Check for chrome://version equivalent
-  // Unfortunately, most browsers don't expose user profile via JavaScript for security
-  // Fallback: Use a generic greeting with timestamp
-  
-  // Extract any available identifier (browser, device info)
-  let detectedName = '';
-  
-  // Try to detect browser type for a generic fallback name
-  if (userAgent.includes('Edge')) {
-    detectedName = 'Edge';
-  } else if (userAgent.includes('Chrome')) {
-    detectedName = 'Chrome';
-  } else if (userAgent.includes('Firefox')) {
-    detectedName = 'Firefox';
-  } else if (userAgent.includes('Safari')) {
-    detectedName = 'Safari';
-  } else {
-    detectedName = 'there';
-  }
-
-  // Cache it for consistency in the same session
-  localStorage.setItem('grey-auto-user-name', detectedName);
-  
-  return detectedName;
+  // Return empty: greeting will render as "Good morning, working early" (no name appended)
+  return '';
 }
 
 /**
