@@ -13,6 +13,7 @@ import {themeInitScript} from "@/components/ThemeProvider";
 import AIChat from "@/components/AIChat";
 import {SITE} from "@/lib/seo";
 import AnnouncementBarWrapper from "@/components/futuristic/AnnouncementBarWrapper";
+import Preloader from "@/components/futuristic/Preloader";
 
 
 // ─── Render on-demand instead of pre-rendering all pages at build ──────────
@@ -162,6 +163,9 @@ export default async function RootLayout({
         <body
             className={`${merriweather.variable} ${roboto.variable} antialiased`}
         >
+            {/* First-load boot sequence — shows once per session */}
+            <Preloader />
+
             {/* Skip-to-content link for keyboard/screen-reader users (WCAG) */}
             <a
                 href="#main-content"
