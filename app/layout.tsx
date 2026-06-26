@@ -151,7 +151,7 @@ export default async function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" suppressHydrationWarning style={{overflowX: 'hidden'}}>
+        <html lang="en" suppressHydrationWarning style={{overflowX: 'hidden', '--ann-bar-height': '0px'} as React.CSSProperties}>
         <head>
             {/* FIX (FOUC): set the theme class before first paint */}
             <Script
