@@ -1,14 +1,60 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getStoreCustomerById, updateStoreCustomerProfile } from '@/lib/db/store-helpers';
+import jwt from 'jsonwebtoken';
+
+const JWT_SECRET = process.env.JWT_SECRET || 'store-secret-key-change-in-production';
+
+function extractTokenFromHeader(request: NextRequest): string | null {
+    const authHeader = request.headers.get('authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return null;
+    }
+    return authHeader.substring(7);
+}
+
+function verifyToken(token: string): any | null {
+    try {
+        return jwt.verify(token, JWT_SECRET);
+    } catch {
+        return null;
+    }
+}
 
 export async function GET(request: NextRequest) {
     try {
-        // TODO: Implement actual profile fetch (get from session/token)
+        const token = extractTokenFromHeader(request);
+        if (!token) {
+            return NextResponse.json(
+                { error: 'Authorization token required' },
+                { status: 401 }
+            );
+        }
+
+        const decoded = verifyToken(token);
+        if (!decoded) {
+            return NextResponse.json(
+                { error: 'Invalid or expired token' },
+                { status: 401 }
+            );
+        }
+
+        const customer = await getStoreCustomerById(decoded.customerId);
+        if (!customer) {
+            return NextResponse.json(
+                { error: 'Customer not found' },
+                { status: 404 }
+            );
+        }
+
         return NextResponse.json({
             customer: {
-                id: 1,
-                email: 'user@example.com',
-                first_name: 'Test',
-                last_name: 'User',
+                id: customer.id,
+                email: customer.email,
+                firstName: customer.firstName,
+                lastName: customer.lastName,
+                phone: customer.phone,
+                emailVerified: customer.emailVerified,
+                createdAt: customer.createdAt,
             },
         });
     } catch (error) {
@@ -22,24 +68,53 @@ export async function GET(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
     try {
-        const body = await request.json();
-        const { first_name, last_name, phone } = body;
+        const token = extractTokenFromHeader(request);
+        if (!token) {
+            return NextResponse.json(
+                { error: 'Authorization token required' },
+                { status: 401 }
+            );
+        }
 
-        if (!first_name || !last_name) {
+        const decoded = verifyToken(token);
+        if (!decoded) {
+            return NextResponse.json(
+                { error: 'Invalid or expired token' },
+                { status: 401 }
+            );
+        }
+
+        const { firstName, lastName, phone } = await request.json();
+
+        if (!firstName || !lastName) {
             return NextResponse.json(
                 { error: 'First name and last name are required' },
                 { status: 400 }
             );
         }
 
-        // TODO: Implement actual profile update (validate session, update in database)
+        const updated = await updateStoreCustomerProfile(decoded.customerId, {
+            firstName,
+            lastName,
+            phone,
+        });
+
+        if (!updated) {
+            return NextResponse.json(
+                { error: 'Failed to update profile' },
+                { status: 500 }
+            );
+        }
+
         return NextResponse.json({
             customer: {
-                id: 1,
-                email: 'user@example.com',
-                first_name,
-                last_name,
-                phone,
+                id: updated.id,
+                email: updated.email,
+                firstName: updated.firstName,
+                lastName: updated.lastName,
+                phone: updated.phone,
+                emailVerified: updated.emailVerified,
+                updatedAt: updated.updatedAt,
             },
         });
     } catch (error) {
