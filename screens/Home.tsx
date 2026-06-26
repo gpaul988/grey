@@ -26,7 +26,6 @@ const Home = () => {
     // Privacy-safe personalization (daypart greeting + returning-visitor tone)
     const {greeting, returning, ready: personalReady} = usePersonalization();
 
-    // Partners Section hook
     // Our services section hook
     const imageIds = useMemo<string[]>(() => [
         "web-design",

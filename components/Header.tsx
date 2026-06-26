@@ -430,7 +430,7 @@ const HeaderContent: React.FC = () => {
 
             {/* Top progress beam */}
             {!isModalOpen && !isMobileMenuOpen && (
-                <div className="sticky top-0 left-0 right-0 z-[60] h-[3px] pointer-events-none">
+                <div className="fixed left-0 right-0 z-[70] h-[3px] pointer-events-none" style={{top: 'var(--ann-bar-height, 0px)'}}>
                     <div
                         className="grey-progress-beam h-full transition-[width] duration-150 ease-out"
                         style={{width: `${scrollProgress}%`}}
@@ -450,8 +450,9 @@ const HeaderContent: React.FC = () => {
             {/* Main Header */}
             {!isModalOpen && !isMobileMenuOpen && (
                 <header
-                    className={`sticky top-0 left-0 right-0 py-2 sm:py-3 md:py-5 lg:py-8 w-full z-[50] transition-transform duration-300 bg-black/60 text-white ${headerTheme.blur}`}
+                    className={`fixed left-0 right-0 py-2 sm:py-3 md:py-5 lg:py-8 w-full z-[60] transition-transform duration-300 bg-black/60 text-white ${headerTheme.blur}`}
                     style={{
+                        top: 'var(--ann-bar-height, 0px)',
                         transform: showHeader ? 'translateY(0)' : 'translateY(-100%)',
                         opacity: showHeader ? 1 : 0,
                     }}

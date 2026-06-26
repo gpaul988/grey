@@ -1,11 +1,6 @@
 'use client';
 
-/**
- * AnnouncementBar — Site-wide announcement banner
- * Shows at the very top, above header. Shows ONCE per session.
- */
-
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {AnimatePresence, motion} from 'framer-motion';
 
 type Announcement = {
@@ -25,18 +20,16 @@ const VARIANTS: Record<string, string> = {
 export default function AnnouncementBar() {
     const [ann, setAnn] = useState<Announcement | null>(null);
     const [visible, setVisible] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        // Only run once on mount
         let alive = true;
-
-        // Check if already dismissed
         const dismissed = sessionStorage.getItem('grey-ann-dismissed');
         if (dismissed === 'true') return;
 
         fetch('/api/announcement')
             .then((r) => r.json())
-            .then((d: {announcement: Announcement | null}) => {
+            .then((d: { announcement: Announcement | null }) => {
                 if (!alive || !d.announcement) return;
                 setAnn(d.announcement);
                 setVisible(true);
@@ -52,9 +45,24 @@ export default function AnnouncementBar() {
         };
     }, []);
 
+    useEffect(() => {
+        if (!containerRef.current) return;
+
+        const updateHeight = () => {
+            const height = containerRef.current?.offsetHeight || 0;
+            document.documentElement.style.setProperty('--ann-bar-height', `${height}px`);
+        };
+
+        updateHeight();
+        const resizeObserver = new ResizeObserver(updateHeight);
+        resizeObserver.observe(containerRef.current);
+        return () => resizeObserver.disconnect();
+    }, [visible]);
+
     const dismiss = () => {
         setVisible(false);
         sessionStorage.setItem('grey-ann-dismissed', 'true');
+        document.documentElement.style.setProperty('--ann-bar-height', '0px');
     };
 
     if (!ann || !visible) return null;
@@ -65,13 +73,13 @@ export default function AnnouncementBar() {
         <AnimatePresence>
             {visible && (
                 <motion.div
+                    ref={containerRef}
                     initial={{height: 0, opacity: 0}}
                     animate={{height: 'auto', opacity: 1}}
                     exit={{height: 0, opacity: 0}}
                     transition={{duration: 0.3, ease: 'easeInOut'}}
-                    className={`relative z-[70] w-full overflow-hidden ${cls}`}
+                    className={`fixed top-0 left-0 right-0 z-[75] w-full overflow-hidden ${cls}`}
                 >
-                    {/* Animated sheen effect */}
                     <div
                         aria-hidden
                         className="pointer-events-none absolute inset-0 opacity-30"
@@ -82,8 +90,9 @@ export default function AnnouncementBar() {
                         }}
                     />
 
-                    <div className="relative mx-auto flex max-w-full items-center justify-center gap-3 px-4 py-3 text-center text-sm font-medium tracking-wide">
-                        <span className="inline-flex h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-current" />
+                    <div
+                        className="relative mx-auto flex max-w-full items-center justify-center gap-3 px-4 py-3 text-center text-sm font-medium tracking-wide">
+                        <span className="inline-flex h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-current"/>
                         <span className="truncate sm:whitespace-normal">{ann.message}</span>
                         {ann.link_url && (
                             <a
@@ -106,7 +115,8 @@ export default function AnnouncementBar() {
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
                             >
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5}
+                                      d="M6 18L18 6M6 6l12 12"/>
                             </svg>
                         </button>
                     </div>
