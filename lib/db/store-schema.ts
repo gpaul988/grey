@@ -317,3 +317,27 @@ export const storeWishlists = sqliteTable(
     customerIdIdx: index('idx_store_wishlists_customer_id').on(table.customerId),
   })
 );
+
+/**
+ * Store Password Reset Tokens
+ * Used for "forgot password" flow - securely store reset tokens with expiry
+ */
+export const storePasswordResetTokens = sqliteTable(
+  'store_password_reset_tokens',
+  {
+    id: integer('id').primaryKey({ autoIncrement: true }),
+    customerId: integer('customer_id').notNull(),
+    email: text('email').notNull(),
+    token: text('token').notNull().unique(),
+    expiresAt: text('expires_at').notNull(),
+    used: integer('used', { mode: 'boolean' }).default(false),
+    usedAt: text('used_at'),
+    createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+  },
+  (table) => ({
+    tokenIdx: uniqueIndex('idx_store_password_reset_tokens_token').on(table.token),
+    customerIdIdx: index('idx_store_password_reset_tokens_customer_id').on(table.customerId),
+    emailIdx: index('idx_store_password_reset_tokens_email').on(table.email),
+    expiresAtIdx: index('idx_store_password_reset_tokens_expires_at').on(table.expiresAt),
+  })
+);

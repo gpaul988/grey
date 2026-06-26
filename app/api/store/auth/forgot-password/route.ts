@@ -1,62 +1,98 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getStoreCustomerByEmail } from '@/lib/db/store-helpers';
-import crypto from 'crypto';
+import { getStoreCustomerByEmail, createPasswordResetToken } from '@/lib/db/store-helpers';
 
-// In production, store reset tokens in database with expiry
-const resetTokens = new Map<string, { email: string; expiresAt: number }>();
+// Optionally use Resend if API key is available
+let resend: any = null;
+if (process.env.RESEND_API_KEY) {
+  const { Resend } = require('resend');
+  resend = new Resend(process.env.RESEND_API_KEY);
+}
+
+import { generatePasswordResetEmail } from '@/lib/emails/password-reset';
 
 export async function POST(request: NextRequest) {
+  try {
+    const { email } = await request.json();
+
+    if (!email) {
+      return NextResponse.json(
+        { error: 'Email is required' },
+        { status: 400 }
+      );
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { error: 'Invalid email format' },
+        { status: 400 }
+      );
+    }
+
+    // Check if customer exists
+    const customer = await getStoreCustomerByEmail(email);
+    
+    // Security: Don't leak whether email exists
+    const successMessage = 'If an account with this email exists, a password reset link has been sent';
+
+    if (!customer) {
+      // Return success even if email doesn't exist
+      return NextResponse.json({ message: successMessage });
+    }
+
     try {
-        const { email } = await request.json();
+      // Create reset token in database
+      const resetToken = await createPasswordResetToken(customer.id, email);
 
-        if (!email) {
-            return NextResponse.json(
-                { error: 'Email is required' },
-                { status: 400 }
-            );
-        }
+      // Build reset link
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || `${request.nextUrl.protocol}//${request.nextUrl.host}`;
+      const resetLink = `${baseUrl}/store/reset-password?token=${resetToken}`;
 
-        // Check if customer exists
-        const customer = await getStoreCustomerByEmail(email);
-        if (!customer) {
-            // Return success even if email doesn't exist (security: don't leak email list)
-            return NextResponse.json({
-                message: 'If an account with this email exists, a password reset link has been sent',
-            });
-        }
-
-        // Generate reset token
-        const resetToken = crypto.randomBytes(32).toString('hex');
-        const expiresAt = Date.now() + 1 * 60 * 60 * 1000; // 1 hour
-
-        resetTokens.set(resetToken, { email, expiresAt });
-
-        // In production: send email with reset link
-        // email would include: `${process.env.NEXT_PUBLIC_BASE_URL}/store/account/reset-password?token=${resetToken}`
-        console.log(`[Mock] Reset token for ${email}: ${resetToken}`);
-
-        return NextResponse.json({
-            message: 'If an account with this email exists, a password reset link has been sent',
+      if (resend) {
+        // Generate HTML email
+        const htmlContent = generatePasswordResetEmail({
+          customerName: customer.firstName,
+          resetLink,
+          expiresIn: '1 hour',
         });
-    } catch (error) {
-        console.error('[Store Auth Forgot Password]', error);
-        return NextResponse.json(
-            { error: 'Password reset failed' },
-            { status: 500 }
-        );
-    }
-}
 
-export function validateResetToken(token: string): string | null {
-    const data = resetTokens.get(token);
-    if (!data) return null;
-    if (data.expiresAt < Date.now()) {
-        resetTokens.delete(token);
-        return null;
-    }
-    return data.email;
-}
+        // Send email via Resend
+        const emailResult = await resend.emails.send({
+          from: process.env.RESEND_FROM_EMAIL || 'noreply@greyinfotech.com',
+          to: email,
+          subject: 'Reset Your Password',
+          html: htmlContent,
+        });
 
-export function clearResetToken(token: string) {
-    resetTokens.delete(token);
+        if (emailResult.error) {
+          console.error('[Password Reset Email Error]', emailResult.error);
+          // Still return success to user (don't leak email system issues)
+          return NextResponse.json({ message: successMessage });
+        }
+
+        console.log(`[Password Reset] Email sent to ${email}`);
+      } else {
+        // Development: log to console (no Resend key)
+        console.log(`[Password Reset - DEV MODE] Reset link for ${email}:`);
+        console.log(`Reset Link: ${resetLink}`);
+      }
+
+      console.log(`[Password Reset] Token created for ${email}`);
+    } catch (emailError) {
+      console.error('[Password Reset Error]', emailError);
+      // Don't expose email service errors to user
+    }
+
+    // Always return success message
+    return NextResponse.json({
+      message: successMessage,
+    });
+  } catch (error) {
+    console.error('[Store Auth Forgot Password]', error);
+    return NextResponse.json(
+      { error: 'An error occurred. Please try again later.' },
+      { status: 500 }
+    );
+  }
 }

@@ -252,3 +252,24 @@ CREATE TABLE "store_wishlists" (
 CREATE UNIQUE INDEX "idx_store_wishlists_customer_product" ON "store_wishlists" ("customer_id", "product_id");
 --> statement-breakpoint
 CREATE INDEX "idx_store_wishlists_customer_id" ON "store_wishlists" ("customer_id");
+--> statement-breakpoint
+
+-- Store Password Reset Tokens Table
+CREATE TABLE "store_password_reset_tokens" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"customer_id" integer NOT NULL,
+	"email" text NOT NULL,
+	"token" text NOT NULL UNIQUE,
+	"expires_at" timestamp NOT NULL,
+	"used" boolean DEFAULT false,
+	"used_at" timestamp,
+	"created_at" timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+--> statement-breakpoint
+CREATE UNIQUE INDEX "idx_store_password_reset_tokens_token" ON "store_password_reset_tokens" ("token");
+--> statement-breakpoint
+CREATE INDEX "idx_store_password_reset_tokens_customer_id" ON "store_password_reset_tokens" ("customer_id");
+--> statement-breakpoint
+CREATE INDEX "idx_store_password_reset_tokens_email" ON "store_password_reset_tokens" ("email");
+--> statement-breakpoint
+CREATE INDEX "idx_store_password_reset_tokens_expires_at" ON "store_password_reset_tokens" ("expires_at");

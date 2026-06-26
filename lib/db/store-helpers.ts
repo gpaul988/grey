@@ -11,9 +11,11 @@ import {
   storeOrderItems,
   storeProducts,
   storeCategories,
+  storePasswordResetTokens,
 } from './store-schema';
-import { eq, and } from 'drizzle-orm';
+import { eq, and, sql } from 'drizzle-orm';
 import * as bcrypt from 'bcrypt';
+import crypto from 'crypto';
 
 /**
  * Create a new store customer
@@ -266,4 +268,68 @@ export async function resetStoreCustomerPassword(email: string, newPassword: str
 
   const updated = await getStoreCustomerByEmail(email);
   return updated;
+}
+
+/**
+ * Create password reset token
+ * Returns token string to be sent in email
+ */
+export async function createPasswordResetToken(customerId: number, email: string) {
+  const token = crypto.randomBytes(32).toString('hex');
+  const expiresAt = new Date(Date.now() + 1 * 60 * 60 * 1000).toISOString(); // 1 hour
+
+  await db
+    .insert(storePasswordResetTokens)
+    .values({
+      customerId,
+      email,
+      token,
+      expiresAt,
+    });
+
+  return token;
+}
+
+/**
+ * Validate password reset token
+ * Returns customer email if valid, null if expired or used
+ */
+export async function validatePasswordResetToken(token: string) {
+  const tokens = await db
+    .select()
+    .from(storePasswordResetTokens)
+    .where(eq(storePasswordResetTokens.token, token));
+
+  const resetToken = tokens[0];
+  if (!resetToken) return null;
+  if (resetToken.used) return null;
+  if (new Date(resetToken.expiresAt) < new Date()) return null;
+
+  return resetToken.email;
+}
+
+/**
+ * Mark password reset token as used
+ */
+export async function markTokenAsUsed(token: string) {
+  await db
+    .update(storePasswordResetTokens)
+    .set({
+      used: true,
+      usedAt: new Date().toISOString(),
+    })
+    .where(eq(storePasswordResetTokens.token, token));
+}
+
+/**
+ * Clean up expired password reset tokens (optional maintenance)
+ */
+export async function cleanupExpiredResetTokens() {
+  const now = new Date().toISOString();
+  await db
+    .delete(storePasswordResetTokens)
+    .where(and(
+      eq(storePasswordResetTokens.used, false),
+      sql`${storePasswordResetTokens.expiresAt} < ${now}`
+    ));
 }
