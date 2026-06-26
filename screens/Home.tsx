@@ -515,64 +515,69 @@ const Home = () => {
 
                     </div>
 
-                    {/* Right Section */}
-                    <div
-                        className='lg:sticky lg:top-[6em] justify-center items-center lg:h-screen overflow-hidden lg:block md:block hidden'>
-                        <div>
-                            {imageIds.map((imageId: string) => (
-                                activeId === imageId && (
-                                    <div
+                    {/* Right Section - Sticky Image (stays in viewport while scrolling) */}
+                    <div className='relative lg:block md:block hidden'>
+                        {/* Fixed container positioned inside viewport */}
+                        <div className='fixed right-0 top-1/2 transform -translate-y-1/2 w-1/2 h-auto z-30 pointer-events-none overflow-hidden'>
+                            <div className='relative w-full h-full flex items-center justify-center pr-[4.6em]'>
+                                {imageIds.map((imageId: string) => (
+                                    <motion.div
                                         key={imageId}
-                                        className="relative shadow-lg transition-opacity duration-500 ease-in-out opacity-100"
-                                        id={imageId}
+                                        className="relative shadow-xl rounded-xl overflow-hidden max-w-[500px]"
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: activeId === imageId ? 1 : 0, scale: activeId === imageId ? 1 : 0.95 }}
+                                        exit={{ opacity: 0, scale: 0.95 }}
+                                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                                        style={{ visibility: activeId === imageId ? 'visible' : 'hidden' }}
                                     >
                                         <Image
                                             src={`/assets/home/${imageId}.jpg`}
                                             alt={imageId}
-                                            className="transition-transform duration-500 ease-in-out transform scale-105 hover:scale-110"
+                                            className="transition-transform duration-500 ease-in-out transform hover:scale-110 w-full h-auto"
                                             width={1024}
                                             height={768}
+                                            priority
                                         />
-                                    </div>
-                                )
-                            ))}
-                        </div>
-
-                        {/* sticky menu */}
-                        {isVisible && (
-                            <div
-                                className={`lg:fixed justify-center md:fixed bottom-0 left-0 w-full lg:block md:block sm:hidden ${
-                                    isDayTime ? 'bg-black text-gray-600' : 'bg-white text-gray-300'} py-5 z-50`}>
-                                <div
-                                    className={`grid lg:grid-cols-7 md:grid-cols-5 lg:max-w-[90em] lg:px-[4.6em] mx-auto justify-center gap-0 ${
-                                        isDayTime ? 'border-white' : 'border-black'}`}>
-                                    {imageIds.map((id) => (
-                                        <button
-                                            key={id}
-                                            onClick={() => {
-                                                const element = document.getElementById(id);
-                                                if (element) {
-                                                    element.scrollIntoView({behavior: 'smooth'});
-                                                }
-                                            }}
-                                            className={`mt-4 ${
-                                                activeId === id
-                                                    ? isDayTime
-                                                        ? 'text-white hover:text-gray-300 focus:text-gray-300'
-                                                        : 'text-black hover:text-gray-700 focus:text-gray-700'
-                                                    : isDayTime
-                                                        ? 'text-gray-600 hover:text-white focus:text-white'
-                                                        : 'text-gray-500 hover:text-black focus:text-black'
-                                            }`}
-                                        >
-                                            {id.replace('-', ' ')}
-                                        </button>
-                                    ))}
-                                </div>
+                                    </motion.div>
+                                ))}
                             </div>
-                        )}
+                        </div>
                     </div>
                 </div>
+
+                {/* sticky menu */}
+                {isVisible && (
+                    <div
+                        className={`lg:fixed justify-center md:fixed bottom-0 left-0 w-full lg:block md:block sm:hidden ${
+                            isDayTime ? 'bg-black text-gray-600' : 'bg-white text-gray-300'} py-5 z-50`}>
+                        <div
+                            className={`grid lg:grid-cols-7 md:grid-cols-5 lg:max-w-[90em] lg:px-[4.6em] mx-auto justify-center gap-0 ${
+                                isDayTime ? 'border-white' : 'border-black'}`}>
+                            {imageIds.map((id) => (
+                                <button
+                                    key={id}
+                                    onClick={() => {
+                                        const element = document.getElementById(id);
+                                        if (element) {
+                                            element.scrollIntoView({behavior: 'smooth'});
+                                        }
+                                    }}
+                                    className={`mt-4 ${
+                                        activeId === id
+                                            ? isDayTime
+                                                ? 'text-white hover:text-gray-300 focus:text-gray-300'
+                                                : 'text-black hover:text-gray-700 focus:text-gray-700'
+                                            : isDayTime
+                                                ? 'text-gray-600 hover:text-white focus:text-white'
+                                                : 'text-gray-500 hover:text-black focus:text-black'
+                                    }`}
+                                >
+                                    {id.replace('-', ' ')}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* Digital Adventure Section */}
