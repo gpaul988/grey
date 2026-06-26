@@ -450,7 +450,7 @@ const HeaderContent: React.FC = () => {
             {/* Main Header */}
             {!isModalOpen && !isMobileMenuOpen && (
                 <header
-                    className={`fixed top-0 left-0 right-0 py-2 sm:py-3 md:py-5 lg:py-8 w-full z-[50] transition-transform duration-300 bg-black/60 text-white ${headerTheme.blur}`}
+                    className={`sticky top-0 left-0 right-0 py-2 sm:py-3 md:py-5 lg:py-8 w-full z-[50] transition-transform duration-300 bg-black/60 text-white ${headerTheme.blur}`}
                     style={{
                         transform: showHeader ? 'translateY(0)' : 'translateY(-100%)',
                         opacity: showHeader ? 1 : 0,
