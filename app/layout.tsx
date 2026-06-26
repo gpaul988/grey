@@ -146,8 +146,8 @@ export const viewport: Viewport = {
 };
 
 export default async function RootLayout({
-    children,
-}: Readonly<{
+                                             children,
+                                         }: Readonly<{
     children: React.ReactNode;
 }>) {
     return (
@@ -163,47 +163,49 @@ export default async function RootLayout({
         <body
             className={`${merriweather.variable} ${roboto.variable} antialiased`}
         >
-            {/* First-load boot sequence — shows once per session */}
-            <Preloader />
+        {/* First-load boot sequence — shows once per session */}
+        <Preloader/>
 
-            {/* Skip-to-content link for keyboard/screen-reader users (WCAG) */}
-            <a
-                href="#main-content"
-                className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:rounded focus:bg-black focus:px-4 focus:py-2 focus:text-white"
-            >
-                Skip to main content
-            </a>
+        {/* Skip-to-content link for keyboard/screen-reader users (WCAG) */}
+        <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:rounded focus:bg-black focus:px-4 focus:py-2 focus:text-white"
+        >
+            Skip to main content
+        </a>
 
-            {/* Structured data (Schema.org) for rich results — now with real sameAs links */}
-            <OrganizationSchema socialLinks={[...SITE.socials]}/>
-            <WebSiteSchema/>
+        {/* Structured data (Schema.org) for rich results — now with real sameAs links */}
+        <OrganizationSchema socialLinks={[...SITE.socials]}/>
+        <WebSiteSchema/>
 
-            {/* Schedule-aware promo / announcement strip above the header */}
-            <AnnouncementBarWrapper/>
+        {/* Header with language switcher in navbar */}
+        <Header/>
 
-            {/* Header with language switcher in navbar */}
-            <Header/>
+        {/* Schedule-aware promo / announcement strip above the header */}
+        <AnnouncementBarWrapper/>
 
-            {/* semantic <main> landmark + id target for skip link */}
-            <main id="main-content">{children}</main>
+        {/* semantic <main> landmark + id target for skip link */}
+        <main id="main-content">{children}</main>
 
-            <Footer/>
+        <Footer/>
 
-            {/* Live human chat (Tawk) + AI assistant run side-by-side */}
-            {process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID && process.env.NEXT_PUBLIC_TAWK_WIDGET_ID ? (
-                <TawkChat 
-                    propertyId={process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID}
-                    widgetId={process.env.NEXT_PUBLIC_TAWK_WIDGET_ID}
-                />
-            ) : (
-                process.env.NODE_ENV === 'development' && (
-                    <div className="fixed bottom-96 right-5 z-[89] hidden lg:block rounded-lg bg-amber-100 border border-amber-400 p-3 text-xs text-amber-900 max-w-xs">
-                        <strong>⚠️ Tawk.to not configured.</strong>
-                        <br/>Set NEXT_PUBLIC_TAWK_PROPERTY_ID and NEXT_PUBLIC_TAWK_WIDGET_ID in .env.local to enable live chat.
-                    </div>
-                )
-            )}
-            <AIChat/>
+        {/* Live human chat (Tawk) + AI assistant run side-by-side */}
+        {process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID && process.env.NEXT_PUBLIC_TAWK_WIDGET_ID ? (
+            <TawkChat
+                propertyId={process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID}
+                widgetId={process.env.NEXT_PUBLIC_TAWK_WIDGET_ID}
+            />
+        ) : (
+            process.env.NODE_ENV === 'development' && (
+                <div
+                    className="fixed bottom-96 right-5 z-[89] hidden lg:block rounded-lg bg-amber-100 border border-amber-400 p-3 text-xs text-amber-900 max-w-xs">
+                    <strong>⚠️ Tawk.to not configured.</strong>
+                    <br/>Set NEXT_PUBLIC_TAWK_PROPERTY_ID and NEXT_PUBLIC_TAWK_WIDGET_ID in .env.local to enable live
+                    chat.
+                </div>
+            )
+        )}
+        <AIChat/>
         </body>
         </html>
     );
