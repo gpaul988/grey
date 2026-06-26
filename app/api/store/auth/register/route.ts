@@ -1,26 +1,65 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { createStoreCustomer, getStoreCustomerByEmail } from '@/lib/db/store-helpers';
+import jwt from 'jsonwebtoken';
+
+const JWT_SECRET = process.env.JWT_SECRET || 'store-secret-key-change-in-production';
 
 export async function POST(request: NextRequest) {
     try {
-        const { email, password, first_name, last_name } = await request.json();
+        const { email, password, firstName, lastName, phone } = await request.json();
 
-        if (!email || !password || !first_name || !last_name) {
+        if (!email || !password || !firstName || !lastName) {
             return NextResponse.json(
-                { error: 'All fields are required' },
+                { error: 'Email, password, first name, and last name are required' },
                 { status: 400 }
             );
         }
 
-        // TODO: Implement actual user registration with database
-        // For now, return a mock response
+        // Check if customer already exists
+        const existing = await getStoreCustomerByEmail(email);
+        if (existing) {
+            return NextResponse.json(
+                { error: 'Email already registered' },
+                { status: 409 }
+            );
+        }
+
+        // Create new customer
+        const customer = await createStoreCustomer({
+            email,
+            firstName,
+            lastName,
+            password,
+            phone,
+        });
+
+        if (!customer) {
+            return NextResponse.json(
+                { error: 'Failed to create customer' },
+                { status: 500 }
+            );
+        }
+
+        // Generate JWT token
+        const token = jwt.sign(
+            {
+                customerId: customer.id,
+                email: customer.email,
+                firstName: customer.firstName,
+            },
+            JWT_SECRET,
+            { expiresIn: '7d' }
+        );
+
         return NextResponse.json({
             customer: {
-                id: Math.floor(Math.random() * 10000),
-                email,
-                first_name,
-                last_name,
+                id: customer.id,
+                email: customer.email,
+                firstName: customer.firstName,
+                lastName: customer.lastName,
+                phone: customer.phone,
             },
-            token: 'mock-token-' + Date.now(),
+            token,
         });
     } catch (error) {
         console.error('[Store Auth Register]', error);

@@ -1,4 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getStoreCustomerByEmail } from '@/lib/db/store-helpers';
+import crypto from 'crypto';
+
+// In production, store reset tokens in database with expiry
+const resetTokens = new Map<string, { email: string; expiresAt: number }>();
 
 export async function POST(request: NextRequest) {
     try {
@@ -11,10 +16,27 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // TODO: Implement actual password reset flow (send email, generate reset token)
+        // Check if customer exists
+        const customer = await getStoreCustomerByEmail(email);
+        if (!customer) {
+            // Return success even if email doesn't exist (security: don't leak email list)
+            return NextResponse.json({
+                message: 'If an account with this email exists, a password reset link has been sent',
+            });
+        }
+
+        // Generate reset token
+        const resetToken = crypto.randomBytes(32).toString('hex');
+        const expiresAt = Date.now() + 1 * 60 * 60 * 1000; // 1 hour
+
+        resetTokens.set(resetToken, { email, expiresAt });
+
+        // In production: send email with reset link
+        // email would include: `${process.env.NEXT_PUBLIC_BASE_URL}/store/account/reset-password?token=${resetToken}`
+        console.log(`[Mock] Reset token for ${email}: ${resetToken}`);
+
         return NextResponse.json({
-            message: 'Password reset email sent',
-            email,
+            message: 'If an account with this email exists, a password reset link has been sent',
         });
     } catch (error) {
         console.error('[Store Auth Forgot Password]', error);
@@ -23,4 +45,18 @@ export async function POST(request: NextRequest) {
             { status: 500 }
         );
     }
+}
+
+export function validateResetToken(token: string): string | null {
+    const data = resetTokens.get(token);
+    if (!data) return null;
+    if (data.expiresAt < Date.now()) {
+        resetTokens.delete(token);
+        return null;
+    }
+    return data.email;
+}
+
+export function clearResetToken(token: string) {
+    resetTokens.delete(token);
 }
