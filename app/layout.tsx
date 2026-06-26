@@ -178,11 +178,11 @@ export default async function RootLayout({
         <OrganizationSchema socialLinks={[...SITE.socials]}/>
         <WebSiteSchema/>
 
-        {/* Header with language switcher in navbar */}
-        <Header/>
-
         {/* Schedule-aware promo / announcement strip above the header */}
         <AnnouncementBarWrapper/>
+
+        {/* Header with language switcher in navbar */}
+        <Header/>
 
         {/* semantic <main> landmark + id target for skip link */}
         <main id="main-content">{children}</main>
