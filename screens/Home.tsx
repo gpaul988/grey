@@ -15,11 +15,12 @@ import AIProjectEstimator from '@/components/AIProjectEstimator';
 import AdBanner from '@/components/futuristic/AdBanner';
 import WebGLHero from '@/components/futuristic/WebGLHero';
 import {usePersonalization} from '@/components/futuristic/PersonalizationProvider';
-import { getAutoUserName } from '@/lib/get-user-name';
+import {getAutoUserName} from '@/lib/get-user-name';
 import {useIsDayTime} from '../components/useIsDayTime';
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 
-const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
+const Home = () => {
+    const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
     // Privacy-safe personalization (daypart greeting + returning-visitor tone)
@@ -121,7 +122,7 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
     };
 
     // Get i18n
-        const [userName, setUserName] = useState<string>('');
+    const [userName, setUserName] = useState<string>('');
     const [isMounted, setIsMounted] = useState(false);
 
     // Auto-detect user name on mount
@@ -159,7 +160,7 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                     className="pb-6 rounded-none"
                 >
                     {/* WebGL Hero Overlay - on top of video */}
-                    <WebGLHero className="absolute inset-0 z-[5] opacity-60 pointer-events-none mix-blend-screen" />
+                    <WebGLHero className="absolute inset-0 z-[5] opacity-60 pointer-events-none mix-blend-screen"/>
 
                     {/* Text content */}
                     <div
@@ -167,14 +168,16 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                     >
                         <br/><br/>
                         {isMounted && (
-                            <span className={`grey-parallax-soft inline-flex items-center gap-2 rounded-full px-3 py-1 mb-2 text-xs font-medium backdrop-blur-sm border ${isHydrated && isDayTime ? 'bg-white/40 border-teal-700/30 text-teal-900' : 'bg-white/10 border-white/20 text-teal-100'}`}>
+                            <span
+                                className={`grey-parallax-soft inline-flex items-center gap-2 rounded-full px-3 py-1 mb-2 text-xs font-medium backdrop-blur-sm border ${isHydrated && isDayTime ? 'bg-white/40 border-teal-700/30 text-teal-900' : 'bg-white/10 border-white/20 text-teal-100'}`}>
                                 <span className="h-1.5 w-1.5 rounded-full bg-teal-400 animate-pulse"/>
                                 {userName ? `${getGreetingMessage()}, ${userName}!` : getGreetingMessage()}
                             </span>
                         )}
                         <h1 className={`grey-parallax-mid ${isHydrated && isDayTime ? 'text-black' : 'text-white'} lg:text-[87px] text-[45px] lg:leading-[1.1] md:leading-[1.1] leading-[1.2] font-[600] lg:mb-6`}>
                             <br/>
-                            <span className={`${isHydrated && isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>{'Engineering'}</span><br/>{'Scalable'}
+                            <span
+                                className={`${isHydrated && isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>{'Engineering'}</span><br/>{'Scalable'}
                             {'Digital'}<br/> <span
                             className={`${isHydrated && isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>{'Platforms for'}<br/>{'Modern Businesses'}</span>
                         </h1><br/><br/>
@@ -182,9 +185,10 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                             {'Grey InfoTech Limited builds secure, scalable web applications, SaaS platforms, and enterprise software solutions for startups and growing businesses across Africa and globally.'}
                         </h3>
                     </div>
-                    
+
                     {/* Scroll indicator */}
-                    <div className='absolute bottom-6 left-5/6 transform -translate-x-1/2 flex flex-col items-center z-10'>
+                    <div
+                        className='absolute bottom-6 left-5/6 transform -translate-x-1/2 flex flex-col items-center z-10'>
                         <LiaLongArrowAltDownSolid
                             className={`${isHydrated && isDayTime ? 'text-black' : 'text-white'} text-5xl text-center transition-transform duration-500 ease-in-out hover:scale-125 cursor-pointer`}
                             onClick={scrollToContent}
@@ -227,8 +231,9 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                                 <p> {'We create and build web apps, digital platforms, and websites that help businesses flourish. We provide unique, scalable solutions that are suited to your specific needs, with an emphasis on creativity, data-driven decision-making, and demonstrable outcomes.'}</p>
                             </div>
                             <div>
-                                <p> {'Our team makes sure your technology works as hard as you do, whether you\'re optimizing your infrastructure, launching an'} <Link href='/services/MVP'
-                                                                                       className={`border-b-[0.1em] ${isDayTime ? 'border-gray-800' : 'border-gray-300'}`}> MVP</Link>, {'or growing your online presence.'}
+                                <p> {'Our team makes sure your technology works as hard as you do, whether you\'re optimizing your infrastructure, launching an'}
+                                    <Link href='/services/MVP'
+                                          className={`border-b-[0.1em] ${isDayTime ? 'border-gray-800' : 'border-gray-300'}`}> MVP</Link>, {'or growing your online presence.'}
                                 </p>
                             </div>
                         </div>
@@ -922,7 +927,7 @@ const Home = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                 <AIProjectEstimator/>
             </div>
 
-            
+
             {/* Featured promo banner (managed via admin /admin/ads) */}
             <AdBanner placement="home_banner"/>
             <SocialProof page="home"/>
