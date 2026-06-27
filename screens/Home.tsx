@@ -256,10 +256,10 @@ const Home = () => {
                 </div>
 
                 <div id={'service'}
-                     className={'lg:grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-10 lg:mt-36 mt-6 px-6 lg:px-[4.6em] max-w-auto mx-auto w-full h-full lg:pb-[5em] pb-6'}>
+                     className={'grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-10 lg:mt-36 mt-6 px-6 lg:px-[4.6em] max-w-auto mx-auto w-full h-full lg:pb-[5em] pb-6'}>
 
                     {/* Left Section - Scrollable */}
-                    <div className={'lg:mr-28 lg:mt-[10em] lg:w-1/2'}>
+                    <div className={'lg:mr-28 lg:mt-[10em]'}>
 
                         {/* Web Design & Development Section */}
                         <div className={`lg:mb-[15em] mb-14`} id={'web-design'}>
@@ -515,9 +515,9 @@ const Home = () => {
 
                     </div>
 
-                    {/* Right Section - Fixed Position (doesn't scroll) */}
-                    <div className='lg:fixed lg:right-0 lg:top-[6em] lg:w-1/2 lg:h-[calc(100vh-6em)] justify-center items-center overflow-hidden lg:block md:block hidden'>
-                        <div className='flex items-center justify-center h-full pr-[4.6em]'>
+                    {/* Right Section - Sticky (scrolls with section, stays fixed while scrolling content) */}
+                    <div className='lg:sticky lg:top-[6em] justify-center items-center lg:h-screen overflow-hidden lg:block md:block hidden'>
+                        <div>
                             {imageIds.map((imageId: string) => (
                                 activeId === imageId && (
                                     <motion.div
