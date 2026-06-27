@@ -515,32 +515,30 @@ const Home = () => {
 
                     </div>
 
-                    {/* Right Section - Sticky Image (stays in viewport while scrolling) */}
-                    <div className='relative lg:block md:block hidden'>
-                        {/* Fixed container positioned inside viewport */}
-                        <div className='fixed right-0 top-1/2 transform -translate-y-1/2 w-1/2 h-auto z-30 pointer-events-none overflow-hidden'>
-                            <div className='relative w-full h-full flex items-center justify-center pr-[4.6em]'>
-                                {imageIds.map((imageId: string) => (
+                    {/* Right Section - Sticky Container with Dynamic Image */}
+                    <div className='lg:sticky lg:top-[6em] justify-center items-center lg:h-screen overflow-hidden lg:block md:block hidden'>
+                        <div>
+                            {imageIds.map((imageId: string) => (
+                                activeId === imageId && (
                                     <motion.div
                                         key={imageId}
-                                        className="relative shadow-xl rounded-xl overflow-hidden max-w-[500px]"
-                                        initial={{ opacity: 0, scale: 0.95 }}
-                                        animate={{ opacity: activeId === imageId ? 1 : 0, scale: activeId === imageId ? 1 : 0.95 }}
-                                        exit={{ opacity: 0, scale: 0.95 }}
-                                        transition={{ duration: 0.4, ease: "easeInOut" }}
-                                        style={{ visibility: activeId === imageId ? 'visible' : 'hidden' }}
+                                        className="relative shadow-lg"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 0.3 }}
                                     >
                                         <Image
                                             src={`/assets/home/${imageId}.jpg`}
                                             alt={imageId}
-                                            className="transition-transform duration-500 ease-in-out transform hover:scale-110 w-full h-auto"
+                                            className="transition-transform duration-500 ease-in-out transform scale-105 hover:scale-110"
                                             width={1024}
                                             height={768}
                                             priority
                                         />
                                     </motion.div>
-                                ))}
-                            </div>
+                                )
+                            ))}
                         </div>
                     </div>
                 </div>
