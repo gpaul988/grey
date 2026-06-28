@@ -1583,6 +1583,30 @@ export function migrate(database?: DatabaseType.Database): void {
         CREATE INDEX IF NOT EXISTS idx_audits_repo ON audits(repo);
         CREATE INDEX IF NOT EXISTS idx_audits_created ON audits(created_at);
         CREATE INDEX IF NOT EXISTS idx_audits_expires ON audits(expires_at);
+
+        CREATE TABLE IF NOT EXISTS audit_submissions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_name TEXT NOT NULL,
+            user_email TEXT NOT NULL,
+            user_phone TEXT,
+            user_company TEXT,
+            audit_report_id TEXT,
+            website TEXT,
+            github_repo TEXT,
+            priority TEXT NOT NULL DEFAULT 'medium',
+            budget_estimate TEXT,
+            specific_issues TEXT,
+            preferred_contact TEXT NOT NULL DEFAULT 'email',
+            audit_data TEXT NOT NULL DEFAULT '{}',
+            status TEXT NOT NULL DEFAULT 'new',
+            admin_notes TEXT,
+            proposed_solution TEXT,
+            created_at TEXT NOT NULL DEFAULT (datetime('now')),
+            updated_at TEXT NOT NULL DEFAULT (datetime('now')),
+            responded_at TEXT
+        );
+        CREATE INDEX IF NOT EXISTS idx_audit_submissions_email ON audit_submissions(user_email);
+        CREATE INDEX IF NOT EXISTS idx_audit_submissions_status ON audit_submissions(status);
     `);
 
     // ---- Store default settings (idempotent) ----

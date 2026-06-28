@@ -176,20 +176,20 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
             <ServiceHero
                 title="UI/UX Design"
                 subtitle="Human-centred design that transforms complex problems into intuitive, beautiful experiences users love."
-                color="#22d3ee"
+                accentColor="#22d3ee"
                 variant="circuit"
                 badges={["Figma", "Prototyping", "User Research", "Design Systems", "Accessibility", "Animation"]}
             />
             <ServiceCapabilities
-                color="#22d3ee"
+                accentColor="#22d3ee"
                 variant="tabs"
                 capabilities={[
-                    { icon: "🎨", title: "Interface Design", description: "Pixel-perfect UI design with consistent design systems, component libraries, and brand alignment." },
-                    { icon: "🧠", title: "UX Research", description: "User interviews, usability testing, and behavioural analytics to validate design decisions with real data." },
-                    { icon: "⚡", title: "Prototyping", description: "Interactive Figma prototypes that simulate real product behaviour for stakeholder sign-off and user testing." },
-                    { icon: "♿", title: "Accessibility", description: "WCAG 2.1 AA compliant designs ensuring your product is usable by everyone, including users with disabilities." },
-                    { icon: "📐", title: "Design Systems", description: "Scalable token-based design systems that keep your product consistent across every surface and platform." },
-                    { icon: "✨", title: "Motion & Animation", description: "Purposeful micro-interactions and transitions that guide users and make interfaces feel alive." },
+                    { id: "cap-1", icon: "🎨", title: "Interface Design", description: "Pixel-perfect UI design with consistent design systems, component libraries, and brand alignment." },
+                    { id: "cap-2", icon: "🧠", title: "UX Research", description: "User interviews, usability testing, and behavioural analytics to validate design decisions with real data." },
+                    { id: "cap-3", icon: "⚡", title: "Prototyping", description: "Interactive Figma prototypes that simulate real product behaviour for stakeholder sign-off and user testing." },
+                    { id: "cap-4", icon: "♿", title: "Accessibility", description: "WCAG 2.1 AA compliant designs ensuring your product is usable by everyone, including users with disabilities." },
+                    { id: "cap-5", icon: "📐", title: "Design Systems", description: "Scalable token-based design systems that keep your product consistent across every surface and platform." },
+                    { id: "cap-6", icon: "✨", title: "Motion & Animation", description: "Purposeful micro-interactions and transitions that guide users and make interfaces feel alive." },
                 ]}
             />
 
