@@ -8,6 +8,7 @@ import {
     Users, Submissions, Leads, Clients, Projects, Tickets, TicketMessages,
     Invoices, CaseStudies, BlogPosts, Partners, ClientReviews, Conversations, Messages, Activity,
     Ads, Subscribers, Announcements, PageSeos, Media, PartnerInquiries, Faqs,
+    AuditSubmissions,
     dashboardStats, chartData, logActivity,
 } from '../models';
 import {formatMoney, timeAgo, toInt} from '../utils/helpers';

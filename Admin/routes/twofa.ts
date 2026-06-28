@@ -12,7 +12,7 @@
 
 import express from 'express';
 import {z} from 'zod';
-import {logger} from '@/lib/logger';
+import {logger} from '../../lib/logger';
 import {
   generateTwoFactorSecret,
   verifyTotpCode,

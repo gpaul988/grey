@@ -5,26 +5,31 @@
     "lib": ["ES2020"],
     "module": "commonjs",
     "moduleResolution": "node",
-    "noEmit": false,
-    "outDir": "./dist",
-    "declaration": true,
-    "declarationMap": true,
+    "noEmit": true,
+    "declaration": false,
+    "declarationMap": false,
     "sourceMap": false,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "allowJs": false,
     "strict": false,
     "types": ["node"],
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["../*"]
+    }
   },
   "include": [
-    "**/*.ts",
-    "**/*.js"
+    "**/*.ts"
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "public",
+    "assets",
+    "**/__tests__/**"
   ]
 }

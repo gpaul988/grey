@@ -41,17 +41,34 @@ else
   echo "[cpanel-install] Check Admin/db/index.ts for fallback logic"
 fi
 
-# Step 3: Build Next.js with memory cap
-echo "[cpanel-install] Building Next.js..."
-NODE_OPTIONS="--max-old-space-size=512" npm run build
-
-if [ $? -eq 0 ]; then
-  echo "[cpanel-install] ✅ Build completed successfully"
-  echo "[cpanel-install] Next steps:"
-  echo "  1. Fill in config.env with SMTP and payment secrets"
-  echo "  2. Click 'Restart' in cPanel Node.js App dashboard"
-  echo "  3. server.js will auto-start the app"
+# Step 3: Next.js build
+# ----------------------------------------------------------------------------
+# A 1GB shared-hosting box CANNOT build this app. The production build peaks at
+# ~3GB RSS (three.js/@react-three, framer-motion, recharts, Sentry) — most of it
+# off-heap in webpack, so NO --max-old-space-size value avoids the SIGKILL.
+#
+# Supported workflow: build locally/CI and upload the prebuilt `.next/` folder
+# (see DEPLOY_CPANEL_PREBUILT.md). This script honors that: if `.next` already
+# exists (uploaded), we skip building. Only if it's missing AND you explicitly
+# pass --build do we attempt an on-box build (expected to fail on 1GB boxes).
+if [ -d ".next" ] && [ -f ".next/BUILD_ID" ]; then
+  echo "[cpanel-install] ✅ Prebuilt .next/ detected — skipping build (correct workflow)."
+elif [ "$1" = "--build" ]; then
+  echo "[cpanel-install] ⚠️  --build requested. Attempting on-box build (will OOM on 1GB boxes)..."
+  NODE_OPTIONS="--max-old-space-size=4096" npm run build || {
+    echo "[cpanel-install] ❌ Build failed (almost certainly OOM/SIGKILL on shared hosting)."
+    echo "[cpanel-install]    Build locally/CI and upload .next/ — see DEPLOY_CPANEL_PREBUILT.md"
+    exit 1
+  }
+  echo "[cpanel-install] ✅ Build completed."
 else
-  echo "[cpanel-install] ❌ Build failed"
-  exit 1
+  echo "[cpanel-install] ⚠️  No prebuilt .next/ found and on-box build is disabled."
+  echo "[cpanel-install]    Upload the locally-built .next/ folder before restarting."
+  echo "[cpanel-install]    See DEPLOY_CPANEL_PREBUILT.md. (Force on-box build with: $0 --build)"
 fi
+
+echo "[cpanel-install] Next steps:"
+echo "  1. Fill in config.env with SMTP and payment secrets"
+echo "  2. Ensure .next/ is present (uploaded prebuilt or built here)"
+echo "  3. Click 'Restart' in cPanel Node.js App dashboard"
+echo "  4. server.js will auto-start the app"
