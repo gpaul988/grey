@@ -81,6 +81,13 @@ export default function AuditScreen() {
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({website: webVal.trim(), repo: repoVal.trim()}),
             });
+
+            // Check content-type before parsing JSON to avoid HTML parse errors
+            const contentType = res.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                throw new Error(`Expected JSON response, got ${contentType || 'HTML'}. Server may be down.`);
+            }
+
             const data = await res.json();
             if (!res.ok) throw new Error(data?.error || (data?.errors && Object.values(data.errors)[0]) || 'Audit failed.');
             setReport(data as AuditReportExtended);

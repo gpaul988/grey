@@ -23,6 +23,7 @@ const Home = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
+    const [imageContainerFixed, setImageContainerFixed] = useState(true);
     // Privacy-safe personalization (daypart greeting + returning-visitor tone)
     const {greeting, returning, ready: personalReady} = usePersonalization();
 
@@ -37,9 +38,10 @@ const Home = () => {
         "discovery"
     ], []);
 
-    // Floating button visibility hook
+    // Floating button visibility hook + Image container fixed positioning
     useEffect(() => {
         const handleScroll = () => {
+            // Track active image
             for (const imageId of imageIds) {
                 const image = document.getElementById(imageId);
                 if (image) {
@@ -49,6 +51,16 @@ const Home = () => {
                         break;
                     }
                 }
+            }
+
+            // Track service section bounds for image container fixed positioning
+            const serviceSection = document.getElementById('service');
+            if (serviceSection) {
+                const rect = serviceSection.getBoundingClientRect();
+                // Image stays fixed while service section is in viewport
+                // When section scrolls past top (rect.bottom < 0), switch to absolute
+                const withinServiceSection = rect.top <= window.innerHeight && rect.bottom >= 0;
+                setImageContainerFixed(withinServiceSection);
             }
         };
         window.addEventListener("scroll", handleScroll);
@@ -517,7 +529,11 @@ const Home = () => {
 
                     {/* Right Section - Sticky Image */}
                     <div
-                        className='hidden lg:flex lg:sticky lg:top-[6em] lg:h-screen justify-center items-center overflow-hidden'>
+                        className={`hidden lg:flex lg:h-screen justify-center items-center overflow-hidden ${
+                            imageContainerFixed 
+                                ? 'fixed top-[6em] right-0 w-1/2' 
+                                : 'absolute top-[6em] right-0 w-1/2'
+                        }`}>
                         <div className='w-full h-full flex justify-center items-center'>
                             {imageIds.map((imageId: string) => (
                                 activeId === imageId && (
