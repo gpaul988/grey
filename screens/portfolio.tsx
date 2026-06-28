@@ -202,7 +202,6 @@ const Portfolio = () => {    const isDayTime = useIsDayTime();
                 </section>
             </main>
             <SocialProof page="portfolio"/>
-            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer />}
         </div>
     );
 };
