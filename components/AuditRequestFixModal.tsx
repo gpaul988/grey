@@ -71,11 +71,15 @@ export function AuditRequestFixModal({
       setError('A valid email address is required.');
       return;
     }
-
+    if (!formData.userPhone.trim()) { setError('Phone number is required.'); return; }
+    
     const effectiveBudget =
       formData.budgetEstimate === 'other'
-        ? formData.budgetCustom.trim() || 'Other'
+        ? formData.budgetCustom.trim()
         : formData.budgetEstimate;
+    
+    if (!effectiveBudget) { setError('Please select or specify a budget estimate.'); return; }
+    if (!formData.specificIssues.trim()) { setError('Please describe the specific issues you want fixed.'); return; }
 
     setLoading(true);
     try {
@@ -195,7 +199,7 @@ export function AuditRequestFixModal({
 
               {/* Row 2: Phone + Company */}
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field label="Phone Number">
+                <Field label="Phone Number" required>
                   <input
                     type="tel"
                     name="userPhone"
@@ -203,6 +207,7 @@ export function AuditRequestFixModal({
                     onChange={handleChange}
                     placeholder="+234 801 234 5678"
                     className="input-field"
+                    required
                   />
                 </Field>
                 <Field label="Company / Organisation">
@@ -232,14 +237,16 @@ export function AuditRequestFixModal({
                     <option value="critical">🔥 Critical — ASAP</option>
                   </select>
                 </Field>
-                <Field label="Budget Range">
+                <Field label="Budget Range" required>
                   <select
                     name="budgetEstimate"
                     value={formData.budgetEstimate}
                     onChange={handleChange}
                     className="input-field"
+                    required
                   >
-                    {BUDGET_OPTIONS.map((o) => (
+                    <option value="">Select budget range *</option>
+                    {BUDGET_OPTIONS.filter(o => o.value !== '').map((o) => (
                       <option key={o.value} value={o.value}>{o.label}</option>
                     ))}
                   </select>
@@ -287,7 +294,7 @@ export function AuditRequestFixModal({
               </Field>
 
               {/* Specific issues */}
-              <Field label="Issues to Fix (from audit)">
+              <Field label="Issues to Fix (from audit)" required>
                 <textarea
                   name="specificIssues"
                   value={formData.specificIssues}
@@ -295,6 +302,7 @@ export function AuditRequestFixModal({
                   placeholder="Describe the specific findings from the audit you'd like us to address — e.g. missing security headers, slow LCP, no HTTPS redirect…"
                   rows={4}
                   className="input-field resize-none"
+                  required
                 />
               </Field>
 

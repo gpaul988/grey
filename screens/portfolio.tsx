@@ -1,14 +1,14 @@
 'use client';
 
-
-import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import React, {useEffect, useState} from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import SocialProof from '@/components/SocialProof';
 import '@/app/globals.css';
 import Link from 'next/link';
 import {useIsDayTime} from '../components/useIsDayTime';
+import { motion } from 'framer-motion';
+import { FuturisticCard } from '@/components/futuristic/FuturisticCard';
+import { ModernSection } from '@/components/futuristic/ModernSection';
+import { ArrowRight, Zap, TrendingUp, CheckCircle } from 'lucide-react';
 
 const Portfolio = () => {    const isDayTime = useIsDayTime();
     const works = [
@@ -47,131 +47,158 @@ const Portfolio = () => {    const isDayTime = useIsDayTime();
     const featuredWork = works[0];
 
     return (
-        <div className={`${isDayTime ? 'bg-white text-black' : 'bg-black text-white'} min-h-screen transition-colors duration-500`}>
-            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header />}
+        <div className="min-h-screen bg-black text-white">
+            {/* Background effects */}
+            <div
+                className="pointer-events-none fixed inset-0 opacity-[0.03]"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(#00f5d4 1px, transparent 1px), linear-gradient(90deg, #00f5d4 1px, transparent 1px)',
+                  backgroundSize: '60px 60px',
+                }}
+              />
+            <div className="pointer-events-none fixed inset-0 overflow-hidden">
+              <div className="absolute -left-40 -top-40 h-[600px] w-[600px] rounded-full bg-cyan-500/10 blur-[120px]" />
+              <div className="absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-indigo-500/10 blur-[100px]" />
+            </div>
 
-            <section className="relative w-full h-[320px] md:h-[380px] lg:h-[800px] overflow-hidden">
+            {/* Hero with video */}
+            <section className="relative w-full h-[320px] md:h-[480px] lg:h-[650px] overflow-hidden pt-28">
                 <video
                     src="/assets/digital/Hero-P.mp4"
                     autoPlay
                     loop
                     muted
                     playsInline
-                    className="absolute inset-0 h-full w-full object-cover"
+                    className="absolute inset-0 h-full w-full object-cover opacity-40"
                 />
-                <div
-                    className={`absolute top-14 left-0 w-full h-full flex flex-col justify-center items-start text-start lg:max-w-[90em] px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] ${
-                        isDayTime ? 'text-white' : 'text-white'}`}>
-                    <div
-                        className="flex flex-col justify-start items-start border-b pb-[1.5em] border-gray-500/50 max-w-full w-full mx-auto ">
-                        <h1
-                            className={`px-0 constant-text lg:text-[5.35em] md:text-[4.4em] sm:text-[3.5em] text-[2em] lg:mt-[3em] md:mt-[3em] mt-[4em] w-auto h-auto leading-[1.2] pb-[0.08em] font-[600]`}>
-                            Our Portfolio
+                <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-60" />
+                
+                <div className="relative z-10 h-full flex flex-col justify-center items-start px-4 sm:px-6 md:px-10 lg:px-16">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        className="max-w-5xl"
+                    >
+                        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                            Our
+                            <br />
+                            <span className="bg-gradient-to-r from-cyan-300 to-indigo-300 bg-clip-text text-transparent">Portfolio</span>
                         </h1>
-                    </div>
-                    <div
-                        className={'relative grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 lg:mt-[1em] md:mt-[1em] mt-[0.5em] '}>
-                        <div className={'lg:-mr-[4em] md:-mr-[1em] lg:mt-[1em] md:mt-[1em]'}>
-                            <p className={'text-[0.87em] font-[300]'}>
-                                A showcase of digital products and platforms designed to drive growth and measurable business impact.
-                            </p>
+                        <p className="text-lg sm:text-xl text-slate-300 mb-8 max-w-2xl">
+                            A showcase of digital products and platforms designed to drive growth and measurable business impact.
+                        </p>
+                        
+                        {/* Stats */}
+                        <div className="grid grid-cols-3 gap-6 sm:gap-8 max-w-md">
+                            {[
+                                { value: '8+', label: 'Years Experience' },
+                                { value: '13+', label: 'Team Members' },
+                                { value: '123+', label: 'Products Launched' },
+                            ].map((stat, i) => (
+                                <div key={i}>
+                                    <div className="text-3xl sm:text-4xl font-bold text-cyan-300">{stat.value}</div>
+                                    <p className="text-sm text-slate-500 mt-2">{stat.label}</p>
+                                </div>
+                            ))}
                         </div>
-                        <div
-                            className={'relative grid lg:grid-cols-3 lg:gap-8 lg:ml-[13em]'}>
-                            <div className={'border-0 lg:block md:hidden sm:hidden hidden'}>
-                                <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>8+</h6>
-                                <p className={'text-[0.7em] font-[300]'}>Years Experience</p>
-                            </div>
-                            <div className={'border-0 lg:block md:hidden sm:hidden hidden'}>
-                                <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>13+</h6>
-                                <p className={'text-[0.7em] font-[300]'}>Team Members</p>
-                            </div>
-                            <div className={'border-0 lg:block md:hidden sm:hidden hidden'}>
-                                <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>123+</h6>
-                                <p className={'text-[0.7em] font-[300]'}>Products Launched</p>
-                            </div>
-                        </div>
-                    </div>
+                    </motion.div>
                 </div>
             </section>
 
-            <main className="mx-auto max-w-[90rem] px-4 sm:px-6 md:px-10 lg:px-[4.5em] py-20 lg:py-24">
-                <section className="border-b border-teal-600/20 pb-12 lg:pb-16 mb-10">
-                    <p className="text-teal-500 font-semibold uppercase tracking-[0.22em] text-xs mb-4">Portfolio</p>
-                    <div className="grid lg:grid-cols-2 gap-8 items-end">
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-tight">
-                            Selected Work
-                            <br />
-                            Built for Growth
-                        </h1>
-                        <p className={`${isDayTime ? 'text-gray-700' : 'text-gray-300'} text-base md:text-lg leading-relaxed max-w-2xl`}>
-                            A selection of digital products, platforms, and business-critical experiences we have designed
-                            and delivered with measurable impact.
-                        </p>
-                    </div>
-                </section>
-
-                <section className="mb-12 lg:mb-14">
-                    <article className={`rounded-3xl border p-6 lg:p-10 ${
-                        isDayTime ? 'bg-teal-50 border-teal-100' : 'bg-zinc-950 border-zinc-800'
-                    }`}>
-                        <p className="text-xs uppercase tracking-[0.2em] text-teal-500 mb-4">Featured Work</p>
+            <main className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+                {/* Featured Work Section */}
+                <section className="mb-20 lg:mb-32">
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <div className="mb-8">
+                            <span className="inline-flex items-center gap-2 text-cyan-400 text-sm font-semibold mb-4">
+                                <Zap className="w-4 h-4" /> Featured Work
+                            </span>
+                            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+                                {featuredWork.title}
+                            </h2>
+                            <span className="inline-flex rounded-full text-xs font-semibold px-4 py-2 bg-cyan-400/10 text-cyan-300 border border-cyan-400/30 mb-6">
+                                {featuredWork.category}
+                            </span>
+                        </div>
+                        
                         <div className="grid lg:grid-cols-2 gap-8">
                             <div>
-                                <span className={`inline-flex text-xs font-semibold rounded-full px-3 py-1 mb-5 ${
-                                    isDayTime ? 'bg-teal-100 text-teal-700' : 'bg-teal-900/40 text-teal-200'
-                                }`}>
-                                    {featuredWork.category}
-                                </span>
-                                <h2 className="text-3xl lg:text-5xl font-semibold leading-[1.08] tracking-tight mb-4">
-                                    {featuredWork.title}
-                                </h2>
-                                <p className={`${isDayTime ? 'text-gray-700' : 'text-gray-300'} text-base leading-relaxed`}>
+                                <p className="text-lg text-slate-300 leading-relaxed mb-6">
                                     {featuredWork.impact}
                                 </p>
-                            </div>
-                            <div className={`rounded-2xl border p-8 flex flex-col justify-between ${
-                                isDayTime ? 'bg-white border-teal-100' : 'bg-black border-zinc-800'
-                            }`}>
-                                <p className={`${isDayTime ? 'text-gray-600' : 'text-gray-300'} text-sm leading-relaxed mb-5`}>
-                                    Every engagement focuses on outcomes: improved efficiency, stronger conversion, and
-                                    systems teams can scale confidently.
+                                <p className="text-slate-400 mb-8">
+                                    Every engagement focuses on outcomes: improved efficiency, stronger conversion, and systems teams can scale confidently.
                                 </p>
                                 <Link
-                                    href="/contact"
-                                    className={`text-sm font-medium underline underline-offset-4 ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}
+                                    href="/quote-request"
+                                    className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 group"
                                 >
-                                    Start a project
+                                    Start a Project
+                                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                 </Link>
                             </div>
+                            <FuturisticCard gradient="purple" hover="glow" className="p-8">
+                                <div className="flex flex-col h-full justify-between">
+                                    <p className="text-slate-300 leading-relaxed mb-6">
+                                        We deliver digital excellence through strategic design, robust development, and measurable results that drive real business growth.
+                                    </p>
+                                    <div className="flex items-center text-cyan-400">
+                                        <TrendingUp className="w-5 h-5 mr-2" />
+                                        <span>View case studies →</span>
+                                    </div>
+                                </div>
+                            </FuturisticCard>
                         </div>
-                    </article>
+                    </motion.div>
                 </section>
 
+                {/* More Work Grid */}
                 <section>
-                    <h3 className="text-2xl md:text-3xl font-semibold tracking-tight mb-6 lg:mb-8">More Work</h3>
-                    <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-                        {works.map((item) => (
-                            <article
+                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-12">More Work</h3>
+                    <motion.div
+                        className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+                        variants={{
+                            hidden: { opacity: 0 },
+                            visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+                        }}
+                        initial="hidden"
+                        whileInView="visible"
+                    >
+                        {works.map((item, idx) => (
+                            <motion.div
                                 key={item.title}
-                                className={`rounded-2xl border p-6 transition-all duration-300 ${
-                                    isDayTime
-                                        ? 'bg-white border-gray-200 hover:border-teal-300'
-                                        : 'bg-zinc-950 border-zinc-800 hover:border-teal-700'
-                                }`}
+                                variants={{
+                                    hidden: { opacity: 0, y: 20 },
+                                    visible: { opacity: 1, y: 0 },
+                                }}
                             >
-                                <span className={`inline-flex rounded-full text-xs font-semibold px-3 py-1 mb-4 ${
-                                    isDayTime ? 'bg-teal-100 text-teal-700' : 'bg-teal-900/40 text-teal-200'
-                                }`}>
-                                    {item.category}
-                                </span>
-                                <h2 className="text-xl font-semibold leading-snug mb-3">{item.title}</h2>
-                                <p className={`${isDayTime ? 'text-gray-600' : 'text-gray-300'} text-sm leading-relaxed`}>
-                                    {item.impact}
-                                </p>
-                            </article>
+                                <FuturisticCard
+                                    gradient={idx % 2 === 0 ? 'cyan' : 'purple'}
+                                    hover="lift"
+                                    className="p-8 h-full flex flex-col justify-between"
+                                >
+                                    <div>
+                                        <span className="inline-flex rounded-full text-xs font-semibold px-3 py-1.5 bg-cyan-400/10 text-cyan-300 border border-cyan-400/30 mb-4">
+                                            {item.category}
+                                        </span>
+                                        <h4 className="text-xl font-bold text-white mb-3">{item.title}</h4>
+                                        <p className="text-slate-400 text-sm leading-relaxed">
+                                            {item.impact}
+                                        </p>
+                                    </div>
+                                    <div className="mt-6 flex items-center text-cyan-400 text-sm font-semibold group-hover:translate-x-1 transition-transform">
+                                        Learn more →
+                                    </div>
+                                </FuturisticCard>
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 </section>
             </main>
             <SocialProof page="portfolio"/>
