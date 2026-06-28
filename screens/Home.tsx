@@ -255,11 +255,12 @@ const Home = () => {
                     <h3 className={'lg:text-[3.2em] md:text-[3em] text-[2em] font-[700]'}>{'Our services'}</h3>
                 </div>
 
-                <div id={'service'}
-                     className={'grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-10 lg:mt-36 mt-6 px-6 lg:px-[4.6em] max-w-auto mx-auto w-full h-full lg:pb-[5em] pb-6'}>
+                <div
+                    className={'lg:grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 lg:gap-0 gap-10 lg:mt-36 mt-6 lg:pb-[5em] pb-6'}>
 
                     {/* Left Section - Scrollable */}
-                    <div className={'lg:mr-28 lg:mt-[10em]'}>
+                    <div className={'px-6 lg:px-[4.6em] lg:mr-28 lg:mt-[10em] lg:overflow-y-auto' +
+                        ' lg:max-h-screen'}>
 
                         {/* Web Design & Development Section */}
                         <div className={`lg:mb-[15em] mb-14`} id={'web-design'}>
@@ -515,35 +516,33 @@ const Home = () => {
 
                     </div>
 
-                    {/* Right Section - Sticky (scrolls with section, stays fixed while scrolling content) */}
-                    <div className='lg:sticky lg:top-[6em] justify-center items-center lg:h-screen overflow-hidden lg:block md:block hidden'>
-                        <div>
+                    {/* Right Section - Sticky Image */}
+                    <div
+                        className='hidden lg:flex lg:sticky lg:top-[6em] lg:h-screen justify-center items-center overflow-hidden'>
+                        <div className='w-full h-full flex justify-center items-center'>
                             {imageIds.map((imageId: string) => (
                                 activeId === imageId && (
-                                    <motion.div
+                                    <div
                                         key={imageId}
-                                        className="relative shadow-lg"
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        exit={{ opacity: 0 }}
-                                        transition={{ duration: 0.3 }}
+                                        className="relative shadow-lg transition-opacity duration-500 ease-in-out opacity-100"
+                                        id={imageId}
                                     >
                                         <Image
                                             src={`/assets/home/${imageId}.jpg`}
                                             alt={imageId}
-                                            className="transition-transform duration-500 ease-in-out transform scale-105 hover:scale-110"
+                                            className="transition-transform duration-500 ease-in-out transform scale-105 hover:scale-110 max-w-[90%] max-h-[85vh] object-contain"
                                             width={1024}
                                             height={768}
                                             priority
                                         />
-                                    </motion.div>
+                                    </div>
                                 )
                             ))}
                         </div>
                     </div>
                 </div>
 
-                {/* sticky menu */}
+                {/* Sticky Menu - Below the service section */}
                 {isVisible && (
                     <div
                         className={`lg:fixed justify-center md:fixed bottom-0 left-0 w-full lg:block md:block sm:hidden ${
