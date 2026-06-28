@@ -8,6 +8,8 @@ import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
+import ServiceHero from '@/components/futuristic/ServiceHero';
+import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import CountUp from 'react-countup';
@@ -169,6 +171,26 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
                 }`}
+            />
+
+            <ServiceHero
+                title="UI/UX Design"
+                subtitle="Human-centred design that transforms complex problems into intuitive, beautiful experiences users love."
+                color="#22d3ee"
+                variant="circuit"
+                badges={["Figma", "Prototyping", "User Research", "Design Systems", "Accessibility", "Animation"]}
+            />
+            <ServiceCapabilities
+                color="#22d3ee"
+                variant="tabs"
+                capabilities={[
+                    { icon: "🎨", title: "Interface Design", description: "Pixel-perfect UI design with consistent design systems, component libraries, and brand alignment." },
+                    { icon: "🧠", title: "UX Research", description: "User interviews, usability testing, and behavioural analytics to validate design decisions with real data." },
+                    { icon: "⚡", title: "Prototyping", description: "Interactive Figma prototypes that simulate real product behaviour for stakeholder sign-off and user testing." },
+                    { icon: "♿", title: "Accessibility", description: "WCAG 2.1 AA compliant designs ensuring your product is usable by everyone, including users with disabilities." },
+                    { icon: "📐", title: "Design Systems", description: "Scalable token-based design systems that keep your product consistent across every surface and platform." },
+                    { icon: "✨", title: "Motion & Animation", description: "Purposeful micro-interactions and transitions that guide users and make interfaces feel alive." },
+                ]}
             />
 
             {/* Hero Section */}

@@ -7,6 +7,8 @@ import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
+import ServiceHero from '@/components/futuristic/ServiceHero';
+import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 import Link from "next/link";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import Footer from "@/components/Footer";
@@ -176,6 +178,26 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
                 }`}
+            />
+
+            <ServiceHero
+                title="Discovery Phase"
+                subtitle="Deep-dive discovery sessions that uncover insights, align stakeholders, and build bulletproof project foundations before a single line of code is written."
+                color="#f97316"
+                variant="grid"
+                badges={["Requirements", "Workshops", "Wireframes", "Roadmapping", "Feasibility", "Risk Analysis"]}
+            />
+            <ServiceCapabilities
+                color="#f97316"
+                variant="terminal"
+                capabilities={[
+                    { icon: "🔍", title: "Requirements Gathering", description: "Structured stakeholder interviews and workshops to surface functional, technical, and business requirements." },
+                    { icon: "🗺️", title: "Technical Roadmapping", description: "Architecture decisions, technology selection, and phased delivery plans that reduce risk from day one." },
+                    { icon: "📋", title: "Feasibility Analysis", description: "Technical and commercial feasibility assessments that give you confidence before committing budget." },
+                    { icon: "🖼️", title: "Wireframing & IA", description: "Low-fidelity wireframes and information architecture that align teams on structure before visual design begins." },
+                    { icon: "⚠️", title: "Risk Assessment", description: "Identify and mitigate technical, timeline, and commercial risks before they become expensive problems." },
+                    { icon: "📄", title: "Project Documentation", description: "Full discovery output: SOW, technical spec, user stories, acceptance criteria, and project charter." },
+                ]}
             />
 
             {/* Hero Section */}

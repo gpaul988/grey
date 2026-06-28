@@ -13,6 +13,8 @@ import {ArrowLeft, ArrowRight, CheckCircle, Quote} from "lucide-react";
 import CountUp from "react-countup";
 import {AnimatePresence, motion} from "framer-motion";
 import {useIsDayTime} from '../../components/useIsDayTime';
+import ServiceHero from '@/components/futuristic/ServiceHero';
+import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 
 const reasons = [
     {
@@ -179,6 +181,25 @@ const MobileApplicationDevelopment = () => {    const sectionRef = useRef<HTMLDi
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
                 }`}
+            />
+
+            {/* Futuristic Hero */}
+            <ServiceHero
+              title="Mobile App Development"
+              subtitle="iOS & Android"
+              description="We build modern, intuitive mobile apps for both iOS and Android — native, cross-platform, or hybrid. From concept to app store launch, we deliver engaging, high-quality applications."
+              tags={['iOS', 'Android', 'React Native', 'Flutter', 'Expo', 'Swift', 'Kotlin']}
+              accentColor="#f59e0b"
+              secondaryColor="#ec4899"
+              ctaHref="/contact"
+              ctaLabel="Build your app"
+              stats={[
+                { value: '30+', label: 'Apps live' },
+                { value: '4.8★', label: 'Avg store rating' },
+                { value: '2M+', label: 'App users' },
+                { value: '8+', label: 'Years' },
+              ]}
+              variant="particles"
             />
 
             {/* Hero Section */}
@@ -1371,6 +1392,54 @@ const MobileApplicationDevelopment = () => {    const sectionRef = useRef<HTMLDi
             </div>
 
             
+
+            {/* Futuristic Capabilities */}
+            <ServiceCapabilities
+              heading="Mobile development capabilities"
+              subheading="What we build"
+              accentColor="#f59e0b"
+              variant="cards"
+              ctaHref="/contact"
+              ctaLabel="Plan your app"
+              capabilities={[
+                {
+                  id: 'ios',
+                  title: 'iOS Development',
+                  description: 'Native Swift/SwiftUI apps built to Apple Human Interface Guidelines — buttery smooth, deeply integrated with iOS ecosystem.',
+                  points: ['Swift / SwiftUI', 'App Store submission', 'Push notifications', 'In-app purchases'],
+                },
+                {
+                  id: 'android',
+                  title: 'Android Development',
+                  description: 'Kotlin-first Android apps with Material Design 3 — performant, accessible, and optimized for the full spectrum of Android devices.',
+                  points: ['Kotlin / Jetpack Compose', 'Google Play submission', 'Firebase integration', 'Adaptive layouts'],
+                },
+                {
+                  id: 'cross-platform',
+                  title: 'Cross-Platform',
+                  description: 'One codebase, two platforms. React Native and Flutter let us ship iOS and Android apps simultaneously without sacrificing quality.',
+                  points: ['React Native / Expo', 'Flutter / Dart', 'Shared business logic', '90% code reuse'],
+                },
+                {
+                  id: 'backend',
+                  title: 'App Backend & APIs',
+                  description: 'The server-side infrastructure your app needs — real-time data, auth, push notifications, and third-party integrations.',
+                  points: ['REST / GraphQL APIs', 'WebSocket real-time', 'OAuth / biometric auth', 'Third-party SDKs'],
+                },
+                {
+                  id: 'ui',
+                  title: 'Mobile UI/UX Design',
+                  description: 'Designs that feel native — gesture-driven, thumb-friendly, and built from real user research and platform conventions.',
+                  points: ['Figma prototyping', 'User testing', 'Micro-interactions', 'Dark mode support'],
+                },
+                {
+                  id: 'maintenance',
+                  title: 'Maintenance & Updates',
+                  description: 'We don\'t disappear after launch. We monitor, maintain, and iterate on your app so it stays fast, secure, and up to date.',
+                  points: ['OS update compatibility', 'Performance monitoring', 'Crash reporting', 'Feature iterations'],
+                },
+              ]}
+            />
 
             {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>

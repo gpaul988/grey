@@ -14,6 +14,8 @@ import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "rea
 import CountUp from "react-countup";
 import {motion, useScroll, useTransform} from "framer-motion";
 import {useIsDayTime} from '../../components/useIsDayTime';
+import ServiceHero from '@/components/futuristic/ServiceHero';
+import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 
 
 const WebDesign = () => {    const [isVisible, setIsVisible] = useState(false);
@@ -121,6 +123,25 @@ const WebDesign = () => {    const [isVisible, setIsVisible] = useState(false);
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
                 }`}
+            />
+
+            {/* Futuristic Hero Banner */}
+            <ServiceHero
+              title="Web Design Agency"
+              subtitle="Web Design & Development"
+              description="Effective web design goes beyond looking good — it drives tangible outcomes. We build visually compelling, strategically crafted websites that captivate your audience and boost revenue."
+              tags={['Web development', 'Web design', 'UI & UX design', 'Responsive', 'SEO-ready']}
+              accentColor="#00f5d4"
+              secondaryColor="#7c3aed"
+              ctaHref="/contact"
+              ctaLabel="Start your project"
+              stats={[
+                { value: '50+', label: 'Sites delivered' },
+                { value: '8+', label: 'Years' },
+                { value: '99%', label: 'Client satisfaction' },
+                { value: '3×', label: 'Avg conversion lift' },
+              ]}
+              variant="circuit"
             />
 
             {/* Hero Section */}
@@ -960,6 +981,54 @@ const WebDesign = () => {    const [isVisible, setIsVisible] = useState(false);
             </div>
 
             
+
+            {/* Futuristic Capabilities Section */}
+            <ServiceCapabilities
+              heading="Our web design capabilities"
+              subheading="Capabilities"
+              accentColor="#00f5d4"
+              variant="terminal"
+              ctaHref="/contact"
+              ctaLabel="Discuss your project"
+              capabilities={[
+                {
+                  id: 'ux-design',
+                  title: 'UX-First Design',
+                  description: 'We design experiences around your users — not just aesthetics. Every layout decision is backed by user research, heatmaps, and conversion psychology.',
+                  points: ['User journey mapping', 'Wireframing & prototyping', 'A/B test-ready layouts', 'Accessibility (WCAG 2.1)'],
+                },
+                {
+                  id: 'web-dev',
+                  title: 'High-Performance Dev',
+                  description: 'Clean, semantic code built for speed. We target Core Web Vitals scores in the green — because performance is a conversion tool.',
+                  points: ['Next.js / React', 'Sub-2s load times', 'Mobile-first responsive', 'CDN-optimized'],
+                },
+                {
+                  id: 'seo-ready',
+                  title: 'SEO Architecture',
+                  description: 'Built to rank from day one. Technical SEO, semantic HTML, schema markup, and content structure that search engines love.',
+                  points: ['Technical SEO audit', 'Schema markup', 'Core Web Vitals', 'sitemap & robots.txt'],
+                },
+                {
+                  id: 'cms',
+                  title: 'CMS Integration',
+                  description: 'Own your content. We build with headless CMS platforms so your team can update pages without touching code.',
+                  points: ['Contentful / Sanity', 'WordPress headless', 'Custom admin panels', 'Media management'],
+                },
+                {
+                  id: 'ecommerce',
+                  title: 'E-Commerce',
+                  description: 'Conversion-focused storefronts built to sell. From product pages to checkout — every touchpoint is optimized.',
+                  points: ['Shopify / WooCommerce', 'Custom cart flows', 'Payment gateway integration', 'Inventory management'],
+                },
+                {
+                  id: 'analytics',
+                  title: 'Analytics & Optimization',
+                  description: 'We track, measure, and improve. Every site we build includes full analytics setup so you can make data-driven decisions from day one.',
+                  points: ['GA4 / Mixpanel setup', 'Heatmap integration', 'Conversion funnel tracking', 'Monthly reporting'],
+                },
+              ]}
+            />
 
             {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>

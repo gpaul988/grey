@@ -13,6 +13,8 @@ import Footer from "@/components/Footer";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
+import ServiceHero from '@/components/futuristic/ServiceHero';
+import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 const tabs = [
     {key: "frameworks", label: "Frameworks"},
     {key: "cloud", label: "Cloud"},
@@ -717,6 +719,26 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
                 }`}
+            />
+
+            <ServiceHero
+                title="Digital Marketing"
+                subtitle="Data-driven campaigns that amplify your brand, attract qualified leads, and convert audiences into loyal customers."
+                color="#ec4899"
+                variant="hologram"
+                badges={["SEO", "PPC", "Social Media", "Email", "Analytics", "Content"]}
+            />
+            <ServiceCapabilities
+                color="#ec4899"
+                variant="terminal"
+                capabilities={[
+                    { icon: "📈", title: "SEO & Content", description: "Rank higher with technical SEO audits, keyword strategy, and content that search engines love." },
+                    { icon: "🎯", title: "Paid Advertising", description: "Google Ads, Meta Ads, and LinkedIn campaigns with precision targeting and ROI tracking." },
+                    { icon: "📱", title: "Social Media", description: "Platform-native content strategies that build engaged communities and drive organic growth." },
+                    { icon: "📧", title: "Email Marketing", description: "Automated drip sequences, segmented campaigns, and lifecycle marketing that converts." },
+                    { icon: "📊", title: "Analytics & Reporting", description: "Real-time dashboards, attribution modelling, and data insights to optimise every channel." },
+                    { icon: "🔗", title: "Conversion Optimisation", description: "A/B testing, landing page optimisation, and funnel analysis to maximise your marketing ROI." },
+                ]}
             />
 
             {/* Hero Section */}
