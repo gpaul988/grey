@@ -7,8 +7,9 @@ import Link from 'next/link';
 interface ServiceHeroProps {
   title: string;
   subtitle: string;
-  description: string;
-  tags: string[];
+  description?: string;
+  tags?: string[];
+  badges?: string[];  // alias for tags
   accentColor: string;
   secondaryColor?: string;
   ctaHref?: string;
@@ -111,6 +112,7 @@ export default function ServiceHero({
   subtitle,
   description,
   tags,
+  badges,
   accentColor,
   secondaryColor,
   ctaHref = '/contact',
@@ -118,6 +120,7 @@ export default function ServiceHero({
   stats = [],
   variant = 'particles',
 }: ServiceHeroProps) {
+  const resolvedTags = tags || badges || [];
   const bg = '#000000';
   const sec = secondaryColor || accentColor;
 
@@ -217,7 +220,7 @@ export default function ServiceHero({
             transition={{ delay: 0.6 }}
             className="flex flex-wrap gap-2 mb-10"
           >
-            {tags.map((tag) => (
+            {resolvedTags.map((tag) => (
               <span
                 key={tag}
                 className="px-3 py-1 text-[0.72em] font-medium rounded-full"

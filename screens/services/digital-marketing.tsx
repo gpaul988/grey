@@ -724,20 +724,20 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
             <ServiceHero
                 title="Digital Marketing"
                 subtitle="Data-driven campaigns that amplify your brand, attract qualified leads, and convert audiences into loyal customers."
-                color="#ec4899"
+                accentColor="#ec4899"
                 variant="hologram"
                 badges={["SEO", "PPC", "Social Media", "Email", "Analytics", "Content"]}
             />
             <ServiceCapabilities
-                color="#ec4899"
+                accentColor="#ec4899"
                 variant="terminal"
                 capabilities={[
-                    { icon: "📈", title: "SEO & Content", description: "Rank higher with technical SEO audits, keyword strategy, and content that search engines love." },
-                    { icon: "🎯", title: "Paid Advertising", description: "Google Ads, Meta Ads, and LinkedIn campaigns with precision targeting and ROI tracking." },
-                    { icon: "📱", title: "Social Media", description: "Platform-native content strategies that build engaged communities and drive organic growth." },
-                    { icon: "📧", title: "Email Marketing", description: "Automated drip sequences, segmented campaigns, and lifecycle marketing that converts." },
-                    { icon: "📊", title: "Analytics & Reporting", description: "Real-time dashboards, attribution modelling, and data insights to optimise every channel." },
-                    { icon: "🔗", title: "Conversion Optimisation", description: "A/B testing, landing page optimisation, and funnel analysis to maximise your marketing ROI." },
+                    { id: "cap-1", icon: "📈", title: "SEO & Content", description: "Rank higher with technical SEO audits, keyword strategy, and content that search engines love." },
+                    { id: "cap-2", icon: "🎯", title: "Paid Advertising", description: "Google Ads, Meta Ads, and LinkedIn campaigns with precision targeting and ROI tracking." },
+                    { id: "cap-3", icon: "📱", title: "Social Media", description: "Platform-native content strategies that build engaged communities and drive organic growth." },
+                    { id: "cap-4", icon: "📧", title: "Email Marketing", description: "Automated drip sequences, segmented campaigns, and lifecycle marketing that converts." },
+                    { id: "cap-5", icon: "📊", title: "Analytics & Reporting", description: "Real-time dashboards, attribution modelling, and data insights to optimise every channel." },
+                    { id: "cap-6", icon: "🔗", title: "Conversion Optimisation", description: "A/B testing, landing page optimisation, and funnel analysis to maximise your marketing ROI." },
                 ]}
             />
 

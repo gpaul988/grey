@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { runAudit } from '@/lib/audit/engine';
-import { db } from '@/lib/db';
-import { auditSubmissions } from '@/lib/db/schema';
+import { getDb } from '@/Admin/db';
 
 export const maxDuration = 60; // 60s for deep audits
 
@@ -37,23 +36,49 @@ export async function POST(req: NextRequest) {
       repo: repo?.trim() || undefined,
     });
 
-    // Store the audit result in DB (non-blocking — don't fail if DB write fails)
+    // Store the audit result in DB via Admin SQLite (non-blocking)
+    let externalId: string | undefined;
     try {
-      await db.insert(auditSubmissions).values({
-        userName: 'Anonymous',
-        userEmail: 'noreply@greyinfotech.com',
+      const db = getDb();
+      const stmt = db.prepare(`
+        INSERT INTO audit_submissions (
+          user_name, user_email, website, github_repo,
+          priority, preferred_contact, audit_data, status
+        ) VALUES (
+          @user_name, @user_email, @website, @github_repo,
+          @priority, @preferred_contact, @audit_data, 'new'
+        )
+      `);
+
+      const priority =
+        report.overallScore < 40 ? 'critical' :
+        report.overallScore < 70 ? 'high' : 'medium';
+
+      const result = stmt.run({
+        user_name: 'Anonymous',
+        user_email: 'noreply@greyinfotech.com',
         website: website?.trim() || null,
-        gitHubRepo: repo?.trim() || null,
-        priority: report.overallScore < 40 ? 'critical' : report.overallScore < 70 ? 'high' : 'medium',
-        preferredContact: 'email',
-        auditData: JSON.stringify(report),
-        status: 'new',
+        github_repo: repo?.trim() || null,
+        priority,
+        preferred_contact: 'email',
+        audit_data: JSON.stringify(report),
       });
+
+      if (result?.lastInsertRowid) {
+        externalId = String(result.lastInsertRowid);
+      }
     } catch (dbErr) {
       console.warn('[Audit] DB write failed (non-blocking):', dbErr);
     }
 
-    return NextResponse.json(report, {
+    // Return report enriched with externalId and shareUrl
+    const responsePayload = {
+      ...report,
+      externalId,
+      shareUrl: externalId ? `/audit?reportId=${externalId}` : undefined,
+    };
+
+    return NextResponse.json(responsePayload, {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });

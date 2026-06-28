@@ -183,20 +183,20 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
             <ServiceHero
                 title="Discovery Phase"
                 subtitle="Deep-dive discovery sessions that uncover insights, align stakeholders, and build bulletproof project foundations before a single line of code is written."
-                color="#f97316"
+                accentColor="#f97316"
                 variant="grid"
                 badges={["Requirements", "Workshops", "Wireframes", "Roadmapping", "Feasibility", "Risk Analysis"]}
             />
             <ServiceCapabilities
-                color="#f97316"
+                accentColor="#f97316"
                 variant="terminal"
                 capabilities={[
-                    { icon: "🔍", title: "Requirements Gathering", description: "Structured stakeholder interviews and workshops to surface functional, technical, and business requirements." },
-                    { icon: "🗺️", title: "Technical Roadmapping", description: "Architecture decisions, technology selection, and phased delivery plans that reduce risk from day one." },
-                    { icon: "📋", title: "Feasibility Analysis", description: "Technical and commercial feasibility assessments that give you confidence before committing budget." },
-                    { icon: "🖼️", title: "Wireframing & IA", description: "Low-fidelity wireframes and information architecture that align teams on structure before visual design begins." },
-                    { icon: "⚠️", title: "Risk Assessment", description: "Identify and mitigate technical, timeline, and commercial risks before they become expensive problems." },
-                    { icon: "📄", title: "Project Documentation", description: "Full discovery output: SOW, technical spec, user stories, acceptance criteria, and project charter." },
+                    { id: "cap-1", icon: "🔍", title: "Requirements Gathering", description: "Structured stakeholder interviews and workshops to surface functional, technical, and business requirements." },
+                    { id: "cap-2", icon: "🗺️", title: "Technical Roadmapping", description: "Architecture decisions, technology selection, and phased delivery plans that reduce risk from day one." },
+                    { id: "cap-3", icon: "📋", title: "Feasibility Analysis", description: "Technical and commercial feasibility assessments that give you confidence before committing budget." },
+                    { id: "cap-4", icon: "🖼️", title: "Wireframing & IA", description: "Low-fidelity wireframes and information architecture that align teams on structure before visual design begins." },
+                    { id: "cap-5", icon: "⚠️", title: "Risk Assessment", description: "Identify and mitigate technical, timeline, and commercial risks before they become expensive problems." },
+                    { id: "cap-6", icon: "📄", title: "Project Documentation", description: "Full discovery output: SOW, technical spec, user stories, acceptance criteria, and project charter." },
                 ]}
             />
 
