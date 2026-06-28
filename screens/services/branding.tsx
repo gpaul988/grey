@@ -8,6 +8,8 @@ import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
+import ServiceHero from '@/components/futuristic/ServiceHero';
+import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 import CountUp from "react-countup";
 import Footer from "@/components/Footer";
 import {useIsDayTime} from '../../components/useIsDayTime';
@@ -104,6 +106,26 @@ const Branding = () => {    const [isVisible, setIsVisible] = useState(false);
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
                 }`}
+            />
+
+            <ServiceHero
+                title="Branding & Identity"
+                subtitle="Distinctive brand identities that communicate your values, differentiate your business, and build lasting recognition."
+                color="#a3e635"
+                variant="particles"
+                badges={["Logo Design", "Brand Strategy", "Visual Identity", "Style Guides", "Brand Voice", "Packaging"]}
+            />
+            <ServiceCapabilities
+                color="#a3e635"
+                variant="cards"
+                capabilities={[
+                    { icon: "🌟", title: "Brand Strategy", description: "Positioning, messaging frameworks, and brand architecture that align with your business goals and audience." },
+                    { icon: "✏️", title: "Logo & Identity", description: "Timeless logo design with complete identity systems including colour palettes, typography, and iconography." },
+                    { icon: "📖", title: "Brand Guidelines", description: "Comprehensive style guides that ensure brand consistency across every touchpoint and team member." },
+                    { icon: "🗣️", title: "Brand Voice", description: "Tone of voice frameworks and messaging playbooks that make every word sound unmistakably you." },
+                    { icon: "📦", title: "Packaging Design", description: "Product packaging that stands out on shelves and online, designed to attract and convert buyers." },
+                    { icon: "🔄", title: "Rebranding", description: "Strategic rebranding that preserves equity while modernising your brand for new markets and audiences." },
+                ]}
             />
 
             {/* Hero Section */}

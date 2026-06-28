@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useEffect, useRef, useState, useMemo} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
 import {LiaLongArrowAltDownSolid} from "react-icons/lia";
 import FloatingButton from "@/components/FloatingButton";
@@ -18,54 +18,13 @@ import {usePersonalization} from '@/components/futuristic/PersonalizationProvide
 import {getAutoUserName} from '@/lib/get-user-name';
 import {useIsDayTime} from '../components/useIsDayTime';
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
+import ServicesSection from '@/components/futuristic/ServicesSection';
 
 const Home = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
-    const [activeId, setActiveId] = useState<string>("");
-    const [imageContainerFixed, setImageContainerFixed] = useState(true);
     // Privacy-safe personalization (daypart greeting + returning-visitor tone)
     const {greeting, returning, ready: personalReady} = usePersonalization();
-
-    // Our services section hook
-    const imageIds = useMemo<string[]>(() => [
-        "web-design",
-        "web-app",
-        "mobile-app",
-        "digital-market",
-        "ui-ux",
-        "branding",
-        "discovery"
-    ], []);
-
-    // Floating button visibility hook + Image container fixed positioning
-    useEffect(() => {
-        const handleScroll = () => {
-            // Track active image
-            for (const imageId of imageIds) {
-                const image = document.getElementById(imageId);
-                if (image) {
-                    const rect = image.getBoundingClientRect();
-                    if (rect.top >= 0 && rect.top <= window.innerHeight / 2) {
-                        setActiveId(imageId);
-                        break;
-                    }
-                }
-            }
-
-            // Track service section bounds for image container fixed positioning
-            const serviceSection = document.getElementById('service');
-            if (serviceSection) {
-                const rect = serviceSection.getBoundingClientRect();
-                // Image stays fixed while service section is in viewport
-                // When section scrolls past top (rect.bottom < 0), switch to absolute
-                const withinServiceSection = rect.top <= window.innerHeight && rect.bottom >= 0;
-                setImageContainerFixed(withinServiceSection);
-            }
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, [imageIds]);
 
     // Introductory section hook
     useEffect(() => {
@@ -86,33 +45,7 @@ const Home = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // Sticky menu hook
-    const [isVisible, setIsVisible] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const serviceSection = document.getElementById('service');
-            const adventureSection = document.getElementById('Adventure-section');
-
-            if (serviceSection && adventureSection) {
-                const serviceRect = serviceSection.getBoundingClientRect();
-                const adventureRect = adventureSection.getBoundingClientRect();
-
-                // Make sticky menu visible only within the "services-section"
-                setIsVisible(
-                    serviceRect.top <= window.innerHeight &&
-                    serviceRect.bottom >= 0 &&
-                    adventureRect.top >= window.innerHeight
-                );
-            } else {
-                console.warn('Sections not found in DOM');
-                setIsVisible(false);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    // isVisible — handled inside ServicesSection component
 
     // isDaytime react hook
     const isDayTime = useIsDayTime();
@@ -153,7 +86,7 @@ const Home = () => {
     return (
         <div className={`${isHydrated ? (isDayTime ? 'bg-white' : 'bg-black') : 'bg-white'} min-h-screen`}>
             <FloatingButton
-                className={`fixed bottom-6 right-6 z-9999 transition-all duration-300 ${isVisible ? 'mb-16' : 'mb-0'}`}
+                className={`fixed bottom-6 right-6 z-9999 transition-all duration-300 mb-0`}
             />
 
             {/* Hero Section - Responsive Video */}
@@ -253,346 +186,10 @@ const Home = () => {
             </section>
 
 
-            {/* Our Services */}
-            <div
-                id={'services-section'}
-                className={`${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}
-                data-bg={isDayTime ? 'Light' : 'Dark'}
-            >
-                <div
-                    className={`border-b-[0.1em] max-w-auto mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em] pt-24 pb-6 ${
-                        isDayTime ? 'border-gray-200' : 'border-gray-700'
-                    }`}
-                >
-                    <h3 className={'lg:text-[3.2em] md:text-[3em] text-[2em] font-[700]'}>{'Our services'}</h3>
-                </div>
+            {/* Our Services - Futuristic */}
+            <ServicesSection isDayTime={isDayTime} />
 
-                <div
-                    className={'grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 gap-10 lg:mt-36 mt-6 lg:pb-[5em] pb-6'}>
-
-                    {/* Left Section - Scrolls naturally with page */}
-                    <div className={'px-6 lg:px-[4.6em] lg:mr-28 lg:mt-[10em]'}>
-
-                        {/* Web Design & Development Section */}
-                        <div className={`lg:mb-[15em] mb-14`} id={'web-design'}>
-                            <h2 className={`text-[1.5em] font-[500] mb-3`}>{'Web design & development'}</h2>
-                            <div
-                                className={`flex flex-wrap gap-3 mb-3 text-[0.8em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                    <span
-                                        className={`px-4 py-2 ${isDayTime ? 'bg-black' : 'bg-white'} rounded-full`}>Web development</span>
-                                <span
-                                    className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Web design</span>
-                                <span
-                                    className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>UI & UX design</span>
-                            </div>
-                            <p className={'text-justify leading-[1.5] text-[0.81em] lg:mb-[3em] mb-[1.5em] font-[300]'}>Effective <Link
-                                href='/services/Web-Design'
-                                className={`border-b-[0.1em] ${isDayTime ? 'border-gray-300 hover:border-gray-600' : 'border-gray-700 hover:border-gray-300'}`}>web
-                                design</Link> and development goes beyond just looking good—it’s about achieving
-                                tangible
-                                outcomes. Our approach centers on the user and is driven by results, ensuring every site
-                                we
-                                build is visually compelling, strategically crafted, and optimized to captivate your
-                                audience and boost revenue. By blending design excellence, smart strategy, and proven
-                                marketing techniques, we create websites that turn visitors into devoted customers.</p>
-                            <Link href='/services/Web-Design'
-                                  className='flex items-start justify-self-start text-center'>
-                                <button
-                                    className='relative mx-auto inline-flex items-center justify-start group w-fit text-[0.85em] overflow-hidden border tracking-tighter rounded-full py-2 px-6'>
-                                    <span
-                                        className={`w-32 h-32 rotate-45 translate-x-[6em] -translate-y-[2.8em] absolute left-0 top-0 ${
-                                            isDayTime ? 'bg-white' : 'bg-black'} opacity-[100%]`}></span>
-                                    <span
-                                        className={`absolute top-4 left-[6.5em] w-[5em] h-[15em] -mt-1 transition-all duration-500 ease-in-out rotate-90 -translate-x-56 -translate-y-24 ${
-                                            isDayTime ? 'bg-black' : 'bg-white'} opacity-100 group-hover:-translate-x-8`}></span>
-                                    <span
-                                        className={`relative w-full text-left text-black ${
-                                            isDayTime ? 'text-black group-hover:text-white' : 'text-white group-hover:text-black'} transition-colors duration-200 ease-in-out`}>
-                                    Web design agency
-                                    <span className={`text-[1.5em] leading-[0.7]`}> →</span></span>
-                                    <span className="absolute inset-0 rounded-full "></span>
-                                </button>
-                            </Link>
-                        </div>
-
-                        {/* Web Application Section */}
-                        <div className={`lg:mb-[15em] mb-14`} id={'web-app'}>
-                            <h2 className={`text-[1.5em] font-[500] mb-3`}>Web applications</h2>
-                            <div
-                                className={`flex flex-wrap gap-3 mb-3 text-[0.8em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                            <span
-                                className={`px-4 py-2 ${isDayTime ? 'bg-black' : 'bg-white'} rounded-full`}>React.js</span>
-                                <span
-                                    className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Node.js</span>
-                                <span
-                                    className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Laravel</span>
-                                <span
-                                    className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Javascript</span>
-                                <span
-                                    className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>PHP</span>
-                            </div>
-                            <p className={'text-justify leading-[1.5] text-[0.81em] lg:mb-[3em] mb-[1.5em] font-[300]'}>In
-                                the modern
-                                business landscape, <Link href='/services/Web-Application'
-                                                          className={`border-b-[0.1em] ${isDayTime ? 'border-gray-300 hover:border-gray-600' : 'border-gray-700 hover:border-gray-300'}`}>web
-                                    applications</Link> play a critical role in driving innovation and efficiency. From
-                                launching bold new digital products to transforming outdated systems and optimizing
-                                internal
-                                workflows, we build tailored web apps that solve real challenges. With a focus on
-                                performance, scalability, and user experience, our solutions empower your team and
-                                support
-                                long-term growth.</p>
-                            <Link href='/services/Web-Application'
-                                  className='flex items-start justify-self-start text-center'>
-                                <button
-                                    className='relative mx-auto inline-flex items-center justify-start group w-fit text-[0.85em] overflow-hidden border tracking-tighter rounded-full py-2 px-6'>
-                                    <span
-                                        className={`w-32 h-32 rotate-45 translate-x-[6em] -translate-y-[2.8em] absolute left-0 top-0 ${
-                                            isDayTime ? 'bg-white' : 'bg-black'} opacity-[100%]`}></span>
-                                    <span
-                                        className={`absolute top-2 left-[3em] w-[5em] h-[17em] -mt-1 transition-all duration-500 ease-in-out rotate-90 -translate-x-56 -translate-y-24 ${
-                                            isDayTime ? 'bg-black' : 'bg-white'} opacity-100 group-hover:translate-x-3`}></span>
-                                    <span
-                                        className={`relative w-full text-left text-black ${
-                                            isDayTime ? 'text-black group-hover:text-white' : 'text-white group-hover:text-black'} transition-colors duration-200 ease-in-out`}>
-                                    Web app development
-                                    <span className={`text-[1.5em] leading-[0.7]`}> →</span></span>
-                                    <span className="absolute inset-0 rounded-full "></span>
-                                </button>
-                            </Link>
-                        </div>
-
-                        {/* Mobile Application Section */}
-                        <div className={`lg:mb-[15em] mb-14`} id={'mobile-app'}>
-                            <h2 className={`text-[1.5em] font-[500] mb-3`}>{'Mobile applications'}</h2>
-                            <div
-                                className={`flex flex-wrap gap-3 mb-3 text-[0.8em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                            <span
-                                className={`px-4 py-2 ${isDayTime ? 'bg-black' : 'bg-white'} rounded-full`}>iOS apps</span>
-                                <span
-                                    className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Android apps</span>
-                                <span
-                                    className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Hybrid apps</span>
-                            </div>
-                            <p className={'text-justify leading-[1.5] text-[0.81em] lg:mb-[3em] mb-[1.5em] font-[300]'}>We
-                                build modern,
-                                intuitive
-                                mobile apps for both <Link href='/services/ios-development'
-                                                           className={`border-b-[0.1em] ${isDayTime ? 'border-gray-300 hover:border-gray-600' : 'border-gray-700 hover:border-gray-300'}`}>iOS</Link> and
-                                Android devices—including phones and tablets. Whether you need a native, cross-platform,
-                                or
-                                hybrid solution, we have the expertise to deliver engaging, high-quality applications.
-                                From
-                                initial concept to app store launch, we’ll support you every step of the way to ensure a
-                                first-class result.</p>
-                            <Link href='/services/Mobile-Application-Development'
-                                  className='flex items-start justify-self-start text-center'>
-                                <button
-                                    className='relative mx-auto inline-flex items-center justify-start group w-fit text-[0.85em] overflow-hidden border tracking-tighter rounded-full py-2 px-6'>
-                                    <span
-                                        className={`w-32 h-32 rotate-45 translate-x-[6em] -translate-y-[2.8em] absolute left-0 top-0 ${
-                                            isDayTime ? 'bg-white' : 'bg-black'} opacity-[100%]`}></span>
-                                    <span
-                                        className={`absolute top-4 left-[6.5em] w-[5em] h-[15em] -mt-1 transition-all duration-500 ease-in-out rotate-90 -translate-x-56 -translate-y-24 ${
-                                            isDayTime ? 'bg-black' : 'bg-white'} opacity-100 group-hover:-translate-x-8`}></span>
-                                    <span
-                                        className={`relative w-full text-left text-black ${
-                                            isDayTime ? 'text-black group-hover:text-white' : 'text-white group-hover:text-black'} transition-colors duration-200 ease-in-out`}>
-                                    Mobile apps
-                                    <span className={`text-[1.5em] leading-[0.7]`}> →</span></span>
-                                    <span className="absolute inset-0 rounded-full "></span>
-                                </button>
-                            </Link>
-                        </div>
-
-                        {/* Digital Marketing Section */}
-                        <div className={`lg:mb-[15em] mb-14`} id={'digital-market'}>
-                            <h2 className={`text-[1.5em] font-[500] mb-3`}>{'Digital Marketing and Strategy'}</h2>
-                            <p className={'text-justify leading-[1.5] text-[0.81em] lg:mb-[3em] mb-[1.5em] font-[300]'}>In
-                                a competitive digital world, your online presence is your first impression. Whether
-                                you&#39;re in retail, healthcare, tech, or professional services, we ensure your brand
-                                is
-                                visible, engaging, and driving results. Through strategic SEO, targeted PPC campaigns,
-                                and data-driven optimization, we position you where your customers are — and turn
-                                visibility into growth.</p>
-                            <Link href='/services/digital-marketing'
-                                  className='flex items-start justify-self-start text-center'>
-                                <button
-                                    className='relative mx-auto inline-flex items-center justify-start group w-fit text-[0.85em] overflow-hidden border tracking-tighter rounded-full py-2 px-6'>
-                                    <span
-                                        className={`w-32 h-32 rotate-45 translate-x-[6em] -translate-y-[2.8em] absolute left-0 top-0 ${
-                                            isDayTime ? 'bg-white' : 'bg-black'} opacity-[100%]`}></span>
-                                    <span
-                                        className={`absolute top-4 left-[6.5em] w-[5em] h-[15em] -mt-1 transition-all duration-500 ease-in-out rotate-90 -translate-x-56 -translate-y-24 ${
-                                            isDayTime ? 'bg-black' : 'bg-white'} opacity-100 group-hover:-translate-x-8`}></span>
-                                    <span
-                                        className={`relative w-full text-left text-black ${
-                                            isDayTime ? 'text-black group-hover:text-white' : 'text-white group-hover:text-black'} transition-colors duration-200 ease-in-out`}>
-                                    Digital marketing services
-                                    <span className={`text-[1.5em] leading-[0.7]`}> →</span></span>
-                                    <span className="absolute inset-0 rounded-full "></span>
-                                </button>
-                            </Link>
-                        </div>
-
-                        {/* UX/UI & Product design Section */}
-                        <div className={`lg:mb-[15em] mb-14`} id={'ui-ux'}>
-                            <h2 className={`text-[1.5em] font-[500] mb-3`}>UX/UI & Product design</h2>
-                            <p className={'text-justify leading-[1.5] lg:mb-[3em] mb-[1.5em] text-[0.81em] font-[300]'}>
-                                Our UX/UI design strategy is rooted in more than just visual appeal—we blend
-                                human-centered design, creative expertise, and business insight to ensure every element
-                                of your product drives meaningful results. From early wireframes and prototypes to
-                                polished final interfaces, we create intuitive, impactful experiences that support your
-                                goals and delight your users.</p>
-                            <Link href='/services/ui-ux-design'
-                                  className='flex items-start justify-self-start text-center'>
-                                <button
-                                    className='relative mx-auto inline-flex items-center justify-start group w-fit text-[0.85em] overflow-hidden border tracking-tighter rounded-full py-2 px-6'>
-                                    <span
-                                        className={`w-32 h-32 rotate-45 translate-x-[6em] -translate-y-[2.8em] absolute left-0 top-0 ${
-                                            isDayTime ? 'bg-white' : 'bg-black'} opacity-[100%]`}></span>
-                                    <span
-                                        className={`absolute top-2 left-[4.8em] w-[5em] h-[17em] -mt-1 transition-all duration-500 ease-in-out rotate-90 -translate-x-56 -translate-y-24 ${
-                                            isDayTime ? 'bg-black' : 'bg-white'} opacity-100 group-hover:-translate-x-4`}></span>
-                                    <span
-                                        className={`relative w-full text-left text-black ${
-                                            isDayTime ? 'text-black group-hover:text-white' : 'text-white group-hover:text-black'} transition-colors duration-200 ease-in-out`}>
-                                    UX & UI design services
-                                    <span className={`text-[1.5em] leading-[0.7]`}> →</span></span>
-                                    <span className="absolute inset-0 rounded-full "></span>
-                                </button>
-                            </Link>
-                        </div>
-
-                        {/* Digital Branding Section */}
-                        <div className={`lg:mb-[15em] mb-14`} id={'branding'}>
-                            <h2 className={`text-[1.5em] font-[500] mb-3`}>{'Digital Branding and Brand Management'}</h2>
-                            <p className={'text-justify leading-[1.5] lg:mb-[3em] mb-[1.5em] text-[0.81em] font-[300]'}>
-                                Customer retention isn’t just about great products or services — it’s about creating a
-                                brand experience that connects and endures. In a crowded market, businesses need more
-                                than just a logo; they need a distinct identity that speaks to their audience at every
-                                touchpoint. Our Brand Management team helps companies across all sectors build strong,
-                                consistent identities that inspire trust and foster loyalty. From visual elements like
-                                logos, color palettes, and typography to brand voice, messaging, and positioning, we
-                                deliver tailored solutions that make your brand instantly recognizable and impossible to
-                                ignore. Stay relevant, build emotional connections, and grow through brand loyalty.</p>
-                            <Link href='/services/branding'
-                                  className='flex items-start justify-self-start text-center'>
-                                <button
-                                    className='relative mx-auto inline-flex items-center justify-start group w-fit text-[0.85em] overflow-hidden border tracking-tighter rounded-full py-2 px-6'>
-                                    <span
-                                        className={`w-32 h-32 rotate-45 translate-x-[6em] -translate-y-[2.8em] absolute left-0 top-0 ${
-                                            isDayTime ? 'bg-white' : 'bg-black'} opacity-[100%]`}></span>
-                                    <span
-                                        className={`absolute top-2 left-[4.8em] w-[5em] h-[17em] -mt-1 transition-all duration-500 ease-in-out rotate-90 -translate-x-56 -translate-y-24 ${
-                                            isDayTime ? 'bg-black' : 'bg-white'} opacity-100 group-hover:-translate-x-4`}></span>
-                                    <span
-                                        className={`relative w-full text-left text-black ${
-                                            isDayTime ? 'text-black group-hover:text-white' : 'text-white group-hover:text-black'} transition-colors duration-200 ease-in-out`}>
-                                    Branding services
-                                    <span className={`text-[1.5em] leading-[0.7]`}> →</span></span>
-                                    <span className="absolute inset-0 rounded-full "></span>
-                                </button>
-                            </Link>
-                        </div>
-
-                        {/* Discovery & Strategy Section */}
-                        <div className={`lg:mb-[15em] mb-14`} id={'discovery'}>
-                            <h2 className={`text-[1.5em] font-[500] mb-3`}>Discovery & Strategy</h2>
-                            <p className={'text-justify leading-[1.5] lg:mb-[3em] mb-[1.5em] text-[0.81em] font-[300]'}>
-                                Jumpstart your product journey with a tailored discovery process designed to align
-                                strategy with vision. Whether you&#39;re starting with a blank slate or evolving an
-                                existing idea, our team works closely with you to uncover key insights, define clear
-                                goals, and shape a roadmap that drives your business forward. We turn early-stage
-                                thinking into a confident, actionable plan for success.</p>
-                            <Link href='/services/discovery-phase'
-                                  className='flex items-start justify-self-start text-center'>
-                                <button
-                                    className='relative mx-auto inline-flex items-center justify-start group w-fit text-[0.85em] overflow-hidden border tracking-tighter rounded-full py-2 px-6'>
-                                    <span
-                                        className={`w-32 h-32 rotate-45 translate-x-[6em] -translate-y-[2.8em] absolute left-0 top-0 ${
-                                            isDayTime ? 'bg-white' : 'bg-black'} opacity-[100%]`}></span>
-                                    <span
-                                        className={`absolute top-4 left-[6.5em] w-[5em] h-[15em] -mt-1 transition-all duration-500 ease-in-out rotate-90 -translate-x-56 -translate-y-24 ${
-                                            isDayTime ? 'bg-black' : 'bg-white'} opacity-100 group-hover:-translate-x-8`}></span>
-                                    <span
-                                        className={`relative w-full text-left text-black ${
-                                            isDayTime ? 'text-black group-hover:text-white' : 'text-white group-hover:text-black'} transition-colors duration-200 ease-in-out`}>
-                                    Discovery phase
-                                    <span className={`text-[1.5em] leading-[0.7]`}> →</span></span>
-                                    <span className="absolute inset-0 rounded-full "></span>
-                                </button>
-                            </Link>
-                        </div>
-
-                    </div>
-
-                    {/* Right Section - Sticky Image */}
-                    <div
-                        className={`hidden lg:flex lg:h-screen justify-center items-center overflow-hidden ${
-                            imageContainerFixed 
-                                ? 'fixed top-[6em] right-0 w-1/2' 
-                                : 'absolute top-[6em] right-0 w-1/2'
-                        }`}>
-                        <div className='w-full h-full flex justify-center items-center'>
-                            {imageIds.map((imageId: string) => (
-                                activeId === imageId && (
-                                    <div
-                                        key={imageId}
-                                        className="relative shadow-lg transition-opacity duration-500 ease-in-out opacity-100"
-                                        id={imageId}
-                                    >
-                                        <Image
-                                            src={`/assets/home/${imageId}.jpg`}
-                                            alt={imageId}
-                                            className="transition-transform duration-500 ease-in-out transform scale-105 hover:scale-110 max-w-[90%] max-h-[85vh] object-contain"
-                                            width={1024}
-                                            height={768}
-                                            priority
-                                        />
-                                    </div>
-                                )
-                            ))}
-                        </div>
-                    </div>
-                </div>
-
-                {/* Sticky Menu - Below the service section */}
-                {isVisible && (
-                    <div
-                        className={`lg:fixed justify-center md:fixed bottom-0 left-0 w-full lg:block md:block sm:hidden ${
-                            isDayTime ? 'bg-black text-gray-600' : 'bg-white text-gray-300'} py-5 z-50`}>
-                        <div
-                            className={`grid lg:grid-cols-7 md:grid-cols-5 lg:max-w-[90em] lg:px-[4.6em] mx-auto justify-center gap-0 ${
-                                isDayTime ? 'border-white' : 'border-black'}`}>
-                            {imageIds.map((id) => (
-                                <button
-                                    key={id}
-                                    onClick={() => {
-                                        const element = document.getElementById(id);
-                                        if (element) {
-                                            element.scrollIntoView({behavior: 'smooth'});
-                                        }
-                                    }}
-                                    className={`mt-4 ${
-                                        activeId === id
-                                            ? isDayTime
-                                                ? 'text-white hover:text-gray-300 focus:text-gray-300'
-                                                : 'text-black hover:text-gray-700 focus:text-gray-700'
-                                            : isDayTime
-                                                ? 'text-gray-600 hover:text-white focus:text-white'
-                                                : 'text-gray-500 hover:text-black focus:text-black'
-                                    }`}
-                                >
-                                    {id.replace('-', ' ')}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                )}
-            </div>
-
-            {/* Digital Adventure Section */}
+                        {/* Digital Adventure Section */}
             <div
                 className={`lg:pt-[8em] md:pt-[4em] pt-[3em] lg:pb-[2em] lg:-mt-[9em] md:-mt-[8em] -mt-[2em] mb-[1em] pb-[1em] ${isDayTime ? 'bg-black' : 'bg-white'}`}
                 data-bg={isDayTime ? 'light' : 'dark'}>

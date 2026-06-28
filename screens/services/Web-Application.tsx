@@ -13,6 +13,8 @@ import Link from "next/link";
 import CountUp from "react-countup";
 import {AnimatePresence, motion} from "framer-motion";
 import {useIsDayTime} from '../../components/useIsDayTime';
+import ServiceHero from '@/components/futuristic/ServiceHero';
+import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 
 
 const WebApplication = () => {    const [isVisible, setIsVisible] = useState(false);
@@ -240,6 +242,25 @@ const WebApplication = () => {    const [isVisible, setIsVisible] = useState(fal
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
                 }`}
+            />
+
+            {/* Futuristic Hero */}
+            <ServiceHero
+              title="Web Application Development"
+              subtitle="Web Applications"
+              description="From launching bold digital products to transforming outdated systems — we build tailored web apps that solve real challenges with focus on performance, scalability, and user experience."
+              tags={['React.js', 'Node.js', 'Laravel', 'Next.js', 'TypeScript', 'PostgreSQL']}
+              accentColor="#7c3aed"
+              secondaryColor="#00f5d4"
+              ctaHref="/contact"
+              ctaLabel="Discuss your app"
+              stats={[
+                { value: '50+', label: 'Apps shipped' },
+                { value: '99.9%', label: 'Uptime SLA' },
+                { value: '3×', label: 'Faster to market' },
+                { value: '8+', label: 'Years' },
+              ]}
+              variant="grid"
             />
 
             {/* Hero Section */}
@@ -1890,6 +1911,48 @@ const WebApplication = () => {    const [isVisible, setIsVisible] = useState(fal
             </div>
 
             
+
+            {/* Futuristic Capabilities */}
+            <ServiceCapabilities
+              heading="Full-stack web app capabilities"
+              subheading="Capabilities"
+              accentColor="#7c3aed"
+              variant="tabs"
+              ctaHref="/contact"
+              ctaLabel="Start building your app"
+              capabilities={[
+                {
+                  id: 'architecture',
+                  title: 'App Architecture',
+                  description: 'We design scalable, maintainable system architectures that grow with your business — microservices, monorepos, or tailored hybrid approaches.',
+                  points: ['Microservices / monolithic', 'REST & GraphQL APIs', 'Event-driven design', 'Database schema design', 'Caching layers (Redis)', 'Load balancing'],
+                },
+                {
+                  id: 'frontend',
+                  title: 'Frontend Development',
+                  description: 'Blazing-fast, accessible React/Next.js frontends with pixel-perfect UI that delights users and scores top Core Web Vitals.',
+                  points: ['React.js / Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Component libraries', 'PWA support'],
+                },
+                {
+                  id: 'backend',
+                  title: 'Backend & APIs',
+                  description: 'Robust server-side systems with Node.js, Laravel, or Python — built for scale, security, and reliability.',
+                  points: ['Node.js / Express / Hono', 'Laravel / PHP', 'Python / FastAPI', 'Authentication & auth0', 'Rate limiting & security', 'API documentation'],
+                },
+                {
+                  id: 'database',
+                  title: 'Database & Storage',
+                  description: 'The right data layer for your use case — from relational to NoSQL, with proper indexing, migrations, and backups.',
+                  points: ['PostgreSQL / MySQL', 'MongoDB / Redis', 'Drizzle / Prisma ORM', 'Database migrations', 'S3 / cloud storage', 'Backup & recovery'],
+                },
+                {
+                  id: 'devops',
+                  title: 'DevOps & Deployment',
+                  description: 'CI/CD pipelines, containerization, and cloud deployments that keep your app running without surprises.',
+                  points: ['Docker / Kubernetes', 'GitHub Actions CI/CD', 'AWS / GCP / Vercel', 'Zero-downtime deploys', 'Monitoring & alerting', 'Infrastructure as code'],
+                },
+              ]}
+            />
 
             {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>
