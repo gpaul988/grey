@@ -189,6 +189,75 @@ export const formLimiter = rateLimit({
     message: {error: 'Too many submissions. Please try again shortly.'},
 });
 
+/**
+ * Detect whether the *browser-facing* connection is HTTPS, even when a reverse
+ * proxy (cPanel / Passenger / Cloudflare / nginx) terminates TLS and forwards
+ * the request to Node over plain HTTP. We trust `X-Forwarded-Proto` because
+ * `app.set('trust proxy', 1)` is configured. Falls back to `req.secure`.
+ *
+ * Why this matters: if we mark the CSRF cookie `Secure` while the browser is on
+ * HTTP (or the proxy hop confuses Express into thinking it's HTTP), the browser
+ * SILENTLY DROPS the cookie. The next POST then arrives with a token in the
+ * form but NO cookie -> the double-submit check fails with the dreaded
+ * "Invalid or missing CSRF token" 403. We therefore only set Secure/`__Host-`
+ * when we can actually confirm HTTPS.
+ */
+function isHttpsRequest(req: Request): boolean {
+    const xfProto = (req.headers['x-forwarded-proto'] as string | undefined)?.split(',')[0]?.trim();
+    if (xfProto) return xfProto === 'https';
+    return Boolean((req as Request & {secure?: boolean}).secure);
+}
+
+/**
+ * Stable per-client identifier the CSRF secret is bound to.
+ *
+ * IMPORTANT: We deliberately do NOT use `req.sessionID` here. express-session
+ * regenerates the id on `saveUninitialized:false` until the session is
+ * persisted, and behind multiple Passenger workers (or a MemoryStore fallback
+ * when better-sqlite3 isn't built) the same id may not be visible to the worker
+ * that handles the POST. Either case yields a different identifier between the
+ * GET that renders the form and the POST that submits it -> 403.
+ *
+ * Instead we mint a dedicated, long-lived, HttpOnly identifier cookie that is
+ * independent of the session lifecycle. It is set on first contact (any GET)
+ * and reused for every subsequent request, so GET and POST always agree.
+ */
+const CSRF_ID_COOKIE = 'grey.csrfid';
+
+function getStableIdentifier(req: Request): string {
+    const fromCookie = (req as Request & {cookies?: Record<string, string>}).cookies?.[CSRF_ID_COOKIE];
+    if (fromCookie) return fromCookie;
+    // Fall back to a session/ip-derived value if the cookie isn't present yet
+    // (e.g. the very first request before ensureCsrfIdentifier ran).
+    const pending = (req as Request & {_csrfId?: string})._csrfId;
+    if (pending) return pending;
+    return (req as Request & {sessionID?: string}).sessionID || req.ip || 'anon';
+}
+
+/**
+ * Middleware: guarantees a stable CSRF identifier cookie exists on EVERY
+ * request (including the GET that renders the login form). Must run before
+ * exposeCsrfToken / doubleCsrfProtection. Idempotent.
+ */
+export function ensureCsrfIdentifier(req: Request, res: Response, next: NextFunction) {
+    const existing = (req as Request & {cookies?: Record<string, string>}).cookies?.[CSRF_ID_COOKIE];
+    if (existing) return next();
+    const id = crypto.randomBytes(18).toString('hex');
+    (req as Request & {_csrfId?: string})._csrfId = id;
+    // Mirror it onto req.cookies so getStableIdentifier sees it immediately
+    // within this same request lifecycle.
+    const reqWithCookies = req as Request & {cookies?: Record<string, string>};
+    reqWithCookies.cookies = {...(reqWithCookies.cookies || {}), [CSRF_ID_COOKIE]: id};
+    res.cookie(CSRF_ID_COOKIE, id, {
+        httpOnly: true,
+        sameSite: 'lax',
+        secure: isHttpsRequest(req),
+        path: '/',
+        maxAge: 1000 * 60 * 60 * 12, // 12h — comfortably longer than the form lifetime
+    });
+    next();
+}
+
 /** CSRF — double-submit cookie pattern. Exposes token + protection middleware. */
 const {
     generateCsrfToken,
@@ -196,12 +265,18 @@ const {
     invalidCsrfTokenError,
 } = doubleCsrf({
     getSecret: () => requireSessionSecret('CSRF_SECRET', 'grey-dev-csrf-secret-change-me'),
-    getSessionIdentifier: (req: Request) => (req as Request & {sessionID?: string}).sessionID || req.ip || 'anon',
-    cookieName: isProd ? '__Host-grey.x-csrf' : 'grey.x-csrf',
+    getSessionIdentifier: getStableIdentifier,
+    // Only use the locked-down `__Host-` prefix when we KNOW the browser is on
+    // HTTPS. The `__Host-` prefix mandates Secure=true; setting it on a non-TLS
+    // hop makes the browser refuse the cookie -> missing-cookie CSRF 403. Using
+    // a plain name with a runtime-correct Secure flag is robust across cPanel,
+    // localhost and mixed proxy setups.
+    cookieName: 'grey.x-csrf',
     cookieOptions: {sameSite: 'lax', secure: isProd, httpOnly: true, path: '/'},
     size: 64,
     getCsrfTokenFromRequest: (req: Request) =>
-        (req.headers['x-csrf-token'] as string) || (req.body && req.body._csrf),
+        (req.headers['x-csrf-token'] as string) ||
+        (req.body && (req.body._csrf || req.body.csrfToken)),
 });
 
 export {generateCsrfToken, doubleCsrfProtection, invalidCsrfTokenError};
@@ -233,7 +308,19 @@ export function exposeCsrfToken(req: Request, res: Response, next: NextFunction)
         sess.csrfBootstrap = true;
     }
     try {
-        res.locals.csrfToken = generateCsrfToken(req, res);
+        // Set the CSRF cookie with a Secure flag that matches the ACTUAL
+        // browser-facing protocol (detected via X-Forwarded-Proto behind the
+        // cPanel/Passenger proxy). This prevents the browser from dropping the
+        // cookie on HTTP hops, which is the #1 cause of the "Invalid or missing
+        // CSRF token" 403 on cPanel.
+        res.locals.csrfToken = generateCsrfToken(req, res, {
+            cookieOptions: {
+                sameSite: 'lax',
+                secure: isHttpsRequest(req),
+                httpOnly: true,
+                path: '/',
+            },
+        });
     } catch {
         res.locals.csrfToken = '';
     }

@@ -406,3 +406,24 @@ export interface ActivityLog {
     detail: string | null;
     created_at: string;
 }
+export interface AuditSubmission {
+    id: number;
+    user_name: string;
+    user_email: string;
+    user_phone: string | null;
+    user_company: string | null;
+    audit_report_id: string | null;
+    website: string | null;
+    github_repo: string | null;
+    priority: 'low' | 'medium' | 'high' | string;
+    budget_estimate: string | null;
+    specific_issues: string | null;
+    preferred_contact: 'email' | 'phone' | string;
+    audit_data: string;
+    status: 'new' | 'in_progress' | 'responded' | 'closed' | string;
+    admin_notes: string | null;
+    proposed_solution: string | null;
+    created_at: string;
+    updated_at: string;
+    responded_at: string | null;
+}

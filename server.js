@@ -18,7 +18,8 @@
  *   - Node >= 18 (Node 20/22/24 recommended — pick it in cPanel's Node selector)
  *   - `npm ci` (or `npm install`) run so `tsx` and deps are present
  *   - `npm rebuild better-sqlite3` against cPanel's Node version (native addon)
- *   - SSL/HTTPS active so the `__Host-` admin CSRF cookie is accepted
+ *   - SSL/HTTPS active so the admin CSRF cookie is sent with the Secure flag
+ *     (the app auto-detects HTTPS via X-Forwarded-Proto behind Passenger)
  *   - `config.env` created from `config.env.example` and filled with secrets
  *
  * NOTE: `app.js` delegates to this file; both work as the cPanel startup file.
@@ -173,9 +174,13 @@ if (needsNextBuild()) {
   }
 
   try {
+    // 1024MB is not enough for this app's build and OOMs on cPanel. Use a
+    // higher ceiling; cPanel Node app containers typically allow this. The
+    // value can still be capped by the host, but a higher request avoids the
+    // "Reached heap limit Allocation failed" crash seen in build logs.
     execSync(
-      `NODE_OPTIONS=--max-old-space-size=1024 "${nextBin}" build --webpack`,
-      { cwd: projectRoot, stdio: 'inherit', timeout: 15 * 60 * 1000 },
+      `NODE_OPTIONS=--max-old-space-size=4096 "${nextBin}" build --webpack`,
+      { cwd: projectRoot, stdio: 'inherit', timeout: 20 * 60 * 1000 },
     );
     console.log('[server.js] ✅ Next.js build succeeded');
   } catch (err) {

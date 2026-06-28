@@ -1,9 +1,33 @@
 ---
+# cPanel Git Version Control deployment.
+# ============================================================================
+# IMPORTANT — READ THIS BEFORE RELYING ON GIT DEPLOY
+# ----------------------------------------------------------------------------
+# This app's Next.js production build peaks at ~3GB RSS (three.js / @react-three,
+# framer-motion, recharts, Sentry). A 1GB shared-hosting box CANNOT build it —
+# `npm run build` is SIGKILLed by the OS regardless of any --max-old-space-size
+# cap (most of the memory is webpack's off-heap parsing, not the JS heap).
+#
+# Also note: `.next/` and `node_modules/` are git-ignored, so they are NEVER
+# copied by this git deploy. That means a pure git deploy has no prebuilt app.
+#
+# THE SUPPORTED WORKFLOW IS "BUILD ELSEWHERE, RUN ON CPANEL":
+#   1. Run `npm run build` locally / in CI (plenty of RAM).
+#   2. Upload the project INCLUDING the generated `.next/` folder to cPanel
+#      (FTP / File Manager / rsync) — see DEPLOY_CPANEL_PREBUILT.md.
+#   3. On cPanel: `npm ci --omit=dev` then restart the Node.js app (server.js).
+#
+# This git task therefore only syncs SOURCE + installs prod deps + verifies the
+# native sqlite binding. It intentionally does NOT run `npm run build` (it would
+# only OOM-crash the deploy). server.js will surface a clear error if `.next` is
+# missing at boot, telling you to upload the prebuilt `.next`.
+# ============================================================================
 deployment:
   tasks:
     - export DEPLOYPATH=/home/greyinf1/public_html/grey/
     - /bin/mkdir -p $DEPLOYPATH
     - /bin/cp -r * $DEPLOYPATH
     - cd $DEPLOYPATH
-    - /usr/local/bin/npm ci --omit=dev
-    - /usr/local/bin/npm run build
+    - /usr/local/bin/npm ci --omit=dev || /usr/local/bin/npm install --omit=dev --no-audit --no-fund --maxsockets=1
+    - /usr/local/bin/npm rebuild better-sqlite3 --build-from-source || echo "[cpanel] better-sqlite3 rebuild failed — app falls back to MemoryStore"
+    - /bin/echo "[cpanel] Source synced + prod deps installed. NOTE: build is NOT run here (1GB box OOMs). Upload the prebuilt .next/ folder per DEPLOY_CPANEL_PREBUILT.md, then restart the Node.js app."

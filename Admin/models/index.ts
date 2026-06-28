@@ -6,6 +6,7 @@ import type {
     Invoice, CaseStudy, BlogPost, Conversation, Message, ActivityLog,
     ProjectBrief, Upload, Partner, ClientReview, PartnerInquiry, Faq,
     Ad, Subscriber, Announcement, PageSeo, AnalyticsEvent, MediaAsset,
+    AuditSubmission,
 } from '../db/types';
 import {ClientsModel} from './clients';
 import {ClientStaffModel} from './clientStaff';
@@ -108,6 +109,13 @@ export const AnalyticsEvents = createRepo<AnalyticsEvent>('analytics_events', [
 
 export const Media = createRepo<MediaAsset>('media', [
     'url', 'filename', 'mime', 'size', 'alt',
+]);
+
+export const AuditSubmissions = createRepo<AuditSubmission>('audit_submissions', [
+    'user_name', 'user_email', 'user_phone', 'user_company', 'audit_report_id',
+    'website', 'github_repo', 'priority', 'budget_estimate', 'specific_issues',
+    'preferred_contact', 'audit_data', 'status', 'admin_notes', 'proposed_solution',
+    'responded_at',
 ]);
 
 export const Conversations = createRepo<Conversation>('conversations', [

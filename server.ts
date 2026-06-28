@@ -27,6 +27,7 @@ import {
     doubleCsrfProtection,
     csrfErrorHandler,
     exposeCsrfToken,
+    ensureCsrfIdentifier,
     requireSessionSecret,
 } from './Admin/middleware/security';
 import {logger, correlationIdMiddleware} from './lib/logger';
@@ -120,6 +121,10 @@ function buildSessionStore(): session.Store | undefined {
 app.use(SESSION_PATHS, express.urlencoded({extended: true}));
 app.use(SESSION_PATHS, express.json());
 app.use(SESSION_PATHS, cookieParser());
+// Mint a stable, long-lived CSRF identifier cookie on first contact so the
+// double-submit token stays valid across GET -> POST regardless of session
+// store state or the number of Passenger workers (audit C3 hardening).
+app.use(SESSION_PATHS, ensureCsrfIdentifier);
 app.use(
     SESSION_PATHS,
     session({
