@@ -10,13 +10,19 @@ export async function POST(req: NextRequest) {
 
         const body = await req.json();
 
+        // Accept both camelCase and snake_case field names for flexibility
         const {
+            userName,
             name,
+            userEmail,
             email,
+            userPhone,
             phone,
+            userCompany,
             company,
             auditReportId,
             website,
+            gitHubRepo,
             githubRepo,
             priority = 'medium',
             budgetEstimate,
@@ -25,13 +31,33 @@ export async function POST(req: NextRequest) {
             auditData = {},
         } = body;
 
-        if (!name || !email) {
-            return NextResponse.json({ error: 'name and email are required' }, { status: 400 });
+        // Normalize field names (prioritize camelCase if both exist)
+        const finalName = userName || name;
+        const finalEmail = userEmail || email;
+        const finalPhone = userPhone || phone;
+        const finalCompany = userCompany || company;
+        const finalGithubRepo = gitHubRepo || githubRepo;
+
+        // Validation: name, email, phone, budget, and issues are now required
+        if (!finalName || !finalName.trim()) {
+            return NextResponse.json({ error: 'Full name is required.' }, { status: 400 });
+        }
+        if (!finalEmail || !finalEmail.trim()) {
+            return NextResponse.json({ error: 'Email address is required.' }, { status: 400 });
+        }
+        if (!finalPhone || !finalPhone.trim()) {
+            return NextResponse.json({ error: 'Phone number is required.' }, { status: 400 });
+        }
+        if (!budgetEstimate || !budgetEstimate.trim()) {
+            return NextResponse.json({ error: 'Budget estimate is required.' }, { status: 400 });
+        }
+        if (!specificIssues || !specificIssues.trim()) {
+            return NextResponse.json({ error: 'Please describe the specific issues you want fixed.' }, { status: 400 });
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            return NextResponse.json({ error: 'Invalid email address' }, { status: 400 });
+        if (!emailRegex.test(finalEmail)) {
+            return NextResponse.json({ error: 'Invalid email address.' }, { status: 400 });
         }
 
         const db = getDb();
@@ -51,16 +77,16 @@ export async function POST(req: NextRequest) {
         `);
 
         const result = stmt.run({
-            user_name: name,
-            user_email: email,
-            user_phone: phone || null,
-            user_company: company || null,
+            user_name: finalName.trim(),
+            user_email: finalEmail.trim(),
+            user_phone: finalPhone.trim() || null,
+            user_company: finalCompany?.trim() || null,
             audit_report_id: auditReportId || null,
             website: website || null,
-            github_repo: githubRepo || null,
+            github_repo: finalGithubRepo || null,
             priority,
-            budget_estimate: budgetEstimate || null,
-            specific_issues: specificIssues || null,
+            budget_estimate: budgetEstimate.trim() || null,
+            specific_issues: specificIssues.trim() || null,
             preferred_contact: preferredContact,
             audit_data: typeof auditData === 'string' ? auditData : JSON.stringify(auditData),
         });

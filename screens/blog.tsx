@@ -1,22 +1,19 @@
 'use client';
 
-
-import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
-
-import React, {useEffect, useState} from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import React, {useState} from 'react';
 import '@/app/globals.css';
 import Link from 'next/link';
 import {blogPosts} from '../data/blogPosts';
 import Image from 'next/image';
 import {getBlogImage} from '../data/blogMedia';
-import AIProjectEstimator from "@/components/AIProjectEstimator";
-import {useIsDayTime} from '../components/useIsDayTime';
+import { motion } from 'framer-motion';
+import { FuturisticCard } from '@/components/futuristic/FuturisticCard';
+import { ModernSection } from '@/components/futuristic/ModernSection';
+import { ArrowRight, Calendar, User, Tag } from 'lucide-react';
 
 const CATEGORIES = ['All', ...Array.from(new Set(blogPosts.map(p => p.tag))).sort()];
 
-const Blog = () => {    const isDayTime = useIsDayTime();
+const Blog = () => {
     const [activeCategory, setActiveCategory] = useState('All');
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 9;
@@ -25,14 +22,22 @@ const Blog = () => {    const isDayTime = useIsDayTime();
     const totalPages = Math.ceil(filtered.length / postsPerPage);
     const paginatedPosts = filtered.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
     const featuredPost = allPosts[0];
-    // Top 3 posts after featured for the editorial row
-    const editorialPosts = allPosts.filter(p => p.slug !== featuredPost?.slug).slice(0, 3);
-
-    const bg = isDayTime ? 'bg-white text-black' : 'bg-black text-white';
 
     return (
-        <div className={`${bg} min-h-screen transition-colors duration-500`}>
-            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
+        <div className="min-h-screen bg-black text-white">
+            {/* Background effects */}
+            <div
+                className="pointer-events-none fixed inset-0 opacity-[0.03]"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(#00f5d4 1px, transparent 1px), linear-gradient(90deg, #00f5d4 1px, transparent 1px)',
+                  backgroundSize: '60px 60px',
+                }}
+              />
+            <div className="pointer-events-none fixed inset-0 overflow-hidden">
+              <div className="absolute -left-40 -top-40 h-[600px] w-[600px] rounded-full bg-cyan-500/10 blur-[120px]" />
+              <div className="absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-indigo-500/10 blur-[100px]" />
+            </div>
 
             {/* ── Hero ── */}
             <section className="relative w-full h-[320px] md:h-[380px] lg:h-[800px] overflow-hidden">
