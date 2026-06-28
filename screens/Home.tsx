@@ -256,11 +256,10 @@ const Home = () => {
                 </div>
 
                 <div
-                    className={'lg:grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 lg:gap-0 gap-10 lg:mt-36 mt-6 lg:pb-[5em] pb-6'}>
+                    className={'grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 gap-10 lg:mt-36 mt-6 lg:pb-[5em] pb-6'}>
 
-                    {/* Left Section - Scrollable */}
-                    <div className={'px-6 lg:px-[4.6em] lg:mr-28 lg:mt-[10em] lg:overflow-y-auto' +
-                        ' lg:max-h-screen'}>
+                    {/* Left Section - Scrolls naturally with page */}
+                    <div className={'px-6 lg:px-[4.6em] lg:mr-28 lg:mt-[10em]'}>
 
                         {/* Web Design & Development Section */}
                         <div className={`lg:mb-[15em] mb-14`} id={'web-design'}>
