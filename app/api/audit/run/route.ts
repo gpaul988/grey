@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { runAudit } from '@/lib/audit/engine';
-import { getDb } from '@/Admin/db';
+import { saveAudit } from '@/lib/audit/repository';
 
 export const maxDuration = 60; // 60s for deep audits
 
@@ -36,37 +36,16 @@ export async function POST(req: NextRequest) {
       repo: repo?.trim() || undefined,
     });
 
-    // Store the audit result in DB via Admin SQLite (non-blocking)
+    // Store the audit result in DB via the audit repository (SQLite via Admin/db)
     let externalId: string | undefined;
     try {
-      const db = getDb();
-      const stmt = db.prepare(`
-        INSERT INTO audit_submissions (
-          user_name, user_email, website, github_repo,
-          priority, preferred_contact, audit_data, status
-        ) VALUES (
-          @user_name, @user_email, @website, @github_repo,
-          @priority, @preferred_contact, @audit_data, 'new'
-        )
-      `);
+      // Get client IP and user agent for tracking
+      const ipAddress = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown';
+      const userAgent = req.headers.get('user-agent') || undefined;
 
-      const priority =
-        report.overallScore < 40 ? 'critical' :
-        report.overallScore < 70 ? 'high' : 'medium';
-
-      const result = stmt.run({
-        user_name: 'Anonymous',
-        user_email: 'noreply@greyinfotech.com',
-        website: website?.trim() || null,
-        github_repo: repo?.trim() || null,
-        priority,
-        preferred_contact: 'email',
-        audit_data: JSON.stringify(report),
-      });
-
-      if (result?.lastInsertRowid) {
-        externalId = String(result.lastInsertRowid);
-      }
+      // Save using the audit repository which properly handles the audits table
+      const saved = saveAudit(report, ipAddress || undefined, userAgent);
+      externalId = saved.externalId;
     } catch (dbErr) {
       console.warn('[Audit] DB write failed (non-blocking):', dbErr);
     }

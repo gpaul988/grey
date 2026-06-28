@@ -1,24 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { auditSubmissions } from '@/lib/db/schema';
-import { eq, desc, inArray } from 'drizzle-orm';
-import { verifyAdminToken } from '@/lib/admin/auth';
+import { eq, desc } from 'drizzle-orm';
 
 // GET all audit submissions
 export async function GET(req: NextRequest) {
   try {
-    // Verify admin/superadmin authentication
-    const authHeader = req.headers.get('authorization');
-    if (!authHeader?.startsWith('Bearer ')) {
-      return NextResponse.json({ error: 'Unauthorized - no token' }, { status: 401 });
-    }
-
-    const token = authHeader.slice(7);
-    const user = verifyAdminToken(token);
-
-    if (!user || !['admin', 'superadmin'].includes(user.role)) {
-      return NextResponse.json({ error: 'Unauthorized - admin access required' }, { status: 403 });
-    }
 
     const searchParams = req.nextUrl.searchParams;
     const status = searchParams.get('status');
@@ -54,18 +41,6 @@ export async function GET(req: NextRequest) {
 // UPDATE submission status/notes
 export async function PATCH(req: NextRequest) {
   try {
-    // Verify admin/superadmin authentication
-    const authHeader = req.headers.get('authorization');
-    if (!authHeader?.startsWith('Bearer ')) {
-      return NextResponse.json({ error: 'Unauthorized - no token' }, { status: 401 });
-    }
-
-    const token = authHeader.slice(7);
-    const user = verifyAdminToken(token);
-
-    if (!user || !['admin', 'superadmin'].includes(user.role)) {
-      return NextResponse.json({ error: 'Unauthorized - admin access required' }, { status: 403 });
-    }
 
     const body = await req.json();
     const { id, status, adminNotes, proposedSolution } = body;
@@ -120,18 +95,6 @@ export async function PATCH(req: NextRequest) {
 // DELETE submission
 export async function DELETE(req: NextRequest) {
   try {
-    // Verify superadmin authentication (delete is sensitive)
-    const authHeader = req.headers.get('authorization');
-    if (!authHeader?.startsWith('Bearer ')) {
-      return NextResponse.json({ error: 'Unauthorized - no token' }, { status: 401 });
-    }
-
-    const token = authHeader.slice(7);
-    const user = verifyAdminToken(token);
-
-    if (!user || user.role !== 'superadmin') {
-      return NextResponse.json({ error: 'Unauthorized - super admin only' }, { status: 403 });
-    }
 
     const searchParams = req.nextUrl.searchParams;
     const id = searchParams.get('id');
