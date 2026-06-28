@@ -32,7 +32,6 @@ const canRenderView = async (viewName: string) => {
     }
 };
 
-/* Shared helpers exposed to every view */
 const baseLocals = {fmtMoney: formatMoney, timeAgo};
 
 /* ---------------- Dashboard ---------------- */
@@ -68,7 +67,7 @@ route.get('/projects', requirePermission('projects.view'), (_req, res) => {
         title: 'Projects', ...baseLocals,
         projects: Projects.all(),
         clients: Clients.all(),
-        users: Users.all()
+        users: Users.all(),
     });
 });
 
@@ -115,7 +114,10 @@ route.get('/blog', requirePermission('blog.view'), (_req, res) => {
 });
 
 route.get('/partners', requirePermission('blog.view'), (_req, res) => {
-    res.render('apps-partners', {title: 'Partners & Logos', ...baseLocals, partners: Partners.all('sort_order ASC, id ASC')});
+    res.render('apps-partners', {
+        title: 'Partners & Logos', ...baseLocals,
+        partners: Partners.all('sort_order ASC, id ASC')
+    });
 });
 
 /* ---------------- Marketing & Growth ---------------- */
@@ -126,13 +128,22 @@ route.get('/faqs', requirePermission('blog.view'), (_req, res) => {
     res.render('apps-faqs', {title: 'FAQ Manager', ...baseLocals, faqs: Faqs.all('sort_order ASC, id ASC')});
 });
 route.get('/partner-inquiries', requirePermission('blog.view'), (_req, res) => {
-    res.render('apps-partner-inquiries', {title: 'Partner Inquiries', ...baseLocals, inquiries: PartnerInquiries.all('created_at DESC')});
+    res.render('apps-partner-inquiries', {
+        title: 'Partner Inquiries', ...baseLocals,
+        inquiries: PartnerInquiries.all('created_at DESC')
+    });
 });
 route.get('/subscribers', requirePermission('blog.view'), (_req, res) => {
-    res.render('apps-subscribers', {title: 'Subscribers', ...baseLocals, subscribers: Subscribers.all('created_at DESC')});
+    res.render('apps-subscribers', {
+        title: 'Subscribers', ...baseLocals,
+        subscribers: Subscribers.all('created_at DESC')
+    });
 });
 route.get('/announcement', requirePermission('blog.view'), (_req, res) => {
-    res.render('apps-announcement', {title: 'Announcement Bar', ...baseLocals, announcements: Announcements.all('created_at DESC')});
+    res.render('apps-announcement', {
+        title: 'Announcement Bar', ...baseLocals,
+        announcements: Announcements.all('created_at DESC')
+    });
 });
 route.get('/media', requirePermission('blog.view'), (_req, res) => {
     res.render('apps-media', {title: 'Media Library', ...baseLocals, media: Media.all('created_at DESC')});
@@ -143,9 +154,11 @@ route.get('/seo', requirePermission('blog.view'), (_req, res) => {
 route.get('/analytics', requirePermission('blog.view'), (_req, res) => {
     res.render('apps-analytics', {title: 'Analytics', ...baseLocals});
 });
-
 route.get('/reviews', requirePermission('blog.view'), (_req, res) => {
-    res.render('apps-reviews', {title: 'Client Reviews', ...baseLocals, reviews: ClientReviews.all('sort_order ASC, id ASC')});
+    res.render('apps-reviews', {
+        title: 'Client Reviews', ...baseLocals,
+        reviews: ClientReviews.all('sort_order ASC, id ASC')
+    });
 });
 
 route.get('/chat', (req, res) => {
@@ -162,7 +175,6 @@ route.get('/chat', (req, res) => {
 
 route.get('/team', requirePermission('team.view'), (_req, res) => {
     const users = Users.all();
-    // Compute each user's effective permission set so the UI can pre-check boxes.
     const effective: Record<number, string[]> = {};
     for (const u of users) {
         effective[u.id] = Array.from(effectivePermissions(u.role, u.permissions));
@@ -178,8 +190,29 @@ route.get('/activity', requirePermission('activity.view'), (_req, res) => {
     res.render('apps-activity', {title: 'Activity Log', ...baseLocals, activity: Activity.all().slice(0, 100)});
 });
 
+/* ================================================================
+   AUDIT TOOL — passes real data to the view
+   ================================================================ */
 route.get('/audit', (_req, res) => {
-    res.render('apps-audit', {title: 'Audit Tool', ...baseLocals});
+    const allSubmissions = AuditSubmissions.all('created_at DESC');
+
+    // Fix requests = submitted via the "Request a Fix" modal (have specific_issues)
+    const fixRequests = allSubmissions.filter(
+        (s) => s.specific_issues && s.specific_issues.trim().length > 0,
+    );
+
+    // Auto-run records = triggered by clicking "Run Audit" (no specific_issues)
+    const auditRuns = allSubmissions.filter(
+        (s) => !s.specific_issues || s.specific_issues.trim().length === 0,
+    );
+
+    res.render('apps-audit', {
+        title: 'Audit Tool',
+        ...baseLocals,
+        auditRuns,
+        fixRequests,
+        allSubmissions,
+    });
 });
 
 route.get('/profile', (req, res) => {
@@ -191,7 +224,6 @@ route.get('/profile', (req, res) => {
     });
 });
 
-/* Upload / replace own avatar. */
 route.post('/profile/avatar', (req, res) => {
     const sessionUser = req.session.user;
     if (!sessionUser) return res.redirect(adminPath('/profile'));
@@ -211,7 +243,7 @@ route.post('/profile/avatar', (req, res) => {
                 user_name: sessionUser.name,
                 action: 'update',
                 entity: 'avatar',
-                entity_id: sessionUser.id
+                entity_id: sessionUser.id,
             });
         }
         res.redirect(adminPath('/profile?saved=1'));
@@ -231,7 +263,7 @@ route.get('/settings', requirePermission('settings.manage'), (_req, res) => {
 /* ---------------- Store sub-routes ---------------- */
 route.use('/store', storeRoutes);
 
-/* ---------------- Generic template view fallback (demo pages) ---------------- */
+/* ---------------- Generic template view fallback ---------------- */
 route.get('/:viewName', async (req: Request, res: Response, next) => {
     const raw = req.params.viewName;
     const viewName = Array.isArray(raw) ? raw[0] : raw;

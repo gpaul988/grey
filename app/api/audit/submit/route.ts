@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb } from '@/Admin/db';
+import { db } from '@/lib/db';
+import { auditSubmissions } from '@/lib/db/schema';
 
 export async function POST(req: NextRequest) {
     try {
@@ -60,41 +61,31 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Invalid email address.' }, { status: 400 });
         }
 
-        const db = getDb();
-
-        const stmt = db.prepare(`
-            INSERT INTO audit_submissions (
-                user_name, user_email, user_phone, user_company,
-                audit_report_id, website, github_repo,
-                priority, budget_estimate, specific_issues,
-                preferred_contact, audit_data, status
-            ) VALUES (
-                @user_name, @user_email, @user_phone, @user_company,
-                @audit_report_id, @website, @github_repo,
-                @priority, @budget_estimate, @specific_issues,
-                @preferred_contact, @audit_data, 'new'
-            )
-        `);
-
-        const result = stmt.run({
-            user_name: finalName.trim(),
-            user_email: finalEmail.trim(),
-            user_phone: finalPhone.trim() || null,
-            user_company: finalCompany?.trim() || null,
-            audit_report_id: auditReportId || null,
+        // Insert into PostgreSQL via Drizzle ORM
+        const result = await db.insert(auditSubmissions).values({
+            userName: finalName.trim(),
+            userEmail: finalEmail.trim(),
+            userPhone: finalPhone.trim() || null,
+            userCompany: finalCompany?.trim() || null,
+            auditReportId: auditReportId || null,
             website: website || null,
-            github_repo: finalGithubRepo || null,
+            gitHubRepo: finalGithubRepo || null,
             priority,
-            budget_estimate: budgetEstimate.trim() || null,
-            specific_issues: specificIssues.trim() || null,
-            preferred_contact: preferredContact,
-            audit_data: typeof auditData === 'string' ? auditData : JSON.stringify(auditData),
-        });
+            budgetEstimate: budgetEstimate.trim() || null,
+            specificIssues: specificIssues.trim() || null,
+            preferredContact: preferredContact,
+            auditData: typeof auditData === 'string' ? JSON.parse(auditData) : auditData,
+            status: 'new',
+        }).returning();
+
+        if (!result || result.length === 0) {
+            throw new Error('Failed to create audit submission');
+        }
 
         return NextResponse.json(
             {
                 success: true,
-                submissionId: result.lastInsertRowid,
+                submissionId: result[0].id,
                 message: 'Audit request submitted successfully. Our team will contact you within 24 hours.',
             },
             { status: 201 }
