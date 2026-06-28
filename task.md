@@ -1,17 +1,32 @@
-# Grey InfoTech — Full Fix & Redesign Task
+# Admin Login Issue - Debugging
 
-## STATUS
+## Problem
+- User cannot login to Admin Dashboard (/admin/login)
+- Credentials: graham@greyinfotech.com.ng / 1Uriel2Sobiribo3, (with comma)
+- Root cause: NO ADMIN USERS in the admin database
 
-### ✅ DONE
-- Audit API route now calls real engine (`lib/audit/engine.ts`)
-- Audit route stores result in DB (non-blocking)
-- Audit route handles content-type validation, proper JSON errors
-- Home.tsx services section replaced with `ServicesSection` component
-- Unused state (activeId, imageContainerFixed, imageIds, isVisible) removed from Home.tsx
-- ServicesSection: futuristic design with fixed-image panel, orbit rings, color accents, animated transitions
+## Database Status
+- ✅ Tables exist (users table exists)
+- ❌ Zero users in users table
+- Database path: /home/user/grey/Admin/data/grey.db
 
-### ⏳ TODO
-- [ ] Build check — make sure no TypeScript errors
-- [ ] Fix x-scroll issues (check for overflow-x anywhere)
-- [ ] Individual service pages — add unique futuristic designs
-- [ ] Commit and push as gpaul988
+## Attempted Fixes
+1. ❌ npx tsx scripts/create_admin.ts — ran but no error, no users created
+   - Likely silent error due to bcryptjs or db initialization
+
+## What the Script Does (create_admin.ts)
+- Deletes existing user with that email
+- Hashes password with bcrypt (12 rounds)
+- Inserts into users table
+
+## Next Steps
+1. Run bootstrap-db.js which should:
+   - Initialize the admin database properly
+   - Seed initial admin users
+2. If that fails, manually create user with node script that logs errors
+
+## Important Notes
+- The login form route is at /admin/login
+- Auth handler: /Admin/routes/auth.ts
+- Password checking uses bcryptjs.compare()
+- User must be: email_verified=1, status='active', email set
