@@ -14,7 +14,7 @@ import {
   storePasswordResetTokens,
 } from './store-schema';
 import { eq, and, sql } from 'drizzle-orm';
-import * as bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
 
 /**
