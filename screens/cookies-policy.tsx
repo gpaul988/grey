@@ -4,8 +4,6 @@ import { useIsDayTime } from '../components/useIsDayTime';
 import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
 import React from 'react';
 import '@/app/globals.css';
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Link from "next/link";
 
 const CookiesPolicy = () => {

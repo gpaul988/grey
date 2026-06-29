@@ -1,16 +1,17 @@
 'use client';
 
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import '@/app/globals.css';
 import Link from 'next/link';
-import {blogPosts} from '../data/blogPosts';
+import { blogPosts } from '../data/blogPosts';
 import Image from 'next/image';
-import {getBlogImage} from '../data/blogMedia';
+import { getBlogImage } from '../data/blogMedia';
 import { motion } from 'framer-motion';
-import { FuturisticCard } from '@/components/futuristic/FuturisticCard';
-import { ModernSection } from '@/components/futuristic/ModernSection';
-import { ArrowRight, Calendar, User, Tag } from 'lucide-react';
-import AIProjectEstimator from '@/components/AIProjectEstimator';
+import { Calendar, User, ArrowRight, BookOpen, TrendingUp } from 'lucide-react';
+import { useIsDayTime } from '../components/useIsDayTime';
+import {
+    FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxGlitchText, FxSectionHeading
+} from '@/components/futuristic/fx';
 
 const CATEGORIES = ['All', ...Array.from(new Set(blogPosts.map(p => p.tag))).sort()];
 
@@ -18,218 +19,277 @@ const Blog = () => {
     const [activeCategory, setActiveCategory] = useState('All');
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 9;
-    const allPosts = [...blogPosts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    const filtered = activeCategory === 'All' ? allPosts : allPosts.filter(p => p.tag === activeCategory);
+
+    const isDayTime = useIsDayTime();
+    const dark = !isDayTime;
+
+    const filtered = activeCategory === 'All'
+        ? blogPosts
+        : blogPosts.filter(p => p.tag === activeCategory);
+
     const totalPages = Math.ceil(filtered.length / postsPerPage);
-    const paginatedPosts = filtered.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
-    const featuredPost = allPosts[0];
+    const paginated = filtered.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
+    const featured = filtered[0];
+    const rest = paginated.slice(1);
 
     return (
-        <div className="min-h-screen bg-black text-white">
-            {/* Background effects */}
-            <div
-                className="pointer-events-none fixed inset-0 opacity-[0.03]"
-                style={{
-                  backgroundImage:
-                    'linear-gradient(#00f5d4 1px, transparent 1px), linear-gradient(90deg, #00f5d4 1px, transparent 1px)',
-                  backgroundSize: '60px 60px',
-                }}
-              />
-            <div className="pointer-events-none fixed inset-0 overflow-hidden">
-              <div className="absolute -left-40 -top-40 h-[600px] w-[600px] rounded-full bg-cyan-500/10 blur-[120px]" />
-              <div className="absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-indigo-500/10 blur-[100px]" />
-            </div>
+        <div className={`min-h-screen transition-colors duration-500 ${dark ? 'bg-[#04090f] text-white' : 'bg-white text-black'}`}>
 
             {/* ── Hero ── */}
-            <section className="relative w-full h-[320px] md:h-[380px] lg:h-[800px] overflow-hidden">
-                <video src="/assets/hero/hero.mp4" autoPlay loop muted playsInline
-                       className="absolute inset-0 h-full w-full object-cover"/>
-                <div className="absolute inset-0 bg-black/40"/>
-                <div
-                    className="absolute top-14 left-0 w-full h-full flex flex-col justify-center items-start px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
+            <section className="relative overflow-hidden min-h-[72vh] flex flex-col justify-end">
+                {/* Editorial bg — angled split */}
+                <div className={`absolute inset-0 ${dark ? 'bg-[#04090f]' : 'bg-gray-900'}`} />
+                {/* Diagonal accent */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <div
-                        className="flex flex-col justify-start items-start border-b pb-[1.5em] border-gray-500/50 max-w-full w-full">
-                        <h1 className="text-white constant-text lg:text-[5.35em] md:text-[4.4em] sm:text-[3.5em] text-[2em] lg:mt-[3em] md:mt-[3em] mt-[4em] leading-[1.2] pb-[0.08em] font-[600]">
-                            The Blog
-                        </h1>
-                    </div>
-                    <div className="relative grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 lg:mt-[1em] mt-[0.5em]">
-                        <div className="lg:-mr-[4em] md:-mr-[1em] lg:mt-[1em]">
-                            <p className="text-white/80 text-[0.87em] font-[300]">
-                                Insights on product, engineering, and scaling — written for founders, engineers, and
-                                teams building great software.
+                        className="absolute right-0 top-0 w-[55%] h-full opacity-30"
+                        style={{
+                            background: 'linear-gradient(135deg, transparent 40%, #0d9488 100%)',
+                            clipPath: 'polygon(30% 0%, 100% 0%, 100% 100%, 0% 100%)',
+                        }}
+                    />
+                </div>
+
+                <FxBackground day={false} grid aurora className="opacity-50" />
+                <div className="gx-scanline pointer-events-none" />
+                <div className="gx-hero-scan" />
+                <div className="gx-noise-overlay" />
+                <div className="gx-orbit pointer-events-none absolute" style={{ width: '70vmax', height: '70vmax', top: '-25vmax', right: '-20vmax', opacity: .12 }} />
+
+                <div className="relative z-10 gx-page-hero-content">
+                    <div className="max-w-[90rem] mx-auto">
+                        <FxReveal>
+                            <FxChip day={false} className="mb-5">
+                                <BookOpen className="w-3 h-3 inline mr-1.5" />
+                                Insights & Ideas
+                            </FxChip>
+                            <div className="border-b border-white/15 pb-7 mb-7 max-w-5xl">
+                                <FxGlitchText tag="h1" className="gx-hero-title text-white">
+                                    The Grey <span className="gx-gradient-text">Journal</span>
+                                </FxGlitchText>
+                            </div>
+                            <p className="text-white/65 max-w-2xl text-[0.95em] md:text-[1.05em] leading-relaxed mb-8">
+                                Perspectives on technology, product design, and digital strategy — written by the team building real products every day.
                             </p>
-                        </div>
-                        <div className="relative grid lg:grid-cols-3 lg:gap-8 lg:ml-[13em]">
-                            {[
-                                [`${blogPosts.length}+`, 'Posts Published'],
-                                ['8+', 'Years Experience'],
-                                ['13+', 'Team Members'],
-                            ].map(([n, l]) => (
-                                <div key={l} className="border-0 lg:block md:hidden hidden">
-                                    <h6 className="text-white text-[3em] font-[500] -mb-[0.3em]">{n}</h6>
-                                    <p className="text-white/70 text-[0.7em] font-[300]">{l}</p>
-                                </div>
-                            ))}
-                        </div>
+                            <div className="flex flex-wrap gap-3">
+                                {[`${blogPosts.length} Articles`, 'Weekly Updates', 'Tech + Strategy + Design'].map(s => (
+                                    <span key={s} className="gx-data-pill">{s}</span>
+                                ))}
+                            </div>
+                        </FxReveal>
                     </div>
                 </div>
             </section>
 
-            <main className="mx-auto max-w-[100rem] px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
+            {/* ── Category Filter ── */}
+            <section className={`sticky top-0 z-30 py-4 px-4 sm:px-6 md:px-10 lg:px-[4.5em] backdrop-blur-lg border-b ${
+                dark ? 'bg-[#04090f]/90 border-white/10' : 'bg-white/90 border-gray-200'
+            }`}>
+                <div className="max-w-[90rem] mx-auto flex flex-wrap gap-2">
+                    {CATEGORIES.map(cat => (
+                        <button
+                            key={cat}
+                            onClick={() => { setActiveCategory(cat); setCurrentPage(1); }}
+                            className={`px-4 py-1.5 rounded-full text-[0.78em] font-[600] border transition-all duration-200 ${
+                                activeCategory === cat
+                                    ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white border-transparent shadow-[0_4px_15px_rgba(45,212,191,0.3)]'
+                                    : dark
+                                        ? 'bg-transparent text-gray-300 border-white/15 hover:border-teal-400/50'
+                                        : 'bg-white text-gray-600 border-gray-200 hover:border-teal-400'
+                            }`}
+                        >
+                            {cat}
+                        </button>
+                    ))}
+                </div>
+            </section>
 
-                {/* ── Intro text ── */}
-                <section className="py-12 md:py-16 border-b border-gray-200/60">
-                    <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-                        <p className="text-lg md:text-xl max-w-2xl leading-relaxed text-gray-300">
-                            Practical guides, honest takes, and deep dives on building digital products that actually
-                            work.
-                        </p>
-                        <Link href="/contact"
-                              className="text-sm font-medium underline underline-offset-4 whitespace-nowrap text-gray-400 hover:text-white">
-                            Have a topic request? →
-                        </Link>
-                    </div>
-                </section>
-
-                {/* ── Featured post (full-width hero card) ── */}
-                {featuredPost && (
-                    <section className="py-12 md:py-14 border-b border-gray-200/60">
-                        <Link href={`/blog/${featuredPost.slug}`}
-                              className="group block rounded-3xl overflow-hidden relative w-full aspect-[16/8] md:aspect-[16/7]">
-                            <Image
-                                src={getBlogImage(featuredPost.slug, featuredPost.tag)}
-                                alt={featuredPost.title}
-                                fill
-                                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                                priority
-                                sizes="100vw"
-                            />
-                            <div
-                                className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"/>
-                            <div className="absolute top-6 left-6 md:top-8 md:left-10">
-                                <span
-                                    className="text-xs font-semibold uppercase tracking-widest text-teal-300 bg-black/30 px-3 py-1.5 rounded-full backdrop-blur-sm">
-                                    Latest post
+            {/* ── Featured Article — Editorial Spread ── */}
+            {featured && (
+                <section className={`relative py-16 px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${dark ? 'bg-[#04090f]' : 'bg-gray-50'}`}>
+                    <div className="max-w-[90rem] mx-auto">
+                        <FxReveal className="mb-8">
+                            <div className="flex items-center gap-3">
+                                <TrendingUp className={`w-4 h-4 ${dark ? 'text-teal-400' : 'text-teal-600'}`} />
+                                <span className={`text-[0.72em] font-[700] uppercase tracking-[0.2em] ${dark ? 'text-teal-400' : 'text-teal-600'}`}>
+                                    Featured Article
                                 </span>
+                                <div className={`flex-1 h-px ${dark ? 'bg-white/08' : 'bg-gray-200'}`} />
                             </div>
-                            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 lg:p-12">
-                                <span
-                                    className="text-xs font-semibold uppercase tracking-widest text-teal-300 mb-3 block">{featuredPost.tag}</span>
-                                <h2 className="text-2xl md:text-4xl lg:text-5xl font-semibold text-white leading-tight max-w-4xl mb-3">
-                                    {featuredPost.title}
-                                </h2>
-                                <p className="text-white/60 text-sm">{featuredPost.readTime}</p>
-                            </div>
-                        </Link>
-                    </section>
-                )}
+                        </FxReveal>
 
-                {/* ── Category Filter ── */}
-                <section className="pt-12 pb-6">
-                    <div className="flex flex-wrap gap-2">
-                        {CATEGORIES.map(cat => (
-                            <button
-                                key={cat}
-                                onClick={() => {
-                                    setActiveCategory(cat);
-                                    setCurrentPage(1);
-                                }}
-                                className={`px-4 py-2 rounded-full text-sm font-medium border transition-all ${
-                                    activeCategory === cat
-                                        ? 'bg-white text-black border-white'
-                                        : 'bg-zinc-900 text-gray-300 border-zinc-700 hover:border-zinc-600 hover:text-white'
-                                }`}
-                            >
-                                {cat}
-                            </button>
-                        ))}
-                    </div>
-                </section>
-
-                {/* ── Posts Grid ── */}
-                <section className="pb-16 md:pb-20">
-                    {paginatedPosts.length === 0 ? (
-                        <p className="py-16 text-center text-sm text-gray-500">No posts in this category yet.</p>
-                    ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 md:gap-y-14">
-                            {paginatedPosts.map(post => (
-                                <Link key={post.slug} href={`/blog/${post.slug}`} className="group flex flex-col gap-4">
-                                    {/* Thumbnail */}
-                                    <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-zinc-900">
+                        <Link href={`/blog/${featured.slug}`}>
+                            <FxHoloCard day={isDayTime} className="group overflow-hidden p-0 cursor-pointer">
+                                <div className="grid lg:grid-cols-[1fr_1.2fr] items-stretch">
+                                    {/* Image */}
+                                    <div className="relative aspect-video lg:aspect-auto min-h-[280px] overflow-hidden">
                                         <Image
-                                            src={getBlogImage(post.slug, post.tag)}
-                                            alt={post.title}
+                                            src={getBlogImage(featured.slug) || '/assets/blog/default.jpg'}
+                                            alt={featured.title}
                                             fill
-                                            className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                            sizes="(max-width:768px) 100vw, (max-width:1024px) 50vw, 33vw"
+                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
                                         />
+                                        <div className={`absolute inset-0 ${dark ? 'bg-gradient-to-r from-transparent to-[#04090f]/70' : 'bg-gradient-to-r from-transparent to-white/30'}`} />
                                     </div>
 
-                                    {/* Meta */}
-                                    <div className="flex items-center gap-2 text-xs text-gray-500">
-                                        <span className="font-semibold uppercase tracking-wider text-teal-400">{post.tag}</span>
-                                        <span>·</span>
-                                        <span>{post.readTime}</span>
+                                    {/* Content */}
+                                    <div className="p-10 flex flex-col justify-center">
+                                        <div className="flex items-center gap-3 mb-5">
+                                            <span className="gx-data-pill text-[0.65em]">{featured.tag}</span>
+                                            <span className={`text-[0.72em] font-mono ${dark ? 'text-gray-500' : 'text-gray-400'}`}>
+                                                <Calendar className="w-3 h-3 inline mr-1" />
+                                                {featured.date}
+                                            </span>
+                                        </div>
+
+                                        <h2 className={`text-[1.7em] md:text-[2.1em] font-[800] leading-[1.2] tracking-tight mb-4 group-hover:text-teal-400 transition-colors duration-300 ${dark ? 'text-white' : 'text-gray-900'}`}>
+                                            {featured.title}
+                                        </h2>
+
+                                        <p className={`text-[0.9em] leading-[1.8] mb-6 ${dark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                            {featured.excerpt}
+                                        </p>
+
+                                        <div className={`flex items-center justify-between mt-auto pt-6 border-t ${dark ? 'border-white/10' : 'border-gray-100'}`}>
+                                            <div className="flex items-center gap-2">
+                                                <User className={`w-4 h-4 ${dark ? 'text-gray-500' : 'text-gray-400'}`} />
+                                                <span className={`text-[0.8em] ${dark ? 'text-gray-400' : 'text-gray-500'}`}>{featured.author}</span>
+                                            </div>
+                                            <span className={`inline-flex items-center gap-2 text-[0.8em] font-[700] transition-all duration-200 group-hover:gap-3 ${dark ? 'text-teal-400' : 'text-teal-600'}`}>
+                                                Read Article <ArrowRight className="w-4 h-4" />
+                                            </span>
+                                        </div>
                                     </div>
-
-                                    {/* Title */}
-                                    <h3 className="text-lg md:text-xl font-semibold leading-snug transition-colors text-white group-hover:text-teal-400">
-                                        {post.title}
-                                    </h3>
-
-                                    {/* Excerpt */}
-                                    <p className="text-sm leading-relaxed line-clamp-3 text-gray-400">
-                                        {post.excerpt}
-                                    </p>
-
-                                    {/* Read more */}
-                                    <span className="text-sm font-medium underline underline-offset-4 transition-colors text-gray-400 group-hover:text-teal-400">
-                                        Read article →
-                                    </span>
-                                </Link>
-                            ))}
-                        </div>
-                    )}
-                </section>
-
-                {/* ── Pagination ── */}
-                {totalPages > 1 && (
-                    <div className="pb-20 flex items-center justify-center gap-1">
-                        <button
-                            onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                            disabled={currentPage === 1}
-                            className="w-10 h-10 rounded-full flex items-center justify-center transition-colors text-gray-500 hover:bg-zinc-900 disabled:opacity-40"
-                        >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/>
-                            </svg>
-                        </button>
-                        {Array.from({length: totalPages}, (_, i) => i + 1).map(p => (
-                            <button
-                                key={p}
-                                onClick={() => setCurrentPage(p)}
-                                className={`w-10 h-10 rounded-full text-sm font-medium transition-colors ${currentPage === p ? 'bg-white text-black' : 'text-gray-400 hover:bg-zinc-900'}`}
-                            >
-                                {p}
-                            </button>
-                        ))}
-                        <button
-                            onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-                            disabled={currentPage === totalPages}
-                            className="w-10 h-10 rounded-full flex items-center justify-center transition-colors text-gray-500 hover:bg-zinc-900 disabled:opacity-40"
-                        >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </button>
+                                </div>
+                            </FxHoloCard>
+                        </Link>
                     </div>
-                )}
-            </main>
+                </section>
+            )}
 
-            <div className="relative -mt-14 py-8 mx-auto px-4 sm:px-[2em] md:px-[3.2em] lg:px-[4.6em] max-w-full w-full h-auto bg-teal-950 text-white">
-                <AIProjectEstimator/>
-            </div>
+            {/* ── Article Grid — Magazine Layout ── */}
+            <section className={`relative py-16 px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${dark ? 'bg-[#020810]' : 'bg-white'}`}>
+                <FxBackground day={isDayTime} grid={true} aurora={false} className="opacity-08" />
+                <div className="max-w-[90rem] mx-auto relative z-10">
+
+                    <FxReveal className="mb-12">
+                        <FxSectionHeading
+                            day={isDayTime}
+                            eyebrow="All Articles"
+                            title="More from the Journal"
+                        />
+                    </FxReveal>
+
+                    {/* Masonry-style grid */}
+                    <motion.div
+                        className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+                        layout
+                        variants={{
+                            hidden: { opacity: 0 },
+                            visible: { opacity: 1, transition: { staggerChildren: 0.07 } },
+                        }}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                    >
+                        {rest.map((post, i) => (
+                            <motion.div
+                                key={post.slug}
+                                layout
+                                variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
+                                // Make every 4th item span 2 columns for magazine feel
+                                className={i % 7 === 3 ? 'md:col-span-2 lg:col-span-1' : ''}
+                            >
+                                <Link href={`/blog/${post.slug}`} className="block h-full">
+                                    <FxHoloCard day={isDayTime} className="h-full flex flex-col group cursor-pointer p-0 overflow-hidden">
+                                        {/* Thumbnail */}
+                                        <div className="relative aspect-video overflow-hidden">
+                                            <Image
+                                                src={getBlogImage(post.slug) || '/assets/blog/default.jpg'}
+                                                alt={post.title}
+                                                fill
+                                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                            />
+                                            {/* Category overlay badge */}
+                                            <div className="absolute top-4 left-4">
+                                                <span className="gx-data-pill text-[0.62em]">{post.tag}</span>
+                                            </div>
+                                        </div>
+
+                                        {/* Content */}
+                                        <div className="p-6 flex flex-col flex-1">
+                                            <div className="flex items-center gap-3 mb-3">
+                                                <span className={`text-[0.7em] font-mono ${dark ? 'text-gray-500' : 'text-gray-400'}`}>
+                                                    <Calendar className="w-3 h-3 inline mr-1" />{post.date}
+                                                </span>
+                                                <span className={`text-[0.7em] ${dark ? 'text-gray-600' : 'text-gray-300'}`}>·</span>
+                                                <span className={`text-[0.7em] font-mono ${dark ? 'text-gray-500' : 'text-gray-400'}`}>
+                                                    <User className="w-3 h-3 inline mr-1" />{post.author}
+                                                </span>
+                                            </div>
+
+                                            <h3 className={`text-[1.05em] font-[700] leading-[1.3] mb-3 group-hover:text-teal-400 transition-colors duration-300 ${dark ? 'text-white' : 'text-gray-900'}`}>
+                                                {post.title}
+                                            </h3>
+
+                                            <p className={`text-[0.84em] leading-[1.7] flex-1 ${dark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                                {post.excerpt?.slice(0, 120)}{post.excerpt?.length > 120 ? '…' : ''}
+                                            </p>
+
+                                            <div className={`mt-5 pt-4 border-t flex items-center justify-between ${dark ? 'border-white/08' : 'border-gray-100'}`}>
+                                                <span className={`text-[0.75em] font-[600] uppercase tracking-wider ${dark ? 'text-teal-500' : 'text-teal-600'}`}>
+                                                    Read More
+                                                </span>
+                                                <ArrowRight className={`w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 ${dark ? 'text-teal-400' : 'text-teal-600'}`} />
+                                            </div>
+                                        </div>
+                                    </FxHoloCard>
+                                </Link>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+
+                    {/* Pagination */}
+                    {totalPages > 1 && (
+                        <FxReveal className="mt-14 flex justify-center gap-2">
+                            {Array.from({ length: totalPages }).map((_, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => setCurrentPage(i + 1)}
+                                    className={`w-10 h-10 rounded-full text-[0.82em] font-[700] border transition-all duration-200 ${
+                                        currentPage === i + 1
+                                            ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white border-transparent shadow-[0_4px_15px_rgba(45,212,191,0.35)]'
+                                            : dark
+                                                ? 'bg-transparent text-gray-300 border-white/15 hover:border-teal-400/50'
+                                                : 'bg-white text-gray-600 border-gray-200 hover:border-teal-400'
+                                    }`}
+                                >
+                                    {i + 1}
+                                </button>
+                            ))}
+                        </FxReveal>
+                    )}
+                </div>
+            </section>
+
+            {/* ── CTA ── */}
+            <section className={`relative overflow-hidden py-24 px-4 sm:px-6 md:px-10 lg:px-[4.5em] text-center ${dark ? 'bg-black/40' : 'bg-teal-950'} text-white`}>
+                <FxBackground day={false} grid aurora className="opacity-60" />
+                <div className="gx-scanline pointer-events-none" />
+                <div className="relative z-10">
+                    <FxReveal>
+                        <FxChip day={false} className="mb-6">Have a project?</FxChip>
+                        <FxGlitchText tag="h2" className="text-[2.2em] md:text-[3em] font-[800] leading-[1.1] tracking-tight mb-6">
+                            Turn ideas into<br />
+                            <span className="gx-gradient-text">digital reality.</span>
+                        </FxGlitchText>
+                        <div className="flex flex-wrap justify-center gap-4">
+                            <FxButton day={false} href="/quote-request" variant="solid">Get a Quote</FxButton>
+                            <FxButton day={false} href="/contact" variant="ghost">Talk to Us</FxButton>
+                        </div>
+                    </FxReveal>
+                </div>
+            </section>
         </div>
     );
 };

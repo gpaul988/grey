@@ -1,6 +1,5 @@
 'use client';
 
-import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import React, { useEffect, useRef, useState } from 'react';
 import FloatingButton from '@/components/FloatingButton';
 import Slider from 'react-slick';
@@ -10,7 +9,7 @@ import SocialProof from '@/components/SocialProof';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import CountUp from 'react-countup';
-import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useIsDayTime } from '../components/useIsDayTime';
 import { FxBackground, FxCard, FxChip, FxSectionHeading, FxButton, FxReveal, FxHoloCard, FxFrame, FxStatBar, FxGlitchText, FxTerminal } from '@/components/futuristic/fx';
 
@@ -95,9 +94,7 @@ const Company = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeIndex, setActiveIndex] = useState(1);
-    const targetRef = useRef<HTMLDivElement | null>(null);
-    const { scrollYProgress } = useScroll({ target: targetRef });
-    const x = useTransform(scrollYProgress, [0, 1], ['0%', '-60%']);
+
 
     const isDayTime = useIsDayTime();
 
@@ -538,44 +535,71 @@ const Company = () => {
                 </div>
             </div>
 
-            {/* ── Why Choose Grey InfoTech (x-scroll) ── */}
-            <div className={`${isDayTime ? 'bg-black' : 'bg-white'}`}>
+            {/* ── Why Choose Grey InfoTech — Interactive Card Grid ── */}
+            <div className={`relative overflow-hidden ${isDayTime ? 'bg-[#020f0d]' : 'bg-white'}`}>
+                <FxBackground day={false} grid aurora className="opacity-50" />
+                <div className="gx-noise-overlay pointer-events-none" />
                 <div
-                    id="development process"
-                    className="lg:pt-[6em] md:pt-[6em] pt-[2em] relative mb-10 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em]"
+                    id="development-process"
+                    className="relative z-10 lg:pt-[5em] md:pt-[5em] pt-[2.5em] lg:pb-[5em] md:pb-[5em] pb-[2em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em]"
                 >
-                    <div className={`sticky top-0 z-10 bg-opacity-90 backdrop-blur-md ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
-                        <div className="border-b-[0.1em] border-gray-300/50 pb-[2em]">
-                            <FxSectionHeading
-                                day={!isDayTime}
-                                eyebrow="Why Us"
-                                title={<>Why choose Grey InfoTech <br className="lg:block md:block hidden" />for your next project?</>}
-                                subtitle="Ignore functional. We create digital products that excite consumers and provide the outcomes you require."
-                            />
+                    <FxReveal className="mb-12">
+                        <FxChip day={false} className="mb-5">Why Us</FxChip>
+                        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-4 border-b border-white/10 pb-8">
+                            <FxGlitchText tag="h2" className="text-[2.2em] md:text-[3em] font-[800] leading-[1.1] tracking-tight text-white max-w-2xl">
+                                Why choose Grey InfoTech<br />
+                                <span className="gx-gradient-text">for your next project?</span>
+                            </FxGlitchText>
+                            <p className="text-white/55 text-[0.9em] leading-relaxed max-w-md lg:text-right">
+                                Ignore functional. We create digital products that excite people and deliver the outcomes you require.
+                            </p>
                         </div>
-                    </div>
+                    </FxReveal>
 
-                    <section ref={targetRef} className="h-[250vh]">
-                        <div className="sticky top-52 flex h-[80vh] w-full max-w-full items-center overflow-hidden">
-                            <motion.div style={{ x }} className="flex lg:gap-[15em] md:gap-[15em] gap-[10em]">
-                                {[
-                                    { id: 1, subtitle: '01', title: "We're Experienced", description: "When it comes to digital, we bring deep, hands-on experience across a wide range of projects and industries. No matter the size or complexity of your brief, we draw on everything we've learned—from past challenges to proven successes—to deliver solutions that blend creativity, technical expertise, commercial insight, and practical strategy." },
-                                    { id: 2, subtitle: '02', title: "We're Proactive", description: "At Grey InfoTech, we don't just deliver on expectations—we exceed them. Our proactive approach means we anticipate challenges before they arise, act swiftly without being prompted, and consistently look for new opportunities to drive your project forward." },
-                                    { id: 3, subtitle: '03', title: "We're Collaborative", description: "We're passionate about technology—but we never lose sight of the people behind the projects. Collaboration, for us, goes beyond being approachable and communicative. It means becoming a true partner who shares your vision, enthusiasm, and drive to build something exceptional." },
-                                    { id: 4, subtitle: '04', title: "We're Invested", description: "When you partner with Grey InfoTech, your goals become our mission. We take every project personally—demonstrated in our commitment to excellence, attention to detail, and unwavering accountability. We don't just deliver software; we take ownership of outcomes, ensuring your investment results in long-term value." },
-                                ].map((card, index, array) => (
-                                    <div
-                                        key={card.id}
-                                        className={`group relative h-[350px] w-[400px] overflow-hidden flex flex-col items-start justify-self-start text-start ${isDayTime ? 'text-white' : 'text-black'} ${index === array.length - 1 ? 'ml-auto' : ''}`}
-                                    >
-                                        <span className="gx-chip mb-4"><span className="gx-dot" />{card.subtitle}</span>
-                                        <h2 className="sm:text-[1.5em] md:text-[2.5em] lg:text-[2.5em] font-[500] mt-2 leading-[1.1]">{card.title}</h2>
-                                        <p className="text-[0.873em] font-[300] mt-4 text-justify">{card.description}</p>
+                    <motion.div
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+                        variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.1 } } }}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.1 }}
+                    >
+                        {[
+                            { num: '01', title: "We're Experienced", accent: '#2dd4bf', body: "Deep, hands-on experience across a wide range of projects and industries. We draw on everything we've learned to deliver solutions that blend creativity, technical expertise, and practical strategy." },
+                            { num: '02', title: "We're Proactive", accent: '#06b6d4', body: "We don't just deliver on expectations — we exceed them. Our approach means we anticipate challenges before they arise and consistently look for new opportunities to drive your project forward." },
+                            { num: '03', title: "We're Collaborative", accent: '#a855f7', body: "Collaboration means becoming a true partner who shares your vision, enthusiasm, and drive. We never lose sight of the people behind the projects." },
+                            { num: '04', title: "We're Invested", accent: '#22d3ee', body: "Your goals become our mission. We take ownership of outcomes — not just delivery — ensuring your investment results in long-term, compounding value." },
+                            { num: '05', title: "We're Transparent", accent: '#14b8a6', body: "No black boxes. You get live access to the dev environment, clear milestones, and proactive updates — so you always know exactly where your project stands." },
+                            { num: '06', title: "We Stick Around", accent: '#0d9488', body: "The journey doesn't end at launch. As your business grows and technology evolves, we stay by your side — adapting, optimising, and scaling your product." },
+                        ].map((card, i) => (
+                            <motion.div
+                                key={card.num}
+                                variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
+                            >
+                                <FxHoloCard day={false} className="p-7 h-full flex flex-col group cursor-default">
+                                    <div className="flex items-center justify-between mb-5">
+                                        <span
+                                            className="text-[0.65em] font-mono font-[700] uppercase tracking-[0.22em] px-3 py-1 rounded-full border"
+                                            style={{ color: card.accent, borderColor: card.accent + '40', background: card.accent + '12' }}
+                                        >
+                                            {card.num}
+                                        </span>
+                                        <div className="w-8 h-8 rounded-full opacity-20 group-hover:opacity-60 transition-opacity duration-300"
+                                            style={{ background: `radial-gradient(circle, ${card.accent}, transparent)` }} />
                                     </div>
-                                ))}
+                                    <h3 className="text-[1.15em] font-[700] tracking-tight text-white mb-3 group-hover:text-teal-300 transition-colors duration-300">
+                                        {card.title}
+                                    </h3>
+                                    <p className="text-white/55 text-[0.84em] leading-[1.7] flex-1">
+                                        {card.body}
+                                    </p>
+                                    <div
+                                        className="mt-5 h-[1px] w-0 group-hover:w-full transition-all duration-700 rounded-full"
+                                        style={{ background: `linear-gradient(90deg, ${card.accent}00, ${card.accent}80, ${card.accent}00)` }}
+                                    />
+                                </FxHoloCard>
                             </motion.div>
-                        </div>
-                    </section>
+                        ))}
+                    </motion.div>
                 </div>
             </div>
 

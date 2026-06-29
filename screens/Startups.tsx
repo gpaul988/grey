@@ -1,18 +1,14 @@
 'use client';
 
 
-import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
 import {AnimatePresence, motion} from 'framer-motion'
-import Header from "@/components/Header";
 import Image from "next/image";
 import Link from "next/link";
-import Footer from "@/components/Footer";
 import FloatingButton from "@/components/FloatingButton";
 import {useIsDayTime} from '../components/useIsDayTime';
-
-import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
+import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxGlitchText } from '@/components/futuristic/fx';
 const reasons = [
     {
         id: 1,
@@ -138,34 +134,54 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
             <FloatingButton
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
                 }`}
             />
 
-            {/* Hero */}
-            <div
-                className={`relative pt-[3em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                <h1
-                    className={`border-b pb-[0.5em] border-gray-500/50 px-0 constant-text lg:text-[5em] md:text-[3em] text-[2em] lg:mt-[3em] md:mt-[3em] mt-[1.5em] leading-[1.1] font-[700] ${
-                        isDayTime ? 'text-black' : 'text-white'
-                    }`}>
-                    Development<br/>services for startups</h1>
-                <div className={'relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
+            {/* ── Futuristic Hero ── */}
+            <section className="relative overflow-hidden min-h-[80vh] flex flex-col justify-end">
+                <div className="absolute inset-0">
                     <Image
                         src='/assets/startup/hero.jpg'
                         alt='startups'
-                        width={1920}
-                        height={580}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
+                        fill
+                        sizes="100vw"
+                        style={{ objectFit: 'cover', objectPosition: 'center' }}
+                        priority
                     />
                 </div>
-            </div>
+                <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/35 to-black/90" />
+                <FxBackground day={false} grid aurora className="opacity-55" />
+                <div className="gx-scanline pointer-events-none" />
+                <div className="gx-hero-scan" />
+                <div className="gx-noise-overlay" />
+                <div className="gx-orbit pointer-events-none absolute" style={{ width: '75vmax', height: '75vmax', top: '-28vmax', right: '-25vmax', opacity: .16 }} />
+                <div className="gx-orbit gx-orbit-reverse pointer-events-none absolute" style={{ width: '48vmax', height: '48vmax', top: '-10vmax', right: '-5vmax', opacity: .11 }} />
+
+                <div className="relative z-10 gx-page-hero-content">
+                    <div className="max-w-[90rem] mx-auto">
+                        <FxReveal>
+                            <FxChip day={false} className="mb-5">For Startups</FxChip>
+                            <div className="border-b border-white/15 pb-7 mb-7 max-w-5xl">
+                                <FxGlitchText tag="h1" className="gx-hero-title text-white">
+                                    Development Services<br />
+                                    <span className="gx-gradient-text">for Startups</span>
+                                </FxGlitchText>
+                            </div>
+                            <p className="text-white/65 max-w-2xl text-[0.95em] md:text-[1.05em] leading-relaxed mb-8">
+                                From validated MVP to scaled platform — we've helped startups launch, grow, and succeed in over 15 industries.
+                            </p>
+                            <div className="flex flex-wrap gap-3">
+                                {['MVP Development', 'Virtual CTO', 'Scalable Architecture', 'Lean & Agile'].map(s => (
+                                    <span key={s} className="gx-data-pill">{s}</span>
+                                ))}
+                            </div>
+                        </FxReveal>
+                    </div>
+                </div>
+            </section>
 
 
             <section ref={sectionRef}
@@ -945,7 +961,7 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
 
             
 
-            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
+            {/* Footer provided globally by app/layout.tsx */}
         </div>
     );
 };

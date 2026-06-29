@@ -1,13 +1,10 @@
 'use client';
 
 
-import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 
 import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
 import '@/app/globals.css';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import {motion} from 'framer-motion';
 import type {Transition} from 'framer-motion';
 import {
