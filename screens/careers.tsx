@@ -136,7 +136,7 @@ const Careers: React.FC = () => {
                             <p className={`text-[0.88em] max-w-md mx-auto mb-8 ${dark ? 'text-gray-500' : 'text-gray-500'}`}>
                                 We&apos;re always on the lookout for talented people. Send us your CV and we&apos;ll reach out when the right role opens up.
                             </p>
-                            <FxButton day={isDayTime} href="/contact" variant="solid">Get in Touch</FxButton>
+                            <FxButton day={isDayTime} href="/careers/apply" variant="solid">Get in Touch</FxButton>
                         </div>
                     </FxReveal>
                 </div>
@@ -183,7 +183,7 @@ const Careers: React.FC = () => {
                     <p className={`text-[0.92em] max-w-lg mx-auto mb-10 leading-relaxed ${dark ? 'text-gray-400' : 'text-gray-600'}`}>
                         We occasionally open positions that aren&apos;t publicly listed. Reach out and introduce yourself.
                     </p>
-                    <FxButton day={isDayTime} href="/contact" variant="solid">Introduce Yourself</FxButton>
+                    <FxButton day={isDayTime} href="/careers/introduce" variant="solid">Introduce Yourself</FxButton>
                 </FxReveal>
             </section>
         </div>

@@ -6,7 +6,7 @@ import type {
     Invoice, CaseStudy, BlogPost, Conversation, Message, ActivityLog,
     ProjectBrief, Upload, Partner, ClientReview, PartnerInquiry, Faq,
     Ad, Subscriber, Announcement, PageSeo, AnalyticsEvent, MediaAsset,
-    AuditSubmission,
+    AuditSubmission, CareerApplication,
 } from '../db/types';
 import {ClientsModel} from './clients';
 import {ClientStaffModel} from './clientStaff';
@@ -116,6 +116,12 @@ export const AuditSubmissions = createRepo<AuditSubmission>('audit_submissions',
     'website', 'github_repo', 'priority', 'budget_estimate', 'specific_issues',
     'preferred_contact', 'audit_data', 'status', 'admin_notes', 'proposed_solution',
     'responded_at',
+]);
+
+export const CareerApplications = createRepo<CareerApplication>('career_applications', [
+    'form_type', 'full_name', 'email', 'phone', 'country', 'role_interest',
+    'experience_years', 'linkedin_url', 'portfolio_url', 'cover_letter',
+    'cv_path', 'cv_filename', 'status', 'admin_notes',
 ]);
 
 export const Conversations = createRepo<Conversation>('conversations', [

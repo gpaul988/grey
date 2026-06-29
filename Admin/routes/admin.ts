@@ -8,10 +8,10 @@ import {
     Users, Submissions, Leads, Clients, Projects, Tickets, TicketMessages,
     Invoices, CaseStudies, BlogPosts, Partners, ClientReviews, Conversations, Messages, Activity,
     Ads, Subscribers, Announcements, PageSeos, Media, PartnerInquiries, Faqs,
-    AuditSubmissions,
+    AuditSubmissions, CareerApplications,
     dashboardStats, chartData, logActivity,
 } from '../models';
-import {formatMoney, timeAgo, toInt} from '../utils/helpers';
+import {formatMoney, timeAgo, toInt, str} from '../utils/helpers';
 import {avatarUpload, publicUrl} from '../config/uploads';
 import {PERMISSIONS, effectivePermissions} from '../config/permissions';
 import {SiteSettings} from '../models/settings';
@@ -189,6 +189,26 @@ route.get('/team', requirePermission('team.view'), (_req, res) => {
 
 route.get('/activity', requirePermission('activity.view'), (_req, res) => {
     res.render('apps-activity', {title: 'Activity Log', ...baseLocals, activity: Activity.all().slice(0, 100)});
+});
+
+/* ================================================================
+   CAREER APPLICATIONS
+   ================================================================ */
+route.get('/career-applications', requirePermission('submissions.view'), (req, res) => {
+    const formType = str(req.query.form_type as string);
+    const status   = str(req.query.status as string);
+    let applications = CareerApplications.all('created_at DESC');
+    if (formType) applications = applications.filter((a: Record<string, unknown>) => a.form_type === formType);
+    if (status)   applications = applications.filter((a: Record<string, unknown>) => a.status === status);
+    const cvCount   = CareerApplications.all().filter((a: Record<string, unknown>) => a.form_type === 'cv_submission').length;
+    const introCount = CareerApplications.all().filter((a: Record<string, unknown>) => a.form_type === 'self_introduction').length;
+    res.render('apps-career-applications', {
+        title: 'Career Applications',
+        ...baseLocals,
+        applications,
+        cvCount,
+        introCount,
+    });
 });
 
 /* ================================================================

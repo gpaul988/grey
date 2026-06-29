@@ -1607,6 +1607,29 @@ export function migrate(database?: DatabaseType.Database): void {
         );
         CREATE INDEX IF NOT EXISTS idx_audit_submissions_email ON audit_submissions(user_email);
         CREATE INDEX IF NOT EXISTS idx_audit_submissions_status ON audit_submissions(status);
+
+        CREATE TABLE IF NOT EXISTS career_applications (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            form_type TEXT NOT NULL DEFAULT 'cv_submission', -- cv_submission | self_introduction
+            full_name TEXT NOT NULL,
+            email TEXT NOT NULL,
+            phone TEXT,
+            country TEXT,
+            role_interest TEXT,
+            experience_years TEXT,
+            linkedin_url TEXT,
+            portfolio_url TEXT,
+            cover_letter TEXT,
+            cv_path TEXT,
+            cv_filename TEXT,
+            status TEXT NOT NULL DEFAULT 'new', -- new | reviewed | shortlisted | rejected | archived
+            admin_notes TEXT,
+            created_at TEXT NOT NULL DEFAULT (datetime('now')),
+            updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+        );
+        CREATE INDEX IF NOT EXISTS idx_career_apps_email ON career_applications(email);
+        CREATE INDEX IF NOT EXISTS idx_career_apps_status ON career_applications(status);
+        CREATE INDEX IF NOT EXISTS idx_career_apps_type ON career_applications(form_type);
     `);
 
     // ---- Store default settings (idempotent) ----
