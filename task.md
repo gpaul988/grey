@@ -1,32 +1,22 @@
-# Admin Login Issue - Debugging
+# Grey — Futuristic Redesign (Part B)
 
-## Problem
-- User cannot login to Admin Dashboard (/admin/login)
-- Credentials: graham@greyinfotech.com.ng / 1Uriel2Sobiribo3, (with comma)
-- Root cause: NO ADMIN USERS in the admin database
+## Design system (DONE, reuse everywhere)
+- components/futuristic/fx/index.tsx — FxBackground, FxCard(glow), FxChip, FxSectionHeading, FxButton(solid|ghost), FxReveal, FxSection. All `day` aware.
+- app/globals.css "FUTURISTIC DESIGN SYSTEM v2": .gx-grid, .gx-aurora, .gx-card, .gx-glow-border, .gx-gradient-text, .gx-chip, .gx-scan. data-day driven, reduced-motion guards.
 
-## Database Status
-- ✅ Tables exist (users table exists)
-- ❌ Zero users in users table
-- Database path: /home/user/grey/Admin/data/grey.db
+## Home.tsx (DONE — awaiting user approval)
+- Hero: UNTOUCHED (required).
+- Intro: FxBackground grid + FxChip "YOUR DIGITAL PARTNER" + FxReveal + gx-gradient-text accent.
+- ServicesSection: futuristic (chips, numbered, outline buttons).
+- Digital Adventure: "Get in touch" -> FxButton solid gradient. VERIFIED.
+- Trust Signals: kept rich framer-motion counters/cards (already strong).
+- Proof badges: added gx-scan shimmer + overflow-hidden.
+- tsc --noEmit clean. Dev server (tmux greyd:3000) 200. Screenshots verified.
 
-## Attempted Fixes
-1. ❌ npx tsx scripts/create_admin.ts — ran but no error, no users created
-   - Likely silent error due to bcryptjs or db initialization
+## NEXT (after approval)
+Roll FX system to ALL screens EXCEPT contact/audit/blog/faqs.
+Screens in /home/user/grey/screens/ (services/*, industries/*, company, careers, portfolio, case-studies, partners...).
+Then: next build exit 0, commit + push as gpaul988 via .git-push.env.
 
-## What the Script Does (create_admin.ts)
-- Deletes existing user with that email
-- Hashes password with bcrypt (12 rounds)
-- Inserts into users table
-
-## Next Steps
-1. Run bootstrap-db.js which should:
-   - Initialize the admin database properly
-   - Seed initial admin users
-2. If that fails, manually create user with node script that logs errors
-
-## Important Notes
-- The login form route is at /admin/login
-- Auth handler: /Admin/routes/auth.ts
-- Password checking uses bcryptjs.compare()
-- User must be: email_verified=1, status='active', email set
+## Excluded pages: contact, audit, blog, faqs
+## Constraints: keep teal brand, keep isDayTime day/night switch on all pages.

@@ -1,0 +1,886 @@
+◇ injected env (28) from config.env // tip: ◈ encrypted .env [www.dotenvx.com]
+◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+◇ injected env (0) from config.env // tip: ◈ encrypted .env [www.dotenvx.com]
+[DB] Connected and migrated
+Sentry Logger [log]: Initializing SDK...
+Sentry Logger [log]: Initializing Sentry: process: 4458, thread: main.
+Sentry Logger [warn]: No DSN provided, client will not send events.
+Sentry Logger [log]: SDK initialized from CommonJS
+Sentry Logger [log]: @opentelemetry/api: Registered a global for diag v1.9.1.
+Sentry Logger [log]: @opentelemetry/api: Registered a global for trace v1.9.1.
+Sentry Logger [log]: @opentelemetry/api: Registered a global for propagation v1.9.1.
+Sentry Logger [log]: @opentelemetry/api: Registered a global for context v1.9.1.
+Sentry Logger [log]: SDK successfully initialized
+> Ready on http://localhost:3000
+> Admin on http://localhost:3000/admin
+> Admin API on http://localhost:3000/admin/api
+2026-06-29 00:19:49.232 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/webpack-hmr?id=c_ifR7LFmmRjVUKJDap5E",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:19:49.232",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692389231-huydpmqgi"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 336b676ec93cea0b
+○ Compiling /_not-found/page ...
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: 60b569bcfe8540ca
+  parent ID: 336b676ec93cea0b
+  root ID: 336b676ec93cea0b
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 60b569bcfe8540ca
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for GET /_not-found/page: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: GET /_not-found/page
+  ID: 92c618a48bc4e030
+  parent ID: 336b676ec93cea0b
+  root ID: 336b676ec93cea0b
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /_not-found: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /_not-found
+  ID: d44f152b96452336
+  parent ID: 92c618a48bc4e030
+  root ID: 336b676ec93cea0b
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 8bb1c71d887c8bf5
+  parent ID: d44f152b96452336
+  root ID: 336b676ec93cea0b
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 538648126cecf231
+  parent ID: 8bb1c71d887c8bf5
+  root ID: 336b676ec93cea0b
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 538648126cecf231
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: b355f5d8959b230e
+  parent ID: 8bb1c71d887c8bf5
+  root ID: 336b676ec93cea0b
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/_not-found"" with ID b355f5d8959b230e
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 8bb1c71d887c8bf5
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /_not-found" with ID d44f152b96452336
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 449366bcb6d0e5dd
+  parent ID: d44f152b96452336
+  root ID: 336b676ec93cea0b
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 449366bcb6d0e5dd
+ GET /_next/webpack-hmr?id=c_ifR7LFmmRjVUKJDap5E 404 in 6.4s (next.js: 5.5s, application-code: 897ms)
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "GET /_not-found/page" with ID 92c618a48bc4e030
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /_not-found" with ID 336b676ec93cea0b
+Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [log]: Ignoring span http.server - GET /_not-found because it matches `ignoreSpans`.
+Sentry Logger [log]: Recording outcome: "before_send:transaction"
+Sentry Logger [log]: Recording outcome: "before_send:span" (8 times)
+Sentry Logger [log]: before send for type `transaction` returned `null`, will not send event.
+2026-06-29 00:20:00.692 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:00.692",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692400692-1jla56yt4"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 1f113ffd7e4bd3ca
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: 30f4a62a0f598da6
+  parent ID: 1f113ffd7e4bd3ca
+  root ID: 1f113ffd7e4bd3ca
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 30f4a62a0f598da6
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /
+  ID: 08318c75911fb5d1
+  parent ID: 1f113ffd7e4bd3ca
+  root ID: 1f113ffd7e4bd3ca
+  root description: /
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: cea1c9fecb1628e3
+  parent ID: 08318c75911fb5d1
+  root ID: 1f113ffd7e4bd3ca
+  root description: /
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: fb96bad502e234e8
+  parent ID: cea1c9fecb1628e3
+  root ID: 1f113ffd7e4bd3ca
+  root description: /
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID fb96bad502e234e8
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: ca77bf7a86a0a251
+  parent ID: cea1c9fecb1628e3
+  root ID: 1f113ffd7e4bd3ca
+  root description: /
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/"" with ID ca77bf7a86a0a251
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID cea1c9fecb1628e3
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /" with ID 08318c75911fb5d1
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 800b05c33113ed33
+  parent ID: 08318c75911fb5d1
+  root ID: 1f113ffd7e4bd3ca
+  root description: /
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 800b05c33113ed33
+2026-06-29 00:20:01.097 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.097",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401097-tqe109mvw"
+}
+2026-06-29 00:20:01.099 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/logon.png",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.099",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401099-1q3qzrlnj"
+}
+2026-06-29 00:20:01.105 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/assets/home/web-design.jpg",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.105",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401105-3otsdiebj"
+}
+2026-06-29 00:20:01.123 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/manifest.json",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.123",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401123-v6z2h2fgb"
+}
+2026-06-29 00:20:01.137 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.137",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401137-4gsebdw4h"
+}
+ GET / 200 in 443ms (next.js: 34ms, application-code: 410ms)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: 14ff065af4ae1a01
+  parent ID: 08318c75911fb5d1
+  root ID: 1f113ffd7e4bd3ca
+  root description: /
+Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782692395, 298576214 ] [ 22, 659077942 ]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID 14ff065af4ae1a01
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /" with ID 1f113ffd7e4bd3ca
+Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+2026-06-29 00:20:01.158 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.158",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401158-s9q4g1k2t"
+}
+2026-06-29 00:20:01.160 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.160",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401160-me4ddw7j7"
+}
+2026-06-29 00:20:01.162 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.162",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401162-485haav09"
+}
+2026-06-29 00:20:01.163 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.163",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401163-df88q2b1g"
+}
+2026-06-29 00:20:01.171 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.171",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401171-dk0pa1zkm"
+}
+2026-06-29 00:20:01.180 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.180",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401180-janh1bd30"
+}
+2026-06-29 00:20:01.237 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.237",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401237-wxk64l3s3"
+}
+2026-06-29 00:20:01.240 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/_1anvha4._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.240",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401240-xxqgb1yip"
+}
+2026-06-29 00:20:01.250 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/turbopack-_01_ro95._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.250",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401250-5c8bd3bwk"
+}
+2026-06-29 00:20:01.262 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/_0lht4-f._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.262",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401262-j17hvwhtt"
+}
+2026-06-29 00:20:01.271 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_next_06x32e_._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.271",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401271-ahmzmg6di"
+}
+2026-06-29 00:20:01.272 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.272",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401272-thremdwhx"
+}
+2026-06-29 00:20:01.275 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.275",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401275-br2bzqxmt"
+}
+2026-06-29 00:20:01.284 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_react-icons_fa6_index_mjs_0_ulevj._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.284",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401284-uk1rucrmz"
+}
+2026-06-29 00:20:01.288 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_react-icons_bs_index_mjs_13s_i73._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.288",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401288-rakfwg4m5"
+}
+2026-06-29 00:20:01.306 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_react-icons_lib_11_gx9i._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.306",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401306-gmqpw2nj9"
+}
+2026-06-29 00:20:01.307 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_1v8tlxs._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.307",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401307-eg6m98w9m"
+}
+2026-06-29 00:20:01.314 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/app_layout_tsx_007e4b2._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.314",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401314-3b8l4ho7x"
+}
+2026-06-29 00:20:01.322 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/components_futuristic_WebGLScene_tsx_0e5zjrv._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.322",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401322-n7dzavf91"
+}
+2026-06-29 00:20:01.330 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/_0eok2u6._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.330",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401330-v9y4v9wjc"
+}
+2026-06-29 00:20:01.331 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_react-icons_lia_index_mjs_0l4b22g._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.331",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401331-c4pma5r0k"
+}
+2026-06-29 00:20:01.346 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_react-icons_fa_index_mjs_01bzxvj._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.346",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401345-61yyhiruq"
+}
+2026-06-29 00:20:01.359 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_%40fortawesome_fontawesome-svg-core_index_mjs_0_t21-z._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.359",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401359-g5lt4jkik"
+}
+2026-06-29 00:20:01.362 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_%40fortawesome_free-solid-svg-icons_index_mjs_1vn59s6._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.362",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401361-mvtkq58vy"
+}
+2026-06-29 00:20:01.371 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_0fcne9e._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.371",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401371-dt0qz3wlx"
+}
+2026-06-29 00:20:01.426 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/app_page_tsx_10zah1w._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.426",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401426-hk9bu8j3r"
+}
+2026-06-29 00:20:01.449 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/app_error_tsx_01qd85j._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.449",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401449-bnkr9h8yp"
+}
+2026-06-29 00:20:01.452 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/app_error_tsx_10zah1w._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.452",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401452-so4lo8jmo"
+}
+2026-06-29 00:20:01.465 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_10zah1w.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.465",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401465-9ks8il6a4"
+}
+2026-06-29 00:20:01.467 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/app_not-found_tsx_10zah1w._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.467",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401467-3si13ts3y"
+}
+2026-06-29 00:20:01.506 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/assets/startup/startup.jpg",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.506",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401506-7nmoz1wia"
+}
+2026-06-29 00:20:01.594 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1mojsay._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.594",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401594-6dqteved3"
+}
+2026-06-29 00:20:01.600 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xch-cm._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.600",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401600-onylm3khm"
+}
+2026-06-29 00:20:01.827 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/favicon.svg",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.827",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401827-tcecxfuts"
+}
+2026-06-29 00:20:01.852 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/icons/icon-192.png",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.852",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401852-95sc17l12"
+}
+2026-06-29 00:20:01.872 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/favicon.ico",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:01.872",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692401872-5v1yglf59"
+}
+2026-06-29 00:20:02.261 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/api/announcement",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:02.261",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692402261-mqfeijro0"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 43b16aa97f3e6d45
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: bdcd12a68ee103b8
+  parent ID: 43b16aa97f3e6d45
+  root ID: 43b16aa97f3e6d45
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID bdcd12a68ee103b8
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for executing api route (app) /api/announcement: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: executing api route (app) /api/announcement
+  ID: cbd30291949546aa
+  parent ID: 43b16aa97f3e6d45
+  root ID: 43b16aa97f3e6d45
+  root description: /api/announcement
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "executing api route (app) /api/announcement" with ID cbd30291949546aa
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: e7b330b5e3a94426
+  parent ID: 43b16aa97f3e6d45
+  root ID: 43b16aa97f3e6d45
+  root description: /api/announcement
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID e7b330b5e3a94426
+ GET /api/announcement 200 in 199ms (next.js: 150ms, application-code: 49ms)
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /api/announcement" with ID 43b16aa97f3e6d45
+Sentry Logger [log]: SpanExporter exported 4 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+2026-06-29 00:20:02.469 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/api/ads?placement=home_banner",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:02.469",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692402469-9xrjg0xn2"
+}
+2026-06-29 00:20:02.471 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/api/content?page=home",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:02.471",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692402471-s84fu89t9"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: b21c9f094114c25d
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 9bb0dd498be4031e
+[browser] You are trying to animate background from "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
+[browser] You are trying to animate background from "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
+[browser] You are trying to animate background from "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
+[browser] You are trying to animate background from "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
+[browser] You are trying to animate background from "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
+[browser] You are trying to animate background from "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: 051d8cea3d059c3a
+  parent ID: b21c9f094114c25d
+  root ID: b21c9f094114c25d
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 051d8cea3d059c3a
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for executing api route (app) /api/ads: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: executing api route (app) /api/ads
+  ID: 786ec0620d854de8
+  parent ID: b21c9f094114c25d
+  root ID: b21c9f094114c25d
+  root description: /api/ads
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "executing api route (app) /api/ads" with ID 786ec0620d854de8
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: a3a25a2eb9878a61
+  parent ID: b21c9f094114c25d
+  root ID: b21c9f094114c25d
+  root description: /api/ads
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID a3a25a2eb9878a61
+ GET /api/ads?placement=home_banner 200 in 103ms (next.js: 83ms, application-code: 20ms)
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /api/ads" with ID b21c9f094114c25d
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: e9e2ab2c2b0eabea
+  parent ID: 9bb0dd498be4031e
+  root ID: 9bb0dd498be4031e
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID e9e2ab2c2b0eabea
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for executing api route (app) /api/content: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: executing api route (app) /api/content
+  ID: be213f62c06d8fb7
+  parent ID: 9bb0dd498be4031e
+  root ID: 9bb0dd498be4031e
+  root description: /api/content
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "executing api route (app) /api/content" with ID be213f62c06d8fb7
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 25737a99cdc203cb
+  parent ID: 9bb0dd498be4031e
+  root ID: 9bb0dd498be4031e
+  root description: /api/content
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 25737a99cdc203cb
+ GET /api/content?page=home 200 in 151ms (next.js: 135ms, application-code: 16ms)
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /api/content" with ID 9bb0dd498be4031e
+Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+Sentry Logger [error]: Transport disabled
+[browser] You are trying to animate background from "rgba(0, 211, 183, 0.7415)" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
+[browser] You are trying to animate background from "transparent" to "#f97316". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
+2026-06-29 00:20:03.016 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/assets/home/discovery.jpg",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:20:03.016",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782692403015-jhv9q8xih"
+}
