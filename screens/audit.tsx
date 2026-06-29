@@ -240,6 +240,7 @@ export default function AuditScreen() {
           website={website}
           gitHubRepo={repo}
           onSuccess={() => setShowFixModal(false)}
+          auditReport={report ?? undefined}
         />
       </div>
     </main>
