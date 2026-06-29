@@ -37,7 +37,7 @@
   "dependencies": {
     "@apollo/server": "^5.5.1",
     "@as-integrations/next": "^4.1.0",
-    "@babel/parser": "^8.0.0",
+    "@babel/parser": "^7.26.0",
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@fortawesome/react-fontawesome": "^3.3.1",
@@ -74,7 +74,7 @@
     "express-validator": "^7.3.2",
     "formidable": "^3.5.4",
     "framer-motion": "^12.40.0",
-    "graphql": "^17.0.1",
+    "graphql": "^16.10.0",
     "graphql-tag": "^2.12.7",
     "gtts": "^0.2.1",
     "helmet": "^8.2.0",
@@ -114,7 +114,6 @@
     "tsx": "^4.22.4",
     "uuid": "^14.0.0",
     "vitest": "^4.1.9",
-    "whisper-node": "^1.1.1",
     "winston": "^3.19.0",
     "ws": "^8.21.0",
     "zod": "^4.4.3"
@@ -149,7 +148,15 @@
     "vite": "^8.0.16"
   },
   "overrides": {
-    "camera-controls": "3.0.1"
+    "camera-controls": "3.0.1",
+    "@babel/parser": "^7.26.0",
+    "@babel/types": "^7.26.0",
+    "@babel/helper-string-parser": "^7.26.0",
+    "@babel/helper-validator-identifier": "^7.26.0",
+    "graphql": "^16.10.0"
+  },
+  "optionalDependencies": {
+    "whisper-node": "^1.1.1"
   },
   "config": {},
   "allowScripts": {
