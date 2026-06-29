@@ -229,8 +229,6 @@ const HeaderContent: React.FC = () => {
         {label: 'Blog', href: '/blog'},
         {label: 'Company', href: '/company', hasSubmenu: true},
         {label: 'Startups', href: '/Startups'},
-        {label: 'FAQ', href: '/faq'},
-        {label: 'Support', href: '/support'},
         {label: 'Store', href: '/store'},
         {label: 'Contact us', href: '/contact'},
     ];
@@ -252,6 +250,7 @@ const HeaderContent: React.FC = () => {
                 {name: 'Case Studies', href: '/case-studies', description: 'In-depth success stories'},
                 {name: 'Blog', href: '/blog', description: 'Insights and updates'},
                 {name: 'FAQ', href: '/faq', description: 'Common questions answered'},
+                {name: 'Support', href: '/support', description: 'Get help and resources'},
             ],
         },
     ];
@@ -264,30 +263,53 @@ const HeaderContent: React.FC = () => {
                 {name: 'Branding', href: '/services/branding'},
                 {name: 'CMS Development', href: '/services/cms-development'},
                 {name: 'CRM Development', href: '/services/crm-development'},
-                {name: 'ERP Development', href: '/services/erp-development'},
                 {name: 'Digital Marketing', href: '/services/digital-marketing'},
+                {name: 'ERP Development', href: '/services/erp-development'},
                 {name: 'Search Engine Optimisation', href: '/services/seo'},
                 {name: 'Social Networking', href: '/services/Social-Networking'},
+                {name: 'UI/UX Design', href: '/services/ui-ux-design'},
                 {name: 'Web Application', href: '/services/Web-Application'},
                 {name: 'Web Design', href: '/services/Web-Design'},
                 {name: 'Web Development', href: '/services/Web-Development'},
             ],
         },
         {
-            title: 'COMPLIMENTARY SERVICES',
+            title: 'MOBILE & PLATFORM',
             items: [
                 {name: 'Android Development', href: '/services/android-development'},
                 {name: 'Blockchain Development', href: '/services/blockchain-development'},
+                {name: 'Cloud Solutions', href: '/services/cloud-solutions'},
                 {name: 'Cross Platform Development', href: '/services/cross-platform-development'},
+                {name: 'Cybersecurity', href: '/services/cybersecurity'},
                 {name: 'Flutter Development', href: '/services/flutter-development'},
                 {name: 'Hybrid Apps Development', href: '/services/hybrid-app-development'},
-                {name: 'ios Development', href: '/services/ios-development'},
+                {name: 'iOS Development', href: '/services/ios-development'},
                 {name: 'IoT Development', href: '/services/IoT-Development'},
                 {name: 'Mobile Application Development', href: '/services/Mobile-Application-Development'},
                 {name: 'MVP', href: '/services/MVP'},
                 {name: 'Software Development', href: '/services/Software-Development'},
-                {name: 'UI/UX Design', href: '/services/ui-ux-design'},
+            ],
+        },
+        {
+            title: 'CONSULTING & DATA',
+            items: [
+                {name: 'Consulting', href: '/services/consulting'},
+                {name: 'Data Analytics', href: '/services/data-analytics'},
+                {name: 'DevOps Services', href: '/services/devops-services'},
+                {name: 'Discovery Phase', href: '/services/discovery-phase'},
+                {name: 'QA & Testing', href: '/services/qa-testing'},
+                {name: 'Salesforce Development', href: '/services/salesforce-development'},
                 {name: 'Unity Development', href: '/services/unity-development'},
+            ],
+        },
+        {
+            title: 'CMS & E-COMMERCE',
+            items: [
+                {name: 'Drupal Development', href: '/services/drupal-development'},
+                {name: 'Joomla Development', href: '/services/joomla-development'},
+                {name: 'Magento Development', href: '/services/magento-development'},
+                {name: 'Shopify Development', href: '/services/shopify-development'},
+                {name: 'WordPress Development', href: '/services/wordpress-development'},
             ],
         },
     ];
@@ -303,7 +325,7 @@ const HeaderContent: React.FC = () => {
                 {name: 'Vue.js Development', href: '/services/Vuejs-Development'},
                 {name: 'Javascript Development', href: '/services/Javascript'},
                 {name: 'Typescript Development', href: '/services/Typescript'},
-                {name: 'React Native development', href: '/services/React-Native-Development'},
+                {name: 'React Native Development', href: '/services/React-Native-Development'},
             ],
         },
         {
@@ -316,6 +338,7 @@ const HeaderContent: React.FC = () => {
                 {name: 'Laravel Development', href: '/services/Laravel-Development'},
                 {name: '.Net Development', href: '/services/Net-Development'},
                 {name: 'Ruby on Rails Development', href: '/services/Ruby-on-Rails'},
+                {name: 'Golang Development', href: '/services/golang-development'},
                 {name: 'AI Development Services', href: '/services/ai-development-services'},
             ],
         },
@@ -325,31 +348,43 @@ const HeaderContent: React.FC = () => {
         {
             title: '',
             items: [
+                {name: 'Agritech', href: '/industries/agritech'},
                 {name: 'Automation', href: '/industries/automation'},
                 {name: 'Biotech', href: '/industries/biotech'},
-                {name: 'Education', href: '/industries/education'},
+                {name: 'Construction', href: '/industries/construction'},
                 {name: 'e-Commerce', href: '/industries/e-commerce-development'},
-                {name: 'Fintech', href: '/industries/fintech'},
+                {name: 'Education', href: '/industries/education'},
             ],
         },
         {
             title: '',
             items: [
+                {name: 'Fintech', href: '/industries/fintech'},
+                {name: 'Government', href: '/industries/government'},
                 {name: 'Healthcare', href: '/industries/healthcare'},
+                {name: 'HR-Tech', href: '/industries/hr-tech'},
+                {name: 'Insurance', href: '/industries/insurance'},
+                {name: 'Legal Tech', href: '/industries/legal-tech'},
+            ],
+        },
+        {
+            title: '',
+            items: [
                 {name: 'Logistics', href: '/industries/logistics'},
+                {name: 'Media & Entertainment', href: '/industries/media-entertainment'},
                 {name: 'Music', href: '/industries/music'},
                 {name: 'Oil and Gas', href: '/industries/oil-and-gas'},
                 {name: 'On-Demand', href: '/industries/ondemand'},
+                {name: 'Real Estate', href: '/industries/real-estate'},
             ],
         },
         {
             title: '',
             items: [
-                {name: 'Real Estate', href: '/industries/real-estate'},
                 {name: 'Retail', href: '/industries/retail'},
-                {name: 'SAAS', href: '/industries/saas'},
-                {name: 'Travel and Hospitality', href: '/industries/travel-and-hospitality'},
-                {name: 'HR-Tech', href: '/industries/hr-tech'},
+                {name: 'SaaS', href: '/industries/saas'},
+                {name: 'Sports Tech', href: '/industries/sports-tech'},
+                {name: 'Travel & Hospitality', href: '/industries/travel-and-hospitality'},
             ],
         },
     ];
@@ -550,7 +585,7 @@ const HeaderContent: React.FC = () => {
                                                     </button>
                                                     <div
                                                         className={`absolute top-full left-[-4em] rounded-lg transition-all duration-300 transform ${isServicesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4'}`}
-                                                        style={{width: '51rem'}}
+                                                        style={{width: '70rem'}}
                                                     >
                                                         <div className="flex gap-2 p-4">
                                                             {servicesSubmenuSections.map((section, sectionIndex) => (
@@ -601,7 +636,7 @@ const HeaderContent: React.FC = () => {
                                                     </button>
                                                     <div
                                                         className={`absolute top-full left-[-1.2em] rounded-lg transition-all duration-300 transform ${isIndustriesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4'}`}
-                                                        style={{width: '35rem'}}
+                                                        style={{width: '44rem'}}
                                                     >
                                                         <div className="flex gap-2 p-4">
                                                             {industriesSubmenuSections.map((section, sectionIndex) => (
@@ -836,7 +871,9 @@ const HeaderContent: React.FC = () => {
                                                             ? servicesSubmenuSections
                                                             : item.label === 'Industries'
                                                                 ? industriesSubmenuSections
-                                                                : technologiesSubmenuSections
+                                                                : item.label === 'Technologies'
+                                                                    ? technologiesSubmenuSections
+                                                                    : companySubmenuSections
                                                     ).map((section: SubmenuSection, sectionIndex: number) => (
                                                         <div key={section.title || `mobile-section-${sectionIndex}`}
                                                              className="ml-4">
