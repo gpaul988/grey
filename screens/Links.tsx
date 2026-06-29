@@ -5,7 +5,6 @@ import '@/app/globals.css';
 
 const Links = () => {    return (
         <div className="bg-gray-50 text-black min-h-screen pb-12">
-            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
             <div className="min-h-screen text-left justify-left bg-gray-50 py-8">
                 <div className="max-w-7xl ml-14 mt-52 mx-auto px-4">
                     <p className="text-[15px] text-gray-600 mb-6">
@@ -38,7 +37,6 @@ const Links = () => {    return (
                     </ol>
                 </div>
             </div>
-            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
                 </div>
                 );
                 };

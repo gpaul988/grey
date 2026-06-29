@@ -168,7 +168,6 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
             <FloatingButton
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
@@ -1021,11 +1020,6 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                     </div>
                 </div>
             </div>
-
-
-            
-
-            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>
     );
 };

@@ -322,8 +322,6 @@ const Partners: React.FC = () => {
                     </FxReveal>
                 </div>
             </section>
-
-            <Footer />
         </div>
     );
 };

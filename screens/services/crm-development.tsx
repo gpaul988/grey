@@ -791,7 +791,6 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
             <FloatingButton
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
@@ -1999,10 +1998,6 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                     className="absolute bottom-0 right-0 w-1/3 h-1/3 bg-gradient-to-tl from-orange-500/10 to-transparent rounded-tl-full blur-3xl"></div>
                 <div className="absolute top-0 right-1/4 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl"></div>
             </div>
-
-            
-
-            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>
     );
 };
