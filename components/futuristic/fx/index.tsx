@@ -426,3 +426,117 @@ export function FxFrame({
         </div>
     );
 }
+
+/* ══════════════════════════════════════════════════════
+   FxStickyScrollSection — shared sticky-left/scroll-right
+   layout used for "Development Solutions", "Development
+   Process", "Service Solutions" across all pages.
+   ══════════════════════════════════════════════════════ */
+export type FxScrollItem = {
+    id: string;        // e.g. "01"
+    title: string;
+    target: string;    // DOM id for scrollTo
+    tags?: string[];
+    body: React.ReactNode;
+};
+
+export function FxStickyScrollSection({
+    day,
+    heading,
+    intro,
+    navLabel = 'Our Solutions',
+    items,
+    activeId,
+    onNavClick,
+}: DayProp & {
+    heading: React.ReactNode;
+    intro?: React.ReactNode;
+    navLabel?: string;
+    items: FxScrollItem[];
+    activeId: string;
+    onNavClick: (target: string) => void;
+}) {
+    const mutedText = day ? 'text-gray-500' : 'text-white/45';
+    const borderCol = day ? 'border-gray-200' : 'border-white/10';
+
+    return (
+        <section className={`relative overflow-hidden ${day ? 'bg-white' : 'bg-[#050810]'}`}>
+            <FxBackground day={day} grid aurora />
+            <FxOrbit size={700} top="-150px" right="-200px" opacity={0.12} speed={35} />
+            <FxOrbit size={400} top="200px" left="-150px"  opacity={0.10} speed={28} reverse />
+
+            <div className="relative z-10 lg:pt-[4em] md:pt-[3em] pt-[2em] lg:pb-[7em] md:pb-[5em] pb-[3em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
+
+                {/* Heading row */}
+                <FxReveal className={`relative grid lg:grid-cols-2 grid-cols-1 gap-4 mb-12 border-b pb-[3em] ${borderCol}`}>
+                    <FxSectionHeading day={day} title={heading} />
+                    {intro && (
+                        <p className={`text-[0.87em] font-[400] leading-[1.6] lg:-ml-[7.5em] tracking-normal ${mutedText}`}>
+                            {intro}
+                        </p>
+                    )}
+                </FxReveal>
+
+                {/* Sticky scroll grid */}
+                <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-16 lg:mt-16 md:mt-12 mt-6">
+
+                    {/* Left sticky nav */}
+                    <div className="lg:sticky md:sticky top-28 lg:h-screen md:h-screen lg:mr-[11em] overflow-hidden">
+                        <FxReveal delay={0.1}>
+                            <FxChip day={day} className="mb-5">{navLabel}</FxChip>
+                        </FxReveal>
+                        <nav className="space-y-1 mt-4">
+                            {items.map((item, index) => {
+                                const isActive = activeId === item.target;
+                                return (
+                                    <FxReveal key={index} delay={0.05 * index}>
+                                        <button
+                                            onClick={() => onNavClick(item.target)}
+                                            className={`group w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
+                                                isActive
+                                                    ? 'bg-teal-400/10 border border-teal-400/30 shadow-[0_0_20px_-6px_rgba(45,212,191,0.4)]'
+                                                    : `border border-transparent hover:border-teal-400/15 hover:bg-teal-400/5 ${mutedText}`
+                                            }`}
+                                        >
+                                            <span className={`text-[0.7em] font-[700] tracking-wider tabular-nums shrink-0 ${isActive ? 'text-teal-400' : mutedText}`}>
+                                                {item.id}
+                                            </span>
+                                            <span className={`text-[0.9em] font-[500] leading-snug ${isActive ? (day ? 'text-black' : 'text-white') : ''}`}>
+                                                {item.title}
+                                            </span>
+                                            {isActive && <span className="ml-auto text-teal-400 text-[1.1em]">→</span>}
+                                        </button>
+                                    </FxReveal>
+                                );
+                            })}
+                        </nav>
+                    </div>
+
+                    {/* Right scrollable content */}
+                    <div className="lg:-ml-[8em] md:-ml-[8em] lg:mb-[30em] md:mb-[30em]">
+                        {items.map((item, index) => (
+                            <FxReveal key={index} delay={0.08 * index} className={index < items.length - 1 ? 'mb-20 lg:mb-44' : ''}>
+                                <div id={item.target} className="scroll-mt-28">
+                                    <FxHoloCard day={day} className="p-6 lg:p-8">
+                                        <div className="flex items-start gap-4 mb-4">
+                                            <span className={`text-[0.7em] font-[700] tabular-nums shrink-0 mt-1 ${mutedText}`}>{item.id}/</span>
+                                            <h2 className={`text-[1.4em] font-[600] leading-snug ${day ? 'text-gray-900' : 'text-white'}`}>{item.title}</h2>
+                                        </div>
+                                        {item.tags && item.tags.length > 0 && (
+                                            <div className="flex flex-wrap gap-2 mb-5">
+                                                {item.tags.map((tag, t) => <FxChip key={t} day={day}>{tag}</FxChip>)}
+                                            </div>
+                                        )}
+                                        <div className={`text-[0.85em] font-[300] leading-[1.6] text-justify ${mutedText}`}>
+                                            {item.body}
+                                        </div>
+                                    </FxHoloCard>
+                                </div>
+                            </FxReveal>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}

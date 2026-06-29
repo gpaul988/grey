@@ -42,7 +42,7 @@ const GovernmentIndustry = () => (
                 body: <>We build case management systems for social services, regulatory bodies, courts and
                 licensing agencies—managing applications, correspondence, approvals and case history with
                 full audit trails, role-based access and integration with national databases and payment
-                systems. Systems are designed for the caseworker's daily reality, not the IT department's
+                systems. Systems are designed for the caseworker&apos;s daily reality, not the IT department&apos;s
                 preference.</>,
             },
             {

@@ -55,11 +55,11 @@ const Contact: React.FC = () => {
                         <FxReveal>
                             <FxChip day={false} className="mb-6">Get in Touch</FxChip>
                             <FxGlitchText tag="h1" className="gx-hero-title text-white mb-6">
-                                Let's Build<br />
+                                Let&apos;s Build<br />
                                 <span className="gx-gradient-text">Something Great</span>
                             </FxGlitchText>
                             <p className="text-white/60 text-[0.95em] leading-relaxed max-w-sm mb-8">
-                                Whether you have a project in mind, a business challenge to solve, or just want to explore what's possible — we're ready to listen.
+                                Whether you have a project in mind, a business challenge to solve, or just want to explore what&apos;s possible — we&apos;re ready to listen.
                             </p>
                             <div className="space-y-3">
                                 {quickFacts.map((f, i) => (

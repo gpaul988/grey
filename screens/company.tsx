@@ -11,7 +11,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import CountUp from 'react-countup';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useIsDayTime } from '../components/useIsDayTime';
-import { FxBackground, FxCard, FxChip, FxSectionHeading, FxButton, FxReveal, FxHoloCard, FxFrame, FxStatBar, FxGlitchText, FxTerminal } from '@/components/futuristic/fx';
+import { FxBackground, FxCard, FxChip, FxSectionHeading, FxButton, FxReveal, FxHoloCard, FxFrame, FxStatBar, FxGlitchText, FxTerminal, FxOrbit } from '@/components/futuristic/fx';
 
 // Our Approach
 const reasons = [
@@ -23,7 +23,7 @@ const reasons = [
                 Every project begins with a conversation—an opportunity for us to understand your goals, vision, and the
                 challenges that matter most to your business. At Grey InfoTech, we go beyond the technical brief to
                 uncover what truly drives value for you. By aligning our strategy with your priorities from the start,
-                we're able to design and deliver solutions that solve real problems, unlock new opportunities, and
+                we&apos;re able to design and deliver solutions that solve real problems, unlock new opportunities, and
                 create lasting impact.
             </>
         ),
@@ -80,8 +80,8 @@ const reasons = [
         title: 'We Stick Around',
         description: (
             <>
-                The journey doesn't stop at launch—it's just the beginning. As technology evolves and your business
-                grows, we stay by your side to adapt, optimise, and enhance your product. Whether it's adding new
+                The journey doesn&apos;t stop at launch—it&apos;s just the beginning. As technology evolves and your business
+                grows, we stay by your side to adapt, optimise, and enhance your product. Whether it&apos;s adding new
                 features, improving performance, or scaling to meet new demands, we provide ongoing support to ensure
                 your solution remains future-ready.
             </>
@@ -244,7 +244,7 @@ const Company = () => {
                         </h3>
                         <div className="grid lg:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]">
                             <p>
-                                We're Grey InfoTech—a business-focused digital product development company helping
+                                We&apos;re Grey InfoTech—a business-focused digital product development company helping
                                 brands across industries transform ideas into powerful digital solutions. Our goal
                                 is simple: to build smart, scalable, and impactful products that drive real business
                                 results.
@@ -326,7 +326,7 @@ const Company = () => {
                                     Our focus is not just on building software, but on creating lasting value through
                                     innovation, performance, and reliability. We design with purpose, develop with
                                     precision, and deliver with impact.<br /><br />
-                                    At Grey InfoTech, we're your tech partner for the long haul—unlocking opportunities,
+                                    At Grey InfoTech, we&apos;re your tech partner for the long haul—unlocking opportunities,
                                     accelerating transformation, and helping you lead with confidence in the digital age.
                                 </p>
                             </FxReveal>
@@ -368,7 +368,7 @@ const Company = () => {
                                     innovation, and lasting impact.<br /><br />
                                     We see a future where digital solutions are not just tools, but strategic assets that
                                     help businesses move faster, work smarter, and stay ahead of the curve.<br /><br />
-                                    At Grey InfoTech, we're committed to building solutions that are agile, secure, and
+                                    At Grey InfoTech, we&apos;re committed to building solutions that are agile, secure, and
                                     future-ready—designed to adapt and scale as your business evolves.<br /><br />
                                     Our vision is to be the trusted technology partner that forward-thinking businesses rely
                                     on to lead, transform, and thrive in a digital-first world.
@@ -420,74 +420,77 @@ const Company = () => {
             </div>
 
             {/* ── Our Approach ── */}
-            <div className={`relative lg:-mt-20 lg:pt-[6em] md:pt-[6em] pt-[2em] ${isDayTime ? 'bg-black' : 'bg-white'} h-screen lg:pb-[6em] md:pb-[6em] pb-[2em]`}>
-                <div className={`relative grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 max-w-full w-full h-auto mx-auto px-4 sm:px-6 lg:px-[4.6em] border-b-[0.001em] pb-12 ${isDayTime ? 'text-white' : 'text-black'}`}>
-                    <div>
-                        <FxSectionHeading
-                            day={!isDayTime}
-                            eyebrow="How We Work"
-                            title="Our Approach"
-                        />
-                    </div>
-                    <div className="lg:-ml-[7em]">
-                        <p className="text-[0.873em] font-[400] lg:-mt-[0.2em] rounded-none leading-[1.5]">
-                            We're not just here to ship software — we're here to make bold ideas happen. From ambitious
-                            startups to complex enterprise systems, we thrive on challenges that push the limits.
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <div className={`relative overflow-hidden ${isDayTime ? 'bg-[#050810]' : 'bg-[#050810]'} lg:pt-[5em] pt-[3em] lg:pb-[6em] pb-[3em]`}>
+                <FxBackground day={false} grid aurora className="opacity-50" />
+                <FxOrbit size={600} top="-100px" right="-180px" opacity={0.12} speed={32} />
+                <FxOrbit size={350} top="200px" left="-120px" opacity={0.09} speed={26} reverse />
 
-            <div className={`relative -mt-[23em] ${isDayTime ? 'bg-black' : 'bg-white'} max-w-full w-full h-auto mx-auto lg:mb-16 md:mb-16 lg:pb-20 md:pb-20 pb-14 mb-12`}>
-                <div className="relative mx-auto px-4 sm:px-6 lg:px-[4.6em] grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:mb-20 md:mb-20">
-                    {/* Left — accordion */}
-                    <div className={`relative text-[0.873em] lg:leading-[1.5] ${isDayTime ? 'text-white' : 'text-black'} flex flex-col justify-center mb-4 lg:pl-4 lg:pr-[3em]`}>
-                        {reasons.map((reason, index) => (
-                            <div
-                                key={reason.id}
-                                className={`relative mb-6 ${index + 1 === activeIndex ? (isDayTime ? 'bg-black py-5' : 'bg-white py-5') : ''}`}
-                            >
-                                <h3
-                                    className={`relative pr-[6em] leading-[1.2] lg:text-[1.5em] text-[1em] mb-6 cursor-pointer transition-all ${
-                                        index + 1 === activeIndex
-                                            ? isDayTime ? 'text-white font-bold' : 'text-black font-bold'
-                                            : 'text-gray-500'
-                                    }`}
-                                    onClick={() => setActiveIndex(index + 1)}
-                                >
-                                    {reason.title}
-                                </h3>
-                                <AnimatePresence mode="wait">
-                                    {index + 1 === activeIndex && (
-                                        <motion.div
-                                            key={reason.id}
-                                            initial={{ opacity: 0, y: -20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: 0 }}
-                                            transition={{ duration: 0.3 }}
-                                            className={`relative inline-block ${isDayTime ? 'text-white' : 'text-black'}`}
-                                        >
-                                            {reason.description}
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-                        ))}
-                    </div>
-                    <div className="lg:mt-[2em] h-[30vh] sticky">
-                        <Image src="/assets/comp/op.jpg" alt="Our Approach" width={660} height={150} />
-                    </div>
-                </div>
+                <div className="relative z-10 max-w-full w-full mx-auto px-4 sm:px-6 lg:px-[4.6em]">
+                    {/* Heading row */}
+                    <FxReveal>
+                        <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 border-b border-white/10 pb-10 mb-12">
+                            <FxSectionHeading
+                                day={false}
+                                eyebrow="How We Work"
+                                title="Our Approach"
+                            />
+                            <p className="text-[0.873em] font-[400] lg:-mt-[0.2em] leading-[1.5] text-white/55 lg:-ml-[7em]">
+                                We&apos;re not just here to ship software — we&apos;re here to make bold ideas happen. From ambitious
+                                startups to complex enterprise systems, we thrive on challenges that push the limits.
+                            </p>
+                        </div>
+                    </FxReveal>
 
-                {/* CTA */}
-                <div className={`lg:px-[28em] items-center ${isDayTime ? 'text-white bg-black' : 'text-black bg-white'} justify-center`}>
-                    <h2 className="lg:text-[3em] text-[1.5em] font-[600] tracking-tighter leading-[1.15] pb-6 text-center">
-                        Prepared to initiate the discussion?
-                    </h2>
-                    <br />
-                    <div className="flex items-center justify-center">
-                        <FxButton day={isDayTime} href="/contact">Get started</FxButton>
+                    <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-8">
+                        {/* Left — FxHoloCard accordion */}
+                        <div className="flex flex-col gap-3 lg:pr-[3em]">
+                            {reasons.map((reason, index) => {
+                                const isActive = index + 1 === activeIndex;
+                                return (
+                                    <FxHoloCard
+                                        key={reason.id}
+                                        day={false}
+                                        className={`p-5 transition-all duration-300 cursor-pointer ${isActive ? 'ring-1 ring-teal-400/40' : 'opacity-60 hover:opacity-90'}`}
+                                        onClick={() => setActiveIndex(index + 1)}
+                                    >
+                                        <h3 className={`leading-[1.2] lg:text-[1.1em] text-[1em] font-[600] mb-2 transition-all ${isActive ? 'text-teal-300' : 'text-white/55'}`}>
+                                            <span className="font-mono text-[0.68em] mr-2 text-teal-500/50">{String(reason.id).padStart(2,'0')}</span>
+                                            {reason.title}
+                                        </h3>
+                                        <AnimatePresence initial={false}>
+                                            {isActive && (
+                                                <motion.p
+                                                    key={reason.id}
+                                                    initial={{ opacity: 0, height: 0 }}
+                                                    animate={{ opacity: 1, height: 'auto' }}
+                                                    exit={{ opacity: 0, height: 0 }}
+                                                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                                                    className="text-[0.875em] leading-[1.6] overflow-hidden text-white/55"
+                                                >
+                                                    {reason.description}
+                                                </motion.p>
+                                            )}
+                                        </AnimatePresence>
+                                    </FxHoloCard>
+                                );
+                            })}
+                        </div>
+
+                        {/* Right — image */}
+                        <div className="lg:mt-[2em]">
+                            <FxFrame className="w-full">
+                                <Image src="/assets/comp/op.jpg" alt="Our Approach" width={660} height={480} className="w-full h-auto rounded-xl object-cover" />
+                            </FxFrame>
+                        </div>
                     </div>
+
+                    {/* CTA */}
+                    <FxReveal className="mt-16 flex flex-col items-center justify-center text-center">
+                        <FxGlitchText tag="h2" className="lg:text-[3em] text-[1.5em] font-[600] tracking-tighter leading-[1.15] pb-6 text-white">
+                            Ready to start the conversation?
+                        </FxGlitchText>
+                        <FxButton day={false} href="/contact" variant="solid">Get started →</FxButton>
+                    </FxReveal>
                 </div>
             </div>
 

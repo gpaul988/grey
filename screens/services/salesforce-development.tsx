@@ -12,7 +12,7 @@ const SalesforceDevelopment = () => (
         eyebrow="Salesforce engineered for your exact process"
         introHeading={<>Salesforce That<br className="lg:block md:block hidden" />Fits Your Business</>}
         introBody={[
-            <>Salesforce is the world's leading CRM, but out-of-the-box configuration rarely matches the
+            <>Salesforce is the world&apos;s leading CRM, but out-of-the-box configuration rarely matches the
             nuance of a real business process. At Grey InfoTech our certified Salesforce developers and
             architects customise, integrate and optimise the platform to match exactly how your teams sell,
             service and operate. We bring deep expertise in Sales Cloud, Service Cloud, Marketing Cloud,
@@ -42,7 +42,7 @@ const SalesforceDevelopment = () => (
                 body: <>When declarative tools reach their limits, we write clean, well-tested Apex code.
                 Our developers build custom triggers, batch processes, scheduled jobs and REST/SOAP API
                 services. On the front-end we create Lightning Web Components that extend the Salesforce UI
-                with functionality tailored to your users' workflows—fast, accessible and mobile-responsive.</>,
+                with functionality tailored to your users&apos; workflows—fast, accessible and mobile-responsive.</>,
             },
             {
                 id: '03', title: 'Salesforce Integrations', target: 'IN',

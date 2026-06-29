@@ -57,7 +57,7 @@ const JoomlaDevelopment = () => (
                 id: '04', title: 'Performance Optimisation', target: 'PO',
                 tags: ['Caching', 'CDN', 'Image Optimisation', 'Core Web Vitals'],
                 body: <>A slow Joomla site hurts SEO and loses visitors. We profile your site using GTmetrix
-                and Lighthouse, implement Joomla's caching framework correctly, configure a CDN, optimise
+                and Lighthouse, implement Joomla&apos;s caching framework correctly, configure a CDN, optimise
                 images and eliminate render-blocking resources. Clients typically achieve 50–80% improvement
                 in page load times and significant Core Web Vitals score improvements after optimisation.</>,
             },
@@ -72,10 +72,10 @@ const JoomlaDevelopment = () => (
             {
                 id: '06', title: 'Enterprise Portals & Multilingual Sites', target: 'EP',
                 tags: ['Multilingual', 'Memberships', 'ACL', 'Integrations'],
-                body: <>Joomla's access control system and multilingual capabilities make it ideal for enterprise
+                body: <>Joomla&apos;s access control system and multilingual capabilities make it ideal for enterprise
                 portals and international sites. We architect complex multi-language sites, implement
                 role-based content access, integrate with SSO providers, CRMs and payment gateways, and
-                build custom member dashboards that extend Joomla's native user management.</>,
+                build custom member dashboards that extend Joomla&apos;s native user management.</>,
             },
         ]}
         ctaHeading={<>Joomla done<br className="lg:block md:block hidden" />properly</>}

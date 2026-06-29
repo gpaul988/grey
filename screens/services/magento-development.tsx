@@ -18,7 +18,7 @@ const MagentoDevelopment = () => (
             expertise across Magento Open Source and Adobe Commerce—building custom modules, optimising
             performance, executing upgrades and integrating with the ERP, OMS and marketing systems
             that enterprise commerce demands.</>,
-            <>Magento's power comes with complexity, and complexity handled poorly becomes technical debt
+            <>Magento&apos;s power comes with complexity, and complexity handled poorly becomes technical debt
             that slows every future change. Our approach is to build Magento extensions that follow
             service contracts, use dependency injection correctly, avoid direct database calls and ship
             with data patches rather than install scripts. We treat performance as a first-class concern—
@@ -69,15 +69,15 @@ const MagentoDevelopment = () => (
                 tags: ['ERP', 'SAP', 'NetSuite', 'OMS', 'PIM', 'Marketing'],
                 body: <>Complex Magento stores require deep integration with surrounding systems. We build
                 integrations with ERP systems (SAP, NetSuite, Sage), order management, PIM platforms,
-                marketing automation, loyalty programmes and payment gateways. Integrations use Magento's
+                marketing automation, loyalty programmes and payment gateways. Integrations use Magento&apos;s
                 API layer and message queues for asynchronous processing, with dead-letter handling and
                 operational dashboards for visibility.</>,
             },
             {
                 id: '06', title: 'Headless & PWA Commerce', target: 'HC',
                 tags: ['PWA Studio', 'Vue Storefront', 'GraphQL', 'Next.js'],
-                body: <>Headless Magento delivers the flexibility of a modern JavaScript frontend with Magento's
-                commerce engine behind it. We build PWA storefronts using Magento's GraphQL API—either with
+                body: <>Headless Magento delivers the flexibility of a modern JavaScript frontend with Magento&apos;s
+                commerce engine behind it. We build PWA storefronts using Magento&apos;s GraphQL API—either with
                 Magento PWA Studio, Vue Storefront or a custom Next.js implementation. PWA storefronts deliver
                 app-like performance, offline support and significantly faster page loads than server-rendered
                 Magento themes.</>,

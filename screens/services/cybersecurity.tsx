@@ -39,7 +39,7 @@ const Cybersecurity = () => (
             {
                 id: '02', title: 'Security Architecture Review', target: 'SA',
                 tags: ['Threat Modelling', 'STRIDE', 'Zero Trust', 'Defence in Depth'],
-                body: <>We review your system architecture through an attacker's lens—identifying trust boundary
+                body: <>We review your system architecture through an attacker&apos;s lens—identifying trust boundary
                 violations, privilege escalation paths, insecure data flows and misconfigured controls. We use
                 STRIDE threat modelling to systematically identify threats and produce an architecture remediation
                 roadmap aligned to your risk tolerance and engineering capacity.</>,

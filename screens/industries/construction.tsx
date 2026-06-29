@@ -64,7 +64,7 @@ const ConstructionIndustry = () => (
                 body: <>Building Information Modelling transforms how projects are designed and operated.
                 We build BIM integration platforms that connect design data from Revit and ArchiCAD to
                 construction workflows and operations asset management. Digital twin solutions carry
-                BIM data into the building's operational life, enabling facilities teams to manage
+                BIM data into the building&apos;s operational life, enabling facilities teams to manage
                 assets with full design-intent context and maintenance history.</>,
             },
             {

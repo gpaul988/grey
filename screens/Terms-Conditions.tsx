@@ -9,7 +9,7 @@ const TermsConditions: React.FC = () => {
     const isDayTime = useIsDayTime();
     return (
         <div className="bg-gray-50 text-black min-h-screen pb-12">
-            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header />}
+            {/* Header provided globally by app/layout.tsx */}
             <div className="relative top-0 left-0 lg:pl-12 md:pl-12 sm:pl-8 w-full h-full flex flex-col py-48 mb-20 justify-center items-start  bg-black">
                 <h1 className="text-white lg:text-7xl md:text-5xl text-4xl sm:text-4xl  mb-1 font-bold">Terms & Conditions</h1>
                 <p className="text-white lg:text-xl md:text-lg sm:text-base font-normal">Website and business terms and conditions</p>

@@ -18,7 +18,7 @@ const GolangDevelopment = () => (
             systems where performance and reliability are non-negotiable. We use Go where it delivers real
             competitive advantage: API gateways, real-time data processors, DevOps tooling and
             high-throughput backend services.</>,
-            <>Our Go practice follows the language's idioms rather than fighting them. We design clear package
+            <>Our Go practice follows the language&apos;s idioms rather than fighting them. We design clear package
             boundaries, use interfaces for testability, handle errors explicitly, and write table-driven tests
             that document expected behaviour. We containerise with minimal base images, profile for CPU and
             memory allocations using pprof and benchmark critical paths. The result is Go services that
@@ -48,7 +48,7 @@ const GolangDevelopment = () => (
             {
                 id: '03', title: 'High-Performance Data Processing', target: 'DP',
                 tags: ['Concurrency', 'Goroutines', 'Channels', 'Stream Processing'],
-                body: <>Go's goroutines and channels make it ideal for high-throughput data processing pipelines.
+                body: <>Go&apos;s goroutines and channels make it ideal for high-throughput data processing pipelines.
                 We build ingestion workers, transformation engines and streaming processors that handle millions
                 of events per second on commodity hardware. We profile every critical path, eliminate allocations
                 in hot loops and tune garbage collection to keep latency predictable under load.</>,
@@ -64,7 +64,7 @@ const GolangDevelopment = () => (
             {
                 id: '05', title: 'Infrastructure & Platform Engineering', target: 'IP',
                 tags: ['Kubernetes Operators', 'Custom Controllers', 'Webhooks', 'Helm'],
-                body: <>Many of the cloud-native ecosystem's most important tools are written in Go—and for good
+                body: <>Many of the cloud-native ecosystem&apos;s most important tools are written in Go—and for good
                 reason. We build Kubernetes operators, custom resource definitions, admission webhooks and
                 controller-runtime based automation that extends Kubernetes with your business-specific
                 logic. We also build Go-based internal tooling for infrastructure automation, secret rotation

@@ -59,7 +59,7 @@ const MediaEntertainmentIndustry = () => (
             {
                 id: '04', title: 'Audience Analytics & Personalisation', target: 'AA',
                 tags: ['Recommendation Engine', 'A/B Testing', 'Cohort Analysis', 'Real-time'],
-                body: <>Audience data is a media company's most valuable strategic asset. We build
+                body: <>Audience data is a media company&apos;s most valuable strategic asset. We build
                 analytics platforms that capture viewing behaviour, content performance and user
                 journeys, then feed recommendation engines that personalise the content experience.
                 We also build editorial analytics dashboards that help commissioning teams understand
