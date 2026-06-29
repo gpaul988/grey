@@ -1,22 +1,27 @@
-# Grey — Futuristic Redesign (Part B)
+# Grey Futuristic Redesign — Progress
 
-## Design system (DONE, reuse everywhere)
-- components/futuristic/fx/index.tsx — FxBackground, FxCard(glow), FxChip, FxSectionHeading, FxButton(solid|ghost), FxReveal, FxSection. All `day` aware.
-- app/globals.css "FUTURISTIC DESIGN SYSTEM v2": .gx-grid, .gx-aurora, .gx-card, .gx-glow-border, .gx-gradient-text, .gx-chip, .gx-scan. data-day driven, reduced-motion guards.
+## DONE
+- [x] globals.css — new keyframes + utility classes added
+- [x] fx/index.tsx — FxHero, FxOrbit, FxTerminal, FxStatBar, FxGlitchText, FxHoloCard, FxFrame added
+- [x] FuturisticServiceLayout.tsx built (+ ServiceIntro, ServiceSectionBlock, ServiceWhyAccordion, ServiceStatsRow helpers)
+- [x] FuturisticIndustryLayout.tsx built (+ IndustrySolutionsGrid, IndustryAccordionSection helpers)
+- [x] company.tsx — hero overhaul + duplicate useEffect fix
+- [x] services.tsx — full redesign
+- [x] portfolio.tsx — full redesign
+- [x] careers.tsx — full redesign
+- [x] case-studies.tsx — full redesign
 
-## Home.tsx (DONE — awaiting user approval)
-- Hero: UNTOUCHED (required).
-- Intro: FxBackground grid + FxChip "YOUR DIGITAL PARTNER" + FxReveal + gx-gradient-text accent.
-- ServicesSection: futuristic (chips, numbered, outline buttons).
-- Digital Adventure: "Get in touch" -> FxButton solid gradient. VERIFIED.
-- Trust Signals: kept rich framer-motion counters/cards (already strong).
-- Proof badges: added gx-scan shimmer + overflow-hidden.
-- tsc --noEmit clean. Dev server (tmux greyd:3000) 200. Screenshots verified.
+## IN PROGRESS
+- [ ] partners.tsx — hero needs upgrade (existing has FxBackground but plain h1)
 
-## NEXT (after approval)
-Roll FX system to ALL screens EXCEPT contact/audit/blog/faqs.
-Screens in /home/user/grey/screens/ (services/*, industries/*, company, careers, portfolio, case-studies, partners...).
-Then: next build exit 0, commit + push as gpaul988 via .git-push.env.
+## TODO
+- [ ] partners.tsx hero upgrade
+- [ ] TypeCheck all above
+- [ ] Commit batch 1
 
-## Excluded pages: contact, audit, blog, faqs
-## Constraints: keep teal brand, keep isDayTime day/night switch on all pages.
+- [ ] Build Web-Development.tsx with FuturisticServiceLayout
+- [ ] Sweep all 40 service pages using sed/script pattern
+- [ ] Build fintech.tsx with FuturisticIndustryLayout
+- [ ] Sweep all 15 industry pages
+- [ ] Misc pages: Our-Approach, Startups, cookies-policy, data-protection, Terms, feeling, support, open-ticket, quote-request
+- [ ] Final tsc check + commit + push

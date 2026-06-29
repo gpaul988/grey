@@ -9,7 +9,7 @@ import {
     FaCloud, FaCode, FaUsers, FaCheckCircle, FaArrowRight,
 } from 'react-icons/fa';
 import { useIsDayTime } from '../components/useIsDayTime';
-import { FxBackground, FxCard, FxChip, FxSectionHeading, FxButton, FxReveal } from '@/components/futuristic/fx';
+import { FxBackground, FxCard, FxChip, FxSectionHeading, FxButton, FxReveal, FxHoloCard, FxGlitchText } from '@/components/futuristic/fx';
 
 interface Partner {
     id: number;
@@ -114,42 +114,56 @@ const Partners: React.FC = () => {
     }`;
 
     return (
-        <div className={`${isDayTime ? 'bg-white text-black' : 'bg-[#05060f] text-white'} min-h-screen flex flex-col overflow-x-hidden transition-colors duration-500`}>
+        <div className={`${isDayTime ? 'bg-white text-black' : 'bg-[#050810] text-white'} min-h-screen flex flex-col overflow-x-hidden transition-colors duration-500`}>
 
-            {/* ── Hero ── */}
+            {/* ── Hero — extreme futuristic ── */}
             <section
                 ref={heroRef}
-                className="relative isolate flex items-center justify-center min-h-[78vh] px-4 pt-28 pb-20 overflow-hidden"
+                className="relative isolate overflow-hidden min-h-[80vh] flex flex-col justify-end"
             >
-                <FxBackground day={isDayTime} grid aurora className="opacity-60" />
-                <div className="relative z-10 max-w-4xl mx-auto text-center">
-                    <FxReveal>
-                        <FxChip day={isDayTime} className="mb-7">
-                            <FaHandshake className="inline mr-1" /> GREY PARTNER ECOSYSTEM
-                        </FxChip>
-                        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.05] mb-6">
-                            Build the future on a{' '}
-                            <span className="gx-gradient-text">shared ecosystem</span>
-                        </h1>
-                        <p className={`text-base sm:text-lg max-w-2xl mx-auto mb-10 ${isDayTime ? 'text-gray-600' : 'text-gray-300/90'}`}>
-                            We partner with technology innovators, cloud leaders, resellers and integrators to
-                            deliver outcomes no single company could build alone. Join the network powering
-                            Grey InfoTech&#39;s solutions across Africa and beyond.
-                        </p>
-                        <div className="flex flex-wrap items-center justify-center gap-4">
-                            <FxButton day={isDayTime} href="#apply">Become a partner</FxButton>
-                            <a
-                                href="#ecosystem"
-                                className={`inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold border transition ${
-                                    isDayTime
-                                        ? 'border-gray-300 text-gray-700 hover:border-teal-500 hover:text-teal-600'
-                                        : 'border-white/20 text-white/90 hover:text-white hover:border-white/40'
-                                }`}
-                            >
-                                Explore the ecosystem
-                            </a>
-                        </div>
-                    </FxReveal>
+                {/* FX background */}
+                <FxBackground day={false} grid aurora className="opacity-65" />
+                {/* Scanlines */}
+                <div className="gx-scanline pointer-events-none" />
+                <div className="gx-hero-scan" />
+                <div className="gx-noise-overlay" />
+
+                {/* Dark gradient */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/80" />
+
+                {/* Orbit rings */}
+                <div className="gx-orbit pointer-events-none absolute" style={{ width: '80vmax', height: '80vmax', top: '-30vmax', right: '-30vmax', opacity: .18 }} />
+                <div className="gx-orbit gx-orbit-reverse pointer-events-none absolute" style={{ width: '50vmax', height: '50vmax', top: '-12vmax', right: '-6vmax', opacity: .12 }} />
+
+                {/* Content */}
+                <div className="gx-page-hero-content relative z-10">
+                    <div className="max-w-[90rem] mx-auto text-center">
+                        <FxReveal>
+                            <FxChip day={false} className="mb-7">
+                                <FaHandshake className="inline mr-1" /> Grey Partner Ecosystem
+                            </FxChip>
+                            <div className="border-b border-white/15 pb-7 mb-7 max-w-4xl mx-auto">
+                                <FxGlitchText tag="h1" className="gx-hero-title text-white">
+                                    Build the future on a{' '}
+                                    <span className="gx-gradient-text">shared ecosystem</span>
+                                </FxGlitchText>
+                            </div>
+                            <p className="text-white/65 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+                                We partner with technology innovators, cloud leaders, resellers and integrators to
+                                deliver outcomes no single company could build alone. Join the network powering
+                                Grey InfoTech&apos;s solutions across Africa and beyond.
+                            </p>
+                            <div className="flex flex-wrap items-center justify-center gap-4">
+                                <FxButton day={false} href="#apply" variant="solid">Become a Partner</FxButton>
+                                <a
+                                    href="#ecosystem"
+                                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold border border-white/20 text-white/90 hover:text-white hover:border-white/40 transition"
+                                >
+                                    Explore the Ecosystem
+                                </a>
+                            </div>
+                        </FxReveal>
+                    </div>
                 </div>
             </section>
 
@@ -190,16 +204,16 @@ const Partners: React.FC = () => {
                         />
                     </FxReveal>
 
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
                         {CATEGORIES.map((c, i) => (
                             <FxReveal key={c.title} delay={i * 0.05}>
-                                <FxCard day={isDayTime} className="p-7 h-full group">
+                                <FxHoloCard day={isDayTime} className="p-7 h-full group">
                                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-5 group-hover:scale-110 transition-transform ${isDayTime ? 'bg-teal-50 text-teal-600' : 'bg-gradient-to-br from-teal-400/20 to-violet-500/20 text-teal-300'}`}>
                                         <c.icon />
                                     </div>
-                                    <h3 className="text-lg font-semibold mb-2">{c.title}</h3>
-                                    <p className={`text-sm leading-relaxed ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>{c.desc}</p>
-                                </FxCard>
+                                    <h3 className="text-[1.05em] font-[700] mb-2">{c.title}</h3>
+                                    <p className={`text-[0.85em] leading-relaxed ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>{c.desc}</p>
+                                </FxHoloCard>
                             </FxReveal>
                         ))}
                     </div>

@@ -222,3 +222,207 @@ export function FxSection({
         </section>
     );
 }
+
+/* ══════════════════════════════════════════════════════
+   EXTENDED FX PRIMITIVES v3 — scanlines, glitch, orbit,
+   terminal, stat bars, full-bleed hero layer
+   ══════════════════════════════════════════════════════ */
+
+/* ---------- Full-bleed futuristic hero wrapper ---------- */
+export function FxHero({
+    day,
+    children,
+    minHeight = '78vh',
+    className = '',
+    scanline = true,
+    orbit = true,
+}: DayProp & {
+    children: React.ReactNode;
+    minHeight?: string;
+    className?: string;
+    scanline?: boolean;
+    orbit?: boolean;
+}) {
+    return (
+        <section
+            data-day={day ? 'true' : 'false'}
+            className={`relative isolate overflow-hidden flex flex-col justify-end ${className}`}
+            style={{ minHeight }}
+        >
+            {/* Base FX layer */}
+            <FxBackground day={day} grid aurora />
+            {/* Scanline shimmer */}
+            {scanline && <div className="gx-scanline pointer-events-none" />}
+            {/* Noise texture */}
+            <div className="gx-noise-overlay" />
+            {/* Hero scan highlight */}
+            <div className="gx-hero-scan" />
+            {/* Orbit rings */}
+            {orbit && (
+                <>
+                    <div className="gx-orbit" style={{ width: '60vmax', height: '60vmax', top: '-10vmax', right: '-20vmax', opacity: .3 }} />
+                    <div className="gx-orbit gx-orbit-reverse" style={{ width: '40vmax', height: '40vmax', top: '5vmax', right: '-5vmax', opacity: .2 }} />
+                </>
+            )}
+            {/* Content */}
+            <div className="relative z-10 w-full">{children}</div>
+        </section>
+    );
+}
+
+/* ---------- Rotating orbit ring decoration ---------- */
+export function FxOrbit({
+    size = 400,
+    top,
+    right,
+    left,
+    bottom,
+    speed = 20,
+    reverse = false,
+    opacity = 0.25,
+    dotColor = '#2dd4bf',
+}: {
+    size?: number;
+    top?: string | number;
+    right?: string | number;
+    left?: string | number;
+    bottom?: string | number;
+    speed?: number;
+    reverse?: boolean;
+    opacity?: number;
+    dotColor?: string;
+}) {
+    return (
+        <div
+            aria-hidden
+            className={`pointer-events-none absolute rounded-full border border-[rgba(45,212,191,0.18)] ${reverse ? 'gx-orbit-reverse' : 'gx-orbit'}`}
+            style={{
+                width: size,
+                height: size,
+                top,
+                right,
+                left,
+                bottom,
+                opacity,
+                animationDuration: `${speed}s`,
+                '--dot-color': dotColor,
+            } as React.CSSProperties}
+        />
+    );
+}
+
+/* ---------- Terminal / typewriter code block ---------- */
+export function FxTerminal({
+    lines,
+    day,
+    className = '',
+}: DayProp & { lines: string[]; className?: string }) {
+    return (
+        <div
+            data-day={day ? 'true' : 'false'}
+            className={`gx-hologram-card p-5 gx-terminal-text text-[0.78em] ${className}`}
+        >
+            <div className="flex items-center gap-2 mb-4 pb-3 border-b border-teal-400/15">
+                <span className="w-3 h-3 rounded-full bg-red-500/70" />
+                <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
+                <span className="w-3 h-3 rounded-full bg-green-500/70" />
+                <span className="ml-2 text-[0.9em] text-white/40 tracking-wider">grey ~ terminal</span>
+            </div>
+            {lines.map((line, i) => (
+                <div key={i} className="flex gap-3">
+                    <span className="text-teal-600/60 select-none">{'>'}</span>
+                    <span className={line.startsWith('#') ? 'text-teal-500/60' : 'text-teal-200/90'}>{line}</span>
+                </div>
+            ))}
+            <div className="flex gap-3 mt-1">
+                <span className="text-teal-600/60 select-none">{'>'}</span>
+                <span className="w-2 h-[1em] bg-teal-400/80 inline-block" style={{ animation: 'gxBlink 1.2s step-end infinite' }} />
+            </div>
+        </div>
+    );
+}
+
+/* ---------- Animated stat/metric bar ---------- */
+export function FxStatBar({
+    day,
+    label,
+    value,
+    percent,
+    className = '',
+}: DayProp & { label: string; value: string; percent: number; className?: string }) {
+    return (
+        <div className={`space-y-1.5 ${className}`}>
+            <div className="flex justify-between items-center">
+                <span className={`text-[0.72em] font-[600] uppercase tracking-[0.08em] ${day ? 'text-gray-600' : 'text-gray-400'}`}>{label}</span>
+                <span className="gx-data-pill text-[0.7em]">{value}</span>
+            </div>
+            <div className="gx-stat-bar">
+                <div
+                    className="gx-stat-bar-fill"
+                    style={{ '--gx-bar-w': `${percent}%` } as React.CSSProperties}
+                />
+            </div>
+        </div>
+    );
+}
+
+/* ---------- Glitch text heading ---------- */
+export function FxGlitchText({
+    children,
+    tag: Tag = 'h2',
+    className = '',
+}: {
+    children: React.ReactNode;
+    tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'span';
+    className?: string;
+}) {
+    return (
+        <Tag className={`gx-glitch cursor-default select-none ${className}`}>
+            {children}
+        </Tag>
+    );
+}
+
+/* ---------- Holographic data card ---------- */
+export function FxHoloCard({
+    day,
+    className = '',
+    children,
+    ...rest
+}: DayProp & { className?: string; children: React.ReactNode } & React.HTMLAttributes<HTMLDivElement>) {
+    return (
+        <div
+            data-day={day ? 'true' : 'false'}
+            className={`gx-hologram-card ${className}`}
+            {...rest}
+        >
+            {children}
+        </div>
+    );
+}
+
+/* ---------- Corner-bracketed media frame ---------- */
+export function FxFrame({
+    children,
+    className = '',
+    glow = true,
+}: { children: React.ReactNode; className?: string; glow?: boolean }) {
+    return (
+        <div className={`relative ${className}`}>
+            {/* Corner brackets */}
+            <div className="absolute -top-2.5 -left-2.5 w-7 h-7 border-t-2 border-l-2 border-teal-400/70 rounded-tl z-10 animate-pulse" />
+            <div className="absolute -top-2.5 -right-2.5 w-7 h-7 border-t-2 border-r-2 border-teal-400/70 rounded-tr z-10 animate-pulse" />
+            <div className="absolute -bottom-2.5 -left-2.5 w-7 h-7 border-b-2 border-l-2 border-teal-400/70 rounded-bl z-10 animate-pulse" />
+            <div className="absolute -bottom-2.5 -right-2.5 w-7 h-7 border-b-2 border-r-2 border-teal-400/70 rounded-br z-10 animate-pulse" />
+            {/* Glow */}
+            {glow && (
+                <div className="absolute inset-0 rounded-xl pointer-events-none"
+                    style={{ boxShadow: '0 0 40px -12px rgba(45,212,191,0.45)' }} />
+            )}
+            {/* Scanline overlay */}
+            <div className="absolute inset-0 pointer-events-none rounded-xl overflow-hidden z-[2]"
+                style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(45,212,191,0.03) 3px, rgba(45,212,191,0.03) 4px)' }} />
+            <div className="relative rounded-xl overflow-hidden">{children}</div>
+        </div>
+    );
+}

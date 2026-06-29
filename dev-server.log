@@ -1631,3 +1631,540 @@ Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.c
 Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /partners" with ID cb89bdbc255e0202
 Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
 Sentry Logger [error]: Transport disabled
+2026-06-29 00:35:43.742 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/",
+  "ip": "::ffff:10.12.241.150",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:35:43.742",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782693343742-6lwd4vvwl"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: fe1db9e38d2a5979
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: 54e1b191453fb4e0
+  parent ID: fe1db9e38d2a5979
+  root ID: fe1db9e38d2a5979
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 54e1b191453fb4e0
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /
+  ID: 8f1ed489dfc775d4
+  parent ID: fe1db9e38d2a5979
+  root ID: fe1db9e38d2a5979
+  root description: /
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 9a816e1c57670a68
+  parent ID: 8f1ed489dfc775d4
+  root ID: fe1db9e38d2a5979
+  root description: /
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 6d12c8d50f6aa7e4
+  parent ID: 9a816e1c57670a68
+  root ID: fe1db9e38d2a5979
+  root description: /
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 6d12c8d50f6aa7e4
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 05e4c2e8a273fad8
+  parent ID: 9a816e1c57670a68
+  root ID: fe1db9e38d2a5979
+  root description: /
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/"" with ID 05e4c2e8a273fad8
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 9a816e1c57670a68
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /" with ID 8f1ed489dfc775d4
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: dc4ada340fe05d2f
+  parent ID: 8f1ed489dfc775d4
+  root ID: fe1db9e38d2a5979
+  root description: /
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID dc4ada340fe05d2f
+ GET / 200 in 384ms (next.js: 28ms, application-code: 356ms)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: c751a3b3758e3280
+  parent ID: 8f1ed489dfc775d4
+  root ID: fe1db9e38d2a5979
+  root description: /
+Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782693343, 925070854 ] [ 958, 910815079 ]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID c751a3b3758e3280
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /" with ID fe1db9e38d2a5979
+Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+2026-06-29 00:41:07.059 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:41:07.059",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782693667059-s23yvhjpx"
+}
+✓ Compiled in 717ms
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+2026-06-29 00:48:29.596 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:48:29.596",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694109596-maf0haedb"
+}
+✓ Compiled in 5.4s
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+2026-06-29 00:48:59.552 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:48:59.552",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694139551-78ygq6hpp"
+}
+✓ Compiled in 2.6s
+2026-06-29 00:49:56.304 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:49:56.304",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694196304-fxhcg2g9t"
+}
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+✓ Compiled in 740ms
+2026-06-29 00:50:40.555 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:50:40.555",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694240555-hxuot12nc"
+}
+✓ Compiled in 679ms
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+2026-06-29 00:51:32.865 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:51:32.865",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694292865-d29zcqvf8"
+}
+✓ Compiled in 776ms
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+2026-06-29 00:52:12.294 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:52:12.294",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694332294-jgmzuyat2"
+}
+✓ Compiled in 619ms
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+2026-06-29 00:53:04.086 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:53:04.086",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694384086-yhju2di53"
+}
+✓ Compiled in 778ms
+2026-06-29 00:53:04.240 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/?_rsc=S6a9uUP7K7vJlGgZ",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:53:04.240",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694384240-xwqmwp599"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: daa9f7c6ce57c869
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: eb552274d949a120
+  parent ID: daa9f7c6ce57c869
+  root ID: daa9f7c6ce57c869
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID eb552274d949a120
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 59eec2b4aa37e2e5
+  parent ID: daa9f7c6ce57c869
+  root ID: daa9f7c6ce57c869
+  root description: /
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: efa66e864d8efe3b
+  parent ID: 59eec2b4aa37e2e5
+  root ID: daa9f7c6ce57c869
+  root description: /
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID efa66e864d8efe3b
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: f0b1a74d72524301
+  parent ID: 59eec2b4aa37e2e5
+  root ID: daa9f7c6ce57c869
+  root description: /
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/"" with ID f0b1a74d72524301
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 59eec2b4aa37e2e5
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 3107359681d61700
+  parent ID: daa9f7c6ce57c869
+  root ID: daa9f7c6ce57c869
+  root description: /
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 3107359681d61700
+2026-06-29 00:53:04.623 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/?_rsc=S6a9uUP7K7vJlGgZ",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:53:04.623",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694384622-2lgb26z2d"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 2a3c2ff6ab4a058c
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: 52822b7d80b118a6
+  parent ID: 2a3c2ff6ab4a058c
+  root ID: 2a3c2ff6ab4a058c
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 52822b7d80b118a6
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 67ae1892e387e332
+  parent ID: 2a3c2ff6ab4a058c
+  root ID: 2a3c2ff6ab4a058c
+  root description: /
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: d6c18c925fad4155
+  parent ID: 67ae1892e387e332
+  root ID: 2a3c2ff6ab4a058c
+  root description: /
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID d6c18c925fad4155
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 4f5f472db4e33b48
+  parent ID: 67ae1892e387e332
+  root ID: 2a3c2ff6ab4a058c
+  root description: /
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/"" with ID 4f5f472db4e33b48
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 67ae1892e387e332
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: e11f820988377197
+  parent ID: 2a3c2ff6ab4a058c
+  root ID: 2a3c2ff6ab4a058c
+  root description: /
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID e11f820988377197
+ GET / 200 in 441ms (next.js: 310ms, application-code: 131ms)
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "RSC GET /" with ID daa9f7c6ce57c869
+Sentry Logger [log]: SpanExporter exported 6 spans, 5 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+ GET / 200 in 65ms (next.js: 5ms, application-code: 60ms)
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "RSC GET /" with ID 2a3c2ff6ab4a058c
+Sentry Logger [log]: SpanExporter exported 6 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+2026-06-29 00:53:04.861 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/favicon.ico",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:53:04.861",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694384861-xirgs9h11"
+}
+2026-06-29 00:53:04.940 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/favicon.ico",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:53:04.940",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694384940-oxfsn1873"
+}
+2026-06-29 00:53:04.942 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/favicon.svg",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:53:04.942",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694384942-i08ge34rr"
+}
+2026-06-29 00:53:04.947 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/manifest.json",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:53:04.947",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694384947-cdmfo816p"
+}
+2026-06-29 00:53:04.949 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/favicon.ico",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:53:04.949",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694384949-y8fmifyci"
+}
+2026-06-29 00:53:04.953 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/favicon.svg",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:53:04.953",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694384953-zehjh8txt"
+}
+2026-06-29 00:53:04.959 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/favicon.svg",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:53:04.959",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694384959-5xtriv0sr"
+}
+2026-06-29 00:53:04.961 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/icons/icon-192.png",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:53:04.961",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694384961-g3easby87"
+}
+2026-06-29 00:53:04.969 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/favicon.ico",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:53:04.969",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694384969-wf28suk2n"
+}
+2026-06-29 00:53:50.432 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:53:50.432",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694430432-00ejb0do3"
+}
+✓ Compiled in 759ms
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
+2026-06-29 00:54:56.571 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 00:54:56.571",
+  "pid": 4458,
+  "env": "development",
+  "correlationId": "1782694496571-fq3uml0dz"
+}
+✓ Compiled in 816ms
+Sentry Logger [log]: Flushing client reports based on interval.
+Sentry Logger [log]: Flushing outcomes...
+Sentry Logger [log]: No outcomes to send
