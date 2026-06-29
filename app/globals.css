@@ -767,3 +767,273 @@ body::after {
     .gx-grid::before, .gx-aurora span, .gx-glow-border::before, .gx-chip .gx-dot { animation: none !important; }
     .gx-card { transition: none !important; }
 }
+
+/* ════════════════════════════════════════════════════════════════════════
+   EXTREME FUTURISTIC EXTENSION v3 — scanlines, glitch, hologram,
+   neon borders, orbit rings, terminal type, data streams, noise overlay.
+   All animations respect prefers-reduced-motion.
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* --- New keyframes --- */
+@keyframes gxScanLine {
+    0%   { top: -8%; opacity: 0.7; }
+    100% { top: 108%; opacity: 0; }
+}
+@keyframes gxTextGlitch {
+    0%,100% { transform: none; clip-path: none; opacity: 1; }
+    7%  { transform: skew(-0.5deg,-0.5deg); clip-path: polygon(0 30%,100% 30%,100% 55%,0 55%); opacity: .9; }
+    10% { transform: skew(0.5deg,0.5deg);   clip-path: polygon(0 50%,100% 50%,100% 70%,0 70%); }
+    13% { transform: none; clip-path: none; }
+    80% { transform: translate(1px,-1px); opacity: .95; }
+    82% { transform: translate(-1px,1px); }
+    85% { transform: none; }
+}
+@keyframes gxNeonPulse {
+    0%,100% { box-shadow: 0 0 8px rgba(45,212,191,.45), 0 0 24px rgba(45,212,191,.2); }
+    50%      { box-shadow: 0 0 16px rgba(45,212,191,.9), 0 0 48px rgba(45,212,191,.4), 0 0 80px rgba(34,211,238,.2); }
+}
+@keyframes gxHologram {
+    0%,100% { opacity: 1; transform: none; filter: none; }
+    15% { opacity: .85; transform: translateY(-1px); filter: hue-rotate(10deg) brightness(1.1); }
+    16% { opacity: .5; transform: translateY(2px) scaleX(1.02); filter: hue-rotate(-10deg); }
+    17% { opacity: 1; transform: none; filter: none; }
+    90% { opacity: .9; transform: translateX(1px); }
+    91% { opacity: 1; transform: none; }
+}
+@keyframes gxDataStream {
+    0%   { background-position: 0% 0%; }
+    100% { background-position: 0% 200%; }
+}
+@keyframes gxOrbitRing {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+@keyframes gxOrbitRingReverse {
+    from { transform: rotate(360deg); }
+    to   { transform: rotate(0deg); }
+}
+@keyframes gxFadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: none; }
+}
+@keyframes gxTypeIn {
+    from { width: 0; }
+    to   { width: 100%; }
+}
+@keyframes gxBlink {
+    0%,100% { opacity: 1; } 50% { opacity: 0; }
+}
+@keyframes gxHeroScanSlide {
+    0%   { top: -100%; }
+    100% { top: 200%; }
+}
+@keyframes gxStatBar {
+    from { width: 0; }
+    to   { width: var(--gx-bar-w, 70%); }
+}
+@keyframes gxNoiseShift {
+    0%   { transform: translate(0,0); }
+    25%  { transform: translate(-1px,1px); }
+    50%  { transform: translate(1px,-1px); }
+    75%  { transform: translate(-2px,2px); }
+    100% { transform: translate(0,0); }
+}
+@keyframes gxCornerPulse {
+    0%,100% { opacity: .5; }
+    50%      { opacity: 1; }
+}
+
+/* --- Hero title --- */
+.gx-hero-title {
+    font-size: clamp(2.6rem, 6.5vw, 6.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+}
+
+/* --- Scanline overlay --- */
+.gx-scanline {
+    position: absolute; inset: 0; pointer-events: none; z-index: 4; overflow: hidden;
+}
+.gx-scanline::before {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(transparent 0 2px, rgba(45,212,191,.035) 2px 3px);
+    mix-blend-mode: screen;
+}
+.gx-scanline::after {
+    content: ""; position: absolute; left: 0; right: 0; height: 18%;
+    background: linear-gradient(180deg, transparent, rgba(45,212,191,.09) 50%, transparent);
+    filter: blur(1px);
+    animation: gxScanLine 4.5s linear infinite;
+}
+
+/* --- Holographic glass card (elevated) --- */
+.gx-hologram-card {
+    position: relative; overflow: hidden; border-radius: 1.2rem;
+    background: linear-gradient(135deg, rgba(255,255,255,.07) 0%, rgba(45,212,191,.04) 50%, rgba(255,255,255,.03) 100%);
+    border: 1px solid rgba(45,212,191,.22);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    box-shadow: 0 0 0 1px rgba(255,255,255,.04) inset,
+                0 20px 60px -24px rgba(0,0,0,.7),
+                0 0 40px -20px rgba(45,212,191,.25);
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+.gx-hologram-card:hover {
+    transform: translateY(-5px) scale(1.01);
+    border-color: rgba(45,212,191,.5);
+    box-shadow: 0 0 0 1px rgba(255,255,255,.06) inset,
+                0 30px 80px -20px rgba(0,0,0,.8),
+                0 0 60px -10px rgba(45,212,191,.4);
+}
+.gx-hologram-card::before {
+    content: ""; position: absolute; top: 0; left: -60%; width: 50%; height: 100%;
+    background: linear-gradient(105deg, transparent, rgba(45,212,191,.10), transparent);
+    transform: skewX(-15deg);
+    transition: left .6s ease; pointer-events: none;
+}
+.gx-hologram-card:hover::before { left: 120%; }
+
+/* Day variant */
+[data-day="true"] .gx-hologram-card {
+    background: linear-gradient(135deg, rgba(255,255,255,.85) 0%, rgba(204,251,241,.5) 50%, rgba(255,255,255,.8) 100%);
+    border-color: rgba(13,148,136,.22);
+    box-shadow: 0 20px 50px -24px rgba(13,148,136,.25);
+}
+[data-day="true"] .gx-hologram-card:hover {
+    border-color: rgba(13,148,136,.5);
+    box-shadow: 0 30px 70px -20px rgba(13,148,136,.35);
+}
+
+/* --- Neon border --- */
+.gx-neon-border {
+    border: 1px solid rgba(45,212,191,.5);
+    box-shadow: 0 0 8px rgba(45,212,191,.3), inset 0 0 8px rgba(45,212,191,.05);
+    animation: gxNeonPulse 3s ease-in-out infinite;
+}
+
+/* --- Data pill / metric badge --- */
+.gx-data-pill {
+    display: inline-flex; align-items: center; gap: .4rem;
+    padding: .25rem .75rem; border-radius: 9999px; font-size: .7rem;
+    font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    background: rgba(45,212,191,.12); border: 1px solid rgba(45,212,191,.3);
+    color: #2dd4bf;
+}
+[data-day="true"] .gx-data-pill {
+    background: rgba(13,148,136,.10); border-color: rgba(13,148,136,.25); color: #0f766e;
+}
+
+/* --- Orbit ring --- */
+.gx-orbit {
+    position: absolute; border-radius: 50%; border: 1px solid rgba(45,212,191,.18); pointer-events: none;
+    animation: gxOrbitRing 18s linear infinite;
+}
+.gx-orbit-reverse { animation: gxOrbitRingReverse 12s linear infinite; }
+.gx-orbit::after {
+    content: ""; position: absolute; top: -3px; left: 50%; margin-left: -3px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #2dd4bf; box-shadow: 0 0 12px #2dd4bf;
+}
+
+/* --- Noise / static overlay --- */
+.gx-noise-overlay {
+    position: absolute; inset: 0; pointer-events: none; z-index: 1; opacity: .03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    animation: gxNoiseShift 0.3s steps(1) infinite;
+    mix-blend-mode: overlay;
+}
+@media (prefers-reduced-motion: reduce) { .gx-noise-overlay { animation: none; } }
+
+/* --- Terminal / monospace code text --- */
+.gx-terminal-text {
+    font-family: ui-monospace, 'Cascadia Code', 'JetBrains Mono', monospace;
+    font-size: .8em; letter-spacing: .04em; line-height: 1.7;
+    color: #22d3ee;
+}
+
+/* --- Glitch hover text --- */
+.gx-glitch:hover { animation: gxTextGlitch 1.2s ease both; }
+
+/* --- Hologram animated flicker --- */
+.gx-hologram { animation: gxHologram 6s ease-in-out infinite; }
+
+/* --- Data stream gradient animation --- */
+.gx-data-stream-bg {
+    background: linear-gradient(180deg,
+        rgba(45,212,191,0) 0%,
+        rgba(45,212,191,.06) 25%,
+        rgba(45,212,191,.03) 50%,
+        rgba(45,212,191,.08) 75%,
+        rgba(45,212,191,0) 100%);
+    background-size: 100% 400%;
+    animation: gxDataStream 6s linear infinite;
+}
+
+/* --- Corner bracket decoration --- */
+.gx-corner-brackets {
+    position: relative;
+}
+.gx-corner-brackets::before,
+.gx-corner-brackets::after {
+    content: ""; position: absolute; width: 20px; height: 20px;
+    animation: gxCornerPulse 2.5s ease-in-out infinite;
+}
+.gx-corner-brackets::before {
+    top: 0; left: 0;
+    border-top: 2px solid #2dd4bf; border-left: 2px solid #2dd4bf;
+}
+.gx-corner-brackets::after {
+    bottom: 0; right: 0;
+    border-bottom: 2px solid #2dd4bf; border-right: 2px solid #2dd4bf;
+}
+
+/* --- Stat bar animation --- */
+.gx-stat-bar {
+    height: 3px; background: rgba(45,212,191,.15); border-radius: 9999px; overflow: hidden;
+}
+.gx-stat-bar-fill {
+    height: 100%; border-radius: 9999px;
+    background: linear-gradient(90deg, #14b8a6, #22d3ee);
+    box-shadow: 0 0 8px rgba(34,211,238,.7);
+    animation: gxStatBar 1.5s ease-out both;
+}
+
+/* --- Hero scan shimmer --- */
+.gx-hero-scan {
+    position: absolute; left: 0; right: 0; height: 30%;
+    background: linear-gradient(180deg, transparent, rgba(34,211,238,.06) 50%, transparent);
+    filter: blur(2px); pointer-events: none;
+    animation: gxHeroScanSlide 5s ease-in-out infinite;
+}
+
+/* --- FuturisticServiceLayout / FuturisticIndustryLayout hero --- */
+.gx-page-hero {
+    position: relative; overflow: hidden;
+    min-height: 72vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+}
+.gx-page-hero-content {
+    position: relative; z-index: 10;
+    padding: 0 1.5rem 4rem;
+}
+@media (min-width: 768px) { .gx-page-hero-content { padding: 0 3rem 5rem; } }
+@media (min-width: 1024px) { .gx-page-hero-content { padding: 0 4.5rem 6rem; } }
+
+/* --- Sidebar sticky nav (service/industry detail pages) --- */
+.gx-sticky-nav {
+    position: sticky; top: 6.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .gx-scanline::after,
+    .gx-orbit,
+    .gx-orbit-reverse,
+    .gx-hologram,
+    .gx-data-stream-bg,
+    .gx-hero-scan,
+    .gx-stat-bar-fill,
+    .gx-neon-border { animation: none !important; }
+    .gx-hologram-card { transition: none !important; }
+}

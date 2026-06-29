@@ -12,7 +12,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import CountUp from 'react-countup';
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
 import { useIsDayTime } from '../components/useIsDayTime';
-import { FxBackground, FxCard, FxChip, FxSectionHeading, FxButton, FxReveal } from '@/components/futuristic/fx';
+import { FxBackground, FxCard, FxChip, FxSectionHeading, FxButton, FxReveal, FxHoloCard, FxFrame, FxStatBar, FxGlitchText, FxTerminal } from '@/components/futuristic/fx';
 
 // Our Approach
 const reasons = [
@@ -128,13 +128,13 @@ const Company = () => {
     const handleMouseEnter = () => carouselRef.current?.classList.add('active');
     const handleMouseLeave = () => carouselRef.current?.classList.remove('active');
 
-    // Approach auto-cycle
+    // Approach auto-cycle (single interval — do not duplicate)
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveIndex(prev => (prev % reasons.length) + 1);
         }, 4000);
         return () => clearInterval(interval);
-    }, []);
+    }, [reasons.length]);
 
     const stats = [
         { label: 'Years Experience', value: 8, suffix: '+' },
@@ -157,38 +157,72 @@ const Company = () => {
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${isVisible ? 'mb-16' : 'mb-0'}`}
             />
 
-            {/* ── Hero ── */}
-            <div id="hero" className="relative top-0 overflow-hidden w-full h-screen justify-center items-center pb-6">
+            {/* ── Hero — extreme futuristic ── */}
+            <div id="hero" className="relative w-full overflow-hidden min-h-screen flex flex-col justify-end">
+                {/* Background image */}
                 <div className="absolute inset-0">
                     <Image
                         src="/assets/comp/hero.jpg"
                         alt="company"
-                        width={2560}
-                        height={1440}
-                        className="w-full h-[75vh] md:h-[85vh] lg:h-screen object-fill object-center"
+                        fill
+                        sizes="100vw"
+                        className="object-cover object-center"
+                        priority
                     />
                 </div>
-                <div className="absolute inset-0 bg-black/35 flex items-center">
-                    <div className="container max-w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
-                        <div className="relative pt-16 pb-8 md:py-20 lg:py-28 border-b border-gray-300/80">
-                            <h1 className="text-white font-extrabold leading-tight tracking-tight text-3xl sm:text-4xl md:text-5xl lg:text-[5.5rem]">
-                                Power Your Digital <br className="hidden md:block" />Transformation
+
+                {/* Layered overlays */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/90" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent" />
+
+                {/* FX grid + aurora */}
+                <FxBackground day={false} grid aurora className="opacity-50" />
+                {/* Scanline shimmer */}
+                <div className="gx-scanline pointer-events-none" />
+                <div className="gx-hero-scan" />
+                <div className="gx-noise-overlay" />
+
+                {/* Orbit rings */}
+                <div className="gx-orbit pointer-events-none absolute" style={{ width: '80vmax', height: '80vmax', top: '-30vmax', right: '-30vmax', opacity: .15 }} />
+                <div className="gx-orbit gx-orbit-reverse pointer-events-none absolute" style={{ width: '50vmax', height: '50vmax', top: '-10vmax', right: '-5vmax', opacity: .10 }} />
+
+                {/* Content */}
+                <div className="relative z-10 max-w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] pb-16 md:pb-20 lg:pb-28">
+                    <FxReveal>
+                        <div className="mb-5">
+                            <FxChip day={false}>Grey InfoTech Ltd · Port Harcourt, Nigeria</FxChip>
+                        </div>
+                        <div className="border-b border-white/20 pb-8 mb-8 max-w-5xl">
+                            <h1 className="gx-hero-title text-white gx-glitch">
+                                Power Your Digital<br />
+                                <span className="gx-gradient-text">Transformation</span>
                             </h1>
                         </div>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8 text-white">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-3xl">
                             <div>
-                                <p className="text-sm md:text-[0.95rem] leading-[1.4]">
-                                    Location <br />Port Harcourt, Nigeria
-                                </p>
+                                <p className="text-white/50 text-[0.7em] uppercase tracking-[0.2em] mb-2 font-mono">Location</p>
+                                <p className="text-white/85 text-[0.95em]">Port Harcourt, Nigeria</p>
                             </div>
                             <div>
-                                <p className="text-sm md:text-[0.95rem] leading-[1.4]">
+                                <p className="text-white/75 text-[0.9em] leading-[1.6]">
                                     Our success is built on collaboration. By working closely with our clients, we
                                     achieve shared goals and consistently deliver outstanding results.
                                 </p>
                             </div>
                         </div>
-                    </div>
+
+                        {/* Stat chips */}
+                        <div className="flex flex-wrap gap-3 mt-8">
+                            {[
+                                { label: '8+ Yrs Experience' },
+                                { label: '150+ Products' },
+                                { label: '10+ Team Members' },
+                                { label: '15+ Industries' },
+                            ].map(s => (
+                                <span key={s.label} className="gx-data-pill">{s.label}</span>
+                            ))}
+                        </div>
+                    </FxReveal>
                 </div>
             </div>
 
