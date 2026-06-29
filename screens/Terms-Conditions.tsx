@@ -617,7 +617,6 @@ const TermsConditions: React.FC = () => {
                         <div className="mt-8 flex flex-col border-b md:flex-row justify-between items-center"/>
                 </div>
             </div>
-            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>
     );
 };

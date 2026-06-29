@@ -285,8 +285,6 @@ const Support: React.FC = () => {
                     </div>
                 </motion.div>
             </main>
-
-            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
         </div>
     );
 };

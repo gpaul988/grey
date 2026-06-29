@@ -958,10 +958,6 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
                     </div>
                 </div>
             </div>
-
-            
-
-            {/* Footer provided globally by app/layout.tsx */}
         </div>
     );
 };
