@@ -12,6 +12,8 @@ import {useIsDayTime} from '../../components/useIsDayTime';
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import ServiceHero from '@/components/futuristic/ServiceHero';
 import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
+import { FxBackground, FxStickyScrollSection, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
+import type { FxScrollItem } from '@/components/futuristic/fx';
 const tabs = [
     {key: "frameworks", label: "Frameworks"},
     {key: "cloud", label: "Cloud"},
@@ -162,6 +164,50 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
     const [activeId, setActiveId] = useState<string>("");
     const [activeFront, setActiveFront] = useState("frontend");
 
+    const dmSolutions: FxScrollItem[] = [
+    {
+        id: 'SEO', title: 'Search Engine Optimization', target: 'SEO',
+        tags: ['Organic Visibility', 'Keyword Research', 'Link Building', 'Technical Optimization'],
+        body: <>We deliver comprehensive SEO strategies that improve organic search visibility, drive qualified traffic, and establish sustainable online authority. Our services include technical audits, extensive keyword research, on-page optimization, authoritative backlink acquisition through digital PR, and local SEO—providing transparent reporting with rankings tracking, organic traffic analysis, conversion attribution, and competitor benchmarking.</>,
+    },
+    {
+        id: 'PPCA', title: 'Pay-Per-Click Advertising', target: 'PPCA',
+        tags: ['ROAS Optimization', 'Campaign Management', 'Conversion Tracking', 'Automated Bidding'],
+        body: <>Our PPC management maximizes return on ad spend through data-driven strategies across Google Ads, Microsoft Advertising, and social platforms. We develop comprehensive paid search campaigns with granular keyword research, competitive bid analysis, compelling ad copy, and Google Shopping optimization—plus remarketing strategies, multi-touch attribution modelling, and advanced responsive search ad testing.</>,
+    },
+    {
+        id: 'SMM', title: 'Social Media Marketing', target: 'SMM',
+        tags: ['Community Engagement', 'Content Strategy', 'Paid Social Campaigns', 'Influencer Marketing'],
+        body: <>We create engaging social media strategies that build brand awareness, foster community engagement, and generate measurable results across Facebook, Instagram, LinkedIn, Twitter, TikTok, and Pinterest. Our management encompasses content calendars, professional graphic design, video production, community management, paid social campaigns with precise audience targeting, and comprehensive analytics tracking reach, engagement, and conversions.</>,
+    },
+    {
+        id: 'CM', title: 'Content Marketing', target: 'CM',
+        tags: ['Thought Leadership', 'Strategic Content Creation', 'Multi-Format Distribution', 'Content Personalization'],
+        body: <>Our content marketing establishes thought leadership, attracts target audiences, and drives conversions through strategically crafted content. We develop comprehensive strategies with buyer journey mapping, competitive gap analysis, and editorial calendar planning—producing blog posts, e-books, case studies, whitepapers, infographics, video content, podcasts, and webinars distributed across owned, earned, and paid channels.</>,
+    },
+    {
+        id: 'EM', title: 'Email Marketing', target: 'EM',
+        tags: ['Marketing Automation', 'Audience Segmentation', 'Personalized Campaigns', 'Lifecycle Nurturing'],
+        body: <>We design strategic email campaigns that nurture leads, retain customers, and maximise lifetime value through personalised, automated communication. Our services include audience segmentation, automation workflow design for welcome series and cart recovery, mobile-responsive templates, compelling copywriting, sophisticated behavioural triggers, predictive send time optimisation, and comprehensive analytics tracking open rates, conversions, and revenue attribution.</>,
+    },
+    {
+        id: 'CRO', title: 'Conversion Rate Optimization', target: 'CRO',
+        tags: ['A/B Testing', 'User Experience Analysis', 'Conversion Funnel Optimization', 'Performance Improvement'],
+        body: <>Our CRO services systematically improve website and landing page performance, maximising visitor conversions and increasing marketing ROI. We conduct comprehensive audits with heatmaps, session recordings, form analytics, and user surveys—then run A/B tests on headlines, CTAs, page layouts, pricing presentation, and trust signals, with multivariate testing and personalisation to deliver measurable conversion lift.</>,
+    },
+    {
+        id: 'ORM', title: 'Online Reputation Management', target: 'ORM',
+        tags: ['Brand Monitoring', 'Review Management', 'Crisis Response', 'Sentiment Analysis'],
+        body: <>We protect and enhance brand reputation through proactive monitoring, strategic response management, and positive content amplification. Our services include comprehensive monitoring across search engines, review platforms, and social media; review management encouraging satisfied customers to post; negative content suppression; rapid crisis response protocols; and proactive thought leadership content that builds consumer trust and sustainable competitive advantages.</>,
+    },
+    {
+        id: 'ADI', title: 'Analytics & Data Intelligence', target: 'ADI',
+        tags: ['Data-Driven Insights', 'Attribution Modelling', 'Performance Tracking', 'Predictive Analytics'],
+        body: <>We transform marketing data into actionable intelligence through comprehensive analytics implementation and strategic reporting. Our services include GA4 configuration, custom event tracking, enhanced e-commerce tracking, server-side tracking, multi-touch attribution analysis, data-driven attribution using machine learning, custom executive dashboards, cohort analysis, predictive analytics, and competitive intelligence—providing clear performance visibility and proving marketing ROI.</>,
+    },
+];
+
+
 
     // Floating button visibility hook
     useEffect(() => {
@@ -171,6 +217,7 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
         };
 
         window.addEventListener("scroll", handleScroll);
+
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
@@ -236,104 +283,6 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
             setActiveId(target); // Ensure the arrow icon is displayed when a section is clicked
         }
     }
-
-    // Details
-    const statis: { icon: React.ReactNode; number: string; label: string }[] = [
-        {
-            icon: (
-                <svg className="w-20 h-20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    {/* Gear */}
-                    <circle cx="35" cy="35" r="18" stroke="#10e3e3" strokeWidth="2.5"/>
-                    <circle cx="35" cy="35" r="12" stroke="#10e3e3" strokeWidth="2.5"/>
-                    {/* Gear teeth */}
-                    <rect x="33" y="15" width="4" height="6" fill="#10e3e3"/>
-                    <rect x="33" y="54" width="4" height="6" fill="#10e3e3"/>
-                    <rect x="54" y="33" width="6" height="4" fill="#10e3e3"/>
-                    <rect x="15" y="33" width="6" height="4" fill="#10e3e3"/>
-                    <rect x="49" y="20" width="5" height="5" transform="rotate(45 51.5 22.5)" fill="#10e3e3"/>
-                    <rect x="20" y="20" width="5" height="5" transform="rotate(45 22.5 22.5)" fill="#10e3e3"/>
-                    <rect x="49" y="49" width="5" height="5" transform="rotate(45 51.5 51.5)" fill="#10e3e3"/>
-                    <rect x="20" y="49" width="5" height="5" transform="rotate(45 22.5 51.5)" fill="#10e3e3"/>
-                    {/* Person inside gear */}
-                    <circle cx="35" cy="32" r="4.5" stroke="#10e3e3" strokeWidth="2"/>
-                    <path d="M27 42c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#10e3e3" strokeWidth="2"/>
-                    {/* Checkmark in circle */}
-                    <circle cx="55" cy="55" r="12" fill="#10e3e3"/>
-                    <path d="M49 55l4 4 8-8" stroke="#0B3D5D" strokeWidth="3" strokeLinecap="round"
-                          strokeLinejoin="round"/>
-                </svg>
-            ),
-            number: '30+',
-            label: 'Experts'
-        },
-        {
-            icon: (
-                <svg className="w-20 h-20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    {/* Monitor/Screen */}
-                    <rect x="18" y="25" width="44" height="30" rx="2" stroke="#10e3e3" strokeWidth="2.5"/>
-                    {/* Screen content lines */}
-                    <rect x="24" y="31" width="32" height="3" rx="1.5" fill="#10e3e3"/>
-                    <rect x="24" y="38" width="24" height="3" rx="1.5" fill="#10e3e3"/>
-                    <rect x="24" y="45" width="28" height="3" rx="1.5" fill="#10e3e3"/>
-                    {/* Monitor stand */}
-                    <rect x="36" y="55" width="8" height="6" fill="#10e3e3"/>
-                    <rect x="28" y="61" width="24" height="4" rx="2" fill="#10e3e3"/>
-                    {/* CMS Gear icon on monitor */}
-                    <circle cx="40" cy="18" r="8" stroke="#10e3e3" strokeWidth="2.5"/>
-                    <circle cx="40" cy="18" r="4" stroke="#10e3e3" strokeWidth="2"/>
-                    <rect x="39" y="9" width="2" height="3" fill="#10e3e3"/>
-                    <rect x="39" y="24" width="2" height="3" fill="#10e3e3"/>
-                    <rect x="47" y="17" width="3" height="2" fill="#10e3e3"/>
-                    <rect x="30" y="17" width="3" height="2" fill="#10e3e3"/>
-                </svg>
-            ),
-            number: '50+',
-            label: 'Deployed'
-        },
-        {
-            icon: (
-                <svg className="w-20 h-20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    {/* Document/Paper */}
-                    <rect x="25" y="15" width="30" height="40" rx="2" stroke="#10e3e3" strokeWidth="2.5"/>
-                    {/* Top dots (browser-like) */}
-                    <circle cx="30" cy="22" r="2" fill="#10e3e3"/>
-                    <circle cx="37" cy="22" r="2" fill="#10e3e3"/>
-                    <circle cx="44" cy="22" r="2" fill="#10e3e3"/>
-                    {/* Document lines */}
-                    <line x1="30" y1="30" x2="50" y2="30" stroke="#10e3e3" strokeWidth="2"/>
-                    <line x1="30" y1="36" x2="46" y2="36" stroke="#10e3e3" strokeWidth="2"/>
-                    <line x1="30" y1="42" x2="50" y2="42" stroke="#10e3e3" strokeWidth="2"/>
-                    <line x1="30" y1="48" x2="44" y2="48" stroke="#10e3e3" strokeWidth="2"/>
-                    {/* Pencil */}
-                    <path d="M52 50l-8 8 3 3 8-8-3-3z" fill="#10e3e3" stroke="#10e3e3" strokeWidth="1"/>
-                    <rect x="56" y="44" width="4" height="10" transform="rotate(45 58 49)" fill="#10e3e3"/>
-                    <path d="M62 42l2 2" stroke="#10e3e3" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
-            ),
-            number: '3X',
-            label: 'Faster Content Publishing'
-        },
-        {
-            icon: (
-                <svg className="w-20 h-20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    {/* Lock body */}
-                    <rect x="28" y="35" width="24" height="26" rx="2" stroke="#10e3e3" strokeWidth="2.5"/>
-                    {/* Lock shackle */}
-                    <path d="M32 35V27c0-4.4 3.6-8 8-8s8 3.6 8 8v8" stroke="#10e3e3" strokeWidth="2.5"
-                          strokeLinecap="round"/>
-                    {/* Keyhole */}
-                    <circle cx="40" cy="46" r="3" fill="#10e3e3"/>
-                    <rect x="38.5" y="46" width="3" height="8" rx="1.5" fill="#10e3e3"/>
-                    {/* User icon in circle */}
-                    <circle cx="58" cy="48" r="11" stroke="#10e3e3" strokeWidth="2.5"/>
-                    <circle cx="58" cy="45" r="4" stroke="#10e3e3" strokeWidth="2"/>
-                    <path d="M51 54c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#10e3e3" strokeWidth="2"/>
-                </svg>
-            ),
-            number: '70%',
-            label: 'Better Multi-User Access'
-        }
-    ];
 
     //process
     const [activePhase, setActivePhase] = useState<number>(0);
@@ -838,429 +787,33 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
             </section>
 
             {/* Our Prominent Digital Marketing Services */}
-            <div
-                className={`lg:pt-[2em] md:pt-[2em] pt-[1em] lg:pb-[4em] md:pb-[4em] pb-[1em]  ${isDayTime ? 'bg-white' : 'bg-black'}`}>
-                <div id={'digital marketing Services Overview'}
-                     className={'relative lg:pt-[3em] md:pt-[3em] pt-[1em] lg:pb-[6em] md:pb-[6em] pb-[1em] lg:mt-[3em] md:mt-[3em] mt-[1em] lg:mb-[6em] md:mb-[6em] mb-[1em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]'}>
-                    <div
-                        className={`relative grid lg:grid-cols-2 grid-cols-1 gap-4 mb-8 border-b-[1px]  pb-[3em] ${isDayTime ? 'text-black' : 'text-white'} `}>
-                        <div>
-                            <h2 className={`lg:text-[3.12em] md:text-[3.12em] text-[1.7em] font-[700] justify-center tracking-tight  leading-[1.1]`}>
-                                Our Prominent <span className={'text-[#0ef0dd]'}>Digital <br
-                                className={'lg:block md:block hidden'}/>Marketing</span> Services
-                            </h2>
-                        </div>
-                        <div>
-                            <p className='text-[0.85em] font-[400] justify-center text-justify leading-[1.5] lg:-ml-[7.5em] tracking-noromal'>
-                                Our comprehensive digital marketing services transform online presence into strategic
-                                business advantage. We deliver integrated solutions across search optimization, paid
-                                media, social engagement, and content strategy—each engineered to drive visibility,
-                                engagement, and conversion. Through data-driven methodologies and continuous
-                                optimization, we help enterprises capture market share, strengthen brand authority, and
-                                achieve measurable growth in competitive digital landscapes.<br/><br/>
-                                Our comprehensive digital marketing¿. services include:
-                            </p>
-                        </div>
-                    </div>
-                    <div
-                        className='grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-16 lg:mt-28 md:mt-28 mt-6 px-6 max-w-full w-full mx-auto h-full'>
-                        <div
-                            className='lg:sticky md:sticky top-28 lg:h-screen md:h-screen lg:mr-[11em] overflow-hidden'>
-                            <h3 className={`text-[1.5em] font-[500] tracking-tight constant-text ${
-                                isDayTime ? 'text-black' : 'text-white'
-                            }`}>
-                                Our Solutions
-                            </h3>
-                            <ul className={`list-disc capitalize constant-text text-[0.89em] ml-4 font-[600] relative space-y-3 ${
-                                isDayTime ? 'text-black decoration-gray-600 focus:decoration-gray-900' : 'text-white decoration-gray-400 focus:decoration-gray-600'
-                            }`}>
-                                {[
-                                    {id: "01", title: "Search Engine Optimization (SEO)", target: "SEO"},
-                                    {id: "02", title: "Pay-Per-Click (PPC) Advertising", target: "PPCA"},
-                                    {id: "03", title: "Social Media Marketing", target: "SMM"},
-                                    {id: "04", title: "Content Marketing", target: "CM"},
-                                    {id: "05", title: "Email Marketing", target: "EM"},
-                                    {id: "06", title: "Conversion Rate Optimization (CRO)", target: "CRO"},
-                                    {id: "07", title: "Online Reputation Management", target: "ORM"},
-                                    {id: "08", title: "Analytics & Data Intelligence", target: "ADI"},
-                                ].map((item, index) => (
-                                    <li key={index} className={'group lg:mt-6 mt-4'}>
-                                        <button
-                                            onClick={() => scrollToSection(item.target)}
-                                            className={`w-full text-left flex items-center gap-4 mb-4 focus:font-[650] ${
-                                                isDayTime
-                                                    ? `focus:text-black ${activeId === item.target ? 'text-gray-900 font-[650]' : 'text-gray-500 font-[400]'}`
-                                                    : `focus:text-white ${activeId === item.target ? 'text-gray-100 font-[650]' : 'text-gray-500 font-[400]'}`
-                                            }`}
-                                        >
-                                            <div className={'flex gap-4'}>
-                                                <span className={'shrink-0'}>{item.id}</span>
-                                                <span
-                                                    className={`opacity-0 transition-opacity text-[2em] leading-[0.59em] ${activeId === item.target ? 'opacity-100' : ''}`}>→</span>
-                                                <span>{item.title}</span>
-                                            </div>
-                                        </button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div className={'lg:-ml-[8em] md:-ml-[8em] lg:mb-[18em] md:mb-[18em]'}>
-                            <div className="grid lg:grid-cols-[50px_auto] grid-cols-1 lg:gap-2 gap1 items-start">
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>01/
-                                </div>
-                                <div className={`lg:mb-44 mb-14  ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'SEO'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Search Engine Optimization (SEO)
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Organic Visibility</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Keyword Research</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Link Building</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Technical Optimization</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.873em] font-[300]'}>
-                                        We deliver comprehensive SEO strategies that improve organic search visibility,
-                                        drive qualified traffic, and establish sustainable online authority. Our
-                                        services include technical audits addressing site architecture, page speed
-                                        optimization, mobile responsiveness, and schema markup implementation. We
-                                        conduct extensive keyword research analyzing search volume, competition, and
-                                        user intent to identify high-value opportunities aligned with your business
-                                        objectives. On-page optimization encompasses strategic content enhancement, meta
-                                        tag refinement, header structure improvement, internal linking strategies, and
-                                        URL optimization. Off-page initiatives include authoritative backlink
-                                        acquisition through digital PR, guest posting, and strategic partnerships to
-                                        build domain authority. Local SEO services optimize Google Business Profile,
-                                        build citations, manage reviews, and create location-specific content. Advanced
-                                        capabilities include Core Web Vitals optimization, international SEO with
-                                        hreflang implementation, voice search optimization, featured snippet targeting,
-                                        and algorithm update monitoring. We provide transparent reporting with rankings
-                                        tracking, organic traffic analysis, conversion attribution, and competitor
-                                        benchmarking, ensuring measurable business results and competitive market
-                                        positioning.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>02/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'PPCA'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Pay-Per-Click (PPC) Advertising
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>ROAS Optimization</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Campaign Management</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Conversion Tracking</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Automated Bidding</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Our PPC management maximizes return on ad spend through data-driven strategies
-                                        and continuous optimization across Google Ads, Microsoft Advertising, and social
-                                        platforms. We develop comprehensive paid search campaigns with granular keyword
-                                        research, competitive bid analysis, strategic ad group structuring, compelling
-                                        ad copy with strong calls-to-action, and ad extensions maximizing click-through
-                                        rates. Google Shopping campaigns feature optimized product feeds, strategic
-                                        bidding, and dynamic remarketing. Display advertising leverages audience
-                                        targeting, responsive ads, and creative optimization. Remarketing strategies
-                                        re-engage visitors with tailored messaging, cart abandonment recovery, and
-                                        sequential campaigns. We implement conversion tracking, multi-touch attribution
-                                        modeling, and automated bidding strategies using machine learning. Advanced
-                                        capabilities include responsive search ads with dynamic testing, ad scheduling
-                                        optimization, geographic bid adjustments, competitive conquest campaigns, and
-                                        landing page optimization recommendations. Transparent reporting includes
-                                        performance metrics, conversion analysis, quality score monitoring, competitive
-                                        insights, and strategic recommendations ensuring maximum qualified traffic and
-                                        revenue while maintaining cost efficiency.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>03/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'SMM'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Social Media Marketing
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Community Engagement</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Content Strategy</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Paid Social Campaigns</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Influencer Marketing</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        We create engaging social media strategies that build brand awareness, foster
-                                        community engagement, and generate measurable results across Facebook,
-                                        Instagram, LinkedIn, Twitter, TikTok, and Pinterest. Our management encompasses
-                                        platform audits, strategic planning with content calendars, and campaign
-                                        scheduling aligned with audience activity. Content creation includes
-                                        professional graphic design, video production for Reels and TikTok, compelling
-                                        copywriting, hashtag strategy, and user-generated content curation. Community
-                                        management provides timely response to engagement, reputation monitoring,
-                                        influencer relationship building, and social listening for customer insights.
-                                        Paid social campaigns leverage precise audience targeting, compelling ad
-                                        creative across formats, A/B testing, retargeting, and lookalike audience
-                                        expansion. We implement comprehensive analytics tracking reach, engagement
-                                        rates, follower growth, conversions, sentiment analysis, and competitive share
-                                        of voice. Advanced capabilities include social commerce with shoppable posts,
-                                        chatbot implementation, employee advocacy programs, micro-influencer
-                                        partnerships, and platform-specific strategies. These services build meaningful
-                                        audience connections, establish thought leadership, drive qualified traffic, and
-                                        create loyal brand communities.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>04/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'CM'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Content Marketing
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Thought Leadership</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Strategic Content Creation</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Multi-Format Distribution</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Content Personalization</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Our content marketing establishes thought leadership, attracts target audiences,
-                                        supports SEO objectives, and drives conversions through strategically crafted
-                                        content across formats. We develop comprehensive strategies with audience
-                                        persona development, buyer journey mapping, competitive gap analysis, and
-                                        editorial calendar planning. Content creation encompasses in-depth blog posts
-                                        optimized for search, comprehensive guides and e-books, case studies
-                                        demonstrating results, whitepapers with data-driven insights, infographics
-                                        visualizing complex information, video content including explainers and
-                                        testimonials, podcast production, webinar development, email newsletters, social
-                                        media content, and website copy optimization. Our optimization process includes
-                                        keyword integration, internal linking strategies, meta description crafting,
-                                        readability enhancement, and call-to-action placement. Distribution leverages
-                                        owned media, earned media through PR and guest posting, paid amplification, and
-                                        syndication across platforms. Advanced capabilities include content
-                                        personalization, interactive content like calculators and assessments, content
-                                        repurposing, pillar page and topic cluster strategies, original research
-                                        generating backlinks, and influencer collaboration. These services position your
-                                        brand as an industry authority, attract qualified prospects, improve organic
-                                        visibility, and create reusable assets delivering long-term value.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>05/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'EM'}>
-                                    <h2 className={`text-[1.5em] font-medium mb-3`}>
-                                        Email Marketing
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-light ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Marketing Automation</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Audience Segmentation</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Personalized Campaigns</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Lifecycle Nurturing</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        We design strategic email campaigns that nurture leads, retain customers, and
-                                        maximize lifetime value through personalized, automated communication. Our
-                                        services include strategy development with audience segmentation, campaign
-                                        planning, automation workflow design for welcome series and cart recovery, and
-                                        deliverability optimization. Design and development creates mobile-responsive
-                                        templates, compelling visuals, dynamic content blocks, and conversion-focused
-                                        layouts. Copywriting develops engaging subject lines with A/B testing,
-                                        personalized body copy, and persuasive calls-to-action. List growth strategies
-                                        include lead magnets, landing page optimization, website forms, social
-                                        integration, and referral programs. We implement sophisticated automation
-                                        including behavioral triggers, drip campaigns, predictive send time
-                                        optimization, dynamic product recommendations, and lifecycle marketing.
-                                        Analytics track delivery rates, open rates, click-through rates, conversions,
-                                        revenue attribution, and engagement trends. Advanced capabilities include
-                                        AI-powered optimization, progressive profiling, predictive analytics
-                                        segmentation, interactive email elements, AMP for email, retargeting
-                                        integration, and cross-channel orchestration. These services build direct
-                                        audience relationships, generate consistent conversions, maximize customer
-                                        retention, and deliver industry-leading ROI.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>06/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'CRO'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Conversion Rate Optimization (CRO)
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>A/B Testing</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>User Experience Analysis</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Conversion Funnel Optimization</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Performance Improvement</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Our CRO services systematically improve website and landing page performance,
-                                        maximizing visitor conversions and increasing marketing ROI. We conduct
-                                        comprehensive audits analyzing user flow, identifying friction points, and
-                                        conversion barriers through data analysis and user research. Analytics review
-                                        examines traffic sources, behavior patterns, funnel performance, and baseline
-                                        metrics. User experience analysis includes heatmaps, session recordings, form
-                                        analytics, mobile usability testing, and page speed analysis. Qualitative
-                                        research encompasses user surveys, customer interviews, competitive analysis,
-                                        and expert evaluation. A/B testing includes headline and copy variations,
-                                        call-to-action optimization, page layout testing, form optimization, pricing
-                                        presentation, navigation structure, and trust signal placement. We implement
-                                        multivariate testing, personalization, and sequential testing programs. Advanced
-                                        optimization includes dedicated landing page development, progressive disclosure
-                                        strategies, dynamic content delivery, checkout process optimization, exit-intent
-                                        popups, and persuasion optimization applying psychological principles.
-                                        Comprehensive reporting provides statistical significance analysis, conversion
-                                        lift measurement, revenue impact, and strategic recommendations ensuring maximum
-                                        traffic value and improved marketing efficiency.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>07/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'ORM'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Online Reputation Management
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Brand Monitoring</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Review Management</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Crisis Response</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Sentiment Analysis</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        We protect and enhance brand reputation through proactive monitoring, strategic
-                                        response management, and positive content amplification. Our services include
-                                        comprehensive monitoring of brand mentions across search engines, review
-                                        platforms, social media, news sites, forums, and Q&A sites using sentiment
-                                        analysis. Review management encourages satisfied customers to leave reviews,
-                                        provides strategic platform selection, timely professional responses, and
-                                        aggregates positive reviews on marketing materials. Negative content suppression
-                                        creates optimized positive content to outrank negative search results. Crisis
-                                        management protocols include rapid response teams, holding statement
-                                        development, situation assessment, multi-channel communication strategies, and
-                                        post-crisis analysis. Social media reputation management provides real-time
-                                        monitoring, rapid response to complaints, engagement with positive mentions, and
-                                        competitive benchmarking. Proactive reputation building includes thought
-                                        leadership content, strategic PR initiatives, community involvement, employee
-                                        advocacy, and customer success stories. Advanced capabilities include sentiment
-                                        analysis for trend identification, fake review detection, competitor analysis,
-                                        personal reputation management for executives, Wikipedia management, and
-                                        knowledge panel optimization. These services protect brand equity, build
-                                        consumer trust, improve conversion rates, and create sustainable competitive
-                                        advantages.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>08/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'ADI'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Analytics & Data Intelligence
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Data-Driven Insights</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Attribution Modelling</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Performance Tracking</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Predictive Analytics</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        We transform marketing data into actionable intelligence through comprehensive
-                                        analytics implementation, advanced analysis, and strategic reporting. Our
-                                        services include complete tracking implementation with Google Analytics 4
-                                        configuration, custom event tracking, enhanced e-commerce tracking, cross-domain
-                                        tracking, conversion goal setup, and tag management. Advanced measurement
-                                        includes server-side tracking, user ID tracking, custom dimensions and metrics,
-                                        data layer implementation, and consent mode configuration. Attribution modeling
-                                        encompasses multi-touch attribution analysis, data-driven attribution using
-                                        machine learning, custom model development, and marketing mix modeling. Custom
-                                        reporting creates executive dashboards, channel performance reports, content
-                                        analytics, user behavior analysis, funnel visualization, cohort analysis, and
-                                        automated reporting. Audience analysis includes demographic and psychographic
-                                        understanding, behavioral segmentation, customer lifetime value calculation,
-                                        churn prediction, and lookalike audience creation. Competitive intelligence
-                                        provides market share analysis, traffic source revelation, content gap
-                                        identification, backlink comparison, and social media benchmarking. Advanced
-                                        capabilities include predictive analytics, machine learning applications,
-                                        customer journey mapping, experimentation frameworks, and data visualization.
-                                        These services provide clear performance visibility, enable data-driven
-                                        decision-making, identify high-impact opportunities, prove marketing ROI, and
-                                        establish competitive advantages through superior customer understanding.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <section className="bg-[#050810] py-20 px-4 lg:px-[4.6em]">
+                <div id={'digital marketing Services Overview'}>
+                    <FxStickyScrollSection
+                        heading={<>Our Prominent<br/>Digital Marketing<br/>Services</>}
+                        intro={<>Integrated solutions across search optimization, paid media, social engagement, and content strategy—each engineered to drive visibility, engagement, and measurable conversion.</>}
+                        navLabel="Our Solutions"
+                        items={dmSolutions}
+                        activeId={activeId}
+                        onNavClick={scrollToSection}
+                        day={false}
+                    />
                 </div>
-            </div>
-
-            {/* Details */}
-            <div id={'details'} className={'lg:-mt-[32em] md:-mt-[32em] h-auto max-w-full w-full mx-auto'}>
-                <div className="bg-slate-500 py-20 lg:mb-20 md:mb-20 mb-10">
-                    <div
-                        className="lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 md:gap-8 lg:gap-8">
-                            {statis.map((stat, index) => (
-                                <div key={index} className="flex flex-col items-center text-center">
-                                    <div className="mb-5">
-                                        {stat.icon}
-                                    </div>
-                                    <div className="text-white text-5xl lg:text-6xl font-bold mb-2">
-                                        {stat.number}
-                                    </div>
-                                    <div className="text-white text-[1em] lg:text-lg font-[300]">
-                                        {stat.label}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                {/* Stats Row */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
+                    {[
+                        { number: '30+', label: 'Marketing Experts' },
+                        { number: '50+', label: 'Campaigns Deployed' },
+                        { number: '3X', label: 'Faster Content Publishing' },
+                        { number: '70%', label: 'Better Multi-Channel ROI' },
+                    ].map((stat, i) => (
+                        <FxHoloCard key={i} day={false} className="p-8 flex flex-col items-center text-center gap-2">
+                            <div className="text-[#0ef0dd] text-4xl lg:text-5xl font-bold">{stat.number}</div>
+                            <div className="text-gray-300 text-sm font-[300]">{stat.label}</div>
+                        </FxHoloCard>
+                    ))}
                 </div>
-            </div>
+            </section>
 
             {/* Key Feature of our Digital marketing */}
             <div
