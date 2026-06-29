@@ -1,11 +1,8 @@
 'use client';
 
 
-import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import React, {useEffect, useMemo, useState, useCallback} from 'react';
 import {useRouter} from '@/lib/routerCompat';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import '@/app/globals.css';
 import Link from 'next/link';
 import Image from 'next/image';

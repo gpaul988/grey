@@ -1,10 +1,7 @@
 import React from 'react';
 
 
-import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import '@/app/globals.css';
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 
 const Links = () => {    return (
         <div className="bg-gray-50 text-black min-h-screen pb-12">

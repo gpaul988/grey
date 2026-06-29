@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import '@/app/globals.css';
-import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
 import {
     FaHandshake, FaPlug, FaNetworkWired, FaRocket, FaShieldAlt,

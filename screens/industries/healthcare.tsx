@@ -1,13 +1,11 @@
 'use client';
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
-import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Link from "next/link";
 import Image from "next/image";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import {FaCode, FaPencilRuler, FaRocket, FaSearch, FaShieldAlt, FaVial,} from "react-icons/fa";
-import Footer from "@/components/Footer";
 import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
 import {useIsDayTime} from '../../components/useIsDayTime';
 

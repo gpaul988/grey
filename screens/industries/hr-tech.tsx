@@ -1,10 +1,8 @@
 'use client';
 import React, {useEffect, useRef, useState} from 'react';
-import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import {ArrowLeft, ArrowRight, Quote} from "lucide-react";
-import Footer from "@/components/Footer";
 import '@/app/globals.css';
 import {useIsDayTime} from '../../components/useIsDayTime';
 

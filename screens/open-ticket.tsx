@@ -1,12 +1,9 @@
 'use client';
 
 
-import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 
 import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import '@/app/globals.css';
 import {motion} from 'framer-motion';
 import {FaTicketAlt, FaCheckCircle, FaExclamationCircle} from 'react-icons/fa';

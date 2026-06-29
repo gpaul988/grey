@@ -1,9 +1,7 @@
 'use client';
 
 
-import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import React, {useEffect, useRef, useState} from 'react';
-import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
@@ -11,7 +9,6 @@ import ServiceHero from '@/components/futuristic/ServiceHero';
 import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 import Link from "next/link";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
-import Footer from "@/components/Footer";
 import CountUp from "react-countup";
 import {useIsDayTime} from '../../components/useIsDayTime';
 

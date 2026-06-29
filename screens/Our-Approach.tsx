@@ -1,277 +1,319 @@
 'use client';
 
+import React, { useRef } from 'react';
+import Link from 'next/link';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useIsDayTime } from '../components/useIsDayTime';
-import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
-import React from "react";
+import {
+    FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxGlitchText, FxFrame, FxTerminal
+} from '@/components/futuristic/fx';
+import { CheckCircle2, ArrowRight } from 'lucide-react';
 
-
-import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
-import '@/app/globals.css';
-import Header from "../components/Header";
-import Image from "next/image";
-import Footer from "../components/Footer";
-import Link from "next/link";
+const steps = [
+    {
+        num: '01',
+        title: 'Enquiry',
+        subtitle: 'First Contact',
+        body: 'From your initial call or message, we get to understand your requirements, budget, and timescale. We dive straight into what matters — your goals — so we can align from day one.',
+        tags: ['Discovery Call', 'Budget Scoping', 'Timeline'],
+        accent: '#2dd4bf',
+    },
+    {
+        num: '02',
+        title: 'Discovery',
+        subtitle: 'Deep Dive',
+        body: 'The discovery phase unlocks the full picture. We explore your business, competitors, market trends, and technical landscape. Everything gets factored in — deadlines, growth goals, user needs — before we agree on exact specifications.',
+        tags: ['Competitor Review', 'Tech Audit', 'Spec Sign-off'],
+        link: { href: '/services/discovery-phase', label: 'Learn about Discovery →' },
+        accent: '#06b6d4',
+    },
+    {
+        num: '03',
+        title: 'Design',
+        subtitle: 'Visual Architecture',
+        body: "Fast, fun, and collaborative. We create fully interactive mockups of key pages — establishing color systems, messaging hierarchy, and high-conversion UI patterns — before a single line of code is written.",
+        tags: ['Wireframes', 'UI Mockups', 'Design System'],
+        link: { href: '/services/ui-ux-design', label: 'See our UI/UX work →' },
+        accent: '#a855f7',
+    },
+    {
+        num: '04',
+        title: 'Development',
+        subtitle: 'Build Phase',
+        body: 'Once specs and designs are agreed, we move into build. You get live access to the dev environment at every stage. We use the right technology for your project — no stack religion, just the best tools for the job.',
+        tags: ['Agile Sprints', 'Dev Preview', 'API Integration'],
+        link: { href: '/services/Web-Development', label: 'Web Development services →' },
+        accent: '#22d3ee',
+    },
+    {
+        num: '05',
+        title: 'Testing',
+        subtitle: 'Quality Gate',
+        body: 'Rigorous QA is baked in from day one. We test across all devices, browsers, and real-world scenarios — including accessibility, performance, and edge cases — before any launch is considered.',
+        tags: ['Cross-browser', 'Accessibility', 'Performance'],
+        accent: '#2dd4bf',
+    },
+    {
+        num: '06',
+        title: 'Launch',
+        subtitle: 'Go Live',
+        body: "When defects are resolved, code is validated, and everything passes our checklist — we go live. Launch is not the end; it's the beginning of a post-launch feedback loop.",
+        tags: ['Deployment', 'DNS Migration', 'Monitoring'],
+        accent: '#14b8a6',
+    },
+    {
+        num: '07',
+        title: 'Review',
+        subtitle: 'Post-Launch Optimisation',
+        body: 'As your product matures, we assess its performance together and tackle new challenges. Our SEO, SEM, and product growth experts keep your digital asset improving long after launch.',
+        tags: ['Analytics Review', 'SEO', 'Feature Roadmap'],
+        link: { href: '/services/digital-marketing', label: 'SEO & Marketing services →' },
+        accent: '#0d9488',
+    },
+];
 
 const OurApproach = () => {
     const isDayTime = useIsDayTime();
+    const dark = !isDayTime;
+
+    const terminalLines = [
+        '> initialising project.config.ts',
+        '> loading client requirements...',
+        '> discovery phase: complete ✓',
+        '> design system: scaffolded ✓',
+        '> build env: initialised ✓',
+        '> running quality assurance...',
+        '> all tests passed ✓',
+        '> deploying to production...',
+        '> [SUCCESS] project is live 🚀',
+    ];
+
     return (
-        (<div className={`${isDayTime ? 'bg-white text-black' : 'bg-[#050810] text-white'} min-h-screen lg:pb-12 pb-0`}>
-            {/* Futuristic hero */}
-            <div className="relative w-full min-h-[70vh] flex flex-col justify-end lg:mb-20 mb-9 overflow-hidden">
-                <Image
-                    src="/assets/header/approach.jpg"
-                    alt="company"
-                    fill
-                    sizes="100vw"
-                    style={{ objectFit: "cover", objectPosition: "center" }}
-                    priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/85" />
-                <FxBackground day={false} grid aurora className="opacity-50" />
+        <div className={`min-h-screen transition-colors duration-500 ${dark ? 'bg-[#040b14] text-white' : 'bg-white text-black'}`}>
+
+            {/* ── Hero ── */}
+            <section className="relative overflow-hidden min-h-[78vh] flex flex-col justify-end">
+                <FxBackground day={false} grid aurora className="opacity-80" />
                 <div className="gx-scanline pointer-events-none" />
                 <div className="gx-hero-scan" />
                 <div className="gx-noise-overlay" />
-                <div className="gx-orbit pointer-events-none absolute" style={{ width: '65vmax', height: '65vmax', top: '-22vmax', right: '-22vmax', opacity: .18 }} />
+
+                {/* Orbit rings */}
+                <div className="gx-orbit pointer-events-none absolute" style={{ width: '72vmax', height: '72vmax', top: '-26vmax', right: '-26vmax', opacity: .18 }} />
+                <div className="gx-orbit gx-orbit-reverse pointer-events-none absolute" style={{ width: '46vmax', height: '46vmax', top: '-8vmax', right: '-4vmax', opacity: .12 }} />
+
+                {/* Vertical numbered steps decoration */}
+                <div className="absolute left-[4.5em] top-20 bottom-0 hidden lg:flex flex-col gap-4 opacity-20 pointer-events-none">
+                    {steps.map(s => (
+                        <div key={s.num} className="text-[0.55em] font-mono text-teal-400 tracking-[0.25em]">{s.num}</div>
+                    ))}
+                </div>
+
                 <div className="relative z-10 gx-page-hero-content">
                     <div className="max-w-[90rem] mx-auto">
                         <FxReveal>
                             <FxChip day={false} className="mb-5">How We Work</FxChip>
-                            <div className="border-b border-white/20 pb-6 mb-6">
-                                <h1 className="gx-hero-title text-white gx-glitch">Our Approach</h1>
+                            <div className="border-b border-white/15 pb-7 mb-7 max-w-5xl">
+                                <FxGlitchText tag="h1" className="gx-hero-title text-white">
+                                    Our <span className="gx-gradient-text">Approach</span>
+                                </FxGlitchText>
                             </div>
-                            <p className="text-white/70 text-base md:text-lg max-w-2xl leading-relaxed">
-                                A process built on listening, strategy, collaboration, and relentless quality.
+                            <p className="text-white/65 max-w-2xl text-[0.95em] md:text-[1.05em] leading-relaxed mb-8">
+                                Seven battle-tested stages. From first conversation to ongoing optimisation — this is how we build digital products that last.
                             </p>
+                            <div className="flex flex-wrap gap-3">
+                                {['7 Stages', 'Transparent Process', 'Collaborative at Every Step', 'No Surprises'].map(s => (
+                                    <span key={s} className="gx-data-pill">{s}</span>
+                                ))}
+                            </div>
                         </FxReveal>
                     </div>
                 </div>
-            </div>
-            <div className="min-h-screen bg-gray-50 leading-7 lg:pt-14 lg:pb-0 pt-8">
-                <div className="max-w-full lg:pl-0 pl-5 mx-auto">
-                    <h1 className="lg:text-5xl text-2xl font-bold lg:justify-center lg:text-center text-left justify-start text-gray-800 lg:mb-12 mb-7">
-                        Our Approach
-                    </h1>
-                    <p className="text-[16px] text-gray-600 lg:text-center  lg:px-52 text-left mb-28">We understand that
-                        starting to build a website or app can
-                        be a daunting process so we’d like to share a little about how we work and the process we
-                        follow.</p>
+            </section>
+
+            {/* ── Intro + Terminal ── */}
+            <section className={`relative py-20 lg:py-28 px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${dark ? 'bg-[#040b14]' : 'bg-gray-50'}`}>
+                <div className="max-w-[90rem] mx-auto grid lg:grid-cols-2 gap-14 items-center">
+                    <FxReveal>
+                        <FxChip day={isDayTime} className="mb-6">Our Philosophy</FxChip>
+                        <h2 className={`text-[2em] md:text-[2.8em] font-[700] leading-[1.15] tracking-tight mb-6 ${dark ? 'text-white' : 'text-gray-900'}`}>
+                            We don't just build software.<br />
+                            <span className="gx-gradient-text">We engineer outcomes.</span>
+                        </h2>
+                        <p className={`text-[0.9em] leading-[1.8] mb-6 ${dark ? 'text-gray-400' : 'text-gray-600'}`}>
+                            Starting a digital project can feel daunting. Our process removes the fog — with clear stages, shared access to the dev environment, and a team that communicates proactively at every milestone.
+                        </p>
+                        <p className={`text-[0.9em] leading-[1.8] ${dark ? 'text-gray-400' : 'text-gray-600'}`}>
+                            We treat your business goals as our technical brief. Every stage feeds into the next, building a product that is robust, scalable, and ready for the real world.
+                        </p>
+                    </FxReveal>
+
+                    <FxReveal delay={0.2}>
+                        <FxTerminal day={isDayTime} lines={terminalLines} className="w-full" />
+                    </FxReveal>
                 </div>
-                {/* Section 1 */}
-                <section className="flex flex-col lg:grid lg:grid-cols-2 items-center lg:px-0">
-                    {/* Left Text */}
-                    <div className=" lg:px-[68px] lg:leading-7 pl-5 lg:text-left">
-                        <h2 className="lg:text-5xl text-2xl font-bold text-left justify-start text-gray-800 lg:mb-12 mb-6">Enquiry</h2>
-                        <p className="text-[16px] text-gray-600  lg:px-0 text-left mb-6">
-                            From your initial telephone call or enquiry, we’ll get to understand your
-                            requirements, the level of budget available for your project, and your timescale. If the
-                            project
-                            is similar to something we have already produced, we will or may be able to provide
-                            guideline prices.
-                        </p>
-                    </div>
-                    {/* Right Icon */}
-                    <div className="flex justify-center lg:justify-end">
-                        <div className="bg-blue-500 w-full h-full flex items-center justify-center lg:mb-0 mb-6">
-                            <Image
-                                src="/assets/approach/icon-enquiry.png"
-                                alt='enquiry'
-                                width={500}
-                                height={100}
-                                className='lg:h-[540] h-[670px] lg:w-[675px] w-[730px] '
-                            />
+            </section>
+
+            {/* ── Numbered Timeline Steps ── */}
+            <section className={`relative py-24 px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${dark ? 'bg-[#020c18]' : 'bg-white'}`}>
+                <FxBackground day={isDayTime} grid={true} aurora={false} className="opacity-10" />
+                <div className="max-w-[90rem] mx-auto relative z-10">
+
+                    <FxReveal className="mb-16">
+                        <FxChip day={isDayTime} className="mb-4">Process Breakdown</FxChip>
+                        <h2 className={`text-[2.2em] md:text-[3em] font-[800] leading-[1.1] tracking-tight ${dark ? 'text-white' : 'text-gray-900'}`}>
+                            The <span className="gx-gradient-text">7 Stages</span>
+                        </h2>
+                    </FxReveal>
+
+                    <div className="relative">
+                        {/* Vertical connector line */}
+                        <div className={`absolute left-6 lg:left-8 top-0 bottom-0 w-px hidden lg:block ${dark ? 'bg-gradient-to-b from-teal-500/30 via-cyan-500/20 to-transparent' : 'bg-gradient-to-b from-teal-400/30 via-teal-300/20 to-transparent'}`} />
+
+                        <div className="space-y-12">
+                            {steps.map((step, i) => (
+                                <FxReveal key={step.num} delay={i * 0.07}>
+                                    <div className="relative grid lg:grid-cols-[auto_1fr] gap-6 lg:gap-12 items-start">
+                                        {/* Number badge */}
+                                        <div className="hidden lg:flex flex-col items-center">
+                                            <div
+                                                className="w-14 h-14 rounded-full border-2 flex items-center justify-center font-mono text-[0.85em] font-[700] relative z-10"
+                                                style={{ borderColor: step.accent + '60', color: step.accent, background: step.accent + '12' }}
+                                            >
+                                                {step.num}
+                                            </div>
+                                        </div>
+
+                                        {/* Card */}
+                                        <FxHoloCard day={isDayTime} className="p-8 group">
+                                            <div className="flex items-start justify-between mb-5">
+                                                <div>
+                                                    <span
+                                                        className="text-[0.68em] font-mono font-[600] uppercase tracking-[0.2em] mb-2 block"
+                                                        style={{ color: step.accent }}
+                                                    >
+                                                        {step.subtitle}
+                                                    </span>
+                                                    <h3 className={`text-[1.5em] md:text-[1.8em] font-[700] tracking-tight leading-[1.1] ${dark ? 'text-white' : 'text-gray-900'}`}>
+                                                        {step.title}
+                                                    </h3>
+                                                </div>
+                                                <span
+                                                    className="font-mono text-[2.5em] font-[900] leading-none opacity-15 hidden md:block"
+                                                    style={{ color: step.accent }}
+                                                >
+                                                    {step.num}
+                                                </span>
+                                            </div>
+
+                                            <p className={`text-[0.9em] leading-[1.8] mb-6 ${dark ? 'text-gray-300' : 'text-gray-600'}`}>
+                                                {step.body}
+                                            </p>
+
+                                            <div className="flex flex-wrap gap-2 mb-4">
+                                                {step.tags.map(tag => (
+                                                    <span key={tag} className="gx-data-pill text-[0.65em]">{tag}</span>
+                                                ))}
+                                            </div>
+
+                                            {step.link && (
+                                                <Link
+                                                    href={step.link.href}
+                                                    className={`inline-flex items-center gap-2 text-[0.82em] font-[600] mt-2 transition-all duration-200 hover:gap-3 ${dark ? 'text-teal-400 hover:text-teal-300' : 'text-teal-600 hover:text-teal-700'}`}
+                                                >
+                                                    {step.link.label} <ArrowRight className="w-3.5 h-3.5" />
+                                                </Link>
+                                            )}
+
+                                            {/* Accent line */}
+                                            <div
+                                                className="mt-5 h-[2px] w-0 group-hover:w-full transition-all duration-700 rounded-full"
+                                                style={{ background: `linear-gradient(90deg, ${step.accent}00, ${step.accent}80, ${step.accent}00)` }}
+                                            />
+                                        </FxHoloCard>
+                                    </div>
+                                </FxReveal>
+                            ))}
                         </div>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                {/* Section 2 */}
-                <section className="flex flex-col lg:grid lg:grid-cols-2 items-center lg:px-0">
-                    <div className="flex justify-center lg:order-first order-last lg:justify-start">
-                        <div className="bg-blue-500 w-full h-full flex items-center justify-center lg:mb-0 mb-6">
-                            <Image
-                                src="/assets/approach/icon-discovery.png"
-                                alt='Discovery'
-                                width={500}
-                                height={500}
-                                className='lg:h-[540] h-[670px] lg:w-[675px] w-[730px] '/>
-                        </div>
+            {/* ── Why This Process Works ── */}
+            <section className={`relative py-24 px-4 sm:px-6 md:px-10 lg:px-[4.5em] overflow-hidden ${dark ? 'bg-[#040b14]' : 'bg-gray-50'}`}>
+                <FxBackground day={false} grid aurora className="opacity-40" />
+                <div className="gx-noise-overlay" />
+                <div className="relative z-10 max-w-[90rem] mx-auto">
+                    <div className="grid lg:grid-cols-2 gap-14 items-center">
+                        <FxReveal>
+                            <FxChip day={false} className="mb-6">Why It Works</FxChip>
+                            <FxGlitchText tag="h2" className="text-[2.2em] md:text-[2.8em] font-[800] leading-[1.1] tracking-tight text-white mb-8">
+                                No black boxes.<br />
+                                <span className="gx-gradient-text">Full transparency.</span>
+                            </FxGlitchText>
+                            <ul className="space-y-5">
+                                {[
+                                    'You have live access to the dev environment throughout',
+                                    'We communicate proactively — no chasing required',
+                                    'Every milestone is agreed before work begins',
+                                    'Testing is integrated, not bolted on at the end',
+                                    'We stay involved post-launch, not just until delivery',
+                                ].map((item, i) => (
+                                    <li key={i} className="flex items-start gap-3 text-white/75 text-[0.9em] leading-[1.6]">
+                                        <CheckCircle2 className="w-5 h-5 text-teal-400 mt-0.5 shrink-0" />
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </FxReveal>
+
+                        <FxReveal delay={0.15}>
+                            <FxFrame day={false} className="p-10">
+                                <div className="text-center">
+                                    <div className="text-[0.72em] font-mono text-teal-400 uppercase tracking-[0.2em] mb-4">Success Rate</div>
+                                    <div className="text-[5em] font-[900] gx-gradient-text leading-none mb-2">98%</div>
+                                    <p className="text-white/50 text-[0.85em]">of projects delivered on time and on brief</p>
+                                    <div className={`mt-8 pt-8 border-t border-white/10 grid grid-cols-3 gap-6 text-center`}>
+                                        {[
+                                            { v: '150+', l: 'Projects Shipped' },
+                                            { v: '8+', l: 'Years Experience' },
+                                            { v: '15+', l: 'Industries Served' },
+                                        ].map(s => (
+                                            <div key={s.l}>
+                                                <div className="text-[1.8em] font-[800] gx-gradient-text">{s.v}</div>
+                                                <div className="text-white/40 text-[0.65em] uppercase tracking-wider mt-1">{s.l}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </FxFrame>
+                        </FxReveal>
                     </div>
-                    <div className=" lg:px-16 pl-5 lg:text-left">
-                        <h2 className="text-3xl font-bold mb-4">Discovery</h2>
-                        <p className="text-[16px] text-gray-600  lg:px-0 text-left mb-6">
-                            If guideline prices are agreeable, we can begin a more detailed planning phase for
-                            your project. The <Link href="/services/discovery-phase"
-                                                    className='text-gray-800 hover:text-teal-600 font-bold underline decoration-gray-300 underline-offset-[7px]'>discovery
-                            phase</Link> is key to understanding your requirements in detail.
-                            We take everything into account, and this includes your deadlines, budget, how your
-                            business works, what your goals are and which challenges you need to overcome. We’ll
-                            proactively come forward with ideas. This phase can include reviewing competitors,
-                            exploring strategies as well as taking into account market and design trends and
-                            technologies. Once we have a complete understanding of your project we can agree on
-                            the exact specifications.
+                </div>
+            </section>
+
+            {/* ── CTA ── */}
+            <section className={`relative overflow-hidden py-28 px-4 sm:px-6 md:px-10 lg:px-[4.5em] text-center ${dark ? 'bg-black/60' : 'bg-teal-950'} text-white`}>
+                <FxBackground day={false} grid aurora className="opacity-60" />
+                <div className="gx-scanline pointer-events-none" />
+                <div className="relative z-10">
+                    <FxReveal>
+                        <FxChip day={false} className="mb-6">Ready to Start?</FxChip>
+                        <FxGlitchText tag="h2" className="text-[2.5em] md:text-[3.5em] font-[800] leading-[1.1] tracking-tight mb-6">
+                            Let's build something<br />
+                            <span className="gx-gradient-text">extraordinary together.</span>
+                        </FxGlitchText>
+                        <p className="text-white/60 max-w-xl mx-auto mb-10 text-[0.95em] leading-relaxed">
+                            Start with a quick conversation. No commitments, no pressure — just clarity on how we can help.
                         </p>
-                    </div>
-                </section>
-
-                {/* Section 3 */}
-                <section className="flex flex-col lg:grid lg:grid-cols-2 items-center lg:px-0">
-                    {/* Left Text */}
-                    <div className=" lg:px-[68px] lg:leading-7 pl-5 lg:text-left">
-                        <h2 className="lg:text-5xl text-2xl font-bold text-left justify-start text-gray-800 lg:mb-12 mb-6">Design</h2>
-                        <p className="text-[16px] text-gray-600  lg:px-0 text-left mb-6">
-                            We have a fast, fun and flexible approach to designing your site with you.<br/><br/>
-                            We swiftly determine the primary layout of the pages you&#39;ll need on your website
-                            and create fully interactive, colorful mockups of important pages to show how the
-                            website or application will function.Establishing color schemes, message, and the
-                            positioning of important components and calls to action are all essential components
-                            of the design phase in order to boost site conversions and signups.<br/><br/>
-                            <Link href='/services/Web-Design'
-                                  className='text-gray-800 hover:text-teal-600 font-bold underline decoration-gray-300 underline-offset-[7px]'>Learn
-                                More About Our Website Design {'>'}</Link>
-                        </p>
-                    </div>
-                    {/* Right Icon */}
-                    <div className="flex justify-center lg:justify-end">
-                        <div className="bg-blue-500 w-full h-full flex items-center justify-center lg:mb-0 mb-6">
-                            <Image
-                                src="/assets/approach/icon-design.png"
-                                alt='Design'
-                                width={500}
-                                height={500}
-                                className='lg:h-[540] h-[670px] lg:w-[675px] w-[730px] '
-                            />
+                        <div className="flex flex-wrap justify-center gap-4">
+                            <FxButton day={false} href="/contact" variant="solid">Start the Conversation</FxButton>
+                            <FxButton day={false} href="/quote-request" variant="ghost">Get a Quote</FxButton>
                         </div>
-                    </div>
-                </section>
-
-                {/* Section 4 */}
-                <section className="flex flex-col lg:grid lg:grid-cols-2 items-center lg:px-0">
-                    <div className="flex justify-center lg:order-first order-last lg:justify-start">
-                        <div className="bg-blue-500 w-full h-full flex items-center justify-center lg:mb-0 mb-6">
-                            <Image
-                                src="/assets/approach/icon-development.png"
-                                alt='Development'
-                                width={500}
-                                height={500}
-                                className='lg:h-[540] h-[670px] lg:w-[675px] w-[730px] '/>
-                        </div>
-                    </div>
-                    <div className=" lg:px-16 pl-5 lg:text-left">
-                        <h2 className="text-3xl font-bold mb-4">Development</h2>
-                        <p className="text-[16px] text-gray-600  lg:px-0 text-left mb-6">
-                            The website or <Link href='/services/Web-Application'
-                                                 className='text-gray-800 hover:text-teal-600 font-bold underline decoration-gray-300 underline-offset-[7px]'>web
-                            app</Link> can be
-                            developed once the specifications have been agreed upon and designs have started to take
-                            shape.
-                            At this point, the project begins to take shape. We will use WordPress, Drupal, or Ruby on
-                            Rails to make your project a reality, depending on the project specifications. In addition
-                            to
-                            being involved at every stage of the project, our clients get complete access to the project
-                            on our development server.<br/><br/>
-                            <Link href='/services/Web-Development'
-                                  className='text-gray-800 hover:text-teal-600 font-bold underline decoration-gray-300 underline-offset-[7px]'>Learn
-                                More About Our Website Development {'>'}</Link><br/>
-                            Head this way for our <Link href='/services/Software-Development'
-                                                        className='text-gray-800 hover:text-teal-600 font-bold underline decoration-gray-300 underline-offset-[7px]'>
-                            Software Development Services {'>'}</Link>
-                        </p>
-                    </div>
-                </section>
-
-                {/* Section 5 */}
-                <section className="flex flex-col lg:grid lg:grid-cols-2 items-center lg:px-0">
-                    {/* Left Text */}
-                    <div className=" lg:px-[68px] lg:leading-7 pl-5 lg:text-left">
-                        <h2 className="lg:text-5xl text-2xl font-bold text-left justify-start text-gray-800 lg:mb-12 mb-6">Testing</h2>
-                        <p className="text-[16px] text-gray-600  lg:px-0 text-left mb-6">
-                            To ensure that we provide a top-notch product, we have a rigorous quality assurance
-                            procedure.
-                            We test every element of your app or website, resolving any issues we discover. For
-                            websites,
-                            this includes cross-browser testing to ensure that your site works flawlessly across all
-                            popular platforms, including phones, tablets, and desktop browsers. Tests for accessibility
-                            make sure that we can accommodate all of your clients and that everyone can visit your
-                            website
-                            correctly.
-                        </p>
-                    </div>
-                    {/* Right Icon */}
-                    <div className="flex justify-center lg:justify-end">
-                        <div className="bg-blue-500 w-full h-full flex items-center justify-center lg:mb-0 mb-6">
-                            <Image
-                                src="/assets/approach/icon-testing.png"
-                                alt='Testing'
-                                width={500}
-                                height={500}
-                                className='lg:h-[540] h-[670px] lg:w-[675px] w-[730px] '
-                            />
-                        </div>
-                    </div>
-                </section>
-
-                {/* Section 6 */}
-                <section className="flex flex-col lg:grid lg:grid-cols-2 items-center lg:px-0">
-                    <div className="flex justify-center lg:order-first order-last lg:justify-start">
-                        <div className="bg-blue-500 w-full h-full flex items-center justify-center lg:mb-0 mb-6">
-                            <Image
-                                src="/assets/approach/icon-launch.png"
-                                alt='Launch'
-                                width={500}
-                                height={500}
-                                className='lg:h-[540] h-[670px] lg:w-[675px] w-[730px] '
-                            />
-                        </div>
-                    </div>
-                    <div className=" lg:px-16 pl-5 lg:text-left">
-                        <h2 className="text-3xl font-bold mb-4">Launch</h2>
-                        <p className="text-[16px] text-gray-600  lg:px-0 text-left mb-6">
-                            When we&#39;ve addressed all of the defects discovered during acceptance testing, validated
-                            the
-                            site, and checked accessibility, it&#39;s ready to go live!<br/><br/>
-                            We provide maintenance and assistance to help you get the most out of your website, and we
-                            strongly encourage frequent post-launch evaluations to track progress.
-
-                        </p>
-                    </div>
-                </section>
-
-                {/* Section 7 */}
-                <section className="flex flex-col lg:grid lg:grid-cols-2 items-center lg:px-0">
-                    {/* Left Text */}
-                    <div className=" lg:px-[68px] lg:leading-7 pl-5 lg:text-left">
-                        <h2 className="lg:text-5xl text-2xl font-bold text-left justify-start text-gray-800 lg:mb-12 mb-6">Review</h2>
-                        <p className="text-[16px] text-gray-600  lg:px-0 text-left mb-6">
-                            As your website settles in, we&#39;ll assess its progress with you and address any new
-                            issues that
-                            may arise. Going live might be only the beginning, and we are always available to assist
-                            with
-                            future upgrades that will help your business succeed. Our <Link
-                            href='/services/seo'
-                            className='text-gray-800 hover:text-teal-600 font-bold underline decoration-gray-300 underline-offset-[7px]'> SEO</Link> and
-                            SEM experts can help you enhance your site&#39;s ranks and attract a larger
-                            audience. <br/><br/>
-                            <Link href='/services/digital-marketing'
-                                  className='text-gray-800 hover:text-teal-600 font-bold underline decoration-gray-300 underline-offset-[7px]'>Learn
-                                More About Our SEO and Marketing Services {'>'}</Link>
-
-                        </p>
-                    </div>
-                    {/* Right Icon */}
-                    <div className="flex justify-center lg:justify-end">
-                        <div className="bg-blue-500 w-full h-full flex items-center justify-center lg:mb-0 mb-6 ">
-                            <Image
-                                src="/assets/approach/icon-review.png"
-                                alt='Review'
-                                width={500}
-                                height={500}
-                                className='lg:h-[540] h-[670px] lg:w-[675px] w-[730px] '
-                            />
-                        </div>
-                    </div>
-                </section>
-            </div>
-            {/* Footer now provided globally by app/layout.tsx — duplicate render disabled to fix doubled footer */ false && <Footer/>}
-        </div>)
+                    </FxReveal>
+                </div>
+            </section>
+        </div>
     );
 };
 

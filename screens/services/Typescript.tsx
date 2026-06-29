@@ -1,14 +1,11 @@
 'use client';
 
 
-import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
-import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import Link from "next/link";
-import Footer from "@/components/Footer";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
 

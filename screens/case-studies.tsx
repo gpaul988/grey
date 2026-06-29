@@ -1,6 +1,5 @@
 'use client';
 
-import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 import React, { useState } from 'react';
 import '@/app/globals.css';
 import Link from 'next/link';

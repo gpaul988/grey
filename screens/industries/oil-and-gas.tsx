@@ -1,12 +1,10 @@
 'use client';
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
-import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import Link from "next/link";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
-import Footer from "@/components/Footer";
 import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
 import {FaOilWell} from "react-icons/fa6";
 import {IoMdAnalytics} from "react-icons/io";

@@ -1,11 +1,9 @@
 'use client';
 import React, {useEffect, useRef, useState} from 'react';
-import Header from "@/components/Header";
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import Link from "next/link";
 import CountUp from "react-countup";
-import Footer from "@/components/Footer";
 import {AnimatePresence, motion} from "framer-motion";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
