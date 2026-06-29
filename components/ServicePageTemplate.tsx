@@ -3,7 +3,7 @@ import React, {useEffect, useRef, useState, type ReactNode} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import CountUp from 'react-countup';
-import {AnimatePresence, motion} from 'framer-motion';
+import {AnimatePresence, motion, useScroll, useTransform} from 'framer-motion';
 
 import FloatingButton from '@/components/FloatingButton';
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
@@ -22,6 +22,9 @@ import {
     FxTerminal,
 } from '@/components/futuristic/fx';
 
+// ─────────────────────────────────────────────────────────
+// INTERFACES
+// ─────────────────────────────────────────────────────────
 export interface SolutionItem {
     id: string;
     title: string;
@@ -83,19 +86,26 @@ export interface ServicePageProps {
 }
 
 const defaultStats: StatItem[] = [
-    {label: 'Years Experience', value: 8, suffix: '+'},
-    {label: 'Team Members', value: 13, suffix: '+'},
-    {label: 'Products Launched', value: 150, suffix: '+'},
-    {label: 'Projects Delivered', value: 200, suffix: '+'},
-    {label: 'Client Satisfaction', value: 98, suffix: '%'},
+    {label: 'Years Experience',    value: 8,   suffix: '+'},
+    {label: 'Team Members',        value: 13,  suffix: '+'},
+    {label: 'Products Launched',   value: 150, suffix: '+'},
+    {label: 'Projects Delivered',  value: 200, suffix: '+'},
+    {label: 'Client Satisfaction', value: 98,  suffix: '%'},
 ];
 
 const defaultHeroStats: HeroStat[] = [
-    {label: 'Years Experience', value: '8+'},
-    {label: 'Team Members', value: '13+'},
+    {label: 'Years Experience',  value: '8+'},
+    {label: 'Team Members',      value: '13+'},
     {label: 'Products Launched', value: '123+'},
 ];
 
+// Why-Us card colour palette — same visual logic as Home.tsx WHY_US
+const CARD_COLORS = ['#2dd4bf','#06b6d4','#7c3aed','#f59e0b','#10b981','#ef4444'];
+const CARD_ICONS  = ['◈','◉','◎','◇','⬡','⬢'];
+
+// ─────────────────────────────────────────────────────────
+// COMPONENT
+// ─────────────────────────────────────────────────────────
 const ServicePageTemplate: React.FC<ServicePageProps> = ({
     title,
     intro,
@@ -118,176 +128,281 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
     stats = defaultStats,
     testimonials = [],
 }) => {
-    const [isVisible, setIsVisible] = useState(false);
-    const sectionRef = useRef<HTMLDivElement>(null);
-    const [isBackgroundActive, setIsBackgroundActive] = useState(false);
-    const [activeId, setActiveId] = useState<string>('');
-    const [openFaq, setOpenFaq] = useState<number | null>(null);
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [isVisible,          setIsVisible]          = useState(false);
+    const [activeId,           setActiveId]           = useState<string>(solutions[0]?.target ?? '');
+    const [openFaq,            setOpenFaq]            = useState<number | null>(null);
+    const [activeWhyUs,        setActiveWhyUs]        = useState(0);
 
     const isDayTime = useIsDayTime();
 
+    // floating button show/hide
     useEffect(() => {
-        const handleScroll = () => setIsVisible(window.scrollY > 200);
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        const fn = () => setIsVisible(window.scrollY > 200);
+        window.addEventListener('scroll', fn);
+        return () => window.removeEventListener('scroll', fn);
     }, []);
 
+    // active solution tracking
     useEffect(() => {
-        const handleScroll = () => {
-            if (sectionRef.current) {
-                const {top, bottom} = sectionRef.current.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-                if (top < windowHeight * -0.1 || bottom < windowHeight * -0.1) {
-                    setIsBackgroundActive(true);
-                } else {
-                    setIsBackgroundActive(false);
-                }
-            }
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    useEffect(() => {
-        const handleScroll = () => {
+        const fn = () => {
             for (const s of solutions) {
-                const section = document.getElementById(s.target);
-                if (section) {
-                    const rect = section.getBoundingClientRect();
-                    if (rect.top >= 0 && rect.top <= window.innerHeight / 2) {
+                const el = document.getElementById(s.target);
+                if (el) {
+                    const {top} = el.getBoundingClientRect();
+                    if (top >= 0 && top <= window.innerHeight * 0.55) {
                         setActiveId(s.target);
                         break;
                     }
                 }
             }
         };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', fn, {passive: true});
+        return () => window.removeEventListener('scroll', fn);
     }, [solutions]);
 
+    // auto-cycle why-us
     useEffect(() => {
         if (!reasons.length) return;
-        const interval = setInterval(() => {
-            setActiveIndex(prev => (prev + 1) % reasons.length);
-        }, 5000);
-        return () => clearInterval(interval);
+        const t = setInterval(() => setActiveWhyUs(p => (p + 1) % reasons.length), 3500);
+        return () => clearInterval(t);
     }, [reasons]);
 
     const scrollToSection = (target: string) => {
-        const section = document.getElementById(target);
-        if (section) {
-            section.scrollIntoView({behavior: 'smooth', block: 'start'});
-            setActiveId(target);
-        }
+        const el = document.getElementById(target);
+        if (el) { el.scrollIntoView({behavior: 'smooth', block: 'start'}); setActiveId(target); }
     };
 
-    // ── colour tokens ─────────────────────────────────────────
-    const pageBg   = isDayTime ? 'bg-white'   : 'bg-[#050810]';
-    const pageText  = isDayTime ? 'text-black' : 'text-white';
     const mutedText = isDayTime ? 'text-gray-600' : 'text-gray-400';
     const borderCol = isDayTime ? 'border-gray-200' : 'border-teal-400/15';
 
+    // ── sentinel ref for solutions sticky release ──────────
+    const solutionsSentinelRef = useRef<HTMLDivElement>(null);
+    const leftNavRef            = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!solutionsSentinelRef.current || !leftNavRef.current) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (leftNavRef.current) {
+                    leftNavRef.current.style.position = entry.isIntersecting ? 'relative' : 'sticky';
+                }
+            },
+            {threshold: 0, rootMargin: '0px 0px -120px 0px'},
+        );
+        observer.observe(solutionsSentinelRef.current);
+        return () => observer.disconnect();
+    }, []);
+
     return (
-        <div className={`${pageBg} ${pageText} min-h-screen`}>
+        <div className={`${isDayTime ? 'bg-white text-black' : 'bg-[#050810] text-white'} min-h-screen`}>
             <FloatingButton
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${isVisible ? 'mb-16' : 'mb-0'}`}
             />
 
-            {/* ── Hero ── */}
+            {/* ══════════════════════════════════════════
+                HERO — cinematic full-bleed with data HUD
+                ══════════════════════════════════════════ */}
             <div id="hero">
                 <ResponsiveVideoHero
                     videoDesktop={heroVideo}
                     videoMobile={heroVideoMobile || heroVideo}
                     posterImage={heroImage}
                     posterAlt={typeof title === 'string' ? title : 'hero'}
-                    overlayOpacity={0.4}
-                    heights={{
-                        mobile:  'h-[640px]',
-                        tablet:  'md:h-[700px]',
-                        desktop: 'lg:h-[720px]',
-                    }}
+                    overlayOpacity={0.55}
+                    heights={{mobile: 'h-[680px]', tablet: 'md:h-[740px]', desktop: 'lg:h-[820px]'}}
                     className="rounded-none"
                 >
-                    <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-start text-start px-4 sm:px-6 md:px-10 lg:px-[4.5em] text-white">
-                        <div className="flex flex-col justify-start items-start border-b pb-[0.3em] border-gray-400/50 max-w-full w-full mx-auto">
-                            <h1 className="px-0 constant-text lg:text-[5.35em] md:text-[4.4em] sm:text-[3.5em] text-[2em] lg:mt-[3em] md:mt-[3em] mt-[4em] w-auto h-auto leading-[1.1] font-[600]">
-                                {title}
-                            </h1>
-                        </div>
-                        <div className="relative grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 lg:mt-[1em] md:mt-[1em] mt-[0.5em] w-full max-w-full mx-auto">
-                            <div className="lg:-mr-[4em] md:-mr-[1em] lg:mt-[1em] md:mt-[1em]">
-                                <p className="text-[0.87em] font-[300]">{intro}</p>
-                            </div>
-                            <div className="relative grid lg:grid-cols-3 lg:gap-8 lg:ml-[13em]">
+                    {/* Grid + scanline layers */}
+                    <div className="absolute inset-0 gx-grid opacity-20 pointer-events-none" />
+                    <div className="gx-scanline pointer-events-none" />
+
+                    {/* Vertical accent line */}
+                    <div className="absolute left-[4.5em] top-0 bottom-0 w-px bg-teal-400/15 hidden lg:block pointer-events-none" />
+
+                    {/* Orbit accents */}
+                    <div className="absolute -top-[15vmax] -right-[15vmax] w-[60vmax] h-[60vmax] rounded-full border border-teal-400/10 gx-orbit pointer-events-none" />
+                    <div className="absolute -top-[5vmax] -right-[5vmax] w-[40vmax] h-[40vmax] rounded-full border border-cyan-400/08 gx-orbit-reverse pointer-events-none" />
+
+                    {/* Content */}
+                    <div className="absolute inset-0 flex flex-col justify-end pb-12 md:pb-16 px-6 sm:px-8 md:px-10 lg:px-[4.5em] text-white">
+
+                        {/* Eyebrow chip */}
+                        <motion.div
+                            initial={{opacity: 0, y: 20}}
+                            animate={{opacity: 1, y: 0}}
+                            transition={{duration: 0.7, delay: 0.2}}
+                            className="mb-5"
+                        >
+                            <FxChip day={false}>{eyebrow}</FxChip>
+                        </motion.div>
+
+                        {/* Headline */}
+                        <motion.h1
+                            initial={{opacity: 0, y: 32}}
+                            animate={{opacity: 1, y: 0}}
+                            transition={{duration: 0.8, delay: 0.35, ease: [0.2,0.7,0.2,1]}}
+                            className="gx-glitch cursor-default select-none text-[2.2em] sm:text-[3em] md:text-[4em] lg:text-[5em] font-[700] leading-[1.05] tracking-tight mb-5 max-w-[14ch]"
+                        >
+                            {title}
+                        </motion.h1>
+
+                        {/* Divider */}
+                        <motion.div
+                            initial={{scaleX: 0}}
+                            animate={{scaleX: 1}}
+                            transition={{duration: 0.6, delay: 0.55}}
+                            className="origin-left h-px bg-white/20 w-full max-w-[60em] mb-5"
+                        />
+
+                        {/* Bottom row: intro + stats */}
+                        <div className="grid lg:grid-cols-2 grid-cols-1 gap-6 max-w-[60em]">
+                            <motion.p
+                                initial={{opacity: 0}}
+                                animate={{opacity: 1}}
+                                transition={{duration: 0.7, delay: 0.65}}
+                                className="text-[0.87em] font-[300] leading-[1.6] text-white/80"
+                            >
+                                {intro}
+                            </motion.p>
+
+                            {/* Stat pills */}
+                            <motion.div
+                                initial={{opacity: 0, x: 20}}
+                                animate={{opacity: 1, x: 0}}
+                                transition={{duration: 0.7, delay: 0.75}}
+                                className="hidden lg:flex gap-6 items-end justify-end"
+                            >
                                 {heroStats.map((s, i) => (
-                                    <div key={i} className="border-0 lg:block md:hidden sm:hidden hidden">
-                                        <h6 className="gx-gradient-text text-[3em] font-[500] -mb-[0.3em] justify-center">{s.value}</h6>
-                                        <p className="text-[0.7em] font-[300]">{s.label}</p>
+                                    <div
+                                        key={i}
+                                        className="flex flex-col items-center px-5 py-3 rounded-xl border border-teal-400/25 bg-teal-400/05 backdrop-blur-sm"
+                                        style={{boxShadow: '0 0 20px -8px rgba(45,212,191,0.35)'}}
+                                    >
+                                        <span className="gx-gradient-text text-[2.2em] font-[700] leading-none">{s.value}</span>
+                                        <span className="text-[0.68em] font-[400] text-white/55 tracking-wider mt-1">{s.label}</span>
                                     </div>
                                 ))}
-                            </div>
+                            </motion.div>
                         </div>
+
+                        {/* Data readout bar */}
+                        <motion.div
+                            initial={{opacity: 0}}
+                            animate={{opacity: 1}}
+                            transition={{duration: 0.6, delay: 0.9}}
+                            className="hidden lg:flex items-center gap-6 mt-8 border-t border-white/10 pt-4 font-mono text-[0.65em] tracking-widest text-white/25"
+                        >
+                            <span>SYS://GREY-INFOTECH</span>
+                            <div className="flex-1 h-px bg-white/08" />
+                            <span>STATUS: ACTIVE</span>
+                            <div className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+                        </motion.div>
                     </div>
                 </ResponsiveVideoHero>
             </div>
 
-            {/* ── Introductory section ── */}
-            <section
-                ref={sectionRef}
-                className={`py-12 transition-colors duration-500 ${
-                    isBackgroundActive
-                        ? (isDayTime ? 'bg-black text-white' : 'bg-white text-black')
-                        : (isDayTime ? 'bg-white text-black' : 'bg-[#050810] text-white')
-                }`}
-            >
-                <div className="relative grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 md:pt-20 pt-6 lg:pb-16 md:pb-16 pb-6 lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
-                    <div>
-                        <h6 className="constant-text uppercase lg:text-[0.85em] md:text-[0.85em] leading-[1.3] text-[0.8em] lg:font-[600] font-[600] lg:tracking-wider tracking-tight">
-                            {eyebrow}
-                        </h6>
-                    </div>
-                    <div className="lg:-ml-[19em]">
-                        <h3 className="lg:text-[3.2em] md:text-[3.2em] text-[1.8em] font-[500] lg:mt-[0.01em] lg:leading-[1.1] tracking-tight border-b lg:pb-[0.7em] lg:mb-[0.7em] leading-[1.1] pb-6">
-                            {introHeading}
-                        </h3>
-                        <div className="grid lg:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]">
-                            <div><p>{introBody[0]}</p></div>
-                            <div><p>{introBody[1]}</p></div>
-                        </div>
+            {/* ══════════════════════════════════════════
+                INTRO — always-dark two-col with FX
+                ══════════════════════════════════════════ */}
+            <section className="relative overflow-hidden bg-[#050810] text-white">
+                <FxBackground day={false} grid aurora />
+                <FxOrbit size={600} top="-100px" right="-150px" opacity={0.10} speed={40} />
+
+                <div className="relative z-10 lg:py-[6em] md:py-[4em] py-12 max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+                    <div className="grid lg:grid-cols-2 grid-cols-1 gap-14">
+
+                        {/* Left — eyebrow */}
+                        <FxReveal className="flex flex-col gap-5">
+                            {/* Animated border accent */}
+                            <div className="relative inline-block">
+                                <FxChip day={false} className="text-[0.78em]">{eyebrow}</FxChip>
+                                {/* Scan line decoration */}
+                                <motion.div
+                                    initial={{scaleY: 0}}
+                                    whileInView={{scaleY: 1}}
+                                    viewport={{once: true}}
+                                    transition={{duration: 0.8, delay: 0.3}}
+                                    className="absolute -left-4 top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-teal-400/60 to-transparent origin-top"
+                                />
+                            </div>
+
+                            {/* Glitch eyebrow text */}
+                            <FxGlitchText tag="h3" className="text-[2em] lg:text-[2.6em] font-[700] leading-[1.1] tracking-tight text-white/80">
+                                {introHeading}
+                            </FxGlitchText>
+                        </FxReveal>
+
+                        {/* Right — body paragraphs */}
+                        <FxReveal delay={0.15} className="flex flex-col gap-4">
+                            <div className={`grid lg:grid-cols-2 grid-cols-1 gap-6 font-[300] text-[0.87em] leading-[1.65] tracking-normal text-justify text-gray-300`}>
+                                <motion.p
+                                    initial={{opacity: 0, y: 18}}
+                                    whileInView={{opacity: 1, y: 0}}
+                                    viewport={{once: true}}
+                                    transition={{duration: 0.6, delay: 0.2}}
+                                >
+                                    {introBody[0]}
+                                </motion.p>
+                                <motion.p
+                                    initial={{opacity: 0, y: 18}}
+                                    whileInView={{opacity: 1, y: 0}}
+                                    viewport={{once: true}}
+                                    transition={{duration: 0.6, delay: 0.35}}
+                                >
+                                    {introBody[1]}
+                                </motion.p>
+                            </div>
+                        </FxReveal>
                     </div>
                 </div>
             </section>
 
-            {/* ── Top images ── */}
+            {/* ══════════════════════════════════════════
+                TOP IMAGES — cinematic dual FxFrame reveal
+                ══════════════════════════════════════════ */}
             {topImages && (
-                <div className={isDayTime ? 'bg-black' : 'bg-white'}>
-                    <div className="relative lg:max-w-full w-full lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[5em] md:pb-[5em] pb-[2em] mx-auto h-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
-                        <div className="relative grid lg:grid-cols-2 h-auto md:grid-cols-2 grid-cols-1 gap-6">
-                            <Image src={topImages[0]} alt="detail" width={1396} height={1440} />
-                            <Image src={topImages[1]} alt="detail" width={1396} height={1440} />
+                <section className="bg-[#050810] py-12 lg:py-16">
+                    <div className="max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+                        <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-8">
+                            {([0, 1] as const).map(idx => (
+                                <FxReveal key={idx} delay={idx * 0.15}>
+                                    <FxFrame className="w-full overflow-hidden">
+                                        <div className="relative w-full aspect-[4/3]">
+                                            <Image
+                                                src={topImages[idx]}
+                                                alt="detail"
+                                                fill
+                                                className="object-cover"
+                                                sizes="(max-width: 768px) 100vw, 50vw"
+                                            />
+                                            {/* Overlay scanline for depth */}
+                                            <div
+                                                className="absolute inset-0 pointer-events-none"
+                                                style={{backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(45,212,191,0.025) 3px,rgba(45,212,191,0.025) 4px)'}}
+                                            />
+                                        </div>
+                                    </FxFrame>
+                                </FxReveal>
+                            ))}
                         </div>
                     </div>
-                </div>
+                </section>
             )}
 
             {/* ══════════════════════════════════════════
-                SOLUTIONS — futuristic sticky-scroll layout
+                SOLUTIONS — sticky-left / scroll-right
+                Sentinel div at bottom releases sticky nav
                 ══════════════════════════════════════════ */}
             <section className={`relative overflow-hidden ${isDayTime ? 'bg-white' : 'bg-[#050810]'}`}>
                 <FxBackground day={isDayTime} grid aurora />
-                {/* Orbit accents */}
                 <FxOrbit size={700} top="-150px" right="-200px" opacity={0.12} speed={35} />
-                <FxOrbit size={400} top="200px" left="-150px"  opacity={0.10} speed={28} reverse />
+                <FxOrbit size={400} top="200px" left="-150px" opacity={0.10} speed={28} reverse />
 
-                <div className="relative z-10 lg:pt-[4em] md:pt-[3em] pt-[2em] lg:pb-[7em] md:pb-[5em] pb-[3em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
+                <div className="relative z-10 lg:pt-[4em] md:pt-[3em] pt-[2em] lg:pb-[4em] md:pb-[3em] pb-[3em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
 
                     {/* Heading row */}
                     <FxReveal className={`relative grid lg:grid-cols-2 grid-cols-1 gap-4 mb-12 border-b pb-[3em] ${borderCol}`}>
-                        <FxSectionHeading
-                            day={isDayTime}
-                            title={solutionsHeading}
-                        />
+                        <FxSectionHeading day={isDayTime} title={solutionsHeading} />
                         {solutionsIntro && (
                             <p className={`text-[0.87em] font-[400] leading-[1.6] lg:-ml-[7.5em] tracking-normal ${mutedText}`}>
                                 {solutionsIntro}
@@ -296,10 +411,13 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                     </FxReveal>
 
                     {/* Sticky scroll grid */}
-                    <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-16 lg:mt-16 md:mt-12 mt-6">
+                    <div className="relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-16 lg:mt-16 md:mt-12 mt-6">
 
-                        {/* Left sticky nav */}
-                        <div className="lg:sticky md:sticky top-28 lg:h-screen md:h-screen lg:mr-[11em] overflow-hidden">
+                        {/* ── Left sticky nav ── */}
+                        <div
+                            ref={leftNavRef}
+                            className="lg:sticky md:sticky top-28 self-start lg:mr-[11em] max-h-screen overflow-y-auto"
+                        >
                             <FxReveal delay={0.1}>
                                 <FxChip day={isDayTime} className="mb-5">Our Solutions</FxChip>
                             </FxReveal>
@@ -322,9 +440,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                                 <span className={`text-[0.9em] font-[500] leading-snug ${isActive ? (isDayTime ? 'text-black' : 'text-white') : ''}`}>
                                                     {item.title}
                                                 </span>
-                                                {isActive && (
-                                                    <span className="ml-auto text-teal-400 text-[1.1em]">→</span>
-                                                )}
+                                                {isActive && <span className="ml-auto text-teal-400 text-[1.1em]">→</span>}
                                             </button>
                                         </FxReveal>
                                     );
@@ -332,26 +448,27 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                             </nav>
                         </div>
 
-                        {/* Right content */}
-                        <div className="lg:-ml-[8em] md:-ml-[8em] lg:mb-[30em] md:mb-[30em]">
+                        {/* ── Right scrollable content ── */}
+                        <div className="lg:-ml-[8em] md:-ml-[8em]">
                             {solutions.map((item, index) => (
-                                <FxReveal key={index} delay={0.08 * index} className={index < solutions.length - 1 ? 'mb-20 lg:mb-44' : ''}>
+                                <FxReveal
+                                    key={index}
+                                    delay={0.08 * index}
+                                    className={index < solutions.length - 1 ? 'mb-20 lg:mb-44' : ''}
+                                >
                                     <div id={item.target} className="scroll-mt-28">
                                         <FxHoloCard day={isDayTime} className="p-6 lg:p-8">
-                                            {/* Number + title */}
                                             <div className="flex items-start gap-4 mb-4">
                                                 <span className={`text-[0.7em] font-[700] tabular-nums shrink-0 mt-1 ${mutedText}`}>
                                                     {item.id}/
                                                 </span>
                                                 <h2 className="text-[1.4em] font-[600] leading-snug">{item.title}</h2>
                                             </div>
-                                            {/* Tags */}
                                             <div className="flex flex-wrap gap-2 mb-5">
                                                 {item.tags.map((tag, t) => (
                                                     <FxChip key={t} day={isDayTime}>{tag}</FxChip>
                                                 ))}
                                             </div>
-                                            {/* Body */}
                                             <p className={`text-[0.85em] font-[300] leading-[1.6] text-justify ${mutedText}`}>
                                                 {item.body}
                                             </p>
@@ -359,116 +476,184 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                     </div>
                                 </FxReveal>
                             ))}
+
+                            {/* Sentinel — IntersectionObserver releases left sticky here */}
+                            <div ref={solutionsSentinelRef} className="h-px w-full" aria-hidden />
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* ── Mid image ── */}
-            {midImage && (
-                <div className="h-auto max-w-full w-full mx-auto lg:-mt-[34em] md:-mt-[34em]">
-                    <Image
-                        className="object-fill"
-                        src={midImage}
-                        alt={typeof title === 'string' ? title : 'detail'}
-                        width={2560}
-                        height={1440}
-                        style={{objectFit: 'fill', objectPosition: 'center'}}
-                    />
-                </div>
-            )}
-
             {/* ══════════════════════════════════════════
-                WHY GREY INFOTECH — futuristic accordion
+                MID IMAGE — standalone FxFrame section
                 ══════════════════════════════════════════ */}
-            {reasons.length > 0 && (
-                <section className={`relative overflow-hidden ${isDayTime ? 'bg-[#050810]' : 'bg-white'}`}>
-                    {/* Dark/Light invert for contrast */}
-                    <FxBackground day={!isDayTime} grid aurora />
-                    <FxOrbit size={600} top="-80px" left="-180px" opacity={0.12} speed={40} />
-                    <FxOrbit size={350} bottom="-60px" right="-100px" opacity={0.09} speed={25} reverse />
-
-                    <div className={`relative z-10 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] lg:py-[6em] py-12 ${isDayTime ? 'text-white' : 'text-black'}`}>
-
-                        <FxReveal className="mb-12">
-                            <FxGlitchText tag="h2" className="lg:text-[3em] text-[1.8em] font-[700] leading-[1.1] mb-3">
-                                Why Grey InfoTech
-                            </FxGlitchText>
-                            <p className={`text-[0.9em] font-[300] ${isDayTime ? 'text-gray-400' : 'text-gray-600'}`}>
-                                The edge that separates good from exceptional.
-                            </p>
+            {midImage && (
+                <section className="bg-[#050810] py-10 lg:py-14">
+                    <div className="max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+                        <FxReveal>
+                            <FxFrame className="w-full overflow-hidden">
+                                <div className="relative w-full">
+                                    <Image
+                                        src={midImage}
+                                        alt={typeof title === 'string' ? title : 'detail'}
+                                        width={2560}
+                                        height={1440}
+                                        className="w-full h-auto object-cover"
+                                    />
+                                    {/* Scanline depth overlay */}
+                                    <div
+                                        className="absolute inset-0 pointer-events-none"
+                                        style={{backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(45,212,191,0.02) 3px,rgba(45,212,191,0.02) 4px)'}}
+                                    />
+                                    {/* Bottom gradient fade */}
+                                    <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
+                                        style={{background: 'linear-gradient(to top, rgba(5,8,16,0.6), transparent)'}} />
+                                </div>
+                            </FxFrame>
                         </FxReveal>
-
-                        <div className="grid lg:grid-cols-2 grid-cols-1 gap-10 items-start">
-                            {/* Accordion list */}
-                            <div className="space-y-3">
-                                {reasons.map((r, i) => {
-                                    const isActive = activeIndex === i;
-                                    return (
-                                        <FxReveal key={r.id} delay={0.06 * i}>
-                                            <button
-                                                onClick={() => setActiveIndex(i)}
-                                                className={`block w-full text-left rounded-xl border transition-all duration-400 p-5 ${
-                                                    isActive
-                                                        ? `border-teal-400/40 ${isDayTime ? 'bg-teal-400/10' : 'bg-teal-400/5'} shadow-[0_0_30px_-8px_rgba(45,212,191,0.35)]`
-                                                        : `${isDayTime ? 'border-white/10 hover:border-teal-400/20' : 'border-gray-200 hover:border-teal-400/30'}`
-                                                }`}
-                                            >
-                                                <div className="flex items-center gap-3 mb-1">
-                                                    {isActive && <span className="w-1.5 h-1.5 rounded-full bg-teal-400 shrink-0 animate-pulse" />}
-                                                    <h3 className={`text-[1.1em] font-[600] ${isActive ? 'text-teal-400' : ''}`}>{r.title}</h3>
-                                                    <span className={`ml-auto text-[1.2em] leading-none transition-transform duration-300 ${isActive ? 'rotate-45 text-teal-400' : (isDayTime ? 'text-gray-400' : 'text-gray-500')}`}>+</span>
-                                                </div>
-                                                <AnimatePresence>
-                                                    {isActive && (
-                                                        <motion.p
-                                                            initial={{opacity: 0, height: 0}}
-                                                            animate={{opacity: 1, height: 'auto'}}
-                                                            exit={{opacity: 0, height: 0}}
-                                                            className={`text-[0.85em] font-[300] leading-[1.6] overflow-hidden ${isDayTime ? 'text-gray-300' : 'text-gray-600'}`}
-                                                        >
-                                                            {r.description}
-                                                        </motion.p>
-                                                    )}
-                                                </AnimatePresence>
-                                            </button>
-                                        </FxReveal>
-                                    );
-                                })}
-                            </div>
-
-                            {/* Image frame */}
-                            <FxReveal delay={0.2} className="relative h-[420px] w-full">
-                                <FxFrame className="h-full w-full">
-                                    <AnimatePresence mode="wait">
-                                        <motion.div
-                                            key={reasons[activeIndex].id}
-                                            initial={{opacity: 0}}
-                                            animate={{opacity: 1}}
-                                            exit={{opacity: 0}}
-                                            transition={{duration: 0.5}}
-                                            className="absolute inset-0"
-                                        >
-                                            <Image
-                                                src={reasons[activeIndex].image}
-                                                alt={reasons[activeIndex].title}
-                                                fill
-                                                className="object-cover"
-                                            />
-                                        </motion.div>
-                                    </AnimatePresence>
-                                </FxFrame>
-                            </FxReveal>
-                        </div>
                     </div>
                 </section>
             )}
 
             {/* ══════════════════════════════════════════
-                FAQ — holographic accordion
+                WHY GREY INFOTECH
+                Matches Home.tsx WHY_US grid exactly:
+                - bg-[#050810] always
+                - 3-col interactive grid cards
+                - layoutId="why-glow" spring animation
+                - auto-cycle 3500ms
+                - stat strip below
+                ══════════════════════════════════════════ */}
+            {reasons.length > 0 && (
+                <section className="relative overflow-hidden bg-[#050810]">
+                    <FxBackground day={false} grid aurora />
+                    <FxOrbit size={600} top="-80px" left="-180px" opacity={0.12} speed={40} />
+                    <FxOrbit size={350} bottom="-60px" right="-100px" opacity={0.09} speed={25} reverse />
+
+                    <div className="relative z-10 max-w-full w-full mx-auto px-6 sm:px-8 md:px-10 lg:px-[4.5em] lg:py-[6em] md:py-20 py-14 text-white">
+                        {/* Scanline */}
+                        <div className="gx-scanline pointer-events-none" />
+
+                        {/* Header */}
+                        <FxReveal>
+                            <div className="flex items-center gap-5 mb-6">
+                                <FxChip day={false}>WHY CHOOSE US</FxChip>
+                                <div className="flex-1 h-px bg-white/10" />
+                                <span className="font-mono text-[0.68em] tracking-widest text-white/25">8+ YRS PROVEN</span>
+                            </div>
+                            <h2 className="text-[2.8em] lg:text-[4em] font-[800] leading-[1.05] tracking-tight mb-6">
+                                Not just a vendor.<br />
+                                <span className="gx-gradient-text">Your competitive edge.</span>
+                            </h2>
+                            <p className="text-white/55 max-w-2xl text-[0.95em] leading-[1.8] mb-16">
+                                We&apos;ve built, scaled, and delivered digital products across industries. Here&apos;s why forward-thinking teams trust Grey InfoTech with their most critical builds.
+                            </p>
+                        </FxReveal>
+
+                        {/* Interactive 3-col grid — exact Home.tsx pattern */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-20">
+                            {reasons.map((r, i) => {
+                                const color = CARD_COLORS[i % CARD_COLORS.length];
+                                const icon  = CARD_ICONS[i % CARD_ICONS.length];
+                                const isActive = activeWhyUs === i;
+                                return (
+                                    <motion.div
+                                        key={r.id}
+                                        className="relative group cursor-pointer rounded-2xl p-7 border transition-all duration-500 overflow-hidden"
+                                        style={{
+                                            background:   isActive ? `${color}10` : 'rgba(255,255,255,0.02)',
+                                            borderColor:  isActive ? `${color}50` : 'rgba(255,255,255,0.07)',
+                                        }}
+                                        onClick={() => setActiveWhyUs(i)}
+                                        initial={{opacity: 0, y: 30}}
+                                        whileInView={{opacity: 1, y: 0}}
+                                        viewport={{once: true}}
+                                        transition={{delay: i * 0.08, duration: 0.6}}
+                                        whileHover={{y: -4}}
+                                    >
+                                        {/* Spring glow on active */}
+                                        {isActive && (
+                                            <motion.div
+                                                layoutId="why-glow"
+                                                className="absolute inset-0 rounded-2xl"
+                                                style={{boxShadow: `inset 0 0 40px -15px ${color}30`}}
+                                                transition={{type: 'spring', stiffness: 120, damping: 20}}
+                                            />
+                                        )}
+
+                                        {/* Number + Icon */}
+                                        <div className="flex items-start justify-between mb-5">
+                                            <span className="font-mono text-[0.65em] tracking-widest" style={{color: color + '99'}}>
+                                                {String(i + 1).padStart(2, '0')}
+                                            </span>
+                                            <motion.span
+                                                className="text-[1.8em]"
+                                                style={{color}}
+                                                animate={{rotate: isActive ? [0, 15, -10, 0] : 0}}
+                                                transition={{duration: 1.2, ease: 'easeInOut'}}
+                                            >
+                                                {icon}
+                                            </motion.span>
+                                        </div>
+
+                                        <h3 className="text-[1.1em] font-[700] mb-3 tracking-tight text-white">{r.title}</h3>
+                                        <p className="text-white/55 text-[0.83em] leading-[1.7]">{r.description}</p>
+
+                                        {/* Bottom accent line */}
+                                        <div
+                                            className="mt-5 h-[2px] w-0 group-hover:w-full transition-all duration-700 rounded-full"
+                                            style={{background: `linear-gradient(90deg, ${color}80, transparent)`}}
+                                        />
+                                        {isActive && (
+                                            <div
+                                                className="mt-0 h-[2px] w-full rounded-full"
+                                                style={{background: `linear-gradient(90deg, ${color}, transparent)`}}
+                                            />
+                                        )}
+                                    </motion.div>
+                                );
+                            })}
+                        </div>
+
+                        {/* Stat strip — bordered box, 4 stats */}
+                        <FxReveal>
+                            <div className="border border-white/08 rounded-3xl p-8 lg:p-12 overflow-hidden">
+                                <div className="flex items-center gap-4 mb-10">
+                                    <span className="text-[0.7em] font-[700] uppercase tracking-[0.25em] text-teal-400">WHAT SETS US APART</span>
+                                    <div className="flex-1 h-px bg-white/08" />
+                                </div>
+                                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                                    {[
+                                        {val: '50+',  label: 'Products Delivered', sub: 'Live in production'},
+                                        {val: '8+',   label: 'Years Experience',   sub: 'Since 2016'},
+                                        {val: '15+',  label: 'Industries',         sub: 'Served globally'},
+                                        {val: '99%',  label: 'Client Retention',   sub: 'They come back'},
+                                    ].map((s, i) => (
+                                        <motion.div
+                                            key={s.label}
+                                            className="text-center lg:text-left"
+                                            initial={{opacity: 0, y: 20}}
+                                            whileInView={{opacity: 1, y: 0}}
+                                            viewport={{once: true}}
+                                            transition={{delay: i * 0.1 + 0.2}}
+                                        >
+                                            <div className="text-[3em] font-[900] gx-gradient-text leading-none mb-1">{s.val}</div>
+                                            <div className="text-white/70 text-[0.82em] font-[600] mb-0.5">{s.label}</div>
+                                            <div className="text-white/30 text-[0.68em] uppercase tracking-wider">{s.sub}</div>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            </div>
+                        </FxReveal>
+                    </div>
+                </section>
+            )}
+
+            {/* ══════════════════════════════════════════
+                FAQ — holographic accordion (UNCHANGED)
                 ══════════════════════════════════════════ */}
             {faqs.length > 0 && (
-                <section className={`relative overflow-hidden ${isDayTime ? 'bg-[#050810]' : 'bg-[#050810]'}`}>
+                <section className="relative overflow-hidden bg-[#050810]">
                     <FxBackground day={false} grid aurora />
                     <FxOrbit size={500} top="-60px" right="-120px" opacity={0.10} speed={45} />
 
@@ -528,7 +713,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
             )}
 
             {/* ══════════════════════════════════════════
-                CTA + COUNTUP — full FX treatment
+                CTA + COUNTUP (UNCHANGED)
                 ══════════════════════════════════════════ */}
             <section className="relative overflow-hidden bg-[#050810]">
                 <FxBackground day={false} grid aurora />
@@ -565,7 +750,6 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                         <div className={`grid lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-3 grid-cols-1 gap-px rounded-2xl overflow-hidden border ${borderCol}`}>
                             {stats.map((stat, index) => (
                                 <div key={index} className="relative flex flex-col justify-center items-center py-8 px-4 bg-white/[0.03] hover:bg-teal-400/5 transition-colors duration-300">
-                                    {/* Subtle scanline overlay */}
                                     <div className="absolute inset-0 pointer-events-none"
                                         style={{backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(45,212,191,0.015) 3px, rgba(45,212,191,0.015) 4px)'}}
                                     />
