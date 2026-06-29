@@ -99,6 +99,13 @@ const isActive = (k) => cur === k ? ' active' : '';
             </li>
 
             <li class="side-nav-item">
+                <a href="/admin/job-openings" class="side-nav-link<%= isActive('job-openings') %>">
+                    <span class="menu-icon"><i class="ti ti-news"></i></span>
+                    <span class="menu-text"> Job Openings </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
                 <a href="/admin/career-applications" class="side-nav-link<%= isActive('career-applications') %>">
                     <span class="menu-icon"><i class="ti ti-briefcase"></i></span>
                     <span class="menu-text"> Career Applications </span>

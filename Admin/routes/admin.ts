@@ -8,7 +8,7 @@ import {
     Users, Submissions, Leads, Clients, Projects, Tickets, TicketMessages,
     Invoices, CaseStudies, BlogPosts, Partners, ClientReviews, Conversations, Messages, Activity,
     Ads, Subscribers, Announcements, PageSeos, Media, PartnerInquiries, Faqs,
-    AuditSubmissions, CareerApplications,
+    AuditSubmissions, CareerApplications, JobOpenings,
     dashboardStats, chartData, logActivity,
 } from '../models';
 import {formatMoney, timeAgo, toInt, str} from '../utils/helpers';
@@ -189,6 +189,17 @@ route.get('/team', requirePermission('team.view'), (_req, res) => {
 
 route.get('/activity', requirePermission('activity.view'), (_req, res) => {
     res.render('apps-activity', {title: 'Activity Log', ...baseLocals, activity: Activity.all().slice(0, 100)});
+});
+
+/* ================================================================
+   JOB OPENINGS
+   ================================================================ */
+route.get('/job-openings', requirePermission('submissions.view'), (_req, res) => {
+    res.render('apps-job-openings', {
+        title: 'Job Openings',
+        ...baseLocals,
+        openings: JobOpenings.all('created_at DESC'),
+    });
 });
 
 /* ================================================================
