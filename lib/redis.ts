@@ -22,24 +22,42 @@ export async function getRedis() {
   }
 
   const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
-  
+
   redisClient = createClient({
     url: redisUrl,
     socket: {
-      reconnectStrategy: (retries: number) => Math.min(retries * 50, 500),
-      connectTimeout: 10000,
+      // Fast fail on local dev when Redis isn't running — don't hang the server.
+      connectTimeout: 3000,
+      // Exponential back-off capped at 2s; stops retrying after 3 attempts in dev.
+      reconnectStrategy: (retries: number) => {
+        if (!process.env.REDIS_URL && retries > 2) {
+          // No REDIS_URL configured — Redis is optional. Stop retrying silently.
+          return false;
+        }
+        return Math.min(retries * 100, 2000);
+      },
     },
   });
 
   redisClient.on('error', (err: any) => {
-    console.error('Redis error:', err);
+    if (err.code === 'ECONNREFUSED' || err.code === 'ENOTFOUND') {
+      // Redis not running locally — silently ignore, it's optional in dev.
+      return;
+    }
+    console.error('Redis error:', err.message || err);
   });
 
   redisClient.on('connect', () => {
-    console.log('Redis connected');
+    console.log('[redis] Connected');
   });
 
-  await redisClient.connect();
+  try {
+    await redisClient.connect();
+  } catch (err: any) {
+    console.warn('[redis] Not available (REDIS_URL not set or Redis not running). Continuing without cache.');
+    redisClient = null;
+    throw err;
+  }
   return redisClient;
 }
 

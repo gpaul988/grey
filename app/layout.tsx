@@ -2,6 +2,10 @@ import type {Metadata, Viewport} from "next";
 import Script from "next/script";
 // Google fonts
 import {Merriweather, Roboto} from "next/font/google";
+// NOTE: next/font/google fetches font metadata from Google at startup.
+// If your local machine has no internet or slow DNS this will hang.
+// Fix: ensure internet access, or set NEXT_FONT_GOOGLE_MOCKED=1 in .env.local
+// to skip the network fetch entirely (uses system font fallback instead).
 // global css
 import "./globals.css";
 import Header from "@/components/Header";
@@ -33,14 +37,21 @@ const merriweather = Merriweather({
     variable: "--font-merriweather",
     subsets: ["latin"],
     weight: ["300", "400", "700", "900"],
-    display: "swap", // FIX: prevents invisible text while font loads (FOIT)
+    display: "swap",
+    // Fallback system fonts prevent layout shift if Google Fonts is slow/unavailable
+    fallback: ["Georgia", "Times New Roman", "serif"],
+    adjustFontFallback: false,
+    preload: false,
 });
 
 const roboto = Roboto({
     variable: "--font-roboto",
     subsets: ["latin"],
     weight: ["100", "300", "400", "500", "700", "900"],
-    display: "swap", // FIX: improves perceived performance + LCP
+    display: "swap",
+    fallback: ["-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
+    adjustFontFallback: false,
+    preload: false,
 });
 
 // FIX: metadataBase enables relative OG/canonical URLs to resolve correctly

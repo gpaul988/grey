@@ -1,24 +1,18 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-    // ─── Turbopack: configured with native module externals ───────────────
-    // better-sqlite3 is a native Node addon (.node binary). Turbopack cannot
-    // bundle native addons — they must be treated as external server packages
-    // so Node loads them directly at runtime instead of through the bundler.
-    turbopack: {},
+const isProd = process.env.NODE_ENV === 'production';
 
+const nextConfig = {
     // ─── Native server packages (SQLite) ──────────────────────────────────
-    // Prevents Turbopack/webpack from trying to bundle better-sqlite3.
+    // Prevents webpack from trying to bundle better-sqlite3.
     // This is the root cause fix for API routes returning 404 in dev.
     serverExternalPackages: ['better-sqlite3'],
 
-    // ─── Low-memory build (cPanel shared hosting) ──────────────────────────
-    // Shared hosting caps process memory hard. Next's default parallel build
-    // workers each hold a full compiler copy, and the OS SIGKILLs them when the
-    // box runs out of RAM (build dies with "exited with code: null, signal:
-    // SIGKILL"). Force a SINGLE worker to keep peak memory low.
+    // ─── Low-memory build (cPanel shared hosting only) ────────────────────
+    // Only apply single-worker constraint in production builds (cPanel).
+    // In dev, let Next use all available CPUs for fast compilation.
     experimental: {
-        workerThreads: false,
-        cpus: 1,
+        workerThreads: !isProd,
+        cpus: isProd ? 1 : undefined,
     },
 
     // Source maps roughly double build memory/disk. Not needed in prod.
