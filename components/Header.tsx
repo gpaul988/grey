@@ -34,6 +34,8 @@ const HeaderContent: React.FC = () => {
     const [isIndustriesOpen, setIsIndustriesOpen] = useState<boolean>(false);
     const [isTechnologiesOpen, setIsTechnologiesOpen] = useState<boolean>(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+    const [isCompanyOpen, setIsCompanyOpen] = useState<boolean>(false);
+    const [isMobileCompanyOpen, setIsMobileCompanyOpen] = useState<boolean>(false);
     const [isMobileServicesOpen, setIsMobileServicesOpen] = useState<boolean>(false);
     const [isMobileIndustriesOpen, setIsMobileIndustriesOpen] = useState<boolean>(false);
     const [isMobileTechnologiesOpen, setIsMobileTechnologiesOpen] = useState<boolean>(false);
@@ -53,6 +55,7 @@ const HeaderContent: React.FC = () => {
     const isDayTime = useIsDayTime();
     const pathname = usePathname();
 
+    const companyRef = useRef<HTMLDivElement>(null);
     const servicesRef = useRef<HTMLDivElement>(null);
     const industriesRef = useRef<HTMLDivElement>(null);
     const technologiesRef = useRef<HTMLDivElement>(null);
@@ -113,6 +116,9 @@ const HeaderContent: React.FC = () => {
     // Close dropdowns on outside click
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
+            if (companyRef.current && !companyRef.current.contains(event.target as Node)) {
+                setIsCompanyOpen(false);
+            }
             if (servicesRef.current && !servicesRef.current.contains(event.target as Node)) {
                 setIsServicesOpen(false);
             }
@@ -138,6 +144,7 @@ const HeaderContent: React.FC = () => {
         const id = window.setTimeout(() => {
             setIsMobileMenuOpen(false);
             setIsMobileServicesOpen(false);
+            setIsMobileCompanyOpen(false);
             setIsMobileIndustriesOpen(false);
             setIsMobileTechnologiesOpen(false);
         }, 0);
@@ -168,6 +175,20 @@ const HeaderContent: React.FC = () => {
     const handleServicesMouseLeave = (): void => {
         timeoutRef.current = setTimeout(() => {
             setIsServicesOpen(false);
+        }, 150);
+    };
+
+    const handleCompanyMouseEnter = (): void => {
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        setIsCompanyOpen(true);
+        setIsServicesOpen(false);
+        setIsIndustriesOpen(false);
+        setIsTechnologiesOpen(false);
+    };
+
+    const handleCompanyMouseLeave = (): void => {
+        timeoutRef.current = setTimeout(() => {
+            setIsCompanyOpen(false);
         }, 150);
     };
 
@@ -206,10 +227,33 @@ const HeaderContent: React.FC = () => {
         {label: 'Industries', href: '/industries', hasSubmenu: true},
         {label: 'Technologies', href: '/technologies', hasSubmenu: true},
         {label: 'Blog', href: '/blog'},
-        {label: 'Company', href: '/company'},
+        {label: 'Company', href: '/company', hasSubmenu: true},
         {label: 'Startups', href: '/Startups'},
+        {label: 'FAQ', href: '/faq'},
+        {label: 'Support', href: '/support'},
         {label: 'Store', href: '/store'},
         {label: 'Contact us', href: '/contact'},
+    ];
+
+    const companySubmenuSections: SubmenuSection[] = [
+        {
+            title: 'ABOUT',
+            items: [
+                {name: 'About Company', href: '/company', description: 'Our story, mission and values'},
+                {name: 'Our Approach', href: '/Our-Approach', description: 'How we deliver excellence'},
+                {name: 'Careers', href: '/careers', description: 'Join the Grey team'},
+                {name: 'Partners', href: '/partners', description: 'Our global partnerships'},
+            ],
+        },
+        {
+            title: 'WORK',
+            items: [
+                {name: 'Portfolio', href: '/portfolio', description: 'Featured case studies'},
+                {name: 'Case Studies', href: '/case-studies', description: 'In-depth success stories'},
+                {name: 'Blog', href: '/blog', description: 'Insights and updates'},
+                {name: 'FAQ', href: '/faq', description: 'Common questions answered'},
+            ],
+        },
     ];
 
     const servicesSubmenuSections: SubmenuSection[] = [
@@ -328,6 +372,7 @@ const HeaderContent: React.FC = () => {
         setIsServicesOpen(false);
         setIsIndustriesOpen(false);
         setIsTechnologiesOpen(false);
+        setIsCompanyOpen(false);
     };
 
 
@@ -440,7 +485,7 @@ const HeaderContent: React.FC = () => {
             )}
 
             {/* Submenu overlay */}
-            {(isServicesOpen || isIndustriesOpen || isTechnologiesOpen) && !isModalOpen && (
+            {(isServicesOpen || isIndustriesOpen || isTechnologiesOpen || isCompanyOpen) && !isModalOpen && (
                 <div
                     className="fixed inset-0 z-40 bg-black/85 backdrop-blur-md transition-opacity duration-300"
                     onMouseLeave={handleOverlayMouseLeave}
@@ -750,6 +795,7 @@ const HeaderContent: React.FC = () => {
                                                         if (item.label === 'Services') setIsMobileServicesOpen(!isMobileServicesOpen);
                                                         else if (item.label === 'Industries') setIsMobileIndustriesOpen(!isMobileIndustriesOpen);
                                                         else if (item.label === 'Technologies') setIsMobileTechnologiesOpen(!isMobileTechnologiesOpen);
+                                                        else if (item.label === 'Company') setIsMobileCompanyOpen(!isMobileCompanyOpen);
                                                     }}
                                                     type="button"
                                                 >
@@ -759,7 +805,8 @@ const HeaderContent: React.FC = () => {
                                                         className={`transition-transform duration-200 ${
                                                             (item.label === 'Services' && isMobileServicesOpen) ||
                                                             (item.label === 'Industries' && isMobileIndustriesOpen) ||
-                                                            (item.label === 'Technologies' && isMobileTechnologiesOpen)
+                                                            (item.label === 'Technologies' && isMobileTechnologiesOpen) ||
+                                                            (item.label === 'Company' && isMobileCompanyOpen)
                                                                 ? 'rotate-180'
                                                                 : ''
                                                         }`}
@@ -771,14 +818,16 @@ const HeaderContent: React.FC = () => {
                                                     className={`mt-3 space-y-2 overflow-hidden transition-all duration-300 ${
                                                         (item.label === 'Services' && isMobileServicesOpen) ||
                                                         (item.label === 'Industries' && isMobileIndustriesOpen) ||
-                                                        (item.label === 'Technologies' && isMobileTechnologiesOpen)
+                                                        (item.label === 'Technologies' && isMobileTechnologiesOpen) ||
+                                                        (item.label === 'Company' && isMobileCompanyOpen)
                                                             ? 'opacity-100'
                                                             : 'max-h-0 opacity-0'
                                                     }`}
                                                     style={{
                                                         maxHeight: (item.label === 'Services' && isMobileServicesOpen) ||
                                                         (item.label === 'Industries' && isMobileIndustriesOpen) ||
-                                                        (item.label === 'Technologies' && isMobileTechnologiesOpen)
+                                                        (item.label === 'Technologies' && isMobileTechnologiesOpen) ||
+                                                        (item.label === 'Company' && isMobileCompanyOpen)
                                                             ? '50rem'
                                                             : '0',
                                                     }}
