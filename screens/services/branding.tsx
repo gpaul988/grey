@@ -430,7 +430,7 @@ const Branding = () => {    const [isVisible, setIsVisible] = useState(false);
                                 key={index}
                                 className="flex flex-col justify-center items-center "
                             >
-                                <h2 className="lg:text-[3.2em] md:text-[3em] sm:text-[2em] text-[1.5em] text-start font-[600]">
+                                <h2 className="gx-gradient-text lg:text-[3.2em] md:text-[3em] sm:text-[2em] text-[1.5em] text-start font-[600]">
                                     <CountUp end={stat.value} duration={2} suffix={stat.suffix || ''}/>
                                 </h2>
                                 <p className="text-[0.873em] font-[400] mt-1">{stat.label}</p>
