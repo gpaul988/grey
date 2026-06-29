@@ -18,7 +18,10 @@ import {useIsDayTime} from '../../components/useIsDayTime';
 
 
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
-// Reasons
+
+import FuturisticIndustryLayout from '@/components/futuristic/FuturisticIndustryLayout';// Reasons
+
+import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
 const reasons = [
     {
         id: 1,
@@ -621,6 +624,12 @@ const OilAndGas = () => {
             {/* Hero Section */}
             <div id={'hero'}
                  className={"relative overflow-hidden lg:w-full lg:h-[720px] justify-center items-center md:w-full md:h-[700] w-full h-[700] pb-6"}>
+                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
+                <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
+                    <div className="gx-scanline" />
+                    <div className="gx-noise-overlay" />
+                    <div className="gx-orbit absolute" style={{ width: '65vmax', height: '65vmax', top: '-22vmax', right: '-22vmax', opacity: .15 }} />
+                </div>
                 <ResponsiveVideoHero
                     videoFallback="/assets/oil/hero.webm"
                     posterImage="/images/default-poster.jpg"

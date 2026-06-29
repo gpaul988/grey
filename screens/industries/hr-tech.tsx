@@ -8,6 +8,9 @@ import Footer from "@/components/Footer";
 import '@/app/globals.css';
 import {useIsDayTime} from '../../components/useIsDayTime';
 
+import FuturisticIndustryLayout from '@/components/futuristic/FuturisticIndustryLayout';
+
+import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
 const testimonials = [
     {
         name: "Isabel Martínez",

@@ -1,9 +1,9 @@
-◇ injected env (28) from config.env // tip: ◈ encrypted .env [www.dotenvx.com]
-◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
-◇ injected env (0) from config.env // tip: ◈ encrypted .env [www.dotenvx.com]
+◇ injected env (28) from config.env // tip: ⌘ override existing { override: true }
+◇ injected env (0) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
+◇ injected env (0) from config.env // tip: ⌘ enable debugging { debug: true }
 [DB] Connected and migrated
 Sentry Logger [log]: Initializing SDK...
-Sentry Logger [log]: Initializing Sentry: process: 4458, thread: main.
+Sentry Logger [log]: Initializing Sentry: process: 5976, thread: main.
 Sentry Logger [warn]: No DSN provided, client will not send events.
 Sentry Logger [log]: SDK initialized from CommonJS
 Sentry Logger [log]: @opentelemetry/api: Registered a global for diag v1.9.1.
@@ -14,95 +14,94 @@ Sentry Logger [log]: SDK successfully initialized
 > Ready on http://localhost:3000
 > Admin on http://localhost:3000/admin
 > Admin API on http://localhost:3000/admin/api
-2026-06-29 00:19:49.232 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:17.552 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
-  "url": "/_next/webpack-hmr?id=c_ifR7LFmmRjVUKJDap5E",
+  "url": "/_next/webpack-hmr?id=g369TilXunSn_djqO9QCE",
   "ip": "::1",
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:19:49.232",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:17.552",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782692389231-huydpmqgi"
+  "correlationId": "1782694997551-w0y9fmgf0"
 }
 Sentry Logger [log]: [Tracing] Starting sampled root span
   op: < unknown op >
   name: GET
-  ID: 336b676ec93cea0b
-○ Compiling /_not-found/page ...
+  ID: f925d645696e3141
 Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
 Sentry Logger [log]: [Tracing] Starting sampled span
   op: < unknown op >
   name: resolve page components
-  ID: 60b569bcfe8540ca
-  parent ID: 336b676ec93cea0b
-  root ID: 336b676ec93cea0b
+  ID: 56a650e004028b97
+  parent ID: f925d645696e3141
+  root ID: f925d645696e3141
   root description: GET
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 60b569bcfe8540ca
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 56a650e004028b97
 Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for GET /_not-found/page: true
 Sentry Logger [log]: [Tracing] Starting sampled span
   op: < unknown op >
   name: GET /_not-found/page
-  ID: 92c618a48bc4e030
-  parent ID: 336b676ec93cea0b
-  root ID: 336b676ec93cea0b
+  ID: 1f543de699c9dc0f
+  parent ID: f925d645696e3141
+  root ID: f925d645696e3141
   root description: /_not-found
 Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /_not-found: true
 Sentry Logger [log]: [Tracing] Starting sampled span
   op: < unknown op >
   name: render route (app) /_not-found
-  ID: d44f152b96452336
-  parent ID: 92c618a48bc4e030
-  root ID: 336b676ec93cea0b
+  ID: 30e4d1c4c6d40dfe
+  parent ID: 1f543de699c9dc0f
+  root ID: f925d645696e3141
   root description: /_not-found
 Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
 Sentry Logger [log]: [Tracing] Starting sampled span
   op: < unknown op >
   name: build component tree
-  ID: 8bb1c71d887c8bf5
-  parent ID: d44f152b96452336
-  root ID: 336b676ec93cea0b
+  ID: 7a4aeabc191ea250
+  parent ID: 30e4d1c4c6d40dfe
+  root ID: f925d645696e3141
   root description: /_not-found
 Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
 Sentry Logger [log]: [Tracing] Starting sampled span
   op: < unknown op >
   name: resolve segment modules
-  ID: 538648126cecf231
-  parent ID: 8bb1c71d887c8bf5
-  root ID: 336b676ec93cea0b
+  ID: 1a0bb02c1b1f2e64
+  parent ID: 7a4aeabc191ea250
+  root ID: f925d645696e3141
   root description: /_not-found
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 538648126cecf231
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 1a0bb02c1b1f2e64
 Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
 Sentry Logger [log]: [Tracing] Starting sampled span
   op: < unknown op >
   name: resolve segment modules
-  ID: b355f5d8959b230e
-  parent ID: 8bb1c71d887c8bf5
-  root ID: 336b676ec93cea0b
+  ID: 0cccf517fcfda4c6
+  parent ID: 7a4aeabc191ea250
+  root ID: f925d645696e3141
   root description: /_not-found
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/_not-found"" with ID b355f5d8959b230e
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 8bb1c71d887c8bf5
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /_not-found" with ID d44f152b96452336
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/_not-found"" with ID 0cccf517fcfda4c6
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 7a4aeabc191ea250
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /_not-found" with ID 30e4d1c4c6d40dfe
 Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
 Sentry Logger [log]: [Tracing] Starting sampled span
   op: < unknown op >
   name: start response
-  ID: 449366bcb6d0e5dd
-  parent ID: d44f152b96452336
-  root ID: 336b676ec93cea0b
+  ID: d47bf19e349ec515
+  parent ID: 30e4d1c4c6d40dfe
+  root ID: f925d645696e3141
   root description: /_not-found
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 449366bcb6d0e5dd
- GET /_next/webpack-hmr?id=c_ifR7LFmmRjVUKJDap5E 404 in 6.4s (next.js: 5.5s, application-code: 897ms)
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "GET /_not-found/page" with ID 92c618a48bc4e030
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /_not-found" with ID 336b676ec93cea0b
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID d47bf19e349ec515
+ GET /_next/webpack-hmr?id=g369TilXunSn_djqO9QCE 404 in 3.2s (next.js: 1431ms, application-code: 1735ms)
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "GET /_not-found/page" with ID 1f543de699c9dc0f
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /_not-found" with ID f925d645696e3141
 Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
 Sentry Logger [log]: Ignoring span http.server - GET /_not-found because it matches `ignoreSpans`.
 Sentry Logger [log]: Recording outcome: "before_send:transaction"
 Sentry Logger [log]: Recording outcome: "before_send:span" (8 times)
 Sentry Logger [log]: before send for type `transaction` returned `null`, will not send event.
-2026-06-29 00:20:00.692 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:26.211 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/",
@@ -110,83 +109,84 @@ Sentry Logger [log]: before send for type `transaction` returned `null`, will no
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:00.692",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:26.211",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782692400692-1jla56yt4"
+  "correlationId": "1782695006210-vvu3ut2xn"
 }
 Sentry Logger [log]: [Tracing] Starting sampled root span
   op: < unknown op >
   name: GET
-  ID: 1f113ffd7e4bd3ca
+  ID: 5147de9576704bcd
 Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
 Sentry Logger [log]: [Tracing] Starting sampled span
   op: < unknown op >
   name: resolve page components
-  ID: 30f4a62a0f598da6
-  parent ID: 1f113ffd7e4bd3ca
-  root ID: 1f113ffd7e4bd3ca
+  ID: 616adf4eacdb7487
+  parent ID: 5147de9576704bcd
+  root ID: 5147de9576704bcd
   root description: GET
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 30f4a62a0f598da6
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 616adf4eacdb7487
 Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /: true
 Sentry Logger [log]: [Tracing] Starting sampled span
   op: < unknown op >
   name: render route (app) /
-  ID: 08318c75911fb5d1
-  parent ID: 1f113ffd7e4bd3ca
-  root ID: 1f113ffd7e4bd3ca
+  ID: 589d80a70295995a
+  parent ID: 5147de9576704bcd
+  root ID: 5147de9576704bcd
   root description: /
 Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
 Sentry Logger [log]: [Tracing] Starting sampled span
   op: < unknown op >
   name: build component tree
-  ID: cea1c9fecb1628e3
-  parent ID: 08318c75911fb5d1
-  root ID: 1f113ffd7e4bd3ca
+  ID: adb09d82ca53ad8c
+  parent ID: 589d80a70295995a
+  root ID: 5147de9576704bcd
   root description: /
 Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
 Sentry Logger [log]: [Tracing] Starting sampled span
   op: < unknown op >
   name: resolve segment modules
-  ID: fb96bad502e234e8
-  parent ID: cea1c9fecb1628e3
-  root ID: 1f113ffd7e4bd3ca
+  ID: c3a3a806eeea1740
+  parent ID: adb09d82ca53ad8c
+  root ID: 5147de9576704bcd
   root description: /
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID fb96bad502e234e8
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID c3a3a806eeea1740
 Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
 Sentry Logger [log]: [Tracing] Starting sampled span
   op: < unknown op >
   name: resolve segment modules
-  ID: ca77bf7a86a0a251
-  parent ID: cea1c9fecb1628e3
-  root ID: 1f113ffd7e4bd3ca
+  ID: 17cdd09b6ca8f0ce
+  parent ID: adb09d82ca53ad8c
+  root ID: 5147de9576704bcd
   root description: /
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/"" with ID ca77bf7a86a0a251
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID cea1c9fecb1628e3
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /" with ID 08318c75911fb5d1
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/"" with ID 17cdd09b6ca8f0ce
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID adb09d82ca53ad8c
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /" with ID 589d80a70295995a
 Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
 Sentry Logger [log]: [Tracing] Starting sampled span
   op: < unknown op >
   name: start response
-  ID: 800b05c33113ed33
-  parent ID: 08318c75911fb5d1
-  root ID: 1f113ffd7e4bd3ca
+  ID: cfc69ad07e8a0b58
+  parent ID: 589d80a70295995a
+  root ID: 5147de9576704bcd
   root description: /
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 800b05c33113ed33
-2026-06-29 00:20:01.097 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.097",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401097-tqe109mvw"
-}
-2026-06-29 00:20:01.099 [[32minfo[39m] Incoming request {
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID cfc69ad07e8a0b58
+ GET / 200 in 551ms (next.js: 54ms, application-code: 497ms)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: a2fdf898caf5b8f1
+  parent ID: 589d80a70295995a
+  root ID: 5147de9576704bcd
+  root description: /
+Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782695000, 454849227 ] [ 31, 403165184 ]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID a2fdf898caf5b8f1
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /" with ID 5147de9576704bcd
+Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+2026-06-29 01:03:26.817 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/logon.png",
@@ -194,12 +194,12 @@ Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" 
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.099",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:26.817",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782692401099-1q3qzrlnj"
+  "correlationId": "1782695006817-b051q45b5"
 }
-2026-06-29 00:20:01.105 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:26.824 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/assets/home/web-design.jpg",
@@ -207,25 +207,25 @@ Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" 
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.105",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:26.824",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782692401105-3otsdiebj"
+  "correlationId": "1782695006824-5z6zviwi2"
 }
-2026-06-29 00:20:01.123 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:26.834 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
-  "url": "/manifest.json",
+  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
   "ip": "::1",
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.123",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:26.834",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782692401123-v6z2h2fgb"
+  "correlationId": "1782695006834-9jv2ua68p"
 }
-2026-06-29 00:20:01.137 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:26.858 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js",
@@ -233,26 +233,12 @@ Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" 
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.137",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:26.858",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782692401137-4gsebdw4h"
+  "correlationId": "1782695006858-geyo290tr"
 }
- GET / 200 in 443ms (next.js: 34ms, application-code: 410ms)
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: NextNodeServer.clientComponentLoading
-  ID: 14ff065af4ae1a01
-  parent ID: 08318c75911fb5d1
-  root ID: 1f113ffd7e4bd3ca
-  root description: /
-Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782692395, 298576214 ] [ 22, 659077942 ]
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID 14ff065af4ae1a01
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /" with ID 1f113ffd7e4bd3ca
-Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
-Sentry Logger [error]: Transport disabled
-2026-06-29 00:20:01.158 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:26.861 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js",
@@ -260,12 +246,12 @@ Sentry Logger [error]: Transport disabled
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.158",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:26.861",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782692401158-s9q4g1k2t"
+  "correlationId": "1782695006861-54ltu211z"
 }
-2026-06-29 00:20:01.160 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:26.904 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js",
@@ -273,12 +259,12 @@ Sentry Logger [error]: Transport disabled
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.160",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:26.904",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782692401160-me4ddw7j7"
+  "correlationId": "1782695006904-mw2rfxv7y"
 }
-2026-06-29 00:20:01.162 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:26.907 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js",
@@ -286,12 +272,12 @@ Sentry Logger [error]: Transport disabled
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.162",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:26.907",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782692401162-485haav09"
+  "correlationId": "1782695006907-9r7jm6998"
 }
-2026-06-29 00:20:01.163 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:26.910 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js",
@@ -299,12 +285,12 @@ Sentry Logger [error]: Transport disabled
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.163",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:26.910",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782692401163-df88q2b1g"
+  "correlationId": "1782695006910-5xvi3w937"
 }
-2026-06-29 00:20:01.171 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:26.913 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js",
@@ -312,12 +298,12 @@ Sentry Logger [error]: Transport disabled
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.171",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:26.913",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782692401171-dk0pa1zkm"
+  "correlationId": "1782695006913-6qoaknpps"
 }
-2026-06-29 00:20:01.180 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:26.914 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js",
@@ -325,12 +311,12 @@ Sentry Logger [error]: Transport disabled
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.180",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:26.914",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782692401180-janh1bd30"
+  "correlationId": "1782695006914-07oaf6m0o"
 }
-2026-06-29 00:20:01.237 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:26.918 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js",
@@ -338,12 +324,12 @@ Sentry Logger [error]: Transport disabled
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.237",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:26.918",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782692401237-wxk64l3s3"
+  "correlationId": "1782695006918-zokhgco4x"
 }
-2026-06-29 00:20:01.240 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:26.937 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/_next/static/chunks/_1anvha4._.js",
@@ -351,12 +337,12 @@ Sentry Logger [error]: Transport disabled
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.240",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:26.937",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782692401240-xxqgb1yip"
+  "correlationId": "1782695006937-nc6nl8go9"
 }
-2026-06-29 00:20:01.250 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:26.940 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/_next/static/chunks/turbopack-_01_ro95._.js",
@@ -364,12 +350,12 @@ Sentry Logger [error]: Transport disabled
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.250",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:26.940",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782692401250-5c8bd3bwk"
+  "correlationId": "1782695006940-em7w516y5"
 }
-2026-06-29 00:20:01.262 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:26.946 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/_next/static/chunks/_0lht4-f._.js",
@@ -377,12 +363,12 @@ Sentry Logger [error]: Transport disabled
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.262",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:26.946",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782692401262-j17hvwhtt"
+  "correlationId": "1782695006946-m7i58hna6"
 }
-2026-06-29 00:20:01.271 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:26.948 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/_next/static/chunks/node_modules_next_06x32e_._.js",
@@ -390,12 +376,12 @@ Sentry Logger [error]: Transport disabled
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.271",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:26.948",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782692401271-ahmzmg6di"
+  "correlationId": "1782695006948-8rezuhcdv"
 }
-2026-06-29 00:20:01.272 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:26.950 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js",
@@ -403,1657 +389,12 @@ Sentry Logger [error]: Transport disabled
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.272",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:26.950",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782692401272-thremdwhx"
+  "correlationId": "1782695006950-722ys5meh"
 }
-2026-06-29 00:20:01.275 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.275",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401275-br2bzqxmt"
-}
-2026-06-29 00:20:01.284 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/node_modules_react-icons_fa6_index_mjs_0_ulevj._.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.284",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401284-uk1rucrmz"
-}
-2026-06-29 00:20:01.288 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/node_modules_react-icons_bs_index_mjs_13s_i73._.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.288",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401288-rakfwg4m5"
-}
-2026-06-29 00:20:01.306 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/node_modules_react-icons_lib_11_gx9i._.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.306",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401306-gmqpw2nj9"
-}
-2026-06-29 00:20:01.307 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/node_modules_1v8tlxs._.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.307",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401307-eg6m98w9m"
-}
-2026-06-29 00:20:01.314 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/app_layout_tsx_007e4b2._.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.314",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401314-3b8l4ho7x"
-}
-2026-06-29 00:20:01.322 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/components_futuristic_WebGLScene_tsx_0e5zjrv._.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.322",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401322-n7dzavf91"
-}
-2026-06-29 00:20:01.330 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/_0eok2u6._.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.330",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401330-v9y4v9wjc"
-}
-2026-06-29 00:20:01.331 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/node_modules_react-icons_lia_index_mjs_0l4b22g._.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.331",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401331-c4pma5r0k"
-}
-2026-06-29 00:20:01.346 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/node_modules_react-icons_fa_index_mjs_01bzxvj._.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.346",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401345-61yyhiruq"
-}
-2026-06-29 00:20:01.359 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/node_modules_%40fortawesome_fontawesome-svg-core_index_mjs_0_t21-z._.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.359",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401359-g5lt4jkik"
-}
-2026-06-29 00:20:01.362 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/node_modules_%40fortawesome_free-solid-svg-icons_index_mjs_1vn59s6._.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.362",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401361-mvtkq58vy"
-}
-2026-06-29 00:20:01.371 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/node_modules_0fcne9e._.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.371",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401371-dt0qz3wlx"
-}
-2026-06-29 00:20:01.426 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/app_page_tsx_10zah1w._.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.426",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401426-hk9bu8j3r"
-}
-2026-06-29 00:20:01.449 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/app_error_tsx_01qd85j._.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.449",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401449-bnkr9h8yp"
-}
-2026-06-29 00:20:01.452 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/app_error_tsx_10zah1w._.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.452",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401452-so4lo8jmo"
-}
-2026-06-29 00:20:01.465 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_10zah1w.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.465",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401465-9ks8il6a4"
-}
-2026-06-29 00:20:01.467 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/app_not-found_tsx_10zah1w._.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.467",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401467-3si13ts3y"
-}
-2026-06-29 00:20:01.506 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/assets/startup/startup.jpg",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.506",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401506-7nmoz1wia"
-}
-2026-06-29 00:20:01.594 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1mojsay._.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.594",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401594-6dqteved3"
-}
-2026-06-29 00:20:01.600 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xch-cm._.js",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.600",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401600-onylm3khm"
-}
-2026-06-29 00:20:01.827 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/favicon.svg",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.827",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401827-tcecxfuts"
-}
-2026-06-29 00:20:01.852 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/icons/icon-192.png",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.852",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401852-95sc17l12"
-}
-2026-06-29 00:20:01.872 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/favicon.ico",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:01.872",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692401872-5v1yglf59"
-}
-2026-06-29 00:20:02.261 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/api/announcement",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:02.261",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692402261-mqfeijro0"
-}
-Sentry Logger [log]: [Tracing] Starting sampled root span
-  op: < unknown op >
-  name: GET
-  ID: 43b16aa97f3e6d45
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve page components
-  ID: bdcd12a68ee103b8
-  parent ID: 43b16aa97f3e6d45
-  root ID: 43b16aa97f3e6d45
-  root description: GET
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID bdcd12a68ee103b8
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for executing api route (app) /api/announcement: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: executing api route (app) /api/announcement
-  ID: cbd30291949546aa
-  parent ID: 43b16aa97f3e6d45
-  root ID: 43b16aa97f3e6d45
-  root description: /api/announcement
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "executing api route (app) /api/announcement" with ID cbd30291949546aa
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: start response
-  ID: e7b330b5e3a94426
-  parent ID: 43b16aa97f3e6d45
-  root ID: 43b16aa97f3e6d45
-  root description: /api/announcement
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID e7b330b5e3a94426
- GET /api/announcement 200 in 199ms (next.js: 150ms, application-code: 49ms)
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /api/announcement" with ID 43b16aa97f3e6d45
-Sentry Logger [log]: SpanExporter exported 4 spans, 0 spans are waiting for their parent spans to finish
-Sentry Logger [error]: Transport disabled
-2026-06-29 00:20:02.469 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/api/ads?placement=home_banner",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:02.469",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692402469-9xrjg0xn2"
-}
-2026-06-29 00:20:02.471 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/api/content?page=home",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:02.471",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692402471-s84fu89t9"
-}
-Sentry Logger [log]: [Tracing] Starting sampled root span
-  op: < unknown op >
-  name: GET
-  ID: b21c9f094114c25d
-Sentry Logger [log]: [Tracing] Starting sampled root span
-  op: < unknown op >
-  name: GET
-  ID: 9bb0dd498be4031e
-[browser] You are trying to animate background from "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
-[browser] You are trying to animate background from "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
-[browser] You are trying to animate background from "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
-[browser] You are trying to animate background from "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
-[browser] You are trying to animate background from "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
-[browser] You are trying to animate background from "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve page components
-  ID: 051d8cea3d059c3a
-  parent ID: b21c9f094114c25d
-  root ID: b21c9f094114c25d
-  root description: GET
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 051d8cea3d059c3a
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for executing api route (app) /api/ads: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: executing api route (app) /api/ads
-  ID: 786ec0620d854de8
-  parent ID: b21c9f094114c25d
-  root ID: b21c9f094114c25d
-  root description: /api/ads
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "executing api route (app) /api/ads" with ID 786ec0620d854de8
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: start response
-  ID: a3a25a2eb9878a61
-  parent ID: b21c9f094114c25d
-  root ID: b21c9f094114c25d
-  root description: /api/ads
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID a3a25a2eb9878a61
- GET /api/ads?placement=home_banner 200 in 103ms (next.js: 83ms, application-code: 20ms)
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /api/ads" with ID b21c9f094114c25d
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve page components
-  ID: e9e2ab2c2b0eabea
-  parent ID: 9bb0dd498be4031e
-  root ID: 9bb0dd498be4031e
-  root description: GET
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID e9e2ab2c2b0eabea
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for executing api route (app) /api/content: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: executing api route (app) /api/content
-  ID: be213f62c06d8fb7
-  parent ID: 9bb0dd498be4031e
-  root ID: 9bb0dd498be4031e
-  root description: /api/content
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "executing api route (app) /api/content" with ID be213f62c06d8fb7
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: start response
-  ID: 25737a99cdc203cb
-  parent ID: 9bb0dd498be4031e
-  root ID: 9bb0dd498be4031e
-  root description: /api/content
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 25737a99cdc203cb
- GET /api/content?page=home 200 in 151ms (next.js: 135ms, application-code: 16ms)
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /api/content" with ID 9bb0dd498be4031e
-Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
-Sentry Logger [error]: Transport disabled
-Sentry Logger [error]: Transport disabled
-[browser] You are trying to animate background from "rgba(0, 211, 183, 0.7415)" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
-[browser] You are trying to animate background from "transparent" to "#f97316". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
-2026-06-29 00:20:03.016 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/assets/home/discovery.jpg",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:03.016",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692403015-jhv9q8xih"
-}
-2026-06-29 00:20:36.530 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/",
-  "ip": "::ffff:10.12.95.54",
-  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:20:36.530",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692436530-emz0naiw3"
-}
-Sentry Logger [log]: [Tracing] Starting sampled root span
-  op: < unknown op >
-  name: GET
-  ID: 2f80a1947f0dccdc
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve page components
-  ID: e6ac92b6f2dded30
-  parent ID: 2f80a1947f0dccdc
-  root ID: 2f80a1947f0dccdc
-  root description: GET
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID e6ac92b6f2dded30
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: render route (app) /
-  ID: 93a8ab3b51da8510
-  parent ID: 2f80a1947f0dccdc
-  root ID: 2f80a1947f0dccdc
-  root description: /
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: build component tree
-  ID: ef2c63b831f8ac0f
-  parent ID: 93a8ab3b51da8510
-  root ID: 2f80a1947f0dccdc
-  root description: /
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: 41c24d664de926b1
-  parent ID: ef2c63b831f8ac0f
-  root ID: 2f80a1947f0dccdc
-  root description: /
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 41c24d664de926b1
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: 0e0498b6bad09734
-  parent ID: ef2c63b831f8ac0f
-  root ID: 2f80a1947f0dccdc
-  root description: /
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/"" with ID 0e0498b6bad09734
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID ef2c63b831f8ac0f
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /" with ID 93a8ab3b51da8510
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: start response
-  ID: 54e9de830f00384b
-  parent ID: 93a8ab3b51da8510
-  root ID: 2f80a1947f0dccdc
-  root description: /
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 54e9de830f00384b
- GET / 200 in 220ms (next.js: 24ms, application-code: 196ms)
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: NextNodeServer.clientComponentLoading
-  ID: 0a2e58524ba3680b
-  parent ID: 93a8ab3b51da8510
-  root ID: 2f80a1947f0dccdc
-  root description: /
-Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782692436, 613492915 ] [ 55, 42782606 ]
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID 0a2e58524ba3680b
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /" with ID 2f80a1947f0dccdc
-Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
-Sentry Logger [error]: Transport disabled
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No dsn provided, will not send outcomes
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-2026-06-29 00:26:57.717 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/",
-  "ip": "::ffff:10.12.188.178",
-  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:26:57.717",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692817717-0dyijv9c5"
-}
-Sentry Logger [log]: [Tracing] Starting sampled root span
-  op: < unknown op >
-  name: GET
-  ID: 4ef592e3fafdc227
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve page components
-  ID: 49d7b11c9877e395
-  parent ID: 4ef592e3fafdc227
-  root ID: 4ef592e3fafdc227
-  root description: GET
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 49d7b11c9877e395
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: render route (app) /
-  ID: 0dfeafa1a9f90b04
-  parent ID: 4ef592e3fafdc227
-  root ID: 4ef592e3fafdc227
-  root description: /
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: build component tree
-  ID: b6655bbf91ac288e
-  parent ID: 0dfeafa1a9f90b04
-  root ID: 4ef592e3fafdc227
-  root description: /
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: 53db8c44b01a1db7
-  parent ID: b6655bbf91ac288e
-  root ID: 4ef592e3fafdc227
-  root description: /
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 53db8c44b01a1db7
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: 101e73278e2aea5d
-  parent ID: b6655bbf91ac288e
-  root ID: 4ef592e3fafdc227
-  root description: /
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/"" with ID 101e73278e2aea5d
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID b6655bbf91ac288e
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /" with ID 0dfeafa1a9f90b04
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: start response
-  ID: 9e576f6ac439ea0b
-  parent ID: 0dfeafa1a9f90b04
-  root ID: 4ef592e3fafdc227
-  root description: /
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 9e576f6ac439ea0b
- GET / 200 in 196ms (next.js: 13ms, application-code: 184ms)
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: NextNodeServer.clientComponentLoading
-  ID: 4c0293ba7e7bd676
-  parent ID: 0dfeafa1a9f90b04
-  root ID: 4ef592e3fafdc227
-  root description: /
-Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782692817, 788674607 ] [ 434, 348723312 ]
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID 4c0293ba7e7bd676
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /" with ID 4ef592e3fafdc227
-Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
-Sentry Logger [error]: Transport disabled
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-2026-06-29 00:28:42.416 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:28:42.416",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692922416-wii4f2bha"
-}
-✓ Compiled in 2.8s
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-2026-06-29 00:29:10.691 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:29:10.691",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692950691-jyagz9oj2"
-}
-✓ Compiled in 590ms
-2026-06-29 00:29:45.678 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:29:45.678",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782692985678-pu7yqtii8"
-}
-✓ Compiled in 546ms
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-2026-06-29 00:30:08.000 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:30:08.000",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782693008000-ss7xe7t5b"
-}
-✓ Compiled in 520ms
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-2026-06-29 00:31:13.983 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:31:13.983",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782693073983-10qobd6vl"
-}
-✓ Compiled in 444ms
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-2026-06-29 00:32:16.874 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:32:16.874",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782693136874-s1cy3va20"
-}
-✓ Compiled in 596ms
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-2026-06-29 00:33:42.093 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:33:42.093",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782693222093-bcev9yxao"
-}
-✓ Compiled in 410ms
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-2026-06-29 00:34:47.943 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/company",
-  "ip": "::1",
-  "userAgent": "curl/8.14.1",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:34:47.943",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782693287943-4god69scz"
-}
-Sentry Logger [log]: [Tracing] Starting sampled root span
-  op: < unknown op >
-  name: GET
-  ID: be55b393a14ec7f6
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve page components
-  ID: 0ac4c1c0d9901f9f
-  parent ID: be55b393a14ec7f6
-  root ID: be55b393a14ec7f6
-  root description: GET
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 0ac4c1c0d9901f9f
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /company: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: render route (app) /company
-  ID: fdf28ee422caced3
-  parent ID: be55b393a14ec7f6
-  root ID: be55b393a14ec7f6
-  root description: /company
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: build component tree
-  ID: d0817b47366062f1
-  parent ID: fdf28ee422caced3
-  root ID: be55b393a14ec7f6
-  root description: /company
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: 2ee64db51e28bde9
-  parent ID: d0817b47366062f1
-  root ID: be55b393a14ec7f6
-  root description: /company
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 2ee64db51e28bde9
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: ac0be0d423099b70
-  parent ID: d0817b47366062f1
-  root ID: be55b393a14ec7f6
-  root description: /company
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/company"" with ID ac0be0d423099b70
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID d0817b47366062f1
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /company" with ID fdf28ee422caced3
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: start response
-  ID: 8813bcd20adebe4f
-  parent ID: fdf28ee422caced3
-  root ID: be55b393a14ec7f6
-  root description: /company
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 8813bcd20adebe4f
- GET /company 200 in 3.4s (next.js: 3.0s, application-code: 371ms)
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: NextNodeServer.clientComponentLoading
-  ID: de58279e553bfa1a
-  parent ID: be55b393a14ec7f6
-  root ID: be55b393a14ec7f6
-  root description: /company
-Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782693291, 45718381 ] [ 909, 177501260 ]
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID de58279e553bfa1a
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /company" with ID be55b393a14ec7f6
-Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
-Sentry Logger [error]: Transport disabled
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-2026-06-29 00:34:54.796 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/careers",
-  "ip": "::1",
-  "userAgent": "curl/8.14.1",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:34:54.796",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782693294796-glpg313x7"
-}
-Sentry Logger [log]: [Tracing] Starting sampled root span
-  op: < unknown op >
-  name: GET
-  ID: fbe2c5eaa0b9fd5e
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve page components
-  ID: 68b9d9e6f837a165
-  parent ID: fbe2c5eaa0b9fd5e
-  root ID: fbe2c5eaa0b9fd5e
-  root description: GET
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 68b9d9e6f837a165
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /careers: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: render route (app) /careers
-  ID: f3fde9ab89a17448
-  parent ID: fbe2c5eaa0b9fd5e
-  root ID: fbe2c5eaa0b9fd5e
-  root description: /careers
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: build component tree
-  ID: 13b22750d717b221
-  parent ID: f3fde9ab89a17448
-  root ID: fbe2c5eaa0b9fd5e
-  root description: /careers
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: 8b740c3b0be88f0b
-  parent ID: 13b22750d717b221
-  root ID: fbe2c5eaa0b9fd5e
-  root description: /careers
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 8b740c3b0be88f0b
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: 4ebaf0ae299bcf8e
-  parent ID: 13b22750d717b221
-  root ID: fbe2c5eaa0b9fd5e
-  root description: /careers
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/careers"" with ID 4ebaf0ae299bcf8e
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 13b22750d717b221
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /careers" with ID f3fde9ab89a17448
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: start response
-  ID: a34b754ab62aeb7d
-  parent ID: f3fde9ab89a17448
-  root ID: fbe2c5eaa0b9fd5e
-  root description: /careers
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID a34b754ab62aeb7d
- GET /careers 200 in 2.1s (next.js: 1953ms, application-code: 124ms)
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: NextNodeServer.clientComponentLoading
-  ID: 13a4c973a96a450d
-  parent ID: fbe2c5eaa0b9fd5e
-  root ID: fbe2c5eaa0b9fd5e
-  root description: /careers
-Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782693296, 788749603 ] [ 913, 440039118 ]
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID 13a4c973a96a450d
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /careers" with ID fbe2c5eaa0b9fd5e
-Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
-Sentry Logger [error]: Transport disabled
-2026-06-29 00:34:56.886 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/portfolio",
-  "ip": "::1",
-  "userAgent": "curl/8.14.1",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:34:56.886",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782693296886-8t912a56h"
-}
-Sentry Logger [log]: [Tracing] Starting sampled root span
-  op: < unknown op >
-  name: GET
-  ID: 413f5fd18fb9362b
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve page components
-  ID: 13b90db171a70913
-  parent ID: 413f5fd18fb9362b
-  root ID: 413f5fd18fb9362b
-  root description: GET
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 13b90db171a70913
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /portfolio: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: render route (app) /portfolio
-  ID: 271b4cf6f274c3f5
-  parent ID: 413f5fd18fb9362b
-  root ID: 413f5fd18fb9362b
-  root description: /portfolio
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: build component tree
-  ID: 9b7ae005af95187c
-  parent ID: 271b4cf6f274c3f5
-  root ID: 413f5fd18fb9362b
-  root description: /portfolio
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: 2d085106e34b31b1
-  parent ID: 9b7ae005af95187c
-  root ID: 413f5fd18fb9362b
-  root description: /portfolio
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 2d085106e34b31b1
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: 24ceabcf720984bf
-  parent ID: 9b7ae005af95187c
-  root ID: 413f5fd18fb9362b
-  root description: /portfolio
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/portfolio"" with ID 24ceabcf720984bf
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 9b7ae005af95187c
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /portfolio" with ID 271b4cf6f274c3f5
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: start response
-  ID: 8ef5523599b40b6c
-  parent ID: 271b4cf6f274c3f5
-  root ID: 413f5fd18fb9362b
-  root description: /portfolio
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 8ef5523599b40b6c
- GET /portfolio 200 in 1420ms (next.js: 1243ms, application-code: 177ms)
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: NextNodeServer.clientComponentLoading
-  ID: 2d70cd4077b1fd63
-  parent ID: 413f5fd18fb9362b
-  root ID: 413f5fd18fb9362b
-  root description: /portfolio
-Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782693298, 214527059 ] [ 915, 635286104 ]
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID 2d70cd4077b1fd63
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /portfolio" with ID 413f5fd18fb9362b
-Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
-Sentry Logger [error]: Transport disabled
-2026-06-29 00:34:58.322 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/services",
-  "ip": "::1",
-  "userAgent": "curl/8.14.1",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:34:58.322",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782693298322-6438chg78"
-}
-Sentry Logger [log]: [Tracing] Starting sampled root span
-  op: < unknown op >
-  name: GET
-  ID: 47eae7c611966fb2
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve page components
-  ID: 336c8ef95c4a4fe0
-  parent ID: 47eae7c611966fb2
-  root ID: 47eae7c611966fb2
-  root description: GET
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 336c8ef95c4a4fe0
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /services: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: render route (app) /services
-  ID: 071061fb06e23136
-  parent ID: 47eae7c611966fb2
-  root ID: 47eae7c611966fb2
-  root description: /services
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: build component tree
-  ID: e4acd4fca2f4e19a
-  parent ID: 071061fb06e23136
-  root ID: 47eae7c611966fb2
-  root description: /services
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: ba34fe720408ed2d
-  parent ID: e4acd4fca2f4e19a
-  root ID: 47eae7c611966fb2
-  root description: /services
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID ba34fe720408ed2d
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: d7d480151b4a4737
-  parent ID: e4acd4fca2f4e19a
-  root ID: 47eae7c611966fb2
-  root description: /services
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve layout server component "services"" with ID d7d480151b4a4737
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: 8b0e52d4bc0568b0
-  parent ID: e4acd4fca2f4e19a
-  root ID: 47eae7c611966fb2
-  root description: /services
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/services"" with ID 8b0e52d4bc0568b0
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID e4acd4fca2f4e19a
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /services" with ID 071061fb06e23136
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: start response
-  ID: 4d7f11b8d863a5ee
-  parent ID: 071061fb06e23136
-  root ID: 47eae7c611966fb2
-  root description: /services
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 4d7f11b8d863a5ee
- GET /services 200 in 1722ms (next.js: 1457ms, application-code: 264ms)
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: NextNodeServer.clientComponentLoading
-  ID: 0acc083a4d7fe778
-  parent ID: 47eae7c611966fb2
-  root ID: 47eae7c611966fb2
-  root description: /services
-Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782693299, 873536654 ] [ 916, 579512974 ]
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID 0acc083a4d7fe778
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /services" with ID 47eae7c611966fb2
-2026-06-29 00:35:00.049 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/partners",
-  "ip": "::1",
-  "userAgent": "curl/8.14.1",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:35:00.049",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782693300049-mfs2z69jt"
-}
-Sentry Logger [log]: SpanExporter exported 9 spans, 0 spans are waiting for their parent spans to finish
-Sentry Logger [error]: Transport disabled
-Sentry Logger [log]: [Tracing] Starting sampled root span
-  op: < unknown op >
-  name: GET
-  ID: cb89bdbc255e0202
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve page components
-  ID: 2f0fe93bf2359ed6
-  parent ID: cb89bdbc255e0202
-  root ID: cb89bdbc255e0202
-  root description: GET
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 2f0fe93bf2359ed6
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /partners: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: render route (app) /partners
-  ID: 36c7c0a090121d63
-  parent ID: cb89bdbc255e0202
-  root ID: cb89bdbc255e0202
-  root description: /partners
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: build component tree
-  ID: e3e9b66724494d40
-  parent ID: 36c7c0a090121d63
-  root ID: cb89bdbc255e0202
-  root description: /partners
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: cde679fd06debb15
-  parent ID: e3e9b66724494d40
-  root ID: cb89bdbc255e0202
-  root description: /partners
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID cde679fd06debb15
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: 3f2a4c3125a4881d
-  parent ID: e3e9b66724494d40
-  root ID: cb89bdbc255e0202
-  root description: /partners
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/partners"" with ID 3f2a4c3125a4881d
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID e3e9b66724494d40
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /partners" with ID 36c7c0a090121d63
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: start response
-  ID: abe4a57bc997a8e2
-  parent ID: 36c7c0a090121d63
-  root ID: cb89bdbc255e0202
-  root description: /partners
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID abe4a57bc997a8e2
- GET /partners 200 in 1634ms (next.js: 1467ms, application-code: 168ms)
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: NextNodeServer.clientComponentLoading
-  ID: 6a7c7a69a2a67440
-  parent ID: cb89bdbc255e0202
-  root ID: cb89bdbc255e0202
-  root description: /partners
-Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782693301, 575144753 ] [ 918, 514543064 ]
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID 6a7c7a69a2a67440
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /partners" with ID cb89bdbc255e0202
-Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
-Sentry Logger [error]: Transport disabled
-2026-06-29 00:35:43.742 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/",
-  "ip": "::ffff:10.12.241.150",
-  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:35:43.742",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782693343742-6lwd4vvwl"
-}
-Sentry Logger [log]: [Tracing] Starting sampled root span
-  op: < unknown op >
-  name: GET
-  ID: fe1db9e38d2a5979
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve page components
-  ID: 54e1b191453fb4e0
-  parent ID: fe1db9e38d2a5979
-  root ID: fe1db9e38d2a5979
-  root description: GET
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 54e1b191453fb4e0
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: render route (app) /
-  ID: 8f1ed489dfc775d4
-  parent ID: fe1db9e38d2a5979
-  root ID: fe1db9e38d2a5979
-  root description: /
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: build component tree
-  ID: 9a816e1c57670a68
-  parent ID: 8f1ed489dfc775d4
-  root ID: fe1db9e38d2a5979
-  root description: /
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: 6d12c8d50f6aa7e4
-  parent ID: 9a816e1c57670a68
-  root ID: fe1db9e38d2a5979
-  root description: /
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 6d12c8d50f6aa7e4
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: 05e4c2e8a273fad8
-  parent ID: 9a816e1c57670a68
-  root ID: fe1db9e38d2a5979
-  root description: /
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/"" with ID 05e4c2e8a273fad8
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 9a816e1c57670a68
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /" with ID 8f1ed489dfc775d4
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: start response
-  ID: dc4ada340fe05d2f
-  parent ID: 8f1ed489dfc775d4
-  root ID: fe1db9e38d2a5979
-  root description: /
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID dc4ada340fe05d2f
- GET / 200 in 384ms (next.js: 28ms, application-code: 356ms)
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: NextNodeServer.clientComponentLoading
-  ID: c751a3b3758e3280
-  parent ID: 8f1ed489dfc775d4
-  root ID: fe1db9e38d2a5979
-  root description: /
-Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782693343, 925070854 ] [ 958, 910815079 ]
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID c751a3b3758e3280
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /" with ID fe1db9e38d2a5979
-Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
-Sentry Logger [error]: Transport disabled
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-2026-06-29 00:41:07.059 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:41:07.059",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782693667059-s23yvhjpx"
-}
-✓ Compiled in 717ms
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-2026-06-29 00:48:29.596 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:48:29.596",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782694109596-maf0haedb"
-}
-✓ Compiled in 5.4s
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-2026-06-29 00:48:59.552 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:48:59.552",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782694139551-78ygq6hpp"
-}
-✓ Compiled in 2.6s
-2026-06-29 00:49:56.304 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:49:56.304",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782694196304-fxhcg2g9t"
-}
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-✓ Compiled in 740ms
-2026-06-29 00:50:40.555 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:50:40.555",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782694240555-hxuot12nc"
-}
-✓ Compiled in 679ms
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-2026-06-29 00:51:32.865 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:51:32.865",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782694292865-d29zcqvf8"
-}
-✓ Compiled in 776ms
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-2026-06-29 00:52:12.294 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:52:12.294",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782694332294-jgmzuyat2"
-}
-✓ Compiled in 619ms
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-2026-06-29 00:53:04.086 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:53:04.086",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782694384086-yhju2di53"
-}
-✓ Compiled in 778ms
-2026-06-29 00:53:04.240 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/?_rsc=S6a9uUP7K7vJlGgZ",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:53:04.240",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782694384240-xwqmwp599"
-}
-Sentry Logger [log]: [Tracing] Starting sampled root span
-  op: < unknown op >
-  name: GET
-  ID: daa9f7c6ce57c869
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve page components
-  ID: eb552274d949a120
-  parent ID: daa9f7c6ce57c869
-  root ID: daa9f7c6ce57c869
-  root description: GET
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID eb552274d949a120
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: build component tree
-  ID: 59eec2b4aa37e2e5
-  parent ID: daa9f7c6ce57c869
-  root ID: daa9f7c6ce57c869
-  root description: /
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: efa66e864d8efe3b
-  parent ID: 59eec2b4aa37e2e5
-  root ID: daa9f7c6ce57c869
-  root description: /
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID efa66e864d8efe3b
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: f0b1a74d72524301
-  parent ID: 59eec2b4aa37e2e5
-  root ID: daa9f7c6ce57c869
-  root description: /
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/"" with ID f0b1a74d72524301
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 59eec2b4aa37e2e5
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: start response
-  ID: 3107359681d61700
-  parent ID: daa9f7c6ce57c869
-  root ID: daa9f7c6ce57c869
-  root description: /
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 3107359681d61700
-2026-06-29 00:53:04.623 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/?_rsc=S6a9uUP7K7vJlGgZ",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:53:04.623",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782694384622-2lgb26z2d"
-}
-Sentry Logger [log]: [Tracing] Starting sampled root span
-  op: < unknown op >
-  name: GET
-  ID: 2a3c2ff6ab4a058c
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve page components
-  ID: 52822b7d80b118a6
-  parent ID: 2a3c2ff6ab4a058c
-  root ID: 2a3c2ff6ab4a058c
-  root description: GET
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 52822b7d80b118a6
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: build component tree
-  ID: 67ae1892e387e332
-  parent ID: 2a3c2ff6ab4a058c
-  root ID: 2a3c2ff6ab4a058c
-  root description: /
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: d6c18c925fad4155
-  parent ID: 67ae1892e387e332
-  root ID: 2a3c2ff6ab4a058c
-  root description: /
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID d6c18c925fad4155
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: resolve segment modules
-  ID: 4f5f472db4e33b48
-  parent ID: 67ae1892e387e332
-  root ID: 2a3c2ff6ab4a058c
-  root description: /
-Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/"" with ID 4f5f472db4e33b48
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 67ae1892e387e332
-Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
-Sentry Logger [log]: [Tracing] Starting sampled span
-  op: < unknown op >
-  name: start response
-  ID: e11f820988377197
-  parent ID: 2a3c2ff6ab4a058c
-  root ID: 2a3c2ff6ab4a058c
-  root description: /
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID e11f820988377197
- GET / 200 in 441ms (next.js: 310ms, application-code: 131ms)
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "RSC GET /" with ID daa9f7c6ce57c869
-Sentry Logger [log]: SpanExporter exported 6 spans, 5 spans are waiting for their parent spans to finish
-Sentry Logger [error]: Transport disabled
- GET / 200 in 65ms (next.js: 5ms, application-code: 60ms)
-Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "RSC GET /" with ID 2a3c2ff6ab4a058c
-Sentry Logger [log]: SpanExporter exported 6 spans, 0 spans are waiting for their parent spans to finish
-Sentry Logger [error]: Transport disabled
-2026-06-29 00:53:04.861 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/favicon.ico",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:53:04.861",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782694384861-xirgs9h11"
-}
-2026-06-29 00:53:04.940 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/favicon.ico",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:53:04.940",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782694384940-oxfsn1873"
-}
-2026-06-29 00:53:04.942 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/favicon.svg",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:53:04.942",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782694384942-i08ge34rr"
-}
-2026-06-29 00:53:04.947 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:26.953 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/manifest.json",
@@ -2061,25 +402,298 @@ Sentry Logger [error]: Transport disabled
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:53:04.947",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:26.953",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782694384947-cdmfo816p"
+  "correlationId": "1782695006953-istafg1ai"
 }
-2026-06-29 00:53:04.949 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:26.982 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
-  "url": "/favicon.ico",
+  "url": "/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js",
   "ip": "::1",
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:53:04.949",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:26.982",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782694384949-y8fmifyci"
+  "correlationId": "1782695006978-pmacgl6br"
 }
-2026-06-29 00:53:04.953 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:26.988 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_react-icons_fa6_index_mjs_0_ulevj._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:26.988",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695006988-uf76q7v0j"
+}
+2026-06-29 01:03:26.996 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_react-icons_lib_11_gx9i._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:26.996",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695006996-ojtclnhck"
+}
+2026-06-29 01:03:26.997 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_react-icons_bs_index_mjs_13s_i73._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:26.997",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695006997-n04to60y8"
+}
+2026-06-29 01:03:26.999 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_1v8tlxs._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:26.999",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695006999-kr44lr07g"
+}
+2026-06-29 01:03:27.002 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/app_layout_tsx_007e4b2._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:27.002",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695007002-43yuttvuk"
+}
+2026-06-29 01:03:27.018 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/components_futuristic_WebGLScene_tsx_0e5zjrv._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:27.018",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695007018-lihe9rol5"
+}
+2026-06-29 01:03:27.042 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/_0eok2u6._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:27.042",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695007042-swxfozt6h"
+}
+2026-06-29 01:03:27.044 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_react-icons_lia_index_mjs_0l4b22g._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:27.044",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695007044-y0zxkas7x"
+}
+2026-06-29 01:03:27.049 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_react-icons_fa_index_mjs_01bzxvj._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:27.049",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695007049-tfqe6fnla"
+}
+2026-06-29 01:03:27.059 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_%40fortawesome_fontawesome-svg-core_index_mjs_0_t21-z._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:27.059",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695007059-fnn2lop1e"
+}
+2026-06-29 01:03:27.068 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_%40fortawesome_free-solid-svg-icons_index_mjs_1vn59s6._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:27.068",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695007068-6xx380l25"
+}
+2026-06-29 01:03:27.082 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_0fcne9e._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:27.082",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695007082-zh9t6dphp"
+}
+2026-06-29 01:03:27.097 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/app_page_tsx_10zah1w._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:27.097",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695007097-uev1dhqkl"
+}
+2026-06-29 01:03:27.102 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/app_error_tsx_01qd85j._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:27.102",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695007102-5aq8ivns8"
+}
+2026-06-29 01:03:27.135 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/app_error_tsx_10zah1w._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:27.135",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695007135-2tjol7sfu"
+}
+2026-06-29 01:03:27.142 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_10zah1w.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:27.142",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695007142-zmxhvtx70"
+}
+2026-06-29 01:03:27.157 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/app_not-found_tsx_10zah1w._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:27.157",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695007157-to0rktuyz"
+}
+2026-06-29 01:03:27.168 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/assets/home/discovery.jpg",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:27.168",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695007168-jvbxryyxu"
+}
+2026-06-29 01:03:27.193 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/assets/startup/startup.jpg",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:27.193",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695007193-0py1vu2ra"
+}
+2026-06-29 01:03:27.200 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1mojsay._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:27.200",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695007200-opb5op9ri"
+}
+2026-06-29 01:03:27.202 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xch-cm._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:27.202",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695007202-4qa3esf05"
+}
+2026-06-29 01:03:27.399 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/favicon.svg",
@@ -2087,25 +701,12 @@ Sentry Logger [error]: Transport disabled
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:53:04.953",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:27.399",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782694384953-zehjh8txt"
+  "correlationId": "1782695007399-9vmk8tn8i"
 }
-2026-06-29 00:53:04.959 [[32minfo[39m] Incoming request {
-  "service": "grey-infotech",
-  "method": "GET",
-  "url": "/favicon.svg",
-  "ip": "::1",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-  "level": "\u001b[32minfo\u001b[39m",
-  "message": "Incoming request",
-  "timestamp": "2026-06-29 00:53:04.959",
-  "pid": 4458,
-  "env": "development",
-  "correlationId": "1782694384959-5xtriv0sr"
-}
-2026-06-29 00:53:04.961 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:27.412 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/icons/icon-192.png",
@@ -2113,12 +714,12 @@ Sentry Logger [error]: Transport disabled
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:53:04.961",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:27.412",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782694384961-g3easby87"
+  "correlationId": "1782695007412-4w2hrht8a"
 }
-2026-06-29 00:53:04.969 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:27.453 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
   "url": "/favicon.ico",
@@ -2126,45 +727,1492 @@ Sentry Logger [error]: Transport disabled
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:53:04.969",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:27.453",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782694384969-wf28suk2n"
+  "correlationId": "1782695007453-fh6sl1v4a"
 }
-2026-06-29 00:53:50.432 [[32minfo[39m] Incoming request {
+2026-06-29 01:03:28.052 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
-  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
+  "url": "/api/announcement",
   "ip": "::1",
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:53:50.432",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:28.052",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782694430432-00ejb0do3"
+  "correlationId": "1782695008051-7091bbd90"
 }
-✓ Compiled in 759ms
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
-2026-06-29 00:54:56.571 [[32minfo[39m] Incoming request {
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 3887bff6609f3892
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: 0879b00201ea0f87
+  parent ID: 3887bff6609f3892
+  root ID: 3887bff6609f3892
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 0879b00201ea0f87
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for executing api route (app) /api/announcement: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: executing api route (app) /api/announcement
+  ID: 297df74d4cbb03d2
+  parent ID: 3887bff6609f3892
+  root ID: 3887bff6609f3892
+  root description: /api/announcement
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "executing api route (app) /api/announcement" with ID 297df74d4cbb03d2
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 7d347de3455cd5d0
+  parent ID: 3887bff6609f3892
+  root ID: 3887bff6609f3892
+  root description: /api/announcement
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 7d347de3455cd5d0
+ GET /api/announcement 200 in 190ms (next.js: 159ms, application-code: 31ms)
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /api/announcement" with ID 3887bff6609f3892
+Sentry Logger [log]: SpanExporter exported 4 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+2026-06-29 01:03:28.247 [[32minfo[39m] Incoming request {
   "service": "grey-infotech",
   "method": "GET",
-  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__1qfdp01._.css",
+  "url": "/api/ads?placement=home_banner",
   "ip": "::1",
   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
   "level": "\u001b[32minfo\u001b[39m",
   "message": "Incoming request",
-  "timestamp": "2026-06-29 00:54:56.571",
-  "pid": 4458,
+  "timestamp": "2026-06-29 01:03:28.247",
+  "pid": 5976,
   "env": "development",
-  "correlationId": "1782694496571-fq3uml0dz"
+  "correlationId": "1782695008247-eptn52s4k"
 }
-✓ Compiled in 816ms
-Sentry Logger [log]: Flushing client reports based on interval.
-Sentry Logger [log]: Flushing outcomes...
-Sentry Logger [log]: No outcomes to send
+2026-06-29 01:03:28.248 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/api/content?page=home",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:28.248",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695008248-9huh9c1k4"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: b27d5584a7fd8012
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 207391fae26b59be
+[browser] You are trying to animate background from "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
+[browser] You are trying to animate background from "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
+[browser] You are trying to animate background from "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
+[browser] You are trying to animate background from "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
+[browser] You are trying to animate background from "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
+[browser] You are trying to animate background from "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: 9faef738c6cde7df
+  parent ID: b27d5584a7fd8012
+  root ID: b27d5584a7fd8012
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 9faef738c6cde7df
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for executing api route (app) /api/ads: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: executing api route (app) /api/ads
+  ID: ed84db431b724288
+  parent ID: b27d5584a7fd8012
+  root ID: b27d5584a7fd8012
+  root description: /api/ads
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "executing api route (app) /api/ads" with ID ed84db431b724288
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: a524a8931ee81cec
+  parent ID: b27d5584a7fd8012
+  root ID: b27d5584a7fd8012
+  root description: /api/ads
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID a524a8931ee81cec
+ GET /api/ads?placement=home_banner 200 in 126ms (next.js: 114ms, application-code: 11ms)
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /api/ads" with ID b27d5584a7fd8012
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: b8d4c3ce96a5f342
+  parent ID: 207391fae26b59be
+  root ID: 207391fae26b59be
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID b8d4c3ce96a5f342
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for executing api route (app) /api/content: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: executing api route (app) /api/content
+  ID: 6eba1a333e9d56a7
+  parent ID: 207391fae26b59be
+  root ID: 207391fae26b59be
+  root description: /api/content
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "executing api route (app) /api/content" with ID 6eba1a333e9d56a7
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 29928421ceaccd88
+  parent ID: 207391fae26b59be
+  root ID: 207391fae26b59be
+  root description: /api/content
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 29928421ceaccd88
+ GET /api/content?page=home 200 in 180ms (next.js: 157ms, application-code: 22ms)
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /api/content" with ID 207391fae26b59be
+[browser] You are trying to animate background from "rgba(0, 205, 177, 0.69827)" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
+[browser] You are trying to animate background from "transparent" to "#f97316". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable (components/TawkChat.tsx:44:78)
+Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+Sentry Logger [error]: Transport disabled
+2026-06-29 01:03:29.438 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/",
+  "ip": "::1",
+  "userAgent": "curl/8.14.1",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:29.438",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695009438-4te1l9r4w"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 0f6027dee85e86dd
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: 839bf30c821597d5
+  parent ID: 0f6027dee85e86dd
+  root ID: 0f6027dee85e86dd
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 839bf30c821597d5
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /
+  ID: 2a0e4984dcbfaace
+  parent ID: 0f6027dee85e86dd
+  root ID: 0f6027dee85e86dd
+  root description: /
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 8b6ca0a27a9d3251
+  parent ID: 2a0e4984dcbfaace
+  root ID: 0f6027dee85e86dd
+  root description: /
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 08cdb65b7e3e1149
+  parent ID: 8b6ca0a27a9d3251
+  root ID: 0f6027dee85e86dd
+  root description: /
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 08cdb65b7e3e1149
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 96de63b12bed91be
+  parent ID: 8b6ca0a27a9d3251
+  root ID: 0f6027dee85e86dd
+  root description: /
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/"" with ID 96de63b12bed91be
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 8b6ca0a27a9d3251
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /" with ID 2a0e4984dcbfaace
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 1a5cbf97de1f3935
+  parent ID: 2a0e4984dcbfaace
+  root ID: 0f6027dee85e86dd
+  root description: /
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 1a5cbf97de1f3935
+ GET / 200 in 149ms (next.js: 7ms, application-code: 142ms)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: 7b8da442fec087b3
+  parent ID: 0f6027dee85e86dd
+  root ID: 0f6027dee85e86dd
+  root description: /
+Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782695009, 491100151 ] [ 26, 385943931 ]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID 7b8da442fec087b3
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /" with ID 0f6027dee85e86dd
+Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+2026-06-29 01:03:33.433 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/services",
+  "ip": "::1",
+  "userAgent": "curl/8.14.1",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:33.433",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695013433-jhcrslbjq"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 181247e8f6a6258d
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: f6a01e45649ce8bd
+  parent ID: 181247e8f6a6258d
+  root ID: 181247e8f6a6258d
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID f6a01e45649ce8bd
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /services: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /services
+  ID: 0d824ea1ebfff93e
+  parent ID: 181247e8f6a6258d
+  root ID: 181247e8f6a6258d
+  root description: /services
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 3fb63a73e6536842
+  parent ID: 0d824ea1ebfff93e
+  root ID: 181247e8f6a6258d
+  root description: /services
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 738fab8263945bbd
+  parent ID: 3fb63a73e6536842
+  root ID: 181247e8f6a6258d
+  root description: /services
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 738fab8263945bbd
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: f0c22c69a7abb617
+  parent ID: 3fb63a73e6536842
+  root ID: 181247e8f6a6258d
+  root description: /services
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve layout server component "services"" with ID f0c22c69a7abb617
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: d48b323f3612ea2e
+  parent ID: 3fb63a73e6536842
+  root ID: 181247e8f6a6258d
+  root description: /services
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/services"" with ID d48b323f3612ea2e
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 3fb63a73e6536842
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /services" with ID 0d824ea1ebfff93e
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 6813c1a482702716
+  parent ID: 0d824ea1ebfff93e
+  root ID: 181247e8f6a6258d
+  root description: /services
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 6813c1a482702716
+ GET /services 200 in 196ms (next.js: 30ms, application-code: 166ms)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: d0db30590adf5584
+  parent ID: 181247e8f6a6258d
+  root ID: 181247e8f6a6258d
+  root description: /services
+Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782695013, 541072440 ] [ 30, 749284369 ]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID d0db30590adf5584
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /services" with ID 181247e8f6a6258d
+Sentry Logger [log]: SpanExporter exported 9 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+2026-06-29 01:03:33.687 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/company",
+  "ip": "::1",
+  "userAgent": "curl/8.14.1",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:33.687",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695013687-5431vmcus"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: d84a4824bbc8bd34
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: d0194f7bb768c0ff
+  parent ID: d84a4824bbc8bd34
+  root ID: d84a4824bbc8bd34
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID d0194f7bb768c0ff
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /company: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /company
+  ID: ce747642e372fb14
+  parent ID: d84a4824bbc8bd34
+  root ID: d84a4824bbc8bd34
+  root description: /company
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 3d09c7498354d649
+  parent ID: ce747642e372fb14
+  root ID: d84a4824bbc8bd34
+  root description: /company
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 36fddbd4f1488ee9
+  parent ID: 3d09c7498354d649
+  root ID: d84a4824bbc8bd34
+  root description: /company
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 36fddbd4f1488ee9
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 76c11f19e1d8d3aa
+  parent ID: 3d09c7498354d649
+  root ID: d84a4824bbc8bd34
+  root description: /company
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/company"" with ID 76c11f19e1d8d3aa
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 3d09c7498354d649
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /company" with ID ce747642e372fb14
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 922f519528335ebc
+  parent ID: ce747642e372fb14
+  root ID: d84a4824bbc8bd34
+  root description: /company
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 922f519528335ebc
+ GET /company 200 in 325ms (next.js: 48ms, application-code: 278ms)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: eb0a6e716e4f727d
+  parent ID: d84a4824bbc8bd34
+  root ID: d84a4824bbc8bd34
+  root description: /company
+Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782695013, 883015998 ] [ 32, 223653597 ]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID eb0a6e716e4f727d
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /company" with ID d84a4824bbc8bd34
+Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+2026-06-29 01:03:34.033 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/portfolio",
+  "ip": "::1",
+  "userAgent": "curl/8.14.1",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:34.033",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695014033-j29gqdb31"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 3210628352d7ae61
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: 6216bc3bfaeb713b
+  parent ID: 3210628352d7ae61
+  root ID: 3210628352d7ae61
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 6216bc3bfaeb713b
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /portfolio: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /portfolio
+  ID: b7006e90f809be96
+  parent ID: 3210628352d7ae61
+  root ID: 3210628352d7ae61
+  root description: /portfolio
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 46a9eebf452ca855
+  parent ID: b7006e90f809be96
+  root ID: 3210628352d7ae61
+  root description: /portfolio
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: cc896a66f9ef3d86
+  parent ID: 46a9eebf452ca855
+  root ID: 3210628352d7ae61
+  root description: /portfolio
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID cc896a66f9ef3d86
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: ec98ce2366812064
+  parent ID: 46a9eebf452ca855
+  root ID: 3210628352d7ae61
+  root description: /portfolio
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/portfolio"" with ID ec98ce2366812064
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 46a9eebf452ca855
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /portfolio" with ID b7006e90f809be96
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 7c3a3cc74dd70ac6
+  parent ID: b7006e90f809be96
+  root ID: 3210628352d7ae61
+  root description: /portfolio
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 7c3a3cc74dd70ac6
+ GET /portfolio 200 in 150ms (next.js: 29ms, application-code: 121ms)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: 04720a93826acc3b
+  parent ID: 3210628352d7ae61
+  root ID: 3210628352d7ae61
+  root description: /portfolio
+Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782695014, 110299367 ] [ 31, 383198631 ]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID 04720a93826acc3b
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /portfolio" with ID 3210628352d7ae61
+Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+2026-06-29 01:03:34.198 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/careers",
+  "ip": "::1",
+  "userAgent": "curl/8.14.1",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:34.198",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695014198-ysjs6lylg"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 5e909051b2949f61
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: 42344ab74a3eba82
+  parent ID: 5e909051b2949f61
+  root ID: 5e909051b2949f61
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 42344ab74a3eba82
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /careers: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /careers
+  ID: 27268a4aacdbeb27
+  parent ID: 5e909051b2949f61
+  root ID: 5e909051b2949f61
+  root description: /careers
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 7288171496b6ce5f
+  parent ID: 27268a4aacdbeb27
+  root ID: 5e909051b2949f61
+  root description: /careers
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 4429ce1548eb50e0
+  parent ID: 7288171496b6ce5f
+  root ID: 5e909051b2949f61
+  root description: /careers
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 4429ce1548eb50e0
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: d96b398c2ca367de
+  parent ID: 7288171496b6ce5f
+  root ID: 5e909051b2949f61
+  root description: /careers
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/careers"" with ID d96b398c2ca367de
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 7288171496b6ce5f
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /careers" with ID 27268a4aacdbeb27
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 49bd5656e1e81cc4
+  parent ID: 27268a4aacdbeb27
+  root ID: 5e909051b2949f61
+  root description: /careers
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 49bd5656e1e81cc4
+ GET /careers 200 in 132ms (next.js: 27ms, application-code: 105ms)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: 158cac59e76f467c
+  parent ID: 5e909051b2949f61
+  root ID: 5e909051b2949f61
+  root description: /careers
+Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782695014, 275831302 ] [ 31, 261556293 ]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID 158cac59e76f467c
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /careers" with ID 5e909051b2949f61
+Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+2026-06-29 01:03:34.343 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/case-studies",
+  "ip": "::1",
+  "userAgent": "curl/8.14.1",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:34.343",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695014343-sz9krfhku"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 075d867616f2e055
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: d229be4d66b9b6ed
+  parent ID: 075d867616f2e055
+  root ID: 075d867616f2e055
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID d229be4d66b9b6ed
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /case-studies: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /case-studies
+  ID: ad3fe4b549d57ccc
+  parent ID: 075d867616f2e055
+  root ID: 075d867616f2e055
+  root description: /case-studies
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 887aadb5b10ab12e
+  parent ID: ad3fe4b549d57ccc
+  root ID: 075d867616f2e055
+  root description: /case-studies
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 166ff9434e6e74ac
+  parent ID: 887aadb5b10ab12e
+  root ID: 075d867616f2e055
+  root description: /case-studies
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 166ff9434e6e74ac
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 442b693ae39c1923
+  parent ID: 887aadb5b10ab12e
+  root ID: 075d867616f2e055
+  root description: /case-studies
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/case-studies"" with ID 442b693ae39c1923
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 887aadb5b10ab12e
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /case-studies" with ID ad3fe4b549d57ccc
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: ae9a0da08b874fbb
+  parent ID: ad3fe4b549d57ccc
+  root ID: 075d867616f2e055
+  root description: /case-studies
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID ae9a0da08b874fbb
+ GET /case-studies 200 in 2.6s (next.js: 2.5s, application-code: 126ms)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: 48d6f6d3d8e5695c
+  parent ID: 075d867616f2e055
+  root ID: 075d867616f2e055
+  root description: /case-studies
+Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782695016, 859332739 ] [ 34, 437486286 ]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID 48d6f6d3d8e5695c
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /case-studies" with ID 075d867616f2e055
+Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+2026-06-29 01:03:36.943 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/partners",
+  "ip": "::1",
+  "userAgent": "curl/8.14.1",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:36.943",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695016943-9ds1vls8z"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: f774e7c263f20de7
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: ca81eaba2388dfb9
+  parent ID: f774e7c263f20de7
+  root ID: f774e7c263f20de7
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID ca81eaba2388dfb9
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /partners: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /partners
+  ID: fd9c9f21abbac432
+  parent ID: f774e7c263f20de7
+  root ID: f774e7c263f20de7
+  root description: /partners
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 8d3392162d48baaf
+  parent ID: fd9c9f21abbac432
+  root ID: f774e7c263f20de7
+  root description: /partners
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: f52e7444b353c27d
+  parent ID: 8d3392162d48baaf
+  root ID: f774e7c263f20de7
+  root description: /partners
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID f52e7444b353c27d
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: ff21b974cccb8c1b
+  parent ID: 8d3392162d48baaf
+  root ID: f774e7c263f20de7
+  root description: /partners
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/partners"" with ID ff21b974cccb8c1b
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 8d3392162d48baaf
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /partners" with ID fd9c9f21abbac432
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 04004f3cb17925ba
+  parent ID: fd9c9f21abbac432
+  root ID: f774e7c263f20de7
+  root description: /partners
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 04004f3cb17925ba
+ GET /partners 200 in 192ms (next.js: 24ms, application-code: 168ms)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: bbc743355a5d3992
+  parent ID: f774e7c263f20de7
+  root ID: f774e7c263f20de7
+  root description: /partners
+Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782695017, 50908830 ] [ 34, 97661079 ]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID bbc743355a5d3992
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /partners" with ID f774e7c263f20de7
+Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+2026-06-29 01:03:41.187 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/services/Web-Development",
+  "ip": "::1",
+  "userAgent": "curl/8.14.1",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:41.187",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695021187-p4jqdqz1w"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 5742ed92be971c32
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: c25eb91d57a24c6e
+  parent ID: 5742ed92be971c32
+  root ID: 5742ed92be971c32
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID c25eb91d57a24c6e
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /services/Web-Development: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /services/Web-Development
+  ID: 8f89ce94639d0cbc
+  parent ID: 5742ed92be971c32
+  root ID: 5742ed92be971c32
+  root description: /services/Web-Development
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 9bfd72dab302e78a
+  parent ID: 8f89ce94639d0cbc
+  root ID: 5742ed92be971c32
+  root description: /services/Web-Development
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: f765b95f185cbe5c
+  parent ID: 9bfd72dab302e78a
+  root ID: 5742ed92be971c32
+  root description: /services/Web-Development
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID f765b95f185cbe5c
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: b6e5fa3290842f34
+  parent ID: 9bfd72dab302e78a
+  root ID: 5742ed92be971c32
+  root description: /services/Web-Development
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve layout server component "services"" with ID b6e5fa3290842f34
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 321e3750d3352f5a
+  parent ID: 9bfd72dab302e78a
+  root ID: 5742ed92be971c32
+  root description: /services/Web-Development
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/services/Web-Development"" with ID 321e3750d3352f5a
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 9bfd72dab302e78a
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /services/Web-Development" with ID 8f89ce94639d0cbc
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 9a8a1303dc4880e3
+  parent ID: 8f89ce94639d0cbc
+  root ID: 5742ed92be971c32
+  root description: /services/Web-Development
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 9a8a1303dc4880e3
+ GET /services/Web-Development 200 in 2.1s (next.js: 1823ms, application-code: 248ms)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: d5e229dc001fbb14
+  parent ID: 5742ed92be971c32
+  root ID: 5742ed92be971c32
+  root description: /services/Web-Development
+Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782695023, 112311292 ] [ 40, 247688801 ]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID d5e229dc001fbb14
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /services/Web-Development" with ID 5742ed92be971c32
+Sentry Logger [log]: SpanExporter exported 9 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+2026-06-29 01:03:43.281 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/services/ai-development-services",
+  "ip": "::1",
+  "userAgent": "curl/8.14.1",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:43.281",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695023281-v3t6ioscs"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 158cd5d68efb6a4f
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: 1100712b897b7080
+  parent ID: 158cd5d68efb6a4f
+  root ID: 158cd5d68efb6a4f
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 1100712b897b7080
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /services/ai-development-services: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /services/ai-development-services
+  ID: 4f10ed08795d5cfe
+  parent ID: 158cd5d68efb6a4f
+  root ID: 158cd5d68efb6a4f
+  root description: /services/ai-development-services
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: b5bab7334a516097
+  parent ID: 4f10ed08795d5cfe
+  root ID: 158cd5d68efb6a4f
+  root description: /services/ai-development-services
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 25e0cf0d80c9c633
+  parent ID: b5bab7334a516097
+  root ID: 158cd5d68efb6a4f
+  root description: /services/ai-development-services
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 25e0cf0d80c9c633
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 06805c0f49777773
+  parent ID: b5bab7334a516097
+  root ID: 158cd5d68efb6a4f
+  root description: /services/ai-development-services
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve layout server component "services"" with ID 06805c0f49777773
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 12def7d1754f4504
+  parent ID: b5bab7334a516097
+  root ID: 158cd5d68efb6a4f
+  root description: /services/ai-development-services
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/services/ai-development-services"" with ID 12def7d1754f4504
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID b5bab7334a516097
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /services/ai-development-services" with ID 4f10ed08795d5cfe
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 3df75863028113ed
+  parent ID: 4f10ed08795d5cfe
+  root ID: 158cd5d68efb6a4f
+  root description: /services/ai-development-services
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 3df75863028113ed
+ GET /services/ai-development-services 200 in 1591ms (next.js: 1389ms, application-code: 202ms)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: 6e005ed6fe26dcd7
+  parent ID: 158cd5d68efb6a4f
+  root ID: 158cd5d68efb6a4f
+  root description: /services/ai-development-services
+Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782695024, 745846019 ] [ 41, 745703711 ]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID 6e005ed6fe26dcd7
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /services/ai-development-services" with ID 158cd5d68efb6a4f
+Sentry Logger [log]: SpanExporter exported 9 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+2026-06-29 01:03:44.927 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/services/blockchain-development",
+  "ip": "::1",
+  "userAgent": "curl/8.14.1",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:44.927",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695024927-597fg4u4w"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 12c90212eeba8a4e
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: e58044356bbee8c1
+  parent ID: 12c90212eeba8a4e
+  root ID: 12c90212eeba8a4e
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID e58044356bbee8c1
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /services/blockchain-development: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /services/blockchain-development
+  ID: 3121b2ee467c816c
+  parent ID: 12c90212eeba8a4e
+  root ID: 12c90212eeba8a4e
+  root description: /services/blockchain-development
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 034bf23d6b34697a
+  parent ID: 3121b2ee467c816c
+  root ID: 12c90212eeba8a4e
+  root description: /services/blockchain-development
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: adbb42eaaa5eaade
+  parent ID: 034bf23d6b34697a
+  root ID: 12c90212eeba8a4e
+  root description: /services/blockchain-development
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID adbb42eaaa5eaade
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 4846c8da633bdf15
+  parent ID: 034bf23d6b34697a
+  root ID: 12c90212eeba8a4e
+  root description: /services/blockchain-development
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve layout server component "services"" with ID 4846c8da633bdf15
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 8f9f272adea6b6f6
+  parent ID: 034bf23d6b34697a
+  root ID: 12c90212eeba8a4e
+  root description: /services/blockchain-development
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/services/blockchain-development"" with ID 8f9f272adea6b6f6
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 034bf23d6b34697a
+Each child in a list should have a unique "key" prop. See https://react.dev/link/warning-keys for more information.
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /services/blockchain-development" with ID 3121b2ee467c816c
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: e2492471fdc81438
+  parent ID: 3121b2ee467c816c
+  root ID: 12c90212eeba8a4e
+  root description: /services/blockchain-development
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID e2492471fdc81438
+ GET /services/blockchain-development 200 in 1799ms (next.js: 1464ms, application-code: 335ms)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: 66b6f6ef5b5eae42
+  parent ID: 12c90212eeba8a4e
+  root ID: 12c90212eeba8a4e
+  root description: /services/blockchain-development
+Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782695026, 561410801 ] [ 44, 67969001 ]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID 66b6f6ef5b5eae42
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /services/blockchain-development" with ID 12c90212eeba8a4e
+Sentry Logger [log]: SpanExporter exported 9 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+2026-06-29 01:03:46.738 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/industries/fintech",
+  "ip": "::1",
+  "userAgent": "curl/8.14.1",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:46.738",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695026738-r5qp787qj"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 1fd3db8b02561c85
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: 6e5ca0507bdffbef
+  parent ID: 1fd3db8b02561c85
+  root ID: 1fd3db8b02561c85
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 6e5ca0507bdffbef
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /industries/fintech: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /industries/fintech
+  ID: 3406d30c30aa5072
+  parent ID: 1fd3db8b02561c85
+  root ID: 1fd3db8b02561c85
+  root description: /industries/fintech
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 8607567e3223dc25
+  parent ID: 3406d30c30aa5072
+  root ID: 1fd3db8b02561c85
+  root description: /industries/fintech
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: b41a491d8429bb90
+  parent ID: 8607567e3223dc25
+  root ID: 1fd3db8b02561c85
+  root description: /industries/fintech
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID b41a491d8429bb90
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: e2eb67763886ca97
+  parent ID: 8607567e3223dc25
+  root ID: 1fd3db8b02561c85
+  root description: /industries/fintech
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve layout server component "industries"" with ID e2eb67763886ca97
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: d26f448652b3b6a8
+  parent ID: 8607567e3223dc25
+  root ID: 1fd3db8b02561c85
+  root description: /industries/fintech
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/industries/fintech"" with ID d26f448652b3b6a8
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 8607567e3223dc25
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /industries/fintech" with ID 3406d30c30aa5072
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 55e6fd244c506b37
+  parent ID: 3406d30c30aa5072
+  root ID: 1fd3db8b02561c85
+  root description: /industries/fintech
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 55e6fd244c506b37
+ GET /industries/fintech 200 in 1638ms (next.js: 1406ms, application-code: 232ms)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: c4cdc3958c1d08d5
+  parent ID: 1fd3db8b02561c85
+  root ID: 1fd3db8b02561c85
+  root description: /industries/fintech
+Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782695028, 256472029 ] [ 45, 387053825 ]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID c4cdc3958c1d08d5
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /industries/fintech" with ID 1fd3db8b02561c85
+Sentry Logger [log]: SpanExporter exported 9 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+2026-06-29 01:03:48.401 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/industries/healthcare",
+  "ip": "::1",
+  "userAgent": "curl/8.14.1",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:48.401",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695028401-kh1ipin63"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 5c4c469bbe7d2dc2
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: b7795783c31526ff
+  parent ID: 5c4c469bbe7d2dc2
+  root ID: 5c4c469bbe7d2dc2
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID b7795783c31526ff
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /industries/healthcare: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /industries/healthcare
+  ID: 0239f2a49a678a1f
+  parent ID: 5c4c469bbe7d2dc2
+  root ID: 5c4c469bbe7d2dc2
+  root description: /industries/healthcare
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 0387491109b7ee2a
+  parent ID: 0239f2a49a678a1f
+  root ID: 5c4c469bbe7d2dc2
+  root description: /industries/healthcare
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: decf97770e9d8c96
+  parent ID: 0387491109b7ee2a
+  root ID: 5c4c469bbe7d2dc2
+  root description: /industries/healthcare
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID decf97770e9d8c96
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: ff8a1a97fd2fc730
+  parent ID: 0387491109b7ee2a
+  root ID: 5c4c469bbe7d2dc2
+  root description: /industries/healthcare
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve layout server component "industries"" with ID ff8a1a97fd2fc730
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 300ceb9685e01e54
+  parent ID: 0387491109b7ee2a
+  root ID: 5c4c469bbe7d2dc2
+  root description: /industries/healthcare
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/industries/healthcare"" with ID 300ceb9685e01e54
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 0387491109b7ee2a
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /industries/healthcare" with ID 0239f2a49a678a1f
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 8485da2ec54b5700
+  parent ID: 0239f2a49a678a1f
+  root ID: 5c4c469bbe7d2dc2
+  root description: /industries/healthcare
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 8485da2ec54b5700
+ GET /industries/healthcare 200 in 2.4s (next.js: 2.1s, application-code: 273ms)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: c8938d37b605e83f
+  parent ID: 5c4c469bbe7d2dc2
+  root ID: 5c4c469bbe7d2dc2
+  root description: /industries/healthcare
+Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782695030, 671494395 ] [ 48, 632600867 ]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID c8938d37b605e83f
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /industries/healthcare" with ID 5c4c469bbe7d2dc2
+Sentry Logger [log]: SpanExporter exported 9 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+2026-06-29 01:03:50.807 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/our-approach",
+  "ip": "::1",
+  "userAgent": "curl/8.14.1",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:50.807",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695030807-wffno0zw7"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: ae7e09af832b40fb
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: 4b702bba5af6b19a
+  parent ID: ae7e09af832b40fb
+  root ID: ae7e09af832b40fb
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 4b702bba5af6b19a
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /_not-found: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /_not-found
+  ID: 6f034900ee164471
+  parent ID: ae7e09af832b40fb
+  root ID: ae7e09af832b40fb
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: c2d496399c9c8b93
+  parent ID: 6f034900ee164471
+  root ID: ae7e09af832b40fb
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: a3cfe9c9a5833277
+  parent ID: c2d496399c9c8b93
+  root ID: ae7e09af832b40fb
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID a3cfe9c9a5833277
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 2980349de99874aa
+  parent ID: c2d496399c9c8b93
+  root ID: ae7e09af832b40fb
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/_not-found"" with ID 2980349de99874aa
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID c2d496399c9c8b93
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /_not-found" with ID 6f034900ee164471
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: fde9e2a3ef6d87fc
+  parent ID: 6f034900ee164471
+  root ID: ae7e09af832b40fb
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID fde9e2a3ef6d87fc
+ GET /our-approach 404 in 117ms (next.js: 8ms, application-code: 109ms)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: 26666c19741058ce
+  parent ID: ae7e09af832b40fb
+  root ID: ae7e09af832b40fb
+  root description: /_not-found
+Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782695030, 877879894 ] [ 47, 711953966 ]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID 26666c19741058ce
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /_not-found" with ID ae7e09af832b40fb
+Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [log]: Ignoring span http.server - GET /_not-found because it matches `ignoreSpans`.
+Sentry Logger [log]: Recording outcome: "before_send:transaction"
+Sentry Logger [log]: Recording outcome: "before_send:span" (8 times)
+Sentry Logger [log]: before send for type `transaction` returned `null`, will not send event.
+2026-06-29 01:03:50.956 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/support",
+  "ip": "::1",
+  "userAgent": "curl/8.14.1",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:50.956",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695030956-50zh4tx1s"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 17fbb301fff02436
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: 9e415a431ec7db45
+  parent ID: 17fbb301fff02436
+  root ID: 17fbb301fff02436
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 9e415a431ec7db45
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /support: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /support
+  ID: 99c7d72ee24cbb65
+  parent ID: 17fbb301fff02436
+  root ID: 17fbb301fff02436
+  root description: /support
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 6a85254d2ab19b47
+  parent ID: 99c7d72ee24cbb65
+  root ID: 17fbb301fff02436
+  root description: /support
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 568d589f377548a2
+  parent ID: 6a85254d2ab19b47
+  root ID: 17fbb301fff02436
+  root description: /support
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 568d589f377548a2
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 7f9583ea7385c50f
+  parent ID: 6a85254d2ab19b47
+  root ID: 17fbb301fff02436
+  root description: /support
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/support"" with ID 7f9583ea7385c50f
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 6a85254d2ab19b47
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /support" with ID 99c7d72ee24cbb65
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: b241b18fd944ce80
+  parent ID: 99c7d72ee24cbb65
+  root ID: 17fbb301fff02436
+  root description: /support
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID b241b18fd944ce80
+ GET /support 200 in 1664ms (next.js: 1470ms, application-code: 194ms)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: bdc995ceb118e019
+  parent ID: 17fbb301fff02436
+  root ID: 17fbb301fff02436
+  root description: /support
+Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782695032, 524299622 ] [ 50, 130109025 ]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID bdc995ceb118e019
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /support" with ID 17fbb301fff02436
+Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+2026-06-29 01:03:57.431 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/Our-Approach",
+  "ip": "::1",
+  "userAgent": "curl/8.14.1",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-06-29 01:03:57.431",
+  "pid": 5976,
+  "env": "development",
+  "correlationId": "1782695037431-x5ifliqup"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: f2fd3810a9364a48
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: e5f7a19f59752908
+  parent ID: f2fd3810a9364a48
+  root ID: f2fd3810a9364a48
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID e5f7a19f59752908
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /Our-Approach: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /Our-Approach
+  ID: c078a11ab0555ee4
+  parent ID: f2fd3810a9364a48
+  root ID: f2fd3810a9364a48
+  root description: /Our-Approach
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 6a4c38680c6dd31f
+  parent ID: c078a11ab0555ee4
+  root ID: f2fd3810a9364a48
+  root description: /Our-Approach
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 0b1c73cf1652f8b6
+  parent ID: 6a4c38680c6dd31f
+  root ID: f2fd3810a9364a48
+  root description: /Our-Approach
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 0b1c73cf1652f8b6
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: d2a36a1082bf058b
+  parent ID: 6a4c38680c6dd31f
+  root ID: f2fd3810a9364a48
+  root description: /Our-Approach
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/Our-Approach"" with ID d2a36a1082bf058b
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 6a4c38680c6dd31f
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /Our-Approach" with ID c078a11ab0555ee4
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 20a4f59757787db5
+  parent ID: c078a11ab0555ee4
+  root ID: f2fd3810a9364a48
+  root description: /Our-Approach
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 20a4f59757787db5
+ GET /Our-Approach 200 in 2.8s (next.js: 2.6s, application-code: 199ms)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: 698692f42cd7da10
+  parent ID: f2fd3810a9364a48
+  root ID: f2fd3810a9364a48
+  root description: /Our-Approach
+Sentry Logger [warn]: Inconsistent start and end time, startTime > endTime. Setting span duration to 0ms. [ 1782695040, 125376738 ] [ 57, 165866486 ]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID 698692f42cd7da10
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /Our-Approach" with ID f2fd3810a9364a48
+Sentry Logger [log]: SpanExporter exported 8 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled

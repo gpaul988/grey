@@ -21,6 +21,7 @@ import {
 } from 'react-icons/fa';
 import {useIsDayTime} from '../components/useIsDayTime';
 
+import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
 const fadeUp: { transition: Transition } = {
     transition: {duration: 0.6, ease: [0.22, 1, 0.36, 1]},
 };
@@ -98,36 +99,36 @@ const Support: React.FC = () => {
         },
     ];
 
-    const heroBg = isDayTime ? 'from-gray-900 to-gray-800' : 'from-black to-gray-900';
-
     return (
-        <div className="bg-gray-100 text-black min-h-screen flex flex-col">
-            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
+        <div className={`${isDayTime ? 'bg-white text-black' : 'bg-[#050810] text-white'} min-h-screen flex flex-col`}>
 
-            {/* Hero */}
-            <section className={`relative bg-gradient-to-br ${heroBg} text-white`}>
-                <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 py-20 md:py-28">
-                    <motion.div
-                        initial={{opacity: 0, y: 28}}
-                        animate={{opacity: 1, y: 0}}
-                        {...fadeUp}
-                        className="max-w-3xl"
-                    >
-                        <span className="inline-block text-sm uppercase tracking-widest text-gray-300 mb-4">
-                            Support Centre
-                        </span>
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-5 leading-tight">
-                            We’re here to help
-                        </h1>
-                        <p className="text-base sm:text-lg text-gray-300">
-                            Get support for your project, report an issue, or find answers to common
-                            questions. Choose the channel that works best for you.
-                        </p>
-                    </motion.div>
+            {/* ── Futuristic Hero ── */}
+            <section className="relative overflow-hidden min-h-[55vh] flex flex-col justify-end">
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90" />
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-950/80 to-black/60" />
+                <FxBackground day={false} grid aurora className="opacity-60" />
+                <div className="gx-scanline pointer-events-none" />
+                <div className="gx-hero-scan" />
+                <div className="gx-noise-overlay" />
+                <div className="gx-orbit pointer-events-none absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .18 }} />
+                <div className="gx-page-hero-content relative z-10">
+                    <div className="max-w-7xl mx-auto">
+                        <motion.div initial={{opacity: 0, y: 28}} animate={{opacity: 1, y: 0}} {...fadeUp} className="max-w-3xl">
+                            <FxChip day={false} className="mb-5">Support Centre</FxChip>
+                            <div className="border-b border-white/15 pb-6 mb-5">
+                                <h1 className="gx-hero-title text-white gx-glitch">
+                                    We&apos;re here<br /><span className="gx-gradient-text">to help</span>
+                                </h1>
+                            </div>
+                            <p className="text-white/70 text-base sm:text-lg max-w-2xl leading-relaxed">
+                                Get support for your project, report an issue, or find answers to common questions.
+                            </p>
+                        </motion.div>
+                    </div>
                 </div>
             </section>
 
-            <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 py-14 md:py-20">
+                        <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 py-14 md:py-20">
                 {/* Support channels */}
                 <motion.div
                     initial={{opacity: 0, y: 28}}

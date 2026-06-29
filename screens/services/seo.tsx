@@ -14,6 +14,9 @@ import CountUp from "react-countup";
 import Footer from "@/components/Footer";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
+import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
+
+import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
 const Seo = () => {    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
@@ -229,6 +232,12 @@ const Seo = () => {    const [isVisible, setIsVisible] = useState(false);
                  className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] ${
                      isDayTime ? 'text-black' : 'text-white'
                  }`}>
+                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
+                <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
+                    <div className="gx-scanline" />
+                    <div className="gx-noise-overlay" />
+                    <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
+                </div>
                 <h1
                     className={`border-b pb-[0.5em] border-gray-500/50 px-0 constant-text lg:text-[5.35em] md:text-[5.35em] sm:text-[2em] text-[2.5em] lg:mt-[2.5em] md:mt-[2.5em] mt-[1em] leading-[1.1] font-[600]`}>
                     Search Engine <br className={'lg:block md:block hidden'}/>Optimisation Agency

@@ -1,11 +1,13 @@
 'use client';
 
 
+import { useIsDayTime } from '../components/useIsDayTime';
 import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 // typescript
 import React, {useEffect, useRef, useState, useMemo} from 'react';
 import '@/app/globals.css';
 
+import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
 type Particle = {
     x: number;
     y: number;

@@ -12,6 +12,7 @@ import {motion} from 'framer-motion';
 import {FaTicketAlt, FaCheckCircle, FaExclamationCircle} from 'react-icons/fa';
 import {useIsDayTime} from '../components/useIsDayTime';
 
+import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
 const PRIORITIES = [
     {value: 'low', label: 'Low', desc: 'General question or minor issue'},
     {value: 'medium', label: 'Medium', desc: 'Something is broken but has a workaround'},

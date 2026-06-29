@@ -1,9 +1,14 @@
+'use client';
+
+import { useIsDayTime } from '../components/useIsDayTime';
+import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
 import React from 'react';
 import '@/app/globals.css';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 const TermsConditions: React.FC = () => {
+    const isDayTime = useIsDayTime();
     return (
         <div className="bg-gray-50 text-black min-h-screen pb-12">
             {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header />}
