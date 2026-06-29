@@ -10,6 +10,7 @@ import Footer from '@/components/Footer';
 import FloatingButton from '@/components/FloatingButton';
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import {useIsDayTime} from './useIsDayTime';
+import { FxChip, FxReveal, FxBackground } from '@/components/futuristic/fx';
 
 export interface SolutionItem {
     id: string;          // "01"
@@ -234,7 +235,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                             <div className={'relative grid lg:grid-cols-3 lg:gap-8 lg:ml-[13em]'}>
                                 {heroStats.map((s, i) => (
                                     <div key={i} className={'border-0 lg:block md:hidden sm:hidden hidden'}>
-                                        <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>{s.value}</h6>
+                                        <h6 className={'gx-gradient-text text-[3em] font-[500] -mb-[0.3em] justify-center'}>{s.value}</h6>
                                         <p className={'text-[0.7em] font-[300]'}>{s.label}</p>
                                     </div>
                                 ))}
@@ -452,7 +453,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
             {/* Trusted partner CTA + Countup */}
             <div className={`${isDayTime ? 'bg-black' : 'bg-white'}`}>
                 <div className={`relative lg:py-14 md:py-16 lg:mb-16 md:mb-16 mb-5 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                    <h1 className={'lg:text-[5em] md:text-[4em] sm:text-[3em] text-[2em] font-[600] leading-[1.1] mb-[0.6em]'}>
+                    <h1 className={'gx-gradient-text lg:text-[5em] md:text-[4em] sm:text-[3em] text-[2em] font-[600] leading-[1.1] mb-[0.6em]'}>
                         {ctaHeading || (<>Your trusted <br className={'lg:block md:block hidden'}/>digital partner</>)}
                     </h1>
                     <p className={'text-[0.873em] font-[300] leading-[1.5] text-justify lg:pr-[33em] mb-10'}>
@@ -461,22 +462,15 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                             helped a wide range of clients bring their digital products to life—delivering standout
                             experiences that fuel growth, engagement, and long-term success.</>)}
                     </p>
-                    <Link href='/contact'>
-                        <button className='relative mx-auto inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em] border tracking-tighter rounded-full py-2 px-6'>
-                            <span className={`w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 ${isDayTime ? 'bg-white' : 'bg-black'} opacity-[3%]`}></span>
-                            <span className={`absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 ${isDayTime ? 'bg-white' : 'bg-black'} opacity-100 group-hover:-translate-x-8`}></span>
-                            <span className={`relative w-full text-left transition-colors duration-200 ease-in-out ${isDayTime ? 'text-white group-hover:text-gray-300' : 'text-black group-hover:text-gray-800'}`}>
-                                Start a project <span className={`text-[1.5em] leading-[0.7]`}> →</span>
-                            </span>
-                            <span className={`absolute inset-0 border-[1px] rounded-full ${isDayTime ? 'border-white' : 'border-black'}`}></span>
-                        </button>
+                    <Link href='/contact' className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold bg-gradient-to-r from-teal-500 to-cyan-500 text-white hover:shadow-[0_8px_30px_rgba(45,212,191,.4)] transition-shadow">
+                        Start a project →
                     </Link>
 
                     {/* Countup */}
                     <div className={`grid lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-3 grid-cols-1 text-center lg:mt-[3em] py-12 divide-x divide-gray-500 lg:mb-[4em] md:mb-[4em] ${isDayTime ? 'text-white' : 'text-black'}`}>
                         {stats.map((stat, index) => (
                             <div key={index} className="flex flex-col justify-center items-center">
-                                <h2 className="lg:text-[3.2em] md:text-[3em] sm:text-[2em] text-[1.5em] text-start font-[600]">
+                                <h2 className="gx-gradient-text lg:text-[3.2em] md:text-[3em] sm:text-[2em] text-[1.5em] text-start font-[600]">
                                     <CountUp end={stat.value} duration={2} suffix={stat.suffix || ''}/>
                                 </h2>
                                 <p className="text-[0.873em] font-[400] mt-1">{stat.label}</p>
