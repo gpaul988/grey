@@ -95,6 +95,24 @@ export const mediaUpload = multer({
     },
 });
 
+/** Multer instance for CV / resume uploads (5 MB cap, PDF/DOC/DOCX only). */
+export const cvUpload = multer({
+    storage: multer.diskStorage({
+        destination: (_req, _file, cb) => cb(null, ensureUploadDir('cvs')),
+        filename: (_req, file, cb) => cb(null, safeName(file.originalname)),
+    }),
+    limits: { fileSize: 5 * 1024 * 1024 },
+    fileFilter: (_req, file, cb) => {
+        const allowed = [
+            'application/pdf',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        ];
+        if (allowed.includes(file.mimetype)) cb(null, true);
+        else cb(new Error('Only PDF, DOC, or DOCX files are allowed for CV uploads'));
+    },
+});
+
 /** Multer instance for product/brand images (5 MB cap, image only). */
 export const productUpload = multer({
     storage: multer.diskStorage({

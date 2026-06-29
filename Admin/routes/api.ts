@@ -10,7 +10,7 @@ import {
     Verification,
     Ads, Subscribers, Announcements, PageSeos, AnalyticsEvents, Media,
     PartnerInquiries, Faqs,
-    AuditSubmissions,
+    AuditSubmissions, CareerApplications,
     logActivity, nextInvoiceNumber, dashboardStats,
 } from '../models';
 import {slugify, str, toFloat, toInt, isEmail} from '../utils/helpers';
@@ -45,6 +45,35 @@ api.get('/submissions', (req, res) => {
 api.get('/submissions/:id', (req, res) => {
     const row = Submissions.find(toInt(req.params.id));
     return row ? ok(res, row) : fail(res, 'Not found', 404);
+});
+
+/* ---------------- Career Applications ---------------- */
+api.get('/career-applications', (req, res) => {
+    const status = str(req.query.status);
+    const formType = str(req.query.form_type);
+    let apps = CareerApplications.all('created_at DESC');
+    if (status) apps = apps.filter((a: Record<string, unknown>) => a.status === status);
+    if (formType) apps = apps.filter((a: Record<string, unknown>) => a.form_type === formType);
+    ok(res, apps);
+});
+api.get('/career-applications/:id', (req, res) => {
+    const row = CareerApplications.find(toInt(req.params.id));
+    return row ? ok(res, row) : fail(res, 'Not found', 404);
+});
+api.patch('/career-applications/:id', (req, res) => {
+    const id = toInt(req.params.id);
+    const { status, admin_notes } = req.body as { status?: string; admin_notes?: string };
+    const row = CareerApplications.find(id);
+    if (!row) return fail(res, 'Not found', 404);
+    CareerApplications.update(id, { status: status ?? row.status, admin_notes: admin_notes ?? row.admin_notes });
+    ok(res, null, 'Updated');
+});
+api.delete('/career-applications/:id', (req, res) => {
+    const id = toInt(req.params.id);
+    const row = CareerApplications.find(id);
+    if (!row) return fail(res, 'Not found', 404);
+    CareerApplications.delete(id);
+    ok(res, null, 'Deleted');
 });
 
 export default api;

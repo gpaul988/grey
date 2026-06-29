@@ -427,3 +427,24 @@ export interface AuditSubmission {
     updated_at: string;
     responded_at: string | null;
 }
+
+export interface CareerApplication {
+    [key: string]: unknown;
+    id: number;
+    form_type: 'cv_submission' | 'self_introduction';
+    full_name: string;
+    email: string;
+    phone: string | null;
+    country: string | null;
+    role_interest: string | null;
+    experience_years: string | null;
+    linkedin_url: string | null;
+    portfolio_url: string | null;
+    cover_letter: string | null;
+    cv_path: string | null;
+    cv_filename: string | null;
+    status: 'new' | 'reviewed' | 'shortlisted' | 'rejected' | 'archived';
+    admin_notes: string | null;
+    created_at: string;
+    updated_at: string;
+}
