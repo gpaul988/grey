@@ -12,6 +12,7 @@ import Footer from "@/components/Footer";
 import FloatingButton from "@/components/FloatingButton";
 import {useIsDayTime} from '../components/useIsDayTime';
 
+import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
 const reasons = [
     {
         id: 1,

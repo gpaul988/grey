@@ -16,6 +16,9 @@ import {useIsDayTime} from '../../components/useIsDayTime';
 import ServiceHero from '@/components/futuristic/ServiceHero';
 import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 
+import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
+
+import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
 const reasons = [
     {
         id: 1,
@@ -205,6 +208,12 @@ const MobileApplicationDevelopment = () => {    const sectionRef = useRef<HTMLDi
             {/* Hero Section */}
             <div id={'hero'}
                  className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
+                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
+                <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
+                    <div className="gx-scanline" />
+                    <div className="gx-noise-overlay" />
+                    <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
+                </div>
                 <h1
                     className={`border-b pb-[0.5em] border-gray-300/20 px-0 constant-text lg:text-[5.5em] md:text-[3em] sm:text-[2em] text-[2.5em] lg:mt-[3em] mt-[1.5em] leading-[1.1] font-[550] ${
                         isDayTime ? 'text-black' : 'text-white'

@@ -1,3 +1,7 @@
+'use client';
+
+import { useIsDayTime } from '../components/useIsDayTime';
+import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
 import React from "react";
 
 
@@ -8,22 +12,38 @@ import Image from "next/image";
 import Footer from "../components/Footer";
 import Link from "next/link";
 
-const OurApproach = () => {    return (
-        (<div className="bg-gray-50 text-black min-h-screen lg:pb-12 pb-0">
-            {/* Header now provided globally by app/layout.tsx — duplicate render disabled to fix doubled header */ false && <Header/>}
-            <div className="relative w-full h-[70vh] lg:mb-20 mb-9">
+const OurApproach = () => {
+    const isDayTime = useIsDayTime();
+    return (
+        (<div className={`${isDayTime ? 'bg-white text-black' : 'bg-[#050810] text-white'} min-h-screen lg:pb-12 pb-0`}>
+            {/* Futuristic hero */}
+            <div className="relative w-full min-h-[70vh] flex flex-col justify-end lg:mb-20 mb-9 overflow-hidden">
                 <Image
                     src="/assets/header/approach.jpg"
                     alt="company"
                     fill
                     sizes="100vw"
-                    style={{
-                        objectFit: "cover",
-                        objectPosition: "center",
-                    }}/>
-                <div
-                    className="relative top-0 left-0 w-full h-full flex flex-col justify-center items-start pl-8 bg-black/30">
-                    <h1 className="text-white text-6xl pb-3 font-bold">Our Approach</h1>
+                    style={{ objectFit: "cover", objectPosition: "center" }}
+                    priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/85" />
+                <FxBackground day={false} grid aurora className="opacity-50" />
+                <div className="gx-scanline pointer-events-none" />
+                <div className="gx-hero-scan" />
+                <div className="gx-noise-overlay" />
+                <div className="gx-orbit pointer-events-none absolute" style={{ width: '65vmax', height: '65vmax', top: '-22vmax', right: '-22vmax', opacity: .18 }} />
+                <div className="relative z-10 gx-page-hero-content">
+                    <div className="max-w-[90rem] mx-auto">
+                        <FxReveal>
+                            <FxChip day={false} className="mb-5">How We Work</FxChip>
+                            <div className="border-b border-white/20 pb-6 mb-6">
+                                <h1 className="gx-hero-title text-white gx-glitch">Our Approach</h1>
+                            </div>
+                            <p className="text-white/70 text-base md:text-lg max-w-2xl leading-relaxed">
+                                A process built on listening, strategy, collaboration, and relentless quality.
+                            </p>
+                        </FxReveal>
+                    </div>
                 </div>
             </div>
             <div className="min-h-screen bg-gray-50 leading-7 lg:pt-14 lg:pb-0 pt-8">

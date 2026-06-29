@@ -15,6 +15,9 @@ import Link from "next/link";
 import CountUp from 'react-countup';
 import {useIsDayTime} from '../../components/useIsDayTime';
 
+import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
+
+import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
 const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
