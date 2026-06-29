@@ -213,7 +213,74 @@ route.get('/audit', (_req, res) => {
         auditRuns,
         fixRequests,
         allSubmissions,
+        adminPath,
+        savedFlash: typeof _req.query.saved !== 'undefined',
+        errFlash: typeof _req.query.err !== 'undefined' ? String(_req.query.err) : null,
     });
+});
+
+/* ----------------------------------------------------------------
+   AUDIT — update a submission's status / notes / proposed solution.
+   This is what makes "fix made / resolved" on the backend panel
+   actually persist AND register in the activity trail. Works for
+   both fix requests and audit runs (same audit_submissions table).
+   ================================================================ */
+route.post('/audit/update', (req: Request, res: Response) => {
+    const id = toInt(req.body.id);
+    if (!id) {
+        return res.redirect(adminPath('/audit?err=Missing+submission+id'));
+    }
+
+    const existing = AuditSubmissions.find(id);
+    if (!existing) {
+        return res.redirect(adminPath('/audit?err=Submission+not+found'));
+    }
+
+    const allowedStatuses = ['new', 'in_progress', 'responded', 'resolved', 'closed'];
+    const status = typeof req.body.status === 'string' ? req.body.status.trim() : '';
+    const adminNotes = typeof req.body.admin_notes === 'string' ? req.body.admin_notes.trim() : '';
+    const proposedSolution =
+        typeof req.body.proposed_solution === 'string' ? req.body.proposed_solution.trim() : '';
+
+    const updates: Record<string, unknown> = {};
+    if (status && allowedStatuses.includes(status)) {
+        updates.status = status;
+        // Stamp responded_at the first time it moves off "new".
+        if (status !== 'new' && !existing.responded_at) {
+            updates.responded_at = new Date().toISOString();
+        }
+    }
+    if (req.body.admin_notes !== undefined) updates.admin_notes = adminNotes || null;
+    if (req.body.proposed_solution !== undefined) updates.proposed_solution = proposedSolution || null;
+
+    if (Object.keys(updates).length === 0) {
+        return res.redirect(adminPath('/audit?err=Nothing+to+update'));
+    }
+
+    AuditSubmissions.update(id, updates);
+
+    // Register the fix/resolution in the backend activity trail so it is
+    // auditable — this is the "audit of the audit" the panel was missing.
+    try {
+        const who = req.session?.user;
+        const isFix = existing.specific_issues && existing.specific_issues.trim().length > 0;
+        const label = isFix ? 'fix request' : 'audit run';
+        logActivity({
+            user_id: who?.id ?? null,
+            user_name: who?.name ?? 'System',
+            action: status ? `Set ${label} status to "${status}"` : `Updated ${label}`,
+            entity: 'audit_submission',
+            entity_id: id,
+            detail: [
+                existing.website || existing.github_repo || '',
+                proposedSolution ? `Solution: ${proposedSolution}` : '',
+            ].filter(Boolean).join(' · '),
+        });
+    } catch {
+        /* activity logging is best-effort */
+    }
+
+    return res.redirect(adminPath('/audit?saved=1'));
 });
 
 route.get('/profile', (req, res) => {

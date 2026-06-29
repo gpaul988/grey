@@ -68,6 +68,51 @@ export function saveAudit(report: AuditReport, ipAddress?: string, userAgent?: s
         userAgent || null
     );
 
+    // ALSO register this run in the `audit_submissions` table so it shows up in
+    // the backend Admin audit panel under "Audit Runs". The panel reads ONLY the
+    // audit_submissions table and treats rows WITHOUT `specific_issues` as runs
+    // and rows WITH `specific_issues` as fix requests. Without this, runs were
+    // invisible to the backend. We keep `specific_issues` NULL here on purpose.
+    try {
+        const target = report.target.website || report.target.repo || 'Unknown target';
+        const runSummary =
+            `Automated audit — score ${report.overallScore}/100 (grade ${report.grade}). ` +
+            `${allFindings.length} findings.`;
+        db.prepare(`
+            INSERT INTO audit_submissions (
+                user_name, user_email, user_phone, user_company,
+                audit_report_id, website, github_repo,
+                priority, budget_estimate, specific_issues, preferred_contact,
+                audit_data, status, created_at, updated_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?, ?, 'new', datetime('now'), datetime('now'))
+        `).run(
+            'Audit Run',
+            'audit-bot@greyinfotech.com.ng',
+            null,
+            null,
+            externalId,
+            report.target.website || null,
+            report.target.repo || null,
+            report.grade === 'F' || report.grade === 'E' ? 'high' : 'medium',
+            null,
+            'email',
+            JSON.stringify({
+                kind: 'audit-run',
+                target,
+                overallScore: report.overallScore,
+                grade: report.grade,
+                summary: runSummary,
+                findingsCount: allFindings.length,
+                ipAddress: ipAddress || null,
+                userAgent: userAgent || null,
+                generatedAt: report.generatedAt,
+            })
+        );
+    } catch (err) {
+        // Non-fatal: the audit itself is already saved in `audits`.
+        console.warn('[Audit] Failed to mirror run into audit_submissions:', err);
+    }
+
     // Fetch the saved record to return it
     const saved = db.prepare('SELECT * FROM audits WHERE external_id = ?').get(externalId) as any;
     return mapRowToAudit(saved);
