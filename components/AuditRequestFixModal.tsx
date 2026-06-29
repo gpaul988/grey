@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
+import type { AuditReport } from '@/lib/audit/engine';
 
 interface AuditRequestFixModalProps {
   isOpen: boolean;
@@ -10,6 +11,8 @@ interface AuditRequestFixModalProps {
   website?: string;
   gitHubRepo?: string;
   onSuccess?: () => void;
+  /** Full audit report — attached to submission so admin sees all findings + fixes */
+  auditReport?: AuditReport & { externalId?: string };
 }
 
 const CONTACT_OPTIONS = [
@@ -37,6 +40,7 @@ export function AuditRequestFixModal({
   website,
   gitHubRepo,
   onSuccess,
+  auditReport,
 }: AuditRequestFixModalProps) {
   const [formData, setFormData] = useState({
     userName:         '',
@@ -83,6 +87,22 @@ export function AuditRequestFixModal({
 
     setLoading(true);
     try {
+      // Build auditData — always include the full report so admin has every finding + fix
+      const auditData: Record<string, unknown> = {
+        submittedAt: new Date().toISOString(),
+        userAgent:   typeof navigator !== 'undefined' ? navigator.userAgent : 'Unknown',
+      };
+      if (auditReport) {
+        auditData.overallScore    = auditReport.overallScore;
+        auditData.grade           = auditReport.grade;
+        auditData.summary         = auditReport.summary;
+        auditData.detailedSummary = auditReport.detailedSummary;
+        auditData.sections        = auditReport.sections;        // full findings + fix + implementation
+        auditData.generatedAt     = auditReport.generatedAt;
+        auditData.target          = auditReport.target;
+        if (auditReport.externalId) auditData.externalId = auditReport.externalId;
+      }
+
       const response = await fetch('/api/audit/submit', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -98,10 +118,7 @@ export function AuditRequestFixModal({
           auditReportId:    auditReportId || null,
           website:          website || null,
           gitHubRepo:       gitHubRepo || null,
-          auditData: {
-            submittedAt: new Date().toISOString(),
-            userAgent:   typeof navigator !== 'undefined' ? navigator.userAgent : 'Unknown',
-          },
+          auditData,
         }),
       });
 
