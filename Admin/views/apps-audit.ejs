@@ -19,6 +19,13 @@
 
 <%- include('./partials/page-title', { title: title, subtitle: 'Tools' }) %>
 
+<% if (typeof savedFlash !== 'undefined' && savedFlash) { %>
+    <div class="alert alert-success">Saved. The update was recorded and logged to the activity trail.</div>
+<% } %>
+<% if (typeof errFlash !== 'undefined' && errFlash) { %>
+    <div class="alert alert-danger"><%= errFlash %></div>
+<% } %>
+
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -48,6 +55,152 @@
 </div>
 
 <div id="gxResult"></div>
+
+<%
+    // Helpers (server-side render of stored submissions)
+    function _esc(v){ return String(v == null ? '' : v).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]); }); }
+    function _statusBadge(s){
+        var map = { 'new':'bg-primary', 'in_progress':'bg-warning text-dark', 'responded':'bg-info text-dark', 'resolved':'bg-success', 'closed':'bg-secondary' };
+        var cls = map[s] || 'bg-light text-dark';
+        return '<span class="badge ' + cls + '">' + _esc((s||'new').replace('_',' ')) + '</span>';
+    }
+    function _prioBadge(p){
+        var map = { 'critical':'bg-danger', 'high':'bg-danger', 'medium':'bg-warning text-dark', 'low':'bg-secondary' };
+        var cls = map[p] || 'bg-light text-dark';
+        return '<span class="badge ' + cls + '">' + _esc(p||'medium') + '</span>';
+    }
+    var STATUSES = ['new','in_progress','responded','resolved','closed'];
+    var _adminPath = (typeof adminPath === 'function') ? adminPath : function(p){ return p; };
+%>
+
+<!-- ============ FIX REQUESTS (submitted via "Request a Fix" modal) ============ -->
+<div class="row mt-1">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div>
+                        <h4 class="card-title mb-1">Fix Requests</h4>
+                        <p class="text-muted mb-0 small">Submitted from the public audit page. Update status to track resolution — it logs to the activity trail.</p>
+                    </div>
+                    <span class="badge bg-primary fs-6"><%= (typeof fixRequests !== 'undefined' ? fixRequests.length : 0) %></span>
+                </div>
+
+                <% if (typeof fixRequests === 'undefined' || fixRequests.length === 0) { %>
+                    <p class="text-muted small mb-0">No fix requests yet.</p>
+                <% } else { %>
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Requester</th><th>Target</th><th>Issues</th>
+                                <th>Priority</th><th>Budget</th><th>Status</th><th>Received</th><th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <% fixRequests.forEach(function(s){ %>
+                            <tr>
+                                <td>
+                                    <div class="fw-semibold"><%= s.user_name %></div>
+                                    <div class="small text-muted"><%= s.user_email %><% if (s.user_phone) { %> · <%= s.user_phone %><% } %></div>
+                                    <% if (s.user_company) { %><div class="small text-muted"><%= s.user_company %></div><% } %>
+                                </td>
+                                <td class="small">
+                                    <% if (s.website) { %><div>🌐 <a href="<%= s.website %>" target="_blank" rel="noopener"><%= s.website %></a></div><% } %>
+                                    <% if (s.github_repo) { %><div>📦 <a href="<%= s.github_repo %>" target="_blank" rel="noopener"><%= s.github_repo %></a></div><% } %>
+                                    <% if (s.audit_report_id) { %><div class="text-muted">Report: <%= s.audit_report_id %></div><% } %>
+                                </td>
+                                <td class="small" style="max-width:260px"><%= s.specific_issues %></td>
+                                <td><%- _prioBadge(s.priority) %></td>
+                                <td class="small"><%= s.budget_estimate || '—' %></td>
+                                <td><%- _statusBadge(s.status) %></td>
+                                <td class="small text-muted"><%= timeAgo(s.created_at) %></td>
+                                <td class="text-end">
+                                    <button class="btn btn-sm btn-soft-primary" type="button" data-bs-toggle="collapse" data-bs-target="#fix<%= s.id %>">Manage</button>
+                                </td>
+                            </tr>
+                            <tr class="collapse" id="fix<%= s.id %>">
+                                <td colspan="8" class="bg-light-subtle">
+                                    <form method="POST" action="<%= _adminPath('/audit/update') %>" class="row g-2 align-items-end py-2">
+                                        <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+                                        <input type="hidden" name="id" value="<%= s.id %>">
+                                        <div class="col-md-2">
+                                            <label class="form-label small fw-semibold mb-1">Status</label>
+                                            <select name="status" class="form-select form-select-sm">
+                                                <% STATUSES.forEach(function(st){ %>
+                                                    <option value="<%= st %>" <%= s.status === st ? 'selected' : '' %>><%= st.replace('_',' ') %></option>
+                                                <% }); %>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label small fw-semibold mb-1">Proposed solution</label>
+                                            <input type="text" name="proposed_solution" class="form-control form-control-sm" value="<%= s.proposed_solution || '' %>" placeholder="What we'll do to fix it">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label small fw-semibold mb-1">Internal notes</label>
+                                            <input type="text" name="admin_notes" class="form-control form-control-sm" value="<%= s.admin_notes || '' %>" placeholder="Notes (not shown to client)">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-sm btn-primary w-100">Save</button>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============ AUDIT RUNS (triggered by "Run Audit") ============ -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div>
+                        <h4 class="card-title mb-1">Audit Runs</h4>
+                        <p class="text-muted mb-0 small">Every audit executed from the public page or this panel is logged here.</p>
+                    </div>
+                    <span class="badge bg-info text-dark fs-6"><%= (typeof auditRuns !== 'undefined' ? auditRuns.length : 0) %></span>
+                </div>
+
+                <% if (typeof auditRuns === 'undefined' || auditRuns.length === 0) { %>
+                    <p class="text-muted small mb-0">No audit runs recorded yet.</p>
+                <% } else { %>
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover align-middle mb-0">
+                        <thead><tr><th>Target</th><th>Score</th><th>Report ID</th><th>Status</th><th>When</th></tr></thead>
+                        <tbody>
+                        <% auditRuns.forEach(function(s){
+                            var ad = {}; try { ad = JSON.parse(s.audit_data || '{}'); } catch(e) {}
+                        %>
+                            <tr>
+                                <td class="small">
+                                    <% if (s.website) { %><div>🌐 <%= s.website %></div><% } %>
+                                    <% if (s.github_repo) { %><div>📦 <%= s.github_repo %></div><% } %>
+                                    <% if (!s.website && !s.github_repo) { %>—<% } %>
+                                </td>
+                                <td>
+                                    <% if (ad.grade) { %><span class="badge bg-dark"><%= ad.grade %> · <%= ad.overallScore %>/100</span><% } else { %>—<% } %>
+                                </td>
+                                <td class="small text-muted"><%= s.audit_report_id || '—' %></td>
+                                <td><%- _statusBadge(s.status) %></td>
+                                <td class="small text-muted"><%= timeAgo(s.created_at) %></td>
+                            </tr>
+                        <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
 
 <%- contentFor('extra_javascript') %>
 <script>

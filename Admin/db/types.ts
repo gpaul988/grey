@@ -420,7 +420,7 @@ export interface AuditSubmission {
     specific_issues: string | null;
     preferred_contact: 'email' | 'phone' | string;
     audit_data: string;
-    status: 'new' | 'in_progress' | 'responded' | 'closed' | string;
+    status: 'new' | 'in_progress' | 'responded' | 'resolved' | 'closed' | string;
     admin_notes: string | null;
     proposed_solution: string | null;
     created_at: string;
