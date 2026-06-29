@@ -33,7 +33,7 @@ const DrupalDevelopment = () => (
                 tags: ['Drupal 10', 'PHP', 'Services', 'Hooks', 'Plugins'],
                 body: <>We build custom Drupal modules that extend the platform to meet your exact business
                 requirements—custom field types, entity bundles, workflow integrations, payment gateways,
-                API clients and complex data transformations. Modules follow Drupal's object-oriented
+                API clients and complex data transformations. Modules follow Drupal&apos;s object-oriented
                 architecture with dependency injection, event subscribers and proper testing, making them
                 upgrade-safe and maintainable.</>,
             },

@@ -137,7 +137,7 @@ const OurApproach = () => {
                     <FxReveal>
                         <FxChip day={isDayTime} className="mb-6">Our Philosophy</FxChip>
                         <h2 className={`text-[2em] md:text-[2.8em] font-[700] leading-[1.15] tracking-tight mb-6 ${dark ? 'text-white' : 'text-gray-900'}`}>
-                            We don't just build software.<br />
+                            We don&apos;t just build software.<br />
                             <span className="gx-gradient-text">We engineer outcomes.</span>
                         </h2>
                         <p className={`text-[0.9em] leading-[1.8] mb-6 ${dark ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -268,7 +268,7 @@ const OurApproach = () => {
                         </FxReveal>
 
                         <FxReveal delay={0.15}>
-                            <FxFrame day={false} className="p-10">
+                            <FxFrame className="p-10">
                                 <div className="text-center">
                                     <div className="text-[0.72em] font-mono text-teal-400 uppercase tracking-[0.2em] mb-4">Success Rate</div>
                                     <div className="text-[5em] font-[900] gx-gradient-text leading-none mb-2">98%</div>
@@ -300,7 +300,7 @@ const OurApproach = () => {
                     <FxReveal>
                         <FxChip day={false} className="mb-6">Ready to Start?</FxChip>
                         <FxGlitchText tag="h2" className="text-[2.5em] md:text-[3.5em] font-[800] leading-[1.1] tracking-tight mb-6">
-                            Let's build something<br />
+                            Let&apos;s build something<br />
                             <span className="gx-gradient-text">extraordinary together.</span>
                         </FxGlitchText>
                         <p className="text-white/60 max-w-xl mx-auto mb-10 text-[0.95em] leading-relaxed">

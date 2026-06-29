@@ -41,8 +41,8 @@ const ShopifyDevelopment = () => (
                 id: '02', title: 'Shopify App Development', target: 'AD',
                 tags: ['Public Apps', 'Private Apps', 'App Extensions', 'Shopify CLI'],
                 body: <>We build custom Shopify apps—both private apps for single-store functionality and
-                public apps for the Shopify App Store. App development covers Shopify's REST and GraphQL
-                Admin APIs, storefront API, webhooks, billing API and OAuth integration. We follow Shopify's
+                public apps for the Shopify App Store. App development covers Shopify&apos;s REST and GraphQL
+                Admin APIs, storefront API, webhooks, billing API and OAuth integration. We follow Shopify&apos;s
                 app review guidelines and build apps with proper rate-limit handling, error recovery and
                 comprehensive logging.</>,
             },
@@ -50,8 +50,8 @@ const ShopifyDevelopment = () => (
                 id: '03', title: 'Headless Shopify (Hydrogen)', target: 'HS',
                 tags: ['Hydrogen', 'Remix', 'Oxygen', 'Storefront API', 'React'],
                 body: <>Headless Shopify with Hydrogen and Remix delivers the fastest, most flexible storefront
-                possible—a React-based frontend connected to Shopify's commerce engine via the Storefront API,
-                deployed on Shopify Oxygen. We design headless architectures that preserve Shopify's checkout
+                possible—a React-based frontend connected to Shopify&apos;s commerce engine via the Storefront API,
+                deployed on Shopify Oxygen. We design headless architectures that preserve Shopify&apos;s checkout
                 reliability while giving you complete control over the browsing experience, enabling advanced
                 personalisation and sub-second page loads.</>,
             },

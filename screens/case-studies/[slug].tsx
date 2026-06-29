@@ -238,7 +238,7 @@ export default function CaseStudyDetail() {
                         {/* Tagline */}
                         {study.tagline && (
                             <p className={`text-xl md:text-2xl lg:text-3xl font-medium leading-relaxed mb-10 ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}>
-                                "{study.tagline}"
+                                &ldquo;{study.tagline}&rdquo;
                             </p>
                         )}
 
@@ -300,7 +300,7 @@ export default function CaseStudyDetail() {
                             className={`rounded-2xl border p-6 ${isDayTime ? 'bg-gray-50 border-gray-100' : 'bg-zinc-900 border-zinc-800'}`}>
                             <h3 className="text-base font-semibold mb-2">Have a similar challenge?</h3>
                             <p className={`text-sm mb-5 leading-relaxed ${isDayTime ? 'text-gray-500' : 'text-gray-400'}`}>
-                                We'd love to hear about your project and explore how we can help.
+                                We&apos;d love to hear about your project and explore how we can help.
                             </p>
                             <Link href="/contact"
                                   className="block w-full text-center px-5 py-3 rounded-full bg-gray-900 text-white text-sm font-medium hover:bg-gray-700 transition-colors">

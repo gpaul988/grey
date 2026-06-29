@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FloatingButton from "@/components/FloatingButton";
 import {useIsDayTime} from '../components/useIsDayTime';
-import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxGlitchText } from '@/components/futuristic/fx';
+import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxGlitchText, FxStickyScrollSection, FxScrollItem } from '@/components/futuristic/fx';
 const reasons = [
     {
         id: 1,
@@ -171,7 +171,7 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
                                 </FxGlitchText>
                             </div>
                             <p className="text-white/65 max-w-2xl text-[0.95em] md:text-[1.05em] leading-relaxed mb-8">
-                                From validated MVP to scaled platform — we've helped startups launch, grow, and succeed in over 15 industries.
+                                From validated MVP to scaled platform — we&apos;ve helped startups launch, grow, and succeed in over 15 industries.
                             </p>
                             <div className="flex flex-wrap gap-3">
                                 {['MVP Development', 'Virtual CTO', 'Scalable Architecture', 'Lean & Agile'].map(s => (
@@ -229,263 +229,78 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
                 </div>
             </section>
 
-            <div
-                className={`-mt-[3em] ${isDayTime ? ' bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900' : 'bg-gradient-to-br from-slate-100 via-slate-400 to-slate-700'}`}>
-                <div id={'development-solutions-for-startups'}
-                     className={'relative lg:py-[3em] py-[1em] lg:my-[3em] my-[1em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]'}>
-                    <div
-                        className={`relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4 mb-8 border-b-[1px] pb-[2em] ${isDayTime ? 'text-white' : 'text-black'} `}>
-                        <div>
-                            <h2 className={`lg:text-[3.3em] md:text-[2.5em] sm:text-[2em] text-[2em] font-[500] justify-center tracking-tight leading-[1.1]`}>
-                                Development<br/>solutions<br/>for startups
-                            </h2>
-                        </div>
-                        <div>
-                            <p className='text-[0.873em] font-[400] justify-center text-justify leading-[1.5] lg:-ml-[7.5em] md:-ml-[3.5em] tracking-noromal'>
-                                Writing code is only one aspect of developing software for a startup; another is laying
-                                the
-                                groundwork for expansion, creativity, and sustained success.
-                            </p>
-                        </div>
-                    </div>
-                    <div
-                        className='grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:gap-[4em] md:gap-[6em] gap-6 lg:mt-28 md:mt-28 mt-6 px-6 max-w-full w-full mx-auto h-full'>
-                        <div
-                            className='lg:sticky md:sticky top-28 lg:h-screen md:h-screen lg:mr-[6em] overflow-hidden'>
-                            <h3 className={`text-[1.5em] font-[500] constant-text ${
-                                isDayTime ? 'text-white' : 'text-black'
-                            }`}>
-                                Our Solutions
-                            </h3>
-                            <ul className={`list-disc constant-text text-[0.873em] font-[300] relative space-y-1 md:break-words md:whitespace-normal ${
-                                isDayTime ? 'text-white decoration-gray-300 focus:decoration-gray-600' : 'text-black decoration-gray-600 focus:decoration-gray-900'
-                            }`}>
-                                {[
-                                    {id: "01", title: "Integration solutions", target: "integration"},
-                                    {id: "02", title: "Virtual CTO services", target: "virtual"},
-                                    {id: "03", title: "Data-driven solutions", target: "data"},
-                                    {id: "04", title: "Scalable MVPs", target: "scalable"},
-                                    {id: "05", title: "Custom application development", target: "custom"},
-                                    {id: "06", title: "Cloud-based platforms", target: "cloud"},
-                                    {id: "07", title: "End-to-End production lifecycle management", target: "end"},
-                                ].map((item, index) => (
-                                    <li key={index} className={'group lg:mt-6 md:mt-3 mt-2'}>
-                                        <button
-                                            onClick={() => scrollToSection(item.target)}
-                                            className={`w-full text-left flex items-center gap-4 mb-2 focus:font-[650] ${
-                                                isDayTime
-                                                    ? `focus:text-white ${activeId === item.target ? 'text-gray-100 font-[650]' : 'text-gray-500 font-[300]'}`
-                                                    : `focus:text-black ${activeId === item.target ? 'text-gray-900 font-[650]' : 'text-gray-500 font-[300]'}`
-                                            }`}
-                                        >
-                                            <div className={'flex gap-2'}>
-                                                <span className={'shrink-0'}>{item.id}</span>
-                                                <span
-                                                    className={`opacity-0 transition-opacity text-[1.5em] leading-[0.59em] ${activeId === item.target ? 'opacity-100' : ''}`}>→</span>
-                                                <span>{item.title}</span>
-                                            </div>
-                                        </button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div className={'lg:-ml-[7em]'}>
-                            <div
-                                className="grid lg:grid-cols-[50px_auto] grid-cols-1 lg:mb-[16em] md:mb-[16em] lg:gap-2 gap1 items-start">
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>01/
-                                </div>
-                                <div className={`lg:mb-44 mb-14  ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'integration'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>Integration
-                                        solutions</h2>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>By connecting
-                                        your
-                                        product to
-                                        third-party APIs, payment gateways, CRMs, and other crucial systems, our
-                                        integration
-                                        solutions guarantee a cohesive and effective workflow. We help you increase user
-                                        satisfaction, save time, and streamline operations by removing data silos and
-                                        improving interoperability. We offer solutions that support your company&#39;s
-                                        goals,
-                                        whether you&#39;re integrating pre-existing tools or require specially designed
-                                        connections.</p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>02/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'virtual'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>Virtual
-                                        CTO services</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.8em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                    <span
-                                        className={`px-4 py-2 ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full`}>Startup strategy</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Technical leadership</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Tech roadmap</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>Early on, it is
-                                        not practical for many startups to hire a full-time Chief Technology Officer
-                                        (CTO).
-                                        Our Virtual CTO services can help with that. Without the long-term commitment of
-                                        a
-                                        full-time hire, we provide startups with access to senior-level technical
-                                        expertise
-                                        and strategic direction. In order to make well-informed technology decisions,
-                                        match
-                                        development with business goals, and develop a plan for scalable expansion, our
-                                        virtual CTOs collaborate closely with your team.</p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>03/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'data'}>
-                                    <h2 className="text-[1.5em] font-[500] mb-3">Data-driven solutions</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.8em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                  <span
-                                      className={`px-4 py-2 ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full`}>Business Intelligence</span>
-                                        <span
-                                            className={`px-4 py-2 ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full`}>Data analytics</span>
-                                        <span
-                                            className={`px-4 py-2 ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full`}>Data driven decisions</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>One of your
-                                        most
-                                        important
-                                        resources is data, which we assist you in using to guide your choices. We create
-                                        solutions that transform unstructured data into strategic possibilities, ranging
-                                        from operational measurements, KPIs, and OKRs to consumer behavior analytics.
-                                        This
-                                        enables you to fully comply with data protection laws while improving customer
-                                        engagement, streamlining your offering, and finding new income sources.</p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>04/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'scalable'}>
-                                    <h2 className="text-[1.5em] font-[500] mb-3">Scalable MVPs</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.8em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                   <span
-                                       className={`px-4 py-2 ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full`}>MVP development</span>
-                                        <span
-                                            className={`px-4 py-2 ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full`}>Lean startup</span>
-                                        <span
-                                            className={`px-4 py-2 ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full`}>Market validation</span>
-                                        <span
-                                            className={`px-4 py-2 ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full`}>Startup growth</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>More than just
-                                        a
-                                        prototype, a
-                                        Minimum Viable Product (MVP) is your first step in gaining early adopters and
-                                        validating your business concept. Many startups have benefited from our
-                                        assistance
-                                        in creating MVPs that offer distinctive business value. Our method guarantees
-                                        that
-                                        your MVP is scalable in addition to being functional, allowing you to add
-                                        features
-                                        and grow as your company does. Quick development cycles allow you to launch your
-                                        MVP
-                                        as soon as possible, get insightful feedback, and iterate efficiently to
-                                        maximize
-                                        the potential of your product.</p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>05/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'custom'}>
-                                    <h2 className="text-[1.5em] font-[500] mb-3">Custom application
-                                        development</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.8em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                   <span
-                                       className={`px-4 py-2 ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full`}>Custom apps</span>
-                                        <span
-                                            className={`px-4 py-2 ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full`}>Bespoke software</span>
-                                        <span
-                                            className={`px-4 py-2 ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full`}>Startup development</span>
-                                        <span
-                                            className={`px-4 py-2 ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full`}>Agile</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>Any successful
-                                        startup relies
-                                        heavily on custom applications, which is why you&#39;re doing this. We create
-                                        custom
-                                        software that is suited to your target market and business requirements. We
-                                        develop
-                                        cutting-edge solutions that address practical issues and provide financial
-                                        value,
-                                        whether it&#39;s a robust web platform, a <Link
-                                            href='/services/Mobile-Application-Development'
-                                            className='border-b-[1px] border-gray-200'>mobile
-                                            app</Link>, or a combination of the two.</p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>06/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'cloud'}>
-                                    <h2 className="text-[1.5em] font-[500] mb-3">Cloud-based platforms</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.8em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                   <span
-                                       className={`px-4 py-2 ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full`}>Cloud computing</span>
-                                        <span
-                                            className={`px-4 py-2 ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full`}>Scalable platforms</span>
-                                        <span
-                                            className={`px-4 py-2 ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full`}>Secure software</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>Cloud-based
-                                        platforms offer the
-                                        foundation for scalability and reliability, which are crucial for startups. Our
-                                        cloud solutions guarantee excellent security and performance while optimizing
-                                        your
-                                        operations by enabling software accessibility from any location at any time. We
-                                        work
-                                        with leading cloud providers such as Amazon AWS, Azure and Digital Ocean to
-                                        build
-                                        platforms that grow with your business, whether dealing with spikes in user
-                                        activity, expanding into new markets, or adding advanced functionalities.</p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>07/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`} id={'end'}>
-                                    <h2 className={"text-[1.5em] font-[500] mb-3"}>End-to-End product lifecycle
-                                        management</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.8em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                   <span
-                                       className={`px-4 py-2 ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full`}>Product lifecycle</span>
-                                        <span
-                                            className={`px-4 py-2 ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full`}>Startup support</span>
-                                        <span
-                                            className={`px-4 py-2 ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full`}>Feature enhancements</span>
-                                        <span
-                                            className={`px-4 py-2 ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full`}>Startup scaling</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>A startup
-                                        product
-                                        launch is just
-                                        the first step. Our comprehensive product lifecycle management services
-                                        guarantee
-                                        that your software keeps developing and prospering. We are your partner at every
-                                        stage of the process, from original development and implementation to upgrades,
-                                        scalability, and continuing maintenance.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <FxStickyScrollSection
+                day={isDayTime}
+                heading={<>Development<br/>solutions<br/>for startups</>}
+                intro="Writing code is only one aspect of developing software for a startup; another is laying the groundwork for expansion, creativity, and sustained success."
+                navLabel="Our Solutions"
+                activeId={activeId}
+                onNavClick={scrollToSection}
+                items={[
+                    {
+                        id: "01",
+                        title: "Integration solutions",
+                        target: "integration",
+                        body: (
+                            <p>By connecting your product to third-party APIs, payment gateways, CRMs, and other crucial systems, our integration solutions guarantee a cohesive and effective workflow. We help you increase user satisfaction, save time, and streamline operations by removing data silos and improving interoperability. We offer solutions that support your company&apos;s goals, whether you&apos;re integrating pre-existing tools or require specially designed connections.</p>
+                        ),
+                    },
+                    {
+                        id: "02",
+                        title: "Virtual CTO services",
+                        target: "virtual",
+                        tags: ["Startup strategy", "Technical leadership", "Tech roadmap"],
+                        body: (
+                            <p>Early on, it is not practical for many startups to hire a full-time Chief Technology Officer (CTO). Our Virtual CTO services can help with that. Without the long-term commitment of a full-time hire, we provide startups with access to senior-level technical expertise and strategic direction. In order to make well-informed technology decisions, match development with business goals, and develop a plan for scalable expansion, our virtual CTOs collaborate closely with your team.</p>
+                        ),
+                    },
+                    {
+                        id: "03",
+                        title: "Data-driven solutions",
+                        target: "data",
+                        tags: ["Business Intelligence", "Data analytics", "Data driven decisions"],
+                        body: (
+                            <p>One of your most important resources is data, which we assist you in using to guide your choices. We create solutions that transform unstructured data into strategic possibilities, ranging from operational measurements, KPIs, and OKRs to consumer behavior analytics. This enables you to fully comply with data protection laws while improving customer engagement, streamlining your offering, and finding new income sources.</p>
+                        ),
+                    },
+                    {
+                        id: "04",
+                        title: "Scalable MVPs",
+                        target: "scalable",
+                        tags: ["MVP development", "Lean startup", "Market validation", "Startup growth"],
+                        body: (
+                            <p>More than just a prototype, a Minimum Viable Product (MVP) is your first step in gaining early adopters and validating your business concept. Many startups have benefited from our assistance in creating MVPs that offer distinctive business value. Our method guarantees that your MVP is scalable in addition to being functional, allowing you to add features and grow as your company does. Quick development cycles allow you to launch your MVP as soon as possible, get insightful feedback, and iterate efficiently to maximize the potential of your product.</p>
+                        ),
+                    },
+                    {
+                        id: "05",
+                        title: "Custom application development",
+                        target: "custom",
+                        tags: ["Custom apps", "Bespoke software", "Startup development", "Agile"],
+                        body: (
+                            <p>Any successful startup relies heavily on custom applications, which is why you&apos;re doing this. We create custom software that is suited to your target market and business requirements. We develop cutting-edge solutions that address practical issues and provide financial value, whether it&apos;s a robust web platform, a <Link href='/services/Mobile-Application-Development' className='border-b border-current opacity-70 hover:opacity-100'>mobile app</Link>, or a combination of the two.</p>
+                        ),
+                    },
+                    {
+                        id: "06",
+                        title: "Cloud-based platforms",
+                        target: "cloud",
+                        tags: ["Cloud computing", "Scalable platforms", "Secure software"],
+                        body: (
+                            <p>Cloud-based platforms offer the foundation for scalability and reliability, which are crucial for startups. Our cloud solutions guarantee excellent security and performance while optimizing your operations by enabling software accessibility from any location at any time. We work with leading cloud providers such as Amazon AWS, Azure and Digital Ocean to build platforms that grow with your business, whether dealing with spikes in user activity, expanding into new markets, or adding advanced functionalities.</p>
+                        ),
+                    },
+                    {
+                        id: "07",
+                        title: "End-to-End product lifecycle management",
+                        target: "end",
+                        tags: ["Product lifecycle", "Startup support", "Feature enhancements", "Startup scaling"],
+                        body: (
+                            <p>A startup product launch is just the first step. Our comprehensive product lifecycle management services guarantee that your software keeps developing and prospering. We are your partner at every stage of the process, from original development and implementation to upgrades, scalability, and continuing maintenance.</p>
+                        ),
+                    },
+                ] satisfies FxScrollItem[]}
+            />
 
             <div className="sticky lg:-mt-[19em] -mt-[2em] max-w-full w-full lg:h-[100vh]">
                 <Image
@@ -500,121 +315,107 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
                 />
             </div>
 
-            <div className={`relative lg:py-32 py-16 ${isDayTime ? 'bg-black' : 'bg-white'}`}>
+            <div className={`relative lg:py-32 py-16 overflow-hidden ${isDayTime ? 'bg-[#020f0d]' : 'bg-[#020f0d]'}`}>
+                <FxBackground day={false} grid aurora className="opacity-45" />
+                <div className="gx-noise-overlay pointer-events-none" />
                 <div
-                    className='relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 max-w-[90em] mx-auto px-4 sm:px-6 lg:px-[4.6em]max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]  lg:mb-32 mb-16'>
+                    className='relative z-10 grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 max-w-[90em] mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] lg:mb-32 mb-16'>
                     <div className='relative sm:mb-8'>
                         <Image
                             src="/assets/startup/startup.jpg"
                             alt="startup development services"
                             width={410}
                             height={40}
-                            style={{
-                                height: 'auto',
-                            }}
+                            style={{ height: 'auto' }}
+                            className="rounded-2xl"
                         />
                     </div>
-                    <div className={`lg:-ml-[6.4em] lg:mr-[5.5em] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                        <h2 className='lg:text-[3em] md:text-[2.3em] text-[1.8em] font-[700] tracking-tight pb-6 rounded-none lg:pr-[2.2em] lg:mt-7'>Your
-                            digital adventure</h2>
-                        <p className='text-[0.85em] font-[400] tracking-normal text-justify lg:-mt-[0.2em] border-b rounded-none pb-9 leading-[1.5] lg:pr-[3em]'>
+                    <div className="lg:-ml-[6.4em] lg:mr-[5.5em] text-white">
+                        <FxReveal>
+                            <FxGlitchText tag="h2" className="lg:text-[3em] md:text-[2.3em] text-[1.8em] font-[700] tracking-tight pb-6 lg:pr-[2.2em] lg:mt-7">
+                                Your digital adventure
+                            </FxGlitchText>
+                        </FxReveal>
+                        <p className="text-[0.85em] font-[400] tracking-normal text-justify border-b border-white/15 rounded-none pb-9 leading-[1.5] lg:pr-[3em] text-white/70">
                             Our specialty in the fast-paced IT industry is assisting business owners and entrepreneurs
-                            in
-                            realizing their product concepts. And we&#39;ve learned a few things from our over 8
-                            years of
-                            expertise.<br/><br/>
+                            in realizing their product concepts. And we&#39;ve learned a few things from our over 8 years of
+                            expertise.<br /><br />
                             In addition to collaborating with well-established companies, we have developed MVPs, built
                             digital products, scaled tech and infrastructure, and ultimately sold a number of financed
                             startups. We can provide you with that experience.
-                        </p><br/><br/>
-                        <p className='text-[0.85em] font-[450] tracking-tighter text-justify lg:-mt-[0.2em]'>Let&#39;s
-                            discuss your plans and figure out how we can support you.</p><br/>
-                        <Link href='/contact'>
-                            <button
-                                className='relative mx-auto inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em]  border tracking-tighter  rounded-full py-2 px-6'>
-                        <span
-                            className={`w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 ${isDayTime ? 'bg-white' : 'bg-black'} opacity-[3%]`}></span>
-                                <span
-                                    className={`absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 ${isDayTime ? 'bg-white' : 'bg-black'} opacity-100 group-hover:-translate-x-8`}></span>
-                                <span
-                                    className={`relative w-full text-left transition-colors duration-200 ease-in-out ${isDayTime ? 'text-white group-hover:text-black' : 'text-black group-hover:text-white'}`}>Get
-                                in touch <span className={`text-[1.5em] leading-[0.7]`}> →</span></span>
-                                <span
-                                    className={"absolute inset-0 border-[1px] border-gray-900 ${isDayTime ? 'border-black' : 'border-white'} rounded-full"}></span>
-                            </button>
-                        </Link>
+                        </p>
+                        <br />
+                        <p className="text-[0.85em] font-[450] tracking-tighter text-justify text-white/60 mb-6">
+                            Let&#39;s discuss your plans and figure out how we can support you.
+                        </p>
+                        <FxButton day={false} href="/contact" variant="solid">Get in touch →</FxButton>
                     </div>
                 </div>
             </div>
 
-            {/* Why Grey InfoTech dark theme */}
-            <div className={`relative lg:-mt-20 py-36 ${isDayTime ? 'bg-white' : 'bg-black'} lg:mb-20 mb-12`}>
-                <div
-                    className={`relative grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] border-b-[0.001em] pb-12 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                    <div>
-                        <h2 className='lg:text-[3em] md:text-[2.3em] text-[1.8em] font-[700] tracking-tighter leading-[1.15] lg:pb-6 rounded-none pr-[3.2em]'>Why
-                            Grey infotech for your startup</h2>
-                    </div>
-                    <div className='lg:-ml-[7em]'>
-                        <p className='text-[0.875em] font-[400] lg:-mt-[0.2em] rounded-none leading-[1.5]'>
-                            We have completed projects for businesses across a wide range of industries. Details
-                            about this experience that might be pertinent to you are included in this section.
-                        </p>
+            {/* Why Grey InfoTech — FX accordion */}
+            <div className={`relative overflow-hidden ${isDayTime ? 'bg-white' : 'bg-[#050810]'} lg:pt-36 pt-20 lg:pb-0 pb-0`}>
+                <FxBackground day={isDayTime} grid={false} aurora className="opacity-30" />
+                <div className="relative z-10 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] border-b border-white/10 pb-12 mb-0">
+                    <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6">
+                        <div>
+                            <FxReveal>
+                                <FxChip day={isDayTime} className="mb-5">Why Grey</FxChip>
+                                <FxGlitchText tag="h2" className={`lg:text-[3em] md:text-[2.3em] text-[1.8em] font-[700] tracking-tighter leading-[1.15] lg:pb-6 pr-[1.5em] ${isDayTime ? 'text-black' : 'text-white'}`}>
+                                    Why Grey InfoTech for your startup
+                                </FxGlitchText>
+                            </FxReveal>
+                        </div>
+                        <div className="lg:-ml-[7em]">
+                            <p className={`text-[0.875em] font-[400] lg:-mt-[0.2em] leading-[1.5] ${isDayTime ? 'text-gray-600' : 'text-white/55'}`}>
+                                We have completed projects for businesses across a wide range of industries. Details
+                                about this experience that might be pertinent to you are included in this section.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div
-                className={`relative -mt-20 ${isDayTime ? 'bg-white' : 'bg-black'} lg:mb-16 lg:pb-28 pb-14 mb-12  px-6`}>
-                <div
-                    className='relative mx-auto px-4 sm:px-6 lg:px-[4em] grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:mb-36'>
-                    {/* Left Section */}
-                    <div
-                        className={`relative text-[0.873em] lg:leading-[1.5] ${isDayTime ? 'text-black' : 'text-white'} flex flex-col justify-center mb-4 lg:pl-4 lg:pr-[3em]`}>
-                        {reasons.map((reason, index) => (
-                            <div
-                                key={reason.id}
-                                className={`relative mb-6 ${
-                                    index + 1 === activeIndex
-                                        ? isDayTime
-                                            ? 'bg-white py-5'
-                                            : 'bg-black py-5'
-                                        : ''
-                                }`}
-                            >
-                                <h3
-                                    className={`relative pr-[6em] leading-[1.2] lg:text-[1.5em] text-[1em] mb-4 cursor-pointer transition-all ${
-                                        index + 1 === activeIndex
-                                            ? isDayTime
-                                                ? 'text-black font-bold'
-                                                : 'text-white font-bold'
-                                            : 'text-gray-500'
-                                    }`}
+            <div className={`relative overflow-hidden ${isDayTime ? 'bg-white' : 'bg-[#050810]'} lg:pb-28 pb-14 mb-12`}>
+                <FxBackground day={isDayTime} grid={false} aurora className="opacity-20" />
+                <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-[4em] grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:mb-20 pt-12">
+                    {/* Left — accordion */}
+                    <div className="relative flex flex-col gap-3 lg:pl-4 lg:pr-[3em]">
+                        {reasons.map((reason, index) => {
+                            const isActive = index + 1 === activeIndex;
+                            return (
+                                <FxHoloCard
+                                    key={reason.id}
+                                    day={isDayTime}
+                                    className={`p-5 transition-all duration-300 cursor-pointer ${isActive ? 'ring-1 ring-teal-400/40' : 'opacity-70 hover:opacity-90'}`}
                                     onClick={() => setActiveIndex(index + 1)}
                                 >
-                                    {reason.title}
-                                </h3>
-                                <div>
-                                    <AnimatePresence mode="wait">
-                                        {index + 1 === activeIndex && (
-                                            <motion.div
+                                    <h3 className={`leading-[1.2] lg:text-[1.15em] text-[1em] font-[600] mb-2 transition-all ${
+                                        isActive
+                                            ? isDayTime ? 'text-teal-700' : 'text-teal-300'
+                                            : isDayTime ? 'text-gray-700' : 'text-white/60'
+                                    }`}>
+                                        <span className="font-mono text-[0.7em] mr-2 opacity-50">{String(reason.id).padStart(2,'0')}</span>
+                                        {reason.title}
+                                    </h3>
+                                    <AnimatePresence initial={false}>
+                                        {isActive && (
+                                            <motion.p
                                                 key={reason.id}
-                                                initial={{opacity: 0, y: -50}}
-                                                animate={{opacity: 1, y: 0}}
-                                                exit={{opacity: 0, y: 0}}
-                                                transition={{duration: 0}}
-                                                className={`relative inline-block ${
-                                                    isDayTime ? 'text-black' : 'text-white'
-                                                }`}
+                                                initial={{ opacity: 0, height: 0 }}
+                                                animate={{ opacity: 1, height: 'auto' }}
+                                                exit={{ opacity: 0, height: 0 }}
+                                                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                                                className={`text-[0.875em] leading-[1.6] overflow-hidden ${isDayTime ? 'text-gray-600' : 'text-white/55'}`}
                                             >
                                                 {reason.description}
-                                            </motion.div>
+                                            </motion.p>
                                         )}
                                     </AnimatePresence>
-                                </div>
-                            </div>
-                        ))}
+                                </FxHoloCard>
+                            );
+                        })}
                     </div>
-                    <div className='lg:mt-[3em] h-[30vh] sticky'>
+                    <div className="lg:mt-[3em] h-[30vh] sticky">
                         <Image
                             src={'/assets/startup/mockup.jpg'}
                             alt="Mockup"
@@ -623,25 +424,13 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
                         />
                     </div>
                 </div>
-                <div
-                    className={`lg:px-[28em] items-center ${isDayTime ? 'text-black bg-white' : 'text-white bg-black'} justify-center`}>
-                    <h2 className='lg:text-[3em] text-[1.5em] font-[600] tracking-tighter leading-[1.15] pb-6 text-center'>
+
+                {/* CTA */}
+                <div className="relative z-10 flex flex-col items-center justify-center text-center lg:px-[28em] px-4 mt-8">
+                    <FxGlitchText tag="h2" className={`lg:text-[3em] text-[1.5em] font-[600] tracking-tighter leading-[1.15] pb-6 ${isDayTime ? 'text-black' : 'text-white'}`}>
                         Prepared to initiate the discussion?
-                    </h2><br/>
-                    <Link href='/contact'
-                          className='flex items-center justify-center-safe text-center'>
-                        <button
-                            className='relative mx-auto inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em] border tracking-tighter rounded-full py-2 px-6'>
-                        <span
-                            className={`w-32 h-32 rotate-45 translate-x-[4em] -translate-y-[2.8em] absolute left-0 top-0 ${isDayTime ? 'bg-white' : 'bg-black'} opacity-[100%]`}></span>
-                            <span
-                                className={`absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-90 -translate-x-56 -translate-y-24 ${isDayTime ? 'bg-black' : 'bg-white'} opacity-100 group-hover:-translate-x-8`}></span>
-                            <span
-                                className={`relative w-full text-left text-black ${isDayTime ? 'text-black group-hover:text-white' : 'text-white group-hover:text-black'} transition-colors duration-200 ease-in-out`}>Get
-                                started <span className={`text-[1.5em] leading-[0.7]`}> →</span></span>
-                            <span className="absolute inset-0 rounded-full "></span>
-                        </button>
-                    </Link>
+                    </FxGlitchText>
+                    <FxButton day={isDayTime} href="/contact" variant="solid">Get started →</FxButton>
                 </div>
             </div>
 
@@ -813,148 +602,61 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
             </div>
 
             {/* Interest for startups */}
-            <div
-                className={`relative lg:-mt-20 md:-mt-20   lg:py-32 py-16  ${isDayTime ? 'bg-white' : 'bg-black'}`}>
-                <div
-                    className={'max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]'}>
-                    <div
-                        className={`relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4 lg:mb-8 mb-8 border-b-[1px] lg:pb-[5em] pb-[2em] ${isDayTime ? 'text-black' : 'text-white'}`}>
+            <div className={`relative overflow-hidden lg:-mt-20 md:-mt-20 lg:py-32 py-16 ${isDayTime ? 'bg-white' : 'bg-[#050810]'}`}>
+                <FxBackground day={isDayTime} grid aurora className="opacity-30" />
+                <div className="relative z-10 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]">
+                    <div className={`relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4 lg:mb-8 mb-8 border-b lg:pb-[5em] pb-[2em] ${isDayTime ? 'text-black border-gray-200' : 'text-white border-white/10'}`}>
                         <div>
-                            <h2 className='lg:text-[3em] md:text-[2.3em] text-[1.8em] font-[700]  justify-center tracking-tight leading-[1.2]'>
-                                Business interest <br className={'lg:block md:block hidden'}/>for startups </h2>
+                            <FxReveal>
+                                <FxGlitchText tag="h2" className="lg:text-[3em] md:text-[2.3em] text-[1.8em] font-[700] tracking-tight leading-[1.2]">
+                                    Business interest <br className="lg:block md:block hidden" />for startups
+                                </FxGlitchText>
+                            </FxReveal>
                         </div>
                         <div>
-                            <p className='text-[0.873em] font-[400] justify-center tracking-normal text-justify leading-[1.5] lg:-ml-[3em]'>
+                            <p className={`text-[0.873em] font-[400] tracking-normal text-justify leading-[1.5] lg:-ml-[3em] ${isDayTime ? 'text-gray-600' : 'text-white/55'}`}>
                                 All the advantages of traditional software are present in a bespoke or
-                                custom <Link href='/services/Web-Application'
-                                             className={`border-b py-[0.2em] ${
-                                                 isDayTime
-                                                     ? 'border-gray-300 hover:border-gray-800'
-                                                     : 'border-gray-700 hover:border-white'
-                                             }`}
-                            >web application
-                            </Link>,
+                                custom{' '}
+                                <Link href="/services/Web-Application" className={`border-b py-[0.2em] hover:text-teal-400 transition-colors ${isDayTime ? 'border-gray-300' : 'border-white/20'}`}>
+                                    web application
+                                </Link>,
                                 with the exception that it is more affordable, more accessible, and can grow with
-                                your
-                                company&#39;s demands. Companies across a wide range of industries, including
-                                banking,
-                                technology, construction, and recruiting, have benefited from our creative web apps.
-                                Collaborate with us for a stress-free product development process and faster
-                                software
-                                delivery.
+                                your company&#39;s demands. Companies across a wide range of industries have benefited
+                                from our creative web apps. Collaborate with us for a stress-free product development process.
                             </p>
                         </div>
                     </div>
-                    <div
-                        className='relative grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 lg:gap-[6em] gap-4 lg:mb-8 mb-8'>
-                        <div className={`mt-20 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                            <Image
-                                src={isDayTime ? '/assets/startup/dev1.svg' : '/assets/startup/dev2.svg'}
-                                alt='Speed of Development'
-                                width={70}
-                                height={70}
-                                className='mb-2'
-                            />
-                            <h3 className=' text-[1.5em] font-[600] mb-2'>
-                                Speed of Development
-                            </h3>
-                            <p className='text-justify text-[0.85em] font-[400]'>
-                                With the help of several open source frameworks, building blocks, and robust
-                                toolkits,
-                                we can swiftly create unique software solutions, enabling companies to launch their
-                                goods more quickly.
-                            </p>
-                        </div>
-                        <div className={`mt-20 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                            <Image
-                                src={isDayTime ? '/assets/startup/relia1.svg' : '/assets/startup/relia2.svg'}
-                                alt='Reliability'
-                                width={50}
-                                height={50}
-                                className='mb-2'
-                            />
-                            <h3 className='text-[1.5em] font-[600] mb-2'>
-                                Reliability
-                            </h3>
-                            <p className='text-justify text-[0.85em] font-[400]'>
-                                Well-architected web applications provide software reliability, minimizing expensive
-                                maintenance and facilitating the identification and resolution of defects.
-                            </p>
-                        </div>
-                        <div className={`mt-20 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                            <Image
-                                src={isDayTime ? '/assets/startup/sav1.svg' : '/assets/startup/sav2.svg'}
-                                alt='Cost Savings'
-                                width={50}
-                                height={50}
-                                className='mb-2'
-                            />
-                            <h3 className='text-[1.5em] font-[600] mb-2'>
-                                Cost Savings
-                            </h3>
-                            <p className='text-justify text-[0.85em] font-[400]'>
-                                Web applications may be rapidly produced and disseminated, hence aiding in the
-                                reduction
-                                of development expenses.
-                            </p>
-                        </div>
+
+                    <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-5 lg:mb-5 mb-5 mt-12">
+                        {[
+                            { img: ['/assets/startup/dev1.svg', '/assets/startup/dev2.svg'], alt: 'Speed', title: 'Speed of Development', body: 'With open source frameworks and robust toolkits, we swiftly create unique software solutions — enabling companies to launch their products more quickly.' },
+                            { img: ['/assets/startup/relia1.svg', '/assets/startup/relia2.svg'], alt: 'Reliability', title: 'Reliability', body: 'Well-architected web applications provide software reliability, minimizing expensive maintenance and facilitating the identification and resolution of defects.' },
+                            { img: ['/assets/startup/sav1.svg', '/assets/startup/sav2.svg'], alt: 'Cost', title: 'Cost Savings', body: 'Web applications may be rapidly produced and disseminated, hence aiding in the reduction of development expenses.' },
+                        ].map(({ img, alt, title, body }) => (
+                            <FxReveal key={title}>
+                                <FxHoloCard day={isDayTime} className="p-6 h-full">
+                                    <Image src={isDayTime ? img[0] : img[1]} alt={alt} width={60} height={60} className="mb-4" />
+                                    <h3 className={`text-[1.15em] font-[600] mb-2 ${isDayTime ? 'text-black' : 'text-white'}`}>{title}</h3>
+                                    <p className={`text-justify text-[0.85em] font-[400] leading-[1.5] ${isDayTime ? 'text-gray-600' : 'text-white/55'}`}>{body}</p>
+                                </FxHoloCard>
+                            </FxReveal>
+                        ))}
                     </div>
-                    <div
-                        className='relative grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 lg:gap-[6em] gap-4'>
-                        <div className={`mt-20 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                            <Image
-                                src={isDayTime ? '/assets/startup/sca1.svg' : '/assets/startup/sca2.svg'}
-                                alt='Scalability'
-                                width={60}
-                                height={60}
-                                className='mb-2'
-                            />
-                            <h3 className='text-[1.5em] font-[600] mb-2'>
-                                Scalability
-                            </h3>
-                            <p className='text-justify text-[0.85em] font-[400]'>
-                                The software may grow with your organization thanks to customised web application
-                                ability to adjust and develop as business demands do. You may adjust resources as
-                                needed
-                                thanks to scalable server design.
-                            </p>
-                        </div>
-                        <div className={`mt-20 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                            <Image
-                                src={isDayTime ? '/assets/startup/third1.svg' : '/assets/startup/third2.svg'}
-                                alt='Third-party integration'
-                                width={60}
-                                height={60}
-                                className='mb-2'
-                            />
-                            <h3 className='text-[1.5em] font-[600] mb-2'>
-                                Third-party integration
-                            </h3>
-                            <p className='text-justify text-[0.85em] font-[400]'>
-                                By integrating web apps with several additional services, like marketing tools,
-                                payment
-                                gateways, and more, companies may leverage a wealth of features to improve their
-                                software.
-                            </p>
-                        </div>
-                        <div className={`mt-20 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                            <Image
-                                src={isDayTime ? '/assets/startup/web1.svg' : '/assets/startup/web2.svg'}
-                                alt='Web app security'
-                                width={60}
-                                height={60}
-                                className='mb-2'
-                            />
-                            <h3 className='text-[1.5em] font-[600] mb-2'>
-                                Web app security
-                            </h3>
-                            <p className='text-justify text-[0.85em] font-[400]'>
-                                Our security team uses measures that guard against typical online threats, allowing
-                                company owners to rest easy knowing that their data and that of their customers will
-                                be
-                                safe and secure.
-                            </p>
-                        </div>
+
+                    <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-5">
+                        {[
+                            { img: ['/assets/startup/sca1.svg', '/assets/startup/sca2.svg'], alt: 'Scalability', title: 'Scalability', body: 'The software may grow with your organization. Customised web applications adjust and develop as business demands do — with scalable server design.' },
+                            { img: ['/assets/startup/third1.svg', '/assets/startup/third2.svg'], alt: 'Integration', title: 'Third-party integration', body: 'By integrating web apps with marketing tools, payment gateways, and more, companies leverage a wealth of features to improve their software.' },
+                            { img: ['/assets/startup/web1.svg', '/assets/startup/web2.svg'], alt: 'Security', title: 'Web app security', body: 'Our security team uses measures that guard against typical online threats — keeping your data and your customers\' data safe and secure.' },
+                        ].map(({ img, alt, title, body }) => (
+                            <FxReveal key={title}>
+                                <FxHoloCard day={isDayTime} className="p-6 h-full">
+                                    <Image src={isDayTime ? img[0] : img[1]} alt={alt} width={60} height={60} className="mb-4" />
+                                    <h3 className={`text-[1.15em] font-[600] mb-2 ${isDayTime ? 'text-black' : 'text-white'}`}>{title}</h3>
+                                    <p className={`text-justify text-[0.85em] font-[400] leading-[1.5] ${isDayTime ? 'text-gray-600' : 'text-white/55'}`}>{body}</p>
+                                </FxHoloCard>
+                            </FxReveal>
+                        ))}
                     </div>
                 </div>
             </div>

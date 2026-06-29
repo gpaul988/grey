@@ -82,7 +82,7 @@ const WordPressDevelopment = () => (
                 prevent reinfection.</>,
             },
         ]}
-        ctaHeading={<>WordPress that<br className="lg:block md:block hidden" />won't let you down</>}
+        ctaHeading={<>WordPress that<br className="lg:block md:block hidden" />won&apos;t let you down</>}
         ctaBody="Properly built WordPress is fast, secure and a joy to manage. Grey InfoTech builds WordPress sites that your editors love and your users never notice—because they just work."
         faqs={[
             {q: 'Do you use page builders like Elementor or Divi?', a: 'For custom builds we prefer custom themes and Gutenberg blocks for performance and maintainability. We work with page builders when clients have specific requirements.'},

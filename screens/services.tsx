@@ -171,7 +171,7 @@ export default function ServicesScreen() {
                             <span className="gx-gradient-text">Your Business?</span>
                         </FxGlitchText>
                         <p className="text-white/60 max-w-xl mx-auto mb-10 text-[0.95em] leading-relaxed">
-                            Let's discuss which service is right for your project and build something extraordinary together.
+                            Let&apos;s discuss which service is right for your project and build something extraordinary together.
                         </p>
                         <div className="flex flex-wrap justify-center gap-4">
                             <FxButton day={false} href="/quote-request" variant="solid">Get a Quote</FxButton>
