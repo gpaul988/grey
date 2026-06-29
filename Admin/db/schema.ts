@@ -866,6 +866,10 @@ export function migrate(database?: DatabaseType.Database): void {
         addColumnIfMissing('orders', 'currency', "TEXT NOT NULL DEFAULT 'NGN'");
     }
 
+    // ---- Career applications: new columns added in v2 ----
+    addColumnIfMissing('career_applications', 'job_opening_id', 'INTEGER REFERENCES job_openings(id) ON DELETE SET NULL');
+    addColumnIfMissing('career_applications', 'documents_paths', "TEXT NOT NULL DEFAULT '[]'");
+
     // ---- Blog post extended fields (Lightflows-style template) ----
     addColumnIfMissing('blog_posts', 'read_time', 'TEXT');
     addColumnIfMissing('blog_posts', 'hero_image', 'TEXT');
@@ -1630,6 +1634,27 @@ export function migrate(database?: DatabaseType.Database): void {
         CREATE INDEX IF NOT EXISTS idx_career_apps_email ON career_applications(email);
         CREATE INDEX IF NOT EXISTS idx_career_apps_status ON career_applications(status);
         CREATE INDEX IF NOT EXISTS idx_career_apps_type ON career_applications(form_type);
+
+        -- ---- Job Openings (career portal postings) ----
+        CREATE TABLE IF NOT EXISTS job_openings (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            department TEXT NOT NULL DEFAULT '',
+            location TEXT NOT NULL DEFAULT 'Remote',
+            type TEXT NOT NULL DEFAULT 'full-time', -- full-time | part-time | contract | remote
+            experience_level TEXT NOT NULL DEFAULT '',
+            salary_range TEXT NOT NULL DEFAULT '',
+            description TEXT NOT NULL DEFAULT '',
+            responsibilities TEXT NOT NULL DEFAULT '[]', -- JSON array
+            requirements TEXT NOT NULL DEFAULT '[]',     -- JSON array
+            nice_to_have TEXT NOT NULL DEFAULT '[]',     -- JSON array
+            benefits TEXT NOT NULL DEFAULT '[]',         -- JSON array
+            status TEXT NOT NULL DEFAULT 'draft',        -- draft | published | closed
+            deadline TEXT,
+            created_at TEXT NOT NULL DEFAULT (datetime('now')),
+            updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+        );
+        CREATE INDEX IF NOT EXISTS idx_job_openings_status ON job_openings(status);
     `);
 
     // ---- Store default settings (idempotent) ----

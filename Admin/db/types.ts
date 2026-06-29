@@ -443,8 +443,30 @@ export interface CareerApplication {
     cover_letter: string | null;
     cv_path: string | null;
     cv_filename: string | null;
+    job_opening_id: number | null;
+    documents_paths: string; // JSON array of paths
     status: 'new' | 'reviewed' | 'shortlisted' | 'rejected' | 'archived';
     admin_notes: string | null;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface JobOpening {
+    [key: string]: unknown;
+    id: number;
+    title: string;
+    department: string;
+    location: string;
+    type: 'full-time' | 'part-time' | 'contract' | 'remote' | string;
+    experience_level: string;
+    salary_range: string;
+    description: string;
+    responsibilities: string; // JSON array
+    requirements: string;     // JSON array
+    nice_to_have: string;     // JSON array
+    benefits: string;         // JSON array
+    status: 'draft' | 'published' | 'closed';
+    deadline: string | null;
     created_at: string;
     updated_at: string;
 }

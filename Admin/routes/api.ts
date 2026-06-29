@@ -10,7 +10,7 @@ import {
     Verification,
     Ads, Subscribers, Announcements, PageSeos, AnalyticsEvents, Media,
     PartnerInquiries, Faqs,
-    AuditSubmissions, CareerApplications,
+    AuditSubmissions, CareerApplications, JobOpenings,
     logActivity, nextInvoiceNumber, dashboardStats,
 } from '../models';
 import {slugify, str, toFloat, toInt, isEmail} from '../utils/helpers';
@@ -45,6 +45,87 @@ api.get('/submissions', (req, res) => {
 api.get('/submissions/:id', (req, res) => {
     const row = Submissions.find(toInt(req.params.id));
     return row ? ok(res, row) : fail(res, 'Not found', 404);
+});
+
+/* ---------------- Job Openings (admin CRUD) ---------------- */
+api.get('/job-openings', (req, res) => {
+    const status = str(req.query.status);
+    const all = JobOpenings.all('created_at DESC');
+    ok(res, status ? all.filter((j: Record<string, unknown>) => j.status === status) : all);
+});
+api.get('/job-openings/:id', (req, res) => {
+    const row = JobOpenings.find(toInt(req.params.id));
+    return row ? ok(res, row) : fail(res, 'Not found', 404);
+});
+api.post('/job-openings', (req, res) => {
+    const b = req.body as Record<string, unknown>;
+    const required = ['title'];
+    for (const f of required) {
+        if (!b[f]) return fail(res, `Missing field: ${f}`);
+    }
+    const toJsonArr = (v: unknown) => {
+        if (Array.isArray(v)) return JSON.stringify(v);
+        if (typeof v === 'string') {
+            try { return JSON.stringify(JSON.parse(v)); } catch { return JSON.stringify(v.split('\n').map(s => s.trim()).filter(Boolean)); }
+        }
+        return '[]';
+    };
+    const job = JobOpenings.create({
+        title: String(b.title || ''),
+        department: String(b.department || ''),
+        location: String(b.location || 'Remote'),
+        type: String(b.type || 'full-time'),
+        experience_level: String(b.experience_level || ''),
+        salary_range: String(b.salary_range || ''),
+        description: String(b.description || ''),
+        responsibilities: toJsonArr(b.responsibilities),
+        requirements: toJsonArr(b.requirements),
+        nice_to_have: toJsonArr(b.nice_to_have),
+        benefits: toJsonArr(b.benefits),
+        status: String(b.status || 'draft'),
+        deadline: b.deadline ? String(b.deadline) : null,
+    });
+    logActivity({ ...actor(req), action: 'create', entity: 'job_opening', entity_id: job.id, detail: String(b.title) });
+    ok(res, job, 'Job opening created');
+});
+api.put('/job-openings/:id', (req, res) => {
+    const id = toInt(req.params.id);
+    const row = JobOpenings.find(id);
+    if (!row) return fail(res, 'Not found', 404);
+    const b = req.body as Record<string, unknown>;
+    const toJsonArr = (v: unknown, fallback: string) => {
+        if (!v) return fallback;
+        if (Array.isArray(v)) return JSON.stringify(v);
+        if (typeof v === 'string') {
+            try { return JSON.stringify(JSON.parse(v)); } catch { return JSON.stringify(v.split('\n').map(s => s.trim()).filter(Boolean)); }
+        }
+        return fallback;
+    };
+    JobOpenings.update(id, {
+        title: String(b.title || row.title),
+        department: String(b.department ?? row.department),
+        location: String(b.location ?? row.location),
+        type: String(b.type ?? row.type),
+        experience_level: String(b.experience_level ?? row.experience_level),
+        salary_range: String(b.salary_range ?? row.salary_range),
+        description: String(b.description ?? row.description),
+        responsibilities: toJsonArr(b.responsibilities, String(row.responsibilities)),
+        requirements: toJsonArr(b.requirements, String(row.requirements)),
+        nice_to_have: toJsonArr(b.nice_to_have, String(row.nice_to_have)),
+        benefits: toJsonArr(b.benefits, String(row.benefits)),
+        status: String(b.status ?? row.status),
+        deadline: b.deadline !== undefined ? (b.deadline ? String(b.deadline) : null) : row.deadline,
+    });
+    logActivity({ ...actor(req), action: 'update', entity: 'job_opening', entity_id: id, detail: String(b.title || row.title) });
+    ok(res, null, 'Updated');
+});
+api.delete('/job-openings/:id', (req, res) => {
+    const id = toInt(req.params.id);
+    const row = JobOpenings.find(id);
+    if (!row) return fail(res, 'Not found', 404);
+    JobOpenings.delete(id);
+    logActivity({ ...actor(req), action: 'delete', entity: 'job_opening', entity_id: id });
+    ok(res, null, 'Deleted');
 });
 
 /* ---------------- Career Applications ---------------- */
