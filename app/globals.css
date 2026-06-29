@@ -653,3 +653,117 @@ body::after {
     .grey-cc-btn { flex: 1; justify-content: center; }
 }
 @media (prefers-reduced-motion: reduce) { .grey-cc-edge { animation: none; } }
+
+/* =====================================================================
+   FUTURISTIC DESIGN SYSTEM v2 — teal, daytime-aware, tasteful motion
+   Used by components/futuristic/fx/* primitives. Light + dark variants
+   are driven by a `data-day="true|false"` attribute on the wrapper.
+   ===================================================================== */
+
+/* --- Animated grid / mesh background --- */
+.gx-grid {
+    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+}
+.gx-grid::before {
+    content: ""; position: absolute; inset: -2px;
+    background-image:
+        linear-gradient(to right, var(--gx-grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--gx-grid-line) 1px, transparent 1px);
+    background-size: 54px 54px;
+    animation: gxGridPan 22s linear infinite;
+}
+@keyframes gxGridPan { from { transform: translateY(0); } to { transform: translateY(54px); } }
+[data-day="true"]  .gx-grid { --gx-grid-line: rgba(13,148,136,.10); }
+[data-day="false"] .gx-grid { --gx-grid-line: rgba(45,212,191,.09); }
+
+/* --- Aurora / floating glow orbs --- */
+.gx-aurora { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.gx-aurora span {
+    position: absolute; border-radius: 50%; filter: blur(70px); opacity: .5;
+    animation: gxFloatOrb 16s ease-in-out infinite;
+}
+.gx-aurora span:nth-child(1){ width: 30vmax; height: 30vmax; left: -6%; top: -8%;
+    background: radial-gradient(circle, rgba(20,184,166,.55), transparent 70%); animation-delay: 0s; }
+.gx-aurora span:nth-child(2){ width: 26vmax; height: 26vmax; right: -4%; top: 10%;
+    background: radial-gradient(circle, rgba(34,211,238,.40), transparent 70%); animation-delay: -5s; }
+.gx-aurora span:nth-child(3){ width: 24vmax; height: 24vmax; left: 35%; bottom: -10%;
+    background: radial-gradient(circle, rgba(45,212,191,.35), transparent 70%); animation-delay: -9s; }
+[data-day="true"] .gx-aurora span { opacity: .28; }
+@keyframes gxFloatOrb {
+    0%,100% { transform: translate(0,0) scale(1); }
+    33%     { transform: translate(4%, -5%) scale(1.08); }
+    66%     { transform: translate(-3%, 4%) scale(.95); }
+}
+
+/* --- Glass / holographic card --- */
+.gx-card {
+    position: relative; border-radius: 1.25rem; overflow: hidden;
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s ease;
+    will-change: transform;
+}
+[data-day="false"] .gx-card {
+    background: linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    border: 1px solid rgba(255,255,255,.10);
+    box-shadow: 0 1px 0 rgba(255,255,255,.06) inset, 0 20px 40px -24px rgba(0,0,0,.7);
+}
+[data-day="true"] .gx-card {
+    background: linear-gradient(160deg, rgba(255,255,255,.85), rgba(240,253,250,.6));
+    border: 1px solid rgba(13,148,136,.14);
+    box-shadow: 0 20px 40px -28px rgba(13,148,136,.35);
+}
+.gx-card:hover { transform: translateY(-6px); }
+[data-day="false"] .gx-card:hover { border-color: rgba(45,212,191,.45); box-shadow: 0 28px 60px -28px rgba(20,184,166,.55); }
+[data-day="true"]  .gx-card:hover { border-color: rgba(13,148,136,.4); box-shadow: 0 28px 60px -30px rgba(13,148,136,.45); }
+
+/* sheen sweep on hover */
+.gx-card::after {
+    content: ""; position: absolute; top: 0; left: -120%; width: 60%; height: 100%;
+    background: linear-gradient(105deg, transparent, rgba(255,255,255,.18), transparent);
+    transform: skewX(-18deg); transition: left .7s ease; pointer-events: none;
+}
+.gx-card:hover::after { left: 140%; }
+
+/* --- Gradient/conic glowing border wrapper --- */
+.gx-glow-border { position: relative; border-radius: 1.3rem; padding: 1px; }
+.gx-glow-border::before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+    background: conic-gradient(from var(--gx-angle, 0deg), rgba(20,184,166,.0), rgba(34,211,238,.9), rgba(45,212,191,.0) 40%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    animation: gxSpinBorder 6s linear infinite; opacity: .8;
+}
+@property --gx-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+@keyframes gxSpinBorder { to { --gx-angle: 360deg; } }
+
+/* --- Gradient text + chip --- */
+.gx-gradient-text {
+    background: linear-gradient(120deg, #14b8a6, #22d3ee 55%, #2dd4bf);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.gx-chip {
+    display: inline-flex; align-items: center; gap: .5rem; border-radius: 9999px;
+    padding: .35rem .85rem; font-size: .72rem; font-weight: 600; letter-spacing: .04em;
+    border: 1px solid; backdrop-filter: blur(6px);
+}
+[data-day="false"] .gx-chip { color: #5eead4; background: rgba(20,184,166,.12); border-color: rgba(45,212,191,.3); }
+[data-day="true"]  .gx-chip { color: #0f766e; background: rgba(13,148,136,.10); border-color: rgba(13,148,136,.25); }
+.gx-chip .gx-dot { width: 7px; height: 7px; border-radius: 50%; background: #2dd4bf; box-shadow: 0 0 10px #2dd4bf; animation: gxPulse 2s ease-in-out infinite; }
+@keyframes gxPulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(.7); } }
+
+/* --- Scanline / hologram shimmer for media --- */
+.gx-scan { position: relative; overflow: hidden; }
+.gx-scan::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+    background: repeating-linear-gradient(transparent 0 3px, rgba(45,212,191,.05) 3px 4px);
+    mix-blend-mode: overlay;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .gx-grid::before, .gx-aurora span, .gx-glow-border::before, .gx-chip .gx-dot { animation: none !important; }
+    .gx-card { transition: none !important; }
+}

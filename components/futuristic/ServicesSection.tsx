@@ -288,6 +288,9 @@ export default function ServicesSection({ isDayTime = false }: { isDayTime?: boo
                 transition={{ duration: 0.4 }}
               />
 
+              {/* Content — indent pl-6 so text clears the indicator bar */}
+              <div className="pl-6">
+
               {/* Number + title row */}
               <div className="flex items-center gap-4 mb-5">
                 <ServiceNumber n={i + 1} color={svc.color} />
@@ -332,6 +335,7 @@ export default function ServicesSection({ isDayTime = false }: { isDayTime?: boo
                   <span className="relative z-10 text-[1.3em] leading-none">→</span>
                 </motion.button>
               </Link>
+              </div>{/* /pl-6 */}
             </div>
           ))}
         </div>
