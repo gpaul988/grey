@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Code2, Smartphone, Database, Layout, Blocks, Brain, Cloud, Megaphone, Palette, Briefcase, Zap, Rocket } from 'lucide-react';
+import { Code2, Smartphone, Database, Layout, Blocks, Brain, Cloud, Megaphone, Palette, Briefcase, Zap, Rocket, Shield, BarChart3, CheckCircle, Package, ShoppingBag, Terminal, Cpu, Wrench, Settings } from 'lucide-react';
 import { useIsDayTime } from '../components/useIsDayTime';
 import { FxBackground, FxChip, FxSectionHeading, FxButton, FxReveal, FxHoloCard, FxGlitchText } from '@/components/futuristic/fx';
 
@@ -19,6 +19,17 @@ const serviceIcons: Record<string, React.ReactNode> = {
     'branding': <Briefcase className="w-7 h-7" />,
     'consulting': <Zap className="w-7 h-7" />,
     'MVP': <Rocket className="w-7 h-7" />,
+    'devops-services': <Settings className="w-7 h-7" />,
+    'cybersecurity': <Shield className="w-7 h-7" />,
+    'data-analytics': <BarChart3 className="w-7 h-7" />,
+    'qa-testing': <CheckCircle className="w-7 h-7" />,
+    'salesforce-development': <Cpu className="w-7 h-7" />,
+    'golang-development': <Terminal className="w-7 h-7" />,
+    'joomla-development': <Package className="w-7 h-7" />,
+    'drupal-development': <Package className="w-7 h-7" />,
+    'shopify-development': <ShoppingBag className="w-7 h-7" />,
+    'wordpress-development': <Wrench className="w-7 h-7" />,
+    'magento-development': <ShoppingBag className="w-7 h-7" />,
 };
 
 export default function ServicesScreen() {
@@ -38,6 +49,17 @@ export default function ServicesScreen() {
         { name: 'Branding', slug: 'branding', desc: 'Compelling brand identity and visual systems', tag: 'Design' },
         { name: 'Consulting', slug: 'consulting', desc: 'Strategic technology guidance and roadmapping', tag: 'Strategy' },
         { name: 'MVP Development', slug: 'MVP', desc: 'Fast-track product launches with validated foundations', tag: 'Startup' },
+        { name: 'DevOps Services', slug: 'devops-services', desc: 'CI/CD pipelines, IaC and platform engineering', tag: 'Infra' },
+        { name: 'Cybersecurity', slug: 'cybersecurity', desc: 'Penetration testing, security audits and compliance', tag: 'Security' },
+        { name: 'Data Analytics', slug: 'data-analytics', desc: 'Data engineering, BI dashboards and ML models', tag: 'Data' },
+        { name: 'QA & Testing', slug: 'qa-testing', desc: 'Manual, automated and performance testing', tag: 'Quality' },
+        { name: 'Salesforce Development', slug: 'salesforce-development', desc: 'Custom CRM solutions and Salesforce integrations', tag: 'CRM' },
+        { name: 'Go Development', slug: 'golang-development', desc: 'High-performance Go services and microservices', tag: 'Engineering' },
+        { name: 'Joomla Development', slug: 'joomla-development', desc: 'Custom Joomla extensions and enterprise portals', tag: 'CMS' },
+        { name: 'Drupal Development', slug: 'drupal-development', desc: 'Enterprise Drupal and headless CMS solutions', tag: 'CMS' },
+        { name: 'Shopify Development', slug: 'shopify-development', desc: 'Custom Shopify themes, apps and storefronts', tag: 'Commerce' },
+        { name: 'WordPress Development', slug: 'wordpress-development', desc: 'Custom themes, plugins and WooCommerce', tag: 'CMS' },
+        { name: 'Magento Development', slug: 'magento-development', desc: 'Adobe Commerce and Magento enterprise solutions', tag: 'Commerce' },
     ];
 
     return (
