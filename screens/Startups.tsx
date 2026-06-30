@@ -8,7 +8,17 @@ import Image from "next/image";
 import Link from "next/link";
 import FloatingButton from "@/components/FloatingButton";
 import {useIsDayTime} from '../components/useIsDayTime';
-import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxGlitchText, FxStickyScrollSection, FxScrollItem } from '@/components/futuristic/fx';
+import {
+    FxBackground,
+    FxChip,
+    FxReveal,
+    FxButton,
+    FxHoloCard,
+    FxGlitchText,
+    FxStickyScrollSection,
+    FxScrollItem
+} from '@/components/futuristic/fx';
+
 const reasons = [
     {
         id: 1,
@@ -43,7 +53,8 @@ const reasons = [
     },
 ];
 
-const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
+const Startups = () => {
+    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
@@ -148,17 +159,19 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
                         alt='startups'
                         fill
                         sizes="100vw"
-                        style={{ objectFit: 'cover', objectPosition: 'center' }}
+                        style={{objectFit: 'cover', objectPosition: 'center'}}
                         priority
                     />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/35 to-black/90" />
-                <FxBackground day={false} grid aurora className="opacity-55" />
-                <div className="gx-scanline pointer-events-none" />
-                <div className="gx-hero-scan" />
-                <div className="gx-noise-overlay" />
-                <div className="gx-orbit pointer-events-none absolute" style={{ width: '75vmax', height: '75vmax', top: '-28vmax', right: '-25vmax', opacity: .16 }} />
-                <div className="gx-orbit gx-orbit-reverse pointer-events-none absolute" style={{ width: '48vmax', height: '48vmax', top: '-10vmax', right: '-5vmax', opacity: .11 }} />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/35 to-black/90"/>
+                <FxBackground day={false} grid aurora className="opacity-55"/>
+                <div className="gx-scanline pointer-events-none"/>
+                <div className="gx-hero-scan"/>
+                <div className="gx-noise-overlay"/>
+                <div className="gx-orbit pointer-events-none absolute"
+                     style={{width: '75vmax', height: '75vmax', top: '-28vmax', right: '-25vmax', opacity: .16}}/>
+                <div className="gx-orbit gx-orbit-reverse pointer-events-none absolute"
+                     style={{width: '48vmax', height: '48vmax', top: '-10vmax', right: '-5vmax', opacity: .11}}/>
 
                 <div className="relative z-10 gx-page-hero-content">
                     <div className="max-w-[90rem] mx-auto">
@@ -166,12 +179,13 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
                             <FxChip day={false} className="mb-5">For Startups</FxChip>
                             <div className="border-b border-white/15 pb-7 mb-7 max-w-5xl">
                                 <FxGlitchText tag="h1" className="gx-hero-title text-white">
-                                    Development Services<br />
-                                    <span className="gx-gradient-text">for Startups</span>
+                                    Development <br/>Services
+                                    <span className="gx-gradient-text"> for Startups</span>
                                 </FxGlitchText>
                             </div>
-                            <p className="text-white/65 max-w-2xl text-[0.95em] md:text-[1.05em] leading-relaxed mb-8">
-                                From validated MVP to scaled platform — we&apos;ve helped startups launch, grow, and succeed in over 15 industries.
+                            <p className="text-white/65 max-w-3xl text-[0.95em] md:text-[1.05em] leading-relaxed mb-8">
+                                From validated MVP to scaled platform — we&apos;ve helped startups launch, grow, and
+                                succeed in over 15 industries.
                             </p>
                             <div className="flex flex-wrap gap-3">
                                 {['MVP Development', 'Virtual CTO', 'Scalable Architecture', 'Lean & Agile'].map(s => (
@@ -242,7 +256,12 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
                         title: "Integration solutions",
                         target: "integration",
                         body: (
-                            <p>By connecting your product to third-party APIs, payment gateways, CRMs, and other crucial systems, our integration solutions guarantee a cohesive and effective workflow. We help you increase user satisfaction, save time, and streamline operations by removing data silos and improving interoperability. We offer solutions that support your company&apos;s goals, whether you&apos;re integrating pre-existing tools or require specially designed connections.</p>
+                            <p>By connecting your product to third-party APIs, payment gateways, CRMs, and other crucial
+                                systems, our integration solutions guarantee a cohesive and effective workflow. We help
+                                you increase user satisfaction, save time, and streamline operations by removing data
+                                silos and improving interoperability. We offer solutions that support your
+                                company&apos;s goals, whether you&apos;re integrating pre-existing tools or require
+                                specially designed connections.</p>
                         ),
                     },
                     {
@@ -251,7 +270,12 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
                         target: "virtual",
                         tags: ["Startup strategy", "Technical leadership", "Tech roadmap"],
                         body: (
-                            <p>Early on, it is not practical for many startups to hire a full-time Chief Technology Officer (CTO). Our Virtual CTO services can help with that. Without the long-term commitment of a full-time hire, we provide startups with access to senior-level technical expertise and strategic direction. In order to make well-informed technology decisions, match development with business goals, and develop a plan for scalable expansion, our virtual CTOs collaborate closely with your team.</p>
+                            <p>Early on, it is not practical for many startups to hire a full-time Chief Technology
+                                Officer (CTO). Our Virtual CTO services can help with that. Without the long-term
+                                commitment of a full-time hire, we provide startups with access to senior-level
+                                technical expertise and strategic direction. In order to make well-informed technology
+                                decisions, match development with business goals, and develop a plan for scalable
+                                expansion, our virtual CTOs collaborate closely with your team.</p>
                         ),
                     },
                     {
@@ -260,7 +284,12 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
                         target: "data",
                         tags: ["Business Intelligence", "Data analytics", "Data driven decisions"],
                         body: (
-                            <p>One of your most important resources is data, which we assist you in using to guide your choices. We create solutions that transform unstructured data into strategic possibilities, ranging from operational measurements, KPIs, and OKRs to consumer behavior analytics. This enables you to fully comply with data protection laws while improving customer engagement, streamlining your offering, and finding new income sources.</p>
+                            <p>One of your most important resources is data, which we assist you in using to guide your
+                                choices. We create solutions that transform unstructured data into strategic
+                                possibilities, ranging from operational measurements, KPIs, and OKRs to consumer
+                                behavior analytics. This enables you to fully comply with data protection laws while
+                                improving customer engagement, streamlining your offering, and finding new income
+                                sources.</p>
                         ),
                     },
                     {
@@ -269,7 +298,13 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
                         target: "scalable",
                         tags: ["MVP development", "Lean startup", "Market validation", "Startup growth"],
                         body: (
-                            <p>More than just a prototype, a Minimum Viable Product (MVP) is your first step in gaining early adopters and validating your business concept. Many startups have benefited from our assistance in creating MVPs that offer distinctive business value. Our method guarantees that your MVP is scalable in addition to being functional, allowing you to add features and grow as your company does. Quick development cycles allow you to launch your MVP as soon as possible, get insightful feedback, and iterate efficiently to maximize the potential of your product.</p>
+                            <p>More than just a prototype, a Minimum Viable Product (MVP) is your first step in gaining
+                                early adopters and validating your business concept. Many startups have benefited from
+                                our assistance in creating MVPs that offer distinctive business value. Our method
+                                guarantees that your MVP is scalable in addition to being functional, allowing you to
+                                add features and grow as your company does. Quick development cycles allow you to launch
+                                your MVP as soon as possible, get insightful feedback, and iterate efficiently to
+                                maximize the potential of your product.</p>
                         ),
                     },
                     {
@@ -278,7 +313,13 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
                         target: "custom",
                         tags: ["Custom apps", "Bespoke software", "Startup development", "Agile"],
                         body: (
-                            <p>Any successful startup relies heavily on custom applications, which is why you&apos;re doing this. We create custom software that is suited to your target market and business requirements. We develop cutting-edge solutions that address practical issues and provide financial value, whether it&apos;s a robust web platform, a <Link href='/services/Mobile-Application-Development' className='border-b border-current opacity-70 hover:opacity-100'>mobile app</Link>, or a combination of the two.</p>
+                            <p>Any successful startup relies heavily on custom applications, which is why you&apos;re
+                                doing this. We create custom software that is suited to your target market and business
+                                requirements. We develop cutting-edge solutions that address practical issues and
+                                provide financial value, whether it&apos;s a robust web platform, a <Link
+                                    href='/services/Mobile-Application-Development'
+                                    className='border-b border-current opacity-70 hover:opacity-100'>mobile app</Link>,
+                                or a combination of the two.</p>
                         ),
                     },
                     {
@@ -287,7 +328,12 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
                         target: "cloud",
                         tags: ["Cloud computing", "Scalable platforms", "Secure software"],
                         body: (
-                            <p>Cloud-based platforms offer the foundation for scalability and reliability, which are crucial for startups. Our cloud solutions guarantee excellent security and performance while optimizing your operations by enabling software accessibility from any location at any time. We work with leading cloud providers such as Amazon AWS, Azure and Digital Ocean to build platforms that grow with your business, whether dealing with spikes in user activity, expanding into new markets, or adding advanced functionalities.</p>
+                            <p>Cloud-based platforms offer the foundation for scalability and reliability, which are
+                                crucial for startups. Our cloud solutions guarantee excellent security and performance
+                                while optimizing your operations by enabling software accessibility from any location at
+                                any time. We work with leading cloud providers such as Amazon AWS, Azure and Digital
+                                Ocean to build platforms that grow with your business, whether dealing with spikes in
+                                user activity, expanding into new markets, or adding advanced functionalities.</p>
                         ),
                     },
                     {
@@ -296,7 +342,10 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
                         target: "end",
                         tags: ["Product lifecycle", "Startup support", "Feature enhancements", "Startup scaling"],
                         body: (
-                            <p>A startup product launch is just the first step. Our comprehensive product lifecycle management services guarantee that your software keeps developing and prospering. We are your partner at every stage of the process, from original development and implementation to upgrades, scalability, and continuing maintenance.</p>
+                            <p>A startup product launch is just the first step. Our comprehensive product lifecycle
+                                management services guarantee that your software keeps developing and prospering. We are
+                                your partner at every stage of the process, from original development and implementation
+                                to upgrades, scalability, and continuing maintenance.</p>
                         ),
                     },
                 ] satisfies FxScrollItem[]}
@@ -316,8 +365,8 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
             </div>
 
             <div className={`relative lg:py-32 py-16 overflow-hidden ${isDayTime ? 'bg-[#020f0d]' : 'bg-[#020f0d]'}`}>
-                <FxBackground day={false} grid aurora className="opacity-45" />
-                <div className="gx-noise-overlay pointer-events-none" />
+                <FxBackground day={false} grid aurora className="opacity-45"/>
+                <div className="gx-noise-overlay pointer-events-none"/>
                 <div
                     className='relative z-10 grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 max-w-[90em] mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] lg:mb-32 mb-16'>
                     <div className='relative sm:mb-8'>
@@ -326,25 +375,27 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
                             alt="startup development services"
                             width={410}
                             height={40}
-                            style={{ height: 'auto' }}
+                            style={{height: 'auto'}}
                             className="rounded-2xl"
                         />
                     </div>
                     <div className="lg:-ml-[6.4em] lg:mr-[5.5em] text-white">
                         <FxReveal>
-                            <FxGlitchText tag="h2" className="lg:text-[3em] md:text-[2.3em] text-[1.8em] font-[700] tracking-tight pb-6 lg:pr-[2.2em] lg:mt-7">
+                            <FxGlitchText tag="h2"
+                                          className="lg:text-[3em] md:text-[2.3em] text-[1.8em] font-[700] tracking-tight pb-6 lg:pr-[2.2em] lg:mt-7">
                                 Your digital adventure
                             </FxGlitchText>
                         </FxReveal>
                         <p className="text-[0.85em] font-[400] tracking-normal text-justify border-b border-white/15 rounded-none pb-9 leading-[1.5] lg:pr-[3em] text-white/70">
                             Our specialty in the fast-paced IT industry is assisting business owners and entrepreneurs
-                            in realizing their product concepts. And we&#39;ve learned a few things from our over 8 years of
-                            expertise.<br /><br />
+                            in realizing their product concepts. And we&#39;ve learned a few things from our over 8
+                            years of
+                            expertise.<br/><br/>
                             In addition to collaborating with well-established companies, we have developed MVPs, built
                             digital products, scaled tech and infrastructure, and ultimately sold a number of financed
                             startups. We can provide you with that experience.
                         </p>
-                        <br />
+                        <br/>
                         <p className="text-[0.85em] font-[450] tracking-tighter text-justify text-white/60 mb-6">
                             Let&#39;s discuss your plans and figure out how we can support you.
                         </p>
@@ -354,14 +405,17 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
             </div>
 
             {/* Why Grey InfoTech — FX accordion */}
-            <div className={`relative overflow-hidden ${isDayTime ? 'bg-white' : 'bg-[#050810]'} lg:pt-36 pt-20 lg:pb-0 pb-0`}>
-                <FxBackground day={isDayTime} grid={false} aurora className="opacity-30" />
-                <div className="relative z-10 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] border-b border-white/10 pb-12 mb-0">
+            <div
+                className={`relative overflow-hidden ${isDayTime ? 'bg-white' : 'bg-[#050810]'} lg:pt-36 pt-20 lg:pb-0 pb-0`}>
+                <FxBackground day={isDayTime} grid={false} aurora className="opacity-30"/>
+                <div
+                    className="relative z-10 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] border-b border-white/10 pb-12 mb-0">
                     <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6">
                         <div>
                             <FxReveal>
                                 <FxChip day={isDayTime} className="mb-5">Why Grey</FxChip>
-                                <FxGlitchText tag="h2" className={`lg:text-[3em] md:text-[2.3em] text-[1.8em] font-[700] tracking-tighter leading-[1.15] lg:pb-6 pr-[1.5em] ${isDayTime ? 'text-black' : 'text-white'}`}>
+                                <FxGlitchText tag="h2"
+                                              className={`lg:text-[3em] md:text-[2.3em] text-[1.8em] font-[700] tracking-tighter leading-[1.15] lg:pb-6 pr-[1.5em] ${isDayTime ? 'text-black' : 'text-white'}`}>
                                     Why Grey InfoTech for your startup
                                 </FxGlitchText>
                             </FxReveal>
@@ -376,8 +430,9 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
                 </div>
             </div>
             <div className={`relative overflow-hidden ${isDayTime ? 'bg-white' : 'bg-[#050810]'} lg:pb-28 pb-14 mb-12`}>
-                <FxBackground day={isDayTime} grid={false} aurora className="opacity-20" />
-                <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-[4em] grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:mb-20 pt-12">
+                <FxBackground day={isDayTime} grid={false} aurora className="opacity-20"/>
+                <div
+                    className="relative z-10 mx-auto px-4 sm:px-6 lg:px-[4em] grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:mb-20 pt-12">
                     {/* Left — accordion */}
                     <div className="relative flex flex-col gap-3 lg:pl-4 lg:pr-[3em]">
                         {reasons.map((reason, index) => {
@@ -394,17 +449,18 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
                                             ? isDayTime ? 'text-teal-700' : 'text-teal-300'
                                             : isDayTime ? 'text-gray-700' : 'text-white/60'
                                     }`}>
-                                        <span className="font-mono text-[0.7em] mr-2 opacity-50">{String(reason.id).padStart(2,'0')}</span>
+                                        <span
+                                            className="font-mono text-[0.7em] mr-2 opacity-50">{String(reason.id).padStart(2, '0')}</span>
                                         {reason.title}
                                     </h3>
                                     <AnimatePresence initial={false}>
                                         {isActive && (
                                             <motion.p
                                                 key={reason.id}
-                                                initial={{ opacity: 0, height: 0 }}
-                                                animate={{ opacity: 1, height: 'auto' }}
-                                                exit={{ opacity: 0, height: 0 }}
-                                                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                                                initial={{opacity: 0, height: 0}}
+                                                animate={{opacity: 1, height: 'auto'}}
+                                                exit={{opacity: 0, height: 0}}
+                                                transition={{duration: 0.3, ease: [0.22, 1, 0.36, 1]}}
                                                 className={`text-[0.875em] leading-[1.6] overflow-hidden ${isDayTime ? 'text-gray-600' : 'text-white/55'}`}
                                             >
                                                 {reason.description}
@@ -426,8 +482,10 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
                 </div>
 
                 {/* CTA */}
-                <div className="relative z-10 flex flex-col items-center justify-center text-center lg:px-[28em] px-4 mt-8">
-                    <FxGlitchText tag="h2" className={`lg:text-[3em] text-[1.5em] font-[600] tracking-tighter leading-[1.15] pb-6 ${isDayTime ? 'text-black' : 'text-white'}`}>
+                <div
+                    className="relative z-10 flex flex-col items-center justify-center text-center lg:px-[28em] px-4 mt-8">
+                    <FxGlitchText tag="h2"
+                                  className={`lg:text-[3em] text-[1.5em] font-[600] tracking-tighter leading-[1.15] pb-6 ${isDayTime ? 'text-black' : 'text-white'}`}>
                         Prepared to initiate the discussion?
                     </FxGlitchText>
                     <FxButton day={isDayTime} href="/contact" variant="solid">Get started →</FxButton>
@@ -602,14 +660,18 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
             </div>
 
             {/* Interest for startups */}
-            <div className={`relative overflow-hidden lg:-mt-20 md:-mt-20 lg:py-32 py-16 ${isDayTime ? 'bg-white' : 'bg-[#050810]'}`}>
-                <FxBackground day={isDayTime} grid aurora className="opacity-30" />
-                <div className="relative z-10 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]">
-                    <div className={`relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4 lg:mb-8 mb-8 border-b lg:pb-[5em] pb-[2em] ${isDayTime ? 'text-black border-gray-200' : 'text-white border-white/10'}`}>
+            <div
+                className={`relative overflow-hidden lg:-mt-20 md:-mt-20 lg:py-32 py-16 ${isDayTime ? 'bg-white' : 'bg-[#050810]'}`}>
+                <FxBackground day={isDayTime} grid aurora className="opacity-30"/>
+                <div
+                    className="relative z-10 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]">
+                    <div
+                        className={`relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4 lg:mb-8 mb-8 border-b lg:pb-[5em] pb-[2em] ${isDayTime ? 'text-black border-gray-200' : 'text-white border-white/10'}`}>
                         <div>
                             <FxReveal>
-                                <FxGlitchText tag="h2" className="lg:text-[3em] md:text-[2.3em] text-[1.8em] font-[700] tracking-tight leading-[1.2]">
-                                    Business interest <br className="lg:block md:block hidden" />for startups
+                                <FxGlitchText tag="h2"
+                                              className="lg:text-[3em] md:text-[2.3em] text-[1.8em] font-[700] tracking-tight leading-[1.2]">
+                                    Business interest <br className="lg:block md:block hidden"/>for startups
                                 </FxGlitchText>
                             </FxReveal>
                         </div>
@@ -617,25 +679,43 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
                             <p className={`text-[0.873em] font-[400] tracking-normal text-justify leading-[1.5] lg:-ml-[3em] ${isDayTime ? 'text-gray-600' : 'text-white/55'}`}>
                                 All the advantages of traditional software are present in a bespoke or
                                 custom{' '}
-                                <Link href="/services/Web-Application" className={`border-b py-[0.2em] hover:text-teal-400 transition-colors ${isDayTime ? 'border-gray-300' : 'border-white/20'}`}>
+                                <Link href="/services/Web-Application"
+                                      className={`border-b py-[0.2em] hover:text-teal-400 transition-colors ${isDayTime ? 'border-gray-300' : 'border-white/20'}`}>
                                     web application
                                 </Link>,
                                 with the exception that it is more affordable, more accessible, and can grow with
                                 your company&#39;s demands. Companies across a wide range of industries have benefited
-                                from our creative web apps. Collaborate with us for a stress-free product development process.
+                                from our creative web apps. Collaborate with us for a stress-free product development
+                                process.
                             </p>
                         </div>
                     </div>
 
                     <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-5 lg:mb-5 mb-5 mt-12">
                         {[
-                            { img: ['/assets/startup/dev1.svg', '/assets/startup/dev2.svg'], alt: 'Speed', title: 'Speed of Development', body: 'With open source frameworks and robust toolkits, we swiftly create unique software solutions — enabling companies to launch their products more quickly.' },
-                            { img: ['/assets/startup/relia1.svg', '/assets/startup/relia2.svg'], alt: 'Reliability', title: 'Reliability', body: 'Well-architected web applications provide software reliability, minimizing expensive maintenance and facilitating the identification and resolution of defects.' },
-                            { img: ['/assets/startup/sav1.svg', '/assets/startup/sav2.svg'], alt: 'Cost', title: 'Cost Savings', body: 'Web applications may be rapidly produced and disseminated, hence aiding in the reduction of development expenses.' },
-                        ].map(({ img, alt, title, body }) => (
+                            {
+                                img: ['/assets/startup/dev1.svg', '/assets/startup/dev2.svg'],
+                                alt: 'Speed',
+                                title: 'Speed of Development',
+                                body: 'With open source frameworks and robust toolkits, we swiftly create unique software solutions — enabling companies to launch their products more quickly.'
+                            },
+                            {
+                                img: ['/assets/startup/relia1.svg', '/assets/startup/relia2.svg'],
+                                alt: 'Reliability',
+                                title: 'Reliability',
+                                body: 'Well-architected web applications provide software reliability, minimizing expensive maintenance and facilitating the identification and resolution of defects.'
+                            },
+                            {
+                                img: ['/assets/startup/sav1.svg', '/assets/startup/sav2.svg'],
+                                alt: 'Cost',
+                                title: 'Cost Savings',
+                                body: 'Web applications may be rapidly produced and disseminated, hence aiding in the reduction of development expenses.'
+                            },
+                        ].map(({img, alt, title, body}) => (
                             <FxReveal key={title}>
                                 <FxHoloCard day={isDayTime} className="p-6 h-full">
-                                    <Image src={isDayTime ? img[0] : img[1]} alt={alt} width={60} height={60} className="mb-4" />
+                                    <Image src={isDayTime ? img[0] : img[1]} alt={alt} width={60} height={60}
+                                           className="mb-4"/>
                                     <h3 className={`text-[1.15em] font-[600] mb-2 ${isDayTime ? 'text-black' : 'text-white'}`}>{title}</h3>
                                     <p className={`text-justify text-[0.85em] font-[400] leading-[1.5] ${isDayTime ? 'text-gray-600' : 'text-white/55'}`}>{body}</p>
                                 </FxHoloCard>
@@ -645,13 +725,29 @@ const Startups = () => {    const [isVisible, setIsVisible] = useState(false);
 
                     <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-5">
                         {[
-                            { img: ['/assets/startup/sca1.svg', '/assets/startup/sca2.svg'], alt: 'Scalability', title: 'Scalability', body: 'The software may grow with your organization. Customised web applications adjust and develop as business demands do — with scalable server design.' },
-                            { img: ['/assets/startup/third1.svg', '/assets/startup/third2.svg'], alt: 'Integration', title: 'Third-party integration', body: 'By integrating web apps with marketing tools, payment gateways, and more, companies leverage a wealth of features to improve their software.' },
-                            { img: ['/assets/startup/web1.svg', '/assets/startup/web2.svg'], alt: 'Security', title: 'Web app security', body: 'Our security team uses measures that guard against typical online threats — keeping your data and your customers\' data safe and secure.' },
-                        ].map(({ img, alt, title, body }) => (
+                            {
+                                img: ['/assets/startup/sca1.svg', '/assets/startup/sca2.svg'],
+                                alt: 'Scalability',
+                                title: 'Scalability',
+                                body: 'The software may grow with your organization. Customised web applications adjust and develop as business demands do — with scalable server design.'
+                            },
+                            {
+                                img: ['/assets/startup/third1.svg', '/assets/startup/third2.svg'],
+                                alt: 'Integration',
+                                title: 'Third-party integration',
+                                body: 'By integrating web apps with marketing tools, payment gateways, and more, companies leverage a wealth of features to improve their software.'
+                            },
+                            {
+                                img: ['/assets/startup/web1.svg', '/assets/startup/web2.svg'],
+                                alt: 'Security',
+                                title: 'Web app security',
+                                body: 'Our security team uses measures that guard against typical online threats — keeping your data and your customers\' data safe and secure.'
+                            },
+                        ].map(({img, alt, title, body}) => (
                             <FxReveal key={title}>
                                 <FxHoloCard day={isDayTime} className="p-6 h-full">
-                                    <Image src={isDayTime ? img[0] : img[1]} alt={alt} width={60} height={60} className="mb-4" />
+                                    <Image src={isDayTime ? img[0] : img[1]} alt={alt} width={60} height={60}
+                                           className="mb-4"/>
                                     <h3 className={`text-[1.15em] font-[600] mb-2 ${isDayTime ? 'text-black' : 'text-white'}`}>{title}</h3>
                                     <p className={`text-justify text-[0.85em] font-[400] leading-[1.5] ${isDayTime ? 'text-gray-600' : 'text-white/55'}`}>{body}</p>
                                 </FxHoloCard>
