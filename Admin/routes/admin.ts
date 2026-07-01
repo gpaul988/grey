@@ -320,6 +320,7 @@ route.get('/profile', (req, res) => {
         title: 'My Profile', ...baseLocals, profile: u,
         flash: typeof req.query.saved !== 'undefined' ? 'Profile updated.' : null,
         flashError: typeof req.query.err !== 'undefined' ? String(req.query.err) : null,
+        csrfToken: res.locals.csrfToken || '',
     });
 });
 

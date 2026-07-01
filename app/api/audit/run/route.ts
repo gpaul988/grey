@@ -4,6 +4,33 @@ import { saveAudit } from '@/lib/audit/repository';
 
 export const maxDuration = 60; // 60s for deep audits
 
+/**
+ * Normalize input to full URL or GitHub URL
+ * - "example.com" → "https://example.com"
+ * - "https://example.com" → "https://example.com" (unchanged)
+ * - "owner/repo" → "https://github.com/owner/repo"
+ * - "https://github.com/owner/repo" → "https://github.com/owner/repo" (unchanged)
+ */
+function normalizeUrl(input: string, isRepo: boolean = false): string {
+  const trimmed = input.trim();
+  if (!trimmed) return '';
+  
+  if (isRepo) {
+    // GitHub repo: owner/repo format
+    if (trimmed.startsWith('http')) return trimmed;
+    if (trimmed.includes('/') && !trimmed.includes('.')) {
+      // Looks like owner/repo
+      return `https://github.com/${trimmed}`;
+    }
+    return trimmed; // Already a URL or invalid, pass through
+  } else {
+    // Website: domain or URL
+    if (trimmed.startsWith('http')) return trimmed;
+    // Add https:// to bare domain
+    return `https://${trimmed}`;
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const contentType = req.headers.get('content-type') || '';
@@ -21,19 +48,23 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
     }
 
-    const { website, repo } = body ?? {};
+    let { website, repo } = body ?? {};
 
-    if (!website?.trim() && !repo?.trim()) {
+    // Normalize inputs
+    website = website ? normalizeUrl(website.trim(), false) : undefined;
+    repo = repo ? normalizeUrl(repo.trim(), true) : undefined;
+
+    if (!website && !repo) {
       return NextResponse.json(
-        { error: 'Provide at least a website URL or a GitHub repository URL.' },
+        { error: 'Provide at least a domain name, website URL, or GitHub repository URL.' },
         { status: 400 }
       );
     }
 
     // Run the real audit engine
     const report = await runAudit({
-      website: website?.trim() || undefined,
-      repo: repo?.trim() || undefined,
+      website: website || undefined,
+      repo: repo || undefined,
     });
 
     // Store the audit result in DB via the audit repository (SQLite via Admin/db)

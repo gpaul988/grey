@@ -61,7 +61,10 @@ export default function AuditScreen() {
       const res = await fetch('/api/audit/run', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ website: website.trim(), repo: repo.trim() }),
+        body: JSON.stringify({ 
+          website: website.trim() || undefined, 
+          repo: repo.trim() || undefined 
+        }),
       });
       const ct = res.headers.get('content-type') || '';
       if (!ct.includes('application/json')) {
@@ -140,31 +143,31 @@ export default function AuditScreen() {
           <div className="pointer-events-none absolute bottom-0 right-0 h-16 w-16 rounded-tl-full bg-indigo-500/5" />
 
           <p className="mb-5 text-xs font-semibold uppercase tracking-wider text-slate-500">
-            Enter at least one target
+            Enter a domain, full website URL, and/or GitHub repository
           </p>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="block">
               <span className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-400">
-                🌐 Website URL
+                🌐 Website (Optional)
               </span>
               <input
-                type="url"
+                type="text"
                 value={website}
                 onChange={(e) => setWebsite(e.target.value)}
-                placeholder="https://example.com"
+                placeholder="example.com or https://example.com"
                 className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white placeholder-slate-600 outline-none transition focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20"
               />
             </label>
             <label className="block">
               <span className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-400">
-                📦 GitHub Repo URL
+                📦 GitHub Repo (Optional)
               </span>
               <input
                 type="text"
                 value={repo}
                 onChange={(e) => setRepo(e.target.value)}
-                placeholder="https://github.com/owner/repo"
+                placeholder="owner/repo or full URL"
                 className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white placeholder-slate-600 outline-none transition focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20"
               />
             </label>
@@ -707,7 +710,6 @@ function SectionCard({ section }: { section: AuditSection }) {
    FINDING ROW
 ══════════════════════════════════════════════════════════════════════ */
 function FindingRow({ f }: { f: Finding }) {
-  const [expanded, setExpanded] = useState(false);
   const m = SEV_META[f.severity];
   return (
     <li className="rounded-xl border p-4" style={{ borderColor: m.ring, background: m.bg }}>
@@ -721,27 +723,8 @@ function FindingRow({ f }: { f: Finding }) {
           </span>
           <span className="text-sm font-semibold text-white">{f.title}</span>
         </div>
-        {f.implementation && (
-          <button
-            onClick={() => setExpanded(!expanded)}
-            className="text-xs text-slate-500 transition hover:text-cyan-300"
-          >
-            {expanded ? 'Hide fix ▲' : 'Show fix ▼'}
-          </button>
-        )}
       </div>
       <p className="mt-2 text-sm text-slate-300">{f.detail}</p>
-      {f.fix && (
-        <p className="mt-1.5 text-xs text-slate-400">
-          <span className="font-semibold text-slate-300">Fix:</span> {f.fix}
-        </p>
-      )}
-      {expanded && f.implementation && (
-        <div className="mt-3 rounded-lg border border-slate-700/50 bg-black/30 p-3">
-          <p className="mb-2 text-xs font-semibold text-cyan-400">Implementation:</p>
-          <pre className="whitespace-pre-wrap text-xs text-slate-300 font-mono leading-relaxed">{f.implementation}</pre>
-        </div>
-      )}
     </li>
   );
 }

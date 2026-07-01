@@ -78,6 +78,21 @@ export function saveAudit(report: AuditReport, ipAddress?: string, userAgent?: s
         const runSummary =
             `Automated audit — score ${report.overallScore}/100 (grade ${report.grade}). ` +
             `${allFindings.length} findings.`;
+        
+        // Build a detailed findings object with fix info for the admin panel
+        const findingsBySection = report.sections.map((s) => ({
+            section: s.name,
+            score: s.score,
+            findings: s.findings.map((f) => ({
+                id: f.id,
+                title: f.title,
+                severity: f.severity,
+                detail: f.detail,
+                fix: f.fix,
+                implementation: f.implementation,
+            })),
+        }));
+        
         db.prepare(`
             INSERT INTO audit_submissions (
                 user_name, user_email, user_phone, user_company,
@@ -106,6 +121,8 @@ export function saveAudit(report: AuditReport, ipAddress?: string, userAgent?: s
                 ipAddress: ipAddress || null,
                 userAgent: userAgent || null,
                 generatedAt: report.generatedAt,
+                sections: findingsBySection,
+                detailedSummary: report.detailedSummary,
             })
         );
     } catch (err) {
