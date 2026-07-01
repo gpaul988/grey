@@ -3,7 +3,7 @@
 
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
-import {motion} from 'framer-motion'
+import {AnimatePresence, motion} from 'framer-motion'
 import Image from "next/image";
 import Link from "next/link";
 import FloatingButton from "@/components/FloatingButton";
@@ -14,7 +14,10 @@ import {
     FxReveal,
     FxButton,
     FxHoloCard,
+    FxFrame,
     FxGlitchText,
+    FxSectionHeading,
+    FxOrbit,
     FxStickyScrollSection,
     FxScrollItem
 } from '@/components/futuristic/fx';
@@ -58,6 +61,15 @@ const Startups = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
+    const [activeIndex, setActiveIndex] = useState(1);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveIndex(prev => (prev % reasons.length) + 1);
+        }, 4000);
+
+        return () => clearInterval(interval);
+    }, []);
     // Floating button visibility hook
     useEffect(() => {
         const handleScroll = () => {
@@ -429,123 +441,83 @@ const Startups = () => {
                 </div>
             </div>
 
-            {/* Why Grey InfoTech — Company-style approach */}
+            {/* ── Why Grey InfoTech — Company-style approach ── */}
             <div
-                className={`relative overflow-hidden ${isDayTime ? 'bg-white' : 'bg-[#050810]'} lg:pt-36 pt-20 lg:pb-28 pb-14`}>
-                <FxBackground day={isDayTime} grid={false} aurora className="opacity-25"/>
-                <div className="relative z-10 mx-auto max-w-full w-full px-4 sm:px-6 md:px-10 lg:px-[4em] xl:px-[4.5em] 2xl:px-[4.5em]">
-                    <div
-                        className={`relative grid lg:grid-cols-2 grid-cols-1 gap-8 lg:mb-16 mb-12 border-b lg:pb-12 pb-8 ${isDayTime ? 'text-black border-gray-200/60' : 'text-white border-white/10'}`}>
-                        <div>
-                            <FxReveal>
-                                <FxChip day={isDayTime} className="mb-5">Why Grey</FxChip>
-                                <FxGlitchText tag="h2"
-                                              className={`lg:text-[3.3em] md:text-[2.5em] text-[1.85em] font-[800] tracking-tight leading-[1.12] lg:pr-[1.5em] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                    Why Grey InfoTech for your startup
-                                </FxGlitchText>
-                            </FxReveal>
-                        </div>
-                        <div className="flex items-end lg:justify-end">
-                            <p className={`text-[0.92em] font-[400] leading-[1.7] max-w-xl ${isDayTime ? 'text-gray-600' : 'text-white/58'}`}>
+                className={`relative overflow-hidden ${isDayTime ? 'bg-slate-950' : 'bg-slate-50'} lg:pt-[5em] pt-[3em] lg:pb-[6em] pb-[3em]`}>
+                <FxBackground day={false} grid aurora className="opacity-50"/>
+                <FxOrbit size={600} top="-100px" right="-180px" opacity={0.12} speed={32}/>
+                <FxOrbit size={350} top="200px" left="-120px" opacity={0.09} speed={26} reverse/>
+
+                <div className="relative z-10 max-w-full w-full mx-auto px-4 sm:px-6 lg:px-[4.6em]">
+                    {/* Heading row */}
+                    <FxReveal>
+                        <div
+                            className={`grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 border-b border-white/10 pb-10 mb-12 ${isDayTime ? 'text-white' : 'text-black'}`}>
+                            <FxSectionHeading
+                                day={false}
+                                eyebrow="Why Us"
+                                title="Why Grey InfoTech for your startup"
+                            />
+                            <p className="text-[0.873em] font-[400] lg:-mt-[0.2em] leading-[1.5] text-white/55 lg:-ml-[7em]">
                                 We blend startup speed with enterprise discipline so you get a partner that understands
                                 product-market fit, technical execution, and long-term scalability from day one.
                             </p>
                         </div>
+                    </FxReveal>
+
+                    <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-8">
+                        {/* Left — FxHoloCard accordion */}
+                        <div className="flex flex-col gap-3 lg:pr-[3em]">
+                            {reasons.map((reason, index) => {
+                                const isActive = index + 1 === activeIndex;
+                                return (
+                                    <FxHoloCard
+                                        key={reason.id}
+                                        day={false}
+                                        className={`p-5 transition-all duration-300 cursor-pointer ${isActive ? 'ring-1 ring-teal-400/40' : 'opacity-60 hover:opacity-90'}`}
+                                        onClick={() => setActiveIndex(index + 1)}
+                                    >
+                                        <h3 className={`leading-[1.2] lg:text-[1.1em] text-[1em] font-[600] mb-2 transition-all ${isActive ? 'text-teal-300' : 'text-white/55'}`}>
+                                            <span
+                                                className="font-mono text-[0.68em] mr-2 text-teal-500/50">{String(reason.id).padStart(2, '0')}</span>
+                                            {reason.title}
+                                        </h3>
+                                        <AnimatePresence initial={false}>
+                                            {isActive && (
+                                                <motion.p
+                                                    key={reason.id}
+                                                    initial={{opacity: 0, height: 0}}
+                                                    animate={{opacity: 1, height: 'auto'}}
+                                                    exit={{opacity: 0, height: 0}}
+                                                    transition={{duration: 0.3, ease: [0.22, 1, 0.36, 1]}}
+                                                    className={`text-[0.875em] leading-[1.6] overflow-hidden ${isDayTime ? 'text-white/55' : 'text-black/55'}`}
+                                                >
+                                                    {reason.description}
+                                                </motion.p>
+                                            )}
+                                        </AnimatePresence>
+                                    </FxHoloCard>
+                                );
+                            })}
+                        </div>
+
+                        {/* Right — image */}
+                        <div className="lg:mt-[2em]">
+                            <FxFrame className="w-full">
+                                <Image src="/assets/startup/mockup.jpg" alt="Why Grey InfoTech for your startup" width={660} height={480}
+                                       className="w-full h-auto rounded-xl object-cover"/>
+                            </FxFrame>
+                        </div>
                     </div>
 
-                    <motion.div
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
-                        variants={{
-                            hidden: {opacity: 0},
-                            visible: {opacity: 1, transition: {staggerChildren: 0.08, delayChildren: 0.1}}
-                        }}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{once: true, amount: 0.1}}
-                    >
-                        {[
-                            {
-                                num: '01',
-                                title: 'Proven Commercial Results',
-                                accent: '#2dd4bf',
-                                body: 'We have helped startups reach meaningful milestones with user-focused, scalable products that are built to win in real markets.'
-                            },
-                            {
-                                num: '02',
-                                title: 'Startup-Oriented Delivery',
-                                accent: '#06b6d4',
-                                body: 'We work within tight timelines and shifting priorities without losing momentum, clarity, or product quality.'
-                            },
-                            {
-                                num: '03',
-                                title: 'Complete Assistance',
-                                accent: '#a855f7',
-                                body: 'From concept to launch and beyond, we stay involved with thoughtful support that keeps your product moving forward.'
-                            },
-                            {
-                                num: '04',
-                                title: 'Modern Technical Stack',
-                                accent: '#22d3ee',
-                                body: 'We use modern tools and agile practices to build flexible, future-ready solutions that evolve with your business.'
-                            },
-                            {
-                                num: '05',
-                                title: 'True Collaboration',
-                                accent: '#14b8a6',
-                                body: 'We act like a partner, not just a vendor, aligning our work with your vision, your users, and your long-term goals.'
-                            },
-                            {
-                                num: '06',
-                                title: 'Long-Term Partnership',
-                                accent: '#0d9488',
-                                body: 'Our job does not end at launch — we remain available to refine, improve, and scale your product as you grow.'
-                            },
-                        ].map((card) => (
-                            <motion.div
-                                key={card.num}
-                                variants={{
-                                    hidden: {opacity: 0, y: 24},
-                                    visible: {opacity: 1, y: 0, transition: {duration: 0.5}}
-                                }}
-                            >
-                                <FxHoloCard day={isDayTime} className="p-7 h-full flex flex-col group cursor-default">
-                                    <div className="flex items-center justify-between mb-5">
-                                        <span
-                                            className="text-[0.65em] font-mono font-[700] uppercase tracking-[0.22em] px-3 py-1 rounded-full border"
-                                            style={{
-                                                color: card.accent,
-                                                borderColor: card.accent + '40',
-                                                background: card.accent + '12'
-                                            }}
-                                        >
-                                            {card.num}
-                                        </span>
-                                        <div
-                                            className="w-8 h-8 rounded-full opacity-20 group-hover:opacity-60 transition-opacity duration-300"
-                                            style={{background: `radial-gradient(circle, ${card.accent}, transparent)`}}/>
-                                    </div>
-                                    <h3 className="text-[1.15em] font-[700] tracking-tight text-white mb-3 group-hover:text-teal-300 transition-colors duration-300">
-                                        {card.title}
-                                    </h3>
-                                    <p className="text-white/55 text-[0.84em] leading-[1.7] flex-1">
-                                        {card.body}
-                                    </p>
-                                    <div
-                                        className="mt-5 h-[1px] w-0 group-hover:w-full transition-all duration-700 rounded-full"
-                                        style={{background: `linear-gradient(90deg, ${card.accent}00, ${card.accent}80, ${card.accent}00)`}}
-                                    />
-                                </FxHoloCard>
-                            </motion.div>
-                        ))}
-                    </motion.div>
-
-                    <div className="relative z-10 flex flex-col items-center justify-center text-center lg:px-[18em] px-4 mt-12">
+                    {/* CTA */}
+                    <FxReveal className="mt-16 flex flex-col items-center justify-center text-center">
                         <FxGlitchText tag="h2"
-                                      className={`lg:text-[3em] text-[1.5em] font-[700] tracking-tighter leading-[1.15] pb-6 ${isDayTime ? 'text-black' : 'text-white'}`}>
+                                      className="lg:text-[3em] text-[1.5em] font-[600] tracking-tighter leading-[1.15] pb-6 text-white">
                             Prepared to initiate the discussion?
                         </FxGlitchText>
-                        <FxButton day={isDayTime} href="/contact" variant="solid">Get started →</FxButton>
-                    </div>
+                        <FxButton day={false} href="/contact" variant="solid">Get started →</FxButton>
+                    </FxReveal>
                 </div>
             </div>
 
