@@ -9,7 +9,7 @@
  * use <FxCard>, <FxChip>, <FxSectionHeading>, <FxButton> for consistent UI.
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {motion} from 'framer-motion';
 import Link from 'next/link';
 
@@ -489,27 +489,32 @@ export function FxStickyScrollSection({
             if (!section || !rail) return;
 
             const sectionRect = section.getBoundingClientRect();
-            const railRect = rail.getBoundingClientRect();
             const topOffset = 96;
-            const shouldPin = sectionRect.top <= topOffset && sectionRect.bottom > topOffset + railRect.height + 24;
 
-            setRailHeight(railRect.height);
+            // Keep rail pinned while section is in view
+            // Release only when section completely scrolls past (bottom reaches top of screen)
+            const shouldPin = sectionRect.top <= topOffset && sectionRect.bottom > topOffset;
+
+            setRailHeight(rail.offsetHeight);
             setIsRailPinned(shouldPin);
 
             if (shouldPin) {
+                // Pin the rail at the top offset - stay fixed while section scrolls
                 setRailStyle({
                     position: 'fixed',
                     top: `${topOffset}px`,
-                    left: `${railRect.left}px`,
-                    width: `${railRect.width}px`,
+                    left: `${rail.getBoundingClientRect().left}px`,
+                    width: `${rail.offsetWidth}px`,
+                    zIndex: 20,
                 });
             } else {
+                // Allow rail to flow naturally when section ends
                 setRailStyle({});
             }
         };
 
         updateRail();
-        window.addEventListener('scroll', updateRail, { passive: true });
+        window.addEventListener('scroll', updateRail, {passive: true});
         window.addEventListener('resize', updateRail);
 
         return () => {
@@ -547,8 +552,8 @@ export function FxStickyScrollSection({
 
                     {/* Left sticky rail */}
                     <aside
-                        className="relative z-20 w-full lg:w-[360px] shrink-0"
-                        style={{ minHeight: isRailPinned ? `${railHeight}px` : undefined }}
+                        className="relative z-20 w-full lg:w-[460px] shrink-0"
+                        style={{minHeight: isRailPinned ? `${railHeight}px` : undefined}}
                     >
                         <div
                             ref={railRef}
