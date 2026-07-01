@@ -509,12 +509,13 @@ export function FxStickyScrollSection({
                 setRailStyle({ position: 'relative' });
             } else if (shouldPin) {
                 // Section is visible and there's room - pin the rail at top
+                // Lower z-index when pinned to avoid interfering with section header
                 setRailStyle({
                     position: 'fixed',
                     top: `${topOffset}px`,
                     left: `${rail.getBoundingClientRect().left}px`,
                     width: `${rail.offsetWidth}px`,
-                    zIndex: 20,
+                    zIndex: 5,
                 });
             } else {
                 // Section is ending, space runs out, or rail passed bottom - use absolute to scroll with content
@@ -524,7 +525,7 @@ export function FxStickyScrollSection({
                     top: `${Math.max(0, Math.min(absoluteTop, section.offsetHeight - railHeight))}px`,
                     left: '0',
                     width: '100%',
-                    zIndex: 20,
+                    zIndex: 5,
                 });
             }
         };
