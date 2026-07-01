@@ -164,7 +164,7 @@
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <div>
                         <h4 class="card-title mb-1">Audit Runs</h4>
-                        <p class="text-muted mb-0 small">Every audit executed from the public page or this panel is logged here.</p>
+                        <p class="text-muted mb-0 small">Every audit executed from the public page or this panel is logged here. Click to view issues and fixes.</p>
                     </div>
                     <span class="badge bg-info text-dark fs-6"><%= (typeof auditRuns !== 'undefined' ? auditRuns.length : 0) %></span>
                 </div>
@@ -174,7 +174,7 @@
                 <% } else { %>
                 <div class="table-responsive">
                     <table class="table table-sm table-hover align-middle mb-0">
-                        <thead><tr><th>Target</th><th>Score</th><th>Report ID</th><th>Status</th><th>When</th></tr></thead>
+                        <thead><tr><th>Target</th><th>Score</th><th>Report ID</th><th>Status</th><th>When</th><th class="text-end">Action</th></tr></thead>
                         <tbody>
                         <% auditRuns.forEach(function(s){
                             var ad = {}; try { ad = JSON.parse(s.audit_data || '{}'); } catch(e) {}
@@ -191,6 +191,44 @@
                                 <td class="small text-muted"><%= s.audit_report_id || '—' %></td>
                                 <td><%- _statusBadge(s.status) %></td>
                                 <td class="small text-muted"><%= timeAgo(s.created_at) %></td>
+                                <td class="text-end">
+                                    <button class="btn btn-sm btn-soft-primary" type="button" data-bs-toggle="collapse" data-bs-target="#audit<%= s.id %>">View Issues</button>
+                                </td>
+                            </tr>
+                            <tr class="collapse" id="audit<%= s.id %>">
+                                <td colspan="6" class="bg-light-subtle">
+                                    <div class="py-3">
+                                        <h6 class="fw-bold mb-3">Issues & Fixes</h6>
+                                        <% if (ad.sections && Array.isArray(ad.sections)) { %>
+                                            <% ad.sections.forEach(function(sec) { %>
+                                                <div class="mb-3">
+                                                    <div class="fw-semibold mb-2">
+                                                        <span class="badge bg-secondary"><%= sec.section %></span>
+                                                        <span class="small text-muted">Score: <%= sec.score %>/100</span>
+                                                    </div>
+                                                    <% if (sec.findings && sec.findings.length > 0) { %>
+                                                        <ul class="list-unstyled ms-2">
+                                                            <% sec.findings.forEach(function(f) { 
+                                                                var sevClass = {critical:'text-danger',high:'text-warning',medium:'text-info',low:'text-secondary',pass:'text-success'}[f.severity] || 'text-muted';
+                                                            %>
+                                                                <li class="mb-2">
+                                                                    <div class="<%= sevClass %> fw-semibold"><span class="badge bg-secondary-soft"><%= f.severity.toUpperCase() %></span> <%= f.title %></div>
+                                                                    <div class="small text-muted">Issue: <%= f.detail %></div>
+                                                                    <% if (f.fix) { %><div class="small mt-1"><strong>Fix:</strong> <%= f.fix %></div><% } %>
+                                                                    <% if (f.implementation) { %><div class="small mt-1"><strong>Implementation:</strong><br><code><%= f.implementation.substring(0, 200) %><%= f.implementation.length > 200 ? '...' : '' %></code></div><% } %>
+                                                                </li>
+                                                            <% }); %>
+                                                        </ul>
+                                                    <% } else { %>
+                                                        <p class="small text-success mb-0">✓ No issues in this section</p>
+                                                    <% } %>
+                                                </div>
+                                            <% }); %>
+                                        <% } else { %>
+                                            <p class="small text-muted">Findings data not available</p>
+                                        <% } %>
+                                    </div>
+                                </td>
                             </tr>
                         <% }); %>
                         </tbody>
