@@ -490,42 +490,35 @@ export function FxStickyScrollSection({
                             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-teal-400/80 to-transparent" />
                             <div className="pointer-events-none absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent via-teal-400/20 to-transparent" />
 
-                            <FxReveal>
-                                <FxChip day={day} className="relative mb-5">{navLabel}</FxChip>
-                            </FxReveal>
-                            <FxReveal delay={0.08}>
-                                <h3 className={`relative text-[1.9em] lg:text-[2.3em] font-[700] leading-[1.05] tracking-tight ${day ? 'text-white' : 'text-white'}`}>
-                                    Command <span className="gx-gradient-text">stack</span>
-                                </h3>
-                            </FxReveal>
-                            <FxReveal delay={0.12}>
-                                <p className={`relative mt-4 text-[0.78em] font-[300] leading-[1.7] ${mutedText}`}>
-                                    A guided, pinned experience for startup solutions, designed like a futuristic mission control panel.
-                                </p>
-                            </FxReveal>
+                            <FxChip day={day} className="relative mb-5">{navLabel}</FxChip>
+                            <h3 className={`relative text-[1.9em] lg:text-[2.3em] font-[700] leading-[1.05] tracking-tight ${day ? 'text-white' : 'text-white'}`}>
+                                Command <span className="gx-gradient-text">stack</span>
+                            </h3>
+                            <p className={`relative mt-4 text-[0.78em] font-[300] leading-[1.7] ${mutedText}`}>
+                                A guided, pinned experience for startup solutions, designed like a futuristic mission control panel.
+                            </p>
 
                             <div className="relative mt-6 space-y-1">
                                 {items.map((item, index) => {
                                     const isActive = activeId === item.target;
                                     return (
-                                        <FxReveal key={index} delay={0.04 * index}>
-                                            <button
-                                                onClick={() => onNavClick(item.target)}
-                                                className={`group w-full text-left flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-300 border ${
-                                                    isActive
-                                                        ? 'bg-teal-400/10 border-teal-400/30 shadow-[0_0_24px_-8px_rgba(45,212,191,0.55)]'
-                                                        : `border-transparent hover:border-teal-400/15 hover:bg-teal-400/5 ${mutedText}`
-                                                }`}
-                                            >
-                                                <span className={`text-[0.7em] font-[700] tracking-wider tabular-nums shrink-0 ${isActive ? 'text-teal-400' : mutedText}`}>
-                                                    {item.id}
-                                                </span>
-                                                <span className={`text-[0.9em] font-[500] leading-snug ${isActive ? (day ? 'text-white' : 'text-white') : ''}`}>
-                                                    {item.title}
-                                                </span>
-                                                {isActive && <span className="ml-auto text-teal-400 text-[1.1em]">→</span>}
-                                            </button>
-                                        </FxReveal>
+                                        <button
+                                            key={index}
+                                            onClick={() => onNavClick(item.target)}
+                                            className={`group w-full text-left flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-300 border ${
+                                                isActive
+                                                    ? 'bg-teal-400/10 border-teal-400/30 shadow-[0_0_24px_-8px_rgba(45,212,191,0.55)]'
+                                                    : `border-transparent hover:border-teal-400/15 hover:bg-teal-400/5 ${mutedText}`
+                                            }`}
+                                        >
+                                            <span className={`text-[0.7em] font-[700] tracking-wider tabular-nums shrink-0 ${isActive ? 'text-teal-400' : mutedText}`}>
+                                                {item.id}
+                                            </span>
+                                            <span className={`text-[0.9em] font-[500] leading-snug ${isActive ? (day ? 'text-white' : 'text-white') : ''}`}>
+                                                {item.title}
+                                            </span>
+                                            {isActive && <span className="ml-auto text-teal-400 text-[1.1em]">→</span>}
+                                        </button>
                                     );
                                 })}
                             </div>
