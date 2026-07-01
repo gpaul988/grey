@@ -489,18 +489,22 @@ export function FxStickyScrollSection({
             if (!section || !rail) return;
 
             const sectionRect = section.getBoundingClientRect();
+            const railHeight = rail.offsetHeight;
             const topOffset = 96;
             const scrollY = window.scrollY;
             const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
 
-            // Pin while section is in viewport
-            const shouldPin = sectionRect.top <= topOffset && sectionRect.bottom > topOffset;
+            // Pin only while there's enough space below the rail in the section
+            // Release when the bottom of the rail would hit the bottom of the section
+            const remainingSpace = sectionRect.bottom - topOffset;
+            const shouldPin = sectionRect.top <= topOffset && remainingSpace > railHeight;
 
-            setRailHeight(rail.offsetHeight);
+            setRailHeight(railHeight);
             setIsRailPinned(shouldPin);
 
             if (shouldPin) {
-                // Fixed positioning - rail stays at topOffset while viewing section
+                // Fixed positioning - rail stays pinned at top while viewing section
                 setRailStyle({
                     position: 'fixed',
                     top: `${topOffset}px`,
@@ -508,12 +512,12 @@ export function FxStickyScrollSection({
                     width: `${rail.offsetWidth}px`,
                     zIndex: 20,
                 });
-            } else if (scrollY > sectionTop) {
-                // After section is passed, use absolute so rail flows with content
-                const railOffsetFromTop = Math.max(0, scrollY - sectionTop);
+            } else if (scrollY + topOffset + railHeight < sectionTop + sectionHeight) {
+                // Rail is within section bounds but unpinned - use absolute to scroll naturally
+                const railOffsetFromTop = scrollY - sectionTop + topOffset;
                 setRailStyle({
                     position: 'absolute',
-                    top: `${railOffsetFromTop}px`,
+                    top: `${Math.max(0, railOffsetFromTop)}px`,
                     left: '0',
                     width: '100%',
                     zIndex: 20,
