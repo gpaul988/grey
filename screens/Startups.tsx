@@ -531,161 +531,280 @@ const Startups = () => {
                 </div>
             </div>
 
-            {/* Startups Products */}
+            {/* Startups Products — Redesigned Modern Card Layout */}
             <div
-                className={`relative mx-auto px-4 sm:px-6 lg:px-[4.6em] lg:-mt-20 lg:py-32 md:py-16 py-8 lg:mt-32 md:mt-24 mt-8  ${isDayTime ? 'bg-black' : 'bg-white'}`}>
+                className={`relative overflow-hidden lg:-mt-20 lg:py-32 md:py-16 py-8 lg:mt-32 md:mt-24 mt-8 ${isDayTime ? 'bg-white' : 'bg-[#050810]'}`}>
+                <FxBackground day={isDayTime} grid={false} aurora className="opacity-20"/>
                 <div
-                    className={`relative grid lg:grid-cols-2 grid-cols-1 gap-4 mb-8 border-b-[1px] lg:pb-[6em] pb-[3em] ${isDayTime ? 'text-white' : 'text-black'} `}>
-                    <div>
-                        <h2 className={`lg:text-[3em] md:text-[2.3em] text-[1.8em] font-[700] capitalize justify-center tracking-tight lg:pr-[3em] mb-6 leading-[1.2]`}>
-                            Popular product types for startups</h2>
+                    className="relative z-10 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]">
+                    {/* Section Header */}
+                    <div
+                        className={`relative grid lg:grid-cols-2 grid-cols-1 gap-4 lg:mb-16 mb-10 border-b lg:pb-[5em] pb-[3em] ${isDayTime ? 'text-black border-gray-200' : 'text-white border-white/10'}`}>
+                        <div>
+                            <FxReveal>
+                                <FxGlitchText tag="h2"
+                                              className={`lg:text-[3em] md:text-[2.3em] text-[1.8em] font-[700] tracking-tighter leading-[1.2] ${isDayTime ? 'text-black' : 'text-white'}`}>
+                                    Popular product types for startups
+                                </FxGlitchText>
+                            </FxReveal>
+                        </div>
+                        <div>
+                            <p className={`text-[0.875em] font-[400] leading-[1.5] ${isDayTime ? 'text-gray-600' : 'text-white/55'}`}>
+                                These app categories are not only popular, but they have also been shown to generate
+                                significant market traction when developed with the proper competence. Our talents
+                                extend far beyond these areas; if you have a vision, we&#39;re here to make it reality.
+                            </p>
+                        </div>
                     </div>
-                    <div>
-                        <p className='text-[0.87em] font-[400] justify-center text-justify leading-[1.5] lg:-ml-[3em] tracking-noromal'>
-                            These app categories are not only popular, but they have also been shown to generate
-                            significant market traction when developed with the proper competence. Our talents
-                            extend far beyond these areas; if you have a vision, we&#39;re here to make it reality.
-                        </p>
+
+                    {/* Product Cards Grid */}
+                    <div className="grid lg:grid-cols-2 grid-cols-1 gap-6 lg:mb-8 mb-6">
+                        {/* On-Demand Services */}
+                        <Link href='/industries/Ondemand'>
+                            <FxReveal>
+                                <motion.div
+                                    whileHover={{ scale: 1.02 }}
+                                    transition={{ duration: 0.3, ease: 'easeOut' }}
+                                    className="h-full">
+                                    <div
+                                        className={`group relative h-full overflow-hidden rounded-2xl cursor-pointer transition-all duration-300
+                                        ${isDayTime 
+                                            ? 'bg-gradient-to-br from-white/80 via-white/60 to-gray-100/50 border border-white/30 hover:border-teal-300/50 shadow-lg hover:shadow-teal-200/30' 
+                                            : 'bg-gradient-to-br from-white/10 via-white/5 to-transparent border border-white/15 hover:border-teal-400/40 shadow-2xl hover:shadow-teal-500/20'
+                                        } backdrop-blur-xl p-8`}>
+                                        
+                                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500
+                                            ${isDayTime 
+                                                ? 'bg-gradient-to-br from-teal-50/30 via-transparent to-transparent' 
+                                                : 'bg-gradient-to-br from-teal-500/10 via-transparent to-purple-500/10'
+                                            }`}
+                                        />
+                                        
+                                        <div className="relative z-10">
+                                            <div className="flex items-start justify-between mb-6">
+                                                <div className={`text-5xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6`}>
+                                                    🚀
+                                                </div>
+                                                <motion.div
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    whileHover={{ opacity: 1, x: 0 }}
+                                                    className={`text-xl transition-all ${isDayTime ? 'text-teal-600' : 'text-teal-400'}`}>
+                                                    →
+                                                </motion.div>
+                                            </div>
+                                            
+                                            <h3 className={`text-[1.6em] font-[700] mb-3 transition-colors duration-300
+                                                ${isDayTime ? 'text-black group-hover:text-teal-700' : 'text-white group-hover:text-teal-300'}`}>
+                                                On-Demand Services
+                                            </h3>
+                                            
+                                            <p className={`text-[0.875em] font-[400] leading-[1.6] transition-colors
+                                                ${isDayTime ? 'text-gray-600 group-hover:text-gray-700' : 'text-white/60 group-hover:text-white/80'}`}>
+                                                Real-time monitoring, scheduling, and location-based features that connect users to services instantaneously with efficiency.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </FxReveal>
+                        </Link>
+
+                        {/* Healthcare & Fitness */}
+                        <Link href='/industries/healthcare'>
+                            <FxReveal>
+                                <motion.div
+                                    whileHover={{ scale: 1.02 }}
+                                    transition={{ duration: 0.3, ease: 'easeOut' }}
+                                    className="h-full">
+                                    <div
+                                        className={`group relative h-full overflow-hidden rounded-2xl cursor-pointer transition-all duration-300
+                                        ${isDayTime 
+                                            ? 'bg-gradient-to-br from-white/80 via-white/60 to-gray-100/50 border border-white/30 hover:border-teal-300/50 shadow-lg hover:shadow-teal-200/30' 
+                                            : 'bg-gradient-to-br from-white/10 via-white/5 to-transparent border border-white/15 hover:border-teal-400/40 shadow-2xl hover:shadow-teal-500/20'
+                                        } backdrop-blur-xl p-8`}>
+                                        
+                                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500
+                                            ${isDayTime 
+                                                ? 'bg-gradient-to-br from-teal-50/30 via-transparent to-transparent' 
+                                                : 'bg-gradient-to-br from-teal-500/10 via-transparent to-purple-500/10'
+                                            }`}
+                                        />
+                                        
+                                        <div className="relative z-10">
+                                            <div className="flex items-start justify-between mb-6">
+                                                <div className={`text-5xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6`}>
+                                                    💊
+                                                </div>
+                                                <motion.div
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    whileHover={{ opacity: 1, x: 0 }}
+                                                    className={`text-xl transition-all ${isDayTime ? 'text-teal-600' : 'text-teal-400'}`}>
+                                                    →
+                                                </motion.div>
+                                            </div>
+                                            
+                                            <h3 className={`text-[1.6em] font-[700] mb-3 transition-colors duration-300
+                                                ${isDayTime ? 'text-black group-hover:text-teal-700' : 'text-white group-hover:text-teal-300'}`}>
+                                                Healthcare & Fitness
+                                            </h3>
+                                            
+                                            <p className={`text-[0.875em] font-[400] leading-[1.6] transition-colors
+                                                ${isDayTime ? 'text-gray-600 group-hover:text-gray-700' : 'text-white/60 group-hover:text-white/80'}`}>
+                                                AI and wearables integrated with telemedicine, fitness tracking, and personalized health solutions for wellness.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </FxReveal>
+                        </Link>
+
+                        {/* E-Commerce & Marketplace */}
+                        <Link href='/industries/e-commerce-development'>
+                            <FxReveal>
+                                <motion.div
+                                    whileHover={{ scale: 1.02 }}
+                                    transition={{ duration: 0.3, ease: 'easeOut' }}
+                                    className="h-full">
+                                    <div
+                                        className={`group relative h-full overflow-hidden rounded-2xl cursor-pointer transition-all duration-300
+                                        ${isDayTime 
+                                            ? 'bg-gradient-to-br from-white/80 via-white/60 to-gray-100/50 border border-white/30 hover:border-teal-300/50 shadow-lg hover:shadow-teal-200/30' 
+                                            : 'bg-gradient-to-br from-white/10 via-white/5 to-transparent border border-white/15 hover:border-teal-400/40 shadow-2xl hover:shadow-teal-500/20'
+                                        } backdrop-blur-xl p-8`}>
+                                        
+                                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500
+                                            ${isDayTime 
+                                                ? 'bg-gradient-to-br from-teal-50/30 via-transparent to-transparent' 
+                                                : 'bg-gradient-to-br from-teal-500/10 via-transparent to-purple-500/10'
+                                            }`}
+                                        />
+                                        
+                                        <div className="relative z-10">
+                                            <div className="flex items-start justify-between mb-6">
+                                                <div className={`text-5xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6`}>
+                                                    🛒
+                                                </div>
+                                                <motion.div
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    whileHover={{ opacity: 1, x: 0 }}
+                                                    className={`text-xl transition-all ${isDayTime ? 'text-teal-600' : 'text-teal-400'}`}>
+                                                    →
+                                                </motion.div>
+                                            </div>
+                                            
+                                            <h3 className={`text-[1.6em] font-[700] mb-3 transition-colors duration-300
+                                                ${isDayTime ? 'text-black group-hover:text-teal-700' : 'text-white group-hover:text-teal-300'}`}>
+                                                E-Commerce & Marketplace
+                                            </h3>
+                                            
+                                            <p className={`text-[0.875em] font-[400] leading-[1.6] transition-colors
+                                                ${isDayTime ? 'text-gray-600 group-hover:text-gray-700' : 'text-white/60 group-hover:text-white/80'}`}>
+                                                Scalable platforms with secure payments, personalized recommendations, and streamlined commerce functionality.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </FxReveal>
+                        </Link>
+
+                        {/* FinTech Solutions */}
+                        <Link href='/industries/fintech'>
+                            <FxReveal>
+                                <motion.div
+                                    whileHover={{ scale: 1.02 }}
+                                    transition={{ duration: 0.3, ease: 'easeOut' }}
+                                    className="h-full">
+                                    <div
+                                        className={`group relative h-full overflow-hidden rounded-2xl cursor-pointer transition-all duration-300
+                                        ${isDayTime 
+                                            ? 'bg-gradient-to-br from-white/80 via-white/60 to-gray-100/50 border border-white/30 hover:border-teal-300/50 shadow-lg hover:shadow-teal-200/30' 
+                                            : 'bg-gradient-to-br from-white/10 via-white/5 to-transparent border border-white/15 hover:border-teal-400/40 shadow-2xl hover:shadow-teal-500/20'
+                                        } backdrop-blur-xl p-8`}>
+                                        
+                                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500
+                                            ${isDayTime 
+                                                ? 'bg-gradient-to-br from-teal-50/30 via-transparent to-transparent' 
+                                                : 'bg-gradient-to-br from-teal-500/10 via-transparent to-purple-500/10'
+                                            }`}
+                                        />
+                                        
+                                        <div className="relative z-10">
+                                            <div className="flex items-start justify-between mb-6">
+                                                <div className={`text-5xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6`}>
+                                                    💳
+                                                </div>
+                                                <motion.div
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    whileHover={{ opacity: 1, x: 0 }}
+                                                    className={`text-xl transition-all ${isDayTime ? 'text-teal-600' : 'text-teal-400'}`}>
+                                                    →
+                                                </motion.div>
+                                            </div>
+                                            
+                                            <h3 className={`text-[1.6em] font-[700] mb-3 transition-colors duration-300
+                                                ${isDayTime ? 'text-black group-hover:text-teal-700' : 'text-white group-hover:text-teal-300'}`}>
+                                                FinTech Solutions
+                                            </h3>
+                                            
+                                            <p className={`text-[0.875em] font-[400] leading-[1.6] transition-colors
+                                                ${isDayTime ? 'text-gray-600 group-hover:text-gray-700' : 'text-white/60 group-hover:text-white/80'}`}>
+                                                Financial management for investments, payments, and crypto with enterprise security and regulatory compliance.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </FxReveal>
+                        </Link>
+
+                        {/* Social Networks */}
+                        <Link href='/services/Social-Networking'>
+                            <FxReveal>
+                                <motion.div
+                                    whileHover={{ scale: 1.02 }}
+                                    transition={{ duration: 0.3, ease: 'easeOut' }}
+                                    className="h-full">
+                                    <div
+                                        className={`group relative h-full overflow-hidden rounded-2xl cursor-pointer transition-all duration-300
+                                        ${isDayTime 
+                                            ? 'bg-gradient-to-br from-white/80 via-white/60 to-gray-100/50 border border-white/30 hover:border-teal-300/50 shadow-lg hover:shadow-teal-200/30' 
+                                            : 'bg-gradient-to-br from-white/10 via-white/5 to-transparent border border-white/15 hover:border-teal-400/40 shadow-2xl hover:shadow-teal-500/20'
+                                        } backdrop-blur-xl p-8`}>
+                                        
+                                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500
+                                            ${isDayTime 
+                                                ? 'bg-gradient-to-br from-teal-50/30 via-transparent to-transparent' 
+                                                : 'bg-gradient-to-br from-teal-500/10 via-transparent to-purple-500/10'
+                                            }`}
+                                        />
+                                        
+                                        <div className="relative z-10">
+                                            <div className="flex items-start justify-between mb-6">
+                                                <div className={`text-5xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6`}>
+                                                    👥
+                                                </div>
+                                                <motion.div
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    whileHover={{ opacity: 1, x: 0 }}
+                                                    className={`text-xl transition-all ${isDayTime ? 'text-teal-600' : 'text-teal-400'}`}>
+                                                    →
+                                                </motion.div>
+                                            </div>
+                                            
+                                            <h3 className={`text-[1.6em] font-[700] mb-3 transition-colors duration-300
+                                                ${isDayTime ? 'text-black group-hover:text-teal-700' : 'text-white group-hover:text-teal-300'}`}>
+                                                Social Networks
+                                            </h3>
+                                            
+                                            <p className={`text-[0.875em] font-[400] leading-[1.6] transition-colors
+                                                ${isDayTime ? 'text-gray-600 group-hover:text-gray-700' : 'text-white/60 group-hover:text-white/80'}`}>
+                                                Messaging, content sharing, and engagement platforms tailored to communities and interests.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </FxReveal>
+                        </Link>
                     </div>
                 </div>
-
-                {/* on-Demand Service Apps */}
-                <Link href='/industries/Ondemand' className='relative'>
-                    <div
-                        className={`grid lg:grid-cols-2 grid-cols-1 lg:mb-10 mb-8 gap-4 border-b-[1px] lg:pb-[3em] pb-[2em] ${isDayTime ? 'text-gray-500 hover:text-white' : 'text-gray-500 hover:text-black'} group`}>
-                        <div className='relative'>
-                            <h2 className='text-[2em] font-[500] justify-center tracking-tight lg:pr-[10em] leading-[1.2] rounded-none'>
-                                On-Demand Services Apps
-                            </h2>
-                            <div
-                                className='absolute lg:block md:block sm:hidden lg:pl-[18em] lg:-mt-[3.4em] md:pl-[18em] md:-mt-[3.4em] inset-0 opacity-0 group-hover:opacity-90 transition-opacity  duration-300'>
-                                <Image
-                                    src={'/assets/startup/demand.jpg'}
-                                    alt='On-Demand Services'
-                                    height={250}
-                                    width={250}
-                                />
-                            </div>
-                        </div>
-                        <div>
-                            <p className='text-[0.85em] lg:-ml-[3em] font-[400] justify-center text-justify leading-[1.2] tracking-normal'>
-                                Provide real-time monitoring, scheduling, and location-based features for
-                                consumers&#39;
-                                convenience and efficiency, and connect them to services instantaneously.
-                            </p>
-                        </div>
-                    </div>
-                </Link>
-
-                {/* Healthcare and Fitness */}
-                <Link href='/industries/healthcare' className='relative'>
-                    <div
-                        className={`grid lg:grid-cols-2 grid-cols-1 lg:mb-10 mb-8 gap-4 border-b-[1px] lg:pb-[3em] pb-[2em] ${isDayTime ? 'text-gray-500 hover:text-white' : 'text-gray-500 hover:text-black'} group`}>
-                        <div className='relative'>
-                            <h2 className='text-[2em] font-[500] justify-center tracking-tight lg:pr-[11em] leading-[1.2] rounded-none'>
-                                Healthcare and Fitness Apps
-                            </h2>
-                            <div
-                                className='absolute lg:block md:hidden sm:hidden lg:pl-[18em] lg:-mt-[3em] inset-0 opacity-0 group-hover:opacity-90 transition-opacity  duration-300'>
-                                <Image
-                                    src='/assets/startup/health.jpg'
-                                    alt='Healthcare and Fitness'
-                                    height={250}
-                                    width={250}
-                                />
-                            </div>
-                        </div>
-                        <div>
-                            <p className='text-[0.85em] lg:-ml-[3em] font-[400] justify-center text-justify leading-[1.2] tracking-normal'>
-                                AI and wearables are being integrated into telemedicine systems, fitness trackers,
-                                and personalized health solutions to encourage user participation and wellness.
-                            </p>
-                        </div>
-                    </div>
-                </Link>
-
-                {/* e-Commerce */}
-                <Link href='/industries/e-commerce-development' className='relative'>
-                    <div
-                        className={`grid lg:grid-cols-2 grid-cols-1 lg:mb-10 mb-8 gap-4 border-b-[1px] lg:pb-[3em] pb-[2em] group ${isDayTime ? 'text-gray-500 hover:text-white' : 'text-gray-500 hover:text-black'}`}>
-                        <div className='relative'>
-                            <h2 className='text-[2em] font-[500] justify-center tracking-tight lg:pr-[10em] leading-[1.2] rounded-none'>
-                                E-Commerce and Marketplace Apps
-                            </h2>
-                            <div
-                                className='absolute lg:block md:hidden sm:hidden lg:pl-[18em] lg:-mt-[3em] inset-0 opacity-0 group-hover:opacity-90 transition-opacity  duration-300'>
-                                <Image
-                                    src='/assets/startup/market.jpg'
-                                    alt='E-commerce and Marketplace'
-                                    height={250}
-                                    width={250}
-                                />
-                            </div>
-                        </div>
-                        <div>
-                            <p className='text-[0.85em] lg:-ml-[3em] font-[400] justify-center text-justify leading-[1.2] tracking-tight'>
-                                platforms that offer scalable functionality for a range of businesses, secure
-                                payment methods, and personalized suggestions for the purchase, sale, or trade of
-                                items.
-                            </p>
-                        </div>
-                    </div>
-                </Link>
-
-                {/* Fintech */}
-                <Link href='/industries/fintech' className='relative'>
-                    <div
-                        className={`grid lg:grid-cols-2 grid-cols-1 lg:mb-10 mb-8 gap-4 border-b-[1px] lg:pb-[3em] pb-[2em] group ${isDayTime ? 'text-gray-500 hover:text-white' : 'text-gray-500 hover:text-black'}`}>
-                        <div className='relative'>
-                            <h2 className='text-[2em] font-[500] justify-center tracking-tight lg:pr-[8.5em] leading-[1.2] rounded-none'>
-                                FinTech Apps
-                            </h2>
-                            <div
-                                className='absolute lg:block md:hidden sm:hidden lg:pl-[18em] lg:-mt-[4.2em] inset-0 opacity-0 group-hover:opacity-90 transition-opacity  duration-300'>
-                                <Image
-                                    src='/assets/startup/fintech.jpg'
-                                    alt='On-Demand Services'
-                                    height={250}
-                                    width={250}
-                                />
-                            </div>
-                        </div>
-                        <div>
-                            <p className='text-[0.85em] lg:-ml-[3em] font-[400] justify-center text-justify leading-[1.2] tracking-normal'>
-                                Solutions for financial management that include investments, payments, and
-                                cryptocurrency apps with strong security, user-friendly interfaces, and regulatory
-                                compliance.
-                            </p>
-                        </div>
-                    </div>
-                </Link>
-
-                {/* social networking */}
-                <Link href='/services/Social-Networking' className='relative'>
-                    <div
-                        className={`grid lg:grid-cols-2 grid-cols-1  gap-4 border-b-[1px] lg:pb-[3em] pb-[2em] group ${isDayTime ? 'text-gray-500 hover:text-white' : 'text-gray-500 hover:text-black'}`}>
-                        <div className='relative'>
-                            <h2 className='text-[2em] font-[500] justify-center tracking-tight lg:pr-[8.7em] leading-[1.2] rounded-none'>
-                                Social Networking Apps
-                            </h2>
-                            <div
-                                className='absolute lg:block md:hidden sm:hidden lg:pl-[18em] lg:-mt-[3em] inset-0 opacity-0 group-hover:opacity-90 transition-opacity  duration-300'>
-                                <Image
-                                    src='/assets/startup/social.jpg'
-                                    alt='Social Networking'
-                                    height={250}
-                                    width={250}
-                                />
-                            </div>
-                        </div>
-                        <div>
-                            <p className='text-[0.85em] lg:-ml-[3em] font-[400] justify-center text-justify leading-[1.2] tracking-normal'>
-                                platforms with messaging, content sharing, and engagement capabilities tailored to
-                                communities or particular interests that promote communication and cooperation.
-                            </p>
-                        </div>
-                    </div>
-                </Link>
             </div>
 
             {/* last image */}
