@@ -3,7 +3,7 @@
 
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
-import {AnimatePresence, motion} from 'framer-motion'
+import {motion} from 'framer-motion'
 import Image from "next/image";
 import Link from "next/link";
 import FloatingButton from "@/components/FloatingButton";
@@ -58,9 +58,6 @@ const Startups = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
-    const [activeIndex, setActiveIndex] = useState(1);
-
-
     // Floating button visibility hook
     useEffect(() => {
         const handleScroll = () => {
@@ -74,17 +71,6 @@ const Startups = () => {
 
     // isDaytime react hook
     const isDayTime = useIsDayTime();
-
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setActiveIndex(prevIndex => (prevIndex % reasons.length) + 1);
-        }, 3000); // Change slide every 3 seconds
-
-        return () => {
-            clearInterval(interval);
-        }; // Clean up the interval on unmount
-    }, []);
 
 
     const handleScroll = () => {
@@ -443,91 +429,123 @@ const Startups = () => {
                 </div>
             </div>
 
-            {/* Why Grey InfoTech — FX accordion */}
+            {/* Why Grey InfoTech — Company-style approach */}
             <div
-                className={`relative overflow-hidden ${isDayTime ? 'bg-white' : 'bg-[#050810]'} lg:pt-36 pt-20 lg:pb-0 pb-0`}>
-                <FxBackground day={isDayTime} grid={false} aurora className="opacity-30"/>
-                <div
-                    className="relative z-10 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] border-b border-white/10 pb-12 mb-0">
-                    <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6">
+                className={`relative overflow-hidden ${isDayTime ? 'bg-white' : 'bg-[#050810]'} lg:pt-36 pt-20 lg:pb-28 pb-14`}>
+                <FxBackground day={isDayTime} grid={false} aurora className="opacity-25"/>
+                <div className="relative z-10 mx-auto max-w-full w-full px-4 sm:px-6 md:px-10 lg:px-[4em] xl:px-[4.5em] 2xl:px-[4.5em]">
+                    <div
+                        className={`relative grid lg:grid-cols-2 grid-cols-1 gap-8 lg:mb-16 mb-12 border-b lg:pb-12 pb-8 ${isDayTime ? 'text-black border-gray-200/60' : 'text-white border-white/10'}`}>
                         <div>
                             <FxReveal>
                                 <FxChip day={isDayTime} className="mb-5">Why Grey</FxChip>
                                 <FxGlitchText tag="h2"
-                                              className={`lg:text-[3em] md:text-[2.3em] text-[1.8em] font-[700] tracking-tighter leading-[1.15] lg:pb-6 pr-[1.5em] ${isDayTime ? 'text-black' : 'text-white'}`}>
+                                              className={`lg:text-[3.3em] md:text-[2.5em] text-[1.85em] font-[800] tracking-tight leading-[1.12] lg:pr-[1.5em] ${isDayTime ? 'text-black' : 'text-white'}`}>
                                     Why Grey InfoTech for your startup
                                 </FxGlitchText>
                             </FxReveal>
                         </div>
-                        <div className="lg:-ml-[7em]">
-                            <p className={`text-[0.875em] font-[400] lg:-mt-[0.2em] leading-[1.5] ${isDayTime ? 'text-gray-600' : 'text-white/55'}`}>
-                                We have completed projects for businesses across a wide range of industries. Details
-                                about this experience that might be pertinent to you are included in this section.
+                        <div className="flex items-end lg:justify-end">
+                            <p className={`text-[0.92em] font-[400] leading-[1.7] max-w-xl ${isDayTime ? 'text-gray-600' : 'text-white/58'}`}>
+                                We blend startup speed with enterprise discipline so you get a partner that understands
+                                product-market fit, technical execution, and long-term scalability from day one.
                             </p>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div className={`relative overflow-hidden ${isDayTime ? 'bg-white' : 'bg-[#050810]'} lg:pb-28 pb-14 mb-12`}>
-                <FxBackground day={isDayTime} grid={false} aurora className="opacity-20"/>
-                <div
-                    className="relative z-10 mx-auto px-4 sm:px-6 lg:px-[4em] grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:mb-20 pt-12">
-                    {/* Left — accordion */}
-                    <div className="relative flex flex-col gap-3 lg:pl-4 lg:pr-[3em]">
-                        {reasons.map((reason, index) => {
-                            const isActive = index + 1 === activeIndex;
-                            return (
-                                <FxHoloCard
-                                    key={reason.id}
-                                    day={isDayTime}
-                                    className={`p-5 transition-all duration-300 cursor-pointer ${isActive ? 'ring-1 ring-teal-400/40' : 'opacity-70 hover:opacity-90'}`}
-                                    onClick={() => setActiveIndex(index + 1)}
-                                >
-                                    <h3 className={`leading-[1.2] lg:text-[1.15em] text-[1em] font-[600] mb-2 transition-all ${
-                                        isActive
-                                            ? isDayTime ? 'text-teal-700' : 'text-teal-300'
-                                            : isDayTime ? 'text-gray-700' : 'text-white/60'
-                                    }`}>
-                                        <span
-                                            className="font-mono text-[0.7em] mr-2 opacity-50">{String(reason.id).padStart(2, '0')}</span>
-                                        {reason.title}
-                                    </h3>
-                                    <AnimatePresence initial={false}>
-                                        {isActive && (
-                                            <motion.p
-                                                key={reason.id}
-                                                initial={{opacity: 0, height: 0}}
-                                                animate={{opacity: 1, height: 'auto'}}
-                                                exit={{opacity: 0, height: 0}}
-                                                transition={{duration: 0.3, ease: [0.22, 1, 0.36, 1]}}
-                                                className={`text-[0.875em] leading-[1.6] overflow-hidden ${isDayTime ? 'text-gray-600' : 'text-white/55'}`}
-                                            >
-                                                {reason.description}
-                                            </motion.p>
-                                        )}
-                                    </AnimatePresence>
-                                </FxHoloCard>
-                            );
-                        })}
-                    </div>
-                    <div className="lg:mt-[3em] h-[30vh] sticky">
-                        <Image
-                            src={'/assets/startup/mockup.jpg'}
-                            alt="Mockup"
-                            width={660}
-                            height={150}
-                        />
-                    </div>
-                </div>
 
-                {/* CTA */}
-                <div
-                    className="relative z-10 flex flex-col items-center justify-center text-center lg:px-[28em] px-4 mt-8">
-                    <FxGlitchText tag="h2"
-                                  className={`lg:text-[3em] text-[1.5em] font-[600] tracking-tighter leading-[1.15] pb-6 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                        Prepared to initiate the discussion?
-                    </FxGlitchText>
-                    <FxButton day={isDayTime} href="/contact" variant="solid">Get started →</FxButton>
+                    <motion.div
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+                        variants={{
+                            hidden: {opacity: 0},
+                            visible: {opacity: 1, transition: {staggerChildren: 0.08, delayChildren: 0.1}}
+                        }}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{once: true, amount: 0.1}}
+                    >
+                        {[
+                            {
+                                num: '01',
+                                title: 'Proven Commercial Results',
+                                accent: '#2dd4bf',
+                                body: 'We have helped startups reach meaningful milestones with user-focused, scalable products that are built to win in real markets.'
+                            },
+                            {
+                                num: '02',
+                                title: 'Startup-Oriented Delivery',
+                                accent: '#06b6d4',
+                                body: 'We work within tight timelines and shifting priorities without losing momentum, clarity, or product quality.'
+                            },
+                            {
+                                num: '03',
+                                title: 'Complete Assistance',
+                                accent: '#a855f7',
+                                body: 'From concept to launch and beyond, we stay involved with thoughtful support that keeps your product moving forward.'
+                            },
+                            {
+                                num: '04',
+                                title: 'Modern Technical Stack',
+                                accent: '#22d3ee',
+                                body: 'We use modern tools and agile practices to build flexible, future-ready solutions that evolve with your business.'
+                            },
+                            {
+                                num: '05',
+                                title: 'True Collaboration',
+                                accent: '#14b8a6',
+                                body: 'We act like a partner, not just a vendor, aligning our work with your vision, your users, and your long-term goals.'
+                            },
+                            {
+                                num: '06',
+                                title: 'Long-Term Partnership',
+                                accent: '#0d9488',
+                                body: 'Our job does not end at launch — we remain available to refine, improve, and scale your product as you grow.'
+                            },
+                        ].map((card) => (
+                            <motion.div
+                                key={card.num}
+                                variants={{
+                                    hidden: {opacity: 0, y: 24},
+                                    visible: {opacity: 1, y: 0, transition: {duration: 0.5}}
+                                }}
+                            >
+                                <FxHoloCard day={isDayTime} className="p-7 h-full flex flex-col group cursor-default">
+                                    <div className="flex items-center justify-between mb-5">
+                                        <span
+                                            className="text-[0.65em] font-mono font-[700] uppercase tracking-[0.22em] px-3 py-1 rounded-full border"
+                                            style={{
+                                                color: card.accent,
+                                                borderColor: card.accent + '40',
+                                                background: card.accent + '12'
+                                            }}
+                                        >
+                                            {card.num}
+                                        </span>
+                                        <div
+                                            className="w-8 h-8 rounded-full opacity-20 group-hover:opacity-60 transition-opacity duration-300"
+                                            style={{background: `radial-gradient(circle, ${card.accent}, transparent)`}}/>
+                                    </div>
+                                    <h3 className="text-[1.15em] font-[700] tracking-tight text-white mb-3 group-hover:text-teal-300 transition-colors duration-300">
+                                        {card.title}
+                                    </h3>
+                                    <p className="text-white/55 text-[0.84em] leading-[1.7] flex-1">
+                                        {card.body}
+                                    </p>
+                                    <div
+                                        className="mt-5 h-[1px] w-0 group-hover:w-full transition-all duration-700 rounded-full"
+                                        style={{background: `linear-gradient(90deg, ${card.accent}00, ${card.accent}80, ${card.accent}00)`}}
+                                    />
+                                </FxHoloCard>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+
+                    <div className="relative z-10 flex flex-col items-center justify-center text-center lg:px-[18em] px-4 mt-12">
+                        <FxGlitchText tag="h2"
+                                      className={`lg:text-[3em] text-[1.5em] font-[700] tracking-tighter leading-[1.15] pb-6 ${isDayTime ? 'text-black' : 'text-white'}`}>
+                            Prepared to initiate the discussion?
+                        </FxGlitchText>
+                        <FxButton day={isDayTime} href="/contact" variant="solid">Get started →</FxButton>
+                    </div>
                 </div>
             </div>
 
@@ -817,29 +835,80 @@ const Startups = () => {
                 />
             </div>
 
-            {/* Interest for startups */}
+            {/* Interest for startups - ULTRA PREMIUM REDESIGN */}
             <div
-                className={`relative overflow-hidden lg:-mt-20 md:-mt-20 lg:py-32 py-16 ${isDayTime ? 'bg-white' : 'bg-[#050810]'}`}>
-                <FxBackground day={isDayTime} grid aurora className="opacity-30"/>
-                <div
-                    className="relative z-10 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]">
+                className={`relative overflow-hidden lg:-mt-20 md:-mt-20 lg:py-48 py-32 ${isDayTime ? 'bg-white' : 'bg-[#050810]'}`}>
+                <FxBackground day={isDayTime} grid aurora className="opacity-20"/>
+                
+                {/* Multi-layer animated gradient orbs with enhanced effect */}
+                <div className="absolute inset-0 overflow-hidden">
+                    {/* Primary blue orb */}
+                    <motion.div
+                        className={`absolute w-[500px] h-[500px] rounded-full blur-3xl ${isDayTime ? 'bg-blue-300/15' : 'bg-blue-500/12'}`}
+                        animate={{
+                            x: [0, 80, -60, 0],
+                            y: [0, 120, -80, 0],
+                            scale: [1, 1.2, 0.9, 1]
+                        }}
+                        transition={{duration: 20, repeat: Infinity, ease: "easeInOut"}}
+                        style={{top: '-15%', right: '-10%'}}
+                    />
+                    {/* Secondary purple orb */}
+                    <motion.div
+                        className={`absolute w-[400px] h-[400px] rounded-full blur-3xl ${isDayTime ? 'bg-purple-300/12' : 'bg-purple-500/10'}`}
+                        animate={{
+                            x: [0, -100, 50, 0],
+                            y: [0, -140, 60, 0],
+                            scale: [0.9, 1.1, 1, 0.9]
+                        }}
+                        transition={{duration: 22, repeat: Infinity, ease: "easeInOut"}}
+                        style={{bottom: '-15%', left: '-5%'}}
+                    />
+                    {/* Tertiary cyan accent */}
+                    <motion.div
+                        className={`absolute w-[350px] h-[350px] rounded-full blur-3xl ${isDayTime ? 'bg-cyan-200/10' : 'bg-cyan-500/8'}`}
+                        animate={{
+                            x: [0, 120, -40, 0],
+                            y: [0, 60, -120, 0]
+                        }}
+                        transition={{duration: 25, repeat: Infinity, ease: "easeInOut"}}
+                        style={{top: '50%', left: '10%'}}
+                    />
+                </div>
+
+                <div className="relative z-10 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]">
+                    {/* Premium header section */}
                     <div
-                        className={`relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4 lg:mb-8 mb-8 border-b lg:pb-[5em] pb-[2em] ${isDayTime ? 'text-black border-gray-200' : 'text-white border-white/10'}`}>
+                        className={`relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-12 lg:mb-20 mb-16 border-b lg:pb-16 pb-12 ${isDayTime ? 'text-black border-gray-200/40' : 'text-white border-white/8'}`}>
                         <div>
                             <FxReveal>
-                                <FxGlitchText tag="h2"
-                                              className="lg:text-[3em] md:text-[2.3em] text-[1.8em] font-[700] tracking-tight leading-[1.2]">
-                                    Business interest <br className="lg:block md:block hidden"/>for startups
-                                </FxGlitchText>
+                                <div className="relative">
+                                    {/* Enhanced glowing border effect */}
+                                    <motion.div
+                                        className={`absolute -inset-1.5 rounded-lg blur-lg opacity-30 ${isDayTime ? 'bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400' : 'bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500'}`}
+                                        animate={{opacity: [0.25, 0.45, 0.25]}}
+                                        transition={{duration: 4, repeat: Infinity}}
+                                    />
+                                    <motion.div
+                                        className={`absolute -inset-1.5 rounded-lg blur opacity-20 ${isDayTime ? 'bg-gradient-to-r from-blue-300 to-purple-300' : 'bg-gradient-to-r from-blue-400 to-purple-400'}`}
+                                        animate={{opacity: [0.15, 0.35, 0.15], scale: [0.95, 1.05, 0.95]}}
+                                        transition={{duration: 5, repeat: Infinity}}
+                                    />
+                                    <FxGlitchText tag="h2"
+                                                  className="lg:text-[3.5em] md:text-[2.8em] text-[2.2em] font-[850] tracking-tighter leading-[1.1] relative bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-300 dark:via-purple-300 dark:to-pink-300 bg-clip-text text-transparent">
+                                        Business interest <br className="lg:block md:block hidden"/>for startups
+                                    </FxGlitchText>
+                                </div>
                             </FxReveal>
                         </div>
-                        <div>
-                            <p className={`text-[0.873em] font-[400] tracking-normal text-justify leading-[1.5] lg:-ml-[3em] ${isDayTime ? 'text-gray-600' : 'text-white/55'}`}>
+                        <div className="flex items-center">
+                            <p className={`text-[1em] font-[400] tracking-normal text-justify leading-relaxed ${isDayTime ? 'text-gray-700' : 'text-white/75'}`}>
                                 All the advantages of traditional software are present in a bespoke or
                                 custom{' '}
                                 <Link href="/services/Web-Application"
-                                      className={`border-b py-[0.2em] hover:text-teal-400 transition-colors ${isDayTime ? 'border-gray-300' : 'border-white/20'}`}>
+                                      className={`font-semibold py-[0.2em] transition-all duration-300 relative group ${isDayTime ? 'text-blue-600 hover:text-blue-700' : 'text-blue-400 hover:text-blue-300'}`}>
                                     web application
+                                    <span className={`absolute bottom-0 left-0 w-full h-0.5 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left ${isDayTime ? 'bg-blue-600' : 'bg-blue-400'}`}/>
                                 </Link>,
                                 with the exception that it is more affordable, more accessible, and can grow with
                                 your company&#39;s demands. Companies across a wide range of industries have benefited
@@ -849,68 +918,301 @@ const Startups = () => {
                         </div>
                     </div>
 
-                    <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-5 lg:mb-5 mb-5 mt-12">
-                        {[
-                            {
-                                img: ['/assets/startup/dev1.svg', '/assets/startup/dev2.svg'],
-                                alt: 'Speed',
-                                title: 'Speed of Development',
-                                body: 'With open source frameworks and robust toolkits, we swiftly create unique software solutions — enabling companies to launch their products more quickly.'
-                            },
-                            {
-                                img: ['/assets/startup/relia1.svg', '/assets/startup/relia2.svg'],
-                                alt: 'Reliability',
-                                title: 'Reliability',
-                                body: 'Well-architected web applications provide software reliability, minimizing expensive maintenance and facilitating the identification and resolution of defects.'
-                            },
-                            {
-                                img: ['/assets/startup/sav1.svg', '/assets/startup/sav2.svg'],
-                                alt: 'Cost',
-                                title: 'Cost Savings',
-                                body: 'Web applications may be rapidly produced and disseminated, hence aiding in the reduction of development expenses.'
-                            },
-                        ].map(({img, alt, title, body}) => (
-                            <FxReveal key={title}>
-                                <FxHoloCard day={isDayTime} className="p-6 h-full">
-                                    <Image src={isDayTime ? img[0] : img[1]} alt={alt} width={60} height={60}
-                                           className="mb-4"/>
-                                    <h3 className={`text-[1.15em] font-[600] mb-2 ${isDayTime ? 'text-black' : 'text-white'}`}>{title}</h3>
-                                    <p className={`text-justify text-[0.85em] font-[400] leading-[1.5] ${isDayTime ? 'text-gray-600' : 'text-white/55'}`}>{body}</p>
-                                </FxHoloCard>
-                            </FxReveal>
-                        ))}
-                    </div>
+                    {/* Premium Benefits Grid with sophisticated design */}
+                    <div className="space-y-8">
+                        <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-8">
+                            {[
+                                {
+                                    id: 'speed',
+                                    emoji: '⚡',
+                                    title: 'Speed of Development',
+                                    body: 'With open source frameworks and robust toolkits, we swiftly create unique software solutions — enabling companies to launch their products more quickly.',
+                                    gradient: 'from-blue-600/5 via-cyan-500/5 to-blue-400/5',
+                                    borderGradient: 'from-blue-400 via-cyan-400 to-blue-500',
+                                    glowColor: 'bg-blue-500/25',
+                                    iconGradient: 'from-blue-400 to-cyan-400',
+                                    index: 0
+                                },
+                                {
+                                    id: 'reliability',
+                                    emoji: '🛡️',
+                                    title: 'Reliability',
+                                    body: 'Well-architected web applications provide software reliability, minimizing expensive maintenance and facilitating the identification and resolution of defects.',
+                                    gradient: 'from-purple-600/5 via-pink-500/5 to-purple-400/5',
+                                    borderGradient: 'from-purple-400 via-pink-400 to-purple-500',
+                                    glowColor: 'bg-purple-500/25',
+                                    iconGradient: 'from-purple-400 to-pink-400',
+                                    index: 1
+                                },
+                                {
+                                    id: 'cost',
+                                    emoji: '💰',
+                                    title: 'Cost Savings',
+                                    body: 'Web applications may be rapidly produced and disseminated, hence aiding in the reduction of development expenses.',
+                                    gradient: 'from-green-600/5 via-emerald-500/5 to-green-400/5',
+                                    borderGradient: 'from-green-400 via-emerald-400 to-green-500',
+                                    glowColor: 'bg-green-500/25',
+                                    iconGradient: 'from-green-400 to-emerald-400',
+                                    index: 2
+                                },
+                            ].map(({id, emoji, title, body, gradient, borderGradient, glowColor, iconGradient, index}) => (
+                                <FxReveal key={id}>
+                                    <motion.div
+                                        className={`group relative h-full rounded-3xl overflow-hidden transition-all duration-500 ${isDayTime ? 'bg-white/40 border border-gray-200/40' : 'bg-white/[0.03] border border-white/10'} hover:border-opacity-100 backdrop-blur-xl`}
+                                        whileHover={{
+                                            y: -12,
+                                            boxShadow: isDayTime ? '0 30px 80px rgba(59, 130, 246, 0.25)' : '0 30px 80px rgba(59, 130, 246, 0.35)'
+                                        }}
+                                        initial={{opacity: 0, y: 30}}
+                                        animate={{opacity: 1, y: 0}}
+                                        transition={{duration: 0.6, delay: index * 0.1}}
+                                    >
+                                        {/* Multi-layer glow effect */}
+                                        <motion.div
+                                            className={`absolute -inset-1 ${glowColor} opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-500 -z-10`}
+                                        />
+                                        <motion.div
+                                            className={`absolute -inset-0.5 ${glowColor} opacity-0 group-hover:opacity-60 blur-xl transition-opacity duration-500 -z-10`}
+                                        />
+                                        
+                                        {/* Card background gradient */}
+                                        <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}/>
+                                        
+                                        {/* Animated border gradient */}
+                                        <motion.div 
+                                            className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${borderGradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none`}
+                                            animate={{backgroundPosition: ['0% 0%', '100% 100%', '0% 0%']}}
+                                            transition={{duration: 4, repeat: Infinity}}
+                                        />
 
-                    <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-5">
-                        {[
-                            {
-                                img: ['/assets/startup/sca1.svg', '/assets/startup/sca2.svg'],
-                                alt: 'Scalability',
-                                title: 'Scalability',
-                                body: 'The software may grow with your organization. Customised web applications adjust and develop as business demands do — with scalable server design.'
-                            },
-                            {
-                                img: ['/assets/startup/third1.svg', '/assets/startup/third2.svg'],
-                                alt: 'Integration',
-                                title: 'Third-party integration',
-                                body: 'By integrating web apps with marketing tools, payment gateways, and more, companies leverage a wealth of features to improve their software.'
-                            },
-                            {
-                                img: ['/assets/startup/web1.svg', '/assets/startup/web2.svg'],
-                                alt: 'Security',
-                                title: 'Web app security',
-                                body: 'Our security team uses measures that guard against typical online threats — keeping your data and your customers\' data safe and secure.'
-                            },
-                        ].map(({img, alt, title, body}) => (
-                            <FxReveal key={title}>
-                                <FxHoloCard day={isDayTime} className="p-6 h-full">
-                                    <Image src={isDayTime ? img[0] : img[1]} alt={alt} width={60} height={60}
-                                           className="mb-4"/>
-                                    <h3 className={`text-[1.15em] font-[600] mb-2 ${isDayTime ? 'text-black' : 'text-white'}`}>{title}</h3>
-                                    <p className={`text-justify text-[0.85em] font-[400] leading-[1.5] ${isDayTime ? 'text-gray-600' : 'text-white/55'}`}>{body}</p>
-                                </FxHoloCard>
-                            </FxReveal>
-                        ))}
+                                        {/* Premium content container */}
+                                        <div className="relative p-10 h-full flex flex-col">
+                                            {/* Icon container with premium treatment */}
+                                            <motion.div
+                                                className="relative mb-8 flex items-center justify-start"
+                                                whileHover={{scale: 1.1}}
+                                                transition={{duration: 0.3}}
+                                            >
+                                                {/* Icon background - gradient circle */}
+                                                <motion.div
+                                                    className={`absolute w-20 h-20 rounded-full bg-gradient-to-br ${iconGradient} opacity-20 group-hover:opacity-40 blur-xl transition-all duration-500`}
+                                                    animate={{
+                                                        scale: [1, 1.3, 1],
+                                                        rotate: [0, 180, 360]
+                                                    }}
+                                                    transition={{duration: 8, repeat: Infinity, ease: "linear"}}
+                                                />
+                                                {/* Inner gradient circle */}
+                                                <motion.div
+                                                    className={`absolute w-16 h-16 rounded-full bg-gradient-to-br ${iconGradient} opacity-15 group-hover:opacity-30 blur-lg transition-all duration-500`}
+                                                    animate={{
+                                                        scale: [1, 1.2, 0.95],
+                                                    }}
+                                                    transition={{duration: 6, repeat: Infinity, ease: "easeInOut"}}
+                                                />
+                                                {/* Icon ring */}
+                                                <motion.div
+                                                    className={`absolute w-14 h-14 rounded-full border-2 border-gradient-to-r ${borderGradient} opacity-0 group-hover:opacity-50 transition-all duration-500`}
+                                                    animate={{rotate: [0, -360]}}
+                                                    transition={{duration: 10, repeat: Infinity, ease: "linear"}}
+                                                />
+                                                {/* Main icon with breathing animation */}
+                                                <motion.div
+                                                    className="text-6xl relative z-10"
+                                                    animate={{
+                                                        y: [0, -8, 0],
+                                                        scale: [1, 1.1, 1]
+                                                    }}
+                                                    transition={{
+                                                        duration: 4,
+                                                        repeat: Infinity,
+                                                        delay: index * 0.3
+                                                    }}
+                                                >
+                                                    {emoji}
+                                                </motion.div>
+                                            </motion.div>
+
+                                            {/* Premium title with gradient transition */}
+                                            <h3 className={`text-[1.45em] font-[750] mb-5 tracking-tight transition-all duration-300 leading-tight ${isDayTime ? 'text-gray-900 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 group-hover:bg-clip-text' : 'text-white/95 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-300 group-hover:to-purple-300 group-hover:bg-clip-text'}`}>
+                                                {title}
+                                            </h3>
+
+                                            {/* Enhanced description text */}
+                                            <p className={`text-[1em] font-[400] leading-relaxed flex-grow transition-all duration-300 ${isDayTime ? 'text-gray-700 group-hover:text-gray-800' : 'text-white/70 group-hover:text-white/90'}`}>
+                                                {body}
+                                            </p>
+
+                                            {/* Premium bottom accent elements */}
+                                            <div className="mt-8 flex items-center gap-3">
+                                                {/* Animated line */}
+                                                <motion.div
+                                                    className={`h-1 flex-grow rounded-full transform origin-left transition-all duration-500 bg-gradient-to-r ${borderGradient} scale-x-0 group-hover:scale-x-100`}
+                                                />
+                                                {/* Decorative dots */}
+                                                <div className="flex gap-1.5">
+                                                    {[...Array(3)].map((_, i) => (
+                                                        <motion.div
+                                                            key={i}
+                                                            className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${borderGradient} opacity-0 group-hover:opacity-100`}
+                                                            animate={{scale: [1, 1.5, 1]}}
+                                                            transition={{duration: 2, repeat: Infinity, delay: i * 0.2}}
+                                                        />
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                </FxReveal>
+                            ))}
+                        </div>
+
+                        <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-8">
+                            {[
+                                {
+                                    id: 'scalability',
+                                    emoji: '📈',
+                                    title: 'Scalability',
+                                    body: 'The software may grow with your organization. Customised web applications adjust and develop as business demands do — with scalable server design.',
+                                    gradient: 'from-orange-600/5 via-red-500/5 to-orange-400/5',
+                                    borderGradient: 'from-orange-400 via-red-400 to-orange-500',
+                                    glowColor: 'bg-orange-500/25',
+                                    iconGradient: 'from-orange-400 to-red-400',
+                                    index: 3
+                                },
+                                {
+                                    id: 'integration',
+                                    emoji: '🔗',
+                                    title: 'Third-party integration',
+                                    body: 'By integrating web apps with marketing tools, payment gateways, and more, companies leverage a wealth of features to improve their software.',
+                                    gradient: 'from-indigo-600/5 via-blue-500/5 to-indigo-400/5',
+                                    borderGradient: 'from-indigo-400 via-blue-400 to-indigo-500',
+                                    glowColor: 'bg-indigo-500/25',
+                                    iconGradient: 'from-indigo-400 to-blue-400',
+                                    index: 4
+                                },
+                                {
+                                    id: 'security',
+                                    emoji: '🔒',
+                                    title: 'Web app security',
+                                    body: 'Our security team uses measures that guard against typical online threats — keeping your data and your customers\' data safe and secure.',
+                                    gradient: 'from-red-600/5 via-pink-500/5 to-red-400/5',
+                                    borderGradient: 'from-red-400 via-pink-400 to-red-500',
+                                    glowColor: 'bg-red-500/25',
+                                    iconGradient: 'from-red-400 to-pink-400',
+                                    index: 5
+                                },
+                            ].map(({id, emoji, title, body, gradient, borderGradient, glowColor, iconGradient, index}) => (
+                                <FxReveal key={id}>
+                                    <motion.div
+                                        className={`group relative h-full rounded-3xl overflow-hidden transition-all duration-500 ${isDayTime ? 'bg-white/40 border border-gray-200/40' : 'bg-white/[0.03] border border-white/10'} hover:border-opacity-100 backdrop-blur-xl`}
+                                        whileHover={{
+                                            y: -12,
+                                            boxShadow: isDayTime ? '0 30px 80px rgba(59, 130, 246, 0.25)' : '0 30px 80px rgba(59, 130, 246, 0.35)'
+                                        }}
+                                        initial={{opacity: 0, y: 30}}
+                                        animate={{opacity: 1, y: 0}}
+                                        transition={{duration: 0.6, delay: index * 0.1}}
+                                    >
+                                        {/* Multi-layer glow effect */}
+                                        <motion.div
+                                            className={`absolute -inset-1 ${glowColor} opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-500 -z-10`}
+                                        />
+                                        <motion.div
+                                            className={`absolute -inset-0.5 ${glowColor} opacity-0 group-hover:opacity-60 blur-xl transition-opacity duration-500 -z-10`}
+                                        />
+                                        
+                                        {/* Card background gradient */}
+                                        <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}/>
+                                        
+                                        {/* Animated border gradient */}
+                                        <motion.div 
+                                            className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${borderGradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none`}
+                                            animate={{backgroundPosition: ['0% 0%', '100% 100%', '0% 0%']}}
+                                            transition={{duration: 4, repeat: Infinity}}
+                                        />
+
+                                        {/* Premium content container */}
+                                        <div className="relative p-10 h-full flex flex-col">
+                                            {/* Icon container with premium treatment */}
+                                            <motion.div
+                                                className="relative mb-8 flex items-center justify-start"
+                                                whileHover={{scale: 1.1}}
+                                                transition={{duration: 0.3}}
+                                            >
+                                                {/* Icon background - gradient circle */}
+                                                <motion.div
+                                                    className={`absolute w-20 h-20 rounded-full bg-gradient-to-br ${iconGradient} opacity-20 group-hover:opacity-40 blur-xl transition-all duration-500`}
+                                                    animate={{
+                                                        scale: [1, 1.3, 1],
+                                                        rotate: [0, 180, 360]
+                                                    }}
+                                                    transition={{duration: 8, repeat: Infinity, ease: "linear"}}
+                                                />
+                                                {/* Inner gradient circle */}
+                                                <motion.div
+                                                    className={`absolute w-16 h-16 rounded-full bg-gradient-to-br ${iconGradient} opacity-15 group-hover:opacity-30 blur-lg transition-all duration-500`}
+                                                    animate={{
+                                                        scale: [1, 1.2, 0.95],
+                                                    }}
+                                                    transition={{duration: 6, repeat: Infinity, ease: "easeInOut"}}
+                                                />
+                                                {/* Icon ring */}
+                                                <motion.div
+                                                    className={`absolute w-14 h-14 rounded-full border-2 border-gradient-to-r ${borderGradient} opacity-0 group-hover:opacity-50 transition-all duration-500`}
+                                                    animate={{rotate: [0, -360]}}
+                                                    transition={{duration: 10, repeat: Infinity, ease: "linear"}}
+                                                />
+                                                {/* Main icon with breathing animation */}
+                                                <motion.div
+                                                    className="text-6xl relative z-10"
+                                                    animate={{
+                                                        y: [0, -8, 0],
+                                                        scale: [1, 1.1, 1]
+                                                    }}
+                                                    transition={{
+                                                        duration: 4,
+                                                        repeat: Infinity,
+                                                        delay: (index - 3) * 0.3
+                                                    }}
+                                                >
+                                                    {emoji}
+                                                </motion.div>
+                                            </motion.div>
+
+                                            {/* Premium title with gradient transition */}
+                                            <h3 className={`text-[1.45em] font-[750] mb-5 tracking-tight transition-all duration-300 leading-tight ${isDayTime ? 'text-gray-900 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 group-hover:bg-clip-text' : 'text-white/95 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-300 group-hover:to-purple-300 group-hover:bg-clip-text'}`}>
+                                                {title}
+                                            </h3>
+
+                                            {/* Enhanced description text */}
+                                            <p className={`text-[1em] font-[400] leading-relaxed flex-grow transition-all duration-300 ${isDayTime ? 'text-gray-700 group-hover:text-gray-800' : 'text-white/70 group-hover:text-white/90'}`}>
+                                                {body}
+                                            </p>
+
+                                            {/* Premium bottom accent elements */}
+                                            <div className="mt-8 flex items-center gap-3">
+                                                {/* Animated line */}
+                                                <motion.div
+                                                    className={`h-1 flex-grow rounded-full transform origin-left transition-all duration-500 bg-gradient-to-r ${borderGradient} scale-x-0 group-hover:scale-x-100`}
+                                                />
+                                                {/* Decorative dots */}
+                                                <div className="flex gap-1.5">
+                                                    {[...Array(3)].map((_, i) => (
+                                                        <motion.div
+                                                            key={i}
+                                                            className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${borderGradient} opacity-0 group-hover:opacity-100`}
+                                                            animate={{scale: [1, 1.5, 1]}}
+                                                            transition={{duration: 2, repeat: Infinity, delay: i * 0.2}}
+                                                        />
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                </FxReveal>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
