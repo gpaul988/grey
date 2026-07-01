@@ -151,20 +151,29 @@ const CaseStudies: React.FC = () => {
             <main className="relative z-10">
 
                 {/* ── Intro ── */}
-                <section className={`py-16 md:py-20 px-4 sm:px-6 md:px-10 lg:px-[4.5em] border-b ${dark ? 'border-white/08' : 'border-gray-100'}`}>
-                    <div className="max-w-[90rem] mx-auto">
-                        <FxReveal>
-                            <div className="grid lg:grid-cols-2 gap-8 items-end">
-                                <FxGlitchText tag="h2" className="text-[2.5em] md:text-[3.5em] font-[800] leading-[1.06] tracking-tight">
-                                    Work we&apos;re{' '}
-                                    <span className="gx-gradient-text">proud of</span>
-                                </FxGlitchText>
-                                <p className={`text-[0.95em] md:text-[1.05em] leading-relaxed max-w-xl ${dark ? 'text-gray-300' : 'text-gray-600'}`}>
-                                    Each project is a collaboration built on honesty, craft, and a shared commitment to
-                                    shipping things that actually work for real users and real businesses.
-                                </p>
-                            </div>
-                        </FxReveal>
+                <section
+                    className={`pt-16 transition-colors duration-500 ${
+                        isDayTime ? 'bg-white text-black' : 'bg-black text-white'
+                    }`}
+                >
+                    <FxBackground day={isDayTime} />
+                    <div className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
+                        <div>
+                            <FxChip day={isDayTime}>PROVEN IMPACT</FxChip>
+                        </div>
+                        <div className="lg:-ml-[19em]">
+                            <FxReveal>
+                                <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] lg:mt-[0.01em] rounded-none lg:tracking-normal tracking-tight leading-[1.3] lg:pb-10 pb-6">
+                                    Proven<br/><span className="gx-gradient-text">Impact</span>
+                                </h3>
+                            </FxReveal>
+                            <FxReveal delay={0.1}>
+                                <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]">
+                                    <div><p>Each project represents a strategic collaboration where we've delivered measurable business results. From healthcare platforms to fintech solutions, our case studies showcase real-world impact and innovation.</p></div>
+                                    <div><p>We focus on solving complex challenges with elegant solutions that drive growth, improve efficiency, and create lasting value for our clients and their users.</p></div>
+                                </div>
+                            </FxReveal>
+                        </div>
                     </div>
                 </section>
 
