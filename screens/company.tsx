@@ -217,18 +217,18 @@ const Company = () => {
 
                 {/* Content */}
                 <div
-                    className="relative z-10 max-w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] pb-16 md:pb-20 lg:pb-28">
+                    className="relative z-10 max-w-auto mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.6em] pb-16 md:pb-20 lg:pb-28">
                     <FxReveal>
                         <div className="mb-5">
                             <FxChip day={false}>Grey InfoTech Ltd · Port Harcourt, Nigeria</FxChip>
                         </div>
-                        <div className="border-b border-white/20 pb-8 mb-8 max-w-5xl">
+                        <div className="border-b border-white/20 pb-8 mb-8 ">
                             <h1 className="gx-hero-title text-white gx-glitch">
                                 Power Your Digital<br/>
                                 <span className="gx-gradient-text">Transformation</span>
                             </h1>
                         </div>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-3xl">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 ">
                             <div>
                                 <p className="text-white/50 text-[0.7em] uppercase tracking-[0.2em] mb-2 font-mono">Location</p>
                                 <p className="text-white/85 text-[0.95em]">Port Harcourt, Nigeria</p>
@@ -297,34 +297,88 @@ const Company = () => {
             {/* ── Top Image Carousel ── */}
             <div className={`${isDayTime ? 'bg-white' : 'bg-black'} lg:block md:block hidden`}>
                 <div id="top"
-                     className="relative lg:max-w-full w-full lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[5em] md:pb-[5em] pb-[2em] mx-auto h-auto">
-                    <div
-                        ref={carouselRef}
-                        className="carousel-container"
-                        onMouseMove={handleMouseMove}
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                    >
-                        <div className="custom-cursor"
-                             style={{left: `${cursorStyle.left}px`, top: `${cursorStyle.top}px`}}>drag
-                        </div>
-                        <Slider infinite speed={500} slidesToShow={1} slidesToScroll={1} draggable swipeToSlide
-                                arrows={false} centerMode centerPadding="450px">
-                            {[
-                                {src: '/assets/comp/6.jpg', cls: ''},
-                                {src: '/assets/comp/3.jpg', cls: 'lg:mt-[0.78em] md:mt-[0.78em]'},
-                                {src: '/assets/comp/1.jpg', cls: 'lg:mt-[7em] md:mt-[7em]'},
-                                {src: '/assets/comp/2.jpg', cls: ''},
-                                {src: '/assets/comp/5.jpg', cls: 'lg:mt-[2em] md:mt-[2em]'},
-                                {src: '/assets/comp/4.jpg', cls: ''},
-                                {src: '/assets/comp/7.jpg', cls: 'lg:mt-[0.78em] md:mt-[0.78em]'},
-                            ].map(({src, cls}, i) => (
-                                <div key={i} className="h-auto mx-auto w-full max-w-full">
-                                    <Image src={src} alt="gallery" width={400} height={400}
-                                           className={`carousel-image ${cls}`}/>
+                     className="relative lg:max-w-full w-full lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[6em] md:pb-[6em] pb-[2em] mx-auto h-auto">
+                    <div className="mx-auto w-full px-4 sm:px-6 md:px-10 lg:px-[4.6em]">
+                        <FxReveal>
+                            <div className={`grid lg:grid-cols-2 grid-cols-1 gap-6 lg:mb-8 mb-6 border-b pb-8 ${isDayTime ? 'border-gray-200 text-black' : 'border-white/10 text-white'}`}>
+                                <div>
+                                    <FxChip day={isDayTime} className="mb-4">Featured Work</FxChip>
+                                    <h3 className="lg:text-[2.8em] md:text-[2.3em] text-[1.6em] font-[700] tracking-tight leading-[1.1]">
+                                        Drag through our <span className="gx-gradient-text">digital space</span>
+                                    </h3>
                                 </div>
-                            ))}
-                        </Slider>
+                                <div className="flex items-end lg:justify-end">
+                                    <p className={`text-[0.875em] leading-[1.6] max-w-xl ${isDayTime ? 'text-gray-600' : 'text-white/55'}`}>
+                                        Explore the visual range of our work in a cinematic gallery built for motion,
+                                        depth, and discovery.
+                                    </p>
+                                </div>
+                            </div>
+                        </FxReveal>
+
+                        <FxFrame className="w-full">
+                            <div
+                                ref={carouselRef}
+                                className="carousel-container company-carousel relative"
+                                onMouseMove={handleMouseMove}
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}
+                            >
+                                <div className="custom-cursor"
+                                     style={{left: `${cursorStyle.left}px`, top: `${cursorStyle.top}px`}}>
+                                    <span>drag</span>
+                                    <span className="custom-cursor-arrow">↔</span>
+                                </div>
+
+                                <div className="absolute top-4 right-4 z-20 flex items-center gap-2 rounded-full border border-teal-400/20 bg-black/40 px-3 py-1.5 backdrop-blur-xl">
+                                    <span className="h-2 w-2 rounded-full bg-teal-400 animate-pulse"/>
+                                    <span className="text-[0.7em] uppercase tracking-[0.28em] text-white/80">Drag to explore</span>
+                                </div>
+
+                                <Slider
+                                    infinite
+                                    speed={700}
+                                    slidesToShow={1}
+                                    slidesToScroll={1}
+                                    draggable
+                                    swipeToSlide
+                                    arrows={false}
+                                    centerMode
+                                    centerPadding="17vw"
+                                    className="company-carousel-slider"
+                                    responsive={[
+                                        {breakpoint: 1536, settings: {centerPadding: '14vw'}},
+                                        {breakpoint: 1280, settings: {centerPadding: '10vw'}},
+                                        {breakpoint: 1024, settings: {centerPadding: '6vw'}},
+                                    ]}
+                                >
+                                    {[
+                                        {src: '/assets/comp/6.jpg', cls: ''},
+                                        {src: '/assets/comp/3.jpg', cls: 'mt-[0.78em]'},
+                                        {src: '/assets/comp/1.jpg', cls: 'mt-[7em]'},
+                                        {src: '/assets/comp/2.jpg', cls: ''},
+                                        {src: '/assets/comp/5.jpg', cls: 'mt-[2em]'},
+                                        {src: '/assets/comp/4.jpg', cls: ''},
+                                        {src: '/assets/comp/7.jpg', cls: 'mt-[0.78em]'},
+                                    ].map(({src, cls}, i) => (
+                                        <div key={i} className="px-3 py-8">
+                                            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-black/20 shadow-[0_20px_80px_-30px_rgba(45,212,191,0.45)]">
+                                                <div className="absolute inset-0 bg-gradient-to-tr from-teal-400/10 via-transparent to-fuchsia-500/10 opacity-70"/>
+                                                <div className="relative aspect-[4/5] w-full">
+                                                    <Image
+                                                        src={src}
+                                                        alt={`gallery-${i + 1}`}
+                                                        fill
+                                                        className={`carousel-image object-cover ${cls}`}
+                                                        sizes="(max-width: 1024px) 80vw, 34vw"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </Slider>
+                            </div>
+                        </FxFrame>
                     </div>
                 </div>
             </div>
