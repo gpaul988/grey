@@ -347,12 +347,12 @@ const Company = () => {
                                     swipeToSlide
                                     arrows={false}
                                     centerMode
-                                    centerPadding="0.15vw"
+                                    centerPadding="0px"
                                     className="company-carousel-slider"
                                     responsive={[
-                                        {breakpoint: 1536, settings: {centerPadding: '0.1vw'}},
-                                        {breakpoint: 1280, settings: {centerPadding: '0.1vw'}},
-                                        {breakpoint: 1024, settings: {centerPadding: '0.05vw'}},
+                                        {breakpoint: 1536, settings: {centerPadding: '0px'}},
+                                        {breakpoint: 1280, settings: {centerPadding: '0px'}},
+                                        {breakpoint: 1024, settings: {centerPadding: '0px'}},
                                     ]}
                                 >
                                     {[
@@ -434,92 +434,100 @@ const Company = () => {
             </div>
 
             {/* ── Our Mission ── */}
-            <div className={`${isDayTime ? 'bg-white' : 'bg-black'}`}>
+            <div className={`relative overflow-hidden ${isDayTime ? 'bg-slate-950' : 'bg-white'}`}>
+                <FxBackground day={false} grid aurora className="opacity-30"/>
+                <FxOrbit size={520} top="-120px" right="-160px" opacity={0.1} speed={34}/>
                 <div
                     id="involved"
-                    className={`relative lg:pt-[7em] md:pt-[7em] pt-[2em] lg:pb-[7em] md:pb-[7em] pb-[2em] px-4 sm:px-6 lg:px-[4.6em] w-full max-w-full lg:mb-10 mb-8 ${isDayTime ? 'text-black' : 'text-white'}`}
+                    className={`relative z-10 lg:pt-[6em] md:pt-[5em] pt-[2.5em] lg:pb-[6em] md:pb-[5em] pb-[3em] px-4 sm:px-6 lg:px-[4.6em] w-full max-w-full ${isDayTime ? 'text-white' : 'text-black'}`}
                 >
                     <FxReveal>
-                        <div className="mb-4">
-                            <FxChip day={isDayTime}>Our Mission</FxChip>
+                        <div className="grid lg:grid-cols-2 grid-cols-1 gap-8 border-b border-white/10 pb-10 mb-12">
+                            <FxSectionHeading day={false} eyebrow="Our Mission" title="Building systems that move fast and scale cleanly"/>
+                            <p className="text-[0.875em] leading-[1.7] text-white/55 lg:pl-[5em] max-w-2xl">
+                                We turn ambitious ideas into dependable digital products by combining strategy,
+                                design, engineering, and long-term product thinking.
+                            </p>
                         </div>
                     </FxReveal>
-                    <div className="relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6 max-w-full mx-auto">
-                        <div className="lg:mr-[8em] md:mr-[8em] lg:mt-[2em] md:mt-[2em]">
-                            <FxReveal>
-                                <h2 className="lg:text-[3em] md:text-[3em] capitalize text-[1.5em] font-[500] tracking-tighter leading-[1.15] lg:pb-6 md:pb-6 mb-8">
-                                    Our Mission
-                                </h2>
-                                <p className="text-[0.85em] font-[400] lg:-mt-[0.2em] md:-mt-[0.2em] text-justify leading-[1.5]">
-                                    To power ambitious ideas with cutting-edge technology.<br/><br/>
-                                    We help forward-thinking businesses—from agile startups to established
-                                    enterprises—turn
-                                    complex challenges into scalable digital solutions that drive growth and efficiency.<br/><br/>
-                                    Our focus is not just on building software, but on creating lasting value through
-                                    innovation, performance, and reliability. We design with purpose, develop with
-                                    precision, and deliver with impact.<br/><br/>
-                                    At Grey InfoTech, we&apos;re your tech partner for the long haul—unlocking
-                                    opportunities,
-                                    accelerating transformation, and helping you lead with confidence in the digital
-                                    age.
-                                </p>
-                            </FxReveal>
-                            <div className="mt-8">
-                                <FxButton day={isDayTime} href="/company">About Us</FxButton>
+
+                    <div className="grid lg:grid-cols-2 grid-cols-1 gap-8 items-center">
+                        <FxHoloCard day={false} className="p-7 lg:p-8 h-full">
+                            <h2 className="text-[1.8em] lg:text-[2.5em] font-[700] tracking-tight leading-[1.1] text-white mb-5">
+                                Purpose, precision, and
+                                <span className="gx-gradient-text"> measurable impact</span>
+                            </h2>
+                            <p className="text-white/60 text-[0.9em] leading-[1.8] text-justify">
+                                We build for ambitious teams that need more than code. From discovery to delivery, we
+                                align every decision to product value, user experience, and technical resilience so
+                                growth never feels fragile.
+                            </p>
+                            <div className="grid sm:grid-cols-3 grid-cols-1 gap-3 mt-7">
+                                {['Strategy-first', 'Built to scale', 'Delivered with care'].map((item) => (
+                                    <div key={item} className="rounded-2xl border border-teal-400/10 bg-white/[0.03] px-4 py-3 text-[0.72em] uppercase tracking-[0.2em] text-teal-200/80">
+                                        {item}
+                                    </div>
+                                ))}
                             </div>
-                        </div>
-                        <div
-                            className="relative flex flex-row lg:-ml-[2em] md:-ml-[2em] w-full h-auto max-w-full mx-auto gap-6">
-                            <div className="flex-1 flex lg:-mr-[17.5em] md:-mr-[17.5em] justify-center items-center">
-                                <div className="flex-1 flex justify-center h-auto items-center">
-                                    <Image src="/assets/comp/ai.jpg" alt="Team at table" width={900} height={600}
-                                           style={{objectFit: 'fill', objectPosition: 'center'}}
-                                           className="object-fill"/>
+                            <div className="mt-8">
+                                <FxButton day={false} href="/company">About Us</FxButton>
+                            </div>
+                        </FxHoloCard>
+
+                        <FxFrame className="w-full">
+                            <div className="relative grid grid-cols-2 gap-3 bg-white/[0.03] p-3">
+                                <div className="relative h-[310px] overflow-hidden rounded-[1.5rem]">
+                                    <Image src="/assets/comp/ai.jpg" alt="Mission visual one" fill className="object-cover"/>
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-teal-400/10"/>
+                                </div>
+                                <div className="relative h-[240px] translate-y-8 overflow-hidden rounded-[1.5rem]">
+                                    <Image src="/assets/comp/dvr.jpg" alt="Mission visual two" fill className="object-cover"/>
+                                    <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-fuchsia-400/10"/>
                                 </div>
                             </div>
-                            <div
-                                className="flex-1 flex justify-center lg:-my-[20em] md:-my-[20em] lg:pl-[15em] md:pl-[15em] lg:-mr-[4em] items-center">
-                                <Image src="/assets/comp/dvr.jpg" alt="Team at table" height={700} width={220}
-                                       style={{objectFit: 'fill', objectPosition: 'center'}} className="object-fill"/>
-                            </div>
-                        </div>
+                        </FxFrame>
                     </div>
                 </div>
             </div>
 
             {/* ── Our Vision ── */}
-            <div className={`lg:-mt-[2.5em] ${isDayTime ? 'bg-black' : 'bg-white'}`}>
+            <div className={`relative overflow-hidden ${isDayTime ? 'bg-white' : 'bg-slate-950'}`}>
+                <FxBackground day={false} grid={false} aurora className="opacity-20"/>
+                <FxOrbit size={460} top="80px" left="-140px" opacity={0.08} speed={28} reverse/>
                 <div
-                    className="relative lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[5em] md:pb-[5em] pb-[2em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
-                    <div className="relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:gap-[6em] gap-4 h-auto">
-                        <div className="relative w-full max-w-full h-auto lg:pr-[11.2em] md:pr-[11.2em] mb-4">
-                            <Image src="/assets/comp/vr.jpg" alt="Our Vision" width={4650} height={500}/>
-                        </div>
-                        <div
-                            className={`lg:-ml-[10.5em] md:-ml-[10.5em] lg:mt-[7em] md:mt-[7em] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                            <FxReveal>
-                                <div className="mb-4">
-                                    <FxChip day={!isDayTime}>Our Vision</FxChip>
-                                </div>
-                                <h2 className="text-[1.5em] capitalize font-[500] tracking-tight leading-[1.1] mb-8 mr-[2em] md:text-[2em] lg:text-[3em] w-auto h-auto md:mr-[2.5em] lg:mr-[3.5em]">
-                                    Our Vision
-                                </h2>
-                                <p className="text-[0.85em] font-[400] tracking-normal text-justify leading-[1.5] lg:mr-[2em]">
-                                    To shape the future of business through smart, scalable technology that empowers
-                                    growth,
-                                    innovation, and lasting impact.<br/><br/>
-                                    We see a future where digital solutions are not just tools, but strategic assets
-                                    that
-                                    help businesses move faster, work smarter, and stay ahead of the curve.<br/><br/>
-                                    At Grey InfoTech, we&apos;re committed to building solutions that are agile, secure,
-                                    and
-                                    future-ready—designed to adapt and scale as your business evolves.<br/><br/>
-                                    Our vision is to be the trusted technology partner that forward-thinking businesses
-                                    rely
-                                    on to lead, transform, and thrive in a digital-first world.
-                                </p>
-                            </FxReveal>
-                        </div>
+                    className="relative z-10 lg:pt-[5em] md:pt-[5em] pt-[2.5em] lg:pb-[6em] md:pb-[5em] pb-[3em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
+                    <div className="grid lg:grid-cols-2 grid-cols-1 gap-8 items-center">
+                        <FxFrame className="w-full">
+                            <div className="relative h-[460px] overflow-hidden rounded-[1.5rem]">
+                                <Image src="/assets/comp/vr.jpg" alt="Our Vision" fill className="object-cover"/>
+                                <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-cyan-400/10"/>
+                            </div>
+                        </FxFrame>
+                        <FxReveal>
+                            <div className="mb-4">
+                                <FxChip day={!isDayTime}>Our Vision</FxChip>
+                            </div>
+                            <h2 className={`text-[1.8em] md:text-[2.5em] lg:text-[3.2em] font-[700] tracking-tight leading-[1.1] mb-6 ${isDayTime ? 'text-black' : 'text-white'}`}>
+                                A future where technology
+                                <span className="gx-gradient-text"> compounds growth</span>
+                            </h2>
+                            <p className={`text-[0.9em] leading-[1.8] text-justify max-w-2xl ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>
+                                Our vision is to help businesses move faster, operate smarter, and stay ahead with
+                                software that is secure, elegant, and ready to evolve as the market changes.
+                            </p>
+                            <div className="grid sm:grid-cols-2 gap-3 mt-7 max-w-xl">
+                                {[
+                                    'Future-ready architecture',
+                                    'Scalable product thinking',
+                                    'Secure by design',
+                                    'Enduring technical partnership',
+                                ].map((item) => (
+                                    <div key={item} className={`rounded-2xl border px-4 py-4 text-[0.75em] uppercase tracking-[0.18em] ${isDayTime ? 'border-gray-200 bg-white text-gray-700' : 'border-white/10 bg-white/[0.03] text-white/75'}`}>
+                                        {item}
+                                    </div>
+                                ))}
+                            </div>
+                        </FxReveal>
                     </div>
                 </div>
             </div>
