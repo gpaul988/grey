@@ -112,6 +112,7 @@ body {
 
 .company-carousel .slick-list {
     overflow: visible;
+    margin: 0 -8px;
 }
 
 .company-carousel .slick-track {
@@ -120,6 +121,7 @@ body {
 }
 
 .company-carousel .slick-slide {
+    padding: 0 8px;
     opacity: 0.45;
     transform: scale(0.92);
     transition: opacity 0.35s ease, transform 0.35s ease;

@@ -340,16 +340,19 @@ const Company = () => {
                                     speed={700}
                                     slidesToShow={1}
                                     slidesToScroll={1}
+                                    autoplay
+                                    autoplaySpeed={4200}
+                                    pauseOnHover
                                     draggable
                                     swipeToSlide
                                     arrows={false}
                                     centerMode
-                                    centerPadding="26vw"
+                                    centerPadding="14vw"
                                     className="company-carousel-slider"
                                     responsive={[
-                                        {breakpoint: 1536, settings: {centerPadding: '22vw'}},
-                                        {breakpoint: 1280, settings: {centerPadding: '18vw'}},
-                                        {breakpoint: 1024, settings: {centerPadding: '12vw'}},
+                                        {breakpoint: 1536, settings: {centerPadding: '12vw'}},
+                                        {breakpoint: 1280, settings: {centerPadding: '10vw'}},
+                                        {breakpoint: 1024, settings: {centerPadding: '8vw'}},
                                     ]}
                                 >
                                     {[
@@ -361,8 +364,8 @@ const Company = () => {
                                         {src: '/assets/comp/4.jpg', cls: ''},
                                         {src: '/assets/comp/7.jpg', cls: 'mt-[0.78em]'},
                                     ].map(({src, cls}, i) => (
-                                        <div key={i} className="px-3 py-8">
-                                            <div className="relative mx-auto w-full max-w-[440px] overflow-hidden rounded-[2rem] border border-white/10 bg-black/20 shadow-[0_20px_80px_-30px_rgba(45,212,191,0.45)]">
+                                        <div key={i} className="px-2 py-6">
+                                            <div className="relative mx-auto w-full max-w-[380px] overflow-hidden rounded-[2rem] border border-white/10 bg-black/20 shadow-[0_20px_80px_-30px_rgba(45,212,191,0.45)]">
                                                 <div className="absolute inset-0 bg-gradient-to-tr from-teal-400/10 via-transparent to-fuchsia-500/10 opacity-70"/>
                                                 <div className="relative aspect-[1/1] w-full">
                                                     <Image
@@ -370,7 +373,7 @@ const Company = () => {
                                                         alt={`gallery-${i + 1}`}
                                                         fill
                                                         className={`carousel-image object-cover ${cls}`}
-                                                        sizes="(max-width: 1024px) 72vw, 440px"
+                                                        sizes="(max-width: 1024px) 68vw, 380px"
                                                     />
                                                 </div>
                                             </div>
