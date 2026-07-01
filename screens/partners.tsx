@@ -189,6 +189,33 @@ const Partners: React.FC = () => {
                 </section>
             )}
 
+            {/* ── Intro ── */}
+            <section
+                className={`pt-16 transition-colors duration-500 ${
+                    isDayTime ? 'bg-white text-black' : 'bg-black text-white'
+                }`}
+            >
+                <FxBackground day={isDayTime} />
+                <div className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
+                    <div>
+                        <FxChip day={isDayTime}>PARTNERSHIP OPPORTUNITIES</FxChip>
+                    </div>
+                    <div className="lg:-ml-[19em]">
+                        <FxReveal>
+                            <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] lg:mt-[0.01em] rounded-none lg:tracking-normal tracking-tight leading-[1.3] lg:pb-10 pb-6">
+                                Strategic<br/><span className="gx-gradient-text">Partnerships</span>
+                            </h3>
+                        </FxReveal>
+                        <FxReveal delay={0.1}>
+                            <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]">
+                                <div><p>We believe in the power of collaboration. By partnering with technology leaders, integrators, and resellers, we extend our reach and deliver greater value to clients across new markets and use cases.</p></div>
+                                <div><p>Whether you're a cloud provider, integration partner, or reseller, there's a partnership model that works for your business. Let's build something powerful together.</p></div>
+                            </div>
+                        </FxReveal>
+                    </div>
+                </div>
+            </section>
+
             {/* ── Ecosystem Categories ── */}
             <section id="ecosystem" className="py-24 px-6">
                 <div className="max-w-6xl mx-auto">

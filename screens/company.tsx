@@ -226,36 +226,29 @@ const Company = () => {
             {/* ── Introductory section ── */}
             <section
                 ref={sectionRef}
-                className={`py-5 transition-colors duration-500 ${
+                className={`pt-16 transition-colors duration-500 ${
                     isBackgroundActive
                         ? isDayTime ? 'bg-black text-white' : 'bg-white text-black'
                         : isDayTime ? 'bg-white text-black' : 'bg-black text-white'
                 }`}
             >
-                <div className="relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:my-[3em] md:my-[3em] -mt-[9em] lg:gap-14 md:gap-10 gap-6 lg:pt-16 md:pt-16 pt-6 lg:pb-14 md:pb-14 pb-16 lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+                <FxBackground day={isDayTime} />
+                <div className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
                     <div>
-                        <h6 className="constant-text uppercase lg:text-[0.85em] md:text-[0.85em] leading-[1.3] text-[0.7em] font-[400] lg:tracking-wider tracking-tight">
-                            Think Ambitiously, <br className="lg:block md:block hidden" />Build Exceptionally
-                        </h6>
+                        <FxChip day={!isBackgroundActive ? !isDayTime : isDayTime}>OUR CULTURE & MISSION</FxChip>
                     </div>
                     <div className="lg:-ml-[19em]">
-                        <h3 className="lg:text-[3em] md:text-[3em] text-[1.8em] font-[500] lg:mt-[0.01em] lg:leading-[1.1] tracking-tight border-b lg:pb-[0.7em] lg:mb-[0.7em] leading-[1.1] pb-6">
-                            Unlocking Growth with Tailored <br className="lg:block md:block hidden" />Digital Solutions
-                        </h3>
-                        <div className="grid lg:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]">
-                            <p>
-                                We&apos;re Grey InfoTech—a business-focused digital product development company helping
-                                brands across industries transform ideas into powerful digital solutions. Our goal
-                                is simple: to build smart, scalable, and impactful products that drive real business
-                                results.
-                            </p>
-                            <p>
-                                We combine strategic thinking with technical excellence, ensuring every product we
-                                deliver is not only beautifully built but also aligned with your business goals. Our
-                                team of skilled developers, designers, and digital strategists are passionate about
-                                crafting user-friendly experiences that work seamlessly and scale effortlessly.
-                            </p>
-                        </div>
+                        <FxReveal>
+                            <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] lg:mt-[0.01em] rounded-none lg:tracking-normal tracking-tight leading-[1.3] lg:pb-10 pb-6">
+                                Building<br/><span className="gx-gradient-text">Digital Excellence</span>
+                            </h3>
+                        </FxReveal>
+                        <FxReveal delay={0.1}>
+                            <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]">
+                                <div><p>At Grey InfoTech, we&apos;re driven by a passion for transforming ideas into digital realities. We believe in building products that matter—solutions that solve real problems, create lasting value, and drive meaningful impact for our clients and their users.</p></div>
+                                <div><p>Our team brings diverse expertise and a shared commitment to delivering outstanding results. We combine strategic thinking with technical excellence, fostering a culture of innovation, collaboration, and accountability in everything we build.</p></div>
+                            </div>
+                        </FxReveal>
                     </div>
                 </div>
             </section>

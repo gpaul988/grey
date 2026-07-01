@@ -94,6 +94,33 @@ const Contact: React.FC = () => {
                 </div>
             </section>
 
+            {/* ── Intro ── */}
+            <section
+                className={`pt-16 transition-colors duration-500 ${
+                    isDayTime ? 'bg-white text-black' : 'bg-black text-white'
+                }`}
+            >
+                <FxBackground day={isDayTime} />
+                <div className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
+                    <div>
+                        <FxChip day={isDayTime}>GET IN TOUCH</FxChip>
+                    </div>
+                    <div className="lg:-ml-[19em]">
+                        <FxReveal>
+                            <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] lg:mt-[0.01em] rounded-none lg:tracking-normal tracking-tight leading-[1.3] lg:pb-10 pb-6">
+                                Let's<br/><span className="gx-gradient-text">Connect</span>
+                            </h3>
+                        </FxReveal>
+                        <FxReveal delay={0.1}>
+                            <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]">
+                                <div><p>Have a project in mind? We'd love to hear from you. Whether you're looking to start something new, scale an existing platform, or need strategic guidance, our team is ready to collaborate.</p></div>
+                                <div><p>Reach out through any channel below. We respond within 2 hours and are committed to understanding your needs and delivering exceptional results.</p></div>
+                            </div>
+                        </FxReveal>
+                    </div>
+                </div>
+            </section>
+
             {/* ── Quick Actions ── */}
             <section className={`relative z-10 py-16 px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${dark ? 'bg-[#040b14]' : 'bg-gray-50'}`}>
                 <div className="max-w-[90rem] mx-auto">
