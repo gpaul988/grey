@@ -496,20 +496,17 @@ export function FxStickyScrollSection({
             const sectionBottom = sectionTop + section.offsetHeight;
             const railPosition = scrollY + topOffset;
 
-            // Determine rail state based on section position and scroll
-            const isBeforeSection = sectionRect.bottom <= topOffset; // Section hasn't started
-            const hasEnoughSpace = railPosition + railHeight < sectionBottom; // Room for rail in section
-            const shouldPin = sectionRect.top <= topOffset && hasEnoughSpace;
+            // Only pin when section top has scrolled ABOVE the viewport (negative)
+            // This ensures we skip the header/intro and only pin during solutions
+            const sectionHasScrolledUp = sectionRect.top < 0;
+            const hasEnoughSpace = railPosition + railHeight < sectionBottom;
+            const shouldPin = sectionHasScrolledUp && sectionRect.bottom > topOffset && hasEnoughSpace;
 
             setRailHeight(railHeight);
             setIsRailPinned(shouldPin);
 
-            if (isBeforeSection) {
-                // Section hasn't started yet - keep rail in normal document flow
-                setRailStyle({ position: 'relative' });
-            } else if (shouldPin) {
-                // Section is visible and there's room - pin the rail at top
-                // Lower z-index when pinned to avoid interfering with section header
+            if (shouldPin) {
+                // Section is scrolled up and there's room - pin the rail at top
                 setRailStyle({
                     position: 'fixed',
                     top: `${topOffset}px`,
@@ -517,9 +514,9 @@ export function FxStickyScrollSection({
                     width: `${rail.offsetWidth}px`,
                     zIndex: 5,
                 });
-            } else {
-                // Section is ending, space runs out, or rail passed bottom - use absolute to scroll with content
-                const absoluteTop = railPosition - sectionTop;
+            } else if (scrollY >= sectionTop && sectionRect.bottom > topOffset) {
+                // Section is visible but not pinned - use absolute to scroll with content
+                const absoluteTop = scrollY - sectionTop;
                 setRailStyle({
                     position: 'absolute',
                     top: `${Math.max(0, Math.min(absoluteTop, section.offsetHeight - railHeight))}px`,
@@ -527,6 +524,9 @@ export function FxStickyScrollSection({
                     width: '100%',
                     zIndex: 5,
                 });
+            } else {
+                // Before section reached - keep rail in normal document flow
+                setRailStyle({ position: 'relative' });
             }
         };
 
