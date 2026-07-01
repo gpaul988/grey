@@ -460,10 +460,12 @@ export function FxStickyScrollSection({
     const borderCol = day ? 'border-gray-200' : 'border-white/10';
 
     return (
-        <section className={`relative overflow-hidden ${day ? 'bg-white' : 'bg-[#050810]'}`}>
-            <FxBackground day={day} grid aurora />
-            <FxOrbit size={700} top="-150px" right="-200px" opacity={0.12} speed={35} />
-            <FxOrbit size={400} top="200px" left="-150px"  opacity={0.10} speed={28} reverse />
+        <section className={`relative isolate ${day ? 'bg-white' : 'bg-[#050810]'}`}>
+            <div className="pointer-events-none absolute inset-0 overflow-hidden">
+                <FxBackground day={day} grid aurora />
+                <FxOrbit size={700} top="-150px" right="-200px" opacity={0.12} speed={35} />
+                <FxOrbit size={400} top="200px" left="-150px" opacity={0.10} speed={28} reverse />
+            </div>
 
             <div className="relative z-10 lg:pt-[4em] md:pt-[3em] pt-[2em] lg:pb-[7em] md:pb-[5em] pb-[3em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
 
@@ -481,7 +483,7 @@ export function FxStickyScrollSection({
                 <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-16 lg:mt-16 md:mt-12 mt-6 items-start">
 
                     {/* Left sticky nav */}
-                    <div className="lg:sticky md:sticky top-28 self-start lg:mr-[11em]">
+                    <div className="lg:sticky md:sticky top-28 self-start z-20 lg:mr-[11em]">
                         <div className="relative overflow-hidden rounded-[1.5rem] border border-teal-400/15 bg-white/[0.03] p-5 shadow-[0_0_40px_-18px_rgba(45,212,191,0.6)] backdrop-blur-xl">
                             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(45,212,191,0.16),transparent_42%)]" />
                             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-teal-400/70 to-transparent" />
