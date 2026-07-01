@@ -490,16 +490,17 @@ export function FxStickyScrollSection({
 
             const sectionRect = section.getBoundingClientRect();
             const topOffset = 96;
+            const scrollY = window.scrollY;
+            const sectionTop = section.offsetTop;
 
-            // Keep rail pinned while section is in view
-            // Release only when section completely scrolls past (bottom reaches top of screen)
+            // Pin while section is in viewport
             const shouldPin = sectionRect.top <= topOffset && sectionRect.bottom > topOffset;
 
             setRailHeight(rail.offsetHeight);
             setIsRailPinned(shouldPin);
 
             if (shouldPin) {
-                // Pin the rail at the top offset - stay fixed while section scrolls
+                // Fixed positioning - rail stays at topOffset while viewing section
                 setRailStyle({
                     position: 'fixed',
                     top: `${topOffset}px`,
@@ -507,9 +508,19 @@ export function FxStickyScrollSection({
                     width: `${rail.offsetWidth}px`,
                     zIndex: 20,
                 });
+            } else if (scrollY > sectionTop) {
+                // After section is passed, use absolute so rail flows with content
+                const railOffsetFromTop = Math.max(0, scrollY - sectionTop);
+                setRailStyle({
+                    position: 'absolute',
+                    top: `${railOffsetFromTop}px`,
+                    left: '0',
+                    width: '100%',
+                    zIndex: 20,
+                });
             } else {
-                // Allow rail to flow naturally when section ends
-                setRailStyle({});
+                // Before section reached, reset to relative
+                setRailStyle({ position: 'relative' });
             }
         };
 
