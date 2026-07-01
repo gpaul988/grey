@@ -174,9 +174,10 @@ const Startups = () => {
                      style={{width: '48vmax', height: '48vmax', top: '-10vmax', right: '-5vmax', opacity: .11}}/>
 
                 <div className="relative z-10 gx-page-hero-content">
-                    <div className="max-w-[90rem] mx-auto">
+                    <div
+                        className="max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
                         <FxReveal>
-                            <FxChip day={false} className="mb-5">For Startups</FxChip>
+                            <FxChip day={false} className="mb-5 text-white">For Startups</FxChip>
                             <div className="border-b border-white/15 pb-7 mb-7 max-w-5xl">
                                 <FxGlitchText tag="h1" className="gx-hero-title text-white">
                                     Development <br/>Services
@@ -197,55 +198,44 @@ const Startups = () => {
                 </div>
             </section>
 
-
-            <section ref={sectionRef}
-                     className={`py-12 transition-colors duration-500 ${
-                         isBackgroundActive
-                             ? isDayTime
-                                 ? "bg-black text-white"
-                                 : "bg-white text-black"
-                             : isDayTime
-                                 ? "bg-white text-black"
-                                 : "bg-black text-white"
-                     }`}>
-                <div
-                    className='relative grid lg:grid-cols-2 grid-cols-1 lg:my-[3em] my-[1em] lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-16 pb-6 max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'>
-                    <div className=''>
-                        <h6 className='constant-text uppercase text-[0.8em] font-[300] lg:tracking-wider tracking-tight'>
-                            YOUR INSIGHTS, OUR EXPERIENCE</h6>
-                    </div>
-                    <div className='lg:-ml-[19em]'>
-                        <h3 className='capitalize lg:text-[3em] md:text-[3em] text-[1.8em] font-[700] lg:mt-[0.01em] lg:leading-[1.1] tracking-tight border-b lg:pb-[0.7em] lg:mb-[0.7em] leading-[1.1] pb-6'>
-                            Enabling startups to <br className={'lg:block md:block hidden'}/>launch, grow and succeed
-                        </h3>
-                        <div
-                            className='grid lg:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.875em] tracking-normal leading-[1.5]'>
-                            <div>
-                                <p>Our specialty at <Link href='/#'
-                                                          className={`${isDayTime ? 'black' : 'white'} font-[500]`}>Grey
-                                    InfoTech</Link> is
-                                    turning
-                                    innovative concepts into digital products
-                                    that are profitable. We have years of experience working with startups, so we are
-                                    aware of the particular difficulties
-                                    they face, such as limited funding, short turnaround times, and the requirement for
-                                    scalable solutions.</p>
-                            </div>
-                            <div>
-                                <p>Our customized strategy blends state-of-the-art technology, creative thinking, and a
-                                    strong dedication to your development. Grey InfoTech is your success partner whether
-                                    you&#39;re scaling your business or creating an <Link href='/services/MVP'
-                                                                                          className='border-b-[1px] border-gray-200'>MVP</Link>.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+            {/* ── Intro ── */}
+            <section
+              ref={sectionRef}
+              data-bg={isBackgroundActive ? (isDayTime ? 'Dark' : 'Light') : (isDayTime ? 'Light' : 'Dark')}
+              className={`pt-16 transition-colors duration-500 ${
+                isBackgroundActive
+                  ? isDayTime ? 'bg-black text-white' : 'bg-white text-black'
+                  : isDayTime ? 'bg-white text-black' : 'bg-black text-white'
+              }`}
+            >
+              <FxBackground day={isDayTime} />
+              <div className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
+                <div>
+                  <FxChip day={!isBackgroundActive ? !isDayTime : isDayTime}>YOUR INSIGHTS, OUR EXPERIENCE</FxChip>
                 </div>
+                <div className="lg:-ml-[19em]">
+                  <FxReveal>
+                    <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] lg:mt-[0.01em] rounded-none lg:tracking-normal tracking-tight leading-[1.3] lg:pb-10 pb-6">
+                      Enabling startups to<br /><span className="gx-gradient-text">launch, grow and succeed</span>
+                    </h3>
+                  </FxReveal>
+                  <FxReveal delay={0.1}>
+                    <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]">
+                      <div>
+                        <p>Our specialty at <Link href='/#' className={`border-b-[0.1em] ${isDayTime ? 'border-gray-800' : 'border-gray-300'}`}>Grey InfoTech</Link> is turning innovative concepts into digital products that are profitable. We have years of experience working with startups, so we are aware of the particular difficulties they face, such as limited funding, short turnaround times, and the requirement for scalable solutions.</p>
+                      </div>
+                      <div>
+                        <p>Our customized strategy blends state-of-the-art technology, creative thinking, and a strong dedication to your development. Grey InfoTech is your success partner whether you&apos;re scaling your business or creating an <Link href='/services/MVP' className='border-b-[0.1em] border-gray-300'>MVP</Link>.</p>
+                      </div>
+                    </div>
+                  </FxReveal>
+                </div>
+              </div>
             </section>
 
             <FxStickyScrollSection
                 day={isDayTime}
-                heading={<>Development<br/>solutions<br/>for startups</>}
+                heading={<>Development<br/>solutions for startups</>}
                 intro="Writing code is only one aspect of developing software for a startup; another is laying the groundwork for expansion, creativity, and sustained success."
                 navLabel="Our Solutions"
                 activeId={activeId}
