@@ -344,12 +344,12 @@ const Company = () => {
                                     swipeToSlide
                                     arrows={false}
                                     centerMode
-                                    centerPadding="17vw"
+                                    centerPadding="26vw"
                                     className="company-carousel-slider"
                                     responsive={[
-                                        {breakpoint: 1536, settings: {centerPadding: '14vw'}},
-                                        {breakpoint: 1280, settings: {centerPadding: '10vw'}},
-                                        {breakpoint: 1024, settings: {centerPadding: '6vw'}},
+                                        {breakpoint: 1536, settings: {centerPadding: '22vw'}},
+                                        {breakpoint: 1280, settings: {centerPadding: '18vw'}},
+                                        {breakpoint: 1024, settings: {centerPadding: '12vw'}},
                                     ]}
                                 >
                                     {[
@@ -362,15 +362,15 @@ const Company = () => {
                                         {src: '/assets/comp/7.jpg', cls: 'mt-[0.78em]'},
                                     ].map(({src, cls}, i) => (
                                         <div key={i} className="px-3 py-8">
-                                            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-black/20 shadow-[0_20px_80px_-30px_rgba(45,212,191,0.45)]">
+                                            <div className="relative mx-auto w-full max-w-[440px] overflow-hidden rounded-[2rem] border border-white/10 bg-black/20 shadow-[0_20px_80px_-30px_rgba(45,212,191,0.45)]">
                                                 <div className="absolute inset-0 bg-gradient-to-tr from-teal-400/10 via-transparent to-fuchsia-500/10 opacity-70"/>
-                                                <div className="relative aspect-[4/5] w-full">
+                                                <div className="relative aspect-[1/1] w-full">
                                                     <Image
                                                         src={src}
                                                         alt={`gallery-${i + 1}`}
                                                         fill
                                                         className={`carousel-image object-cover ${cls}`}
-                                                        sizes="(max-width: 1024px) 80vw, 34vw"
+                                                        sizes="(max-width: 1024px) 72vw, 440px"
                                                     />
                                                 </div>
                                             </div>
