@@ -9,25 +9,26 @@
  * use <FxCard>, <FxChip>, <FxSectionHeading>, <FxButton> for consistent UI.
  */
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import {motion} from 'framer-motion';
 import Link from 'next/link';
 
 type DayProp = { day?: boolean };
 
 /* ---------- Animated grid + aurora background layer ---------- */
 export function FxBackground({
-    day,
-    grid = true,
-    aurora = true,
-    className = '',
-}: DayProp & { grid?: boolean; aurora?: boolean; className?: string }) {
+                                 day,
+                                 grid = true,
+                                 aurora = true,
+                                 className = '',
+                             }: DayProp & { grid?: boolean; aurora?: boolean; className?: string }) {
     return (
-        <div data-day={day ? 'true' : 'false'} className={`pointer-events-none absolute inset-0 ${className}`} aria-hidden>
-            {grid && <div className="gx-grid" />}
+        <div data-day={day ? 'true' : 'false'} className={`pointer-events-none absolute inset-0 ${className}`}
+             aria-hidden>
+            {grid && <div className="gx-grid"/>}
             {aurora && (
                 <div className="gx-aurora">
-                    <span /><span /><span />
+                    <span/><span/><span/>
                 </div>
             )}
         </div>
@@ -36,12 +37,16 @@ export function FxBackground({
 
 /* ---------- Glass / holographic card ---------- */
 export function FxCard({
-    day,
-    glow = false,
-    className = '',
-    children,
-    ...rest
-}: DayProp & { glow?: boolean; className?: string; children: React.ReactNode } & React.HTMLAttributes<HTMLDivElement>) {
+                           day,
+                           glow = false,
+                           className = '',
+                           children,
+                           ...rest
+                       }: DayProp & {
+    glow?: boolean;
+    className?: string;
+    children: React.ReactNode
+} & React.HTMLAttributes<HTMLDivElement>) {
     const inner = (
         <div data-day={day ? 'true' : 'false'} className={`gx-card ${className}`} {...rest}>
             {children}
@@ -57,13 +62,13 @@ export function FxCard({
 
 /* ---------- Chip / pill label ---------- */
 export function FxChip({
-    day,
-    children,
-    className = '',
-}: DayProp & { children: React.ReactNode; className?: string }) {
+                           day,
+                           children,
+                           className = '',
+                       }: DayProp & { children: React.ReactNode; className?: string }) {
     return (
         <span data-day={day ? 'true' : 'false'} className={`gx-chip ${className}`}>
-            <span className="gx-dot" />
+            <span className="gx-dot"/>
             {children}
         </span>
     );
@@ -71,14 +76,14 @@ export function FxChip({
 
 /* ---------- Section heading with eyebrow + gradient accent ---------- */
 export function FxSectionHeading({
-    day,
-    eyebrow,
-    title,
-    accent,
-    subtitle,
-    align = 'left',
-    className = '',
-}: DayProp & {
+                                     day,
+                                     eyebrow,
+                                     title,
+                                     accent,
+                                     subtitle,
+                                     align = 'left',
+                                     className = '',
+                                 }: DayProp & {
     eyebrow?: string;
     title: React.ReactNode;
     accent?: string;
@@ -88,10 +93,10 @@ export function FxSectionHeading({
 }) {
     return (
         <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6 }}
+            initial={{opacity: 0, y: 24}}
+            whileInView={{opacity: 1, y: 0}}
+            viewport={{once: true, amount: 0.4}}
+            transition={{duration: 0.6}}
             className={`${align === 'center' ? 'text-center mx-auto' : ''} max-w-3xl ${className}`}
         >
             {eyebrow && (
@@ -113,13 +118,13 @@ export function FxSectionHeading({
 
 /* ---------- Futuristic button (link or action) ---------- */
 export function FxButton({
-    day,
-    href,
-    onClick,
-    children,
-    variant = 'solid',
-    className = '',
-}: DayProp & {
+                             day,
+                             href,
+                             onClick,
+                             children,
+                             variant = 'solid',
+                             className = '',
+                         }: DayProp & {
     href?: string;
     onClick?: () => void;
     children: React.ReactNode;
@@ -132,14 +137,15 @@ export function FxButton({
         variant === 'solid'
             ? 'text-[#04110f] bg-gradient-to-r from-teal-400 to-cyan-400 shadow-[0_10px_30px_-10px_rgba(34,211,238,.8)] hover:shadow-[0_16px_40px_-10px_rgba(45,212,191,.9)] hover:-translate-y-0.5'
             : day
-              ? 'text-teal-800 border border-teal-700/30 hover:border-teal-600 hover:bg-teal-50'
-              : 'text-teal-100 border border-white/20 hover:border-teal-300/60 hover:bg-white/5';
+                ? 'text-teal-800 border border-teal-700/30 hover:border-teal-600 hover:bg-teal-50'
+                : 'text-teal-100 border border-white/20 hover:border-teal-300/60 hover:bg-white/5';
 
     const content = (
         <>
             <span className="relative z-10 inline-flex items-center gap-2">{children}</span>
             {variant === 'solid' && (
-                <span className="absolute inset-0 -translate-x-full bg-white/30 blur-md transition-transform duration-500 group-hover:translate-x-full" />
+                <span
+                    className="absolute inset-0 -translate-x-full bg-white/30 blur-md transition-transform duration-500 group-hover:translate-x-full"/>
             )}
         </>
     );
@@ -160,11 +166,11 @@ export function FxButton({
 
 /* ---------- Reveal wrapper (scroll-in animation) ---------- */
 export function FxReveal({
-    children,
-    delay = 0,
-    y = 28,
-    className = '',
-}: {
+                             children,
+                             delay = 0,
+                             y = 28,
+                             className = '',
+                         }: {
     children: React.ReactNode;
     delay?: number;
     y?: number;
@@ -172,10 +178,10 @@ export function FxReveal({
 }) {
     return (
         <motion.div
-            initial={{ opacity: 0, y }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.6, delay, ease: [0.2, 0.7, 0.2, 1] }}
+            initial={{opacity: 0, y}}
+            whileInView={{opacity: 1, y: 0}}
+            viewport={{once: true, amount: 0.25}}
+            transition={{duration: 0.6, delay, ease: [0.2, 0.7, 0.2, 1]}}
             className={className}
         >
             {children}
@@ -185,13 +191,13 @@ export function FxReveal({
 
 /* ---------- Section wrapper that auto-applies daytime bg + futuristic layer ---------- */
 export function FxSection({
-    day,
-    tone = 'base',
-    background = true,
-    id,
-    className = '',
-    children,
-}: DayProp & {
+                              day,
+                              tone = 'base',
+                              background = true,
+                              id,
+                              className = '',
+                              children,
+                          }: DayProp & {
     tone?: 'base' | 'invert' | 'teal';
     background?: boolean;
     id?: string;
@@ -204,12 +210,12 @@ export function FxSection({
                 ? 'bg-teal-900 text-white'
                 : 'bg-teal-50 text-teal-900'
             : tone === 'invert'
-              ? day
-                  ? 'bg-black text-white'
-                  : 'bg-white text-black'
-              : day
-                ? 'bg-white text-black'
-                : 'bg-black text-white';
+                ? day
+                    ? 'bg-black text-white'
+                    : 'bg-white text-black'
+                : day
+                    ? 'bg-white text-black'
+                    : 'bg-black text-white';
 
     return (
         <section
@@ -217,7 +223,7 @@ export function FxSection({
             data-bg={day ? 'light' : 'dark'}
             className={`relative overflow-hidden transition-colors duration-500 ${toneClass} ${className}`}
         >
-            {background && tone !== 'teal' && <FxBackground day={day} />}
+            {background && tone !== 'teal' && <FxBackground day={day}/>}
             <div className="relative z-10">{children}</div>
         </section>
     );
@@ -230,13 +236,13 @@ export function FxSection({
 
 /* ---------- Full-bleed futuristic hero wrapper ---------- */
 export function FxHero({
-    day,
-    children,
-    minHeight = '78vh',
-    className = '',
-    scanline = true,
-    orbit = true,
-}: DayProp & {
+                           day,
+                           children,
+                           minHeight = '78vh',
+                           className = '',
+                           scanline = true,
+                           orbit = true,
+                       }: DayProp & {
     children: React.ReactNode;
     minHeight?: string;
     className?: string;
@@ -247,21 +253,23 @@ export function FxHero({
         <section
             data-day={day ? 'true' : 'false'}
             className={`relative isolate overflow-hidden flex flex-col justify-end ${className}`}
-            style={{ minHeight }}
+            style={{minHeight}}
         >
             {/* Base FX layer */}
-            <FxBackground day={day} grid aurora />
+            <FxBackground day={day} grid aurora/>
             {/* Scanline shimmer */}
-            {scanline && <div className="gx-scanline pointer-events-none" />}
+            {scanline && <div className="gx-scanline pointer-events-none"/>}
             {/* Noise texture */}
-            <div className="gx-noise-overlay" />
+            <div className="gx-noise-overlay"/>
             {/* Hero scan highlight */}
-            <div className="gx-hero-scan" />
+            <div className="gx-hero-scan"/>
             {/* Orbit rings */}
             {orbit && (
                 <>
-                    <div className="gx-orbit" style={{ width: '60vmax', height: '60vmax', top: '-10vmax', right: '-20vmax', opacity: .3 }} />
-                    <div className="gx-orbit gx-orbit-reverse" style={{ width: '40vmax', height: '40vmax', top: '5vmax', right: '-5vmax', opacity: .2 }} />
+                    <div className="gx-orbit"
+                         style={{width: '60vmax', height: '60vmax', top: '-10vmax', right: '-20vmax', opacity: .3}}/>
+                    <div className="gx-orbit gx-orbit-reverse"
+                         style={{width: '40vmax', height: '40vmax', top: '5vmax', right: '-5vmax', opacity: .2}}/>
                 </>
             )}
             {/* Content */}
@@ -272,16 +280,16 @@ export function FxHero({
 
 /* ---------- Rotating orbit ring decoration ---------- */
 export function FxOrbit({
-    size = 400,
-    top,
-    right,
-    left,
-    bottom,
-    speed = 20,
-    reverse = false,
-    opacity = 0.25,
-    dotColor = '#2dd4bf',
-}: {
+                            size = 400,
+                            top,
+                            right,
+                            left,
+                            bottom,
+                            speed = 20,
+                            reverse = false,
+                            opacity = 0.25,
+                            dotColor = '#2dd4bf',
+                        }: {
     size?: number;
     top?: string | number;
     right?: string | number;
@@ -313,19 +321,19 @@ export function FxOrbit({
 
 /* ---------- Terminal / typewriter code block ---------- */
 export function FxTerminal({
-    lines,
-    day,
-    className = '',
-}: DayProp & { lines: string[]; className?: string }) {
+                               lines,
+                               day,
+                               className = '',
+                           }: DayProp & { lines: string[]; className?: string }) {
     return (
         <div
             data-day={day ? 'true' : 'false'}
             className={`gx-hologram-card p-5 gx-terminal-text text-[0.78em] ${className}`}
         >
             <div className="flex items-center gap-2 mb-4 pb-3 border-b border-teal-400/15">
-                <span className="w-3 h-3 rounded-full bg-red-500/70" />
-                <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
-                <span className="w-3 h-3 rounded-full bg-green-500/70" />
+                <span className="w-3 h-3 rounded-full bg-red-500/70"/>
+                <span className="w-3 h-3 rounded-full bg-yellow-500/70"/>
+                <span className="w-3 h-3 rounded-full bg-green-500/70"/>
                 <span className="ml-2 text-[0.9em] text-white/40 tracking-wider">grey ~ terminal</span>
             </div>
             {lines.map((line, i) => (
@@ -336,7 +344,8 @@ export function FxTerminal({
             ))}
             <div className="flex gap-3 mt-1">
                 <span className="text-teal-600/60 select-none">{'>'}</span>
-                <span className="w-2 h-[1em] bg-teal-400/80 inline-block" style={{ animation: 'gxBlink 1.2s step-end infinite' }} />
+                <span className="w-2 h-[1em] bg-teal-400/80 inline-block"
+                      style={{animation: 'gxBlink 1.2s step-end infinite'}}/>
             </div>
         </div>
     );
@@ -344,22 +353,23 @@ export function FxTerminal({
 
 /* ---------- Animated stat/metric bar ---------- */
 export function FxStatBar({
-    day,
-    label,
-    value,
-    percent,
-    className = '',
-}: DayProp & { label: string; value: string; percent: number; className?: string }) {
+                              day,
+                              label,
+                              value,
+                              percent,
+                              className = '',
+                          }: DayProp & { label: string; value: string; percent: number; className?: string }) {
     return (
         <div className={`space-y-1.5 ${className}`}>
             <div className="flex justify-between items-center">
-                <span className={`text-[0.72em] font-[600] uppercase tracking-[0.08em] ${day ? 'text-gray-600' : 'text-gray-400'}`}>{label}</span>
+                <span
+                    className={`text-[0.72em] font-[600] uppercase tracking-[0.08em] ${day ? 'text-gray-600' : 'text-gray-400'}`}>{label}</span>
                 <span className="gx-data-pill text-[0.7em]">{value}</span>
             </div>
             <div className="gx-stat-bar">
                 <div
                     className="gx-stat-bar-fill"
-                    style={{ '--gx-bar-w': `${percent}%` } as React.CSSProperties}
+                    style={{'--gx-bar-w': `${percent}%`} as React.CSSProperties}
                 />
             </div>
         </div>
@@ -368,10 +378,10 @@ export function FxStatBar({
 
 /* ---------- Glitch text heading ---------- */
 export function FxGlitchText({
-    children,
-    tag: Tag = 'h2',
-    className = '',
-}: {
+                                 children,
+                                 tag: Tag = 'h2',
+                                 className = '',
+                             }: {
     children: React.ReactNode;
     tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'span';
     className?: string;
@@ -385,11 +395,14 @@ export function FxGlitchText({
 
 /* ---------- Holographic data card ---------- */
 export function FxHoloCard({
-    day,
-    className = '',
-    children,
-    ...rest
-}: DayProp & { className?: string; children: React.ReactNode } & React.HTMLAttributes<HTMLDivElement>) {
+                               day,
+                               className = '',
+                               children,
+                               ...rest
+                           }: DayProp & {
+    className?: string;
+    children: React.ReactNode
+} & React.HTMLAttributes<HTMLDivElement>) {
     return (
         <div
             data-day={day ? 'true' : 'false'}
@@ -403,25 +416,29 @@ export function FxHoloCard({
 
 /* ---------- Corner-bracketed media frame ---------- */
 export function FxFrame({
-    children,
-    className = '',
-    glow = true,
-}: { children: React.ReactNode; className?: string; glow?: boolean }) {
+                            children,
+                            className = '',
+                            glow = true,
+                        }: { children: React.ReactNode; className?: string; glow?: boolean }) {
     return (
         <div className={`relative ${className}`}>
             {/* Corner brackets */}
-            <div className="absolute -top-2.5 -left-2.5 w-7 h-7 border-t-2 border-l-2 border-teal-400/70 rounded-tl z-10 animate-pulse" />
-            <div className="absolute -top-2.5 -right-2.5 w-7 h-7 border-t-2 border-r-2 border-teal-400/70 rounded-tr z-10 animate-pulse" />
-            <div className="absolute -bottom-2.5 -left-2.5 w-7 h-7 border-b-2 border-l-2 border-teal-400/70 rounded-bl z-10 animate-pulse" />
-            <div className="absolute -bottom-2.5 -right-2.5 w-7 h-7 border-b-2 border-r-2 border-teal-400/70 rounded-br z-10 animate-pulse" />
+            <div
+                className="absolute -top-2.5 -left-2.5 w-7 h-7 border-t-2 border-l-2 border-teal-400/70 rounded-tl z-10 animate-pulse"/>
+            <div
+                className="absolute -top-2.5 -right-2.5 w-7 h-7 border-t-2 border-r-2 border-teal-400/70 rounded-tr z-10 animate-pulse"/>
+            <div
+                className="absolute -bottom-2.5 -left-2.5 w-7 h-7 border-b-2 border-l-2 border-teal-400/70 rounded-bl z-10 animate-pulse"/>
+            <div
+                className="absolute -bottom-2.5 -right-2.5 w-7 h-7 border-b-2 border-r-2 border-teal-400/70 rounded-br z-10 animate-pulse"/>
             {/* Glow */}
             {glow && (
                 <div className="absolute inset-0 rounded-xl pointer-events-none"
-                    style={{ boxShadow: '0 0 40px -12px rgba(45,212,191,0.45)' }} />
+                     style={{boxShadow: '0 0 40px -12px rgba(45,212,191,0.45)'}}/>
             )}
             {/* Scanline overlay */}
             <div className="absolute inset-0 pointer-events-none rounded-xl overflow-hidden z-[2]"
-                style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(45,212,191,0.03) 3px, rgba(45,212,191,0.03) 4px)' }} />
+                 style={{backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(45,212,191,0.03) 3px, rgba(45,212,191,0.03) 4px)'}}/>
             <div className="relative rounded-xl overflow-hidden">{children}</div>
         </div>
     );
@@ -441,14 +458,14 @@ export type FxScrollItem = {
 };
 
 export function FxStickyScrollSection({
-    day,
-    heading,
-    intro,
-    navLabel = 'Our Solutions',
-    items,
-    activeId,
-    onNavClick,
-}: DayProp & {
+                                          day,
+                                          heading,
+                                          intro,
+                                          navLabel = 'Our Solutions',
+                                          items,
+                                          activeId,
+                                          onNavClick,
+                                      }: DayProp & {
     heading: React.ReactNode;
     intro?: React.ReactNode;
     navLabel?: string;
@@ -458,21 +475,66 @@ export function FxStickyScrollSection({
 }) {
     const mutedText = day ? 'text-gray-500' : 'text-white/45';
     const borderCol = day ? 'border-gray-200' : 'border-white/10';
+    const sectionRef = useRef<HTMLElement | null>(null);
+    const railRef = useRef<HTMLDivElement | null>(null);
+    const [isRailPinned, setIsRailPinned] = useState(false);
+    const [railStyle, setRailStyle] = useState<React.CSSProperties>({});
+    const [railHeight, setRailHeight] = useState(0);
+
+    useEffect(() => {
+        const updateRail = () => {
+            const section = sectionRef.current;
+            const rail = railRef.current;
+
+            if (!section || !rail) return;
+
+            const sectionRect = section.getBoundingClientRect();
+            const railRect = rail.getBoundingClientRect();
+            const topOffset = 96;
+            const shouldPin = sectionRect.top <= topOffset && sectionRect.bottom > topOffset + railRect.height + 24;
+
+            setRailHeight(railRect.height);
+            setIsRailPinned(shouldPin);
+
+            if (shouldPin) {
+                setRailStyle({
+                    position: 'fixed',
+                    top: `${topOffset}px`,
+                    left: `${railRect.left}px`,
+                    width: `${railRect.width}px`,
+                });
+            } else {
+                setRailStyle({});
+            }
+        };
+
+        updateRail();
+        window.addEventListener('scroll', updateRail, { passive: true });
+        window.addEventListener('resize', updateRail);
+
+        return () => {
+            window.removeEventListener('scroll', updateRail);
+            window.removeEventListener('resize', updateRail);
+        };
+    }, [day, items.length]);
 
     return (
-        <section className={`relative isolate ${day ? 'bg-white' : 'bg-[#050810]'}`}>
+        <section ref={sectionRef} className={`relative isolate ${day ? 'bg-white' : 'bg-[#050810]'}`}>
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
-                <FxBackground day={day} grid aurora />
-                <FxOrbit size={700} top="-150px" right="-200px" opacity={0.12} speed={35} />
-                <FxOrbit size={400} top="200px" left="-150px" opacity={0.10} speed={28} reverse />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(45,212,191,0.08),transparent_38%)]" />
+                <FxBackground day={day} grid aurora/>
+                <FxOrbit size={700} top="-150px" right="-200px" opacity={0.12} speed={35}/>
+                <FxOrbit size={400} top="200px" left="-150px" opacity={0.10} speed={28} reverse/>
+                <div
+                    className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(45,212,191,0.08),transparent_38%)]"/>
             </div>
 
-            <div className="relative z-10 lg:pt-[4em] md:pt-[3em] pt-[2em] lg:pb-[7em] md:pb-[5em] pb-[3em] max-w-[92rem] w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
+            <div
+                className="relative z-10 lg:pt-[4em] md:pt-[3em] pt-[2em] lg:pb-[7em] md:pb-[5em] pb-[3em] max-w-auto w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
 
                 {/* Heading row */}
-                <FxReveal className={`relative grid lg:grid-cols-2 grid-cols-1 gap-4 mb-12 border-b pb-[3em] ${borderCol}`}>
-                    <FxSectionHeading day={day} title={heading} />
+                <FxReveal
+                    className={`relative grid lg:grid-cols-2 grid-cols-1 gap-4 mb-12 border-b pb-[3em] ${borderCol}`}>
+                    <FxSectionHeading day={day} title={heading}/>
                     {intro && (
                         <p className={`text-[0.87em] font-[400] leading-[1.6] lg:-ml-[7.5em] tracking-normal ${mutedText}`}>
                             {intro}
@@ -484,18 +546,29 @@ export function FxStickyScrollSection({
                 <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 lg:mt-16 md:mt-12 mt-6 items-start">
 
                     {/* Left sticky rail */}
-                    <aside className="lg:sticky md:sticky top-24 self-start z-20 w-full lg:w-[360px] shrink-0">
-                        <div className="relative overflow-hidden rounded-[1.75rem] border border-teal-400/15 bg-white/[0.03] p-6 shadow-[0_0_60px_-20px_rgba(45,212,191,0.65)] backdrop-blur-2xl">
-                            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(45,212,191,0.18),transparent_46%)]" />
-                            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-teal-400/80 to-transparent" />
-                            <div className="pointer-events-none absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent via-teal-400/20 to-transparent" />
+                    <aside
+                        className="relative z-20 w-full lg:w-[360px] shrink-0"
+                        style={{ minHeight: isRailPinned ? `${railHeight}px` : undefined }}
+                    >
+                        <div
+                            ref={railRef}
+                            className="relative overflow-hidden rounded-[1.75rem] border border-teal-400/15 bg-white/[0.03] p-6 shadow-[0_0_60px_-20px_rgba(45,212,191,0.65)] backdrop-blur-2xl"
+                            style={railStyle}
+                        >
+                            <div
+                                className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(45,212,191,0.18),transparent_46%)]"/>
+                            <div
+                                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-teal-400/80 to-transparent"/>
+                            <div
+                                className="pointer-events-none absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent via-teal-400/20 to-transparent"/>
 
                             <FxChip day={day} className="relative mb-5">{navLabel}</FxChip>
                             <h3 className={`relative text-[1.9em] lg:text-[2.3em] font-[700] leading-[1.05] tracking-tight ${day ? 'text-white' : 'text-white'}`}>
                                 Command <span className="gx-gradient-text">stack</span>
                             </h3>
                             <p className={`relative mt-4 text-[0.78em] font-[300] leading-[1.7] ${mutedText}`}>
-                                A guided, pinned experience for startup solutions, designed like a futuristic mission control panel.
+                                A guided, pinned experience for startup solutions, designed like a futuristic mission
+                                control panel.
                             </p>
 
                             <div className="relative mt-6 space-y-1">
@@ -511,10 +584,12 @@ export function FxStickyScrollSection({
                                                     : `border-transparent hover:border-teal-400/15 hover:bg-teal-400/5 ${mutedText}`
                                             }`}
                                         >
-                                            <span className={`text-[0.7em] font-[700] tracking-wider tabular-nums shrink-0 ${isActive ? 'text-teal-400' : mutedText}`}>
+                                            <span
+                                                className={`text-[0.7em] font-[700] tracking-wider tabular-nums shrink-0 ${isActive ? 'text-teal-400' : mutedText}`}>
                                                 {item.id}
                                             </span>
-                                            <span className={`text-[0.9em] font-[500] leading-snug ${isActive ? (day ? 'text-white' : 'text-white') : ''}`}>
+                                            <span
+                                                className={`text-[0.9em] font-[500] leading-snug ${isActive ? (day ? 'text-white' : 'text-white') : ''}`}>
                                                 {item.title}
                                             </span>
                                             {isActive && <span className="ml-auto text-teal-400 text-[1.1em]">→</span>}
@@ -523,21 +598,31 @@ export function FxStickyScrollSection({
                                 })}
                             </div>
 
-                            <div className="relative mt-6 overflow-hidden rounded-[1.5rem] border border-teal-400/15 bg-black/20">
-                                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(45,212,191,0.18),transparent_50%)]" />
-                                <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(45,212,191,0.03) 3px, rgba(45,212,191,0.03) 4px)' }} />
+                            <div
+                                className="relative mt-6 overflow-hidden rounded-[1.5rem] border border-teal-400/15 bg-black/20">
+                                <div
+                                    className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(45,212,191,0.18),transparent_50%)]"/>
+                                <div className="absolute inset-0 pointer-events-none"
+                                     style={{backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(45,212,191,0.03) 3px, rgba(45,212,191,0.03) 4px)'}}/>
                                 <div className="relative aspect-[4/3] overflow-hidden">
                                     <div
                                         className="absolute inset-0 bg-cover bg-center"
-                                        style={{ backgroundImage: "url('/assets/startup/hybrid.jpg')" }}
+                                        style={{backgroundImage: "url('/assets/startup/hybrid.jpg')"}}
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
-                                    <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4">
+                                    <div
+                                        className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent"/>
+                                    <div
+                                        className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4">
                                         <div>
-                                            <div className="text-[0.65em] uppercase tracking-[0.28em] text-teal-300/80">Startup Solutions</div>
-                                            <div className="mt-1 text-[1em] font-[700] text-white">Pinned command view</div>
+                                            <div
+                                                className="text-[0.65em] uppercase tracking-[0.28em] text-teal-300/80">Startup
+                                                Solutions
+                                            </div>
+                                            <div className="mt-1 text-[1em] font-[700] text-white">Pinned command view
+                                            </div>
                                         </div>
-                                        <div className="rounded-full border border-teal-400/25 bg-white/5 px-3 py-1 text-[0.68em] uppercase tracking-[0.22em] text-teal-200">
+                                        <div
+                                            className="rounded-full border border-teal-400/25 bg-white/5 px-3 py-1 text-[0.68em] uppercase tracking-[0.22em] text-teal-200">
                                             Live
                                         </div>
                                     </div>
@@ -551,9 +636,11 @@ export function FxStickyScrollSection({
                         {items.map((item, index) => (
                             <FxReveal key={index} delay={0.08 * index}>
                                 <div id={item.target} className="scroll-mt-28">
-                                    <FxHoloCard day={day} className="p-6 lg:p-9 border border-teal-400/10 shadow-[0_0_50px_-24px_rgba(45,212,191,0.35)]">
+                                    <FxHoloCard day={day}
+                                                className="p-6 lg:p-9 border border-teal-400/10 shadow-[0_0_50px_-24px_rgba(45,212,191,0.35)]">
                                         <div className="flex items-start gap-4 mb-4">
-                                            <span className={`text-[0.7em] font-[700] tabular-nums shrink-0 mt-1 ${mutedText}`}>{item.id}/</span>
+                                            <span
+                                                className={`text-[0.7em] font-[700] tabular-nums shrink-0 mt-1 ${mutedText}`}>{item.id}/</span>
                                             <h2 className={`text-[1.4em] lg:text-[1.65em] font-[600] leading-snug ${day ? 'text-gray-900' : 'text-white'}`}>{item.title}</h2>
                                         </div>
                                         {item.tags && item.tags.length > 0 && (
@@ -561,7 +648,8 @@ export function FxStickyScrollSection({
                                                 {item.tags.map((tag, t) => <FxChip key={t} day={day}>{tag}</FxChip>)}
                                             </div>
                                         )}
-                                        <div className={`text-[0.85em] font-[300] leading-[1.7] text-justify ${mutedText}`}>
+                                        <div
+                                            className={`text-[0.85em] font-[300] leading-[1.7] text-justify ${mutedText}`}>
                                             {item.body}
                                         </div>
                                     </FxHoloCard>
