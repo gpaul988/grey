@@ -341,19 +341,6 @@ const Startups = () => {
                 ] satisfies FxScrollItem[]}
             />
 
-            <div className="sticky lg:-mt-[19em] -mt-[2em] max-w-full w-full lg:h-[100vh]">
-                <Image
-                    src="/assets/startup/hybrid.jpg"
-                    alt="startup development services"
-                    fill
-                    sizes="100vw"
-                    style={{
-                        objectFit: 'cover',
-                        objectPosition: 'center',
-                    }}
-                />
-            </div>
-
             <div className={`relative lg:py-32 py-16 overflow-hidden ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
                 {/* Grid background */}
                 <div className="pointer-events-none absolute inset-0" style={{
