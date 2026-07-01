@@ -31,6 +31,7 @@ import {
     requireSessionSecret,
 } from './Admin/middleware/security';
 import {logger, correlationIdMiddleware} from './lib/logger';
+import {avatarUpload} from './Admin/config/uploads';
 
 dotenv.config({path: './config.env'});
 
@@ -146,6 +147,19 @@ app.use(
         },
     }),
 );
+
+// Apply Multer for file uploads BEFORE CSRF protection so multipart data can be parsed
+// This must come after urlencoded/json parsers but before CSRF check
+// Middleware to handle Multer for specific file upload routes before CSRF check
+app.use(`${ADMIN_BASE_PATH}/profile/avatar`, (req, res, next) => {
+    if (req.method !== 'POST') return next();
+    avatarUpload.single('avatar')(req, res, (err) => {
+        if (err) {
+            return res.status(400).json({error: err.message});
+        }
+        next();
+    });
+});
 
 // CSRF protection on the session-bearing routes. Safe (GET/HEAD/OPTIONS)
 // requests are ignored by the library; mutating requests must carry a token.

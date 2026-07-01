@@ -327,13 +327,11 @@ route.get('/profile', (req, res) => {
 route.post('/profile/avatar', (req, res) => {
     const sessionUser = req.session.user;
     if (!sessionUser) return res.redirect(adminPath('/profile'));
-    avatarUpload.single('avatar')(req, res, async (err: unknown) => {
-        if (err) {
-            const msg = err instanceof Error ? err.message : 'Upload failed';
-            return res.redirect(adminPath(`/profile?err=${encodeURIComponent(msg)}`));
-        }
-        const file = (req as Request & { file?: { filename: string } }).file;
-        if (!file) return res.redirect(adminPath('/profile?err=No file selected'));
+    
+    const file = (req as Request & { file?: { filename: string } }).file;
+    if (!file) return res.redirect(adminPath('/profile?err=No file selected'));
+    
+    (async () => {
         const url = publicUrl('avatars', file.filename);
         const updated = await Users.update(sessionUser.id, {avatar: url});
         if (updated) {
@@ -347,6 +345,9 @@ route.post('/profile/avatar', (req, res) => {
             });
         }
         res.redirect(adminPath('/profile?saved=1'));
+    })().catch((err) => {
+        const msg = err instanceof Error ? err.message : 'Update failed';
+        res.redirect(adminPath(`/profile?err=${encodeURIComponent(msg)}`));
     });
 });
 
