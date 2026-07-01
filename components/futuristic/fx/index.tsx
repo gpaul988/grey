@@ -481,10 +481,10 @@ export function FxStickyScrollSection({
                 </FxReveal>
 
                 {/* Sticky scroll grid */}
-                <div className="grid lg:grid-cols-[360px_minmax(0,1fr)] md:grid-cols-[320px_minmax(0,1fr)] grid-cols-1 gap-10 lg:gap-16 lg:mt-16 md:mt-12 mt-6 items-start">
+                <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 lg:mt-16 md:mt-12 mt-6 items-start">
 
                     {/* Left sticky rail */}
-                    <aside className="lg:sticky md:sticky top-24 self-start z-20 max-h-[calc(100vh-7rem)] overflow-y-auto overscroll-contain pr-2">
+                    <aside className="lg:sticky md:sticky top-24 self-start z-20 w-full lg:w-[360px] shrink-0">
                         <div className="relative overflow-hidden rounded-[1.75rem] border border-teal-400/15 bg-white/[0.03] p-6 shadow-[0_0_60px_-20px_rgba(45,212,191,0.65)] backdrop-blur-2xl">
                             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(45,212,191,0.18),transparent_46%)]" />
                             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-teal-400/80 to-transparent" />
@@ -533,7 +533,7 @@ export function FxStickyScrollSection({
                     </aside>
 
                     {/* Right scrollable content */}
-                    <div className="lg:pt-2 space-y-10 lg:space-y-16">
+                    <div className="min-w-0 flex-1 lg:pt-2 space-y-10 lg:space-y-16">
                         {items.map((item, index) => (
                             <FxReveal key={index} delay={0.08 * index}>
                                 <div id={item.target} className="scroll-mt-28">
