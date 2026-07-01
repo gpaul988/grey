@@ -275,6 +275,7 @@
     </div>
 </div>
 
+<%- contentFor('extra_javascript') %>
 <script>
 (function () {
     'use strict';
@@ -347,7 +348,7 @@
 
         const id = document.getElementById('fId').value;
         const isEdit = !!id;
-        const url = isEdit ? `/api/admin/job-openings/${id}` : '/api/admin/job-openings';
+        const url = isEdit ? `/admin/api/job-openings/${id}` : '/admin/api/job-openings';
         const method = isEdit ? 'PUT' : 'POST';
 
         const payload = {
@@ -400,7 +401,7 @@
     document.getElementById('btnConfirmDel').addEventListener('click', async () => {
         if (!deleteId) return;
         try {
-            const res = await fetch(`/api/admin/job-openings/${deleteId}`, { method: 'DELETE' });
+            const res = await fetch(`/admin/api/job-openings/${deleteId}`, { method: 'DELETE' });
             const data = await res.json();
             if (!res.ok || !data.ok) throw new Error(data.message || 'Error deleting');
             toast('Job opening deleted.');
