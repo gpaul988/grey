@@ -482,16 +482,14 @@ export function FxStickyScrollSection({
 
                     {/* Left sticky nav */}
                     <div className="lg:sticky md:sticky top-28 self-start lg:mr-[11em]">
-                        <FxReveal delay={0.1}>
-                            <div className="relative overflow-hidden rounded-[1.5rem] border border-teal-400/15 bg-white/[0.03] p-5 shadow-[0_0_40px_-18px_rgba(45,212,191,0.6)] backdrop-blur-xl">
-                                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(45,212,191,0.16),transparent_42%)]" />
-                                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-teal-400/70 to-transparent" />
-                                <FxChip day={day} className="relative mb-5">{navLabel}</FxChip>
-                                <p className={`relative text-[0.76em] font-[300] leading-[1.7] ${mutedText}`}>
-                                    Guided startup solutions, arranged as a futuristic command stack.
-                                </p>
-                            </div>
-                        </FxReveal>
+                        <div className="relative overflow-hidden rounded-[1.5rem] border border-teal-400/15 bg-white/[0.03] p-5 shadow-[0_0_40px_-18px_rgba(45,212,191,0.6)] backdrop-blur-xl">
+                            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(45,212,191,0.16),transparent_42%)]" />
+                            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-teal-400/70 to-transparent" />
+                            <FxChip day={day} className="relative mb-5">{navLabel}</FxChip>
+                            <p className={`relative text-[0.76em] font-[300] leading-[1.7] ${mutedText}`}>
+                                Guided startup solutions, arranged as a futuristic command stack.
+                            </p>
+                        </div>
                         <nav className="space-y-1 mt-5">
                             {items.map((item, index) => {
                                 const isActive = activeId === item.target;
