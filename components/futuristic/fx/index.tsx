@@ -478,24 +478,31 @@ export function FxStickyScrollSection({
                 </FxReveal>
 
                 {/* Sticky scroll grid */}
-                <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-16 lg:mt-16 md:mt-12 mt-6">
+                <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-16 lg:mt-16 md:mt-12 mt-6 items-start">
 
                     {/* Left sticky nav */}
-                    <div className="lg:sticky md:sticky top-28 lg:h-screen md:h-screen lg:mr-[11em] overflow-hidden">
+                    <div className="lg:sticky md:sticky top-28 self-start lg:mr-[11em]">
                         <FxReveal delay={0.1}>
-                            <FxChip day={day} className="mb-5">{navLabel}</FxChip>
+                            <div className="relative overflow-hidden rounded-[1.5rem] border border-teal-400/15 bg-white/[0.03] p-5 shadow-[0_0_40px_-18px_rgba(45,212,191,0.6)] backdrop-blur-xl">
+                                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(45,212,191,0.16),transparent_42%)]" />
+                                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-teal-400/70 to-transparent" />
+                                <FxChip day={day} className="relative mb-5">{navLabel}</FxChip>
+                                <p className={`relative text-[0.76em] font-[300] leading-[1.7] ${mutedText}`}>
+                                    Guided startup solutions, arranged as a futuristic command stack.
+                                </p>
+                            </div>
                         </FxReveal>
-                        <nav className="space-y-1 mt-4">
+                        <nav className="space-y-1 mt-5">
                             {items.map((item, index) => {
                                 const isActive = activeId === item.target;
                                 return (
                                     <FxReveal key={index} delay={0.05 * index}>
                                         <button
                                             onClick={() => onNavClick(item.target)}
-                                            className={`group w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
+                                            className={`group w-full text-left flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-300 border ${
                                                 isActive
-                                                    ? 'bg-teal-400/10 border border-teal-400/30 shadow-[0_0_20px_-6px_rgba(45,212,191,0.4)]'
-                                                    : `border border-transparent hover:border-teal-400/15 hover:bg-teal-400/5 ${mutedText}`
+                                                    ? 'bg-teal-400/10 border-teal-400/30 shadow-[0_0_20px_-6px_rgba(45,212,191,0.4)]'
+                                                    : `border-transparent hover:border-teal-400/15 hover:bg-teal-400/5 ${mutedText}`
                                             }`}
                                         >
                                             <span className={`text-[0.7em] font-[700] tracking-wider tabular-nums shrink-0 ${isActive ? 'text-teal-400' : mutedText}`}>
@@ -517,7 +524,7 @@ export function FxStickyScrollSection({
                         {items.map((item, index) => (
                             <FxReveal key={index} delay={0.08 * index} className={index < items.length - 1 ? 'mb-20 lg:mb-44' : ''}>
                                 <div id={item.target} className="scroll-mt-28">
-                                    <FxHoloCard day={day} className="p-6 lg:p-8">
+                                    <FxHoloCard day={day} className="p-6 lg:p-8 border border-teal-400/10 shadow-[0_0_50px_-24px_rgba(45,212,191,0.35)]">
                                         <div className="flex items-start gap-4 mb-4">
                                             <span className={`text-[0.7em] font-[700] tabular-nums shrink-0 mt-1 ${mutedText}`}>{item.id}/</span>
                                             <h2 className={`text-[1.4em] font-[600] leading-snug ${day ? 'text-gray-900' : 'text-white'}`}>{item.title}</h2>
