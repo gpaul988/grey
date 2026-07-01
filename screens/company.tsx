@@ -359,49 +359,56 @@ const Company = () => {
                                         {
                                             src: '/assets/comp/6.jpg',
                                             cls: '',
+                                            frameClass: 'h-[300px]',
                                             shapeStyle: {borderRadius: '28% 72% 63% 37% / 42% 48% 52% 58%'}
                                         },
                                         {
                                             src: '/assets/comp/3.jpg',
-                                            cls: 'mt-[0.5em]',
+                                            cls: 'translate-y-[0.5em]',
+                                            frameClass: 'h-[380px]',
                                             shapeStyle: {clipPath: 'polygon(8% 0, 92% 0, 100% 12%, 100% 88%, 92% 100%, 8% 100%, 0 88%, 0 12%)'}
                                         },
                                         {
                                             src: '/assets/comp/1.jpg',
-                                            cls: 'mt-[2.8em]',
+                                            cls: 'translate-y-[2.2em]',
+                                            frameClass: 'h-[330px]',
                                             shapeStyle: {borderRadius: '44% 56% 37% 63% / 58% 39% 61% 42%'}
                                         },
                                         {
                                             src: '/assets/comp/2.jpg',
                                             cls: '',
+                                            frameClass: 'h-[420px]',
                                             shapeStyle: {clipPath: 'polygon(50% 0, 100% 20%, 100% 80%, 50% 100%, 0 80%, 0 20%)'}
                                         },
                                         {
                                             src: '/assets/comp/5.jpg',
-                                            cls: 'mt-[1.2em]',
+                                            cls: 'translate-y-[1.1em]',
+                                            frameClass: 'h-[310px]',
                                             shapeStyle: {borderRadius: '18% 82% 24% 76% / 56% 30% 70% 44%'}
                                         },
                                         {
                                             src: '/assets/comp/4.jpg',
                                             cls: '',
+                                            frameClass: 'h-[395px]',
                                             shapeStyle: {clipPath: 'polygon(0 12%, 12% 0, 88% 0, 100% 12%, 100% 88%, 88% 100%, 12% 100%, 0 88%)'}
                                         },
                                         {
                                             src: '/assets/comp/7.jpg',
-                                            cls: 'mt-[0.5em]',
+                                            cls: 'translate-y-[0.5em]',
+                                            frameClass: 'h-[335px]',
                                             shapeStyle: {borderRadius: '60% 40% 58% 42% / 40% 62% 38% 60%'}
                                         },
-                                    ].map(({src, cls, shapeStyle}, i) => (
+                                    ].map(({src, cls, frameClass, shapeStyle}, i) => (
                                         <div key={i} className="px-0 py-2">
-                                            <div className="relative mx-auto w-full max-w-[360px] overflow-hidden border border-white/10 bg-black/20 shadow-[0_20px_80px_-30px_rgba(45,212,191,0.45)]" style={shapeStyle}>
+                                            <div className={`relative mx-auto w-full max-w-[340px] overflow-hidden border border-white/10 bg-black/20 shadow-[0_20px_80px_-30px_rgba(45,212,191,0.45)] ${frameClass}`} style={shapeStyle}>
                                                 <div className="absolute inset-0 bg-gradient-to-tr from-teal-400/10 via-transparent to-fuchsia-500/10 opacity-70"/>
-                                                <div className="relative aspect-[1/1] w-full">
+                                                <div className="relative h-full w-full">
                                                     <Image
                                                         src={src}
                                                         alt={`gallery-${i + 1}`}
                                                         fill
                                                         className={`carousel-image object-cover ${cls}`}
-                                                        sizes="(max-width: 1024px) 66vw, 360px"
+                                                        sizes="(max-width: 1024px) 66vw, 340px"
                                                     />
                                                 </div>
                                             </div>
