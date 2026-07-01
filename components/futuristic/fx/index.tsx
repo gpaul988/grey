@@ -476,6 +476,7 @@ export function FxStickyScrollSection({
     const mutedText = day ? 'text-gray-500' : 'text-white/45';
     const borderCol = day ? 'border-gray-200' : 'border-white/10';
     const sectionRef = useRef<HTMLElement | null>(null);
+    const headerRef = useRef<HTMLDivElement | null>(null);
     const railRef = useRef<HTMLDivElement | null>(null);
     const [isRailPinned, setIsRailPinned] = useState(false);
     const [railStyle, setRailStyle] = useState<React.CSSProperties>({});
@@ -484,29 +485,30 @@ export function FxStickyScrollSection({
     useEffect(() => {
         const updateRail = () => {
             const section = sectionRef.current;
+            const header = headerRef.current;
             const rail = railRef.current;
 
-            if (!section || !rail) return;
+            if (!section || !header || !rail) return;
 
+            const headerRect = header.getBoundingClientRect();
             const sectionRect = section.getBoundingClientRect();
             const railHeight = rail.offsetHeight;
             const topOffset = 96;
             const scrollY = window.scrollY;
             const sectionTop = section.offsetTop;
             const sectionBottom = sectionTop + section.offsetHeight;
-            const railPosition = scrollY + topOffset;
 
-            // Only pin when section top has scrolled ABOVE the viewport (negative)
-            // This ensures we skip the header/intro and only pin during solutions
-            const sectionHasScrolledUp = sectionRect.top < 0;
-            const hasEnoughSpace = railPosition + railHeight < sectionBottom;
-            const shouldPin = sectionHasScrolledUp && sectionRect.bottom > topOffset && hasEnoughSpace;
+            // Only pin if header is completely scrolled out of view (bottom above viewport)
+            // This guarantees zero interference with the header
+            const headerIsHidden = headerRect.bottom < topOffset;
+            const hasEnoughSpace = scrollY + topOffset + railHeight < sectionBottom;
+            const shouldPin = headerIsHidden && sectionRect.bottom > topOffset && hasEnoughSpace;
 
-            setRailHeight(railHeight);
+            setRailHeight(rail.offsetHeight);
             setIsRailPinned(shouldPin);
 
             if (shouldPin) {
-                // Section is scrolled up and there's room - pin the rail at top
+                // Header is hidden and there's room - pin the rail
                 setRailStyle({
                     position: 'fixed',
                     top: `${topOffset}px`,
@@ -525,7 +527,7 @@ export function FxStickyScrollSection({
                     zIndex: 5,
                 });
             } else {
-                // Before section reached - keep rail in normal document flow
+                // Before section or header visible - keep rail in normal flow
                 setRailStyle({ position: 'relative' });
             }
         };
@@ -535,8 +537,8 @@ export function FxStickyScrollSection({
         window.addEventListener('resize', updateRail);
 
         return () => {
-            window.removeEventListener('scroll', updateRail);
-            window.removeEventListener('resize', updateRail);
+           window.removeEventListener('scroll', updateRail);
+           window.removeEventListener('resize', updateRail);
         };
     }, [day, items.length]);
 
@@ -554,15 +556,17 @@ export function FxStickyScrollSection({
                 className="relative z-10 lg:pt-[4em] md:pt-[3em] pt-[2em] lg:pb-[7em] md:pb-[5em] pb-[3em] max-w-auto w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
 
                 {/* Heading row */}
-                <FxReveal
-                    className={`relative grid lg:grid-cols-2 grid-cols-1 gap-4 mb-12 border-b pb-[3em] ${borderCol}`}>
-                    <FxSectionHeading day={day} title={heading}/>
-                    {intro && (
-                        <p className={`text-[0.87em] font-[400] leading-[1.6] lg:-ml-[7.5em] tracking-normal ${mutedText}`}>
-                            {intro}
-                        </p>
-                    )}
-                </FxReveal>
+                <div ref={headerRef}>
+                    <FxReveal
+                        className={`relative grid lg:grid-cols-2 grid-cols-1 gap-4 mb-12 border-b pb-[3em] ${borderCol}`}>
+                        <FxSectionHeading day={day} title={heading}/>
+                        {intro && (
+                            <p className={`text-[0.87em] font-[400] leading-[1.6] lg:-ml-[7.5em] tracking-normal ${mutedText}`}>
+                                {intro}
+                            </p>
+                        )}
+                    </FxReveal>
+                </div>
 
                 {/* Sticky scroll grid */}
                 <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 lg:mt-16 md:mt-12 mt-6 items-start">
