@@ -1,13 +1,14 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import { useIsDayTime } from '../../components/useIsDayTime';
 import FuturisticServiceLayout, { ServiceIntro, ServiceSectionBlock, ServiceStatsRow } from '@/components/futuristic/FuturisticServiceLayout';
 import FuturisticDevelopmentProcess from '@/components/FuturisticDevelopmentProcess';
 
 /**
- * Redesigned App Store Optimization page — futuristic, immersive, and professional.
- * Uses the shared FuturisticServiceLayout so changes propagate across service pages.
+ * Futuristic App Store Optimization page — polished, responsive, and free of layout glitches.
+ * Leverages existing FuturisticServiceLayout primitives and smooth motion for a professional finish.
  */
 export default function AppStoreOptimization(): React.ReactElement {
   const isDayTime = useIsDayTime();
@@ -39,45 +40,57 @@ export default function AppStoreOptimization(): React.ReactElement {
       ctaLabel="Talk to an ASO expert"
     >
 
-      <ServiceIntro
-        isDayTime={isDayTime}
-        chip="ASO"
-        heading={<>App Store Optimization</>}
-        body={<>We combine keyword intelligence, conversion-focused creative, and continuous experimentation to make your app discoverable and highly converting in app stores.</>}
-      />
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="relative z-10">
+        <ServiceIntro
+          isDayTime={isDayTime}
+          chip="ASO"
+          heading={<>App Store Optimization</>}
+          body={<>We combine keyword intelligence, conversion-focused creative, and continuous experimentation to make your app discoverable and highly converting in app stores.</>}
+        />
 
-      <ServiceSectionBlock
-        isDayTime={isDayTime}
-        id="strategy"
-        number="01"
-        title="Research & Strategy"
-        body={<>Competitive analysis, keyword opportunity modeling, and a prioritized roadmap focused on high-impact, high-intent terms and localized markets.</>}
-        image="/assets/aso/engine.jpg"
-      />
+        <div className="max-w-6xl mx-auto grid gap-12 md:gap-20 mt-12 px-6">
+          <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 16 }} viewport={{ once: true }}>
+            <ServiceSectionBlock
+              isDayTime={isDayTime}
+              id="strategy"
+              number="01"
+              title="Research & Strategy"
+              body={<>Competitive analysis, keyword opportunity modeling, and a prioritized roadmap focused on high-impact, high-intent terms and localized markets.</>}
+              image="/assets/aso/engine.jpg"
+            />
+          </motion.div>
 
-      <ServiceSectionBlock
-        isDayTime={isDayTime}
-        id="creative"
-        number="02"
-        title="Creative & Store Assets"
-        body={<>Design-first app icons, screenshots, and preview videos optimized for conversion with continuous A/B testing and store-specific best practices.</>}
-        image="/assets/aso/hero.jpg"
-      />
+          <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 20 }} viewport={{ once: true }}>
+            <ServiceSectionBlock
+              isDayTime={isDayTime}
+              id="creative"
+              number="02"
+              title="Creative & Store Assets"
+              body={<>Design-first app icons, screenshots, and preview videos optimized for conversion with continuous A/B testing and store-specific best practices.</>}
+              image="/assets/aso/creative.jpg"
+            />
+          </motion.div>
 
-      <ServiceSectionBlock
-        isDayTime={isDayTime}
-        id="optimization"
-        number="03"
-        title="Keywords & Metadata"
-        body={<>Metadata engineering, long-tail keyword capture, and structured experiments to maximize indexation and search ranking across stores and regions.</>}
-        image="/assets/aso/aso.mp4"
-      />
+          <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 20 }} viewport={{ once: true }}>
+            <ServiceSectionBlock
+              isDayTime={isDayTime}
+              id="optimization"
+              number="03"
+              title="Keywords & Metadata"
+              body={<>Metadata engineering, long-tail keyword capture, and structured experiments to maximize indexation and search ranking across stores and regions.</>}
+              image="/assets/aso/metadata.jpg"
+            />
+          </motion.div>
+        </div>
 
-      <FuturisticDevelopmentProcess day={isDayTime} description="Iterative ASO loop: Discover → Test → Iterate → Scale. We pair data science with creative experimentation to unlock organic growth." />
+        <div className="max-w-6xl mx-auto px-6 mt-16">
+          <FuturisticDevelopmentProcess day={isDayTime} description="Iterative ASO loop: Discover → Test → Iterate → Scale. We pair data science with creative experimentation to unlock organic growth." />
+        </div>
 
-      <div className="py-12">
-        <ServiceStatsRow isDayTime={isDayTime} stats={stats.map(s => ({ label: s.label, value: s.value }))} />
-      </div>
+        <div className="max-w-6xl mx-auto px-6 py-12">
+          <ServiceStatsRow isDayTime={isDayTime} stats={stats.map(s => ({ label: s.label, value: s.value }))} />
+        </div>
+      </motion.div>
 
     </FuturisticServiceLayout>
   );
