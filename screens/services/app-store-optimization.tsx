@@ -20,7 +20,7 @@ export default function AppStoreOptimization(): React.ReactElement {
     { id: 'process', label: 'Process' },
   ];
 
-    const stats = [\n    { label: 'Years Experience', value: 8 },\n    { label: 'Products Launched', value: 150 },\n    { label: 'Team Members', value: 10 },\n    { label: 'Avg Organic Lift (%)', value: 120 },\n  ];
+    const stats = [\r\n    { label: 'Years Experience', value: 8 },\r\n    { label: 'Products Launched', value: 150 },\r\n    { label: 'Team Members', value: 10 },\r\n    { label: 'Avg Organic Lift (%)', value: 120 },\r\n  ];
 
   return (
     <FuturisticServiceLayout
@@ -90,5 +90,6 @@ export default function AppStoreOptimization(): React.ReactElement {
     </FuturisticServiceLayout>
   );
 }
+
 
 
