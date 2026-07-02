@@ -155,7 +155,8 @@ const AppStoreOptimization = () => {    const [isVisible, setIsVisible] = useSta
     }
 
     return (
-        <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
+    <FuturisticServiceLayout title={`App Store <br className='lg:block md:block block'/>Optimisation (ASO)`}>
+<div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
             <FloatingButton
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
@@ -173,10 +174,7 @@ const AppStoreOptimization = () => {    const [isVisible, setIsVisible] = useSta
                     <div className="gx-noise-overlay" />
                     <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
                 </div>
-                <h1
-                    className={`border-b pb-[0.5em] border-gray-500/50 px-0 constant-text lg:text-[5.35em] md:text-[5.35em] text-[2.3em] lg:mt-[2.5em] md:mt-[2.5em] mt-[3em] leading-[1.1] font-[700]`}>
-                    App Store <br className={'lg:block md:block block'}/>Optimisation (ASO)
-                </h1>
+                
                 <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
                     Did you know over 65% of app downloads come from app store searches? Let us help your app get
                     discovered, ranked higher, and downloaded more with expert App Store Optimization.
@@ -891,7 +889,8 @@ const AppStoreOptimization = () => {    const [isVisible, setIsVisible] = useSta
             →
           </span>
                                     </button>
-                                );
+    </FuturisticServiceLayout>
+  );
                             })}
                             <div className="h-1 bg-teal-400"/>
                         </div>
