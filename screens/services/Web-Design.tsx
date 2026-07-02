@@ -116,7 +116,8 @@ const WebDesign = () => {    const [isVisible, setIsVisible] = useState(false);
     ];
 
     return (
-        <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
+    <FuturisticServiceLayout title={`Web Design Agency`}>
+<div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
             <FloatingButton
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
@@ -151,12 +152,7 @@ const WebDesign = () => {    const [isVisible, setIsVisible] = useState(false);
                     <div className="gx-noise-overlay" />
                     <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
                 </div>
-                <h1
-                    className={`border-b pb-[0.5em] border-gray-500/50 px-0 gx-hero-title constant-text lg:text-[5em] md:text-[3em] sm:text-[2em] text-[2.5em] lg:mt-[3em] md:mt-[3em] mt-[1.5em] leading-[1.1] font-[800] ${
-                        isDayTime ? 'text-black' : 'text-white'
-                    }`}>
-                    Web Design Agency
-                </h1>
+                
                 <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
                     An experienced web design agency specializing in UX-focused, mobile-optimized, and fully responsive
                     websites tailored for performance and user engagement.
@@ -1034,7 +1030,8 @@ const WebDesign = () => {    const [isVisible, setIsVisible] = useState(false);
               ]}
             />
         </div>
-    );
+    </FuturisticServiceLayout>
+  );
 };
 
 export default WebDesign;
