@@ -25,6 +25,7 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxStatBar, FxFrame, FxOrbit } from '@/components/futuristic/fx';
+import { useIsDayTime } from '@/components/useIsDayTime';
 
 interface NavSection {
     id: string;
@@ -32,7 +33,7 @@ interface NavSection {
 }
 
 interface Props {
-    isDayTime: boolean;
+    isDayTime?: boolean;
     title: string;
     eyebrow?: string;
     subtitle?: string;
@@ -62,7 +63,8 @@ export default function FuturisticServiceLayout({
     ctaHref = '/quote-request',
     ctaLabel = 'Get a Quote',
 }: Props) {
-    const dark = !isDayTime;
+    const resolvedIsDayTime = isDayTime !== undefined ? isDayTime : useIsDayTime();
+    const dark = !resolvedIsDayTime;
 
     return (
         <div className={`min-h-screen transition-colors duration-500 ${dark ? 'bg-[#050810] text-white' : 'bg-white text-black'}`}>
@@ -146,7 +148,7 @@ export default function FuturisticServiceLayout({
 
                 {/* Background FX for body */}
                 <div className="pointer-events-none fixed inset-0 z-0">
-                    <FxBackground day={isDayTime} grid={true} aurora={true} className="opacity-30" />
+                    <FxBackground day={resolvedIsDayTime} grid={true} aurora={true} className="opacity-30" />
                 </div>
 
                 {/* Content layout: sidebar + main */}
@@ -180,7 +182,7 @@ export default function FuturisticServiceLayout({
                                     {stats.length > 0 && (
                                         <div className={`mt-8 pt-8 border-t ${dark ? 'border-white/10' : 'border-gray-200'} space-y-4`}>
                                             {stats.map(s => (
-                                                <FxStatBar key={s.label} day={isDayTime} label={s.label} value={s.value} percent={s.percent} />
+                                                <FxStatBar key={s.label} day={resolvedIsDayTime} label={s.label} value={s.value} percent={s.percent} />
                                             ))}
                                         </div>
                                     )}
@@ -190,7 +192,7 @@ export default function FuturisticServiceLayout({
                                         <p className={`text-[0.75em] font-[500] mb-3 ${dark ? 'text-gray-300' : 'text-gray-700'}`}>
                                             Ready to get started?
                                         </p>
-                                        <FxButton day={isDayTime} href={ctaHref} variant="solid" className="w-full justify-center text-[0.8em] py-2.5">
+                                        <FxButton day={resolvedIsDayTime} href={ctaHref} variant="solid" className="w-full justify-center text-[0.8em] py-2.5">
                                             {ctaLabel}
                                         </FxButton>
                                     </div>
