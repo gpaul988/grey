@@ -6,8 +6,8 @@ const CloudSolutions = () => (
         title={<>Cloud<br className="lg:block md:block hidden" />Solutions</>}
         heroVideo="/assets/hero/hero.mp4"
         heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/services.jpg"
-        topImages={['/assets/services/Development.jpg', '/assets/services/digital-transformatio.jpg']}
+        midImage="/assets/services/Development.jpg"
+        topImages={['/assets/services/Web-App-Development-company.jpg', '/assets/services/services.jpg']}
         intro="Scalable, secure cloud infrastructure engineered to reduce costs, accelerate delivery and give your teams the agility to ship at speed."
         eyebrow="Cloud-first architecture for modern businesses"
         introHeading={<>Engineered for Scale<br className="lg:block md:block hidden" />Built for Resilience</>}
@@ -77,14 +77,8 @@ const CloudSolutions = () => (
             },
         ]}
         ctaHeading={<>Your cloud,<br className="lg:block md:block hidden" />perfected</>}
-        ctaBody="Ready to move faster, spend less, and scale on demand? Grey InfoTech designs and operates cloud infrastructure that grows with your business."
-        faqs={[
-            {q: 'Which cloud providers do you work with?', a: 'AWS, Google Cloud and Azure. We also support multi-cloud and hybrid architectures where the workload justifies it.'},
-            {q: 'How long does a typical cloud migration take?', a: 'Small workloads can migrate in 4–6 weeks. Enterprise migrations with 50+ services typically run 3–6 months in phased waves.'},
-            {q: 'Do you manage infrastructure ongoing?', a: 'Yes. We offer managed services including 24/7 monitoring, incident response, patching and cost governance post-migration.'},
-            {q: 'How do you handle data security during migration?', a: 'We encrypt data in transit and at rest, enforce MFA throughout, and use phased cut-overs with rollback points to ensure zero data loss.'},
-        ]}
-    />
+        ctaBody="Ready to move faster, spend less, and scale on demand? Grey InfoTech designs and operates cloud infrastructure that grows with your business."/>
 );
 
 export default CloudSolutions;
+

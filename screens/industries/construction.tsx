@@ -89,14 +89,8 @@ const ConstructionIndustry = () => (
             },
         ]}
         ctaHeading={<>Build smarter.<br className="lg:block md:block hidden" />Develop faster.</>}
-        ctaBody="The construction and property sector is overdue for digital transformation. Grey InfoTech builds the platforms that make African development more efficient, transparent and investable."
-        faqs={[
-            {q: 'Do you understand Nigerian land registry and property law?', a: 'Yes. We are familiar with Certificate of Occupancy requirements, state land registry systems and the Nigerian mortgage and property transaction process.'},
-            {q: 'Can you build apps that work offline on construction sites?', a: 'Yes. Offline-first mobile apps are standard in our construction technology work—sync when connectivity is available, always functional in the field.'},
-            {q: 'Do you integrate with Revit or other BIM tools?', a: 'Yes. We build IFC-based integrations with Revit, ArchiCAD and BIM 360 for data extraction and digital twin synchronisation.'},
-            {q: 'Can you build a property listing platform like PropertyPro or NigeriaPropertyCentre?', a: 'Yes. We build full property marketplace platforms with listing management, agent portals, search and lead management.'},
-        ]}
-    />
+        ctaBody="The construction and property sector is overdue for digital transformation. Grey InfoTech builds the platforms that make African development more efficient, transparent and investable."/>
 );
 
 export default ConstructionIndustry;
+

@@ -24,7 +24,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxStatBar, FxFrame } from '@/components/futuristic/fx';
+import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxStatBar, FxFrame, FxOrbit } from '@/components/futuristic/fx';
 
 interface NavSection {
     id: string;
@@ -68,7 +68,7 @@ export default function FuturisticServiceLayout({
         <div className={`min-h-screen transition-colors duration-500 ${dark ? 'bg-[#050810] text-white' : 'bg-white text-black'}`}>
 
             {/* ── Full-bleed hero ── */}
-            <section className="gx-page-hero relative overflow-hidden min-h-[72vh] flex flex-col justify-end">
+            <section className="gx-page-hero relative overflow-hidden min-h-[78vh] flex flex-col justify-end">
                 {/* Video / image background */}
                 {heroVideo ? (
                     <video
@@ -97,27 +97,46 @@ export default function FuturisticServiceLayout({
                 <div className="gx-noise-overlay" />
 
                 {/* Orbit rings */}
-                <div className="gx-orbit pointer-events-none absolute" style={{ width: '70vmax', height: '70vmax', top: '-25vmax', right: '-25vmax', opacity: .18, borderColor: 'rgba(45,212,191,0.18)' }} />
-                <div className="gx-orbit gx-orbit-reverse pointer-events-none absolute" style={{ width: '45vmax', height: '45vmax', top: '-8vmax', right: '-4vmax', opacity: .12, borderColor: 'rgba(45,212,191,0.12)' }} />
+                <FxOrbit size={720} top="-240px" right="-240px" opacity={0.16} speed={40} />
+                <FxOrbit size={420} top="-40px" right="-60px" opacity={0.12} speed={30} reverse />
 
                 {/* Hero content */}
                 <div className="gx-page-hero-content relative z-10">
                     <div className="max-w-[90rem] mx-auto">
-                        <FxReveal>
-                            <div className="mb-4">
-                                <FxChip day={false}>{eyebrow}</FxChip>
-                            </div>
-                            <div className="border-b border-white/20 pb-6 mb-6 max-w-4xl">
-                                <h1 className="gx-hero-title text-white gx-glitch">
-                                    {title}
-                                </h1>
-                            </div>
-                            {subtitle && (
-                                <p className="text-white/70 text-base md:text-lg max-w-2xl leading-relaxed">
-                                    {subtitle}
-                                </p>
-                            )}
-                        </FxReveal>
+                        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-12 items-end">
+                            <FxReveal>
+                                <div className="mb-4">
+                                    <FxChip day={false}>{eyebrow}</FxChip>
+                                </div>
+                                <div className="border-b border-white/20 pb-6 mb-6 max-w-4xl">
+                                    <h1 className="gx-hero-title text-white gx-glitch">
+                                        {title}
+                                    </h1>
+                                </div>
+                                {subtitle && (
+                                    <p className="text-white/70 text-base md:text-lg max-w-2xl leading-relaxed">
+                                        {subtitle}
+                                    </p>
+                                )}
+                            </FxReveal>
+
+                            <FxReveal delay={0.1}>
+                                <FxHoloCard day={false} className="p-6 bg-white/[0.04] border border-white/10">
+                                    <div className="flex items-center justify-between mb-5">
+                                        <span className="text-[0.68em] uppercase tracking-[0.24em] text-white/45">Focus</span>
+                                        <span className="h-2 w-2 rounded-full bg-teal-400 animate-pulse" />
+                                    </div>
+                                    <div className="grid gap-3">
+                                        {stats.slice(0, 3).map((s) => (
+                                            <div key={s.label} className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 flex items-center justify-between">
+                                                <span className="text-white/55 text-[0.72em] uppercase tracking-[0.18em]">{s.label}</span>
+                                                <span className="text-[1.15em] font-[800] text-teal-300">{s.value}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </FxHoloCard>
+                            </FxReveal>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -136,8 +155,8 @@ export default function FuturisticServiceLayout({
                         <div className="flex gap-12 lg:gap-16 items-start">
 
                             {/* Sidebar nav */}
-                            <aside className="hidden lg:block w-56 shrink-0">
-                                <div className="gx-sticky-nav">
+                            <aside className="hidden lg:block w-64 shrink-0">
+                                <div className="gx-sticky-nav rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-5 backdrop-blur-xl">
                                     <div className={`text-[0.68em] uppercase tracking-[0.18em] font-[700] mb-4 ${dark ? 'text-teal-400/60' : 'text-teal-600/60'}`}>
                                         On This Page
                                     </div>
@@ -146,10 +165,10 @@ export default function FuturisticServiceLayout({
                                             <button
                                                 key={id}
                                                 onClick={() => onNavClick?.(id)}
-                                                className={`w-full text-left px-3 py-2.5 rounded-lg text-[0.82em] font-[500] transition-all duration-200 border-l-2 ${
+                                                className={`w-full text-left px-4 py-3 rounded-2xl text-[0.82em] font-[500] transition-all duration-200 border ${
                                                     activeId === id
-                                                        ? 'border-teal-400 text-teal-400 ' + (dark ? 'bg-teal-400/08' : 'bg-teal-50')
-                                                        : 'border-transparent ' + (dark ? 'text-gray-400 hover:text-white hover:border-teal-400/40' : 'text-gray-500 hover:text-black hover:border-teal-400/40')
+                                                        ? 'border-teal-400/40 text-teal-300 ' + (dark ? 'bg-teal-400/08' : 'bg-teal-50')
+                                                        : 'border-transparent ' + (dark ? 'text-gray-400 hover:text-white hover:border-teal-400/30 hover:bg-white/[0.03]' : 'text-gray-500 hover:text-black hover:border-teal-400/30 hover:bg-white')
                                                 }`}
                                             >
                                                 {label}
@@ -167,7 +186,7 @@ export default function FuturisticServiceLayout({
                                     )}
 
                                     {/* Sidebar CTA */}
-                                    <div className={`mt-8 p-4 rounded-xl border ${dark ? 'border-teal-400/20 bg-teal-400/05' : 'border-teal-200 bg-teal-50'}`}>
+                                    <div className={`mt-8 p-4 rounded-2xl border ${dark ? 'border-teal-400/20 bg-teal-400/05' : 'border-teal-200 bg-teal-50'}`}>
                                         <p className={`text-[0.75em] font-[500] mb-3 ${dark ? 'text-gray-300' : 'text-gray-700'}`}>
                                             Ready to get started?
                                         </p>

@@ -6,8 +6,8 @@ const MagentoDevelopment = () => (
         title={<>Magento / Adobe<br className="lg:block md:block hidden" />Commerce</>}
         heroVideo="/assets/hero/hero.mp4"
         heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/services.jpg"
-        topImages={['/assets/services/Development.jpg', '/assets/services/digital-transformatio.jpg']}
+        midImage="/assets/services/Development.jpg"
+        topImages={['/assets/services/Web-App-Development-company.jpg', '/assets/services/Research-strategy.jpg']}
         intro="Enterprise-grade Magento and Adobe Commerce development—custom modules, performance engineering and complex B2B/B2C implementations that power serious e-commerce operations."
         eyebrow="Magento expertise for high-volume commerce"
         introHeading={<>Magento Built<br className="lg:block md:block hidden" />for Commerce at Scale</>}
@@ -84,14 +84,8 @@ const MagentoDevelopment = () => (
             },
         ]}
         ctaHeading={<>Commerce at<br className="lg:block md:block hidden" />any scale</>}
-        ctaBody="Magento rewards proper engineering. Grey InfoTech builds Adobe Commerce and Magento solutions that handle enterprise catalogue complexity and peak traffic without flinching."
-        faqs={[
-            {q: 'Do you work with Magento Open Source or Adobe Commerce?', a: 'Both. Magento Open Source for merchants that want control without licence costs, Adobe Commerce for those needing B2B, Page Builder and Adobe integrations.'},
-            {q: 'Can you migrate our Magento 1 store to Magento 2?', a: 'Yes. M1-to-M2 migration is one of our specialisms. We handle data migration, URL mapping, extension replacement and theme rebuild.'},
-            {q: 'How do you handle Magento hosting?', a: 'Adobe Commerce Cloud for enterprise, Nexcess or Hypernode for managed Magento hosting, or self-managed on AWS/GCP with our infrastructure team.'},
-            {q: 'Can you fix our slow Magento store?', a: 'Yes. Performance audits and remediation are a core part of our Magento practice. We profile, identify root causes and deliver measurable improvements.'},
-        ]}
-    />
+        ctaBody="Magento rewards proper engineering. Grey InfoTech builds Adobe Commerce and Magento solutions that handle enterprise catalogue complexity and peak traffic without flinching."/>
 );
 
 export default MagentoDevelopment;
+

@@ -81,14 +81,8 @@ const LegalTechIndustry = () => (
             },
         ]}
         ctaHeading={<>Legal work,<br className="lg:block md:block hidden" />done smarter</>}
-        ctaBody="The firms that invest in technology today will define the legal market tomorrow. Grey InfoTech builds legal technology that multiplies what your lawyers can accomplish."
-        faqs={[
-            {q: 'Do you understand Nigerian legal practice requirements?', a: 'Yes. We are familiar with Nigerian Bar Association requirements, SCUML compliance and Nigerian court filing processes.'},
-            {q: 'How do you handle legal privilege and data confidentiality?', a: 'With rigorous access controls, end-to-end encryption, audit logs and data isolation between matter teams.'},
-            {q: 'Can you integrate with e-signature platforms?', a: 'Yes. We integrate with DocuSign, Adobe Sign and African e-signature platforms, as well as building custom e-signature workflows.'},
-            {q: 'Do you build for solo practitioners or only large firms?', a: 'Both. We build scalable systems for large firms and focused tools for boutique practices and in-house legal teams.'},
-        ]}
-    />
+        ctaBody="The firms that invest in technology today will define the legal market tomorrow. Grey InfoTech builds legal technology that multiplies what your lawyers can accomplish."/>
 );
 
 export default LegalTechIndustry;
+

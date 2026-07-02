@@ -9,8 +9,8 @@ const CrossPlatformDevelopment = () => (
         title={<>Cross Platform <br className={'lg:block md:block hidden'}/>Development Services</>}
         heroVideo="/assets/cross/hero-M.mp4"
         heroVideoMobile="/assets/cross/hero-P.mp4"
-        midImage="/assets/services/digital-transformatio.jpg"
-        topImages={['/assets/services/Development.jpg', '/assets/services/digital-optimisation.jpg']}
+        midImage="/assets/services/product-design.jpg"
+        topImages={['/assets/services/ecommerce-web-design.jpg', '/assets/services/digital-transformatio.jpg']}
         eyebrow={<>Scalable Multi-Platform <br className={'lg:block md:block hidden'}/>Application Development</>}
         intro={
             <>
@@ -123,35 +123,8 @@ const CrossPlatformDevelopment = () => (
                     eliminating data silos and ensuring real-time information availability across your entire
                     technology landscape.</>,
             },
-        ]}
-        faqs={[
-            {
-                q: 'What frameworks do you use for cross-platform development?',
-                a: <>We primarily use React Native, Flutter, and Xamarin—selecting the framework that best matches
-                    your project requirements, team expertise, and long-term maintainability goals.</>,
-            },
-            {
-                q: 'How much cheaper is cross-platform vs native development?',
-                a: <>Cross-platform development typically reduces costs by 40–50% compared to building separate
-                    native apps for iOS and Android, since you maintain a single codebase across all platforms.</>,
-            },
-            {
-                q: 'Will my cross-platform app feel native on each platform?',
-                a: <>Yes. We use platform-specific UI components, native gestures, and optimised rendering to
-                    ensure your app feels authentic on every OS—not like a web wrapper.</>,
-            },
-            {
-                q: 'Can you migrate our existing native app to cross-platform?',
-                a: <>Absolutely. Our migration process preserves your existing business logic and data integrity
-                    while transitioning to a modern cross-platform architecture with minimal operational disruption.</>,
-            },
-            {
-                q: 'Do you provide ongoing support after launch?',
-                a: <>Yes—we offer comprehensive maintenance packages covering bug fixes, OS compatibility updates,
-                    security patches, performance tuning, and feature enhancements aligned with user feedback.</>,
-            },
-        ]}
-    />
+        ]}/>
 );
 
 export default CrossPlatformDevelopment;
+

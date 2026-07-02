@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
+import { FxBackground, FxChip, FxOrbit, FxHoloCard } from '@/components/futuristic/fx';
 
 interface ServiceHeroProps {
   title: string;
@@ -129,6 +130,10 @@ export default function ServiceHero({
       className="relative min-h-[80vh] flex items-center overflow-hidden"
       style={{ background: bg }}
     >
+      <FxBackground day={false} grid aurora className="opacity-35" />
+      <FxOrbit size={700} top="-180px" right="-180px" opacity={0.12} speed={38} />
+      <FxOrbit size={420} top="120px" left="-120px" opacity={0.08} speed={28} reverse />
+
       {/* Background effects */}
       {variant === 'particles' && <ParticleField color={accentColor} />}
       {variant === 'circuit' && <CircuitLines color={accentColor} />}
@@ -149,12 +154,7 @@ export default function ServiceHero({
       )}
 
       {/* Radial glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `radial-gradient(ellipse 70% 60% at 60% 50%, ${accentColor}12 0%, transparent 70%)`,
-        }}
-      />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 70% 60% at 60% 50%, ${accentColor}12 0%, transparent 70%)` }} />
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -169,117 +169,119 @@ export default function ServiceHero({
       <CornerBracket color={accentColor} position="br" />
 
       {/* Content */}
-      <div className="relative z-10 max-w-[90em] mx-auto px-6 sm:px-10 lg:px-[4.6em] py-24">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-        >
-          {/* Badge */}
-          <motion.span
-            initial={{ opacity: 0, x: -16 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-[0.2em] mb-6"
-            style={{ background: accentColor + '18', border: `1px solid ${accentColor}44`, color: accentColor }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: accentColor }} />
-            {subtitle}
-          </motion.span>
-
-          {/* Title */}
-          <h1 className="text-[2.8em] sm:text-[3.5em] lg:text-[4.5em] font-[800] leading-[1.05] text-white mb-6 max-w-3xl">
-            {title.split(' ').map((word, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 + i * 0.06 }}
-                className="inline-block mr-[0.2em]"
-                style={i === 0 ? { color: accentColor } : {}}
-              >
-                {word}
-              </motion.span>
-            ))}
-          </h1>
-
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="text-[1em] leading-[1.7] text-white/60 max-w-2xl mb-8"
-          >
-            {description}
-          </motion.p>
-
-          {/* Tags */}
+      <div className="relative z-10 max-w-[90em] mx-auto px-6 sm:px-10 lg:px-[4.6em] py-20 lg:py-24">
+        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-12 items-end">
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="flex flex-wrap gap-2 mb-10"
-          >
-            {resolvedTags.map((tag) => (
-              <span
-                key={tag}
-                className="px-3 py-1 text-[0.72em] font-medium rounded-full"
-                style={{ background: accentColor + '12', border: `1px solid ${accentColor}30`, color: accentColor }}
-              >
-                {tag}
-              </span>
-            ))}
-          </motion.div>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-            className="flex flex-wrap gap-4 items-center"
+            transition={{ duration: 0.7 }}
           >
-            <Link href={ctaHref}>
-              <motion.button
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-                className="relative px-8 py-3 rounded-full text-[0.88em] font-bold overflow-hidden"
-                style={{ background: accentColor, color: '#000' }}
-              >
-                <motion.span
-                  className="absolute inset-0"
-                  style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)' }}
-                  animate={{ x: ['-100%', '200%'] }}
-                  transition={{ duration: 2.5, repeat: Infinity, delay: 1 }}
-                />
-                <span className="relative">{ctaLabel} →</span>
-              </motion.button>
-            </Link>
-            <Link href="/portfolio">
-              <button
-                className="px-8 py-3 rounded-full text-[0.88em] font-semibold text-white/70 hover:text-white transition-colors"
-                style={{ border: `1px solid rgba(255,255,255,0.15)` }}
-              >
-                View our work
-              </button>
-            </Link>
-          </motion.div>
-        </motion.div>
+            <FxChip day={false} className="mb-6">{subtitle}</FxChip>
 
-        {/* Stats row */}
+            <h1 className="text-[2.9em] sm:text-[3.8em] lg:text-[5em] font-[800] leading-[1.02] tracking-tight text-white mb-6 max-w-[12ch]">
+              {title.split(' ').map((word, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 + i * 0.06 }}
+                  className="inline-block mr-[0.2em]"
+                  style={i === 0 ? { color: accentColor } : {}}
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </h1>
+
+            <p className="text-[1em] md:text-[1.05em] leading-[1.8] text-white/62 max-w-2xl mb-8">
+              {description}
+            </p>
+
+            <div className="flex flex-wrap gap-2 mb-10">
+              {resolvedTags.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-3 py-1 text-[0.72em] font-medium rounded-full"
+                  style={{ background: accentColor + '12', border: `1px solid ${accentColor}30`, color: accentColor }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap gap-4 items-center">
+              <Link href={ctaHref}>
+                <motion.button
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="relative px-8 py-3 rounded-full text-[0.88em] font-bold overflow-hidden"
+                  style={{ background: accentColor, color: '#000' }}
+                >
+                  <motion.span
+                    className="absolute inset-0"
+                    style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)' }}
+                    animate={{ x: ['-100%', '200%'] }}
+                    transition={{ duration: 2.5, repeat: Infinity, delay: 1 }}
+                  />
+                  <span className="relative">{ctaLabel} →</span>
+                </motion.button>
+              </Link>
+              <Link href="/portfolio">
+                <button
+                  className="px-8 py-3 rounded-full text-[0.88em] font-semibold text-white/70 hover:text-white transition-colors"
+                  style={{ border: `1px solid rgba(255,255,255,0.15)` }}
+                >
+                  View our work
+                </button>
+              </Link>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.15 }}
+            className="hidden lg:block"
+          >
+            <FxHoloCard day={false} className="p-7 bg-white/[0.03] border border-white/10">
+              <div className="flex items-center justify-between mb-6">
+                <div className="text-[0.68em] uppercase tracking-[0.25em] text-white/45">Capabilities</div>
+                <div className="h-px flex-1 mx-4 bg-white/10" />
+                <div className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+              </div>
+
+              <div className="space-y-4">
+                {stats.length > 0 && stats.slice(0, 3).map((s) => (
+                  <div key={s.label} className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/20 px-4 py-3">
+                    <div className="text-white/55 text-[0.76em] uppercase tracking-[0.18em]">{s.label}</div>
+                    <div className="text-[1.3em] font-[800]" style={{ color: accentColor }}>{s.value}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 flex flex-wrap gap-2">
+                {resolvedTags.slice(0, 5).map((tag) => (
+                  <span key={tag} className="gx-data-pill">{tag}</span>
+                ))}
+              </div>
+            </FxHoloCard>
+          </motion.div>
+        </div>
+
         {stats.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9 }}
-            className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-2xl"
+            className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl"
           >
             {stats.map((s) => (
-              <div key={s.label} className="text-center">
+              <FxHoloCard key={s.label} day={false} className="p-5 text-center bg-white/[0.03]">
                 <div className="text-[2em] font-[800] leading-none" style={{ color: accentColor }}>
                   {s.value}
                 </div>
-                <div className="text-[0.78em] text-white/40 mt-1 font-medium">{s.label}</div>
-              </div>
+                <div className="text-[0.74em] text-white/45 mt-1 font-medium uppercase tracking-[0.18em]">{s.label}</div>
+              </FxHoloCard>
             ))}
           </motion.div>
         )}

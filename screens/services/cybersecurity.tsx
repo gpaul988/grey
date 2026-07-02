@@ -6,8 +6,8 @@ const Cybersecurity = () => (
         title={<>Cybersecurity<br className="lg:block md:block hidden" />Services</>}
         heroVideo="/assets/hero/hero.mp4"
         heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/services.jpg"
-        topImages={['/assets/services/Development.jpg', '/assets/services/digital-transformatio.jpg']}
+        midImage="/assets/services/digital-optimisation.jpg"
+        topImages={['/assets/services/services.jpg', '/assets/services/Research-strategy.jpg']}
         intro="Proactive security engineering, penetration testing and compliance programmes that protect your products, data and reputation before attackers find the gaps."
         eyebrow="Security engineered in, not bolted on"
         introHeading={<>Security Is<br className="lg:block md:block hidden" />An Engineering Problem</>}
@@ -80,14 +80,8 @@ const Cybersecurity = () => (
             },
         ]}
         ctaHeading={<>Security that<br className="lg:block md:block hidden" />never sleeps</>}
-        ctaBody="Every day without proper security is a day your business is exposed. Grey InfoTech builds defences that protect what you have built and the customers who trust you."
-        faqs={[
-            {q: 'How often should we run a penetration test?', a: 'At minimum annually, and after major feature releases or infrastructure changes. High-risk environments benefit from quarterly or continuous testing programmes.'},
-            {q: 'Do you provide remediation support after a pen test?', a: 'Yes. We offer remediation guidance sessions and retest services to verify findings are properly resolved.'},
-            {q: 'Can you help us achieve ISO 27001 certification?', a: 'Absolutely. We run the full programme from gap assessment through control implementation and audit preparation.'},
-            {q: 'Do you work with Nigerian data protection regulations?', a: 'Yes. We are familiar with the Nigeria Data Protection Act (NDPA) and help companies implement compliant data governance programmes.'},
-        ]}
-    />
+        ctaBody="Every day without proper security is a day your business is exposed. Grey InfoTech builds defences that protect what you have built and the customers who trust you."/>
 );
 
 export default Cybersecurity;
+

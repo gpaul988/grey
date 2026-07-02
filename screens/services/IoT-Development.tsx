@@ -8,8 +8,8 @@ const IoTDevelopment = () => (
         title={<>IoT Software <br className={'lg:block md:block hidden'}/>Development Services</>}
         heroVideo="/assets/hero/hero.mp4"
         heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/digital-transformatio.jpg"
-        topImages={['/assets/services/Development.jpg', '/assets/services/digital-optimisation.jpg']}
+        midImage="/assets/services/product-design.jpg"
+        topImages={['/assets/services/ecommerce-web-design.jpg', '/assets/services/digital-optimisation.jpg']}
         intro={
             <>
                 Connected products, end to end—firmware, secure connectivity, cloud platforms and real-time

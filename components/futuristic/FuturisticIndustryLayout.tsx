@@ -22,7 +22,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxFrame, FxStatBar } from '@/components/futuristic/fx';
+import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxFrame, FxStatBar, FxOrbit } from '@/components/futuristic/fx';
 
 interface Props {
     isDayTime: boolean;
@@ -58,7 +58,7 @@ export default function FuturisticIndustryLayout({
         <div className={`min-h-screen transition-colors duration-500 ${dark ? 'bg-[#050810] text-white' : 'bg-white text-black'}`}>
 
             {/* ── Full-bleed hero ── */}
-            <section className="relative overflow-hidden min-h-[76vh] flex flex-col justify-end">
+            <section className="relative overflow-hidden min-h-[80vh] flex flex-col justify-end">
                 {/* Background media */}
                 {heroVideo ? (
                     <video
@@ -79,31 +79,40 @@ export default function FuturisticIndustryLayout({
                 <div className="gx-noise-overlay" />
 
                 {/* Orbit rings */}
-                <div className="gx-orbit pointer-events-none absolute" style={{ width: '65vmax', height: '65vmax', top: '-22vmax', right: '-22vmax', opacity: .2 }} />
+                <FxOrbit size={700} top="-220px" right="-240px" opacity={0.16} speed={42} />
+                <FxOrbit size={420} top="120px" left="-140px" opacity={0.1} speed={30} reverse />
 
                 {/* Hero content */}
                 <div className="gx-page-hero-content relative z-10">
                     <div className="max-w-[90rem] mx-auto">
-                        <FxReveal>
-                            <FxChip day={false} className="mb-5">{eyebrow}</FxChip>
-                            <div className="border-b border-white/20 pb-6 mb-6">
-                                <h1 className="gx-hero-title text-white gx-glitch">{industry}</h1>
-                            </div>
-                            {subtitle && (
-                                <p className="text-white/70 max-w-2xl text-base md:text-lg leading-relaxed">{subtitle}</p>
-                            )}
-                            {/* Stats row */}
-                            {stats.length > 0 && (
-                                <div className="grid grid-cols-3 gap-6 mt-8 max-w-lg">
-                                    {stats.slice(0, 3).map(s => (
-                                        <div key={s.label}>
-                                            <div className="text-[2.2em] font-[800] gx-gradient-text leading-none">{s.value}</div>
-                                            <div className="text-white/50 text-[0.7em] mt-1 uppercase tracking-wider">{s.label}</div>
-                                        </div>
-                                    ))}
+                        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-12 items-end">
+                            <FxReveal>
+                                <FxChip day={false} className="mb-5">{eyebrow}</FxChip>
+                                <div className="border-b border-white/20 pb-6 mb-6">
+                                    <h1 className="gx-hero-title text-white gx-glitch">{industry}</h1>
                                 </div>
-                            )}
-                        </FxReveal>
+                                {subtitle && (
+                                    <p className="text-white/70 max-w-2xl text-base md:text-lg leading-relaxed">{subtitle}</p>
+                                )}
+                            </FxReveal>
+
+                            <FxReveal delay={0.1}>
+                                <FxHoloCard day={false} className="p-6 bg-white/[0.04] border border-white/10">
+                                    <div className="flex items-center justify-between mb-5">
+                                        <span className="text-[0.68em] uppercase tracking-[0.24em] text-white/45">Snapshot</span>
+                                        <span className="h-2 w-2 rounded-full bg-teal-400 animate-pulse" />
+                                    </div>
+                                    <div className="grid gap-3">
+                                        {stats.slice(0, 3).map(s => (
+                                            <div key={s.label} className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 flex items-center justify-between">
+                                                <span className="text-white/55 text-[0.72em] uppercase tracking-[0.18em]">{s.label}</span>
+                                                <span className="text-[1.15em] font-[800] text-teal-300">{s.value}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </FxHoloCard>
+                            </FxReveal>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -116,7 +125,7 @@ export default function FuturisticIndustryLayout({
 
                 {/* Capabilities strip (if provided) */}
                 {capabilities.length > 0 && (
-                    <div className={`relative z-10 border-b ${dark ? 'border-white/08 bg-white/[0.01]' : 'border-gray-100 bg-gray-50'} py-6 overflow-x-auto`}>
+                    <div className={`relative z-10 border-b ${dark ? 'border-white/08 bg-white/[0.01]' : 'border-gray-100 bg-gray-50'} py-6 overflow-x-auto backdrop-blur-sm`}>
                         <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-[4.5em]">
                             <div className="flex gap-3 flex-wrap">
                                 {capabilities.map(cap => (

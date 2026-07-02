@@ -85,14 +85,8 @@ const MediaEntertainmentIndustry = () => (
             },
         ]}
         ctaHeading={<>Technology that<br className="lg:block md:block hidden" />entertains at scale</>}
-        ctaBody="Great content deserves great technology. Grey InfoTech builds the platforms that bring your stories to millions—reliably, beautifully and on every screen."
-        faqs={[
-            {q: 'Can you build an OTT platform from scratch?', a: 'Yes. We design and build end-to-end OTT platforms including content management, transcoding, CDN delivery, apps (web, mobile, TV) and analytics.'},
-            {q: 'Do you handle content rights management?', a: 'We build rights tracking and access control systems and integrate with DRM providers for protected content delivery.'},
-            {q: 'Can you optimise streaming for low-bandwidth African markets?', a: 'Absolutely. Adaptive bitrate streaming, offline download and low-data modes are standard parts of how we design for African audiences.'},
-            {q: 'Do you build mobile apps for streaming platforms?', a: 'Yes—iOS and Android apps with native video players, download management and offline playback.'},
-        ]}
-    />
+        ctaBody="Great content deserves great technology. Grey InfoTech builds the platforms that bring your stories to millions—reliably, beautifully and on every screen."/>
 );
 
 export default MediaEntertainmentIndustry;
+

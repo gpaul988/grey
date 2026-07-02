@@ -8,8 +8,8 @@ const BlockchainDevelopment = () => (
         title={<>Blockchain <br className={'lg:block md:block hidden'}/>Development Services</>}
         heroVideo="/assets/hero/hero.mp4"
         heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/services.jpg"
-        topImages={['/assets/services/Development.jpg', '/assets/services/digital-transformatio.jpg']}
+        midImage="/assets/services/Web-App-Development-company.jpg"
+        topImages={['/assets/services/Development.jpg', '/assets/services/Web-App-Development-company.jpg']}
         intro={
             <>
                 Secure, scalable decentralised systems—smart contracts, dApps, tokenisation and enterprise

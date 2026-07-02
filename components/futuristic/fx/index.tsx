@@ -623,37 +623,6 @@ export function FxStickyScrollSection({
                                     );
                                 })}
                             </div>
-
-                            <div
-                                className="relative mt-6 overflow-hidden rounded-[1.5rem] border border-teal-400/15 bg-black/20">
-                                <div
-                                    className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(45,212,191,0.18),transparent_50%)]"/>
-                                <div className="absolute inset-0 pointer-events-none"
-                                     style={{backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(45,212,191,0.03) 3px, rgba(45,212,191,0.03) 4px)'}}/>
-                                <div className="relative aspect-[4/3] overflow-hidden">
-                                    <div
-                                        className="absolute inset-0 bg-cover bg-center"
-                                        style={{backgroundImage: "url('/assets/startup/hybrid.jpg')"}}
-                                    />
-                                    <div
-                                        className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent"/>
-                                    <div
-                                        className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4">
-                                        <div>
-                                            <div
-                                                className="text-[0.65em] uppercase tracking-[0.28em] text-teal-300/80">Startup
-                                                Solutions
-                                            </div>
-                                            <div className="mt-1 text-[1em] font-[700] text-white">Pinned command view
-                                            </div>
-                                        </div>
-                                        <div
-                                            className="rounded-full border border-teal-400/25 bg-white/5 px-3 py-1 text-[0.68em] uppercase tracking-[0.22em] text-teal-200">
-                                            Live
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </aside>
 

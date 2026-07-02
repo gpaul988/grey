@@ -84,14 +84,8 @@ const AgriTechIndustry = () => (
             },
         ]}
         ctaHeading={<>Technology that<br className="lg:block md:block hidden" />feeds the future</>}
-        ctaBody="Agriculture is Africa's greatest economic opportunity. Grey InfoTech builds the technology that makes the food system more productive, transparent and equitable for every participant."
-        faqs={[
-            {q: 'Do you build for smallholder farmers or only commercial agriculture?', a: 'Both. We design explicitly for smallholder realities—mobile, offline, low literacy, multilingual—and scale up to commercial farm management and export-focused traceability systems.'},
-            {q: 'Can you build USSD applications for feature phone users?', a: 'Yes. USSD interface design is a core capability for reaching farmers without smartphones or reliable internet connectivity.'},
-            {q: 'Do you have experience with supply chain traceability for export?', a: 'Yes. Including EUDR-compliant traceability systems, geolocation polygon capture and integration with customs and phytosanitary certification systems.'},
-            {q: 'Can you integrate with satellite and weather data providers?', a: 'Yes. We integrate with Planet Labs, Sentinel, NASA MODIS and weather APIs to power remote sensing and advisory features.'},
-        ]}
-    />
+        ctaBody="Agriculture is Africa's greatest economic opportunity. Grey InfoTech builds the technology that makes the food system more productive, transparent and equitable for every participant."/>
 );
 
 export default AgriTechIndustry;
+
