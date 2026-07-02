@@ -20,15 +20,14 @@ export default function AppStoreOptimization(): React.ReactElement {
     { id: 'process', label: 'Process' },
   ];
 
-    const stats = [
+      const stats = [
     { label: 'Years Experience', value: '8', percent: 8 },
     { label: 'Products Launched', value: '150', percent: 150 },
     { label: 'Team Members', value: '10', percent: 10 },
     { label: 'Avg Organic Lift (%)', value: '120', percent: 120 },
   ];
 
-  const numericStats = stats.map(s => ({ label: s.label, value: (typeof s.percent === 'number' ? s.percent : Number(s.value)) }));\r\n\r\n  const numericStats = stats.map(s => ({ label: s.label, value: (typeof s.percent === 'number' ? s.percent : Number(s.value)) }));
-
+  const numericStats = stats.map(s => ({ label: s.label, value: (typeof s.percent === 'number' ? s.percent : Number(s.value)) }));
   return (
     <FuturisticServiceLayout
       isDayTime={isDayTime}
@@ -97,5 +96,6 @@ export default function AppStoreOptimization(): React.ReactElement {
     </FuturisticServiceLayout>
   );
 }
+
 
 
