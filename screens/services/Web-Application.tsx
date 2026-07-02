@@ -31,7 +31,11 @@ const WebApplication = () => {    const [isVisible, setIsVisible] = useState(fal
         };
 
         window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
+        return (
+    <FuturisticServiceLayout title={`Web Application <br/>Development Agency`}>
+) => window.removeEventListener("scroll", handleScroll
+    </FuturisticServiceLayout>
+  );
     }, []);
 
     // isDaytime react hook
@@ -270,12 +274,7 @@ const WebApplication = () => {    const [isVisible, setIsVisible] = useState(fal
                     <div className="gx-noise-overlay" />
                     <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
                 </div>
-                <h1
-                    className={`border-b pb-[0.5em] border-gray-500/50 px-0 gx-hero-title constant-text lg:text-[5em] md:text-[3em] text-[2em] lg:mt-[3em] md:mt-[3em] mt-[2em] leading-[1.1] font-[700] ${
-                        isDayTime ? 'text-black' : 'text-white'
-                    }`}>
-                    Web Application <br/>Development Agency
-                </h1>
+                
                 <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
                     Custom web applications tailored to your business goals. Our experienced developers build scalable,
                     secure, and user-focused solutions that drive real <br className={'lg:block md:block hidden'}/>results
