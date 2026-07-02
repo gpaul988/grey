@@ -68,15 +68,15 @@ const FuturisticDevelopmentProcess: React.FC<FuturisticDevelopmentProcessProps> 
                     </div>
                 </FxReveal>
 
-                {/* Cards row - no extra vertical space, dense and futuristic */}
+                {/* Cards row - responsive grid, no horizontal scrolling for smooth futuristic layout */}
                 <div className="w-full">
-                    <div className="flex items-center gap-6 md:gap-8 lg:gap-10 overflow-x-auto hide-scrollbar snap-x snap-mandatory py-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 py-2">
                         {stages.map((s, i) => (
                             <motion.article
                                 key={s.id}
                                 whileHover={{scale:1.03}}
                                 transition={{duration:0.36}}
-                                className={`snap-center flex-shrink-0 w-[300px] sm:w-[360px] md:w-[420px] h-[360px] md:h-[420px] bg-gradient-to-br ${isDayTime ? 'from-black/20 via-black/10 to-transparent' : 'from-white/7 to-transparent'} border ${isDayTime ? 'border-teal-400/12' : 'border-teal-400/10'} rounded-3xl p-5 md:p-7 shadow-[0_12px_40px_rgba(2,6,23,0.55)]`}
+                                className={`w-full h-[360px] md:h-[420px] bg-gradient-to-br ${isDayTime ? 'from-black/20 via-black/10 to-transparent' : 'from-white/7 to-transparent'} border ${isDayTime ? 'border-teal-400/12' : 'border-teal-400/10'} rounded-3xl p-5 md:p-7 shadow-[0_12px_40px_rgba(2,6,23,0.55)]`}
                             >
                                 <div className="flex flex-col h-full justify-between">
                                     <div>
