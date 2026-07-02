@@ -27,7 +27,11 @@ const Branding = () => {    const [isVisible, setIsVisible] = useState(false);
         };
 
         window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
+        return (
+    <FuturisticServiceLayout title={`Branding`}>
+) => window.removeEventListener("scroll", handleScroll
+    </FuturisticServiceLayout>
+  );
     }, []);
 
     // isDaytime react hook
@@ -137,10 +141,7 @@ const Branding = () => {    const [isVisible, setIsVisible] = useState(false);
                     <div className="gx-noise-overlay" />
                     <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
                 </div>
-                <h1
-                    className={`border-b pb-[0.5em] border-gray-500/50 px-0 constant-text lg:text-[5.45em] md:text-[5.45em] sm:text-[2em] text-[2.5em] lg:mt-[2.5em] md:mt-[2.5em] mt-[1em] leading-[1.1] font-[600]`}>
-                    Branding
-                </h1>
+                
                 <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
                     We offer comprehensive digital branding and identity solutions that help position your business
                     strategically in the market—differentiating your products and services, <br

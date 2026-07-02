@@ -14,6 +14,8 @@ import ServiceHero from '@/components/futuristic/ServiceHero';
 import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 import { FxBackground, FxStickyScrollSection, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
 import type { FxScrollItem } from '@/components/futuristic/fx';
+
+import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
 const tabs = [
     {key: "frameworks", label: "Frameworks"},
     {key: "cloud", label: "Cloud"},
@@ -218,7 +220,11 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
 
         window.addEventListener("scroll", handleScroll);
 
-        return () => window.removeEventListener("scroll", handleScroll);
+        return (
+    <FuturisticServiceLayout title={`Digital <br/>Marketing Services`}>
+) => window.removeEventListener("scroll", handleScroll
+    </FuturisticServiceLayout>
+  );
     }, []);
 
     // isDaytime react hook
@@ -701,9 +707,7 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                     className={`absolute top-0 left-0 -mt-12 lg:-mt-0 md:-mt-0 w-full h-full flex flex-col justify-center items-start text-start lg:max-w-auto max-w-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] ${isDayTime ? 'text-white ' : 'text-white'} z-10`}>
                     <div
                         className="flex flex-col justify-start items-start border-b pb-4 border-gray-500/50 max-w-full w-full mx-auto ">
-                        <h1 className={`px-0 constant-text lg:text-[5.35em] md:text-[4.4em] sm:text-[3.5em] text-[2.1em] lg:mt-[3em] md:mt-[3em] mt-[12em] w-auto h-auto leading-[1.1] font-[700]`}>
-                            Digital <br/>Marketing Services
-                        </h1>
+                        
                     </div>
                     <div
                         className={'relative grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 lg:mt-[1em] md:mt-[1em] mt-[0.5em] '}>
