@@ -33,11 +33,7 @@ const Seo = () => {    const [isVisible, setIsVisible] = useState(false);
         };
 
         window.addEventListener("scroll", handleScroll);
-        return (
-    <FuturisticServiceLayout title={`Search Engine <br className='lg:block md:block hidden'/>Optimisation Agency`}>
-) => window.removeEventListener("scroll", handleScroll
-    </FuturisticServiceLayout>
-  );
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     // isDaytime react hook
@@ -238,7 +234,10 @@ const Seo = () => {    const [isVisible, setIsVisible] = useState(false);
                     <div className="gx-noise-overlay" />
                     <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
                 </div>
-                
+                <h1
+                    className={`border-b pb-[0.5em] border-gray-500/50 px-0 constant-text lg:text-[5.35em] md:text-[5.35em] sm:text-[2em] text-[2.5em] lg:mt-[2.5em] md:mt-[2.5em] mt-[1em] leading-[1.1] font-[600]`}>
+                    Search Engine <br className={'lg:block md:block hidden'}/>Optimisation Agency
+                </h1>
                 <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
                     Did you know the top 3 Google search results capture over 75% of all clicks? Let us help you get
                     there. Request a free SEO audit from one of our experts and discover <br

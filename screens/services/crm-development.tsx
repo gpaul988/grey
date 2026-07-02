@@ -33,12 +33,7 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
         };
 
         window.addEventListener("scroll", handleScroll);
-        return (
-    <FuturisticServiceLayout title={`CRM <br className='lg:block md:block hidden'/>Development <br
-                    className='lg:hidden md:hidden block'/>Services`}>
-) => window.removeEventListener("scroll", handleScroll
-    </FuturisticServiceLayout>
-  );
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     // isDaytime react hook
@@ -813,7 +808,11 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                     <div className="gx-noise-overlay" />
                     <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
                 </div>
-                
+                <h1
+                    className={`border-b pb-[0.5em] border-gray-500/50 px-0 constant-text lg:text-[5.35em] md:text-[5.35em] text-[2.5em] lg:mt-[2.5em] md:mt-[2.5em] mt-[3em] leading-[1.1] font-[750]`}>
+                    CRM <br className={'lg:block md:block hidden'}/>Development <br
+                    className={'lg:hidden md:hidden block'}/>Services
+                </h1>
                 <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
                     Our CRM development services create powerful, customized solutions that streamline your customer
                     relationship management and drive business growth. We design and build tailored <br
