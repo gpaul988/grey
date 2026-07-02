@@ -6,8 +6,8 @@ const ShopifyDevelopment = () => (
         title={<>Shopify<br className="lg:block md:block hidden" />Development</>}
         heroVideo="/assets/hero/hero.mp4"
         heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/services.jpg"
-        topImages={['/assets/services/Development.jpg', '/assets/services/digital-transformatio.jpg']}
+        midImage="/assets/services/digital-optimisation.jpg"
+        topImages={['/assets/services/services.jpg', '/assets/services/ecommerce-web-design.jpg']}
         intro="Custom Shopify themes, apps and headless storefronts that convert browsers into buyers—engineered for performance, brand fidelity and long-term commercial growth."
         eyebrow="Shopify engineered to convert and scale"
         introHeading={<>Shopify Stores<br className="lg:block md:block hidden" />Built to Sell</>}
@@ -83,14 +83,8 @@ const ShopifyDevelopment = () => (
             },
         ]}
         ctaHeading={<>A Shopify store<br className="lg:block md:block hidden" />that earns its keep</>}
-        ctaBody="A beautiful store that doesn't convert is just expensive decoration. Grey InfoTech builds Shopify experiences engineered to generate revenue from day one."
-        faqs={[
-            {q: 'Do you work on Shopify or Shopify Plus?', a: 'Both. Standard Shopify for growing businesses and Shopify Plus for high-volume merchants needing advanced customisation and dedicated support.'},
-            {q: 'How long does a custom Shopify theme take to build?', a: 'A fully custom theme typically takes 4–8 weeks. Customisation of an existing theme is faster—2–4 weeks depending on scope.'},
-            {q: "Can you improve our existing store's conversion rate?", a: 'Yes. We run CRO audits covering page speed, UX flows, checkout friction and analytics gaps, then implement improvements with measurable A/B tests.'},
-            {q: 'Do you handle Shopify SEO?', a: 'Yes. URL structure, meta tags, JSON-LD, canonical URLs, sitemap and page speed optimisation are all part of our store builds.'},
-        ]}
-    />
+        ctaBody="A beautiful store that doesn't convert is just expensive decoration. Grey InfoTech builds Shopify experiences engineered to generate revenue from day one."/>
 );
 
 export default ShopifyDevelopment;
+

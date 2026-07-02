@@ -8,8 +8,8 @@ const SocialNetworking = () => (
         title={<>Social Networking <br className={'lg:block md:block hidden'}/>App Development</>}
         heroVideo="/assets/hero/hero.mp4"
         heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/services.jpg"
-        topImages={['/assets/services/product-design.jpg', '/assets/services/Web-App-Development-company.jpg']}
+        midImage="/assets/services/digital-transformatio.jpg"
+        topImages={['/assets/services/Research-strategy.jpg', '/assets/services/digital-transformatio.jpg']}
         intro={
             <>
                 Communities people love—real-time feeds, chat, profiles and content sharing, engineered to scale

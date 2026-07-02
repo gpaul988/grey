@@ -6,8 +6,8 @@ const SalesforceDevelopment = () => (
         title={<>Salesforce<br className="lg:block md:block hidden" />Development</>}
         heroVideo="/assets/hero/hero.mp4"
         heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/services.jpg"
-        topImages={['/assets/services/Development.jpg', '/assets/services/digital-transformatio.jpg']}
+        midImage="/assets/services/digital-transformatio.jpg"
+        topImages={['/assets/services/Research-strategy.jpg', '/assets/services/ecommerce-web-design.jpg']}
         intro="Custom Salesforce implementations, integrations and Apex development that maximise your CRM investment and unify your customer data across every touchpoint."
         eyebrow="Salesforce engineered for your exact process"
         introHeading={<>Salesforce That<br className="lg:block md:block hidden" />Fits Your Business</>}
@@ -80,14 +80,8 @@ const SalesforceDevelopment = () => (
             },
         ]}
         ctaHeading={<>Salesforce that<br className="lg:block md:block hidden" />drives revenue</>}
-        ctaBody="Your CRM should be your competitive advantage, not a system your team works around. Grey InfoTech builds Salesforce solutions that match your process perfectly."
-        faqs={[
-            {q: 'Do you hold Salesforce certifications?', a: 'Our team includes Salesforce Certified Administrators, Platform Developers and Architects. Certification details are available on request.'},
-            {q: 'Can you rescue a poorly implemented Salesforce org?', a: 'Yes. Org health assessments and re-implementations are a significant part of our work. We audit, clean up technical debt and rebuild sustainably.'},
-            {q: 'Do you provide Salesforce training for our users?', a: 'Absolutely. We provide role-based training sessions and create custom documentation tailored to your org configuration.'},
-            {q: 'How do you handle data migration to Salesforce?', a: 'We map source data to target objects, cleanse and deduplicate records, run pilot loads in sandbox and execute production migration with zero-downtime cutover plans.'},
-        ]}
-    />
+        ctaBody="Your CRM should be your competitive advantage, not a system your team works around. Grey InfoTech builds Salesforce solutions that match your process perfectly."/>
 );
 
 export default SalesforceDevelopment;
+

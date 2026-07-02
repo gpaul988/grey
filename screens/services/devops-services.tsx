@@ -6,8 +6,8 @@ const DevOpsServices = () => (
         title={<>DevOps<br className="lg:block md:block hidden" />Services</>}
         heroVideo="/assets/hero/hero.mp4"
         heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/services.jpg"
-        topImages={['/assets/services/Development.jpg', '/assets/services/digital-transformatio.jpg']}
+        midImage="/assets/services/ecommerce-web-design.jpg"
+        topImages={['/assets/services/product-design.jpg', '/assets/services/ecommerce-web-design.jpg']}
         intro="Continuous delivery pipelines, infrastructure as code, and platform engineering that compress release cycles from weeks to hours."
         eyebrow="Ship faster. Break less. Scale effortlessly."
         introHeading={<>DevOps That<br className="lg:block md:block hidden" />Eliminates Friction</>}
@@ -78,14 +78,8 @@ const DevOpsServices = () => (
             },
         ]}
         ctaHeading={<>Ship confidently.<br className="lg:block md:block hidden" />Every time.</>}
-        ctaBody="Your engineering team deserves tooling that helps them go faster without burning out. Let's build the DevOps platform that makes production feel safe."
-        faqs={[
-            {q: 'We already have some CI/CD—can you improve it?', a: 'Yes. We start with an audit of your existing pipelines, identify bottlenecks and security gaps, and incrementally improve rather than rip-and-replace.'},
-            {q: 'Do you work with on-premise infrastructure?', a: 'Absolutely. We support hybrid environments including VMware, bare metal, and private Kubernetes clusters alongside public cloud.'},
-            {q: 'How do you handle secrets management?', a: 'We use HashiCorp Vault, AWS Secrets Manager or GCP Secret Manager—never hardcoded credentials or unencrypted environment variables.'},
-            {q: 'What does a DevOps engagement timeline look like?', a: 'A focused CI/CD build takes 4–6 weeks. Full platform engineering engagements run 3–6 months depending on scope and team size.'},
-        ]}
-    />
+        ctaBody="Your engineering team deserves tooling that helps them go faster without burning out. Let's build the DevOps platform that makes production feel safe."/>
 );
 
 export default DevOpsServices;
+

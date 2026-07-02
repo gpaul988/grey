@@ -6,8 +6,8 @@ const DrupalDevelopment = () => (
         title={<>Drupal<br className="lg:block md:block hidden" />Development</>}
         heroVideo="/assets/hero/hero.mp4"
         heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/services.jpg"
-        topImages={['/assets/services/Development.jpg', '/assets/services/digital-transformatio.jpg']}
+        midImage="/assets/services/Research-strategy.jpg"
+        topImages={['/assets/services/digital-transformatio.jpg', '/assets/services/digital-optimisation.jpg']}
         intro="Enterprise-grade Drupal solutions—custom modules, headless architecture and complex content models—built for the organisations that need serious content management power."
         eyebrow="Drupal expertise for complex digital experiences"
         introHeading={<>Enterprise Content<br className="lg:block md:block hidden" />Management, Evolved</>}
@@ -84,14 +84,8 @@ const DrupalDevelopment = () => (
             },
         ]}
         ctaHeading={<>Drupal that<br className="lg:block md:block hidden" />handles serious scale</>}
-        ctaBody="When your content requirements outgrow simpler platforms, Drupal—implemented correctly—is unmatched. Grey InfoTech builds Drupal solutions that editorial teams love."
-        faqs={[
-            {q: 'Do you work with Drupal 10?', a: 'Yes. All new Drupal projects use Drupal 10 (and we track Drupal 11 closely). We do not start new projects on unsupported Drupal versions.'},
-            {q: 'Can you migrate our Drupal 7 site to Drupal 10?', a: 'Yes. D7 to D10 migration is one of our most common engagements. We use the Migrate API and custom migrate plugins for non-standard content types.'},
-            {q: 'How do you handle hosting for Drupal?', a: 'We configure and deploy on cloud infrastructure (AWS, GCP, Azure) and Drupal-optimised PaaS options like Acquia or Pantheon depending on your requirements.'},
-            {q: 'Do you build headless Drupal with React or Next.js?', a: 'Yes. Headless Drupal is a significant part of our practice, typically using Next.js for the frontend with Drupal JSON:API or GraphQL.'},
-        ]}
-    />
+        ctaBody="When your content requirements outgrow simpler platforms, Drupal—implemented correctly—is unmatched. Grey InfoTech builds Drupal solutions that editorial teams love."/>
 );
 
 export default DrupalDevelopment;
+

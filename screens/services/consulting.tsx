@@ -6,8 +6,8 @@ const Consulting = () => (
         title={<>Technology<br className="lg:block md:block hidden" />Consulting</>}
         heroVideo="/assets/hero/hero.mp4"
         heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/services.jpg"
-        topImages={['/assets/services/Development.jpg', '/assets/services/digital-transformatio.jpg']}
+        midImage="/assets/services/Web-App-Development-company.jpg"
+        topImages={['/assets/services/Development.jpg', '/assets/services/services.jpg']}
         intro="Strategic technology guidance that turns complex decisions into clear roadmaps—helping your business move faster, build the right things and avoid costly mistakes."
         eyebrow="Strategic technology guidance for growth"
         introHeading={<>Clarity From<br className="lg:block md:block hidden" />Complexity</>}
@@ -76,14 +76,8 @@ const Consulting = () => (
             },
         ]}
         ctaHeading={<>Advice that<br className="lg:block md:block hidden" />actually ships</>}
-        ctaBody="Great consulting doesn't end with a report. We stay engaged to validate implementation, unblock decisions and ensure the strategy translates into software that works."
-        faqs={[
-            {q: 'What size of company do you typically consult for?', a: 'We work with early-stage startups through to enterprise. Engagements are scoped to your stage—from single architecture reviews to multi-month transformation programmes.'},
-            {q: 'How does a consulting engagement start?', a: 'We run a 2-hour discovery call to understand your goals and challenges, then propose an engagement scope with clear deliverables, timeline and fee.'},
-            {q: 'Can consulting run alongside an active development project?', a: 'Absolutely. Many clients combine consulting with our development services so architecture decisions and hands-on delivery happen in parallel.'},
-            {q: 'Do you offer a fixed-price consulting option?', a: 'Yes. Defined-scope engagements such as architecture reviews and tech stack evaluations are available on fixed-price terms.'},
-        ]}
-    />
+        ctaBody="Great consulting doesn't end with a report. We stay engaged to validate implementation, unblock decisions and ensure the strategy translates into software that works."/>
 );
 
 export default Consulting;
+

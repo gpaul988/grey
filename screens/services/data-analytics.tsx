@@ -6,8 +6,8 @@ const DataAnalytics = () => (
         title={<>Data Analytics<br className="lg:block md:block hidden" />&amp; Engineering</>}
         heroVideo="/assets/hero/hero.mp4"
         heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/services.jpg"
-        topImages={['/assets/services/Development.jpg', '/assets/services/digital-transformatio.jpg']}
+        midImage="/assets/services/digital-transformatio.jpg"
+        topImages={['/assets/services/Research-strategy.jpg', '/assets/services/product-design.jpg']}
         intro="Turn raw data into competitive advantage—pipelines, warehouses, dashboards and ML models that surface the insights your business needs to act decisively."
         eyebrow="Data-driven decisions at every level"
         introHeading={<>From Raw Data<br className="lg:block md:block hidden" />To Real Decisions</>}
@@ -78,14 +78,8 @@ const DataAnalytics = () => (
             },
         ]}
         ctaHeading={<>Your data,<br className="lg:block md:block hidden" />finally working</>}
-        ctaBody="Stop making decisions based on gut feel or broken spreadsheets. Grey InfoTech builds the data platform that makes every team in your organisation smarter."
-        faqs={[
-            {q: 'We have data in many different places—where do we start?', a: 'We start with a data audit to map your sources, quality levels and analytical needs. From there we design an ingestion and warehousing plan that consolidates data progressively.'},
-            {q: 'Do you work with small datasets or only at scale?', a: 'Both. We build right-sized solutions—no need for Spark when Postgres and dbt will do the job. We scale the tooling to your actual data volume.'},
-            {q: 'Can you build dashboards for non-technical stakeholders?', a: 'Absolutely. Clear, self-service dashboards for business users are central to how we work. We train users and write documentation so the BI layer stays useful after we exit.'},
-            {q: 'Do you help with GDPR data handling requirements?', a: 'Yes. We implement data retention policies, PII masking, right-to-erasure pipelines and audit logs as part of every data platform engagement.'},
-        ]}
-    />
+        ctaBody="Stop making decisions based on gut feel or broken spreadsheets. Grey InfoTech builds the data platform that makes every team in your organisation smarter."/>
 );
 
 export default DataAnalytics;
+

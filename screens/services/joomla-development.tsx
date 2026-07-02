@@ -7,7 +7,7 @@ const JoomlaDevelopment = () => (
         heroVideo="/assets/hero/hero.mp4"
         heroVideoMobile="/assets/hero/hero.mp4"
         midImage="/assets/services/services.jpg"
-        topImages={['/assets/services/Development.jpg', '/assets/services/digital-transformatio.jpg']}
+        topImages={['/assets/services/digital-optimisation.jpg', '/assets/services/Development.jpg']}
         intro="Custom Joomla extensions, themes and enterprise portals—built for performance, security and long-term maintainability."
         eyebrow="Joomla expertise for enterprise and community"
         introHeading={<>Joomla Built<br className="lg:block md:block hidden" />for the Long Haul</>}
@@ -79,14 +79,8 @@ const JoomlaDevelopment = () => (
             },
         ]}
         ctaHeading={<>Joomla done<br className="lg:block md:block hidden" />properly</>}
-        ctaBody="Joomla rewards expertise. Grey InfoTech builds Joomla sites that perform, stay secure and empower your editors to manage content without developer help."
-        faqs={[
-            {q: 'Which version of Joomla do you develop for?', a: 'We work with Joomla 4 and 5 for new projects, and provide migration services from Joomla 3. We do not build new sites on Joomla 3 which is end-of-life.'},
-            {q: 'Can you migrate our WordPress site to Joomla?', a: 'Yes. We handle content migration, URL mapping for SEO preservation, user import and theme recreation in Joomla.'},
-            {q: 'Do you maintain Joomla sites ongoing?', a: 'We offer monthly maintenance plans covering core updates, extension updates, security monitoring and performance reports.'},
-            {q: 'What third-party extensions do you recommend?', a: 'We have preferred extension stacks for common requirements—forms (Fabrik or Hikashop), SEO (OSMap), galleries, memberships—and advise based on your specific needs.'},
-        ]}
-    />
+        ctaBody="Joomla rewards expertise. Grey InfoTech builds Joomla sites that perform, stay secure and empower your editors to manage content without developer help."/>
 );
 
 export default JoomlaDevelopment;
+

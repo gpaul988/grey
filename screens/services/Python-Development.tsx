@@ -9,7 +9,7 @@ const PythonDevelopment = () => (
         heroVideo="/assets/hero/hero.mp4"
         heroVideoMobile="/assets/hero/hero.mp4"
         midImage="/assets/services/services.jpg"
-        topImages={['/assets/services/Development.jpg', '/assets/services/Research-strategy.jpg']}
+        topImages={['/assets/services/digital-optimisation.jpg', '/assets/services/Web-App-Development-company.jpg']}
         intro={
             <>
                 Versatile, scalable Python engineering—APIs and back-ends, data pipelines, automation, and AI/ML

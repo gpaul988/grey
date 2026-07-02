@@ -6,8 +6,8 @@ const GolangDevelopment = () => (
         title={<>Go (Golang)<br className="lg:block md:block hidden" />Development</>}
         heroVideo="/assets/hero/hero.mp4"
         heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/services.jpg"
-        topImages={['/assets/services/Development.jpg', '/assets/services/digital-transformatio.jpg']}
+        midImage="/assets/services/digital-optimisation.jpg"
+        topImages={['/assets/services/services.jpg', '/assets/services/product-design.jpg']}
         intro="High-performance Go services, APIs and distributed systems engineered for the demands of modern infrastructure—fast, reliable and built to scale under real load."
         eyebrow="Go: built for performance at scale"
         introHeading={<>When Performance<br className="lg:block md:block hidden" />Is Non-Negotiable</>}
@@ -81,14 +81,8 @@ const GolangDevelopment = () => (
             },
         ]}
         ctaHeading={<>Performance<br className="lg:block md:block hidden" />delivered in Go</>}
-        ctaBody="When your system needs to handle serious load without serious hardware costs, Go is the answer. Grey InfoTech builds Go services that perform at scale."
-        faqs={[
-            {q: 'When should I choose Go over Node.js or Python?', a: 'Go excels for CPU-intensive work, high-concurrency services, CLI tools and infrastructure software where startup time, memory footprint and raw throughput matter.'},
-            {q: 'Do you write tests for Go services?', a: 'Always. We write unit tests with table-driven patterns, integration tests against real dependencies using testcontainers, and benchmarks for performance-critical paths.'},
-            {q: 'Can you help migrate an existing service to Go?', a: 'Yes. We approach migrations incrementally—starting with the highest-impact services—with full test coverage to validate behaviour parity.'},
-            {q: 'What databases do you use with Go?', a: 'PostgreSQL via pgx or sqlx, Redis, MongoDB, CockroachDB and cloud-native stores. We use sqlc or ent for type-safe query generation.'},
-        ]}
-    />
+        ctaBody="When your system needs to handle serious load without serious hardware costs, Go is the answer. Grey InfoTech builds Go services that perform at scale."/>
 );
 
 export default GolangDevelopment;
+

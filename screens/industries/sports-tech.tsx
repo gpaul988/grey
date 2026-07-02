@@ -83,14 +83,8 @@ const SportsTechIndustry = () => (
             },
         ]}
         ctaHeading={<>Where sport meets<br className="lg:block md:block hidden" />technology</>}
-        ctaBody="The sports organisations that invest in digital infrastructure today are building the loyal, data-rich fan relationships that will define the next decade. Grey InfoTech makes it happen."
-        faqs={[
-            {q: 'Do you work with Nigerian sports federations and clubs?', a: 'Yes. We work with football clubs, athletics federations and sports organisations across Nigeria and the wider African market.'},
-            {q: 'Can you build a fantasy football app?', a: 'Yes—fantasy football, prediction games, mini-games and loyalty mechanics built for African football fans on mobile-first architecture.'},
-            {q: 'Do you integrate with live sports data providers?', a: 'Yes. We integrate with Opta, Stats Perform, SportRadar and other data providers for real-time statistics and odds feeds.'},
-            {q: 'Can you handle high concurrency on match day?', a: 'Designing for match-day spikes is core to our sports platform architecture—auto-scaling, CDN, database read replicas and queue-based processing.'},
-        ]}
-    />
+        ctaBody="The sports organisations that invest in digital infrastructure today are building the loyal, data-rich fan relationships that will define the next decade. Grey InfoTech makes it happen."/>
 );
 
 export default SportsTechIndustry;
+

@@ -83,14 +83,8 @@ const InsuranceIndustry = () => (
             },
         ]}
         ctaHeading={<>InsurTech that<br className="lg:block md:block hidden" />writes the future</>}
-        ctaBody="The insurance market rewards those who modernise earliest. Grey InfoTech builds insurance technology that reduces costs, delights customers and opens new distribution channels."
-        faqs={[
-            {q: 'Do you work with Nigerian insurance regulations (NAICOM)?', a: 'Yes. We design systems with NAICOM reporting and compliance requirements built in, and our team is familiar with Nigerian insurance market structures.'},
-            {q: 'Can you integrate with existing policy administration systems?', a: 'Absolutely. We build integration layers and APIs that connect legacy PAS with modern digital channels and analytics platforms.'},
-            {q: 'Do you build InsurTech startups as well as established carriers?', a: 'Yes. We work with both—helping startups move quickly to market and helping established insurers modernise their technology estate.'},
-            {q: 'How do you handle the security of sensitive policyholder data?', a: 'With encryption at rest and in transit, role-based access, audit logging, and security controls aligned to financial services data protection standards.'},
-        ]}
-    />
+        ctaBody="The insurance market rewards those who modernise earliest. Grey InfoTech builds insurance technology that reduces costs, delights customers and opens new distribution channels."/>
 );
 
 export default InsuranceIndustry;
+

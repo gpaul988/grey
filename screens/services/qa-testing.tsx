@@ -6,8 +6,8 @@ const QATesting = () => (
         title={<>QA &amp; Software<br className="lg:block md:block hidden" />Testing</>}
         heroVideo="/assets/hero/hero.mp4"
         heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/services.jpg"
-        topImages={['/assets/services/Development.jpg', '/assets/services/digital-transformatio.jpg']}
+        midImage="/assets/services/ecommerce-web-design.jpg"
+        topImages={['/assets/services/product-design.jpg', '/assets/services/digital-transformatio.jpg']}
         intro="Comprehensive quality assurance—manual, automated and performance testing—that catches defects before your users do and ships confidence with every release."
         eyebrow="Quality built into every release cycle"
         introHeading={<>Ship With<br className="lg:block md:block hidden" />Confidence</>}
@@ -79,14 +79,8 @@ const QATesting = () => (
             },
         ]}
         ctaHeading={<>Quality is not<br className="lg:block md:block hidden" />optional</>}
-        ctaBody="Every bug that reaches production costs 10× more to fix than one caught in development. Grey InfoTech makes quality a competitive advantage, not an afterthought."
-        faqs={[
-            {q: 'Can you integrate testing into our existing pipeline?', a: 'Yes. We audit your current CI/CD setup and integrate automated tests without disrupting current workflows.'},
-            {q: 'Do you offer dedicated QA engineers we can embed in our team?', a: 'Absolutely. We provide QA engineers on a time-and-materials basis who integrate fully with your scrum or kanban process.'},
-            {q: 'How do you measure test coverage?', a: 'We track code coverage for unit/integration tests and functional coverage for E2E suites, reporting via Codecov or Coveralls with per-sprint trends.'},
-            {q: 'What does a QA audit include?', a: 'Coverage analysis, flakiness review, gap identification, framework health assessment and a prioritised improvement roadmap—delivered within 2 weeks.'},
-        ]}
-    />
+        ctaBody="Every bug that reaches production costs 10× more to fix than one caught in development. Grey InfoTech makes quality a competitive advantage, not an afterthought."/>
 );
 
 export default QATesting;
+

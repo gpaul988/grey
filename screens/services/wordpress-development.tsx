@@ -6,8 +6,8 @@ const WordPressDevelopment = () => (
         title={<>WordPress<br className="lg:block md:block hidden" />Development</>}
         heroVideo="/assets/hero/hero.mp4"
         heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/services.jpg"
-        topImages={['/assets/services/Development.jpg', '/assets/services/digital-transformatio.jpg']}
+        midImage="/assets/services/Research-strategy.jpg"
+        topImages={['/assets/services/digital-transformatio.jpg', '/assets/services/Development.jpg']}
         intro="Custom WordPress themes, plugins and headless implementations—built for performance, security and editorial teams that need genuine flexibility without developer dependency."
         eyebrow="WordPress built beyond the template"
         introHeading={<>WordPress That<br className="lg:block md:block hidden" />Works Seriously Hard</>}
@@ -83,14 +83,8 @@ const WordPressDevelopment = () => (
             },
         ]}
         ctaHeading={<>WordPress that<br className="lg:block md:block hidden" />won&apos;t let you down</>}
-        ctaBody="Properly built WordPress is fast, secure and a joy to manage. Grey InfoTech builds WordPress sites that your editors love and your users never notice—because they just work."
-        faqs={[
-            {q: 'Do you use page builders like Elementor or Divi?', a: 'For custom builds we prefer custom themes and Gutenberg blocks for performance and maintainability. We work with page builders when clients have specific requirements.'},
-            {q: 'Can you rebuild our existing WordPress site properly?', a: 'Yes. We audit existing sites, identify performance and security issues, and rebuild incrementally or wholesale depending on the scope of problems.'},
-            {q: 'Do you provide ongoing WordPress maintenance?', a: 'Yes. Monthly maintenance plans cover core/plugin updates, security monitoring, uptime checks, backups and a developer hour allowance for small changes.'},
-            {q: 'What hosting do you recommend for WordPress?', a: 'Managed WordPress hosting like Kinsta or WP Engine for most sites, or a tuned VPS on AWS/DigitalOcean for high-traffic or custom server requirements.'},
-        ]}
-    />
+        ctaBody="Properly built WordPress is fast, secure and a joy to manage. Grey InfoTech builds WordPress sites that your editors love and your users never notice—because they just work."/>
 );
 
 export default WordPressDevelopment;
+

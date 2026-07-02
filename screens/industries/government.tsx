@@ -82,14 +82,8 @@ const GovernmentIndustry = () => (
             },
         ]}
         ctaHeading={<>Technology<br className="lg:block md:block hidden" />in public service</>}
-        ctaBody="When government technology works properly, millions of citizens benefit. Grey InfoTech builds public sector digital services that are reliable, inclusive and trusted."
-        faqs={[
-            {q: 'Do you have experience with Nigerian government procurement?', a: 'Yes. We understand federal and state procurement processes and work within standard government contracting frameworks.'},
-            {q: 'How do you handle the security requirements for government data?', a: 'We implement defence-in-depth security architecture aligned to government security standards, with encryption, audit logging and access controls for sensitive citizen data.'},
-            {q: 'Can you help with open data initiatives?', a: 'Yes. We build open data portals, implement CKAN, design APIs for data publication and advise on data governance frameworks.'},
-            {q: 'Do you meet accessibility requirements?', a: 'All our government web work meets WCAG 2.1 AA as a minimum, and we conduct both automated and manual accessibility testing before go-live.'},
-        ]}
-    />
+        ctaBody="When government technology works properly, millions of citizens benefit. Grey InfoTech builds public sector digital services that are reliable, inclusive and trusted."/>
 );
 
 export default GovernmentIndustry;
+

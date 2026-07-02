@@ -8,7 +8,7 @@ const FlutterDevelopment = () => (
         title={<>Flutter App <br className={'lg:block md:block hidden'}/>Development Services</>}
         heroVideo="/assets/hero/hero.mp4"
         heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/services.jpg"
+        midImage="/assets/services/Development.jpg"
         topImages={['/assets/services/Web-App-Development-company.jpg', '/assets/services/product-design.jpg']}
         intro={
             <>

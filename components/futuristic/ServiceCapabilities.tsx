@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { FxBackground, FxChip, FxOrbit, FxReveal, FxHoloCard } from '@/components/futuristic/fx';
 
 interface Capability {
   id: string;
@@ -135,10 +136,10 @@ function CardsVariant({ capabilities, accentColor }: { capabilities: Capability[
           transition={{ delay: i * 0.07 }}
           onHoverStart={() => setHovered(cap.id)}
           onHoverEnd={() => setHovered(null)}
-          className="relative rounded-2xl p-6 cursor-default group overflow-hidden"
+          className="relative rounded-3xl p-6 cursor-default group overflow-hidden"
           style={{
-            background: hovered === cap.id ? accentColor + '10' : 'rgba(255,255,255,0.03)',
-            border: `1px solid ${hovered === cap.id ? accentColor + '44' : 'rgba(255,255,255,0.08)'}`,
+            background: hovered === cap.id ? accentColor + '12' : 'rgba(255,255,255,0.03)',
+            border: `1px solid ${hovered === cap.id ? accentColor + '55' : 'rgba(255,255,255,0.08)'}`,
             transition: 'all 0.3s',
           }}
         >
@@ -150,14 +151,17 @@ function CardsVariant({ capabilities, accentColor }: { capabilities: Capability[
             />
           )}
           {/* Number */}
-          <span
-            className="inline-block text-[0.68em] font-mono mb-3 px-2 py-0.5 rounded-md"
-            style={{ background: accentColor + '15', color: accentColor }}
-          >
-            {String(i + 1).padStart(2, '0')}
-          </span>
-          <h3 className="text-[1em] font-semibold text-white mb-2">{cap.title}</h3>
-          <p className="text-[0.82em] text-white/50 leading-relaxed">{cap.description}</p>
+          <div className="flex items-center justify-between mb-4">
+            <span
+              className="inline-block text-[0.68em] font-mono px-2 py-0.5 rounded-md"
+              style={{ background: accentColor + '15', color: accentColor }}
+            >
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <div className="w-8 h-8 rounded-full opacity-20" style={{ background: `radial-gradient(circle, ${accentColor}, transparent)` }} />
+          </div>
+          <h3 className="text-[1.05em] font-[700] text-white mb-2 tracking-tight">{cap.title}</h3>
+          <p className="text-[0.84em] text-white/55 leading-relaxed">{cap.description}</p>
           {cap.points && (
             <ul className="mt-3 space-y-1">
               {cap.points.slice(0, 3).map((point) => (
@@ -257,9 +261,11 @@ export default function ServiceCapabilities({
       className="relative py-24 overflow-hidden"
       style={{ background: isDarkBg ? '#050505' : '#fafafa' }}
     >
-      {/* Subtle grid */}
+      <FxBackground day={false} grid aurora className="opacity-20" />
+      <FxOrbit size={520} top="-140px" right="-180px" opacity={0.08} speed={32} />
+      <FxOrbit size={320} bottom="-100px" left="-120px" opacity={0.06} speed={26} reverse />
       <div
-        className="absolute inset-0 opacity-[0.025] pointer-events-none"
+        className="absolute inset-0 opacity-[0.02] pointer-events-none"
         style={{
           backgroundImage: `linear-gradient(${isDarkBg ? '#ffffff' : '#000000'} 1px, transparent 1px), linear-gradient(90deg, ${isDarkBg ? '#ffffff' : '#000000'} 1px, transparent 1px)`,
           backgroundSize: '60px 60px',
