@@ -28,11 +28,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
         };
 
         window.addEventListener("scroll", handleScroll);
-        return (
-    <FuturisticServiceLayout title={`UX & UI design<br className='lg:block md:block hidden'/>services`}>
-) => window.removeEventListener("scroll", handleScroll
-    </FuturisticServiceLayout>
-  );
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     // isDaytime react hook
@@ -199,7 +195,11 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
             {/* Hero Section */}
             <div
                 className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                
+                <h1 className={`border-b pb-[0.5em]  border-gray-300/20 px-0 constant-text lg:text-[5.5em] md:text-[3em] sm:text-[2em] text-[2.5em] lg:mt-[3em] mt-[1.5em] leading-[1.1] font-[500] ${
+                    isDayTime ? 'text-black' : 'text-white'
+                }`}>
+                    UX & UI design<br className={'lg:block md:block hidden'}/>services
+                </h1>
                 <p className={'lg:mt-[4em] mt-[1.5em] text-[0.8em] font-[400]'}>Innovative UX and design solutions
                     that increase user involvement and boost the online presence of your company</p>
                 <ResponsiveVideoHero videoDesktop="/assets/ui-ux/hero.mp4" videoMobile="/assets/ui-ux/hero-mobile.mp4" posterImage="/assets/ui-ux/hero.jpg" />

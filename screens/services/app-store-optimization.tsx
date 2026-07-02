@@ -34,11 +34,7 @@ const AppStoreOptimization = () => {    const [isVisible, setIsVisible] = useSta
         };
 
         window.addEventListener("scroll", handleScroll);
-        return (
-    <FuturisticServiceLayout title={`App Store <br className='lg:block md:block block'/>Optimisation (ASO)`}>
-) => window.removeEventListener("scroll", handleScroll
-    </FuturisticServiceLayout>
-  );
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     // isDaytime react hook
@@ -177,7 +173,10 @@ const AppStoreOptimization = () => {    const [isVisible, setIsVisible] = useSta
                     <div className="gx-noise-overlay" />
                     <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
                 </div>
-                
+                <h1
+                    className={`border-b pb-[0.5em] border-gray-500/50 px-0 constant-text lg:text-[5.35em] md:text-[5.35em] text-[2.3em] lg:mt-[2.5em] md:mt-[2.5em] mt-[3em] leading-[1.1] font-[700]`}>
+                    App Store <br className={'lg:block md:block block'}/>Optimisation (ASO)
+                </h1>
                 <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
                     Did you know over 65% of app downloads come from app store searches? Let us help your app get
                     discovered, ranked higher, and downloaded more with expert App Store Optimization.
