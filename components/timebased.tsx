@@ -1,40 +1,32 @@
 'use client';
-import {useEffect, useState} from 'react';
 
-const useDarkTime = () => {
-    const [isDarkTime, setIsDarkTime] = useState(false);
+import {useEffect} from 'react';
+import { useIsDayTime } from './useIsDayTime';
 
-    useEffect(() => {
-        const checkTime = () => {
-            const now = new Date();
-            const hours = now.getHours();
-            setIsDarkTime(hours >= 18 || hours < 6); // 6 PM to 5:59 AM
-        };
-
-        checkTime();
-        const interval = setInterval(checkTime, 60 * 1000); // Check every minute
-        return () => clearInterval(interval);
-    }, []);
-
-    return isDarkTime;
-};
-
+/**
+ * Timebased — lightweight adapter that exposes a stable `data-daytime` attribute
+ * on <body> for legacy styles/scripts that relied on ad-hoc time checks.
+ * The canonical source of truth is ThemeProvider/useIsDayTime; this component
+ * simply mirrors that value to body.dataset.daytime and performs no direct
+ * color manipulation (ThemeProvider handles theme classes).
+ */
 const Timebased = () => {
-    const isDarkTime = useDarkTime();
+    const isDayTime = useIsDayTime();
 
     useEffect(() => {
-        const bodyElement = document.body;
-
-        if (isDarkTime) {
-            bodyElement.style.backgroundColor = '#000000'; // Black background at night
-            bodyElement.style.color = '#ffffff'; // White text at night
-        } else {
-            bodyElement.style.backgroundColor = ''; // Revert to default background
-            bodyElement.style.color = ''; // Revert to default text color
+        const body = document.body;
+        try {
+            if (isDayTime) body.dataset.daytime = 'day';
+            else body.dataset.daytime = 'night';
+        } catch (e) {
+            /* ignore */
         }
-    }, [isDarkTime]);
+        return () => {
+            try { delete body.dataset.daytime; } catch {}
+        };
+    }, [isDayTime]);
 
-    return null; // This component doesn't render anything
+    return null;
 };
 
 export default Timebased;

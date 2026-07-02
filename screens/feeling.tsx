@@ -139,10 +139,7 @@ export default function GreyInfoTechProcess(): React.ReactElement {
     const activePhase = useMemo(() => getPhaseFromDay(currentDay), [currentDay]);
     const phase = phases[activePhase];
 
-    const isDayTime = (now = new Date()): boolean => {
-        const h = now.getHours();
-        return h >= 6 && h < 18;
-    };
+    const isDayTime = useIsDayTime();
 
     useEffect(() => {
         const onPointerMove = (e: PointerEvent) => {            setPointer({
