@@ -20,12 +20,7 @@ export default function AppStoreOptimization(): React.ReactElement {
     { id: 'process', label: 'Process' },
   ];
 
-    const stats = [
-    { label: 'Years Experience', value: '8', percent: 8 },
-    { label: 'Products Launched', value: '150', percent: 150 },
-    { label: 'Team Members', value: '10', percent: 10 },
-    { label: 'Avg Organic Lift (%)', value: '120', percent: 120 },
-  ];
+    const stats = [\n    { label: 'Years Experience', value: 8 },\n    { label: 'Products Launched', value: 150 },\n    { label: 'Team Members', value: 10 },\n    { label: 'Avg Organic Lift (%)', value: 120 },\n  ];
 
   return (
     <FuturisticServiceLayout
@@ -88,11 +83,12 @@ export default function AppStoreOptimization(): React.ReactElement {
         </div>
 
         <div className="max-w-6xl mx-auto px-6 py-12">
-          <ServiceStatsRow isDayTime={isDayTime} stats={stats.map(s => ({ label: s.label, value: s.value }))} />
+          <ServiceStatsRow isDayTime={isDayTime} stats={stats} />
         </div>
       </motion.div>
 
     </FuturisticServiceLayout>
   );
 }
+
 
