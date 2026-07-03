@@ -116,8 +116,7 @@ const WebDesign = () => {    const [isVisible, setIsVisible] = useState(false);
     ];
 
     return (
-    <FuturisticServiceLayout title={`Web Design Agency`}>
-<div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
+        <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
             <FloatingButton
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
@@ -143,22 +142,15 @@ const WebDesign = () => {    const [isVisible, setIsVisible] = useState(false);
               variant="circuit"
             />
 
-            {/* Hero Section */}
-            <div id={'hero'}
-                 className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
-                <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
-                    <div className="gx-scanline" />
-                    <div className="gx-noise-overlay" />
-                    <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
-                </div>
-                
-                <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
-                    An experienced web design agency specializing in UX-focused, mobile-optimized, and fully responsive
-                    websites tailored for performance and user engagement.
-                </p>
-                <ResponsiveVideoHero videoDesktop="/assets/wd/hero.mp4" videoMobile="/assets/wd/hero-mobile.mp4" posterImage="/assets/wd/hero.jpg" />
-            </div>
+            <ServiceHero
+                title="Web Design"
+                subtitle="High-converting, responsive website design"
+                accentColor="#00f5d4"
+                variant="hologram"
+                badges={["Responsive","Conversion-Optimized","Performance"]}
+                ctaHref="/contact"
+                ctaLabel="Start a project"
+            />
 
             {/* Introductory section */}
             <section ref={sectionRef}
@@ -1030,8 +1022,7 @@ const WebDesign = () => {    const [isVisible, setIsVisible] = useState(false);
               ]}
             />
         </div>
-    </FuturisticServiceLayout>
-  );
+    );
 };
 
 export default WebDesign;

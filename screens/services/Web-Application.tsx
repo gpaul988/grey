@@ -235,8 +235,7 @@ const WebApplication = () => {    const [isVisible, setIsVisible] = useState(fal
     ];
 
     return (
-    <FuturisticServiceLayout title={`Web Application <br/>Development Agency`}>
-<div className={`${isDayTime ? 'bg-white' : 'bg-black'} relative h-auto`}>
+        <div className={`${isDayTime ? 'bg-white' : 'bg-black'} relative h-auto`}>
             <FloatingButton
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
@@ -262,24 +261,15 @@ const WebApplication = () => {    const [isVisible, setIsVisible] = useState(fal
               variant="grid"
             />
 
-            {/* Hero Section */}
-            <div id={'hero'}
-                 className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
-                <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
-                    <div className="gx-scanline" />
-                    <div className="gx-noise-overlay" />
-                    <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
-                </div>
-                
-                <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
-                    Custom web applications tailored to your business goals. Our experienced developers build scalable,
-                    secure, and user-focused solutions that drive real <br className={'lg:block md:block hidden'}/>results
-                    and
-                    meet evolving customer needs.
-                </p>
-                <ResponsiveVideoHero videoDesktop="/assets/wad/hero.mp4" videoMobile="/assets/wad/hero-mobile.mp4" posterImage="/assets/wad/hero.jpg" />
-            </div>
+            <ServiceHero
+                title="Web Application Development"
+                subtitle="Scalable, secure apps built for performance"
+                accentColor="#00f5d4"
+                variant="grid"
+                badges={["React","Node","TypeScript","Scalable Architecture"]}
+                ctaHref="/contact"
+                ctaLabel="Discuss your app"
+            />
 
             {/* Introductory section */}
             <section ref={sectionRef}
@@ -1763,9 +1753,7 @@ const WebApplication = () => {    const [isVisible, setIsVisible] = useState(fal
                                             <button
                                                 key={id}
                                                 onClick={() => {
-                                                    const element = document.getElementById(id
-    </FuturisticServiceLayout>
-  );
+                                                    const element = document.getElementById(id);
                                                     if (element) {
                                                         element.scrollIntoView({behavior: 'smooth'});
                                                     }

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 
 import React, {useEffect, useRef, useState} from 'react';
@@ -6,8 +6,11 @@ import '@/app/globals.css'
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
+import ServiceHero from '@/components/futuristic/ServiceHero';
+import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 import Link from "next/link";
 import {useIsDayTime} from '../../components/useIsDayTime';
+import {motion} from 'framer-motion';
 
 import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
 
@@ -94,27 +97,15 @@ const AndroidDevelopment = () => {    const [isVisible, setIsVisible] = useState
                 }`}
             />
 
-            {/* Hero Section */}
-            <div id={'hero'}
-                 className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
-                <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
-                    <div className="gx-scanline" />
-                    <div className="gx-noise-overlay" />
-                    <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
-                </div>
-                <h1
-                    className={`border-b pb-[0.5em] border-gray-500/50 px-0 gx-hero-title constant-text lg:text-[5em] md:text-[3em] sm:text-[2em] text-[2.5em] lg:mt-[3em] md:mt-[3em] mt-[1.5em] leading-[1.1] font-[800] ${
-                        isDayTime ? 'text-black' : 'text-white'
-                    }`}>
-                    Android Development
-                </h1>
-                <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
-                    Android, developed by Google, is a leading platform for global app development, powering a wide
-                    range of devices from smartphones and tablets to wearables like Android Wear.
-                </p>
-                <ResponsiveVideoHero videoDesktop="/assets/android/hero.mp4" videoMobile="/assets/android/hero-mobile.mp4" posterImage="/assets/android/hero.jpg" />
-            </div>
+            <ServiceHero
+                title="Android Development"
+                subtitle="Native Android apps built for performance and reach"
+                accentColor="#00f5d4"
+                variant="hologram"
+                badges={["Kotlin","Jetpack","Play Store","Performance"]}
+                ctaHref="/contact"
+                ctaLabel="Get started"
+            />
 
             {/* Introductory section */}
             <section ref={sectionRef}
@@ -146,9 +137,9 @@ const AndroidDevelopment = () => {    const [isVisible, setIsVisible] = useState
                                     Grey InfoTech is a seasoned Android development company with a strong track record
                                     of building scalable, high-performance mobile applications. Our in-house team
                                     possesses deep expertise across the Android ecosystem, enabling us to deliver
-                                    robust, user-focused solutions for a wide range of devices—including smartphones,
-                                    tablets, and wearables—from global manufacturers such as Samsung, Sony, Motorola,
-                                    and LG. Unlike Apple’s iOS, which is confined to Apple hardware, Android runs on
+                                    robust, user-focused solutions for a wide range of devicesâ€”including smartphones,
+                                    tablets, and wearablesâ€”from global manufacturers such as Samsung, Sony, Motorola,
+                                    and LG. Unlike Appleâ€™s iOS, which is confined to Apple hardware, Android runs on
                                     thousands of devices worldwide, offering significantly greater market reach and
                                     flexibility. This broad device compatibility positions Android as a strategic
                                     platform for any business seeking to scale rapidly and cost-effectively.
@@ -159,11 +150,11 @@ const AndroidDevelopment = () => {    const [isVisible, setIsVisible] = useState
                                     In addition to our Android expertise, we offers full cross-platform
                                     development capabilities, with in-house teams proficient in both Android and iOS.
                                     This allows us to streamline design and development workflows, reuse code and
-                                    assets, and deliver consistent user experiences across platforms—all while reducing
+                                    assets, and deliver consistent user experiences across platformsâ€”all while reducing
                                     time-to-market and lowering development costs. For investors, this means faster
                                     execution, broader market access, and more efficient capital deployment. Our ability
                                     to deliver end-to-end mobile solutions positions us as a valuable partner in scaling
-                                    digital products and capturing growth in today’s mobile-driven economy.
+                                    digital products and capturing growth in todayâ€™s mobile-driven economy.
                                 </p>
                             </div>
                         </div>
@@ -209,7 +200,7 @@ const AndroidDevelopment = () => {    const [isVisible, setIsVisible] = useState
                                             <div className={'flex gap-4'}>
                                                 <span className={'shrink-0'}>{item.id}</span>
                                                 <span
-                                                    className={`opacity-0 transition-opacity text-[2em] leading-[0.59em] ${activeId === item.target ? 'opacity-100' : ''}`}>→</span>
+                                                    className={`opacity-0 transition-opacity text-[2em] leading-[0.59em] ${activeId === item.target ? 'opacity-100' : ''}`}>â†’</span>
                                                 <span>{item.title}</span>
                                             </div>
                                         </button>
@@ -240,19 +231,19 @@ const AndroidDevelopment = () => {    const [isVisible, setIsVisible] = useState
                                         Android continues to lead the global mobile market, powering over 80% of
                                         smartphones and offering unmatched reach across diverse user segments. Its
                                         open-source ecosystem allows for broad adoption across thousands of devices from
-                                        manufacturers like Samsung, Sony, Motorola, and LG—making it a strategic choice
+                                        manufacturers like Samsung, Sony, Motorola, and LGâ€”making it a strategic choice
                                         for businesses aiming to scale mobile solutions quickly and cost-effectively.
-                                        The platform’s flexibility, combined with a massive install base, presents a
+                                        The platformâ€™s flexibility, combined with a massive install base, presents a
                                         strong foundation for launching impactful digital products with global
                                         potential. For companies and investors alike, Android represents a high-value
                                         channel for innovation, user acquisition, and long-term growth.<br/><br/>
-                                        Grey InfoTech’s dedicated Android development team builds high-quality native
+                                        Grey InfoTechâ€™s dedicated Android development team builds high-quality native
                                         applications using the Java programming language, tailored to deliver
                                         performance, reliability, and optimal user experience across devices. Our
                                         expertise spans key verticals such as gaming, retail, insurance, and automotive,
                                         enabling us to design solutions that meet industry-specific needs. With a
-                                        thorough understanding of the Android landscape—from varying screen sizes to
-                                        device capabilities—we ensure consistency and usability across all touchpoints.
+                                        thorough understanding of the Android landscapeâ€”from varying screen sizes to
+                                        device capabilitiesâ€”we ensure consistency and usability across all touchpoints.
                                         By aligning technical excellence with business strategy, we help clients and
                                         stakeholders unlock value from the Android ecosystem at scale.
                                     </p>
@@ -275,22 +266,22 @@ const AndroidDevelopment = () => {    const [isVisible, setIsVisible] = useState
                                             className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Innovation focus</span>
                                     </div>
                                     <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        At Grey InfoTech, we’re passionate about emerging technologies—and Android Wear
+                                        At Grey InfoTech, weâ€™re passionate about emerging technologiesâ€”and Android Wear
                                         represents a significant frontier for innovation in the wearable tech space.
                                         Similar to the Apple Watch, Android wearables are equipped with advanced
                                         features like heart rate monitors, accelerometers, GPS, and temperature sensors.
-                                        However, Android’s more open architecture gives developers deeper access to
+                                        However, Androidâ€™s more open architecture gives developers deeper access to
                                         hardware capabilities, enabling the creation of more customized, data-rich
                                         applications for health, fitness, logistics, and beyond. For entrepreneurs and
                                         investors, this platform offers exciting opportunities to build next-generation
-                                        products that seamlessly integrate into users’ daily lives.<br/><br/>
+                                        products that seamlessly integrate into usersâ€™ daily lives.<br/><br/>
                                         Our team has been actively exploring the full potential of Android Wear, pushing
-                                        the boundaries of what’s possible in wearable app development. By leveraging our
-                                        experience in mobile and cross-platform technologies, we’re building solutions
+                                        the boundaries of whatâ€™s possible in wearable app development. By leveraging our
+                                        experience in mobile and cross-platform technologies, weâ€™re building solutions
                                         that extend user engagement beyond smartphones and into real-time, on-the-go
-                                        interactions. Whether it’s enhancing productivity, tracking wellness, or
+                                        interactions. Whether itâ€™s enhancing productivity, tracking wellness, or
                                         enabling location-based services, our work in this space is opening new doors
-                                        for innovative, scalable digital experiences. We’re excited to share our
+                                        for innovative, scalable digital experiences. Weâ€™re excited to share our
                                         findings and help bring your ideas to life on the wrist.
                                     </p>
                                 </div>
@@ -321,7 +312,7 @@ const AndroidDevelopment = () => {    const [isVisible, setIsVisible] = useState
                     className='relative grid lg:grid-cols-2 grid-cols-1 lg:my-[3em] my-[1em] lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-16 pb-6 lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'>
                     <div className=''>
                         <h6 className='constant-text uppercase lg:text-[0.85em] md:text-[0.85em] leading-[1.3] text-[0.8em] lg:font-[600] font-[600] lg:tracking-wider tracking-tight'>
-                            Grow on the world’s <br className={'lg:block md:block hidden'}/>No. 1 mobile platform
+                            Grow on the worldâ€™s <br className={'lg:block md:block hidden'}/>No. 1 mobile platform
                         </h6>
                     </div>
                     <div className='lg:-ml-[19em]'>
@@ -332,11 +323,11 @@ const AndroidDevelopment = () => {    const [isVisible, setIsVisible] = useState
                             className='grid lg:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]'>
                             <div>
                                 <p>
-                                    Developing an Android application gives your business access to the world’s largest
-                                    mobile user base, with billions of active devices across global markets. Android’s
+                                    Developing an Android application gives your business access to the worldâ€™s largest
+                                    mobile user base, with billions of active devices across global markets. Androidâ€™s
                                     open-source nature offers unmatched flexibility, allowing for highly customized apps
-                                    that cater to a wide range of industries and user needs. Whether you’re targeting
-                                    emerging markets or aiming for mass adoption, Android’s vast reach and lower device
+                                    that cater to a wide range of industries and user needs. Whether youâ€™re targeting
+                                    emerging markets or aiming for mass adoption, Androidâ€™s vast reach and lower device
                                     entry points make it an ideal platform for scaling your product and brand
                                     visibility.
                                 </p>
@@ -345,10 +336,10 @@ const AndroidDevelopment = () => {    const [isVisible, setIsVisible] = useState
                                 <p>
                                     From a business perspective, Android supports faster innovation and cost-effective
                                     development. With tools like Kotlin and Jetpack, developers can build reliable,
-                                    feature-rich applications efficiently. The Google Play Store’s faster approval
+                                    feature-rich applications efficiently. The Google Play Storeâ€™s faster approval
                                     process also enables quicker time-to-market, while support for diverse
-                                    devices—including smartphones, tablets, TVs, and wearables—opens up new channels for
-                                    customer engagement. If you’re looking to grow reach, maximize flexibility, and
+                                    devicesâ€”including smartphones, tablets, TVs, and wearablesâ€”opens up new channels for
+                                    customer engagement. If youâ€™re looking to grow reach, maximize flexibility, and
                                     deliver value at scale, Android is a smart investment for long-term business growth.
                                 </p>
                             </div>
@@ -370,7 +361,7 @@ const AndroidDevelopment = () => {    const [isVisible, setIsVisible] = useState
                     <div className={'lg:-ml-[7em] md:-ml-[7em]'}>
                         <p className='text-[0.87em] font-[300] justify-center tracking-normal text-justify leading-[1.3]'>
                             Android Application Development enables businesses to reach a global user base with
-                            flexible, scalable solutions tailored for the world’s most popular mobile platform. It
+                            flexible, scalable solutions tailored for the worldâ€™s most popular mobile platform. It
                             supports rapid innovation, seamless Google integration, and strong device compatibility to
                             drive user engagement and growth.
                         </p>
@@ -408,9 +399,9 @@ const AndroidDevelopment = () => {    const [isVisible, setIsVisible] = useState
                             Cost-Effective <br className={'lg:block md:block hidden'}/>Development
                         </h3>
                         <p className='text-justify text-[0.85em] font-[400]'>
-                            Android’s open-source platform and large developer community offer significant cost
+                            Androidâ€™s open-source platform and large developer community offer significant cost
                             advantages. With a flexible development environment and extensive libraries, your business
-                            can save time and reduce development costs—especially when targeting multiple device types
+                            can save time and reduce development costsâ€”especially when targeting multiple device types
                             with one solution.
                         </p>
                     </div>
@@ -426,7 +417,7 @@ const AndroidDevelopment = () => {    const [isVisible, setIsVisible] = useState
                             Faster <br className={'lg:block md:block hidden'}/>Time-to-Market
                         </h3>
                         <p className='text-justify text-[0.85em] font-[400]'>
-                            The Google Play Store’s streamlined app submission and review process allows for quicker
+                            The Google Play Storeâ€™s streamlined app submission and review process allows for quicker
                             release cycles. This means your business can launch features, respond to user feedback, and
                             adapt to market demands more rapidly than on more restrictive platforms.
                         </p>
@@ -480,7 +471,7 @@ const AndroidDevelopment = () => {    const [isVisible, setIsVisible] = useState
                         </h3>
                         <p className='text-justify text-[0.85em] font-[400]'>
                             Whether through in-app ads, freemium models, or subscriptions, Android provides multiple
-                            revenue generation opportunities. Its integration with Google’s ad platforms and flexible
+                            revenue generation opportunities. Its integration with Googleâ€™s ad platforms and flexible
                             billing APIs gives businesses the tools they need to maximize app profitability.
                         </p>
                     </div>
@@ -520,7 +511,7 @@ const AndroidDevelopment = () => {    const [isVisible, setIsVisible] = useState
                                     className={`absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 ${isDayTime ? 'bg-black' : 'bg-white'} opacity-100 group-hover:-translate-x-8`}></span>
                                 <span
                                     className={`relative w-full text-left transition-colors duration-200 ease-in-out ${isDayTime ? 'text-black group-hover:text-gray-300' : 'text-white group-hover:text-gray-800'}`}>About Us <span
-                                    className={`text-[1.5em] leading-[0.7]`}> →</span></span>
+                                    className={`text-[1.5em] leading-[0.7]`}> â†’</span></span>
                                 <span
                                     className={"absolute inset-0 border-[1px] border-gray-900 ${isDayTime ? 'border-black' : 'border-white'} rounded-full"}></span>
                             </button>

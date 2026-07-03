@@ -6,6 +6,8 @@ import '@/app/globals.css'
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
+import ServiceHero from '@/components/futuristic/ServiceHero';
+import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 import Link from "next/link";
 import CountUp from "react-countup";
 import {motion, useScroll, useTransform} from "framer-motion";
@@ -154,29 +156,15 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                 }`}
             />
 
-            {/* Hero Section */}
-            <div id={'hero'}
-                 className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
-                <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
-                    <div className="gx-scanline" />
-                    <div className="gx-noise-overlay" />
-                    <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
-                </div>
-                <h1
-                    className={`border-b pb-[0.5em] border-gray-500/50 px-0 gx-hero-title constant-text lg:text-[5em] md:text-[3em] sm:text-[2em] text-[2.5em] lg:mt-[3em] md:mt-[3em] mt-[1.5em] leading-[1.1] font-[800] ${
-                        isDayTime ? 'text-black' : 'text-white'
-                    }`}>
-                    Front-End <br className={'lg:block md:block hidden'}/> Development Company
-                </h1>
-                <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
-                    As digital designers, we create user experiences that are both smooth and engaging. Our team, based
-                    in Port Harcourt, Nigeria, creates attractive, responsive <br
-                    className={'lg:block md:block hidden'}/>front-ends
-                    that bring your brand to life and engage your audience.
-                </p>
-                <ResponsiveVideoHero videoDesktop="/assets/front/hero.mp4" videoMobile="/assets/front/hero-mobile.mp4" posterImage="/assets/front/hero.jpg" />
-            </div>
+            <ServiceHero
+                title="Front-End Development"
+                subtitle="High-performance, accessible front-ends"
+                accentColor="#00f5d4"
+                variant="circuit"
+                badges={["React","Accessibility","Performance"]}
+                ctaHref="/contact"
+                ctaLabel="Get started"
+            />
 
             {/* Introductory section */}
             <section ref={sectionRef}

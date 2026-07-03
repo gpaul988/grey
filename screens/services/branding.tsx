@@ -10,11 +10,22 @@ import ServiceHero from '@/components/futuristic/ServiceHero';
 import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 import CountUp from "react-countup";
 import {useIsDayTime} from '../../components/useIsDayTime';
+import {motion} from 'framer-motion';
 
 import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
 
-import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
-const Branding = () => {    const [isVisible, setIsVisible] = useState(false);
+import {
+    FxBackground,
+    FxChip,
+    FxReveal,
+    FxButton,
+    FxHoloCard,
+    FxStickyScrollSection,
+    FxScrollItem
+} from '@/components/futuristic/fx';
+
+const Branding = () => {
+    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
@@ -99,281 +110,533 @@ const Branding = () => {    const [isVisible, setIsVisible] = useState(false);
     ];
 
     return (
-    <FuturisticServiceLayout title={`Branding`}>
-<div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
+        <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
             <FloatingButton
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
                 }`}
             />
 
-            <ServiceHero
-                title="Branding & Identity"
-                subtitle="Distinctive brand identities that communicate your values, differentiate your business, and build lasting recognition."
-                accentColor="#a3e635"
-                variant="particles"
-                badges={["Logo Design", "Brand Strategy", "Visual Identity", "Style Guides", "Brand Voice", "Packaging"]}
-            />
-            <ServiceCapabilities
-                accentColor="#a3e635"
-                variant="cards"
-                capabilities={[
-                    { id: "cap-1", icon: "🌟", title: "Brand Strategy", description: "Positioning, messaging frameworks, and brand architecture that align with your business goals and audience." },
-                    { id: "cap-2", icon: "✏️", title: "Logo & Identity", description: "Timeless logo design with complete identity systems including colour palettes, typography, and iconography." },
-                    { id: "cap-3", icon: "📖", title: "Brand Guidelines", description: "Comprehensive style guides that ensure brand consistency across every touchpoint and team member." },
-                    { id: "cap-4", icon: "🗣️", title: "Brand Voice", description: "Tone of voice frameworks and messaging playbooks that make every word sound unmistakably you." },
-                    { id: "cap-5", icon: "📦", title: "Packaging Design", description: "Product packaging that stands out on shelves and online, designed to attract and convert buyers." },
-                    { id: "cap-6", icon: "🔄", title: "Rebranding", description: "Strategic rebranding that preserves equity while modernising your brand for new markets and audiences." },
-                ]}
-            />
+            {/* Unified Futuristic Branding Hero - Background Image with overlay */}
+            <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
+                {/* Background Image */}
+                <Image
+                    src="/assets/brand/hero.jpg"
+                    alt="Branding & Identity Hero"
+                    fill
+                    priority
+                    className="object-cover"
+                />
 
-            {/* Hero Section */}
-            <div id={'hero'}
-                 className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] ${
-                     isDayTime ? 'text-black' : 'text-white'
-                 }`}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
-                <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
-                    <div className="gx-scanline" />
-                    <div className="gx-noise-overlay" />
-                    <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
+                {/* Grid & FX Background */}
+                <div className="pointer-events-none absolute inset-0 z-[1]">
+                    <FxBackground day={false} grid={true} aurora={true}/>
                 </div>
-                
-                <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
-                    We offer comprehensive digital branding and identity solutions that help position your business
-                    strategically in the market—differentiating your products and services, <br
-                    className={'lg:block md:block hidden'}/>enhancing recognition, and
-                    driving long-term brand value.
-                </p>
-                <ResponsiveVideoHero videoDesktop="/assets/brand/hero.mp4" videoMobile="/assets/brand/hero-mobile.mp4" posterImage="/assets/brand/hero.jpg" />
-            </div>
 
-            {/* Introductory section */}
-            <section ref={sectionRef}
-                     className={`py-12 transition-colors duration-500 ${
-                         isBackgroundActive
-                             ? isDayTime
-                                 ? "bg-black text-white"
-                                 : "bg-white text-black"
-                             : isDayTime
-                                 ? "bg-white text-black"
-                                 : "bg-black text-white"
-                     }`}>
+                {/* Gradient Overlay with Glow */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50 z-[2]"/>
                 <div
-                    className='relative grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 md:pt-20 pt-6 lg:pb-16 md:pb-16 pb-6 lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'>
-                    <div className=''>
-                        <h6 className='constant-text uppercase lg:text-[0.85em] md:text-[0.85em] leading-[1.3] text-[0.8em] lg:font-[600] font-[600] lg:tracking-wider tracking-tight'>
-                            Unified branding <br className={'lg:block md:block hidden'}/>across all platforms
-                        </h6>
-                    </div>
-                    <div className='lg:-ml-[19em]'>
-                        <h3 className='lg:text-[3.2em] md:text-[3.2em] text-[1.8em] font-[500] lg:mt-[0.01em] lg:leading-[1.1] tracking-tight border-b lg:pb-[0.7em] lg:mb-[0.7em] leading-[1.1] pb-6'>
-                            Digital Branding
-                        </h3>
-                        <div
-                            className='grid lg:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]'>
-                            <div>
-                                <p>
-                                    In today’s highly competitive digital environment, your brand’s visibility extends
-                                    far beyond traditional touchpoints. Maintaining a consistent and professional
-                                    appearance across websites, mobile apps, social media platforms, and other digital
-                                    channels is no longer optional—it’s essential to building trust, enhancing
-                                    recognition, and driving engagement. We help businesses achieve this by developing
-                                    comprehensive digital branding guidelines that ensure your brand remains cohesive,
-                                    recognisable, and aligned with your core identity across every digital touchpoint.
-                                </p>
+                    className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,245,212,0.12),transparent_50%)] z-[2]"/>
+
+                {/* Futuristic FX Elements */}
+                <div className="pointer-events-none absolute inset-0 z-[3]">
+                    <div className="gx-scanline"/>
+                    <div className="gx-noise-overlay"/>
+                    <div className="gx-orbit absolute"
+                         style={{width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .12}}/>
+                    <div className="gx-orbit absolute"
+                         style={{width: '40vmax', height: '40vmax', bottom: '-15vmax', left: '-10vmax', opacity: .08}}/>
+                </div>
+
+                {/* Content Container - Two Column Layout */}
+                <div
+                    className="absolute inset-0 flex items-center z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+                    <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        {/* Left Column - Main Content */}
+                        <div>
+                            {/* Eyebrow with animated dot */}
+                            <div className="flex items-center gap-3 mb-6 lg:mb-8">
+                                <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse"/>
+                                <span
+                                    className="text-teal-400 text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">Brand Identity & Strategy</span>
                             </div>
-                            <div>
-                                <p>
-                                    Beyond branding documentation, we support your team with the tools and training
-                                    needed to implement your brand effectively across digital platforms. This includes
-                                    creating detailed digital style guides specifically tailored for web interfaces and
-                                    product design, covering everything from typography and colour usage to UI
-                                    components and responsive behaviour. Through tailored workshops or documentation
-                                    handovers, we empower your internal teams to uphold brand consistency at
-                                    scale—maximising both impact and efficiency.
-                                </p>
+
+                            {/* Main Heading with Gradient */}
+                            <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
+                                Distinctive <span className="gx-gradient-text">Brand Systems</span>
+                                <br className="hidden lg:block"/>
+                                That Resonate & Scale
+                            </h1>
+
+                            {/* Description */}
+                            <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
+                                Create lasting impressions through cohesive visual identity, compelling brand strategy,
+                                and
+                                comprehensive guidelines that ensure consistency across every touchpoint—from logos and
+                                colour systems to packaging and digital experiences.
+                            </p>
+
+                            {/* Key Capabilities Pills */}
+                            <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
+                                {["Logo Design", "Brand Strategy", "Visual Identity", "Style Guides", "Brand Voice", "Packaging"].map((badge) => (
+                                    <span key={badge}
+                                          className="px-3 py-1.5 rounded-full bg-teal-400/10 border border-teal-400/30 text-teal-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">
+                                            {badge}
+                                        </span>
+                                ))}
+                            </div>
+
+                            {/* CTA Buttons */}
+                            <div className="flex flex-wrap gap-4 items-center">
+                                <Link href="/contact">
+                                    <button
+                                        className="relative px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap"
+                                        style={{background: '#00f5d4', color: '#000'}}>
+                                            <span className="absolute inset-0" style={{
+                                                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)'
+                                            }}/>
+                                        <span className="relative">Start Your Brand →</span>
+                                    </button>
+                                </Link>
+                                <Link href="/portfolio">
+                                    <button
+                                        className="px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap"
+                                        style={{border: `1px solid rgba(255,255,255,0.15)`}}>
+                                        View Case Studies
+                                    </button>
+                                </Link>
                             </div>
                         </div>
+
+                        {/* Right Column - Impact Stats */}
+                        <div className="hidden lg:flex flex-col items-end">
+                            <div className="grid grid-cols-2 gap-6 w-full">
+                                {[
+                                    {label: 'Brands Built', value: '50+'},
+                                    {label: 'Industries', value: '15+'},
+                                    {label: 'Global Impact', value: '28+'},
+                                    {label: 'Years Active', value: '8+'}
+                                ].map((stat) => (
+                                    <div key={stat.label}
+                                         className="px-6 py-5 rounded-2xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md hover:bg-teal-400/12 transition-all duration-300 hover:border-teal-400/50 text-right">
+                                        <div
+                                            className="text-teal-300 text-[0.7em] uppercase tracking-wider font-[600] mb-2">{stat.label}</div>
+                                        <div
+                                            className="text-white text-[1.8em] font-[700]">{stat.value}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Mobile Stats - Visible on small screens only */}
+                <div className="lg:hidden absolute bottom-12 left-0 right-0 z-[11] px-6">
+                    <div className="grid grid-cols-3 gap-3">
+                        {[
+                            {label: 'Brands Built', value: '50+'},
+                            {label: 'Industries', value: '15+'},
+                            {label: 'Global Impact', value: '28+'}
+                        ].map((stat) => (
+                            <div key={stat.label}
+                                 className="px-3 py-2 rounded-xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md">
+                                <div
+                                    className="text-teal-300 text-[0.5em] uppercase tracking-wider font-[600] mb-1">{stat.label}</div>
+                                <div
+                                    className="text-white text-[1.2em] font-[700]">{stat.value}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Animated Particles */}
+                <div className="absolute top-1/4 left-8 z-[4] w-2 h-2 rounded-full bg-teal-400 animate-pulse"/>
+                <div className="absolute bottom-1/3 right-12 z-[4] w-3 h-3 rounded-full bg-teal-500 animate-pulse"
+                     style={{animationDelay: '0.5s'}}/>
+                <div className="absolute top-3/4 left-1/3 z-[4] w-2 h-2 rounded-full bg-cyan-400 animate-pulse"
+                     style={{animationDelay: '1s'}}/>
+            </section>
+
+            {/* Introductory Section - Futuristic Brand Strategy Overview */}
+            <section ref={sectionRef}
+                     className={`pt-16 transition-colors duration-500 ${
+                         isBackgroundActive
+                             ? isDayTime ? 'bg-black text-white' : 'bg-white text-black'
+                             : isDayTime ? 'bg-white text-black' : 'bg-black text-white'
+                     }`}>
+                <FxBackground day={isDayTime}/>
+                <div
+                    className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
+                    <div>
+                        <FxChip day={!isBackgroundActive ? !isDayTime : isDayTime}>BRAND MASTERY</FxChip>
+                    </div>
+
+                    <div className="lg:-ml-[19em]">
+                        <FxReveal>
+                            <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
+                                Build Identities That <span
+                                className="gx-gradient-text">Stand Out & Scale</span>
+                            </h3>
+                        </FxReveal>
+                        <FxReveal delay={0.08}>
+                            <div
+                                className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
+                                <div>
+                                    <p>
+                                        Strong branding is one of the most powerful tools for building business success.
+                                        In a competitive marketplace, a distinctive and cohesive brand identity sets you
+                                        apart, builds customer trust, and creates lasting emotional connections. At Grey
+                                        InfoTech, our branding experts craft unique brand identities that reflect your
+                                        vision,
+                                        values, and competitive advantage—from logo design and brand strategy to
+                                        comprehensive
+                                        guidelines and voice development.
+                                    </p>
+                                </div>
+                                <div>
+                                    <p>
+                                        In today's digital-first world, brand presence extends far beyond traditional
+                                        touchpoints. Maintaining consistency across websites, mobile apps, social media,
+                                        and
+                                        every digital channel is essential to building trust and driving engagement. We
+                                        develop
+                                        comprehensive digital branding guidelines and style systems that ensure your
+                                        brand
+                                        remains cohesive, recognizable, and aligned with your core identity across every
+                                        touchpoint—enabling sustainable growth in competitive markets.
+                                    </p>
+
+                                    <div className="flex flex-wrap gap-3 mt-4">
+                                        {['Brand Strategy', 'Visual Identity', 'Digital Guidelines', 'Rebranding'].map((p) => (
+                                            <span key={p} className="gx-data-pill">{p}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </FxReveal>
                     </div>
                 </div>
             </section>
 
-            {/* Our Branding Solutions */}
-            <div
-                className={`lg:pt-[2em] md:pt-[2em] pt-[1em]  ${isDayTime ? 'bg-white' : 'bg-black'}`}>
-                <div id={'SEO Services Overview'}
-                     className={'relative lg:pt-[3em] md:pt-[3em] pt-[1em] lg:pb-[6em] md:pb-[6em] pb-[1em] lg:mt-[3em] md:mt-[3em] mt-[1em] lg:mb-[6em] md:mb-[6em] mb-[1em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]'}>
-                    <div
-                        className={`relative grid lg:grid-cols-2 grid-cols-1 gap-4 mb-8 border-b-[1px]  pb-[3em] ${isDayTime ? 'text-black' : 'text-white'} `}>
-                        <div>
-                            <h2 className={`lg:text-[3.12em] md:text-[3.12em] text-[1.5em] font-[500] justify-center tracking-tight  leading-[1.1]`}>
-                                Our Branding Solutions
-                            </h2>
-                        </div>
+            {/* Branding Solutions - Enhanced Visual Section */}
+            <section className={`relative py-4 ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
+                <FxBackground day={!isDayTime}/>
+            <div className="relative z-10">
+                <FxStickyScrollSection
+                    day={isDayTime}
+                    heading={<>Our Branding<br/>solutions</>}
+                    intro="We provide comprehensive branding solutions that build distinctive identities, establish visual consistency, and communicate your unique value proposition across every touchpoint—from logo design and brand strategy to complete digital guidelines and packaging design."
+                    navLabel="Branding Solutions"
+                    activeId={activeId}
+                    onNavClick={scrollToSection}
+                    items={[
+                    {
+                        id: "01",
+                        title: "Branding Guidelines",
+                        target: "BG",
+                        tags: ["Visual Standards", "Documentation", "Implementation"],
+                        body: (
+                            <p>
+                                Comprehensive brand guidelines ensure consistency across all marketing materials,
+                                digital platforms, and communications. We create detailed documentation covering logo
+                                usage, colour palettes, typography, imagery style, tone of voice, and application
+                                examples—providing your team with clear standards to maintain brand integrity at scale.
+                            </p>
+                        ),
+                    },
+                    {
+                        id: "02",
+                        title: "Brand Identity",
+                        target: "BI",
+                        tags: ["Visual Language", "Positioning", "Messaging"],
+                        body: (
+                            <p>
+                                A strong corporate identity instantly communicates your business values and unique
+                                selling proposition. We craft cohesive identity systems that extend across your entire
+                                organisation—from signage and uniforms to digital assets and training materials. We
+                                define key visual and verbal elements such as brand marks, typography, photographic
+                                style, tone of voice, and graphic systems, ensuring a unified, professional image.
+                            </p>
+                        ),
+                    },
+                    {
+                        id: "03",
+                        title: "Logo Design",
+                        target: "LD",
+                        tags: ["Creative Concepts", "Multiple Iterations", "Brand Mark"],
+                        body: (
+                            <p>
+                                A logo is a fundamental brand asset that helps businesses identify themselves and stand
+                                out in competitive markets. We create distinctive, memorable logos that reflect your
+                                brand's essence and resonate with your target audience. Whether you need a revolutionary
+                                update or a logo from scratch, our design process combines strategic thinking with
+                                creative excellence to deliver marks that last.
+                            </p>
+                        ),
+                    },
+                    {
+                        id: "04",
+                        title: "Brand Strategy",
+                        target: "BS",
+                        tags: ["Market Positioning", "Competitive Analysis", "Growth Planning"],
+                        body: (
+                            <p>
+                                Strategic branding begins with deep understanding of your market, competition, and
+                                target audience. We develop comprehensive brand strategies that define your positioning,
+                                messaging architecture, value proposition, and brand personality. This foundation
+                                ensures all design, content, and communication efforts align with your business
+                                objectives and resonate authentically with your audience.
+                            </p>
+                        ),
+                    },
+                    {
+                        id: "05",
+                        title: "Visual Design System",
+                        target: "VDS",
+                        tags: ["Color Palette", "Typography", "Component Library"],
+                        body: (
+                            <p>
+                                A cohesive visual design system creates consistency and efficiency across all brand
+                                communications. We develop comprehensive visual systems including refined colour
+                                palettes, typography hierarchies, iconography standards, and component libraries. This
+                                allows your team to produce on-brand materials quickly while maintaining visual
+                                excellence and recognizability across every platform—web, print, social, and beyond.
+                            </p>
+                        ),
+                    },
+                    {
+                        id: "06",
+                        title: "Packaging Design",
+                        target: "PD",
+                        tags: ["Product Experience", "Consumer Psychology", "Shelf Impact"],
+                        body: (
+                            <p>
+                                Packaging is often the first physical touchpoint between your brand and customers. We
+                                design compelling packaging solutions that protect your product, communicate your brand
+                                story, and drive purchase decisions. Our designs balance aesthetic appeal with
+                                functional requirements, considering materials, printing techniques, shelf presence, and
+                                unboxing experience to create memorable brand moments that drive loyalty and
+                                word-of-mouth.
+                            </p>
+                        ),
+                    },
+                    {
+                        id: "07",
+                        title: "Brand Voice & Messaging",
+                        target: "BVM",
+                        tags: ["Tone of Voice", "Messaging Pillars", "Copywriting Standards"],
+                        body: (
+                            <p>
+                                Beyond visuals, your brand voice creates emotional connection through words. We develop
+                                comprehensive tone-of-voice frameworks that define how your brand communicates across
+                                channels—from marketing copy to customer service. We establish messaging pillars,
+                                communication guidelines, and copywriting standards that ensure every piece of content
+                                aligns with your brand personality and resonates authentically with your audience.
+                            </p>
+                        ),
+                    },
+                    {
+                        id: "08",
+                        title: "Digital Branding",
+                        target: "DB",
+                        tags: ["Web Design", "Social Media", "Digital Touchpoints"],
+                        body: (
+                            <p>
+                                In today's digital-first world, your online presence is crucial. We create comprehensive
+                                digital branding strategies that extend your brand identity across websites,
+                                applications, social media, email, and digital advertising. From responsive web design
+                                to social media templates and digital asset libraries, we ensure your brand delivers
+                                consistent, compelling experiences across every digital touchpoint your audience
+                                encounters.
+                            </p>
+                        ),
+                    },
+                ] satisfies FxScrollItem[]}
+                />
+            </div>
+            </section>
 
+            {/* Branding Process & Methodology Section */}
+            <section className={`relative py-20 lg:py-32 ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
+                <FxBackground day={isDayTime}/>
+                <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+                    {/* Section Header */}
+                    <div className="max-w-3xl mb-16">
+                        <FxChip day={!isDayTime}>OUR PROCESS</FxChip>
+                        <FxReveal>
+                            <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] tracking-tight mt-4 mb-6">
+                                Our Proven <span className="gx-gradient-text">Branding Methodology</span>
+                            </h2>
+                        </FxReveal>
+                        <FxReveal delay={0.08}>
+                            <p className={`text-[1em] lg:text-[1.1em] leading-[1.7] font-[300] ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
+                                We follow a strategic, collaborative process that transforms your vision into a
+                                distinctive brand identity. Each step is designed to ensure alignment, creativity, and
+                                measurable results.
+                            </p>
+                        </FxReveal>
                     </div>
-                    <div
-                        className='grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-16 lg:mt-28 md:mt-28 mt-6 px-6 max-w-full w-full mx-auto h-full'>
-                        <div
-                            className='lg:sticky md:sticky top-28 lg:h-screen md:h-screen lg:mr-[11em] overflow-hidden'>
-                            <h3 className={`text-[1.5em] font-[500] tracking-tight constant-text ${
-                                isDayTime ? 'text-black' : 'text-white'
-                            }`}>
-                                Our Solutions
-                            </h3>
-                            <ul className={`list-disc constant-text text-[0.89em] ml-4 font-[600] relative space-y-3 ${
-                                isDayTime ? 'text-black decoration-gray-600 focus:decoration-gray-900' : 'text-white decoration-gray-400 focus:decoration-gray-600'
-                            }`}>
-                                {[
-                                    {id: "01", title: "Branding Guidelines", target: "BG"},
-                                    {id: "02", title: "Branding Identity", target: "BI"},
-                                    {id: "03", title: "Logo Design", target: "LD"},
-                                    {id: "04", title: "Brand Strategy", target: "BS"},
-                                ].map((item, index) => (
-                                    <li key={index} className={'group lg:mt-6 mt-4'}>
-                                        <button
-                                            onClick={() => scrollToSection(item.target)}
-                                            className={`w-full text-left flex items-center gap-4 mb-4 focus:font-[650] ${
-                                                isDayTime
-                                                    ? `focus:text-black ${activeId === item.target ? 'text-gray-900 font-[650]' : 'text-gray-500 font-[400]'}`
-                                                    : `focus:text-white ${activeId === item.target ? 'text-gray-100 font-[650]' : 'text-gray-500 font-[400]'}`
-                                            }`}
-                                        >
-                                            <div className={'flex gap-4'}>
-                                                <span className={'shrink-0'}>{item.id}</span>
-                                                <span
-                                                    className={`opacity-0 transition-opacity text-[2em] leading-[0.59em] ${activeId === item.target ? 'opacity-100' : ''}`}>→</span>
-                                                <span>{item.title}</span>
-                                            </div>
-                                        </button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div className={'lg:-ml-[8em] md:-ml-[8em] lg:mb-[30em] md:mb-[30em]'}>
-                            <div className="grid lg:grid-cols-[50px_auto] grid-cols-1 lg:gap-2 gap1 items-start">
+
+                    {/* Process Steps Grid */}
+                    <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6 lg:gap-8">
+                        {[
+                            {
+                                step: "01",
+                                title: "Discovery & Strategy",
+                                description: "We begin by deeply understanding your business, market, competitors, and target audience. Through interviews and research, we define your positioning, value proposition, and brand personality that guides all subsequent work."
+                            },
+                            {
+                                step: "02",
+                                title: "Creative Concepts",
+                                description: "Our designers develop multiple creative directions exploring different visual approaches. We present concepts that balance strategic insights with bold creativity, allowing you to choose the direction that best represents your vision."
+                            },
+                            {
+                                step: "03",
+                                title: "Refinement & Design",
+                                description: "Based on your feedback, we refine the selected direction into polished designs. We develop the complete visual system including logo, colour palette, typography, imagery style, and all supporting brand elements with precision and consistency."
+                            },
+                            {
+                                step: "04",
+                                title: "Guidelines & Launch",
+                                description: "We create comprehensive brand guidelines documenting all elements and usage rules. We provide training and asset libraries to ensure your team successfully implements the brand, supported by ongoing guidance as you bring it to market."
+                            },
+                        ].map((item, idx) => (
+                            <FxReveal key={idx} delay={0.08 * idx}>
                                 <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>01/
-                                </div>
-                                <div className={`lg:mb-44 mb-14  ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'BG'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Branding Guidelines
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Consistent Branding</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Digital Transformation</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.873em] font-[300]'}>
-                                        Maintaining a strong, consistent brand is essential for building trust and
-                                        long-term recognition, which is why investing in comprehensive brand guidelines
-                                        is a strategic necessity. At Grey InfoTech, we create clear, practical brand
-                                        documentation that acts as a safeguard for your visual and verbal
-                                        identity—ensuring consistency across all digital and offline channels. These
-                                        guidelines help internal teams and external partners apply your brand correctly,
-                                        covering key elements such as logo usage, colour palettes, typography, imagery,
-                                        and tone of voice. By protecting against misuse and brand dilution, we help you
-                                        maintain a cohesive and professional presence that strengthens your market
-                                        position.
+                                    className={`p-8 rounded-2xl border transition-all duration-300 hover:border-teal-400/60 ${
+                                        isDayTime
+                                            ? 'border-gray-200 bg-white/50 hover:bg-white'
+                                            : 'border-white/10 bg-white/5 hover:bg-white/10'
+                                    }`}>
+                                    <div className="text-teal-400 text-[2.5em] font-[700] mb-3">{item.step}</div>
+                                    <h3 className="text-[1.3em] font-[600] mb-4 leading-tight">{item.title}</h3>
+                                    <p className={`text-[0.95em] leading-[1.6] font-[300] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>
+                                        {item.description}
                                     </p>
                                 </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>02/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'BI'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Branding Identity
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Typography</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Tone of Voice</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Photographic Style</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        A strong corporate identity instantly communicates your business values and
-                                        unique selling proposition to all stakeholders, including customers, employees,
-                                        partners, and the media. In today’s crowded marketplace, it serves as a powerful
-                                        differentiator and touchpoint that builds recognition and trust. At Grey
-                                        InfoTech, we go beyond logo design to craft a cohesive identity system that
-                                        extends across your entire organisation—from signage and uniforms to digital
-                                        assets, training materials, and marketing communications. We define and develop
-                                        key visual and verbal elements such as brand marks, typography, photographic
-                                        style, tone of voice, and graphic systems, ensuring your brand presents a
-                                        unified, professional image at every interaction.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>03/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'LD'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Logo Design
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Revolutionary Update</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Logo from Scratch</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        A logo is a fundamental brand asset that helps businesses identify,
-                                        differentiate, and establish a lasting impression in their market. At Grey
-                                        InfoTech, our branding team specialises in creating and refining logos for
-                                        startups, SMEs, and large enterprises alike. For new businesses, we design logos
-                                        from the ground up to reflect your mission and appeal to your target audience.
-                                        For established brands, we offer thoughtful logo evolution to maintain clarity
-                                        and relevance, or complete redesigns when undergoing significant transformation.
-                                        Regardless of your company’s size or stage, we ensure your logo aligns with your
-                                        brand strategy and communicates your identity effectively.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>04/
-                                </div>
-                                <div className={` ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'BS'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Brand Strategy
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}></span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}></span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}></span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Your company exists to solve problems, deliver value, and make a meaningful
-                                        impact—and your brand should clearly reflect that. Customers care when they see
-                                        a brand that resonates with their values, understands their needs, and
-                                        communicates with purpose. Likewise, employees feel engaged when they connect
-                                        with a mission they believe in. At Grey InfoTech, we help businesses define and
-                                        articulate their brand strategy, mission, values, and unique selling proposition
-                                        (USP) in a way that inspires loyalty, builds trust, and drives measurable
-                                        business growth. Our approach ensures your brand speaks clearly and consistently
-                                        to both your customers and your team.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                            </FxReveal>
+                        ))}
                     </div>
                 </div>
-            </div>
+            </section>
 
-            {/* Mid image*/}
+            {/* Why Choose Grey for Branding */}
+            <section className={`relative py-20 lg:py-32 ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
+                <FxBackground day={!isDayTime}/>
+                <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        <FxReveal>
+                            <div>
+                                <FxChip day={isDayTime}>WHY GREY</FxChip>
+                                <h2 className="text-[2.5em] lg:text-[3.8em] font-[700] leading-[1.1] tracking-tight mt-4 mb-8">
+                                    Why Choose Grey <span className="gx-gradient-text">for Your Brand</span>
+                                </h2>
+                                <div className="space-y-6">
+                                    {[
+                                        {
+                                            icon: "🎯",
+                                            title: "Strategic Approach",
+                                            desc: "We don't just design—we strategize. Every visual element serves a purpose rooted in your business goals and market positioning."
+                                        },
+                                        {
+                                            icon: "💡",
+                                            title: "Creative Excellence",
+                                            desc: "Our award-winning designers combine artistic vision with strategic thinking to create brands that stand out and endure."
+                                        },
+                                        {
+                                            icon: "🔄",
+                                            title: "Collaborative Process",
+                                            desc: "We partner with you throughout the journey, valuing your insights and ensuring the final brand reflects your authentic identity."
+                                        },
+                                        {
+                                            icon: "📊",
+                                            title: "Measurable Results",
+                                            desc: "We define success metrics and track brand performance, ensuring your investment delivers tangible business impact."
+                                        },
+                                    ].map((item, idx) => (
+                                        <FxReveal key={idx} delay={0.08 * idx}>
+                                            <div className="flex gap-4">
+                                                <div className="text-[2.5em] flex-shrink-0">{item.icon}</div>
+                                                <div>
+                                                    <h3 className="text-[1.2em] font-[600] mb-2">{item.title}</h3>
+                                                    <p className={`text-[0.95em] leading-[1.6] font-[300] ${isDayTime ? 'text-gray-400' : 'text-gray-600'}`}>
+                                                        {item.desc}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </FxReveal>
+                                    ))}
+                                </div>
+                            </div>
+                        </FxReveal>
+
+                        {/* Stats Showcase */}
+                        <FxReveal delay={0.2}>
+                            <div className="space-y-6">
+                                {[
+                                    {stat: "50+", label: "Brands Created"},
+                                    {stat: "15+", label: "Industries Served"},
+                                    {stat: "98%", label: "Client Satisfaction"},
+                                    {stat: "8+", label: "Years Experience"},
+                                ].map((item, idx) => (
+                                    <div key={idx} className={`p-6 rounded-xl border-2 ${
+                                        isDayTime
+                                            ? 'border-gray-300 bg-gray-50'
+                                            : 'border-teal-400/20 bg-teal-400/5'
+                                    }`}>
+                                        <div
+                                            className="text-teal-400 text-[3em] font-[800] leading-none mb-2">{item.stat}</div>
+                                        <div
+                                            className={`text-[0.9em] uppercase tracking-wider font-[600] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>{item.label}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </FxReveal>
+                    </div>
+                </div>
+            </section>
+
+            {/* Call-to-Action Section */}
+            <section className={`relative py-20 lg:py-32 ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
+                <FxBackground day={isDayTime}/>
+                <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.5em] text-center max-w-4xl">
+                    <FxReveal>
+                        <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] tracking-tight mb-6">
+                            Ready to Build Your <span className="gx-gradient-text">Distinctive Brand?</span>
+                        </h2>
+                    </FxReveal>
+                    <FxReveal delay={0.08}>
+                        <p className={`text-[1em] lg:text-[1.15em] leading-[1.8] font-[300] mb-10 ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
+                            Let's collaborate to create a brand identity that resonates with your audience,
+                            differentiates you from competitors, and drives sustainable business growth.
+                        </p>
+                    </FxReveal>
+                    <FxReveal delay={0.16}>
+                        <div className="flex flex-wrap gap-4 justify-center">
+                            <Link href="/contact">
+                                <button
+                                    className="relative px-10 py-4 rounded-full text-[0.95em] font-bold overflow-hidden hover:shadow-lg transition-all duration-300"
+                                    style={{background: '#00f5d4', color: '#000'}}>
+                                    <span className="absolute inset-0" style={{
+                                        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)'
+                                    }}/>
+                                    <span className="relative">Start Your Branding Journey →</span>
+                                </button>
+                            </Link>
+                            <Link href="/portfolio">
+                                <button
+                                    className="px-10 py-4 rounded-full text-[0.95em] font-semibold transition-all duration-300"
+                                    style={{
+                                        color: isDayTime ? '#000' : '#fff',
+                                        border: `2px solid ${isDayTime ? '#000' : '#fff'}`
+                                    }}>
+                                    View Our Work
+                                </button>
+                            </Link>
+                        </div>
+                    </FxReveal>
+                </div>
+            </section>
             <div id={'mid image'} className={'h-auto max-w-full w-full mx-auto lg:-mt-[34em] md:-mt-[34em]'}>
                 <Image
                     className={' object-fill'}
@@ -389,7 +652,6 @@ const Branding = () => {    const [isVisible, setIsVisible] = useState(false);
             </div>
 
 
-
             {/* Trusted Digital Partners */}
             <div className={`${isDayTime ? 'bg-black' : 'bg-white'}`}>
                 <div id={'partners'}
@@ -401,7 +663,8 @@ const Branding = () => {    const [isVisible, setIsVisible] = useState(false);
                     </h1>
                     <p className={'text-[0.873em] font-[300] leading-[1.5] text-justify lg:pr-[33em] mb-10'}>
                         We specialize in crafting high-impact marketing websites, innovative web apps, and mobile
-                        applications that drive real results. From funded startups to established businesses, we&#39;ve
+                        applications that drive real results. From funded startups to established businesses,
+                        we&#39;ve
                         helped a wide range of clients bring their digital products to life—delivering standout
                         experiences
                         that fuel growth, engagement, and long-term success.
@@ -442,8 +705,7 @@ const Branding = () => {    const [isVisible, setIsVisible] = useState(false);
                 </div>
             </div>
         </div>
-    </FuturisticServiceLayout>
-  );
+    );
 };
 
 export default Branding;

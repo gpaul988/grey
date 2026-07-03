@@ -6,6 +6,8 @@ import '@/app/globals.css';
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
+import ServiceHero from '@/components/futuristic/ServiceHero';
+import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 import Link from "next/link";
 import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
 import CountUp from "react-countup";
@@ -13,7 +15,7 @@ import {useIsDayTime} from '../../components/useIsDayTime';
 
 import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
 
-import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
+import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxStickyScrollSection, FxScrollItem } from '@/components/futuristic/fx';
 const Seo = () => {    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
@@ -62,12 +64,12 @@ const Seo = () => {    const [isVisible, setIsVisible] = useState(false);
     // Development Solutions hook
     const handleScroll = () => {
         const sections = [
-            "SEOC",
-            "KMR",
-            "TSEOA",
-            "OSEO",
-            "LB",
-            "CM",
+            "KRO",
+            "TSEO",
+            "LBS",
+            "OPSE",
+            "LSEO",
+            "CSTRAT",
         ];
 
         for (const sectionId of sections) {
@@ -216,322 +218,149 @@ const Seo = () => {    const [isVisible, setIsVisible] = useState(false);
     ];
 
     return (
-    <FuturisticServiceLayout title={`Search Engine <br className='lg:block md:block hidden'/>Optimisation Agency`}>
-<div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
+        <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
             <FloatingButton
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
                 }`}
             />
 
-            {/* Hero Section */}
-            <div id={'hero'}
-                 className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] ${
-                     isDayTime ? 'text-black' : 'text-white'
-                 }`}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
-                <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
-                    <div className="gx-scanline" />
-                    <div className="gx-noise-overlay" />
-                    <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
-                </div>
-                
-                <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
-                    Did you know the top 3 Google search results capture over 75% of all clicks? Let us help you get
-                    there. Request a free SEO audit from one of our experts and discover <br
-                    className={'lg:block md:block hidden'}/>what’s holding your site back.
-                </p>
-                <ResponsiveVideoHero videoDesktop="/assets/seo/hero.mp4" videoMobile="/assets/seo/hero-mobile.mp4" posterImage="/assets/seo/hero.jpg" />
-            </div>
+            <ServiceHero
+                title="Search Engine Optimisation (SEO)"
+                subtitle="Smart SEO strategies tailored for business success"
+                accentColor="#00f5d4"
+                variant="particles"
+                badges={["Technical SEO","Content Strategy","Link Building","Local SEO","Analytics & Reporting"]}
+                ctaHref="/contact"
+                ctaLabel="Request a free audit"
+            />
 
-            {/* Introductory section */}
-            <section ref={sectionRef}
-                     className={`py-12 transition-colors duration-500 ${
-                         isBackgroundActive
-                             ? isDayTime
-                                 ? "bg-white text-black"
-                                 : "bg-black text-white"
-                             : isDayTime
-                                 ? "bg-black text-white"
-                                 : "bg-white text-black"
-                     }`}>
-                <div
-                    className='relative grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 md:pt-20 pt-6 lg:pb-16 md:pb-16 pb-6 lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'>
-                    <div className=''>
-                        <h6 className='constant-text uppercase lg:text-[0.85em] md:text-[0.85em] leading-[1.3] text-[0.8em] lg:font-[600] font-[600] lg:tracking-wider tracking-tight'>
-                            Smart SEO strategies <br className={'lg:block md:block hidden'}/>tailored for business <br
-                            className={'lg:block md:block hidden'}/>success
-                        </h6>
+            {/* Introductory section (futuristic style) */}
+            <section
+                ref={sectionRef}
+                data-bg={isBackgroundActive ? (isDayTime ? 'Dark' : 'Light') : (isDayTime ? 'Light' : 'Dark')}
+                className={`pt-16 transition-colors duration-500 ${
+                    isBackgroundActive
+                        ? isDayTime ? 'bg-black text-white' : 'bg-white text-black'
+                        : isDayTime ? 'bg-white text-black' : 'bg-black text-white'
+                }`}>
+                <FxBackground day={isDayTime}/>
+                <div className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
+                    <div>
+                        <FxChip day={!isBackgroundActive ? !isDayTime : isDayTime}>SEO OPTIMIZATION</FxChip>
                     </div>
-                    <div className='lg:-ml-[19em]'>
-                        <h3 className='lg:text-[3.2em] md:text-[3.2em] text-[1.8em] font-[500] lg:mt-[0.01em] lg:leading-[1.1] tracking-tight border-b lg:pb-[0.7em] lg:mb-[0.7em] leading-[1.1] pb-6'>
-                            Search Engine Optimisation (SEO)
-                        </h3>
-                        <div
-                            className='grid lg:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]'>
-                            <div>
-                                <p>
-                                    Search Engine Optimisation (SEO) is a critical component of digital success, focused
-                                    on improving your website’s ranking on Search Engine Results Pages (SERPs) to drive
-                                    consistent, high-quality organic traffic. At Grey InfoTech, we approach SEO as a
-                                    long-term investment that delivers measurable results. From on-page optimisation and
-                                    technical audits to keyword research, content strategy and link-building, our
-                                    comprehensive SEO solutions are designed to increase visibility, enhance brand
-                                    authority and support lead generation for sustained business growth.
-                                </p>
+
+                    <div className="lg:-ml-[19em]">
+                        <FxReveal>
+                            <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
+                                Dominate Search Rankings with Strategic <span className="gx-gradient-text">SEO</span>
+                            </h3>
+                        </FxReveal>
+
+                        <FxReveal delay={0.08}>
+                            <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
+                                <div>
+                                    <p>Our SEO services are engineered to increase your visibility in search engines, drive targeted organic traffic, and establish your website as an authority in your industry.</p>
+                                </div>
+                                <div>
+                                    <p>We combine technical excellence, data-driven strategies, and creative content optimization to help your business achieve sustained rankings and measurable growth in competitive search landscapes.</p>
+                                    <div className="flex flex-wrap gap-3 mt-4">
+                                        {['Keyword Research', 'Technical Audit', 'Link Building', 'Content Strategy'].map((p) => (
+                                            <span key={p} className="gx-data-pill">{p}</span>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <p>
-                                    With over 8 years of industry experience, we understand the ever-changing nature of
-                                    search engine algorithms and adapt our strategies accordingly. Our team of seasoned
-                                    SEO consultants and content creators deliver clear, data-backed guidance without
-                                    jargon or unnecessary complexity. Whether you’re a startup looking to gain traction
-                                    or an established business seeking to boost your digital presence, we provide a
-                                    structured, ROI-focused approach to help you reach and exceed your growth
-                                    objectives.
-                                </p>
-                            </div>
-                        </div>
+                        </FxReveal>
                     </div>
                 </div>
             </section>
 
-            {/* SEO services overview */}
-            <div
-                className={`lg:pt-[2em] md:pt-[2em] pt-[1em] lg:pb-[4em] md:pb-[4em] pb-[1em]  ${isDayTime ? 'bg-white' : 'bg-black'}`}>
-                <div id={'SEO Services Overview'}
-                     className={'relative lg:pt-[3em] md:pt-[3em] pt-[1em] lg:pb-[6em] md:pb-[6em] pb-[1em] lg:mt-[3em] md:mt-[3em] mt-[1em] lg:mb-[6em] md:mb-[6em] mb-[1em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]'}>
-                    <div
-                        className={`relative grid lg:grid-cols-2 grid-cols-1 gap-4 mb-8 border-b-[1px]  pb-[3em] ${isDayTime ? 'text-black' : 'text-white'} `}>
-                        <div>
-                            <h2 className={`lg:text-[3.12em] md:text-[3.12em] text-[1.5em] font-[500] justify-center tracking-tight  leading-[1.1]`}>
-                                SEO Services <br className={'lg:block md:block hidden'}/>Overview
-                            </h2>
-                        </div>
-                        <div>
-                            <p className='text-[0.85em] font-[400] justify-center text-justify leading-[1.5] lg:-ml-[7.5em] tracking-noromal'>
-                                We help optimize some of the web’s largest and most complex sites. Leverage our
-                                expertise through a range of proven SEO services designed to drive traffic, improve
-                                rankings, and deliver measurable results.
+            {/* SEO services overview - Enhanced with FxStickyScrollSection */}
+            <FxStickyScrollSection
+                day={isDayTime}
+                heading={<>SEO<br/>services overview</>}
+                intro="Our SEO services are engineered to increase your visibility in search engines, drive targeted organic traffic, and establish your website as an authority in your industry. We combine technical excellence, data-driven strategies, and creative content optimization to help your business achieve sustained rankings and measurable growth in competitive search landscapes."
+                navLabel="SEO Solutions"
+                activeId={activeId}
+                onNavClick={scrollToSection}
+                items={[
+                    {
+                        id: "01",
+                        title: "Keyword Research & Optimization",
+                        target: "KRO",
+                        tags: ["Keywords", "Analysis", "Competitiveness"],
+                        body: (
+                            <p>
+                                Keyword research and optimization form the foundation of effective SEO. We identify high-value keywords aligned with your business goals and user intent, then strategically incorporate them into your site's title tags, meta descriptions, headings, and content. Our data-driven approach ensures every keyword targets real search demand, maximizes visibility in competitive markets, and drives qualified traffic that converts into measurable business results.
                             </p>
-                        </div>
-                    </div>
-                    <div
-                        className='grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-16 lg:mt-28 md:mt-28 mt-6 px-6 max-w-full w-full mx-auto h-full'>
-                        <div
-                            className='lg:sticky md:sticky top-28 lg:h-screen md:h-screen lg:mr-[11em] overflow-hidden'>
-                            <h3 className={`text-[1.5em] font-[500] tracking-tight constant-text ${
-                                isDayTime ? 'text-black' : 'text-white'
-                            }`}>
-                                Our Solutions
-                            </h3>
-                            <ul className={`list-disc constant-text text-[0.89em] ml-4 font-[600] relative space-y-3 ${
-                                isDayTime ? 'text-black decoration-gray-600 focus:decoration-gray-900' : 'text-white decoration-gray-400 focus:decoration-gray-600'
-                            }`}>
-                                {[
-                                    {id: "01", title: "SEO Consultancy", target: "SEOC"},
-                                    {id: "02", title: "Keyword & Market Research", target: "KMR"},
-                                    {id: "03", title: "Technical SEO Audit", target: "TSEOA"},
-                                    {id: "04", title: "Onsite SEO", target: "OSEO"},
-                                    {id: "05", title: "Link Building", target: "LB"},
-                                    {id: "06", title: "Content Marketing", target: "CM"},
-                                ].map((item, index) => (
-                                    <li key={index} className={'group lg:mt-6 mt-4'}>
-                                        <button
-                                            onClick={() => scrollToSection(item.target)}
-                                            className={`w-full text-left flex items-center gap-4 mb-4 focus:font-[650] ${
-                                                isDayTime
-                                                    ? `focus:text-black ${activeId === item.target ? 'text-gray-900 font-[650]' : 'text-gray-500 font-[400]'}`
-                                                    : `focus:text-white ${activeId === item.target ? 'text-gray-100 font-[650]' : 'text-gray-500 font-[400]'}`
-                                            }`}
-                                        >
-                                            <div className={'flex gap-4'}>
-                                                <span className={'shrink-0'}>{item.id}</span>
-                                                <span
-                                                    className={`opacity-0 transition-opacity text-[2em] leading-[0.59em] ${activeId === item.target ? 'opacity-100' : ''}`}>→</span>
-                                                <span>{item.title}</span>
-                                            </div>
-                                        </button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div className={'lg:-ml-[8em] md:-ml-[8em] lg:mb-[15em] md:mb-[19em]'}>
-                            <div className="grid lg:grid-cols-[50px_auto] grid-cols-1 lg:gap-2 gap1 items-start">
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>01/
-                                </div>
-                                <div className={`lg:mb-44 mb-14  ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'SEOC'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        SEO Consultancy
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>SEO Strategy</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Digital Transformation</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Keywords</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Search Engines</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.873em] font-[300]'}>
-                                        Whether you’re new to SEO or an established business seeking better performance,
-                                        Grey InfoTech delivers strategic, results-driven SEO solutions tailored to your
-                                        goals. We focus on improving your online visibility, increasing organic traffic,
-                                        and driving qualified leads through proven techniques and data-backed insights.
-                                        Whether working independently or alongside your internal team, we ensure a
-                                        seamless collaboration that prioritises measurable outcomes, long-term growth,
-                                        and full transparency throughout the process. With our deep industry expertise
-                                        and commitment to excellence, we position your business for sustained success in
-                                        competitive search landscapes.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>02/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'KMR'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Keyword & Market Research
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Market Research</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Competitor Research</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Traffic Potential</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        It all starts with a search—by identifying and analysing the keywords and
-                                        phrases your potential customers are most likely to use when searching online.
-                                        Through comprehensive keyword research, aligned with your industry and target
-                                        market, we uncover high-value opportunities that form the foundation of an
-                                        effective SEO strategy. This process enables us to provide realistic traffic
-                                        projections, assess competition levels, and forecast your website’s visibility
-                                        potential. With this insight, we help you make informed decisions, align content
-                                        with user intent, and set measurable goals that drive meaningful business growth
-                                        through search.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>03/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'TSEOA'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Technical SEO Audit
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Website Audit</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Search Engines</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Website Traffic</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        We begin with a comprehensive audit of your website to assess all technical SEO
-                                        elements, from site structure and crawl-ability to page speed and mobile
-                                        optimisation. By analysing the audit findings, we identify issues that may
-                                        hinder search engine visibility and prioritise them based on impact. This leads
-                                        to a clear, actionable plan focused on ensuring your site is properly indexed,
-                                        efficiently crawled, and positioned to perform well in search engine
-                                        rankings—laying the groundwork for sustained organic growth and improved
-                                        discoverability.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>04/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'OSEO'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Onsite SEO
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Internal Linking</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Online Presence</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Site Navigation</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Onsite SEO focuses on optimising elements within your website to improve
-                                        visibility and relevance in search engine results. This includes enhancing site
-                                        navigation for better user experience, refining internal linking structures to
-                                        guide both users and search engines, and optimising headings and metadata for
-                                        clarity and keyword alignment. Additionally, producing high-quality, targeted
-                                        content ensures your site effectively communicates its value, increases
-                                        engagement, and strengthens your overall online presence.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>05/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'LB'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Link Building
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>API Integration</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Payment Integration</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Authentication</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Link building remains one of the most influential factors in establishing your
-                                        website’s authority and improving search engine rankings. Through strategic PR
-                                        and outreach efforts, we focus on securing high-quality, trusted backlinks that
-                                        not only drive referral traffic but also enhance your <Link
-                                        href='/services/branding'
-                                        className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}>brand’s</Link> credibility
-                                        online. By partnering with reputable sources, we ensure that every link adds
-                                        genuine value and supports long-term SEO success.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>06/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'CM'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Content Marketing
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Scalability Upgrades</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Minimal Disruption</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>App Migration</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Content is still king, and having the right team makes all the difference. Our
-                                        expert content creators, copywriters, designers, and videographers work together
-                                        to produce high-quality content that aligns with your brand and drives
-                                        engagement. We don’t just deliver one-off pieces—we build and execute a scalable
-                                        content strategy tailored to your goals, ensuring consistent output that
-                                        supports your long-term growth and enhances your digital presence.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        ),
+                    },
+                    {
+                        id: "02",
+                        title: "Technical SEO Audit",
+                        target: "TSEO",
+                        tags: ["Site Structure", "Crawlability", "Indexation"],
+                        body: (
+                            <p>
+                                Technical SEO ensures your website is properly structured, easily crawlable by search engines, and fully indexed. We conduct comprehensive audits examining site architecture, page speed, mobile responsiveness, XML sitemaps, robots.txt configuration, and structured data markup. By identifying and resolving technical issues, we lay the groundwork for improved rankings, better user experience, and sustained organic visibility across search engines.
+                            </p>
+                        ),
+                    },
+                    {
+                        id: "03",
+                        title: "Link Building Strategy",
+                        target: "LBS",
+                        tags: ["Backlinks", "Authority", "Domain Strength"],
+                        body: (
+                            <p>
+                                Strategic link building establishes your website's authority and credibility in the eyes of search engines. We secure high-quality backlinks from reputable, relevant sources through targeted PR and outreach efforts. Each link is carefully vetted to ensure it adds genuine value, drives referral traffic, and supports your long-term SEO success without risking penalties from poor-quality link sources.
+                            </p>
+                        ),
+                    },
+                    {
+                        id: "04",
+                        title: "On-Page SEO",
+                        target: "OPSE",
+                        tags: ["Content", "Meta Tags", "Schema Markup"],
+                        body: (
+                            <p>
+                                On-page SEO optimization focuses on refining elements within your website to improve visibility and relevance. We enhance site navigation, optimize internal linking structures, craft compelling headings and meta tags aligned with target keywords, and create high-quality content that engages users and search engines alike. This comprehensive approach strengthens your overall online presence and conversion potential.
+                            </p>
+                        ),
+                    },
+                    {
+                        id: "05",
+                        title: "Local SEO",
+                        target: "LSEO",
+                        tags: ["Google My Business", "Local Citations", "Reviews"],
+                        body: (
+                            <p>
+                                Local SEO helps your business dominate search results in your geographic area. We optimize your Google My Business profile, manage local citations across authoritative directories, encourage and respond to customer reviews, and implement location-based schema markup. This localized approach drives foot traffic, local inquiries, and establishes your business as a trusted community resource.
+                            </p>
+                        ),
+                    },
+                    {
+                        id: "06",
+                        title: "Content Strategy",
+                        target: "CSTRAT",
+                        tags: ["Blog Posts", "Pillar Pages", "Topical Clusters"],
+                        body: (
+                            <p>
+                                Strategic content creation addresses user intent while supporting your SEO objectives. We develop comprehensive content calendars featuring blog posts, pillar pages, and topical clusters that establish your expertise and address the full customer journey. Each piece is optimized for target keywords, designed to engage and inform, and structured to drive both organic traffic and meaningful business conversions.
+                            </p>
+                        ),
+                    },
+                ]}
+            />
+
+            {/* Service item sections with IDs for scroll tracking */}
+            <div id="KRO" className="scroll-mt-20" />
+            <div id="TSEO" className="scroll-mt-20" />
+            <div id="LBS" className="scroll-mt-20" />
+            <div id="OPSE" className="scroll-mt-20" />
+            <div id="LSEO" className="scroll-mt-20" />
+            <div id="CSTRAT" className="scroll-mt-20" />
 
             {/* Frst image*/}
             <div id={'first image'} className={'lg:-mt-[32em] md:-mt-[32em] h-auto max-w-full w-full mx-auto'}>
@@ -1113,8 +942,7 @@ const Seo = () => {    const [isVisible, setIsVisible] = useState(false);
                 </div>
             </div>
         </div>
-    </FuturisticServiceLayout>
-  );
+    );
 };
 
 export default Seo;

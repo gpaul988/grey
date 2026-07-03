@@ -276,7 +276,7 @@ export default function GreyInfoTechProcess(): React.ReactElement {
     const startDayForPhase = (index: number) => index * 30 + 1;
 
     // day -> black background + white text; night -> white background + black text
-    const isDay = isDayTime();
+    const isDay = isDayTime;
     const topLevelBgClass = isDay ? 'bg-black' : 'bg-white';
     const topLevelTextClass = isDay ? 'text-white' : 'text-black';
 

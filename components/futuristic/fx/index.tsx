@@ -490,6 +490,17 @@ export function FxStickyScrollSection({
 
             if (!section || !header || !rail) return;
 
+            // Disable sticky behavior on mobile devices (< 1024px)
+            const isMobile = window.innerWidth < 1024;
+
+            if (isMobile) {
+                // On mobile: always use relative positioning (no sticky)
+                setRailStyle({ position: 'relative' });
+                setIsRailPinned(false);
+                return;
+            }
+
+            // Desktop sticky behavior
             const headerRect = header.getBoundingClientRect();
             const sectionRect = section.getBoundingClientRect();
             const railHeight = rail.offsetHeight;
@@ -571,9 +582,11 @@ export function FxStickyScrollSection({
                 {/* Sticky scroll grid */}
                 <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 lg:mt-16 md:mt-12 mt-6 items-start">
 
-                    {/* Left sticky rail */}
+                    {/* Left sticky rail - fade out on last item */}
                     <aside
-                        className="relative z-20 w-full lg:w-[460px] shrink-0"
+                        className={`relative z-20 w-full lg:w-[460px] shrink-0 transition-all duration-500 ${
+                            activeId === items[items.length - 1]?.target ? 'lg:opacity-0 lg:pointer-events-none' : 'lg:opacity-100'
+                        }`}
                         style={{minHeight: isRailPinned ? `${railHeight}px` : undefined}}
                     >
                         <div
@@ -589,12 +602,11 @@ export function FxStickyScrollSection({
                                 className="pointer-events-none absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent via-teal-400/20 to-transparent"/>
 
                             <FxChip day={day} className="relative mb-5">{navLabel}</FxChip>
-                            <h3 className={`relative text-[1.9em] lg:text-[2.3em] font-[700] leading-[1.05] tracking-tight ${day ? 'text-white' : 'text-white'}`}>
+                            <h3 className={`relative text-[1.5em] lg:text-[2.3em] font-[700] leading-[1.05] tracking-tight ${day ? 'text-white' : 'text-white'}`}>
                                 Command <span className="gx-gradient-text">stack</span>
                             </h3>
-                            <p className={`relative mt-4 text-[0.78em] font-[300] leading-[1.7] ${mutedText}`}>
-                                A guided, pinned experience for startup solutions, designed like a futuristic mission
-                                control panel.
+                            <p className={`relative mt-4 text-[0.75em] lg:text-[0.78em] font-[300] leading-[1.6] lg:leading-[1.7] ${mutedText}`}>
+                                A guided experience for startup solutions, designed like a futuristic mission control panel.
                             </p>
 
                             <div className="relative mt-6 space-y-1">
@@ -604,21 +616,21 @@ export function FxStickyScrollSection({
                                         <button
                                             key={index}
                                             onClick={() => onNavClick(item.target)}
-                                            className={`group w-full text-left flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-300 border ${
+                                            className={`group w-full text-left flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-300 border text-[0.82em] lg:text-[0.9em] ${
                                                 isActive
                                                     ? 'bg-teal-400/10 border-teal-400/30 shadow-[0_0_24px_-8px_rgba(45,212,191,0.55)]'
                                                     : `border-transparent hover:border-teal-400/15 hover:bg-teal-400/5 ${mutedText}`
                                             }`}
                                         >
                                             <span
-                                                className={`text-[0.7em] font-[700] tracking-wider tabular-nums shrink-0 ${isActive ? 'text-teal-400' : mutedText}`}>
+                                                className={`text-[0.65em] lg:text-[0.7em] font-[700] tracking-wider tabular-nums shrink-0 ${isActive ? 'text-teal-400' : mutedText}`}>
                                                 {item.id}
                                             </span>
                                             <span
-                                                className={`text-[0.9em] font-[500] leading-snug ${isActive ? (day ? 'text-white' : 'text-white') : ''}`}>
+                                                className={`text-[0.85em] lg:text-[0.9em] font-[500] leading-snug ${isActive ? (day ? 'text-white' : 'text-white') : ''}`}>
                                                 {item.title}
                                             </span>
-                                            {isActive && <span className="ml-auto text-teal-400 text-[1.1em]">→</span>}
+                                            {isActive && <span className="ml-auto text-teal-400 text-[1em] lg:text-[1.1em]">→</span>}
                                         </button>
                                     );
                                 })}
@@ -627,16 +639,16 @@ export function FxStickyScrollSection({
                     </aside>
 
                     {/* Right scrollable content */}
-                    <div className="min-w-0 flex-1 lg:pt-2 space-y-10 lg:space-y-16">
+                    <div className="min-w-0 flex-1 lg:pt-2 space-y-6 lg:space-y-16">
                         {items.map((item, index) => (
                             <FxReveal key={index} delay={0.08 * index}>
                                 <div id={item.target} className="scroll-mt-28">
                                     <FxHoloCard day={day}
-                                                className="p-6 lg:p-9 border border-teal-400/10 shadow-[0_0_50px_-24px_rgba(45,212,191,0.35)]">
+                                                className="p-4 lg:p-9 border border-teal-400/10 shadow-[0_0_50px_-24px_rgba(45,212,191,0.35)]">
                                         <div className="flex items-start gap-4 mb-4">
                                             <span
-                                                className={`text-[0.7em] font-[700] tabular-nums shrink-0 mt-1 ${mutedText}`}>{item.id}/</span>
-                                            <h2 className={`text-[1.4em] lg:text-[1.65em] font-[600] leading-snug ${day ? 'text-gray-900' : 'text-white'}`}>{item.title}</h2>
+                                                className={`text-[0.65em] lg:text-[0.7em] font-[700] tabular-nums shrink-0 mt-1 ${mutedText}`}>{item.id}/</span>
+                                            <h2 className={`text-[1.15em] lg:text-[1.65em] font-[600] leading-snug ${day ? 'text-gray-900' : 'text-white'}`}>{item.title}</h2>
                                         </div>
                                         {item.tags && item.tags.length > 0 && (
                                             <div className="flex flex-wrap gap-2 mb-5">
@@ -644,7 +656,7 @@ export function FxStickyScrollSection({
                                             </div>
                                         )}
                                         <div
-                                            className={`text-[0.85em] font-[300] leading-[1.7] text-justify ${mutedText}`}>
+                                            className={`text-[0.8em] lg:text-[0.85em] font-[300] leading-[1.6] lg:leading-[1.7] text-justify ${mutedText}`}>
                                             {item.body}
                                         </div>
                                     </FxHoloCard>

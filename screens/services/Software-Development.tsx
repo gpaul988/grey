@@ -7,6 +7,8 @@ import Link from 'next/link'
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
+import ServiceHero from '@/components/futuristic/ServiceHero';
+import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 import CountUp from "react-countup";
 import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
 import {useIsDayTime} from '../../components/useIsDayTime';
@@ -189,26 +191,15 @@ const SoftwareDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                 }`}
             />
 
-            {/* Hero Section */}
-            <div id={'hero'}
-                 className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
-                <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
-                    <div className="gx-scanline" />
-                    <div className="gx-noise-overlay" />
-                    <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
-                </div>
-                <h1
-                    className={`border-b pb-[0.5em] border-gray-500/50 px-0 gx-hero-title constant-text lg:text-[5em] md:text-[3em] sm:text-[2em] text-[2.5em] lg:mt-[3em] md:mt-[3em] mt-[1.5em] leading-[1.1] font-[500] ${
-                        isDayTime ? 'text-black' : 'text-white'
-                    }`}>
-                    Software <br className={'lg:block md:block hidden'}/> Development Company
-                </h1>
-                <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
-                    Turn your idea into a reality
-                </p>
-                <ResponsiveVideoHero videoDesktop="/assets/soft/hero.mp4" videoMobile="/assets/soft/hero-mobile.mp4" posterImage="/assets/soft/hero.jpg" />
-            </div>
+            <ServiceHero
+                title="Software Development"
+                subtitle="Custom solutions engineered for your vision"
+                accentColor="#00f5d4"
+                variant="circuit"
+                badges={["Custom Dev","Architecture","Quality","On-time"]}
+                ctaHref="/contact"
+                ctaLabel="Get started"
+            />
 
             {/* Introductory section */}
             <section ref={sectionRef}
