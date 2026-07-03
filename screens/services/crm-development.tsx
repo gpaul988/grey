@@ -83,7 +83,8 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             const section = document.getElementById(sectionId);
             if (section) {
                 const rect = section.getBoundingClientRect();
-                if (rect.top >= 0 && rect.top <= window.innerHeight / 2) {
+                const mid = rect.top + rect.height / 2;
+                if (mid >= 0 && mid <= window.innerHeight * 0.5) {
                     setActiveId(sectionId);
                     break;
                 }
@@ -1093,7 +1094,7 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
 
             {/* Our CRM System Development Process */}
             <div
-                className={`lg:-mt-[32em] md:-mt-[32em] lg:pt-[2em] md:pt-[2em] pt-[1em] lg:pb-[2em] md:pb-[2em] pb-[1em] ${isDayTime ? 'bg-black' : 'bg-white'}`}>
+                className={`lg:pt-[2em] md:pt-[2em] pt-[1em] lg:pb-[2em] md:pb-[2em] pb-[1em] ${isDayTime ? 'bg-black' : 'bg-white'}`}>
                 <div id={'crm-system-development'}
                      className={`relative lg:mt-[1.5em] md:mt-[1.5em] mt-[1em] lg:mb-16 md:mb-16 mb-5 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
 
