@@ -213,7 +213,7 @@ const Startups = () => {
                         <FxChip day={!isBackgroundActive ? !isDayTime : isDayTime}>YOUR INSIGHTS, OUR
                             EXPERIENCE</FxChip>
                     </div>
-                    <div className="lg:-ml-[19em]">
+                    <div>
                         <FxReveal>
                             <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] lg:mt-[0.01em] rounded-none lg:tracking-normal tracking-tight leading-[1.3] lg:pb-10 pb-6">
                                 Enabling startups to<br/><span
@@ -353,7 +353,7 @@ const Startups = () => {
             />
 
             <div
-                className={`relative lg:py-32 py-16 overflow-hidden ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
+                className={`relative lg:py-32 py-16 ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
                 {/* Grid background */}
                 <div className="pointer-events-none absolute inset-0" style={{
                     backgroundImage: `linear-gradient(${isDayTime ? 'rgba(45,212,191,0.06)' : 'rgba(13,148,136,0.07)'} 1px, transparent 1px), linear-gradient(90deg, ${isDayTime ? 'rgba(45,212,191,0.06)' : 'rgba(13,148,136,0.07)'} 1px, transparent 1px)`,
