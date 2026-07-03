@@ -516,7 +516,7 @@ export function FxStickyScrollSection({
 
 
     return (
-        <section ref={sectionRef} className={`relative isolate overflow-visible ${day ? 'bg-white' : 'bg-[#050810]'}`}>
+        <section ref={sectionRef} className={`relative isolate overflow-visible`}>
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
                 <FxBackground day={day} grid aurora/>
                 <FxOrbit size={700} top="-150px" right="-200px" opacity={0.12} speed={35}/>
