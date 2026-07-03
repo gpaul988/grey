@@ -478,80 +478,42 @@ export function FxStickyScrollSection({
     const sectionRef = useRef<HTMLElement | null>(null);
     const headerRef = useRef<HTMLDivElement | null>(null);
     const railRef = useRef<HTMLDivElement | null>(null);
-    const [isRailPinned, setIsRailPinned] = useState(false);
-    const [railStyle, setRailStyle] = useState<React.CSSProperties>({});
-    const [railHeight, setRailHeight] = useState(0);
+
+    // Track whether the final (last) item is visibly within the viewport
+    const [isEndVisible, setIsEndVisible] = useState(false);
 
     useEffect(() => {
-        const updateRail = () => {
-            const section = sectionRef.current;
-            const header = headerRef.current;
-            const rail = railRef.current;
-
-            if (!section || !header || !rail) return;
-
-            // Disable sticky behavior on mobile devices (< 1024px)
-            const isMobile = window.innerWidth < 1024;
-
-            if (isMobile) {
-                // On mobile: always use relative positioning (no sticky)
-                setRailStyle({ position: 'relative' });
-                setIsRailPinned(false);
+        const checkEnd = () => {
+            const lastTarget = items[items.length - 1]?.target;
+            if (!lastTarget) {
+                setIsEndVisible(false);
                 return;
             }
-
-            // Desktop sticky behavior
-            const headerRect = header.getBoundingClientRect();
-            const sectionRect = section.getBoundingClientRect();
-            const railHeight = rail.offsetHeight;
-            const topOffset = 96;
-            const scrollY = window.scrollY;
-            const sectionTop = section.offsetTop;
-            const sectionBottom = sectionTop + section.offsetHeight;
-
-            // Only pin if header is completely scrolled out of view (bottom above viewport)
-            // This guarantees zero interference with the header
-            const headerIsHidden = headerRect.bottom < topOffset;
-            const hasEnoughSpace = scrollY + topOffset + railHeight < sectionBottom;
-            const shouldPin = headerIsHidden && sectionRect.bottom > topOffset && hasEnoughSpace;
-
-            setRailHeight(rail.offsetHeight);
-            setIsRailPinned(shouldPin);
-
-            if (shouldPin) {
-                // Header is hidden and there's room - pin the rail
-                setRailStyle({
-                    position: 'fixed',
-                    top: `${topOffset}px`,
-                    left: `${rail.getBoundingClientRect().left}px`,
-                    width: `${rail.offsetWidth}px`,
-                    zIndex: 5,
-                });
-            } else if (scrollY >= sectionTop && sectionRect.bottom > topOffset) {
-                // Section is visible but not pinned - use absolute to scroll with content
-                const absoluteTop = scrollY - sectionTop;
-                setRailStyle({
-                    position: 'absolute',
-                    top: `${Math.max(0, Math.min(absoluteTop, section.offsetHeight - railHeight))}px`,
-                    left: '0',
-                    width: '100%',
-                    zIndex: 5,
-                });
-            } else {
-                // Before section or header visible - keep rail in normal flow
-                setRailStyle({ position: 'relative' });
+            const el = document.getElementById(lastTarget);
+            if (!el) {
+                setIsEndVisible(false);
+                return;
             }
+            const rect = el.getBoundingClientRect();
+            const vh = window.innerHeight;
+            // Consider end visible when its midpoint is in lower half of the viewport
+            const mid = rect.top + rect.height / 2;
+            setIsEndVisible(mid >= vh * 0.45 && mid <= vh * 1.05);
         };
 
-        updateRail();
-        window.addEventListener('scroll', updateRail, {passive: true});
-        window.addEventListener('resize', updateRail);
-
+        checkEnd();
+        window.addEventListener('scroll', checkEnd, {passive: true});
+        window.addEventListener('resize', checkEnd);
         return () => {
-           window.removeEventListener('scroll', updateRail);
-           window.removeEventListener('resize', updateRail);
+            window.removeEventListener('scroll', checkEnd);
+            window.removeEventListener('resize', checkEnd);
         };
-    }, [day, items.length]);
+    }, [items.length]);
+
+    // Use CSS sticky for the left rail (more robust). JavaScript pinning introduced layout bugs
+    // on pages with overlapping/negative-margin sections; CSS sticky is simpler and works across layouts.
+    // Keep the activeId-based fade-out behavior but remove manual positioning logic.
+
 
     return (
         <section ref={sectionRef} className={`relative isolate ${day ? 'bg-white' : 'bg-[#050810]'}`}>
@@ -585,14 +547,12 @@ export function FxStickyScrollSection({
                     {/* Left sticky rail - fade out on last item */}
                     <aside
                         className={`relative z-20 w-full lg:w-[460px] shrink-0 transition-all duration-500 ${
-                            activeId === items[items.length - 1]?.target ? 'lg:opacity-0 lg:pointer-events-none' : 'lg:opacity-100'
+                            (isEndVisible || activeId === items[items.length - 1]?.target) ? 'lg:opacity-0 lg:pointer-events-none' : 'lg:opacity-100'
                         }`}
-                        style={{minHeight: isRailPinned ? `${railHeight}px` : undefined}}
                     >
                         <div
                             ref={railRef}
-                            className="relative overflow-hidden rounded-[1.75rem] border border-teal-400/15 bg-white/[0.03] p-6 shadow-[0_0_60px_-20px_rgba(45,212,191,0.65)] backdrop-blur-2xl"
-                            style={railStyle}
+                            className="relative overflow-hidden rounded-[1.75rem] border border-teal-400/15 bg-white/[0.03] p-6 shadow-[0_0_60px_-20px_rgba(45,212,191,0.65)] backdrop-blur-2xl lg:sticky lg:top-[96px]"
                         >
                             <div
                                 className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(45,212,191,0.18),transparent_46%)]"/>
