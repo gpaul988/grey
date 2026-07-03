@@ -77,7 +77,8 @@ const Branding = () => {
             const section = document.getElementById(sectionId);
             if (section) {
                 const rect = section.getBoundingClientRect();
-                if (rect.top >= 0 && rect.top <= window.innerHeight / 2) {
+                const mid = rect.top + rect.height / 2;
+                if (mid >= 0 && mid <= window.innerHeight * 0.5) {
                     setActiveId(sectionId);
                     break;
                 }
@@ -637,7 +638,7 @@ const Branding = () => {
                     </FxReveal>
                 </div>
             </section>
-            <div id={'mid image'} className={'h-auto max-w-full w-full mx-auto lg:-mt-[34em] md:-mt-[34em]'}>
+            <div id={'mid image'} className={'h-auto max-w-full w-full mx-auto mt-12 lg:mt-20'}>
                 <Image
                     className={' object-fill'}
                     src={'/assets/brand/branding.jpg'}
