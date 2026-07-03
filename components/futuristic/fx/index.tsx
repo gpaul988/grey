@@ -483,20 +483,37 @@ export function FxStickyScrollSection({
     const [isEndVisible, setIsEndVisible] = useState(false);
 
     useEffect(() => {
+        // Robust end-of-list detection using IntersectionObserver (falls back to midpoint check if unavailable)
+        const lastTarget = items[items.length - 1]?.target;
+        if (!lastTarget) {
+            setIsEndVisible(false);
+            return;
+        }
+
+        const el = document.getElementById(lastTarget);
+        if (!el) {
+            setIsEndVisible(false);
+            return;
+        }
+
+        if ('IntersectionObserver' in window) {
+            const obs = new IntersectionObserver((entries) => {
+                const e = entries[0];
+                // visible when at least 50% of the final card is in view
+                setIsEndVisible(e.isIntersecting && e.intersectionRatio >= 0.5);
+            }, {threshold: [0.5]});
+
+            obs.observe(el);
+            // initial check is handled by observer firing immediately in many browsers; keep explicit fallback
+            return () => {
+                obs.disconnect();
+            };
+        }
+
+        // Fallback: midpoint check (legacy)
         const checkEnd = () => {
-            const lastTarget = items[items.length - 1]?.target;
-            if (!lastTarget) {
-                setIsEndVisible(false);
-                return;
-            }
-            const el = document.getElementById(lastTarget);
-            if (!el) {
-                setIsEndVisible(false);
-                return;
-            }
             const rect = el.getBoundingClientRect();
             const vh = window.innerHeight;
-            // Consider end visible when its midpoint is in lower half of the viewport
             const mid = rect.top + rect.height / 2;
             setIsEndVisible(mid >= vh * 0.45 && mid <= vh * 1.05);
         };
