@@ -5,6 +5,8 @@ import React, {useEffect, useRef, useState} from 'react';
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
+import ServiceHero from '@/components/futuristic/ServiceHero';
+import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 import Link from "next/link";
 import CountUp from "react-countup";
 import {useIsDayTime} from '../../components/useIsDayTime';
@@ -106,29 +108,15 @@ const PhpDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                 }`}
             />
 
-            {/* Hero Section */}
-            <div id={'hero'}
-                 className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
-                <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
-                    <div className="gx-scanline" />
-                    <div className="gx-noise-overlay" />
-                    <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
-                </div>
-                <h1
-                    className={`border-b pb-[0.5em] border-gray-500/50 px-0 gx-hero-title constant-text lg:text-[5em] md:text-[3em] sm:text-[2em] text-[2.5em] lg:mt-[3em] md:mt-[3em] mt-[1.5em] leading-[1.1] font-[800] ${
-                        isDayTime ? 'text-black' : 'text-white'
-                    }`}>
-                    PHP Development <br className={'lg:block md:block hidden'}/>Services
-                </h1>
-                <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
-                    Create robust, secure, and scalable web applications with our specialized PHP development services,
-                    designed to meet the needs of startups, enterprises, <br className={'lg:block md:block hidden'}/>and
-                    all
-                    businesses in between.
-                </p>
-                <ResponsiveVideoHero videoDesktop="/assets/php/hero.mp4" videoMobile="/assets/php/hero-mobile.mp4" posterImage="/assets/php/hero.jpg" />
-            </div>
+            <ServiceHero
+                title="PHP Development"
+                subtitle="Robust, scalable server-side solutions"
+                accentColor="#00f5d4"
+                variant="particles"
+                badges={["Symfony","Laravel","Performance","Security"]}
+                ctaHref="/contact"
+                ctaLabel="Discuss your project"
+            />
 
             {/* Introductory section */}
             <section ref={sectionRef}

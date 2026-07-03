@@ -6,6 +6,8 @@ import '@/app/globals.css'
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
+import ServiceHero from '@/components/futuristic/ServiceHero';
+import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 import Link from "next/link";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
@@ -96,26 +98,15 @@ const HybridAppDevelopment = () => {    const sectionRef = useRef<HTMLDivElement
                 }`}
             />
 
-            {/* Hero Section */}
-            <div id={'hero'}
-                 className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
-                <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
-                    <div className="gx-scanline" />
-                    <div className="gx-noise-overlay" />
-                    <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
-                </div>
-                <h1
-                    className={`border-b pb-[0.5em] border-gray-500/50 px-0 gx-hero-title constant-text lg:text-[5em] md:text-[3em] sm:text-[2em] text-[2.5em] lg:mt-[3em] mt-[1.5em] leading-[1.1] font-[800] ${
-                        isDayTime ? 'text-black' : 'text-white'
-                    }`}>
-                    Hybrid App <br className={'lg:block md:block hidden'}/>Development
-                </h1>
-                <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
-                    Power your apps with flexible hybrid development.
-                </p>
-                <ResponsiveVideoHero videoDesktop="/assets/hybrid/hero.mp4" videoMobile="/assets/hybrid/hero-mobile.mp4" posterImage="/assets/hybrid/hero.jpg" />
-            </div>
+            <ServiceHero
+                title="Hybrid App Development"
+                subtitle="Cross-platform apps with native performance"
+                accentColor="#00f5d4"
+                variant="circuit"
+                badges={["React Native","Flutter","Ionic","Cross-platform"]}
+                ctaHref="/contact"
+                ctaLabel="Talk to an expert"
+            />
 
             {/* Introductory section */}
             <section ref={sectionRef}

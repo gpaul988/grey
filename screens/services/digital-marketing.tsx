@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 
 import React, {useEffect, useRef, useState} from 'react';
@@ -8,14 +8,13 @@ import Image from "next/image";
 import Link from "next/link";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import {useIsDayTime} from '../../components/useIsDayTime';
+import {motion} from 'framer-motion';
 
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import ServiceHero from '@/components/futuristic/ServiceHero';
 import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 import { FxBackground, FxStickyScrollSection, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
 import type { FxScrollItem } from '@/components/futuristic/fx';
-
-import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
 const tabs = [
     {key: "frameworks", label: "Frameworks"},
     {key: "cloud", label: "Cloud"},
@@ -170,12 +169,12 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
     {
         id: 'SEO', title: 'Search Engine Optimization', target: 'SEO',
         tags: ['Organic Visibility', 'Keyword Research', 'Link Building', 'Technical Optimization'],
-        body: <>We deliver comprehensive SEO strategies that improve organic search visibility, drive qualified traffic, and establish sustainable online authority. Our services include technical audits, extensive keyword research, on-page optimization, authoritative backlink acquisition through digital PR, and local SEO—providing transparent reporting with rankings tracking, organic traffic analysis, conversion attribution, and competitor benchmarking.</>,
+        body: <>We deliver comprehensive SEO strategies that improve organic search visibility, drive qualified traffic, and establish sustainable online authority. Our services include technical audits, extensive keyword research, on-page optimization, authoritative backlink acquisition through digital PR, and local SEOâ€”providing transparent reporting with rankings tracking, organic traffic analysis, conversion attribution, and competitor benchmarking.</>,
     },
     {
         id: 'PPCA', title: 'Pay-Per-Click Advertising', target: 'PPCA',
         tags: ['ROAS Optimization', 'Campaign Management', 'Conversion Tracking', 'Automated Bidding'],
-        body: <>Our PPC management maximizes return on ad spend through data-driven strategies across Google Ads, Microsoft Advertising, and social platforms. We develop comprehensive paid search campaigns with granular keyword research, competitive bid analysis, compelling ad copy, and Google Shopping optimization—plus remarketing strategies, multi-touch attribution modelling, and advanced responsive search ad testing.</>,
+        body: <>Our PPC management maximizes return on ad spend through data-driven strategies across Google Ads, Microsoft Advertising, and social platforms. We develop comprehensive paid search campaigns with granular keyword research, competitive bid analysis, compelling ad copy, and Google Shopping optimizationâ€”plus remarketing strategies, multi-touch attribution modelling, and advanced responsive search ad testing.</>,
     },
     {
         id: 'SMM', title: 'Social Media Marketing', target: 'SMM',
@@ -185,7 +184,7 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
     {
         id: 'CM', title: 'Content Marketing', target: 'CM',
         tags: ['Thought Leadership', 'Strategic Content Creation', 'Multi-Format Distribution', 'Content Personalization'],
-        body: <>Our content marketing establishes thought leadership, attracts target audiences, and drives conversions through strategically crafted content. We develop comprehensive strategies with buyer journey mapping, competitive gap analysis, and editorial calendar planning—producing blog posts, e-books, case studies, whitepapers, infographics, video content, podcasts, and webinars distributed across owned, earned, and paid channels.</>,
+        body: <>Our content marketing establishes thought leadership, attracts target audiences, and drives conversions through strategically crafted content. We develop comprehensive strategies with buyer journey mapping, competitive gap analysis, and editorial calendar planningâ€”producing blog posts, e-books, case studies, whitepapers, infographics, video content, podcasts, and webinars distributed across owned, earned, and paid channels.</>,
     },
     {
         id: 'EM', title: 'Email Marketing', target: 'EM',
@@ -195,7 +194,7 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
     {
         id: 'CRO', title: 'Conversion Rate Optimization', target: 'CRO',
         tags: ['A/B Testing', 'User Experience Analysis', 'Conversion Funnel Optimization', 'Performance Improvement'],
-        body: <>Our CRO services systematically improve website and landing page performance, maximising visitor conversions and increasing marketing ROI. We conduct comprehensive audits with heatmaps, session recordings, form analytics, and user surveys—then run A/B tests on headlines, CTAs, page layouts, pricing presentation, and trust signals, with multivariate testing and personalisation to deliver measurable conversion lift.</>,
+        body: <>Our CRO services systematically improve website and landing page performance, maximising visitor conversions and increasing marketing ROI. We conduct comprehensive audits with heatmaps, session recordings, form analytics, and user surveysâ€”then run A/B tests on headlines, CTAs, page layouts, pricing presentation, and trust signals, with multivariate testing and personalisation to deliver measurable conversion lift.</>,
     },
     {
         id: 'ORM', title: 'Online Reputation Management', target: 'ORM',
@@ -205,7 +204,7 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
     {
         id: 'ADI', title: 'Analytics & Data Intelligence', target: 'ADI',
         tags: ['Data-Driven Insights', 'Attribution Modelling', 'Performance Tracking', 'Predictive Analytics'],
-        body: <>We transform marketing data into actionable intelligence through comprehensive analytics implementation and strategic reporting. Our services include GA4 configuration, custom event tracking, enhanced e-commerce tracking, server-side tracking, multi-touch attribution analysis, data-driven attribution using machine learning, custom executive dashboards, cohort analysis, predictive analytics, and competitive intelligence—providing clear performance visibility and proving marketing ROI.</>,
+        body: <>We transform marketing data into actionable intelligence through comprehensive analytics implementation and strategic reporting. Our services include GA4 configuration, custom event tracking, enhanced e-commerce tracking, server-side tracking, multi-touch attribution analysis, data-driven attribution using machine learning, custom executive dashboards, cohort analysis, predictive analytics, and competitive intelligenceâ€”providing clear performance visibility and proving marketing ROI.</>,
     },
 ];
 
@@ -661,8 +660,7 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
 
 
     return (
-    <FuturisticServiceLayout title={`Digital <br/>Marketing Services`}>
-<div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
+        <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
             <FloatingButton
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
@@ -680,109 +678,194 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                 accentColor="#ec4899"
                 variant="terminal"
                 capabilities={[
-                    { id: "cap-1", icon: "📈", title: "SEO & Content", description: "Rank higher with technical SEO audits, keyword strategy, and content that search engines love." },
-                    { id: "cap-2", icon: "🎯", title: "Paid Advertising", description: "Google Ads, Meta Ads, and LinkedIn campaigns with precision targeting and ROI tracking." },
-                    { id: "cap-3", icon: "📱", title: "Social Media", description: "Platform-native content strategies that build engaged communities and drive organic growth." },
-                    { id: "cap-4", icon: "📧", title: "Email Marketing", description: "Automated drip sequences, segmented campaigns, and lifecycle marketing that converts." },
-                    { id: "cap-5", icon: "📊", title: "Analytics & Reporting", description: "Real-time dashboards, attribution modelling, and data insights to optimise every channel." },
-                    { id: "cap-6", icon: "🔗", title: "Conversion Optimisation", description: "A/B testing, landing page optimisation, and funnel analysis to maximise your marketing ROI." },
+                    { id: "cap-1", icon: "ðŸ“ˆ", title: "SEO & Content", description: "Rank higher with technical SEO audits, keyword strategy, and content that search engines love." },
+                    { id: "cap-2", icon: "ðŸŽ¯", title: "Paid Advertising", description: "Google Ads, Meta Ads, and LinkedIn campaigns with precision targeting and ROI tracking." },
+                    { id: "cap-3", icon: "ðŸ“±", title: "Social Media", description: "Platform-native content strategies that build engaged communities and drive organic growth." },
+                    { id: "cap-4", icon: "ðŸ“§", title: "Email Marketing", description: "Automated drip sequences, segmented campaigns, and lifecycle marketing that converts." },
+                    { id: "cap-5", icon: "ðŸ“Š", title: "Analytics & Reporting", description: "Real-time dashboards, attribution modelling, and data insights to optimise every channel." },
+                    { id: "cap-6", icon: "ðŸ”—", title: "Conversion Optimisation", description: "A/B testing, landing page optimisation, and funnel analysis to maximise your marketing ROI." },
                 ]}
             />
 
-            {/* Hero Section */}
-            <div id='hero'
-                 className="relative overflow-hidden lg:w-full lg:h-180 justify-center items-center md:w-full md:h-[700] w-full h-[700] pb-6">
-                <ResponsiveVideoHero
-                    videoFallback="/assets/digital/hero-M.mp4"
-                    posterImage="/images/default-poster.jpg"
+            {/* Unified Futuristic Digital Marketing Hero - Background Image with overlay */}
+            <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
+                {/* Background Image */}
+                <Image
+                    src="/assets/digital-marketing/hero.jpg"
+                    alt="Digital Marketing Hero"
+                    fill
+                    priority
+                    className="object-cover"
                 />
-                <ResponsiveVideoHero
-                    videoFallback="/assets/digital/hero-P.mp4"
-                    posterImage="/images/default-poster.jpg"
-                />
+
+                {/* Grid & FX Background */}
+                <div className="pointer-events-none absolute inset-0 z-[1]">
+                    <FxBackground day={false} grid={true} aurora={true}/>
+                </div>
+
+                {/* Gradient Overlay with Glow */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50 z-[2]"/>
                 <div
-                    className={`absolute top-0 left-0 -mt-12 lg:-mt-0 md:-mt-0 w-full h-full flex flex-col justify-center items-start text-start lg:max-w-auto max-w-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] ${isDayTime ? 'text-white ' : 'text-white'} z-10`}>
-                    <div
-                        className="flex flex-col justify-start items-start border-b pb-4 border-gray-500/50 max-w-full w-full mx-auto ">
-                        
-                    </div>
-                    <div
-                        className={'relative grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 lg:mt-[1em] md:mt-[1em] mt-[0.5em] '}>
-                        <div className={'lg:-mr-[4em] md:-mr-[1em] lg:mt-[1em] md:mt-[1em]'}>
-                            <p className={'text-[0.87em] font-[300]'}>
-                                Grey InfoTech delivers data-driven digital marketing solutions that enhance brand
-                                visibility, accelerate customer acquisition, and drive measurable revenue growth. Our
-                                integrated approach spans SEO, paid advertising, social media management, and content
-                                strategy—each optimized through advanced analytics and continuous performance
-                                refinement. By aligning marketing initiatives with your business objectives and target
-                                audience behaviors, we create campaigns that generate qualified leads, improve
-                                conversion rates, and deliver quantifiable ROI across all digital channels.
+                    className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,245,212,0.12),transparent_50%)] z-[2]"/>
+
+                {/* Futuristic FX Elements */}
+                <div className="pointer-events-none absolute inset-0 z-[3]">
+                    <div className="gx-scanline"/>
+                    <div className="gx-noise-overlay"/>
+                    <div className="gx-orbit absolute"
+                         style={{width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .12}}/>
+                    <div className="gx-orbit absolute"
+                         style={{width: '40vmax', height: '40vmax', bottom: '-15vmax', left: '-10vmax', opacity: .08}}/>
+                </div>
+
+                {/* Content Container - Two Column Layout */}
+                <div
+                    className="absolute inset-0 flex items-center z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+                    <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        {/* Left Column - Main Content */}
+                        <div>
+                            {/* Eyebrow with animated dot */}
+                            <div className="flex items-center gap-3 mb-6 lg:mb-8">
+                                <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse"/>
+                                <span
+                                    className="text-teal-400 text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">Digital Marketing Strategy</span>
+                            </div>
+
+                            {/* Main Heading with Gradient */}
+                            <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
+                                Drive Traffic &amp; <span className="gx-gradient-text">Revenue Growth</span>
+                                <br className="hidden lg:block"/>
+                                with Data-Driven Strategies
+                            </h1>
+
+                            {/* Description */}
+                            <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
+                                Comprehensive digital marketing solutions combining SEO, paid advertising, social media marketing, content strategy, and conversion optimization to maximize your ROI and accelerate sustainable business growth.
                             </p>
+
+                            {/* Key Capabilities Pills */}
+                            <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
+                                {["SEO Optimization", "PPC Campaigns", "Social Media", "Content Strategy", "Analytics", "Conversion Rate"].map((badge) => (
+                                    <span key={badge}
+                                          className="px-3 py-1.5 rounded-full bg-teal-400/10 border border-teal-400/30 text-teal-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">
+                                            {badge}
+                                        </span>
+                                ))}
+                            </div>
+
+                            {/* CTA Buttons */}
+                            <div className="flex flex-wrap gap-4 items-center">
+                                <Link href="/contact">
+                                    <button
+                                        className="relative px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap"
+                                        style={{background: '#00f5d4', color: '#000'}}>
+                                            <span className="absolute inset-0" style={{
+                                                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)'
+                                            }}/>
+                                        <span className="relative">Start Your Campaign →</span>
+                                    </button>
+                                </Link>
+                                <Link href="/portfolio">
+                                    <button
+                                        className="px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap"
+                                        style={{border: `1px solid rgba(255,255,255,0.15)`}}>
+                                        View Case Studies
+                                    </button>
+                                </Link>
+                            </div>
                         </div>
 
+                        {/* Right Column - Impact Stats */}
+                        <div className="hidden lg:flex flex-col items-end">
+                            <div className="grid grid-cols-2 gap-6 w-full">
+                                {[
+                                    {label: 'Campaigns Managed', value: '200+'},
+                                    {label: 'Marketing Experts', value: '30+'},
+                                    {label: 'Avg ROI Increase', value: '300%'},
+                                    {label: 'Success Rate', value: '96%'}
+                                ].map((stat) => (
+                                    <div key={stat.label}
+                                         className="px-6 py-5 rounded-2xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md hover:bg-teal-400/12 transition-all duration-300 hover:border-teal-400/50 text-right">
+                                        <div
+                                            className="text-teal-300 text-[0.7em] uppercase tracking-wider font-[600] mb-2">{stat.label}</div>
+                                        <div
+                                            className="text-white text-[1.8em] font-[700]">{stat.value}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            {/* Introductory section */}
-            <section ref={sectionRef}
-                     className={`py-12 transition-colors duration-500 ${
-                         isBackgroundActive
-                             ? isDayTime
-                                 ? "bg-white text-black"
-                                 : "bg-black text-white"
-                             : isDayTime
-                                 ? "bg-black text-white"
-                                 : "bg-white text-black"
-                     }`}>
-                <div
-                    className='relative grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 md:pt-20 pt-6 lg:pb-16 md:pb-16 pb-6 lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'>
-                    <div className=''>
-                        <h6 className='constant-text uppercase lg:text-[0.85em] md:text-[0.85em] leading-[1.3] text-[0.7em] font-[400] lg:tracking-wider tracking-tight'>
-                            Partnering with Leaders <br className={'lg:block md:block hidden'}/>and Visionary Brands
-                        </h6>
+                {/* Mobile Stats - Visible on small screens only */}
+                <div className="lg:hidden absolute bottom-12 left-0 right-0 z-[11] px-6">
+                    <div className="grid grid-cols-3 gap-3">
+                        {[
+                            {label: 'Campaigns', value: '200+'},
+                            {label: 'Experts', value: '30+'},
+                            {label: 'Success', value: '96%'}
+                        ].map((stat) => (
+                            <div key={stat.label}
+                                 className="px-3 py-2 rounded-xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md">
+                                <div
+                                    className="text-teal-300 text-[0.5em] uppercase tracking-wider font-[600] mb-1">{stat.label}</div>
+                                <div
+                                    className="text-white text-[1.2em] font-[700]">{stat.value}</div>
+                            </div>
+                        ))}
                     </div>
-                    <div className='lg:-ml-[19em]'>
-                        <h3 className='lg:text-[3.2em] md:text-[3.2em] text-[1.8em] font-[700] lg:mt-[0.01em] leading-[1.2] tracking-tight border-b lg:pb-[0.7em] lg:mb-[0.7em] leading-[1.1] pb-6'>
-                            Grow your <span className={'text-[#0ef0dd]'}>digital marketing revenue</span> with Grey
-                            InfoTech
-                        </h3>
-                        <div
-                            className='grid lg:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]'>
-                            <div>
-                                <p>
-                                    Accelerate your revenue growth and expand your market presence with Grey
-                                    InfoTech&#39;s
-                                    comprehensive digital marketing solutions designed to deliver measurable business
-                                    outcomes and sustainable competitive advantage. Our data-driven approach combines
-                                    strategic insight, advanced analytics, and proven methodologies across SEO, paid
-                                    advertising, content marketing, social media engagement, and conversion optimization
-                                    to maximize your return on investment. Request your customized proposal today to
-                                    receive a detailed strategic plan meticulously tailored to your business objectives,
-                                    target audience demographics, competitive landscape, and growth aspirations. Our
-                                    comprehensive proposal includes a customized multi-channel marketing strategy,
-                                    transparent pricing structures aligned with your budget parameters, and a detailed
-                                    flight plan that outlines phased implementation timelines, key performance
-                                    indicators, and projected outcomes at each milestone.
-                                </p>
+                </div>
+
+                {/* Animated Particles */}
+                <div className="absolute top-1/4 left-8 z-[4] w-2 h-2 rounded-full bg-teal-400 animate-pulse"/>
+                <div className="absolute bottom-1/3 right-12 z-[4] w-3 h-3 rounded-full bg-teal-500 animate-pulse"
+                     style={{animationDelay: '0.5s'}}/>
+                <div className="absolute top-3/4 left-1/3 z-[4] w-2 h-2 rounded-full bg-cyan-400 animate-pulse"
+                     style={{animationDelay: '1s'}}/>
+            </section>
+
+            {/* Introductory Section - Futuristic Digital Marketing Strategy Overview */}
+            <section ref={sectionRef}
+                     className={`pt-16 transition-colors duration-500 ${
+                         isBackgroundActive
+                             ? isDayTime ? 'bg-black text-white' : 'bg-white text-black'
+                             : isDayTime ? 'bg-white text-black' : 'bg-black text-white'
+                     }`}>
+                <FxBackground day={isDayTime}/>
+                <div
+                    className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
+                    <div>
+                        <FxChip day={!isBackgroundActive ? !isDayTime : isDayTime}>DIGITAL STRATEGY</FxChip>
+                    </div>
+
+                    <div className="lg:-ml-[19em]">
+                        <FxReveal>
+                            <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
+                                Grow Your Digital <span
+                                className="gx-gradient-text">Marketing Revenue</span>
+                            </h3>
+                        </FxReveal>
+                        <FxReveal delay={0.08}>
+                            <div
+                                className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
+                                <div>
+                                    <p>
+                                        Digital marketing excellence requires a strategic blend of data-driven insights, creative excellence, and relentless optimization. At Grey InfoTech, our digital marketing specialists combine deep industry expertise with cutting-edge tools and methodologies to deliver campaigns that drive measurable business results. From SEO and paid advertising to content marketing and conversion optimization, we architect comprehensive digital strategies that expand market reach, engage high-value prospects, and accelerate sustainable revenue growth.
+                                    </p>
+                                </div>
+                                <div>
+                                    <p>
+                                        Our data-driven approach integrates advanced analytics, behavioral targeting, audience segmentation, and continuous performance optimization to maximize your marketing ROI. We develop multi-channel strategies that leverage search visibility, social media engagement, content distribution, paid media efficiency, and conversion optimization across every digital touchpoint. By combining strategic planning with agile execution and real-time performance monitoring, we deliver transparent results that demonstrate clear attribution to business outcomes. This comprehensive methodology ensures your digital marketing investments consistently drive qualified leads, accelerate customer acquisition, enhance brand authority, and achieve your most ambitious revenue objectives.
+                                    </p>
+
+                                    <div className="flex flex-wrap gap-3 mt-4">
+                                        {['SEO & SEM', 'Social Marketing', 'Content Strategy', 'Conversion Optimization'].map((p) => (
+                                            <span key={p} className="gx-data-pill">{p}</span>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <p>
-                                    Grey InfoTech&#39;s proposal process provides complete visibility into recommended
-                                    tactics, resource allocation, campaign architecture, and expected results,
-                                    empowering you to make confident, informed decisions that align with your
-                                    organizational priorities. We deliver actionable roadmaps that integrate seamlessly
-                                    with your existing operations while positioning your business to capture market
-                                    opportunities, enhance brand visibility, engage high-value prospects, and convert
-                                    digital traffic into qualified leads and revenue. Partner with Grey InfoTech to
-                                    leverage our specialized expertise, cutting-edge marketing technologies, and
-                                    commitment to excellence that consistently drives client success in competitive
-                                    digital marketplaces. Take the first step toward transforming your digital presence
-                                    and achieving your revenue objectives by requesting your personalized proposal
-                                    below.
-                                </p>
-                            </div>
-                        </div>
+                        </FxReveal>
                     </div>
                 </div>
             </section>
@@ -792,7 +875,7 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                 <div id={'digital marketing Services Overview'}>
                     <FxStickyScrollSection
                         heading={<>Our Prominent<br/>Digital Marketing<br/>Services</>}
-                        intro={<>Integrated solutions across search optimization, paid media, social engagement, and content strategy—each engineered to drive visibility, engagement, and measurable conversion.</>}
+                        intro={<>Integrated solutions across search optimization, paid media, social engagement, and content strategyâ€”each engineered to drive visibility, engagement, and measurable conversion.</>}
                         navLabel="Our Solutions"
                         items={dmSolutions}
                         activeId={activeId}
@@ -809,7 +892,7 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                         { number: '70%', label: 'Better Multi-Channel ROI' },
                     ].map((stat, i) => (
                         <FxHoloCard key={i} day={false} className="p-8 flex flex-col items-center text-center gap-2">
-                            <div className="text-[#0ef0dd] text-4xl lg:text-5xl font-bold">{stat.number}</div>
+                            <div className="text-[#00f5d4] text-4xl lg:text-5xl font-bold">{stat.number}</div>
                             <div className="text-gray-300 text-sm font-[300]">{stat.label}</div>
                         </FxHoloCard>
                     ))}
@@ -829,15 +912,15 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                         }`}>
                         <div>
                             <h2 className='capitalize text-[1.7em] md:text-[3em] lg:text-[3.3em] font-[700] tracking-tight leading-[1.2] lg:pb-6'>
-                                Key <span className={'text-[#0ef0dd]'}>Features</span> Of Our <br
+                                Key <span className={'text-[#00f5d4]'}>Features</span> Of Our <br
                                 className={'lg:block md:block hidden'}/><span
-                                className={'text-[#0ef0dd]'}>Digital Marketing</span>
+                                className={'text-[#00f5d4]'}>Digital Marketing</span>
                             </h2>
                         </div>
                         <div className='lg:-ml-[7.8em]'>
                             <p className='text-[0.873em] font-[300] lg:-mt-[0.2em] rounded-none leading-[1.5]'>
                                 We recognize that exceptional digital marketing partnerships extend beyond service
-                                delivery—they hinge on generating quantifiable business outcomes through strategic
+                                deliveryâ€”they hinge on generating quantifiable business outcomes through strategic
                                 planning, advanced analytics, and data-informed decision-making. Our comprehensive suite
                                 of capabilities is engineered to provide complete visibility into campaign performance,
                                 transparent reporting on key metrics and ROI, and adaptive, future-ready marketing
@@ -999,8 +1082,8 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                             <p className="text-[0.85em] font-[400] leading-relaxed">
                                 Every element of our digital marketing services is designed with conversion in mind,
                                 ensuring activities drive tangible business results rather than just traffic or
-                                engagement. We optimize for actions that matter to your business—whether leads, sales,
-                                appointments, downloads, or other conversion goals—by implementing conversion tracking
+                                engagement. We optimize for actions that matter to your businessâ€”whether leads, sales,
+                                appointments, downloads, or other conversion goalsâ€”by implementing conversion tracking
                                 across all channels, creating compelling calls-to-action that motivate desired
                                 behaviors, designing landing pages with persuasive copy and friction-reducing layouts,
                                 developing nurturing sequences that guide prospects toward purchase decisions, and
@@ -1160,14 +1243,14 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                     <div
                         className={` relative ${isDayTime ? 'text-white' : 'text-black'} text-center mb-12 md:mb-20 lg:mb-20 border-b border-gray-700 pb-[2em] space-y-6`}>
                         <h2 className='capitalize text-[1.8em] md:text-[3em] lg:text-[3.3em] font-[700] tracking-tight leading-[1.2] lg:pb-6'>
-                            Our Proven <span className={'text-[#0ef0dd]'}>90-Day Process</span>
+                            Our Proven <span className={'text-[#00f5d4]'}>90-Day Process</span>
                         </h2>
                         <p className='text-[0.873em] font-[300] lg:-mt-[0.2em] rounded-none leading-[1.5] mx-auto max-w-6xl'>
                             Our structured 90-day implementation process delivers measurable results through
                             strategic planning, precise execution, and continuous optimization. This proven
                             methodology accelerates time-to-value while ensuring alignment with your business
                             objectives at every phase. By combining industry best practices with agile
-                            responsiveness, we transform initial engagement into tangible outcomes—building momentum
+                            responsiveness, we transform initial engagement into tangible outcomesâ€”building momentum
                             that sustains long-term success and competitive performance.
                         </p>
                         <div className="flex justify-center items-center gap-4 pt-8">
@@ -1253,9 +1336,7 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                 </div>
 
                 <style>{`
-                        @keyframes blob { 0%,100%{transform:translate(0,0) scale(1
-    </FuturisticServiceLayout>
-  );}25%{transform:translate(20px,-50px) scale(1.1);}50%{transform:translate(-20px,20px) scale(0.9);}75%{transform:translate(50px,50px) scale(1.05);} }
+                        @keyframes blob { 0%,100%{transform:translate(0,0) scale(1);}25%{transform:translate(20px,-50px) scale(1.1);}50%{transform:translate(-20px,20px) scale(0.9);}75%{transform:translate(50px,50px) scale(1.05);} }
                         @keyframes gradient { 0%,100%{background-position:0% 50%}50%{background-position:100% 50%} }
                         @keyframes spin-slow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
                         @keyframes spin-reverse { from{transform:rotate(360deg)} to{transform:rotate(0deg)} }
@@ -1275,7 +1356,7 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                      className={`relative lg:mt-[1.5em] md:mt-[1.5em] mt-[1em] lg:mb-16 md:mb-16 mb-5 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
                     <div className={`${isDayTime ? 'text-black' : 'text-white'} text-center`}>
                         <h2 className="capitalize text-[1.8em] md:text-[3em] lg:text-[3.3em] font-[700] tracking-tight leading-[1.2] lg:pb-6">
-                            <span className={'text-[#0ef0dd]'}>Technologies</span> We Use
+                            <span className={'text-[#00f5d4]'}>Technologies</span> We Use
                         </h2>
                         <p className="mx-auto mt-4 max-w-5xl text-[0.9em] leading-relaxed ">
                             Grey InfoTech harnesses cutting-edge cross-platform technologies and frameworks to architect
@@ -1287,7 +1368,7 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                             ensure your mobile presence not only meets current market demands but anticipates future
                             technological evolution. This technology-forward approach enables seamless integration with
                             existing enterprise systems, supports complex business logic and workflows, and provides the
-                            flexibility to adapt quickly as your requirements evolve—transforming your mobile
+                            flexibility to adapt quickly as your requirements evolveâ€”transforming your mobile
                             application from a standalone tool into a strategic asset that drives customer engagement,
                             operational efficiency, and measurable business outcomes aligned with your growth
                             trajectory.
@@ -1302,7 +1383,7 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                                     onClick={() => setActiveFront(tab.key)}
                                     className={`pb-1.5 transition-colors ${
                                         activeFront === tab.key
-                                            ? "border-b-1 border-[#0ef0dd] text-[#0ef0dd]"
+                                            ? "border-b-1 border-[#00f5d4] text-[#00f5d4]"
                                             : "hover:text-gray-800"
                                     }`}
                                 >
@@ -1347,14 +1428,14 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                         className={`relative grid lg:grid-cols-2 grid-cols-1 gap-10 mb-8 ${isDayTime ? 'text-white' : 'text-black'} `}>
                         <div className={'lg:mr-[8em]'}>
                             <h2 className={`lg:text-[3.1em] md:text-[3.1em] text-[1.8em] font-[700] justify-center tracking-tight lg:mb-12 mb-7 leading-[1.2]`}>
-                                <span className={'text-[#0ef0dd]'}>Industry-Specific</span> Cross-Platform <span
-                                className={'text-[#0ef0dd]'}>App Development</span>
+                                <span className={'text-[#00f5d4]'}>Industry-Specific</span> Cross-Platform <span
+                                className={'text-[#00f5d4]'}>App Development</span>
                             </h2>
                             <p className={'text-[0.873em] font-normal leading-normal tracking-normal text-justify'}>
                                 Grey InfoTech&#39;s industry-specialized cross-platform development expertise delivers
                                 solutions precisely calibrated to the unique regulatory requirements, operational
                                 workflows, and competitive dynamics of your sector. Our deep vertical knowledge spans
-                                healthcare, finance, retail, logistics, manufacturing, and beyond—enabling us to
+                                healthcare, finance, retail, logistics, manufacturing, and beyondâ€”enabling us to
                                 architect applications that address industry-specific challenges while exceeding
                                 compliance standards and performance benchmarks. We integrate sector-appropriate
                                 features such as HIPAA-compliant data handling for healthcare, PCI-DSS security for
@@ -1872,9 +1953,9 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                             className={`lg:-ml-[10.5em] md:-ml-[10.5em] ${isDayTime ? 'text-black' : 'text-white'}`}>
                             <h2
                                 className='text-[1.8em] capitalize font-[700] tracking-tight leading-[1.2] mb-10 lg:text-[3.5em] md:text-[2.5em] w-auto h-auto'>
-                                Why Choose <span className={'text-[#0ef0dd]'}>Grey InfoTech</span> <br
+                                Why Choose <span className={'text-[#00f5d4]'}>Grey InfoTech</span> <br
                                 className={'lg:block md:block hidden'}/>As Your <span
-                                className={'text-[#0ef0dd]'}>Cross-Platform App</span> <br
+                                className={'text-[#00f5d4]'}>Cross-Platform App</span> <br
                                 className={'lg:block md:block hidden'}/>Development Company?
                             </h2>
                             <p className='text-[0.85em] font-[400] tracking-normal text-justify  leading-[1.5] lg:mr-[9em] md:mr-[9em]'>
@@ -1924,7 +2005,7 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                         <div className="order-1">
                             <h2 className={`xl:text-[3.12em] lg:text-[3.12em] md:text-[3.12em] text-[1.7em] font-[700] justify-center tracking-tight  leading-[1.1]`}>
                                 Why Get a Cross-Platform <br className={'lg:block md:block hidden'}/>App For Your <span
-                                className="text-[#0ef0dd]">Business?</span>
+                                className="text-[#00f5d4]">Business?</span>
                             </h2>
                         </div>
 
@@ -2051,8 +2132,8 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                     <div
                         className={`${isDayTime ? 'text-black' : 'text-white'} text-center mb-12 md:mb-20 lg:mb-20`}>
                         <h2 className="capitalize text-[1.8em] max-w-6xl mx-auto md:text-[3em] lg:text-[3.3em] font-[700] tracking-tight leading-[1.2] lg:pb-6">
-                            <span className={'text-[#0ef0dd]'}>Benefits of Working</span> with a Reputable <span
-                            className={'text-[#0ef0dd]'}>Cross-Platform App</span> Development Company
+                            <span className={'text-[#00f5d4]'}>Benefits of Working</span> with a Reputable <span
+                            className={'text-[#00f5d4]'}>Cross-Platform App</span> Development Company
                         </h2>
                         <p className="mx-auto mt-4 max-w-5xl text-[0.9em] leading-relaxed ">
                             Grey InfoTech stands as a leader in cross-platform application development, leveraging
@@ -2117,7 +2198,7 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                                         functionalities, supporting increased user bases, and accommodating
                                         organizational
                                         growth without compromising performance, stability, or user
-                                        satisfaction—positioning
+                                        satisfactionâ€”positioning
                                         your business for sustained competitive advantage.
                                     </>
                                 )
@@ -2142,12 +2223,12 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                         ].map((benefit, index) => (
                             <div
                                 key={index}
-                                className="bg-gray-200 rounded-xl p-4 md:p-5 lg:p-5 hover:bg-gray-300 transition-colors duration-300 border-b-4 border-[#0ef0dd]"
+                                className="bg-gray-200 rounded-xl p-4 md:p-5 lg:p-5 hover:bg-gray-300 transition-colors duration-300 border-b-4 border-[#00f5d4]"
                             >
                                 <h3 className="text-[1em] md:text-[1.5em] lg:text-[1.5em] font-bold text-slate-800 mb-4">
                                     {benefit.title}
                                 </h3>
-                                <div className="w-16 sm:w-20 md:w-24 h-1 bg-[#0ef0dd] mb-5 sm:mb-6"></div>
+                                <div className="w-16 sm:w-20 md:w-24 h-1 bg-[#00f5d4] mb-5 sm:mb-6"></div>
                                 <p className="text-[0.85em] text-gray-600 leading-relaxed">
                                     {benefit.description}
                                 </p>

@@ -13,8 +13,6 @@ import {useIsDayTime} from '../../components/useIsDayTime';
 import ServiceHero from '@/components/futuristic/ServiceHero';
 import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 
-import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
-
 import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
 const reasons = [
     {
@@ -201,39 +199,15 @@ const MobileApplicationDevelopment = () => {    const sectionRef = useRef<HTMLDi
               variant="particles"
             />
 
-            {/* Hero Section */}
-            <div id={'hero'}
-                 className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
-                <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
-                    <div className="gx-scanline" />
-                    <div className="gx-noise-overlay" />
-                    <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
-                </div>
-                <h1
-                    className={`border-b pb-[0.5em] border-gray-300/20 px-0 constant-text lg:text-[5.5em] md:text-[3em] sm:text-[2em] text-[2.5em] lg:mt-[3em] mt-[1.5em] leading-[1.1] font-[550] ${
-                        isDayTime ? 'text-black' : 'text-white'
-                    }`}>
-                    Mobile App <br className={'lg:block md:block hidden'}/>Development Company
-                </h1>
-                <p className={'lg:mt-[4em] mt-[1.5em] text-[0.8em] font-[400]'}>
-                    Award-winning developers and designers of mobile applications. We create apps for iOS, Android,
-                    hybrid, and React Native.
-                </p>
-                <div
-                    className={'relative w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10'}>
-                    <Image
-                        src={'/assets/mad/mad.jpg'}
-                        alt={'Mobile Application Development'}
-                        width={1920}
-                        height={1080}
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                    />
-                </div>
-            </div>
+            <ServiceHero
+                title="Mobile App Development"
+                subtitle="Award-winning apps for iOS, Android, and beyond"
+                accentColor="#00f5d4"
+                variant="grid"
+                badges={["iOS","Android","React Native","Performance"]}
+                ctaHref="/contact"
+                ctaLabel="Talk to an expert"
+            />
 
             {/* Introductory section */}
             <section ref={sectionRef}

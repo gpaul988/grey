@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 
 import React, {useEffect, useRef, useState} from 'react';
@@ -9,10 +9,19 @@ import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import {useIsDayTime} from '../../components/useIsDayTime';
+import {motion} from 'framer-motion';
 
 import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
 
-import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
+import { 
+    FxBackground, 
+    FxChip, 
+    FxReveal, 
+    FxButton, 
+    FxHoloCard,
+    FxStickyScrollSection,
+    FxScrollItem
+} from '@/components/futuristic/fx';
 const tabs = [
     {key: "frontend", label: "Frontend"},
     {key: "backend", label: "Backend"},
@@ -165,23 +174,23 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             icon: (
                 <svg className="w-20 h-20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                     {/* Gear */}
-                    <circle cx="35" cy="35" r="18" stroke="#10e3e3" strokeWidth="2.5"/>
-                    <circle cx="35" cy="35" r="12" stroke="#10e3e3" strokeWidth="2.5"/>
+                    <circle cx="35" cy="35" r="18" stroke="#00f5d4" strokeWidth="2.5"/>
+                    <circle cx="35" cy="35" r="12" stroke="#00f5d4" strokeWidth="2.5"/>
                     {/* Gear teeth */}
-                    <rect x="33" y="15" width="4" height="6" fill="#10e3e3"/>
-                    <rect x="33" y="54" width="4" height="6" fill="#10e3e3"/>
-                    <rect x="54" y="33" width="6" height="4" fill="#10e3e3"/>
-                    <rect x="15" y="33" width="6" height="4" fill="#10e3e3"/>
-                    <rect x="49" y="20" width="5" height="5" transform="rotate(45 51.5 22.5)" fill="#10e3e3"/>
-                    <rect x="20" y="20" width="5" height="5" transform="rotate(45 22.5 22.5)" fill="#10e3e3"/>
-                    <rect x="49" y="49" width="5" height="5" transform="rotate(45 51.5 51.5)" fill="#10e3e3"/>
-                    <rect x="20" y="49" width="5" height="5" transform="rotate(45 22.5 51.5)" fill="#10e3e3"/>
+                    <rect x="33" y="15" width="4" height="6" fill="#00f5d4"/>
+                    <rect x="33" y="54" width="4" height="6" fill="#00f5d4"/>
+                    <rect x="54" y="33" width="6" height="4" fill="#00f5d4"/>
+                    <rect x="15" y="33" width="6" height="4" fill="#00f5d4"/>
+                    <rect x="49" y="20" width="5" height="5" transform="rotate(45 51.5 22.5)" fill="#00f5d4"/>
+                    <rect x="20" y="20" width="5" height="5" transform="rotate(45 22.5 22.5)" fill="#00f5d4"/>
+                    <rect x="49" y="49" width="5" height="5" transform="rotate(45 51.5 51.5)" fill="#00f5d4"/>
+                    <rect x="20" y="49" width="5" height="5" transform="rotate(45 22.5 51.5)" fill="#00f5d4"/>
                     {/* Person inside gear */}
-                    <circle cx="35" cy="32" r="4.5" stroke="#10e3e3" strokeWidth="2"/>
-                    <path d="M27 42c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#10e3e3" strokeWidth="2"/>
+                    <circle cx="35" cy="32" r="4.5" stroke="#00f5d4" strokeWidth="2"/>
+                    <path d="M27 42c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#00f5d4" strokeWidth="2"/>
                     {/* Checkmark in circle */}
-                    <circle cx="55" cy="55" r="12" fill="#10e3e3"/>
-                    <path d="M49 55l4 4 8-8" stroke="#0B3D5D" strokeWidth="3" strokeLinecap="round"
+                    <circle cx="55" cy="55" r="12" fill="#00f5d4"/>
+                    <path d="M49 55l4 4 8-8" stroke="#003f32" strokeWidth="3" strokeLinecap="round"
                           strokeLinejoin="round"/>
                 </svg>
             ),
@@ -192,21 +201,21 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             icon: (
                 <svg className="w-20 h-20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                     {/* Monitor/Screen */}
-                    <rect x="18" y="25" width="44" height="30" rx="2" stroke="#10e3e3" strokeWidth="2.5"/>
+                    <rect x="18" y="25" width="44" height="30" rx="2" stroke="#00f5d4" strokeWidth="2.5"/>
                     {/* Screen content lines */}
-                    <rect x="24" y="31" width="32" height="3" rx="1.5" fill="#10e3e3"/>
-                    <rect x="24" y="38" width="24" height="3" rx="1.5" fill="#10e3e3"/>
-                    <rect x="24" y="45" width="28" height="3" rx="1.5" fill="#10e3e3"/>
+                    <rect x="24" y="31" width="32" height="3" rx="1.5" fill="#00f5d4"/>
+                    <rect x="24" y="38" width="24" height="3" rx="1.5" fill="#00f5d4"/>
+                    <rect x="24" y="45" width="28" height="3" rx="1.5" fill="#00f5d4"/>
                     {/* Monitor stand */}
-                    <rect x="36" y="55" width="8" height="6" fill="#10e3e3"/>
-                    <rect x="28" y="61" width="24" height="4" rx="2" fill="#10e3e3"/>
+                    <rect x="36" y="55" width="8" height="6" fill="#00f5d4"/>
+                    <rect x="28" y="61" width="24" height="4" rx="2" fill="#00f5d4"/>
                     {/* CMS Gear icon on monitor */}
-                    <circle cx="40" cy="18" r="8" stroke="#10e3e3" strokeWidth="2.5"/>
-                    <circle cx="40" cy="18" r="4" stroke="#10e3e3" strokeWidth="2"/>
-                    <rect x="39" y="9" width="2" height="3" fill="#10e3e3"/>
-                    <rect x="39" y="24" width="2" height="3" fill="#10e3e3"/>
-                    <rect x="47" y="17" width="3" height="2" fill="#10e3e3"/>
-                    <rect x="30" y="17" width="3" height="2" fill="#10e3e3"/>
+                    <circle cx="40" cy="18" r="8" stroke="#00f5d4" strokeWidth="2.5"/>
+                    <circle cx="40" cy="18" r="4" stroke="#00f5d4" strokeWidth="2"/>
+                    <rect x="39" y="9" width="2" height="3" fill="#00f5d4"/>
+                    <rect x="39" y="24" width="2" height="3" fill="#00f5d4"/>
+                    <rect x="47" y="17" width="3" height="2" fill="#00f5d4"/>
+                    <rect x="30" y="17" width="3" height="2" fill="#00f5d4"/>
                 </svg>
             ),
             number: '30+',
@@ -216,20 +225,20 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             icon: (
                 <svg className="w-20 h-20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                     {/* Document/Paper */}
-                    <rect x="25" y="15" width="30" height="40" rx="2" stroke="#10e3e3" strokeWidth="2.5"/>
+                    <rect x="25" y="15" width="30" height="40" rx="2" stroke="#00f5d4" strokeWidth="2.5"/>
                     {/* Top dots (browser-like) */}
-                    <circle cx="30" cy="22" r="2" fill="#10e3e3"/>
-                    <circle cx="37" cy="22" r="2" fill="#10e3e3"/>
-                    <circle cx="44" cy="22" r="2" fill="#10e3e3"/>
+                    <circle cx="30" cy="22" r="2" fill="#00f5d4"/>
+                    <circle cx="37" cy="22" r="2" fill="#00f5d4"/>
+                    <circle cx="44" cy="22" r="2" fill="#00f5d4"/>
                     {/* Document lines */}
-                    <line x1="30" y1="30" x2="50" y2="30" stroke="#10e3e3" strokeWidth="2"/>
-                    <line x1="30" y1="36" x2="46" y2="36" stroke="#10e3e3" strokeWidth="2"/>
-                    <line x1="30" y1="42" x2="50" y2="42" stroke="#10e3e3" strokeWidth="2"/>
-                    <line x1="30" y1="48" x2="44" y2="48" stroke="#10e3e3" strokeWidth="2"/>
+                    <line x1="30" y1="30" x2="50" y2="30" stroke="#00f5d4" strokeWidth="2"/>
+                    <line x1="30" y1="36" x2="46" y2="36" stroke="#00f5d4" strokeWidth="2"/>
+                    <line x1="30" y1="42" x2="50" y2="42" stroke="#00f5d4" strokeWidth="2"/>
+                    <line x1="30" y1="48" x2="44" y2="48" stroke="#00f5d4" strokeWidth="2"/>
                     {/* Pencil */}
-                    <path d="M52 50l-8 8 3 3 8-8-3-3z" fill="#10e3e3" stroke="#10e3e3" strokeWidth="1"/>
-                    <rect x="56" y="44" width="4" height="10" transform="rotate(45 58 49)" fill="#10e3e3"/>
-                    <path d="M62 42l2 2" stroke="#10e3e3" strokeWidth="2" strokeLinecap="round"/>
+                    <path d="M52 50l-8 8 3 3 8-8-3-3z" fill="#00f5d4" stroke="#00f5d4" strokeWidth="1"/>
+                    <rect x="56" y="44" width="4" height="10" transform="rotate(45 58 49)" fill="#00f5d4"/>
+                    <path d="M62 42l2 2" stroke="#00f5d4" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
             ),
             number: '3X',
@@ -239,17 +248,17 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             icon: (
                 <svg className="w-20 h-20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                     {/* Lock body */}
-                    <rect x="28" y="35" width="24" height="26" rx="2" stroke="#10e3e3" strokeWidth="2.5"/>
+                    <rect x="28" y="35" width="24" height="26" rx="2" stroke="#00f5d4" strokeWidth="2.5"/>
                     {/* Lock shackle */}
-                    <path d="M32 35V27c0-4.4 3.6-8 8-8s8 3.6 8 8v8" stroke="#10e3e3" strokeWidth="2.5"
+                    <path d="M32 35V27c0-4.4 3.6-8 8-8s8 3.6 8 8v8" stroke="#00f5d4" strokeWidth="2.5"
                           strokeLinecap="round"/>
                     {/* Keyhole */}
-                    <circle cx="40" cy="46" r="3" fill="#10e3e3"/>
-                    <rect x="38.5" y="46" width="3" height="8" rx="1.5" fill="#10e3e3"/>
+                    <circle cx="40" cy="46" r="3" fill="#00f5d4"/>
+                    <rect x="38.5" y="46" width="3" height="8" rx="1.5" fill="#00f5d4"/>
                     {/* User icon in circle */}
-                    <circle cx="58" cy="48" r="11" stroke="#10e3e3" strokeWidth="2.5"/>
-                    <circle cx="58" cy="45" r="4" stroke="#10e3e3" strokeWidth="2"/>
-                    <path d="M51 54c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#10e3e3" strokeWidth="2"/>
+                    <circle cx="58" cy="48" r="11" stroke="#00f5d4" strokeWidth="2.5"/>
+                    <circle cx="58" cy="45" r="4" stroke="#00f5d4" strokeWidth="2"/>
+                    <path d="M51 54c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#00f5d4" strokeWidth="2"/>
                 </svg>
             ),
             number: '70%',
@@ -606,485 +615,304 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
         },
     ];
 
+    // CMS Solutions array
+    const cmsSolutions: FxScrollItem[] = [
+        {
+            id: "01",
+            title: "Custom CMS Development",
+            target: "CSD",
+            tags: ["Custom Architecture", "Scalable Solutions", "Business-Aligned"],
+            body: (
+                <p>
+                    We deliver comprehensive custom software development services meticulously tailored to address the distinct requirements of your organization. Our technical expertise spans the design and implementation of enterprise-grade CMS applications, robust architecture and integration, and continuous maintenance and enhancement support. Our development team employs industry best practices and rigorous quality assurance methodologies to ensure every solution aligns precisely with your operational objectives and strategic goals.
+                </p>
+            ),
+        },
+        {
+            id: "02",
+            title: "Enterprise Development Services",
+            target: "EDS",
+            tags: ["Digital Transformation", "Scalable Solutions", "Business Growth"],
+            body: (
+                <p>
+                    As a premier CMS development service provider, we empower enterprises to transform their operational capabilities through strategically designed technology solutions. Our custom development services are specifically engineered to streamline and optimize critical business processes, significantly enhance organizational productivity, and drive measurable, sustainable growth across all facets of your operations. We collaborate closely with our clients to understand their unique challenges and long-term objectives.
+                </p>
+            ),
+        },
+        {
+            id: "03",
+            title: "API Development Services",
+            target: "ADS",
+            tags: ["API Integration", "System Interoperability", "Seamless Connectivity"],
+            body: (
+                <p>
+                    Our comprehensive end-to-end API development services encompass the strategic design, development, and deployment of bespoke solutions that facilitate seamless integration between your custom CMS and existing enterprise systems. We specialize in creating robust, scalable API architectures that enable fluid data exchange and interoperability across your technology ecosystem, including legacy platforms, modern applications, and third-party services.
+                </p>
+            ),
+        },
+        {
+            id: "04",
+            title: "Software Testing & QA",
+            target: "ST",
+            tags: ["Quality Assurance", "Performance Testing", "Security Optimization"],
+            body: (
+                <p>
+                    To ensure optimal functionality and reliability across all system components, we implement rigorous and comprehensive testing protocols that encompass multiple evaluation dimensions, including thorough integration testing, performance benchmarking, security assessments, and user experience validation. Our quality assurance methodology employs both automated testing frameworks and manual testing procedures to identify and resolve potential issues before deployment.
+                </p>
+            ),
+        },
+        {
+            id: "05",
+            title: "Software Product Development",
+            target: "SPD",
+            tags: ["Full-Cycle Development", "UI/UX Design", "Collaborative Approach"],
+            body: (
+                <p>
+                    We deliver comprehensive full-cycle development services that span the entire spectrum of CMS design, UX engineering, and product development, from initial conceptualization through prototyping, implementation, and ongoing support. Our collaborative approach places your vision at the center of every development phase, ensuring that we thoroughly understand your strategic objectives, user requirements, and business goals before translating them into exceptional digital experiences.
+                </p>
+            ),
+        },
+        {
+            id: "06",
+            title: "Software Integration",
+            target: "SI",
+            tags: ["System Performance", "Enterprise Optimization", "Data Flow Management"],
+            body: (
+                <p>
+                    We provide comprehensive integration solutions that encompass the complete lifecycle of system connectivity, from strategic architecture design and implementation through sophisticated data flow management and performance optimization. Our integration expertise enables us to architect scalable, resilient solutions that connect disparate systems, applications, and data sources into a cohesive, high-performing digital ecosystem tailored to your specific business requirements.
+                </p>
+            ),
+        },
+        {
+            id: "07",
+            title: "IT Consulting",
+            target: "IC",
+            tags: ["Technology Integration", "Strategic Planning", "Outcome Optimization"],
+            body: (
+                <p>
+                    We provide strategic IT consultation services designed to guide your organization through the complexities of digital transformation and technology adoption. Our experienced consultants work closely with your leadership and technical teams to develop comprehensive, actionable IT roadmaps that align technology investments with your business objectives and growth trajectory. Through our consultation process, we assess your current landscape and identify opportunities for innovation.
+                </p>
+            ),
+        },
+        {
+            id: "08",
+            title: "CMS Migration & Modernization",
+            target: "CCD",
+            tags: ["Legacy Modernization", "Data Migration", "Zero Downtime"],
+            body: (
+                <p>
+                    We specialize in seamless CMS migration and modernization services that facilitate smooth transitions from legacy systems to modern, cloud-ready platforms. Our migration expertise includes comprehensive data preservation, workflow continuity assurance, and zero-downtime deployment strategies. We handle all aspects of content mapping, system configuration, user training, and post-migration support to ensure your organization maximizes value from your new CMS investment.
+                </p>
+            ),
+        },
+    ];
 
     return (
-    <FuturisticServiceLayout title={`CMS <br className='lg:block md:block hidden'/>Development <br
-                    className='lg:hidden md:hidden block'/>Services`}>
-<div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
+        <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
             <FloatingButton
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
                 }`}
             />
 
-            {/* Hero Section */}
-            <div id={'hero'}
-                 className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] ${
-                     isDayTime ? 'text-black' : 'text-white'
-                 }`}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
-                <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
-                    <div className="gx-scanline" />
-                    <div className="gx-noise-overlay" />
-                    <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
-                </div>
-                
-                <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
-                    Our CMS development services deliver custom, user-friendly content management solutions tailored to
-                    your business needs. We build scalable platforms that empower your team <br
-                    className={'lg:block md:block hidden'}/>to efficiently create, manage, and update content across
-                    your digital presence, ensuring seamless control and growth.
-                </p>
-                <ResponsiveVideoHero videoDesktop="/assets/cms/hero.mp4" videoMobile="/assets/cms/hero-mobile.mp4" posterImage="/assets/cms/hero.jpg" />
-            </div>
+            {/* Unified Futuristic CMS Hero - Background Image with overlay */}
+            <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
+                {/* Background Image */}
+                <Image
+                    src="/assets/cms/hero.jpg"
+                    alt="CMS Development Hero"
+                    fill
+                    priority
+                    className="object-cover"
+                />
 
-            {/* Introductory section */}
-            <section ref={sectionRef}
-                     className={`py-12 transition-colors duration-500 ${
-                         isBackgroundActive
-                             ? isDayTime
-                                 ? "bg-white text-black"
-                                 : "bg-black text-white"
-                             : isDayTime
-                                 ? "bg-black text-white"
-                                 : "bg-white text-black"
-                     }`}>
+                {/* Grid & FX Background */}
+                <div className="pointer-events-none absolute inset-0 z-[1]">
+                    <FxBackground day={false} grid={true} aurora={true}/>
+                </div>
+
+                {/* Gradient Overlay with Glow */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50 z-[2]"/>
                 <div
-                    className='relative grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 md:pt-20 pt-6 lg:pb-16 md:pb-16 pb-6 lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'>
-                    <div className=''>
-                        <h6 className='constant-text uppercase lg:text-[0.85em] md:text-[0.85em] leading-[1.3] text-[0.7em] font-[400] lg:tracking-wider tracking-tight'>
-                            Efficient Content <br className={'lg:block md:block hidden'}/>Management Solution
-                        </h6>
-                    </div>
-                    <div className='lg:-ml-[19em]'>
-                        <h3 className='lg:text-[3.2em] md:text-[3.2em] text-[1.7em] font-[700] lg:mt-[0.01em] lg:leading-[1.2] tracking-tight border-b lg:pb-[0.7em] lg:mb-[0.7em] leading-[1.1] pb-6'>
-                            Custom CMS for Simplified Content Workflows
-                        </h3>
-                        <div
-                            className='grid lg:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]'>
-                            <div>
-                                <p>
-                                    Our CMS development services deliver enterprise-grade solutions that establish
-                                    comprehensive frameworks for end-to-end content lifecycle management. We architect
-                                    intuitive, responsive platforms that streamline content creation, editing, and
-                                    governance processes while maintaining organizational consistency and structural
-                                    integrity across all digital assets. Our approach ensures that your content
-                                    operations align seamlessly with strategic business objectives, enabling teams to
-                                    collaborate efficiently within a unified ecosystem that supports rigorous quality
-                                    control, version management, approval workflows, and compliance standards. By
-                                    implementing systematic content strategies, we help organizations establish clear
-                                    ownership, accountability, and measurable performance metrics that drive continuous
-                                    improvement.
-                                </p>
+                    className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,245,212,0.12),transparent_50%)] z-[2]"/>
+
+                {/* Futuristic FX Elements */}
+                <div className="pointer-events-none absolute inset-0 z-[3]">
+                    <div className="gx-scanline"/>
+                    <div className="gx-noise-overlay"/>
+                    <div className="gx-orbit absolute"
+                         style={{width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .12}}/>
+                    <div className="gx-orbit absolute"
+                         style={{width: '40vmax', height: '40vmax', bottom: '-15vmax', left: '-10vmax', opacity: .08}}/>
+                </div>
+
+                {/* Content Container - Two Column Layout */}
+                <div
+                    className="absolute inset-0 flex items-center z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+                    <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        {/* Left Column - Main Content */}
+                        <div>
+                            {/* Eyebrow with animated dot */}
+                            <div className="flex items-center gap-3 mb-6 lg:mb-8">
+                                <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse"/>
+                                <span
+                                    className="text-teal-400 text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">Content Management Solution</span>
                             </div>
-                            <div>
-                                <p>
-                                    We design personalized CMS architectures with sophisticated multi-channel
-                                    distribution capabilities, ensuring seamless content delivery across all digital
-                                    touchpoints including web, mobile, social media, and emerging platforms. Our
-                                    solutions feature comprehensive cross-platform accessibility that empowers
-                                    stakeholders to manage content from any device or location, complemented by elastic
-                                    infrastructure that scales dynamically with your business growth and evolving market
-                                    demands. This forward-thinking approach incorporates advanced features such as
-                                    intelligent content tagging, automated workflows, real-time analytics, and
-                                    integration capabilities with existing enterprise systems. The result is optimized
-                                    operational efficiency, reduced time-to-market for content initiatives, enhanced
-                                    user experiences, and a robust technological foundation that positions your
-                                    organization to maintain competitive advantage in an increasingly complex and
-                                    fast-paced digital marketplace.
-                                </p>
+
+                            {/* Main Heading with Gradient */}
+                            <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
+                                Enterprise CMS <span className="gx-gradient-text">Solutions</span>
+                                <br className="hidden lg:block"/>
+                                That Scale
+                            </h1>
+
+                            {/* Description */}
+                            <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
+                                Delivering scalable, secure content platforms with headless and traditional CMS architectures, comprehensive workflow automation, and seamless integrations that accelerate time-to-value and optimize content operations.
+                            </p>
+
+                            {/* Key Capabilities Pills */}
+                            <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
+                                {["Headless CMS", "Workflow Automation", "Multi-Channel", "API Integrations", "Content Governance", "Performance Optimized"].map((badge) => (
+                                    <span key={badge}
+                                          className="px-3 py-1.5 rounded-full bg-teal-400/10 border border-teal-400/30 text-teal-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">
+                                            {badge}
+                                        </span>
+                                ))}
+                            </div>
+
+                            {/* CTA Buttons */}
+                            <div className="flex flex-wrap gap-4 items-center">
+                                <Link href="/contact">
+                                    <button
+                                        className="relative px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap"
+                                        style={{background: '#00f5d4', color: '#000'}}>
+                                            <span className="absolute inset-0" style={{
+                                                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)'
+                                            }}/>
+                                        <span className="relative">Start Your CMS Project →</span>
+                                    </button>
+                                </Link>
+                                <Link href="/portfolio">
+                                    <button
+                                        className="px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap"
+                                        style={{border: `1px solid rgba(255,255,255,0.15)`}}>
+                                        View Case Studies
+                                    </button>
+                                </Link>
                             </div>
                         </div>
+
+                        {/* Right Column - Impact Stats */}
+                        <div className="hidden lg:flex flex-col items-end">
+                            <div className="grid grid-cols-2 gap-6 w-full">
+                                {[
+                                    {label: 'CMS Platforms', value: '15+'},
+                                    {label: 'Projects Delivered', value: '80+'},
+                                    {label: 'Content Volume', value: '10M+'},
+                                    {label: 'Uptime Guarantee', value: '99.9%'}
+                                ].map((stat) => (
+                                    <div key={stat.label}
+                                         className="px-6 py-5 rounded-2xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md hover:bg-teal-400/12 transition-all duration-300 hover:border-teal-400/50 text-right">
+                                        <div
+                                            className="text-teal-300 text-[0.7em] uppercase tracking-wider font-[600] mb-2">{stat.label}</div>
+                                        <div
+                                            className="text-white text-[1.8em] font-[700]">{stat.value}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Mobile Stats - Visible on small screens only */}
+                <div className="lg:hidden absolute bottom-12 left-0 right-0 z-[11] px-6">
+                    <div className="grid grid-cols-3 gap-3">
+                        {[
+                            {label: 'Platforms', value: '15+'},
+                            {label: 'Projects', value: '80+'},
+                            {label: 'Uptime', value: '99.9%'}
+                        ].map((stat) => (
+                            <div key={stat.label}
+                                 className="px-3 py-2 rounded-xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md">
+                                <div
+                                    className="text-teal-300 text-[0.5em] uppercase tracking-wider font-[600] mb-1">{stat.label}</div>
+                                <div
+                                    className="text-white text-[1.2em] font-[700]">{stat.value}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Animated Particles */}
+                <div className="absolute top-1/4 left-8 z-[4] w-2 h-2 rounded-full bg-teal-400 animate-pulse"/>
+                <div className="absolute bottom-1/3 right-12 z-[4] w-3 h-3 rounded-full bg-teal-500 animate-pulse"
+                     style={{animationDelay: '0.5s'}}/>
+                <div className="absolute top-3/4 left-1/3 z-[4] w-2 h-2 rounded-full bg-cyan-400 animate-pulse"
+                     style={{animationDelay: '1s'}}/>
+            </section>
+
+            {/* Introductory Section - Futuristic CMS Strategy Overview */}
+            <section ref={sectionRef}
+                     className={`pt-16 transition-colors duration-500 ${
+                         isBackgroundActive
+                             ? isDayTime ? 'bg-black text-white' : 'bg-white text-black'
+                             : isDayTime ? 'bg-white text-black' : 'bg-black text-white'
+                     }`}>
+                <FxBackground day={isDayTime}/>
+                <div
+                    className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
+                    <div>
+                        <FxChip day={!isBackgroundActive ? !isDayTime : isDayTime}>CMS MASTERY</FxChip>
+                    </div>
+
+                    <div className="lg:-ml-[19em]">
+                        <FxReveal>
+                            <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
+                                Enterprise Content <span
+                                className="gx-gradient-text">Management Systems</span>
+                            </h3>
+                        </FxReveal>
+                        <FxReveal delay={0.08}>
+                            <div
+                                className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
+                                <div>
+                                    <p>
+                                        Enterprise-grade CMS solutions are critical for modern organizations managing complex content ecosystems. At Grey InfoTech, our CMS experts deliver custom architectures that support multi-channel content distribution, automated workflows, and comprehensive governance frameworks. From headless CMS implementations to traditional platforms, we architect solutions that streamline content creation, enable team collaboration, maintain brand consistency, and scale with your organization's growth—enabling seamless management of digital content across all touchpoints.
+                                    </p>
+                                </div>
+                                <div>
+                                    <p>
+                                        Our CMS development approach prioritizes operational efficiency, content performance, and long-term sustainability. We design systems with robust security protocols, integrated analytics, real-time content delivery optimization, and seamless third-party integrations that connect your content platform with your entire technology ecosystem. This comprehensive strategy ensures your CMS becomes a strategic asset that accelerates time-to-market, reduces operational overhead, empowers your teams with intuitive workflows, and maintains consistent, high-quality content experiences across every digital channel your audience encounters.
+                                    </p>
+
+                                    <div className="flex flex-wrap gap-3 mt-4">
+                                        {['Content Lifecycle', 'Workflow Automation', 'Multi-Channel Delivery', 'Performance Optimization'].map((p) => (
+                                            <span key={p} className="gx-data-pill">{p}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </FxReveal>
                     </div>
                 </div>
             </section>
 
-            {/* custom CMS Development services */}
-            <div
-                className={`lg:pt-[2em] md:pt-[2em] pt-[1em] lg:pb-[4em] md:pb-[4em] pb-[1em]  ${isDayTime ? 'bg-white' : 'bg-black'}`}>
-                <div id={'ASO Services Overview'}
-                     className={'relative lg:pt-[3em] md:pt-[3em] pt-[1em] lg:pb-[6em] md:pb-[6em] pb-[1em] lg:mt-[3em] md:mt-[3em] mt-[1em] lg:mb-[6em] md:mb-[6em] mb-[1em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]'}>
-                    <div
-                        className={`relative grid lg:grid-cols-2 grid-cols-1 gap-4 mb-8 border-b-[1px]  pb-[3em] ${isDayTime ? 'text-black' : 'text-white'} `}>
-                        <div>
-                            <h2 className={`lg:text-[3.12em] md:text-[3.12em] text-[1.7em] font-[700] justify-center tracking-tight  leading-[1.1]`}>
-                                Custom CMS Development <br className={'lg:block md:block hidden'}/>Services Overview
-                            </h2>
-                        </div>
-                        <div>
-                            <p className='text-[0.85em] font-[400] justify-center text-justify leading-[1.5] lg:-ml-[7.5em] tracking-noromal'>
-                                Our enterprise CMS solutions deliver scalable content management that drives
-                                multi-channel performance. We provide end-to-end development, migration, and
-                                modernization services to optimize content operations and achieve your digital
-                                objectives.
-                            </p>
-                        </div>
-                    </div>
-                    <div
-                        className='grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-16 lg:mt-28 md:mt-28 mt-6 px-6 max-w-full w-full mx-auto h-full'>
-                        <div
-                            className='lg:sticky md:sticky top-28 lg:h-screen md:h-screen lg:mr-[11em] overflow-hidden'>
-                            <h3 className={`text-[1.5em] font-[500] tracking-tight constant-text ${
-                                isDayTime ? 'text-black' : 'text-white'
-                            }`}>
-                                Our Solutions
-                            </h3>
-                            <ul className={`list-disc capitalize constant-text text-[0.89em] ml-4 font-[600] relative space-y-3 ${
-                                isDayTime ? 'text-black decoration-gray-600 focus:decoration-gray-900' : 'text-white decoration-gray-400 focus:decoration-gray-600'
-                            }`}>
-                                {[
-                                    {id: "01", title: "custom software development", target: "CSD"},
-                                    {id: "02", title: "Enterprise Development Services", target: "EDS"},
-                                    {id: "03", title: "API Development Services", target: "ADS"},
-                                    {id: "04", title: "software Testing", target: "ST"},
-                                    {id: "05", title: "Software Product Development", target: "SPD"},
-                                    {id: "06", title: "software integration", target: "SI"},
-                                    {id: "07", title: "IT consulting", target: "IC"},
-                                    {id: "08", title: "custom CRM development", target: "CCD"},
-                                ].map((item, index) => (
-                                    <li key={index} className={'group lg:mt-6 mt-4'}>
-                                        <button
-                                            onClick={() => scrollToSection(item.target)}
-                                            className={`w-full text-left flex items-center gap-4 mb-4 focus:font-[650] ${
-                                                isDayTime
-                                                    ? `focus:text-black ${activeId === item.target ? 'text-gray-900 font-[650]' : 'text-gray-500 font-[400]'}`
-                                                    : `focus:text-white ${activeId === item.target ? 'text-gray-100 font-[650]' : 'text-gray-500 font-[400]'}`
-                                            }`}
-                                        >
-                                            <div className={'flex gap-4'}>
-                                                <span className={'shrink-0'}>{item.id}</span>
-                                                <span
-                                                    className={`opacity-0 transition-opacity text-[2em] leading-[0.59em] ${activeId === item.target ? 'opacity-100' : ''}`}>→</span>
-                                                <span>{item.title}</span>
-                                            </div>
-                                        </button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div className={'lg:-ml-[8em] md:-ml-[8em] lg:mb-[18em] md:mb-[18em]'}>
-                            <div className="grid lg:grid-cols-[50px_auto] grid-cols-1 lg:gap-2 gap1 items-start">
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>01/
-                                </div>
-                                <div className={`lg:mb-44 mb-14  ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'CSD'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Custom Software Development
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Integrated API</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Tailored Implementation</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Business-Critical Applications</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.873em] font-[300]'}>
-                                        We deliver comprehensive custom software development services meticulously
-                                        tailored to address the distinct requirements of your organization. Our
-                                        technical expertise spans the design and implementation of enterprise-grade
-                                        applications, robust API architecture and integration, and continuous
-                                        maintenance and enhancement support. Our development team employs industry best
-                                        practices and rigorous quality assurance methodologies to ensure every solution
-                                        aligns precisely with your operational objectives and strategic goals. We
-                                        recognize that each business operates within its own unique context, and our
-                                        approach reflects this understanding through meticulous requirements analysis,
-                                        collaborative development processes, and solutions that scale with your
-                                        organization&#39;s evolving needs. By partnering with us, you gain access to
-                                        software solutions that not only meet current business challenges but are
-                                        architected to adapt and grow alongside your enterprise.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>02/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'EDS'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Enterprise Development Services
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Digital Transformation</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Scalable Solutions</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Business Growth</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Process Efficiency</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        As a premier software development service provider, we empower enterprises to
-                                        transform their operational capabilities through strategically designed
-                                        technology solutions. Our custom software development services are specifically
-                                        engineered to streamline and optimize critical business processes, significantly
-                                        enhance organizational productivity, and drive measurable, sustainable growth
-                                        across all facets of your operations. We collaborate closely with our clients to
-                                        understand their unique challenges, market positioning, and long-term
-                                        objectives, enabling us to deliver solutions that create tangible business
-                                        value. Through our commitment to technical excellence, innovation, and client
-                                        partnership, we ensure that every software solution we develop becomes a
-                                        strategic asset that strengthens your competitive advantage and supports your
-                                        organization&#39;s continued evolution in an increasingly digital marketplace.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>03/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'ADS'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        API Development Services
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>API Integration</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>System Interoperability</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Scalable Architecture</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Seamless Connectivity</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Our comprehensive end-to-end custom software development services encompass the
-                                        strategic design, development, and deployment of bespoke API solutions that
-                                        facilitate seamless integration between your custom applications and existing
-                                        enterprise systems. We specialize in creating robust, scalable API architectures
-                                        that enable fluid data exchange and interoperability across your technology
-                                        ecosystem, including legacy platforms, modern applications, and third-party
-                                        services. This integration-first approach eliminates operational silos, reduces
-                                        redundancies, and creates a unified digital infrastructure that responds
-                                        dynamically to your business requirements. By ensuring that all systems
-                                        communicate efficiently and securely, we enable your organization to accelerate
-                                        time-to-market for new initiatives, enhance operational agility, and scale your
-                                        business operations with greater speed and confidence. Our API development
-                                        methodology prioritizes performance, security, and maintainability, ensuring
-                                        that your integrated systems remain resilient and adaptable as your business
-                                        continues to evolve and expand.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>04/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'ST'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        software Testing
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Quality Assurance</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Performance Testing</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Security Optimization</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Integration Validation</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>User Experience</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        To ensure optimal functionality and reliability across all system components, we
-                                        implement rigorous and comprehensive software testing protocols that encompass
-                                        multiple evaluation dimensions, including thorough integration testing,
-                                        performance benchmarking, security assessments, and user experience validation.
-                                        Our quality assurance methodology employs both automated testing frameworks and
-                                        manual testing procedures to identify and resolve potential issues before
-                                        deployment, ensuring that your software operates flawlessly under various
-                                        conditions and usage scenarios. We conduct extensive integration testing to
-                                        verify seamless communication between all interconnected systems and modules,
-                                        while our performance assessments evaluate system responsiveness, scalability,
-                                        load tolerance, and resource efficiency under real-world operating conditions.
-                                        Our testing services are designed to guarantee that your software not only meets
-                                        but exceeds industry standards for security, usability, and performance
-                                        optimization. Through this meticulous approach to quality assurance, we deliver
-                                        software solutions that provide exceptional user experiences, maintain robust
-                                        security postures, and perform reliably as your business scales and evolves.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>05/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'SPD'}>
-                                    <h2 className={`text-[1.5em] font-medium mb-3`}>
-                                        Software Product Development
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-light ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>UI/UX Design</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Prototyping</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Full-Cycle Development</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Collaborative Approach</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Product Implementation</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Grey InfoTech delivers comprehensive full-cycle development services that span
-                                        the entire spectrum of web design, UI/UX engineering, and product development,
-                                        from initial conceptualization through prototyping, implementation, and ongoing
-                                        support. Our collaborative approach places your vision at the center of every
-                                        development phase, ensuring that we thoroughly understand your strategic
-                                        objectives, user requirements, and business goals before translating them into
-                                        exceptional digital experiences. We employ user-centric design principles and
-                                        industry-leading development practices to create intuitive, visually compelling,
-                                        and functionally robust web solutions that resonate with your target audience
-                                        and support your business objectives. Throughout the development lifecycle, we
-                                        maintain open lines of communication and actively solicit your feedback,
-                                        remaining responsive and adaptable to evolving requirements and insights that
-                                        emerge during the design and development process. Our commitment to partnership
-                                        means we don&#39;t simply execute against a fixed specification; rather, we work
-                                        iteratively alongside your team to refine concepts, incorporate stakeholder
-                                        input, and ensure that the final product authentically represents your vision
-                                        while delivering measurable value to your users and your organization.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>06/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'SI'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Software Integration
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>System Performance</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Enterprise Optimization</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Integration Architecture</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Data Flow Management</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        As a distinguished custom software development company, we provide comprehensive
-                                        integration solutions that encompass the complete lifecycle of system
-                                        connectivity, from strategic architecture design and implementation through
-                                        sophisticated data flow management and performance optimization. Our integration
-                                        expertise enables us to architect scalable, resilient solutions that connect
-                                        disparate systems, applications, and data sources into a cohesive,
-                                        high-performing digital ecosystem tailored to your specific business
-                                        requirements. We employ advanced integration patterns, middleware technologies,
-                                        and API frameworks to ensure seamless communication across your entire
-                                        technology landscape, whether cloud-based, on-premises, or hybrid environments.
-                                        Our team meticulously designs data flow architectures that prioritize data
-                                        integrity, security, and real-time accessibility, enabling your organization to
-                                        leverage information assets effectively for decision-making and operational
-                                        excellence. Through continuous monitoring, performance tuning, and proactive
-                                        optimization, we ensure that your integrated systems maintain peak efficiency,
-                                        reliability, and responsiveness as transaction volumes grow and business demands
-                                        evolve. This holistic approach to integration architecture and data management
-                                        empowers your organization to eliminate bottlenecks, reduce operational
-                                        complexity, and achieve superior business outcomes through technology that works
-                                        cohesively to support your strategic initiatives.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>07/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'IC'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        IT Consulting
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Technology Integration</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Digital Experience</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Strategic Planning</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Outcome Optimization</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        We provide strategic IT consultation services designed to guide your
-                                        organization through the complexities of digital transformation and technology
-                                        adoption. Our experienced consultants work closely with your leadership and
-                                        technical teams to develop comprehensive, actionable IT roadmaps that align
-                                        technology investments with your business objectives and growth trajectory.
-                                        Through our consultation process, we assess your current technology landscape,
-                                        identify opportunities for innovation and improvement, and craft detailed
-                                        implementation strategies that orchestrate the seamless integration of emerging
-                                        technologies into your existing infrastructure. Our strategic planning
-                                        encompasses change management considerations, resource allocation, risk
-                                        mitigation, and phased deployment approaches that minimize disruption while
-                                        maximizing value realization. We place particular emphasis on enhancing digital
-                                        client experiences, recognizing that customer-facing technologies are critical
-                                        differentiators in today&#39;s competitive marketplace. By analyzing user
-                                        journeys,
-                                        identifying friction points, and recommending targeted improvements, we help you
-                                        create engaging, intuitive digital experiences that drive customer satisfaction
-                                        and loyalty. Our consultation extends beyond planning to include ongoing
-                                        advisory support throughout implementation, ensuring that your strategic IT
-                                        initiatives remain on track, deliver expected outcomes, and position your
-                                        organization for sustained competitive advantage in an increasingly
-                                        technology-driven business environment.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>08/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'CCD'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Custom CRM Development
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Process Automation</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Operation Efficiency</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Tailored Solutions</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        As a premier software development company specializing in <Link
-                                        href='/services/crm-development'
-                                        className='hover:font-[500] border-b-[1px] border-gray-500 hover:border-y-slate-900'>
-                                        custom CRM development</Link>, we design and deliver bespoke customer
-                                        relationship management
-                                        systems meticulously engineered to transform how your organization manages
-                                        client interactions, sales processes, and customer engagement strategies. Our
-                                        tailored CRM solutions go beyond off-the-shelf platforms by addressing your
-                                        unique business workflows, industry-specific requirements, and organizational
-                                        structure, ensuring that every feature and functionality directly supports your
-                                        strategic objectives. We develop comprehensive CRM systems that centralize
-                                        customer data, automate routine tasks, provide actionable insights through
-                                        advanced analytics, and create seamless collaboration across sales, marketing,
-                                        and customer service teams. Our custom CRM platforms are built to enhance
-                                        relationship management at every customer touchpoint, from initial lead capture
-                                        and qualification through ongoing account management and customer retention
-                                        initiatives. By streamlining corporate processes and eliminating inefficiencies
-                                        inherent in generic solutions, our CRM systems significantly boost operational
-                                        efficiency, reduce administrative overhead, and empower your teams to focus on
-                                        high-value activities that drive revenue growth. Through intuitive interfaces,
-                                        mobile accessibility, and intelligent automation, we create CRM solutions that
-                                        are not only powerful and feature-rich but also adopted enthusiastically by
-                                        users, ensuring that your investment in customer relationship technology
-                                        delivers measurable returns and sustainable competitive advantages in your
-                                        market.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            {/* CMS Solutions - Enhanced Visual Section */}
+            <section className={`relative py-4 ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
+                <FxBackground day={!isDayTime}/>
+            <div className="relative z-10">
+                <FxStickyScrollSection
+                    day={isDayTime}
+                    heading={<>Our CMS<br/>Solutions</>}
+                    intro="We provide comprehensive CMS solutions that establish complete content management frameworks, enable multi-channel distribution, deliver automated workflows, and ensure seamless integrations—from custom platform development to legacy modernization and enhanced performance optimization."
+                    navLabel="CMS Solutions"
+                    activeId={activeId}
+                    onNavClick={scrollToSection}
+                    items={cmsSolutions}
+                />
             </div>
+            </section>
 
             {/* Details */}
             <div id={'details'} className={'lg:-mt-[32em] md:-mt-[32em] h-auto max-w-full w-full mx-auto'}>
@@ -1149,7 +977,7 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M37.4258 23.8828L39.1758 25.6328V41.1328C39.1758 42.2161 38.8216 43.112 38.1133 43.8203C37.4049 44.5286 36.5091 44.8828 35.4258 44.8828H4.42578C3.34245 44.8828 2.44661 44.5286 1.73828 43.8203C1.02995 43.112 0.675781 42.2161 0.675781 41.1328V10.1328C0.675781 9.04948 1.02995 8.15365 1.73828 7.44531C2.44661 6.73698 3.34245 6.38281 4.42578 6.38281H17.7383C17.6549 6.75781 17.6029 7.08073 17.582 7.35156C17.5612 7.6224 17.5299 7.88281 17.4883 8.13281H4.42578C3.92578 8.13281 3.46745 8.34115 3.05078 8.75781C2.63411 9.17448 2.42578 9.63281 2.42578 10.1328V41.1328C2.42578 41.6328 2.63411 42.0911 3.05078 42.5078C3.46745 42.9245 3.92578 43.1328 4.42578 43.1328H35.4258C35.9258 43.1328 36.3841 42.9245 36.8008 42.5078C37.2174 42.0911 37.4258 41.6328 37.4258 41.1328V23.8828ZM37.9258 14.8828L46.3008 23.2578L45.0508 24.5078L36.6758 16.1328C35.9674 16.8411 35.1237 17.3516 34.1445 17.6641C33.1654 17.9766 32.1758 18.1328 31.1758 18.1328C28.7174 18.1328 26.6445 17.2891 24.957 15.6016C23.2695 13.9141 22.4258 11.8411 22.4258 9.38281C22.4258 6.92448 23.2695 4.85156 24.957 3.16406C26.6445 1.47656 28.7174 0.632812 31.1758 0.632812C33.6341 0.632812 35.707 1.47656 37.3945 3.16406C39.082 4.85156 39.9258 6.92448 39.9258 9.38281C39.9258 10.5078 39.7487 11.5286 39.3945 12.4453C39.0404 13.362 38.5508 14.1745 37.9258 14.8828ZM31.1758 16.3828C33.1341 16.3828 34.7904 15.7057 36.1445 14.3516C37.4987 12.9974 38.1758 11.3411 38.1758 9.38281C38.1758 7.42448 37.4987 5.76823 36.1445 4.41406C34.7904 3.0599 33.1341 2.38281 31.1758 2.38281C29.2174 2.38281 27.5612 3.0599 26.207 4.41406C24.8529 5.76823 24.1758 7.42448 24.1758 9.38281C24.1758 11.3411 24.8529 12.9974 26.207 14.3516C27.5612 15.7057 29.2174 16.3828 31.1758 16.3828ZM2.42578 43.1328V8.13281V23.1328V22.4453V43.1328Z"
-                                            fill="#10e3e3"></path>
+                                            fill="#00f5d4"></path>
                                     </svg>
                                 </div>
                             </div>
@@ -1175,7 +1003,7 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M15.4277 21.1328L21.2402 15.3203L15.6152 9.69531L12.6777 12.6328L11.4277 11.3828L14.3652 8.44531L8.86524 2.94531L3.05273 8.75781L15.4277 21.1328ZM34.7402 40.4453L40.5527 34.6328L35.0527 29.1328L32.1152 32.0703L30.8652 30.8203L33.8027 27.8828L28.2402 22.3203L22.4277 28.1328L34.7402 40.4453ZM10.2402 40.3828H3.17773V33.3203L14.1777 22.3203L0.677734 8.75781L8.86524 0.570312L22.4902 14.1328L34.1777 2.44531C34.3861 2.23698 34.5944 2.09115 34.8027 2.00781C35.0111 1.92448 35.2402 1.88281 35.4902 1.88281C35.7402 1.88281 35.9694 1.92448 36.1777 2.00781C36.3861 2.09115 36.5944 2.23698 36.8027 2.44531L41.1152 6.94531C41.3236 7.15365 41.459 7.36198 41.5215 7.57031C41.584 7.77865 41.6152 8.00781 41.6152 8.25781C41.6152 8.50781 41.584 8.72656 41.5215 8.91406C41.459 9.10156 41.3236 9.29948 41.1152 9.50781L29.5527 21.1328L42.9902 34.6953L34.8027 42.8828L21.2402 29.3828L10.2402 40.3828ZM4.92773 38.6328H9.49024L34.0527 14.0703L29.4902 9.50781L4.92773 34.0703V38.6328ZM31.8027 11.7578L29.4902 9.50781L34.0527 14.0703L31.8027 11.7578Z"
-                                            fill="#10e3e3"></path>
+                                            fill="#00f5d4"></path>
                                     </svg>
                                 </div>
                             </div>
@@ -1201,7 +1029,7 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M0.552734 46.8828V15.1328H10.5527V6.00781L16.4277 0.507812L22.3027 6.00781V25.1328H32.3027V46.8828H0.552734ZM2.30273 45.1328H10.5527V36.8828H2.30273V45.1328ZM2.30273 35.1328H10.5527V26.8828H2.30273V35.1328ZM2.30273 25.1328H10.5527V16.8828H2.30273V25.1328ZM12.3027 45.1328H20.5527V36.8828H12.3027V45.1328ZM12.3027 35.1328H20.5527V26.8828H12.3027V35.1328ZM12.3027 25.1328H20.5527V16.8828H12.3027V25.1328ZM12.3027 15.1328H20.5527V6.88281H12.3027V15.1328ZM22.3027 45.1328H30.5527V36.8828H22.3027V45.1328ZM22.3027 35.1328H30.5527V26.8828H22.3027V35.1328Z"
-                                            fill="#10e3e3"></path>
+                                            fill="#00f5d4"></path>
                                     </svg>
                                 </div>
                             </div>
@@ -1227,7 +1055,7 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M16.3008 44.8828L12.3008 38.1328L4.67578 36.5078L5.42578 28.6328L0.300781 22.7578L5.42578 16.8828L4.67578 9.00781L12.3008 7.38281L16.3008 0.632812L23.4258 3.63281L30.5508 0.632812L34.5508 7.38281L42.1758 9.00781L41.4258 16.8828L46.5508 22.7578L41.4258 28.6328L42.1758 36.5078L34.5508 38.1328L30.5508 44.8828L23.4258 41.8828L16.3008 44.8828ZM17.0508 42.6328L23.4258 40.0078L29.8008 42.6328L33.4258 36.6328L40.3008 35.1328L39.6758 28.0078L44.3008 22.7578L39.6758 17.5078L40.3008 10.3828L33.4258 8.88281L29.8008 2.88281L23.4258 5.50781L17.0508 2.88281L13.4258 8.88281L6.55078 10.3828L7.17578 17.5078L2.55078 22.7578L7.17578 28.0078L6.55078 35.1328L13.4258 36.6328L17.0508 42.6328ZM20.8008 29.3828L32.6758 17.5078L31.4258 16.2578L20.8008 26.8828L15.4258 21.5078L14.1758 22.7578L20.8008 29.3828Z"
-                                            fill="#10e3e3"></path>
+                                            fill="#00f5d4"></path>
                                     </svg>
                                 </div>
                             </div>
@@ -1256,7 +1084,7 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M3.05273 18.6953L9.55274 21.4453C10.3861 19.7787 11.3027 18.1641 12.3027 16.6016C13.3027 15.0391 14.4069 13.5287 15.6152 12.0703L11.6777 11.3203C11.3444 11.237 11.0215 11.2474 10.709 11.3516C10.3965 11.4557 10.1152 11.6328 9.86524 11.8828L3.05273 18.6953ZM10.9277 22.5703L17.9902 29.6328C20.0319 28.6745 22.0527 27.5078 24.0527 26.1328C26.0527 24.7578 27.9902 23.1328 29.8652 21.2578C32.4902 18.6328 34.4798 15.8724 35.834 12.9766C37.1882 10.0807 38.0111 6.487 38.3027 2.19533C34.0111 2.487 30.4277 3.30991 27.5527 4.66408C24.6777 6.01825 21.9277 8.00783 19.3027 10.6328C17.4277 12.5078 15.8027 14.4557 14.4277 16.4766C13.0527 18.4974 11.8861 20.5287 10.9277 22.5703ZM24.4277 16.0703C23.7611 15.4037 23.4277 14.612 23.4277 13.6953C23.4277 12.7787 23.7611 11.987 24.4277 11.3203C25.0944 10.6537 25.8965 10.3203 26.834 10.3203C27.7715 10.3203 28.5736 10.6537 29.2402 11.3203C29.9069 11.987 30.2402 12.7787 30.2402 13.6953C30.2402 14.612 29.9069 15.4037 29.2402 16.0703C28.5736 16.737 27.7715 17.0703 26.834 17.0703C25.8965 17.0703 25.0944 16.737 24.4277 16.0703ZM21.8027 37.5078L28.6152 30.6953C28.8652 30.4453 29.0423 30.1641 29.1465 29.8516C29.2507 29.5391 29.2611 29.2162 29.1777 28.8828L28.4277 24.9453C26.9694 26.1537 25.459 27.2578 23.8965 28.2578C22.334 29.2578 20.7194 30.1745 19.0527 31.0078L21.8027 37.5078ZM39.9902 0.570331C40.1152 5.02867 39.4173 9.0495 37.8965 12.6328C36.3757 16.2162 34.0944 19.5287 31.0527 22.5703L29.9277 23.6953L30.8652 28.5078C30.9902 29.1328 30.9694 29.737 30.8027 30.3203C30.6361 30.9037 30.3236 31.4245 29.8652 31.8828L21.1777 40.5078L17.3652 31.5078L8.99024 23.1328L-0.00976562 19.2578L8.61524 10.6328C9.07357 10.1745 9.5944 9.85158 10.1777 9.66408C10.7611 9.47658 11.3652 9.44533 11.9902 9.57033L16.9277 10.5703C17.1361 10.362 17.3132 10.1745 17.459 10.0078C17.6048 9.84116 17.7819 9.65367 17.9902 9.44533C21.0319 6.40367 24.3444 4.13283 27.9277 2.63283C31.5111 1.13283 35.5319 0.445331 39.9902 0.570331ZM4.11523 30.3203C4.94857 29.487 5.95898 29.0807 7.14648 29.1016C8.33399 29.1224 9.3444 29.5495 10.1777 30.3828C11.0111 31.2162 11.4277 32.2266 11.4277 33.4141C11.4277 34.6016 11.0111 35.612 10.1777 36.4453C9.38607 37.237 8.13607 37.9141 6.42774 38.4766C4.7194 39.0391 2.9069 39.3828 0.990234 39.5078C1.11523 37.5912 1.4694 35.7787 2.05273 34.0703C2.63607 32.362 3.32357 31.112 4.11523 30.3203ZM5.36523 31.6328C4.86523 32.1328 4.4069 32.9245 3.99023 34.0078C3.57357 35.0912 3.30273 36.2162 3.17773 37.3828C4.3444 37.2578 5.4694 36.9766 6.55273 36.5391C7.63607 36.1016 8.42774 35.6328 8.92774 35.1328C9.42774 34.6328 9.67774 34.0391 9.67774 33.3516C9.67774 32.6641 9.42774 32.0703 8.92774 31.5703C8.42774 31.0703 7.83398 30.8307 7.14648 30.8516C6.45898 30.8724 5.86523 31.1328 5.36523 31.6328Z"
-                                            fill="#10e3e3"></path>
+                                            fill="#00f5d4"></path>
                                     </svg>
                                 </div>
                             </div>
@@ -1285,7 +1113,7 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M0.705078 36.6328V34.8828H8.70508L5.58008 31.7578C3.70508 29.8828 2.34049 27.8516 1.48633 25.6641C0.632161 23.4766 0.205078 21.2578 0.205078 19.0078C0.205078 15.1745 1.27799 11.6849 3.42383 8.53906C5.56966 5.39323 8.41341 3.09115 11.9551 1.63281V3.50781C8.91341 4.84115 6.48633 6.91406 4.67383 9.72656C2.86133 12.5391 1.95508 15.6328 1.95508 19.0078C1.95508 21.0911 2.35091 23.112 3.14258 25.0703C3.93425 27.0286 5.16341 28.8411 6.83008 30.5078L9.95508 33.6328V25.6328H11.7051V36.6328H0.705078ZM38.5801 15.1953H36.8301C36.4967 13.737 35.9655 12.3099 35.2363 10.9141C34.5072 9.51823 33.5384 8.21615 32.3301 7.00781L29.2051 3.88281V11.8828H27.4551V0.882812H38.4551V2.63281H30.4551L33.5801 5.75781C34.9551 7.17448 36.0488 8.67448 36.8613 10.2578C37.6738 11.8411 38.2467 13.487 38.5801 15.1953ZM32.0801 39.1328L31.9551 37.4453C30.8717 37.237 29.9967 36.9245 29.3301 36.5078C28.6634 36.0911 28.0384 35.5703 27.4551 34.9453L25.9551 35.7578L24.8301 34.2578L26.2676 33.1328C25.8926 32.1328 25.7051 31.1745 25.7051 30.2578C25.7051 29.3411 25.8926 28.3828 26.2676 27.3828L24.8301 26.2578L25.9551 24.7578L27.4551 25.5703C28.0384 24.9453 28.6634 24.4245 29.3301 24.0078C29.9967 23.5911 30.8717 23.2786 31.9551 23.0703L32.0801 21.3828H33.8301L33.9551 23.0703C35.0384 23.2786 35.9134 23.5911 36.5801 24.0078C37.2467 24.4245 37.8717 24.9453 38.4551 25.5703L39.9551 24.7578L41.0801 26.2578L39.6426 27.3828C40.0176 28.3828 40.2051 29.3411 40.2051 30.2578C40.2051 31.1745 40.0176 32.1328 39.6426 33.1328L41.0801 34.2578L39.9551 35.7578L38.4551 34.9453C37.8717 35.5703 37.2467 36.0911 36.5801 36.5078C35.9134 36.9245 35.0384 37.237 33.9551 37.4453L33.8301 39.1328H32.0801ZM32.9551 35.7578C34.4551 35.7578 35.7467 35.2161 36.8301 34.1328C37.9134 33.0495 38.4551 31.7578 38.4551 30.2578C38.4551 28.7578 37.9134 27.4661 36.8301 26.3828C35.7467 25.2995 34.4551 24.7578 32.9551 24.7578C31.4551 24.7578 30.1634 25.2995 29.0801 26.3828C27.9967 27.4661 27.4551 28.7578 27.4551 30.2578C27.4551 31.7578 27.9967 33.0495 29.0801 34.1328C30.1634 35.2161 31.4551 35.7578 32.9551 35.7578Z"
-                                            fill="#10e3e3"></path>
+                                            fill="#00f5d4"></path>
                                     </svg>
                                 </div>
                             </div>
@@ -1456,8 +1284,7 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                                         </div>
                                     )}
                                 </div>
-    </FuturisticServiceLayout>
-  );
+                            );
                         })}
                     </div>
                 </div>

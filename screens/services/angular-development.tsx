@@ -15,6 +15,8 @@ import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 
 import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
 import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
+import ServiceHero from '@/components/futuristic/ServiceHero';
+import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 const AngularDevelopment = () => {    const [isVisible, setIsVisible] = useState(false);
 
 const sectionRef = useRef<HTMLDivElement>(null);
@@ -113,56 +115,15 @@ const sectionRef = useRef<HTMLDivElement>(null);
                 }`}
             />
 
-            {/* Hero Section */}
-            <div id={'hero'}
-                 className={"relative overflow-hidden lg:w-full lg:h-[720px] justify-center items-center md:w-full md:h-[700] w-full h-[700] pb-6"}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
-                <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
-                    <div className="gx-scanline" />
-                    <div className="gx-noise-overlay" />
-                    <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
-                </div>
-                <ResponsiveVideoHero
-                    videoFallback="/assets/angular/hero.webm"
-                    posterImage="/images/default-poster.jpg"
-                />
-                <div
-                    className={`absolute top-0 left-0 w-full h-full flex flex-col justify-center items-start text-start lg:max-w-[90em] px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] ${
-                        isDayTime ? 'text-white ' : 'text-white '}`}>
-                    <div
-                        className="flex flex-col justify-start items-start border-b pb-[0.3em] border-gray-500/50 max-w-full w-full mx-auto ">
-                        <h1
-                            className={`px-0 constant-text lg:text-[5.35em] md:text-[4.4em] sm:text-[3.5em] text-[2em] lg:mt-[3em] md:mt-[3em] mt-[4em] w-auto h-auto leading-[1.1] font-[600]`}>
-                            Angular Development <br className={'lg:block md:block hidden'}/>Services
-                        </h1>
-                    </div>
-                    <div
-                        className={'relative grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 lg:mt-[1em] md:mt-[1em] mt-[0.5em] '}>
-                        <div className={'lg:-mr-[4em] md:-mr-[1em] lg:mt-[1em] md:mt-[1em]'}>
-                            <p className={'text-[0.87em] font-[300]'}>
-                                Our Angular development services provide dynamic, responsive web applications with a
-                                focus on performance and user experience. Leveraging Angular’s powerful framework, we
-                                build scalable solutions that drive business growth and streamline complex workflows.
-                            </p>
-                        </div>
-                        <div
-                            className={'relative grid lg:grid-cols-3 lg:gap-8 lg:ml-[8em]'}>
-                            <div className={'border-0 lg:block md:hidden sm:hidden hidden'}>
-                                <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>8+</h6>
-                                <p className={'text-[0.7em] font-[300]'}>Years Experience</p>
-                            </div>
-                            <div className={'border-0 lg:block md:hidden sm:hidden hidden'}>
-                                <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>13+</h6>
-                                <p className={'text-[0.7em] font-[300]'}>Team Members</p>
-                            </div>
-                            <div className={'border-0 lg:block md:hidden sm:hidden hidden'}>
-                                <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>123+</h6>
-                                <p className={'text-[0.7em] font-[300]'}>Products Launched</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <ServiceHero
+                title="Angular Development"
+                subtitle="Dynamic, responsive web applications"
+                accentColor="#00f5d4"
+                variant="hologram"
+                badges={["TypeScript","RxJS","Performance","Scalable"]}
+                ctaHref="/contact"
+                ctaLabel="Start a project"
+            />
 
             {/* Introductory section */}
             <section ref={sectionRef}

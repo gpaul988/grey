@@ -6,6 +6,8 @@ import '@/app/globals.css'
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
+import ServiceHero from '@/components/futuristic/ServiceHero';
+import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 import Link from "next/link";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
@@ -103,30 +105,15 @@ const ReactjsDevelopment = () => {    const [isVisible, setIsVisible] = useState
                 }`}
             />
 
-            {/* Hero Section */}
-            <div id={'hero'}
-                 className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
-                <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
-                    <div className="gx-scanline" />
-                    <div className="gx-noise-overlay" />
-                    <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
-                </div>
-                <h1
-                    className={`border-b pb-[0.5em] border-gray-500/50 px-0 gx-hero-title constant-text lg:text-[5em] md:text-[3em] sm:text-[2em] text-[2.5em] lg:mt-[3em] md:mt-[3em] mt-[1.5em] leading-[1.1] font-[800] ${
-                        isDayTime ? 'text-black' : 'text-white'
-                    }`}>
-                    React.js <br className={'lg:block md:block hidden'}/>Development <br
-                    className={'lg:block md:block hidden'}/>Company
-                </h1>
-                <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
-                    Grey InfoTech is a React.js web development agency serving clients in Port Harcourt and across
-                    Nigeria, delivering <br className={'lg:block md:block hidden'}/>high-performance web applications
-                    tailored to
-                    business needs.
-                </p>
-                <ResponsiveVideoHero videoDesktop="/assets/react/hero.mp4" videoMobile="/assets/react/hero-mobile.mp4" posterImage="/assets/react/hero.jpg" />
-            </div>
+            <ServiceHero
+                title="React.js Development"
+                subtitle="Modern React applications and component systems"
+                accentColor="#00f5d4"
+                variant="circuit"
+                badges={["React","Next.js","TypeScript","Performance"]}
+                ctaHref="/contact"
+                ctaLabel="Talk to an expert"
+            />
 
             {/* Introductory section */}
             <section ref={sectionRef}

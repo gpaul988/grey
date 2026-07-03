@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 
 import React, {useEffect, useRef, useState} from 'react';
@@ -11,6 +11,7 @@ import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 import Link from "next/link";
 import CountUp from 'react-countup';
 import {useIsDayTime} from '../../components/useIsDayTime';
+import {motion} from 'framer-motion';
 
 import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
 
@@ -165,8 +166,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
 
 
     return (
-    <FuturisticServiceLayout title={`UX & UI design<br className='lg:block md:block hidden'/>services`}>
-<div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
+        <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
             <FloatingButton
                 className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
                     isVisible ? 'mb-16' : 'mb-0'
@@ -176,31 +176,32 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
             <ServiceHero
                 title="UI/UX Design"
                 subtitle="Human-centred design that transforms complex problems into intuitive, beautiful experiences users love."
-                accentColor="#22d3ee"
+                accentColor="#00f5d4"
                 variant="circuit"
                 badges={["Figma", "Prototyping", "User Research", "Design Systems", "Accessibility", "Animation"]}
             />
             <ServiceCapabilities
-                accentColor="#22d3ee"
+                accentColor="#00f5d4"
                 variant="tabs"
                 capabilities={[
-                    { id: "cap-1", icon: "🎨", title: "Interface Design", description: "Pixel-perfect UI design with consistent design systems, component libraries, and brand alignment." },
-                    { id: "cap-2", icon: "🧠", title: "UX Research", description: "User interviews, usability testing, and behavioural analytics to validate design decisions with real data." },
-                    { id: "cap-3", icon: "⚡", title: "Prototyping", description: "Interactive Figma prototypes that simulate real product behaviour for stakeholder sign-off and user testing." },
-                    { id: "cap-4", icon: "♿", title: "Accessibility", description: "WCAG 2.1 AA compliant designs ensuring your product is usable by everyone, including users with disabilities." },
-                    { id: "cap-5", icon: "📐", title: "Design Systems", description: "Scalable token-based design systems that keep your product consistent across every surface and platform." },
-                    { id: "cap-6", icon: "✨", title: "Motion & Animation", description: "Purposeful micro-interactions and transitions that guide users and make interfaces feel alive." },
+                    { id: "cap-1", icon: "ðŸŽ¨", title: "Interface Design", description: "Pixel-perfect UI design with consistent design systems, component libraries, and brand alignment." },
+                    { id: "cap-2", icon: "ðŸ§ ", title: "UX Research", description: "User interviews, usability testing, and behavioural analytics to validate design decisions with real data." },
+                    { id: "cap-3", icon: "âš¡", title: "Prototyping", description: "Interactive Figma prototypes that simulate real product behaviour for stakeholder sign-off and user testing." },
+                    { id: "cap-4", icon: "â™¿", title: "Accessibility", description: "WCAG 2.1 AA compliant designs ensuring your product is usable by everyone, including users with disabilities." },
+                    { id: "cap-5", icon: "ðŸ“", title: "Design Systems", description: "Scalable token-based design systems that keep your product consistent across every surface and platform." },
+                    { id: "cap-6", icon: "âœ¨", title: "Motion & Animation", description: "Purposeful micro-interactions and transitions that guide users and make interfaces feel alive." },
                 ]}
             />
 
-            {/* Hero Section */}
-            <div
-                className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                
-                <p className={'lg:mt-[4em] mt-[1.5em] text-[0.8em] font-[400]'}>Innovative UX and design solutions
-                    that increase user involvement and boost the online presence of your company</p>
-                <ResponsiveVideoHero videoDesktop="/assets/ui-ux/hero.mp4" videoMobile="/assets/ui-ux/hero-mobile.mp4" posterImage="/assets/ui-ux/hero.jpg" />
-            </div>
+            <ServiceHero
+                title="UX & UI Design"
+                subtitle="Interface design and research that elevates products"
+                accentColor="#00f5d4"
+                variant="circuit"
+                badges={["Figma","Prototyping","Design Systems"]}
+                ctaHref="/contact"
+                ctaLabel="Start a project"
+            />
 
             {/* Introductory section */}
             <section ref={sectionRef}
@@ -276,7 +277,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                         </h3>
                         <p className='text-justify text-[0.85em] font-[400]'>
                             Design products your users will love. Our UX consultancy helps you unlock deeper insights
-                            through expert research, interviews, and usability testing—turning user needs into smarter
+                            through expert research, interviews, and usability testingâ€”turning user needs into smarter
                             design decisions that drive engagement and growth.
                         </p>
                     </div>
@@ -301,7 +302,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                         <p className='text-justify text-[0.85em] font-[400]'>
                             Maximize your online impact with responsive, high-performing websites designed to engage and
                             convert. We craft digital experiences that reflect your brand, captivate users across all
-                            devices, and drive measurable results—whether you&#39;re launching a mobile-first platform
+                            devices, and drive measurable resultsâ€”whether you&#39;re launching a mobile-first platform
                             or scaling your e-commerce presence.
                         </p>
                     </div>
@@ -350,7 +351,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                         </h3>
                         <p className='text-justify text-[0.85em] font-[400]'>
                             Create mobile experiences that feel effortless and intuitive. Our UX design expertise
-                            leverages the full potential of smartphone interactions—optimizing for touch, gestures, and
+                            leverages the full potential of smartphone interactionsâ€”optimizing for touch, gestures, and
                             screen size to deliver apps that feel native on both iOS and Android.
                         </p>
                     </div>
@@ -375,7 +376,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                         <p className='text-justify text-[0.85em] font-[400]'>
                             Transform user experience into business results with a data-driven UX audit. Our expert
                             evaluation uncovers usability gaps, highlights opportunities, and delivers clear, actionable
-                            insights—helping you boost engagement, retention, and ROI across your digital product.
+                            insightsâ€”helping you boost engagement, retention, and ROI across your digital product.
                         </p>
                     </div>
                     <div className={`mt-[1em]`}>
@@ -398,7 +399,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                         </h3>
                         <p className='text-justify text-[0.85em] font-[400]'>
                             Build with consistency, scale with confidence. A well-crafted design system unifies your
-                            digital products through shared UI standards—enhancing quality, speeding up delivery, and
+                            digital products through shared UI standardsâ€”enhancing quality, speeding up delivery, and
                             creating seamless experiences across your entire brand ecosystem.
                         </p>
                     </div>
@@ -484,7 +485,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                                         <div className={'flex gap-4'}>
                                             <span className={'shrink-0'}>{item.id}</span>
                                             <span
-                                                className={`opacity-0 transition-opacity text-[2em] leading-[0.59em] ${activeId === item.target ? 'opacity-100' : ''}`}>→</span>
+                                                className={`opacity-0 transition-opacity text-[2em] leading-[0.59em] ${activeId === item.target ? 'opacity-100' : ''}`}>â†’</span>
                                             <span>{item.title}</span>
                                         </div>
                                     </button>
@@ -502,8 +503,8 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                                 <h2 className={`text-[1.5em] font-[500] mb-3`}>User Experience (UX) Design</h2>
                                 <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
                                     Imagine a digital product that not only looks great but feels intuitive, solves real
-                                    problems, and aligns perfectly with your users’ goals. Great user experience is no
-                                    longer a nice-to-have—it&#39;s a competitive advantage that drives engagement,
+                                    problems, and aligns perfectly with your usersâ€™ goals. Great user experience is no
+                                    longer a nice-to-haveâ€”it&#39;s a competitive advantage that drives engagement,
                                     satisfaction, and long-term growth. We take a strategic approach to UX design,
                                     starting with a deep understanding of your audience. Through user research, journey
                                     mapping, and behavioral insights, we uncover pain points and opportunities to create
@@ -513,7 +514,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                                     prototypes, and interaction models that streamline workflows, reduce friction, and
                                     support accessibility. Whether you&#39;re launching a new product or refining an
                                     existing one, we help you build experiences that are usable, scalable, and
-                                    future-ready—delivering meaningful ROI and setting your brand apart in the digital
+                                    future-readyâ€”delivering meaningful ROI and setting your brand apart in the digital
                                     landscape.
                                 </p>
                             </div>
@@ -523,15 +524,15 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                             <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`} id={'ui'}>
                                 <h2 className={`text-[1.5em] font-[500] mb-3`}>User Interface (UI) Design</h2>
                                 <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                    First impressions are everything—especially in the digital world. A beautifully
+                                    First impressions are everythingâ€”especially in the digital world. A beautifully
                                     crafted user interface not only sets the tone for your product but also reflects
-                                    your brand’s professionalism and attention to detail. UI design is more than just
-                                    visuals; it’s about crafting every button, menu, and interactive element to feel
+                                    your brandâ€™s professionalism and attention to detail. UI design is more than just
+                                    visuals; itâ€™s about crafting every button, menu, and interactive element to feel
                                     intuitive, seamless, and engaging. When done right, UI becomes a silent ambassador
-                                    for your brand—inviting users to explore, interact, and return.<br/><br/>An
+                                    for your brandâ€”inviting users to explore, interact, and return.<br/><br/>An
                                     exceptional UI design strikes the perfect balance between aesthetics and
                                     functionality.It guides users effortlessly through your product, reduces friction,
-                                    and builds trust with every interaction. Great UI is about more than polish—it’s
+                                    and builds trust with every interaction. Great UI is about more than polishâ€”itâ€™s
                                     about clarity, accessibility, and the confidence it gives users as they engage with
                                     your platform. By prioritizing ease of use and consistency, we help you design
                                     interfaces that not only look stunning but also drive conversions and long-term
@@ -556,7 +557,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                                         className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Graphic Design</span>
                                 </div>
                                 <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                    Visual design is more than decoration—it&#39;s a strategic tool for brand
+                                    Visual design is more than decorationâ€”it&#39;s a strategic tool for brand
                                     communication
                                     and user engagement. A compelling visual identity brings your brand to life,
                                     reflecting your values, voice, and vision across every touchpoint. Through
@@ -564,13 +565,13 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                                     brands create digital products that are not only beautiful but also functional,
                                     engaging, and conversion-driven.<br/><br/>
                                     Consistency in visual language plays a critical role in shaping user perception and
-                                    trust. That’s why we focus on building cohesive design systems that ensure every
-                                    element—from typography and color to buttons and interactions—aligns with your brand
+                                    trust. Thatâ€™s why we focus on building cohesive design systems that ensure every
+                                    elementâ€”from typography and color to buttons and interactionsâ€”aligns with your brand
                                     and business goals. This strategic alignment leads to better user experiences,
                                     stronger brand recognition, and measurable impact.<br/><br/>
-                                    From startups to enterprise teams, we’ve helped businesses craft visually stunning
-                                    products that perform—combining storytelling, structure, and style to create lasting
-                                    impressions. Whether you’re launching a new brand or scaling an existing platform,
+                                    From startups to enterprise teams, weâ€™ve helped businesses craft visually stunning
+                                    products that performâ€”combining storytelling, structure, and style to create lasting
+                                    impressions. Whether youâ€™re launching a new brand or scaling an existing platform,
                                     our visual design solutions give you the edge to stand out in a crowded digital
                                     landscape.
                                 </p>
@@ -611,7 +612,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                                     By integrating prototyping into the design process, you can significantly reduce
                                     development costs and accelerate time-to-market. This iterative approach ensures
                                     your product not only meets user needs but also delivers exceptional experiences.
-                                    With a prototype that aligns with your business goals, you’ll create a product that
+                                    With a prototype that aligns with your business goals, youâ€™ll create a product that
                                     drives user engagement, increases conversions, and exceeds expectations.
                                 </p>
                             </div>
@@ -625,7 +626,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                                     dynamic, habit-forming experience that captivates users and drives engagement. By
                                     incorporating playful, intuitive, and innovative motion design, you create moments
                                     of delight that make your product not only functional but memorable.<br/><br/>
-                                    These micro-interactions do more than entertain—they guide users, reinforce actions,
+                                    These micro-interactions do more than entertainâ€”they guide users, reinforce actions,
                                     and build emotional connections with your brand. A well-designed interactive
                                     experience leaves a lasting impression, strengthens brand identity, and encourages
                                     users to return, ultimately boosting satisfaction, loyalty, and conversions.
@@ -640,7 +641,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                                     A well-structured information architecture is key to creating digital experiences
                                     that are intuitive, efficient, and engaging. By organizing content through clear
                                     sitemaps and thoughtful architecture diagrams, users can effortlessly find what they
-                                    need—reducing friction, increasing satisfaction, and driving conversions.<br/><br/>
+                                    needâ€”reducing friction, increasing satisfaction, and driving conversions.<br/><br/>
                                     With a user-centered design approach, information architecture becomes a strategic
                                     tool that bridges business objectives and user needs. It ensures your product is not
                                     only easy to navigate but also aligned with how users think and behave, resulting in
@@ -653,14 +654,14 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                             <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`} id={'use'}>
                                 <h2 className={`text-[1.5em] font-[500] mb-3`}>Usability</h2>
                                 <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                    UX goes beyond aesthetics—it&#39;s a practical, user-driven discipline focused on
+                                    UX goes beyond aestheticsâ€”it&#39;s a practical, user-driven discipline focused on
                                     creating meaningful and effective experiences. Usability testing plays a crucial
                                     role by observing real users as they interact with your product, revealing pain
                                     points, uncovering design flaws, and highlighting opportunities for
                                     improvement.<br/><br/>
                                     These insights allow us to refine interfaces, streamline user journeys, and enhance
                                     overall performance. By continuously testing and iterating, we ensure your digital
-                                    product not only looks great but functions seamlessly—delivering a satisfying
+                                    product not only looks great but functions seamlesslyâ€”delivering a satisfying
                                     experience that drives engagement, loyalty, and measurable results.
                                 </p>
                             </div>
@@ -721,14 +722,14 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                             How our UX and UI designers collaborate
                         </h2>
                         <p className='text-[0.85em] font-[400] tracking-normal text-justify lg:-mt-[0.5em] leading-[1.5] lg:mr-[2em]'>
-                            We bring a fast, flexible, and collaborative approach to every project—making the process as
+                            We bring a fast, flexible, and collaborative approach to every projectâ€”making the process as
                             enjoyable as it is effective. Crafting exceptional digital products is a team effort, and
-                            our dedication doesn’t stop at the design handoff. We&#39;re invested from concept to launch
+                            our dedication doesnâ€™t stop at the design handoff. We&#39;re invested from concept to launch
                             to ensure every detail is executed flawlessly.<br/><br/>
                             Our design team works closely with front-end developers and QA specialists to maintain
                             design integrity, streamline implementation, and uphold the highest standards of quality.
                             This end-to-end collaboration ensures the final product not only looks great but performs
-                            seamlessly—delivering real value to your business and a standout experience to your users.
+                            seamlesslyâ€”delivering real value to your business and a standout experience to your users.
                         </p><br/><br/>
                         <Link href='/company'>
                             <button
@@ -739,7 +740,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                                     className={`absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 ${isDayTime ? 'bg-black' : 'bg-white'} opacity-100 group-hover:-translate-x-8`}></span>
                                 <span
                                     className={`relative w-full text-left transition-colors duration-200 ease-in-out ${isDayTime ? 'text-black group-hover:text-gray-300' : 'text-white group-hover:text-gray-800'}`}>About Us <span
-                                    className={`text-[1.5em] leading-[0.7]`}> →</span></span>
+                                    className={`text-[1.5em] leading-[0.7]`}> â†’</span></span>
                                 <span
                                     className={"absolute inset-0 border-[1px] border-gray-900 ${isDayTime ? 'border-black' : 'border-white'} rounded-full"}></span>
                             </button>
@@ -803,7 +804,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                             <p className={'text-[0.873em] text-justify'}>Axure RP empowers us to build advanced,
                                 interactive prototypes that closely replicate the
                                 functionality and user experience of the final product. This allows for realistic
-                                testing, faster validation of ideas, and more informed design decisions—ensuring a
+                                testing, faster validation of ideas, and more informed design decisionsâ€”ensuring a
                                 smoother path from concept to launch.</p>
                         </div>
                     </div>
@@ -822,7 +823,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                             <p className={'text-[0.873em] text-justify'}>
                                 Figma is our go-to platform for collaborative design, enabling real-time teamwork
                                 between our UI/UX experts and clients. Its cloud-based environment ensures seamless
-                                communication, faster feedback loops, and a more efficient design process—from initial
+                                communication, faster feedback loops, and a more efficient design processâ€”from initial
                                 concept to final delivery.
                             </p>
                         </div>
@@ -842,7 +843,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                             <p className={'text-[0.873em] text-justify'}>
                                 Adobe After Effects is our preferred tool for crafting high-impact animations that bring
                                 designs to life. It allows us to tell compelling stories, communicate complex ideas with
-                                clarity, and elevate the overall user experience through motion that’s both purposeful
+                                clarity, and elevate the overall user experience through motion thatâ€™s both purposeful
                                 and visually engaging.
                             </p>
                         </div>
@@ -882,7 +883,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                             <p className={'text-[0.873em] text-justify'}>
                                 Sketch still holds a valued place in our design toolkit. Its powerful vector editing
                                 capabilities make it perfect for creating detailed illustrations, icons, and polished
-                                graphic assets—ensuring every visual element is sharp, scalable, and on-brand.
+                                graphic assetsâ€”ensuring every visual element is sharp, scalable, and on-brand.
                             </p>
                         </div>
                     </div>
@@ -900,7 +901,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                             <h6 className={'text-[2em] font-[600]'}>Miro</h6>
                             <p className={'text-[0.873em] text-justify'}>
                                 Miro is our go-to virtual whiteboard for collaborative brainstorming and ideation. We
-                                use it to power workshops, discovery sessions, and design sprints—creating a shared
+                                use it to power workshops, discovery sessions, and design sprintsâ€”creating a shared
                                 space where ideas flow freely, teams stay aligned, and strategic thinking drives smart,
                                 user-centered solutions.
                             </p>
@@ -935,13 +936,13 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                     </div>
                     <div className=''>
                         <p className='text-[0.873em] font-[400] lg:-mt-[0.2em] rounded-none leading-[1.5]'>
-                            A bespoke web application offers all the advantages of traditional software—plus greater
+                            A bespoke web application offers all the advantages of traditional softwareâ€”plus greater
                             flexibility, accessibility, and cost efficiency. Built specifically around your business
                             needs, custom web apps scale effortlessly as you grow, delivering long-term value without
                             the overhead of off-the-shelf solutions.<br/><br/>
-                            We’ve delivered innovative, high-performing web applications across industries like finance,
+                            Weâ€™ve delivered innovative, high-performing web applications across industries like finance,
                             technology, construction, and recruitment. When you partner with us, you get more than just
-                            a development team—you gain a strategic partner committed to fast, stress-free software
+                            a development teamâ€”you gain a strategic partner committed to fast, stress-free software
                             delivery and a product that drives real results.
                         </p>
                     </div>
@@ -966,7 +967,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                         <p className={'text-[0.873em] text-justify font-[300]'}>Inclusive design expands your audience
                             by
                             making digital products accessible, intuitive, and
-                            usable for everyone—regardless of ability. It not only meets accessibility standards but
+                            usable for everyoneâ€”regardless of ability. It not only meets accessibility standards but
                             also enhances user experience, strengthens brand reputation, and drives greater engagement
                             across a diverse user base.</p>
                     </div>
@@ -983,8 +984,8 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                         </h5>
                         <p className={'text-[0.873em] text-justify font-[300]'}>
                             Prioritizing UX early in the process helps identify and resolve usability issues before
-                            development begins—reducing costly redesigns, saving time, and ensuring a smoother, more
-                            efficient path to launch. It’s a smart investment that leads to better products and a higher
+                            development beginsâ€”reducing costly redesigns, saving time, and ensuring a smoother, more
+                            efficient path to launch. Itâ€™s a smart investment that leads to better products and a higher
                             return on effort.
                         </p>
                     </div>
@@ -1024,8 +1025,8 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                         </h5>
                         <p className={'text-[0.873em] text-justify font-[300]'}>
                             A consistent and visually appealing UI/UX builds trust and credibility, reinforcing your
-                            brand’s identity and leaving a lasting impression. This strong, cohesive experience not only
-                            enhances user satisfaction but also cultivates loyalty and strengthens your brand’s
+                            brandâ€™s identity and leaving a lasting impression. This strong, cohesive experience not only
+                            enhances user satisfaction but also cultivates loyalty and strengthens your brandâ€™s
                             reputation over time.
                         </p>
                     </div>
@@ -1060,7 +1061,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                         </h5>
                         <p className={'text-[0.873em] text-justify font-[300]'}>
                             Intuitive design, strategic calls to action, and a user-friendly interface work together to
-                            eliminate friction and guide users effortlessly toward key actions—ultimately increasing
+                            eliminate friction and guide users effortlessly toward key actionsâ€”ultimately increasing
                             engagement and driving higher conversion rates.
                         </p>
                     </div>
@@ -1078,7 +1079,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                 <p className={'text-[0.873em] font-[300] leading-[1.2] text-justify lg:pr-[33em] mb-10'}>
                     We specialize in crafting high-impact marketing websites, innovative web apps, and mobile
                     applications that drive real results. From funded startups to established businesses, we&#39;ve
-                    helped a wide range of clients bring their digital products to life—delivering standout experiences
+                    helped a wide range of clients bring their digital products to lifeâ€”delivering standout experiences
                     that fuel growth, engagement, and long-term success.
                 </p>
                 <Link href='/contact'>
@@ -1090,7 +1091,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                             className={`absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 ${isDayTime ? 'bg-black' : 'bg-white'} opacity-100 group-hover:-translate-x-8`}></span>
                         <span
                             className={`relative w-full text-left transition-colors duration-200 ease-in-out ${isDayTime ? 'text-black group-hover:text-gray-300' : 'text-white group-hover:text-gray-800'}`}>
-                            Start a project <span className={`text-[1.5em] leading-[0.7]`}> →</span></span>
+                            Start a project <span className={`text-[1.5em] leading-[0.7]`}> â†’</span></span>
                         <span
                             className={"absolute inset-0 border-[1px] border-gray-900 ${isDayTime ? 'border-black' : 'border-white'} rounded-full"}></span>
                     </button>
@@ -1148,7 +1149,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                                 We create moodboards to establish the visual direction of your product, laying the
                                 groundwork for typography, iconography, and graphic design. This early-stage exploration
                                 allows us to experiment with a wide range of styles, themes, and competitive
-                                benchmarks—ensuring we align on a cohesive, compelling aesthetic before moving into
+                                benchmarksâ€”ensuring we align on a cohesive, compelling aesthetic before moving into
                                 detailed design.
                             </p>
                         </div>
@@ -1166,7 +1167,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                                     className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Flow Diagrams</span>
                             </div>
                             <p className={'text-justify leading-[1.5] text-[0.81em] lg:mb-[3em] mb-[1.5em] font-[300]'}>
-                                Our process begins with in-depth research to understand your audience’s needs,
+                                Our process begins with in-depth research to understand your audienceâ€™s needs,
                                 behaviors, and how they align with your business goals. Through user interviews, market
                                 analysis, and competitor benchmarking, our designers and strategists uncover valuable
                                 insights that inform every stage of the UX/UI process. This strategic foundation ensures
@@ -1181,7 +1182,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                             <h2 className={`text-[1.5em] font-[500] mb-3`}>Design System & Guidelines</h2>
                             <p className={'text-justify leading-[1.5] text-[0.81em] lg:mb-[3em] mb-[1.5em] font-[300]'}>
                                 Consistency at scale is key to building a cohesive and efficient product. As the design
-                                process evolves, we develop comprehensive style guides and design systems—a toolkit of
+                                process evolves, we develop comprehensive style guides and design systemsâ€”a toolkit of
                                 reusable components like buttons, forms, and navigation patterns. This structured
                                 approach ensures visual and functional consistency across your product, streamlines
                                 collaboration between design and development, and simplifies future updates. By building
@@ -1204,9 +1205,9 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                                 Our initial design phase focuses on structure and functionality, using wireframes and
                                 interactive prototypes to map out core user interactions. At this stage, we prioritize
                                 intuitive navigation, clear page hierarchy, well-structured forms, and strategic calls
-                                to action—ensuring a seamless and engaging user experience from the start. As we move
+                                to actionâ€”ensuring a seamless and engaging user experience from the start. As we move
                                 through the design process, we layer in your brand identity, visual elements, and
-                                thematic styling to create a product that’s not only highly usable but also visually
+                                thematic styling to create a product thatâ€™s not only highly usable but also visually
                                 aligned with your brand.
                             </p>
                         </div>
@@ -1218,7 +1219,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                                 Usability testing puts your product in the hands of real users to uncover design flaws,
                                 friction points, and opportunities for improvement. By observing how users navigate
                                 tasks, we gain invaluable insights that help us enhance overall user satisfaction,
-                                refine the interface, and boost the product’s performance. This process ensures your
+                                refine the interface, and boost the productâ€™s performance. This process ensures your
                                 digital experience is not only functional but truly user-friendly and effective.
                             </p>
                         </div>
@@ -1240,7 +1241,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                                 gathering valuable feedback at every stage. This iterative process ensures every aspect
                                 of the design is working effectively and aligns with your goals. Throughout, we offer
                                 guidance and strategic input to keep the project on track. Using real-world data and
-                                analytics, we continuously review and refine the design—optimising performance and
+                                analytics, we continuously review and refine the designâ€”optimising performance and
                                 ensuring the final product delivers maximum impact.
                             </p>
                         </div>
@@ -1281,9 +1282,7 @@ const UiUxDesign = () => {    const sectionRef = useRef<HTMLDivElement>(null);
                                         <button
                                             key={id}
                                             onClick={() => {
-                                                const element = document.getElementById(id
-    </FuturisticServiceLayout>
-  );
+                                                const element = document.getElementById(id);
                                                 if (element) {
                                                     element.scrollIntoView({behavior: 'smooth'});
                                                 }
