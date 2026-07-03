@@ -519,11 +519,15 @@ export function FxStickyScrollSection({
         };
 
         checkEnd();
-        window.addEventListener('scroll', checkEnd, {passive: true});
-        window.addEventListener('resize', checkEnd);
+        if (typeof window !== 'undefined') {
+            (window as any).addEventListener('scroll', checkEnd, {passive: true});
+            (window as any).addEventListener('resize', checkEnd);
+        }
         return () => {
-            window.removeEventListener('scroll', checkEnd);
-            window.removeEventListener('resize', checkEnd);
+            if (typeof window !== 'undefined') {
+                (window as any).removeEventListener('scroll', checkEnd);
+                (window as any).removeEventListener('resize', checkEnd);
+            }
         };
     }, [items.length]);
 
