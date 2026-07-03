@@ -151,7 +151,7 @@ const Branding = () => {
 
                 {/* Content Container - Two Column Layout */}
                 <div
-                    className="absolute inset-0 flex items-center z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+                    className="absolute inset-0 flex items-center top-32 z-11 px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
                     <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                         {/* Left Column - Main Content */}
                         <div>
@@ -260,7 +260,7 @@ const Branding = () => {
 
             {/* Introductory Section - Futuristic Brand Strategy Overview */}
             <section ref={sectionRef}
-                     className={`pt-16 transition-colors duration-500 ${
+                     className={` pt-16 transition-colors duration-500 ${
                          isBackgroundActive
                              ? isDayTime ? 'bg-black text-white' : 'bg-white text-black'
                              : isDayTime ? 'bg-white text-black' : 'bg-black text-white'
@@ -272,7 +272,7 @@ const Branding = () => {
                         <FxChip day={!isBackgroundActive ? !isDayTime : isDayTime}>BRAND MASTERY</FxChip>
                     </div>
 
-                    <div className="lg:-ml-[19em]">
+                    <div>
                         <FxReveal>
                             <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
                                 Build Identities That <span
@@ -322,139 +322,169 @@ const Branding = () => {
             {/* Branding Solutions - Enhanced Visual Section */}
             <section className={`relative py-4 ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
                 <FxBackground day={!isDayTime}/>
-            <div className="relative z-10">
-                <FxStickyScrollSection
-                    day={isDayTime}
-                    heading={<>Our Branding<br/>solutions</>}
-                    intro="We provide comprehensive branding solutions that build distinctive identities, establish visual consistency, and communicate your unique value proposition across every touchpoint—from logo design and brand strategy to complete digital guidelines and packaging design."
-                    navLabel="Branding Solutions"
-                    activeId={activeId}
-                    onNavClick={scrollToSection}
-                    items={[
-                    {
-                        id: "01",
-                        title: "Branding Guidelines",
-                        target: "BG",
-                        tags: ["Visual Standards", "Documentation", "Implementation"],
-                        body: (
-                            <p>
-                                Comprehensive brand guidelines ensure consistency across all marketing materials,
-                                digital platforms, and communications. We create detailed documentation covering logo
-                                usage, colour palettes, typography, imagery style, tone of voice, and application
-                                examples—providing your team with clear standards to maintain brand integrity at scale.
-                            </p>
-                        ),
-                    },
-                    {
-                        id: "02",
-                        title: "Brand Identity",
-                        target: "BI",
-                        tags: ["Visual Language", "Positioning", "Messaging"],
-                        body: (
-                            <p>
-                                A strong corporate identity instantly communicates your business values and unique
-                                selling proposition. We craft cohesive identity systems that extend across your entire
-                                organisation—from signage and uniforms to digital assets and training materials. We
-                                define key visual and verbal elements such as brand marks, typography, photographic
-                                style, tone of voice, and graphic systems, ensuring a unified, professional image.
-                            </p>
-                        ),
-                    },
-                    {
-                        id: "03",
-                        title: "Logo Design",
-                        target: "LD",
-                        tags: ["Creative Concepts", "Multiple Iterations", "Brand Mark"],
-                        body: (
-                            <p>
-                                A logo is a fundamental brand asset that helps businesses identify themselves and stand
-                                out in competitive markets. We create distinctive, memorable logos that reflect your
-                                brand's essence and resonate with your target audience. Whether you need a revolutionary
-                                update or a logo from scratch, our design process combines strategic thinking with
-                                creative excellence to deliver marks that last.
-                            </p>
-                        ),
-                    },
-                    {
-                        id: "04",
-                        title: "Brand Strategy",
-                        target: "BS",
-                        tags: ["Market Positioning", "Competitive Analysis", "Growth Planning"],
-                        body: (
-                            <p>
-                                Strategic branding begins with deep understanding of your market, competition, and
-                                target audience. We develop comprehensive brand strategies that define your positioning,
-                                messaging architecture, value proposition, and brand personality. This foundation
-                                ensures all design, content, and communication efforts align with your business
-                                objectives and resonate authentically with your audience.
-                            </p>
-                        ),
-                    },
-                    {
-                        id: "05",
-                        title: "Visual Design System",
-                        target: "VDS",
-                        tags: ["Color Palette", "Typography", "Component Library"],
-                        body: (
-                            <p>
-                                A cohesive visual design system creates consistency and efficiency across all brand
-                                communications. We develop comprehensive visual systems including refined colour
-                                palettes, typography hierarchies, iconography standards, and component libraries. This
-                                allows your team to produce on-brand materials quickly while maintaining visual
-                                excellence and recognizability across every platform—web, print, social, and beyond.
-                            </p>
-                        ),
-                    },
-                    {
-                        id: "06",
-                        title: "Packaging Design",
-                        target: "PD",
-                        tags: ["Product Experience", "Consumer Psychology", "Shelf Impact"],
-                        body: (
-                            <p>
-                                Packaging is often the first physical touchpoint between your brand and customers. We
-                                design compelling packaging solutions that protect your product, communicate your brand
-                                story, and drive purchase decisions. Our designs balance aesthetic appeal with
-                                functional requirements, considering materials, printing techniques, shelf presence, and
-                                unboxing experience to create memorable brand moments that drive loyalty and
-                                word-of-mouth.
-                            </p>
-                        ),
-                    },
-                    {
-                        id: "07",
-                        title: "Brand Voice & Messaging",
-                        target: "BVM",
-                        tags: ["Tone of Voice", "Messaging Pillars", "Copywriting Standards"],
-                        body: (
-                            <p>
-                                Beyond visuals, your brand voice creates emotional connection through words. We develop
-                                comprehensive tone-of-voice frameworks that define how your brand communicates across
-                                channels—from marketing copy to customer service. We establish messaging pillars,
-                                communication guidelines, and copywriting standards that ensure every piece of content
-                                aligns with your brand personality and resonates authentically with your audience.
-                            </p>
-                        ),
-                    },
-                    {
-                        id: "08",
-                        title: "Digital Branding",
-                        target: "DB",
-                        tags: ["Web Design", "Social Media", "Digital Touchpoints"],
-                        body: (
-                            <p>
-                                In today's digital-first world, your online presence is crucial. We create comprehensive
-                                digital branding strategies that extend your brand identity across websites,
-                                applications, social media, email, and digital advertising. From responsive web design
-                                to social media templates and digital asset libraries, we ensure your brand delivers
-                                consistent, compelling experiences across every digital touchpoint your audience
-                                encounters.
-                            </p>
-                        ),
-                    },
-                ] satisfies FxScrollItem[]}
-                />
-            </div>
+                <div className="relative z-10">
+                    <FxStickyScrollSection
+                        day={isDayTime}
+                        heading={<>Our Branding<br/>solutions</>}
+                        intro="We provide comprehensive branding solutions that build distinctive identities, establish visual consistency, and communicate your unique value proposition across every touchpoint—from logo design and brand strategy to complete digital guidelines and packaging design."
+                        navLabel="Branding Solutions"
+                        activeId={activeId}
+                        onNavClick={scrollToSection}
+                        items={[
+                            {
+                                id: "01",
+                                title: "Branding Guidelines",
+                                target: "BG",
+                                tags: ["Visual Standards", "Documentation", "Implementation"],
+                                body: (
+                                    <p>
+                                        Comprehensive brand guidelines ensure consistency across all marketing
+                                        materials,
+                                        digital platforms, and communications. We create detailed documentation covering
+                                        logo
+                                        usage, colour palettes, typography, imagery style, tone of voice, and
+                                        application
+                                        examples—providing your team with clear standards to maintain brand integrity at
+                                        scale.
+                                    </p>
+                                ),
+                            },
+                            {
+                                id: "02",
+                                title: "Brand Identity",
+                                target: "BI",
+                                tags: ["Visual Language", "Positioning", "Messaging"],
+                                body: (
+                                    <p>
+                                        A strong corporate identity instantly communicates your business values and
+                                        unique
+                                        selling proposition. We craft cohesive identity systems that extend across your
+                                        entire
+                                        organisation—from signage and uniforms to digital assets and training materials.
+                                        We
+                                        define key visual and verbal elements such as brand marks, typography,
+                                        photographic
+                                        style, tone of voice, and graphic systems, ensuring a unified, professional
+                                        image.
+                                    </p>
+                                ),
+                            },
+                            {
+                                id: "03",
+                                title: "Logo Design",
+                                target: "LD",
+                                tags: ["Creative Concepts", "Multiple Iterations", "Brand Mark"],
+                                body: (
+                                    <p>
+                                        A logo is a fundamental brand asset that helps businesses identify themselves
+                                        and stand
+                                        out in competitive markets. We create distinctive, memorable logos that reflect
+                                        your
+                                        brand's essence and resonate with your target audience. Whether you need a
+                                        revolutionary
+                                        update or a logo from scratch, our design process combines strategic thinking
+                                        with
+                                        creative excellence to deliver marks that last.
+                                    </p>
+                                ),
+                            },
+                            {
+                                id: "04",
+                                title: "Brand Strategy",
+                                target: "BS",
+                                tags: ["Market Positioning", "Competitive Analysis", "Growth Planning"],
+                                body: (
+                                    <p>
+                                        Strategic branding begins with deep understanding of your market, competition,
+                                        and
+                                        target audience. We develop comprehensive brand strategies that define your
+                                        positioning,
+                                        messaging architecture, value proposition, and brand personality. This
+                                        foundation
+                                        ensures all design, content, and communication efforts align with your business
+                                        objectives and resonate authentically with your audience.
+                                    </p>
+                                ),
+                            },
+                            {
+                                id: "05",
+                                title: "Visual Design System",
+                                target: "VDS",
+                                tags: ["Color Palette", "Typography", "Component Library"],
+                                body: (
+                                    <p>
+                                        A cohesive visual design system creates consistency and efficiency across all
+                                        brand
+                                        communications. We develop comprehensive visual systems including refined colour
+                                        palettes, typography hierarchies, iconography standards, and component
+                                        libraries. This
+                                        allows your team to produce on-brand materials quickly while maintaining visual
+                                        excellence and recognizability across every platform—web, print, social, and
+                                        beyond.
+                                    </p>
+                                ),
+                            },
+                            {
+                                id: "06",
+                                title: "Packaging Design",
+                                target: "PD",
+                                tags: ["Product Experience", "Consumer Psychology", "Shelf Impact"],
+                                body: (
+                                    <p>
+                                        Packaging is often the first physical touchpoint between your brand and
+                                        customers. We
+                                        design compelling packaging solutions that protect your product, communicate
+                                        your brand
+                                        story, and drive purchase decisions. Our designs balance aesthetic appeal with
+                                        functional requirements, considering materials, printing techniques, shelf
+                                        presence, and
+                                        unboxing experience to create memorable brand moments that drive loyalty and
+                                        word-of-mouth.
+                                    </p>
+                                ),
+                            },
+                            {
+                                id: "07",
+                                title: "Brand Voice & Messaging",
+                                target: "BVM",
+                                tags: ["Tone of Voice", "Messaging Pillars", "Copywriting Standards"],
+                                body: (
+                                    <p>
+                                        Beyond visuals, your brand voice creates emotional connection through words. We
+                                        develop
+                                        comprehensive tone-of-voice frameworks that define how your brand communicates
+                                        across
+                                        channels—from marketing copy to customer service. We establish messaging
+                                        pillars,
+                                        communication guidelines, and copywriting standards that ensure every piece of
+                                        content
+                                        aligns with your brand personality and resonates authentically with your
+                                        audience.
+                                    </p>
+                                ),
+                            },
+                            {
+                                id: "08",
+                                title: "Digital Branding",
+                                target: "DB",
+                                tags: ["Web Design", "Social Media", "Digital Touchpoints"],
+                                body: (
+                                    <p>
+                                        In today's digital-first world, your online presence is crucial. We create
+                                        comprehensive
+                                        digital branding strategies that extend your brand identity across websites,
+                                        applications, social media, email, and digital advertising. From responsive web
+                                        design
+                                        to social media templates and digital asset libraries, we ensure your brand
+                                        delivers
+                                        consistent, compelling experiences across every digital touchpoint your audience
+                                        encounters.
+                                    </p>
+                                ),
+                            },
+                        ] satisfies FxScrollItem[]}
+                    />
+                </div>
             </section>
 
             {/* Branding Process & Methodology Section */}
