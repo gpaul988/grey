@@ -546,13 +546,13 @@ export function FxStickyScrollSection({
 
                     {/* Left sticky rail - fade out on last item */}
                     <aside
-                        className={`relative z-20 w-full lg:w-[460px] shrink-0 transition-all duration-500 ${
+                                            className={`relative z-20 w-full lg:w-[460px] shrink-0 lg:sticky lg:top-[96px] lg:self-start transition-all duration-500 ${
                             (isEndVisible || activeId === items[items.length - 1]?.target) ? 'lg:opacity-0 lg:pointer-events-none' : 'lg:opacity-100'
                         }`}
                     >
                         <div
                             ref={railRef}
-                            className="relative overflow-hidden rounded-[1.75rem] border border-teal-400/15 bg-white/[0.03] p-6 shadow-[0_0_60px_-20px_rgba(45,212,191,0.65)] backdrop-blur-2xl lg:sticky lg:top-[96px]"
+                                                className="relative overflow-hidden rounded-[1.75rem] border border-teal-400/15 bg-white/[0.03] p-6 shadow-[0_0_60px_-20px_rgba(45,212,191,0.65)] backdrop-blur-2xl"
                         >
                             <div
                                 className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(45,212,191,0.18),transparent_46%)]"/>
