@@ -145,7 +145,8 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             const section = document.getElementById(sectionId);
             if (section) {
                 const rect = section.getBoundingClientRect();
-                if (rect.top >= 0 && rect.top <= window.innerHeight / 2) {
+                const mid = rect.top + rect.height / 2;
+                if (mid >= 0 && mid <= window.innerHeight * 0.5) {
                     setActiveId(sectionId);
                     break;
                 }
@@ -915,7 +916,7 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             </section>
 
             {/* Details */}
-            <div id={'details'} className={'lg:-mt-[32em] md:-mt-[32em] h-auto max-w-full w-full mx-auto'}>
+            <div id={'details'} className={'h-auto max-w-full w-full mx-auto mt-12 lg:mt-20'}>
                 <div className="bg-slate-500 py-20 lg:mb-20 md:mb-20 mb-10">
                     <div
                         className="lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
