@@ -8,7 +8,8 @@ import {Merriweather, Roboto} from "next/font/google";
 // to skip the network fetch entirely (uses system font fallback instead).
 // global css
 import "./globals.css";
-import Header from "@/components/Header";
+import dynamic from 'next/dynamic';
+const Header = dynamic(() => import('@/components/Header'), { ssr: false });
 import Footer from "@/components/Footer";
 import React from "react";
 import TawkChat from "@/components/TawkChat";
