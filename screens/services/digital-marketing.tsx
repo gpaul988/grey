@@ -13,8 +13,9 @@ import {motion} from 'framer-motion';
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import ServiceHero from '@/components/futuristic/ServiceHero';
 import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
-import { FxBackground, FxStickyScrollSection, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
-import type { FxScrollItem } from '@/components/futuristic/fx';
+import {FxBackground, FxStickyScrollSection, FxChip, FxReveal, FxButton, FxHoloCard} from '@/components/futuristic/fx';
+import type {FxScrollItem} from '@/components/futuristic/fx';
+
 const tabs = [
     {key: "frameworks", label: "Frameworks"},
     {key: "cloud", label: "Cloud"},
@@ -159,55 +160,87 @@ const phases = [
     }
 ];
 
-const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(false);
+const DigitalMarketing = () => {
+    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
     const [activeFront, setActiveFront] = useState("frontend");
 
     const dmSolutions: FxScrollItem[] = [
-    {
-        id: 'SEO', title: 'Search Engine Optimization', target: 'SEO',
-        tags: ['Organic Visibility', 'Keyword Research', 'Link Building', 'Technical Optimization'],
-        body: <>We deliver comprehensive SEO strategies that improve organic search visibility, drive qualified traffic, and establish sustainable online authority. Our services include technical audits, extensive keyword research, on-page optimization, authoritative backlink acquisition through digital PR, and local SEOâ€”providing transparent reporting with rankings tracking, organic traffic analysis, conversion attribution, and competitor benchmarking.</>,
-    },
-    {
-        id: 'PPCA', title: 'Pay-Per-Click Advertising', target: 'PPCA',
-        tags: ['ROAS Optimization', 'Campaign Management', 'Conversion Tracking', 'Automated Bidding'],
-        body: <>Our PPC management maximizes return on ad spend through data-driven strategies across Google Ads, Microsoft Advertising, and social platforms. We develop comprehensive paid search campaigns with granular keyword research, competitive bid analysis, compelling ad copy, and Google Shopping optimizationâ€”plus remarketing strategies, multi-touch attribution modelling, and advanced responsive search ad testing.</>,
-    },
-    {
-        id: 'SMM', title: 'Social Media Marketing', target: 'SMM',
-        tags: ['Community Engagement', 'Content Strategy', 'Paid Social Campaigns', 'Influencer Marketing'],
-        body: <>We create engaging social media strategies that build brand awareness, foster community engagement, and generate measurable results across Facebook, Instagram, LinkedIn, Twitter, TikTok, and Pinterest. Our management encompasses content calendars, professional graphic design, video production, community management, paid social campaigns with precise audience targeting, and comprehensive analytics tracking reach, engagement, and conversions.</>,
-    },
-    {
-        id: 'CM', title: 'Content Marketing', target: 'CM',
-        tags: ['Thought Leadership', 'Strategic Content Creation', 'Multi-Format Distribution', 'Content Personalization'],
-        body: <>Our content marketing establishes thought leadership, attracts target audiences, and drives conversions through strategically crafted content. We develop comprehensive strategies with buyer journey mapping, competitive gap analysis, and editorial calendar planningâ€”producing blog posts, e-books, case studies, whitepapers, infographics, video content, podcasts, and webinars distributed across owned, earned, and paid channels.</>,
-    },
-    {
-        id: 'EM', title: 'Email Marketing', target: 'EM',
-        tags: ['Marketing Automation', 'Audience Segmentation', 'Personalized Campaigns', 'Lifecycle Nurturing'],
-        body: <>We design strategic email campaigns that nurture leads, retain customers, and maximise lifetime value through personalised, automated communication. Our services include audience segmentation, automation workflow design for welcome series and cart recovery, mobile-responsive templates, compelling copywriting, sophisticated behavioural triggers, predictive send time optimisation, and comprehensive analytics tracking open rates, conversions, and revenue attribution.</>,
-    },
-    {
-        id: 'CRO', title: 'Conversion Rate Optimization', target: 'CRO',
-        tags: ['A/B Testing', 'User Experience Analysis', 'Conversion Funnel Optimization', 'Performance Improvement'],
-        body: <>Our CRO services systematically improve website and landing page performance, maximising visitor conversions and increasing marketing ROI. We conduct comprehensive audits with heatmaps, session recordings, form analytics, and user surveysâ€”then run A/B tests on headlines, CTAs, page layouts, pricing presentation, and trust signals, with multivariate testing and personalisation to deliver measurable conversion lift.</>,
-    },
-    {
-        id: 'ORM', title: 'Online Reputation Management', target: 'ORM',
-        tags: ['Brand Monitoring', 'Review Management', 'Crisis Response', 'Sentiment Analysis'],
-        body: <>We protect and enhance brand reputation through proactive monitoring, strategic response management, and positive content amplification. Our services include comprehensive monitoring across search engines, review platforms, and social media; review management encouraging satisfied customers to post; negative content suppression; rapid crisis response protocols; and proactive thought leadership content that builds consumer trust and sustainable competitive advantages.</>,
-    },
-    {
-        id: 'ADI', title: 'Analytics & Data Intelligence', target: 'ADI',
-        tags: ['Data-Driven Insights', 'Attribution Modelling', 'Performance Tracking', 'Predictive Analytics'],
-        body: <>We transform marketing data into actionable intelligence through comprehensive analytics implementation and strategic reporting. Our services include GA4 configuration, custom event tracking, enhanced e-commerce tracking, server-side tracking, multi-touch attribution analysis, data-driven attribution using machine learning, custom executive dashboards, cohort analysis, predictive analytics, and competitive intelligenceâ€”providing clear performance visibility and proving marketing ROI.</>,
-    },
-];
-
+        {
+            id: 'SEO', title: 'Search Engine Optimization', target: 'SEO',
+            tags: ['Organic Visibility', 'Keyword Research', 'Link Building', 'Technical Optimization'],
+            body: <>We deliver comprehensive SEO strategies that improve organic search visibility, drive qualified
+                traffic, and establish sustainable online authority. Our services include technical audits, extensive
+                keyword research, on-page optimization, authoritative backlink acquisition through digital PR, and local
+                SEOâ€”providing transparent reporting with rankings tracking, organic traffic analysis, conversion
+                attribution, and competitor benchmarking.</>,
+        },
+        {
+            id: 'PPCA', title: 'Pay-Per-Click Advertising', target: 'PPCA',
+            tags: ['ROAS Optimization', 'Campaign Management', 'Conversion Tracking', 'Automated Bidding'],
+            body: <>Our PPC management maximizes return on ad spend through data-driven strategies across Google Ads,
+                Microsoft Advertising, and social platforms. We develop comprehensive paid search campaigns with
+                granular keyword research, competitive bid analysis, compelling ad copy, and Google Shopping
+                optimizationâ€”plus remarketing strategies, multi-touch attribution modelling, and advanced responsive
+                search ad testing.</>,
+        },
+        {
+            id: 'SMM', title: 'Social Media Marketing', target: 'SMM',
+            tags: ['Community Engagement', 'Content Strategy', 'Paid Social Campaigns', 'Influencer Marketing'],
+            body: <>We create engaging social media strategies that build brand awareness, foster community engagement,
+                and generate measurable results across Facebook, Instagram, LinkedIn, Twitter, TikTok, and Pinterest.
+                Our management encompasses content calendars, professional graphic design, video production, community
+                management, paid social campaigns with precise audience targeting, and comprehensive analytics tracking
+                reach, engagement, and conversions.</>,
+        },
+        {
+            id: 'CM', title: 'Content Marketing', target: 'CM',
+            tags: ['Thought Leadership', 'Strategic Content Creation', 'Multi-Format Distribution', 'Content Personalization'],
+            body: <>Our content marketing establishes thought leadership, attracts target audiences, and drives
+                conversions through strategically crafted content. We develop comprehensive strategies with buyer
+                journey mapping, competitive gap analysis, and editorial calendar planningâ€”producing blog posts,
+                e-books, case studies, whitepapers, infographics, video content, podcasts, and webinars distributed
+                across owned, earned, and paid channels.</>,
+        },
+        {
+            id: 'EM', title: 'Email Marketing', target: 'EM',
+            tags: ['Marketing Automation', 'Audience Segmentation', 'Personalized Campaigns', 'Lifecycle Nurturing'],
+            body: <>We design strategic email campaigns that nurture leads, retain customers, and maximise lifetime
+                value through personalised, automated communication. Our services include audience segmentation,
+                automation workflow design for welcome series and cart recovery, mobile-responsive templates, compelling
+                copywriting, sophisticated behavioural triggers, predictive send time optimisation, and comprehensive
+                analytics tracking open rates, conversions, and revenue attribution.</>,
+        },
+        {
+            id: 'CRO', title: 'Conversion Rate Optimization', target: 'CRO',
+            tags: ['A/B Testing', 'User Experience Analysis', 'Conversion Funnel Optimization', 'Performance Improvement'],
+            body: <>Our CRO services systematically improve website and landing page performance, maximising visitor
+                conversions and increasing marketing ROI. We conduct comprehensive audits with heatmaps, session
+                recordings, form analytics, and user surveysâ€”then run A/B tests on headlines, CTAs, page layouts,
+                pricing presentation, and trust signals, with multivariate testing and personalisation to deliver
+                measurable conversion lift.</>,
+        },
+        {
+            id: 'ORM', title: 'Online Reputation Management', target: 'ORM',
+            tags: ['Brand Monitoring', 'Review Management', 'Crisis Response', 'Sentiment Analysis'],
+            body: <>We protect and enhance brand reputation through proactive monitoring, strategic response management,
+                and positive content amplification. Our services include comprehensive monitoring across search engines,
+                review platforms, and social media; review management encouraging satisfied customers to post; negative
+                content suppression; rapid crisis response protocols; and proactive thought leadership content that
+                builds consumer trust and sustainable competitive advantages.</>,
+        },
+        {
+            id: 'ADI', title: 'Analytics & Data Intelligence', target: 'ADI',
+            tags: ['Data-Driven Insights', 'Attribution Modelling', 'Performance Tracking', 'Predictive Analytics'],
+            body: <>We transform marketing data into actionable intelligence through comprehensive analytics
+                implementation and strategic reporting. Our services include GA4 configuration, custom event tracking,
+                enhanced e-commerce tracking, server-side tracking, multi-touch attribution analysis, data-driven
+                attribution using machine learning, custom executive dashboards, cohort analysis, predictive analytics,
+                and competitive intelligenceâ€”providing clear performance visibility and proving marketing ROI.</>,
+        },
+    ];
 
 
     // Floating button visibility hook
@@ -287,7 +320,6 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
 
     //process
     const [activePhase, setActivePhase] = useState<number>(0);
-    const [scrollProgress, setScrollProgress] = useState<number>(0);
     const [currentDay, setCurrentDay] = useState<number>(1);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [pointer, setPointer] = useState<{ x: number; y: number }>({x: 0, y: 0});
@@ -296,6 +328,7 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
     const particlesRef = useRef<Particle[]>([]);
     const rafRef = useRef<number | null>(null);
     const intervalRef = useRef<number | null>(null);
+    const currentDayRef = useRef<number>(1);
 
     // pointer events (works for mouse + touch + pen)
     useEffect(() => {
@@ -307,18 +340,6 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
         };
         window.addEventListener('pointermove', onPointerMove, {passive: true});
         return () => window.removeEventListener('pointermove', onPointerMove);
-    }, []);
-
-    // scroll progress
-    useEffect(() => {
-        const onScroll = () => {
-            const scrolled = window.scrollY;
-            const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-            setScrollProgress(Math.min((scrolled / maxScroll) * 100, 100));
-        };
-        onScroll();
-        window.addEventListener('scroll', onScroll, {passive: true});
-        return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
     // autoplay day progression
@@ -345,27 +366,23 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
         return 2;
     };
 
-    // canvas + particles animation
+    // keep the canvas loop in sync with the animated day without re-initialising particles
+    useEffect(() => {
+        currentDayRef.current = currentDay;
+    }, [currentDay]);
+
+    // canvas + particles animation (scoped to the process section, theme-aware)
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
 
-        const dpr = Math.max(1, window.devicePixelRatio || 1);
+        const host = canvas.parentElement;
         const ctx = canvas.getContext('2d');
-        if (!ctx) return;
+        if (!ctx || !host) return;
 
-        const resize = () => {
-            canvas.style.width = `${window.innerWidth}px`;
-            canvas.style.height = `${window.innerHeight}px`;
-            canvas.width = Math.round(window.innerWidth * dpr);
-            canvas.height = Math.round(window.innerHeight * dpr);
-            ctx.setTransform(dpr, 0, 0, dpr, 0, 0); // draw in CSS pixels
-            initParticles(Math.round(Math.max(40, window.innerWidth / 30)));
-        };
+        const dpr = Math.max(1, window.devicePixelRatio || 1);
 
-        const initParticles = (count = 60) => {
-            const w = window.innerWidth;
-            const h = window.innerHeight;
+        const initParticles = (count: number, w: number, h: number) => {
             const arr: Particle[] = new Array(count).fill(null).map(() => ({
                 x: Math.random() * w,
                 y: Math.random() * h,
@@ -376,18 +393,40 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
             particlesRef.current = arr;
         };
 
+        let lastW = 0;
+        const resize = () => {
+            const w = host.clientWidth;
+            const h = host.clientHeight;
+            canvas.width = Math.round(w * dpr);
+            canvas.height = Math.round(h * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0); // draw in CSS pixels
+            if (Math.abs(w - lastW) > 2 || particlesRef.current.length === 0) {
+                lastW = w;
+                initParticles(Math.round(Math.min(90, Math.max(40, w / 30))), w, h);
+            }
+        };
+
         resize();
         window.addEventListener('resize', resize);
+        const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(resize) : null;
+        observer?.observe(host);
 
-        let lastTs = performance.now();
-        const animate = (ts: number) => {
+        // phase palettes tuned per theme so particles and links stay visible on both backgrounds
+        const palette = isDayTime
+            ? ['rgba(8, 145, 178, 0.6)', 'rgba(147, 51, 234, 0.6)', 'rgba(5, 150, 105, 0.6)']
+            : ['rgba(34, 211, 238, 0.6)', 'rgba(168, 85, 247, 0.6)', 'rgba(52, 211, 153, 0.6)'];
+
+        const animate = () => {
             const width = canvas.width / dpr;
             const height = canvas.height / dpr;
             const particles = particlesRef.current;
 
-            // subtle trail
-            ctx.fillStyle = 'rgba(0,0,0,0.06)';
+            // subtle trail fading toward the section background
+            ctx.fillStyle = isDayTime ? 'rgba(255, 255, 255, 0.16)' : 'rgba(0, 0, 0, 0.06)';
             ctx.fillRect(0, 0, width, height);
+
+            const day = currentDayRef.current;
+            const color = palette[day <= 30 ? 0 : day <= 60 ? 1 : 2];
 
             for (let i = 0; i < particles.length; i++) {
                 const p = particles[i];
@@ -399,13 +438,6 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                 if (p.x > width + 20) p.x = -20;
                 if (p.y < -20) p.y = height + 20;
                 if (p.y > height + 20) p.y = -20;
-
-                const color =
-                    currentDay <= 30
-                        ? 'rgba(34, 211, 238, 0.6)'
-                        : currentDay <= 60
-                            ? 'rgba(168, 85, 247, 0.6)'
-                            : 'rgba(52, 211, 153, 0.6)';
 
                 const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 6);
                 grad.addColorStop(0, color);
@@ -433,7 +465,6 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                 }
             }
 
-            lastTs = ts;
             rafRef.current = requestAnimationFrame(animate);
         };
 
@@ -442,8 +473,9 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
         return () => {
             if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
             window.removeEventListener('resize', resize);
+            observer?.disconnect();
         };
-    }, [currentDay]);
+    }, [isDayTime]);
 
     // update activePhase when day changes (optional)
     useEffect(() => {
@@ -667,26 +699,6 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                 }`}
             />
 
-            <ServiceHero
-                title="Digital Marketing"
-                subtitle="Data-driven campaigns that amplify your brand, attract qualified leads, and convert audiences into loyal customers."
-                accentColor="#ec4899"
-                variant="hologram"
-                badges={["SEO", "PPC", "Social Media", "Email", "Analytics", "Content"]}
-            />
-            <ServiceCapabilities
-                accentColor="#ec4899"
-                variant="terminal"
-                capabilities={[
-                    { id: "cap-1", icon: "ðŸ“ˆ", title: "SEO & Content", description: "Rank higher with technical SEO audits, keyword strategy, and content that search engines love." },
-                    { id: "cap-2", icon: "ðŸŽ¯", title: "Paid Advertising", description: "Google Ads, Meta Ads, and LinkedIn campaigns with precision targeting and ROI tracking." },
-                    { id: "cap-3", icon: "ðŸ“±", title: "Social Media", description: "Platform-native content strategies that build engaged communities and drive organic growth." },
-                    { id: "cap-4", icon: "ðŸ“§", title: "Email Marketing", description: "Automated drip sequences, segmented campaigns, and lifecycle marketing that converts." },
-                    { id: "cap-5", icon: "ðŸ“Š", title: "Analytics & Reporting", description: "Real-time dashboards, attribution modelling, and data insights to optimise every channel." },
-                    { id: "cap-6", icon: "ðŸ”—", title: "Conversion Optimisation", description: "A/B testing, landing page optimisation, and funnel analysis to maximise your marketing ROI." },
-                ]}
-            />
-
             {/* Unified Futuristic Digital Marketing Hero - Background Image with overlay */}
             <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
                 {/* Background Image */}
@@ -720,7 +732,7 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
 
                 {/* Content Container - Two Column Layout */}
                 <div
-                    className="absolute inset-0 flex items-center z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+                    className="absolute inset-0 flex items-center top-32 z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
                     <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                         {/* Left Column - Main Content */}
                         <div>
@@ -733,14 +745,15 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
 
                             {/* Main Heading with Gradient */}
                             <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
-                                Drive Traffic &amp; <span className="gx-gradient-text">Revenue Growth</span>
-                                <br className="hidden lg:block"/>
-                                with Data-Driven Strategies
+                                Drive Traffic &amp; <span className="gx-gradient-text">Revenue Growth</span> with
+                                Data-Driven Strategies
                             </h1>
 
                             {/* Description */}
                             <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
-                                Comprehensive digital marketing solutions combining SEO, paid advertising, social media marketing, content strategy, and conversion optimization to maximize your ROI and accelerate sustainable business growth.
+                                Comprehensive digital marketing solutions combining SEO, paid advertising, social media
+                                marketing, content strategy, and conversion optimization to maximize your ROI and
+                                accelerate sustainable business growth.
                             </p>
 
                             {/* Key Capabilities Pills */}
@@ -847,18 +860,33 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                         </FxReveal>
                         <FxReveal delay={0.08}>
                             <div
-                                className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
+                                className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[1em] leading-relaxed">
                                 <div>
                                     <p>
-                                        Digital marketing excellence requires a strategic blend of data-driven insights, creative excellence, and relentless optimization. At Grey InfoTech, our digital marketing specialists combine deep industry expertise with cutting-edge tools and methodologies to deliver campaigns that drive measurable business results. From SEO and paid advertising to content marketing and conversion optimization, we architect comprehensive digital strategies that expand market reach, engage high-value prospects, and accelerate sustainable revenue growth.
+                                        Digital marketing excellence requires a strategic blend of data-driven insights,
+                                        creative excellence, and relentless optimization. At Grey InfoTech, our digital
+                                        marketing specialists combine deep industry expertise with cutting-edge tools
+                                        and methodologies to deliver campaigns that drive measurable business results.
+                                        From SEO and paid advertising to content marketing and conversion optimization,
+                                        we architect comprehensive digital strategies that expand market reach, engage
+                                        high-value prospects, and accelerate sustainable revenue growth.
                                     </p>
                                 </div>
                                 <div>
                                     <p>
-                                        Our data-driven approach integrates advanced analytics, behavioral targeting, audience segmentation, and continuous performance optimization to maximize your marketing ROI. We develop multi-channel strategies that leverage search visibility, social media engagement, content distribution, paid media efficiency, and conversion optimization across every digital touchpoint. By combining strategic planning with agile execution and real-time performance monitoring, we deliver transparent results that demonstrate clear attribution to business outcomes. This comprehensive methodology ensures your digital marketing investments consistently drive qualified leads, accelerate customer acquisition, enhance brand authority, and achieve your most ambitious revenue objectives.
+                                        Our data-driven approach integrates advanced analytics, behavioral targeting,
+                                        audience segmentation, and continuous performance optimization to maximize your
+                                        marketing ROI. We develop multi-channel strategies that leverage search
+                                        visibility, social media engagement, content distribution, paid media
+                                        efficiency, and conversion optimization across every digital touchpoint. By
+                                        combining strategic planning with agile execution and real-time performance
+                                        monitoring, we deliver transparent results that demonstrate clear attribution to
+                                        business outcomes. This comprehensive methodology ensures your digital marketing
+                                        investments consistently drive qualified leads, accelerate customer acquisition,
+                                        enhance brand authority, and achieve your most ambitious revenue objectives.
                                     </p>
 
-                                    <div className="flex flex-wrap gap-3 mt-4">
+                                    <div className="flex flex-wrap gap-3 text-[0.65em] mt-4">
                                         {['SEO & SEM', 'Social Marketing', 'Content Strategy', 'Conversion Optimization'].map((p) => (
                                             <span key={p} className="gx-data-pill">{p}</span>
                                         ))}
@@ -871,11 +899,14 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
             </section>
 
             {/* Our Prominent Digital Marketing Services */}
-            <section className="bg-[#050810] py-20 px-4 lg:px-[4.6em]">
+            <section
+                className="bg-[#050810]">
                 <div id={'digital marketing Services Overview'}>
                     <FxStickyScrollSection
                         heading={<>Our Prominent<br/>Digital Marketing<br/>Services</>}
-                        intro={<>Integrated solutions across search optimization, paid media, social engagement, and content strategyâ€”each engineered to drive visibility, engagement, and measurable conversion.</>}
+                        intro={<>Integrated solutions across search optimization, paid media, social engagement, and
+                            content strategyâ€”each engineered to drive visibility, engagement, and measurable
+                            conversion.</>}
                         navLabel="Our Solutions"
                         items={dmSolutions}
                         activeId={activeId}
@@ -884,12 +915,13 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                     />
                 </div>
                 {/* Stats Row */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
+                <div
+                    className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-16 mb-24 pb-16 max-w-auto w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
                     {[
-                        { number: '30+', label: 'Marketing Experts' },
-                        { number: '50+', label: 'Campaigns Deployed' },
-                        { number: '3X', label: 'Faster Content Publishing' },
-                        { number: '70%', label: 'Better Multi-Channel ROI' },
+                        {number: '30+', label: 'Marketing Experts'},
+                        {number: '50+', label: 'Campaigns Deployed'},
+                        {number: '3X', label: 'Faster Content Publishing'},
+                        {number: '70%', label: 'Better Multi-Channel ROI'},
                     ].map((stat, i) => (
                         <FxHoloCard key={i} day={false} className="p-8 flex flex-col items-center text-center gap-2">
                             <div className="text-[#00f5d4] text-4xl lg:text-5xl font-bold">{stat.number}</div>
@@ -1210,47 +1242,73 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
 
             {/* Our Proven 90-Day Process */}
             <div
-                className={`lg:pt-[2em] md:pt-[2em] pt-[1em] lg:pb-[2em] md:pb-[2em] pb-[1em] ${isDayTime ? 'bg-black' : 'bg-white'}`}>
-                <div id={'Our-proven-90-Day-Process'}
-                     className={`relative  z-10 lg:mt-[1.5em] md:mt-[1.5em] mt-[1em] lg:mb-16 md:mb-16 mb-5 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
+                className={`relative overflow-hidden lg:pt-[4em] md:pt-[2em] pt-[1em] lg:pb-[4em] md:pb-[2em] pb-[1em] transition-colors duration-700 ${isDayTime ? 'bg-gradient-to-b from-slate-50 via-white to-slate-100' : 'bg-gradient-to-b from-black via-gray-950 to-black'}`}>
 
-                    <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-0"/>
+                {/* neural particle field (canvas sizes itself to this wrapper) */}
+                <canvas ref={canvasRef}
+                        className={`absolute inset-0 pointer-events-none z-0 ${isDayTime ? 'opacity-70' : 'opacity-90'}`}/>
 
+                {/* aurora orbs with pointer parallax, scoped to this section */}
+                <div
+                    aria-hidden
+                    className={`absolute inset-0 z-0 pointer-events-none ${isDayTime ? 'opacity-[0.14]' : 'opacity-10'}`}
+                    style={{
+                        transform: `translate(${pointer.x * 20}px, ${pointer.y * 20}px)`,
+                        transition: 'transform 0.3s ease-out'
+                    }}
+                >
                     <div
-                        className="fixed inset-0 opacity-10 z-0"
-                        style={{
-                            transform: `translate(${pointer.x * 20}px, ${pointer.y * 20}px)`,
-                            transition: 'transform 0.3s ease-out'
-                        }}
-                    >
-                        <div
-                            className="absolute top-20 left-20 w-72 h-72 md:w-96 md:h-96 bg-cyan-500 rounded-full blur-3xl"/>
-                        <div
-                            className="absolute bottom-20 right-20 w-72 h-72 md:w-96 md:h-96 bg-purple-500 rounded-full blur-3xl"/>
-                        <div
-                            className="absolute top-1/2 left-1/2 w-72 h-72 md:w-96 md:h-96 bg-emerald-500 rounded-full blur-3xl"/>
-                    </div>
+                        className="absolute top-20 left-20 w-72 h-72 md:w-96 md:h-96 bg-cyan-500 rounded-full blur-3xl"/>
+                    <div
+                        className="absolute bottom-20 right-20 w-72 h-72 md:w-96 md:h-96 bg-purple-500 rounded-full blur-3xl"/>
+                    <div
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 md:w-96 md:h-96 bg-emerald-500 rounded-full blur-3xl"/>
+                </div>
 
-                    {/* Progress Bar */}
-                    <div className="fixed top-0 left-0 right-0 h-1 bg-gray-800 z-50">
-                        <div
-                            className="h-full bg-gradient-to-r from-cyan-400 via-purple-500 to-emerald-500 transition-all duration-300"
-                            style={{width: `${scrollProgress}%`}}
-                        />
-                    </div>
+                {/* holographic grid */}
+                <div
+                    aria-hidden
+                    className="absolute inset-0 z-0 pointer-events-none"
+                    style={{
+                        backgroundImage: `linear-gradient(${isDayTime ? 'rgba(15,23,42,0.06)' : 'rgba(0,245,212,0.06)'} 1px, transparent 1px), linear-gradient(90deg, ${isDayTime ? 'rgba(15,23,42,0.06)' : 'rgba(0,245,212,0.06)'} 1px, transparent 1px)`,
+                        backgroundSize: '44px 44px',
+                        maskImage: 'radial-gradient(ellipse 90% 75% at 50% 40%, black 25%, transparent 100%)',
+                        WebkitMaskImage: 'radial-gradient(ellipse 90% 75% at 50% 40%, black 25%, transparent 100%)'
+                    }}
+                />
+
+                {/* scanline sweep */}
+                <div aria-hidden className="absolute inset-0 z-0 pointer-events-none">
+                    <div
+                        className={`dm-scanline absolute left-0 right-0 h-px ${isDayTime ? 'bg-gradient-to-r from-transparent via-[rgba(13,148,136,0.45)] to-transparent' : 'bg-gradient-to-r from-transparent via-[rgba(0,245,212,0.55)] to-transparent'}`}/>
+                </div>
+
+                <div id={'Our-proven-90-Day-Process'}
+                     className={`relative z-10 lg:mt-[1.5em] md:mt-[1.5em] mt-[1em] lg:mb-16 md:mb-16 mb-5 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
 
                     {/* Header */}
                     <div
-                        className={` relative ${isDayTime ? 'text-white' : 'text-black'} text-center mb-12 md:mb-20 lg:mb-20 border-b border-gray-700 pb-[2em] space-y-6`}>
-                        <h2 className='capitalize text-[1.8em] md:text-[3em] lg:text-[3.3em] font-[700] tracking-tight leading-[1.2] lg:pb-6'>
-                            Our Proven <span className={'text-[#00f5d4]'}>90-Day Process</span>
+                        className={`relative ${isDayTime ? 'text-gray-900' : 'text-white'} text-center mb-12 md:mb-20 lg:mb-20 border-b ${isDayTime ? 'border-gray-200' : 'border-gray-700'} pb-[2em] space-y-6`}>
+                        <div
+                            className={`inline-flex items-center gap-3 px-5 py-2 rounded-full border backdrop-blur-sm font-mono text-[0.65em] font-[600] tracking-[0.35em] uppercase ${isDayTime ? 'border-teal-600/30 bg-teal-500/5 text-teal-700' : 'border-[#00f5d4]/30 bg-[#00f5d4]/5 text-[#00f5d4]'}`}>
+                            <span className="relative flex h-2 w-2">
+                                <span
+                                    className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
+                                <span
+                                    className={`relative inline-flex rounded-full h-2 w-2 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
+                            </span>
+                            Mission Protocol // 90 Days
+                        </div>
+                        <h2 className={'capitalize text-[1.8em] md:text-[3em] lg:text-[3.3em] font-[700] tracking-tight leading-[1.2] lg:pb-6'}>
+                            Our Proven <span
+                            className={`text-transparent bg-clip-text bg-gradient-to-r animate-gradient ${isDayTime ? 'from-teal-600 via-cyan-600 to-violet-600' : 'from-[#00f5d4] via-cyan-400 to-violet-400'}`}>90-Day Process</span>
                         </h2>
-                        <p className='text-[0.873em] font-[300] lg:-mt-[0.2em] rounded-none leading-[1.5] mx-auto max-w-6xl'>
+                        <p className={`text-[0.9em] font-[300] lg:-mt-[0.2em] rounded-none leading-[1.5] mx-auto max-w-6xl ${isDayTime ? 'text-gray-600' : 'text-gray-300'}`}>
                             Our structured 90-day implementation process delivers measurable results through
                             strategic planning, precise execution, and continuous optimization. This proven
                             methodology accelerates time-to-value while ensuring alignment with your business
                             objectives at every phase. By combining industry best practices with agile
-                            responsiveness, we transform initial engagement into tangible outcomesâ€”building momentum
+                            responsiveness, we transform initial engagement into tangible outcomes, building momentum
                             that sustains long-term success and competitive performance.
                         </p>
                         <div className="flex justify-center items-center gap-4 pt-8">
@@ -1258,20 +1316,75 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                                 <button
                                     key={i}
                                     onClick={() => setActivePhase(i)}
-                                    className={`group relative transition-all duration-500 ${activePhase === i ? 'scale-110' : 'scale-100 opacity-50'}`}
+                                    className={`group relative transition-all duration-500 ${activePhase === i ? 'scale-110' : 'scale-100 opacity-70'}`}
                                     aria-label={`Select phase ${i + 1}`}
                                 >
                                     <div
-                                        className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br ${p.color} p-0.5 transition-all duration-500 ${activePhase === i ? 'rotate-0' : 'rotate-45'}`}>
+                                        className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br ${p.color} p-0.5 transition-all duration-500 ${activePhase === i ? 'rotate-0 shadow-lg shadow-cyan-500/20' : 'rotate-45'}`}>
                                         <div
-                                            className="w-full h-full bg-black rounded-2xl flex items-center justify-center">
-                                            <span className="text-sm font-bold">{p.days.split('-')[0]}</span>
+                                            className={`w-full h-full ${isDayTime ? 'bg-white' : 'bg-black'} rounded-2xl flex items-center justify-center transition-colors duration-500`}>
+                                            <span
+                                                className={`text-sm font-bold font-mono transition-transform duration-500 ${activePhase === i ? 'rotate-0' : '-rotate-45'} ${isDayTime ? 'text-gray-900' : 'text-white'}`}>{p.days.split('-')[0]}</span>
                                         </div>
                                     </div>
                                     {activePhase === i && <div
-                                        className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white rounded-full animate-ping"/>}
+                                        className={`absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-2 h-2 ${isDayTime ? 'bg-gray-900' : 'bg-white'} rounded-full animate-ping`}/>}
                                 </button>
                             ))}
+                        </div>
+
+                        {/* Mission timeline HUD */}
+                        <div
+                            className={`relative max-w-3xl mx-auto text-left rounded-2xl border backdrop-blur-md px-6 py-5 ${isDayTime ? 'border-gray-200 bg-white/70 shadow-sm' : 'border-gray-800 bg-gray-900/40'}`}>
+                            <span aria-hidden
+                                  className={`absolute -top-px -left-px w-4 h-4 border-t-2 border-l-2 rounded-tl-2xl ${isDayTime ? 'border-teal-600' : 'border-[#00f5d4]'}`}/>
+                            <span aria-hidden
+                                  className={`absolute -top-px -right-px w-4 h-4 border-t-2 border-r-2 rounded-tr-2xl ${isDayTime ? 'border-teal-600' : 'border-[#00f5d4]'}`}/>
+                            <span aria-hidden
+                                  className={`absolute -bottom-px -left-px w-4 h-4 border-b-2 border-l-2 rounded-bl-2xl ${isDayTime ? 'border-teal-600' : 'border-[#00f5d4]'}`}/>
+                            <span aria-hidden
+                                  className={`absolute -bottom-px -right-px w-4 h-4 border-b-2 border-r-2 rounded-br-2xl ${isDayTime ? 'border-teal-600' : 'border-[#00f5d4]'}`}/>
+
+                            <div
+                                className={`flex items-center justify-between font-mono text-[0.65em] tracking-[0.25em] uppercase mb-3 ${isDayTime ? 'text-gray-500' : 'text-gray-400'}`}>
+                                <span>Mission Timeline</span>
+                                <span
+                                    className={isDayTime ? 'text-teal-700' : 'text-[#00f5d4]'}>Day {String(currentDay).padStart(2, '0')} / 90</span>
+                            </div>
+                            <div
+                                className={`relative h-2 rounded-full overflow-hidden ${isDayTime ? 'bg-gray-200' : 'bg-gray-800'}`}>
+                                <div
+                                    className="h-full rounded-full bg-gradient-to-r from-cyan-400 via-purple-500 to-emerald-500 transition-all duration-300"
+                                    style={{width: `${(currentDay / 90) * 100}%`}}/>
+                                <span aria-hidden
+                                      className={`absolute top-0 bottom-0 left-1/3 w-px ${isDayTime ? 'bg-white' : 'bg-black'}`}/>
+                                <span aria-hidden
+                                      className={`absolute top-0 bottom-0 left-2/3 w-px ${isDayTime ? 'bg-white' : 'bg-black'}`}/>
+                            </div>
+                            <div className="flex flex-wrap items-center justify-between gap-3 mt-4">
+                                <div
+                                    className={`flex gap-4 font-mono text-[0.6em] tracking-[0.2em] uppercase ${isDayTime ? 'text-gray-400' : 'text-gray-500'}`}>
+                                    <span
+                                        className={activePhase === 0 ? (isDayTime ? 'text-cyan-700' : 'text-cyan-400') : ''}>01 Discover</span>
+                                    <span
+                                        className={activePhase === 1 ? (isDayTime ? 'text-purple-700' : 'text-purple-400') : ''}>02 Launch</span>
+                                    <span
+                                        className={activePhase === 2 ? (isDayTime ? 'text-emerald-700' : 'text-emerald-400') : ''}>03 Scale</span>
+                                </div>
+                                <div className="flex gap-2">
+                                    <button onClick={() => setIsPlaying((s) => !s)}
+                                            className={`px-4 py-1.5 rounded-full font-mono text-[0.65em] font-[700] tracking-[0.2em] uppercase transition-colors ${isDayTime ? 'bg-gray-900 text-white hover:bg-gray-700' : 'bg-white text-black hover:bg-gray-200'}`}>
+                                        {isPlaying ? 'Pause' : 'Play'}
+                                    </button>
+                                    <button onClick={() => {
+                                        setIsPlaying(false);
+                                        setCurrentDay(1);
+                                    }}
+                                            className={`px-4 py-1.5 rounded-full border font-mono text-[0.65em] font-[700] tracking-[0.2em] uppercase transition-colors ${isDayTime ? 'border-gray-300 text-gray-600 hover:border-gray-500' : 'border-gray-700 text-gray-300 hover:border-gray-500'}`}>
+                                        Reset
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -1280,11 +1393,19 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                         <div className="order-2 lg:order-1 flex justify-center">
                             <div className="relative w-80 h-80 sm:w-96 sm:h-96">
                                 <div
-                                    className={`absolute inset-0 rounded-full bg-gradient-to-r ${phase.color} opacity-20 animate-spin-slow`}/>
+                                    className={`absolute inset-0 rounded-full bg-gradient-to-r ${phase.color} blur-3xl transition-opacity duration-700 ${isDayTime ? 'opacity-20' : 'opacity-25'}`}/>
+                                <div
+                                    className={`absolute inset-0 rounded-full bg-gradient-to-r ${phase.color} ${isDayTime ? 'opacity-30' : 'opacity-20'} animate-spin-slow`}/>
+                                <div
+                                    className={`absolute inset-4 rounded-full border border-dashed animate-spin-reverse ${isDayTime ? 'border-gray-300' : 'border-gray-700'}`}/>
+                                <div className="absolute inset-0 animate-spin-slow">
+                                    <span
+                                        className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full ${phase.accentColor} shadow-lg`}/>
+                                </div>
                                 <div
                                     className={`absolute inset-8 rounded-full bg-gradient-to-br ${phase.color} p-1 animate-pulse-slow`}>
                                     <div
-                                        className="w-full h-full bg-black rounded-full flex items-center justify-center p-12">{phase.icon}</div>
+                                        className={`w-full h-full ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full flex items-center justify-center p-12 transition-colors duration-700`}>{phase.icon}</div>
                                 </div>
                             </div>
                         </div>
@@ -1292,18 +1413,18 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                         <div className="order-1 lg:order-2 space-y-8">
                             <div>
                                 <div
-                                    className={`inline-block px-6 py-2 rounded-full bg-gradient-to-r ${phase.color} text-white font-bold text-sm mb-4`}>DAYS {phase.days}</div>
-                                <h3 className="text-4xl sm:text-5xl font-black mb-3 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">{phase.title}</h3>
+                                    className={`inline-block px-6 py-2 rounded-full bg-gradient-to-r ${phase.color} text-white font-mono font-bold text-sm tracking-[0.2em] uppercase mb-4 shadow-lg`}>Days {phase.days}</div>
+                                <h3 className={`text-4xl sm:text-5xl font-black mb-3 bg-gradient-to-r ${isDayTime ? 'from-gray-900 to-gray-600' : 'from-white to-gray-400'} bg-clip-text text-transparent`}>{phase.title}</h3>
                                 <p className={`text-2xl font-light bg-gradient-to-r ${phase.color} bg-clip-text text-transparent`}>{phase.tagline}</p>
                             </div>
 
                             <div className="space-y-4">
                                 {phase.items.map((item, idx) => (
                                     <div key={idx}
-                                         className="group flex items-start gap-4 p-4 rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-gray-600 transition-all duration-300">
+                                         className={`group flex items-start gap-4 p-4 rounded-2xl ${isDayTime ? 'bg-white/70 border-gray-200 hover:border-gray-400 shadow-sm hover:shadow-md' : 'bg-gray-900/50 border-gray-800 hover:border-gray-600'} backdrop-blur-sm border transition-all duration-300`}>
                                         <div
-                                            className={`flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br ${phase.color} flex items-center justify-center text-sm font-bold`}>{idx + 1}</div>
-                                        <p className="text-gray-300 group-hover:text-white transition-colors">{item}</p>
+                                            className={`flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br ${phase.color} flex items-center justify-center text-sm font-bold text-white`}>{idx + 1}</div>
+                                        <p className={`${isDayTime ? 'text-gray-600 group-hover:text-gray-900' : 'text-gray-300 group-hover:text-white'} transition-colors`}>{item}</p>
                                     </div>
                                 ))}
                             </div>
@@ -1313,22 +1434,32 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                     {/* CTA */}
                     <div className="relative group">
                         <div
-                            className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 rounded-3xl blur-2xl opacity-30 group-hover:opacity-50 transition-opacity"/>
+                            className={`absolute inset-0 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 rounded-3xl blur-2xl transition-opacity ${isDayTime ? 'opacity-20 group-hover:opacity-40' : 'opacity-30 group-hover:opacity-50'}`}/>
                         <div
-                            className="relative bg-gradient-to-r from-gray-900 to-black rounded-3xl p-12 border border-gray-800 text-center">
-                            <h3 className="text-4xl sm:text-5xl font-black mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">Ready
+                            className={`relative overflow-hidden ${isDayTime ? 'bg-white/80 backdrop-blur-md border-gray-200' : 'bg-gradient-to-r from-gray-900 to-black border-gray-800'} rounded-3xl p-12 border text-center`}>
+                            <span aria-hidden
+                                  className={`absolute top-3 left-3 w-6 h-6 border-t-2 border-l-2 ${isDayTime ? 'border-teal-600/60' : 'border-[#00f5d4]/60'}`}/>
+                            <span aria-hidden
+                                  className={`absolute top-3 right-3 w-6 h-6 border-t-2 border-r-2 ${isDayTime ? 'border-teal-600/60' : 'border-[#00f5d4]/60'}`}/>
+                            <span aria-hidden
+                                  className={`absolute bottom-3 left-3 w-6 h-6 border-b-2 border-l-2 ${isDayTime ? 'border-teal-600/60' : 'border-[#00f5d4]/60'}`}/>
+                            <span aria-hidden
+                                  className={`absolute bottom-3 right-3 w-6 h-6 border-b-2 border-r-2 ${isDayTime ? 'border-teal-600/60' : 'border-[#00f5d4]/60'}`}/>
+                            <h3 className={`text-4xl sm:text-5xl font-black mb-6 bg-gradient-to-r ${isDayTime ? 'from-gray-900 via-gray-700 to-gray-500' : 'from-white via-gray-200 to-gray-400'} bg-clip-text text-transparent`}>Ready
                                 to Launch?</h3>
-                            <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">Join the elite companies that
+                            <p className={`text-xl ${isDayTime ? 'text-gray-500' : 'text-gray-400'} mb-8 max-w-2xl mx-auto`}>Join
+                                the elite companies that
                                 trust
                                 Grey InfoTech to revolutionize their digital presence</p>
-                            <div className="flex justify-center gap-4">
-                                <button onClick={() => setIsPlaying((s) => !s)}
-                                        className="px-6 py-3 rounded-full bg-white text-black font-bold">
-                                    {isPlaying ? 'Pause' : 'Play'}
-                                </button>
-                                <button onClick={() => setCurrentDay(1)}
-                                        className="px-6 py-3 rounded-full border border-gray-700">Reset Day
-                                </button>
+                            <div className="flex flex-wrap justify-center gap-4">
+                                <Link href="/contact"
+                                      className={`px-8 py-3 rounded-full font-bold ${isDayTime ? 'bg-gray-900 text-white hover:bg-gray-800' : 'bg-white text-black hover:bg-gray-100'} transition-colors`}>
+                                    Start Your 90 Days
+                                </Link>
+                                <Link href="/portfolio"
+                                      className={`px-8 py-3 rounded-full border font-bold ${isDayTime ? 'border-gray-300 text-gray-700 hover:border-gray-500' : 'border-gray-700 text-gray-300 hover:border-gray-500'} transition-colors`}>
+                                    View Our Work
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -1341,6 +1472,8 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                         @keyframes spin-slow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
                         @keyframes spin-reverse { from{transform:rotate(360deg)} to{transform:rotate(0deg)} }
                         @keyframes pulse-slow { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.8;transform:scale(1.05)} }
+                        @keyframes dm-scan { 0%{top:-5%} 100%{top:105%} }
+                        .dm-scanline { animation: dm-scan 8s linear infinite; }
                         .animate-blob { animation: blob 7s infinite; }
                         .animate-gradient { background-size: 200% auto; animation: gradient 3s ease infinite; }
                         .animate-spin-slow { animation: spin-slow 20s linear infinite; }
@@ -1349,894 +1482,48 @@ const DigitalMarketing = () => {    const [isVisible, setIsVisible] = useState(f
                       `}</style>
             </div>
 
-            {/* Technologies We Use */}
-            <div
-                className={`lg:pt-[2em] md:pt-[2em] pt-[1em] lg:pb-[2em] md:pb-[2em] pb-[1em] ${isDayTime ? 'bg-white' : 'bg-slate-600'}`}>
-                <div id={'Toolchain'}
-                     className={`relative lg:mt-[1.5em] md:mt-[1.5em] mt-[1em] lg:mb-16 md:mb-16 mb-5 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                    <div className={`${isDayTime ? 'text-black' : 'text-white'} text-center`}>
-                        <h2 className="capitalize text-[1.8em] md:text-[3em] lg:text-[3.3em] font-[700] tracking-tight leading-[1.2] lg:pb-6">
-                            <span className={'text-[#00f5d4]'}>Technologies</span> We Use
-                        </h2>
-                        <p className="mx-auto mt-4 max-w-5xl text-[0.9em] leading-relaxed ">
-                            Grey InfoTech harnesses cutting-edge cross-platform technologies and frameworks to architect
-                            mobile solutions that align precisely with your strategic business objectives. Our
-                            development team leverages industry-leading platforms including React Native, Flutter, and
-                            Xamarin, combined with cloud-native architectures, advanced API integrations, and modern
-                            DevOps practices to create scalable, high-performance applications. By employing progressive
-                            development methodologies, real-time analytics integration, and AI-powered features, we
-                            ensure your mobile presence not only meets current market demands but anticipates future
-                            technological evolution. This technology-forward approach enables seamless integration with
-                            existing enterprise systems, supports complex business logic and workflows, and provides the
-                            flexibility to adapt quickly as your requirements evolveâ€”transforming your mobile
-                            application from a standalone tool into a strategic asset that drives customer engagement,
-                            operational efficiency, and measurable business outcomes aligned with your growth
-                            trajectory.
-                        </p>
-
-                        {/* Tabs */}
-                        <div
-                            className="mt-20 flex flex-wrap justify-center gap-8 border-b text-[1.3em] font-[500] text-gray-400">
-                            {tabs.map((tab) => (
-                                <button
-                                    key={tab.key}
-                                    onClick={() => setActiveFront(tab.key)}
-                                    className={`pb-1.5 transition-colors ${
-                                        activeFront === tab.key
-                                            ? "border-b-1 border-[#00f5d4] text-[#00f5d4]"
-                                            : "hover:text-gray-800"
-                                    }`}
-                                >
-                                    {tab.label}
-                                </button>
-                            ))}
-                        </div>
-
-                        {/* Content */}
-                        <div className="mt-16">
-                            <div
-                                className="mx-auto grid grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-8 justify-start items-start">
-                                {data[activeFront]?.map((item) => (
-                                    <div key={item.name} className="flex flex-col items-center gap-1.5">
-                                        <div className="relative h-16 w-16 lg:h-28 lg:w-28 md:h-20 md:w-20">
-                                            <Image
-                                                src={item.logo}
-                                                alt={item.name}
-                                                fill
-                                                className="object-contain"
-                                                sizes="(min-width:1024px) 64px, (min-width:768px) 56px, 48px"
-                                            />
-                                        </div>
-                                        <span
-                                            className="text-[1em] md:text-[1.3em] lg:text-[1.3em] text-center font-medium  break-words max-w-[8rem]">
-                          {item.name}
-                        </span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Industry-Specific Cross-Platform App Development */}
-            <div
-                className={`lg:pt-[2em] h-auto border-b max-w-full w-full mx-auto ${isDayTime ? 'bg-black border-white' : 'bg-white border-black'}`}>
-                <div
-                    className={`relative max-w-full w-full mx-auto px-4 sm:px-6 lg:px-[4.6em] lg:pt-[3em] md:pt-[3em] pt-[1.2em] lg:pb-[6em] md:pb-[6em] pb-[1.2em] mt-14`}>
-                    <div
-                        className={`relative grid lg:grid-cols-2 grid-cols-1 gap-10 mb-8 ${isDayTime ? 'text-white' : 'text-black'} `}>
-                        <div className={'lg:mr-[8em]'}>
-                            <h2 className={`lg:text-[3.1em] md:text-[3.1em] text-[1.8em] font-[700] justify-center tracking-tight lg:mb-12 mb-7 leading-[1.2]`}>
-                                <span className={'text-[#00f5d4]'}>Industry-Specific</span> Cross-Platform <span
-                                className={'text-[#00f5d4]'}>App Development</span>
-                            </h2>
-                            <p className={'text-[0.873em] font-normal leading-normal tracking-normal text-justify'}>
-                                Grey InfoTech&#39;s industry-specialized cross-platform development expertise delivers
-                                solutions precisely calibrated to the unique regulatory requirements, operational
-                                workflows, and competitive dynamics of your sector. Our deep vertical knowledge spans
-                                healthcare, finance, retail, logistics, manufacturing, and beyondâ€”enabling us to
-                                architect applications that address industry-specific challenges while exceeding
-                                compliance standards and performance benchmarks. We integrate sector-appropriate
-                                features such as HIPAA-compliant data handling for healthcare, PCI-DSS security for
-                                financial services, real-time inventory management for retail, or IoT connectivity for
-                                manufacturing operations. By combining cross-platform efficiency with industry-specific
-                                functionality, we create solutions that resonate with your target users, streamline
-                                specialized workflows, and support regulatory adherence. This sector-focused approach
-                                ensures your application not only functions seamlessly across all platforms but delivers
-                                the domain expertise and contextual capabilities that differentiate your business within
-                                your competitive landscape and drive measurable outcomes aligned with industry success
-                                metrics.
-                            </p>
-                        </div>
-                        <div
-                            className={`lg:-ml-5 md:-ml-5 border-t pt-[6em]] relative mx-auto max-w-full w-full space-y-2 ${isDayTime ? 'text-white' : 'text-black'}`}>
-                            <div
-                                className={`w-full border-b pb-6 mt-6`}>
-                                <button
-                                    onClick={() => toggleWeb(0)}
-                                    className="flex items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>IT Staff Augmentation & Resource Management Applications</span>
-                                    {webIndex === 0 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 0 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                        We develop specialized cross-platform applications for IT staffing agencies,
-                                        technology consulting firms, and enterprise IT departments that optimize
-                                        resource allocation, streamline talent management, and enhance client-consultant
-                                        collaboration. Our IT staffing solutions integrate comprehensive consultant
-                                        databases with detailed skill profiles, certifications, experience levels,
-                                        technology expertise, and availability status, advanced matching algorithms
-                                        pairing consultants with project requirements based on skills and cultural fit,
-                                        project management with resource forecasting and utilization tracking, timesheet
-                                        management with mobile time entry and automated invoicing, applicant tracking
-                                        for candidate sourcing and interview scheduling, client relationship management
-                                        with contract details and billing rates, bench management with skills gap
-                                        analysis and training recommendations, vendor management for subcontractor
-                                        coordination, onboarding workflows with document collection and equipment
-                                        provisioning, performance management with reviews and skill assessments,
-                                        compliance tracking for certifications and work authorization, mobile access for
-                                        consultants to view assignments and submit timesheets, client portals for
-                                        requisition submission and consultant evaluation, resource forecasting tools
-                                        predicting staffing needs, assignment history tracking for experience
-                                        documentation, expense management, communication tools for team coordination,
-                                        and reporting dashboards with utilization rates and revenue metrics. Advanced
-                                        capabilities include AI-powered skill matching using natural language
-                                        processing, predictive analytics for retention risk identification, automated
-                                        resume generation, machine learning for pricing optimization, blockchain-based
-                                        credential verification, video interviewing platform integration, chatbot
-                                        assistance for policy questions, talent pool analytics identifying skill
-                                        shortages, contract lifecycle management, project success prediction based on
-                                        team composition, knowledge management systems, learning management integration
-                                        for continuous development, workforce planning scenarios, automated compliance
-                                        monitoring, collaboration platform integration, sentiment analysis of consultant
-                                        feedback, and comprehensive business intelligence for workforce planning. These
-                                        applications maximize billable utilization through efficient resource
-                                        allocation, improve consultant satisfaction and retention, enhance client
-                                        relationships through transparency and quality delivery, reduce administrative
-                                        overhead, provide data-driven insights for strategic planning, support rapid
-                                        scaling, ensure regulatory compliance, enable distributed team collaboration,
-                                        optimize financial performance, and deliver the operational efficiency and
-                                        talent optimization required in competitive IT staffing markets.
-                                    </p>
-                                )}
-                            </div>
-                            <div
-                                className={`w-full border-b pb-6`}>
-                                <button
-                                    onClick={() => toggleWeb(1)}
-                                    className="flex items-center mt-6 justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>Music & Entertainment Streaming Applications</span>
-                                    {webIndex === 1 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 1 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-
-                                        Our cross-platform music and entertainment applications serve record labels,
-                                        independent artists, streaming platforms, and media companies with sophisticated
-                                        solutions for content discovery, playback, and social engagement. We develop
-                                        immersive platforms featuring extensive music libraries with millions of tracks,
-                                        intelligent search with genre and mood filters, personalized AI-powered
-                                        recommendations analyzing listening behavior, curated playlists by music
-                                        experts, user-generated collaborative playlists, high-quality adaptive bitrate
-                                        streaming, offline downloads, seamless playback across devices with synchronized
-                                        positions, social features for following friends and sharing tracks,
-                                        synchronized lyrics display, artist profiles with discographies and concert
-                                        dates, podcast integration with subscriptions and variable playback speeds,
-                                        radio stations, music video streaming, concert livestreaming, lossless and
-                                        spatial audio options, car mode interface, voice control integration, crossfade
-                                        and gapless playback, equalizer controls, sleep timer functionality, and
-                                        wearable device integration. Advanced features include AI-powered music
-                                        discovery based on mood and context, artist collaboration tools, fan engagement
-                                        with exclusive content and direct messaging, smart playlists auto-updating based
-                                        on listening patterns, concert discovery with ticket purchasing, karaoke
-                                        functionality with vocal removal, social listening parties, music recognition
-                                        technology, fitness application integration with BPM matching, podcast
-                                        transcription with searchable text, subscription tiers and ad-supported options,
-                                        blockchain for transparent royalty distribution and NFT collectibles, spatial
-                                        audio experiences, live DJ mixing capabilities, artist analytics dashboards,
-                                        copyright detection systems, and social media integration. These applications
-                                        transform listening into engaging social experiences, democratize music
-                                        distribution for independent artists, provide sustainable revenue models with
-                                        fair compensation, deliver personalized discovery experiences, support the
-                                        creator economy with direct monetization tools, enable seamless multi-device
-                                        experiences, build vibrant communities, and deliver the high-quality, socially
-                                        connected experiences essential in competitive streaming markets.
-                                    </p>
-                                )}
-                            </div>
-                            <div
-                                className={`w-full border-b pb-6`}>
-                                <button
-                                    onClick={() => toggleWeb(2)}
-                                    className="flex mt-6 items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>Business & Corporate Productivity Applications</span>
-                                    {webIndex === 2 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 2 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                        We architect enterprise-grade cross-platform business applications for
-                                        corporations, professional services firms, and consulting companies that enhance
-                                        workplace productivity and streamline collaboration across iOS and Android
-                                        platforms. Our corporate solutions integrate comprehensive project management
-                                        with task assignment, milestone tracking, and resource allocation, team
-                                        collaboration with threaded discussions and file sharing, document management
-                                        with version control and collaborative editing, time tracking and timesheet
-                                        management with billable hours, expense management with receipt capture and
-                                        approval workflows, CRM functionality for contact management and sales pipeline
-                                        tracking, meeting scheduling with calendar integration and room booking, mobile
-                                        access to business intelligence dashboards and KPI monitoring, secure messaging
-                                        and video conferencing, employee directory with organizational charts, approval
-                                        workflows for purchase orders and contracts, invoice generation, vendor
-                                        management and procurement, digital signature capabilities, business card
-                                        scanning, and integration with existing enterprise systems including ERP and
-                                        HRMS. Advanced capabilities include AI-powered virtual assistants for scheduling
-                                        and task automation, natural language processing for voice commands, predictive
-                                        analytics for sales forecasting and resource planning, automated workflow
-                                        triggers, sentiment analysis for customer communication, OCR for document
-                                        digitization, geolocation for field workforce tracking, blockchain for secure
-                                        contract management, augmented reality for remote assistance, machine learning
-                                        for intelligent document categorization, enterprise SSO integration, role-based
-                                        access controls, mobile device management integration, compliance monitoring,
-                                        and real-time synchronization across devices. These applications empower
-                                        distributed teams to collaborate effectively, accelerate decision-making through
-                                        mobile access to business-critical information, reduce administrative overhead,
-                                        improve project delivery and client satisfaction, enhance employee productivity,
-                                        support remote and hybrid work models, ensure data security and compliance, and
-                                        deliver integrated mobile-first business tools for efficient operations.
-                                    </p>
-                                )}
-                            </div>
-                            <div
-                                className={`w-full border-b pb-6`}>
-                                <button
-                                    onClick={() => toggleWeb(3)}
-                                    className="flex mt-6 items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>Logistics & Transportation Applications</span>
-                                    {webIndex === 3 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 3 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                        Our cross-platform logistics applications serve freight companies, courier
-                                        services, fleet operators, and supply chain businesses with comprehensive
-                                        solutions for route optimization, shipment tracking, and driver management. We
-                                        develop robust platforms with shipment booking and instant quotes, real-time GPS
-                                        tracking, proof of delivery with digital signatures and photos, driver apps with
-                                        optimized route navigation, job acceptance and status updates, barcode and QR
-                                        code scanning, electronic logging for compliance, vehicle inspection checklists,
-                                        load matching marketplace functionality, customer notifications for shipment
-                                        status, estimated arrival times with live traffic updates, delivery exception
-                                        reporting, electronic waybills, payment processing and invoicing, customer
-                                        feedback collection, offline functionality, multi-stop route planning, and fuel
-                                        tracking. Advanced features include AI-powered route optimization considering
-                                        traffic and delivery windows, predictive delivery time estimation, dynamic
-                                        rerouting based on real-time conditions, geofencing for automatic status
-                                        updates, load optimization algorithms, driver performance analytics, warehouse
-                                        management integration, customs documentation, temperature monitoring for
-                                        refrigerated transport, fleet telematics integration, augmented reality for
-                                        warehouse navigation, blockchain for supply chain transparency, carbon footprint
-                                        calculation, and comprehensive business intelligence dashboards. These
-                                        applications improve delivery speed and reliability, reduce operational costs,
-                                        enhance customer satisfaction, increase driver productivity, improve fleet
-                                        safety, enable scalable growth, and deliver the visibility and efficiency
-                                        required in demanding logistics markets.
-                                    </p>
-                                )}
-                            </div>
-                            <div
-                                className={`w-full border-b pb-6`}>
-                                <button
-                                    onClick={() => toggleWeb(4)}
-                                    className="flex mt-6 items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>Fitness & Wellness Applications</span>
-                                    {webIndex === 4 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 4 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                        We develop engaging cross-platform fitness applications for gyms, studios,
-                                        personal trainers, and wellness centers that motivate users, track progress, and
-                                        deliver personalized health experiences. Our wellness solutions integrate
-                                        workout libraries with video demonstrations, customizable workout plans based on
-                                        goals and experience levels, workout tracking with sets and reps logging,
-                                        exercise timers, progress tracking with body measurements and performance
-                                        metrics, wearable device integration for automatic activity syncing, nutrition
-                                        tracking with food diary and calorie counting, meal planning with recipes,
-                                        hydration and sleep monitoring, guided meditation and yoga routines, personal
-                                        training session booking, class schedules and check-in, virtual training
-                                        sessions, social features for connecting with workout buddies, challenges and
-                                        competitions, achievement badges, and progress photo tracking. Advanced
-                                        capabilities include AI-powered personal training with form correction using
-                                        computer vision, adaptive workout plans adjusting to performance, personalized
-                                        nutrition recommendations, genetic testing integration, biometric analysis,
-                                        heart rate zone training, injury prevention programs, mental health tracking
-                                        with mood journals, menstrual cycle tracking with workout adjustments, music
-                                        streaming integration, augmented reality experiences, comprehensive health
-                                        reports, and telemedicine consultation. These applications increase gym
-                                        membership retention, enable fitness professionals to scale services digitally,
-                                        improve user fitness outcomes, build engaged wellness communities, support
-                                        hybrid fitness models, and deliver the comprehensive, data-driven experiences
-                                        health-conscious consumers demand.
-                                    </p>
-                                )}
-                            </div>
-                            <div
-                                className={`w-full border-b pb-6`}>
-                                <button
-                                    onClick={() => toggleWeb(5)}
-                                    className="flex mt-6 items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>Food & Restaurant Delivery Applications</span>
-                                    {webIndex === 5 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 5 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                        Our cross-platform food delivery applications serve restaurant chains, cloud
-                                        kitchens, and delivery platforms with comprehensive solutions for menu browsing,
-                                        ordering, payment processing, and delivery coordination. We develop
-                                        sophisticated platforms featuring visually appealing restaurant and menu
-                                        browsing with high-quality photography, detailed dish descriptions with
-                                        nutritional information, advanced search and filtering by cuisine, dietary
-                                        preferences, and delivery time, personalized recommendations, customizable
-                                        orders with modifications, multiple payment options including digital wallets,
-                                        real-time order tracking with GPS-enabled driver location, push notifications
-                                        for order status updates, order history for quick reordering, saved addresses
-                                        and payment methods, loyalty programs, promotional codes, customer reviews and
-                                        ratings, group ordering capabilities, scheduled ordering, dietary filters, and
-                                        direct communication with restaurants and drivers. Advanced features include
-                                        AI-powered chatbots for customer service, dynamic delivery fee calculation,
-                                        surge pricing transparency, contactless delivery with photo confirmation, driver
-                                        rating, subscription plans, corporate accounts, kitchen display system
-                                        integration, driver route optimization, real-time inventory management, voice
-                                        ordering, and analytics dashboards for menu optimization. These applications
-                                        increase restaurant order volume and revenue, improve operational efficiency,
-                                        enhance customer satisfaction, reduce order errors, enable restaurants to
-                                        compete with third-party platforms, and deliver the fast, convenient experiences
-                                        consumers expect.
-                                    </p>
-                                )}
-                            </div>
-                            <div
-                                className={`w-full border-b pb-6`}>
-                                <button
-                                    onClick={() => toggleWeb(6)}
-                                    className="flex mt-6 items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>Education & E-Learning Applications</span>
-                                    {webIndex === 6 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 6 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                        We create comprehensive cross-platform educational applications for schools,
-                                        universities, corporate training programs, and online learning platforms that
-                                        facilitate engaging learning experiences and streamline administrative
-                                        processes. Our educational solutions encompass course catalogs and enrollment,
-                                        interactive multimedia lessons, video lectures with note-taking, document
-                                        libraries, assignment submission and grading, assessments with various question
-                                        types, discussion forums, real-time messaging and video conferencing, calendar
-                                        integration, grade tracking and progress monitoring, attendance management, push
-                                        notifications for deadlines, offline content access, certificate generation,
-                                        learning analytics dashboards, parental access for K-12 monitoring, and library
-                                        integration. Advanced features include adaptive learning paths adjusting to
-                                        student performance, gamification with badges and leaderboards, AI-powered
-                                        tutoring assistants, speech recognition for language learning, augmented reality
-                                        for immersive science and history lessons, collaborative whiteboards, plagiarism
-                                        detection, accessibility features including screen readers and closed
-                                        captioning, virtual labs and simulations, career services integration, and
-                                        analytics for identifying struggling students. These applications improve
-                                        student engagement and outcomes, increase course completion rates, reduce
-                                        administrative workload, enable flexible learning, facilitate better
-                                        communication, support hybrid and remote learning models, and provide
-                                        data-driven insights for continuous educational improvement.
-                                    </p>
-                                )}
-                            </div>
-                            <div
-                                className={`w-full border-b pb-6`}>
-                                <button
-                                    onClick={() => toggleWeb(7)}
-                                    className="flex mt-6 items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>E-Commerce & Retail Applications</span>
-                                    {webIndex === 7 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 7 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                        We architect sophisticated cross-platform shopping applications for retailers,
-                                        consumer brands, and marketplace platforms that create seamless omnichannel
-                                        experiences and maximize conversion rates across mobile devices. Our e-commerce
-                                        solutions integrate comprehensive product catalogs with advanced search and
-                                        filtering, detailed product pages with 360-degree views, AI-powered personalized
-                                        recommendations, shopping cart and wish lists, secure checkout with multiple
-                                        payment options, real-time order tracking, customer reviews and ratings, loyalty
-                                        program integration, push notifications for promotions and price drops, barcode
-                                        scanning, augmented reality try-on experiences, store locator with inventory
-                                        availability, buy-online-pickup-in-store capabilities, returns management, and
-                                        AI-powered customer service chat. Advanced features include dynamic pricing
-                                        based on browsing behavior, subscription management, virtual shopping
-                                        assistants, live video shopping, social commerce integration, size
-                                        recommendation engines, sustainability information, same-day delivery options,
-                                        multi-currency support, and comprehensive conversion analytics. These
-                                        applications increase mobile sales conversion, improve customer lifetime value,
-                                        reduce cart abandonment, build brand loyalty, provide valuable customer
-                                        insights, and enable retailers to compete effectively in mobile-first consumer
-                                        markets.
-                                    </p>
-                                )}
-                            </div>
-                            <div
-                                className={`w-full border-b pb-6`}>
-                                <button
-                                    onClick={() => toggleWeb(8)}
-                                    className="flex mt-6 items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>Finance & Banking Applications</span>
-                                    {webIndex === 8 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 8 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                        Our cross-platform financial applications serve banks, fintech startups,
-                                        investment firms, and insurance companies with secure, feature-rich mobile
-                                        banking and financial services platforms that deliver consistent experiences
-                                        across iOS and Android. We develop comprehensive solutions with account
-                                        management, real-time balance and transaction history, funds transfer, mobile
-                                        check deposit with OCR technology, bill payment, cardless ATM withdrawal,
-                                        spending analytics and budgeting tools, savings goals, loan applications,
-                                        investment portfolio tracking, fraud alerts, biometric authentication, and
-                                        secure customer service messaging. Advanced capabilities include peer-to-peer
-                                        payments, digital wallet functionality with contactless payments, personal
-                                        financial management with spending insights, investment recommendations based on
-                                        risk profiles, automated savings programs, document management, branch and ATM
-                                        locators, cryptocurrency trading, and real-time fraud detection with machine
-                                        learning. These applications enhance customer engagement and retention, reduce
-                                        operational costs, attract digital-native customers, enable 24/7 account access,
-                                        provide actionable financial insights, and deliver the secure, convenient
-                                        experiences essential for competitive positioning in financial services.
-                                    </p>
-                                )}
-                            </div>
-                            <div
-                                className={`w-full border-b pb-6`}>
-                                <button
-                                    onClick={() => toggleWeb(9)}
-                                    className="flex mt-6 items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>Healthcare & Telemedicine Applications</span>
-                                    {webIndex === 9 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 9 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                        We develop HIPAA-compliant cross-platform mobile applications for healthcare
-                                        providers, telemedicine platforms, and medical institutions that enable secure
-                                        patient engagement and clinical workflow management across iOS and Android
-                                        devices. Our healthcare solutions integrate electronic health records,
-                                        appointment scheduling, secure video consultations with end-to-end encryption,
-                                        prescription management, patient vital monitoring through wearable integration,
-                                        medication reminders, and symptom tracking. Key features include real-time
-                                        provider availability, insurance verification, secure document upload for
-                                        medical records, telehealth video integration, patient portal access for lab
-                                        results and treatment plans, billing and payment processing, provider ratings,
-                                        and offline functionality for critical health information. These applications
-                                        improve patient access to healthcare services, reduce no-show rates through
-                                        automated reminders, enable chronic disease management, streamline
-                                        administrative workflows, enhance patient satisfaction, and extend healthcare
-                                        delivery beyond traditional clinical settings while ensuring data security and
-                                        regulatory compliance.
-                                    </p>
-                                )}
-                            </div>
-                            <div
-                                className={`w-full`}>
-                                <button
-                                    onClick={() => toggleWeb(10)}
-                                    className="flex mt-6 items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>Real Estate & Property Management Applications</span>
-                                    {webIndex === 10 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 10 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                        Our cross-platform real estate applications serve property developers, agencies,
-                                        and management companies with comprehensive solutions for property search,
-                                        virtual tours, and tenant engagement. We develop feature-rich platforms with
-                                        advanced property search and filtering, interactive map views with neighborhood
-                                        insights, high-quality galleries and 360-degree virtual tours, augmented reality
-                                        visualization for staging, saved searches with push notifications for new
-                                        listings, mortgage calculators, appointment scheduling, agent communication,
-                                        document management, digital signatures, rent payment processing, maintenance
-                                        request tracking, inspection documentation, amenity booking, visitor management,
-                                        community announcements, package notifications, lease renewal management, and
-                                        investment analysis tools. Advanced capabilities include AI-powered property
-                                        recommendations, chatbot assistance, video tours and live virtual showings,
-                                        comparative market analysis, lead management and CRM integration, listing
-                                        syndication, property performance dashboards, smart home integration, and
-                                        blockchain-based transactions. These applications accelerate property discovery,
-                                        improve tenant satisfaction, reduce administrative burden, enhance agent
-                                        productivity, increase lead conversion, and deliver the modern digital
-                                        experiences expected in competitive real estate markets.
-                                    </p>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Why Choose Grey InfoTech As Your Cross-Platform App Development Company? */}
-            <div
-                className={`h-auto border-b border-white max-w-full w-full mx-auto ${isDayTime ? 'bg-white' : 'bg-black'}`}>
-                <div
-                    className={`relative lg:pt-[6em] md:pt-[6em] pt-[4em] lg:pb-[5em] md:pb-[5em] pb-[4em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                    <div
-                        className={'relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:gap-[6em] gap-4 h-auto'}>
-                        <div
-                            className={'relative w-full max-w-full h-auto lg:pr-[11.2em] md:pr-[11.2em] mb-8'}>
-                            <Image
-                                src={'/assets/cms/why_choose_cms.jpg'}
-                                alt={'CMS'}
-                                width={225}
-                                height={300}
-                                className={'object-cover w-full h-auto rounded-xl'}
-                            />
-                        </div>
-                        <div
-                            className={`lg:-ml-[10.5em] md:-ml-[10.5em] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                            <h2
-                                className='text-[1.8em] capitalize font-[700] tracking-tight leading-[1.2] mb-10 lg:text-[3.5em] md:text-[2.5em] w-auto h-auto'>
-                                Why Choose <span className={'text-[#00f5d4]'}>Grey InfoTech</span> <br
-                                className={'lg:block md:block hidden'}/>As Your <span
-                                className={'text-[#00f5d4]'}>Cross-Platform App</span> <br
-                                className={'lg:block md:block hidden'}/>Development Company?
-                            </h2>
-                            <p className='text-[0.85em] font-[400] tracking-normal text-justify  leading-[1.5] lg:mr-[9em] md:mr-[9em]'>
-                                Grey InfoTech delivers comprehensive cross-platform app development expertise built on
-                                continuous innovation, technical excellence, and strategic mastery of emerging
-                                technologies. Our commitment to staying at the forefront of technological advancement
-                                enables us to leverage cutting-edge frameworks, development methodologies, and industry
-                                best practices that provide our clients with decisive competitive advantages. We harness
-                                the full capabilities of modern cross-platform technologies including React Native,
-                                Flutter, Xamarin, and progressive web frameworks to architect sophisticated applications
-                                that execute flawlessly across iOS, Android, web, and emerging platforms. Our technical
-                                proficiency encompasses advanced performance optimization, native feature integration,
-                                seamless third-party service connectivity, and robust security implementations that
-                                ensure applications meet the highest standards for reliability, scalability, and user
-                                experience across diverse operating environments.<br/><br/>
-
-                                Grey InfoTech&#39;s cross-platform development approach delivers exceptional
-                                cost-effectiveness through maximized code reusability, accelerated deployment timelines
-                                that compress market entry windows, and streamlined maintenance protocols that reduce
-                                long-term operational overhead. Our solutions provide organizations with strategic
-                                agility to respond rapidly to market dynamics, competitive pressures, and evolving
-                                customer expectations while maintaining consistent brand experiences across all digital
-                                touchpoints. By partnering with Grey InfoTech for your cross-platform mobile application
-                                development, you gain access to specialized proficiency honed through extensive
-                                enterprise deployments, unwavering dedication to technical excellence, and proven
-                                methodologies that consistently deliver superior outcomes. This partnership positions
-                                your organization on a seamless journey toward application excellence, expanded market
-                                presence, enhanced customer engagement, and sustainable competitive dominance in an
-                                increasingly complex and rapidly evolving digital marketplace where technological
-                                innovation drives business success.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Why Get a Cross-Platform App For Your Business? */}
-            <div
-                className={`h-auto border-b border-white max-w-full w-full mx-auto ${isDayTime ? 'bg-black' : 'bg-white'}`}>
-                <div
-                    className={`relative lg:pt-[6em] md:pt-[6em] pt-[4em] lg:pb-[5em] md:pb-[5em] pb-[4em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-
-                    {/* Header Section */}
-                    <div
-                        className={`grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 xl:gap-16 mb-8 sm:mb-12 md:mb-14 lg:mb-16  ${isDayTime ? 'text-white' : 'text-black'}`}>
-                        {/* Left Side - Title */}
-                        <div className="order-1">
-                            <h2 className={`xl:text-[3.12em] lg:text-[3.12em] md:text-[3.12em] text-[1.7em] font-[700] justify-center tracking-tight  leading-[1.1]`}>
-                                Why Get a Cross-Platform <br className={'lg:block md:block hidden'}/>App For Your <span
-                                className="text-[#00f5d4]">Business?</span>
-                            </h2>
-                        </div>
-
-                        {/* Right Side - Description */}
-                        <div className="order-2 space-y-4 sm:space-y-5 md:space-y-6">
-                            <p className="text-[0.85em] font-[400] justify-center text-justify leading-[1.5] lg:-ml-[7.5em] tracking-noromal">
-                                The exponential growth of operating systems and mobile platforms has fundamentally
-                                transformed the digital marketplace, making multi-platform presence essential for
-                                competitive success. Applications absent from key platforms forfeit substantial user
-                                acquisition opportunities and revenue potential. Cross-platform application development
-                                effectively addresses this critical business challenge by enabling organizations to
-                                maximize market penetration, engage diverse user demographics, and optimize revenue
-                                generation across all major platforms simultaneously. Partnering with an
-                                industry-leading cross-platform development firm ensures the delivery of robust,
-                                enterprise-grade applications that maintain consistent performance and user experience
-                                across diverse ecosystems while reducing development costs and accelerating
-                                time-to-market, thereby providing significant competitive advantages in today&#39;s
-                                increasingly fragmented digital landscape.
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Benefits Grid */}
-                    <div
-                        className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
-                        {[
-                            {
-                                title: "Broad Market Reach",
-                                description: (
-                                    <>
-                                        Expand market penetration by deploying your brand across multiple digital
-                                        platforms, enabling multi-channel engagement with diverse customer segments
-                                        while leveraging platform-specific optimization to maximize visibility and
-                                        capture growth opportunities across the digital landscape.
-                                    </>
-                                )
-                            },
-                            {
-                                title: "Cost and Time Efficiency",
-                                description: (
-                                    <>
-                                        Accelerate time-to-market and reduce total cost of ownership by leveraging
-                                        unified codebase architecture that eliminates redundant development efforts
-                                        across platforms, streamlines maintenance workflows, and maximizes resource
-                                        utilization, enabling economical cross-platform application deployment with
-                                        consistent functionality while minimizing infrastructure overhead and ongoing
-                                        operational expenses.
-                                    </>
-                                )
-                            },
-                            {
-                                title: "Seamless Integration",
-                                description: (
-                                    <>
-                                        Deploy new features, functionality enhancements, and system updates with minimal
-                                        disruption through streamlined integration protocols that maintain application
-                                        stability and performance consistency, ensuring uninterrupted user experiences
-                                        across all platforms while reducing deployment complexity, accelerating release
-                                        cycles, and preserving operational continuity throughout the update lifecycle.
-                                    </>
-                                )
-                            },
-                            {
-                                title: "Scalability",
-                                description: [
-                                    <>
-                                        Future-proof your digital infrastructure by implementing elastic, scalable
-                                        architectural solutions that dynamically accommodate increasing user volumes,
-                                        expanding feature requirements, and evolving business demands, while maintaining
-                                        optimal performance and enabling seamless adaptation to emerging technologies,
-                                        market shifts, and growth trajectories without requiring costly platform
-                                        migrations or fundamental system redesigns.
-                                    </>
-                                ]
-                            },
-                            {
-                                title: "Efficient Development",
-                                description: [
-                                    <>
-                                        Maximize development efficiency through intelligent coding practices that
-                                        leverage component reusability, modular architecture, and shared libraries
-                                        across platforms, coupled with optimized deployment strategies and automated
-                                        workflows that reduce redundant efforts, accelerate delivery timelines, minimize
-                                        technical debt, and generate substantial cost savings while maintaining code
-                                        quality and system reliability throughout the development lifecycle.
-                                    </>
-                                ]
-                            },
-                            {
-                                title: "Faster launch",
-                                description: [
-                                    <>
-                                        Accelerate time-to-market through streamlined cross-platform development
-                                        methodologies that expedite production cycles and enable rapid market entry,
-                                        while leveraging scalable architectural frameworks and agile deployment
-                                        pipelines that support continuous iteration, seamless feature enhancements, and
-                                        frequent updates to maintain competitive advantage and respond dynamically to
-                                        evolving market demands and user feedback.
-                                    </>
-                                ]
-                            }
-                        ].map((benefit, index) => (
-                            <div
-                                key={index}
-                                className={`backdrop-blur-sm rounded-lg p-5 sm:p-6 md:p-7 lg:p-8 ${isDayTime ? 'bg-slate-300/50 hover:bg-slate-300/30 text-black' : 'bg-slate-700/50 hover:bg-slate-700/30 text-white'} transition-all duration-300 transform hover:scale-105 hover:shadow-xl`}
-                            >
-                                <h3 className={'text-[1.5em] text-center font-bold  mb-3 sm:mb-4'}>
-                                    {benefit.title}
-                                </h3>
-                                <p className={'text-gray-200 text-justify text-[0.85em]leading-relaxed'}>
-                                    {benefit.description}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-            {/*  Benefits of Working with a Reputable Cross-Platform App Development Company */}
-            <div
-                className={`lg:pt-[2em] md:pt-[2em] pt-[1em] lg:pb-[2em] md:pb-[2em] pb-[1em] ${isDayTime ? 'bg-white' : 'bg-black'}`}>
-                <div
-                    className={`relative lg:mt-[1.5em] md:mt-[1.5em] mt-[1em] lg:mb-16 md:mb-16 mb-5 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                    <div
-                        className={`${isDayTime ? 'text-black' : 'text-white'} text-center mb-12 md:mb-20 lg:mb-20`}>
-                        <h2 className="capitalize text-[1.8em] max-w-6xl mx-auto md:text-[3em] lg:text-[3.3em] font-[700] tracking-tight leading-[1.2] lg:pb-6">
-                            <span className={'text-[#00f5d4]'}>Benefits of Working</span> with a Reputable <span
-                            className={'text-[#00f5d4]'}>Cross-Platform App</span> Development Company
-                        </h2>
-                        <p className="mx-auto mt-4 max-w-5xl text-[0.9em] leading-relaxed ">
-                            Grey InfoTech stands as a leader in cross-platform application development, leveraging
-                            cutting-edge technologies and innovative methodologies to create robust, scalable solutions
-                            tailored to your business objectives. Our development approach integrates streamlined, agile
-                            processes with deep industry-specific expertise, ensuring efficient project execution from
-                            concept to deployment. We specialize in building applications that deliver seamless user
-                            experiences, consistent performance, and native-like functionality across iOS, android, and
-                            web platforms. By combining technical excellence with strategic insights into your
-                            sector&#39;s unique requirements and challenges, we ensure your application not only
-                            differentiates itself in a competitive marketplace but also achieves sustained excellence in
-                            performance, user engagement, and cross-platform compatibility.
-                        </p>
-                    </div>
-
-                    {/* Benefits Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-                        {[
-                            {
-                                title: "Modern Solutions",
-                                description: (
-                                    <>
-                                        Position your business at the cutting edge of digital innovation through our
-                                        forward-thinking development approaches. We craft customized, cross-platform
-                                        solutions meticulously designed to strengthen your digital footprint, enhance
-                                        brand
-                                        visibility, and create meaningful engagement across all online touchpoints. Our
-                                        bespoke methodology ensures your platform resonates with your target audience
-                                        while
-                                        leveraging the latest technological advancements to deliver exceptional user
-                                        experiences that drive measurable business growth.
-                                    </>
-                                )
-                            },
-                            {
-                                title: "Transparency Project",
-                                description: (
-                                    <>
-                                        Harness the power of dedicated project management solutions designed to offer
-                                        comprehensive oversight of all active workflows and development activities.
-                                        These
-                                        sophisticated platforms create a centralized hub for stakeholder engagement,
-                                        enabling transparent communication channels, streamlined feedback loops, and
-                                        collaborative problem-solving. With instant access to project metrics, task
-                                        dependencies, and progress indicators, you gain the insights necessary to make
-                                        informed, strategic decisions that keep your project on track and aligned with
-                                        business priorities.
-                                    </>
-                                )
-                            },
-                            {
-                                title: "Scalability and Adaptability",
-                                description: (
-                                    <>
-                                        Grey InfoTech equips your application with future-proof, scalable solutions
-                                        designed
-                                        to support dynamic business evolution. We architect systems with inherent
-                                        flexibility and expandability, enabling effortless adaptation to changing market
-                                        conditions, emerging user expectations, and strategic pivots. Our approach
-                                        ensures
-                                        your digital platform remains agile and responsive, capable of integrating new
-                                        functionalities, supporting increased user bases, and accommodating
-                                        organizational
-                                        growth without compromising performance, stability, or user
-                                        satisfactionâ€”positioning
-                                        your business for sustained competitive advantage.
-                                    </>
-                                )
-                            },
-                            {
-                                title: "Ongoing Support",
-                                description: (
-                                    <>
-                                        We ensure your application delivers a seamless, reliable user experience through
-                                        rigorous quality assurance processes, comprehensive testing protocols, and
-                                        proactive
-                                        performance monitoring. Our commitment extends beyond deployment with responsive
-                                        support systems that identify, diagnose, and resolve technical issues swiftly,
-                                        minimizing disruption and maintaining user satisfaction. Through continuous
-                                        optimization and rapid incident response capabilities, we guarantee your
-                                        application
-                                        operates flawlessly while providing users with the consistent, error-free
-                                        performance they expect and deserve.
-                                    </>
-                                )
-                            }
-                        ].map((benefit, index) => (
-                            <div
-                                key={index}
-                                className="bg-gray-200 rounded-xl p-4 md:p-5 lg:p-5 hover:bg-gray-300 transition-colors duration-300 border-b-4 border-[#00f5d4]"
-                            >
-                                <h3 className="text-[1em] md:text-[1.5em] lg:text-[1.5em] font-bold text-slate-800 mb-4">
-                                    {benefit.title}
-                                </h3>
-                                <div className="w-16 sm:w-20 md:w-24 h-1 bg-[#00f5d4] mb-5 sm:mb-6"></div>
-                                <p className="text-[0.85em] text-gray-600 leading-relaxed">
-                                    {benefit.description}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
+            <ServiceCapabilities
+                accentColor="#ec4899"
+                variant="terminal"
+                capabilities={[
+                    {
+                        id: "cap-1",
+                        icon: "ðŸ“ˆ",
+                        title: "SEO & Content",
+                        description: "Rank higher with technical SEO audits, keyword strategy, and content that search engines love."
+                    },
+                    {
+                        id: "cap-2",
+                        icon: "ðŸŽ¯",
+                        title: "Paid Advertising",
+                        description: "Google Ads, Meta Ads, and LinkedIn campaigns with precision targeting and ROI tracking."
+                    },
+                    {
+                        id: "cap-3",
+                        icon: "ðŸ“±",
+                        title: "Social Media",
+                        description: "Platform-native content strategies that build engaged communities and drive organic growth."
+                    },
+                    {
+                        id: "cap-4",
+                        icon: "ðŸ“§",
+                        title: "Email Marketing",
+                        description: "Automated drip sequences, segmented campaigns, and lifecycle marketing that converts."
+                    },
+                    {
+                        id: "cap-5",
+                        icon: "ðŸ“Š",
+                        title: "Analytics & Reporting",
+                        description: "Real-time dashboards, attribution modelling, and data insights to optimise every channel."
+                    },
+                    {
+                        id: "cap-6",
+                        icon: "ðŸ”—",
+                        title: "Conversion Optimisation",
+                        description: "A/B testing, landing page optimisation, and funnel analysis to maximise your marketing ROI."
+                    },
+                ]}
+            />
         </div>
     );
 };
