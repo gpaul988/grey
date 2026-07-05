@@ -51,8 +51,8 @@ export const analyzeCode = (code: string): CodeAnalysisResult => {
   const language = detectLanguage(code);
   const lines = code.split('\n').length;
 
-  let patterns: string[] = [];
-  let issues: string[] = [];
+  const patterns: string[] = [];
+  const issues: string[] = [];
   let score = 75;
 
   // Detect async patterns

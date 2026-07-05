@@ -29,6 +29,7 @@ function TerminalVariant({ capabilities, accentColor }: { capabilities: Capabili
   const [active, setActive] = useState(0);
   const [typed, setTyped] = useState('');
 
+  // Typing animation effect
   React.useEffect(() => {
     const text = capabilities[active]?.description || '';
     let i = 0;
@@ -44,6 +45,14 @@ function TerminalVariant({ capabilities, accentColor }: { capabilities: Capabili
     return () => clearInterval(interval);
   }, [active, capabilities]);
 
+  // Autoplay carousel - cycle through capabilities every 20 seconds
+  React.useEffect(() => {
+    const autoplayTimer = setInterval(() => {
+      setActive((prev) => (prev + 1) % capabilities.length);
+    }, 20000);
+    return () => clearInterval(autoplayTimer);
+  }, [capabilities.length]);
+
   return (
     <div className="grid lg:grid-cols-5 gap-0 rounded-2xl overflow-hidden border border-white/10">
       {/* Sidebar */}
@@ -58,7 +67,7 @@ function TerminalVariant({ capabilities, accentColor }: { capabilities: Capabili
           <button
             key={cap.id}
             onClick={() => setActive(i)}
-            className="w-full text-left px-3 py-2 rounded-lg text-[0.8em] font-mono transition-all duration-200 mb-1 flex items-center gap-2"
+            className="w-full text-left px-3 py-2 rounded-lg text-[0.8em] font-mono transition-all duration-200 mb-1 flex items-center gap-2 relative group"
             style={{
               background: active === i ? accentColor + '18' : 'transparent',
               color: active === i ? accentColor : 'rgba(255,255,255,0.4)',
@@ -66,7 +75,15 @@ function TerminalVariant({ capabilities, accentColor }: { capabilities: Capabili
             }}
           >
             <span style={{ color: active === i ? accentColor : 'rgba(255,255,255,0.2)' }}>$</span>
-            {cap.id}
+            <span className="truncate">{cap.title}</span>
+            {active === i && (
+              <motion.div
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full"
+                style={{ background: accentColor }}
+                animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+            )}
           </button>
         ))}
       </div>
@@ -77,7 +94,7 @@ function TerminalVariant({ capabilities, accentColor }: { capabilities: Capabili
           <span style={{ color: accentColor }}>grey@infotech</span>
           <span className="text-white/30">:</span>
           <span className="text-blue-400">~</span>
-          <span className="text-white/30"> $ run {capabilities[active]?.id}</span>
+                    <span className="text-white/30"> $ run {String(capabilities[active]?.title || capabilities[active]?.id).toLowerCase().replace(/\s+/g, '-')}</span>
         </div>
         <AnimatePresence mode="wait">
           <motion.div
@@ -249,7 +266,7 @@ function TabsVariant({ capabilities, accentColor }: { capabilities: Capability[]
 export default function ServiceCapabilities({
   heading = 'What we deliver',
   subheading,
-  accentColor,
+  accentColor = '#2dd4bf',
   capabilities,
   variant = 'cards',
   ctaHref = '/contact',

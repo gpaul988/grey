@@ -1077,8 +1077,7 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             </section>
 
             {/* CRM Solutions - Enhanced Visual Section */}
-            <section className={`relative py-4 ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
-                <FxBackground day={!isDayTime}/>
+            <section className={`relative`}>
             <div className="relative z-10">
                 <FxStickyScrollSection
                     day={isDayTime}

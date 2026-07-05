@@ -475,6 +475,8 @@ export function FxStickyScrollSection({
 }) {
     const mutedText = day ? 'text-gray-500' : 'text-white/45';
     const borderCol = day ? 'border-gray-200' : 'border-white/10';
+    const bgColor = day ? 'bg-white' : 'bg-black';
+    const textColor = day ? 'text-black' : 'text-white';
     const sectionRef = useRef<HTMLElement | null>(null);
     const headerRef = useRef<HTMLDivElement | null>(null);
     const railRef = useRef<HTMLDivElement | null>(null);
@@ -537,7 +539,7 @@ export function FxStickyScrollSection({
 
 
     return (
-        <section ref={sectionRef} className={`relative isolate overflow-visible`}>
+        <section ref={sectionRef} className={`relative isolate overflow-visible ${bgColor} ${textColor}`}>
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
                 <FxBackground day={day} grid aurora/>
                 <FxOrbit size={700} top="-150px" right="-200px" opacity={0.12} speed={35}/>
@@ -555,7 +557,7 @@ export function FxStickyScrollSection({
                         className={`relative grid lg:grid-cols-2 grid-cols-1 gap-4 mb-12 border-b pb-[3em] ${borderCol}`}>
                         <FxSectionHeading day={day} title={heading}/>
                         {intro && (
-                            <p className={`text-[0.87em] font-[400] leading-[1.6] lg:-ml-[7.5em] tracking-normal ${mutedText}`}>
+                            <p className={`text-[0.87em] font-[400] leading-[1.6] lg:-ml-[7.5em] tracking-normal ${day ? 'text-gray-600' : 'text-white/60'}`}>
                                 {intro}
                             </p>
                         )}
@@ -567,7 +569,7 @@ export function FxStickyScrollSection({
 
                     {/* Left sticky rail - fade out on last item */}
                     <aside
-                                            className={`relative z-20 w-full lg:w-[460px] shrink-0 lg:sticky lg:top-[96px] lg:self-start transition-all duration-500 ${
+                        className={`z-20 w-full lg:w-[460px] shrink-0 lg:sticky lg:top-[96px] lg:self-start transition-opacity duration-700 ease-in-out ${
                             (isEndVisible || activeId === items[items.length - 1]?.target) ? 'lg:opacity-0 lg:pointer-events-none' : 'lg:opacity-100'
                         }`}
                     >
@@ -583,10 +585,10 @@ export function FxStickyScrollSection({
                                 className="pointer-events-none absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent via-teal-400/20 to-transparent"/>
 
                             <FxChip day={day} className="relative mb-5">{navLabel}</FxChip>
-                            <h3 className={`relative text-[1.5em] lg:text-[2.3em] font-[700] leading-[1.05] tracking-tight ${day ? 'text-white' : 'text-white'}`}>
+                            <h3 className={`relative text-[1.5em] lg:text-[2.3em] font-[700] leading-[1.05] tracking-tight ${day ? 'text-gray-900' : 'text-white'}`}>
                                 Command <span className="gx-gradient-text">stack</span>
                             </h3>
-                            <p className={`relative mt-4 text-[0.75em] lg:text-[0.78em] font-[300] leading-[1.6] lg:leading-[1.7] ${mutedText}`}>
+                            <p className={`relative mt-4 text-[0.75em] lg:text-[0.78em] font-[300] leading-[1.6] lg:leading-[1.7] ${day ? 'text-gray-600' : 'text-white/55'}`}>
                                 A guided experience for startup solutions, designed like a futuristic mission control panel.
                             </p>
 
@@ -604,11 +606,11 @@ export function FxStickyScrollSection({
                                             }`}
                                         >
                                             <span
-                                                className={`text-[0.65em] lg:text-[0.7em] font-[700] tracking-wider tabular-nums shrink-0 ${isActive ? 'text-teal-400' : mutedText}`}>
+                                                className={`text-[0.65em] lg:text-[0.7em] font-[700] tracking-wider tabular-nums shrink-0 ${isActive ? 'text-teal-400' : (day ? 'text-gray-400' : 'text-white/40')}`}>
                                                 {item.id}
                                             </span>
                                             <span
-                                                className={`text-[0.85em] lg:text-[0.9em] font-[500] leading-snug ${isActive ? (day ? 'text-white' : 'text-white') : ''}`}>
+                                                className={`text-[0.85em] lg:text-[0.9em] font-[500] leading-snug ${isActive ? (day ? 'text-gray-900' : 'text-white') : (day ? 'text-gray-700' : 'text-white/70')}`}>
                                                 {item.title}
                                             </span>
                                             {isActive && <span className="ml-auto text-teal-400 text-[1em] lg:text-[1.1em]">→</span>}
@@ -628,7 +630,7 @@ export function FxStickyScrollSection({
                                                 className="p-4 lg:p-9 border border-teal-400/10 shadow-[0_0_50px_-24px_rgba(45,212,191,0.35)]">
                                         <div className="flex items-start gap-4 mb-4">
                                             <span
-                                                className={`text-[0.65em] lg:text-[0.7em] font-[700] tabular-nums shrink-0 mt-1 ${mutedText}`}>{item.id}/</span>
+                                                className={`text-[0.65em] lg:text-[0.7em] font-[700] tabular-nums shrink-0 mt-1 ${day ? 'text-gray-500' : 'text-white/50'}`}>{item.id}/</span>
                                             <h2 className={`text-[1.15em] lg:text-[1.65em] font-[600] leading-snug ${day ? 'text-gray-900' : 'text-white'}`}>{item.title}</h2>
                                         </div>
                                         {item.tags && item.tags.length > 0 && (
@@ -637,7 +639,7 @@ export function FxStickyScrollSection({
                                             </div>
                                         )}
                                         <div
-                                            className={`text-[0.8em] lg:text-[0.85em] font-[300] leading-[1.6] lg:leading-[1.7] text-justify ${mutedText}`}>
+                                            className={`text-[0.8em] lg:text-[0.85em] font-[300] leading-[1.6] lg:leading-[1.7] text-justify ${day ? 'text-gray-700' : 'text-white/65'}`}>
                                             {item.body}
                                         </div>
                                     </FxHoloCard>

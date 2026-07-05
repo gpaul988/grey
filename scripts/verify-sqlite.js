@@ -22,7 +22,7 @@
 
 function tryLoad() {
   // Resolve relative to this package so it works from any cwd.
-  // eslint-disable-next-line global-require, import/no-extraneous-dependencies
+   
   const Database = require('better-sqlite3');
   const db = new Database(':memory:');
   db.prepare('SELECT 1 AS ok').get();

@@ -65,7 +65,7 @@ const TermsConditions: React.FC = () => {
                         offence.
                     </p>
                     <p className="text-[15px] text-gray-600 mb-6">
-                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                        { }
                         From time to time, this website may also include <a href="/Links"
                                                                             className="text-black font-bold">links</a>
                         to other websites. These links are provided for your convenience to provide further information.
