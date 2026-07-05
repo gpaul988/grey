@@ -95,7 +95,7 @@ export function requireSessionSecret(name: string, _devFallback?: string): strin
     memSecrets[name] = generated;
     savePersistedSecret(name, generated);
     if (!isProd) {
-        // eslint-disable-next-line no-console
+         
         console.info(`[security] ${name} auto-generated and persisted (set the env var to override).`);
     }
     return generated;

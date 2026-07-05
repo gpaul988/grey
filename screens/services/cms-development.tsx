@@ -13,15 +13,16 @@ import {motion} from 'framer-motion';
 
 import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
 
-import { 
-    FxBackground, 
-    FxChip, 
-    FxReveal, 
-    FxButton, 
+import {
+    FxBackground,
+    FxChip,
+    FxReveal,
+    FxButton,
     FxHoloCard,
     FxStickyScrollSection,
     FxScrollItem
 } from '@/components/futuristic/fx';
+
 const tabs = [
     {key: "frontend", label: "Frontend"},
     {key: "backend", label: "Backend"},
@@ -85,7 +86,8 @@ const data: Record<string, { name: string; logo: string }[]> = {
     ],
 };
 
-const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(false);
+const CmsDevelopment = () => {
+    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
@@ -625,7 +627,12 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             tags: ["Custom Architecture", "Scalable Solutions", "Business-Aligned"],
             body: (
                 <p>
-                    We deliver comprehensive custom software development services meticulously tailored to address the distinct requirements of your organization. Our technical expertise spans the design and implementation of enterprise-grade CMS applications, robust architecture and integration, and continuous maintenance and enhancement support. Our development team employs industry best practices and rigorous quality assurance methodologies to ensure every solution aligns precisely with your operational objectives and strategic goals.
+                    We deliver comprehensive custom software development services meticulously tailored to address the
+                    distinct requirements of your organization. Our technical expertise spans the design and
+                    implementation of enterprise-grade CMS applications, robust architecture and integration, and
+                    continuous maintenance and enhancement support. Our development team employs industry best practices
+                    and rigorous quality assurance methodologies to ensure every solution aligns precisely with your
+                    operational objectives and strategic goals.
                 </p>
             ),
         },
@@ -636,7 +643,12 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             tags: ["Digital Transformation", "Scalable Solutions", "Business Growth"],
             body: (
                 <p>
-                    As a premier CMS development service provider, we empower enterprises to transform their operational capabilities through strategically designed technology solutions. Our custom development services are specifically engineered to streamline and optimize critical business processes, significantly enhance organizational productivity, and drive measurable, sustainable growth across all facets of your operations. We collaborate closely with our clients to understand their unique challenges and long-term objectives.
+                    As a premier CMS development service provider, we empower enterprises to transform their operational
+                    capabilities through strategically designed technology solutions. Our custom development services
+                    are specifically engineered to streamline and optimize critical business processes, significantly
+                    enhance organizational productivity, and drive measurable, sustainable growth across all facets of
+                    your operations. We collaborate closely with our clients to understand their unique challenges and
+                    long-term objectives.
                 </p>
             ),
         },
@@ -647,7 +659,11 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             tags: ["API Integration", "System Interoperability", "Seamless Connectivity"],
             body: (
                 <p>
-                    Our comprehensive end-to-end API development services encompass the strategic design, development, and deployment of bespoke solutions that facilitate seamless integration between your custom CMS and existing enterprise systems. We specialize in creating robust, scalable API architectures that enable fluid data exchange and interoperability across your technology ecosystem, including legacy platforms, modern applications, and third-party services.
+                    Our comprehensive end-to-end API development services encompass the strategic design, development,
+                    and deployment of bespoke solutions that facilitate seamless integration between your custom CMS and
+                    existing enterprise systems. We specialize in creating robust, scalable API architectures that
+                    enable fluid data exchange and interoperability across your technology ecosystem, including legacy
+                    platforms, modern applications, and third-party services.
                 </p>
             ),
         },
@@ -658,7 +674,11 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             tags: ["Quality Assurance", "Performance Testing", "Security Optimization"],
             body: (
                 <p>
-                    To ensure optimal functionality and reliability across all system components, we implement rigorous and comprehensive testing protocols that encompass multiple evaluation dimensions, including thorough integration testing, performance benchmarking, security assessments, and user experience validation. Our quality assurance methodology employs both automated testing frameworks and manual testing procedures to identify and resolve potential issues before deployment.
+                    To ensure optimal functionality and reliability across all system components, we implement rigorous
+                    and comprehensive testing protocols that encompass multiple evaluation dimensions, including
+                    thorough integration testing, performance benchmarking, security assessments, and user experience
+                    validation. Our quality assurance methodology employs both automated testing frameworks and manual
+                    testing procedures to identify and resolve potential issues before deployment.
                 </p>
             ),
         },
@@ -669,7 +689,11 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             tags: ["Full-Cycle Development", "UI/UX Design", "Collaborative Approach"],
             body: (
                 <p>
-                    We deliver comprehensive full-cycle development services that span the entire spectrum of CMS design, UX engineering, and product development, from initial conceptualization through prototyping, implementation, and ongoing support. Our collaborative approach places your vision at the center of every development phase, ensuring that we thoroughly understand your strategic objectives, user requirements, and business goals before translating them into exceptional digital experiences.
+                    We deliver comprehensive full-cycle development services that span the entire spectrum of CMS
+                    design, UX engineering, and product development, from initial conceptualization through prototyping,
+                    implementation, and ongoing support. Our collaborative approach places your vision at the center of
+                    every development phase, ensuring that we thoroughly understand your strategic objectives, user
+                    requirements, and business goals before translating them into exceptional digital experiences.
                 </p>
             ),
         },
@@ -680,7 +704,11 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             tags: ["System Performance", "Enterprise Optimization", "Data Flow Management"],
             body: (
                 <p>
-                    We provide comprehensive integration solutions that encompass the complete lifecycle of system connectivity, from strategic architecture design and implementation through sophisticated data flow management and performance optimization. Our integration expertise enables us to architect scalable, resilient solutions that connect disparate systems, applications, and data sources into a cohesive, high-performing digital ecosystem tailored to your specific business requirements.
+                    We provide comprehensive integration solutions that encompass the complete lifecycle of system
+                    connectivity, from strategic architecture design and implementation through sophisticated data flow
+                    management and performance optimization. Our integration expertise enables us to architect scalable,
+                    resilient solutions that connect disparate systems, applications, and data sources into a cohesive,
+                    high-performing digital ecosystem tailored to your specific business requirements.
                 </p>
             ),
         },
@@ -691,7 +719,11 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             tags: ["Technology Integration", "Strategic Planning", "Outcome Optimization"],
             body: (
                 <p>
-                    We provide strategic IT consultation services designed to guide your organization through the complexities of digital transformation and technology adoption. Our experienced consultants work closely with your leadership and technical teams to develop comprehensive, actionable IT roadmaps that align technology investments with your business objectives and growth trajectory. Through our consultation process, we assess your current landscape and identify opportunities for innovation.
+                    We provide strategic IT consultation services designed to guide your organization through the
+                    complexities of digital transformation and technology adoption. Our experienced consultants work
+                    closely with your leadership and technical teams to develop comprehensive, actionable IT roadmaps
+                    that align technology investments with your business objectives and growth trajectory. Through our
+                    consultation process, we assess your current landscape and identify opportunities for innovation.
                 </p>
             ),
         },
@@ -702,7 +734,11 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             tags: ["Legacy Modernization", "Data Migration", "Zero Downtime"],
             body: (
                 <p>
-                    We specialize in seamless CMS migration and modernization services that facilitate smooth transitions from legacy systems to modern, cloud-ready platforms. Our migration expertise includes comprehensive data preservation, workflow continuity assurance, and zero-downtime deployment strategies. We handle all aspects of content mapping, system configuration, user training, and post-migration support to ensure your organization maximizes value from your new CMS investment.
+                    We specialize in seamless CMS migration and modernization services that facilitate smooth
+                    transitions from legacy systems to modern, cloud-ready platforms. Our migration expertise includes
+                    comprehensive data preservation, workflow continuity assurance, and zero-downtime deployment
+                    strategies. We handle all aspects of content mapping, system configuration, user training, and
+                    post-migration support to ensure your organization maximizes value from your new CMS investment.
                 </p>
             ),
         },
@@ -749,7 +785,7 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
 
                 {/* Content Container - Two Column Layout */}
                 <div
-                    className="absolute inset-0 flex items-center z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+                    className="absolute inset-0 flex items-center top-32 z-11 px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
                     <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                         {/* Left Column - Main Content */}
                         <div>
@@ -769,7 +805,9 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
 
                             {/* Description */}
                             <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
-                                Delivering scalable, secure content platforms with headless and traditional CMS architectures, comprehensive workflow automation, and seamless integrations that accelerate time-to-value and optimize content operations.
+                                Delivering scalable, secure content platforms with headless and traditional CMS
+                                architectures, comprehensive workflow automation, and seamless integrations that
+                                accelerate time-to-value and optimize content operations.
                             </p>
 
                             {/* Key Capabilities Pills */}
@@ -879,12 +917,27 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                                 className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
                                 <div>
                                     <p>
-                                        Enterprise-grade CMS solutions are critical for modern organizations managing complex content ecosystems. At Grey InfoTech, our CMS experts deliver custom architectures that support multi-channel content distribution, automated workflows, and comprehensive governance frameworks. From headless CMS implementations to traditional platforms, we architect solutions that streamline content creation, enable team collaboration, maintain brand consistency, and scale with your organization's growth—enabling seamless management of digital content across all touchpoints.
+                                        Enterprise-grade CMS solutions are critical for modern organizations managing
+                                        complex content ecosystems. At Grey InfoTech, our CMS experts deliver custom
+                                        architectures that support multi-channel content distribution, automated
+                                        workflows, and comprehensive governance frameworks. From headless CMS
+                                        implementations to traditional platforms, we architect solutions that streamline
+                                        content creation, enable team collaboration, maintain brand consistency, and
+                                        scale with your organization's growth—enabling seamless management of digital
+                                        content across all touchpoints.
                                     </p>
                                 </div>
                                 <div>
                                     <p>
-                                        Our CMS development approach prioritizes operational efficiency, content performance, and long-term sustainability. We design systems with robust security protocols, integrated analytics, real-time content delivery optimization, and seamless third-party integrations that connect your content platform with your entire technology ecosystem. This comprehensive strategy ensures your CMS becomes a strategic asset that accelerates time-to-market, reduces operational overhead, empowers your teams with intuitive workflows, and maintains consistent, high-quality content experiences across every digital channel your audience encounters.
+                                        Our CMS development approach prioritizes operational efficiency, content
+                                        performance, and long-term sustainability. We design systems with robust
+                                        security protocols, integrated analytics, real-time content delivery
+                                        optimization, and seamless third-party integrations that connect your content
+                                        platform with your entire technology ecosystem. This comprehensive strategy
+                                        ensures your CMS becomes a strategic asset that accelerates time-to-market,
+                                        reduces operational overhead, empowers your teams with intuitive workflows, and
+                                        maintains consistent, high-quality content experiences across every digital
+                                        channel your audience encounters.
                                     </p>
 
                                     <div className="flex flex-wrap gap-3 mt-4">
@@ -900,19 +953,18 @@ const CmsDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             </section>
 
             {/* CMS Solutions - Enhanced Visual Section */}
-            <section className={`relative py-4 ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
-                <FxBackground day={!isDayTime}/>
-            <div className="relative z-10">
-                <FxStickyScrollSection
-                    day={isDayTime}
-                    heading={<>Our CMS<br/>Solutions</>}
-                    intro="We provide comprehensive CMS solutions that establish complete content management frameworks, enable multi-channel distribution, deliver automated workflows, and ensure seamless integrations—from custom platform development to legacy modernization and enhanced performance optimization."
-                    navLabel="CMS Solutions"
-                    activeId={activeId}
-                    onNavClick={scrollToSection}
-                    items={cmsSolutions}
-                />
-            </div>
+            <section className={`relative`}>
+                <div className="relative z-10">
+                    <FxStickyScrollSection
+                        day={isDayTime}
+                        heading={<>Our CMS<br/>Solutions</>}
+                        intro="We provide comprehensive CMS solutions that establish complete content management frameworks, enable multi-channel distribution, deliver automated workflows, and ensure seamless integrations—from custom platform development to legacy modernization and enhanced performance optimization."
+                        navLabel="CMS Solutions"
+                        activeId={activeId}
+                        onNavClick={scrollToSection}
+                        items={cmsSolutions}
+                    />
+                </div>
             </section>
 
             {/* Details */}

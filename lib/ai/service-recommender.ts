@@ -179,7 +179,7 @@ export const recommendServices = (techStack: string[]): ServiceRecommendation[] 
   const seenServices = new Set<string>();
 
   for (const tech of techStack) {
-    let matchedServices: ServiceKey[] = [];
+    const matchedServices: ServiceKey[] = [];
 
     // Match tech to services
     if (tech.includes('React') || tech.includes('TypeScript')) {

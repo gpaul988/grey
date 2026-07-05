@@ -506,7 +506,7 @@ const Startups = () => {
                                 eyebrow="Why Us"
                                 title="Why Grey InfoTech for your startup"
                             />
-                            <p className="text-[0.873em] font-[400] lg:-mt-[0.2em] leading-[1.5] text-white/55 lg:-ml-[7em]">
+                            <p className={`text-[0.873em] font-[400] lg:-mt-[0.2em] leading-[1.5] lg:-ml-[7em] ${isDayTime ? 'text-slate-300/5' : 'text-slate-500'}`}>
                                 We blend startup speed with enterprise discipline so you get a partner that understands
                                 product-market fit, technical execution, and long-term scalability from day one.
                             </p>
@@ -522,10 +522,10 @@ const Startups = () => {
                                     <FxHoloCard
                                         key={reason.id}
                                         day={false}
-                                        className={`p-5 transition-all duration-300 cursor-pointer ${isActive ? 'ring-1 ring-teal-400/40' : 'opacity-60 hover:opacity-90'}`}
+                                        className={`p-5 transition-all duration-300 cursor-pointer ${isActive ? 'ring-1 ring-teal-400/40' : 'opacity-70 hover:opacity-90'}`}
                                         onClick={() => setActiveIndex(index + 1)}
                                     >
-                                        <h3 className={`leading-[1.2] lg:text-[1.1em] text-[1em] font-[600] mb-2 transition-all ${isActive ? 'text-teal-300' : 'text-white/55'}`}>
+                                        <h3 className={`leading-[1.2] lg:text-[1.1em] text-[1em] font-[600] mb-2 transition-all ${isActive ? 'text-teal-300' : 'text-slate-500/40'}`}>
                                             <span
                                                 className="font-mono text-[0.68em] mr-2 text-teal-500/50">{String(reason.id).padStart(2, '0')}</span>
                                             {reason.title}
@@ -538,7 +538,7 @@ const Startups = () => {
                                                     animate={{opacity: 1, height: 'auto'}}
                                                     exit={{opacity: 0, height: 0}}
                                                     transition={{duration: 0.3, ease: [0.22, 1, 0.36, 1]}}
-                                                    className={`text-[0.875em] leading-[1.6] overflow-hidden ${isDayTime ? 'text-white/55' : 'text-black/55'}`}
+                                                    className={`text-[0.875em] leading-[1.6] overflow-hidden ${isDayTime ? 'text-slate-500/15' : 'text-black/35'}`}
                                                 >
                                                     {reason.description}
                                                 </motion.p>
@@ -562,7 +562,7 @@ const Startups = () => {
                     {/* CTA */}
                     <FxReveal className="mt-16 flex flex-col items-center justify-center text-center">
                         <FxGlitchText tag="h2"
-                                      className="lg:text-[3em] text-[1.5em] font-[600] tracking-tighter leading-[1.15] pb-6 text-white">
+                                      className={`lg:text-[3em] text-[1.5em] font-[600] tracking-tighter leading-[1.15] pb-6 ${isDayTime ? 'text-slate-300/50' : 'text-slate-600'}`}>
                             Prepared to initiate the discussion?
                         </FxGlitchText>
                         <FxButton day={false} href="/contact" variant="solid">Get started →</FxButton>

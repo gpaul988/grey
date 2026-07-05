@@ -26,7 +26,7 @@ export interface DemoOptions {
 }
 
 // In-memory demo storage (in production, use database)
-let demoInstances: Map<string, DemoInstance> = new Map();
+const demoInstances: Map<string, DemoInstance> = new Map();
 let instanceCounter = 0;
 
 /**

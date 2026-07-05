@@ -224,7 +224,7 @@ describe('Demo Manager (Phase 6.7)', () => {
 
       // Add logs
       addDemoLog(demo.id, 'Custom message');
-      let logs = getDemoLogs(demo.id);
+      const logs = getDemoLogs(demo.id);
       expect(logs.some(l => l.includes('Custom message'))).toBe(true);
 
       // List active

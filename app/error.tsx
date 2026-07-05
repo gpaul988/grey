@@ -10,7 +10,7 @@ import Link from 'next/link';
 export default function Error({error, reset}: {error: Error & {digest?: string}; reset: () => void}) {
     useEffect(() => {
         // Surface for logging/observability without leaking details to the user.
-        // eslint-disable-next-line no-console
+         
         console.error('Route error:', error);
     }, [error]);
 

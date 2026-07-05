@@ -154,7 +154,7 @@ export function PersonalizationProvider({children}: {children: React.ReactNode})
             clearPersonalization,
             setEnabled,
         });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [pathname]);
 
     const value = useMemo(() => signals, [signals]);

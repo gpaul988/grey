@@ -13,7 +13,7 @@ import Footer from "@/components/Footer";
 import React from "react";
 import TawkChat from "@/components/TawkChat";
 import {OrganizationSchema, WebSiteSchema} from "@/components/StructuredData";
-import {themeInitScript} from "@/components/ThemeProvider";
+import {themeInitScript, ThemeProvider} from "@/components/ThemeProvider";
 import AIChat from "@/components/AIChat";
 import {SITE} from "@/lib/seo";
 import AnnouncementBarWrapper from "@/components/futuristic/AnnouncementBarWrapper";
@@ -175,6 +175,7 @@ export default async function RootLayout({
         <body
             className={`${merriweather.variable} ${roboto.variable} antialiased`}
         >
+        <ThemeProvider>
         {/* First-load boot sequence — shows once per session */}
         <Preloader/>
 
@@ -219,6 +220,7 @@ export default async function RootLayout({
         )}
         <AIChat/>
         <CookieConsent/>
+        </ThemeProvider>
         </body>
         </html>
     );

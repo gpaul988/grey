@@ -15,6 +15,7 @@ import ServiceHero from '@/components/futuristic/ServiceHero';
 import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 import {FxBackground, FxStickyScrollSection, FxChip, FxReveal, FxButton, FxHoloCard} from '@/components/futuristic/fx';
 import type {FxScrollItem} from '@/components/futuristic/fx';
+import { CurrencyAwarePricing } from '@/components/ServicePageTemplate';
 
 const tabs = [
     {key: "frameworks", label: "Frameworks"},
@@ -160,114 +161,6 @@ const phases = [
     }
 ];
 
-// Currency-aware, futuristic pricing component — embedded here to keep single-file context
-const CurrencyAwarePricing: React.FC = () => {
-const isDayTimeLocal = useIsDayTime();
-const [rates, setRates] = React.useState<Record<string, number> | null>(null);
-const [loading, setLoading] = React.useState(true);
-const [currency, setCurrency] = React.useState<string>('GBP');
-
-const basePlans = [
-    {name: 'Launch', monthlyGBP: 3500, bullets: ['Starter strategy', 'PPC & social ads', 'Basic analytics']},
-    {name: 'Scale', monthlyGBP: 8500, bullets: ['Full-funnel strategy', 'Multichannel campaigns', 'Advanced analytics + ML']},
-    {name: 'Enterprise', monthlyGBP: null, bullets: ['Dedicated team', 'Custom integrations', 'SLA & executive reporting']},
-];
-
-React.useEffect(() => {
-    let mounted = true;
-    async function fetchRates() {
-        try {
-            setLoading(true);
-            // open.er-api.com (ExchangeRate-API) provides free public rates without an API key
-            const res = await fetch('/api/exchange');
-                        const json = await res.json();
-                        if (mounted && json && json.rates) {
-                            setRates(json.rates as Record<string, number>);
-                        } else {
-                            console.warn('Exchange rate fetch returned unexpected payload', json);
-                        }
-        } catch (e) {
-            console.error('Failed to fetch currency rates', e);
-        } finally {
-            if (mounted) setLoading(false);
-        }
-    }
-    fetchRates();
-    const iv = setInterval(fetchRates, 10 * 60 * 1000);
-    return () => { mounted = false; clearInterval(iv); };
-}, []);
-
-// Auto-default currency to NGN for Nigerian locales
-React.useEffect(() => {
-    if (typeof navigator !== 'undefined') {
-        const loc = (navigator.language || (navigator.languages && navigator.languages[0]) || '').toLowerCase();
-        if (loc.includes('ng')) setCurrency('NGN');
-    }
-}, []);
-
-const format = (amountGBP: number | null, to: string) => {
-    if (amountGBP === null) return 'Custom pricing';
-    if (!rates) return '—';
-    const rate = (to === 'GBP') ? 1 : rates[to];
-    if (!rate) return '—';
-    const converted = amountGBP * rate;
-    try {
-        // choose locale by currency for nicer formatting
-        const locale = to === 'GBP' ? 'en-GB' : to === 'NGN' ? 'en-NG' : (to === 'USD' ? 'en-US' : 'en-IE');
-        return new Intl.NumberFormat(locale, {style: 'currency', currency: to}).format(converted);
-    } catch (e) {
-        return `${to} ${converted.toFixed(0)}`;
-    }
-};
-
-return (
-    <section className="py-16">
-        <div className="max-w-[90em] mx-auto px-6 sm:px-10 lg:px-[4.6em]">
-            <div className="flex items-center justify-between mb-6">
-                <h3 className={`text-[1.8em] font-[700] ${isDayTimeLocal ? 'text-gray-900' : 'text-white'}`}>Packages & Pricing</h3>
-                <div className="flex items-center gap-3">
-                    <label className={`text-sm ${isDayTimeLocal ? 'text-gray-600' : 'text-white/60'}`}>Display currency</label>
-                    <select value={currency} onChange={(e) => setCurrency(e.target.value)} className={`px-3 py-1 rounded border ${isDayTimeLocal ? 'bg-white/5 border-gray-200 text-gray-900' : 'bg-black/20 border-white/10 text-white'}`}>
-                        <option value="GBP">GBP (£)</option>
-                        <option value="NGN">NGN (₦)</option>
-                        <option value="USD">USD ($)</option>
-                        <option value="EUR">EUR (€)</option>
-                    </select>
-                </div>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6">
-                {basePlans.map((p) => (
-                    <FxHoloCard key={p.name} day={isDayTimeLocal} className="p-6 text-center relative overflow-hidden">
-                        <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-gradient-to-br from-teal-400/20 to-cyan-400/20 blur-3xl animate-blob opacity-70"/>
-                        <div className="relative z-10">
-                            <div className={`text-[0.9em] ${isDayTimeLocal ? 'text-gray-700' : 'text-white/50'} uppercase mb-2`}>{p.name}</div>
-                            <div className={`text-3xl font-[800] mb-3 ${isDayTimeLocal ? 'text-black' : 'text-white'}`}>{format(p.monthlyGBP, currency)}</div>
-                            <div className={`${isDayTimeLocal ? 'text-gray-500' : 'text-white/40'} text-xs mb-2`}>{loading ? 'Fetching live exchange rates…' : `≈ ${format(p.monthlyGBP, 'NGN')} (₦)`}</div>
-                            <ul className={`${isDayTimeLocal ? 'text-gray-700/80' : 'text-white/60'} mb-4`}>
-                                {p.bullets.map((b) => <li key={b} className="py-1">{b}</li>)}
-                            </ul>
-                            {p.monthlyGBP === null ? (
-                                <Link href="/quote-request">
-                                    <button className="px-6 py-3 rounded-full bg-[#00f5d4] text-black font-[700]">Contact
-                                        us
-                                    </button>
-                                </Link>
-                            ) : (
-                                <button
-                                    onClick={() => window.location.href = '/quote-request?plan=' + encodeURIComponent(p.name)}
-                                    className="px-6 py-3 rounded-full bg-[#00f5d4] text-black font-[700]">
-                                    Get started
-                                </button>
-                            )}
-                        </div>
-                    </FxHoloCard>
-                ))}
-            </div>
-        </div>
-    </section>
-);
-};
 
 const DigitalMarketing = () => {
     const isDayTime = useIsDayTime();
