@@ -246,6 +246,33 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                                              testimonials = [],
                                                              showPricing = true,
                                                          }) => {
+    // Client-side derived defaults: if a page passed generic/missing props, derive meaningful
+    // headings/details from the current path to avoid identical content across pages.
+    const [clientDerivedTitle, setClientDerivedTitle] = useState<ReactNode | null>(null);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        try {
+            const path = window.location.pathname || '';
+            const seg = path.split('/').filter(Boolean).pop() || '';
+            const human = seg ? seg.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => String(c).toUpperCase()) : '';
+            if (!title || (typeof title === 'string' && title.trim().length === 0)) {
+                setClientDerivedTitle(human || 'Our Services');
+            }
+        } catch (e) {
+            // no-op
+        }
+    }, [title]);
+
+    const resolvedTitle = clientDerivedTitle ?? title ?? 'Our Services';
+    const titleText = typeof resolvedTitle === 'string' ? resolvedTitle : String(resolvedTitle);
+
+    const resolvedIntroHeading = introHeading ?? (`${titleText} — Futuristic, data-driven solutions`);
+    const resolvedIntroBody: [ReactNode, ReactNode] = introBody ?? [
+        intro ?? `We design and build ${titleText} with modern, scalable architectures, AI-augmented decisioning and measurable ROI.`,
+        <>Speak with our experts to tailor a roadmap for your product.</>
+    ];
+
     const [isVisible, setIsVisible] = useState(false);
     const [activeId, setActiveId] = useState<string>(solutions[0]?.target ?? '');
     const [activeWhyUs, setActiveWhyUs] = useState(0);
