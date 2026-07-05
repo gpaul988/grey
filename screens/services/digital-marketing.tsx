@@ -160,12 +160,133 @@ const phases = [
     }
 ];
 
+// Currency-aware, futuristic pricing component — embedded here to keep single-file context
+const CurrencyAwarePricing: React.FC = () => {
+const isDayTimeLocal = useIsDayTime();
+const [rates, setRates] = React.useState<Record<string, number> | null>(null);
+const [loading, setLoading] = React.useState(true);
+const [currency, setCurrency] = React.useState<string>('GBP');
+
+const basePlans = [
+    {name: 'Launch', monthlyGBP: 3500, bullets: ['Starter strategy', 'PPC & social ads', 'Basic analytics']},
+    {name: 'Scale', monthlyGBP: 8500, bullets: ['Full-funnel strategy', 'Multichannel campaigns', 'Advanced analytics + ML']},
+    {name: 'Enterprise', monthlyGBP: null, bullets: ['Dedicated team', 'Custom integrations', 'SLA & executive reporting']},
+];
+
+React.useEffect(() => {
+    let mounted = true;
+    async function fetchRates() {
+        try {
+            setLoading(true);
+            // open.er-api.com (ExchangeRate-API) provides free public rates without an API key
+            const res = await fetch('/api/exchange');
+                        const json = await res.json();
+                        if (mounted && json && json.rates) {
+                            setRates(json.rates as Record<string, number>);
+                        } else {
+                            console.warn('Exchange rate fetch returned unexpected payload', json);
+                        }
+        } catch (e) {
+            console.error('Failed to fetch currency rates', e);
+        } finally {
+            if (mounted) setLoading(false);
+        }
+    }
+    fetchRates();
+    const iv = setInterval(fetchRates, 10 * 60 * 1000);
+    return () => { mounted = false; clearInterval(iv); };
+}, []);
+
+// Auto-default currency to NGN for Nigerian locales
+React.useEffect(() => {
+    if (typeof navigator !== 'undefined') {
+        const loc = (navigator.language || (navigator.languages && navigator.languages[0]) || '').toLowerCase();
+        if (loc.includes('ng')) setCurrency('NGN');
+    }
+}, []);
+
+const format = (amountGBP: number | null, to: string) => {
+    if (amountGBP === null) return 'Custom pricing';
+    if (!rates) return '—';
+    const rate = (to === 'GBP') ? 1 : rates[to];
+    if (!rate) return '—';
+    const converted = amountGBP * rate;
+    try {
+        // choose locale by currency for nicer formatting
+        const locale = to === 'GBP' ? 'en-GB' : to === 'NGN' ? 'en-NG' : (to === 'USD' ? 'en-US' : 'en-IE');
+        return new Intl.NumberFormat(locale, {style: 'currency', currency: to}).format(converted);
+    } catch (e) {
+        return `${to} ${converted.toFixed(0)}`;
+    }
+};
+
+return (
+    <section className="py-16">
+        <div className="max-w-[90em] mx-auto px-6 sm:px-10 lg:px-[4.6em]">
+            <div className="flex items-center justify-between mb-6">
+                <h3 className={`text-[1.8em] font-[700] ${isDayTimeLocal ? 'text-gray-900' : 'text-white'}`}>Packages & Pricing</h3>
+                <div className="flex items-center gap-3">
+                    <label className={`text-sm ${isDayTimeLocal ? 'text-gray-600' : 'text-white/60'}`}>Display currency</label>
+                    <select value={currency} onChange={(e) => setCurrency(e.target.value)} className={`px-3 py-1 rounded border ${isDayTimeLocal ? 'bg-white/5 border-gray-200 text-gray-900' : 'bg-black/20 border-white/10 text-white'}`}>
+                        <option value="GBP">GBP (£)</option>
+                        <option value="NGN">NGN (₦)</option>
+                        <option value="USD">USD ($)</option>
+                        <option value="EUR">EUR (€)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+                {basePlans.map((p) => (
+                    <FxHoloCard key={p.name} day={isDayTimeLocal} className="p-6 text-center relative overflow-hidden">
+                        <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-gradient-to-br from-teal-400/20 to-cyan-400/20 blur-3xl animate-blob opacity-70"/>
+                        <div className="relative z-10">
+                            <div className={`text-[0.9em] ${isDayTimeLocal ? 'text-gray-700' : 'text-white/50'} uppercase mb-2`}>{p.name}</div>
+                            <div className={`text-3xl font-[800] mb-3 ${isDayTimeLocal ? 'text-black' : 'text-white'}`}>{format(p.monthlyGBP, currency)}</div>
+                            <div className={`${isDayTimeLocal ? 'text-gray-500' : 'text-white/40'} text-xs mb-2`}>{loading ? 'Fetching live exchange rates…' : `≈ ${format(p.monthlyGBP, 'NGN')} (₦)`}</div>
+                            <ul className={`${isDayTimeLocal ? 'text-gray-700/80' : 'text-white/60'} mb-4`}>
+                                {p.bullets.map((b) => <li key={b} className="py-1">{b}</li>)}
+                            </ul>
+                            {p.monthlyGBP === null ? (
+                                <Link href="/quote-request">
+                                    <button className="px-6 py-3 rounded-full bg-[#00f5d4] text-black font-[700]">Contact
+                                        us
+                                    </button>
+                                </Link>
+                            ) : (
+                                <button
+                                    onClick={() => window.location.href = '/quote-request?plan=' + encodeURIComponent(p.name)}
+                                    className="px-6 py-3 rounded-full bg-[#00f5d4] text-black font-[700]">
+                                    Get started
+                                </button>
+                            )}
+                        </div>
+                    </FxHoloCard>
+                ))}
+            </div>
+        </div>
+    </section>
+);
+};
+
 const DigitalMarketing = () => {
+    const isDayTime = useIsDayTime();
     const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
     const [activeFront, setActiveFront] = useState("frontend");
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    // Force video autoplay on mount
+    useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.play().catch(() => {
+                // Fallback if autoplay fails
+                console.log('Video autoplay blocked by browser policy');
+            });
+        }
+    }, []);
 
     const dmSolutions: FxScrollItem[] = [
         {
@@ -255,10 +376,6 @@ const DigitalMarketing = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // isDaytime react hook
-    const isDayTime = useIsDayTime();
-
-
     // Introductory section hook
     useEffect(() => {
         const handleScroll = () => {
@@ -280,22 +397,14 @@ const DigitalMarketing = () => {
 
     // Development Services hook
     const handleScroll = () => {
-        const sections = [
-            "SEO",
-            "PPCA",
-            "SMM",
-            "CM",
-            "EM",
-            "CRO",
-            "ORM",
-            "ADI"
-        ];
+        const sections = dmSolutions.map(item => item.target);
 
         for (const sectionId of sections) {
             const section = document.getElementById(sectionId);
             if (section) {
                 const rect = section.getBoundingClientRect();
-                if (rect.top >= 0 && rect.top <= window.innerHeight / 2) {
+                // Check if section is in viewport (top half of screen)
+                if (rect.top >= -rect.height / 2 && rect.top <= window.innerHeight / 2) {
                     setActiveId(sectionId);
                     break;
                 }
@@ -304,16 +413,27 @@ const DigitalMarketing = () => {
     };
 
     useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
+        // Initialize with first section
+        if (dmSolutions.length > 0 && !activeId) {
+            setActiveId(dmSolutions[0].target);
+        }
+
+        // Scroll event listener
+        window.addEventListener("scroll", handleScroll, {passive: true});
         return () => {
             window.removeEventListener("scroll", handleScroll);
         };
-    }, []);
+    }, [dmSolutions, activeId]);
 
     const scrollToSection = (target: string) => {
         const section = document.getElementById(target);
         if (section) {
-            section.scrollIntoView({behavior: "smooth", block: "start"});
+            const offset = 120; // Top nav/header offset
+            const elementPosition = section.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({
+                top: elementPosition - offset,
+                behavior: "smooth"
+            });
             setActiveId(target); // Ensure the arrow icon is displayed when a section is clicked
         }
     }
@@ -699,15 +819,30 @@ const DigitalMarketing = () => {
                 }`}
             />
 
-            {/* Unified Futuristic Digital Marketing Hero - Background Image with overlay */}
+            {/* Unified Futuristic Digital Marketing Hero - Background Image/Video with overlay */}
             <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
-                {/* Background Image */}
+                {/* Background Image/Video */}
+                {/* Video Background (plays on desktop, image on mobile) */}
+                <video
+                    ref={videoRef}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    className="hidden lg:block absolute inset-0 w-full h-full object-cover"
+                    poster="/assets/digital/Hero-M.png"
+                >
+                    <source src="/assets/digital/Hero-M.mp4" type="video/mp4"/>
+                </video>
+
+                {/* Fallback Image Background for Mobile and Video Fallback */}
                 <Image
-                    src="/assets/digital-marketing/hero.jpg"
+                    src="/assets/digital/Hero-M.png"
                     alt="Digital Marketing Hero"
                     fill
                     priority
-                    className="object-cover"
+                    className="lg:hidden object-cover"
                 />
 
                 {/* Grid & FX Background */}
@@ -768,7 +903,7 @@ const DigitalMarketing = () => {
 
                             {/* CTA Buttons */}
                             <div className="flex flex-wrap gap-4 items-center">
-                                <Link href="/contact">
+                                <Link href="/quote-request">
                                     <button
                                         className="relative px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap"
                                         style={{background: '#00f5d4', color: '#000'}}>
@@ -1482,45 +1617,73 @@ const DigitalMarketing = () => {
                       `}</style>
             </div>
 
+            {/* Pricing / Packages replaced by currency-aware component */}
+            <CurrencyAwarePricing/>
+
+            {/* Final CTA — Contact & Demo */}
+            <section className="py-20">
+                <div className="max-w-[90em] mx-auto px-6 sm:px-10 lg:px-[4.6em] text-center">
+                    <h2 className="text-[2em] font-[800] mb-4">Ready to transform your marketing?</h2>
+                    <p className="text-[1em]  mb-8">Book a free strategy call and get a customised 90-day
+                        growth plan.</p>
+                    <div className="flex items-center justify-center gap-4">
+                        <Link href="/quote-request">
+                            <button className="px-8 py-4 rounded-full bg-[#00f5d4] text-black font-[800]">Book Strategy
+                                Call
+                            </button>
+                        </Link>
+                        <Link href="/portfolio">
+                            <button
+                                className={`px-8 py-4 rounded-full border ${isDayTime ? 'border-black text-black' : '  border-white/20 text-white'}`}>View
+                                Work
+                            </button>
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
             <ServiceCapabilities
-                accentColor="#ec4899"
+                accentColor="#14b8a6"
                 variant="terminal"
+                isDarkBg={!isDayTime}
+                ctaHref="/quote-request"
+                ctaLabel="Request a Quote"
                 capabilities={[
                     {
-                        id: "cap-1",
-                        icon: "ðŸ“ˆ",
+                        id: "seo-content",
+                        icon: "🔍",
                         title: "SEO & Content",
-                        description: "Rank higher with technical SEO audits, keyword strategy, and content that search engines love."
+                        description: "Advanced technical SEO audits, data-driven keyword strategy, and AI-enhanced content optimization to dominate search rankings."
                     },
                     {
-                        id: "cap-2",
-                        icon: "ðŸŽ¯",
+                        id: "paid-advertising",
+                        icon: "🎯",
                         title: "Paid Advertising",
-                        description: "Google Ads, Meta Ads, and LinkedIn campaigns with precision targeting and ROI tracking."
+                        description: "Programmatic campaigns across Google, Meta, and LinkedIn with ML-powered targeting, real-time bid optimization, and transparent ROI tracking."
                     },
                     {
-                        id: "cap-3",
-                        icon: "ðŸ“±",
+                        id: "social-media",
+                        icon: "📱",
                         title: "Social Media",
-                        description: "Platform-native content strategies that build engaged communities and drive organic growth."
+                        description: "Platform-native strategies with predictive analytics, community intelligence, and organic growth acceleration through authentic engagement."
                     },
                     {
-                        id: "cap-4",
-                        icon: "ðŸ“§",
+                        id: "email-marketing",
+                        icon: "📧",
                         title: "Email Marketing",
-                        description: "Automated drip sequences, segmented campaigns, and lifecycle marketing that converts."
+                        description: "Intelligent automation with behavioral triggers, dynamic segmentation, and personalized lifecycle journeys that drive conversion and retention."
                     },
                     {
-                        id: "cap-5",
-                        icon: "ðŸ“Š",
+                        id: "analytics-reporting",
+                        icon: "📊",
                         title: "Analytics & Reporting",
-                        description: "Real-time dashboards, attribution modelling, and data insights to optimise every channel."
+                        description: "Real-time intelligence dashboards with advanced attribution modeling, predictive analytics, and actionable insights across all channels."
                     },
                     {
-                        id: "cap-6",
-                        icon: "ðŸ”—",
+                        id: "conversion-optimization",
+                        icon: "📈",
                         title: "Conversion Optimisation",
-                        description: "A/B testing, landing page optimisation, and funnel analysis to maximise your marketing ROI."
+                        description: "Continuous A/B testing, advanced funnel analysis, and conversion rate optimization powered by behavioral data and machine learning."
                     },
                 ]}
             />
