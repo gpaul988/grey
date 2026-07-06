@@ -704,199 +704,331 @@ const Seo = () => {    const [isVisible, setIsVisible] = useState(false);
             </div>
 
 
-            {/* Stages of our development process - ULTRA FUTURISTIC RESPONSIVE GRID */}
-            <div className={`${isDayTime ? 'bg-gradient-to-b from-gray-950 via-black to-gray-950' : 'bg-gradient-to-b from-white via-gray-50 to-white'} relative overflow-hidden py-20 lg:py-32`}>
-                {/* Advanced animated background */}
+            {/* ULTRA-FUTURISTIC DEVELOPMENT PROCESS - CUTTING EDGE */}
+            <div className={`${isDayTime ? 'bg-gradient-to-b from-gray-950 via-black to-gray-950' : 'bg-gradient-to-b from-white via-gray-50 to-white'} relative overflow-hidden py-24 lg:py-40`}>
+                {/* Advanced multi-layer background effects */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    {/* Animated grid */}
-                    <div className={`absolute inset-0 ${isDayTime ? 'opacity-5' : 'opacity-3'}`} style={{
-                        backgroundImage: `linear-gradient(0deg, ${isDayTime ? '#00f5d4' : '#000000'} 1px, transparent 1px), linear-gradient(90deg, ${isDayTime ? '#00f5d4' : '#000000'} 1px, transparent 1px)`,
-                        backgroundSize: '80px 80px',
+                    {/* Animated scanlines effect */}
+                    <div className={`absolute inset-0 ${isDayTime ? 'opacity-[0.03]' : 'opacity-[0.02]'}`} style={{
+                        backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, ${isDayTime ? '#00f5d4' : '#000'} 2px, ${isDayTime ? '#00f5d4' : '#000'} 4px)`,
                     }} />
                     
-                    {/* Holographic orbs */}
-                    <motion.div className="absolute top-10 left-10 w-72 h-72 bg-gradient-to-r from-teal-500/20 to-cyan-500/20 rounded-full blur-3xl" animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 6, repeat: Infinity }} />
-                    <motion.div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-l from-blue-500/15 to-purple-500/15 rounded-full blur-3xl" animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.5, 0.2] }} transition={{ duration: 7, repeat: Infinity, delay: 1 }} />
-                    <motion.div className="absolute top-1/2 right-1/3 w-64 h-64 bg-gradient-to-br from-cyan-400/10 to-teal-400/10 rounded-full blur-3xl" animate={{ y: [0, 40, 0], opacity: [0.2, 0.4, 0.2] }} transition={{ duration: 8, repeat: Infinity, delay: 2 }} />
+                    {/* Animated tech grid */}
+                    <div className={`absolute inset-0 ${isDayTime ? 'opacity-[0.08]' : 'opacity-[0.04]'}`} style={{
+                        backgroundImage: `linear-gradient(0deg, ${isDayTime ? '#00f5d4' : '#000'} 1px, transparent 1px), linear-gradient(90deg, ${isDayTime ? '#00f5d4' : '#000'} 1px, transparent 1px)`,
+                        backgroundSize: '100px 100px',
+                    }} />
+                    
+                    {/* Dynamic holographic orbs with complex animations */}
+                    <motion.div 
+                        className="absolute -top-32 -left-32 w-96 h-96 bg-gradient-to-br from-teal-500/40 via-cyan-500/20 to-transparent rounded-full blur-3xl"
+                        animate={{ 
+                            x: [0, 50, -30, 0],
+                            y: [0, 100, -50, 0],
+                            scale: [1, 1.3, 0.9, 1],
+                            opacity: [0.4, 0.7, 0.3, 0.4]
+                        }} 
+                        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }} 
+                    />
+                    <motion.div 
+                        className="absolute -bottom-40 -right-40 w-96 h-96 bg-gradient-to-tl from-blue-500/30 via-purple-500/20 to-transparent rounded-full blur-3xl"
+                        animate={{ 
+                            x: [0, -60, 40, 0],
+                            y: [0, -80, 60, 0],
+                            scale: [0.9, 1.2, 1, 0.9],
+                            opacity: [0.3, 0.6, 0.2, 0.3]
+                        }} 
+                        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }} 
+                    />
+                    <motion.div 
+                        className="absolute top-1/3 right-1/4 w-72 h-72 bg-gradient-to-br from-cyan-400/30 to-teal-500/10 rounded-full blur-3xl"
+                        animate={{ 
+                            scale: [1.1, 0.9, 1.1],
+                            opacity: [0.2, 0.5, 0.2]
+                        }} 
+                        transition={{ duration: 12, repeat: Infinity, delay: 4 }} 
+                    />
+
+                    {/* Floating particles effect */}
+                    {[...Array(6)].map((_, i) => (
+                        <motion.div
+                            key={`particle-${i}`}
+                            className={`absolute w-1.5 h-1.5 rounded-full ${isDayTime ? 'bg-teal-400/60' : 'bg-teal-300/40'}`}
+                            animate={{
+                                y: [Math.random() * 100, Math.random() * -600],
+                                x: [Math.random() * 100, Math.random() * 200 - 100],
+                                opacity: [0, 1, 0],
+                            }}
+                            transition={{
+                                duration: 8 + Math.random() * 6,
+                                repeat: Infinity,
+                                delay: i * 0.5,
+                                ease: "easeInOut"
+                            }}
+                            style={{
+                                left: `${Math.random() * 100}%`,
+                                top: `${Math.random() * 100}%`,
+                            }}
+                        />
+                    ))}
                 </div>
 
                 <div id={'development process'} className={`relative max-w-[90em] mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] z-10`}>
 
-                    {/* Enhanced Header with Glow */}
+                    {/* Ultra-premium header */}
                     <motion.div 
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 40 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="mb-16 lg:mb-24">
+                        transition={{ duration: 0.9 }}
+                        className="mb-20 lg:mb-32 text-center relative">
                         
-                        <div className={`inline-block mb-6 px-4 py-2 rounded-full text-xs font-mono font-bold tracking-widest uppercase ${isDayTime ? 'bg-teal-500/20 text-teal-300 border border-teal-500/30' : 'bg-teal-500/10 text-teal-600 border border-teal-400/20'}`}>
-                            ▌ PROCESS STAGES
-                        </div>
+                        {/* Animated header glow background */}
+                        <motion.div
+                            className={`absolute -inset-20 rounded-full ${isDayTime ? 'bg-teal-500/5' : 'bg-teal-500/3'} blur-3xl`}
+                            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                            transition={{ duration: 6, repeat: Infinity }}
+                        />
 
-                        <h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-[800] tracking-tight mb-4 leading-[1.1] ${
-                            isDayTime 
-                                ? 'bg-gradient-to-r from-teal-300 via-cyan-300 to-blue-300 bg-clip-text text-transparent drop-shadow-lg' 
-                                : 'bg-gradient-to-r from-teal-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent'
-                        }`}>
-                            Development Journey
-                        </h2>
-
-                        <p className={`text-base sm:text-lg font-[300] leading-relaxed max-w-2xl ${isDayTime ? 'text-gray-300' : 'text-gray-600'}`}>
-                            Our strategic 4-stage methodology transforms your vision into market-leading solutions through innovation, collaboration, and technical excellence.
-                        </p>
-
-                        {/* Animated underline */}
                         <motion.div 
-                            className="h-1 bg-gradient-to-r from-teal-400 via-cyan-400 to-transparent rounded-full mt-6"
-                            initial={{ width: 0 }}
-                            whileInView={{ width: '200px' }}
-                            transition={{ delay: 0.3, duration: 1 }}
+                            className={`relative inline-flex items-center gap-2 mb-8 px-5 py-2.5 rounded-full text-xs font-mono font-bold tracking-widest uppercase ${
+                                isDayTime 
+                                    ? 'bg-gradient-to-r from-teal-500/20 to-cyan-500/20 text-teal-300 border border-teal-500/40 shadow-lg shadow-teal-500/20' 
+                                    : 'bg-gradient-to-r from-teal-500/15 to-cyan-500/15 text-teal-600 border border-teal-400/30 shadow-lg shadow-teal-400/10'
+                            }`}
+                            animate={{ y: [0, -4, 0] }}
+                            transition={{ duration: 3, repeat: Infinity }}
+                        >
+                            <span className="inline-block w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+                            ▌ TRANSFORMATION STAGES
+                        </motion.div>
+
+                        <motion.h2 
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.1, duration: 0.8 }}
+                            className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-[900] tracking-tighter mb-6 leading-[1.05] ${
+                                isDayTime 
+                                    ? 'bg-gradient-to-r from-teal-200 via-cyan-300 to-blue-300 bg-clip-text text-transparent drop-shadow-xl' 
+                                    : 'bg-gradient-to-r from-teal-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent'
+                            }`}>
+                            Evolutionary Journey
+                        </motion.h2>
+
+                        <motion.p 
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            transition={{ delay: 0.2 }}
+                            className={`text-lg sm:text-xl font-[300] leading-relaxed max-w-3xl mx-auto ${isDayTime ? 'text-gray-300' : 'text-gray-600'}`}>
+                            Experience our revolutionary 4-phase delivery methodology—engineered for innovation, powered by excellence, and built for your success.
+                        </motion.p>
+
+                        {/* Glowing underline */}
+                        <motion.div 
+                            className={`h-1.5 mx-auto mt-8 rounded-full bg-gradient-to-r from-teal-400 via-cyan-400 to-blue-400 shadow-lg ${isDayTime ? 'shadow-teal-500/40' : 'shadow-teal-400/20'}`}
+                            initial={{ width: 0, opacity: 0 }}
+                            whileInView={{ width: '280px', opacity: 1 }}
+                            transition={{ delay: 0.3, duration: 1.2 }}
                         />
                     </motion.div>
 
-                    {/* Responsive Grid - NO SCROLLING */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-5 xl:gap-6">
-                        {[
-                            {
-                                id: 1,
-                                number: "01",
-                                title: "We're Experienced",
-                                description: "With a proven track record across a wide range of digital projects, we blend creative thinking, technical precision, strategic insight, and hands-on execution to deliver solutions that generate measurable business impact.",
-                                icon: '◆',
-                                color: 'from-teal-500 to-cyan-500',
-                                lightColor: 'from-teal-400 to-cyan-400'
-                            },
-                            {
-                                id: 2,
-                                number: "02",
-                                title: "We're Proactive",
-                                description: "You can rely on us to consistently exceed expectations by taking a proactive, solution-driven approach at every stage of your project. We identify potential challenges early and offer innovative recommendations.",
-                                icon: '⚡',
-                                color: 'from-cyan-500 to-blue-500',
-                                lightColor: 'from-cyan-400 to-blue-400'
-                            },
-                            {
-                                id: 3,
-                                number: "03",
-                                title: "We're Collaborative",
-                                description: "While we're passionate about technology, our greatest strength lies in the people behind it. To us, collaboration means becoming a trusted partner who shares your vision and drives exceptional outcomes.",
-                                icon: '◈',
-                                color: 'from-blue-500 to-indigo-500',
-                                lightColor: 'from-blue-400 to-indigo-400'
-                            },
-                            {
-                                id: 4,
-                                number: "04",
-                                title: "We're Invested",
-                                description: "When you invest in us, we become fully invested in your business goals. Every project is approached with a strong sense of ownership and responsibility, ensuring results that exceed expectations.",
-                                icon: '◉',
-                                color: 'from-indigo-500 to-purple-500',
-                                lightColor: 'from-indigo-400 to-purple-400'
-                            },
-                        ].map((card, index) => (
-                            <motion.div
-                                key={card.id}
-                                initial={{ opacity: 0, y: 60, scale: 0.8 }}
-                                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                                transition={{ delay: index * 0.12, duration: 0.6 }}
-                                whileHover={{ y: -12, transition: { duration: 0.3 } }}
-                                className={`group relative h-full min-h-[380px] sm:min-h-[420px] rounded-2xl sm:rounded-3xl overflow-hidden backdrop-blur-xl border transition-all duration-500 ${
-                                    isDayTime
-                                        ? `bg-gradient-to-br from-gray-800/80 to-gray-900/80 border-teal-500/20 hover:border-teal-400/80 shadow-2xl hover:shadow-3xl hover:shadow-teal-500/30`
-                                        : `bg-gradient-to-br from-white/80 to-gray-100/80 border-teal-400/20 hover:border-teal-400/80 shadow-xl hover:shadow-2xl hover:shadow-teal-400/30`
-                                } p-6 sm:p-8 flex flex-col cursor-pointer`}
-                            >
-                                {/* Holographic background gradient overlay */}
-                                <motion.div 
-                                    className={`absolute inset-0 bg-gradient-to-br ${isDayTime ? card.color : card.lightColor} opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-2xl sm:rounded-3xl`}
-                                    animate={{ scale: [1, 1.1, 1] }}
-                                    transition={{ duration: 4, repeat: Infinity }}
-                                />
+                    {/* Responsive Grid with Connected Timeline */}
+                    <div className="relative">
+                        {/* Animated connecting line - visible on larger screens */}
+                        <motion.div
+                            className={`hidden lg:block absolute top-1/2 left-0 right-0 h-1 ${isDayTime ? 'bg-gradient-to-r from-teal-500/20 via-cyan-500/30 to-blue-500/20' : 'bg-gradient-to-r from-teal-400/15 via-cyan-400/25 to-blue-400/15'}`}
+                            style={{ transform: 'translateY(-50%)' }}
+                            initial={{ scaleX: 0 }}
+                            whileInView={{ scaleX: 1 }}
+                            transition={{ duration: 1.2, delay: 0.4 }}
+                        />
 
-                                {/* Animated top border accent */}
-                                <motion.div 
-                                    className={`absolute top-0 left-0 h-1 bg-gradient-to-r ${isDayTime ? card.color : card.lightColor} rounded-full`}
-                                    initial={{ width: 0 }}
-                                    whileInView={{ width: '100%' }}
-                                    transition={{ delay: index * 0.15 + 0.2, duration: 1 }}
-                                />
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-7 lg:gap-6">
+                            {[
+                                {
+                                    id: 1,
+                                    number: "01",
+                                    title: "Discovery & Analysis",
+                                    subtitle: "We're Experienced",
+                                    description: "Deep-dive into your business landscape. We analyze market dynamics, competitive positioning, and technical requirements to craft a strategic foundation.",
+                                    icon: '◆',
+                                    color: 'from-teal-500 to-cyan-500',
+                                    lightColor: 'from-teal-400 to-cyan-400',
+                                    stats: '90+ Projects'
+                                },
+                                {
+                                    id: 2,
+                                    number: "02",
+                                    title: "Strategic Planning",
+                                    subtitle: "We're Proactive",
+                                    description: "Develop innovative solutions with foresight. We anticipate challenges, identify opportunities, and create roadmaps that accelerate your growth.",
+                                    icon: '⚡',
+                                    color: 'from-cyan-500 to-blue-500',
+                                    lightColor: 'from-cyan-400 to-blue-400',
+                                    stats: '200+ Delivered'
+                                },
+                                {
+                                    id: 3,
+                                    number: "03",
+                                    title: "Execution & Collaboration",
+                                    subtitle: "We're Collaborative",
+                                    description: "Build together with purpose. Our partnership approach ensures seamless communication, shared ownership, and exceptional outcomes at every milestone.",
+                                    icon: '◈',
+                                    color: 'from-blue-500 to-indigo-500',
+                                    lightColor: 'from-blue-400 to-indigo-400',
+                                    stats: '24/7 Support'
+                                },
+                                {
+                                    id: 4,
+                                    number: "04",
+                                    title: "Optimization & Growth",
+                                    subtitle: "We're Invested",
+                                    description: "Drive lasting impact. We refine, optimize, and scale your solution—committed to measurable results and your long-term competitive advantage.",
+                                    icon: '◉',
+                                    color: 'from-indigo-500 to-purple-500',
+                                    lightColor: 'from-indigo-400 to-purple-400',
+                                    stats: '98% Satisfaction'
+                                },
+                            ].map((card, index) => (
+                                <motion.div
+                                    key={card.id}
+                                    initial={{ opacity: 0, y: 80, scale: 0.7 }}
+                                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                    transition={{ delay: index * 0.15, duration: 0.7, type: "spring", stiffness: 100 }}
+                                    whileHover={{ y: -16, transition: { duration: 0.4 } }}
+                                    className={`group relative h-full min-h-[420px] sm:min-h-[460px] rounded-3xl overflow-hidden transition-all duration-500 cursor-pointer`}
+                                >
+                                    {/* Ultra-glossy background with multiple layers */}
+                                    <div className={`absolute inset-0 ${isDayTime ? 'bg-gradient-to-br from-gray-800/90 via-gray-900/80 to-black/90' : 'bg-gradient-to-br from-white/85 via-gray-100/75 to-gray-50/85'} backdrop-blur-2xl`} />
+                                    
+                                    {/* Animated border glow */}
+                                    <motion.div 
+                                        className={`absolute inset-0 rounded-3xl ${isDayTime ? `bg-gradient-to-br ${card.color}` : `bg-gradient-to-br ${card.lightColor}`} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
+                                        animate={{ scale: [1, 1.05, 1] }}
+                                        transition={{ duration: 5, repeat: Infinity }}
+                                    />
 
-                                {/* Stage number with glow */}
-                                <motion.div 
-                                    className={`relative z-10 text-sm font-mono font-bold tracking-widest uppercase mb-4 px-3 py-1.5 rounded-full inline-block w-fit ${
+                                    {/* Premium border */}
+                                    <div className={`absolute inset-0 rounded-3xl border-2 transition-all duration-500 ${
                                         isDayTime
-                                            ? `bg-gradient-to-r ${card.color} text-white shadow-lg shadow-teal-500/50`
-                                            : `bg-gradient-to-r ${card.lightColor} text-white shadow-lg shadow-teal-400/50`
-                                    }`}
-                                    animate={{ scale: [1, 1.05, 1] }}
-                                    transition={{ duration: 2.5, repeat: Infinity }}
-                                >
-                                    {card.number}
+                                            ? `border-teal-500/10 group-hover:border-teal-400/60 shadow-2xl group-hover:shadow-3xl group-hover:shadow-teal-500/30`
+                                            : `border-teal-400/15 group-hover:border-teal-400/70 shadow-xl group-hover:shadow-2xl group-hover:shadow-teal-400/25`
+                                    }`} />
+
+                                    {/* Animated top accent bar with gradient animation */}
+                                    <motion.div 
+                                        className={`absolute top-0 left-0 h-1.5 rounded-full bg-gradient-to-r ${isDayTime ? card.color : card.lightColor} shadow-lg ${isDayTime ? `shadow-${card.color.split('-')[1]}-500/50` : ''}`}
+                                        initial={{ width: 0, opacity: 0 }}
+                                        whileInView={{ width: '100%', opacity: 1 }}
+                                        transition={{ delay: index * 0.18 + 0.2, duration: 1 }}
+                                    />
+
+                                    {/* Timeline number circle - positioned for visual flow */}
+                                    <motion.div 
+                                        className={`absolute -top-5 -left-5 w-12 h-12 rounded-full flex items-center justify-center font-mono font-bold text-xs transition-all duration-500 ${
+                                            isDayTime
+                                                ? `bg-gradient-to-br ${card.color} text-white shadow-xl shadow-teal-500/50`
+                                                : `bg-gradient-to-br ${card.lightColor} text-white shadow-lg shadow-teal-400/50`
+                                        }`}
+                                        animate={{ scale: [1, 1.15, 1], rotate: [0, 360] }}
+                                        transition={{ scale: { duration: 2.5, repeat: Infinity }, rotate: { duration: 20, repeat: Infinity } }}
+                                    >
+                                        {card.number}
+                                    </motion.div>
+
+                                    {/* Content wrapper */}
+                                    <div className="relative z-10 h-full p-7 sm:p-8 flex flex-col">
+                                        {/* Top section: Icon + Category */}
+                                        <div className="mb-6">
+                                            <motion.div 
+                                                className={`text-5xl sm:text-6xl font-bold mb-4 relative inline-block ${isDayTime ? `bg-gradient-to-r ${card.color}` : `bg-gradient-to-r ${card.lightColor}`} bg-clip-text text-transparent drop-shadow-xl`}
+                                                animate={{ 
+                                                    scale: [1, 1.25, 1],
+                                                    rotate: [0, 15, -15, 0],
+                                                    y: [0, -12, 0]
+                                                }}
+                                                transition={{ duration: 4, repeat: Infinity }}
+                                            >
+                                                {card.icon}
+                                            </motion.div>
+
+                                            <div className={`text-xs font-mono font-bold tracking-widest uppercase ${isDayTime ? 'text-teal-300/70' : 'text-teal-600/70'}`}>
+                                                Phase {card.number}
+                                            </div>
+                                        </div>
+
+                                        {/* Main title */}
+                                        <motion.h3 
+                                            className={`text-2xl sm:text-3xl font-[800] mb-2 leading-tight group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:${isDayTime ? `from-teal-300 to-cyan-300` : 'from-teal-400 to-cyan-400'} group-hover:bg-clip-text transition-all duration-300 ${isDayTime ? 'text-white' : 'text-gray-900'}`}
+                                            animate={{ letterSpacing: ['-0.02em', '0.02em', '-0.02em'] }}
+                                            transition={{ duration: 4, repeat: Infinity }}
+                                        >
+                                            {card.title}
+                                        </motion.h3>
+
+                                        {/* Subtitle */}
+                                        <div className={`text-sm font-semibold mb-4 ${isDayTime ? 'text-teal-400/80' : 'text-teal-500/80'}`}>
+                                            {card.subtitle}
+                                        </div>
+
+                                        {/* Premium divider */}
+                                        <motion.div 
+                                            className={`h-0.5 mb-5 bg-gradient-to-r ${isDayTime ? 'from-teal-500/30 via-cyan-500/20 to-transparent' : 'from-teal-400/25 via-cyan-400/15 to-transparent'}`}
+                                            initial={{ scaleX: 0 }}
+                                            whileInView={{ scaleX: 1 }}
+                                            transition={{ delay: index * 0.2 + 0.4, duration: 0.8 }}
+                                        />
+
+                                        {/* Description - flex-grow to push stats down */}
+                                        <p className={`text-sm sm:text-base font-[400] leading-relaxed flex-grow ${isDayTime ? 'text-gray-300' : 'text-gray-700'} group-hover:text-opacity-100 transition-all duration-300`}>
+                                            {card.description}
+                                        </p>
+
+                                        {/* Stats badge */}
+                                        <motion.div 
+                                            className={`mt-6 pt-5 border-t ${isDayTime ? 'border-teal-500/15' : 'border-teal-400/15'} flex items-center justify-between`}
+                                            initial={{ opacity: 0, y: 10 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: index * 0.2 + 0.5 }}
+                                        >
+                                            <span className={`text-xs font-mono font-bold tracking-widest uppercase ${isDayTime ? 'text-teal-400/60' : 'text-teal-500/60'}`}>
+                                                {card.stats}
+                                            </span>
+                                            <motion.span 
+                                                className={`text-lg font-bold ${isDayTime ? 'text-teal-400' : 'text-teal-500'}`}
+                                                animate={{ x: [0, 6, 0] }}
+                                                transition={{ duration: 1.8, repeat: Infinity }}
+                                            >
+                                                →
+                                            </motion.span>
+                                        </motion.div>
+
+                                        {/* Corner accent glow dot */}
+                                        <motion.div 
+                                            className={`absolute bottom-6 right-6 w-3 h-3 rounded-full bg-gradient-to-r ${isDayTime ? card.color : card.lightColor} shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                                            animate={{ scale: [1, 1.8, 1] }}
+                                            transition={{ duration: 2.5, repeat: Infinity }}
+                                        />
+                                    </div>
                                 </motion.div>
-
-                                {/* Animated Icon */}
-                                <motion.div 
-                                    className={`text-4xl sm:text-5xl font-bold mb-6 relative z-10 ${isDayTime ? `bg-gradient-to-r ${card.color}` : `bg-gradient-to-r ${card.lightColor}`} bg-clip-text text-transparent drop-shadow-md`}
-                                    animate={{ 
-                                        scale: [1, 1.2, 1],
-                                        rotate: [0, 8, -8, 0],
-                                        y: [0, -8, 0]
-                                    }}
-                                    transition={{ duration: 3.5, repeat: Infinity }}
-                                >
-                                    {card.icon}
-                                </motion.div>
-
-                                {/* Title */}
-                                <h3 className={`relative z-10 text-xl sm:text-2xl font-[700] mb-4 leading-tight group-hover:text-teal-400 transition-colors duration-300 ${isDayTime ? 'text-white' : 'text-gray-900'}`}>
-                                    {card.title}
-                                </h3>
-
-                                {/* Divider line */}
-                                <motion.div 
-                                    className={`relative z-10 h-px bg-gradient-to-r ${isDayTime ? 'from-teal-500/30 to-transparent' : 'from-teal-400/30 to-transparent'} mb-4`}
-                                    initial={{ scaleX: 0 }}
-                                    whileInView={{ scaleX: 1 }}
-                                    transition={{ delay: index * 0.2 + 0.4, duration: 0.8 }}
-                                />
-
-                                {/* Description */}
-                                <p className={`relative z-10 text-sm sm:text-base font-[400] leading-relaxed flex-grow ${isDayTime ? 'text-gray-300' : 'text-gray-700'} group-hover:text-opacity-100 transition-all duration-300`}>
-                                    {card.description}
-                                </p>
-
-                                {/* CTA indicator - slides in on hover */}
-                                <motion.div 
-                                    className={`relative z-10 mt-6 pt-4 border-t ${isDayTime ? 'border-teal-500/20' : 'border-teal-400/20'} flex items-center gap-2 ${isDayTime ? 'text-teal-400' : 'text-teal-500'} font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-                                    initial={{ x: -20 }}
-                                    whileHover={{ x: 0 }}
-                                    transition={{ duration: 0.3 }}
-                                >
-                                    <span>Explore Phase</span>
-                                    <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>→</motion.span>
-                                </motion.div>
-
-                                {/* Corner accent dot */}
-                                <motion.div 
-                                    className={`absolute bottom-6 right-6 w-3 h-3 rounded-full bg-gradient-to-r ${isDayTime ? card.color : card.lightColor} shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-                                    animate={{ scale: [1, 1.5, 1] }}
-                                    transition={{ duration: 2, repeat: Infinity }}
-                                />
-                            </motion.div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
 
-                    {/* Process flow indicator - responsive */}
+                    {/* Bottom accent element */}
                     <motion.div 
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
-                        transition={{ delay: 0.6 }}
-                        className="mt-16 lg:mt-20 text-center"
+                        transition={{ delay: 0.8 }}
+                        className="mt-20 lg:mt-28 text-center"
                     >
-                        <p className={`text-sm sm:text-base font-mono tracking-widest uppercase ${isDayTime ? 'text-teal-400/60' : 'text-teal-500/60'}`}>
-                            ▌ Sequential Excellence ▌
-                        </p>
+                        <motion.p 
+                            className={`text-sm sm:text-base font-mono tracking-widest uppercase ${isDayTime ? 'text-teal-400/50' : 'text-teal-500/50'}`}
+                            animate={{ opacity: [0.4, 0.8, 0.4] }}
+                            transition={{ duration: 3, repeat: Infinity }}
+                        >
+                            ▌ Seamless Transformation ▌
+                        </motion.p>
                     </motion.div>
                 </div>
             </div>
