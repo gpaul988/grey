@@ -105,7 +105,7 @@ const FuturisticDevelopmentProcess: React.FC<FuturisticDevelopmentProcessProps> 
                 </div>
             </div>
         </section>
-        <Process90 />
+        <Process90 totalDays={90} />
     </>);
 };
 
