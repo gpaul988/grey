@@ -89,7 +89,7 @@ const phases = [
     }
 ];
 
-export default function Process90() {
+export default function Process90({ totalDays = 90, phasesOverride }: { totalDays?: number; phasesOverride?: any[] } = {}) {
     const isDayTime = useIsDayTime();
     const [activePhase, setActivePhase] = useState<number>(0);
     const [currentDay, setCurrentDay] = useState<number>(1);
@@ -100,6 +100,18 @@ export default function Process90() {
     const rafRef = useRef<number | null>(null);
     const intervalRef = useRef<number | null>(null);
     const currentDayRef = useRef<number>(1);
+
+    // Dynamic phase computation (allow services to override phases or totalDays)
+    const phaseSource = phasesOverride && phasesOverride.length ? phasesOverride : phases;
+    const phaseCount = phaseSource.length;
+    // distribute totalDays across phases evenly, give earlier phases the remainder
+    const base = Math.floor(totalDays / phaseCount);
+    const remainder = totalDays - base * phaseCount;
+    const phaseLengths: number[] = new Array(phaseCount).fill(0).map((_, i) => base + (i < remainder ? 1 : 0));
+    const cumulativeEnds: number[] = phaseLengths.map((_, i) => phaseLengths.slice(0, i + 1).reduce((a, b) => a + b, 0));
+    const daysRanges: string[] = cumulativeEnds.map((end, i) => `${(i === 0 ? 1 : cumulativeEnds[i - 1] + 1)}-${end}`);
+    const effectivePhases = phaseSource.map((p: any, i: number) => ({ ...p, days: daysRanges[i] }));
+
 
     useEffect(() => {
         const onPointerMove = (e: PointerEvent) => {
@@ -126,7 +138,12 @@ export default function Process90() {
         };
     }, [isPlaying]);
 
-    const getPhaseFromDay = (day: number) => (day <= 30 ? 0 : day <= 60 ? 1 : 2);
+    const getPhaseFromDay = (day: number) => {
+        for (let i = 0; i < cumulativeEnds.length; i++) {
+            if (day <= cumulativeEnds[i]) return i;
+        }
+        return Math.max(0, cumulativeEnds.length - 1);
+    };
 
     useEffect(() => { currentDayRef.current = currentDay; }, [currentDay]);
 
@@ -202,7 +219,7 @@ export default function Process90() {
     }, [isDayTime]);
 
     useEffect(() => { setActivePhase(getPhaseFromDay(currentDay)); }, [currentDay]);
-    const phase = phases[activePhase];
+    const phase = effectivePhases[activePhase];
 
     return (
         <div className={`relative overflow-hidden lg:pt-[4em] md:pt-[2em] pt-[1em] lg:pb-[4em] md:pb-[2em] pb-[1em] transition-colors duration-700 ${isDayTime ? 'bg-gradient-to-b from-slate-50 via-white to-slate-100' : 'bg-gradient-to-b from-black via-gray-950 to-black'}`}>
@@ -219,11 +236,11 @@ export default function Process90() {
                 <div className={`relative ${isDayTime ? 'text-gray-900' : 'text-white'} text-center mb-12 md:mb-20 lg:mb-20 border-b ${isDayTime ? 'border-gray-200' : 'border-gray-700'} pb-[2em] space-y-6`}>
                     <div className={`inline-flex items-center gap-3 px-5 py-2 rounded-full border backdrop-blur-sm font-mono text-[0.65em] font-[600] tracking-[0.35em] uppercase ${isDayTime ? 'border-teal-600/30 bg-teal-500/5 text-teal-700' : 'border-[#00f5d4]/30 bg-[#00f5d4]/5 text-[#00f5d4]'}`}>
                         <span className="relative flex h-2 w-2"><span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/><span className={`relative inline-flex rounded-full h-2 w-2 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/></span>
-                        Mission Protocol // 90 Days
+                        Mission Protocol
                     </div>
                     <h2 className={'capitalize text-[1.8em] md:text-[3em] lg:text-[3.3em] font-[700] tracking-tight leading-[1.2] lg:pb-6'}>Our Proven <span className={`text-transparent bg-clip-text bg-gradient-to-r animate-gradient ${isDayTime ? 'from-teal-600 via-cyan-600 to-violet-600' : 'from-[#00f5d4] via-cyan-400 to-violet-400'}`}>90-Day Process</span></h2>
                     <p className={`text-[0.9em] font-[300] lg:-mt-[0.2em] rounded-none leading-[1.5] mx-auto max-w-6xl ${isDayTime ? 'text-gray-600' : 'text-gray-300'}`}>Our structured 90-day implementation process delivers measurable results through strategic planning, precise execution, and continuous optimization. This proven methodology accelerates time-to-value while ensuring alignment with your business objectives at every phase. By combining industry best practices with agile responsiveness, we transform initial engagement into tangible outcomes, building momentum that sustains long-term success and competitive performance.</p>
-                    <div className="flex justify-center items-center gap-4 pt-8">{phases.map((p, i) => (
+                    <div className="flex justify-center items-center gap-4 pt-8">{effectivePhases.map((p: any, i: number) => (
                         <button key={i} onClick={() => setActivePhase(i)} className={`group relative transition-all duration-500 ${activePhase === i ? 'scale-110' : 'scale-100 opacity-70'}`} aria-label={`Select phase ${i + 1}`}>
                             <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br ${p.color} p-0.5 transition-all duration-500 ${activePhase === i ? 'rotate-0 shadow-lg shadow-cyan-500/20' : 'rotate-45'}`}>
                                 <div className={`w-full h-full ${isDayTime ? 'bg-white' : 'bg-black'} rounded-2xl flex items-center justify-center transition-colors duration-500`}><span className={`text-sm font-bold font-mono transition-transform duration-500 ${activePhase === i ? 'rotate-0' : '-rotate-45'} ${isDayTime ? 'text-gray-900' : 'text-white'}`}>{p.days.split('-')[0]}</span></div>
@@ -237,7 +254,7 @@ export default function Process90() {
                         <span aria-hidden className={`absolute -top-px -right-px w-4 h-4 border-t-2 border-r-2 rounded-tr-2xl ${isDayTime ? 'border-teal-600' : 'border-[#00f5d4]'}`}/>
                         <span aria-hidden className={`absolute -bottom-px -left-px w-4 h-4 border-b-2 border-l-2 rounded-bl-2xl ${isDayTime ? 'border-teal-600' : 'border-[#00f5d4]'}`}/>
                         <span aria-hidden className={`absolute -bottom-px -right-px w-4 h-4 border-b-2 border-r-2 rounded-br-2xl ${isDayTime ? 'border-teal-600' : 'border-[#00f5d4]'}`}/>
-                        <div className={`flex items-center justify-between font-mono text-[0.65em] tracking-[0.25em] uppercase mb-3 ${isDayTime ? 'text-gray-500' : 'text-gray-400'}`}><span>Mission Timeline</span><span className={isDayTime ? 'text-teal-700' : 'text-[#00f5d4]'}>Day {String(currentDay).padStart(2, '0')} / 90</span></div>
+                        <div className={`flex items-center justify-between font-mono text-[0.65em] tracking-[0.25em] uppercase mb-3 ${isDayTime ? 'text-gray-500' : 'text-gray-400'}`}><span>Mission Timeline</span><span className={isDayTime ? 'text-teal-700' : 'text-[#00f5d4]'}>Day {String(currentDay).padStart(2, '0')} / {totalDays}</span></div>
                         <div className={`relative h-2 rounded-full overflow-hidden ${isDayTime ? 'bg-gray-200' : 'bg-gray-800'}`}><div className="h-full rounded-full bg-gradient-to-r from-cyan-400 via-purple-500 to-emerald-500 transition-all duration-300" style={{width: `${(currentDay / 90) * 100}%`}}/></div>
                         <div className="flex flex-wrap items-center justify-between gap-3 mt-4"><div className={`flex gap-4 font-mono text-[0.6em] tracking-[0.2em] uppercase ${isDayTime ? 'text-gray-400' : 'text-gray-500'}`}><span className={activePhase === 0 ? (isDayTime ? 'text-cyan-700' : 'text-cyan-400') : ''}>01 Discover</span><span className={activePhase === 1 ? (isDayTime ? 'text-purple-700' : 'text-purple-400') : ''}>02 Launch</span><span className={activePhase === 2 ? (isDayTime ? 'text-emerald-700' : 'text-emerald-400') : ''}>03 Scale</span></div>
                             <div className="flex gap-2"><button onClick={() => setIsPlaying((s) => !s)} className={`px-4 py-1.5 rounded-full font-mono text-[0.65em] font-[700] tracking-[0.2em] uppercase transition-colors ${isDayTime ? 'bg-gray-900 text-white hover:bg-gray-700' : 'bg-white text-black hover:bg-gray-100'} transition-colors`}>{isPlaying ? 'Pause' : 'Play'}</button><button onClick={() => { setIsPlaying(false); setCurrentDay(1); }} className={`px-4 py-1.5 rounded-full border font-mono text-[0.65em] font-[700] tracking-[0.2em] uppercase transition-colors ${isDayTime ? 'border-gray-300 text-gray-600 hover:border-gray-500' : 'border-gray-700 text-gray-300 hover:border-gray-500'}`}>Reset</button></div>
