@@ -705,31 +705,48 @@ const Seo = () => {    const [isVisible, setIsVisible] = useState(false);
 
 
             {/* Stages of our development process */}
-            <div className={`${isDayTime ? 'bg-black' : 'bg-white'}`}>
+            <div className={`${isDayTime ? 'bg-gradient-to-b from-gray-900 to-black' : 'bg-gradient-to-b from-white to-gray-50'} relative overflow-hidden`}>
                 <div id={'development process'}
                      className={`lg:pt-[6em] md:pt-[6em] pt-[2em] relative mb-10 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
 
-                    {/* Development Process Header */}
-                    <div className={`sticky top-0 z-10 bg-opacity-90 backdrop-blur-md ${
-                        isDayTime ? 'bg-black text-white' : 'bg-white text-black'
-                    }`}>
-                        <div className="border-b-[0.1em] border-gray-300/50 pb-[2em]">
-                            <h2 className='text-[1em] sm:text-[1.5em] md:text-[3.2em] lg:text-[3.2em] font-[550] tracking-tight leading-[1.15] lg:pb-6'>
-                                Stages of Our <br className={'lg:block md:block hidden'}/>Development Process
-                            </h2>
-                            <p className={'text-[0.87em] font-[300] leading-[1.5] tracking-tight'}>
-                                We design digital products that people love to use and businesses are proud to own.
-                            </p>
-                        </div>
+                    {/* Animated background elements */}
+                    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                        <div className="absolute top-0 left-1/4 w-96 h-96 bg-teal-500/5 rounded-full blur-3xl animate-blob" />
+                        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl animate-blob animation-delay-2000" />
                     </div>
 
+                    {/* Development Process Header */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className={`sticky top-0 z-10 bg-opacity-90 backdrop-blur-xl ${
+                            isDayTime ? 'bg-gray-900/95' : 'bg-white/95'
+                        } rounded-2xl mb-12`}>
+                        <div className={`border-b-[0.1em] ${isDayTime ? 'border-teal-500/30' : 'border-teal-500/20'} pb-[2em] px-6 py-6`}>
+                            <motion.h2 
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                className={`text-[1em] sm:text-[1.5em] md:text-[3.2em] lg:text-[3.2em] font-[700] tracking-tight leading-[1.15] lg:pb-6 bg-gradient-to-r from-teal-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent`}>
+                                Stages of Our <br className={'lg:block md:block hidden'}/>Development Process
+                            </motion.h2>
+                            <motion.p 
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                transition={{ delay: 0.1 }}
+                                className={`text-[0.87em] font-[400] leading-[1.6] tracking-tight mt-3 ${isDayTime ? 'text-gray-300' : 'text-gray-600'}`}>
+                                Transforming vision into reality through strategic expertise, technical excellence, and unwavering commitment.
+                            </motion.p>
+                        </div>
+                    </motion.div>
+
                     {/* X-Scroll */}
-                    <section ref={targetRef} className="h-[250vh]">
+                    <section ref={targetRef} className="h-[250vh] relative">
                         <div
                             className="sticky top-52 flex h-[80vh] w-full max-w-full items-center overflow-hidden">
                             <motion.div
                                 style={{x}}
-                                className="flex lg:gap-[15em] md:gap-[15em] gap-[10em]" // Add padding for centering
+                                className="flex lg:gap-[15em] md:gap-[15em] gap-[10em]" 
                             >
                                 {[
                                     {
@@ -737,7 +754,7 @@ const Seo = () => {    const [isVisible, setIsVisible] = useState(false);
                                         subtitle: "01",
                                         title: (
                                             <>
-                                                We’re Experienced
+                                                We're Experienced
                                             </>
                                         ),
                                         description: (
@@ -750,11 +767,12 @@ const Seo = () => {    const [isVisible, setIsVisible] = useState(false);
                                                 expectations but drives real results.
                                             </>
                                         ),
+                                        icon: '◆'
                                     },
                                     {
                                         id: 2,
                                         subtitle: "02",
-                                        title: "We’re Proactive",
+                                        title: "We're Proactive",
                                         description: (
                                             <>
                                                 You can rely on us to consistently exceed expectations by taking a
@@ -766,6 +784,7 @@ const Seo = () => {    const [isVisible, setIsVisible] = useState(false);
                                                 long-term goals.
                                             </>
                                         ),
+                                        icon: '⚡'
                                     },
                                     {
                                         id: 3,
@@ -773,14 +792,15 @@ const Seo = () => {    const [isVisible, setIsVisible] = useState(false);
                                         title: "We're Collaborative",
                                         description: (
                                             <>
-                                                While we’re passionate about technology, our greatest strength lies in
+                                                While we're passionate about technology, our greatest strength lies in
                                                 the people behind it. To us, collaboration means more than just being
-                                                easy to work with—it’s about becoming a trusted partner who shares your
+                                                easy to work with—it's about becoming a trusted partner who shares your
                                                 vision, ambition, and commitment to achieving something exceptional. We
                                                 align with your goals, bring fresh thinking to the table, and work side
                                                 by side to turn bold ideas into real business outcomes.
                                             </>
                                         ),
+                                        icon: '◈'
                                     },
                                     {
                                         id: 4,
@@ -802,18 +822,67 @@ const Seo = () => {    const [isVisible, setIsVisible] = useState(false);
                                                 long-term objectives.
                                             </>
                                         ),
+                                        icon: '◉'
                                     },
                                 ].map((card, index, array) => (
-                                    <div
+                                    <motion.div
                                         key={card.id}
-                                        className={`group relative h-[350px] w-[400px] overflow-hidden flex flex-col items-start justify-self-start text-start ${
-                                            isDayTime ? 'text-white' : 'text-black'
-                                        } ${index === array.length - 1 ? 'ml-auto' : ''}`} // Ensure last item aligns
-                                    >
-                                        <h3 className="text-[1em] font-[400] text-gray-500">{card.subtitle}</h3>
-                                        <h2 className="sm:text-[1.5em] md:text-[2.5em] lg:text-[2.5em] font-[500] mt-4 leading-[1.1]">{card.title}</h2>
-                                        <p className="text-[0.873em] font-[300] mt-4 text-justify">{card.description}</p>
-                                    </div>
+                                        initial={{ opacity: 0, y: 40 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: index * 0.15 }}
+                                        className={`group relative h-[380px] w-[420px] overflow-hidden flex flex-col items-start justify-start text-start rounded-3xl p-8 backdrop-blur-sm transition-all duration-500 ${
+                                            isDayTime 
+                                                ? 'bg-gradient-to-br from-gray-800 to-gray-900 text-white border border-teal-500/20 hover:border-teal-500/60 shadow-xl hover:shadow-2xl hover:shadow-teal-500/20' 
+                                                : 'bg-gradient-to-br from-white to-gray-50 text-gray-900 border border-teal-400/20 hover:border-teal-400/60 shadow-lg hover:shadow-xl hover:shadow-teal-400/20'
+                                        } ${index === array.length - 1 ? 'ml-auto' : ''} before:absolute before:inset-0 before:-z-10 before:rounded-3xl before:bg-gradient-to-r before:from-teal-500/0 before:to-cyan-500/0 before:opacity-0 group-hover:before:opacity-100 before:transition-opacity before:duration-500`}>
+                                        
+                                        {/* Animated accent line */}
+                                        <motion.div 
+                                            className="absolute top-0 left-0 h-1 bg-gradient-to-r from-teal-400 to-cyan-400 rounded-full"
+                                            initial={{ width: 0 }}
+                                            whileInView={{ width: '40%' }}
+                                            transition={{ delay: index * 0.2 + 0.3, duration: 0.8 }}
+                                        />
+
+                                        {/* Icon with glow */}
+                                        <motion.div 
+                                            className={`text-3xl font-bold mb-4 ${isDayTime ? 'text-teal-400' : 'text-teal-500'}`}
+                                            animate={{ scale: [1, 1.15, 1], rotate: [0, 5, -5, 0] }}
+                                            transition={{ duration: 3, repeat: Infinity }}
+                                        >
+                                            {card.icon}
+                                        </motion.div>
+
+                                        {/* Subtitle/number */}
+                                        <motion.div 
+                                            className={`text-[0.85em] font-mono font-[600] tracking-widest uppercase mb-3 px-3 py-1 rounded-full inline-block ${
+                                                isDayTime 
+                                                    ? 'bg-teal-500/20 text-teal-300' 
+                                                    : 'bg-teal-500/15 text-teal-600'
+                                            }`}
+                                        >
+                                            Stage {card.subtitle}
+                                        </motion.div>
+
+                                        {/* Title */}
+                                        <h2 className={`text-[1.6em] font-[700] mt-3 leading-[1.2] mb-4 group-hover:text-teal-400 transition-colors duration-300`}>
+                                            {card.title}
+                                        </h2>
+
+                                        {/* Description */}
+                                        <p className={`text-[0.85em] font-[400] leading-[1.7] line-clamp-5 ${isDayTime ? 'text-gray-300' : 'text-gray-700'} group-hover:line-clamp-none transition-all duration-300`}>
+                                            {card.description}
+                                        </p>
+
+                                        {/* Hover indicator */}
+                                        <motion.div 
+                                            className={`absolute bottom-4 right-4 w-8 h-8 rounded-full flex items-center justify-center ${isDayTime ? 'bg-teal-500/20' : 'bg-teal-500/15'} text-teal-400 font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                                            animate={{ y: [0, 4, 0] }}
+                                            transition={{ duration: 2, repeat: Infinity }}
+                                        >
+                                            →
+                                        </motion.div>
+                                    </motion.div>
                                 ))}
                             </motion.div>
                         </div>
