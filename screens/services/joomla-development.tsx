@@ -9,6 +9,8 @@ import { useIsDayTime } from '../../components/useIsDayTime';
 import { motion } from 'framer-motion';
 import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
 import Process90 from '@/components/futuristic/Process90';
+import CountUp from 'react-countup';
+import { CurrencyAwarePricing } from '@/components/ServicePageTemplate';
 
 const JoomlaDevelopment: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -161,6 +163,101 @@ const JoomlaDevelopment: React.FC = () => {
 
       {/* Process Section */}
       <Process90 totalDays={85} />
+
+      {/* Solutions Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] text-center mb-12">
+            Joomla<br className="lg:block md:block hidden" />Solutions
+          </h2>
+          <p className="text-center mb-16 text-[1.1em] max-w-3xl mx-auto">From custom components to full enterprise portals, Grey InfoTech delivers Joomla development that's clean, fast and built to last.</p>
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              {
+                id: '01', title: 'Custom Component & Plugin Development', target: 'CC',
+                tags: ['MVC', 'Components', 'Plugins', 'Modules'],
+                body: 'We build bespoke Joomla components, plugins and modules following the MVC architecture and Joomla extension standards. Custom features—membership systems, booking engines, directory listings, custom forms—are built as proper extensions rather than hacked templates, making them upgrade-safe and independently maintainable.',
+              },
+              {
+                id: '02', title: 'Template & Theme Development', target: 'TD',
+                tags: ['Custom Templates', 'Responsive', 'Page Builder', 'Accessibility'],
+                body: 'We design and build custom Joomla templates that deliver pixel-perfect, responsive interfaces optimised for Core Web Vitals. Our templates use clean semantic HTML, optimised asset loading and proper Joomla override architecture so template customisations survive core updates. We also build on frameworks like Helix or YOOtheme Pro where clients prefer a page builder workflow.',
+              },
+              {
+                id: '03', title: 'Joomla Migration & Upgrades', target: 'MU',
+                tags: ['J3 to J4', 'J4 to J5', 'Platform Migration', 'Data Integrity'],
+                body: 'Joomla version migrations require careful planning to preserve content, user accounts, extensions and SEO rankings. We audit your current installation, identify incompatible extensions, map migration risks and execute a phased upgrade with full database backups and rollback capability. We also handle migrations from other CMS platforms—WordPress, Drupal—to Joomla.',
+              },
+              {
+                id: '04', title: 'Performance Optimisation', target: 'PO',
+                tags: ['Caching', 'CDN', 'Image Optimisation', 'Core Web Vitals'],
+                body: 'A slow Joomla site hurts SEO and loses visitors. We profile your site using GTmetrix and Lighthouse, implement Joomla\'s caching framework correctly, configure a CDN, optimise images and eliminate render-blocking resources. Clients typically achieve 50–80% improvement in page load times and significant Core Web Vitals score improvements after optimisation.',
+              },
+              {
+                id: '05', title: 'Joomla Security Hardening', target: 'SH',
+                tags: ['Security Audit', 'Malware Removal', 'Firewall', '2FA'],
+                body: 'Joomla sites are frequent targets for automated attacks. We conduct security audits, remove malware, implement a web application firewall, enforce 2FA for admin accounts, harden file permissions, disable unused PHP functions and configure automated security update pipelines. We also set up uptime monitoring and breach notification alerts.',
+              },
+              {
+                id: '06', title: 'Enterprise Portals & Multilingual Sites', target: 'EP',
+                tags: ['Multilingual', 'Memberships', 'ACL', 'Integrations'],
+                body: 'Joomla\'s access control system and multilingual capabilities make it ideal for enterprise portals and international sites. We architect complex multi-language sites, implement role-based content access, integrate with SSO providers, CRMs and payment gateways, and build custom member dashboards that extend Joomla\'s native user management.',
+              },
+            ].map((solution) => (
+              <div key={solution.id} className="p-6 rounded-xl border border-teal-400/20 bg-teal-400/5 hover:bg-teal-400/10 transition-all">
+                <h3 className="text-[1.5em] font-[600] mb-4">{solution.title}</h3>
+                <p className="text-[0.95em] mb-4">{solution.body}</p>
+                <div className="flex flex-wrap gap-2">
+                  {solution.tags?.map(tag => <span key={tag} className="px-2 py-1 text-[0.8em] rounded bg-teal-400/20 text-teal-300">{tag}</span>)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <div className="grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              { label: 'Joomla Sites Launched', value: 200, suffix: '+' },
+              { label: 'Content Items Managed', value: 1, suffix: 'M+' },
+              { label: 'Daily Site Visitors', value: 50, suffix: 'M+' },
+              { label: 'Client Retention Rate', value: 94, suffix: '%' },
+              { label: 'Enterprise Clients', value: 120, suffix: '+' },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center p-6">
+                <div className="text-[3em] lg:text-[4em] font-[700] text-teal-400 mb-2">
+                  <CountUp end={stat.value} duration={2} />{stat.suffix}
+                </div>
+                <p className="text-[0.95em] font-[600]">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] text-center">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] mb-6">
+            Joomla done<br className="lg:block md:block hidden" />properly
+          </h2>
+          <p className="text-[1.1em] max-w-3xl mx-auto mb-8">Joomla rewards expertise. Grey InfoTech builds Joomla sites that perform, stay secure and empower your editors to manage content without developer help.</p>
+          <Link href="/quote-request">
+            <button className="px-10 py-4 rounded-full bg-teal-400 text-black font-[600] hover:bg-teal-300 transition-all">
+              Get Started Today
+            </button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <CurrencyAwarePricing />
     </div>
   );
 };
