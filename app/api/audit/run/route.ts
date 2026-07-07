@@ -51,8 +51,8 @@ export async function POST(req: NextRequest) {
     let { website, repo } = body ?? {};
 
     // Normalize inputs
-    website = website ? normalizeUrl(website.trim(), false) : undefined;
-    repo = repo ? normalizeUrl(repo.trim(), true) : undefined;
+    website = website ? normalizeUrl(website.trim(), false) : (undefined as any);
+    repo = repo ? normalizeUrl(repo.trim(), true) : (undefined as any);
 
     if (!website && !repo) {
       return NextResponse.json(
