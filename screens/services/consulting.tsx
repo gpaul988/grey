@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useIsDayTime } from '../../components/useIsDayTime';
 import { motion } from 'framer-motion';
 import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
+import { CurrencyAwarePricing } from '@/components/ServicePageTemplate';
 import Process90 from '@/components/futuristic/Process90';
 
 const Consulting: React.FC = () => {
@@ -134,6 +135,84 @@ const Consulting: React.FC = () => {
 
       {/* PROCESS SECTION */}
       <Process90 totalDays={60} />
+
+      {/* Solutions Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] text-center mb-12">
+            Consulting Services
+          </h2>
+          <p className="text-center mb-16 text-[1.1em] max-w-3xl mx-auto">From technology strategy to hands-on architecture review, our consulting helps you make better decisions faster and build with confidence</p>
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              {
+                id: 1,
+                title: "Technology Strategy & Roadmapping",
+                body: "We align your technology investments with business objectives. Starting from stakeholder interviews and competitive analysis, we produce a 12-24 month technology roadmap with initiative sequencing, resource requirements and expected ROI.",
+                tags: ["Roadmap", "OKRs", "Investment Planning"]
+              },
+              {
+                id: 2,
+                title: "Architecture Review & Design",
+                body: "We review existing architectures for performance bottlenecks, security gaps and scalability ceilings, then produce prioritised findings with remediation playbooks. For greenfield projects we run architecture design sessions and validate against your non-functional requirements.",
+                tags: ["System Design", "Scalability", "Security", "Patterns"]
+              },
+              {
+                id: 3,
+                title: "Digital Transformation Advisory",
+                body: "Digital transformation is as much a people and process challenge as a technology one. We help you define what to modernise, sequence the work to minimise disruption, select the right platforms and manage change across the organisation.",
+                tags: ["Legacy Modernisation", "Process Automation", "Change Management"]
+              },
+              {
+                id: 4,
+                title: "Tech Stack Selection & Build vs Buy",
+                body: "Choosing the wrong stack or vendor is expensive. We run structured evaluations using weighted criteria covering total cost of ownership, lock-in risk, team capability and scalability. We produce clear recommendation reports with evidence.",
+                tags: ["Evaluation", "Vendor Analysis", "TCO"]
+              },
+              {
+                id: 5,
+                title: "CTO-as-a-Service",
+                body: "Not every company needs a full-time CTO from day one. Our fractional CTO service provides senior technical leadership on a part-time basis—sitting in board meetings, leading engineering hiring, setting technical direction and mentoring your team.",
+                tags: ["Fractional CTO", "Startups", "Scale-ups"]
+              },
+              {
+                id: 6,
+                title: "Security & Compliance Consulting",
+                body: "We help organisations achieve and maintain security certifications and compliance frameworks. Our work covers gap analysis, policy drafting, control implementation and audit preparation. We translate dense requirements into practical engineering tasks.",
+                tags: ["ISO 27001", "SOC 2", "GDPR", "Pen Testing"]
+              }
+            ].map((solution) => (
+              <div key={solution.id} className="p-6 rounded-xl border border-teal-400/20 bg-teal-400/5 hover:bg-teal-400/10 transition-all">
+                <h3 className="text-[1.5em] font-[600] mb-4">{solution.title}</h3>
+                <p className="text-[0.95em] mb-4">{solution.body}</p>
+                <div className="flex flex-wrap gap-2">
+                  {solution.tags?.map(tag => <span key={tag} className="px-2 py-1 text-[0.8em] rounded bg-teal-400/20 text-teal-300">{tag}</span>)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] text-center">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] mb-6">
+            Advice that actually ships
+          </h2>
+          <p className="text-[1.1em] max-w-3xl mx-auto mb-8">Great consulting doesn't end with a report. We stay engaged to validate implementation, unblock decisions and ensure the strategy translates into software that works.</p>
+          <Link href="/quote-request">
+            <button className="px-10 py-4 rounded-full bg-teal-400 text-black font-[600] hover:bg-teal-300 transition-all">
+              Get Started Today
+            </button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <CurrencyAwarePricing />
     </div>
   );
 };
