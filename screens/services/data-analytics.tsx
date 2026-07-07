@@ -1,85 +1,141 @@
-import React from 'react';
-import ServicePageTemplate from '@/components/ServicePageTemplate';
+'use client';
 
-const DataAnalytics = () => (
-    <ServicePageTemplate
-        title={<>Data Analytics<br className="lg:block md:block hidden" />&amp; Engineering</>}
-        heroVideo="/assets/hero/hero.mp4"
-        heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/digital-transformatio.jpg"
-        topImages={['/assets/services/Research-strategy.jpg', '/assets/services/product-design.jpg']}
-        intro="Turn raw data into competitive advantage—pipelines, warehouses, dashboards and ML models that surface the insights your business needs to act decisively."
-        eyebrow="Data-driven decisions at every level"
-        introHeading={<>From Raw Data<br className="lg:block md:block hidden" />To Real Decisions</>}
-        introBody={[
-            <>Data is only valuable when it is accurate, accessible and interpretable by the people who need
-            to act on it. At Grey InfoTech we build the full data stack—ingestion pipelines, warehouses,
-            transformation layers, analytical models and self-service dashboards—that turn fragmented data
-            sources into a single source of truth your entire organisation can trust. Whether you are starting
-            from spreadsheets or scaling a mature data platform, we meet you where you are.</>,
-            <>Our data engineers combine modern tooling (dbt, Airbyte, Snowflake, BigQuery, Redshift) with
-            strong data modelling and governance practices. We design schemas for analytical access patterns,
-            implement row-level security, build CI pipelines for data models and establish data quality
-            monitoring so issues are caught before they reach dashboards. The result is a data platform
-            that your analysts love using and your leadership trusts for critical decisions.</>,
-        ]}
-        solutionsHeading={<>Data &amp; Analytics<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From data engineering foundations to executive dashboards and predictive models, Grey InfoTech builds the full data capability your organisation needs."
-        solutions={[
-            {
-                id: '01', title: 'Data Engineering & Pipelines', target: 'DE',
-                tags: ['Airbyte', 'Kafka', 'Spark', 'dbt', 'Airflow'],
-                body: <>We design and build data pipelines that ingest from any source—APIs, databases, event
-                streams, flat files—transform and validate the data, and load it into your analytical store.
-                Pipelines are idempotent, observable and tested, with automated data quality checks at every
-                stage to ensure what arrives in your warehouse is accurate and complete.</>,
-            },
-            {
-                id: '02', title: 'Data Warehouse & Lakehouse', target: 'DW',
-                tags: ['Snowflake', 'BigQuery', 'Redshift', 'Delta Lake', 'Iceberg'],
-                body: <>We design dimensional models and star schemas optimised for analytical query patterns,
-                implement partitioning and clustering strategies for cost-efficient queries, and set up
-                role-based access control so sensitive data is protected. We work with Snowflake, BigQuery,
-                Redshift and open lakehouse formats like Delta Lake and Apache Iceberg.</>,
-            },
-            {
-                id: '03', title: 'Business Intelligence & Dashboards', target: 'BI',
-                tags: ['Looker', 'Metabase', 'Tableau', 'Power BI', 'Superset'],
-                body: <>We build executive dashboards and operational reports that put the right metrics in
-                front of the right people at the right time. Our BI work covers semantic layer design,
-                self-service analytics enablement, embedded analytics in product and white-labelled reporting
-                portals. We ensure dashboards load fast, stay accurate and can be maintained without
-                specialist help.</>,
-            },
-            {
-                id: '04', title: 'Machine Learning & Predictive Analytics', target: 'ML',
-                tags: ['Scikit-learn', 'TensorFlow', 'MLflow', 'Feature Store'],
-                body: <>We build and productionise machine learning models for churn prediction, demand
-                forecasting, recommendation engines, fraud detection and customer segmentation. Our ML
-                engineering practice covers feature engineering, model training, experiment tracking with
-                MLflow, model serving and drift monitoring so models remain accurate after deployment.</>,
-            },
-            {
-                id: '05', title: 'Real-Time Analytics', target: 'RT',
-                tags: ['Kafka', 'Flink', 'ClickHouse', 'Materialize'],
-                body: <>Some decisions cannot wait for overnight batch jobs. We build real-time analytics
-                systems using Kafka Streams or Apache Flink for event processing, with sub-second query
-                latency in ClickHouse or Materialize. Use cases include live fraud scoring, operational
-                dashboards, real-time personalisation and IoT telemetry analysis.</>,
-            },
-            {
-                id: '06', title: 'Data Governance & Quality', target: 'DG',
-                tags: ['Data Catalog', 'Lineage', 'Great Expectations', 'Monte Carlo'],
-                body: <>A data platform without governance degrades over time. We implement data catalogues,
-                lineage tracking, automated quality tests using Great Expectations, and anomaly detection
-                with tools like Monte Carlo. We also establish data ownership frameworks and documentation
-                standards so every dataset has a clear owner and definition that the whole organisation
-                understands.</>,
-            },
-        ]}
-        ctaHeading={<>Your data,<br className="lg:block md:block hidden" />finally working</>}
-        ctaBody="Stop making decisions based on gut feel or broken spreadsheets. Grey InfoTech builds the data platform that makes every team in your organisation smarter."/>
-);
+import React, { useEffect, useRef, useState } from 'react';
+import '@/app/globals.css';
+import FloatingButton from "@/components/FloatingButton";
+import Image from "next/image";
+import Link from "next/link";
+import { useIsDayTime } from '../../components/useIsDayTime';
+import { motion } from 'framer-motion';
+import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
+import Process90 from '@/components/futuristic/Process90';
+
+const DataAnalytics: React.FC = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isDayTime = useIsDayTime();
+
+  return (
+    <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
+      <FloatingButton className="fixed bottom-6 right-6 transition-all z-50 duration-300" />
+
+      {/* HERO SECTION */}
+      <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
+        <video ref={videoRef} autoPlay muted loop playsInline preload="auto" className="hidden lg:block absolute inset-0 w-full h-full object-cover" poster="/assets/data-analytics/hero.jpg">
+          <source src="/assets/data-analytics/hero.mp4" type="video/mp4" />
+        </video>
+        <Image src="/assets/data-analytics/hero.jpg" alt="Data Analytics Hero" fill priority className="lg:hidden object-cover" />
+        <div className="pointer-events-none absolute inset-0 z-[1]">
+          <FxBackground day={false} grid={true} aurora={true} />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50 z-[2]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,245,212,0.12),transparent_50%)] z-[2]" />
+        <div className="pointer-events-none absolute inset-0 z-[3]">
+          <div className="gx-scanline" />
+          <div className="gx-noise-overlay" />
+          <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: 0.12 }} />
+          <div className="gx-orbit absolute" style={{ width: '40vmax', height: '40vmax', bottom: '-15vmax', left: '-10vmax', opacity: 0.08 }} />
+        </div>
+        <div className="absolute inset-0 flex items-center top-32 z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+          <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div>
+              <div className="flex items-center gap-3 mb-6 lg:mb-8">
+                <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse" />
+                <span className="text-teal-400 text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">Data & Analytics</span>
+              </div>
+              <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
+                Data-Driven <span className="gx-gradient-text">Decision Making</span> at Scale
+              </h1>
+              <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
+                Data warehousing, analytics platforms, and BI dashboards. Transform raw data into actionable insights that drive business growth and competitive edge.
+              </p>
+              <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
+                {["Warehousing", "BI Dashboards", "Predictive Analytics", "Real-Time Insights", "Data Governance"].map((badge) => (
+                  <span key={badge} className="px-3 py-1.5 rounded-full bg-teal-400/10 border border-teal-400/30 text-teal-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">
+                    {badge}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-4 items-center">
+                <Link href="/quote-request">
+                  <button className="relative px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap" style={{ background: '#00f5d4', color: '#000' }}>
+                    <span className="absolute inset-0" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)' }} />
+                    <span className="relative">Build Your Analytics Platform →</span>
+                  </button>
+                </Link>
+                <Link href="/portfolio">
+                  <button className="px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap" style={{ border: '1px solid rgba(255,255,255,0.15)' }}>
+                    Explore Our BI Solutions
+                  </button>
+                </Link>
+              </div>
+            </div>
+            <div className="hidden lg:flex flex-col items-end">
+              <div className="grid grid-cols-2 gap-6 w-full">
+                {[
+                  { label: 'Data Points Analyzed', value: '500B+' },
+                  { label: 'Dashboards Built', value: '1K+' },
+                  { label: 'Time to Insight', value: '10x Faster' },
+                  { label: 'Business Impact', value: '300%+ ROI' }
+                ].map((stat) => (
+                  <div key={stat.label} className="px-6 py-5 rounded-2xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md hover:bg-teal-400/12 transition-all duration-300 hover:border-teal-400/50 text-right">
+                    <div className="text-teal-300 text-[0.7em] uppercase tracking-wider font-[600] mb-2">{stat.label}</div>
+                    <div className="text-white text-[1.8em] font-[700]">{stat.value}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="lg:hidden absolute bottom-12 left-0 right-0 z-[11] px-6">
+          <div className="grid grid-cols-3 gap-3">
+            {[
+              { label: 'Data', value: '500B+' },
+              { label: 'Dashboards', value: '1K+' },
+              { label: 'Impact', value: '300%+' }
+            ].map((stat) => (
+              <div key={stat.label} className="px-3 py-2 rounded-xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md">
+                <div className="text-teal-300 text-[0.5em] uppercase tracking-wider font-[600] mb-1">{stat.label}</div>
+                <div className="text-white text-[1.2em] font-[700]">{stat.value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="absolute top-1/4 left-8 z-[4] w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+        <div className="absolute bottom-1/3 right-12 z-[4] w-3 h-3 rounded-full bg-teal-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
+        <div className="absolute top-3/4 left-1/3 z-[4] w-2 h-2 rounded-full bg-cyan-400 animate-pulse" style={{ animationDelay: '1s' }} />
+      </section>
+
+      {/* INTRO SECTION */}
+      <section className={`pt-16 transition-colors duration-500 ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <div>
+            <FxChip day={!isDayTime}>DATA ANALYTICS</FxChip>
+          </div>
+          <div className="lg:-ml-[19em]">
+            <FxReveal>
+              <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
+                Transform Data Into <span className="gx-gradient-text">Business Value</span>
+              </h3>
+            </FxReveal>
+            <FxReveal delay={0.08}>
+              <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[1em] leading-relaxed">
+                <div>
+                  <p>Data without insights is just noise. We architect data platforms—warehouses, lakes, and analytics systems—that turn terabytes into actionable intelligence. Your teams make decisions faster, smarter, and with confidence.</p>
+                </div>
+                <div>
+                  <p>From ETL and governance to predictive models and real-time dashboards, we deliver end-to-end analytics that power growth.</p>
+                </div>
+              </div>
+            </FxReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* PROCESS SECTION */}
+      <Process90 totalDays={90} />
+    </div>
+  );
+};
 
 export default DataAnalytics;
-
