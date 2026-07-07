@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useIsDayTime } from '../../components/useIsDayTime';
 import { motion } from 'framer-motion';
 import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
+import { CurrencyAwarePricing } from '@/components/ServicePageTemplate';
 import Process90 from '@/components/futuristic/Process90';
 
 const CloudSolutions: React.FC = () => {
@@ -134,6 +135,84 @@ const CloudSolutions: React.FC = () => {
 
       {/* PROCESS SECTION */}
       <Process90 totalDays={90} />
+
+      {/* Solutions Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] text-center mb-12">
+            Cloud Solutions
+          </h2>
+          <p className="text-center mb-16 text-[1.1em] max-w-3xl mx-auto">From lift-and-shift migrations to cloud-native architectures, we deliver the full cloud stack—designed for scale, security and speed</p>
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              {
+                id: 1,
+                title: "Cloud Architecture & Design",
+                body: "We architect cloud environments that balance performance, cost and compliance. Starting from your workload requirements and growth projections, we produce reference architectures with network topology, compute strategy, data-tier design and disaster-recovery runbooks.",
+                tags: ["AWS", "GCP", "Azure", "Multi-Cloud"]
+              },
+              {
+                id: 2,
+                title: "Cloud Migration",
+                body: "Moving to cloud without disruption requires careful sequencing. We run discovery workshops, dependency mapping and risk assessment before writing a single migration script. Our migration factory approach handles wave planning and cutover testing.",
+                tags: ["Lift & Shift", "Re-platform", "Re-factor"]
+              },
+              {
+                id: 3,
+                title: "Kubernetes & Containers",
+                body: "We containerise applications, build Helm charts and deploy production-grade Kubernetes clusters on EKS, GKE or AKS. Our work covers horizontal pod autoscaling, resource quotas, network policies and GitOps pipelines.",
+                tags: ["Kubernetes", "Docker", "Helm", "Service Mesh"]
+              },
+              {
+                id: 4,
+                title: "DevOps & CI/CD",
+                body: "Fast, reliable delivery pipelines are the engine of software velocity. We design CI/CD workflows using GitHub Actions, GitLab or CircleCI, pair them with infrastructure-as-code in Terraform and instrument everything with Prometheus and Grafana.",
+                tags: ["GitHub Actions", "Terraform", "ArgoCD", "Monitoring"]
+              },
+              {
+                id: 5,
+                title: "Cloud Cost Optimisation (FinOps)",
+                body: "Cloud bills spiral quickly without discipline. We audit your existing spend, rightsize compute, migrate eligible workloads to spot or savings plans, and deploy real-time cost dashboards. Clients typically see 25–40% spend reduction within the first quarter.",
+                tags: ["FinOps", "Reserved Instances", "Spot", "Rightsizing"]
+              },
+              {
+                id: 6,
+                title: "Cloud Security & Compliance",
+                body: "Security in cloud is continuous, not a one-time audit. We configure IAM least-privilege policies, enable GuardDuty or Security Command Center, integrate SIEM pipelines and run automated compliance checks against CIS benchmarks.",
+                tags: ["IAM", "SIEM", "SOC 2", "PCI DSS"]
+              }
+            ].map((solution) => (
+              <div key={solution.id} className="p-6 rounded-xl border border-teal-400/20 bg-teal-400/5 hover:bg-teal-400/10 transition-all">
+                <h3 className="text-[1.5em] font-[600] mb-4">{solution.title}</h3>
+                <p className="text-[0.95em] mb-4">{solution.body}</p>
+                <div className="flex flex-wrap gap-2">
+                  {solution.tags?.map(tag => <span key={tag} className="px-2 py-1 text-[0.8em] rounded bg-teal-400/20 text-teal-300">{tag}</span>)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] text-center">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] mb-6">
+            Your cloud, perfected
+          </h2>
+          <p className="text-[1.1em] max-w-3xl mx-auto mb-8">Ready to move faster, spend less, and scale on demand? Grey InfoTech designs and operates cloud infrastructure that grows with your business.</p>
+          <Link href="/quote-request">
+            <button className="px-10 py-4 rounded-full bg-teal-400 text-black font-[600] hover:bg-teal-300 transition-all">
+              Get Started Today
+            </button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <CurrencyAwarePricing />
     </div>
   );
 };
