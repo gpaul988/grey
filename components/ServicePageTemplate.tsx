@@ -1429,16 +1429,71 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                     aria-label={`Select phase ${i + 1}`}
                                 >
                                     <div
-                                        className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br ${p.color} p-0.5 transition-all duration-500 ${activePhase === i ? 'rotate-0' : 'rotate-45'}`}>
+                                        className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br ${p.color} p-0.5 transition-all duration-500 ${activePhase === i ? 'rotate-0 shadow-lg shadow-cyan-500/20' : 'rotate-45'}`}>
                                         <div
-                                            className={`w-full h-full ${isDayTime ? 'bg-white' : 'bg-black'} rounded-2xl flex items-center justify-center`}>
-                                            <span className="text-sm font-bold">{p.days.split('-')[0]}</span>
+                                            className={`w-full h-full ${isDayTime ? 'bg-white' : 'bg-black'} rounded-2xl flex items-center justify-center transition-colors duration-500`}>
+                                            <span className={`text-sm font-bold font-mono transition-transform duration-500 ${activePhase === i ? 'rotate-0' : '-rotate-45'} ${isDayTime ? 'text-gray-900' : 'text-white'}`}>{p.days.split('-')[0]}</span>
                                         </div>
                                     </div>
                                     {activePhase === i && <div
                                         className={`absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-2 h-2 ${isDayTime ? 'bg-gray-900' : 'bg-white'} rounded-full animate-ping`}/>}
                                 </button>
                             ))}
+                        </div>
+
+                        {/* Mission timeline HUD */}
+                        <div
+                            className={`relative max-w-3xl mx-auto text-left rounded-2xl border backdrop-blur-md px-6 py-5 ${isDayTime ? 'border-gray-200 bg-white/70 shadow-sm' : 'border-gray-800 bg-gray-900/40'}`}>
+                            <span aria-hidden
+                                  className={`absolute -top-px -left-px w-4 h-4 border-t-2 border-l-2 rounded-tl-2xl ${isDayTime ? 'border-teal-600' : 'border-[#00f5d4]'}`}/>
+                            <span aria-hidden
+                                  className={`absolute -top-px -right-px w-4 h-4 border-t-2 border-r-2 rounded-tr-2xl ${isDayTime ? 'border-teal-600' : 'border-[#00f5d4]'}`}/>
+                            <span aria-hidden
+                                  className={`absolute -bottom-px -left-px w-4 h-4 border-b-2 border-l-2 rounded-bl-2xl ${isDayTime ? 'border-teal-600' : 'border-[#00f5d4]'}`}/>
+                            <span aria-hidden
+                                  className={`absolute -bottom-px -right-px w-4 h-4 border-b-2 border-r-2 rounded-br-2xl ${isDayTime ? 'border-teal-600' : 'border-[#00f5d4]'}`}/>
+
+                            <div
+                                className={`flex items-center justify-between font-mono text-[0.65em] tracking-[0.25em] uppercase mb-3 ${isDayTime ? 'text-gray-500' : 'text-gray-400'}`}>
+                                <span>Mission Timeline</span>
+                                <span
+                                    className={isDayTime ? 'text-teal-700' : 'text-[#00f5d4]'}>Day {String(currentDay).padStart(2, '0')} / {phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)}</span>
+                            </div>
+                            <div
+                                className={`relative h-2 rounded-full overflow-hidden ${isDayTime ? 'bg-gray-200' : 'bg-gray-800'}`}>
+                                <div
+                                    className="h-full rounded-full bg-gradient-to-r from-cyan-400 via-purple-500 to-emerald-500 transition-all duration-300"
+                                    style={{width: `${(currentDay / phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)) * 100}%`}}/>
+                                <span aria-hidden
+                                      className={`absolute top-0 bottom-0 left-1/3 w-px ${isDayTime ? 'bg-white' : 'bg-black'}`}/>
+                                <span aria-hidden
+                                      className={`absolute top-0 bottom-0 left-2/3 w-px ${isDayTime ? 'bg-white' : 'bg-black'}`}/>
+                            </div>
+                            <div className="flex flex-wrap items-center justify-between gap-3 mt-4">
+                                <div
+                                    className={`flex gap-4 font-mono text-[0.6em] tracking-[0.2em] uppercase ${isDayTime ? 'text-gray-400' : 'text-gray-500'}`}>
+                                    {phases.map((phase, idx) => (
+                                        <span 
+                                            key={idx}
+                                            className={activePhase === idx ? (isDayTime ? (idx === 0 ? 'text-cyan-700' : idx === 1 ? 'text-purple-700' : 'text-emerald-700') : (idx === 0 ? 'text-cyan-400' : idx === 1 ? 'text-purple-400' : 'text-emerald-400')) : ''}>
+                                            {String(idx + 1).padStart(2, '0')} {phase.title.split(' ')[0]}
+                                        </span>
+                                    ))}
+                                </div>
+                                <div className="flex gap-2">
+                                    <button onClick={() => setIsPlaying((s) => !s)}
+                                            className={`px-4 py-1.5 rounded-full font-mono text-[0.65em] font-[700] tracking-[0.2em] uppercase transition-colors ${isDayTime ? 'bg-gray-900 text-white hover:bg-gray-700' : 'bg-white text-black hover:bg-gray-200'}`}>
+                                        {isPlaying ? 'Pause' : 'Play'}
+                                    </button>
+                                    <button onClick={() => {
+                                        setIsPlaying(false);
+                                        setCurrentDay(1);
+                                    }}
+                                            className={`px-4 py-1.5 rounded-full border font-mono text-[0.65em] font-[700] tracking-[0.2em] uppercase transition-colors ${isDayTime ? 'border-gray-300 text-gray-600 hover:border-gray-500' : 'border-gray-700 text-gray-300 hover:border-gray-500'}`}>
+                                        Reset
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -1447,11 +1502,19 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                         <div className="order-2 lg:order-1 flex justify-center">
                             <div className="relative w-80 h-80 sm:w-96 sm:h-96">
                                 <div
-                                    className={`absolute inset-0 rounded-full bg-gradient-to-r ${phase.color} opacity-20 animate-spin-slow`}/>
+                                    className={`absolute inset-0 rounded-full bg-gradient-to-r ${phase.color} blur-3xl transition-opacity duration-700 ${isDayTime ? 'opacity-20' : 'opacity-25'}`}/>
+                                <div
+                                    className={`absolute inset-0 rounded-full bg-gradient-to-r ${phase.color} ${isDayTime ? 'opacity-30' : 'opacity-20'} animate-spin-slow`}/>
+                                <div
+                                    className={`absolute inset-4 rounded-full border border-dashed animate-spin-reverse ${isDayTime ? 'border-gray-300' : 'border-gray-700'}`}/>
+                                <div className="absolute inset-0 animate-spin-slow">
+                                    <span
+                                        className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full ${phase.accentColor} shadow-lg`}/>
+                                </div>
                                 <div
                                     className={`absolute inset-8 rounded-full bg-gradient-to-br ${phase.color} p-1 animate-pulse-slow`}>
                                     <div
-                                        className={`w-full h-full ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full flex items-center justify-center p-12`}>{phase.icon}</div>
+                                        className={`w-full h-full ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full flex items-center justify-center p-12 transition-colors duration-700`}>{phase.icon}</div>
                                 </div>
                             </div>
                         </div>
@@ -1459,7 +1522,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                         <div className="order-1 lg:order-2 space-y-8">
                             <div>
                                 <div
-                                    className={`inline-block px-6 py-2 rounded-full bg-gradient-to-r ${phase.color} text-white font-bold text-sm mb-4`}>DAYS {phase.days}</div>
+                                    className={`inline-block px-6 py-2 rounded-full bg-gradient-to-r ${phase.color} text-white font-mono font-bold text-sm tracking-[0.2em] uppercase mb-4 shadow-lg`}>Days {phase.days}</div>
                                 <h3 className={`text-4xl sm:text-5xl font-black mb-3 bg-gradient-to-r ${isDayTime ? 'from-gray-900 to-gray-600' : 'from-white to-gray-400'} bg-clip-text text-transparent`}>{phase.title}</h3>
                                 <p className={`text-2xl font-light bg-gradient-to-r ${phase.color} bg-clip-text text-transparent`}>{phase.tagline}</p>
                             </div>
@@ -1467,10 +1530,10 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                             <div className="space-y-4">
                                 {phase.items.map((item, idx) => (
                                     <div key={idx}
-                                         className={`group flex items-start gap-4 p-4 rounded-2xl ${isDayTime ? 'bg-gray-100/50 border border-gray-200 hover:border-gray-300' : 'bg-gray-900/50 border border-gray-800 hover:border-gray-600'} backdrop-blur-sm transition-all duration-300`}>
+                                         className={`group flex items-start gap-4 p-4 rounded-2xl ${isDayTime ? 'bg-white/70 border-gray-200 hover:border-gray-400 shadow-sm hover:shadow-md' : 'bg-gray-900/50 border-gray-800 hover:border-gray-600'} backdrop-blur-sm border transition-all duration-300`}>
                                         <div
                                             className={`flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br ${phase.color} flex items-center justify-center text-sm font-bold text-white`}>{idx + 1}</div>
-                                        <p className={`${isDayTime ? 'text-gray-700 group-hover:text-gray-900' : 'text-gray-300 group-hover:text-white'} transition-colors`}>{item}</p>
+                                        <p className={`${isDayTime ? 'text-gray-600 group-hover:text-gray-900' : 'text-gray-300 group-hover:text-white'} transition-colors`}>{item}</p>
                                     </div>
                                 ))}
                             </div>
@@ -1480,22 +1543,28 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                     {/* CTA */}
                     <div className="relative group">
                         <div
-                            className={`absolute inset-0 ${isDayTime ? 'bg-gradient-to-r from-teal-300 via-cyan-300 to-violet-300' : 'bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500'} rounded-3xl blur-2xl opacity-30 group-hover:opacity-50 transition-opacity`}/>
+                            className={`absolute inset-0 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 rounded-3xl blur-2xl transition-opacity ${isDayTime ? 'opacity-20 group-hover:opacity-40' : 'opacity-30 group-hover:opacity-50'}`}/>
                         <div
-                            className={`relative ${isDayTime ? 'bg-gradient-to-r from-gray-100 to-white border border-gray-200' : 'bg-gradient-to-r from-gray-900 to-black border border-gray-800'} rounded-3xl p-12 text-center`}>
-                            <h3 className={`text-4xl sm:text-5xl font-black mb-6 bg-gradient-to-r ${isDayTime ? 'from-gray-900 via-gray-700 to-gray-800' : 'from-white via-gray-200 to-gray-400'} bg-clip-text text-transparent`}>Ready
-                                to Transform?</h3>
-                            <p className={`text-xl ${isDayTime ? 'text-gray-600' : 'text-gray-400'} mb-8 max-w-2xl mx-auto`}>Join industry leaders that trust
-                                Grey InfoTech to deliver exceptional results in {phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)} days</p>
-                            <div className="flex justify-center gap-4 flex-wrap">
-                                <Link href="/quote-request"
-                                      className={`px-6 py-3 rounded-full ${isDayTime ? 'bg-teal-600 text-white hover:bg-teal-700' : 'bg-white text-black hover:bg-gray-200'} font-bold transition`}>
-                                    Get Started
+                            className={`relative overflow-hidden ${isDayTime ? 'bg-white/80 backdrop-blur-md border-gray-200' : 'bg-gradient-to-r from-gray-900 to-black border-gray-800'} rounded-3xl p-12 border text-center`}>
+                            <span aria-hidden
+                                  className={`absolute top-3 left-3 w-6 h-6 border-t-2 border-l-2 ${isDayTime ? 'border-teal-600/60' : 'border-[#00f5d4]/60'}`}/>
+                            <span aria-hidden
+                                  className={`absolute top-3 right-3 w-6 h-6 border-t-2 border-r-2 ${isDayTime ? 'border-teal-600/60' : 'border-[#00f5d4]/60'}`}/>
+                            <span aria-hidden
+                                  className={`absolute bottom-3 left-3 w-6 h-6 border-b-2 border-l-2 ${isDayTime ? 'border-teal-600/60' : 'border-[#00f5d4]/60'}`}/>
+                            <span aria-hidden
+                                  className={`absolute bottom-3 right-3 w-6 h-6 border-b-2 border-r-2 ${isDayTime ? 'border-teal-600/60' : 'border-[#00f5d4]/60'}`}/>
+                            <h3 className={`text-4xl sm:text-5xl font-black mb-6 bg-gradient-to-r ${isDayTime ? 'from-gray-900 via-gray-700 to-gray-500' : 'from-white via-gray-200 to-gray-400'} bg-clip-text text-transparent`}>Ready to Launch?</h3>
+                            <p className={`text-xl ${isDayTime ? 'text-gray-500' : 'text-gray-400'} mb-8 max-w-2xl mx-auto`}>Join the elite companies that trust Grey InfoTech to transform their digital presence in {phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)} days</p>
+                            <div className="flex flex-wrap justify-center gap-4">
+                                <Link href="/contact"
+                                      className={`px-8 py-3 rounded-full font-bold ${isDayTime ? 'bg-gray-900 text-white hover:bg-gray-800' : 'bg-white text-black hover:bg-gray-100'} transition-colors`}>
+                                    Start Your {phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)}-Day Journey
                                 </Link>
-                                <button onClick={() => setCurrentDay(1)}
-                                        className={`px-6 py-3 rounded-full ${isDayTime ? 'border border-gray-400 text-gray-700 hover:border-gray-600' : 'border border-gray-700 text-white hover:border-gray-500'} transition`}>
-                                    Explore Plan
-                                </button>
+                                <Link href="/portfolio"
+                                      className={`px-8 py-3 rounded-full border font-bold ${isDayTime ? 'border-gray-300 text-gray-700 hover:border-gray-500' : 'border-gray-700 text-gray-300 hover:border-gray-500'} transition-colors`}>
+                                    View Our Work
+                                </Link>
                             </div>
                         </div>
                     </div>
