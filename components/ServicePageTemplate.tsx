@@ -429,14 +429,14 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
             'Audience psychographic profiling': 'In-depth understanding of your target audience behaviors, preferences, and decision-making patterns.',
             'Strategic KPI framework design': 'Establishment of measurable success metrics aligned with your business objectives and growth targets.',
             'Omnichannel blueprint creation': 'Development of integrated multi-channel strategies ensuring consistent messaging across all customer touchpoints.',
-            
+
             // Launch phase
             'Campaign infrastructure setup': 'Construction of technical foundation for campaign execution with analytics and tracking infrastructure.',
             'Asset creation and optimization': 'Production of high-quality creative content optimized for performance across all channels.',
             'Platform configuration': 'Strategic setup of advertising platforms, CRMs, and marketing automation tools.',
             'Team training and enablement': 'Comprehensive training ensuring your team understands strategies and executes with precision.',
             'Go-live management': 'Coordinated launch with continuous monitoring to ensure smooth campaign initiation.',
-            
+
             // Scale phase
             'Performance optimization': 'Ongoing refinement of campaigns based on real-time data to maximize ROI and conversion rates.',
             'Audience expansion': 'Strategic growth of your customer base through refined targeting and channel diversification.',
@@ -444,14 +444,14 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
             'Continuous improvement protocols': 'Establishment of feedback loops and iterative processes for sustained performance enhancement.',
             'Scaling infrastructure': 'Expansion of systems and resources to support accelerated growth and increased market reach.',
         };
-        
+
         // Try to match the item with known descriptions
         for (const [key, desc] of Object.entries(descriptions)) {
             if (item.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(item.toLowerCase().split(' ')[0])) {
                 return desc;
             }
         }
-        
+
         // Fallback: Generate contextual description
         return `Strategic implementation of ${item.toLowerCase()} to drive measurable progress toward your business objectives.`;
     };
@@ -579,7 +579,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
     // Play button timeline animation - now after phases is defined
     useEffect(() => {
         if (!isPlaying) return;
-        
+
         const interval = setInterval(() => {
             setCurrentDay(prev => {
                 const totalDays = phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0);
@@ -590,7 +590,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                 return prev + 1;
             });
         }, 500); // Advance day every 500ms
-        
+
         return () => clearInterval(interval);
     }, [isPlaying, phases]);
 
@@ -1429,9 +1429,12 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                             transition: 'transform 0.3s ease-out'
                         }}
                     >
-                        <div className="absolute top-20 left-20 w-72 h-72 md:w-96 md:h-96 bg-cyan-500 rounded-full blur-3xl"/>
-                        <div className="absolute bottom-20 right-20 w-72 h-72 md:w-96 md:h-96 bg-purple-500 rounded-full blur-3xl"/>
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 md:w-96 md:h-96 bg-emerald-500 rounded-full blur-3xl"/>
+                        <div
+                            className="absolute top-20 left-20 w-72 h-72 md:w-96 md:h-96 bg-cyan-500 rounded-full blur-3xl"/>
+                        <div
+                            className="absolute bottom-20 right-20 w-72 h-72 md:w-96 md:h-96 bg-purple-500 rounded-full blur-3xl"/>
+                        <div
+                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 md:w-96 md:h-96 bg-emerald-500 rounded-full blur-3xl"/>
                     </div>
 
                     {/* holographic grid */}
@@ -1465,12 +1468,18 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                             </span>
                             Mission Protocol // Transformation Timeline
                         </div>
-                        <h2 className={'capitalize text-[1.8em] md:text-[3em] lg:text-[3.3em] font-[700] tracking-tight leading-[1.2] lg:pb-6'}>
+                        <h2 className={`capitalize text-[1.8em] md:text-[3em] lg:text-[3.3em] font-[700] tracking-tight leading-[1.2] lg:pb-6 ${isDayTime ? 'text-white' : 'text-black'}`}>
                             Our Proven <span
                             className={`text-transparent bg-clip-text bg-gradient-to-r animate-gradient ${isDayTime ? 'from-teal-600 via-cyan-600 to-violet-600' : 'from-[#00f5d4] via-cyan-400 to-violet-400'}`}>{phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)}-Day Process</span>
                         </h2>
-                        <p className={`text-[0.9em] font-[300] lg:-mt-[0.2em] rounded-none leading-[1.6] mx-auto max-w-7xl ${isDayTime ? 'text-gray-600' : 'text-gray-300'}`}>
-                            Our comprehensive {phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)}-day transformation methodology is engineered for measurable impact. Through strategic discovery, precise execution, and continuous optimization across {phases.length} distinct phases, we accelerate your time-to-value while maintaining alignment with your business objectives at every milestone. Our proven framework combines industry-leading best practices with adaptive agile responsiveness, turning initial engagement into tangible, sustainable outcomes that drive competitive advantage and long-term growth trajectory.
+                        <p className={`text-[1em] font-[300] lg:-mt-[0.2em] rounded-none leading-[1.6] mx-auto max-w-7xl ${isDayTime ? 'text-gray-50' : 'text-gray-950'}`}>
+                            Our comprehensive {phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)}-day
+                            transformation methodology is engineered for measurable impact. Through strategic discovery,
+                            precise execution, and continuous optimization across {phases.length} distinct phases, we
+                            accelerate your time-to-value while maintaining alignment with your business objectives at
+                            every milestone. Our proven framework combines industry-leading best practices with adaptive
+                            agile responsiveness, turning initial engagement into tangible, sustainable outcomes that
+                            drive competitive advantage and long-term growth trajectory.
                         </p>
                         <div className="flex justify-center items-center gap-4 pt-8 flex-wrap">
                             {phases.map((p, i) => (
@@ -1484,7 +1493,8 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                         className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br ${p.color} p-0.5 transition-all duration-500 ${activePhase === i ? 'rotate-0 shadow-lg shadow-cyan-500/30' : 'rotate-45'}`}>
                                         <div
                                             className={`w-full h-full ${isDayTime ? 'bg-white' : 'bg-black'} rounded-2xl flex items-center justify-center transition-colors duration-500`}>
-                                            <span className={`text-sm font-bold font-mono transition-transform duration-500 ${activePhase === i ? 'rotate-0' : '-rotate-45'} ${isDayTime ? 'text-gray-900' : 'text-white'}`}>{String(i + 1).padStart(2, '0')}</span>
+                                            <span
+                                                className={`text-base font-bold font-mono transition-transform duration-500 ${activePhase === i ? 'rotate-0' : '-rotate-45'} ${isDayTime ? 'text-gray-900' : 'text-white'}`}>{String(i + 1).padStart(2, '0')}</span>
                                         </div>
                                     </div>
                                     {activePhase === i && <div
@@ -1506,27 +1516,27 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                   className={`absolute -bottom-px -right-px w-5 h-5 border-b-2 border-r-2 rounded-br-2xl ${isDayTime ? 'border-teal-600' : 'border-[#00f5d4]'}`}/>
 
                             <div
-                                className={`flex items-center justify-between font-mono text-[0.75em] tracking-[0.3em] uppercase mb-4 ${isDayTime ? 'text-gray-500' : 'text-gray-400'}`}>
+                                className={`flex items-center justify-between font-mono text-[0.95em] tracking-[0.3em] uppercase mb-4 ${isDayTime ? 'text-gray-500' : 'text-gray-400'}`}>
                                 <span className="font-bold">MISSION TIMELINE</span>
                                 <span
                                     className={`font-bold ${isDayTime ? 'text-teal-700' : 'text-[#00f5d4]'}`}>DAY {String(currentDay).padStart(2, '0')} / {phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)}</span>
                             </div>
-                            
+
                             <div className="mb-6">
                                 <div
                                     className={`relative h-3 rounded-full overflow-hidden ${isDayTime ? 'bg-gradient-to-r from-gray-100 to-gray-200' : 'bg-gradient-to-r from-gray-800 to-gray-900'}`}>
                                     <div
                                         className="h-full rounded-full bg-gradient-to-r from-cyan-400 via-purple-500 to-emerald-500 transition-all duration-300 shadow-lg shadow-cyan-500/30"
                                         style={{width: `${(currentDay / phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)) * 100}%`}}/>
-                                    
+
                                     {/* Dynamic phase dividers based on actual phase day ranges */}
                                     {phases.map((phase, idx) => {
                                         const startDay = phases.slice(0, idx).reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0);
                                         const endDay = startDay + parseInt(phase.days.split('-')[1]);
                                         const phasePercentage = (endDay / phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)) * 100;
-                                        
+
                                         return (
-                                            <span 
+                                            <span
                                                 key={idx}
                                                 aria-hidden
                                                 className={`absolute top-0 bottom-0 w-px transition-colors duration-300 ${isDayTime ? 'bg-white/60' : 'bg-gray-950/60'}`}
@@ -1536,29 +1546,32 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                     })}
                                 </div>
                             </div>
-                            
+
                             <div className="flex flex-wrap items-center justify-between gap-4">
-                                <div className={`flex gap-6 font-mono text-[0.7em] tracking-[0.25em] uppercase font-bold ${isDayTime ? 'text-gray-500' : 'text-gray-400'}`}>
+                                <div
+                                    className={`flex gap-6 font-mono text-[0.7em] tracking-[0.25em] uppercase font-bold ${isDayTime ? 'text-gray-500' : 'text-gray-400'}`}>
                                     {phases.map((phase, idx) => {
                                         const phaseStartDay = phases.slice(0, idx).reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0) + 1;
                                         const phaseEndDay = phaseStartDay + parseInt(phase.days.split('-')[1]) - 1;
-                                        
+
                                         return (
-                                            <div 
+                                            <div
                                                 key={idx}
                                                 className={`flex flex-col items-center transition-all duration-300 ${activePhase === idx ? (isDayTime ? 'text-gray-900' : 'text-white') : ''}`}
                                             >
-                                                <span className={`text-[0.85em] font-black ${activePhase === idx ? (isDayTime ? (idx === 0 ? 'text-cyan-700' : idx === 1 ? 'text-purple-700' : 'text-emerald-700') : (idx === 0 ? 'text-cyan-400' : idx === 1 ? 'text-purple-400' : 'text-emerald-400')) : ''}`}>
+                                                <span
+                                                    className={`text-[1em] font-black ${activePhase === idx ? (isDayTime ? (idx === 0 ? 'text-cyan-700' : idx === 1 ? 'text-purple-700' : 'text-emerald-700') : (idx === 0 ? 'text-cyan-400' : idx === 1 ? 'text-purple-400' : 'text-emerald-400')) : ''}`}>
                                                     {String(idx + 1).padStart(2, '0')} {phase.title.split(' ')[0]}
                                                 </span>
-                                                <span className={`text-[0.65em] font-mono mt-1 ${isDayTime ? 'text-gray-400' : 'text-gray-500'}`}>
+                                                <span
+                                                    className={`text-[0.95em] font-mono mt-1 ${isDayTime ? 'text-gray-500' : 'text-gray-200'}`}>
                                                     D{phaseStartDay}-{phaseEndDay}
                                                 </span>
                                             </div>
                                         );
                                     })}
                                 </div>
-                                
+
                                 <div className="flex gap-2">
                                     <button onClick={() => setIsPlaying((s) => !s)}
                                             className={`px-5 py-2 rounded-lg font-mono text-[0.7em] font-[700] tracking-[0.2em] uppercase transition-all duration-300 ${isDayTime ? 'bg-teal-600 text-white hover:bg-teal-700 shadow-md' : 'bg-[#00f5d4] text-black hover:bg-cyan-300 shadow-lg shadow-cyan-500/20'}`}>
@@ -1568,7 +1581,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                         setIsPlaying(false);
                                         setCurrentDay(1);
                                     }}
-                                            className={`px-5 py-2 rounded-lg border font-mono text-[0.7em] font-[700] tracking-[0.2em] uppercase transition-all duration-300 ${isDayTime ? 'border-gray-300 text-gray-600 hover:bg-gray-100' : 'border-gray-600 text-gray-300 hover:bg-gray-800/50'}`}>
+                                            className={`px-5 py-2 rounded-lg border font-mono text-[0.95em] font-[700] tracking-[0.2em] uppercase transition-all duration-300 ${isDayTime ? 'border-gray-300 text-gray-600 hover:bg-gray-100' : 'border-gray-600 text-gray-300 hover:bg-gray-800/50'}`}>
                                         ↺ Reset
                                     </button>
                                 </div>
@@ -1610,22 +1623,25 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                             return `Days ${phaseStartDay}-${phaseEndDay}`;
                                         })()}
                                     </div>
-                                    <div className={`px-4 py-2 rounded-full backdrop-blur border ${isDayTime ? 'border-gray-200 bg-white/50 text-gray-700' : 'border-gray-700 bg-gray-800/50 text-gray-300'} font-mono text-xs font-bold tracking-[0.15em]`}>
+                                    <div
+                                        className={`px-4 py-2 rounded-full backdrop-blur border ${isDayTime ? 'border-gray-200 bg-white/50 text-gray-700' : 'border-gray-700 bg-gray-800/50 text-gray-300'} font-mono text-sm font-bold tracking-[0.15em]`}>
                                         {parseInt(phase.days.split('-')[1])} DAYS
                                     </div>
                                 </div>
-                                
+
                                 <div>
-                                    <h3 className={`text-4xl sm:text-5xl font-black mb-3 bg-gradient-to-r ${isDayTime ? 'from-gray-900 to-gray-600' : 'from-white to-gray-400'} bg-clip-text text-transparent`}>{phase.title}</h3>
+                                    <h3 className={`text-4xl sm:text-5xl font-black mb-3 bg-gradient-to-r ${isDayTime ? 'from-gray-900 to-gray-600' : 'from-gray-100 to-gray-600'} bg-clip-text text-transparent`}>{phase.title}</h3>
                                     <p className={`text-lg font-light bg-gradient-to-r ${phase.color} bg-clip-text text-transparent mb-4 leading-[1.6]`}>{phase.tagline}</p>
                                 </div>
 
                                 {/* Detailed Phase Overview */}
-                                <div className={`p-6 rounded-2xl border ${isDayTime ? 'bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200' : 'bg-gradient-to-br from-gray-800/30 to-gray-900/30 border-gray-700'} space-y-4`}>
-                                    <p className={`text-sm leading-[1.8] font-[400] ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}>
+                                <div
+                                    className={`p-6 rounded-2xl border ${isDayTime ? 'bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200' : 'bg-gradient-to-br from-gray-800/30 to-gray-900/30 border-gray-700'} space-y-4`}>
+                                    <p className={`text-base leading-[1.8] font-[400] ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}>
                                         {phase.description || 'This transformational phase combines strategic planning with operational excellence. Our specialized team collaborates with your organization to implement proven frameworks, establish measurement protocols, and ensure continuous value delivery aligned with your business objectives and growth aspirations.'}
                                     </p>
-                                    <div className={`text-xs font-mono tracking-wider leading-relaxed ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
+                                    <div
+                                        className={`text-sm font-mono tracking-wider leading-relaxed ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
                                         <p>✓ Comprehensive stakeholder alignment and goal setting</p>
                                         <p>✓ Systematic implementation with risk mitigation protocols</p>
                                         <p>✓ Continuous monitoring, optimization, and course correction</p>
@@ -1637,17 +1653,19 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                             {/* Key Deliverables - Expanded */}
                             <div className="space-y-5 overflow-visible">
                                 <div>
-                                    <h4 className={`text-sm font-mono tracking-[0.25em] uppercase font-bold mb-5 ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>📋 Key Deliverables & Outcomes</h4>
+                                    <h4 className={`text-base font-mono tracking-[0.25em] uppercase font-bold mb-5 ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>📋
+                                        Key Deliverables & Outcomes</h4>
                                 </div>
                                 <div className="space-y-3 overflow-visible">
                                     {phase.items.map((item, idx) => (
                                         <div key={idx}
                                              className={`group p-5 rounded-2xl transition-all duration-300 overflow-visible ${isDayTime ? 'bg-white/70 border-gray-200 hover:border-cyan-400 shadow-sm hover:shadow-lg hover:bg-white' : 'bg-gray-900/50 border-gray-800 hover:border-cyan-500 hover:bg-gray-800/80'} backdrop-blur-sm border`}>
                                             <div className="flex items-start gap-4">
-                                                <div className={`flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br ${phase.color} flex items-center justify-center text-sm font-bold text-white font-mono`}>{idx + 1}</div>
+                                                <div
+                                                    className={`flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br ${phase.color} flex items-center justify-center text-sm font-bold text-white font-mono`}>{idx + 1}</div>
                                                 <div className="flex-1 overflow-visible">
-                                                    <p className={`font-semibold mb-2 ${isDayTime ? 'text-gray-900 group-hover:text-gray-900' : 'text-white group-hover:text-white'} transition-colors`}>{item}</p>
-                                                    <p className={`text-xs leading-[1.7] ${isDayTime ? 'text-gray-600 group-hover:text-gray-700' : 'text-gray-400 group-hover:text-gray-300'} transition-colors`}>
+                                                    <p className={`font-semibold text-[17px] mb-2 ${isDayTime ? 'text-gray-900 group-hover:text-gray-900' : 'text-white group-hover:text-white'} transition-colors`}>{item}</p>
+                                                    <p className={`text-[14px] leading-[1.7] ${isDayTime ? 'text-gray-600 group-hover:text-gray-700' : 'text-gray-400 group-hover:text-gray-300'} transition-colors`}>
                                                         {getDeliverableDescription(item)}
                                                     </p>
                                                 </div>
@@ -1673,25 +1691,34 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                   className={`absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 ${isDayTime ? 'border-teal-600/60' : 'border-[#00f5d4]/60'}`}/>
                             <span aria-hidden
                                   className={`absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 ${isDayTime ? 'border-teal-600/60' : 'border-[#00f5d4]/60'}`}/>
-                            
-                            <div className={`mb-6 inline-flex items-center gap-2 px-5 py-2 rounded-full border backdrop-blur-sm font-mono text-[0.65em] font-[600] tracking-[0.3em] uppercase ${isDayTime ? 'border-teal-600/30 bg-teal-500/10 text-teal-700' : 'border-[#00f5d4]/30 bg-[#00f5d4]/10 text-[#00f5d4]'}`}>
+
+                            <div
+                                className={`mb-6 inline-flex items-center gap-2 px-5 py-2 rounded-full border backdrop-blur-sm font-mono text-[0.65em] font-[600] tracking-[0.3em] uppercase ${isDayTime ? 'border-teal-600/30 bg-teal-500/10 text-teal-700' : 'border-[#00f5d4]/30 bg-[#00f5d4]/10 text-[#00f5d4]'}`}>
                                 <span className="relative flex h-2 w-2">
-                                    <span className={`animate-pulse absolute inline-flex h-full w-full rounded-full opacity-75 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
-                                    <span className={`relative inline-flex rounded-full h-2 w-2 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
+                                    <span
+                                        className={`animate-pulse absolute inline-flex h-full w-full rounded-full opacity-75 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
+                                    <span
+                                        className={`relative inline-flex rounded-full h-2 w-2 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
                                 </span>
                                 Accelerate Your Growth
                             </div>
-                            
-                            <h3 className={`text-4xl sm:text-5xl font-black mb-4 bg-gradient-to-r ${isDayTime ? 'from-gray-900 via-gray-700 to-gray-600' : 'from-white via-gray-200 to-gray-300'} bg-clip-text text-transparent`}>Ready to Launch?</h3>
-                            
-                            <p className={`text-lg leading-[1.7] mb-10 max-w-3xl mx-auto ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
-                                Join industry-leading companies transforming their digital landscape with our proven {phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)}-day methodology. From discovery to scale, we deliver measurable impact at every stage—accelerating growth while ensuring strategic alignment and sustainable competitive advantage.
+
+                            <h3 className={`text-4xl sm:text-5xl font-black mb-4 bg-gradient-to-r ${isDayTime ? 'from-gray-900 via-gray-700 to-gray-600' : 'from-white via-gray-200 to-gray-300'} bg-clip-text text-transparent`}>Ready
+                                to Launch?</h3>
+
+                            <p className={`text-lg leading-[1.7] mb-10 max-w-5xl mx-auto ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
+                                Join industry-leading companies transforming their digital landscape with our
+                                proven {phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)}-day
+                                methodology. From discovery to scale, we deliver measurable impact at every
+                                stage—accelerating growth while ensuring strategic alignment and sustainable competitive
+                                advantage.
                             </p>
-                            
+
                             <div className="flex flex-col sm:flex-row justify-center gap-4 flex-wrap">
                                 <Link href="/contact"
                                       className={`px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg ${isDayTime ? 'bg-gradient-to-r from-teal-600 to-cyan-600 text-white hover:shadow-xl hover:from-teal-700 hover:to-cyan-700' : 'bg-gradient-to-r from-[#00f5d4] to-cyan-400 text-black hover:shadow-xl hover:shadow-cyan-500/50 font-semibold'}`}>
-                                    Start Your {phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)}-Day Journey
+                                    Start Your {phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)}-Day
+                                    Journey
                                 </Link>
                                 <Link href="/portfolio"
                                       className={`px-8 py-4 rounded-xl border-2 font-bold text-lg transition-all duration-300 ${isDayTime ? 'border-gray-300 text-gray-700 hover:border-gray-500 hover:bg-gray-100' : 'border-gray-600 text-gray-300 hover:border-gray-400 hover:bg-gray-800/50'}`}>
@@ -1729,57 +1756,89 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
             />
 
             {/* ══════════════════════════════════════════
-                CTA + COUNTUP (UNCHANGED)
+                CTA + COUNTUP (ENHANCED)
                 ══════════════════════════════════════════ */}
-            <section className="relative overflow-hidden bg-[#050810]">
-                <FxBackground day={false} grid aurora/>
-                <FxOrbit size={800} top="-200px" left="50%" opacity={0.08} speed={60}/>
-                <FxOrbit size={500} bottom="-100px" right="-150px" opacity={0.10} speed={30} reverse/>
+            <section className={`relative overflow-hidden transition-colors duration-700 ${isDayTime ? 'bg-gradient-to-b from-white via-gray-50 to-slate-100' : 'bg-gradient-to-b from-[#050810] via-gray-950 to-black'}`}>
+                <FxBackground day={isDayTime} grid aurora/>
+                <FxOrbit size={800} top="-200px" left="50%" opacity={isDayTime ? 0.04 : 0.08} speed={60}/>
+                <FxOrbit size={500} bottom="-100px" right="-150px" opacity={isDayTime ? 0.05 : 0.10} speed={30} reverse/>
 
                 <div
-                    className="relative z-10 lg:py-20 md:py-16 py-12 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] text-white">
+                    className={`relative z-10 lg:py-24 md:py-20 py-16 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${isDayTime ? 'text-gray-900' : 'text-white'}`}>
 
+                    {/* Enhanced Header with Page Context */}
                     <FxReveal>
+                        <div className="mb-8">
+                            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-sm font-mono text-[0.65em] font-[600] tracking-[0.3em] uppercase mb-6 ${isDayTime ? 'border-teal-600/30 bg-teal-500/10 text-teal-700' : 'border-[#00f5d4]/30 bg-[#00f5d4]/10 text-[#00f5d4]'}`}>
+                                <span className="relative flex h-2 w-2">
+                                    <span className={`animate-pulse absolute inline-flex h-full w-full rounded-full opacity-75 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
+                                    <span className={`relative inline-flex rounded-full h-2 w-2 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
+                                </span>
+                                Ready to Transform
+                            </div>
+                        </div>
                         <FxGlitchText tag="h1"
-                                      className="gx-gradient-text lg:text-[5em] md:text-[4em] sm:text-[3em] text-[2em] font-[700] leading-[1.1] mb-[0.5em]">
+                                      className={`lg:text-[5em] md:text-[4em] sm:text-[3em] text-[2em] font-[700] leading-[1.1] mb-[0.5em] ${isDayTime ? 'bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 bg-clip-text text-transparent' : 'gx-gradient-text'}`}>
                             {ctaHeading || (<>Your trusted<br className="lg:block md:block hidden"/>digital partner</>)}
                         </FxGlitchText>
                     </FxReveal>
 
+                    {/* Enhanced Description with Page-Specific Details */}
                     <FxReveal delay={0.15}>
-                        <p className="text-[0.9em] font-[300] leading-[1.6] text-gray-300 lg:pr-[33em] mb-8 text-justify">
-                            {ctaBody || (
-                                <>We specialize in crafting high-impact marketing websites, innovative web apps, and
-                                    mobile
-                                    applications that drive real results. From funded startups to established
-                                    businesses, we&apos;ve
-                                    helped a wide range of clients bring their digital products to life—delivering
-                                    standout
-                                    experiences that fuel growth, engagement, and long-term success.</>
-                            )}
-                        </p>
+                        <div className="lg:pr-[33em] mb-10 space-y-6">
+                            <p className={`text-[0.95em] font-[300] leading-[1.8] ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}>
+                                {ctaBody || (
+                                    <>We specialize in crafting high-impact marketing websites, innovative web apps, and mobile applications that drive real results. From funded startups to established businesses, we&apos;ve helped a wide range of clients bring their digital products to life—delivering standout experiences that fuel growth, engagement, and long-term success.</>
+                                )}
+                            </p>
+                            
+                            {/* Page-Specific Details */}
+                            <div className={`grid md:grid-cols-2 gap-6 pt-4 ${isDayTime ? 'border-t border-gray-300' : 'border-t border-gray-700'}`}>
+                                <div className="space-y-3">
+                                    <h4 className={`text-sm font-mono tracking-[0.2em] uppercase font-bold ${isDayTime ? 'text-teal-700' : 'text-[#00f5d4]'}`}>🎯 Our Approach</h4>
+                                    <ul className={`text-sm space-y-2 ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>
+                                        <li className="flex gap-2"><span className={isDayTime ? 'text-teal-600' : 'text-cyan-400'}>✓</span> Strategic discovery & planning</li>
+                                        <li className="flex gap-2"><span className={isDayTime ? 'text-teal-600' : 'text-cyan-400'}>✓</span> Agile development & iteration</li>
+                                        <li className="flex gap-2"><span className={isDayTime ? 'text-teal-600' : 'text-cyan-400'}>✓</span> Continuous optimization</li>
+                                    </ul>
+                                </div>
+                                <div className="space-y-3">
+                                    <h4 className={`text-sm font-mono tracking-[0.2em] uppercase font-bold ${isDayTime ? 'text-purple-700' : 'text-purple-400'}`}>⚡ Why Partner With Us</h4>
+                                    <ul className={`text-sm space-y-2 ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>
+                                        <li className="flex gap-2"><span className={isDayTime ? 'text-purple-600' : 'text-purple-400'}>✓</span> 8+ years of proven expertise</li>
+                                        <li className="flex gap-2"><span className={isDayTime ? 'text-purple-600' : 'text-purple-400'}>✓</span> 200+ projects delivered</li>
+                                        <li className="flex gap-2"><span className={isDayTime ? 'text-purple-600' : 'text-purple-400'}>✓</span> 98% client satisfaction</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </FxReveal>
 
+                    {/* Enhanced CTA Buttons */}
                     <FxReveal delay={0.2}>
-                        <FxButton day={false} href="/contact" variant="solid">
-                            Start a project →
-                        </FxButton>
+                        <div className="flex flex-wrap gap-4 items-center mb-16">
+                            <FxButton day={isDayTime} href="/contact" variant="solid">
+                                Start Your Project →
+                            </FxButton>
+                            <button className={`px-8 py-3 rounded-lg font-bold text-lg transition-all duration-300 border-2 ${isDayTime ? 'border-gray-400 text-gray-700 hover:border-gray-600 hover:bg-gray-100' : 'border-gray-700 text-gray-300 hover:border-gray-500 hover:bg-gray-900/50'}`}>
+                                Schedule Consultation
+                            </button>
+                        </div>
                     </FxReveal>
 
-                    {/* Countup stats */}
-                    <FxReveal delay={0.25} className="mt-16">
-                        <div
-                            className={`grid lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-3 grid-cols-1 gap-px rounded-2xl overflow-hidden border ${borderCol}`}>
+                    {/* Enhanced Countup stats */}
+                    <FxReveal delay={0.25}>
+                        <div className={`grid lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-3 grid-cols-1 gap-px rounded-2xl overflow-hidden border ${isDayTime ? 'border-gray-300 bg-white' : borderCol}`}>
                             {stats.map((stat, index) => (
                                 <div key={index}
-                                     className="relative flex flex-col justify-center items-center py-8 px-4 bg-white/[0.03] hover:bg-teal-400/5 transition-colors duration-300">
+                                     className={`relative flex flex-col justify-center items-center py-10 px-4 transition-all duration-300 ${isDayTime ? 'bg-white hover:bg-teal-50' : 'bg-white/[0.03] hover:bg-teal-400/5'}`}>
                                     <div className="absolute inset-0 pointer-events-none"
-                                         style={{backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(45,212,191,0.015) 3px, rgba(45,212,191,0.015) 4px)'}}
+                                         style={{backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 3px, ${isDayTime ? 'rgba(13,148,136,0.015)' : 'rgba(45,212,191,0.015)'} 3px, ${isDayTime ? 'rgba(13,148,136,0.015)' : 'rgba(45,212,191,0.015)'} 4px)`}}
                                     />
-                                    <h2 className="gx-gradient-text lg:text-[3.2em] md:text-[3em] sm:text-[2em] text-[1.8em] font-[700] leading-none mb-2">
+                                    <h2 className={`lg:text-[3.2em] md:text-[3em] sm:text-[2em] text-[1.8em] font-[700] leading-none mb-2 ${isDayTime ? 'bg-gradient-to-r from-teal-700 to-cyan-700 bg-clip-text text-transparent' : 'gx-gradient-text'}`}>
                                         <CountUp end={stat.value} duration={2} suffix={stat.suffix || ''}/>
                                     </h2>
-                                    <p className="text-[0.78em] font-[400] text-gray-400 text-center">{stat.label}</p>
+                                    <p className={`text-[0.78em] font-[400] text-center ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>{stat.label}</p>
                                 </div>
                             ))}
                         </div>
