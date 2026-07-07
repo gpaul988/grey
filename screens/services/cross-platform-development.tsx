@@ -5,9 +5,11 @@ import '@/app/globals.css';
 import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import Link from "next/link";
+import CountUp from 'react-countup';
 import { useIsDayTime } from '../../components/useIsDayTime';
 import { motion } from 'framer-motion';
 import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
+import { CurrencyAwarePricing } from '@/components/ServicePageTemplate';
 import Process90 from '@/components/futuristic/Process90';
 
 const CrossPlatformDevelopment: React.FC = () => {
@@ -161,6 +163,106 @@ const CrossPlatformDevelopment: React.FC = () => {
 
       {/* Process Section */}
       <Process90 totalDays={90} />
+
+      {/* Solutions Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] text-center mb-12">
+            Our Solutions
+          </h2>
+          <p className="text-center mb-16 text-[1.1em] max-w-3xl mx-auto">Comprehensive cross-platform solutions engineered for scale, performance, and user delight across all devices</p>
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              {
+                id: 1,
+                title: "Strategy & Consulting",
+                body: "We develop comprehensive strategic roadmaps that position your cross-platform application for sustained market success and competitive differentiation. Our consulting process begins with rigorous analysis of your business objectives, target audience demographics, and competitive landscape.",
+                tags: ["Competitive Positioning", "Market Analysis", "Strategic Roadmapping"]
+              },
+              {
+                id: 2,
+                title: "Cross-Platform App Design",
+                body: "We deliver exceptional cross-platform application designs that seamlessly integrate sophisticated aesthetics with intuitive functionality, creating user experiences that drive engagement and differentiation in competitive markets.",
+                tags: ["User Experience Design", "Interface Optimization", "User Engagement"]
+              },
+              {
+                id: 3,
+                title: "Responsive Apps",
+                body: "We specialize in cross-platform application development that delivers seamless, consistent user experiences across diverse devices and operating systems while maintaining optimal speed and performance.",
+                tags: ["Multi-Device Compatibility", "Framework Optimization", "Cost-Efficient Deployment"]
+              },
+              {
+                id: 4,
+                title: "Cross-Platform App Migration",
+                body: "We provide comprehensive application migration services that seamlessly transition your existing native or legacy applications to modern cross-platform architectures, expanding market reach.",
+                tags: ["Platform Migration", "Data Integrity", "Legacy Modernization"]
+              },
+              {
+                id: 5,
+                title: "Cross-Platform App Support",
+                body: "We provide comprehensive support and maintenance services that ensure your cross-platform application maintains optimal performance, security, and reliability throughout its operational lifecycle.",
+                tags: ["Performance Optimization", "Proactive Monitoring", "Security Management"]
+              },
+              {
+                id: 6,
+                title: "Custom Software Development",
+                body: "We deliver tailor-made cross-platform applications engineered specifically to address your organization's unique operational requirements, strategic objectives, and competitive challenges.",
+                tags: ["Bespoke Solutions", "Business Alignment", "Operational Efficiency"]
+              }
+            ].map((solution) => (
+              <div key={solution.id} className="p-6 rounded-xl border border-teal-400/20 bg-teal-400/5 hover:bg-teal-400/10 transition-all">
+                <h3 className="text-[1.5em] font-[600] mb-4">{solution.title}</h3>
+                <p className="text-[0.95em] mb-4">{solution.body}</p>
+                <div className="flex flex-wrap gap-2">
+                  {solution.tags?.map(tag => <span key={tag} className="px-2 py-1 text-[0.8em] rounded bg-teal-400/20 text-teal-300">{tag}</span>)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              { value: 12, label: "Experts", suffix: "+" },
+              { value: 10, label: "Deployed", suffix: "+" },
+              { value: 3, label: "Times Faster Publishing", suffix: "x" },
+              { value: 70, label: "Better Multi-User Access", suffix: "%" }
+            ].map((stat) => (
+              <div key={stat.label} className="text-center p-6">
+                <div className="text-[3em] lg:text-[4em] font-[700] text-teal-400 mb-2">
+                  <CountUp end={stat.value} duration={2} />{stat.suffix}
+                </div>
+                <p className="text-[0.95em] font-[600]">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] text-center">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] mb-6">
+            Ready to Build Your Cross-Platform App?
+          </h2>
+          <p className="text-[1.1em] max-w-3xl mx-auto mb-8">Let's create native-quality applications that reach iOS and Android users with a single, optimized codebase. Start your project today.</p>
+          <Link href="/quote-request">
+            <button className="px-10 py-4 rounded-full bg-teal-400 text-black font-[600] hover:bg-teal-300 transition-all">
+              Get Started Today
+            </button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <CurrencyAwarePricing />
     </div>
   );
 };
