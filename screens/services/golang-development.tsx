@@ -1,88 +1,141 @@
-import React from 'react';
-import ServicePageTemplate from '@/components/ServicePageTemplate';
+'use client';
 
-const GolangDevelopment = () => (
-    <ServicePageTemplate
-        title={<>Go (Golang)<br className="lg:block md:block hidden" />Development</>}
-        heroVideo="/assets/hero/hero.mp4"
-        heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/digital-optimisation.jpg"
-        topImages={['/assets/services/services.jpg', '/assets/services/product-design.jpg']}
-        intro="High-performance Go services, APIs and distributed systems engineered for the demands of modern infrastructure—fast, reliable and built to scale under real load."
-        eyebrow="Go: built for performance at scale"
-        introHeading={<>When Performance<br className="lg:block md:block hidden" />Is Non-Negotiable</>}
-        introBody={[
-            <>Go was designed for the problems that matter most in production—high concurrency, fast startup,
-            minimal memory footprint and simple deployment. At Grey InfoTech our Go engineers build the
-            backend services, microservices, CLI tools and infrastructure software that power demanding
-            systems where performance and reliability are non-negotiable. We use Go where it delivers real
-            competitive advantage: API gateways, real-time data processors, DevOps tooling and
-            high-throughput backend services.</>,
-            <>Our Go practice follows the language&apos;s idioms rather than fighting them. We design clear package
-            boundaries, use interfaces for testability, handle errors explicitly, and write table-driven tests
-            that document expected behaviour. We containerise with minimal base images, profile for CPU and
-            memory allocations using pprof and benchmark critical paths. The result is Go services that
-            are not only fast but readable, well-tested and straightforward for your team to maintain
-            and extend.</>,
-        ]}
-        solutionsHeading={<>Go Development<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From high-throughput APIs to distributed systems and CLI tooling, Grey InfoTech builds Go software that performs under real-world production load."
-        solutions={[
-            {
-                id: '01', title: 'REST & gRPC APIs', target: 'API',
-                tags: ['REST', 'gRPC', 'Protobuf', 'OpenAPI', 'Chi', 'Gin'],
-                body: <>We build Go APIs with clean layered architecture, middleware chains for auth, logging
-                and tracing, and generated OpenAPI/Swagger documentation. For internal service communication
-                we use gRPC with Protobuf—strongly typed, efficient over the wire and easy to version. Both
-                REST and gRPC services are load-tested, rate-limited and hardened for production traffic.</>,
-            },
-            {
-                id: '02', title: 'Microservices & Distributed Systems', target: 'MS',
-                tags: ['Microservices', 'Event Sourcing', 'CQRS', 'NATS', 'Kafka'],
-                body: <>We design microservice systems in Go with well-defined service contracts, event-driven
-                communication via Kafka or NATS, and distributed tracing with OpenTelemetry. Our architects
-                apply CQRS and event sourcing where the complexity is justified, and keep services simple
-                and independently deployable where it is not. We design for failure: circuit breakers,
-                timeouts, bulkheads and graceful degradation.</>,
-            },
-            {
-                id: '03', title: 'High-Performance Data Processing', target: 'DP',
-                tags: ['Concurrency', 'Goroutines', 'Channels', 'Stream Processing'],
-                body: <>Go&apos;s goroutines and channels make it ideal for high-throughput data processing pipelines.
-                We build ingestion workers, transformation engines and streaming processors that handle millions
-                of events per second on commodity hardware. We profile every critical path, eliminate allocations
-                in hot loops and tune garbage collection to keep latency predictable under load.</>,
-            },
-            {
-                id: '04', title: 'CLI Tools & Developer Tooling', target: 'CLI',
-                tags: ['Cobra', 'Viper', 'Homebrew', 'Cross-platform'],
-                body: <>Go produces statically linked binaries that run anywhere without a runtime dependency—
-                making it the ideal language for CLIs and developer tools. We build polished command-line
-                applications with Cobra and Viper, distribute via package managers, and write comprehensive
-                integration tests to ensure reliability across Windows, macOS and Linux.</>,
-            },
-            {
-                id: '05', title: 'Infrastructure & Platform Engineering', target: 'IP',
-                tags: ['Kubernetes Operators', 'Custom Controllers', 'Webhooks', 'Helm'],
-                body: <>Many of the cloud-native ecosystem&apos;s most important tools are written in Go—and for good
-                reason. We build Kubernetes operators, custom resource definitions, admission webhooks and
-                controller-runtime based automation that extends Kubernetes with your business-specific
-                logic. We also build Go-based internal tooling for infrastructure automation, secret rotation
-                and compliance checks.</>,
-            },
-            {
-                id: '06', title: 'Go Migration & Code Modernisation', target: 'GM',
-                tags: ['Python to Go', 'Node to Go', 'Refactoring', 'Performance'],
-                body: <>Existing services in Python or Node.js that are hitting performance walls often benefit
-                from strategic migration to Go. We profile the bottlenecks, identify which components will
-                benefit most from rewriting, and execute a phased migration that keeps the system running
-                throughout. Before migrating we establish a full test suite against the existing behaviour
-                so the rewrite is validated automatically.</>,
-            },
-        ]}
-        ctaHeading={<>Performance<br className="lg:block md:block hidden" />delivered in Go</>}
-        ctaBody="When your system needs to handle serious load without serious hardware costs, Go is the answer. Grey InfoTech builds Go services that perform at scale."/>
-);
+import React, { useEffect, useRef, useState } from 'react';
+import '@/app/globals.css';
+import FloatingButton from "@/components/FloatingButton";
+import Image from "next/image";
+import Link from "next/link";
+import { useIsDayTime } from '../../components/useIsDayTime';
+import { motion } from 'framer-motion';
+import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
+import Process90 from '@/components/futuristic/Process90';
+
+const GolangDevelopment: React.FC = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isDayTime = useIsDayTime();
+
+  return (
+    <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
+      <FloatingButton className="fixed bottom-6 right-6 transition-all z-50 duration-300" />
+
+      {/* HERO SECTION */}
+      <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
+        <video ref={videoRef} autoPlay muted loop playsInline preload="auto" className="hidden lg:block absolute inset-0 w-full h-full object-cover" poster="/assets/golang/hero.jpg">
+          <source src="/assets/golang/hero.mp4" type="video/mp4" />
+        </video>
+        <Image src="/assets/golang/hero.jpg" alt="Golang Development Hero" fill priority className="lg:hidden object-cover" />
+        <div className="pointer-events-none absolute inset-0 z-[1]">
+          <FxBackground day={false} grid={true} aurora={true} />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50 z-[2]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,245,212,0.12),transparent_50%)] z-[2]" />
+        <div className="pointer-events-none absolute inset-0 z-[3]">
+          <div className="gx-scanline" />
+          <div className="gx-noise-overlay" />
+          <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: 0.12 }} />
+          <div className="gx-orbit absolute" style={{ width: '40vmax', height: '40vmax', bottom: '-15vmax', left: '-10vmax', opacity: 0.08 }} />
+        </div>
+        <div className="absolute inset-0 flex items-center top-32 z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+          <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div>
+              <div className="flex items-center gap-3 mb-6 lg:mb-8">
+                <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse" />
+                <span className="text-teal-400 text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">Backend Development</span>
+              </div>
+              <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
+                High-Performance Backend <span className="gx-gradient-text">Infrastructure</span> Built with Go
+              </h1>
+              <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
+                Go microservices, APIs, and systems. Fast, reliable, and scalable backend infrastructure for modern applications.
+              </p>
+              <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
+                {["Microservices", "APIs", "Systems Programming", "Concurrency", "Performance"].map((badge) => (
+                  <span key={badge} className="px-3 py-1.5 rounded-full bg-teal-400/10 border border-teal-400/30 text-teal-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">
+                    {badge}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-4 items-center">
+                <Link href="/quote-request">
+                  <button className="relative px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap" style={{ background: '#00f5d4', color: '#000' }}>
+                    <span className="absolute inset-0" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)' }} />
+                    <span className="relative">Build Your Go Backend →</span>
+                  </button>
+                </Link>
+                <Link href="/portfolio">
+                  <button className="px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap" style={{ border: '1px solid rgba(255,255,255,0.15)' }}>
+                    Explore Go System Examples
+                  </button>
+                </Link>
+              </div>
+            </div>
+            <div className="hidden lg:flex flex-col items-end">
+              <div className="grid grid-cols-2 gap-6 w-full">
+                {[
+                  { label: 'Services Built', value: '300+' },
+                  { label: 'Requests/Second', value: '1M+' },
+                  { label: 'Resource Efficiency', value: '10x Improvement' },
+                  { label: 'Uptime', value: '99.99%' }
+                ].map((stat) => (
+                  <div key={stat.label} className="px-6 py-5 rounded-2xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md hover:bg-teal-400/12 transition-all duration-300 hover:border-teal-400/50 text-right">
+                    <div className="text-teal-300 text-[0.7em] uppercase tracking-wider font-[600] mb-2">{stat.label}</div>
+                    <div className="text-white text-[1.8em] font-[700]">{stat.value}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="lg:hidden absolute bottom-12 left-0 right-0 z-[11] px-6">
+          <div className="grid grid-cols-3 gap-3">
+            {[
+              { label: 'Services', value: '300+' },
+              { label: 'Throughput', value: '1M+' },
+              { label: 'Efficiency', value: '10x' }
+            ].map((stat) => (
+              <div key={stat.label} className="px-3 py-2 rounded-xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md">
+                <div className="text-teal-300 text-[0.5em] uppercase tracking-wider font-[600] mb-1">{stat.label}</div>
+                <div className="text-white text-[1.2em] font-[700]">{stat.value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="absolute top-1/4 left-8 z-[4] w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+        <div className="absolute bottom-1/3 right-12 z-[4] w-3 h-3 rounded-full bg-teal-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
+        <div className="absolute top-3/4 left-1/3 z-[4] w-2 h-2 rounded-full bg-cyan-400 animate-pulse" style={{ animationDelay: '1s' }} />
+      </section>
+
+      {/* INTRO SECTION */}
+      <section className={`pt-16 transition-colors duration-500 ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <div>
+            <FxChip day={!isDayTime}>GO DEVELOPMENT</FxChip>
+          </div>
+          <div className="lg:-ml-[19em]">
+            <FxReveal>
+              <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
+                Scalable Backend Systems <span className="gx-gradient-text">Powered by Go</span>
+              </h3>
+            </FxReveal>
+            <FxReveal delay={0.08}>
+              <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[1em] leading-relaxed">
+                <div>
+                  <p>Go powers some of the internet's most scalable systems—and we build production-grade Go infrastructure. We architect microservices, APIs, and systems that handle massive load with minimal resource overhead.</p>
+                </div>
+                <div>
+                  <p>From architecture and development to testing and deployment, we deliver Go systems that scale reliably to production demands.</p>
+                </div>
+              </div>
+            </FxReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* PROCESS SECTION */}
+      <Process90 totalDays={90} />
+    </div>
+  );
+};
 
 export default GolangDevelopment;
-
