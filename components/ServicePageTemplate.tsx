@@ -420,6 +420,60 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
         {key: 'mobile', label: 'Mobile'},
     ];
 
+    // Play button timeline animation
+    useEffect(() => {
+        if (!isPlaying) return;
+        
+        const interval = setInterval(() => {
+            setCurrentDay(prev => {
+                const totalDays = phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0);
+                if (prev >= totalDays) {
+                    setIsPlaying(false);
+                    return totalDays;
+                }
+                return prev + 1;
+            });
+        }, 500); // Advance day every 500ms
+        
+        return () => clearInterval(interval);
+    }, [isPlaying, phases]);
+
+    // Helper function to get detailed explanations for deliverables
+    const getDeliverableDescription = (item: string): string => {
+        const descriptions: Record<string, string> = {
+            // Discovery phase
+            'Deep-dive business intelligence gathering': 'Comprehensive analysis of your market landscape, competitive positioning, and growth opportunities with data-driven insights.',
+            'Competitive landscape mapping': 'Systematic evaluation of competitor strategies, strengths, and market gaps to identify your unique advantages.',
+            'Audience psychographic profiling': 'In-depth understanding of your target audience behaviors, preferences, and decision-making patterns.',
+            'Strategic KPI framework design': 'Establishment of measurable success metrics aligned with your business objectives and growth targets.',
+            'Omnichannel blueprint creation': 'Development of integrated multi-channel strategies ensuring consistent messaging across all customer touchpoints.',
+            
+            // Launch phase
+            'Campaign infrastructure setup': 'Construction of technical foundation for campaign execution with analytics and tracking infrastructure.',
+            'Asset creation and optimization': 'Production of high-quality creative content optimized for performance across all channels.',
+            'Platform configuration': 'Strategic setup of advertising platforms, CRMs, and marketing automation tools.',
+            'Team training and enablement': 'Comprehensive training ensuring your team understands strategies and executes with precision.',
+            'Go-live management': 'Coordinated launch with continuous monitoring to ensure smooth campaign initiation.',
+            
+            // Scale phase
+            'Performance optimization': 'Ongoing refinement of campaigns based on real-time data to maximize ROI and conversion rates.',
+            'Audience expansion': 'Strategic growth of your customer base through refined targeting and channel diversification.',
+            'Advanced analytics integration': 'Implementation of sophisticated reporting dashboards providing actionable business intelligence.',
+            'Continuous improvement protocols': 'Establishment of feedback loops and iterative processes for sustained performance enhancement.',
+            'Scaling infrastructure': 'Expansion of systems and resources to support accelerated growth and increased market reach.',
+        };
+        
+        // Try to match the item with known descriptions
+        for (const [key, desc] of Object.entries(descriptions)) {
+            if (item.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(item.toLowerCase().split(' ')[0])) {
+                return desc;
+            }
+        }
+        
+        // Fallback: Generate contextual description
+        return `Strategic implementation of ${item.toLowerCase()} to drive measurable progress toward your business objectives.`;
+    };
+
     const data: Record<string, Array<{ name: string; logo: string }>> = {
         frontend: [
             {name: 'React', logo: '/assets/cms/logos/react.svg'},
@@ -1361,7 +1415,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
             <div
                 className={`lg:pt-[2em] md:pt-[2em] pt-[1em] lg:pb-[2em] md:pb-[2em] pb-[1em] ${isDayTime ? 'bg-black' : 'bg-white'}`}>
                 <div id={'Our-proven-process'}
-                     className={`relative z-10 lg:mt-[1.5em] md:mt-[1.5em] mt-[1em] lg:mb-16 md:mb-16 mb-5 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
+                     className={`relative z-10 lg:mt-[1.5em] md:mt-[1.5em] mt-[1em] lg:mb-16 md:mb-16 mb-5 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] overflow-visible`}>
 
                     <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-0"/>
 
@@ -1520,7 +1574,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                     </div>
 
                     {/* Main */}
-                    <div className="grid lg:grid-cols-2 gap-16 items-start mb-24">
+                    <div className="grid lg:grid-cols-2 gap-16 items-start mb-24 overflow-visible">
                         <div className="order-2 lg:order-1 flex justify-center">
                             <div className="relative w-80 h-80 sm:w-96 sm:h-96">
                                 <div
@@ -1541,9 +1595,10 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                             </div>
                         </div>
 
-                        <div className="order-1 lg:order-2 space-y-8 lg:pt-4">
-                            <div>
-                                <div className="flex items-center gap-3 mb-4">
+                        <div className="order-1 lg:order-2 space-y-10 lg:pt-4 overflow-visible">
+                            {/* Phase Header */}
+                            <div className="space-y-5">
+                                <div className="flex items-center gap-3 mb-5 flex-wrap">
                                     <div
                                         className={`px-6 py-2 rounded-full bg-gradient-to-r ${phase.color} text-white font-mono font-bold text-sm tracking-[0.2em] uppercase shadow-lg`}>
                                         {(() => {
@@ -1556,22 +1611,44 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                         {parseInt(phase.days.split('-')[1])} DAYS
                                     </div>
                                 </div>
-                                <h3 className={`text-4xl sm:text-5xl font-black mb-3 bg-gradient-to-r ${isDayTime ? 'from-gray-900 to-gray-600' : 'from-white to-gray-400'} bg-clip-text text-transparent`}>{phase.title}</h3>
-                                <p className={`text-xl font-light bg-gradient-to-r ${phase.color} bg-clip-text text-transparent mb-4`}>{phase.tagline}</p>
+                                
+                                <div>
+                                    <h3 className={`text-4xl sm:text-5xl font-black mb-3 bg-gradient-to-r ${isDayTime ? 'from-gray-900 to-gray-600' : 'from-white to-gray-400'} bg-clip-text text-transparent`}>{phase.title}</h3>
+                                    <p className={`text-lg font-light bg-gradient-to-r ${phase.color} bg-clip-text text-transparent mb-4 leading-[1.6]`}>{phase.tagline}</p>
+                                </div>
+
+                                {/* Detailed Phase Overview */}
+                                <div className={`p-6 rounded-2xl border ${isDayTime ? 'bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200' : 'bg-gradient-to-br from-gray-800/30 to-gray-900/30 border-gray-700'} space-y-4`}>
+                                    <p className={`text-sm leading-[1.8] font-[400] ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}>
+                                        {phase.description || 'This transformational phase combines strategic planning with operational excellence. Our specialized team collaborates with your organization to implement proven frameworks, establish measurement protocols, and ensure continuous value delivery aligned with your business objectives and growth aspirations.'}
+                                    </p>
+                                    <div className={`text-xs font-mono tracking-wider leading-relaxed ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
+                                        <p>✓ Comprehensive stakeholder alignment and goal setting</p>
+                                        <p>✓ Systematic implementation with risk mitigation protocols</p>
+                                        <p>✓ Continuous monitoring, optimization, and course correction</p>
+                                        <p>✓ Measurable KPI achievement and performance validation</p>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div className="space-y-4">
-                                <p className={`text-sm font-[300] leading-[1.8] ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
-                                    {phase.description || 'This phase focuses on strategic execution and measurable progress. Our experts work closely with your team to implement proven methodologies, ensure continuous optimization, and deliver tangible outcomes aligned with your business objectives.'}
-                                </p>
-                                <div className="pt-2">
-                                    <p className={`text-xs font-mono tracking-[0.15em] uppercase mb-3 ${isDayTime ? 'text-gray-500' : 'text-gray-500'}`}>Key Deliverables</p>
+                            {/* Key Deliverables - Expanded */}
+                            <div className="space-y-5 overflow-visible">
+                                <div>
+                                    <h4 className={`text-sm font-mono tracking-[0.25em] uppercase font-bold mb-5 ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>📋 Key Deliverables & Outcomes</h4>
+                                </div>
+                                <div className="space-y-3 overflow-visible">
                                     {phase.items.map((item, idx) => (
                                         <div key={idx}
-                                             className={`group flex items-start gap-4 p-4 mb-3 rounded-2xl transition-all duration-300 ${isDayTime ? 'bg-white/70 border-gray-200 hover:border-gray-400 shadow-sm hover:shadow-md hover:bg-white' : 'bg-gray-900/50 border-gray-800 hover:border-gray-600 hover:bg-gray-900'} backdrop-blur-sm border`}>
-                                            <div
-                                                className={`flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br ${phase.color} flex items-center justify-center text-sm font-bold text-white`}>{idx + 1}</div>
-                                            <p className={`text-sm leading-relaxed ${isDayTime ? 'text-gray-600 group-hover:text-gray-900' : 'text-gray-300 group-hover:text-white'} transition-colors`}>{item}</p>
+                                             className={`group p-5 rounded-2xl transition-all duration-300 overflow-visible ${isDayTime ? 'bg-white/70 border-gray-200 hover:border-cyan-400 shadow-sm hover:shadow-lg hover:bg-white' : 'bg-gray-900/50 border-gray-800 hover:border-cyan-500 hover:bg-gray-800/80'} backdrop-blur-sm border`}>
+                                            <div className="flex items-start gap-4">
+                                                <div className={`flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br ${phase.color} flex items-center justify-center text-sm font-bold text-white font-mono`}>{idx + 1}</div>
+                                                <div className="flex-1 overflow-visible">
+                                                    <p className={`font-semibold mb-2 ${isDayTime ? 'text-gray-900 group-hover:text-gray-900' : 'text-white group-hover:text-white'} transition-colors`}>{item}</p>
+                                                    <p className={`text-xs leading-[1.7] ${isDayTime ? 'text-gray-600 group-hover:text-gray-700' : 'text-gray-400 group-hover:text-gray-300'} transition-colors`}>
+                                                        {getDeliverableDescription(item)}
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
