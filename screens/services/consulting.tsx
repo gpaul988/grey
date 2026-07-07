@@ -1,83 +1,141 @@
-import React from 'react';
-import ServicePageTemplate from '@/components/ServicePageTemplate';
+'use client';
 
-const Consulting = () => (
-    <ServicePageTemplate
-        title={<>Technology<br className="lg:block md:block hidden" />Consulting</>}
-        heroVideo="/assets/hero/hero.mp4"
-        heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/Web-App-Development-company.jpg"
-        topImages={['/assets/services/Development.jpg', '/assets/services/services.jpg']}
-        intro="Strategic technology guidance that turns complex decisions into clear roadmaps—helping your business move faster, build the right things and avoid costly mistakes."
-        eyebrow="Strategic technology guidance for growth"
-        introHeading={<>Clarity From<br className="lg:block md:block hidden" />Complexity</>}
-        introBody={[
-            <>Technology decisions made today lock in the trajectory of your business for years. At Grey
-            InfoTech we provide the strategic counsel and hands-on expertise to help you make those decisions
-            with confidence. Whether you are a startup choosing a founding tech stack, a scale-up navigating a
-            re-platform, or an enterprise modernising legacy systems, our consultants combine deep engineering
-            knowledge with commercial acumen to give you recommendations that are practical, not theoretical.</>,
-            <>We do not produce slide decks that gather dust. Every engagement produces actionable artefacts—
-            architecture diagrams, build-vs-buy analyses, vendor shortlists, risk registers, RFP templates and
-            prioritised roadmaps—and we remain available to validate implementation progress. Our consultants
-            have shipped real products across fintech, healthtech, logistics and e-commerce, so the advice is
-            grounded in what actually works in production, not just what looks good on paper.</>,
-        ]}
-        solutionsHeading={<>Consulting<br className="lg:block md:block hidden" />Services</>}
-        solutionsIntro="From technology strategy to hands-on architecture review, Grey InfoTech consulting helps you make better decisions faster and build with confidence."
-        solutions={[
-            {
-                id: '01', title: 'Technology Strategy & Roadmapping', target: 'TS',
-                tags: ['Roadmap', 'OKRs', 'Investment Planning'],
-                body: <>We align your technology investments with business objectives. Starting from stakeholder
-                interviews, competitive analysis and current-state assessment, we produce a 12–24 month
-                technology roadmap with initiative sequencing, resource requirements and expected ROI. The
-                roadmap is designed to be a living document, reviewed quarterly as priorities evolve.</>,
-            },
-            {
-                id: '02', title: 'Architecture Review & Design', target: 'AR',
-                tags: ['System Design', 'Scalability', 'Security', 'Patterns'],
-                body: <>We review existing architectures for performance bottlenecks, security gaps and
-                scalability ceilings, then produce a prioritised findings report with remediation playbooks.
-                For greenfield projects we run architecture design sessions, produce C4 diagrams and ADRs,
-                and validate the design against your non-functional requirements before development begins.</>,
-            },
-            {
-                id: '03', title: 'Digital Transformation Advisory', target: 'DT',
-                tags: ['Legacy Modernisation', 'Process Automation', 'Change Management'],
-                body: <>Digital transformation is as much a people and process challenge as a technology one.
-                We help you define what to modernise, sequence the work to minimise disruption, select the
-                right platforms and manage change across the organisation. Our advisory covers process mapping,
-                automation opportunity identification, vendor selection and team capability building.</>,
-            },
-            {
-                id: '04', title: 'Tech Stack Selection & Build vs Buy', target: 'BS',
-                tags: ['Evaluation', 'Vendor Analysis', 'TCO'],
-                body: <>Choosing the wrong stack or vendor is expensive. We run structured evaluations using
-                weighted criteria covering total cost of ownership, lock-in risk, team capability, community
-                health and scalability. We produce clear recommendation reports with evidence so stakeholders
-                can make informed decisions quickly without months of analysis paralysis.</>,
-            },
-            {
-                id: '05', title: 'CTO-as-a-Service', target: 'CTO',
-                tags: ['Fractional CTO', 'Startups', 'Scale-ups'],
-                body: <>Not every company needs a full-time CTO from day one. Our fractional CTO service
-                provides senior technical leadership on a part-time basis—sitting in board meetings, leading
-                engineering hiring, setting technical direction, reviewing vendor contracts and mentoring
-                your engineering team. Engagement scales from 2 days/month to full-time as you grow.</>,
-            },
-            {
-                id: '06', title: 'Security & Compliance Consulting', target: 'SC',
-                tags: ['ISO 27001', 'SOC 2', 'GDPR', 'Pen Testing'],
-                body: <>We help organisations achieve and maintain security certifications and compliance
-                frameworks. Our work covers gap analysis, policy drafting, control implementation, vendor
-                risk assessment and audit preparation. We translate dense compliance requirements into
-                practical engineering tasks your team can execute and track to completion.</>,
-            },
-        ]}
-        ctaHeading={<>Advice that<br className="lg:block md:block hidden" />actually ships</>}
-        ctaBody="Great consulting doesn't end with a report. We stay engaged to validate implementation, unblock decisions and ensure the strategy translates into software that works."/>
-);
+import React, { useEffect, useRef, useState } from 'react';
+import '@/app/globals.css';
+import FloatingButton from "@/components/FloatingButton";
+import Image from "next/image";
+import Link from "next/link";
+import { useIsDayTime } from '../../components/useIsDayTime';
+import { motion } from 'framer-motion';
+import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
+import Process90 from '@/components/futuristic/Process90';
+
+const Consulting: React.FC = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isDayTime = useIsDayTime();
+
+  return (
+    <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
+      <FloatingButton className="fixed bottom-6 right-6 transition-all z-50 duration-300" />
+
+      {/* HERO SECTION */}
+      <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
+        <video ref={videoRef} autoPlay muted loop playsInline preload="auto" className="hidden lg:block absolute inset-0 w-full h-full object-cover" poster="/assets/consulting/hero.jpg">
+          <source src="/assets/consulting/hero.mp4" type="video/mp4" />
+        </video>
+        <Image src="/assets/consulting/hero.jpg" alt="Consulting Hero" fill priority className="lg:hidden object-cover" />
+        <div className="pointer-events-none absolute inset-0 z-[1]">
+          <FxBackground day={false} grid={true} aurora={true} />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50 z-[2]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,245,212,0.12),transparent_50%)] z-[2]" />
+        <div className="pointer-events-none absolute inset-0 z-[3]">
+          <div className="gx-scanline" />
+          <div className="gx-noise-overlay" />
+          <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: 0.12 }} />
+          <div className="gx-orbit absolute" style={{ width: '40vmax', height: '40vmax', bottom: '-15vmax', left: '-10vmax', opacity: 0.08 }} />
+        </div>
+        <div className="absolute inset-0 flex items-center top-32 z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+          <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div>
+              <div className="flex items-center gap-3 mb-6 lg:mb-8">
+                <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse" />
+                <span className="text-teal-400 text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">Strategic Consulting</span>
+              </div>
+              <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
+                Technology Strategy <span className="gx-gradient-text">That Drives</span> Business Growth
+              </h1>
+              <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
+                Digital transformation, technology roadmaps, and vendor evaluation. Expert consulting that aligns tech with business goals and accelerates competitive advantage.
+              </p>
+              <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
+                {["Digital Transformation", "Tech Strategy", "Vendor Selection", "Roadmapping", "M&A Tech Due Diligence"].map((badge) => (
+                  <span key={badge} className="px-3 py-1.5 rounded-full bg-teal-400/10 border border-teal-400/30 text-teal-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">
+                    {badge}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-4 items-center">
+                <Link href="/quote-request">
+                  <button className="relative px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap" style={{ background: '#00f5d4', color: '#000' }}>
+                    <span className="absolute inset-0" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)' }} />
+                    <span className="relative">Get a Tech Strategy Consult →</span>
+                  </button>
+                </Link>
+                <Link href="/portfolio">
+                  <button className="px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap" style={{ border: '1px solid rgba(255,255,255,0.15)' }}>
+                    View Our Consulting Success
+                  </button>
+                </Link>
+              </div>
+            </div>
+            <div className="hidden lg:flex flex-col items-end">
+              <div className="grid grid-cols-2 gap-6 w-full">
+                {[
+                  { label: 'Companies Advised', value: '150+' },
+                  { label: 'Successful Transformations', value: '95%' },
+                  { label: 'Value Created', value: '$500M+' },
+                  { label: 'Client Retention', value: '92%' }
+                ].map((stat) => (
+                  <div key={stat.label} className="px-6 py-5 rounded-2xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md hover:bg-teal-400/12 transition-all duration-300 hover:border-teal-400/50 text-right">
+                    <div className="text-teal-300 text-[0.7em] uppercase tracking-wider font-[600] mb-2">{stat.label}</div>
+                    <div className="text-white text-[1.8em] font-[700]">{stat.value}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="lg:hidden absolute bottom-12 left-0 right-0 z-[11] px-6">
+          <div className="grid grid-cols-3 gap-3">
+            {[
+              { label: 'Advised', value: '150+' },
+              { label: 'Success Rate', value: '95%' },
+              { label: 'Value', value: '$500M+' }
+            ].map((stat) => (
+              <div key={stat.label} className="px-3 py-2 rounded-xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md">
+                <div className="text-teal-300 text-[0.5em] uppercase tracking-wider font-[600] mb-1">{stat.label}</div>
+                <div className="text-white text-[1.2em] font-[700]">{stat.value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="absolute top-1/4 left-8 z-[4] w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+        <div className="absolute bottom-1/3 right-12 z-[4] w-3 h-3 rounded-full bg-teal-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
+        <div className="absolute top-3/4 left-1/3 z-[4] w-2 h-2 rounded-full bg-cyan-400 animate-pulse" style={{ animationDelay: '1s' }} />
+      </section>
+
+      {/* INTRO SECTION */}
+      <section className={`pt-16 transition-colors duration-500 ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <div>
+            <FxChip day={!isDayTime}>STRATEGIC CONSULTING</FxChip>
+          </div>
+          <div className="lg:-ml-[19em]">
+            <FxReveal>
+              <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
+                Technology Consulting <span className="gx-gradient-text">That Accelerates</span> Business
+              </h3>
+            </FxReveal>
+            <FxReveal delay={0.08}>
+              <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[1em] leading-relaxed">
+                <div>
+                  <p>Technology strategy without business alignment wastes time and budget. Our consultants blend deep technical expertise with business acumen to design technology roadmaps, evaluate vendors, guide digital transformations, and unlock competitive advantage.</p>
+                </div>
+                <div>
+                  <p>From startups to enterprises, we deliver technology consulting that translates business goals into winning strategies.</p>
+                </div>
+              </div>
+            </FxReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* PROCESS SECTION */}
+      <Process90 totalDays={60} />
+    </div>
+  );
+};
 
 export default Consulting;
-
