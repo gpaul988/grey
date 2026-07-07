@@ -1,87 +1,169 @@
-import React from 'react';
-import ServicePageTemplate from '@/components/ServicePageTemplate';
+'use client';
 
-const SalesforceDevelopment = () => (
-    <ServicePageTemplate
-        title={<>Salesforce<br className="lg:block md:block hidden" />Development</>}
-        heroVideo="/assets/hero/hero.mp4"
-        heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/digital-transformatio.jpg"
-        topImages={['/assets/services/Research-strategy.jpg', '/assets/services/ecommerce-web-design.jpg']}
-        intro="Custom Salesforce implementations, integrations and Apex development that maximise your CRM investment and unify your customer data across every touchpoint."
-        eyebrow="Salesforce engineered for your exact process"
-        introHeading={<>Salesforce That<br className="lg:block md:block hidden" />Fits Your Business</>}
-        introBody={[
-            <>Salesforce is the world&apos;s leading CRM, but out-of-the-box configuration rarely matches the
-            nuance of a real business process. At Grey InfoTech our certified Salesforce developers and
-            architects customise, integrate and optimise the platform to match exactly how your teams sell,
-            service and operate. We bring deep expertise in Sales Cloud, Service Cloud, Marketing Cloud,
-            Experience Cloud and Salesforce Platform—delivering solutions that drive adoption rather than
-            frustration.</>,
-            <>Our engagements go beyond clicking through setup menus. We write clean Apex, build Lightning
-            Web Components, design scalable data models and integrate Salesforce with your wider technology
-            stack using APIs, middleware and native connectors. We also implement DevOps best practices for
-            Salesforce—version-controlled metadata, CI/CD with Salesforce DX, automated testing with Apex
-            test classes, and sandbox management—so your org is maintainable and deployable like a proper
-            software project.</>,
-        ]}
-        solutionsHeading={<>Salesforce<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From fresh implementations to complex custom development and integrations, Grey InfoTech builds Salesforce solutions that your teams actually use."
-        solutions={[
-            {
-                id: '01', title: 'Salesforce Implementation', target: 'SI',
-                tags: ['Sales Cloud', 'Service Cloud', 'Experience Cloud', 'Setup'],
-                body: <>We implement Salesforce from scratch or augment existing orgs—covering requirements
-                discovery, data model design, process automation, user permission configuration, validation
-                rules, page layouts and reports/dashboards. Every implementation is documented, tested
-                and backed by change management support to drive user adoption from day one.</>,
-            },
-            {
-                id: '02', title: 'Apex & LWC Development', target: 'AP',
-                tags: ['Apex', 'Lightning Web Components', 'Triggers', 'Batch Jobs'],
-                body: <>When declarative tools reach their limits, we write clean, well-tested Apex code.
-                Our developers build custom triggers, batch processes, scheduled jobs and REST/SOAP API
-                services. On the front-end we create Lightning Web Components that extend the Salesforce UI
-                with functionality tailored to your users&apos; workflows—fast, accessible and mobile-responsive.</>,
-            },
-            {
-                id: '03', title: 'Salesforce Integrations', target: 'IN',
-                tags: ['MuleSoft', 'REST', 'Platform Events', 'ERP', 'Marketing'],
-                body: <>Salesforce is most powerful when connected to your wider systems—ERP, marketing
-                automation, billing, support ticketing and data warehouse. We design integration architectures
-                using Platform Events, Change Data Capture, Salesforce APIs and middleware like MuleSoft
-                or custom Node.js/Python services. We build for reliability with retry logic, dead-letter
-                queues and comprehensive logging.</>,
-            },
-            {
-                id: '04', title: 'Marketing Cloud & Pardot', target: 'MC',
-                tags: ['Email Studio', 'Journey Builder', 'AMPscript', 'Pardot'],
-                body: <>We configure and customise Marketing Cloud to power sophisticated customer journeys—
-                personalised email campaigns, SMS flows, push notifications and social studio. Our work
-                covers Journey Builder design, AMPscript and SQL query activities, connector setup and
-                cross-cloud data synchronisation with Sales Cloud for closed-loop reporting on marketing ROI.</>,
-            },
-            {
-                id: '05', title: 'Salesforce CPQ & Billing', target: 'CPQ',
-                tags: ['CPQ', 'Billing', 'Contracts', 'Revenue Cloud'],
-                body: <>Configuring complex products and generating accurate quotes and contracts is a common
-                pain point. We implement Salesforce CPQ with product catalogues, pricing rules, discount
-                schedules, approval workflows and document generation. For companies with recurring revenue
-                we extend into Salesforce Billing to automate invoicing, amendments and revenue recognition.</>,
-            },
-            {
-                id: '06', title: 'Salesforce DevOps & Migrations', target: 'DO',
-                tags: ['SFDX', 'Copado', 'Gearset', 'Org Migration'],
-                body: <>We modernise Salesforce development with proper DevOps practices—Salesforce DX project
-                structure, version control in Git, CI/CD with Gearset or Copado and automated Apex test
-                execution. For org migrations and refreshes we design sandbox strategies, manage metadata
-                deployments and handle data migration with tools like Data Loader, Informatica and
-                custom scripts.</>,
-            },
-        ]}
-        ctaHeading={<>Salesforce that<br className="lg:block md:block hidden" />drives revenue</>}
-        ctaBody="Your CRM should be your competitive advantage, not a system your team works around. Grey InfoTech builds Salesforce solutions that match your process perfectly."/>
-);
+import React, { useEffect, useRef, useState } from 'react';
+import '@/app/globals.css';
+import FloatingButton from "@/components/FloatingButton";
+import Image from "next/image";
+import Link from "next/link";
+import { useIsDayTime } from '../../components/useIsDayTime';
+import { motion } from 'framer-motion';
+import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
+import Process90 from '@/components/futuristic/Process90';
+
+const SalesforceDevelopment: React.FC = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isDayTime = useIsDayTime();
+
+  return (
+    <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
+      <FloatingButton className="fixed bottom-6 right-6 transition-all z-50 duration-300" />
+
+      {/* Futuristic Hero Section - Salesforce Development */}
+      <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="hidden lg:block absolute inset-0 w-full h-full object-cover"
+          poster="/assets/salesforce/hero.jpg"
+        >
+          <source src="/assets/salesforce/hero.mp4" type="video/mp4" />
+        </video>
+
+        <Image
+          src="/assets/salesforce/hero.jpg"
+          alt="Salesforce Development Hero"
+          fill
+          priority
+          className="lg:hidden object-cover"
+        />
+
+        <div className="pointer-events-none absolute inset-0 z-[1]">
+          <FxBackground day={false} grid={true} aurora={true} />
+        </div>
+
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50 z-[2]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,245,212,0.12),transparent_50%)] z-[2]" />
+
+        <div className="pointer-events-none absolute inset-0 z-[3]">
+          <div className="gx-scanline" />
+          <div className="gx-noise-overlay" />
+          <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: 0.12 }} />
+          <div className="gx-orbit absolute" style={{ width: '40vmax', height: '40vmax', bottom: '-15vmax', left: '-10vmax', opacity: 0.08 }} />
+        </div>
+
+        <div className="absolute inset-0 flex items-center top-32 z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+          <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div>
+              <div className="flex items-center gap-3 mb-6 lg:mb-8">
+                <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse" />
+                <span className="text-teal-400 text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">Salesforce Solutions</span>
+              </div>
+
+              <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
+                Custom Salesforce <span className="gx-gradient-text">Implementations</span>
+              </h1>
+
+              <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
+                Salesforce customization, development, and integration. Enterprise CRM solutions built on Salesforce.
+              </p>
+
+              <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
+                {["Custom Development", "Integration", "Data Migration", "Optimization", "Apex/LWC"].map((badge) => (
+                  <span key={badge} className="px-3 py-1.5 rounded-full bg-teal-400/10 border border-teal-400/30 text-teal-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">
+                    {badge}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-4 items-center">
+                <Link href="/quote-request">
+                  <button className="relative px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap" style={{ background: '#00f5d4', color: '#000' }}>
+                    <span className="absolute inset-0" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)' }} />
+                    <span className="relative">Implement Your Salesforce →</span>
+                  </button>
+                </Link>
+                <Link href="/portfolio">
+                  <button className="px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap" style={{ border: '1px solid rgba(255,255,255,0.15)' }}>
+                    See Salesforce Success Cases
+                  </button>
+                </Link>
+              </div>
+            </div>
+
+            <div className="hidden lg:flex flex-col items-end">
+              <div className="grid grid-cols-2 gap-6 w-full">
+                {[
+                  { label: 'Implementations', value: '150+' },
+                  { label: 'Users Supported', value: '100K+' },
+                  { label: 'Data Migration', value: '1B+ Records' },
+                  { label: 'Success Rate', value: '99%' }
+                ].map((stat) => (
+                  <div key={stat.label} className="px-6 py-5 rounded-2xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md hover:bg-teal-400/12 transition-all duration-300 hover:border-teal-400/50 text-right">
+                    <div className="text-teal-300 text-[0.7em] uppercase tracking-wider font-[600] mb-2">{stat.label}</div>
+                    <div className="text-white text-[1.8em] font-[700]">{stat.value}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="lg:hidden absolute bottom-12 left-0 right-0 z-[11] px-6">
+          <div className="grid grid-cols-3 gap-3">
+            {[
+              { label: 'Implementations', value: '150+' },
+              { label: 'Users', value: '100K+' },
+              { label: 'Success', value: '99%' }
+            ].map((stat) => (
+              <div key={stat.label} className="px-3 py-2 rounded-xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md">
+                <div className="text-teal-300 text-[0.5em] uppercase tracking-wider font-[600] mb-1">{stat.label}</div>
+                <div className="text-white text-[1.2em] font-[700]">{stat.value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="absolute top-1/4 left-8 z-[4] w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+        <div className="absolute bottom-1/3 right-12 z-[4] w-3 h-3 rounded-full bg-teal-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
+        <div className="absolute top-3/4 left-1/3 z-[4] w-2 h-2 rounded-full bg-cyan-400 animate-pulse" style={{ animationDelay: '1s' }} />
+      </section>
+
+      {/* Introduction Section */}
+      <section className={`pt-16 transition-colors duration-500 ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <div>
+            <FxChip day={!isDayTime}>SALESFORCE DEVELOPMENT</FxChip>
+          </div>
+          <div className="lg:-ml-[19em]">
+            <FxReveal>
+              <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
+                Salesforce Excellence <span className="gx-gradient-text">At Enterprise Scale</span>
+              </h3>
+            </FxReveal>
+            <FxReveal delay={0.08}>
+              <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[1em] leading-relaxed">
+                <div>
+                  <p>Salesforce powers enterprise sales and service—but realizing its full potential requires expert implementation. We customize Salesforce to your business processes, integrate with your systems, and optimize adoption across your organization.</p>
+                </div>
+                <div>
+                  <p>From configuration and Apex development to data migration and training, we deliver Salesforce implementations that drive revenue and efficiency.</p>
+                </div>
+              </div>
+            </FxReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* Process Section */}
+      <Process90 totalDays={100} />
+    </div>
+  );
+};
 
 export default SalesforceDevelopment;
 
