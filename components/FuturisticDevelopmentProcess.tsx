@@ -4,7 +4,6 @@ import React from 'react';
 import {motion} from 'framer-motion';
 import {useIsDayTime} from './useIsDayTime';
 import {FxBackground, FxOrbit, FxReveal} from '@/components/futuristic/fx';
-import Process90 from '@/components/futuristic/Process90';
 
 interface FuturisticDevelopmentProcessProps {
     day?: boolean;
@@ -46,7 +45,7 @@ const FuturisticDevelopmentProcess: React.FC<FuturisticDevelopmentProcessProps> 
         },
     ];
 
-    return (<>
+    return (
             <section className={`relative overflow-hidden overflow-y-hidden ${isDayTime ? 'bg-black' : 'bg-white'}`}>
                 <FxBackground day={isDayTime} grid aurora className="opacity-20"/>
                 <FxOrbit size={520} top="-90px" right="-140px" opacity={0.06} speed={36}/>
@@ -105,8 +104,7 @@ const FuturisticDevelopmentProcess: React.FC<FuturisticDevelopmentProcessProps> 
                 </div>
             </div>
         </section>
-        <Process90 totalDays={90} />
-    </>);
+    );
 };
 
 export default FuturisticDevelopmentProcess;

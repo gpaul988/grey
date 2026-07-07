@@ -1,141 +1,137 @@
-'use client';
+import React from 'react';
 
-import React, { useEffect, useRef, useState } from 'react';
-import '@/app/globals.css';
-import FloatingButton from "@/components/FloatingButton";
-import Image from "next/image";
-import Link from "next/link";
-import { useIsDayTime } from '../../components/useIsDayTime';
-import { motion } from 'framer-motion';
-import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
-import Process90 from '@/components/futuristic/Process90';
 
-const FlutterDevelopment: React.FC = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const isDayTime = useIsDayTime();
+import ServicePageTemplate from '@/components/ServicePageTemplate';
 
-  return (
-    <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-      <FloatingButton className="fixed bottom-6 right-6 transition-all z-50 duration-300" />
-
-      {/* HERO SECTION */}
-      <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
-        <video ref={videoRef} autoPlay muted loop playsInline preload="auto" className="hidden lg:block absolute inset-0 w-full h-full object-cover" poster="/assets/flutter/hero.jpg">
-          <source src="/assets/flutter/hero.mp4" type="video/mp4" />
-        </video>
-        <Image src="/assets/flutter/hero.jpg" alt="Flutter Development Hero" fill priority className="lg:hidden object-cover" />
-        <div className="pointer-events-none absolute inset-0 z-[1]">
-          <FxBackground day={false} grid={true} aurora={true} />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50 z-[2]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,245,212,0.12),transparent_50%)] z-[2]" />
-        <div className="pointer-events-none absolute inset-0 z-[3]">
-          <div className="gx-scanline" />
-          <div className="gx-noise-overlay" />
-          <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: 0.12 }} />
-          <div className="gx-orbit absolute" style={{ width: '40vmax', height: '40vmax', bottom: '-15vmax', left: '-10vmax', opacity: 0.08 }} />
-        </div>
-        <div className="absolute inset-0 flex items-center top-32 z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
-          <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div>
-              <div className="flex items-center gap-3 mb-6 lg:mb-8">
-                <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse" />
-                <span className="text-teal-400 text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">Cross-Platform Mobile</span>
-              </div>
-              <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
-                Native-Quality Mobile Apps <span className="gx-gradient-text">Built Fast</span>
-              </h1>
-              <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
-                Flutter development for iOS and Android. Single codebase, stunning performance, and rapid deployment across all platforms.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
-                {["iOS & Android", "Performance", "Custom UI", "Real-Time Sync", "Offline Support"].map((badge) => (
-                  <span key={badge} className="px-3 py-1.5 rounded-full bg-teal-400/10 border border-teal-400/30 text-teal-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">
-                    {badge}
-                  </span>
-                ))}
-              </div>
-              <div className="flex flex-wrap gap-4 items-center">
-                <Link href="/quote-request">
-                  <button className="relative px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap" style={{ background: '#00f5d4', color: '#000' }}>
-                    <span className="absolute inset-0" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)' }} />
-                    <span className="relative">Start Your Flutter App →</span>
-                  </button>
-                </Link>
-                <Link href="/portfolio">
-                  <button className="px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap" style={{ border: '1px solid rgba(255,255,255,0.15)' }}>
-                    See Our Mobile Portfolio
-                  </button>
-                </Link>
-              </div>
-            </div>
-            <div className="hidden lg:flex flex-col items-end">
-              <div className="grid grid-cols-2 gap-6 w-full">
-                {[
-                  { label: 'Cross-Platform Apps', value: '500+' },
-                  { label: 'Code Reuse', value: '95%' },
-                  { label: 'Time to Market', value: '50% Faster' },
-                  { label: 'Performance Rating', value: '4.8/5' }
-                ].map((stat) => (
-                  <div key={stat.label} className="px-6 py-5 rounded-2xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md hover:bg-teal-400/12 transition-all duration-300 hover:border-teal-400/50 text-right">
-                    <div className="text-teal-300 text-[0.7em] uppercase tracking-wider font-[600] mb-2">{stat.label}</div>
-                    <div className="text-white text-[1.8em] font-[700]">{stat.value}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="lg:hidden absolute bottom-12 left-0 right-0 z-[11] px-6">
-          <div className="grid grid-cols-3 gap-3">
-            {[
-              { label: 'Apps', value: '500+' },
-              { label: 'Code Reuse', value: '95%' },
-              { label: 'Speed', value: '50% Faster' }
-            ].map((stat) => (
-              <div key={stat.label} className="px-3 py-2 rounded-xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md">
-                <div className="text-teal-300 text-[0.5em] uppercase tracking-wider font-[600] mb-1">{stat.label}</div>
-                <div className="text-white text-[1.2em] font-[700]">{stat.value}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="absolute top-1/4 left-8 z-[4] w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
-        <div className="absolute bottom-1/3 right-12 z-[4] w-3 h-3 rounded-full bg-teal-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
-        <div className="absolute top-3/4 left-1/3 z-[4] w-2 h-2 rounded-full bg-cyan-400 animate-pulse" style={{ animationDelay: '1s' }} />
-      </section>
-
-      {/* INTRO SECTION */}
-      <section className={`pt-16 transition-colors duration-500 ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
-        <FxBackground day={isDayTime} />
-        <div className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
-          <div>
-            <FxChip day={!isDayTime}>FLUTTER DEVELOPMENT</FxChip>
-          </div>
-          <div className="lg:-ml-[19em]">
-            <FxReveal>
-              <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
-                Cross-Platform Excellence <span className="gx-gradient-text">With Flutter</span>
-              </h3>
-            </FxReveal>
-            <FxReveal delay={0.08}>
-              <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[1em] leading-relaxed">
-                <div>
-                  <p>One codebase, iOS and Android apps that feel native—Flutter lets you ship faster without sacrificing quality. We build high-performance, beautiful mobile apps that scale to millions of users.</p>
-                </div>
-                <div>
-                  <p>From architecture and UI/UX to real-time sync, offline support, and app store deployment, we deliver Flutter apps that users love.</p>
-                </div>
-              </div>
-            </FxReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* PROCESS SECTION */}
-      <Process90 totalDays={90} />
-    </div>
-  );
-};
+const FlutterDevelopment = () => (
+    <ServicePageTemplate
+        title={<>Flutter App <br className={'lg:block md:block hidden'}/>Development Services</>}
+        heroVideo="/assets/hero/hero.mp4"
+        heroVideoMobile="/assets/hero/hero.mp4"
+        midImage="/assets/services/Development.jpg"
+        topImages={['/assets/services/Web-App-Development-company.jpg', '/assets/services/product-design.jpg']}
+        intro={
+            <>
+                One codebase, every platform. We build fast, beautiful, natively compiled Flutter apps for iOS,
+                Android, web and desktop—shipped quickly without compromising quality.
+            </>
+        }
+        eyebrow={<>One codebase, <br className={'lg:block md:block hidden'}/>every platform your users love</>}
+        introHeading={<>Cross-Platform Apps <br className={'lg:block md:block hidden'}/>Built Once, Run Everywhere</>}
+        introBody={[
+            <>
+                Flutter lets teams ship a single, high-performance codebase to iOS, Android, web and desktop—and
+                Grey InfoTech uses it to help businesses reach every user faster and at a fraction of the cost of
+                building separate native apps. We design pixel-perfect interfaces that feel native on each
+                platform, backed by clean Dart architecture and robust state management. From early-stage MVPs
+                that need to validate an idea quickly, to mature products serving thousands of daily users, we
+                build Flutter applications that look stunning, run at 60–120fps, and remain a joy to maintain as
+                your roadmap grows.
+            </>,
+            <>
+                Our engineers treat Flutter as a serious production platform, not a shortcut. We architect apps
+                with proven patterns—Riverpod or BLoC for state, clean separation of layers, dependency
+                injection and comprehensive testing—so your codebase scales with confidence. We integrate native
+                device capabilities, offline storage, real-time data, push notifications, payments and
+                analytics, and we automate builds and releases through CI/CD pipelines that publish to both app
+                stores. The outcome is a polished, reliable app delivered on time, with the long-term
+                maintainability that protects your investment.
+            </>,
+        ]}
+        solutionsHeading={<>Flutter <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
+        solutionsIntro={
+            <>
+                Grey InfoTech delivers the full Flutter lifecycle—from UI/UX and architecture to native
+                integrations, store deployment and ongoing support. Based in Nigeria and working globally, we
+                help startups and enterprises launch cross-platform products that are fast, beautiful and built
+                to last.
+            </>
+        }
+        solutions={[
+            {
+                id: '01', title: 'Cross-Platform App Development', target: 'CP',
+                tags: ['iOS', 'Android', 'Web', 'Desktop'],
+                body: <>We build a single Flutter codebase that compiles to truly native iOS, Android, web and
+                    desktop apps. This dramatically reduces cost and time-to-market while ensuring a consistent
+                    brand experience everywhere your users are—without the maintenance burden of separate native
+                    teams.</>,
+            },
+            {
+                id: '02', title: 'UI/UX & Custom Animations', target: 'UI',
+                tags: ['Design Systems', 'Motion', 'Pixel-Perfect'],
+                body: <>Flutter&apos;s rendering engine lets us craft fluid, custom interfaces and rich animations
+                    that elevate your brand. We translate your design system into reusable widgets, deliver
+                    buttery 60–120fps motion, and ensure accessibility and responsiveness across every screen
+                    size.</>,
+            },
+            {
+                id: '03', title: 'Native Integrations & APIs', target: 'NI',
+                tags: ['Camera', 'GPS', 'Bluetooth', 'Payments'],
+                body: <>We connect your app to the device and the world—camera, GPS, sensors, Bluetooth, biometric
+                    auth, push notifications and secure payments—while integrating cleanly with your REST or
+                    GraphQL back-end and third-party services for a seamless end-to-end experience.</>,
+            },
+            {
+                id: '04', title: 'State Management & Architecture', target: 'SA',
+                tags: ['Riverpod', 'BLoC', 'Clean Architecture'],
+                body: <>We engineer maintainable apps using proven patterns—Riverpod or BLoC for predictable
+                    state, clean layered architecture, dependency injection and modular code—so your product
+                    stays testable and easy to extend as features and team size grow.</>,
+            },
+            {
+                id: '05', title: 'MVP & Product Engineering', target: 'MV',
+                tags: ['Rapid Build', 'Validation', 'Scale'],
+                body: <>Need to test an idea fast? We build lean, polished MVPs that validate your concept with
+                    real users, then evolve the same codebase into a production-grade product—no costly rewrites,
+                    just steady, confident growth.</>,
+            },
+            {
+                id: '06', title: 'Testing, CI/CD & Support', target: 'CI',
+                tags: ['Automated Tests', 'Store Release', 'Maintenance'],
+                body: <>We bake in unit, widget and integration tests, automate builds and releases to the App
+                    Store and Google Play through CI/CD, and provide ongoing monitoring, updates and support so
+                    your app stays stable, secure and current with the latest Flutter releases.</>,
+            },
+        ]}
+        reasons={[
+            {
+                id: 1, title: 'Faster Time-to-Market', image: '/assets/services/Web-App-Development-company.jpg',
+                description: <>One codebase means one team shipping to every platform at once. You reach iOS,
+                    Android, web and desktop users sooner—and update them all simultaneously.</>,
+            },
+            {
+                id: 2, title: 'Native-Quality Performance', image: '/assets/services/product-design.jpg',
+                description: <>Flutter compiles to native ARM code and renders its own UI, delivering smooth,
+                    responsive experiences that feel right at home on every device.</>,
+            },
+            {
+                id: 3, title: 'Lower Cost of Ownership', image: '/assets/services/services.jpg',
+                description: <>Maintaining one shared codebase instead of two or three native ones reduces
+                    long-term engineering cost without sacrificing the quality your users expect.</>,
+            },
+            {
+                id: 4, title: 'Built to Scale', image: '/assets/services/digital-optimisation.jpg',
+                description: <>Clean architecture, strong testing and CI/CD mean the MVP we build today grows
+                    into the production product you need tomorrow—no rewrites required.</>,
+            },
+        ]}
+        ctaHeading={<>Ship to every <br className={'lg:block md:block hidden'}/>platform at once</>}
+        ctaBody={<>Whether you&apos;re validating an MVP or scaling a product to thousands of users, Grey InfoTech
+            builds Flutter apps that are fast, beautiful and maintainable. One codebase, every platform—let&apos;s
+            bring your app to life.</>}
+        stats={[
+            {label: 'Years Experience', value: 8, suffix: '+'},
+            {label: 'Team Members', value: 13, suffix: '+'},
+            {label: 'Apps Launched', value: 90, suffix: '+'},
+            {label: 'Projects Delivered', value: 200, suffix: '+'},
+            {label: 'Client Satisfaction', value: 98, suffix: '%'},
+        ]}
+        testimonials={[
+            {name: 'Tunde Bakare', title: 'Founder, MarketMate', message: <>Grey InfoTech delivered our marketplace app on iOS and Android from one Flutter codebase, on schedule and on budget. The animations and performance genuinely impressed our investors.</>},
+            {name: 'Grace Mwangi', title: 'Product Lead, FitLoop', message: <>They rebuilt our fitness app in Flutter and the difference is night and day—smoother, faster, and we now ship updates to both stores at the same time.</>},
+            {name: 'Samuel Adeyemi', title: 'CTO, PaySwift', message: <>Their architecture and testing discipline meant our payments app scaled cleanly from MVP to tens of thousands of users without a rewrite. A genuinely senior team.</>},
+        ]}
+    />
+);
 
 export default FlutterDevelopment;

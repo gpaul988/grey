@@ -1,141 +1,85 @@
-'use client';
+import React from 'react';
+import ServicePageTemplate from '@/components/ServicePageTemplate';
 
-import React, { useEffect, useRef, useState } from 'react';
-import '@/app/globals.css';
-import FloatingButton from "@/components/FloatingButton";
-import Image from "next/image";
-import Link from "next/link";
-import { useIsDayTime } from '../../components/useIsDayTime';
-import { motion } from 'framer-motion';
-import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
-import Process90 from '@/components/futuristic/Process90';
-
-const DevOpsServices: React.FC = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const isDayTime = useIsDayTime();
-
-  return (
-    <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-      <FloatingButton className="fixed bottom-6 right-6 transition-all z-50 duration-300" />
-
-      {/* HERO SECTION */}
-      <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
-        <video ref={videoRef} autoPlay muted loop playsInline preload="auto" className="hidden lg:block absolute inset-0 w-full h-full object-cover" poster="/assets/devops/hero.jpg">
-          <source src="/assets/devops/hero.mp4" type="video/mp4" />
-        </video>
-        <Image src="/assets/devops/hero.jpg" alt="DevOps Services Hero" fill priority className="lg:hidden object-cover" />
-        <div className="pointer-events-none absolute inset-0 z-[1]">
-          <FxBackground day={false} grid={true} aurora={true} />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50 z-[2]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,245,212,0.12),transparent_50%)] z-[2]" />
-        <div className="pointer-events-none absolute inset-0 z-[3]">
-          <div className="gx-scanline" />
-          <div className="gx-noise-overlay" />
-          <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: 0.12 }} />
-          <div className="gx-orbit absolute" style={{ width: '40vmax', height: '40vmax', bottom: '-15vmax', left: '-10vmax', opacity: 0.08 }} />
-        </div>
-        <div className="absolute inset-0 flex items-center top-32 z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
-          <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div>
-              <div className="flex items-center gap-3 mb-6 lg:mb-8">
-                <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse" />
-                <span className="text-teal-400 text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">DevOps & Infrastructure</span>
-              </div>
-              <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
-                Continuous Deployment <span className="gx-gradient-text">Infrastructure</span> That Never Fails
-              </h1>
-              <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
-                CI/CD pipelines, container orchestration, monitoring, and automation. DevOps practices that accelerate releases and ensure reliability.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
-                {["CI/CD Pipelines", "Kubernetes", "Infrastructure as Code", "Monitoring", "Automation"].map((badge) => (
-                  <span key={badge} className="px-3 py-1.5 rounded-full bg-teal-400/10 border border-teal-400/30 text-teal-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">
-                    {badge}
-                  </span>
-                ))}
-              </div>
-              <div className="flex flex-wrap gap-4 items-center">
-                <Link href="/quote-request">
-                  <button className="relative px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap" style={{ background: '#00f5d4', color: '#000' }}>
-                    <span className="absolute inset-0" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)' }} />
-                    <span className="relative">Modernize Your DevOps →</span>
-                  </button>
-                </Link>
-                <Link href="/portfolio">
-                  <button className="px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap" style={{ border: '1px solid rgba(255,255,255,0.15)' }}>
-                    See Our Automation Success
-                  </button>
-                </Link>
-              </div>
-            </div>
-            <div className="hidden lg:flex flex-col items-end">
-              <div className="grid grid-cols-2 gap-6 w-full">
-                {[
-                  { label: 'Deploys Per Day', value: '100+' },
-                  { label: 'Release Time', value: '5 minutes' },
-                  { label: 'System Uptime', value: '99.99%' },
-                  { label: 'MTTR', value: '<5 minutes' }
-                ].map((stat) => (
-                  <div key={stat.label} className="px-6 py-5 rounded-2xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md hover:bg-teal-400/12 transition-all duration-300 hover:border-teal-400/50 text-right">
-                    <div className="text-teal-300 text-[0.7em] uppercase tracking-wider font-[600] mb-2">{stat.label}</div>
-                    <div className="text-white text-[1.8em] font-[700]">{stat.value}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="lg:hidden absolute bottom-12 left-0 right-0 z-[11] px-6">
-          <div className="grid grid-cols-3 gap-3">
-            {[
-              { label: 'Deploys', value: '100+' },
-              { label: 'Time', value: '5 min' },
-              { label: 'Uptime', value: '99.99%' }
-            ].map((stat) => (
-              <div key={stat.label} className="px-3 py-2 rounded-xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md">
-                <div className="text-teal-300 text-[0.5em] uppercase tracking-wider font-[600] mb-1">{stat.label}</div>
-                <div className="text-white text-[1.2em] font-[700]">{stat.value}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="absolute top-1/4 left-8 z-[4] w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
-        <div className="absolute bottom-1/3 right-12 z-[4] w-3 h-3 rounded-full bg-teal-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
-        <div className="absolute top-3/4 left-1/3 z-[4] w-2 h-2 rounded-full bg-cyan-400 animate-pulse" style={{ animationDelay: '1s' }} />
-      </section>
-
-      {/* INTRO SECTION */}
-      <section className={`pt-16 transition-colors duration-500 ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
-        <FxBackground day={isDayTime} />
-        <div className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
-          <div>
-            <FxChip day={!isDayTime}>DEVOPS SERVICES</FxChip>
-          </div>
-          <div className="lg:-ml-[19em]">
-            <FxReveal>
-              <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
-                DevOps Excellence <span className="gx-gradient-text">For Velocity & Reliability</span>
-              </h3>
-            </FxReveal>
-            <FxReveal delay={0.08}>
-              <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[1em] leading-relaxed">
-                <div>
-                  <p>Fast releases mean nothing without reliability. We design DevOps practices, automate infrastructure, and build monitoring systems that let you deploy with confidence. Your teams ship faster; your systems stay stable.</p>
-                </div>
-                <div>
-                  <p>From CI/CD pipelines and container orchestration to observability and incident response, we build the automation and infrastructure that powers rapid, reliable delivery.</p>
-                </div>
-              </div>
-            </FxReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* PROCESS SECTION */}
-      <Process90 totalDays={75} />
-    </div>
-  );
-};
+const DevOpsServices = () => (
+    <ServicePageTemplate
+        title={<>DevOps<br className="lg:block md:block hidden" />Services</>}
+        heroVideo="/assets/hero/hero.mp4"
+        heroVideoMobile="/assets/hero/hero.mp4"
+        midImage="/assets/services/ecommerce-web-design.jpg"
+        topImages={['/assets/services/product-design.jpg', '/assets/services/ecommerce-web-design.jpg']}
+        intro="Continuous delivery pipelines, infrastructure as code, and platform engineering that compress release cycles from weeks to hours."
+        eyebrow="Ship faster. Break less. Scale effortlessly."
+        introHeading={<>DevOps That<br className="lg:block md:block hidden" />Eliminates Friction</>}
+        introBody={[
+            <>Great software dies on the altar of slow deployments. At Grey InfoTech our DevOps practice removes
+            the friction between writing code and running it in production. We design CI/CD pipelines that
+            build, test, scan and deploy automatically, infrastructure-as-code stacks that version-control your
+            entire environment, and platform-engineering layers that give your developers self-service tools
+            without sacrificing governance. Every pipeline we build is observable, auditable and recoverable.</>,
+            <>We approach DevOps as a culture shift as much as a toolchain decision. That means embedding
+            engineers inside your team, running blameless post-mortems, and coaching developers on observability
+            and on-call practices. The artefacts we leave behind—runbooks, architecture decision records,
+            disaster-recovery playbooks—ensure your team can own and evolve the platform long after the
+            engagement ends. The result is faster releases, fewer incidents and measurably higher developer
+            satisfaction.</>,
+        ]}
+        solutionsHeading={<>DevOps<br className="lg:block md:block hidden" />Solutions</>}
+        solutionsIntro="From CI/CD pipelines to full platform engineering, Grey InfoTech delivers DevOps capabilities that make your engineering team dramatically more productive."
+        solutions={[
+            {
+                id: '01', title: 'CI/CD Pipeline Design', target: 'CI',
+                tags: ['GitHub Actions', 'GitLab CI', 'CircleCI', 'Jenkins'],
+                body: <>We design and implement end-to-end CI/CD pipelines with parallel test execution, static
+                analysis, dependency scanning, container building, semantic versioning and blue/green or canary
+                deployments. Every pipeline includes rollback automation and deployment notifications so your
+                team always knows what shipped and can reverse it in under a minute if needed.</>,
+            },
+            {
+                id: '02', title: 'Infrastructure as Code', target: 'IAC',
+                tags: ['Terraform', 'Pulumi', 'CDK', 'Ansible'],
+                body: <>We codify your entire infrastructure in Terraform or Pulumi—compute, networking, databases,
+                IAM, DNS, CDN—managed in version control with peer-reviewed pull requests and automated plan
+                diffs. State is stored remotely with locking to prevent concurrent modifications, and all
+                sensitive values are managed through Vault or native cloud secrets services.</>,
+            },
+            {
+                id: '03', title: 'Observability & Monitoring', target: 'OB',
+                tags: ['Prometheus', 'Grafana', 'OpenTelemetry', 'PagerDuty'],
+                body: <>Observability is the feedback loop that keeps systems healthy. We instrument services
+                with OpenTelemetry for distributed traces, configure Prometheus metrics with SLI/SLO dashboards
+                in Grafana, and wire alerting through PagerDuty or Opsgenie with escalation policies and runbook
+                links. We also set up synthetic monitoring and real-user monitoring for user-facing applications.</>,
+            },
+            {
+                id: '04', title: 'Platform Engineering', target: 'PE',
+                tags: ['Internal Developer Platform', 'Backstage', 'Golden Paths'],
+                body: <>Platform engineering gives developers self-service infrastructure without raw cloud console
+                access. We build internal developer platforms using Backstage or custom portals, define golden
+                paths for common service templates, and implement guardrails that enforce security and cost
+                policies automatically. The result is a paved road that speeds up onboarding and reduces
+                toil for every developer in the organisation.</>,
+            },
+            {
+                id: '05', title: 'Site Reliability Engineering', target: 'SRE',
+                tags: ['SLOs', 'Error Budgets', 'Chaos Engineering', 'Incident Response'],
+                body: <>We embed SRE practices—defining SLIs and SLOs, tracking error budgets, running
+                chaos experiments, and conducting structured incident retrospectives. By treating reliability
+                as an engineering problem with measurable targets rather than a hope, we help teams balance
+                feature velocity against the need to keep systems available and performant.</>,
+            },
+            {
+                id: '06', title: 'Security in DevOps (DevSecOps)', target: 'DS',
+                tags: ['SAST', 'DAST', 'Container Scanning', 'Supply Chain'],
+                body: <>Security shifts left in modern engineering. We integrate SAST, dependency auditing,
+                container image scanning and secret detection into pull-request checks so vulnerabilities are
+                caught before they merge. We also implement software supply chain controls—signing artefacts,
+                generating SBOMs and enforcing policy-as-code with Open Policy Agent or Kyverno.</>,
+            },
+        ]}
+        ctaHeading={<>Ship confidently.<br className="lg:block md:block hidden" />Every time.</>}
+        ctaBody="Your engineering team deserves tooling that helps them go faster without burning out. Let's build the DevOps platform that makes production feel safe."/>
+);
 
 export default DevOpsServices;
+
