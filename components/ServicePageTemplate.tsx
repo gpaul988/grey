@@ -1360,65 +1360,83 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                ══════════════════════════════════════════ */}
             <div
                 className={`lg:pt-[2em] md:pt-[2em] pt-[1em] lg:pb-[2em] md:pb-[2em] pb-[1em] ${isDayTime ? 'bg-black' : 'bg-white'}`}>
-                <div id={'Our-proven-90-Day-Process'}
+                <div id={'Our-proven-process'}
                      className={`relative z-10 lg:mt-[1.5em] md:mt-[1.5em] mt-[1em] lg:mb-16 md:mb-16 mb-5 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
 
                     <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-0"/>
 
                     <div
-                        className="fixed inset-0 opacity-10 z-0"
+                        className={`absolute inset-0 z-0 pointer-events-none ${isDayTime ? 'opacity-[0.14]' : 'opacity-10'}`}
                         style={{
                             transform: `translate(${pointer.x * 20}px, ${pointer.y * 20}px)`,
                             transition: 'transform 0.3s ease-out'
                         }}
                     >
-                        <div
-                            className="absolute top-20 left-20 w-72 h-72 md:w-96 md:h-96 bg-cyan-500 rounded-full blur-3xl"/>
-                        <div
-                            className="absolute bottom-20 right-20 w-72 h-72 md:w-96 md:h-96 bg-purple-500 rounded-full blur-3xl"/>
-                        <div
-                            className="absolute top-1/2 left-1/2 w-72 h-72 md:w-96 md:h-96 bg-emerald-500 rounded-full blur-3xl"/>
+                        <div className="absolute top-20 left-20 w-72 h-72 md:w-96 md:h-96 bg-cyan-500 rounded-full blur-3xl"/>
+                        <div className="absolute bottom-20 right-20 w-72 h-72 md:w-96 md:h-96 bg-purple-500 rounded-full blur-3xl"/>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 md:w-96 md:h-96 bg-emerald-500 rounded-full blur-3xl"/>
                     </div>
 
-                    {/* Progress Bar */}
-                    <div className="fixed top-0 left-0 right-0 h-1 bg-gray-800 z-50">
+                    {/* holographic grid */}
+                    <div
+                        aria-hidden
+                        className="absolute inset-0 z-0 pointer-events-none"
+                        style={{
+                            backgroundImage: `linear-gradient(${isDayTime ? 'rgba(15,23,42,0.06)' : 'rgba(0,245,212,0.06)'} 1px, transparent 1px), linear-gradient(90deg, ${isDayTime ? 'rgba(15,23,42,0.06)' : 'rgba(0,245,212,0.06)'} 1px, transparent 1px)`,
+                            backgroundSize: '44px 44px',
+                            maskImage: 'radial-gradient(ellipse 90% 75% at 50% 40%, black 25%, transparent 100%)',
+                            WebkitMaskImage: 'radial-gradient(ellipse 90% 75% at 50% 40%, black 25%, transparent 100%)'
+                        }}
+                    />
+
+                    {/* scanline sweep */}
+                    <div aria-hidden className="absolute inset-0 z-0 pointer-events-none">
                         <div
-                            className="h-full bg-gradient-to-r from-cyan-400 via-purple-500 to-emerald-500 transition-all duration-300"
-                            style={{width: `${scrollProgress}%`}}
-                        />
+                            className={`dm-scanline absolute left-0 right-0 h-px ${isDayTime ? 'bg-gradient-to-r from-transparent via-[rgba(13,148,136,0.45)] to-transparent' : 'bg-gradient-to-r from-transparent via-[rgba(0,245,212,0.55)] to-transparent'}`}/>
                     </div>
 
                     {/* Header */}
                     <div
-                        className={` relative ${isDayTime ? 'text-white' : 'text-black'} text-center mb-12 md:mb-20 lg:mb-20 border-b border-gray-700 pb-[2em] space-y-6`}>
-                        <h2 className='capitalize text-[1.8em] md:text-[3em] lg:text-[3.3em] font-[700] tracking-tight leading-[1.2] lg:pb-6'>
-                            Our Proven <span className={'text-[#00f5d4]'}>90-Day Process</span>
+                        className={`relative ${isDayTime ? 'text-gray-900' : 'text-white'} text-center mb-12 md:mb-20 lg:mb-20 border-b ${isDayTime ? 'border-gray-200' : 'border-gray-700'} pb-[2em] space-y-6`}>
+                        <div
+                            className={`inline-flex items-center gap-3 px-5 py-2 rounded-full border backdrop-blur-sm font-mono text-[0.65em] font-[600] tracking-[0.35em] uppercase ${isDayTime ? 'border-teal-600/30 bg-teal-500/5 text-teal-700' : 'border-[#00f5d4]/30 bg-[#00f5d4]/5 text-[#00f5d4]'}`}>
+                            <span className="relative flex h-2 w-2">
+                                <span
+                                    className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
+                                <span
+                                    className={`relative inline-flex rounded-full h-2 w-2 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
+                            </span>
+                            Mission Protocol // {currentDay}-{phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)} Days
+                        </div>
+                        <h2 className={'capitalize text-[1.8em] md:text-[3em] lg:text-[3.3em] font-[700] tracking-tight leading-[1.2] lg:pb-6'}>
+                            Our Proven <span
+                            className={`text-transparent bg-clip-text bg-gradient-to-r animate-gradient ${isDayTime ? 'from-teal-600 via-cyan-600 to-violet-600' : 'from-[#00f5d4] via-cyan-400 to-violet-400'}`}>{phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)}-Day Process</span>
                         </h2>
-                        <p className='text-[0.873em] font-[300] lg:-mt-[0.2em] rounded-none leading-[1.5] mx-auto max-w-6xl'>
-                            Our structured 90-day implementation process delivers measurable results through
+                        <p className={`text-[0.9em] font-[300] lg:-mt-[0.2em] rounded-none leading-[1.5] mx-auto max-w-6xl ${isDayTime ? 'text-gray-600' : 'text-gray-300'}`}>
+                            Our structured {phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)}-day implementation process delivers measurable results through
                             strategic planning, precise execution, and continuous optimization. This proven
                             methodology accelerates time-to-value while ensuring alignment with your business
                             objectives at every phase. By combining industry best practices with agile
-                            responsiveness, we transform initial engagement into tangible outcomes—building momentum
+                            responsiveness, we transform initial engagement into tangible outcomes, building momentum
                             that sustains long-term success and competitive performance.
                         </p>
-                        <div className="flex justify-center items-center gap-4 pt-8">
+                        <div className="flex justify-center items-center gap-4 pt-8 flex-wrap">
                             {phases.map((p, i) => (
                                 <button
                                     key={i}
                                     onClick={() => setActivePhase(i)}
-                                    className={`group relative transition-all duration-500 ${activePhase === i ? 'scale-110' : 'scale-100 opacity-50'}`}
+                                    className={`group relative transition-all duration-500 ${activePhase === i ? 'scale-110' : 'scale-100 opacity-70'}`}
                                     aria-label={`Select phase ${i + 1}`}
                                 >
                                     <div
                                         className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br ${p.color} p-0.5 transition-all duration-500 ${activePhase === i ? 'rotate-0' : 'rotate-45'}`}>
                                         <div
-                                            className="w-full h-full bg-black rounded-2xl flex items-center justify-center">
+                                            className={`w-full h-full ${isDayTime ? 'bg-white' : 'bg-black'} rounded-2xl flex items-center justify-center`}>
                                             <span className="text-sm font-bold">{p.days.split('-')[0]}</span>
                                         </div>
                                     </div>
                                     {activePhase === i && <div
-                                        className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white rounded-full animate-ping"/>}
+                                        className={`absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-2 h-2 ${isDayTime ? 'bg-gray-900' : 'bg-white'} rounded-full animate-ping`}/>}
                                 </button>
                             ))}
                         </div>
@@ -1433,7 +1451,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                 <div
                                     className={`absolute inset-8 rounded-full bg-gradient-to-br ${phase.color} p-1 animate-pulse-slow`}>
                                     <div
-                                        className="w-full h-full bg-black rounded-full flex items-center justify-center p-12">{phase.icon}</div>
+                                        className={`w-full h-full ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full flex items-center justify-center p-12`}>{phase.icon}</div>
                                 </div>
                             </div>
                         </div>
@@ -1442,17 +1460,17 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                             <div>
                                 <div
                                     className={`inline-block px-6 py-2 rounded-full bg-gradient-to-r ${phase.color} text-white font-bold text-sm mb-4`}>DAYS {phase.days}</div>
-                                <h3 className="text-4xl sm:text-5xl font-black mb-3 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">{phase.title}</h3>
+                                <h3 className={`text-4xl sm:text-5xl font-black mb-3 bg-gradient-to-r ${isDayTime ? 'from-gray-900 to-gray-600' : 'from-white to-gray-400'} bg-clip-text text-transparent`}>{phase.title}</h3>
                                 <p className={`text-2xl font-light bg-gradient-to-r ${phase.color} bg-clip-text text-transparent`}>{phase.tagline}</p>
                             </div>
 
                             <div className="space-y-4">
                                 {phase.items.map((item, idx) => (
                                     <div key={idx}
-                                         className="group flex items-start gap-4 p-4 rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-gray-600 transition-all duration-300">
+                                         className={`group flex items-start gap-4 p-4 rounded-2xl ${isDayTime ? 'bg-gray-100/50 border border-gray-200 hover:border-gray-300' : 'bg-gray-900/50 border border-gray-800 hover:border-gray-600'} backdrop-blur-sm transition-all duration-300`}>
                                         <div
-                                            className={`flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br ${phase.color} flex items-center justify-center text-sm font-bold`}>{idx + 1}</div>
-                                        <p className="text-gray-300 group-hover:text-white transition-colors">{item}</p>
+                                            className={`flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br ${phase.color} flex items-center justify-center text-sm font-bold text-white`}>{idx + 1}</div>
+                                        <p className={`${isDayTime ? 'text-gray-700 group-hover:text-gray-900' : 'text-gray-300 group-hover:text-white'} transition-colors`}>{item}</p>
                                     </div>
                                 ))}
                             </div>
@@ -1462,20 +1480,20 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                     {/* CTA */}
                     <div className="relative group">
                         <div
-                            className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 rounded-3xl blur-2xl opacity-30 group-hover:opacity-50 transition-opacity"/>
+                            className={`absolute inset-0 ${isDayTime ? 'bg-gradient-to-r from-teal-300 via-cyan-300 to-violet-300' : 'bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500'} rounded-3xl blur-2xl opacity-30 group-hover:opacity-50 transition-opacity`}/>
                         <div
-                            className="relative bg-gradient-to-r from-gray-900 to-black rounded-3xl p-12 border border-gray-800 text-center">
-                            <h3 className="text-4xl sm:text-5xl font-black mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">Ready
+                            className={`relative ${isDayTime ? 'bg-gradient-to-r from-gray-100 to-white border border-gray-200' : 'bg-gradient-to-r from-gray-900 to-black border border-gray-800'} rounded-3xl p-12 text-center`}>
+                            <h3 className={`text-4xl sm:text-5xl font-black mb-6 bg-gradient-to-r ${isDayTime ? 'from-gray-900 via-gray-700 to-gray-800' : 'from-white via-gray-200 to-gray-400'} bg-clip-text text-transparent`}>Ready
                                 to Transform?</h3>
-                            <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">Join industry leaders that trust
-                                Grey InfoTech to build high-performance cross-platform applications</p>
-                            <div className="flex justify-center gap-4">
-                                <Link href="/contact"
-                                      className="px-6 py-3 rounded-full bg-white text-black font-bold hover:bg-gray-200 transition">
+                            <p className={`text-xl ${isDayTime ? 'text-gray-600' : 'text-gray-400'} mb-8 max-w-2xl mx-auto`}>Join industry leaders that trust
+                                Grey InfoTech to deliver exceptional results in {phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)} days</p>
+                            <div className="flex justify-center gap-4 flex-wrap">
+                                <Link href="/quote-request"
+                                      className={`px-6 py-3 rounded-full ${isDayTime ? 'bg-teal-600 text-white hover:bg-teal-700' : 'bg-white text-black hover:bg-gray-200'} font-bold transition`}>
                                     Get Started
                                 </Link>
                                 <button onClick={() => setCurrentDay(1)}
-                                        className="px-6 py-3 rounded-full border border-gray-700 hover:border-gray-500 transition">
+                                        className={`px-6 py-3 rounded-full ${isDayTime ? 'border border-gray-400 text-gray-700 hover:border-gray-600' : 'border border-gray-700 text-white hover:border-gray-500'} transition`}>
                                     Explore Plan
                                 </button>
                             </div>

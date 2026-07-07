@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
     }
 
-    let { website, repo }: { website?: string; repo?: string } = body ?? {};
+    let { website, repo } = body ?? {};
 
     // Normalize inputs
     website = website ? normalizeUrl(website.trim(), false) : undefined;

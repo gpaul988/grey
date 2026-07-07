@@ -1,141 +1,91 @@
-'use client';
+import React from 'react';
+import ServicePageTemplate from '@/components/ServicePageTemplate';
 
-import React, { useEffect, useRef, useState } from 'react';
-import '@/app/globals.css';
-import FloatingButton from "@/components/FloatingButton";
-import Image from "next/image";
-import Link from "next/link";
-import { useIsDayTime } from '../../components/useIsDayTime';
-import { motion } from 'framer-motion';
-import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
-import Process90 from '@/components/futuristic/Process90';
-
-const DrupalDevelopment: React.FC = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const isDayTime = useIsDayTime();
-
-  return (
-    <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-      <FloatingButton className="fixed bottom-6 right-6 transition-all z-50 duration-300" />
-
-      {/* HERO SECTION */}
-      <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
-        <video ref={videoRef} autoPlay muted loop playsInline preload="auto" className="hidden lg:block absolute inset-0 w-full h-full object-cover" poster="/assets/drupal/hero.jpg">
-          <source src="/assets/drupal/hero.mp4" type="video/mp4" />
-        </video>
-        <Image src="/assets/drupal/hero.jpg" alt="Drupal Development Hero" fill priority className="lg:hidden object-cover" />
-        <div className="pointer-events-none absolute inset-0 z-[1]">
-          <FxBackground day={false} grid={true} aurora={true} />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50 z-[2]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,245,212,0.12),transparent_50%)] z-[2]" />
-        <div className="pointer-events-none absolute inset-0 z-[3]">
-          <div className="gx-scanline" />
-          <div className="gx-noise-overlay" />
-          <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: 0.12 }} />
-          <div className="gx-orbit absolute" style={{ width: '40vmax', height: '40vmax', bottom: '-15vmax', left: '-10vmax', opacity: 0.08 }} />
-        </div>
-        <div className="absolute inset-0 flex items-center top-32 z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
-          <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div>
-              <div className="flex items-center gap-3 mb-6 lg:mb-8">
-                <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse" />
-                <span className="text-teal-400 text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">Drupal Solutions</span>
-              </div>
-              <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
-                Enterprise CMS <span className="gx-gradient-text">Solutions</span> That Scale
-              </h1>
-              <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
-                Custom Drupal sites, migrations, and optimization. Powerful, flexible content management for complex enterprise needs.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
-                {["Drupal Development", "Custom Modules", "Site Architecture", "Performance", "Migrations"].map((badge) => (
-                  <span key={badge} className="px-3 py-1.5 rounded-full bg-teal-400/10 border border-teal-400/30 text-teal-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">
-                    {badge}
-                  </span>
-                ))}
-              </div>
-              <div className="flex flex-wrap gap-4 items-center">
-                <Link href="/quote-request">
-                  <button className="relative px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap" style={{ background: '#00f5d4', color: '#000' }}>
-                    <span className="absolute inset-0" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)' }} />
-                    <span className="relative">Build Your Drupal Site →</span>
-                  </button>
-                </Link>
-                <Link href="/portfolio">
-                  <button className="px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap" style={{ border: '1px solid rgba(255,255,255,0.15)' }}>
-                    View Our Drupal Portfolio
-                  </button>
-                </Link>
-              </div>
-            </div>
-            <div className="hidden lg:flex flex-col items-end">
-              <div className="grid grid-cols-2 gap-6 w-full">
-                {[
-                  { label: 'Enterprise Sites', value: '250+' },
-                  { label: 'Content Editors', value: '10K+' },
-                  { label: 'Traffic Handled', value: 'Millions Daily' },
-                  { label: 'Client Satisfaction', value: '95%' }
-                ].map((stat) => (
-                  <div key={stat.label} className="px-6 py-5 rounded-2xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md hover:bg-teal-400/12 transition-all duration-300 hover:border-teal-400/50 text-right">
-                    <div className="text-teal-300 text-[0.7em] uppercase tracking-wider font-[600] mb-2">{stat.label}</div>
-                    <div className="text-white text-[1.8em] font-[700]">{stat.value}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="lg:hidden absolute bottom-12 left-0 right-0 z-[11] px-6">
-          <div className="grid grid-cols-3 gap-3">
-            {[
-              { label: 'Sites', value: '250+' },
-              { label: 'Editors', value: '10K+' },
-              { label: 'Satisfaction', value: '95%' }
-            ].map((stat) => (
-              <div key={stat.label} className="px-3 py-2 rounded-xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md">
-                <div className="text-teal-300 text-[0.5em] uppercase tracking-wider font-[600] mb-1">{stat.label}</div>
-                <div className="text-white text-[1.2em] font-[700]">{stat.value}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="absolute top-1/4 left-8 z-[4] w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
-        <div className="absolute bottom-1/3 right-12 z-[4] w-3 h-3 rounded-full bg-teal-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
-        <div className="absolute top-3/4 left-1/3 z-[4] w-2 h-2 rounded-full bg-cyan-400 animate-pulse" style={{ animationDelay: '1s' }} />
-      </section>
-
-      {/* INTRO SECTION */}
-      <section className={`pt-16 transition-colors duration-500 ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
-        <FxBackground day={isDayTime} />
-        <div className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
-          <div>
-            <FxChip day={!isDayTime}>DRUPAL DEVELOPMENT</FxChip>
-          </div>
-          <div className="lg:-ml-[19em]">
-            <FxReveal>
-              <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
-                Enterprise Content <span className="gx-gradient-text">Management That Works</span>
-              </h3>
-            </FxReveal>
-            <FxReveal delay={0.08}>
-              <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[1em] leading-relaxed">
-                <div>
-                  <p>Drupal powers enterprise content at scale—but only when built right. We architect custom Drupal solutions, build powerful modules, and optimize for performance, so your content teams work fast and your sites scale effortlessly.</p>
-                </div>
-                <div>
-                  <p>From site architecture and custom development to migration and optimization, we deliver Drupal solutions that empower your business.</p>
-                </div>
-              </div>
-            </FxReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* PROCESS SECTION */}
-      <Process90 totalDays={90} />
-    </div>
-  );
-};
+const DrupalDevelopment = () => (
+    <ServicePageTemplate
+        title={<>Drupal<br className="lg:block md:block hidden" />Development</>}
+        heroVideo="/assets/hero/hero.mp4"
+        heroVideoMobile="/assets/hero/hero.mp4"
+        midImage="/assets/services/Research-strategy.jpg"
+        topImages={['/assets/services/digital-transformatio.jpg', '/assets/services/digital-optimisation.jpg']}
+        intro="Enterprise-grade Drupal solutions—custom modules, headless architecture and complex content models—built for the organisations that need serious content management power."
+        eyebrow="Drupal expertise for complex digital experiences"
+        introHeading={<>Enterprise Content<br className="lg:block md:block hidden" />Management, Evolved</>}
+        introBody={[
+            <>Drupal is the platform of choice for governments, universities, media organisations and large
+            enterprises that need robust content modelling, fine-grained permissions and the flexibility to
+            build highly customised digital experiences. At Grey InfoTech our Drupal developers bring deep
+            expertise in custom module development, headless Drupal architectures, complex content migrations
+            and Drupal performance at scale. We build Drupal solutions that match the complexity of your
+            editorial workflows and content governance requirements.</>,
+            <>Our Drupal practice follows best practices rigorously—Composer-managed dependencies, configuration
+            management in Git, code reviews against Drupal coding standards, and automated testing with PHPUnit
+            and Behat. We implement Drupal as part of a broader technology stack: headless as an API backend
+            for a React or Next.js frontend, or fully coupled for content-heavy editorial environments.
+            Every engagement includes performance profiling, caching strategy and a documented site architecture
+            that your team can maintain and extend confidently.</>,
+        ]}
+        solutionsHeading={<>Drupal<br className="lg:block md:block hidden" />Solutions</>}
+        solutionsIntro="From custom module development to headless architecture and enterprise migrations, Grey InfoTech builds Drupal solutions that scale with your organisation."
+        solutions={[
+            {
+                id: '01', title: 'Custom Module Development', target: 'CM',
+                tags: ['Drupal 10', 'PHP', 'Services', 'Hooks', 'Plugins'],
+                body: <>We build custom Drupal modules that extend the platform to meet your exact business
+                requirements—custom field types, entity bundles, workflow integrations, payment gateways,
+                API clients and complex data transformations. Modules follow Drupal&apos;s object-oriented
+                architecture with dependency injection, event subscribers and proper testing, making them
+                upgrade-safe and maintainable.</>,
+            },
+            {
+                id: '02', title: 'Headless & Decoupled Drupal', target: 'HD',
+                tags: ['JSON:API', 'GraphQL', 'Next.js', 'React', 'REST'],
+                body: <>We architect Drupal as a headless CMS, exposing content via JSON:API or GraphQL to
+                a modern React or Next.js frontend. This approach delivers the editorial power of Drupal with
+                the performance and developer experience of a modern JavaScript frontend. We configure
+                preview functionality, manage CORS, implement ISR/SSR strategies and handle authentication
+                between the decoupled layers.</>,
+            },
+            {
+                id: '03', title: 'Content Modelling & Architecture', target: 'CA',
+                tags: ['Entity Types', 'Paragraphs', 'Taxonomy', 'Workflows'],
+                body: <>Good Drupal architecture starts with a well-designed content model. We run discovery
+                workshops with your editorial teams to understand content requirements, then design entity
+                types, field configurations and reference structures that support flexible layouts without
+                becoming unmaintainable. We also configure editorial workflows, content moderation states
+                and publishing schedules to match your governance process.</>,
+            },
+            {
+                id: '04', title: 'Drupal Migration & Upgrades', target: 'MU',
+                tags: ['D7 to D10', 'Migrate API', 'Data Integrity', 'SEO'],
+                body: <>Drupal 7 reaches end-of-life and legacy D8 sites need upgrading. We execute Drupal
+                migrations using the Migrate API, mapping source data to destination entity types,
+                handling media, redirects, user accounts and URL aliases. We run migration in parallel with
+                the live site, validate data integrity programmatically, and execute cutover with minimal
+                downtime and SEO-preserving 301 redirects.</>,
+            },
+            {
+                id: '05', title: 'Performance & Scalability', target: 'PS',
+                tags: ['BigPipe', 'Varnish', 'Redis', 'CDN', 'Profiling'],
+                body: <>High-traffic Drupal sites require a layered caching strategy. We configure BigPipe
+                for personalised content delivery, implement Varnish for full-page caching, Redis for
+                cache bins and session storage, and CDN integration for static assets. We profile using
+                XHProf or Blackfire to identify slow queries, N+1 problems and expensive render arrays,
+                delivering measurable page load improvements.</>,
+            },
+            {
+                id: '06', title: 'Drupal Security & Maintenance', target: 'SM',
+                tags: ['Security Updates', 'Audit', 'Hardening', 'WAF'],
+                body: <>Drupal sites in the wild are targeted by automated vulnerability scanners. We conduct
+                security audits, apply Security Advisories promptly, harden configuration, implement a WAF,
+                configure proper file permissions and disable development-only modules in production. Our
+                maintenance plans include automated update testing in a staging environment before applying
+                to production.</>,
+            },
+        ]}
+        ctaHeading={<>Drupal that<br className="lg:block md:block hidden" />handles serious scale</>}
+        ctaBody="When your content requirements outgrow simpler platforms, Drupal—implemented correctly—is unmatched. Grey InfoTech builds Drupal solutions that editorial teams love."/>
+);
 
 export default DrupalDevelopment;
+
