@@ -420,24 +420,6 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
         {key: 'mobile', label: 'Mobile'},
     ];
 
-    // Play button timeline animation
-    useEffect(() => {
-        if (!isPlaying) return;
-        
-        const interval = setInterval(() => {
-            setCurrentDay(prev => {
-                const totalDays = phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0);
-                if (prev >= totalDays) {
-                    setIsPlaying(false);
-                    return totalDays;
-                }
-                return prev + 1;
-            });
-        }, 500); // Advance day every 500ms
-        
-        return () => clearInterval(interval);
-    }, [isPlaying, phases]);
-
     // Helper function to get detailed explanations for deliverables
     const getDeliverableDescription = (item: string): string => {
         const descriptions: Record<string, string> = {
@@ -509,6 +491,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
             days: '1-30',
             title: 'Discovery & Strategy',
             tagline: 'Understanding Your Needs',
+            description: 'This discovery phase establishes the strategic foundation for your project. Our experts conduct comprehensive stakeholder interviews, market analysis, and technical assessments to define clear objectives and align all parties on vision and outcomes.',
             color: 'from-cyan-400 via-blue-500 to-indigo-600',
             accentColor: 'bg-cyan-500',
             items: [
@@ -537,6 +520,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
             days: '31-60',
             title: 'Development & Integration',
             tagline: 'Building Your Solution',
+            description: 'The development phase transforms strategy into reality through agile execution. Our team builds core features, integrates systems, implements security protocols, and establishes real-time synchronization to deliver a robust, scalable foundation.',
             color: 'from-purple-400 via-pink-500 to-rose-600',
             accentColor: 'bg-purple-500',
             items: [
@@ -564,6 +548,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
             days: '61-90',
             title: 'Testing & Launch',
             tagline: 'Delivering Excellence',
+            description: 'The launch phase ensures quality, performance, and market readiness. Comprehensive testing across all platforms, optimization for peak performance, and coordinated deployment strategies guarantee a successful release with continuous monitoring and support.',
             color: 'from-emerald-400 via-teal-500 to-cyan-600',
             accentColor: 'bg-emerald-500',
             items: [
@@ -590,6 +575,24 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
     ];
 
     const phase = phases[activePhase];
+
+    // Play button timeline animation - now after phases is defined
+    useEffect(() => {
+        if (!isPlaying) return;
+        
+        const interval = setInterval(() => {
+            setCurrentDay(prev => {
+                const totalDays = phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0);
+                if (prev >= totalDays) {
+                    setIsPlaying(false);
+                    return totalDays;
+                }
+                return prev + 1;
+            });
+        }, 500); // Advance day every 500ms
+        
+        return () => clearInterval(interval);
+    }, [isPlaying, phases]);
 
 
     return (
