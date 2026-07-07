@@ -9,6 +9,8 @@ import { useIsDayTime } from '../../components/useIsDayTime';
 import { motion } from 'framer-motion';
 import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
 import Process90 from '@/components/futuristic/Process90';
+import CountUp from 'react-countup';
+import { CurrencyAwarePricing } from '@/components/ServicePageTemplate';
 
 const WordPressDevelopment: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -161,6 +163,101 @@ const WordPressDevelopment: React.FC = () => {
 
       {/* Process Section */}
       <Process90 totalDays={75} />
+
+      {/* Solutions Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] text-center mb-12">
+            WordPress<br className="lg:block md:block hidden" />Solutions
+          </h2>
+          <p className="text-center mb-16 text-[1.1em] max-w-3xl mx-auto">From custom themes and plugins to headless WordPress and WooCommerce—Grey InfoTech builds WordPress experiences that perform and empower your editors.</p>
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              {
+                id: '01', title: 'Custom Theme Development', target: 'CT',
+                tags: ['Block Themes', 'FSE', 'ACF', 'Responsive', 'Core Web Vitals'],
+                body: 'We build custom WordPress themes following modern WordPress standards—block themes with Full Site Editing, theme.json for design tokens, and template parts for editorial flexibility. For more controlled designs we build classic themes with ACF Pro field groups and custom templates. All themes are responsive, accessible, optimised for Core Web Vitals and thoroughly tested across browsers and devices.',
+              },
+              {
+                id: '02', title: 'Custom Plugin Development', target: 'CP',
+                tags: ['Custom Post Types', 'REST API', 'Admin UI', 'Cron', 'Blocks'],
+                body: 'We build WordPress plugins that add functionality without the overhead and security risk of third-party plugins. Custom post types, meta boxes, admin settings pages, REST API endpoints, custom Gutenberg blocks, WP-CLI commands and background job processing—all written to WordPress coding standards with proper data sanitisation, capability checks and nonce verification.',
+              },
+              {
+                id: '03', title: 'WooCommerce Development', target: 'WC',
+                tags: ['WooCommerce', 'Custom Extensions', 'Payment Gateways', 'Subscriptions'],
+                body: 'WooCommerce is a powerful commerce platform when implemented correctly. We build custom WooCommerce extensions, integrate payment gateways (Paystack, Stripe, Flutterwave), implement subscription and membership models, build custom checkout flows and optimise WooCommerce performance for high-traffic stores. We also migrate from Shopify and Magento to WooCommerce where it is the right fit.',
+              },
+              {
+                id: '04', title: 'Headless WordPress', target: 'HW',
+                tags: ['WPGraphQL', 'REST API', 'Next.js', 'Faust.js', 'ISR'],
+                body: 'Headless WordPress uses the CMS as a content management layer while a modern JavaScript frontend—typically Next.js—handles rendering. This delivers preview performance, better developer experience and full control over the frontend stack while keeping the familiar WordPress editing experience for content teams. We implement WPGraphQL or REST API, configure preview, handle authentication and deploy on Vercel or Netlify.',
+              },
+              {
+                id: '05', title: 'Performance Optimisation', target: 'PO',
+                tags: ['Object Cache', 'Redis', 'CDN', 'Image Optimisation', 'Lazy Load'],
+                body: 'Slow WordPress sites lose visitors and rankings. We audit with Lighthouse and New Relic, implement Redis object caching, configure full-page caching with nginx FastCGI or WP Rocket, set up CDN for assets, optimise images with WebP conversion and implement lazy loading. We also eliminate render-blocking scripts, minimise plugin count and tune PHP-FPM for your traffic profile.',
+              },
+              {
+                id: '06', title: 'WordPress Security & Maintenance', target: 'SM',
+                tags: ['Hardening', 'Malware Removal', 'Updates', 'Backups', 'WAF'],
+                body: 'WordPress sites are the most attacked CMS on the web. We harden WordPress by restricting file editing, changing default URL paths, implementing 2FA, configuring a WAF, managing plugin updates proactively and setting up automated backups with off-site storage. For compromised sites we provide malware removal, root-cause analysis and hardening to prevent reinfection.',
+              },
+            ].map((solution) => (
+              <div key={solution.id} className="p-6 rounded-xl border border-teal-400/20 bg-teal-400/5 hover:bg-teal-400/10 transition-all">
+                <h3 className="text-[1.5em] font-[600] mb-4">{solution.title}</h3>
+                <p className="text-[0.95em] mb-4">{solution.body}</p>
+                <div className="flex flex-wrap gap-2">
+                  {solution.tags?.map(tag => <span key={tag} className="px-2 py-1 text-[0.8em] rounded bg-teal-400/20 text-teal-300">{tag}</span>)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <div className="grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              { label: 'WordPress Sites Built', value: 1000, suffix: '+' },
+              { label: 'Monthly Traffic Managed', value: 100, suffix: 'M+' },
+              { label: 'Enterprise Clients', value: 200, suffix: '+' },
+              { label: 'Uptime Guarantee', value: 99.95, suffix: '%' },
+              { label: 'Client Satisfaction', value: 97, suffix: '%' },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center p-6">
+                <div className="text-[3em] lg:text-[4em] font-[700] text-teal-400 mb-2">
+                  <CountUp end={stat.value} duration={2} decimals={stat.label.includes('Uptime') || stat.label.includes('Client') ? 2 : 0} />{stat.suffix}
+                </div>
+                <p className="text-[0.95em] font-[600]">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] text-center">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] mb-6">
+            WordPress that<br className="lg:block md:block hidden" />won't let you down
+          </h2>
+          <p className="text-[1.1em] max-w-3xl mx-auto mb-8">Properly built WordPress is fast, secure and a joy to manage. Grey InfoTech builds WordPress sites that your editors love and your users never notice—because they just work.</p>
+          <Link href="/quote-request">
+            <button className="px-10 py-4 rounded-full bg-teal-400 text-black font-[600] hover:bg-teal-300 transition-all">
+              Get Started Today
+            </button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <CurrencyAwarePricing />
     </div>
   );
 };
