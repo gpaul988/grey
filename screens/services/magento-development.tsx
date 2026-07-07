@@ -9,6 +9,8 @@ import { useIsDayTime } from '../../components/useIsDayTime';
 import { motion } from 'framer-motion';
 import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
 import Process90 from '@/components/futuristic/Process90';
+import CountUp from 'react-countup';
+import { CurrencyAwarePricing } from '@/components/ServicePageTemplate';
 
 const MagentoDevelopment: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -161,6 +163,101 @@ const MagentoDevelopment: React.FC = () => {
 
       {/* Process Section */}
       <Process90 totalDays={90} />
+
+      {/* Solutions Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] text-center mb-12">
+            Magento<br className="lg:block md:block hidden" />Solutions
+          </h2>
+          <p className="text-center mb-16 text-[1.1em] max-w-3xl mx-auto">From custom module development to full Adobe Commerce implementations and performance engineering, Grey InfoTech delivers Magento expertise at every level.</p>
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              {
+                id: '01', title: 'Custom Module Development', target: 'CM',
+                tags: ['PHP', 'Service Contracts', 'DI', 'Plugin', 'Observer'],
+                body: 'We build Magento modules that extend the platform without compromising upgrade compatibility—using service contracts, plugins and observers instead of class rewrites. Custom checkout steps, pricing algorithms, inventory integrations, loyalty programmes, product configurators and admin grids are built to Magento coding standards with comprehensive unit and integration tests.',
+              },
+              {
+                id: '02', title: 'Adobe Commerce (Magento 2) Implementation', target: 'AI',
+                tags: ['Adobe Commerce', 'Multi-store', 'B2B', 'B2C', 'Cloud'],
+                body: 'We implement Adobe Commerce for enterprise merchants—configuring multi-store/multi-website architectures, B2B company accounts and shared catalogues, advanced pricing rules, tiered discounts and quote workflows. Adobe Commerce Cloud deployments include Cloud Docker, ECE Tools, environment configuration and integration with Adobe Experience Cloud services.',
+              },
+              {
+                id: '03', title: 'Performance Optimisation', target: 'PO',
+                tags: ['FPC', 'Varnish', 'Elasticsearch', 'Redis', 'CDN'],
+                body: 'Magento performance determines revenue. We configure Varnish for full-page caching, tune Elasticsearch for fast catalogue search, implement Redis for sessions and cache, optimise slow database queries, configure JavaScript bundling and defer non-critical assets. We profile with Blackfire and New Relic to identify bottlenecks and deliver documented performance benchmarks before and after optimisation.',
+              },
+              {
+                id: '04', title: 'Magento Upgrades & Migration', target: 'MU',
+                tags: ['M1 to M2', '2.3 to 2.4', 'Data Migration', 'Extension Audit'],
+                body: 'Upgrading Magento requires detailed preparation—extension compatibility audits, custom code refactoring, data migration testing and phased rollout planning. We have executed M1-to-M2 migrations and multiple minor version upgrades for merchants with millions of SKUs, preserving customer data, order history, catalogue configuration and URL structures throughout the process.',
+              },
+              {
+                id: '05', title: 'Magento Integrations', target: 'IN',
+                tags: ['ERP', 'SAP', 'NetSuite', 'OMS', 'PIM', 'Marketing'],
+                body: 'Complex Magento stores require deep integration with surrounding systems. We build integrations with ERP systems (SAP, NetSuite, Sage), order management, PIM platforms, marketing automation, loyalty programmes and payment gateways. Integrations use Magento\'s API layer and message queues for asynchronous processing, with dead-letter handling and operational dashboards for visibility.',
+              },
+              {
+                id: '06', title: 'Headless & PWA Commerce', target: 'HC',
+                tags: ['PWA Studio', 'Vue Storefront', 'GraphQL', 'Next.js'],
+                body: 'Headless Magento delivers the flexibility of a modern JavaScript frontend with Magento\'s commerce engine behind it. We build PWA storefronts using Magento\'s GraphQL API—either with Magento PWA Studio, Vue Storefront or a custom Next.js implementation. PWA storefronts deliver app-like performance, offline support and significantly faster page loads than server-rendered Magento themes.',
+              },
+            ].map((solution) => (
+              <div key={solution.id} className="p-6 rounded-xl border border-teal-400/20 bg-teal-400/5 hover:bg-teal-400/10 transition-all">
+                <h3 className="text-[1.5em] font-[600] mb-4">{solution.title}</h3>
+                <p className="text-[0.95em] mb-4">{solution.body}</p>
+                <div className="flex flex-wrap gap-2">
+                  {solution.tags?.map(tag => <span key={tag} className="px-2 py-1 text-[0.8em] rounded bg-teal-400/20 text-teal-300">{tag}</span>)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <div className="grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              { label: 'Magento Implementations', value: 150, suffix: '+' },
+              { label: 'Stores Optimized for Scale', value: 300, suffix: '+' },
+              { label: 'Total Commerce Processed', value: 2, suffix: 'B+' },
+              { label: 'Performance Improvement', value: 65, suffix: '%' },
+              { label: 'Enterprise Clients', value: 80, suffix: '+' },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center p-6">
+                <div className="text-[3em] lg:text-[4em] font-[700] text-teal-400 mb-2">
+                  <CountUp end={stat.value} duration={2} />{stat.suffix}
+                </div>
+                <p className="text-[0.95em] font-[600]">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] text-center">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] mb-6">
+            Commerce at<br className="lg:block md:block hidden" />any scale
+          </h2>
+          <p className="text-[1.1em] max-w-3xl mx-auto mb-8">Magento rewards proper engineering. Grey InfoTech builds Adobe Commerce and Magento solutions that handle enterprise catalogue complexity and peak traffic without flinching.</p>
+          <Link href="/quote-request">
+            <button className="px-10 py-4 rounded-full bg-teal-400 text-black font-[600] hover:bg-teal-300 transition-all">
+              Get Started Today
+            </button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <CurrencyAwarePricing />
     </div>
   );
 };
