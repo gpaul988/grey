@@ -1,130 +1,169 @@
 'use client';
 
-import React from 'react';
-import ServicePageTemplate from '@/components/ServicePageTemplate';
-import Link from 'next/link';
+import React, { useEffect, useRef, useState } from 'react';
+import '@/app/globals.css';
+import FloatingButton from "@/components/FloatingButton";
+import Image from "next/image";
+import Link from "next/link";
+import { useIsDayTime } from '../../components/useIsDayTime';
+import { motion } from 'framer-motion';
+import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
+import Process90 from '@/components/futuristic/Process90';
 
-const CrossPlatformDevelopment = () => (
-    <ServicePageTemplate
-        title={<>Cross Platform <br className={'lg:block md:block hidden'}/>Development Services</>}
-        heroVideo="/assets/cross/hero-M.mp4"
-        heroVideoMobile="/assets/cross/hero-P.mp4"
-        midImage="/assets/services/product-design.jpg"
-        topImages={['/assets/services/ecommerce-web-design.jpg', '/assets/services/digital-transformatio.jpg']}
-        eyebrow={<>Scalable Multi-Platform <br className={'lg:block md:block hidden'}/>Application Development</>}
-        intro={
-            <>
-                One codebase, every platform—iOS, Android, and web—delivered with native-quality performance and
-                consistent brand experiences that cut time-to-market by up to 60%.
-            </>
-        }
-        introHeading={<>Best <span className={'text-[#0ef0dd]'}>Cross-Platform App</span> Development Services</>}
-        introBody={[
-            <>
-                At Grey InfoTech, we solve the strategic challenges organisations face when developing applications
-                across fragmented device ecosystems. Traditional platform-specific development creates duplicated
-                codebases, extended timelines, and escalating costs. We eliminate these limitations through expert
-                cross-platform development leveraging{' '}
-                <Link href={'/services/React-Native-Development'} className="border-b border-gray-500 hover:border-white">
-                    React Native
+const CrossPlatformDevelopment: React.FC = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isDayTime = useIsDayTime();
+
+  return (
+    <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
+      <FloatingButton className="fixed bottom-6 right-6 transition-all z-50 duration-300" />
+
+      {/* Futuristic Hero Section - Cross-Platform Development */}
+      <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="hidden lg:block absolute inset-0 w-full h-full object-cover"
+          poster="/assets/cross/hero.jpg"
+        >
+          <source src="/assets/cross/hero.mp4" type="video/mp4" />
+        </video>
+
+        <Image
+          src="/assets/cross/hero.jpg"
+          alt="Cross-Platform Development Hero"
+          fill
+          priority
+          className="lg:hidden object-cover"
+        />
+
+        <div className="pointer-events-none absolute inset-0 z-[1]">
+          <FxBackground day={false} grid={true} aurora={true} />
+        </div>
+
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50 z-[2]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,245,212,0.12),transparent_50%)] z-[2]" />
+
+        <div className="pointer-events-none absolute inset-0 z-[3]">
+          <div className="gx-scanline" />
+          <div className="gx-noise-overlay" />
+          <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: 0.12 }} />
+          <div className="gx-orbit absolute" style={{ width: '40vmax', height: '40vmax', bottom: '-15vmax', left: '-10vmax', opacity: 0.08 }} />
+        </div>
+
+        <div className="absolute inset-0 flex items-center top-32 z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+          <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div>
+              <div className="flex items-center gap-3 mb-6 lg:mb-8">
+                <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse" />
+                <span className="text-teal-400 text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">Cross-Platform Mobile</span>
+              </div>
+
+              <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
+                Native-Quality Apps <span className="gx-gradient-text">Built Cross-Platform</span>
+              </h1>
+
+              <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
+                React Native, Flutter, and Kotlin. Multi-platform mobile solutions that reach iOS and Android users with a single, high-quality codebase.
+              </p>
+
+              <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
+                {["React Native", "Flutter", "Code Sharing", "Performance", "Native Access"].map((badge) => (
+                  <span key={badge} className="px-3 py-1.5 rounded-full bg-teal-400/10 border border-teal-400/30 text-teal-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">
+                    {badge}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-4 items-center">
+                <Link href="/quote-request">
+                  <button className="relative px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap" style={{ background: '#00f5d4', color: '#000' }}>
+                    <span className="absolute inset-0" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)' }} />
+                    <span className="relative">Start Your Cross-Platform App →</span>
+                  </button>
                 </Link>
-                ,{' '}
-                <Link href={'/services/flutter-development'} className="border-b border-gray-500 hover:border-white">
-                    Flutter
+                <Link href="/portfolio">
+                  <button className="px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap" style={{ border: '1px solid rgba(255,255,255,0.15)' }}>
+                    See Cross-Platform Portfolio
+                  </button>
                 </Link>
-                , and Xamarin—enabling simultaneous deployment across{' '}
-                <Link href={'/services/ios-development'} className="border-b border-gray-500 hover:border-white">iOS</Link>,{' '}
-                <Link href={'/services/android-development'} className="border-b border-gray-500 hover:border-white">Android</Link>, and{' '}
-                <Link href={'/services/Web-Development'} className="border-b border-gray-500 hover:border-white">web</Link>{' '}
-                while maintaining native-like performance and brand integrity.
-            </>,
-            <>
-                By implementing a single, strategically engineered codebase, we accelerate time-to-market by up to
-                60% and reduce development costs by 40–50% compared to native approaches while ensuring absolute
-                feature parity across all platforms. Our solutions incorporate offline functionality, real-time
-                synchronisation, secure authentication, third-party integrations, and comprehensive analytics that
-                drive continuous optimisation—giving you the agility to scale efficiently and achieve sustainable
-                growth in an increasingly mobile-first digital marketplace.
-            </>,
-        ]}
-        solutionsHeading={<>Cross-Platform <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
-        solutionsIntro={
-            <>
-                From strategic consulting to enterprise integration, Grey InfoTech delivers the complete
-                cross-platform development stack. Based in Nigeria and serving clients globally, we build
-                scalable, high-performance applications that run flawlessly across every device and OS.
-            </>
-        }
-        solutions={[
-            {
-                id: '01', title: 'Strategy & Consulting', target: 'SC',
-                tags: ['Competitive Positioning', 'Market Analysis', 'Strategic Roadmapping'],
-                body: <>We develop comprehensive strategic roadmaps that position your cross-platform application
-                    for sustained market success. Our consulting process begins with rigorous analysis of your
-                    business objectives, target audience, competitive landscape, and emerging industry trends—then
-                    translates that insight into clear success metrics, optimal platform selection, feature
-                    prioritisation, and phased deployment approaches that balance speed-to-market with quality
-                    and scalability.</>,
-            },
-            {
-                id: '02', title: 'Cross-Platform App Design', target: 'CPAD',
-                tags: ['User Experience Design', 'Interface Optimisation', 'Platform Consistency'],
-                body: <>We deliver exceptional cross-platform application designs that integrate sophisticated
-                    aesthetics with intuitive functionality. Our design team employs user-centred principles,
-                    comprehensive usability research, and contemporary interface patterns to craft visually
-                    compelling applications that balance platform-specific conventions with unified brand
-                    expression—ensuring native-quality experiences on iOS, Android, and web while maximising
-                    code reusability.</>,
-            },
-            {
-                id: '03', title: 'Responsive Apps', target: 'RA',
-                tags: ['Multi-Device Compatibility', 'Framework Optimisation', 'Unified UX', 'Cost-Efficient Deployment'],
-                body: <>We specialise in cross-platform application development that delivers seamless, consistent
-                    user experiences across diverse devices and operating systems. Through strategic architecture
-                    design and efficient code implementation, we maximise development efficiency without
-                    compromising functionality—providing unified feature sets, synchronised data experiences, and
-                    consistent visual presentation that significantly expands market reach and reduces development
-                    costs compared to native strategies.</>,
-            },
-            {
-                id: '04', title: 'Cross-Platform App Migration', target: 'CPAM',
-                tags: ['Platform Migration', 'Data Integrity', 'Legacy Modernisation', 'System Compatibility'],
-                body: <>We provide comprehensive migration services that transition your existing native or legacy
-                    applications to modern cross-platform architectures, expanding market reach while preserving
-                    critical functionality and business logic. Our methodology employs rigorous planning, systematic
-                    code analysis, and phased implementation strategies that minimise disruption and ensure
-                    continuous service availability throughout the transition process.</>,
-            },
-            {
-                id: '05', title: 'Cross-Platform App Support', target: 'CPAS',
-                tags: ['Performance Optimisation', 'Proactive Monitoring', 'Security Management', 'Lifecycle Management'],
-                body: <>We provide comprehensive support and maintenance services that ensure your cross-platform
-                    application maintains optimal performance, security, and reliability throughout its operational
-                    lifecycle. Our dedicated technical team delivers proactive monitoring, regular system updates,
-                    performance optimisation, security patch management, and rapid issue resolution to minimise
-                    downtime across all platforms.</>,
-            },
-            {
-                id: '06', title: 'Custom Software Development', target: 'CSD',
-                tags: ['Bespoke Solutions', 'Business Alignment', 'Operational Efficiency', 'Requirements-Driven Design'],
-                body: <>We deliver tailor-made cross-platform applications engineered specifically to address your
-                    organisation's unique operational requirements, strategic objectives, and competitive challenges.
-                    Through collaborative development methodologies and iterative feedback cycles, we create
-                    applications that incorporate the exact features, workflows, and integrations your business
-                    demands—eliminating the compromises inherent in generic, off-the-shelf solutions.</>,
-            },
-            {
-                id: '07', title: 'Cross-Platform App Integration', target: 'CPAI',
-                tags: ['API Integration', 'System Interoperability', 'Enterprise Connectivity', 'Middleware Solutions'],
-                body: <>We provide comprehensive application integration services that connect your application with
-                    essential business systems and third-party services. We employ proven integration methodologies,
-                    RESTful APIs, middleware solutions, and modern integration platforms to establish reliable
-                    connections with CRM, ERP, payment gateways, analytics tools, and industry-specific applications—
-                    eliminating data silos and ensuring real-time information availability across your entire
-                    technology landscape.</>,
-            },
-        ]}/>
-);
+              </div>
+            </div>
+
+            <div className="hidden lg:flex flex-col items-end">
+              <div className="grid grid-cols-2 gap-6 w-full">
+                {[
+                  { label: 'Apps Delivered', value: '400+' },
+                  { label: 'Code Reuse', value: '90%' },
+                  { label: 'Time Savings', value: '40% Faster' },
+                  { label: 'User Rating', value: '4.7/5' }
+                ].map((stat) => (
+                  <div key={stat.label} className="px-6 py-5 rounded-2xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md hover:bg-teal-400/12 transition-all duration-300 hover:border-teal-400/50 text-right">
+                    <div className="text-teal-300 text-[0.7em] uppercase tracking-wider font-[600] mb-2">{stat.label}</div>
+                    <div className="text-white text-[1.8em] font-[700]">{stat.value}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="lg:hidden absolute bottom-12 left-0 right-0 z-[11] px-6">
+          <div className="grid grid-cols-3 gap-3">
+            {[
+              { label: 'Apps', value: '400+' },
+              { label: 'Reuse', value: '90%' },
+              { label: 'Rating', value: '4.7/5' }
+            ].map((stat) => (
+              <div key={stat.label} className="px-3 py-2 rounded-xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md">
+                <div className="text-teal-300 text-[0.5em] uppercase tracking-wider font-[600] mb-1">{stat.label}</div>
+                <div className="text-white text-[1.2em] font-[700]">{stat.value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="absolute top-1/4 left-8 z-[4] w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+        <div className="absolute bottom-1/3 right-12 z-[4] w-3 h-3 rounded-full bg-teal-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
+        <div className="absolute top-3/4 left-1/3 z-[4] w-2 h-2 rounded-full bg-cyan-400 animate-pulse" style={{ animationDelay: '1s' }} />
+      </section>
+
+      {/* Introduction Section */}
+      <section className={`pt-16 transition-colors duration-500 ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <div>
+            <FxChip day={!isDayTime}>CROSS-PLATFORM DEVELOPMENT</FxChip>
+          </div>
+          <div className="lg:-ml-[19em]">
+            <FxReveal>
+              <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
+                Multi-Platform Excellence <span className="gx-gradient-text">One Codebase</span>
+              </h3>
+            </FxReveal>
+            <FxReveal delay={0.08}>
+              <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[1em] leading-relaxed">
+                <div>
+                  <p>Cross-platform development eliminates the need to build and maintain separate iOS and Android teams—but only when done right. We build high-performance cross-platform apps that feel native on every platform.</p>
+                </div>
+                <div>
+                  <p>From architecture and UI to real-time sync and app store deployment, we deliver cross-platform solutions that delight users.</p>
+                </div>
+              </div>
+            </FxReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* Process Section */}
+      <Process90 totalDays={90} />
+    </div>
+  );
+};
 
 export default CrossPlatformDevelopment;
 
