@@ -9,6 +9,8 @@ import { useIsDayTime } from '../../components/useIsDayTime';
 import { motion } from 'framer-motion';
 import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
 import Process90 from '@/components/futuristic/Process90';
+import CountUp from 'react-countup';
+import { CurrencyAwarePricing } from '@/components/ServicePageTemplate';
 
 const QATesting: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -161,6 +163,84 @@ const QATesting: React.FC = () => {
 
       {/* Process Section */}
       <Process90 totalDays={60} />
+
+      {/* Solutions Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] text-center mb-12">
+            QA &amp; Testing Solutions
+          </h2>
+          <p className="text-center mb-16 text-[1.1em] max-w-3xl mx-auto">From manual exploratory testing to full CI-integrated automation frameworks, Grey InfoTech provides the quality assurance capability your product deserves.</p>
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              {
+                id: '01',
+                title: 'Manual & Exploratory Testing',
+                body: 'Our QA engineers conduct structured manual testing for functional correctness, edge cases and user experience. We run exploratory sessions to uncover issues automated tests miss, manage detailed test cases in tools like TestRail or Zephyr, and produce comprehensive defect reports with reproduction steps, severity ratings and screenshots or screen recordings.',
+                tags: ['Functional', 'Regression', 'Exploratory', 'UAT']
+              },
+              {
+                id: '02',
+                title: 'Test Automation',
+                body: 'We build automation frameworks that run in your CI pipeline and give fast, reliable feedback on every pull request. Our front-end automation uses Playwright or Cypress for end-to-end tests; mobile automation uses Appium or Detox. We design page-object patterns, data-driven test structures and retry logic so suites stay maintainable as your product evolves.',
+                tags: ['Playwright', 'Cypress', 'Selenium', 'Appium', 'Jest']
+              },
+              {
+                id: '03',
+                title: 'API & Integration Testing',
+                body: 'APIs are the backbone of modern applications and a prime source of defects. We build API test suites covering happy paths, error handling, authentication, rate limiting and schema validation. For microservices we implement contract testing with Pact to catch integration breaks between services before they reach a shared environment.',
+                tags: ['Postman', 'REST Assured', 'Pact', 'Contract Testing']
+              },
+              {
+                id: '04',
+                title: 'Performance & Load Testing',
+                body: 'Performance problems under load destroy user trust. We design load test scenarios that simulate realistic traffic patterns, identify throughput ceilings, measure latency percentiles and expose memory leaks or connection pool exhaustion. Using k6 or Gatling with cloud execution, we run tests at scale and provide actionable optimisation recommendations with before/after benchmarks.',
+                tags: ['k6', 'Gatling', 'JMeter', 'Locust']
+              },
+              {
+                id: '05',
+                title: 'Mobile App Testing',
+                body: 'Mobile testing is uniquely complex—device fragmentation, OS versions, gesture interactions and network conditions all affect quality. We test across real devices using cloud device farms (AWS Device Farm, BrowserStack), write Appium and XCUITest suites for automated regression, and conduct manual testing across the device matrix most representative of your user base.',
+                tags: ['iOS', 'Android', 'Device Farm', 'Appium', 'XCUITest']
+              },
+              {
+                id: '06',
+                title: 'Security & Accessibility Testing',
+                body: 'Quality extends beyond functional correctness. We integrate OWASP ZAP into CI for automated security scanning, conduct manual OWASP Top 10 reviews and run accessibility audits against WCAG 2.1 AA standards using Axe and manual assistive-technology testing. Products that pass our quality bar are not just bug-free—they are secure and inclusive.',
+                tags: ['OWASP', 'WCAG 2.1', 'Axe', 'ZAP']
+              },
+            ].map((solution) => (
+              <div key={solution.id} className="p-6 rounded-xl border border-teal-400/20 bg-teal-400/5 hover:bg-teal-400/10 transition-all">
+                <h3 className="text-[1.5em] font-[600] mb-4">{solution.title}</h3>
+                <p className="text-[0.95em] mb-4">{solution.body}</p>
+                <div className="flex flex-wrap gap-2">
+                  {solution.tags?.map(tag => <span key={tag} className="px-2 py-1 text-[0.8em] rounded bg-teal-400/20 text-teal-300">{tag}</span>)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] text-center">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] mb-6">
+            Quality is not optional
+          </h2>
+          <p className="text-[1.1em] max-w-3xl mx-auto mb-8">Every bug that reaches production costs 10× more to fix than one caught in development. Grey InfoTech makes quality a competitive advantage, not an afterthought.</p>
+          <Link href="/quote-request">
+            <button className="px-10 py-4 rounded-full bg-teal-400 text-black font-[600] hover:bg-teal-300 transition-all">
+              Get Started Today
+            </button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <CurrencyAwarePricing />
     </div>
   );
 };
