@@ -9,6 +9,8 @@ import { useIsDayTime } from '../../components/useIsDayTime';
 import { motion } from 'framer-motion';
 import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
 import Process90 from '@/components/futuristic/Process90';
+import CountUp from 'react-countup';
+import { CurrencyAwarePricing } from '@/components/ServicePageTemplate';
 
 const PythonDevelopment: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -161,6 +163,196 @@ const PythonDevelopment: React.FC = () => {
 
       {/* Process Section */}
       <Process90 totalDays={90} />
+
+      {/* Solutions Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] text-center mb-12">
+            Python Development Solutions
+          </h2>
+          <p className="text-center mb-16 text-[1.1em] max-w-3xl mx-auto">
+            From web APIs and data engineering to automation and machine learning, Grey InfoTech delivers the full breadth of Python development. Based in Nigeria and working globally, we build performant, well-tested Python systems that scale—turning complex requirements into reliable software.
+          </p>
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              {
+                id: '01',
+                title: 'Web APIs & Back-Ends',
+                tags: ['Django', 'FastAPI', 'Flask', 'REST/GraphQL'],
+                body: 'We build robust, high-performance back-ends and APIs with Django, FastAPI and Flask—clean architecture, secure authentication, and well-documented REST or GraphQL endpoints. From monoliths to microservices, we engineer services that handle real traffic reliably and stay easy to extend.'
+              },
+              {
+                id: '02',
+                title: 'Data Engineering & Pipelines',
+                tags: ['ETL', 'Airflow', 'Pandas', 'Warehousing'],
+                body: 'We design and build data pipelines that ingest, clean, transform and load data at scale. Using Airflow, Pandas and modern warehousing, we move information reliably between systems and prepare it for analytics, reporting and machine learning—so your decisions rest on trustworthy data.'
+              },
+              {
+                id: '03',
+                title: 'Machine Learning & AI',
+                tags: ['scikit-learn', 'PyTorch', 'TensorFlow', 'NLP'],
+                body: 'We build and deploy machine-learning models for forecasting, classification, recommendation, computer vision and NLP. From data preparation and training to serving models behind reliable APIs and monitoring them in production, we turn data into intelligence that drives real business outcomes.'
+              },
+              {
+                id: '04',
+                title: 'Automation & Scripting',
+                tags: ['Workflows', 'Scraping', 'Integrations'],
+                body: 'We automate the repetitive and the complex—data scraping, report generation, system integrations and scheduled workflows—freeing your team from manual effort and reducing errors. Reliable automation that quietly does the heavy lifting day after day.'
+              },
+              {
+                id: '05',
+                title: 'Cloud, DevOps & Deployment',
+                tags: ['Docker', 'CI/CD', 'AWS', 'Observability'],
+                body: 'We containerise, deploy and operate Python services with Docker, CI/CD pipelines and cloud infrastructure on AWS, Azure or GCP. With monitoring, logging and autoscaling in place, your applications stay fast, observable and resilient under real-world load.'
+              },
+              {
+                id: '06',
+                title: 'Modernisation & Support',
+                tags: ['Refactoring', 'Migration', 'Testing', 'Maintenance'],
+                body: 'We refactor legacy Python, migrate to modern frameworks and Python versions, add test coverage, and provide ongoing maintenance. We bring ageing codebases up to current standards so they stay secure, performant and a pleasure to build on.'
+              }
+            ].map((solution) => (
+              <div key={solution.id} className="p-6 rounded-xl border border-teal-400/20 bg-teal-400/5 hover:bg-teal-400/10 transition-all">
+                <h3 className="text-[1.5em] font-[600] mb-4">{solution.title}</h3>
+                <p className="text-[0.95em] mb-4">{solution.body}</p>
+                <div className="flex flex-wrap gap-2">
+                  {solution.tags?.map(tag => (
+                    <span key={tag} className="px-2 py-1 text-[0.8em] rounded bg-teal-400/20 text-teal-300">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Reasons Section */}
+      <section className={`${isDayTime ? 'bg-black' : 'bg-white'} py-20`}>
+        <FxBackground day={!isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] text-center mb-12">Why Choose Us</h2>
+          <div className="grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 gap-12">
+            {[
+              {
+                id: 1,
+                title: 'Versatility Across Domains',
+                image: '/assets/services/Development.jpg',
+                description: 'Web, data, automation and AI—one expert team covers the full range of Python use cases, so you get coherent solutions instead of disconnected point tools.'
+              },
+              {
+                id: 2,
+                title: 'Performance & Scale',
+                image: '/assets/services/Research-strategy.jpg',
+                description: 'We architect for throughput and growth—async frameworks, efficient data access, caching and autoscaling—so your Python systems stay fast as demand climbs.'
+              },
+              {
+                id: 3,
+                title: 'AI & Data Ready',
+                image: '/assets/services/services.jpg',
+                description: 'Python is the language of modern data and ML. We bring production-grade machine learning and data engineering capability, not just experimentation in notebooks.'
+              },
+              {
+                id: 4,
+                title: 'Maintainable Codebases',
+                image: '/assets/services/digital-optimisation.jpg',
+                description: 'Clean architecture, type hints, tests and documentation mean the systems we build stay understandable and extensible for your team long after launch.'
+              }
+            ].map((reason) => (
+              <div key={reason.id} className="flex gap-8">
+                {reason.image && (
+                  <Image src={reason.image} alt={reason.title} width={200} height={200} className="rounded-lg object-cover" />
+                )}
+                <div>
+                  <h3 className="text-[1.5em] font-[600] mb-4">{reason.title}</h3>
+                  <p className="text-[0.95em]">{reason.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <div className="grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              { label: 'Years Experience', value: 8, suffix: '+' },
+              { label: 'Team Members', value: 13, suffix: '+' },
+              { label: 'APIs & Services Built', value: 120, suffix: '+' },
+              { label: 'Projects Delivered', value: 200, suffix: '+' },
+              { label: 'Client Satisfaction', value: 98, suffix: '%' }
+            ].map((stat) => (
+              <div key={stat.label} className="text-center p-6">
+                <div className="text-[3em] lg:text-[4em] font-[700] text-teal-400 mb-2">
+                  <CountUp end={stat.value} duration={2} />{stat.suffix}
+                </div>
+                <p className="text-[0.95em] font-[600]">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className={`${isDayTime ? 'bg-black' : 'bg-white'} py-20`}>
+        <FxBackground day={!isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] text-center mb-12">
+            What Our Clients Say
+          </h2>
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              {
+                name: 'Ngozi Okafor',
+                title: 'Head of Data, InsightLab',
+                message: 'Grey InfoTech built our entire data platform in Python—pipelines, APIs and ML models. Reliable, well-tested and genuinely scalable. Our analysts finally trust the data.'
+              },
+              {
+                name: 'Yusuf Abdullahi',
+                title: 'CTO, RouteWise',
+                message: 'Their FastAPI back-end handles our peak traffic effortlessly. Clean architecture, great documentation, and they delivered exactly on time.'
+              },
+              {
+                name: 'Aisha Bello',
+                title: 'Founder, ShopSense AI',
+                message: 'The recommendation engine they built in Python lifted our conversion noticeably. They took us from notebook prototype to production-grade ML serving real users.'
+              }
+            ].map((testimonial, idx) => (
+              <div key={idx} className="p-8 rounded-xl border border-teal-400/20 bg-teal-400/5">
+                <p className="text-[1.05em] mb-6 italic">"{testimonial.message}"</p>
+                <div>
+                  <p className="font-[600]">{testimonial.name}</p>
+                  <p className="text-[0.9em] text-teal-300">{testimonial.title}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] text-center">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] mb-6">
+            Build smarter with Python
+          </h2>
+          <p className="text-[1.1em] max-w-3xl mx-auto mb-8">
+            From scalable APIs and data pipelines to automation and machine learning, Grey InfoTech delivers Python systems that perform and endure. Let's turn your toughest requirements into clean, reliable software.
+          </p>
+          <Link href="/quote-request">
+            <button className="px-10 py-4 rounded-full bg-teal-400 text-black font-[600] hover:bg-teal-300 transition-all">
+              Get Started Today
+            </button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <CurrencyAwarePricing />
     </div>
   );
 };
