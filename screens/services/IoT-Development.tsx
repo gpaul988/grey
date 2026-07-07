@@ -9,6 +9,8 @@ import { useIsDayTime } from '../../components/useIsDayTime';
 import { motion } from 'framer-motion';
 import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
 import Process90 from '@/components/futuristic/Process90';
+import CountUp from 'react-countup';
+import { CurrencyAwarePricing } from '@/components/ServicePageTemplate';
 
 const IoTDevelopment: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -161,6 +163,196 @@ const IoTDevelopment: React.FC = () => {
 
       {/* Process Section */}
       <Process90 totalDays={120} />
+
+      {/* Solutions Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] text-center mb-12">
+            IoT Development Solutions
+          </h2>
+          <p className="text-center mb-16 text-[1.1em] max-w-3xl mx-auto">
+            From embedded firmware to cloud platforms and analytics, Grey InfoTech delivers the full IoT stack. Based in Nigeria and serving clients globally, we build secure, scalable connected products that bridge hardware and software—turning devices and sensor data into measurable business value.
+          </p>
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              {
+                id: '01',
+                title: 'Embedded Firmware & Devices',
+                tags: ['C/C++', 'RTOS', 'Microcontrollers', 'Sensors'],
+                body: 'We develop reliable embedded firmware for microcontrollers and edge devices—integrating sensors, actuators and radios with efficient, low-power C/C++ and RTOS code. We handle secure boot, device provisioning and over-the-air updates so your fleet stays maintainable in the field long after deployment.'
+              },
+              {
+                id: '02',
+                title: 'Connectivity & Protocols',
+                tags: ['MQTT', 'CoAP', 'BLE', 'LoRaWAN'],
+                body: 'We implement the right connectivity for your use case—MQTT, CoAP and HTTPS over Wi-Fi, cellular, BLE or LoRaWAN—with encrypted transport and resilient reconnection. Devices stay connected reliably even across unstable networks, and data flows securely to the cloud.'
+              },
+              {
+                id: '03',
+                title: 'Cloud IoT Platforms',
+                tags: ['AWS IoT', 'Azure IoT', 'Ingestion', 'Scale'],
+                body: 'We build cloud back-ends that ingest, store and process millions of device messages, using AWS IoT, Azure IoT Hub or Google Cloud. We design for horizontal scale, device management, command-and-control and secure APIs, so your platform grows smoothly from one device to an entire fleet.'
+              },
+              {
+                id: '04',
+                title: 'Real-Time Dashboards & Apps',
+                tags: ['Telemetry', 'Alerts', 'Mobile', 'Web'],
+                body: 'We create web and mobile dashboards that visualise live telemetry, trigger alerts, and let users monitor and control devices remotely. Clear, real-time interfaces turn raw data streams into the insight your operators and customers need to act fast.'
+              },
+              {
+                id: '05',
+                title: 'Edge Computing & Analytics',
+                tags: ['Edge AI', 'Filtering', 'Predictive'],
+                body: 'When latency, bandwidth or privacy matter, we push processing to the edge—filtering, aggregating and even running ML inference on-device. Combined with cloud analytics, this enables predictive maintenance, anomaly detection and smarter automation across your fleet.'
+              },
+              {
+                id: '06',
+                title: 'Security & Lifecycle Management',
+                tags: ['Device Identity', 'OTA', 'Encryption', 'Monitoring'],
+                body: 'We secure the whole system—unique device identity, encrypted communication, signed OTA updates and continuous monitoring—and manage the device lifecycle from provisioning to decommissioning. Your connected products stay protected, compliant and up to date.'
+              }
+            ].map((solution) => (
+              <div key={solution.id} className="p-6 rounded-xl border border-teal-400/20 bg-teal-400/5 hover:bg-teal-400/10 transition-all">
+                <h3 className="text-[1.5em] font-[600] mb-4">{solution.title}</h3>
+                <p className="text-[0.95em] mb-4">{solution.body}</p>
+                <div className="flex flex-wrap gap-2">
+                  {solution.tags?.map(tag => (
+                    <span key={tag} className="px-2 py-1 text-[0.8em] rounded bg-teal-400/20 text-teal-300">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Reasons Section */}
+      <section className={`${isDayTime ? 'bg-black' : 'bg-white'} py-20`}>
+        <FxBackground day={!isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] text-center mb-12">Why Choose Us</h2>
+          <div className="grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 gap-12">
+            {[
+              {
+                id: 1,
+                title: 'Full-Stack IoT Expertise',
+                image: '/assets/services/Development.jpg',
+                description: 'Firmware, connectivity, cloud and analytics from one team. No finger-pointing between hardware and software vendors—we own the entire connected experience.'
+              },
+              {
+                id: 2,
+                title: 'Security by Design',
+                image: '/assets/services/digital-transformatio.jpg',
+                description: 'Device identity, encrypted transport and signed OTA updates are built in from day one, not bolted on later—because an insecure IoT device is a liability, not an asset.'
+              },
+              {
+                id: 3,
+                title: 'Built to Scale',
+                image: '/assets/services/services.jpg',
+                description: 'From a single prototype to a fleet of millions, our cloud architectures ingest and process telemetry without breaking a sweat as your deployment grows.'
+              },
+              {
+                id: 4,
+                title: 'Data into Decisions',
+                image: '/assets/services/digital-optimisation.jpg',
+                description: 'Real-time dashboards, alerts and predictive analytics turn raw sensor streams into the insight that cuts cost, prevents downtime and unlocks new revenue.'
+              }
+            ].map((reason) => (
+              <div key={reason.id} className="flex gap-8">
+                {reason.image && (
+                  <Image src={reason.image} alt={reason.title} width={200} height={200} className="rounded-lg object-cover" />
+                )}
+                <div>
+                  <h3 className="text-[1.5em] font-[600] mb-4">{reason.title}</h3>
+                  <p className="text-[0.95em]">{reason.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <div className="grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              { label: 'Years Experience', value: 8, suffix: '+' },
+              { label: 'Team Members', value: 13, suffix: '+' },
+              { label: 'Devices Connected', value: 50, suffix: 'K+' },
+              { label: 'Projects Delivered', value: 200, suffix: '+' },
+              { label: 'Client Satisfaction', value: 98, suffix: '%' }
+            ].map((stat) => (
+              <div key={stat.label} className="text-center p-6">
+                <div className="text-[3em] lg:text-[4em] font-[700] text-teal-400 mb-2">
+                  <CountUp end={stat.value} duration={2} />{stat.suffix}
+                </div>
+                <p className="text-[0.95em] font-[600]">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className={`${isDayTime ? 'bg-black' : 'bg-white'} py-20`}>
+        <FxBackground day={!isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] text-center mb-12">
+            What Our Clients Say
+          </h2>
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              {
+                name: 'Chidi Anyaoku',
+                title: 'Operations Director, AgroSense',
+                message: 'Grey InfoTech built our agricultural sensor platform end to end—firmware, connectivity and dashboards. We now monitor soil and climate data across hundreds of farms in real time.'
+              },
+              {
+                name: 'Lerato Molefe',
+                title: 'CTO, SmartMeter Africa',
+                message: 'Their security-first approach to OTA updates and device identity gave us total confidence rolling out tens of thousands of connected meters. Rock-solid and scalable.'
+              },
+              {
+                name: 'Emeka Nwosu',
+                title: 'Plant Manager, FabriX Industries',
+                message: 'The predictive-maintenance system they built cut our unplanned downtime dramatically. Edge analytics flag issues before they become failures. Genuinely transformative.'
+              }
+            ].map((testimonial, idx) => (
+              <div key={idx} className="p-8 rounded-xl border border-teal-400/20 bg-teal-400/5">
+                <p className="text-[1.05em] mb-6 italic">"{testimonial.message}"</p>
+                <div>
+                  <p className="font-[600]">{testimonial.name}</p>
+                  <p className="text-[0.9em] text-teal-300">{testimonial.title}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] text-center">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] mb-6">
+            Bring your devices online
+          </h2>
+          <p className="text-[1.1em] max-w-3xl mx-auto mb-8">
+            From firmware to cloud dashboards, Grey InfoTech builds secure, scalable IoT systems that turn connected devices into actionable intelligence. Let's engineer a connected product your customers and operators can rely on.
+          </p>
+          <Link href="/quote-request">
+            <button className="px-10 py-4 rounded-full bg-teal-400 text-black font-[600] hover:bg-teal-300 transition-all">
+              Get Started Today
+            </button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <CurrencyAwarePricing />
     </div>
   );
 };
