@@ -9,6 +9,8 @@ import { useIsDayTime } from '../../components/useIsDayTime';
 import { motion } from 'framer-motion';
 import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
 import Process90 from '@/components/futuristic/Process90';
+import CountUp from 'react-countup';
+import { CurrencyAwarePricing } from '@/components/ServicePageTemplate';
 
 const SalesforceDevelopment: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -161,6 +163,101 @@ const SalesforceDevelopment: React.FC = () => {
 
       {/* Process Section */}
       <Process90 totalDays={100} />
+
+      {/* Solutions Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] text-center mb-12">
+            Salesforce<br className="lg:block md:block hidden" />Solutions
+          </h2>
+          <p className="text-center mb-16 text-[1.1em] max-w-3xl mx-auto">From fresh implementations to complex custom development and integrations, Grey InfoTech builds Salesforce solutions that your teams actually use.</p>
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              {
+                id: '01', title: 'Salesforce Implementation', target: 'SI',
+                tags: ['Sales Cloud', 'Service Cloud', 'Experience Cloud', 'Setup'],
+                body: 'We implement Salesforce from scratch or augment existing orgs—covering requirements discovery, data model design, process automation, user permission configuration, validation rules, page layouts and reports/dashboards. Every implementation is documented, tested and backed by change management support to drive user adoption from day one.',
+              },
+              {
+                id: '02', title: 'Apex & LWC Development', target: 'AP',
+                tags: ['Apex', 'Lightning Web Components', 'Triggers', 'Batch Jobs'],
+                body: 'When declarative tools reach their limits, we write clean, well-tested Apex code. Our developers build custom triggers, batch processes, scheduled jobs and REST/SOAP API services. On the front-end we create Lightning Web Components that extend the Salesforce UI with functionality tailored to your users\' workflows—fast, accessible and mobile-responsive.',
+              },
+              {
+                id: '03', title: 'Salesforce Integrations', target: 'IN',
+                tags: ['MuleSoft', 'REST', 'Platform Events', 'ERP', 'Marketing'],
+                body: 'Salesforce is most powerful when connected to your wider systems—ERP, marketing automation, billing, support ticketing and data warehouse. We design integration architectures using Platform Events, Change Data Capture, Salesforce APIs and middleware like MuleSoft or custom Node.js/Python services. We build for reliability with retry logic, dead-letter queues and comprehensive logging.',
+              },
+              {
+                id: '04', title: 'Marketing Cloud & Pardot', target: 'MC',
+                tags: ['Email Studio', 'Journey Builder', 'AMPscript', 'Pardot'],
+                body: 'We configure and customise Marketing Cloud to power sophisticated customer journeys—personalised email campaigns, SMS flows, push notifications and social studio. Our work covers Journey Builder design, AMPscript and SQL query activities, connector setup and cross-cloud data synchronisation with Sales Cloud for closed-loop reporting on marketing ROI.',
+              },
+              {
+                id: '05', title: 'Salesforce CPQ & Billing', target: 'CPQ',
+                tags: ['CPQ', 'Billing', 'Contracts', 'Revenue Cloud'],
+                body: 'Configuring complex products and generating accurate quotes and contracts is a common pain point. We implement Salesforce CPQ with product catalogues, pricing rules, discount schedules, approval workflows and document generation. For companies with recurring revenue we extend into Salesforce Billing to automate invoicing, amendments and revenue recognition.',
+              },
+              {
+                id: '06', title: 'Salesforce DevOps & Migrations', target: 'DO',
+                tags: ['SFDX', 'Copado', 'Gearset', 'Org Migration'],
+                body: 'We modernise Salesforce development with proper DevOps practices—Salesforce DX project structure, version control in Git, CI/CD with Gearset or Copado and automated Apex test execution. For org migrations and refreshes we design sandbox strategies, manage metadata deployments and handle data migration with tools like Data Loader, Informatica and custom scripts.',
+              },
+            ].map((solution) => (
+              <div key={solution.id} className="p-6 rounded-xl border border-teal-400/20 bg-teal-400/5 hover:bg-teal-400/10 transition-all">
+                <h3 className="text-[1.5em] font-[600] mb-4">{solution.title}</h3>
+                <p className="text-[0.95em] mb-4">{solution.body}</p>
+                <div className="flex flex-wrap gap-2">
+                  {solution.tags?.map(tag => <span key={tag} className="px-2 py-1 text-[0.8em] rounded bg-teal-400/20 text-teal-300">{tag}</span>)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <div className="grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              { label: 'Salesforce Implementations', value: 150, suffix: '+' },
+              { label: 'Users Supported', value: 100, suffix: 'K+' },
+              { label: 'Data Records Migrated', value: 1, suffix: 'B+' },
+              { label: 'Implementation Success Rate', value: 99, suffix: '%' },
+              { label: 'Certified Professionals', value: 45, suffix: '+' },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center p-6">
+                <div className="text-[3em] lg:text-[4em] font-[700] text-teal-400 mb-2">
+                  <CountUp end={stat.value} duration={2} />{stat.suffix}
+                </div>
+                <p className="text-[0.95em] font-[600]">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] text-center">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] mb-6">
+            Salesforce that<br className="lg:block md:block hidden" />drives revenue
+          </h2>
+          <p className="text-[1.1em] max-w-3xl mx-auto mb-8">Your CRM should be your competitive advantage, not a system your team works around. Grey InfoTech builds Salesforce solutions that match your process perfectly.</p>
+          <Link href="/quote-request">
+            <button className="px-10 py-4 rounded-full bg-teal-400 text-black font-[600] hover:bg-teal-300 transition-all">
+              Get Started Today
+            </button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <CurrencyAwarePricing />
     </div>
   );
 };
