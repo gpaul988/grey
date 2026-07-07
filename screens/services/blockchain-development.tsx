@@ -7,7 +7,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useIsDayTime } from '../../components/useIsDayTime';
 import { motion } from 'framer-motion';
+import CountUp from 'react-countup';
 import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
+import { CurrencyAwarePricing } from '@/components/ServicePageTemplate';
 import Process90 from '@/components/futuristic/Process90';
 
 const BlockchainDevelopment: React.FC = () => {
@@ -134,6 +136,190 @@ const BlockchainDevelopment: React.FC = () => {
 
       {/* PROCESS SECTION */}
       <Process90 totalDays={120} />
+
+      {/* Solutions Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] text-center mb-12">
+            Blockchain Development Solutions
+          </h2>
+          <p className="text-center mb-16 text-[1.1em] max-w-3xl mx-auto">From smart contracts and decentralised applications to enterprise ledgers and token economies, we deliver complete blockchain capability</p>
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              {
+                id: 1,
+                title: "Smart Contract Development",
+                body: "We design, develop and audit smart contracts that automate trust without intermediaries. From token standards to complex DeFi vaults, staking, escrow and governance logic, we write clean, well-documented Solidity and Rust code.",
+                tags: ["Solidity", "Rust", "Auditing", "Gas Optimisation"]
+              },
+              {
+                id: 2,
+                title: "Decentralised Apps (dApps)",
+                body: "We build full-stack decentralised applications with intuitive front-ends and reliable on-chain back-ends. Using Ethers.js, Wagmi, Viem and modern React, we connect wallets and deliver responsive UX.",
+                tags: ["Web3", "React", "Wallet Integration", "The Graph"]
+              },
+              {
+                id: 3,
+                title: "Tokenisation & NFTs",
+                body: "We help businesses tokenise real-world and digital assets, launch utility or governance tokens, and build NFT platforms with secure minting, on-chain royalties and full marketplace functionality.",
+                tags: ["Token Design", "Minting", "Royalties", "Marketplaces"]
+              },
+              {
+                id: 4,
+                title: "DeFi Platforms",
+                body: "We engineer decentralised finance protocols—lending and borrowing markets, automated market makers, staking and yield strategies—with security and capital efficiency at their core.",
+                tags: ["Lending", "DEX", "Staking", "Yield"]
+              },
+              {
+                id: 5,
+                title: "Enterprise Blockchain",
+                body: "For organisations that need privacy and control, we implement permissioned ledgers using Hyperledger Fabric and similar frameworks for supply-chain traceability and tamper-evident record keeping.",
+                tags: ["Hyperledger", "Supply Chain", "Permissioned Ledgers"]
+              },
+              {
+                id: 6,
+                title: "Audits, Integration & Support",
+                body: "Beyond building, we secure and connect. We conduct smart-contract security reviews, build oracles and middleware, and provide ongoing monitoring, upgrades and support.",
+                tags: ["Security Review", "Oracles", "APIs", "Maintenance"]
+              }
+            ].map((solution) => (
+              <div key={solution.id} className="p-6 rounded-xl border border-teal-400/20 bg-teal-400/5 hover:bg-teal-400/10 transition-all">
+                <h3 className="text-[1.5em] font-[600] mb-4">{solution.title}</h3>
+                <p className="text-[0.95em] mb-4">{solution.body}</p>
+                <div className="flex flex-wrap gap-2">
+                  {solution.tags?.map(tag => <span key={tag} className="px-2 py-1 text-[0.8em] rounded bg-teal-400/20 text-teal-300">{tag}</span>)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Reasons Section */}
+      <section className={`${isDayTime ? 'bg-black' : 'bg-white'} py-20`}>
+        <FxBackground day={!isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] text-center mb-12">Why Choose Us</h2>
+          <div className="grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 gap-12">
+            {[
+              {
+                id: 1,
+                title: "Security-First Engineering",
+                image: "/assets/services/Development.jpg",
+                description: "Every line of contract code we ship is tested, analysed and reviewed before it reaches mainnet. We design for the worst case so your protocol and your users' funds stay protected."
+              },
+              {
+                id: 2,
+                title: "Multi-Chain Expertise",
+                image: "/assets/services/digital-transformatio.jpg",
+                description: "We select the right chain for your performance, cost and governance needs—EVM chains, Solana or permissioned Hyperledger networks—and build interoperable systems that can grow across them."
+              },
+              {
+                id: 3,
+                title: "Production, Not Prototypes",
+                image: "/assets/services/services.jpg",
+                description: "We bring senior product engineering discipline—CI/CD, monitoring, documentation and clear upgrade paths—so your solution actually ships and stays maintainable."
+              },
+              {
+                id: 4,
+                title: "Transparent Partnership",
+                image: "/assets/services/digital-optimisation.jpg",
+                description: "You stay in control throughout. Clear communication, early demos, honest timelines and full ownership of code and keys mean you always know exactly where your project stands."
+              }
+            ].map((reason) => (
+              <div key={reason.id} className="flex gap-8">
+                {reason.image && (
+                  <Image src={reason.image} alt={reason.title} width={200} height={200} className="rounded-lg object-cover" />
+                )}
+                <div>
+                  <h3 className="text-[1.5em] font-[600] mb-4">{reason.title}</h3>
+                  <p className="text-[0.95em]">{reason.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <div className="grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              { value: 8, label: "Years Experience", suffix: "+" },
+              { value: 13, label: "Team Members", suffix: "+" },
+              { value: 60, label: "Smart Contracts Shipped", suffix: "+" },
+              { value: 200, label: "Projects Delivered", suffix: "+" },
+              { value: 98, label: "Client Satisfaction", suffix: "%" }
+            ].map((stat) => (
+              <div key={stat.label} className="text-center p-6">
+                <div className="text-[3em] lg:text-[4em] font-[700] text-teal-400 mb-2">
+                  <CountUp end={stat.value} duration={2} />{stat.suffix}
+                </div>
+                <p className="text-[0.95em] font-[600]">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className={`${isDayTime ? 'bg-black' : 'bg-white'} py-20`}>
+        <FxBackground day={!isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] text-center mb-12">
+            What Our Clients Say
+          </h2>
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              {
+                name: "Obinna Eze",
+                title: "CEO, ProTask Hub",
+                message: "Grey InfoTech delivered our token platform with airtight smart contracts and clear documentation. Their security-first approach gave our investors real confidence."
+              },
+              {
+                name: "Amina Diallo",
+                title: "Director of Operations, LogiFleet Systems",
+                message: "The supply-chain traceability solution they built on Hyperledger transformed how we verify shipments. Tamper-proof, auditable, and surprisingly easy for our non-technical team."
+              },
+              {
+                name: "Daniel Okonkwo",
+                title: "Founder, YieldNest",
+                message: "They engineered our DeFi staking protocol end to end—contracts, oracles, monitoring and front-end. The economic modelling they did up front saved us from mistakes."
+              }
+            ].map((testimonial, idx) => (
+              <div key={idx} className="p-8 rounded-xl border border-teal-400/20 bg-teal-400/5">
+                <p className="text-[1.05em] mb-6 italic">\"{testimonial.message}\"</p>
+                <div>
+                  <p className="font-[600]">{testimonial.name}</p>
+                  <p className="text-[0.9em] text-teal-300">{testimonial.title}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] text-center">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] mb-6">
+            Build on decentralised rails
+          </h2>
+          <p className="text-[1.1em] max-w-3xl mx-auto mb-8">From smart contracts and DeFi to tokenisation and enterprise ledgers, Grey InfoTech turns blockchain ambition into secure, production-ready systems. Let's scope your idea, model the risks, and ship something your users—and your auditors—can trust.</p>
+          <Link href="/quote-request">
+            <button className="px-10 py-4 rounded-full bg-teal-400 text-black font-[600] hover:bg-teal-300 transition-all">
+              Get Started Today
+            </button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <CurrencyAwarePricing />
     </div>
   );
 };
