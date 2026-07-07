@@ -1,155 +1,141 @@
-import React from 'react';
+'use client';
 
+import React, { useEffect, useRef, useState } from 'react';
+import '@/app/globals.css';
+import FloatingButton from "@/components/FloatingButton";
+import Image from "next/image";
+import Link from "next/link";
+import { useIsDayTime } from '../../components/useIsDayTime';
+import { motion } from 'framer-motion';
+import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
+import Process90 from '@/components/futuristic/Process90';
 
-import ServicePageTemplate from '@/components/ServicePageTemplate';
+const BlockchainDevelopment: React.FC = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isDayTime = useIsDayTime();
 
-const BlockchainDevelopment = () => (
-    <ServicePageTemplate
-        title={<>Blockchain <br className={'lg:block md:block hidden'}/>Development Services</>}
-        heroVideo="/assets/hero/hero.mp4"
-        heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/Web-App-Development-company.jpg"
-        topImages={['/assets/services/Development.jpg', '/assets/services/Web-App-Development-company.jpg']}
-        intro={
-            <>
-                Secure, scalable decentralised systems—smart contracts, dApps, tokenisation and enterprise
-                ledgers engineered for trust, transparency and real-world performance.
-            </>
-        }
-        eyebrow={<>Decentralised systems <br className={'lg:block md:block hidden'}/>built for trust and scale</>}
-        introHeading={<>Demystifying Blockchain <br className={'lg:block md:block hidden'}/>How We Engineer Trust</>}
-        introBody={[
-            <>
-                Blockchain is reshaping how value, data and ownership move across the internet, yet most
-                organisations struggle to move beyond proofs of concept into production. At Grey InfoTech we
-                bridge that gap. We help businesses cut through the hype and design decentralised architectures
-                that solve concrete problems around trust, traceability, settlement and disintermediation.
-                Whether you are exploring tokenisation, launching a decentralised application, modernising
-                back-office reconciliation, or building a permissioned consortium network, we translate complex
-                distributed-ledger concepts into production-grade systems your users, regulators and auditors
-                can rely on. Our delivery model pairs blockchain specialists with senior product engineers, so
-                what we build is not an isolated experiment but a maintainable part of your wider technology
-                estate.
-            </>,
-            <>
-                Our engineers work across leading ecosystems—Ethereum and EVM-compatible chains such as Polygon,
-                Arbitrum and BSC, alongside Solana and permissioned frameworks like Hyperledger Fabric—pairing
-                rigorous smart-contract development with thorough security review. We treat audits, gas
-                optimisation, key management and upgradeability as first-class concerns rather than
-                afterthoughts. Every contract is unit-tested, fuzz-tested and statically analysed before it ever
-                touches mainnet, and we design clear upgrade and governance paths so your protocol can evolve
-                safely. The result is decentralised software that is not only innovative but safe, cost-efficient
-                and ready to scale with your business and your community.
-            </>,
-        ]}
-        solutionsHeading={<>Blockchain <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
-        solutionsIntro={
-            <>
-                From smart contracts and decentralised applications to enterprise ledgers and token economies,
-                Grey InfoTech delivers a complete blockchain capability. Based in Nigeria and serving clients
-                worldwide, we build secure, audited, gas-efficient systems that turn distributed-ledger
-                technology into measurable business value—without compromising on compliance or reliability.
-            </>
-        }
-        solutions={[
-            {
-                id: '01', title: 'Smart Contract Development', target: 'SC',
-                tags: ['Solidity', 'Rust', 'Auditing', 'Gas Optimisation'],
-                body: <>We design, develop and audit smart contracts that automate trust without intermediaries.
-                    From token standards (ERC-20, ERC-721, ERC-1155) to complex DeFi vaults, staking, escrow and
-                    governance logic, we write clean, well-documented Solidity and Rust code. Every contract is
-                    hardened through static analysis, comprehensive unit and fuzz testing, invariant checks and
-                    third-party-style security review—minimising attack surface and runtime cost while giving
-                    your stakeholders verifiable assurance before deployment.</>,
-            },
-            {
-                id: '02', title: 'Decentralised Apps (dApps)', target: 'DA',
-                tags: ['Web3', 'React', 'Wallet Integration', 'The Graph'],
-                body: <>We build full-stack decentralised applications with intuitive front-ends and reliable
-                    on-chain back-ends. Using Ethers.js, Wagmi, Viem and modern React, we connect wallets, index
-                    events with The Graph, and deliver responsive UX that hides blockchain complexity from end
-                    users while preserving the transparency and self-custody that make decentralisation valuable.
-                    We handle gasless transactions, account abstraction and multi-chain support where it improves
-                    adoption.</>,
-            },
-            {
-                id: '03', title: 'Tokenisation & NFTs', target: 'TK',
-                tags: ['Token Design', 'Minting', 'Royalties', 'Marketplaces'],
-                body: <>We help businesses tokenise real-world and digital assets, launch utility or governance
-                    tokens, and build NFT platforms with secure minting, on-chain royalties and full marketplace
-                    functionality. Our token-economics guidance and compliant contract design ensure your digital
-                    assets are robust, interoperable and aligned with your commercial goals, with careful
-                    attention to vesting, supply mechanics and regulatory considerations in your jurisdiction.</>,
-            },
-            {
-                id: '04', title: 'DeFi Platforms', target: 'DF',
-                tags: ['Lending', 'DEX', 'Staking', 'Yield'],
-                body: <>We engineer decentralised finance protocols—lending and borrowing markets, automated
-                    market makers, staking and yield strategies—with security and capital efficiency at their
-                    core. We model economic attack vectors, integrate trusted oracles such as Chainlink, and
-                    build the monitoring and circuit-breakers needed to operate financial primitives responsibly
-                    on-chain.</>,
-            },
-            {
-                id: '05', title: 'Enterprise Blockchain', target: 'EB',
-                tags: ['Hyperledger', 'Supply Chain', 'Permissioned Ledgers'],
-                body: <>For organisations that need privacy and control, we implement permissioned ledgers using
-                    Hyperledger Fabric and similar frameworks. These power use cases like supply-chain
-                    traceability, cross-party settlement, provenance and tamper-evident record keeping—delivering
-                    the auditability of blockchain within the governance, identity and confidentiality controls
-                    enterprises require.</>,
-            },
-            {
-                id: '06', title: 'Audits, Integration & Support', target: 'AI',
-                tags: ['Security Review', 'Oracles', 'APIs', 'Maintenance'],
-                body: <>Beyond building, we secure and connect. We conduct structured smart-contract security
-                    reviews, build oracles, indexers and middleware that bridge on-chain logic with your existing
-                    databases, ERPs and back-office systems, and provide ongoing monitoring, upgrades and support
-                    so your blockchain solution stays secure and performant long after launch.</>,
-            },
-        ]}
-        reasons={[
-            {
-                id: 1, title: 'Security-First Engineering', image: '/assets/services/Development.jpg',
-                description: <>Every line of contract code we ship is tested, analysed and reviewed before it
-                    reaches mainnet. We design for the worst case—reentrancy, oracle manipulation, key
-                    compromise—so your protocol and your users&apos; funds stay protected.</>,
-            },
-            {
-                id: 2, title: 'Multi-Chain Expertise', image: '/assets/services/digital-transformatio.jpg',
-                description: <>We are not tied to one ecosystem. We select the right chain for your performance,
-                    cost and governance needs—EVM chains, Solana or permissioned Hyperledger networks—and build
-                    interoperable systems that can grow across them.</>,
-            },
-            {
-                id: 3, title: 'Production, Not Prototypes', image: '/assets/services/services.jpg',
-                description: <>Many blockchain efforts stall at proof of concept. We bring senior product
-                    engineering discipline—CI/CD, monitoring, documentation and clear upgrade paths—so your
-                    solution actually ships and stays maintainable.</>,
-            },
-            {
-                id: 4, title: 'Transparent Partnership', image: '/assets/services/digital-optimisation.jpg',
-                description: <>You stay in control throughout. Clear communication, early demos, honest timelines
-                    and full ownership of code and keys mean you always know exactly where your project stands.</>,
-            },
-        ]}
-        ctaHeading={<>Build on <br className={'lg:block md:block hidden'}/>decentralised rails</>}
-        ctaBody={<>From smart contracts and DeFi to tokenisation and enterprise ledgers, Grey InfoTech turns
-            blockchain ambition into secure, production-ready systems. Let&apos;s scope your idea, model the risks,
-            and ship something your users—and your auditors—can trust.</>}
-        stats={[
-            {label: 'Years Experience', value: 8, suffix: '+'},
-            {label: 'Team Members', value: 13, suffix: '+'},
-            {label: 'Smart Contracts Shipped', value: 60, suffix: '+'},
-            {label: 'Projects Delivered', value: 200, suffix: '+'},
-            {label: 'Client Satisfaction', value: 98, suffix: '%'},
-        ]}
-        testimonials={[
-            {name: 'Obinna Eze', title: 'CEO, ProTask Hub', message: <>Grey InfoTech delivered our token platform with airtight smart contracts and clear documentation. Their security-first approach gave our investors real confidence, and the audit trail made fundraising far smoother.</>},
-            {name: 'Amina Diallo', title: 'Director of Operations, LogiFleet Systems', message: <>The supply-chain traceability solution they built on Hyperledger transformed how we verify shipments. Tamper-proof, auditable, and surprisingly easy for our non-technical team to use day to day.</>},
-            {name: 'Daniel Okonkwo', title: 'Founder, YieldNest', message: <>They engineered our DeFi staking protocol end to end—contracts, oracles, monitoring and front-end. The economic modelling they did up front saved us from mistakes that sink most projects.</>},
-        ]}
-    />
-);
+  return (
+    <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
+      <FloatingButton className="fixed bottom-6 right-6 transition-all z-50 duration-300" />
+
+      {/* HERO SECTION */}
+      <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
+        <video ref={videoRef} autoPlay muted loop playsInline preload="auto" className="hidden lg:block absolute inset-0 w-full h-full object-cover" poster="/assets/blockchain/hero.jpg">
+          <source src="/assets/blockchain/hero.mp4" type="video/mp4" />
+        </video>
+        <Image src="/assets/blockchain/hero.jpg" alt="Blockchain Hero" fill priority className="lg:hidden object-cover" />
+        <div className="pointer-events-none absolute inset-0 z-[1]">
+          <FxBackground day={false} grid={true} aurora={true} />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50 z-[2]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,245,212,0.12),transparent_50%)] z-[2]" />
+        <div className="pointer-events-none absolute inset-0 z-[3]">
+          <div className="gx-scanline" />
+          <div className="gx-noise-overlay" />
+          <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: 0.12 }} />
+          <div className="gx-orbit absolute" style={{ width: '40vmax', height: '40vmax', bottom: '-15vmax', left: '-10vmax', opacity: 0.08 }} />
+        </div>
+        <div className="absolute inset-0 flex items-center top-32 z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+          <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div>
+              <div className="flex items-center gap-3 mb-6 lg:mb-8">
+                <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse" />
+                <span className="text-teal-400 text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">Blockchain Solutions</span>
+              </div>
+              <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
+                Build Decentralized Applications <span className="gx-gradient-text">That Scale</span> Securely
+              </h1>
+              <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
+                Smart contracts, dApps, and infrastructure engineered for security, performance, and regulatory compliance. From tokenomics design to mainnet deployment, we deliver blockchain solutions that work.
+              </p>
+              <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
+                {["Smart Contracts", "dApps", "Layer 2", "DeFi", "NFTs", "Security"].map((badge) => (
+                  <span key={badge} className="px-3 py-1.5 rounded-full bg-teal-400/10 border border-teal-400/30 text-teal-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">
+                    {badge}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-4 items-center">
+                <Link href="/quote-request">
+                  <button className="relative px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap" style={{ background: '#00f5d4', color: '#000' }}>
+                    <span className="absolute inset-0" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)' }} />
+                    <span className="relative">Start Your Blockchain Project →</span>
+                  </button>
+                </Link>
+                <Link href="/portfolio">
+                  <button className="px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap" style={{ border: '1px solid rgba(255,255,255,0.15)' }}>
+                    View Our Case Studies
+                  </button>
+                </Link>
+              </div>
+            </div>
+            <div className="hidden lg:flex flex-col items-end">
+              <div className="grid grid-cols-2 gap-6 w-full">
+                {[
+                  { label: 'Contracts Deployed', value: '500+' },
+                  { label: 'TVL Secured', value: '$50M+' },
+                  { label: 'Networks Supported', value: '10+' },
+                  { label: 'Audit Pass Rate', value: '100%' }
+                ].map((stat) => (
+                  <div key={stat.label} className="px-6 py-5 rounded-2xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md hover:bg-teal-400/12 transition-all duration-300 hover:border-teal-400/50 text-right">
+                    <div className="text-teal-300 text-[0.7em] uppercase tracking-wider font-[600] mb-2">{stat.label}</div>
+                    <div className="text-white text-[1.8em] font-[700]">{stat.value}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="lg:hidden absolute bottom-12 left-0 right-0 z-[11] px-6">
+          <div className="grid grid-cols-3 gap-3">
+            {[
+              { label: 'Deployed', value: '500+' },
+              { label: 'TVL', value: '$50M+' },
+              { label: 'Networks', value: '10+' }
+            ].map((stat) => (
+              <div key={stat.label} className="px-3 py-2 rounded-xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md">
+                <div className="text-teal-300 text-[0.5em] uppercase tracking-wider font-[600] mb-1">{stat.label}</div>
+                <div className="text-white text-[1.2em] font-[700]">{stat.value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="absolute top-1/4 left-8 z-[4] w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+        <div className="absolute bottom-1/3 right-12 z-[4] w-3 h-3 rounded-full bg-teal-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
+        <div className="absolute top-3/4 left-1/3 z-[4] w-2 h-2 rounded-full bg-cyan-400 animate-pulse" style={{ animationDelay: '1s' }} />
+      </section>
+
+      {/* INTRO SECTION */}
+      <section className={`pt-16 transition-colors duration-500 ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <div>
+            <FxChip day={!isDayTime}>BLOCKCHAIN DEVELOPMENT</FxChip>
+          </div>
+          <div className="lg:-ml-[19em]">
+            <FxReveal>
+              <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
+                Enterprise-Grade Blockchain <span className="gx-gradient-text">Solutions</span>
+              </h3>
+            </FxReveal>
+            <FxReveal delay={0.08}>
+              <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[1em] leading-relaxed">
+                <div>
+                  <p>Blockchain success requires technical mastery and regulatory awareness. We design and deploy secure, scalable blockchain systems—from architecture and smart contract development to auditing and compliance—built for enterprise demands.</p>
+                </div>
+                <div>
+                  <p>Whether you're building DeFi protocols, NFT platforms, or supply chain solutions, we engineer blockchain infrastructure that performs, secures assets, and scales to production demands.</p>
+                </div>
+              </div>
+            </FxReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* PROCESS SECTION */}
+      <Process90 totalDays={120} />
+    </div>
+  );
+};
 
 export default BlockchainDevelopment;
