@@ -1,87 +1,141 @@
-import React from 'react';
-import ServicePageTemplate from '@/components/ServicePageTemplate';
+'use client';
 
-const Cybersecurity = () => (
-    <ServicePageTemplate
-        title={<>Cybersecurity<br className="lg:block md:block hidden" />Services</>}
-        heroVideo="/assets/hero/hero.mp4"
-        heroVideoMobile="/assets/hero/hero.mp4"
-        midImage="/assets/services/digital-optimisation.jpg"
-        topImages={['/assets/services/services.jpg', '/assets/services/Research-strategy.jpg']}
-        intro="Proactive security engineering, penetration testing and compliance programmes that protect your products, data and reputation before attackers find the gaps."
-        eyebrow="Security engineered in, not bolted on"
-        introHeading={<>Security Is<br className="lg:block md:block hidden" />An Engineering Problem</>}
-        introBody={[
-            <>Cyber threats are not abstract—they are persistent, sophisticated and targeted at businesses of
-            every size. At Grey InfoTech we approach security as an engineering discipline, embedding controls
-            into development workflows and infrastructure rather than layering on tools after the fact. Our
-            security team combines offensive security expertise with defensive architecture knowledge, so we
-            understand how attackers think and design systems that are genuinely difficult to compromise.</>,
-            <>Our engagements produce measurable outcomes: a reduced attack surface, documented controls, trained
-            developers, and the evidence packs needed to achieve certifications like ISO 27001, SOC 2 and PCI DSS.
-            We also provide ongoing managed security services so your security posture improves continuously
-            rather than degrading between annual assessments. Whether you need a one-time pen test or a
-            comprehensive security programme, we deliver practical, prioritised recommendations your team
-            can act on immediately.</>,
-        ]}
-        solutionsHeading={<>Cybersecurity<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From penetration testing to full security programmes, Grey InfoTech builds defences that hold under real-world attack conditions."
-        solutions={[
-            {
-                id: '01', title: 'Penetration Testing', target: 'PT',
-                tags: ['Web App', 'API', 'Mobile', 'Network', 'Red Team'],
-                body: <>Our ethical hackers conduct thorough penetration tests across web applications, APIs,
-                mobile apps, internal networks and cloud infrastructure. We use a combination of automated
-                scanning and manual exploitation, producing detailed findings reports with CVSS scores, attack
-                chains, proof-of-concept evidence and prioritised remediation steps your developers can act
-                on immediately.</>,
-            },
-            {
-                id: '02', title: 'Security Architecture Review', target: 'SA',
-                tags: ['Threat Modelling', 'STRIDE', 'Zero Trust', 'Defence in Depth'],
-                body: <>We review your system architecture through an attacker&apos;s lens—identifying trust boundary
-                violations, privilege escalation paths, insecure data flows and misconfigured controls. We use
-                STRIDE threat modelling to systematically identify threats and produce an architecture remediation
-                roadmap aligned to your risk tolerance and engineering capacity.</>,
-            },
-            {
-                id: '03', title: 'DevSecOps & Secure SDLC', target: 'DS',
-                tags: ['SAST', 'DAST', 'SCA', 'Secret Detection'],
-                body: <>We integrate security into your development pipeline so vulnerabilities are caught before
-                they ship. Our SDLC tooling covers static analysis, dependency auditing, container scanning,
-                secret detection and dynamic testing in staging. We also run developer security training
-                sessions covering OWASP Top 10, secure coding patterns and security-focused code review.</>,
-            },
-            {
-                id: '04', title: 'Cloud Security', target: 'CS',
-                tags: ['AWS Security', 'GCP', 'Azure', 'CSPM', 'CWPP'],
-                body: <>Cloud misconfigurations are the leading cause of breaches. We audit your cloud estate
-                against CIS benchmarks, harden IAM policies, enable threat detection services, configure SIEM
-                pipelines and implement preventive controls using policy-as-code. We also set up continuous
-                cloud security posture management so regressions are caught automatically.</>,
-            },
-            {
-                id: '05', title: 'Compliance & Certification', target: 'CC',
-                tags: ['ISO 27001', 'SOC 2', 'PCI DSS', 'GDPR', 'NDPC'],
-                body: <>Achieving and maintaining compliance requires rigorous process, documentation and
-                evidence collection. We run gap assessments, design and implement the required controls,
-                draft the necessary policies and procedures, and prepare the evidence packs your auditors need.
-                We support ISO 27001, SOC 2 Type I and II, PCI DSS, GDPR and Nigeria Data Protection Act
-                compliance programmes.</>,
-            },
-            {
-                id: '06', title: 'Incident Response', target: 'IR',
-                tags: ['DFIR', 'Forensics', 'Containment', 'Recovery'],
-                body: <>When a breach occurs, response speed determines the blast radius. Our incident response
-                retainer gives you access to a senior DFIR team within hours, covering containment, evidence
-                preservation, root-cause analysis, stakeholder communication and technical recovery. Post-incident
-                we produce a detailed report with timeline reconstruction and control improvements to prevent
-                recurrence.</>,
-            },
-        ]}
-        ctaHeading={<>Security that<br className="lg:block md:block hidden" />never sleeps</>}
-        ctaBody="Every day without proper security is a day your business is exposed. Grey InfoTech builds defences that protect what you have built and the customers who trust you."/>
-);
+import React, { useEffect, useRef, useState } from 'react';
+import '@/app/globals.css';
+import FloatingButton from "@/components/FloatingButton";
+import Image from "next/image";
+import Link from "next/link";
+import { useIsDayTime } from '../../components/useIsDayTime';
+import { motion } from 'framer-motion';
+import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
+import Process90 from '@/components/futuristic/Process90';
+
+const Cybersecurity: React.FC = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isDayTime = useIsDayTime();
+
+  return (
+    <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
+      <FloatingButton className="fixed bottom-6 right-6 transition-all z-50 duration-300" />
+
+      {/* HERO SECTION */}
+      <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
+        <video ref={videoRef} autoPlay muted loop playsInline preload="auto" className="hidden lg:block absolute inset-0 w-full h-full object-cover" poster="/assets/cybersecurity/hero.jpg">
+          <source src="/assets/cybersecurity/hero.mp4" type="video/mp4" />
+        </video>
+        <Image src="/assets/cybersecurity/hero.jpg" alt="Cybersecurity Hero" fill priority className="lg:hidden object-cover" />
+        <div className="pointer-events-none absolute inset-0 z-[1]">
+          <FxBackground day={false} grid={true} aurora={true} />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50 z-[2]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,245,212,0.12),transparent_50%)] z-[2]" />
+        <div className="pointer-events-none absolute inset-0 z-[3]">
+          <div className="gx-scanline" />
+          <div className="gx-noise-overlay" />
+          <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: 0.12 }} />
+          <div className="gx-orbit absolute" style={{ width: '40vmax', height: '40vmax', bottom: '-15vmax', left: '-10vmax', opacity: 0.08 }} />
+        </div>
+        <div className="absolute inset-0 flex items-center top-32 z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+          <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div>
+              <div className="flex items-center gap-3 mb-6 lg:mb-8">
+                <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse" />
+                <span className="text-teal-400 text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">Cybersecurity Services</span>
+              </div>
+              <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
+                Enterprise Security <span className="gx-gradient-text">That Protects</span> What Matters
+              </h1>
+              <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
+                Penetration testing, threat assessment, compliance, and incident response. Comprehensive security that keeps your data, users, and business safe.
+              </p>
+              <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
+                {["Pen Testing", "Threat Assessment", "Compliance", "Incident Response", "SOC Architecture"].map((badge) => (
+                  <span key={badge} className="px-3 py-1.5 rounded-full bg-teal-400/10 border border-teal-400/30 text-teal-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">
+                    {badge}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-4 items-center">
+                <Link href="/quote-request">
+                  <button className="relative px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap" style={{ background: '#00f5d4', color: '#000' }}>
+                    <span className="absolute inset-0" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)' }} />
+                    <span className="relative">Assess Your Security Posture →</span>
+                  </button>
+                </Link>
+                <Link href="/portfolio">
+                  <button className="px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap" style={{ border: '1px solid rgba(255,255,255,0.15)' }}>
+                    Learn Our Security Approach
+                  </button>
+                </Link>
+              </div>
+            </div>
+            <div className="hidden lg:flex flex-col items-end">
+              <div className="grid grid-cols-2 gap-6 w-full">
+                {[
+                  { label: 'Vulnerabilities Found', value: '10K+' },
+                  { label: 'Compliance Certifications', value: '20+' },
+                  { label: 'Incident Response Time', value: '<1hr' },
+                  { label: 'Client Protection Rate', value: '100%' }
+                ].map((stat) => (
+                  <div key={stat.label} className="px-6 py-5 rounded-2xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md hover:bg-teal-400/12 transition-all duration-300 hover:border-teal-400/50 text-right">
+                    <div className="text-teal-300 text-[0.7em] uppercase tracking-wider font-[600] mb-2">{stat.label}</div>
+                    <div className="text-white text-[1.8em] font-[700]">{stat.value}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="lg:hidden absolute bottom-12 left-0 right-0 z-[11] px-6">
+          <div className="grid grid-cols-3 gap-3">
+            {[
+              { label: 'Findings', value: '10K+' },
+              { label: 'Certs', value: '20+' },
+              { label: 'Protection', value: '100%' }
+            ].map((stat) => (
+              <div key={stat.label} className="px-3 py-2 rounded-xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md">
+                <div className="text-teal-300 text-[0.5em] uppercase tracking-wider font-[600] mb-1">{stat.label}</div>
+                <div className="text-white text-[1.2em] font-[700]">{stat.value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="absolute top-1/4 left-8 z-[4] w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+        <div className="absolute bottom-1/3 right-12 z-[4] w-3 h-3 rounded-full bg-teal-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
+        <div className="absolute top-3/4 left-1/3 z-[4] w-2 h-2 rounded-full bg-cyan-400 animate-pulse" style={{ animationDelay: '1s' }} />
+      </section>
+
+      {/* INTRO SECTION */}
+      <section className={`pt-16 transition-colors duration-500 ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <div>
+            <FxChip day={!isDayTime}>CYBERSECURITY</FxChip>
+          </div>
+          <div className="lg:-ml-[19em]">
+            <FxReveal>
+              <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
+                Proactive Threat Defense <span className="gx-gradient-text">For Enterprise</span>
+              </h3>
+            </FxReveal>
+            <FxReveal delay={0.08}>
+              <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[1em] leading-relaxed">
+                <div>
+                  <p>Security threats evolve daily—passive defense isn't enough. We combine penetration testing, threat intelligence, compliance auditing, and 24/7 monitoring to protect your applications, infrastructure, and data.</p>
+                </div>
+                <div>
+                  <p>Our security approach is holistic: architecture review, vulnerability remediation, compliance certification, and incident response. Your data stays safe.</p>
+                </div>
+              </div>
+            </FxReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* PROCESS SECTION */}
+      <Process90 totalDays={90} />
+    </div>
+  );
+};
 
 export default Cybersecurity;
-
