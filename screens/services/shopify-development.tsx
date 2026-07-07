@@ -9,6 +9,8 @@ import { useIsDayTime } from '../../components/useIsDayTime';
 import { motion } from 'framer-motion';
 import { FxBackground, FxReveal, FxChip } from '@/components/futuristic/fx';
 import Process90 from '@/components/futuristic/Process90';
+import CountUp from 'react-countup';
+import { CurrencyAwarePricing } from '@/components/ServicePageTemplate';
 
 const ShopifyDevelopment: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -161,6 +163,101 @@ const ShopifyDevelopment: React.FC = () => {
 
       {/* Process Section */}
       <Process90 totalDays={60} />
+
+      {/* Solutions Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] text-center mb-12">
+            Shopify<br className="lg:block md:block hidden" />Solutions
+          </h2>
+          <p className="text-center mb-16 text-[1.1em] max-w-3xl mx-auto">From custom theme development to headless Hydrogen storefronts and private apps, Grey InfoTech builds Shopify experiences that turn visitors into loyal customers.</p>
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              {
+                id: '01', title: 'Custom Theme Development', target: 'CT',
+                tags: ['Liquid', 'Dawn', 'OS 2.0', 'Responsive', 'CRO'],
+                body: 'We build custom Shopify themes from scratch or customise existing ones—creating unique, brand-aligned storefronts with Online Store 2.0 sections and blocks. Our Liquid code is clean, well-structured and documented so your team can manage content independently. Themes are performance-optimised for Core Web Vitals and tested across devices and browsers before launch.',
+              },
+              {
+                id: '02', title: 'Shopify App Development', target: 'AD',
+                tags: ['Public Apps', 'Private Apps', 'App Extensions', 'Shopify CLI'],
+                body: 'We build custom Shopify apps—both private apps for single-store functionality and public apps for the Shopify App Store. App development covers Shopify\'s REST and GraphQL Admin APIs, storefront API, webhooks, billing API and OAuth integration. We follow Shopify\'s app review guidelines and build apps with proper rate-limit handling, error recovery and comprehensive logging.',
+              },
+              {
+                id: '03', title: 'Headless Shopify (Hydrogen)', target: 'HS',
+                tags: ['Hydrogen', 'Remix', 'Oxygen', 'Storefront API', 'React'],
+                body: 'Headless Shopify with Hydrogen and Remix delivers the fastest, most flexible storefront possible—a React-based frontend connected to Shopify\'s commerce engine via the Storefront API, deployed on Shopify Oxygen. We design headless architectures that preserve Shopify\'s checkout reliability while giving you complete control over the browsing experience, enabling advanced personalisation and sub-second page loads.',
+              },
+              {
+                id: '04', title: 'Shopify Plus & Enterprise', target: 'SP',
+                tags: ['Checkout Extensibility', 'Flow', 'Launchpad', 'B2B'],
+                body: 'Shopify Plus unlocks powerful customisation for high-volume merchants. We implement checkout extensions and UI extensions, build Flow automations, configure Launchpad for flash sales, implement B2B wholesale portals and integrate with ERPs, WMS and fulfilment systems. We handle the complexity of multi-currency, multi-market and multi-storefront setups.',
+              },
+              {
+                id: '05', title: 'Migration to Shopify', target: 'MS',
+                tags: ['WooCommerce', 'Magento', 'BigCommerce', 'Data Migration'],
+                body: 'We migrate stores from WooCommerce, Magento, BigCommerce and other platforms to Shopify with full data integrity—products, variants, metafields, customers, order history, reviews and blog content. We map URL structures and implement 301 redirects to protect SEO equity, and run the migration in parallel with your live store to ensure zero revenue disruption during cutover.',
+              },
+              {
+                id: '06', title: 'Shopify Integrations', target: 'SI',
+                tags: ['ERP', 'POS', 'Inventory', 'Marketing', 'Analytics'],
+                body: 'A Shopify store is only as powerful as its integrations. We connect Shopify to your ERP, inventory management system, marketing automation platform, customer support tools, accounting software and analytics stack. Integrations are built with proper error handling, retry logic and reconciliation processes so your operational data stays in sync without manual intervention.',
+              },
+            ].map((solution) => (
+              <div key={solution.id} className="p-6 rounded-xl border border-teal-400/20 bg-teal-400/5 hover:bg-teal-400/10 transition-all">
+                <h3 className="text-[1.5em] font-[600] mb-4">{solution.title}</h3>
+                <p className="text-[0.95em] mb-4">{solution.body}</p>
+                <div className="flex flex-wrap gap-2">
+                  {solution.tags?.map(tag => <span key={tag} className="px-2 py-1 text-[0.8em] rounded bg-teal-400/20 text-teal-300">{tag}</span>)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+          <div className="grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-8">
+            {[
+              { label: 'Custom Shopify Stores Built', value: 500, suffix: '+' },
+              { label: 'Combined Merchant Revenue', value: 500, suffix: 'M+' },
+              { label: 'Average AOV Improvement', value: 35, suffix: '%' },
+              { label: 'Customers Served', value: 100, suffix: 'K+' },
+              { label: 'App Store Launches', value: 50, suffix: '+' },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center p-6">
+                <div className="text-[3em] lg:text-[4em] font-[700] text-teal-400 mb-2">
+                  <CountUp end={stat.value} duration={2} />{stat.suffix}
+                </div>
+                <p className="text-[0.95em] font-[600]">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-20`}>
+        <FxBackground day={isDayTime} />
+        <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] text-center">
+          <h2 className="text-[2.5em] lg:text-[4em] font-[700] leading-[1.1] mb-6">
+            A Shopify store<br className="lg:block md:block hidden" />that earns its keep
+          </h2>
+          <p className="text-[1.1em] max-w-3xl mx-auto mb-8">A beautiful store that doesn't convert is just expensive decoration. Grey InfoTech builds Shopify experiences engineered to generate revenue from day one.</p>
+          <Link href="/quote-request">
+            <button className="px-10 py-4 rounded-full bg-teal-400 text-black font-[600] hover:bg-teal-300 transition-all">
+              Get Started Today
+            </button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <CurrencyAwarePricing />
     </div>
   );
 };
