@@ -16,8 +16,10 @@ import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 
 import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
 
-import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
-const WebDesign = () => {    const [isVisible, setIsVisible] = useState(false);
+import {FxBackground, FxChip, FxReveal, FxButton, FxHoloCard} from '@/components/futuristic/fx';
+
+const WebDesign = () => {
+    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
@@ -39,7 +41,7 @@ const WebDesign = () => {    const [isVisible, setIsVisible] = useState(false);
     }, []);
 
     // isDaytime react hook
-   const isDayTime = useIsDayTime();
+    const isDayTime = useIsDayTime();
 
 
     // Introductory section hook
@@ -133,13 +135,13 @@ const WebDesign = () => {    const [isVisible, setIsVisible] = useState(false);
                     playsInline
                     preload="auto"
                     className="hidden lg:block absolute inset-0 w-full h-full object-cover"
-                    poster="/assets/wd/hero.jpg"
+                    poster="/assets/hero/hero.jpg"
                 >
-                    <source src="/assets/web-design/hero.mp4" type="video/mp4"/>
+                    <source src="/assets/webd/hero.mp4" type="video/mp4"/>
                 </video>
 
                 <Image
-                    src="/assets/web-design/hero.jpg"
+                    src="/assets/hero/hero.jpg"
                     alt="Web Design Hero"
                     fill
                     priority
@@ -179,8 +181,10 @@ const WebDesign = () => {    const [isVisible, setIsVisible] = useState(false);
                             </h1>
 
                             <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
-                                Expert web design that captivates your audience and drives measurable business results. We combine
-                                strategic thinking, visual excellence, and user psychology to create websites that convert visitors
+                                Expert web design that captivates your audience and drives measurable business results.
+                                We combine
+                                strategic thinking, visual excellence, and user psychology to create websites that
+                                convert visitors
                                 into loyal customers.
                             </p>
 
@@ -220,7 +224,7 @@ const WebDesign = () => {    const [isVisible, setIsVisible] = useState(false);
                                 {[
                                     {label: 'Designs Created', value: '50+'},
                                     {label: 'Years Experience', value: '8+'},
-                                    {label: 'Client Satisfaction', value: '99%'},
+                                    {label: 'Client Satisfaction', value: '100%'},
                                     {label: 'Avg Conversion Lift', value: '300%'}
                                 ].map((stat) => (
                                     <div key={stat.label}
@@ -256,56 +260,53 @@ const WebDesign = () => {    const [isVisible, setIsVisible] = useState(false);
                 </div>
             </section>
 
-            {/* Introductory section */}
-            <section ref={sectionRef}
-                     className={`py-12 transition-colors duration-500 ${
-                         isBackgroundActive
-                             ? isDayTime
-                                 ? "bg-black text-white"
-                                 : "bg-white text-black"
-                             : isDayTime
-                                 ? "bg-white text-black"
-                                 : "bg-black text-white"
-                     }`}>
+            {/* Introductory section (futuristic style) */}
+            <section
+                ref={sectionRef}
+                data-bg={isBackgroundActive ? (isDayTime ? 'Dark' : 'Light') : (isDayTime ? 'Light' : 'Dark')}
+                className={`pt-16 transition-colors duration-500 ${
+                    isBackgroundActive
+                        ? isDayTime ? 'bg-black text-white' : 'bg-white text-black'
+                        : isDayTime ? 'bg-white text-black' : 'bg-black text-white'
+                }`}>
+                <FxBackground day={isDayTime}/>
                 <div
-                    className='relative grid lg:grid-cols-2 grid-cols-1 lg:my-[3em] my-[1em] lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-16 pb-6 lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'>
-                    <div className=''>
-                        <h6 className='constant-text uppercase lg:text-[0.85em] md:text-[0.85em] leading-[1.3] text-[0.8em] lg:font-[600] font-[600] lg:tracking-wider tracking-tight'>
-                            Create websites that <br className={'lg:block md:block hidden'}/>captivate & convert
-                        </h6>
+                    className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
+                    <div>
+                        <FxChip day={!isBackgroundActive ? !isDayTime : isDayTime}>DESIGN EXCELLENCE</FxChip>
                     </div>
-                    <div className='lg:-ml-[19em]'>
-                        <h3 className='lg:text-[3em] md:text-[3em] text-[1.8em] font-[500] lg:mt-[0.01em] lg:leading-[1.1] tracking-tight border-b lg:pb-[0.7em] lg:mb-[0.7em] leading-[1.3] pb-6'>
-                            Bespoke Web Design <br className={'lg:block md:block hidden'}/>Tailored To Your Vision
-                        </h3>
-                        <div
-                            className='grid lg:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]'>
-                            <div>
-                                <p>
-                                    We believe that a well-crafted website is a powerful asset for business growth.
-                                    That’s why our design process focuses not just on visual appeal, but also on
-                                    performance, functionality, and user experience. We create responsive,
-                                    mobile-optimised websites that are intuitive, fast, and aligned with your business
-                                    goals—helping you attract, engage, and convert your audience more effectively. Our
-                                    team blends creative design with technical expertise to ensure every solution we
-                                    deliver is both beautiful and results-driven.
-                                </p>
+
+                    <div className="lg:-ml-[19em]">
+                        <FxReveal>
+                            <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
+                                Craft Beautiful, High-Converting <span
+                                className="gx-gradient-text">Digital Experiences</span>
+                            </h3>
+                        </FxReveal>
+
+                        <FxReveal delay={0.08}>
+                            <div
+                                className="grid lg:grid-cols-2 grid-cols-1 gap-6 mt-6 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
+                                <div className="space-y-4">
+                                    <p>Web design is not just about aesthetics—it's about creating strategic digital assets that drive measurable business outcomes. Our design philosophy merges visual excellence, behavioral psychology, and technical precision to deliver websites that captivate users and maximize conversions.</p>
+                                    <p>We employ a rigorous, data-driven design process: user research, competitive analysis, wireframing, prototyping, and iterative testing. Every pixel, interaction, and micromoment is intentional, designed to guide users toward desired actions while building trust and brand affinity.</p>
+                                    <div className="flex flex-wrap gap-3 mt-4">
+                                        {['Visual Strategy', 'UX Research', 'Interaction Design', 'Brand Expression'].map((p) => (
+                                            <span key={p} className="gx-data-pill">{p}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="space-y-4">
+                                    <p>Whether launching a startup, rebranding an established business, or scaling eCommerce operations, we deliver responsive, accessible designs optimized for all devices and user scenarios. We ensure performance targets are met—fast load times, smooth interactions, optimal Core Web Vitals—because user experience directly impacts SEO rankings and conversion rates.</p>
+                                    <p>Our end-to-end approach spans discovery consultation, strategic planning, UX/UI design system creation, front-end implementation, deployment, and ongoing optimization. We partner collaboratively with your team, providing transparent communication, regular reviews, and strategic recommendations—focused on delivering long-term value and sustainable growth.</p>
+                                    <div className="flex flex-wrap gap-3 mt-4">
+                                        {['Mobile-First Design', 'Accessibility (WCAG)', 'Performance Optimization', 'Conversion Strategy'].map((p) => (
+                                            <span key={p} className="gx-data-pill">{p}</span>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <p>
-                                    Whether you&#39;re a startup launching your first digital product or an
-                                    established <Link href={'/industries/e-commerce-development'}
-                                                      className={`relative border-b pb-[0.01em] ${
-                                                          isDayTime ? 'border-gray-400 hover:border-black' : 'border-gray-800 hover:border-white'
-                                                      }`}>eCommerce</Link> business expanding into B2B, we offer a
-                                    complete end-to-end service. From
-                                    discovery and consultancy to planning, UX/UI design, development, hosting, and
-                                    ongoing support, we’re with you every step of the way. Our collaborative approach
-                                    means no hard sell—just thoughtful, strategic input and a can-do attitude focused on
-                                    delivering value and long-term success for your business.
-                                </p>
-                            </div>
-                        </div>
+                        </FxReveal>
                     </div>
                 </div>
             </section>
@@ -1076,54 +1077,53 @@ const WebDesign = () => {    const [isVisible, setIsVisible] = useState(false);
                 />
             </div>
 
-            
 
             {/* Futuristic Capabilities Section */}
             <ServiceCapabilities
-              heading="Our web design capabilities"
-              subheading="Capabilities"
-              accentColor="#00f5d4"
-              variant="terminal"
-              ctaHref="/contact"
-              ctaLabel="Discuss your project"
-              capabilities={[
-                {
-                  id: 'ux-design',
-                  title: 'UX-First Design',
-                  description: 'We design experiences around your users — not just aesthetics. Every layout decision is backed by user research, heatmaps, and conversion psychology.',
-                  points: ['User journey mapping', 'Wireframing & prototyping', 'A/B test-ready layouts', 'Accessibility (WCAG 2.1)'],
-                },
-                {
-                  id: 'web-dev',
-                  title: 'High-Performance Dev',
-                  description: 'Clean, semantic code built for speed. We target Core Web Vitals scores in the green — because performance is a conversion tool.',
-                  points: ['Next.js / React', 'Sub-2s load times', 'Mobile-first responsive', 'CDN-optimized'],
-                },
-                {
-                  id: 'seo-ready',
-                  title: 'SEO Architecture',
-                  description: 'Built to rank from day one. Technical SEO, semantic HTML, schema markup, and content structure that search engines love.',
-                  points: ['Technical SEO audit', 'Schema markup', 'Core Web Vitals', 'sitemap & robots.txt'],
-                },
-                {
-                  id: 'cms',
-                  title: 'CMS Integration',
-                  description: 'Own your content. We build with headless CMS platforms so your team can update pages without touching code.',
-                  points: ['Contentful / Sanity', 'WordPress headless', 'Custom admin panels', 'Media management'],
-                },
-                {
-                  id: 'ecommerce',
-                  title: 'E-Commerce',
-                  description: 'Conversion-focused storefronts built to sell. From product pages to checkout — every touchpoint is optimized.',
-                  points: ['Shopify / WooCommerce', 'Custom cart flows', 'Payment gateway integration', 'Inventory management'],
-                },
-                {
-                  id: 'analytics',
-                  title: 'Analytics & Optimization',
-                  description: 'We track, measure, and improve. Every site we build includes full analytics setup so you can make data-driven decisions from day one.',
-                  points: ['GA4 / Mixpanel setup', 'Heatmap integration', 'Conversion funnel tracking', 'Monthly reporting'],
-                },
-              ]}
+                heading="Our web design capabilities"
+                subheading="Capabilities"
+                accentColor="#00f5d4"
+                variant="terminal"
+                ctaHref="/contact"
+                ctaLabel="Discuss your project"
+                capabilities={[
+                    {
+                        id: 'ux-design',
+                        title: 'UX-First Design',
+                        description: 'We design experiences around your users — not just aesthetics. Every layout decision is backed by user research, heatmaps, and conversion psychology.',
+                        points: ['User journey mapping', 'Wireframing & prototyping', 'A/B test-ready layouts', 'Accessibility (WCAG 2.1)'],
+                    },
+                    {
+                        id: 'web-dev',
+                        title: 'High-Performance Dev',
+                        description: 'Clean, semantic code built for speed. We target Core Web Vitals scores in the green — because performance is a conversion tool.',
+                        points: ['Next.js / React', 'Sub-2s load times', 'Mobile-first responsive', 'CDN-optimized'],
+                    },
+                    {
+                        id: 'seo-ready',
+                        title: 'SEO Architecture',
+                        description: 'Built to rank from day one. Technical SEO, semantic HTML, schema markup, and content structure that search engines love.',
+                        points: ['Technical SEO audit', 'Schema markup', 'Core Web Vitals', 'sitemap & robots.txt'],
+                    },
+                    {
+                        id: 'cms',
+                        title: 'CMS Integration',
+                        description: 'Own your content. We build with headless CMS platforms so your team can update pages without touching code.',
+                        points: ['Contentful / Sanity', 'WordPress headless', 'Custom admin panels', 'Media management'],
+                    },
+                    {
+                        id: 'ecommerce',
+                        title: 'E-Commerce',
+                        description: 'Conversion-focused storefronts built to sell. From product pages to checkout — every touchpoint is optimized.',
+                        points: ['Shopify / WooCommerce', 'Custom cart flows', 'Payment gateway integration', 'Inventory management'],
+                    },
+                    {
+                        id: 'analytics',
+                        title: 'Analytics & Optimization',
+                        description: 'We track, measure, and improve. Every site we build includes full analytics setup so you can make data-driven decisions from day one.',
+                        points: ['GA4 / Mixpanel setup', 'Heatmap integration', 'Conversion funnel tracking', 'Monthly reporting'],
+                    },
+                ]}
             />
         </div>
     );
