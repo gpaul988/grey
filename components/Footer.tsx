@@ -91,7 +91,8 @@ const customStyles = `
   }
 
   /* Animated holographic mesh blobs behind the footer */
-  .grey-mesh { position:absolute; inset:-30% -10%; pointer-events:none; z-index:0; filter:blur(70px); mix-blend-mode:screen; will-change:transform; }
+  /* reduced inset to avoid vertical overflow beyond footer and hide large decorative bleed */
+  .grey-mesh { position:absolute; inset:-12% -5%; pointer-events:none; z-index:0; filter:blur(70px); mix-blend-mode:screen; will-change:transform; }
   .grey-mesh.m1 { background: radial-gradient(35% 50% at 20% 30%, rgba(20,184,166,.40), transparent 70%); animation: greyMeshDrift 16s ease-in-out infinite; }
   .grey-mesh.m2 { background: radial-gradient(35% 50% at 80% 20%, rgba(99,102,241,.38), transparent 70%); animation: greyMeshDrift 20s ease-in-out infinite reverse; }
   .grey-mesh.m3 { background: radial-gradient(30% 45% at 55% 80%, rgba(6,182,212,.30), transparent 70%); animation: greyMeshDrift 24s ease-in-out infinite; }
@@ -178,13 +179,13 @@ const Footer = () => {
             document.body.style.overflow = "hidden";
             window.scrollTo({top: 0, behavior: "smooth"});
         } else {
-            // Unlock background scrolling
-            document.body.style.overflow = "auto";
+            // Unlock background scrolling - restore to natural value instead of forcing 'auto'
+            document.body.style.overflow = "";
         }
 
         // Cleanup to reset `overflow` when component unmounts
         return () => {
-            document.body.style.overflow = "auto";
+            document.body.style.overflow = "";
         };
     }, [isModalOpen]);
 
