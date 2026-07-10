@@ -403,17 +403,30 @@ const WebDesign = () => {
                                         <span
                                             className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>User experience</span>
                                     </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.873em] font-[300]'}>
-                                        Every project at Grey InfoTech begins with a blank canvas—no templates, no
-                                        off-the-shelf designs. We take a tailored approach, creating custom websites
-                                        that align precisely with your business goals. Our design team collaborates
-                                        closely with you to bring your vision to life through detailed sketches,
-                                        wireframes, mockups, and interactive prototypes that ensure clarity and
-                                        alignment from the start.<br/><br/>
-                                        Where needed, we go further by developing customer personas and mapping user
-                                        journeys to optimise the user experience and drive desired outcomes. The result
-                                        is not just a visually compelling website, but a strategic digital product that
-                                        engages your audience and delivers measurable business value.
+
+                                    <p className={'text-justify leading-[1.6] text-[0.95em] font-[300] mb-4'}>
+                                        Every bespoke engagement begins with a business-first discovery: stakeholder
+                                        interviews, analytics review, and competitive benchmarking. Outputs include
+                                        documented user personas, prioritized feature lists, and a measurable set of
+                                        success metrics (KPIs) tied to revenue, conversion, and engagement goals.
+                                    </p>
+
+                                    <ul className="list-disc pl-5 text-[0.9em] font-[300] leading-[1.6] mb-4">
+                                        <li><strong>Deliverables:</strong> discovery report, interactive prototypes,
+                                            UI design system, accessible component library, implementation-ready
+                                            design tokens, and handoff documentation for engineers.</li>
+                                        <li><strong>Performance targets:</strong> initial Lighthouse score ≥ 90,
+                                            TTFB &lt; 300ms, Core Web Vitals in recommended thresholds.</li>
+                                        <li><strong>Security & compliance:</strong> secure asset delivery, CSP
+                                            recommendations, and accessibility baseline (WCAG AA) by default.</li>
+                                    </ul>
+
+                                    <p className={'text-justify leading-[1.6] text-[0.9em] font-[300]'}>
+                                        Typical engagement: 6–12 weeks for an MVP website; larger platforms are
+                                        scoped per-feature. Team mix: product manager, UX lead, UI designer, frontend
+                                        engineer, and QA. Acceptance criteria: signed-off design system, working
+                                        prototype validated with 5+ user tests, and automated visual regression
+                                        checks passing on CI.
                                     </p>
                                 </div>
                                 <div
@@ -422,23 +435,38 @@ const WebDesign = () => {
                                 <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
                                      id={'CMW'}>
                                     <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Content Managed Websites
+                                        Content-Managed Websites (CMS)
                                     </h2>
                                     <div
                                         className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
                                         <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Content management system</span>
+                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>WordPress / Headless CMS</span>
+                                        <span
+                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Editor UX</span>
                                     </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        The majority of the websites we build are powered by robust content management
-                                        systems (CMS) like WordPress or Drupal, giving you full control over your
-                                        digital presence. With an intuitive backend, you can easily update content,
-                                        manage media and documents, run a blog, or even operate a full-featured
-                                        eCommerce platform—all without needing technical expertise.<br/><br/>
-                                        This flexibility empowers your team to keep the website current, dynamic, and
-                                        aligned with your business goals. Whether you&#39;re publishing new content,
-                                        launching a product, or responding to customer needs, your CMS puts the power in
-                                        your hands.
+
+                                    <p className={'text-justify leading-[1.6] text-[0.95em] font-[300] mb-4'}>
+                                        Implement a CMS tailored to your editorial workflow: choice of traditional
+                                        (WordPress) or headless architecture (Strapi, Sanity). We design editor
+                                        interfaces, content models, and role-based permissions to enable non-technical
+                                        teams to publish rapidly while preserving content quality and structure.
+                                    </p>
+
+                                    <ul className="list-disc pl-5 text-[0.9em] font-[300] leading-[1.6] mb-4">
+                                        <li><strong>Deliverables:</strong> content model, editor mockups, custom
+                                            blocks/components, migration plan (if applicable), and training docs.</li>
+                                        <li><strong>Operational targets:</strong> CMS admin load time &lt; 1s for key
+                                            pages; media CDN configured; backup & restore tested weekly.</li>
+                                        <li><strong>Acceptance:</strong> content editors can create, preview, and
+                                            publish pages without developer support; editorial workflows documented.
+                                        </li>
+                                    </ul>
+
+                                    <p className={'text-justify leading-[1.6] text-[0.9em] font-[300]'}>
+                                        Typical engagement: 3–6 weeks for a standard CMS implementation. Optional
+                                        additions include editorial automation, scheduled publishing, SEO templates,
+                                        and multilingual setups. Post-launch training and a 30-day editorial support
+                                        window are included by default.
                                     </p>
                                 </div>
                                 <div
@@ -450,21 +478,32 @@ const WebDesign = () => {
                                     <div
                                         className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
                                         <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>User experience</span>
+                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Adaptive layouts</span>
                                         <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Mobile friendly designs</span>
+                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Touch-friendly UI</span>
                                     </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Responsive Web Design (RWD) ensures your website delivers an optimal viewing
-                                        experience across all devices—desktop, tablet, or smartphone. It&#39;s not just
-                                        about shrinking content to fit smaller screens, but strategically adapting
-                                        layout, navigation, and functionality to match how users interact on each
-                                        device.<br/><br/>
-                                        At Grey InfoTech, we tailor your website’s content and structure to work
-                                        seamlessly within this framework. By designing responsively, we help you provide
-                                        a consistent, user-friendly experience that keeps visitors engaged, improves
-                                        accessibility, and ultimately drives better business outcomes—regardless of how
-                                        or where your customers access your site.
+
+                                    <p className={'text-justify leading-[1.6] text-[0.95em] font-[300] mb-4'}>
+                                        Responsive design adapts UI, content priority and interactions to different
+                                        viewports and input types. Our process includes breakpoint strategy, fluid
+                                        typography, component responsiveness and accessibility checks to ensure a
+                                        cohesive experience across devices.
+                                    </p>
+
+                                    <ul className="list-disc pl-5 text-[0.9em] font-[300] leading-[1.6] mb-4">
+                                        <li><strong>Deliverables:</strong> responsive pattern library, pixel-accurate
+                                            breakpoints, adaptive assets (SVGs/2x images), and QA checklist.</li>
+                                        <li><strong>KPIs:</strong> median FCP &lt; 1.5s on mobile, CLS &lt; 0.1,
+                                            mobile conversion rate uplift target defined per project.</li>
+                                        <li><strong>Acceptance:</strong> cross-device visual parity, keyboard/
+                                            screen-reader support validated, and end-to-end interaction tests passing.
+                                        </li>
+                                    </ul>
+
+                                    <p className={'text-justify leading-[1.6] text-[0.9em] font-[300]'}>
+                                        Timeline: 2–5 weeks for core responsive implementation; integrate with CMS
+                                        or front-end frameworks as required. We provide regression tests to prevent
+                                        regressions during iterative releases.
                                     </p>
                                 </div>
                                 <div
@@ -476,21 +515,32 @@ const WebDesign = () => {
                                     <div
                                         className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
                                         <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>SEO</span>
+                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Progressive enhancement</span>
+                                        <span
+                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Core Web Vitals</span>
                                     </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Responsive design isn’t just important for users—it’s critical for search engine
-                                        performance. Search engines like Google prioritise mobile-friendly websites in
-                                        their rankings and even highlight them in search results, influencing how easily
-                                        potential customers can find and access your site. A responsive,
-                                        mobile-optimised website is now a key factor in online visibility and SEO
-                                        success.<br/><br/>
-                                        At Grey InfoTech, we adopt a mobile-first approach to responsive design. This
-                                        means we begin by optimising the experience for smaller screens, where user
-                                        attention and space are limited, and then progressively enhance features for
-                                        larger devices. This strategy ensures your website is fast, functional, and
-                                        user-friendly across all devices, helping your business make a strong impression
-                                        wherever your audience engages.
+
+                                    <p className={'text-justify leading-[1.6] text-[0.95em] font-[300] mb-4'}>
+                                        Mobile-first design starts by optimising the smallest screens and progressively
+                                        enhancing features for larger devices. This ensures fast, reliable experiences
+                                        where they matter most and reduces unnecessary complexity on constrained devices.
+                                    </p>
+
+                                    <ul className="list-disc pl-5 text-[0.9em] font-[300] leading-[1.6] mb-4">
+                                        <li><strong>Deliverables:</strong> mobile interaction patterns, touch-optimised
+                                            components, image delivery strategy (responsive images & lazy-loading), and
+                                            mobile performance benchmarks.</li>
+                                        <li><strong>KPIs:</strong> mobile LCP &lt; 2.5s, FID &lt; 100ms, mobile bounce
+                                            rate reduction targets defined per campaign.</li>
+                                        <li><strong>Acceptance:</strong> mobile usability testing with representative
+                                            devices and networks; objective performance thresholds met in Lighthouse
+                                            and real-user monitoring (RUM).</li>
+                                    </ul>
+
+                                    <p className={'text-justify leading-[1.6] text-[0.9em] font-[300]'}>
+                                        Typical timescale: 2–6 weeks depending on scope. For eCommerce and complex
+                                        apps, we include mobile device labs and real-user monitoring during the
+                                        beta phase to validate experience under real network conditions.
                                     </p>
                                 </div>
                                 <div
@@ -502,21 +552,31 @@ const WebDesign = () => {
                                     <div
                                         className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
                                         <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Interactive website</span>
+                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Behavioural research</span>
+                                        <span
+                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Usability testing</span>
                                     </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Delivering an exceptional user experience isn’t just good design—it’s a business
-                                        strategy. A website that’s intuitive, engaging, and easy to navigate helps
-                                        convert visitors into customers, drives retention, and improves overall
-                                        performance. When users can quickly find what they need and interact
-                                        effortlessly with your content, it reflects positively on your brand and
-                                        directly impacts your bottom line.<br/><br/>
-                                        At Grey InfoTech, we take a strategic, data-informed approach to user
-                                        experience. We study how your audience engages with your site—what they seek,
-                                        how they navigate, and where they interact. This insight shapes every design
-                                        decision, from layout and colour choices to call-to-action placement. By
-                                        aligning digital design with user behaviour and business objectives, we create
-                                        websites that don’t just look great—they deliver measurable results.
+
+                                    <p className={'text-justify leading-[1.6] text-[0.95em] font-[300] mb-4'}>
+                                        UX is a strategic discipline: we run user interviews, task analysis and
+                                        heuristic reviews to surface the key friction points. Insights feed into wireframes
+                                        and prototypes which are validated through moderated usability tests and
+                                        unmoderated RUM analysis.
+                                    </p>
+
+                                    <ul className="list-disc pl-5 text-[0.9em] font-[300] leading-[1.6] mb-4">
+                                        <li><strong>Deliverables:</strong> persona report, task flows, low & high-fidelity
+                                            prototypes, usability test artifacts and prioritized backlog.</li>
+                                        <li><strong>Acceptance:</strong> usability success rate &gt; 80% on core tasks,
+                                            observed time-on-task within target thresholds, and reduced error rates in
+                                            prototype tests.</li>
+                                        <li><strong>Tools:</strong> Figma for design, Maze or UserTesting for validation,
+                                            and Google Analytics / Hotjar for behaviour analytics.</li>
+                                    </ul>
+
+                                    <p className={'text-justify leading-[1.6] text-[0.9em] font-[300]'}>
+                                        UX engagements typically last 3–6 weeks for an MVP; longer discovery phases
+                                        (8–12 weeks) can be used for enterprise transformation projects.
                                     </p>
                                 </div>
                                 <div
@@ -530,19 +590,29 @@ const WebDesign = () => {
                                         <span
                                             className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>User journeys</span>
                                         <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>User engagement</span>
+                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Funnel optimisation</span>
                                     </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Understanding user journeys is essential to creating a website that truly serves
-                                        your customers. By mapping out how users navigate your site—where they enter,
-                                        what they’re looking for, and how they interact—we gain valuable insights into
-                                        their behaviour and expectations. This clarity allows us to design experiences
-                                        that feel intuitive and meet their needs at every step.<br/><br/>
-                                        At Grey InfoTech, we strategically plan user journeys to align with your
-                                        business goals. Whether it’s driving conversions, generating leads, or
-                                        increasing engagement, we structure your site to guide visitors efficiently
-                                        toward action. The result is a digital experience that not only meets user
-                                        expectations but also maximises the value your online presence delivers.
+
+                                    <p className={'text-justify leading-[1.6] text-[0.95em] font-[300] mb-4'}>
+                                        Mapping user journeys reveals the decision points and drop-off moments that
+                                        influence conversion. We combine analytics, session replays and customer
+                                        interviews to produce prioritized journey maps that inform design and content
+                                        strategy.
+                                    </p>
+
+                                    <ul className="list-disc pl-5 text-[0.9em] font-[300] leading-[1.6] mb-4">
+                                        <li><strong>Deliverables:</strong> journey maps, conversion funnel analysis,
+                                            content strategy aligned to funnel stages, and experiment backlog.</li>
+                                        <li><strong>KPIs:</strong> conversion rate lift, drop-off rate reduction, and
+                                            average order value (for commerce projects) improvement targets.</li>
+                                        <li><strong>Acceptance:</strong> conversion experiments defined and A/B test
+                                            readiness achieved; measurement dashboards in place for ongoing optimisation.
+                                        </li>
+                                    </ul>
+
+                                    <p className={'text-justify leading-[1.6] text-[0.9em] font-[300]'}>
+                                        Typical sprint: 2–4 weeks to produce initial journey artifacts and test
+                                        hypotheses; ongoing optimisation is continuous and data-driven.
                                     </p>
                                 </div>
                             </div>
@@ -609,16 +679,28 @@ const WebDesign = () => {
                                 )}
                             </button>
                             {webIndex === 0 && (
-                                <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                    A Content Delivery Network (CDN) is a strategic solution for improving website
-                                    speed, performance, and reliability—key factors that impact user experience and
-                                    business outcomes. By offloading static content such as images, videos, and media
-                                    files to a global network of edge servers, a CDN reduces the load on your core
-                                    infrastructure and accelerates content delivery to users worldwide. At Grey
-                                    InfoTech, we evaluate your specific requirements and implement CDN and media hosting
-                                    solutions that enhance site performance, support scalability, and ensure your
-                                    digital platforms are optimised for growth.
-                                </p>
+                                <div className="mt-4 text-[0.93em] text-justify tracking-normal leading-[1.6] text-gray-400">
+                                    <p>
+                                        A Content Delivery Network (CDN) is a core component of modern web
+                                        performance strategy. We design CDN configurations that minimise latency,
+                                        reduce origin load, and provide consistent performance for global audiences.
+                                    </p>
+
+                                    <ul className="list-disc pl-5 mt-3">
+                                        <li><strong>Deliverables:</strong> edge caching rules, cache-control policy,
+                                            image & asset optimisation pipeline, signed URLs for private assets, and
+                                            automated cache invalidation strategy.</li>
+                                        <li><strong>SLOs:</strong> 95th percentile asset latency &lt; 200ms for target
+                                            regions; cache hit ratio &gt; 85% for static assets.</li>
+                                        <li><strong>Operational notes:</strong> origin shielding, HTTP/2 &/or HTTP/3,
+                                            Brotli compression, and automated purge hooks integrated into CI/CD.
+                                        </li>
+                                    </ul>
+
+                                    <p className="mt-3">Typical rollout: 1–2 weeks for configuration and testing;
+                                        we validate with synthetic tests and RUM to ensure real-user performance
+                                        gains.</p>
+                                </div>
                             )}
                         </div>
                         <div
@@ -637,15 +719,28 @@ const WebDesign = () => {
                                 )}
                             </button>
                             {webIndex === 1 && (
-                                <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                    In today’s fast-paced digital environment, you only have milliseconds to capture a
-                                    user’s attention—making website performance critical to business success. At Grey
-                                    InfoTech, we prioritise speed and reliability by leveraging advanced performance
-                                    optimisation tools. From caching technologies like Redis, Memcached, and Varnish to
-                                    server-side monitoring tools such as New Relic, we ensure your website runs
-                                    efficiently, scales effectively, and delivers a seamless user experience that drives
-                                    engagement and conversion.
-                                </p>
+                                <div className="mt-4 text-[0.93em] text-justify tracking-normal leading-[1.6] text-gray-400">
+                                    <p>
+                                        Performance is a measurable business lever. Our optimisation work targets
+                                        server and client-side bottlenecks to achieve predictable, repeatable
+                                        improvements in speed and user engagement.
+                                    </p>
+
+                                    <ul className="list-disc pl-5 mt-3">
+                                        <li><strong>Tech stack:</strong> Redis/memcache for edge caching, Nginx or
+                                            managed load balancers, background job queues (BullMQ), and build-time
+                                            asset optimisation (image compression, critical CSS inlining).</li>
+                                        <li><strong>KPIs:</strong> LCP &lt; 2.5s, TTFB &lt; 300ms, CLS &lt; 0.1, and
+                                            mobile FCP targets aligned to project goals.</li>
+                                        <li><strong>Process:</strong> performance budgets defined in CI, Lighthouse
+                                            gating on pull requests, and periodic RUM analysis to detect regressions.
+                                        </li>
+                                    </ul>
+
+                                    <p className="mt-3">Typical effort: 1–3 sprints to implement caching,
+                                        optimise critical render path, and instrument monitoring for continuous
+                                        measurement.</p>
+                                </div>
                             )}
                         </div>
                         <div
@@ -664,13 +759,26 @@ const WebDesign = () => {
                                 )}
                             </button>
                             {webIndex === 2 && (
-                                <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                    &#34;Online&#34; should mean exactly that—your site is accessible at all times.
-                                    That’s why we include uptime monitoring with all our hosting packages, ensuring any
-                                    downtime is detected immediately. This allows our technical team to respond swiftly,
-                                    minimising disruptions and protecting your business’s online presence and
-                                    reputation.
-                                </p>
+                                <div className="mt-4 text-[0.93em] text-justify tracking-normal leading-[1.6] text-gray-400">
+                                    <p>
+                                        Continuous monitoring ensures availability and performance. We implement
+                                        layered monitoring (synthetic, uptime, and RUM) to detect incidents and inform
+                                        capacity planning.
+                                    </p>
+
+                                    <ul className="list-disc pl-5 mt-3">
+                                        <li><strong>Deliverables:</strong> uptime alerting, synthetic checklists,
+                                            RUM instrumentation, error aggregations, and runbooks for common incidents.</li>
+                                        <li><strong>SLOs:</strong> 99.9% uptime target (or higher for enterprise plans);
+                                            alerting thresholds tuned to reduce noise while maintaining responsiveness.
+                                        </li>
+                                        <li><strong>On-call:</strong> optional 24/7 on-call rotations and escalation
+                                            paths; SLA-backed response times available for premium plans.</li>
+                                    </ul>
+
+                                    <p className="mt-3">Monitoring rollout typically accompanies deployment and is
+                                        validated against synthetic tests and failover drills.</p>
+                                </div>
                             )}
                         </div>
                         <div
@@ -689,13 +797,26 @@ const WebDesign = () => {
                                 )}
                             </button>
                             {webIndex === 3 && (
-                                <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                    We prioritise website security to safeguard your digital assets against potential
-                                    threats. By implementing robust protection measures—such as firewalls, regular
-                                    updates, vulnerability scanning, and intrusion detection—we ensure your site remains
-                                    secure, stable, and compliant. This proactive approach allows you to focus on your
-                                    business with confidence, knowing your online platform is well-protected.
-                                </p>
+                                <div className="mt-4 text-[0.93em] text-justify tracking-normal leading-[1.6] text-gray-400">
+                                    <p>
+                                        Security is non-negotiable. We design defense-in-depth strategies combining
+                                        hardened infrastructure, secure development practices, and continuous testing.
+                                    </p>
+
+                                    <ul className="list-disc pl-5 mt-3">
+                                        <li><strong>Controls:</strong> WAF, regular dependency and OS patching,
+                                            automated container/image scanning, and MFA for administrative access.</li>
+                                        <li><strong>Process:</strong> periodic vulnerability scans, scheduled pentests
+                                            for sensitive applications, and secure CI/CD pipelines with secrets
+                                            management.</li>
+                                        <li><strong>Compliance:</strong> GDPR-ready data handling patterns and optional
+                                            PCI or SOC guidance for organisations with regulated data.
+                                        </li>
+                                    </ul>
+
+                                    <p className="mt-3">We also produce an actionable security checklist and
+                                        remediation roadmap after initial assessment to reduce exposure quickly.</p>
+                                </div>
                             )}
                         </div>
                     </div>
@@ -820,20 +941,38 @@ const WebDesign = () => {
                         className={`lg:-ml-[10.5em] md:-ml-[10.5em] lg:mr-[8em] md:mr-[8em] lg:mt-[4em] md:mt-[4em] ${isDayTime ? 'text-black' : 'text-white'}`}>
                         <h2
                             className='text-[1.5em] capitalize font-[500] tracking-tight leading-[1.1] mb-10 mr-[2em] md:text-[2em] lg:text-[3em] w-auto h-auto md:mr-[2.5em] lg:mr-[3.5em]'>
-                            Website support <br className={'lg:block md:block hidden'}/>and maintenance
+                            Website support & maintenance — SRE-grade care
                         </h2>
-                        <p className='text-[0.85em] font-[300] tracking-normal text-justify leading-[1.5] '>
-                            Our commitment to your success doesn’t end at launch. We offer a range of
-                            tailored support and maintenance packages designed to ensure your website continues to
-                            perform reliably, securely, and efficiently. From technical troubleshooting and bug fixes to
-                            software updates and system monitoring, our team is available via phone or ticketing system
-                            to respond promptly to your evolving needs. We also provide additional training to help your
-                            team manage and update the site with confidence.<br/><br/>
-                            Ongoing maintenance is essential to keeping your digital presence competitive and secure.
-                            Our proactive approach includes regular security patches, performance optimisations, and
-                            compatibility updates to safeguard your investment and minimise downtime. By partnering with
-                            us for long-term support, you can focus on growing your business while we handle the
-                            technical upkeep of your website.
+
+                        <p className='text-[0.95em] font-[300] tracking-normal text-justify leading-[1.6] mb-4'>
+                            Post-launch reliability is critical. Our support and maintenance offerings are
+                            organised into clear tiers (Standard, Priority, Enterprise) with defined SLAs,
+                            security patching, backups, and proactive health checks. We treat your site as a
+                            production service—monitoring, measuring, and evolving it to meet business goals.
+                        </p>
+
+                        <ul className="list-disc pl-5 text-[0.92em] font-[300] leading-[1.6] mb-4">
+                            <li><strong>Standard:</strong> monthly security updates, weekly backups, email
+                                ticketing support (response within 48 hours), and uptime monitoring.</li>
+                            <li><strong>Priority:</strong> daily monitoring, weekly patching, priority ticketing
+                                (response within 4 hours), monthly performance reviews, and minor content
+                                changes included.</li>
+                            <li><strong>Enterprise:</strong> 24/7 on-call support, SLA-backed response times,
+                                incident management, dedicated account manager, and quarterly architecture
+                                reviews for capacity planning.</li>
+                        </ul>
+
+                        <p className='text-[0.92em] font-[300] leading-[1.6] mb-3'>
+                            Each plan includes a clear runbook for common incidents, disaster recovery
+                            procedures tested regularly, automated backups stored off-site, and a
+                            communications protocol for stakeholder updates during incidents.
+                        </p>
+
+                        <p className='text-[0.92em] font-[300] leading-[1.6] mb-3'>
+                            Pricing is usage and scale-dependent; we provide a baseline retainer model and
+                            convert to a managed service agreement for larger environments. All maintenance
+                            work is tracked transparently via our ticketing system with monthly reports and
+                            suggested roadmap items to continuously improve stability and ROI.
                         </p>
                     </div>
                 </div>
