@@ -123,34 +123,138 @@ const WebDesign = () => {    const [isVisible, setIsVisible] = useState(false);
                 }`}
             />
 
-            {/* Futuristic Hero Banner */}
-            <ServiceHero
-              title="Web Design Agency"
-              subtitle="Web Design & Development"
-              description="Effective web design goes beyond looking good — it drives tangible outcomes. We build visually compelling, strategically crafted websites that captivate your audience and boost revenue."
-              tags={['Web development', 'Web design', 'UI & UX design', 'Responsive', 'SEO-ready']}
-              accentColor="#00f5d4"
-              secondaryColor="#7c3aed"
-              ctaHref="/contact"
-              ctaLabel="Start your project"
-              stats={[
-                { value: '50+', label: 'Sites delivered' },
-                { value: '8+', label: 'Years' },
-                { value: '99%', label: 'Client satisfaction' },
-                { value: '3×', label: 'Avg conversion lift' },
-              ]}
-              variant="circuit"
-            />
+            {/* Unified Futuristic Web Design Hero - Background Image/Video with overlay */}
+            <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
+                {/* Video Background (desktop) and Image fallback (mobile) */}
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    className="hidden lg:block absolute inset-0 w-full h-full object-cover"
+                    poster="/assets/wd/hero.jpg"
+                >
+                    <source src="/assets/web-design/hero.mp4" type="video/mp4"/>
+                </video>
 
-            <ServiceHero
-                title="Web Design"
-                subtitle="High-converting, responsive website design"
-                accentColor="#00f5d4"
-                variant="hologram"
-                badges={["Responsive","Conversion-Optimized","Performance"]}
-                ctaHref="/contact"
-                ctaLabel="Start a project"
-            />
+                <Image
+                    src="/assets/web-design/hero.jpg"
+                    alt="Web Design Hero"
+                    fill
+                    priority
+                    className="lg:hidden object-cover"
+                />
+
+                {/* Grid & FX Background */}
+                <div className="pointer-events-none absolute inset-0 z-[1]">
+                    <FxBackground day={false} grid={true} aurora={true}/>
+                </div>
+
+                {/* Gradient Overlay with Glow */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50 z-[2]"/>
+                <div
+                    className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(45,212,191,0.12),transparent_50%)] z-[2]"/>
+
+                {/* Futuristic FX Elements */}
+                <div className="pointer-events-none absolute inset-0 z-[3]">
+                    <div className="gx-scanline"/>
+                    <div className="gx-noise-overlay"/>
+                    <div className="gx-orbit absolute"
+                         style={{width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .12}}/>
+                </div>
+
+                {/* Content Container */}
+                <div className="absolute inset-0 flex items-center top-32 z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+                    <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        <div>
+                            <div className="flex items-center gap-3 mb-6 lg:mb-8">
+                                <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse"/>
+                                <span
+                                    className="text-teal-400 text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">Web Design</span>
+                            </div>
+
+                            <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
+                                Craft Stunning, <span className="gx-gradient-text">Conversion-Ready</span> Designs
+                            </h1>
+
+                            <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
+                                Expert web design that captivates your audience and drives measurable business results. We combine
+                                strategic thinking, visual excellence, and user psychology to create websites that convert visitors
+                                into loyal customers.
+                            </p>
+
+                            <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
+                                {['UI/UX Design', 'Responsive Layout', 'Brand Strategy', 'User Experience', 'Conversion Optimization'].map((badge) => (
+                                    <span key={badge}
+                                          className="px-3 py-1.5 rounded-full bg-teal-400/10 border border-teal-400/30 text-teal-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">
+                                            {badge}
+                                        </span>
+                                ))}
+                            </div>
+
+                            <div className="flex flex-wrap gap-4 items-center">
+                                <Link href="/contact">
+                                    <button
+                                        className="relative px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap"
+                                        style={{background: '#2dd4bf', color: '#000'}}>
+                                            <span className="absolute inset-0" style={{
+                                                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)'
+                                            }}/>
+                                        <span className="relative">Start a project →</span>
+                                    </button>
+                                </Link>
+                                <Link href="/portfolio">
+                                    <button
+                                        className="px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap"
+                                        style={{border: `1px solid rgba(255,255,255,0.15)`}}>
+                                        View Case Studies
+                                    </button>
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* Right Column - Impact Stats */}
+                        <div className="hidden lg:flex flex-col items-end">
+                            <div className="grid grid-cols-2 gap-6 w-full">
+                                {[
+                                    {label: 'Designs Created', value: '50+'},
+                                    {label: 'Years Experience', value: '8+'},
+                                    {label: 'Client Satisfaction', value: '99%'},
+                                    {label: 'Avg Conversion Lift', value: '300%'}
+                                ].map((stat) => (
+                                    <div key={stat.label}
+                                         className="px-6 py-5 rounded-2xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md hover:bg-teal-400/12 transition-all duration-300 hover:border-teal-400/50 text-right">
+                                        <div
+                                            className="text-teal-300 text-[0.7em] uppercase tracking-wider font-[600] mb-2">{stat.label}</div>
+                                        <div
+                                            className="text-white text-[1.8em] font-[700]">{stat.value}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Mobile Stats - Visible on small screens only */}
+                <div className="lg:hidden absolute bottom-12 left-0 right-0 z-[11] px-6">
+                    <div className="grid grid-cols-3 gap-3">
+                        {[
+                            {label: 'Designs', value: '50+'},
+                            {label: 'Experts', value: '8+'},
+                            {label: 'Satisfaction', value: '99%'}
+                        ].map((stat) => (
+                            <div key={stat.label}
+                                 className="px-3 py-2 rounded-xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md">
+                                <div
+                                    className="text-teal-300 text-[0.5em] uppercase tracking-wider font-[600] mb-1">{stat.label}</div>
+                                <div
+                                    className="text-white text-[1.2em] font-[700]">{stat.value}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
             {/* Introductory section */}
             <section ref={sectionRef}
