@@ -51,31 +51,6 @@ html {
     overflow-x: hidden; /* Prevent aurora blobs / off-canvas drawer from causing x-scroll */
 }
 
-/* Ensure root elements occupy full height so footer sits correctly and
-   prevent accidental scrolling past the footer when pages are short. */
-html, body, #__next {
-    height: 100%;
-    overflow-x: hidden; /* extra guard against horizontal scroll */
-}
-
-/* Make body a column flex container so main can grow and footer stays
-   pinned to the bottom when content is short. This is backwards-compatible
-   with existing layouts (main will still accept children that manage their
-   own heights). */
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100%;
-    overscroll-behavior-y: contain; /* prevent scrolling past document edges */
-}
-
-/* Allow the main landmark to grow to fill available space so footer is
-   always positioned after content rather than leaving blank space below. */
-main {
-    flex: 1 1 auto;
-    min-height: 0; /* allow children to control height without forcing overflow */
-}
-
 body {
     cursor: default;
     overflow-x: hidden;
@@ -650,12 +625,19 @@ body::after {
 /* ════════════════════════════════════════════════════════════════════════
    GDPR COOKIE CONSENT
    ════════════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════════════
+   GDPR COOKIE CONSENT
+   Notes: reduced z-index values to avoid blocking critical site overlays (header, FAB)
+   and kept the dialog positioned above the footer. Extremely large z-values caused
+   unexpected stacking and made debugging difficult.
+   ═══════════════════════════════════════════════════════════════════════════════ */
 .grey-cc-backdrop {
-    position: fixed; inset: 0; z-index: 2147483400;
+    position: fixed; inset: 0; z-index: 110; /* reduced from huge system z */
     background: rgba(2,6,15,.62); backdrop-filter: blur(4px);
+    pointer-events: auto;
 }
 .grey-cc {
-    position: fixed; z-index: 2147483450; left: 0; right: 0; bottom: 22px;
+    position: fixed; z-index: 120; left: 0; right: 0; bottom: 22px;
     margin-inline: auto; width: min(94vw, 720px); max-width: calc(100vw - 32px);
     border-radius: 20px; padding: 20px 20px 18px; overflow: hidden;
     background: linear-gradient(165deg, rgba(8,16,30,.96), rgba(4,8,18,.97));

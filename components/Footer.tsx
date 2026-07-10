@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import '../app/globals.css'
 import {FaFacebook, FaGithub, FaInstagram, FaLinkedin, FaTwitter, FaGitlab} from "react-icons/fa6";
 import Image from "next/image";
@@ -172,19 +172,25 @@ const Footer = () => {
     };
 
     // State to manage modal visibility
+    const prevOverflowRef = useRef<string | null>(null);
+
     useEffect(() => {
+        if (typeof window === 'undefined') return;
         if (isModalOpen) {
+            if (prevOverflowRef.current === null) prevOverflowRef.current = document.body.style.overflow || '';
             // Lock background scrolling and scroll page to the top
-            document.body.style.overflow = "hidden";
-            window.scrollTo({top: 0, behavior: "smooth"});
+            document.body.style.overflow = 'hidden';
+            window.scrollTo({top: 0, behavior: 'smooth'});
         } else {
             // Unlock background scrolling
-            document.body.style.overflow = "auto";
+            document.body.style.overflow = prevOverflowRef.current ?? '';
+            prevOverflowRef.current = null;
         }
 
         // Cleanup to reset `overflow` when component unmounts
         return () => {
-            document.body.style.overflow = "auto";
+            document.body.style.overflow = prevOverflowRef.current ?? '';
+            prevOverflowRef.current = null;
         };
     }, [isModalOpen]);
 

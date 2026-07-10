@@ -8,7 +8,7 @@
  * plus a `grey:consent` CustomEvent so analytics/marketing scripts can gate
  * themselves. Necessary cookies are always on (locked).
  */
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState, useRef, useLayoutEffect} from 'react';
 import {AnimatePresence, motion} from 'framer-motion';
 import {ShieldCheck, Cookie, SlidersHorizontal, Check, X} from 'lucide-react';
 
@@ -110,6 +110,33 @@ export default function CookieConsent() {
 
     const backdrop = useMemo(() => customizing, [customizing]);
 
+    // Panel positioning: keep the cookie dialog above the footer so it doesn't obscure it.
+    const panelRef = useRef<HTMLDivElement | null>(null);
+    const [panelBottom, setPanelBottom] = useState<string>('22px');
+
+    useLayoutEffect(() => {
+        if (!open) return;
+        const calc = () => {
+            try {
+                const footer = document.querySelector('footer');
+                if (!footer) {
+                    setPanelBottom('22px');
+                    return;
+                }
+                const rect = footer.getBoundingClientRect();
+                // place the panel above the footer with a small gap
+                const gap = 16; // px
+                const bottomPx = Math.max(22, rect.height + gap);
+                setPanelBottom(`${bottomPx}px`);
+            } catch (e) {
+                setPanelBottom('22px');
+            }
+        };
+        calc();
+        window.addEventListener('resize', calc);
+        return () => window.removeEventListener('resize', calc);
+    }, [open]);
+
     return (
         <AnimatePresence>
             {open && (
@@ -125,10 +152,12 @@ export default function CookieConsent() {
                     )}
 
                     <motion.div
+                        ref={panelRef}
                         role="dialog"
                         aria-label="Cookie consent"
                         aria-live="polite"
                         className={`grey-cc ${customizing ? 'is-panel' : ''}`}
+                        style={{bottom: panelBottom}}
                         initial={{opacity: 0, y: 40, scale: 0.98}}
                         animate={{opacity: 1, y: 0, scale: 1}}
                         exit={{opacity: 0, y: 40, scale: 0.98}}

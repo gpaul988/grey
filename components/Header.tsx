@@ -62,6 +62,7 @@ const HeaderContent: React.FC = () => {
 
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     const mountedRef = useRef(false);
+    const prevOverflowRef = useRef<string | null>(null);
 
     // Detect breakpoint: <1631px width OR <991px height
     useEffect(() => {
@@ -152,15 +153,21 @@ const HeaderContent: React.FC = () => {
         return () => clearTimeout(id);
     }, [pathname]);
 
-    // Modal body scroll
+    // Modal body scroll (preserve previous overflow value)
     useEffect(() => {
+        if (typeof window === 'undefined') return;
         if (isModalOpen) {
-            document.body.style.overflow = "hidden";
+            // save previous only once
+            if (prevOverflowRef.current === null) prevOverflowRef.current = document.body.style.overflow || '';
+            document.body.style.overflow = 'hidden';
         } else {
-            document.body.style.overflow = "auto";
+            document.body.style.overflow = prevOverflowRef.current ?? '';
+            prevOverflowRef.current = null;
         }
+
         return () => {
-            document.body.style.overflow = "auto";
+            document.body.style.overflow = prevOverflowRef.current ?? '';
+            prevOverflowRef.current = null;
         };
     }, [isModalOpen]);
 

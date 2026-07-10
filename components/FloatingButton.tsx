@@ -1,5 +1,5 @@
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowRight} from '@fortawesome/free-solid-svg-icons';
 import QuoteRequest from "@/components/QuoteRequest";
@@ -20,10 +20,21 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({className}) => {
         return (r * 299 + g * 587 + b * 114) / 1000;
     }
 
+    const prevOverflowRef = useRef<string | null>(null);
+
     useEffect(() => {
-        document.body.style.overflow = isModalOpen ? "hidden" : "auto";
+        if (typeof window === 'undefined') return;
+        if (isModalOpen) {
+            if (prevOverflowRef.current === null) prevOverflowRef.current = document.body.style.overflow || '';
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = prevOverflowRef.current ?? '';
+            prevOverflowRef.current = null;
+        }
+
         return () => {
-            document.body.style.overflow = "auto";
+            document.body.style.overflow = prevOverflowRef.current ?? '';
+            prevOverflowRef.current = null;
         };
     }, [isModalOpen]);
 
