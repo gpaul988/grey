@@ -9,6 +9,7 @@ import {AiFillCaretUp, AiFillCaretDown} from 'react-icons/ai';
 import FloatingButton from '@/components/FloatingButton';
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import FuturisticDevelopmentProcess from '@/components/FuturisticDevelopmentProcess';
+import VerticalSolutionsAccordion from '@/components/VerticalSolutionsAccordion';
 import {useIsDayTime} from './useIsDayTime';
 import {
     FxBackground,
@@ -53,6 +54,17 @@ export interface Testimonial {
     message: ReactNode;
 }
 
+export interface PricePlan {
+    name: string;
+    monthlyGBP: number | null;
+    yearlyGBP: number | null;
+    bullets: string[];
+}
+
+export interface ServicePricingData {
+    plans: PricePlan[];
+}
+
 export interface ReasonItem {
     id: number;
     title: string;
@@ -67,7 +79,7 @@ export interface ServicePageProps {
     heroVideoMobile?: string;
     heroImage?: string;
     heroStats?: HeroStat[];
-    topImages?: [string, string];
+    topImages?: string[];
     midImage?: string;
     eyebrow: ReactNode;
     introHeading: ReactNode;
@@ -83,6 +95,13 @@ export interface ServicePageProps {
     testimonials?: Testimonial[];
     // New: whether to show the currency-aware pricing section (default true)
     showPricing?: boolean;
+    // Service type for pricing (e.g., 'digital-marketing', 'web-development')
+    serviceType?: string;
+    // New: vertical solutions accordion props
+    verticalSolutions?: Array<{ id: string | number; title: string; description: string }>;
+    verticalSolutionsTitle?: string;
+    verticalSolutionsSubtitle?: string;
+    verticalSolutionsEyebrow?: string;
 }
 
 const defaultStats: StatItem[] = [
@@ -104,28 +123,383 @@ const CARD_COLORS = ['#2dd4bf', '#06b6d4', '#7c3aed', '#f59e0b', '#10b981', '#ef
 const CARD_ICONS = ['◈', '◉', '◎', '◇', '⬡', '⬢'];
 
 // ─────────────────────────────────────────────────────────
+// SERVICE-SPECIFIC PRICING DATA
+// ─────────────────────────────────────────────────────────
+const SERVICE_PRICING: Record<string, ServicePricingData> = {
+    'digital-marketing': {
+        plans: [
+            {
+                name: 'Starter Campaign',
+                monthlyGBP: 2500,
+                yearlyGBP: 27500,
+                bullets: [
+                    'Monthly strategy consultation',
+                    '3-4 PPC campaigns (Google & Meta)',
+                    'Basic conversion tracking setup',
+                    '20 hours monthly optimization',
+                    'Weekly performance reports',
+                    'Social media ads (2 platforms)',
+                    'Email campaign integration',
+                    'A/B testing on 3 campaigns',
+                ]
+            },
+            {
+                name: 'Growth Strategy',
+                monthlyGBP: 7500,
+                yearlyGBP: 82500,
+                bullets: [
+                    'Full-funnel digital strategy',
+                    'Multichannel campaigns (5+ channels)',
+                    'Advanced analytics & ML-powered insights',
+                    '60 hours monthly optimization',
+                    'Daily campaign monitoring & adjustments',
+                    'Dedicated account manager',
+                    'Landing page optimization',
+                    'CRM integration & automation',
+                    'Monthly executive reporting',
+                ]
+            },
+            {
+                name: 'Enterprise Solution',
+                monthlyGBP: null,
+                yearlyGBP: null,
+                bullets: [
+                    'Dedicated marketing team',
+                    'Custom platform integrations',
+                    'Real-time campaign orchestration',
+                    'SLA-backed 99.9% uptime guarantee',
+                    'Executive quarterly reporting',
+                    'Unlimited campaign variations',
+                    'Predictive analytics & forecasting',
+                    'Priority technical support 24/7',
+                    'Custom training & workshops',
+                ]
+            }
+        ]
+    },
+    'web-development': {
+        plans: [
+            {
+                name: 'Website Starter',
+                monthlyGBP: 1800,
+                yearlyGBP: 19800,
+                bullets: [
+                    'Up to 8 responsive pages',
+                    'Mobile & tablet optimized',
+                    'Content management system (CMS)',
+                    'Basic SEO optimization',
+                    'SSL certificate included',
+                    '12 months hosting included',
+                    'Email integration setup',
+                    'Performance optimization',
+                ]
+            },
+            {
+                name: 'Web Application Pro',
+                monthlyGBP: 6500,
+                yearlyGBP: 71500,
+                bullets: [
+                    'Full-stack web application',
+                    'Custom database architecture',
+                    'User authentication & authorization',
+                    'Advanced API development',
+                    'Real-time features & notifications',
+                    'Admin dashboard included',
+                    'Payment gateway integration',
+                    'Performance monitoring & analytics',
+                    '24 hours of support per month',
+                ]
+            },
+            {
+                name: 'Enterprise Platform',
+                monthlyGBP: null,
+                yearlyGBP: null,
+                bullets: [
+                    'Large-scale web platform',
+                    'Microservices architecture',
+                    'Global CDN deployment',
+                    'Advanced security (penetration testing)',
+                    'Dedicated DevOps engineer',
+                    'Unlimited API endpoints',
+                    'Priority support & SLA',
+                    'Scalability to millions of users',
+                    'Custom compliance requirements',
+                ]
+            }
+        ]
+    },
+    'mobile-application': {
+        plans: [
+            {
+                name: 'Native Starter',
+                monthlyGBP: 3500,
+                yearlyGBP: 38500,
+                bullets: [
+                    'Single platform (iOS or Android)',
+                    'Up to 8 core features',
+                    'Basic app store optimization',
+                    'Push notification system',
+                    'User authentication setup',
+                    'Third-party API integration',
+                    '6 months maintenance included',
+                    'Analytics integration',
+                ]
+            },
+            {
+                name: 'Cross-Platform Pro',
+                monthlyGBP: 9500,
+                yearlyGBP: 104500,
+                bullets: [
+                    'iOS + Android development',
+                    '100% code sharing capability',
+                    'Advanced UI/UX design',
+                    'Real-time data synchronization',
+                    'Offline mode functionality',
+                    'In-app messaging system',
+                    'App store submission & publishing',
+                    'Monthly feature updates',
+                    '12 months support included',
+                ]
+            },
+            {
+                name: 'Mobile Platform Enterprise',
+                monthlyGBP: null,
+                yearlyGBP: null,
+                bullets: [
+                    'Multi-platform deployment (iOS, Android, Web)',
+                    'Advanced machine learning integration',
+                    'Blockchain/Web3 capabilities',
+                    'White-label distribution options',
+                    'Enterprise-grade security',
+                    'Dedicated development team (4-6 devs)',
+                    'Custom backend infrastructure',
+                    'Priority app store support',
+                    '24/7 technical assistance',
+                ]
+            }
+        ]
+    },
+    'ui-ux-design': {
+        plans: [
+            {
+                name: 'Design Essentials',
+                monthlyGBP: 1500,
+                yearlyGBP: 16500,
+                bullets: [
+                    'User research & personas',
+                    'Wireframing (up to 15 screens)',
+                    'Visual design systems',
+                    'Mobile & desktop mockups',
+                    'Prototype with interactions',
+                    'Design handoff documentation',
+                    'One round of revisions',
+                    'Design file access (Figma)',
+                ]
+            },
+            {
+                name: 'Design Professional',
+                monthlyGBP: 5000,
+                yearlyGBP: 55000,
+                bullets: [
+                    'Complete design discovery',
+                    'Detailed user journey mapping',
+                    'Full design system creation',
+                    'Accessibility audit (WCAG 2.1)',
+                    'Animation & interaction design',
+                    'Responsive design for all breakpoints',
+                    'Design-to-code implementation',
+                    '3 rounds of revisions',
+                    'Quarterly design audits',
+                ]
+            },
+            {
+                name: 'Design Studio Enterprise',
+                monthlyGBP: null,
+                yearlyGBP: null,
+                bullets: [
+                    'Dedicated design team (2-3 designers)',
+                    'Continuous design evolution',
+                    'Advanced UX research & testing',
+                    'Conversion optimization consulting',
+                    'Multivariate A/B testing',
+                    'Design accessibility certification',
+                    'Custom animation library development',
+                    'Unlimited revisions & iterations',
+                    'Quarterly strategy reviews',
+                ]
+            }
+        ]
+    },
+    'seo': {
+        plans: [
+            {
+                name: 'SEO Foundation',
+                monthlyGBP: 1200,
+                yearlyGBP: 13200,
+                bullets: [
+                    'Technical SEO audit',
+                    'Keyword research & targeting',
+                    'On-page optimization (5-8 pages)',
+                    'Meta tags & structured data',
+                    'Basic link building (5 links/month)',
+                    'Monthly performance reports',
+                    'Search Console monitoring',
+                    'Mobile usability optimization',
+                ]
+            },
+            {
+                name: 'SEO Growth',
+                monthlyGBP: 4000,
+                yearlyGBP: 44000,
+                bullets: [
+                    'Comprehensive site audit',
+                    'Competitor analysis & benchmarking',
+                    'Content strategy (2-3 pieces/month)',
+                    'On-page optimization (unlimited)',
+                    'Advanced link building program',
+                    'Local SEO optimization',
+                    'Schema markup implementation',
+                    'Weekly progress tracking',
+                    'Dedicated SEO specialist',
+                ]
+            },
+            {
+                name: 'Enterprise SEO',
+                monthlyGBP: null,
+                yearlyGBP: null,
+                bullets: [
+                    'Full-scale SEO transformation',
+                    'International SEO strategy',
+                    'Content creation (unlimited)',
+                    'Advanced technical SEO',
+                    'Proprietary ranking tools access',
+                    'Enterprise link building network',
+                    'Algorithm update response team',
+                    'Executive monthly reporting',
+                    'Dedicated account team',
+                ]
+            }
+        ]
+    },
+    'e-commerce-development': {
+        plans: [
+            {
+                name: 'Starter Store',
+                monthlyGBP: 2500,
+                yearlyGBP: 27500,
+                bullets: [
+                    'Shopify/WooCommerce setup',
+                    'Up to 100 products',
+                    'Payment gateway integration',
+                    'Basic inventory management',
+                    'Email notification setup',
+                    'Mobile-responsive design',
+                    'Basic analytics dashboard',
+                    '6 months technical support',
+                ]
+            },
+            {
+                name: 'Professional Store',
+                monthlyGBP: 7000,
+                yearlyGBP: 77000,
+                bullets: [
+                    'Custom e-commerce platform',
+                    'Unlimited products & variants',
+                    'Multiple payment methods',
+                    'Advanced inventory automation',
+                    'Customer loyalty program',
+                    'Marketing automation integration',
+                    'Advanced reporting & analytics',
+                    'Conversion rate optimization',
+                    'Monthly maintenance & updates',
+                ]
+            },
+            {
+                name: 'Enterprise Marketplace',
+                monthlyGBP: null,
+                yearlyGBP: null,
+                bullets: [
+                    'Custom multi-vendor platform',
+                    'Advanced marketplace features',
+                    'Real-time inventory sync',
+                    'Sophisticated pricing engine',
+                    'Multi-currency/language support',
+                    'Advanced fraud detection',
+                    'Dedicated infrastructure',
+                    'White-label capabilities',
+                    '24/7 support team',
+                ]
+            }
+        ]
+    },
+    'default': {
+        plans: [
+            {
+                name: 'Professional Starter',
+                monthlyGBP: 2000,
+                yearlyGBP: 22000,
+                bullets: [
+                    'Initial project setup & architecture',
+                    'Team onboarding & kickoff',
+                    '80 hours of development',
+                    'Bi-weekly progress meetings',
+                    'Agile sprint planning',
+                    'Quality assurance & testing',
+                    'Documentation & handoff',
+                    'First 3 months support included',
+                ]
+            },
+            {
+                name: 'Professional Growth',
+                monthlyGBP: 6000,
+                yearlyGBP: 66000,
+                bullets: [
+                    'Dedicated development team',
+                    '240 hours monthly development',
+                    'Weekly strategy sessions',
+                    'Advanced architecture design',
+                    'Continuous integration/deployment',
+                    'Performance optimization',
+                    'Security audits & hardening',
+                    'Unlimited scope flexibility',
+                    'Priority bug resolution',
+                ]
+            },
+            {
+                name: 'Enterprise Custom',
+                monthlyGBP: null,
+                yearlyGBP: null,
+                bullets: [
+                    'Dedicated development team (5-8)',
+                    'Custom SLA agreements',
+                    'Unlimited development hours',
+                    'Executive quarterly reviews',
+                    'Advanced technology implementation',
+                    'Team training & certification',
+                    '24/7 technical support',
+                    'Innovation consulting included',
+                    'Dedicated project manager',
+                ]
+            }
+        ]
+    }
+};
+
+// ─────────────────────────────────────────────────────────
 // COMPONENT
 // ─────────────────────────────────────────────────────────
-// Currency-aware Pricing component used by the template
-export const CurrencyAwarePricing: React.FC<{ defaultCurrency?: string }> = ({defaultCurrency = 'NGN'}) => {
+// Currency-aware Pricing component with Monthly/Yearly toggle
+export const CurrencyAwarePricing: React.FC<{
+    defaultCurrency?: string;
+    serviceType?: string
+}> = ({defaultCurrency = 'NGN', serviceType = 'default'}) => {
     const isDayTimeLocal = useIsDayTime();
     const [rates, setRates] = React.useState<Record<string, number> | null>(null);
     const [loading, setLoading] = React.useState(true);
     const [currency, setCurrency] = React.useState<string>(defaultCurrency || 'NGN');
+    const [billingCycle, setBillingCycle] = React.useState<'monthly' | 'yearly'>('monthly');
 
-    const basePlans = [
-        {name: 'Launch', monthlyGBP: 1500, bullets: ['Starter strategy', 'PPC & social ads', 'Basic analytics']},
-        {
-            name: 'Scale',
-            monthlyGBP: 5500,
-            bullets: ['Full-funnel strategy', 'Multichannel campaigns', 'Advanced analytics + ML']
-        },
-        {
-            name: 'Enterprise',
-            monthlyGBP: null,
-            bullets: ['Dedicated team', 'Custom integrations', 'SLA & executive reporting']
-        },
-    ];
+    const basePlans = SERVICE_PRICING[serviceType] || SERVICE_PRICING['default'];
 
     React.useEffect(() => {
         let mounted = true;
@@ -165,58 +539,175 @@ export const CurrencyAwarePricing: React.FC<{ defaultCurrency?: string }> = ({de
         }
     };
 
+    const getCurrentPrice = (plan: PricePlan) => {
+        if (billingCycle === 'monthly') {
+            return plan.monthlyGBP;
+        } else {
+            return plan.yearlyGBP;
+        }
+    };
+
     return (
-        <section className="py-16">
+        <section className="py-24">
             <div className="max-w-[90em] mx-auto px-6 sm:px-10 lg:px-[4.6em]">
-                <div className="flex items-center justify-between mb-6">
-                    <h3 className={`text-[1.8em] font-[700] ${isDayTimeLocal ? 'text-gray-900' : 'text-white'}`}>Packages
-                        & Pricing</h3>
-                    <div className="flex items-center gap-3">
-                        <label className={`text-sm ${isDayTimeLocal ? 'text-gray-600' : 'text-white/60'}`}>Display
-                            currency</label>
-                        <select value={currency} onChange={(e) => setCurrency(e.target.value)}
-                                className={`px-3 py-1 rounded border ${isDayTimeLocal ? 'bg-white/5 border-gray-200 text-gray-900' : 'bg-black/20 border-white/10 text-white'}`}>
-                            <option value="GBP">GBP (£)</option>
-                            <option value="NGN">NGN (₦)</option>
-                            <option value="USD">USD ($)</option>
-                            <option value="EUR">EUR (€)</option>
-                        </select>
+                <div className="mb-12">
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+                        <div>
+                            <h3 className={`text-[2.2em] font-[800] mb-2 ${isDayTimeLocal ? 'text-gray-900' : 'text-white'}`}>
+                                Transparent Pricing
+                            </h3>
+                            <p className={`text-base ${isDayTimeLocal ? 'text-gray-600' : 'text-white/60'}`}>
+                                Choose the plan that fits your needs. All plans include comprehensive support and
+                                regular updates.
+                            </p>
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row gap-4 items-start md:items-center">
+                            {/* Billing Toggle */}
+                            <div
+                                className={`px-2 py-1 rounded-full flex items-center gap-1 ${isDayTimeLocal ? 'bg-gray-100 border border-gray-300' : 'bg-white/10 border border-white/20'}`}>
+                                <button
+                                    onClick={() => setBillingCycle('monthly')}
+                                    className={`px-4 py-2 rounded-full font-[600] transition-all ${billingCycle === 'monthly'
+                                        ? isDayTimeLocal
+                                            ? 'bg-teal-500 text-white'
+                                            : 'bg-[#00f5d4] text-black'
+                                        : isDayTimeLocal
+                                            ? 'text-gray-600 hover:text-gray-900'
+                                            : 'text-white/60 hover:text-white'}`}
+                                >
+                                    Monthly
+                                </button>
+                                <button
+                                    onClick={() => setBillingCycle('yearly')}
+                                    className={`px-4 py-2 rounded-full font-[600] transition-all ${billingCycle === 'yearly'
+                                        ? isDayTimeLocal
+                                            ? 'bg-teal-500 text-white'
+                                            : 'bg-[#00f5d4] text-black'
+                                        : isDayTimeLocal
+                                            ? 'text-gray-600 hover:text-gray-900'
+                                            : 'text-white/60 hover:text-white'}`}
+                                >
+                                    Yearly
+                                    <span
+                                        className={`ml-1 text-xs font-[800] ${isDayTimeLocal ? 'text-teal-600' : 'text-cyan-400'}`}>
+                                        Save 8%
+                                    </span>
+                                </button>
+                            </div>
+
+                            {/* Currency Selector */}
+                            <div className="flex items-center gap-3">
+                                <label
+                                    className={`text-sm font-[600] ${isDayTimeLocal ? 'text-gray-600' : 'text-white/60'}`}>
+                                    Currency
+                                </label>
+                                <select
+                                    value={currency}
+                                    onChange={(e) => setCurrency(e.target.value)}
+                                    className={`px-3 py-2 rounded-lg border font-[600] transition-all ${isDayTimeLocal
+                                        ? 'bg-white/5 border-gray-300 text-gray-900 hover:bg-gray-50'
+                                        : 'bg-white/10 border-white/20 text-white hover:bg-white/20'}`}
+                                >
+                                    <option value="GBP">GBP (£)</option>
+                                    <option value="NGN">NGN (₦)</option>
+                                    <option value="USD">USD ($)</option>
+                                    <option value="EUR">EUR (€)</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-6">
-                    {basePlans.map((p) => (
-                        <FxHoloCard key={p.name} day={isDayTimeLocal}
-                                    className="p-6 text-center relative overflow-hidden">
-                            <div
-                                className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-gradient-to-br from-teal-400/20 to-cyan-400/20 blur-3xl animate-blob opacity-70"/>
-                            <div className="relative z-10">
-                                <div
-                                    className={`text-[0.9em] ${isDayTimeLocal ? 'text-gray-700' : 'text-white/50'} uppercase mb-2`}>{p.name}</div>
-                                <div
-                                    className={`text-3xl font-[800] mb-3 ${isDayTimeLocal ? 'text-black' : 'text-white'}`}>{format(p.monthlyGBP, currency)}</div>
-                                <div
-                                    className={`${isDayTimeLocal ? 'text-gray-500' : 'text-white/40'} text-xs mb-2`}>{loading ? 'Fetching live exchange rates…' : `≈ ${format(p.monthlyGBP, 'NGN')} (₦)`}</div>
-                                <ul className={`${isDayTimeLocal ? 'text-gray-700/80' : 'text-white/60'} mb-4`}>
-                                    {p.bullets.map((b) => <li key={b} className="py-1">{b}</li>)}
-                                </ul>
-                                {p.monthlyGBP === null ? (
-                                    <Link href="/quote-request">
-                                        <button
-                                            className="px-6 py-3 rounded-full bg-[#00f5d4] text-black font-[700]">Contact
-                                            us
-                                        </button>
-                                    </Link>
-                                ) : (
-                                    <button
-                                        onClick={() => window.location.href = '/quote-request?plan=' + encodeURIComponent(p.name)}
-                                        className="px-6 py-3 rounded-full bg-[#00f5d4] text-black font-[700]">
-                                        Get started
-                                    </button>
+                <div className="grid md:grid-cols-3 gap-8">
+                    {basePlans.plans.map((p: PricePlan, idx: number) => {
+                        const price = getCurrentPrice(p);
+                        const isPopular = idx === 1;
+
+                        return (
+                            <div key={p.name} className="relative">
+                                {isPopular && (
+                                    <div
+                                        className={`absolute -top-4 left-1/2 transform -translate-x-1/2 px-4 py-1 rounded-full text-xs font-[800] ${isDayTimeLocal
+                                            ? 'bg-teal-500 text-white'
+                                            : 'bg-[#00f5d4] text-black'}`}>
+                                        MOST POPULAR
+                                    </div>
                                 )}
+                                <FxHoloCard
+                                    key={p.name}
+                                    day={isDayTimeLocal}
+                                    className={`h-full p-8 text-left relative overflow-hidden transition-all ${isPopular ? 'ring-2 ring-teal-500/50 scale-105 md:scale-100' : ''}`}
+                                >
+                                    <div
+                                        className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-gradient-to-br from-teal-400/20 to-cyan-400/20 blur-3xl animate-blob opacity-70"/>
+                                    <div className="relative z-10">
+                                        <div
+                                            className={`text-xs uppercase font-[800] tracking-widest mb-3 ${isDayTimeLocal ? 'text-teal-600' : 'text-cyan-400'}`}>
+                                            {p.name}
+                                        </div>
+
+                                        <div className="mb-6">
+                                            <div
+                                                className={`text-4xl font-[800] mb-2 ${isDayTimeLocal ? 'text-black' : 'text-white'}`}>
+                                                {format(price, currency)}
+                                            </div>
+                                            <div
+                                                className={`text-sm ${isDayTimeLocal ? 'text-gray-600' : 'text-white/50'}`}>
+                                                {billingCycle === 'monthly' ? 'per month' : 'per year'}{price !== null ? ' • Billed ' + (billingCycle === 'monthly' ? 'monthly' : 'annually') : ''}
+                                            </div>
+                                            {loading && (
+                                                <div
+                                                    className={`text-xs mt-2 ${isDayTimeLocal ? 'text-gray-500' : 'text-white/40'}`}>
+                                                    Fetching live exchange rates…
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <ul className={`space-y-3 mb-8 ${isDayTimeLocal ? 'text-gray-700' : 'text-white/70'}`}>
+                                            {p.bullets.map((bullet: string) => (
+                                                <li key={bullet} className="flex items-start gap-3">
+                                                    <span
+                                                        className={`text-lg font-[800] mt-0.5 flex-shrink-0 ${isDayTimeLocal ? 'text-teal-500' : 'text-cyan-400'}`}>
+                                                        ✓
+                                                    </span>
+                                                    <span className="text-sm leading-relaxed">{bullet}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+
+                                        {price === null ? (
+                                            <Link href="/quote-request" className="block">
+                                                <button
+                                                    className={`w-full px-6 py-3 rounded-lg font-[700] transition-all ${isDayTimeLocal
+                                                        ? 'bg-gray-900 text-white hover:bg-black'
+                                                        : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'}`}>
+                                                    Get Custom Quote
+                                                </button>
+                                            </Link>
+                                        ) : (
+                                            <button
+                                                onClick={() => window.location.href = '/quote-request?plan=' + encodeURIComponent(p.name) + '&billing=' + billingCycle}
+                                                className={`w-full px-6 py-3 rounded-lg font-[700] transition-all ${isPopular
+                                                    ? `${isDayTimeLocal ? 'bg-teal-500 text-white hover:bg-teal-600' : 'bg-[#00f5d4] text-black hover:bg-[#00f5d4]/90'}`
+                                                    : `${isDayTimeLocal ? 'bg-gray-900 text-white hover:bg-black' : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'}`}`}
+                                            >
+                                                Start Free Trial →
+                                            </button>
+                                        )}
+                                    </div>
+                                </FxHoloCard>
                             </div>
-                        </FxHoloCard>
-                    ))}
+                        );
+                    })}
+                </div>
+
+                <div
+                    className={`mt-12 p-6 rounded-lg ${isDayTimeLocal ? 'bg-gray-50 border border-gray-200' : 'bg-white/5 border border-white/10'}`}>
+                    <p className={`text-center text-sm ${isDayTimeLocal ? 'text-gray-600' : 'text-white/60'}`}>
+                        All plans include comprehensive support, monthly consultations, and access to our latest tools.
+                        No long-term contracts required. Cancel anytime.
+                    </p>
                 </div>
             </div>
         </section>
@@ -245,10 +736,16 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                                              stats = defaultStats,
                                                              testimonials = [],
                                                              showPricing = true,
+                                                             serviceType,
+                                                             verticalSolutions,
+                                                             verticalSolutionsTitle,
+                                                             verticalSolutionsSubtitle,
+                                                             verticalSolutionsEyebrow,
                                                          }) => {
     // Client-side derived defaults: if a page passed generic/missing props, derive meaningful
     // headings/details from the current path to avoid identical content across pages.
     const [clientDerivedTitle, setClientDerivedTitle] = useState<ReactNode | null>(null);
+    const [derivedServiceType, setDerivedServiceType] = useState<string>('default');
 
     useEffect(() => {
         if (typeof window === 'undefined') return;
@@ -259,10 +756,56 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
             if (!title || (typeof title === 'string' && title.trim().length === 0)) {
                 setClientDerivedTitle(human || 'Our Services');
             }
+
+            // Derive serviceType from path if not provided
+            if (!serviceType && seg) {
+                const typeMap: Record<string, string> = {
+                    'digital-marketing': 'digital-marketing',
+                    'web-development': 'web-development',
+                    'web-application': 'web-development',
+                    'mobile-application': 'mobile-application',
+                    'mobile-app-development': 'mobile-application',
+                    'ui-ux-design': 'ui-ux-design',
+                    'seo': 'seo',
+                    'e-commerce-development': 'e-commerce-development',
+                    'social-networking': 'default',
+                    'android-development': 'default',
+                    'angular-development': 'default',
+                    'backend-devlopment': 'default',
+                    'backend-development': 'default',
+                    'cross-platform-development': 'mobile-application',
+                    'fintech': 'default',
+                    'frontend-development': 'default',
+                    'hr-tech': 'default',
+                    'healthcare': 'default',
+                    'hybrid-app-development': 'mobile-application',
+                    'javascript-development': 'default',
+                    'laravel-development': 'default',
+                    'mvp': 'default',
+                    'nextjs-development': 'default',
+                    'nodejs-development': 'default',
+                    'oil-and-gas': 'default',
+                    'php-development': 'default',
+                    'react-native-development': 'mobile-application',
+                    'reactjs-development': 'default',
+                    'ruby-on-rails': 'default',
+                    'typescript-development': 'default',
+                    'unity-development': 'default',
+                    'vuejs-development': 'default',
+                    'software-development': 'default',
+                    'branding': 'default',
+                    'web-design': 'default',
+                    'ios-app-development': 'mobile-application',
+                    'app-store-optimization': 'default',
+                };
+                setDerivedServiceType(typeMap[seg] || 'default');
+            } else if (serviceType) {
+                setDerivedServiceType(serviceType);
+            }
         } catch (e) {
             // no-op
         }
-    }, [title]);
+    }, [title, serviceType]);
 
     const resolvedTitle = clientDerivedTitle ?? title ?? 'Our Services';
     const titleText = typeof resolvedTitle === 'string' ? resolvedTitle : String(resolvedTitle);
@@ -767,6 +1310,56 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                     {introBody[1]}
                                 </div>
                             </div>
+
+                            {/* Engagement blueprint — standardised professional detail */}
+                            <div className="grid lg:grid-cols-4 grid-cols-1 gap-6 mt-8">
+                                <FxReveal>
+                                    <FxHoloCard day={false} className="p-6">
+                                        <h4 className="text-[1em] font-[700] mb-3">Deliverables</h4>
+                                        <ul className="text-[0.9em] leading-[1.6] font-[300] list-disc pl-5 text-white/75">
+                                            <li>Discovery report & prioritized roadmap</li>
+                                            <li>Interactive prototypes (Figma) & design system</li>
+                                            <li>Implementation-ready component library & tokens</li>
+                                            <li>Production deployment & runbook</li>
+                                        </ul>
+                                    </FxHoloCard>
+                                </FxReveal>
+
+                                <FxReveal delay={0.04}>
+                                    <FxHoloCard day={false} className="p-6">
+                                        <h4 className="text-[1em] font-[700] mb-3">Measurable KPIs</h4>
+                                        <div className="text-[0.9em] leading-[1.6] font-[300] text-white/75">
+                                            <div className="mb-2"><strong>Performance</strong>: Lighthouse ≥ 90</div>
+                                            <div className="mb-2"><strong>Reliability</strong>: TTFB &lt; 300ms</div>
+                                            <div className="mb-2"><strong>Conversion</strong>: defined lift target per funnel</div>
+                                            <div className="mb-0"><strong>Quality</strong>: automated test coverage & visual regression gating</div>
+                                        </div>
+                                    </FxHoloCard>
+                                </FxReveal>
+
+                                <FxReveal delay={0.08}>
+                                    <FxHoloCard day={false} className="p-6">
+                                        <h4 className="text-[1em] font-[700] mb-3">Timeline & Effort</h4>
+                                        <p className="text-[0.9em] leading-[1.6] font-[300] text-white/75 mb-3">Typical engagements</p>
+                                        <ul className="list-disc pl-5 text-[0.9em] font-[300] leading-[1.6] text-white/75">
+                                            <li>MVP website: 6–12 weeks (3–5 sprints)</li>
+                                            <li>Full platform: scoped per feature (3–6+ months)</li>
+                                            <li>Retention & optimisation: ongoing retainer with monthly cycles</li>
+                                        </ul>
+                                    </FxHoloCard>
+                                </FxReveal>
+
+                                <FxReveal delay={0.12}>
+                                    <FxHoloCard day={false} className="p-6">
+                                        <h4 className="text-[1em] font-[700] mb-3">Team & Acceptance</h4>
+                                        <ul className="text-[0.9em] leading-[1.6] font-[300] list-disc pl-5 text-white/75">
+                                            <li>Typical team: PM, UX lead, UI designer, Frontend, Backend, QA</li>
+                                            <li>Acceptance criteria: signed-off designs, working prototype, passing CI checks</li>
+                                            <li>Security & accessibility: WCAG AA baseline, dependency scanning and SAST</li>
+                                        </ul>
+                                    </FxHoloCard>
+                                </FxReveal>
+                            </div>
                         </FxReveal>
                     </div>
                 </div>
@@ -814,7 +1407,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                 intro={solutionsIntro}
                 navLabel="Our Solutions"
                 activeId={activeId}
-                onNavClick={scrollToSection}
+                onNavClickAction={scrollToSection}
                 items={solutions}
             />
 
@@ -1058,359 +1651,16 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                 </div>
             </div>
 
-            {/* Industry-Specific Cross-Platform App Development */}
-            <div
-                className={`lg:pt-[2em] h-auto border-b max-w-full w-full mx-auto ${isDayTime ? 'bg-black border-white' : 'bg-white border-black'}`}>
-                <div
-                    className={`relative max-w-full w-full mx-auto px-4 sm:px-6 lg:px-[4.6em] lg:pt-[3em] md:pt-[3em] pt-[1.2em] lg:pb-[6em] md:pb-[6em] pb-[1.2em] mt-14`}>
-                    <div
-                        className={`relative grid lg:grid-cols-2 grid-cols-1 gap-10 mb-8 ${isDayTime ? 'text-white' : 'text-black'} `}>
-                        <div className={'lg:mr-[8em]'}>
-                            <h2 className={`lg:text-[3.1em] md:text-[3.1em] text-[1.8em] font-[700] justify-center tracking-tight lg:mb-12 mb-7 leading-[1.2]`}>
-                                <span className={'text-[#00f5d4]'}>Industry-Specific</span> Cross-Platform <span
-                                className={'text-[#00f5d4]'}>App Development</span>
-                            </h2>
-                            <p className={'text-[0.873em] font-normal leading-normal tracking-normal text-justify'}>
-                                Grey InfoTech's industry-specialized cross-platform development expertise delivers
-                                solutions precisely calibrated to the unique regulatory requirements, operational
-                                workflows, and competitive dynamics of your sector. Our deep vertical knowledge spans
-                                healthcare, finance, retail, logistics, manufacturing, and beyond—enabling us to
-                                architect applications that address industry-specific challenges while exceeding
-                                compliance standards and performance benchmarks.
-                            </p>
-                        </div>
-                        <div
-                            className={`lg:-ml-5 md:-ml-5 border-t pt-[6em] relative mx-auto max-w-full w-full space-y-2 ${isDayTime ? 'text-white' : 'text-black'}`}>
-                            <div className={`w-full border-b pb-6 mt-6`}>
-                                <button
-                                    onClick={() => toggleWeb(0)}
-                                    className="flex items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>IT Staff Augmentation & Resource Management Applications</span>
-                                    {webIndex === 0 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 0 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5] text-gray-400">
-                                        We develop specialized cross-platform applications for IT staffing agencies,
-                                        technology consulting firms, and enterprise IT departments that optimize
-                                        resource allocation, streamline talent management, and enhance client-consultant
-                                        collaboration. Our IT staffing solutions integrate comprehensive consultant
-                                        databases with detailed skill profiles, certifications, experience levels,
-                                        technology expertise, and availability status, advanced matching algorithms
-                                        pairing consultants with project requirements based on skills and cultural fit,
-                                        project management with resource forecasting and utilization tracking, timesheet
-                                        management with mobile time entry and automated invoicing, applicant tracking
-                                        for candidate sourcing and interview scheduling, client relationship management
-                                        with contract details and billing rates, bench management with skills gap
-                                        analysis and training recommendations, vendor management for subcontractor
-                                        coordination, onboarding workflows with document collection and equipment
-                                        provisioning, performance management with reviews and skill assessments,
-                                        compliance tracking for certifications and work authorization, mobile access for
-                                        consultants to view assignments and submit timesheets, client portals for
-                                        requisition submission and consultant evaluation, resource forecasting tools
-                                        predicting staffing needs, assignment history tracking for experience
-                                        documentation, expense management, communication tools for team coordination,
-                                        and reporting dashboards with utilization rates and revenue metrics.
-                                    </p>
-                                )}
-                            </div>
-                            <div className={`w-full border-b pb-6`}>
-                                <button
-                                    onClick={() => toggleWeb(1)}
-                                    className="flex items-center mt-6 justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>Music & Entertainment Streaming Applications</span>
-                                    {webIndex === 1 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 1 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5] text-gray-400">
-
-                                        Our cross-platform music and entertainment applications serve record labels,
-                                        independent artists, streaming platforms, and media companies with sophisticated
-                                        solutions for content discovery, playback, and social engagement. We develop
-                                        immersive platforms featuring extensive music libraries with millions of tracks,
-                                        intelligent search with genre and mood filters, personalized AI-powered
-                                        recommendations analyzing listening behavior, curated playlists by music
-                                        experts, user-generated collaborative playlists, high-quality adaptive bitrate
-                                        streaming, offline downloads, seamless playback across devices with synchronized
-                                        positions, social features for following friends and sharing tracks.
-                                    </p>
-                                )}
-                            </div>
-                            <div className={`w-full border-b pb-6`}>
-                                <button
-                                    onClick={() => toggleWeb(2)}
-                                    className="flex mt-6 items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>Business & Corporate Productivity Applications</span>
-                                    {webIndex === 2 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 2 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5] text-gray-400">
-                                        We architect enterprise-grade cross-platform business applications for
-                                        corporations, professional services firms, and consulting companies that enhance
-                                        workplace productivity and streamline collaboration across iOS and Android
-                                        platforms. Our corporate solutions integrate comprehensive project management
-                                        with task assignment, milestone tracking, and resource allocation, team
-                                        collaboration with threaded discussions and file sharing, document management
-                                        with version control and collaborative editing, time tracking and timesheet
-                                        management with billable hours, expense management with receipt capture and
-                                        approval workflows, CRM functionality for contact management and sales pipeline
-                                        tracking, meeting scheduling with calendar integration and room booking, mobile
-                                        access to business intelligence dashboards and KPI monitoring, secure messaging
-                                        and video conferencing, employee directory with organizational charts.
-                                    </p>
-                                )}
-                            </div>
-                            <div className={`w-full border-b pb-6`}>
-                                <button
-                                    onClick={() => toggleWeb(3)}
-                                    className="flex mt-6 items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>Logistics & Transportation Applications</span>
-                                    {webIndex === 3 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 3 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5] text-gray-400">
-                                        Our cross-platform logistics applications serve freight companies, courier
-                                        services, fleet operators, and supply chain businesses with comprehensive
-                                        solutions for route optimization, shipment tracking, and driver management. We
-                                        develop robust platforms with shipment booking and instant quotes, real-time GPS
-                                        tracking, proof of delivery with digital signatures and photos, driver apps with
-                                        optimized route navigation, job acceptance and status updates, barcode and QR
-                                        code scanning, electronic logging for compliance, vehicle inspection checklists,
-                                        load matching marketplace functionality, customer notifications for shipment
-                                        status, estimated arrival times with live traffic updates.
-                                    </p>
-                                )}
-                            </div>
-                            <div className={`w-full border-b pb-6`}>
-                                <button
-                                    onClick={() => toggleWeb(4)}
-                                    className="flex mt-6 items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>Fitness & Wellness Applications</span>
-                                    {webIndex === 4 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 4 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5] text-gray-400">
-                                        We develop engaging cross-platform fitness applications for gyms, studios,
-                                        personal trainers, and wellness centers that motivate users, track progress, and
-                                        deliver personalized health experiences. Our wellness solutions integrate
-                                        workout libraries with video demonstrations, customizable workout plans based on
-                                        goals and experience levels, workout tracking with sets and reps logging,
-                                        exercise timers, progress tracking with body measurements and performance
-                                        metrics, wearable device integration for automatic activity syncing, nutrition
-                                        tracking with food diary and calorie counting, meal planning with recipes,
-                                        hydration and sleep monitoring, guided meditation and yoga routines, personal
-                                        training session booking, class schedules and check-in, virtual training
-                                        sessions, social features for connecting with workout buddies, challenges and
-                                        competitions, achievement badges.
-                                    </p>
-                                )}
-                            </div>
-                            <div className={`w-full border-b pb-6`}>
-                                <button
-                                    onClick={() => toggleWeb(5)}
-                                    className="flex mt-6 items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>Food & Restaurant Delivery Applications</span>
-                                    {webIndex === 5 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 5 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5] text-gray-400">
-                                        Our cross-platform food delivery applications serve restaurant chains, cloud
-                                        kitchens, and delivery platforms with comprehensive solutions for menu browsing,
-                                        ordering, payment processing, and delivery coordination. We develop
-                                        sophisticated platforms featuring visually appealing restaurant and menu
-                                        browsing with high-quality photography, detailed dish descriptions with
-                                        nutritional information, advanced search and filtering by cuisine, dietary
-                                        preferences, and delivery time, personalized recommendations, customizable
-                                        orders with modifications, multiple payment options including digital wallets,
-                                        real-time order tracking with GPS-enabled driver location, push notifications
-                                        for order status updates, order history for quick reordering.
-                                    </p>
-                                )}
-                            </div>
-                            <div className={`w-full border-b pb-6`}>
-                                <button
-                                    onClick={() => toggleWeb(6)}
-                                    className="flex mt-6 items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>Education & E-Learning Applications</span>
-                                    {webIndex === 6 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 6 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5] text-gray-400">
-                                        We create comprehensive cross-platform educational applications for schools,
-                                        universities, corporate training programs, and online learning platforms that
-                                        facilitate engaging learning experiences and streamline administrative
-                                        processes. Our educational solutions encompass course catalogs and enrollment,
-                                        interactive multimedia lessons, video lectures with note-taking, document
-                                        libraries, assignment submission and grading, assessments with various question
-                                        types, discussion forums, real-time messaging and video conferencing, calendar
-                                        integration, grade tracking and progress monitoring, attendance management, push
-                                        notifications for deadlines, offline content access, certificate generation.
-                                    </p>
-                                )}
-                            </div>
-                            <div className={`w-full border-b pb-6`}>
-                                <button
-                                    onClick={() => toggleWeb(7)}
-                                    className="flex mt-6 items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>E-Commerce & Retail Applications</span>
-                                    {webIndex === 7 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 7 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5] text-gray-400">
-                                        We architect sophisticated cross-platform shopping applications for retailers,
-                                        consumer brands, and marketplace platforms that create seamless omnichannel
-                                        experiences and maximize conversion rates across mobile devices. Our e-commerce
-                                        solutions integrate comprehensive product catalogs with advanced search and
-                                        filtering, detailed product pages with 360-degree views, AI-powered personalized
-                                        recommendations, shopping cart and wish lists, secure checkout with multiple
-                                        payment options, real-time order tracking, customer reviews and ratings, loyalty
-                                        program integration, push notifications for promotions and price drops, barcode
-                                        scanning, augmented reality try-on experiences, store locator with inventory
-                                        availability, buy-online-pickup-in-store capabilities.
-                                    </p>
-                                )}
-                            </div>
-                            <div className={`w-full border-b pb-6`}>
-                                <button
-                                    onClick={() => toggleWeb(8)}
-                                    className="flex mt-6 items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>Finance & Banking Applications</span>
-                                    {webIndex === 8 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 8 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5] text-gray-400">
-                                        Our cross-platform financial applications serve banks, fintech startups,
-                                        investment firms, and insurance companies with secure, feature-rich mobile
-                                        banking and financial services platforms that deliver consistent experiences
-                                        across iOS and Android. We develop comprehensive solutions with account
-                                        management, real-time balance and transaction history, funds transfer, mobile
-                                        check deposit with OCR technology, bill payment, cardless ATM withdrawal,
-                                        spending analytics and budgeting tools, savings goals, loan applications,
-                                        investment portfolio tracking, fraud alerts, biometric authentication, and
-                                        secure customer service messaging.
-                                    </p>
-                                )}
-                            </div>
-                            <div className={`w-full border-b pb-6`}>
-                                <button
-                                    onClick={() => toggleWeb(9)}
-                                    className="flex mt-6 items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>Healthcare & Telemedicine Applications</span>
-                                    {webIndex === 9 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 9 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5] text-gray-400">
-                                        We develop HIPAA-compliant cross-platform mobile applications for healthcare
-                                        providers, telemedicine platforms, and medical institutions that enable secure
-                                        patient engagement and clinical workflow management across iOS and Android
-                                        devices. Our healthcare solutions integrate electronic health records,
-                                        appointment scheduling, secure video consultations with end-to-end encryption,
-                                        prescription management, patient vital monitoring through wearable integration,
-                                        medication reminders, and symptom tracking.
-                                    </p>
-                                )}
-                            </div>
-                            <div className={`w-full`}>
-                                <button
-                                    onClick={() => toggleWeb(10)}
-                                    className="flex mt-6 items-center justify-between w-full text-start lg:text-[1.6em] md:text-[1.5em] sm:text-base font-medium focus:outline-none"
-                                >
-                                    <span className={'capitalize'}>Real Estate & Property Management Applications</span>
-                                    {webIndex === 10 ? (
-                                        <AiFillCaretUp
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    ) : (
-                                        <AiFillCaretDown
-                                            className={`lg:text-[1.5em] text-[1em]`}/>
-                                    )}
-                                </button>
-                                {webIndex === 10 && (
-                                    <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5] text-gray-400">
-                                        Our cross-platform real estate applications serve property developers, agencies,
-                                        and management companies with comprehensive solutions for property search,
-                                        virtual tours, and tenant engagement. We develop feature-rich platforms with
-                                        advanced property search and filtering, interactive map views with neighborhood
-                                        insights, high-quality galleries and 360-degree virtual tours, augmented reality
-                                        visualization for staging, saved searches with push notifications for new
-                                        listings, mortgage calculators, appointment scheduling, agent communication,
-                                        document management, digital signatures, rent payment processing, maintenance
-                                        request tracking, inspection documentation, amenity booking.
-                                    </p>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {/* Vertical Solutions Accordion - NEW FUTURISTIC SECTION */}
+            {verticalSolutions && verticalSolutions.length > 0 && (
+                <VerticalSolutionsAccordion
+                    isDayTime={isDayTime}
+                    title={verticalSolutionsTitle || 'Vertical Solutions'}
+                    subtitle={verticalSolutionsSubtitle}
+                    items={verticalSolutions}
+                    eyebrow={verticalSolutionsEyebrow || 'Expertise'}
+                />
+            )}
 
             {/* ══════════════════════════════════════════
                OUR PROVEN 90-DAY PROCESS
@@ -1730,10 +1980,12 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
 
                 </div>
 
-                {/* Pricing — show when requested */}
-                {showPricing && <CurrencyAwarePricing/>}
 
-                <style>{`
+            </div>
+            {/* Pricing — show when requested */}
+            {showPricing && <CurrencyAwarePricing serviceType={derivedServiceType}/>}
+
+            <style>{`
                             @keyframes blob { 0%,100%{transform:translate(0,0) scale(1);}25%{transform:translate(20px,-50px) scale(1.1);}50%{transform:translate(-20px,20px) scale(0.9);}75%{transform:translate(50px,50px) scale(1.05);} }
                             @keyframes gradient { 0%,100%{background-position:0% 50%}50%{background-position:100% 50%} }
                             @keyframes spin-slow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
@@ -1745,7 +1997,6 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                             .animate-spin-reverse { animation: spin-reverse 15s linear infinite; }
                             .animate-pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
                           `}</style>
-            </div>
 
             {/* ══════════════════════════════════════════
                    DEVELOPMENT PROCESS
@@ -1758,10 +2009,12 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
             {/* ══════════════════════════════════════════
                 CTA + COUNTUP (ENHANCED)
                 ══════════════════════════════════════════ */}
-            <section className={`relative overflow-hidden transition-colors duration-700 ${isDayTime ? 'bg-gradient-to-b from-white via-gray-50 to-slate-100' : 'bg-gradient-to-b from-[#050810] via-gray-950 to-black'}`}>
+            <section
+                className={`relative overflow-hidden transition-colors duration-700 ${isDayTime ? 'bg-gradient-to-b from-white via-gray-50 to-slate-100' : 'bg-gradient-to-b from-[#050810] via-gray-950 to-black'}`}>
                 <FxBackground day={isDayTime} grid aurora/>
                 <FxOrbit size={800} top="-200px" left="50%" opacity={isDayTime ? 0.04 : 0.08} speed={60}/>
-                <FxOrbit size={500} bottom="-100px" right="-150px" opacity={isDayTime ? 0.05 : 0.10} speed={30} reverse/>
+                <FxOrbit size={500} bottom="-100px" right="-150px" opacity={isDayTime ? 0.05 : 0.10} speed={30}
+                         reverse/>
 
                 <div
                     className={`relative z-10 lg:py-24 md:py-20 py-16 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${isDayTime ? 'text-gray-900' : 'text-white'}`}>
@@ -1769,10 +2022,13 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                     {/* Enhanced Header with Page Context */}
                     <FxReveal>
                         <div className="mb-8">
-                            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-sm font-mono text-[0.65em] font-[600] tracking-[0.3em] uppercase mb-6 ${isDayTime ? 'border-teal-600/30 bg-teal-500/10 text-teal-700' : 'border-[#00f5d4]/30 bg-[#00f5d4]/10 text-[#00f5d4]'}`}>
+                            <div
+                                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-sm font-mono text-[0.65em] font-[600] tracking-[0.3em] uppercase mb-6 ${isDayTime ? 'border-teal-600/30 bg-teal-500/10 text-teal-700' : 'border-[#00f5d4]/30 bg-[#00f5d4]/10 text-[#00f5d4]'}`}>
                                 <span className="relative flex h-2 w-2">
-                                    <span className={`animate-pulse absolute inline-flex h-full w-full rounded-full opacity-75 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
-                                    <span className={`relative inline-flex rounded-full h-2 w-2 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
+                                    <span
+                                        className={`animate-pulse absolute inline-flex h-full w-full rounded-full opacity-75 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
+                                    <span
+                                        className={`relative inline-flex rounded-full h-2 w-2 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
                                 </span>
                                 Ready to Transform
                             </div>
@@ -1788,26 +2044,51 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                         <div className="lg:pr-[33em] mb-10 space-y-6">
                             <p className={`text-[0.95em] font-[300] leading-[1.8] ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}>
                                 {ctaBody || (
-                                    <>We specialize in crafting high-impact marketing websites, innovative web apps, and mobile applications that drive real results. From funded startups to established businesses, we&apos;ve helped a wide range of clients bring their digital products to life—delivering standout experiences that fuel growth, engagement, and long-term success.</>
+                                    <>We specialize in crafting high-impact marketing websites, innovative web apps, and
+                                        mobile applications that drive real results. From funded startups to established
+                                        businesses, we&apos;ve helped a wide range of clients bring their digital
+                                        products to life—delivering standout experiences that fuel growth, engagement,
+                                        and long-term success.</>
                                 )}
                             </p>
-                            
+
                             {/* Page-Specific Details */}
-                            <div className={`grid md:grid-cols-2 gap-6 pt-4 ${isDayTime ? 'border-t border-gray-300' : 'border-t border-gray-700'}`}>
+                            <div
+                                className={`grid md:grid-cols-2 gap-6 pt-4 ${isDayTime ? 'border-t border-gray-300' : 'border-t border-gray-700'}`}>
                                 <div className="space-y-3">
-                                    <h4 className={`text-sm font-mono tracking-[0.2em] uppercase font-bold ${isDayTime ? 'text-teal-700' : 'text-[#00f5d4]'}`}>🎯 Our Approach</h4>
+                                    <h4 className={`text-sm font-mono tracking-[0.2em] uppercase font-bold ${isDayTime ? 'text-teal-700' : 'text-[#00f5d4]'}`}>🎯
+                                        Our Approach</h4>
                                     <ul className={`text-sm space-y-2 ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>
-                                        <li className="flex gap-2"><span className={isDayTime ? 'text-teal-600' : 'text-cyan-400'}>✓</span> Strategic discovery & planning</li>
-                                        <li className="flex gap-2"><span className={isDayTime ? 'text-teal-600' : 'text-cyan-400'}>✓</span> Agile development & iteration</li>
-                                        <li className="flex gap-2"><span className={isDayTime ? 'text-teal-600' : 'text-cyan-400'}>✓</span> Continuous optimization</li>
+                                        <li className="flex gap-2"><span
+                                            className={isDayTime ? 'text-teal-600' : 'text-cyan-400'}>✓</span> Strategic
+                                            discovery & planning
+                                        </li>
+                                        <li className="flex gap-2"><span
+                                            className={isDayTime ? 'text-teal-600' : 'text-cyan-400'}>✓</span> Agile
+                                            development & iteration
+                                        </li>
+                                        <li className="flex gap-2"><span
+                                            className={isDayTime ? 'text-teal-600' : 'text-cyan-400'}>✓</span> Continuous
+                                            optimization
+                                        </li>
                                     </ul>
                                 </div>
                                 <div className="space-y-3">
-                                    <h4 className={`text-sm font-mono tracking-[0.2em] uppercase font-bold ${isDayTime ? 'text-purple-700' : 'text-purple-400'}`}>⚡ Why Partner With Us</h4>
+                                    <h4 className={`text-sm font-mono tracking-[0.2em] uppercase font-bold ${isDayTime ? 'text-purple-700' : 'text-purple-400'}`}>⚡
+                                        Why Partner With Us</h4>
                                     <ul className={`text-sm space-y-2 ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>
-                                        <li className="flex gap-2"><span className={isDayTime ? 'text-purple-600' : 'text-purple-400'}>✓</span> 8+ years of proven expertise</li>
-                                        <li className="flex gap-2"><span className={isDayTime ? 'text-purple-600' : 'text-purple-400'}>✓</span> 200+ projects delivered</li>
-                                        <li className="flex gap-2"><span className={isDayTime ? 'text-purple-600' : 'text-purple-400'}>✓</span> 98% client satisfaction</li>
+                                        <li className="flex gap-2"><span
+                                            className={isDayTime ? 'text-purple-600' : 'text-purple-400'}>✓</span> 8+
+                                            years of proven expertise
+                                        </li>
+                                        <li className="flex gap-2"><span
+                                            className={isDayTime ? 'text-purple-600' : 'text-purple-400'}>✓</span> 200+
+                                            projects delivered
+                                        </li>
+                                        <li className="flex gap-2"><span
+                                            className={isDayTime ? 'text-purple-600' : 'text-purple-400'}>✓</span> 98%
+                                            client satisfaction
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -1820,7 +2101,8 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                             <FxButton day={isDayTime} href="/contact" variant="solid">
                                 Start Your Project →
                             </FxButton>
-                            <button className={`px-8 py-3 rounded-lg font-bold text-lg transition-all duration-300 border-2 ${isDayTime ? 'border-gray-400 text-gray-700 hover:border-gray-600 hover:bg-gray-100' : 'border-gray-700 text-gray-300 hover:border-gray-500 hover:bg-gray-900/50'}`}>
+                            <button
+                                className={`px-8 py-3 rounded-lg font-bold text-lg transition-all duration-300 border-2 ${isDayTime ? 'border-gray-400 text-gray-700 hover:border-gray-600 hover:bg-gray-100' : 'border-gray-700 text-gray-300 hover:border-gray-500 hover:bg-gray-900/50'}`}>
                                 Schedule Consultation
                             </button>
                         </div>
@@ -1828,7 +2110,8 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
 
                     {/* Enhanced Countup stats */}
                     <FxReveal delay={0.25}>
-                        <div className={`grid lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-3 grid-cols-1 gap-px rounded-2xl overflow-hidden border ${isDayTime ? 'border-gray-300 bg-white' : borderCol}`}>
+                        <div
+                            className={`grid lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-3 grid-cols-1 gap-px rounded-2xl overflow-hidden border ${isDayTime ? 'border-gray-300 bg-white' : borderCol}`}>
                             {stats.map((stat, index) => (
                                 <div key={index}
                                      className={`relative flex flex-col justify-center items-center py-10 px-4 transition-all duration-300 ${isDayTime ? 'bg-white hover:bg-teal-50' : 'bg-white/[0.03] hover:bg-teal-400/5'}`}>
@@ -1863,3 +2146,4 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
 };
 
 export default ServicePageTemplate;
+
