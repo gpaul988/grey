@@ -51,6 +51,31 @@ html {
     overflow-x: hidden; /* Prevent aurora blobs / off-canvas drawer from causing x-scroll */
 }
 
+/* Ensure root elements occupy full height so footer sits correctly and
+   prevent accidental scrolling past the footer when pages are short. */
+html, body, #__next {
+    height: 100%;
+    overflow-x: hidden; /* extra guard against horizontal scroll */
+}
+
+/* Make body a column flex container so main can grow and footer stays
+   pinned to the bottom when content is short. This is backwards-compatible
+   with existing layouts (main will still accept children that manage their
+   own heights). */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    overscroll-behavior-y: contain; /* prevent scrolling past document edges */
+}
+
+/* Allow the main landmark to grow to fill available space so footer is
+   always positioned after content rather than leaving blank space below. */
+main {
+    flex: 1 1 auto;
+    min-height: 0; /* allow children to control height without forcing overflow */
+}
+
 body {
     cursor: default;
     overflow-x: hidden;
