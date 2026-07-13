@@ -30,6 +30,7 @@ export const VoiceWaveform = ({
     const initAudio = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
         const analyserNode = audioContext.createAnalyser();
         analyserNode.fftSize = 256;

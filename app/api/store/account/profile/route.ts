@@ -12,6 +12,7 @@ function extractTokenFromHeader(request: NextRequest): string | null {
     return authHeader.substring(7);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function verifyToken(token: string): any | null {
     try {
         return jwt.verify(token, JWT_SECRET);

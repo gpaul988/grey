@@ -51,7 +51,9 @@ export async function POST(req: NextRequest) {
     let { website, repo } = body ?? {};
 
     // Normalize inputs
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     website = website ? normalizeUrl(website.trim(), false) : (undefined as any);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     repo = repo ? normalizeUrl(repo.trim(), true) : (undefined as any);
 
     if (!website && !repo) {

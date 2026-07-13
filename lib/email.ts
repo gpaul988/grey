@@ -5,6 +5,7 @@
 
 import nodemailer from 'nodemailer';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let transporter: any = null;
 
 /**
@@ -23,6 +24,7 @@ function getTransporter() {
     console.warn('   Set SMTP_HOST, SMTP_USER, SMTP_PASSWORD in .env');
     // Return dummy transporter that logs instead
     return {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sendMail: async (options: any) => {
         console.log('📧 [EMAIL LOG - SMTP NOT CONFIGURED]');
         console.log('To:', options.to);
@@ -58,6 +60,7 @@ export async function send(options: {
   replyTo?: string;
   cc?: string | string[];
   bcc?: string | string[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   attachments?: any[];
 }): Promise<{ success: boolean; messageId?: string; error?: string }> {
   try {

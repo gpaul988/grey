@@ -1,747 +1,126 @@
-'use client';
+﻿import React from 'react';
+import ServicePageTemplate from '@/components/ServicePageTemplate';
 
-
-import React, {useEffect, useRef, useState} from 'react';
-import FloatingButton from "@/components/FloatingButton";
-import Image from "next/image";
-import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
-import ServiceHero from '@/components/futuristic/ServiceHero';
-import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
-import Link from "next/link";
-import CountUp from "react-countup";
-import {useIsDayTime} from '../../components/useIsDayTime';
-
-import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
-
-import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
-const PhpDevelopment = () => {    const [isVisible, setIsVisible] = useState(false);
-    const sectionRef = useRef<HTMLDivElement>(null);
-    const [isBackgroundActive, setIsBackgroundActive] = useState(false);
-    const [activeId, setActiveId] = useState<string>("");
-
-
-    // Floating button visibility hook
-    useEffect(() => {
-        const handleScroll = () => {
-            const scrollPosition = window.scrollY;
-            setIsVisible(scrollPosition > 200); // Show the button after scrolling 200px
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
-
-    // isDaytime react hook
-    const isDayTime = useIsDayTime();
-
-
-    // Introductory section hook
-    useEffect(() => {
-        const handleScroll = () => {
-            if (sectionRef.current) {
-                const {top, bottom} = sectionRef.current.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-
-                if (top < windowHeight * -0.1 || bottom < windowHeight * -0.1) {
-                    setIsBackgroundActive(true);
-                } else {
-                    setIsBackgroundActive(false);
-                }
-            }
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
-
-    // Development Solutions hook
-    const handleScroll = () => {
-        const sections = [
-            "CPWAD",
-            "PCSD",
-            "ADI",
-            "PM",
-            "PMS",
-        ];
-
-        for (const sectionId of sections) {
-            const section = document.getElementById(sectionId);
-            if (section) {
-                const rect = section.getBoundingClientRect();
-                if (rect.top >= 0 && rect.top <= window.innerHeight / 2) {
-                    setActiveId(sectionId);
-                    break;
-                }
-            }
+const PHPDevelopment = () => (
+    <ServicePageTemplate
+        title={<>PHP <br className={'lg:block md:block hidden'}/>Development Services</>}
+        heroVideo="/assets/hero/hero.mp4"
+        heroVideoMobile="/assets/hero/hero.mp4"
+        midImage="/assets/services/services.jpg"
+        topImages={['/assets/services/digital-optimisation.jpg', '/assets/services/Web-App-Development-company.jpg', '/assets/services/Development.jpg', '/assets/services/Research-strategy.jpg']}
+        intro={
+            <>
+                Robust, scalable PHP applications for content platforms, business applications, and modern web systems.
+                Modernizing legacy code and building new solutions with performance and security you can trust.
+            </>
         }
-    };
-
-    useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
-
-    const scrollToSection = (target: string) => {
-        const section = document.getElementById(target);
-        if (section) {
-            section.scrollIntoView({behavior: "smooth", block: "start"});
-            setActiveId(target); // Ensure the arrow icon is displayed when a section is clicked
+        eyebrow={<>Web's most popular language, <br className={'lg:block md:block hidden'}/>powering the web</>}
+        introHeading={<>PHP Development <br className={'lg:block md:block hidden'}/>From Legacy to Modern</>}
+        introBody={[
+            <>
+                PHP powers over 77% of the web, from WordPress and Drupal to enterprise applications handling millions
+                of transactions. At Grey InfoTech we harness PHP's versatility to build content platforms, business
+                applications, and high-performance web systems. Whether using Laravel for rapid development, Symfony for
+                enterprise applications, or custom solutions, we engineer robust, scalable applications backed by rigorous
+                testing and clean architecture. Our expertise spans both modern PHP frameworks and legacy system modernization.
+            </>,
+            <>
+                Beyond traditional web applications, PHP excels at powering content management systems, eCommerce platforms,
+                and business-critical applications. We modernize aging PHP codebases with modern frameworks, upgrade security
+                practices, improve performance, and add new capabilities. With containerization, CI/CD pipelines, and cloud
+                deployment, we deliver PHP systems that are secure, scalable, and maintainable. From content management to
+                complex business logic, we build PHP solutions that grow with your business.
+            </>,
+        ]}
+        solutionsHeading={<>PHP <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
+        solutionsIntro={
+            <>
+                From content management systems and eCommerce platforms to business applications and legacy modernization,
+                Grey InfoTech delivers comprehensive PHP development. Based in Nigeria and working globally, we build performant,
+                well-tested PHP systems that power millions of websites and applications worldwide.
+            </>
         }
-    };
+        solutions={[
+            {
+                id: '01', title: 'Content Management Systems', target: 'WA',
+                tags: ['WordPress', 'Drupal', 'Custom CMS'],
+                body: <>We build and customize powerful content management systems—WordPress for flexibility, Drupal for enterprise complexity, or bespoke solutions for unique requirements. Intuitive admin interfaces, extensibility, and performance optimization ensure your content reaches your audience effectively.</>,
+            },
+            {
+                id: '02', title: 'eCommerce Platforms', target: 'DE',
+                tags: ['Magento', 'WooCommerce', 'Custom'],
+                body: <>We architect and build scalable eCommerce solutions using Magento for large catalogs, WooCommerce for quick launches, or custom platforms for unique business models. Payment integration, inventory management, and conversion optimization drive sales.</>,
+            },
+            {
+                id: '03', title: 'Business Applications', target: 'ML',
+                tags: ['Laravel', 'Symfony', 'Database'],
+                body: <>We develop custom business applications with Laravel for rapid development or Symfony for enterprise complexity. Workflow automation, data management, reporting, and integration with existing systems streamline operations and reduce costs.</>,
+            },
+            {
+                id: '04', title: 'API Development & Integration', target: 'AU',
+                tags: ['REST APIs', 'Webhooks', 'Integration'],
+                body: <>We engineer REST APIs that power mobile apps, third-party integrations, and modern frontends. Secure authentication, rate limiting, comprehensive documentation, and reliable performance ensure seamless integration with your ecosystem.</>,
+            },
+            {
+                id: '05', title: 'Legacy System Modernization', target: 'CD',
+                tags: ['Refactoring', 'Migration', 'Security'],
+                body: <>We refactor aging PHP applications—upgrading to modern frameworks, improving security practices, adding tests, and enhancing performance. Gradual modernization minimizes disruption while bringing applications to current standards.</>,
+            },
+            {
+                id: '06', title: 'Support & Maintenance', target: 'MS',
+                tags: ['Updates', 'Security', 'Performance'],
+                body: <>We provide ongoing support and maintenance for PHP applications—security patches, dependency updates, performance optimization, and feature enhancements. Proactive monitoring and rapid issue resolution keep your systems running reliably.</>,
+            },
+        ]}
+        reasons={[
+            {
+                id: 1, title: 'Mature, Battle-tested', image: '/assets/services/Development.jpg',
+                description: <>PHP's 25+ year history and deployment on billions of websites makes it incredibly stable, well-documented, and battle-tested in production environments worldwide.</>,
+            },
+            {
+                id: 2, title: 'Rapid Development', image: '/assets/services/Research-strategy.jpg',
+                description: <>Modern PHP frameworks like Laravel enable fast development with built-in tools for routing, authentication, databases, and testing. Get to market quickly without sacrificing quality.</>,
+            },
+            {
+                id: 3, title: 'Ubiquitous Hosting', image: '/assets/services/services.jpg',
+                description: <>PHP hosting is available everywhere, affordable, and requires minimal configuration. Deploy on any platform without expensive infrastructure or specialized DevOps knowledge.</>,
+            },
+            {
+                id: 4, title: 'Excellent for Content', image: '/assets/services/digital-optimisation.jpg',
+                description: <>Built from the ground up for web content, PHP powers the world's leading content platforms. CMS options range from WordPress to enterprise Drupal, all proven at massive scale.</>,
+            },
+        ]}
+        ctaHeading={<>Build reliable systems <br className={'lg:block md:block hidden'}/>with PHP</>}
+        ctaBody={<>From content management and eCommerce to business applications and legacy modernization, Grey InfoTech delivers PHP solutions that work. Let's transform your vision into reliable, scalable applications that power your business.</>}
+        stats={[
+            {label: 'Years Experience', value: 12, suffix: '+'},
+            {label: 'Team Members', value: 14, suffix: '+'},
+            {label: 'Applications Built', value: 200, suffix: '+'},
+            {label: 'Projects Delivered', value: 300, suffix: '+'},
+            {label: 'Client Satisfaction', value: 96, suffix: '%'},
+        ]}
+        testimonials={[
+            {name: 'Ngozi Chiwendu', title: 'Publisher, Digital Content Hub', message: <>Grey InfoTech built our WordPress platform that now serves millions of monthly visitors. Reliable, fast, and easy to manage. Highly recommend them.</>},
+            {name: 'Hassan Malik', title: 'CEO, Online Marketplace', message: <>They took our outdated PHP codebase and modernized it to Laravel while maintaining 100% uptime. The improvements in speed and maintainability are night and day.</>},
+            {name: 'Sophia Rodriguez', title: 'Founder, B2B Platform', message: <>Custom PHP development from Grey InfoTech powers our B2B marketplace. The API integrations are seamless, the performance is excellent, and their support is fantastic.</>},
+        ]}
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'Content Platforms',
+                description: 'Build and manage powerful content platforms with WordPress, Drupal, or custom CMS solutions for publishing, blogging, and content distribution at scale.'
+            },
+            {
+                id: 'vs2',
+                title: 'Business Applications',
+                description: 'Develop custom business applications with Laravel and Symfony for workflow automation, data management, reporting, and operational excellence.'
+            },
+            {
+                id: 'vs3',
+                title: 'Legacy System Modernization',
+                description: 'Upgrade aging PHP applications with modern frameworks, enhanced security practices, improved performance, and new capabilities without disrupting operations.'
+            }
+        ]}/>
+);
 
-    // Countup hook for Digital partners
-    const stats = [
-        {label: 'Years Experience', value: 8, suffix: '+'},
-        {label: 'Team Members', value: 10, suffix: '+'},
-        {label: 'Products Launched', value: 150, suffix: '+'},
-        {label: 'Successful rebrands', value: 27, suffix: '+'},
-        {label: 'Increase in Website Traffic', value: 350, suffix: '%'},
-    ];
-
-    return (
-        <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
-
-            <ServiceHero
-                title="PHP Development"
-                subtitle="Robust, scalable server-side solutions"
-                accentColor="#00f5d4"
-                variant="particles"
-                badges={["Symfony","Laravel","Performance","Security"]}
-                ctaHref="/contact"
-                ctaLabel="Discuss your project"
-            />
-
-            {/* Introductory section */}
-            <section ref={sectionRef}
-                     className={`py-12 transition-colors duration-500 ${
-                         isBackgroundActive
-                             ? isDayTime
-                                 ? "bg-black text-white"
-                                 : "bg-white text-black"
-                             : isDayTime
-                                 ? "bg-white text-black"
-                                 : "bg-black text-white"
-                     }`}>
-                <div
-                    className='relative grid lg:grid-cols-2 grid-cols-1 lg:my-[3em] my-[1em] lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-16 pb-6 lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'>
-                    <div className=''>
-                        <h6 className='constant-text uppercase lg:text-[0.85em] md:text-[0.85em] leading-[1.3] text-[0.8em] lg:font-[600] font-[600] lg:tracking-wider tracking-tight'>
-                            YOUR PHP EXPERTS
-                        </h6>
-                    </div>
-                    <div className='lg:-ml-[19em]'>
-                        <h3 className='lg:text-[3em] md:text-[3em] text-[1.8em] font-[500] lg:mt-[0.01em] lg:leading-[1.1] tracking-tight border-b lg:pb-[0.7em] lg:mb-[0.7em] leading-[1.1] pb-6'>
-                            What is PHP?
-                        </h3>
-                        <div
-                            className='grid lg:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]'>
-                            <div>
-                                <p>
-                                    PHP remains a foundational technology powering some of the most dynamic and
-                                    interactive web applications across industries. Its extensive ecosystem of libraries
-                                    and frameworks allows us to design and develop bespoke backend solutions tailored
-                                    specifically to your business requirements. By integrating PHP with the most
-                                    suitable front-end technologies, we create cohesive digital products that deliver
-                                    seamless functionality and superior user experiences. This flexibility enables us to
-                                    adapt to a wide range of project scopes, from simple websites to complex enterprise
-                                    applications.
-                                </p>
-                            </div>
-                            <div>
-                                <p>
-                                    Beyond versatility, PHP supports fast-loading, responsive applications optimized for
-                                    all device types, ensuring your customers enjoy smooth and engaging interactions.
-                                    Its scalability ensures your web app can grow with your business, handling increased
-                                    traffic and expanding feature demands without compromising performance. Whether
-                                    you’re looking to build a high-performing e-commerce platform, a robust content
-                                    management system, or any custom web solution, PHP’s proven reliability and
-                                    efficiency make it a strategic choice for delivering sustainable digital success.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Top Image*/}
-            <div className={`${isDayTime ? 'bg-white' : 'bg-black'}`}>
-                <div id={'top'}
-                     className={'relative lg:max-w-full w-full lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[5em] md:pb-[5em] pb-[2em]  mx-auto h-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'}>
-                    <div className={'relative grid lg:grid-cols-4 h-auto md:grid-cols-4 grid-cols-1 gap-6'}>
-                        <div className={'h-auto w-full max-w-full'}>
-                            <Image
-                                src={'/assets/php/3.jpg'}
-                                alt={'Restaurant'}
-                                width={400}
-                                height={400}
-                            />
-                        </div>
-                        <div>
-                            <Image
-                                src={'/assets/php/4.jpg'}
-                                alt={'Restaurant'}
-                                width={400}
-                                height={400}
-                            />
-                        </div>
-                        <div>
-                            <Image
-                                src={'/assets/php/1.jpg'}
-                                alt={'calender'}
-                                width={400}
-                                height={400}
-                            />
-                        </div>
-                        <div>
-                            <Image
-                                src={'/assets/php/2.jpg'}
-                                alt={'Restaurant'}
-                                width={400}
-                                height={400}
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Our PHP development solutions */}
-            <div className={` lg:pt-[2em]  ${isDayTime ? 'bg-black' : 'bg-white'}`}>
-                <div id={'node-development'}
-                     className={'relative lg:py-[3em] py-[1em] lg:my-[3em] my-[1em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]'}>
-                    <div
-                        className={`relative grid lg:grid-cols-2 grid-cols-1 gap-4 mb-8 border-b-[1px] lg:pb-[4em] pb-[2em] ${isDayTime ? 'text-white' : 'text-black'} `}>
-                        <div>
-                            <h2 className={`lg:text-[3.1em] text-[1.5em] font-[500] justify-center tracking-tight  leading-[1.1]`}>
-                                Our PHP <br className={'lg:block md:block hidden'}/>Development <br
-                                className={'lg:block md:block hidden'}/>Solutions
-                            </h2>
-                        </div>
-                        <div>
-                            <p className='text-[0.873em] font-[400] justify-center text-justify leading-[1.5] lg:-ml-[7.5em] tracking-noromal'>
-                                At Grey InfoTech, our PHP development services drive digital innovation by combining
-                                deep backend expertise with industry insight. Our skilled developers craft custom PHP
-                                applications designed to deliver powerful functionality and engaging user experiences
-                                that elevate your digital presence and accelerate business growth. PHP’s proven
-                                foundation supports major platforms like WordPress, <Link
-                                href='/services/cms-development'
-                                className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}>
-                                Drupal</Link>, WooCommerce, and even social
-                                networks such as Facebook and LinkedIn—highlighting its reliability and versatility as a
-                                core technology for scalable, high-impact web solutions.
-                            </p>
-                        </div>
-                    </div>
-                    <div
-                        className='grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-16 lg:mt-28 md:mt-28 mt-6 px-6 max-w-full w-full mx-auto h-full'>
-                        <div
-                            className='lg:sticky md:sticky top-28 lg:h-screen md:h-screen lg:mr-[11em] overflow-hidden'>
-                            <h3 className={`text-[1.5em] font-[500] constant-text ${
-                                isDayTime ? 'text-white' : 'text-black'
-                            }`}>
-                                Our Solutions
-                            </h3>
-                            <ul className={`list-disc constant-text text-[0.873em] ml-4 font-[300] relative space-y-1 ${
-                                isDayTime ? 'text-white decoration-gray-300 focus:decoration-gray-600' : 'text-black decoration-gray-600 focus:decoration-gray-900'
-                            }`}>
-                                {[
-                                    {id: "01", title: "Custom PHP Web Application Development", target: "CPWAD"},
-                                    {id: "02", title: "PHP Cloud Solution Development", target: "PCSD"},
-                                    {id: "03", title: "API Development & Integration", target: "ADI"},
-                                    {
-                                        id: "04",
-                                        title: "PHP Migration",
-                                        target: "PM"
-                                    },
-                                    {id: "05", title: "PHP Maintenance & Support", target: "PMS"},
-                                ].map((item, index) => (
-                                    <li key={index} className={'group lg:mt-6 mt-4'}>
-                                        <button
-                                            onClick={() => scrollToSection(item.target)}
-                                            className={`w-full text-left flex items-center gap-4 mb-2 focus:font-[650] ${
-                                                isDayTime
-                                                    ? `focus:text-white ${activeId === item.target ? 'text-gray-100 font-[650]' : 'text-gray-500 font-[300]'}`
-                                                    : `focus:text-black ${activeId === item.target ? 'text-gray-900 font-[650]' : 'text-gray-500 font-[300]'}`
-                                            }`}
-                                        >
-                                            <div className={'flex gap-4'}>
-                                                <span className={'shrink-0'}>{item.id}</span>
-                                                <span
-                                                    className={`opacity-0 transition-opacity text-[2em] leading-[0.59em] ${activeId === item.target ? 'opacity-100' : ''}`}>→</span>
-                                                <span>{item.title}</span>
-                                            </div>
-                                        </button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div className={'lg:-ml-[8em] md:-ml-[8em] lg:mb-[19em] md:mb-[19em]'}>
-                            <div className="grid lg:grid-cols-[50px_auto] grid-cols-1 lg:gap-2 gap1 items-start">
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>01/
-                                </div>
-                                <div className={`lg:mb-44 mb-14  ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'CPWAD'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Custom PHP Web Application Development
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Custom PHP Development</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Scalable Web Application</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Secure Back-end Solutions</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Feature-Rich Digital Platforms</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.873em] font-[300]'}>
-                                        At Grey InfoTech, our custom PHP <Link
-                                        href='/services/backend-development'
-                                        className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}>
-                                        back-end development</Link> services are designed to
-                                        meet your unique business requirements with precision and expertise. Leveraging
-                                        the robust and adaptable PHP framework, we create tailor-made web applications
-                                        that enhance operational efficiency and support your growth objectives. Whether
-                                        you need a straightforward content-driven website or a complex, feature-rich
-                                        digital platform, our experienced developers ensure your PHP applications are
-                                        scalable, secure, and user-friendly. By focusing on performance and reliability,
-                                        we help you achieve your digital goals while providing a seamless experience for
-                                        your users.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>02/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'PCSD'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        PHP CLoud Solutions Development
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Cloud-Based PHP Applications</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>PHP On AWS, Google Cloud, Azure</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Cloud Migration Services</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Cost-Efficient Web Solutions</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Whether you’re planning to migrate existing systems to the cloud or launching a
-                                        new PHP project within a cloud environment, our team is equipped to bring your
-                                        vision to life. We streamline your operations and boost your competitive
-                                        advantage by harnessing the power and scalability of cloud computing. Our PHP
-                                        developers specialise in building custom cloud-based web applications and
-                                        seamlessly integrating them with leading platforms such as AWS, Google Cloud,
-                                        and Azure—ensuring your solutions are accessible, secure, and cost-efficient for
-                                        sustainable growth.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>03/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'ADI'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        API Development & Integration
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>API Development Services</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Third-Party API Integration</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Custom API Solutions</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Streamlined Data Flow</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Our API development and integration services create seamless, well-structured
-                                        connections between your application and external platforms, ensuring efficient
-                                        data exchange and smooth operations. Whether you require the integration of
-                                        third-party APIs into your system or the development of custom APIs to expose
-                                        your web services, our skilled PHP development team specialises in optimising
-                                        communication channels to enhance <Link
-                                        href='/services/ui-ux-design'
-                                        className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}>
-                                        user experience</Link>, improve interoperability, and
-                                        streamline data flow across your digital ecosystem.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>04/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'PM'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        PHP Migration
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>PHP Version Upgrades</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Database Migration</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Platform Transition Services</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Secure Integration Planning</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Feeling overwhelmed by upgrading or migrating your existing PHP application? Let
-                                        us handle it for you. Our expert PHP developers manage version upgrades,
-                                        database migrations, and platform transitions with precision, minimising
-                                        disruption to your business operations. When you partner with us, you can trust
-                                        in a smooth, stress-free migration process that unlocks the latest PHP
-                                        frameworks and technologies without risk. We develop comprehensive migration
-                                        plans, conduct detailed risk assessments, and execute each step methodically and
-                                        securely to ensure a successful, seamless transition.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>05/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'PMS'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        PHP Maintenance & Support
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>PHP Application Monitoring</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Post-Launch Support</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Security Updates</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Performance Optimisation</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        We’re with you every step of the way, not just during development but long after
-                                        your PHP web application goes live. Our ongoing commitment includes
-                                        comprehensive support and maintenance services designed to keep your application
-                                        secure, reliable, and optimized for peak performance. Through continuous
-                                        monitoring, timely updates, and proactive issue resolution, we ensure your
-                                        digital assets stay current with evolving technologies and security standards.
-                                        This approach minimizes downtime, maximizes user satisfaction, and gives you the
-                                        confidence to focus on growing your business while we handle the technical
-                                        upkeep.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Mid image*/}
-            <div id={'mid image'} className={'lg:-mt-[25em] md:-mt-[25em] h-auto max-w-full w-full mx-auto'}>
-                <Image
-                    className={' object-fill'}
-                    src={'/assets/php/mid.jpg'}
-                    alt={'Middle Image'}
-                    width={2560}
-                    height={1440}
-                    style={{
-                        objectFit: "fill",
-                        objectPosition: "center",
-                    }}
-                />
-            </div>
-
-            {/* PHP Benefits */}
-            <div className={` lg:pt-[2em]  ${isDayTime ? 'bg-white' : 'bg-black'}`}>
-                <div id={'php benefit'}
-                     className={`relative lg:top-10 py-16 lg:mb-20 mb-10 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-
-                    {/* PHP Benefit Header */}
-                    <div
-                        className={`border-b-[0.1em] grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6 border-gray-300/50 pb-[3em] lg:mb-[5em] ${
-                            isDayTime ? 'text-black' : 'text-white'
-                        }`}>
-                        <div>
-                            <h2 className='text-[1em] text-start sm:text-[1.5em] md:text-[3.2em] lg:text-[3.1em] font-[550] tracking-tight leading-[1.15] lg:pb-6'>
-                                PHP Benefits
-                            </h2>
-                        </div>
-                        <div className={'lg:-ml-[1.5em] md:-ml-[1.5em]'}>
-                            <p className={'text-justify text-[0.87em] font-[300]'}>
-                                Ultimately, PHP is a powerful, flexible choice behind many of today’s most dynamic and
-                                interactive web applications, trusted for its reliability and scalability.
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Benefits */}
-                    <div
-                        className={`relative w-full h-auto grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-[4em] md:gap-[3em] sm:gap-[3em] gap-[2em]  ${
-                            isDayTime ? 'text-black' : 'text-white'
-                        }`}>
-                        <div id={'business-oriented-development'}>
-                            <Image
-                                src={isDayTime ? '/assets/php/icon/att.svg' : '/assets/php/icon/att1.svg'}
-                                alt={'Business-oriented development'}
-                                width={60}
-                                height={60}
-                                className={'h-auto w-auto mb-2'}
-                            />
-                            <h5 className={'lg:text-[1.6em] md:text-[1.7em] sm:text-[1.6em] text-[1.3em] font-[500] mb-8'}>
-                                Business-Oriented Development
-                            </h5>
-                            <p className={'text-[0.873em] text-justify font-[300]'}>
-                                We tailor our PHP solutions to align closely with your business objectives, delivering
-                                seamless implementation, long-term maintainability, and a strong return on investment.
-                                By incorporating best practices and staying current with the latest industry trends and
-                                technologies, we ensure your application remains competitive, scalable, and
-                                well-positioned to support your growth and evolving needs.
-                            </p>
-                        </div>
-                        <div id={'dedicated-project-manager'}>
-                            <Image
-                                src={isDayTime ? '/assets/php/icon/sca.svg' : '/assets/php/icon/sca1.svg'}
-                                alt={'Dedicated Project Manager'}
-                                width={60}
-                                height={60}
-                                className={'h-auto w-auto mb-2'}
-                            />
-                            <h5 className={'lg:text-[1.6em] capitalize md:text-[1.7em] sm:text-[1.6em] text-[1.3em] font-[500] mb-8'}>
-                                Dedicated Project Manager
-                            </h5>
-                            <p className={'text-[0.873em] text-justify font-[300]'}>
-                                Undoubtedly, your PHP project is in expert hands with a dedicated project manager who
-                                takes full ownership of delivery and coordination. From planning and development to
-                                deployment and beyond, they act as your single point of contact—ensuring smooth
-                                communication, timely updates, and alignment with your business goals. We keep you
-                                involved in important milestones and decision-making, while shielding you from
-                                day-to-day technical complexities, so you stay informed, empowered, and focused on your
-                                broader objectives.
-                            </p>
-                        </div>
-                        <div id={'consistent-communication'}>
-                            <Image
-                                src={isDayTime ? '/assets/php/icon/test.svg' : '/assets/php/icon/test1.svg'}
-                                alt={'Consistent Communication'}
-                                width={60}
-                                height={60}
-                                className={'h-auto w-auto mb-2'}
-                            />
-                            <h5 className={'capitalize lg:text-[1.6em] md:text-[1.7em] sm:text-[1.6em] text-[1.3em] font-[500] mb-8'}>
-                                Consistent communication
-                            </h5>
-                            <p className={'text-[0.873em] text-justify font-[300]'}>
-                                We keep the conversation open and continuous because your feedback is essential to the
-                                success of every project. Our collaborative approach ensures your input is not only
-                                heard but actively integrated at every stage of development. With access to real-time
-                                progress tracking through our communication and project management tools, you stay
-                                informed, involved, and confident in the direction of your PHP solution.
-                            </p>
-                        </div>
-                        <div id={'data-security-and-confidentiality'}>
-                            <Image
-                                src={isDayTime ? '/assets/php/icon/risk.svg' : '/assets/php/icon/risk1.svg'}
-                                alt={'Data Security and Confidentiality'}
-                                width={60}
-                                height={60}
-                                className={'h-auto w-auto mb-2'}
-                            />
-                            <h5 className={'capitalize lg:text-[1.6em] md:text-[1.7em] sm:text-[1.6em] text-[1.3em] font-[500] mb-8'}>
-                                Data Security and Confidentiality
-                            </h5>
-                            <p className={'text-[0.873em] text-justify font-[300]'}>
-                                At Grey InfoTech, your privacy isn’t just a consideration—it’s a core commitment. Before
-                                we begin any project, we formalise confidentiality through a Non-Disclosure Agreement
-                                (NDA), ensuring your intellectual property, data, and ideas are fully protected. We
-                                adopt strict security protocols and follow industry best practices to safeguard all
-                                project-related communication and assets. From initial consultation to final delivery,
-                                we maintain a secure and transparent environment where your trust is respected and your
-                                business interests are protected every step of the way.
-                            </p>
-                        </div>
-                        <div id={'proactive-risk-assessment-rigorous-testing'}>
-                            <Image
-                                src={isDayTime ? '/assets/php/icon/cust.svg' : '/assets/php/icon/cust1.svg'}
-                                alt={'Proactive risk assessment & rigorous testing'}
-                                width={60}
-                                height={60}
-                                className={'h-auto w-auto mb-2'}
-                            />
-                            <h5 className={'capitalize lg:text-[1.6em] md:text-[1.7em] sm:text-[1.6em] text-[1.3em] font-[500] mb-8'}>
-                                Proactive Risk Assessment & Rigorous Testing
-                            </h5>
-                            <p className={'text-[0.873em] text-justify font-[300]'}>
-                                We take security seriously at every stage of development. Before your application goes
-                                live, we conduct comprehensive risk assessments and implement rigorous testing protocols
-                                to identify and mitigate vulnerabilities. Our approach ensures your product is not only
-                                fully functional but also fortified against potential threats. We align our practices
-                                with ISO 27001 standards for information security management, reinforcing our commitment
-                                to safeguarding your data and delivering a secure, resilient digital solution.
-                            </p>
-                        </div>
-                        <div id={'trusted-digital-partner'}>
-                            <Image
-                                src={isDayTime ? '/assets/php/icon/att.svg' : '/assets/php/icon/att1.svg'}
-                                alt={'Trusted digital partner'}
-                                width={60}
-                                height={60}
-                                className={'h-auto w-auto mb-2'}
-                            />
-                            <h5 className={'capitalize lg:text-[1.6em] md:text-[1.7em] sm:text-[1.6em] text-[1.3em] font-[500] mb-8'}>
-                                Trusted Digital Partner
-                            </h5>
-                            <p className={'text-[0.873em] text-justify font-[300]'}>
-                                Grey InfoTech will be your trusted digital partner, committed to delivering high-quality
-                                PHP development services tailored to your business needs. Our skilled PHP engineers work
-                                closely with you from concept to deployment, maintaining transparency, accountability,
-                                and clear communication every step of the way. We ensure you&#39;re fully informed and
-                                involved throughout the development process, creating a seamless collaboration that
-                                leads to reliable, scalable, and results-driven solutions.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Trusted Digital Partners */}
-            <div className={`${isDayTime ? 'bg-black' : 'bg-white'}`}>
-                <div id={'partners'}
-                     className={`relative lg:py-14 md:py-16 lg:mb-16 md:mb-16 mb-5 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]  ${
-                         isDayTime ? 'text-white' : 'text-black'
-                     }`}>
-                    <h1 className={'lg:text-5em] md:text-[4em] sm:text-[3em] text-[2em] font-[600] leading-[1.1]  mb-[0.6em]'}>
-                        Your trusted <br className={'lg:block md:block hidden'}/>digital partner
-                    </h1>
-                    <p className={'text-[0.873em] font-[300] leading-[1.5] text-justify lg:pr-[33em] mb-10'}>
-                        We specialize in crafting high-impact marketing websites, innovative web apps, and mobile
-                        applications that drive real results. From funded startups to established businesses, we&#39;ve
-                        helped a wide range of clients bring their digital products to life—delivering standout
-                        experiences
-                        that fuel growth, engagement, and long-term success.
-                    </p>
-                    <Link href='/contact'>
-                        <button
-                            className='relative mx-auto inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em]  border tracking-tighter  rounded-full py-2 px-6'>
-                        <span
-                            className={`w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 ${isDayTime ? 'bg-white' : 'bg-black'} opacity-[3%]`}></span>
-                            <span
-                                className={`absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 ${isDayTime ? 'bg-white' : 'bg-black'} opacity-100 group-hover:-translate-x-8`}></span>
-                            <span
-                                className={`relative w-full text-left transition-colors duration-200 ease-in-out ${isDayTime ? 'text-white group-hover:text-gray-800' : 'text-black group-hover:text-gray-300'}`}>
-                            Start a project <span className={`text-[1.5em] leading-[0.7]`}> →</span></span>
-                            <span
-                                className={"absolute inset-0 border-[1px] border-gray-900 ${isDayTime ? 'border-white' : 'border-black'} rounded-full"}></span>
-                        </button>
-                    </Link>
-
-                    {/* Countup */}
-                    <div id={'countup'}
-                         className={`grid lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-3 grid-cols-1 text-center lg:mt-[3em] py-12 divide-x divide-gray-500 ${
-                             isDayTime ? 'text-white' : 'text-black'
-                         }`}
-                    >
-                        {stats.map((stat, index) => (
-                            <div
-                                key={index}
-                                className="flex flex-col justify-center items-center "
-                            >
-                                <h2 className="gx-gradient-text lg:text-[3.2em] md:text-[3em] sm:text-[2em] text-[1.5em] text-start font-[600]">
-                                    <CountUp end={stat.value} duration={2} suffix={stat.suffix || ''}/>
-                                </h2>
-                                <p className="text-[0.873em] font-[400] mt-1">{stat.label}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-            {/* Who is involved in the process */}
-            <div className={`lg:-mt-[4em] md:-mt-[4em] ${isDayTime ? 'bg-white' : 'bg-black'}`}>
-                <div id={'involved'}
-                     className={`relative lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[5em] md:pb-[5em] pb-[2em] px-4 sm:px-6 lg:px-[4.6em] w-full max-w-full lg:mb-10 mb-8 ${
-                         isDayTime ? 'text-black' : 'text-white'}`}>
-                    <div
-                        className={`relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6 max-w-full mx-auto`}>
-                        <div className={'lg:mr-[8em] md:mr-[8em] lg:mt-[2em] md:mt-[2em] '}>
-                            <h2 className='lg:text-[3em] md:text-[3em] capitalize text-[1.5em] font-[500] tracking-tighter leading-[1.15] lg:pb-6 '>
-                                who is involved <br className={'lg:block md:block hidden'}/>in the process
-                            </h2>
-                            <p className='text-[0.85em] font-[400] lg:-mt-[0.2em] md:-mt-[0.2em] text-justify  leading-[1.5]'>
-                                At Grey InfoTech, PHP development is managed by a streamlined team focused on delivering
-                                reliable, scalable, and business-driven web solutions. A project manager ensures clear
-                                communication, timeline management, and alignment with your goals. Our PHP developers
-                                handle backend architecture, database integration, and custom feature
-                                development—building secure, high-performance applications tailored to your
-                                requirements.<br/><br/>
-
-                                UI/UX designers collaborate to ensure a smooth user experience, while QA engineers test
-                                for functionality, speed, and security. DevOps specialists manage hosting, deployment,
-                                and updates to ensure long-term stability. Throughout the project, your input is
-                                continuously integrated, ensuring the final solution meets expectations and supports
-                                your business growth.
-                            </p><br/>
-                            <Link href='/company'>
-                                <button
-                                    className='relative mx-auto inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em]  border tracking-tighter  rounded-full py-2 px-6'>
-                        <span
-                            className={`w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 ${isDayTime ? 'bg-black' : 'bg-white'} opacity-[3%]`}></span>
-                                    <span
-                                        className={`absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 ${isDayTime ? 'bg-black' : 'bg-white'} opacity-100 group-hover:-translate-x-8`}></span>
-                                    <span
-                                        className={`relative w-full text-left transition-colors duration-200 ease-in-out ${isDayTime ? 'text-black group-hover:text-gray-300' : 'text-white group-hover:text-gray-800'}`}>About Us <span
-                                        className={`text-[1.5em] leading-[0.7]`}> →</span></span>
-                                    <span
-                                        className={"absolute inset-0 border-[1px] border-gray-900 ${isDayTime ? 'border-black' : 'border-white'} rounded-full"}></span>
-                                </button>
-                            </Link>
-                        </div>
-                        <div
-                            className="relative flex flex-row lg:-ml-[2em] md:-ml-[2em] w-full h-auto max-w-full mx-auto gap-6">
-                            <div className="flex-1 flex lg:-mr-[17.5em] md:-mr-[17.5em] justify-center items-center">
-                                <div className="flex-1 flex justify-center h-auto items-center">
-                                    <Image
-                                        src="/assets/hybrid/trip.jpg"
-                                        alt="Team at table"
-                                        width={900} // Add width
-                                        height={600} // Add height
-                                        style={{
-                                            objectFit: "fill",
-                                            objectPosition: "center",
-                                        }}
-                                        className="object-fill"
-                                    />
-                                </div>
-                            </div>
-                            <div
-                                className="flex-1 flex justify-center lg:-my-[20em] md:-my-[20em] lg:pl-[15em] md:pl-[15em] lg:-mr-[4em] items-center">
-                                <Image
-                                    src="/assets/hybrid/disc.jpg"
-                                    alt="Team at table"
-                                    height={700}
-                                    width={220}
-                                    style={{
-                                        objectFit: "fill",
-                                        objectPosition: "center",
-                                    }}
-                                    className="object-fill"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-export default PhpDevelopment;
+export default PHPDevelopment;

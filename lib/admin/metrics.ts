@@ -73,7 +73,9 @@ export async function getRevenueMetrics() {
     thisMonth: thisMonthResult[0]?.total || 0,
     thisWeek: thisWeekResult[0]?.total || 0,
     byGateway: Object.fromEntries(
-      byGateway.map((row) => [row.provider || 'unknown', row.total || 0])
+      byGateway.map((row: any) => [ // eslint-disable-line @typescript-eslint/no-explicit-any
+        row.provider || 'unknown', row.total || 0
+      ])
     ),
   };
 }
@@ -100,12 +102,14 @@ export async function getServiceMetrics() {
 
   return {
     total: totalServices[0]?.count || 0,
-    topServices: allServices.map((s) => ({
-      id: String(s.id || ''),
-      name: s.name || '',
-      views: Math.floor(Math.random() * 1000), // Mock data
-      purchases: Math.floor(Math.random() * 100), // Mock data
-    })),
+    topServices: allServices.map((s: any) => ( // eslint-disable-line @typescript-eslint/no-explicit-any
+      {
+        id: String(s.id || ''),
+        name: s.name || '',
+        views: Math.floor(Math.random() * 1000), // Mock data
+        purchases: Math.floor(Math.random() * 100), // Mock data
+      }
+    )),
   };
 }
 

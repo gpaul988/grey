@@ -5,7 +5,7 @@ import React from 'react';
 interface FuturisticCardProps {
   children: React.ReactNode;
   className?: string;
-  onClick?: () => void;
+  onClickAction?: () => void;
   href?: string;
   gradient?: 'cyan' | 'purple' | 'indigo' | 'blue' | 'teal' | string;
   hover?: 'lift' | 'glow' | 'scale' | 'none';
@@ -15,7 +15,7 @@ interface FuturisticCardProps {
 export const FuturisticCard: React.FC<FuturisticCardProps> = ({
   children,
   className = '',
-  onClick,
+  onClickAction,
   gradient = 'cyan',
   hover = 'lift',
   interactive = true,
@@ -37,7 +37,7 @@ export const FuturisticCard: React.FC<FuturisticCardProps> = ({
 
   return (
     <div
-      onClick={onClick}
+      onClick={onClickAction}
       className={`
         relative overflow-hidden rounded-2xl border border-white/10
         bg-gradient-to-br ${gradients[gradient] || gradient}

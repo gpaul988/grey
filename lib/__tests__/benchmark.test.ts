@@ -46,10 +46,10 @@ describe('Performance Benchmarking (Phase 6.9)', () => {
       }, 50);
 
       const metrics = result.metrics;
-      expect(metrics?.latency.min).toBeLessThanOrEqual(metrics?.latency.median!);
-      expect(metrics?.latency.median).toBeLessThanOrEqual(metrics?.latency.p95!);
-      expect(metrics?.latency.p95).toBeLessThanOrEqual(metrics?.latency.p99!);
-      expect(metrics?.latency.p99).toBeLessThanOrEqual(metrics?.latency.max!);
+      expect(metrics?.latency.min ?? 0).toBeLessThanOrEqual(metrics?.latency.median ?? 0);
+      expect(metrics?.latency.median ?? 0).toBeLessThanOrEqual(metrics?.latency.p95 ?? 0);
+      expect(metrics?.latency.p95 ?? 0).toBeLessThanOrEqual(metrics?.latency.p99 ?? 0);
+      expect(metrics?.latency.p99 ?? 0).toBeLessThanOrEqual(metrics?.latency.max ?? 0);
     });
 
     it('should measure throughput', async () => {

@@ -24,6 +24,7 @@ export const withAuth = (
       const payload = jwt.verify(token, process.env.JWT_SECRET || 'secret') as SessionPayload;
       
       return handler(req, res, payload);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error('Auth error:', error);
       return res.status(401).json({ error: 'Invalid or expired token' });

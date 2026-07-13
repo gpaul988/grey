@@ -131,7 +131,23 @@ const FlutterDevelopment = () => (
             {name: 'Grace Mwangi', title: 'Product Lead, FitLoop', message: <>They rebuilt our fitness app in Flutter and the difference is night and day—smoother, faster, and we now ship updates to both stores at the same time.</>},
             {name: 'Samuel Adeyemi', title: 'CTO, PaySwift', message: <>Their architecture and testing discipline meant our payments app scaled cleanly from MVP to tens of thousands of users without a rewrite. A genuinely senior team.</>},
         ]}
-    />
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'Multi-platform Mobile Apps',
+                description: 'Single codebase for iOS, Android and web with native performance, delivering consistent brand experience across all devices and platforms.'
+            },
+            {
+                id: 'vs2',
+                title: 'Real-time Collaboration Apps',
+                description: 'Build responsive, offline-first applications with real-time synchronization, perfect for productivity tools, chat and collaborative workspaces.'
+            },
+            {
+                id: 'vs3',
+                title: 'E-commerce & Social Platforms',
+                description: 'Deploy feature-rich mobile commerce and social networking apps with push notifications, payments and media handling optimized for performance.'
+            }
+        ]}/>
 );
 
 export default FlutterDevelopment;

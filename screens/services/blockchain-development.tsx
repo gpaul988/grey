@@ -42,7 +42,8 @@ const BlockchainDevelopment = () => (
                 and ready to scale with your business and your community.
             </>,
         ]}
-        solutionsHeading={<>Blockchain <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
+        solutionsHeading={<>Blockchain <br className={'lg:block md:block hidden'}/>Development <br
+            className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
                 From smart contracts and decentralised applications to enterprise ledgers and token economies,
@@ -142,12 +143,47 @@ const BlockchainDevelopment = () => (
             {label: 'Team Members', value: 13, suffix: '+'},
             {label: 'Smart Contracts Shipped', value: 60, suffix: '+'},
             {label: 'Projects Delivered', value: 200, suffix: '+'},
-            {label: 'Client Satisfaction', value: 98, suffix: '%'},
+            {label: 'Client Satisfaction', value: 100, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Obinna Eze', title: 'CEO, ProTask Hub', message: <>Grey InfoTech delivered our token platform with airtight smart contracts and clear documentation. Their security-first approach gave our investors real confidence, and the audit trail made fundraising far smoother.</>},
-            {name: 'Amina Diallo', title: 'Director of Operations, LogiFleet Systems', message: <>The supply-chain traceability solution they built on Hyperledger transformed how we verify shipments. Tamper-proof, auditable, and surprisingly easy for our non-technical team to use day to day.</>},
-            {name: 'Daniel Okonkwo', title: 'Founder, YieldNest', message: <>They engineered our DeFi staking protocol end to end—contracts, oracles, monitoring and front-end. The economic modelling they did up front saved us from mistakes that sink most projects.</>},
+            {
+                name: 'Obinna Eze',
+                title: 'CEO, ProTask Hub',
+                message: <>Grey InfoTech delivered our token platform with airtight smart contracts and clear
+                    documentation. Their security-first approach gave our investors real confidence, and the audit trail
+                    made fundraising far smoother.</>
+            },
+            {
+                name: 'Amina Diallo',
+                title: 'Director of Operations, LogiFleet Systems',
+                message: <>The supply-chain traceability solution they built on Hyperledger transformed how we verify
+                    shipments. Tamper-proof, auditable, and surprisingly easy for our non-technical team to use day to
+                    day.</>
+            },
+            {
+                name: 'Daniel Okonkwo',
+                title: 'Founder, YieldNest',
+                message: <>They engineered our DeFi staking protocol end to end—contracts, oracles, monitoring and
+                    front-end. The economic modelling they did up front saved us from mistakes that sink most
+                    projects.</>
+            },
+        ]}
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'Fintech & Payments',
+                description: 'Decentralized payment systems, DeFi protocols, and blockchain-based financial infrastructure for secure, transparent value transfer.'
+            },
+            {
+                id: 'vs2',
+                title: 'Supply Chain Transparency',
+                description: 'Immutable ledgers for tracking product provenance, authenticity and movement from manufacturer to consumer across global logistics networks.'
+            },
+            {
+                id: 'vs3',
+                title: 'Healthcare Data Management',
+                description: 'Secure, patient-controlled health records on blockchain with verified credential tracking and compliance with HIPAA and data privacy regulations.'
+            }
         ]}
     />
 );

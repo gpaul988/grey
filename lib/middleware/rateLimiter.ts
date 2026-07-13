@@ -42,6 +42,7 @@ export function createUserRateLimiter(
 ) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const userId = (req as any).user?.id;
       if (!userId) return next();
 

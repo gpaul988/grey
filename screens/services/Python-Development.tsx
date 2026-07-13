@@ -131,7 +131,23 @@ const PythonDevelopment = () => (
             {name: 'Yusuf Abdullahi', title: 'CTO, RouteWise', message: <>Their FastAPI back-end handles our peak traffic effortlessly. Clean architecture, great documentation, and they delivered exactly on time.</>},
             {name: 'Aisha Bello', title: 'Founder, ShopSense AI', message: <>The recommendation engine they built in Python lifted our conversion noticeably. They took us from notebook prototype to production-grade ML serving real users.</>},
         ]}
-    />
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'Data Engineering & Analytics',
+                description: 'Build scalable data pipelines with Pandas and Airflow that ingest, transform and load data from multiple sources into analytics platforms.'
+            },
+            {
+                id: 'vs2',
+                title: 'Machine Learning & AI Systems',
+                description: 'Deploy production machine learning models for prediction, classification and recommendation using scikit-learn, PyTorch and TensorFlow.'
+            },
+            {
+                id: 'vs3',
+                title: 'API Backends & Services',
+                description: 'Engineer robust REST and GraphQL APIs with Django and FastAPI that power mobile apps, web frontends and third-party integrations at scale.'
+            }
+        ]}/>
 );
 
 export default PythonDevelopment;

@@ -109,7 +109,7 @@ const defaultStats: StatItem[] = [
     {label: 'Team Members', value: 13, suffix: '+'},
     {label: 'Products Launched', value: 150, suffix: '+'},
     {label: 'Projects Delivered', value: 200, suffix: '+'},
-    {label: 'Client Satisfaction', value: 98, suffix: '%'},
+    {label: 'Client Satisfaction', value: 100, suffix: '%'},
 ];
 
 const defaultHeroStats: HeroStat[] = [
@@ -130,8 +130,8 @@ const SERVICE_PRICING: Record<string, ServicePricingData> = {
         plans: [
             {
                 name: 'Starter Campaign',
-                monthlyGBP: 2500,
-                yearlyGBP: 27500,
+                monthlyGBP: 200,
+                yearlyGBP: 2040,
                 bullets: [
                     'Monthly strategy consultation',
                     '3-4 PPC campaigns (Google & Meta)',
@@ -145,8 +145,8 @@ const SERVICE_PRICING: Record<string, ServicePricingData> = {
             },
             {
                 name: 'Growth Strategy',
-                monthlyGBP: 7500,
-                yearlyGBP: 82500,
+                monthlyGBP: 350,
+                yearlyGBP: 3570,
                 bullets: [
                     'Full-funnel digital strategy',
                     'Multichannel campaigns (5+ channels)',
@@ -181,8 +181,8 @@ const SERVICE_PRICING: Record<string, ServicePricingData> = {
         plans: [
             {
                 name: 'Website Starter',
-                monthlyGBP: 1800,
-                yearlyGBP: 19800,
+                monthlyGBP: 1250,
+                yearlyGBP: 12750,
                 bullets: [
                     'Up to 8 responsive pages',
                     'Mobile & tablet optimized',
@@ -196,8 +196,8 @@ const SERVICE_PRICING: Record<string, ServicePricingData> = {
             },
             {
                 name: 'Web Application Pro',
-                monthlyGBP: 6500,
-                yearlyGBP: 71500,
+                monthlyGBP: 5550,
+                yearlyGBP: 56610,
                 bullets: [
                     'Full-stack web application',
                     'Custom database architecture',
@@ -232,8 +232,8 @@ const SERVICE_PRICING: Record<string, ServicePricingData> = {
         plans: [
             {
                 name: 'Native Starter',
-                monthlyGBP: 3500,
-                yearlyGBP: 38500,
+                monthlyGBP: 2150,
+                yearlyGBP: 21930,
                 bullets: [
                     'Single platform (iOS or Android)',
                     'Up to 8 core features',
@@ -247,8 +247,8 @@ const SERVICE_PRICING: Record<string, ServicePricingData> = {
             },
             {
                 name: 'Cross-Platform Pro',
-                monthlyGBP: 9500,
-                yearlyGBP: 104500,
+                monthlyGBP: 10800,
+                yearlyGBP: 110160,
                 bullets: [
                     'iOS + Android development',
                     '100% code sharing capability',
@@ -283,8 +283,8 @@ const SERVICE_PRICING: Record<string, ServicePricingData> = {
         plans: [
             {
                 name: 'Design Essentials',
-                monthlyGBP: 1500,
-                yearlyGBP: 16500,
+                monthlyGBP: 850,
+                yearlyGBP: 8670,
                 bullets: [
                     'User research & personas',
                     'Wireframing (up to 15 screens)',
@@ -298,8 +298,8 @@ const SERVICE_PRICING: Record<string, ServicePricingData> = {
             },
             {
                 name: 'Design Professional',
-                monthlyGBP: 5000,
-                yearlyGBP: 55000,
+                monthlyGBP: 4100,
+                yearlyGBP: 41820,
                 bullets: [
                     'Complete design discovery',
                     'Detailed user journey mapping',
@@ -334,8 +334,8 @@ const SERVICE_PRICING: Record<string, ServicePricingData> = {
         plans: [
             {
                 name: 'SEO Foundation',
-                monthlyGBP: 1200,
-                yearlyGBP: 13200,
+                monthlyGBP: 400,
+                yearlyGBP: 4080,
                 bullets: [
                     'Technical SEO audit',
                     'Keyword research & targeting',
@@ -349,8 +349,8 @@ const SERVICE_PRICING: Record<string, ServicePricingData> = {
             },
             {
                 name: 'SEO Growth',
-                monthlyGBP: 4000,
-                yearlyGBP: 44000,
+                monthlyGBP: 2400,
+                yearlyGBP: 24480,
                 bullets: [
                     'Comprehensive site audit',
                     'Competitor analysis & benchmarking',
@@ -385,8 +385,8 @@ const SERVICE_PRICING: Record<string, ServicePricingData> = {
         plans: [
             {
                 name: 'Starter Store',
-                monthlyGBP: 2500,
-                yearlyGBP: 27500,
+                monthlyGBP: 1200,
+                yearlyGBP: 12240,
                 bullets: [
                     'Shopify/WooCommerce setup',
                     'Up to 100 products',
@@ -400,8 +400,8 @@ const SERVICE_PRICING: Record<string, ServicePricingData> = {
             },
             {
                 name: 'Professional Store',
-                monthlyGBP: 7000,
-                yearlyGBP: 77000,
+                monthlyGBP: 4500,
+                yearlyGBP: 45900,
                 bullets: [
                     'Custom e-commerce platform',
                     'Unlimited products & variants',
@@ -591,7 +591,7 @@ export const CurrencyAwarePricing: React.FC<{
                                     Yearly
                                     <span
                                         className={`ml-1 text-xs font-[800] ${isDayTimeLocal ? 'text-teal-600' : 'text-cyan-400'}`}>
-                                        Save 8%
+                                        Save 15%
                                     </span>
                                 </button>
                             </div>
@@ -1309,56 +1309,6 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                 <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 lg:p-6">
                                     {introBody[1]}
                                 </div>
-                            </div>
-
-                            {/* Engagement blueprint — standardised professional detail */}
-                            <div className="grid lg:grid-cols-4 grid-cols-1 gap-6 mt-8">
-                                <FxReveal>
-                                    <FxHoloCard day={false} className="p-6">
-                                        <h4 className="text-[1em] font-[700] mb-3">Deliverables</h4>
-                                        <ul className="text-[0.9em] leading-[1.6] font-[300] list-disc pl-5 text-white/75">
-                                            <li>Discovery report & prioritized roadmap</li>
-                                            <li>Interactive prototypes (Figma) & design system</li>
-                                            <li>Implementation-ready component library & tokens</li>
-                                            <li>Production deployment & runbook</li>
-                                        </ul>
-                                    </FxHoloCard>
-                                </FxReveal>
-
-                                <FxReveal delay={0.04}>
-                                    <FxHoloCard day={false} className="p-6">
-                                        <h4 className="text-[1em] font-[700] mb-3">Measurable KPIs</h4>
-                                        <div className="text-[0.9em] leading-[1.6] font-[300] text-white/75">
-                                            <div className="mb-2"><strong>Performance</strong>: Lighthouse ≥ 90</div>
-                                            <div className="mb-2"><strong>Reliability</strong>: TTFB &lt; 300ms</div>
-                                            <div className="mb-2"><strong>Conversion</strong>: defined lift target per funnel</div>
-                                            <div className="mb-0"><strong>Quality</strong>: automated test coverage & visual regression gating</div>
-                                        </div>
-                                    </FxHoloCard>
-                                </FxReveal>
-
-                                <FxReveal delay={0.08}>
-                                    <FxHoloCard day={false} className="p-6">
-                                        <h4 className="text-[1em] font-[700] mb-3">Timeline & Effort</h4>
-                                        <p className="text-[0.9em] leading-[1.6] font-[300] text-white/75 mb-3">Typical engagements</p>
-                                        <ul className="list-disc pl-5 text-[0.9em] font-[300] leading-[1.6] text-white/75">
-                                            <li>MVP website: 6–12 weeks (3–5 sprints)</li>
-                                            <li>Full platform: scoped per feature (3–6+ months)</li>
-                                            <li>Retention & optimisation: ongoing retainer with monthly cycles</li>
-                                        </ul>
-                                    </FxHoloCard>
-                                </FxReveal>
-
-                                <FxReveal delay={0.12}>
-                                    <FxHoloCard day={false} className="p-6">
-                                        <h4 className="text-[1em] font-[700] mb-3">Team & Acceptance</h4>
-                                        <ul className="text-[0.9em] leading-[1.6] font-[300] list-disc pl-5 text-white/75">
-                                            <li>Typical team: PM, UX lead, UI designer, Frontend, Backend, QA</li>
-                                            <li>Acceptance criteria: signed-off designs, working prototype, passing CI checks</li>
-                                            <li>Security & accessibility: WCAG AA baseline, dependency scanning and SAST</li>
-                                        </ul>
-                                    </FxHoloCard>
-                                </FxReveal>
                             </div>
                         </FxReveal>
                     </div>

@@ -321,7 +321,8 @@ export function exposeCsrfToken(req: Request, res: Response, next: NextFunction)
                 path: '/',
             },
         });
-    } catch {
+    } catch (err) {
+        console.error('[CSRF] Token generation failed:', (err as Error)?.message);
         res.locals.csrfToken = '';
     }
     next();

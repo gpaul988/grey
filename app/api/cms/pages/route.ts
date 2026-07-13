@@ -20,6 +20,7 @@ export async function GET(req: NextRequest) {
 
     // Filter to published only for public
     const isAdmin = req.headers.get('x-admin-check') === 'true'; // TODO: Proper auth
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const pages = isAdmin ? allPages : allPages.filter((p: any) => p.published);
 
     return NextResponse.json({ pages }, { status: 200 });
@@ -128,6 +129,7 @@ export async function PATCH(req: NextRequest) {
       );
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const updates: any = {
       updatedAt: new Date(),
     };

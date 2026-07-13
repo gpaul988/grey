@@ -2,6 +2,7 @@ import express, {type Request, type Response} from 'express';
 import nodemailer from 'nodemailer';
 import path from 'node:path';
 import fs from 'node:fs';
+import Database from 'better-sqlite3';
 import {ensureApiAuth, requireRole, requirePermission} from '../middleware/authMiddleware';
 import {
     Users, Submissions, Leads, Clients, Projects, Tickets, TicketMessages,
@@ -45,6 +46,49 @@ api.get('/submissions', (req, res) => {
 api.get('/submissions/:id', (req, res) => {
     const row = Submissions.find(toInt(req.params.id));
     return row ? ok(res, row) : fail(res, 'Not found', 404);
+});
+api.patch('/submissions/:id', (req, res) => {
+    try {
+        const id = toInt(req.params.id);
+        const row = Submissions.find(id);
+        if (!row) return fail(res, 'Submission not found', 404);
+        
+        const updates: Record<string, unknown> = {};
+        const allowedFields = [
+            'name', 'email', 'phone', 'subject', 'project_type', 'budget',
+            'message', 'source', 'status', 'company_name', 'currency',
+            'timeline', 'project_type_other', 'additional_notes'
+        ];
+        
+        for (const field of allowedFields) {
+            if (field in req.body) {
+                updates[field] = req.body[field as keyof typeof req.body];
+            }
+        }
+        
+        if (Object.keys(updates).length === 0) {
+            return fail(res, 'No fields to update', 400);
+        }
+        
+        // Update the submission in the database
+        const dbPath = path.join(process.cwd(), 'Admin', 'data', 'grey.db');
+        const db = new Database(dbPath);
+        const setClauses = Object.keys(updates).map(k => `${k} = ?`).join(', ');
+        const values = Object.values(updates);
+        values.push(id);
+        
+        const stmt = db.prepare(`UPDATE submissions SET ${setClauses} WHERE id = ?`);
+        stmt.run(...values);
+        db.close();
+        
+        logActivity({ ...actor(req), action: 'update', entity: 'submission', entity_id: id });
+        
+        const updated = Submissions.find(id);
+        ok(res, updated, 'Submission updated successfully');
+    } catch (err) {
+        console.error('[PATCH /submissions/:id]', err);
+        fail(res, 'Failed to update submission', 500);
+    }
 });
 api.delete('/submissions/:id', (req, res) => {
     try {
@@ -711,7 +755,68 @@ api.post('/ads/bulk-delete', (req, res) => {
     }
 });
 
-/* ---------------- Announcements (DELETE + bulk-delete) ---------------- */
+/* ---------------- Announcements (CREATE, READ, UPDATE, DELETE) ---------------- */
+api.post('/announcements', (req, res) => {
+    try {
+        const { message, link_label, link_url, variant, starts_at, ends_at, active } = req.body;
+        
+        if (!message || typeof message !== 'string') {
+            return fail(res, 'Message is required', 400);
+        }
+        
+        const announcement = Announcements.create({
+            message: message.trim(),
+            link_label: link_label || null,
+            link_url: link_url || null,
+            variant: variant || 'info',
+            starts_at: starts_at || null,
+            ends_at: ends_at || null,
+            active: active ? 1 : 0,
+        });
+        
+        logActivity({ ...actor(req), action: 'create', entity: 'announcement', entity_id: announcement.id });
+        ok(res, announcement, 'Announcement created successfully');
+    } catch (err) {
+        console.error('[POST /announcements]', err);
+        fail(res, 'Failed to create announcement', 500);
+    }
+});
+
+api.patch('/announcements/:id', (req, res) => {
+    try {
+        const id = toInt(req.params.id);
+        const row = Announcements.find(id);
+        if (!row) return fail(res, 'Announcement not found', 404);
+        
+        const updates: Record<string, unknown> = {};
+        const allowedFields = ['message', 'link_url', 'link_label', 'variant', 'active', 'starts_at', 'ends_at'];
+        
+        for (const field of allowedFields) {
+            if (field in req.body) {
+                let value = req.body[field as keyof typeof req.body];
+                // Convert boolean active field to 0/1 for SQLite
+                if (field === 'active' && typeof value === 'boolean') {
+                    value = value ? 1 : 0;
+                }
+                updates[field] = value;
+            }
+        }
+        
+        if (Object.keys(updates).length === 0) {
+            return fail(res, 'No fields to update', 400);
+        }
+        
+        Announcements.update(id, updates);
+        logActivity({ ...actor(req), action: 'update', entity: 'announcement', entity_id: id });
+        
+        const updated = Announcements.find(id);
+        ok(res, updated, 'Announcement updated successfully');
+    } catch (err) {
+        console.error('[PATCH /announcements] Error:', err instanceof Error ? err.message : String(err));
+        fail(res, 'Failed to update announcement: ' + (err instanceof Error ? err.message : 'Unknown error'), 500);
+    }
+});
+
 api.delete('/announcements/:id', (req, res) => {
     try {
         const id = toInt(req.params.id);

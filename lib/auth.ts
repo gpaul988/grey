@@ -41,6 +41,7 @@ export const authenticate = async (
     };
 
     // Store in request for downstream use
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (req as any).user = user;
 
     return user;
@@ -50,7 +51,7 @@ export const authenticate = async (
   }
 };
 
-export const requireAuth = (handler: Function) => {
+export const requireAuth = (handler: (req: NextApiRequest, res: NextApiResponse) => Promise<void> | void) => {
   return async (req: NextApiRequest, res: NextApiResponse) => {
     const user = await authenticate(req, res);
     if (!user) return;
@@ -59,7 +60,7 @@ export const requireAuth = (handler: Function) => {
 };
 
 export const requireRole = (role: string) => {
-  return (handler: Function) => {
+  return (handler: (req: NextApiRequest, res: NextApiResponse) => Promise<void> | void) => {
     return async (req: NextApiRequest, res: NextApiResponse) => {
       const user = await authenticate(req, res);
       if (!user) return;
@@ -91,6 +92,7 @@ export const withAuth = (
       const payload = jwt.verify(token, process.env.JWT_SECRET || 'secret') as SessionPayload;
       
       return handler(req, res, payload);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error('Auth error:', error);
       return res.status(401).json({ error: 'Invalid or expired token' });

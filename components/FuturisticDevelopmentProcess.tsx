@@ -16,7 +16,8 @@ const FuturisticDevelopmentProcess: React.FC<FuturisticDevelopmentProcessProps> 
     title = 'Stages of Our Development Process',
     description = 'We design digital products that people love to use and businesses are proud to own.'
 }) => {
-    const isDayTime = day !== undefined ? day : useIsDayTime();
+    const dayTimeHook = useIsDayTime();
+    const isDayTime = day !== undefined ? day : dayTimeHook;
 
     const stages = [
         {

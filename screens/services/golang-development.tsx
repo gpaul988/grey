@@ -81,7 +81,24 @@ const GolangDevelopment = () => (
             },
         ]}
         ctaHeading={<>Performance<br className="lg:block md:block hidden" />delivered in Go</>}
-        ctaBody="When your system needs to handle serious load without serious hardware costs, Go is the answer. Grey InfoTech builds Go services that perform at scale."/>
+        ctaBody="When your system needs to handle serious load without serious hardware costs, Go is the answer. Grey InfoTech builds Go services that perform at scale."
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'Microservices Architecture',
+                description: 'Build distributed systems with lightweight Go services, containerization with Docker, Kubernetes orchestration and service mesh patterns.'
+            },
+            {
+                id: 'vs2',
+                title: 'High-performance APIs',
+                description: 'Develop REST and gRPC APIs with minimal latency and resource overhead, perfect for high-throughput systems and real-time data processing.'
+            },
+            {
+                id: 'vs3',
+                title: 'Cloud Infrastructure Tools',
+                description: 'Create infrastructure automation, deployment tools and cloud-native applications that take advantage of Go\'s concurrency and performance.'
+            }
+        ]}/>
 );
 
 export default GolangDevelopment;

@@ -8,6 +8,7 @@
 
 import React, { ReactNode, ReactElement } from 'react';
 import * as Sentry from '@sentry/nextjs';
+import Link from 'next/link';
 
 interface Props {
   children: ReactNode;
@@ -58,7 +59,7 @@ class ErrorBoundary extends React.Component<Props, State> {
                   Something went wrong
                 </h1>
                 <p className="text-gray-600 mb-6">
-                  We've been notified and are working on a fix. Please try again
+                  We&apos;ve been notified and are working on a fix. Please try again
                   later.
                 </p>
 
@@ -88,12 +89,12 @@ class ErrorBoundary extends React.Component<Props, State> {
                   >
                     Reload Page
                   </button>
-                  <a
+                  <Link
                     href="/"
                     className="block w-full bg-gray-100 text-gray-900 py-2 rounded-lg hover:bg-gray-200 transition text-center"
                   >
                     Go Home
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

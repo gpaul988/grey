@@ -300,8 +300,8 @@ const WebDevelopment = () => {
                         <div className="hidden lg:flex flex-col items-end">
                             <div className="grid grid-cols-2 gap-6 w-full">
                                 {[
-                                    {label: 'Projects Delivered', value: '500+'},
-                                    {label: 'Years of Expertise', value: '12+'},
+                                    {label: 'Projects Delivered', value: '50+'},
+                                    {label: 'Years of Expertise', value: '8+'},
                                     {label: 'Client Retention', value: '95%'},
                                     {label: 'Avg ROI Growth', value: '300%'}
                                 ].map((stat) => (
@@ -324,7 +324,7 @@ const WebDevelopment = () => {
                         {[
                             {label: 'Projects', value: '50+'},
                             {label: 'Experts', value: '8+'},
-                            {label: 'Retention', value: '95%'}
+                            {label: 'Retention', value: '100%'}
                         ].map((stat) => (
                             <div key={stat.label}
                                  className="px-3 py-2 rounded-xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md">
@@ -2043,7 +2043,7 @@ const WebDevelopment = () => {
                                 <div className='flex gap-4'>
                                     <FxFrame className='w-[64px] h-[64px] flex items-center justify-center' glow>
                                         <Image
-                                            src={isDayTime ? '/assets/webd/icon3/blueprint.svg' : '/assets/webd/icon3/blueprint1.svg'}
+                                            src={isDayTime ? '/assets/wd/last.jpg' : '/assets/wd/nlast.jpg'}
                                             alt={'Blueprint'} width={44} height={44}/>
                                     </FxFrame>
                                     <div className='flex-1'>
@@ -2207,7 +2207,8 @@ const WebDevelopment = () => {
                     </div>
 
                     <FxReveal delay={0.56}>
-                        <div className={`rounded-2xl p-6 transition-all duration-300 ${isDayTime ? 'bg-black/3 border-teal-700/15' : 'bg-white/3 border-teal-400/15'}`}>
+                        <div
+                            className={`rounded-2xl p-6 transition-all duration-300 ${isDayTime ? 'bg-black/3 border-teal-700/15' : 'bg-white/10 border-teal-400/15'}`}>
                             <h3 className="text-[1.3em] font-[700] mb-6">Why Grey InfoTech for Web Development</h3>
 
                             <div className="grid lg:grid-cols-2 grid-cols-1 gap-8">
@@ -2223,7 +2224,8 @@ const WebDevelopment = () => {
                                                 onClick={() => setActiveIndex(index + 1)}
                                             >
                                                 <h3 className={`leading-[1.2] lg:text-[1.1em] text-[1em] font-[600] mb-2 transition-all ${isActive ? 'text-teal-400' : 'text-teal-700/70'}`}>
-                                                    <span className="font-mono text-[0.68em] mr-2 text-teal-500/70">{String(reason.id).padStart(2, '0')}</span>
+                                                    <span
+                                                        className="font-mono text-[0.68em] mr-2 text-teal-500/70">{String(reason.id).padStart(2, '0')}</span>
                                                     {reason.title}
                                                 </h3>
                                                 <AnimatePresence initial={false} mode="wait">
@@ -2234,7 +2236,7 @@ const WebDevelopment = () => {
                                                             animate={{opacity: 1, height: 'auto'}}
                                                             exit={{opacity: 0, height: 0}}
                                                             transition={{duration: 0.3, ease: [0.22, 1, 0.36, 1]}}
-                                                            className={`text-[0.95em] leading-[1.6] overflow-hidden ${isDayTime ? 'text-gray-200' : 'text-gray-200'}`}
+                                                            className={`text-[0.95em] leading-[1.6] overflow-hidden ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}
                                                         >
                                                             {reason.description}
                                                         </motion.p>
@@ -2248,10 +2250,11 @@ const WebDevelopment = () => {
                                 {/* Right — image */}
                                 <div>
                                     <FxFrame className="w-full">
-                                        <Image src={(reasons as any)[activeIndex - 1]?.images?.[0] || '/assets/fin/grey.jpg'}
-                                               alt="Why Grey InfoTech for Web Development"
-                                               width={660} height={380}
-                                               className="w-full h-auto rounded-xl object-cover"/>
+                                        <Image
+                                            src={(reasons as any)[activeIndex - 1]?.images?.[0] || '/assets/fin/grey.jpg'}
+                                            alt="Why Grey InfoTech for Web Development"
+                                            width={660} height={380}
+                                            className="w-full h-auto rounded-xl object-cover"/>
                                     </FxFrame>
                                 </div>
                             </div>
@@ -2259,10 +2262,11 @@ const WebDevelopment = () => {
                             {/* CTA */}
                             <FxReveal className="mt-12 flex flex-col items-center justify-center text-center">
                                 <FxGlitchText tag="h2"
-                                              className={`lg:text-[2em] text-[1.1em] font-[600] tracking-tighter leading-[1.15] pb-4 ${isDayTime ? 'text-slate-100/40' : 'text-slate-800'}`}>
+                                              className={`lg:text-[2em] text-[1.1em] font-[600] tracking-tighter leading-[1.15] pb-4 ${isDayTime ? 'text-slate-800' : 'text-slate-100/40'}`}>
                                     Ready to build a product that performs?
                                 </FxGlitchText>
-                                <FxButton day={!isDayTime} href="/contact" variant="solid">Start Partnership →</FxButton>
+                                <FxButton day={!isDayTime} href="/contact" variant="solid">Start Partnership
+                                    →</FxButton>
                             </FxReveal>
 
                         </div>
@@ -2320,12 +2324,12 @@ const WebDevelopment = () => {
                                 <div
                                     className={`p-8 rounded-2xl border transition-all duration-300 hover:border-teal-400/60 ${
                                         isDayTime
-                                            ? 'border-gray-200 bg-white/50 hover:bg-white'
-                                            : 'border-white/10 bg-white/5 hover:bg-white/10'
+                                            ? 'border-gray-200 bg-white/50 hover:bg-white text-slate-50 hover:text-slate-950'
+                                            : 'border-white/10 bg-white/5 hover:bg-white/10 text-slate-950 hover:text-slate-50'
                                     }`}>
                                     <div className="text-teal-400 text-[2.5em] font-[700] mb-3">{item.step}</div>
-                                    <h3 className={`text-[1.3em] font-[600] mb-4 leading-tight ${isDayTime ? 'text-slate-950 hover:text-slate-' : ''}`}>{item.title}</h3>
-                                    <p className={`text-[0.98em] leading-[1.6] font-[300] ${isDayTime ? 'text-gray-300 hover:text-gray-700' : 'text-gray-700 hover:text-grey-900'}`}>
+                                    <h3 className={`text-[1.3em] font-[600] mb-4 leading-tight`}>{item.title}</h3>
+                                    <p className={`text-[0.98em] leading-[1.6] font-[300]`}>
                                         {item.description}
                                     </p>
                                 </div>
@@ -2335,106 +2339,6 @@ const WebDevelopment = () => {
                 </div>
             </section>
 
-            {/* Why Grey InfoTech dark theme */}
-            <div className={`relative lg:-mt-20 py-36 ${isDayTime ? 'bg-white' : 'bg-black'} lg:mb-20 mb-12`}>
-                <div
-                    className={`relative grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:max-w-[90em] mx-auto px-4 sm:px-6 lg:px-[4.6em] border-b-[0.001em] pb-12 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                    <div>
-                        <h2 className='lg:text-[3em] md:text-[3em] text-[1.5em] font-[500] tracking-tight leading-[1.2] lg:pb-6 rounded-none'>
-                            Why Grey InfoTech <br className={'lg:block md:block hidden'}/>For Your App Project
-                        </h2>
-                    </div>
-                    <div className='lg:-ml-[7em]'>
-                        <p className='text-[0.873em] font-[400] lg:-mt-[0.2em] rounded-none leading-[1.5]'>
-                            Benefit from the expertise of a web development agency that goes beyond the basics. We don’t
-                            just build functional websites—we create digital products that engage users, elevate your
-                            brand, and drive measurable results.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div
-                className={`relative -mt-20 ${isDayTime ? 'bg-white' : 'bg-black'} lg:mb-16 lg:pb-28 pb-14 mb-12  px-6`}>
-                <div
-                    className='relative mx-auto px-4 sm:px-6 lg:px-[4.6em] grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:mb-36'>
-                    {/* Left Section */}
-                    <div
-                        className={`relative text-[0.873em] lg:leading-[1.5] ${isDayTime ? 'text-black' : 'text-white'} flex flex-col justify-center mb-4 lg:pl-4 lg:pr-[3em]`}>
-                        {reasons.map((reason, index) => (
-                            <div
-                                key={reason.id}
-                                className={`relative mb-6 ${
-                                    index + 1 === activeIndex
-                                        ? isDayTime
-                                            ? 'bg-white py-5'
-                                            : 'bg-black py-5'
-                                        : ''
-                                }`}
-                            >
-                                <h3
-                                    className={`relative pr-[6em] leading-[1.2] lg:text-[1.5em] text-[1em] mb-4 cursor-pointer transition-all ${
-                                        index + 1 === activeIndex
-                                            ? isDayTime
-                                                ? 'text-black font-bold'
-                                                : 'text-white font-bold'
-                                            : 'text-gray-500'
-                                    }`}
-                                    onClick={() => setActiveIndex(index + 1)}
-                                >
-                                    {reason.title}
-                                </h3>
-                                <div>
-                                    <AnimatePresence mode="wait">
-                                        {index + 1 === activeIndex && (
-                                            <motion.div
-                                                key={reason.id}
-                                                initial={{opacity: 0, y: -50}}
-                                                animate={{opacity: 1, y: 0}}
-                                                exit={{opacity: 0, y: 0}}
-                                                transition={{duration: 0}}
-                                                className={`relative inline-block ${
-                                                    isDayTime ? 'text-black' : 'text-white'
-                                                }`}
-                                            >
-                                                {reason.description}
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                    {/* Right Section */}
-                    <div className='lg:mt-[3em] h-[30vh] sticky'>
-                        <Image
-                            src={'/assets/startup/mockup.jpg'}
-                            alt="Mockup"
-                            width={660}
-                            height={150}
-                        />
-                    </div>
-                </div>
-                <div
-                    className={`lg:px-[28em] items-center ${isDayTime ? 'text-black bg-white' : 'text-white bg-black'} justify-center`}>
-                    <h2 className='lg:text-[3em] text-[1.5em] font-[600] tracking-tighter leading-[1.15] pb-6 text-center'>
-                        Prepared to initiate the discussion?
-                    </h2><br/>
-                    <Link href='/contact'
-                          className='flex items-center justify-center-safe text-center'>
-                        <button
-                            className='relative mx-auto inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em] border tracking-tighter rounded-full py-2 px-6'>
-                        <span
-                            className={`w-32 h-32 rotate-45 translate-x-[4em] -translate-y-[2.8em] absolute left-0 top-0 ${isDayTime ? 'bg-white' : 'bg-black'} opacity-[100%]`}></span>
-                            <span
-                                className={`absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-90 -translate-x-56 -translate-y-24 ${isDayTime ? 'bg-black' : 'bg-white'} opacity-100 group-hover:-translate-x-8`}></span>
-                            <span
-                                className={`relative w-full text-left text-black ${isDayTime ? 'text-black group-hover:text-white' : 'text-white group-hover:text-black'} transition-colors duration-200 ease-in-out`}>Get
-                                started <span className={`text-[1.5em] leading-[0.7]`}> →</span></span>
-                            <span className="absolute inset-0 rounded-full "></span>
-                        </button>
-                    </Link>
-                </div>
-            </div>
         </div>
     );
 };

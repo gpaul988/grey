@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import { FxBackground, FxChip, FxOrbit, FxHoloCard } from '@/components/futuristic/fx';
@@ -21,14 +21,17 @@ interface ServiceHeroProps {
 
 /* ─── Animated Particle field ─────────────────────────────────────── */
 function ParticleField({ color }: { color: string }) {
-  const particles = Array.from({ length: 40 }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 3 + 1,
-    duration: Math.random() * 8 + 4,
-    delay: Math.random() * 4,
-  }));
+   
+  const particles = useMemo(() => {
+    return Array.from({ length: 40 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 3 + 1,
+      duration: Math.random() * 8 + 4,
+      delay: Math.random() * 4,
+    }));
+  }, []);
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {particles.map((p) => (

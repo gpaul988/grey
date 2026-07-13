@@ -5,6 +5,7 @@
  */
 
 // In-memory search index for development/testing
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const searchIndex = new Map<string, any[]>();
 
 export interface SearchableDocument {

@@ -12,7 +12,6 @@ import CountUp from 'react-countup';
 import { FaStar, FaGoogle, FaLinkedin } from 'react-icons/fa6';
 import { FaFileAlt } from 'react-icons/fa';
 import AIProjectEstimator from '@/components/AIProjectEstimator';
-import AdBanner from '@/components/futuristic/AdBanner';
 import WebGLHero from '@/components/futuristic/WebGLHero';
 import { usePersonalization } from '@/components/futuristic/PersonalizationProvider';
 import { getAutoUserName } from '@/lib/get-user-name';
@@ -121,7 +120,7 @@ const Home = () => {
 
   return (
     <div className={`${isHydrated ? (isDayTime ? 'bg-white' : 'bg-black') : 'bg-white'} min-h-screen`}>
-      <FloatingButton className="fixed bottom-6 right-6 z-9999 transition-all duration-300 mb-0" />
+      <FloatingButton />
 
       {/* ── Hero ── */}
       <div id="hero" className="relative">
@@ -518,7 +517,6 @@ const Home = () => {
         <AIProjectEstimator />
       </div>
 
-      <AdBanner placement="home_banner" />
       <SocialProof page="home" />
     </div>
   );

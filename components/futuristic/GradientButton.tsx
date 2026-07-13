@@ -4,7 +4,7 @@ import React from 'react';
 
 interface GradientButtonProps {
   children: React.ReactNode;
-  onClick?: () => void;
+  onClickAction?: () => void;
   href?: string;
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -16,7 +16,7 @@ interface GradientButtonProps {
 
 export const GradientButton: React.FC<GradientButtonProps> = ({
   children,
-  onClick,
+  onClickAction,
   variant = 'primary',
   size = 'md',
   className = '',
@@ -41,7 +41,7 @@ export const GradientButton: React.FC<GradientButtonProps> = ({
   return (
     <button
       type={type}
-      onClick={onClick}
+      onClick={onClickAction}
       disabled={disabled || loading}
       className={`
         inline-flex items-center justify-center gap-2

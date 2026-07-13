@@ -189,8 +189,9 @@ function escapeHtml(text: string): string {
         '&': '&amp;',
         '<': '&lt;',
         '>': '&gt;',
-        '"': '&quot;',
+        '"': '"',
         "'": '&#39;',
     };
     return text.replace(/[&<>"']/g, (m) => map[m]);
 }
+

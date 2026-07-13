@@ -266,24 +266,82 @@ export default function QuoteRequest() {
             setNotice({type: 'error', text: 'Please complete required fields.'});
             return;
         }
+        
+        // Validate all required fields are NOT empty after trimming
+        const trimmedName = formData.name.trim();
+        const trimmedEmail = formData.email.trim();
+        const trimmedPhone = formData.phone.trim();
+        const trimmedDescription = (formData.message || formData.description).trim();
+        
+        if (!trimmedName || trimmedName === '') {
+            setNotice({type: 'error', text: 'Full name is required.'});
+            return;
+        }
+        if (!trimmedEmail || trimmedEmail === '') {
+            setNotice({type: 'error', text: 'Email address is required.'});
+            return;
+        }
+        if (!trimmedPhone || trimmedPhone === '') {
+            setNotice({type: 'error', text: 'Phone number is required.'});
+            return;
+        }
+        if (!formData.projectType || formData.projectType === '') {
+            setNotice({type: 'error', text: 'Project type is required.'});
+            return;
+        }
+        if (!formData.budget || formData.budget === '') {
+            setNotice({type: 'error', text: 'Budget is required.'});
+            return;
+        }
+        if (!trimmedDescription || trimmedDescription === '') {
+            setNotice({type: 'error', text: 'Project description is required.'});
+            return;
+        }
+        
         clearNotice();
         setIsSubmitting(true);
+        
+        const payloadData = {
+            formType: FORM_TYPE,
+            name: trimmedName,
+            email: trimmedEmail,
+            telephone: trimmedPhone,
+            companyName: formData.company.trim(),
+            projectType: formData.projectType,
+            otherProjectType: formData.otherProjectType,
+            budget: formData.budget,
+            currency: formData.currency,
+            timeline: formData.timeline || 'Not specified',
+            message: trimmedDescription,
+            additionalMessage: formData.message.trim(),
+            requirementFiles: formData.requirements.map(f => f.name),
+        };
+        
+        console.log('[QuoteRequest] Submitting payload:', payloadData);
+        
         try {
-            const emailPromise = fetch('/api/submit-form', {
+            const response = await fetch('/api/submit-form', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    formType: FORM_TYPE,
-                    ...formData,
-                    message: formData.message || formData.description,
-                    requirements: formData.requirements.map(f => f.name)
-                })
+                body: JSON.stringify(payloadData)
             });
-            setNotice({type: 'success', text: 'Quote request submitted.'});
+            
+            console.log('[QuoteRequest] Response status:', response.status);
+            
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                console.log('[QuoteRequest] Error response:', errorData);
+                throw new Error(errorData.error || `Server error: ${response.status}`);
+            }
+            
+            const result = await response.json();
+            console.log('[QuoteRequest] Success response:', result);
+            setNotice({type: 'success', text: 'Quote request submitted successfully! Check your email for confirmation.'});
             resetForm();
         } catch (err) {
-            console.error('Submission error:', err);
-            setNotice({type: 'error', text: 'Submission failed.'});
+            console.error('[QuoteRequest] Submission error:', err);
+            const errorMessage = err instanceof Error ? err.message : 'Failed to submit form. Please try again.';
+            setNotice({type: 'error', text: errorMessage});
         } finally {
             setIsSubmitting(false);
         }
@@ -386,12 +444,13 @@ export default function QuoteRequest() {
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-2">Phone
-                                                Number</label>
+                                                Number <span className="text-red-500">*</span></label>
                                             <input
                                                 type="tel"
                                                 name="phone"
                                                 value={formData.phone}
                                                 onChange={handleInputChange}
+                                                required
                                                 className="w-full p-3 border-b border-gray-300"
                                                 placeholder="+1 (555) 123-4567"
                                             />

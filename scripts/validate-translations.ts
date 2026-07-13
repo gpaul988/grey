@@ -15,6 +15,7 @@ interface TranslationData {
   [key: string]: string | TranslationData;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function flattenObject(obj: any, prefix = ''): Record<string, string> {
   const result: Record<string, string> = {};
   for (const [key, value] of Object.entries(obj)) {

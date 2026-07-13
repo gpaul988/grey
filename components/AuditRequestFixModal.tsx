@@ -165,7 +165,7 @@ export function AuditRequestFixModal({
         <div className="sticky top-0 z-10 flex items-center justify-between border-b border-white/10 bg-slate-900/95 px-6 py-4 backdrop-blur">
           <div>
             <h2 className="text-xl font-bold text-white">Request a Fix</h2>
-            <p className="text-xs text-slate-500">We'll respond within 24 hours with a proposal.</p>
+            <p className="text-xs text-slate-500">We&#39;ll respond within 24 hours with a proposal.</p>
           </div>
           <button
             onClick={onClose}
@@ -183,7 +183,7 @@ export function AuditRequestFixModal({
               </div>
               <h3 className="text-2xl font-bold text-white">Request Submitted!</h3>
               <p className="mt-2 text-sm text-slate-400">
-                We've received your fix request. Our team will review it and contact you within 24 hours.
+                We&#39;ve received your fix request. Our team will review it and contact you within 24 hours.
               </p>
             </div>
           ) : (
@@ -356,7 +356,7 @@ export function AuditRequestFixModal({
               </div>
 
               <p className="text-center text-xs text-slate-600">
-                We'll review your request and respond within 24 hours with a cost estimate.
+                We&#39;ll review your request and respond within 24 hours with a cost estimate.
               </p>
             </form>
           )}
@@ -405,3 +405,4 @@ function Field({
     </div>
   );
 }
+

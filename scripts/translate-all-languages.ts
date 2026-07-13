@@ -12,6 +12,7 @@ interface TranslationData {
 }
 
 // Flatten nested objects
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function flattenObject(obj: any, prefix = ''): Record<string, string> {
   const result: Record<string, string> = {};
   for (const [key, value] of Object.entries(obj)) {
@@ -26,7 +27,9 @@ function flattenObject(obj: any, prefix = ''): Record<string, string> {
 }
 
 // Unflatten back to nested
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function unflattenObject(flatObj: Record<string, string>): any {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const result: any = {};
   for (const [key, value] of Object.entries(flatObj)) {
     const parts = key.split('.');
@@ -97,6 +100,7 @@ async function generateAllLanguages() {
   }
 
   // Get reference English files
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const enFiles: Record<string, any> = {};
   for (const namespace of namespaces) {
     const filePath = path.join(enDir, `${namespace}.json`);

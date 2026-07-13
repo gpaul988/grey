@@ -6,6 +6,7 @@ import '@/app/globals.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaWhatsapp, FaEnvelope, FaTicketAlt, FaQuestionCircle, FaBook, FaPhoneAlt } from 'react-icons/fa';
 import { useIsDayTime } from '../components/useIsDayTime';
+import QuoteRequest from '@/components/QuoteRequest';
 import {
     FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxGlitchText,
     FxSectionHeading, FxTerminal, FxFrame,
@@ -42,6 +43,7 @@ const Support: React.FC = () => {
     const isDayTime = useIsDayTime();
     const dark = !isDayTime;
     const [openFaq, setOpenFaq] = useState<number | null>(0);
+    const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
     const channels = [
         {
@@ -182,7 +184,6 @@ const Support: React.FC = () => {
                             {[
                                 { href: '/case-studies', icon: <FaBook className="text-xl" />, title: 'Case Studies', desc: `See how we've solved problems for other clients.`, accent: '#2dd4bf' },
                                 { href: '/blog', icon: <FaQuestionCircle className="text-xl" />, title: 'Guides & Articles', desc: 'Tips, insights and how-tos from our team.', accent: '#a855f7' },
-                                { href: '/quote-request', icon: <FaTicketAlt className="text-xl" />, title: 'Request a Quote', desc: 'Starting something new? Tell us about it.', accent: '#06b6d4' },
                             ].map((r, i) => (
                                 <FxReveal key={r.title} delay={0.08 * i}>
                                     <Link href={r.href} className="block">
@@ -198,6 +199,23 @@ const Support: React.FC = () => {
                                     </Link>
                                 </FxReveal>
                             ))}
+                            {/* Request a Quote - Opens Modal */}
+                            <FxReveal delay={0.16}>
+                                <button
+                                    onClick={() => setIsQuoteModalOpen(true)}
+                                    className="block w-full"
+                                >
+                                    <FxHoloCard day={isDayTime} className="p-6 flex items-start gap-4 group cursor-pointer hover:scale-105 transition-transform">
+                                        <div className="shrink-0 w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: '#06b6d418', color: '#06b6d4' }}>
+                                            <FaTicketAlt className="text-xl" />
+                                        </div>
+                                        <div>
+                                            <h3 className={`text-[1em] font-[700] mb-1 group-hover:text-teal-400 transition-colors ${dark ? 'text-white' : 'text-gray-900'}`}>Request a Quote</h3>
+                                            <p className={`text-[0.82em] leading-relaxed ${dark ? 'text-gray-400' : 'text-gray-600'}`}>Starting something new? Tell us about it.</p>
+                                        </div>
+                                    </FxHoloCard>
+                                </button>
+                            </FxReveal>
                         </div>
                     </FxReveal>
 
@@ -280,6 +298,87 @@ const Support: React.FC = () => {
                     </FxReveal>
                 </div>
             </section>
+
+            {/* ── Quote Request Modal ── */}
+            <AnimatePresence>
+                {isQuoteModalOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setIsQuoteModalOpen(false)}
+                        className="fixed inset-0 z-[200] bg-black/70 backdrop-blur-xl flex items-center justify-center p-4"
+                    >
+                        <motion.div
+                            initial={{ scale: 0.85, opacity: 0, rotateX: 15 }}
+                            animate={{ scale: 1, opacity: 1, rotateX: 0 }}
+                            exit={{ scale: 0.85, opacity: 0, rotateX: 15 }}
+                            transition={{ type: 'spring', damping: 20, stiffness: 300 }}
+                            onClick={(e) => e.stopPropagation()}
+                            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl bg-gradient-to-br from-slate-900/98 via-slate-850/95 to-slate-900/98 border border-cyan-400/40 shadow-2xl shadow-cyan-600/30 backdrop-blur-xl transform transition-all duration-300 overflow-hidden"
+                        >
+                            {/* Decorative top border glow */}
+                            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent" />
+
+                            {/* Close Button - Premium Circular Design */}
+                            <button
+                                type="button"
+                                onClick={() => setIsQuoteModalOpen(false)}
+                                className="absolute top-8 right-8 z-10 w-12 h-12 rounded-full transition-all duration-300 backdrop-blur-lg border-2 border-cyan-300/40 flex items-center justify-center hover:scale-125 hover:rotate-90 group/close text-cyan-300 hover:text-cyan-100 bg-gradient-to-br from-slate-800/60 to-slate-800/40 hover:from-slate-700/80 hover:to-slate-700/60 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-400/40"
+                                aria-label="Close quote request modal"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-6 w-6 transition-all duration-300 group-hover/close:scale-110"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    strokeWidth={2.5}
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+
+                            {/* Premium Modal Header with gradient */}
+                            <div className="relative px-10 py-12 border-b border-cyan-400/25 bg-gradient-to-b from-slate-800/70 via-slate-800/40 to-transparent">
+                                {/* Decorative accent line */}
+                                <div className="absolute left-0 top-0 h-1 bg-gradient-to-r from-cyan-500 via-teal-500 to-transparent w-24" />
+
+                                <div className="inline-block px-4 py-1.5 rounded-full mb-4 bg-cyan-500/20 border border-cyan-400/50">
+                                    <span className="text-xs font-bold tracking-widest uppercase text-cyan-300">
+                                        Project Consultation
+                                    </span>
+                                </div>
+
+                                <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-tight mb-3 bg-gradient-to-r from-cyan-300 via-teal-300 to-cyan-200 bg-clip-text text-transparent">
+                                    Let's Build Your
+                                    <span className="block mt-1 text-teal-400">Digital Future</span>
+                                </h2>
+                                <p className="text-base mt-4 font-medium tracking-wide max-w-2xl text-cyan-200/80">
+                                    Transform your vision into cutting-edge enterprise solutions. Our experts are ready to deliver premium, scalable digital products tailored to your goals.
+                                </p>
+                            </div>
+
+                            {/* Premium Modal Body with spacing */}
+                            <div className="px-10 py-12">
+                                <QuoteRequest />
+                            </div>
+
+                            {/* Premium Modal Footer Effects */}
+                            <div className="relative h-24 bg-gradient-to-t from-slate-900/50 to-transparent border-t border-cyan-400/20 backdrop-blur-sm pointer-events-none">
+                                {/* Floating accent elements */}
+                                <div className="absolute bottom-4 left-10 text-xs font-semibold tracking-widest uppercase text-cyan-400/50">
+                                    Trusted by 50+ Enterprise Clients
+                                </div>
+                                <div className="absolute bottom-4 right-10 flex gap-2">
+                                    <div className="w-2 h-2 rounded-full bg-cyan-400/60 animate-pulse" />
+                                    <span className="text-xs font-medium text-cyan-300/70">Available 24/7</span>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };

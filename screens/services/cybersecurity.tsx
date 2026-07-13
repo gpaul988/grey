@@ -80,7 +80,24 @@ const Cybersecurity = () => (
             },
         ]}
         ctaHeading={<>Security that<br className="lg:block md:block hidden" />never sleeps</>}
-        ctaBody="Every day without proper security is a day your business is exposed. Grey InfoTech builds defences that protect what you have built and the customers who trust you."/>
+        ctaBody="Every day without proper security is a day your business is exposed. Grey InfoTech builds defences that protect what you have built and the customers who trust you."
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'Enterprise Security Assessment',
+                description: 'Comprehensive penetration testing, vulnerability assessments and security audits that identify risks and prioritize remediation for maximum impact.'
+            },
+            {
+                id: 'vs2',
+                title: 'Cloud & Infrastructure Security',
+                description: 'Secure cloud architectures with identity management, encryption, network hardening and compliance automation for regulated industries.'
+            },
+            {
+                id: 'vs3',
+                title: 'Incident Response & Threat Hunting',
+                description: ' 24/7 security monitoring, threat detection, incident response playbooks and post-breach forensics to minimize damage and prevent recurrence.'
+            }
+        ]}/>
 );
 
 export default Cybersecurity;

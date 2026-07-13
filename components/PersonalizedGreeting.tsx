@@ -22,6 +22,26 @@ export const PersonalizedGreeting = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showLanguageSelector, setShowLanguageSelector] = useState(false);
 
+  const getStoredUsername = (): string => {
+    if (typeof window === 'undefined') return '';
+    
+    const stored = localStorage.getItem('userName');
+    if (stored) return stored;
+    return '';
+  };
+
+  const getLanguageFromCountry = (countryCode: string): string => {
+    const countryToLanguage: Record<string, string> = {
+      US: 'en', GB: 'en', CA: 'en', AU: 'en', NZ: 'en', IE: 'en', ZA: 'en',
+      ES: 'es', MX: 'es', AR: 'es', CO: 'es', CL: 'es', PE: 'es', VE: 'es',
+      FR: 'fr', CH: 'de', BE: 'fr', DE: 'de', AT: 'de', IT: 'it', PT: 'pt',
+      BR: 'pt', CN: 'zh', TW: 'zh', SG: 'zh', JP: 'ja', RU: 'ru', KZ: 'ru',
+      BY: 'ru', SA: 'ar', AE: 'ar', EG: 'ar', JO: 'ar', LB: 'ar', IN: 'hi',
+      TZ: 'sw', KE: 'sw', UG: 'sw', NG: 'yo', BJ: 'yo',
+    };
+    return countryToLanguage[countryCode?.toUpperCase()] || 'en';
+  };
+
   // Detect geolocation
   useEffect(() => {
     const initializePreferences = async () => {
@@ -137,26 +157,6 @@ export const PersonalizedGreeting = () => {
 
     initializePreferences();
   }, []);
-
-  const getStoredUsername = (): string => {
-    if (typeof window === 'undefined') return '';
-    
-    const stored = localStorage.getItem('userName');
-    if (stored) return stored;
-    return '';
-  };
-
-  const getLanguageFromCountry = (countryCode: string): string => {
-    const countryToLanguage: Record<string, string> = {
-      US: 'en', GB: 'en', CA: 'en', AU: 'en', NZ: 'en', IE: 'en', ZA: 'en',
-      ES: 'es', MX: 'es', AR: 'es', CO: 'es', CL: 'es', PE: 'es', VE: 'es',
-      FR: 'fr', CH: 'de', BE: 'fr', DE: 'de', AT: 'de', IT: 'it', PT: 'pt',
-      BR: 'pt', CN: 'zh', TW: 'zh', SG: 'zh', JP: 'ja', RU: 'ru', KZ: 'ru',
-      BY: 'ru', SA: 'ar', AE: 'ar', EG: 'ar', JO: 'ar', LB: 'ar', IN: 'hi',
-      TZ: 'sw', KE: 'sw', UG: 'sw', NG: 'yo', BJ: 'yo',
-    };
-    return countryToLanguage[countryCode?.toUpperCase()] || 'en';
-  };
 
   const handleLanguageChange = (lang: string) => {
     const updated = { ...preferences, language: lang };

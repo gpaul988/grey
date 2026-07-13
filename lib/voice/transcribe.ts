@@ -31,7 +31,7 @@ export async function transcribeAudio(audioBuffer: Buffer, options?: {
     };
   }
 
-    try {
+  try {
     const formData = new FormData();
     // Convert Buffer to Uint8Array for Blob compatibility
     const uint8Array = new Uint8Array(audioBuffer);
@@ -62,6 +62,7 @@ export async function transcribeAudio(audioBuffer: Buffer, options?: {
       };
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result = await response.json() as any;
     const transcript = result.results?.channels?.[0]?.alternatives?.[0];
 
@@ -120,6 +121,7 @@ export async function transcribeStream(
         Authorization: `Token ${DEEPGRAM_API_KEY}`,
         'Content-Type': 'application/octet-stream',
       },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       body: audioStream as any,
     });
 
@@ -146,6 +148,7 @@ export async function transcribeStream(
 
       for (const line of lines) {
         try {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const data = JSON.parse(line) as any;
           const transcript = data.channel?.alternatives?.[0];
 

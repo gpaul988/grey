@@ -8,6 +8,7 @@ export interface AnalyticsEvent {
   sessionId: string;
   eventType: 'page_view' | 'conversion' | 'click' | 'form_submit' | 'error' | 'custom';
   eventName: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   properties: Record<string, any>;
   timestamp: number;
   url: string;

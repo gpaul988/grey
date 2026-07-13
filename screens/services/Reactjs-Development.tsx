@@ -1,1070 +1,126 @@
-'use client';
+﻿import React from 'react';
+import ServicePageTemplate from '@/components/ServicePageTemplate';
 
-
-import React, {useEffect, useRef, useState} from 'react';
-import '@/app/globals.css'
-import FloatingButton from "@/components/FloatingButton";
-import Image from "next/image";
-import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
-import ServiceHero from '@/components/futuristic/ServiceHero';
-import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
-import Link from "next/link";
-import {useIsDayTime} from '../../components/useIsDayTime';
-
-import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
-
-import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
-const ReactjsDevelopment = () => {    const [isVisible, setIsVisible] = useState(false);
-    const sectionRef = useRef<HTMLDivElement>(null);
-    const [isBackgroundActive, setIsBackgroundActive] = useState(false);
-    const [activeId, setActiveId] = useState<string>("");
-
-
-    // Floating button visibility hook
-    useEffect(() => {
-        const handleScroll = () => {
-            const scrollPosition = window.scrollY;
-            setIsVisible(scrollPosition > 200); // Show the button after scrolling 200px
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
-
-    // isDaytime react hook
-    const isDayTime = useIsDayTime();
-
-
-    // Introductory section hook
-    useEffect(() => {
-        const handleScroll = () => {
-            if (sectionRef.current) {
-                const {top, bottom} = sectionRef.current.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-
-                if (top < windowHeight * -0.2 || bottom < windowHeight * -0.1) {
-                    setIsBackgroundActive(true);
-                } else {
-                    setIsBackgroundActive(false);
-                }
-            }
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
-
-    // Development Solutions hook
-    const handleScroll = () => {
-        const sections = [
-            "CAD",
-            "UII",
-            "CD",
-            "MU",
-            "SPA",
-            "FSD",
-            "AI",
-            "PO",
-            "SR",
-            "TQA",
-            "MS",
-        ];
-
-        for (const sectionId of sections) {
-            const section = document.getElementById(sectionId);
-            if (section) {
-                const rect = section.getBoundingClientRect();
-                if (rect.top >= 0 && rect.top <= window.innerHeight / 2) {
-                    setActiveId(sectionId);
-                    break;
-                }
-            }
+const ReactjsDevelopment = () => (
+    <ServicePageTemplate
+        title={<>React <br className={'lg:block md:block hidden'}/>Development Services</>}
+        heroVideo="/assets/hero/hero.mp4"
+        heroVideoMobile="/assets/hero/hero.mp4"
+        midImage="/assets/services/services.jpg"
+        topImages={['/assets/services/digital-optimisation.jpg', '/assets/services/Web-App-Development-company.jpg', '/assets/services/Development.jpg', '/assets/services/Research-strategy.jpg']}
+        intro={
+            <>
+                Interactive, performant user interfaces for SaaS dashboards, real-time applications, and e-commerce platforms.
+                React delivers the responsive experiences your users expect and your business needs.
+            </>
         }
-    };
-
-    useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
-
-    const scrollToSection = (target: string) => {
-        const section = document.getElementById(target);
-        if (section) {
-            section.scrollIntoView({behavior: "smooth", block: "start"});
-            setActiveId(target); // Ensure the arrow icon is displayed when a section is clicked
+        eyebrow={<>Component-driven development, <br className={'lg:block md:block hidden'}/>interactive UIs</>}
+        introHeading={<>React Development <br className={'lg:block md:block hidden'}/>From Simple to Complex</>}
+        introBody={[
+            <>
+                React powers some of the world's most interactive applications—SaaS dashboards, real-time collaboration tools,
+                e-commerce platforms, and complex data visualizations. At Grey InfoTech we harness React's component model and
+                modern JavaScript to build user interfaces that are fast, responsive, and a pleasure to use. Whether building from scratch
+                or enhancing existing applications, our React expertise delivers interfaces that engage users and drive business metrics.
+                We stay current with the latest React patterns, hooks, and best practices to build maintainable, scalable applications.
+            </>,
+            <>
+                Beyond building interfaces, React excels at managing complex state, handling real-time updates, and delivering
+                seamless user experiences. We build SaaS dashboards that visualize data intelligently, e-commerce applications that
+                drive conversions, and real-time applications where instant responsiveness matters. With proper state management, performance
+                optimization, and testing practices, React applications stay fast, reliable, and maintainable as they scale. React enables
+                small teams to build sophisticated applications that compete with industry leaders.
+            </>,
+        ]}
+        solutionsHeading={<>React <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
+        solutionsIntro={
+            <>
+                From SaaS dashboards and real-time applications to e-commerce platforms and data-heavy interfaces,
+                Grey InfoTech delivers comprehensive React development. Component-driven architecture and modern JavaScript
+                create interfaces that are fast, scalable, and delightful to use.
+            </>
         }
-    };
-
-    return (
-        <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
-
-            <ServiceHero
-                title="React.js Development"
-                subtitle="Modern React applications and component systems"
-                accentColor="#00f5d4"
-                variant="circuit"
-                badges={["React","Next.js","TypeScript","Performance"]}
-                ctaHref="/contact"
-                ctaLabel="Talk to an expert"
-            />
-
-            {/* Introductory section */}
-            <section ref={sectionRef}
-                     className={`py-12 transition-colors duration-500 ${
-                         isBackgroundActive
-                             ? isDayTime
-                                 ? "bg-black text-white"
-                                 : "bg-white text-black"
-                             : isDayTime
-                                 ? "bg-white text-black"
-                                 : "bg-black text-white"
-                     }`}>
-                <div
-                    className='relative grid lg:grid-cols-2 grid-cols-1 lg:my-[3em] my-[1em] lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-16 pb-6 lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'>
-                    <div className=''>
-                        <h6 className='constant-text uppercase lg:text-[0.85em] md:text-[0.85em] leading-[1.3] text-[0.8em] lg:font-[600] font-[600] lg:tracking-wider tracking-tight'>
-                            Your partner for cutting-<br className={'lg:block md:block hidden'}/>edge React.js
-                            applications
-                        </h6>
-                    </div>
-                    <div className='lg:-ml-[19em]'>
-                        <h3 className='lg:text-[3em] md:text-[3em] text-[1.8em] font-[500] lg:mt-[0.01em] lg:leading-[1.1] tracking-tight border-b lg:pb-[0.7em] lg:mb-[0.7em] leading-[1.1] pb-6'>
-                            React.js Development
-                        </h3>
-                        <div
-                            className='grid lg:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]'>
-                            <div>
-                                <p>
-                                    At Grey InfoTech, we deliver React.js development services that help businesses
-                                    build fast, scalable, and modern applications. React is our go-to framework for
-                                    creating responsive user interfaces across web and mobile platforms. Whether you’re
-                                    launching a new digital product or upgrading an existing platform, we tailor each
-                                    solution to your specific business needs, ensuring long-term value and
-                                    growth.<br/><br/>
-                                    Our approach is rooted in a component-based architecture, allowing us to build
-                                    modular, reusable UI elements that speed up development and simplify maintenance.
-                                    This leads to faster rollouts, consistent design, and reduced development costs over
-                                    time—key advantages for businesses looking to scale efficiently. React is especially
-                                    effective for building single-page applications, dynamic interfaces, and branded
-                                    websites that perform under pressure.
-                                </p>
-                            </div>
-                            <div>
-                                <p>
-                                    We handle everything from UI design and front-end architecture to API integration,
-                                    performance optimisation, and quality testing. Whether your React app needs to
-                                    connect with a CMS, integrate with back-end services, or manage real-time data, our
-                                    team ensures seamless execution and reliable performance. We follow industry best
-                                    practices around testing, security, and scalability to future-proof your
-                                    application.
-                                    <br/><br/>
-                                    With Grey InfoTech as your development partner, you gain more than just technical
-                                    expertise—you gain a strategic ally. We bring deep cross-industry experience, from
-                                    fintech to healthcare, and work closely with your team to align the solution with
-                                    your business goals. Let’s build a React.js application that elevates your customer
-                                    experience and drives measurable business outcomes.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/*f Top Image*/}
-            <div id={'top'}
-                 className={'relative lg:max-w-full w-full py-16 mx-auto h-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'}>
-                <div className={'relative grid lg:grid-cols-4 h-auto md:grid-cols-4 grid-cols-1 gap-6'}>
-                    <div className={'h-auto w-full max-w-full'}>
-                        <Image
-                            src={'/assets/react/1.jpg'}
-                            alt={'Garden'}
-                            width={400}
-                            height={400}
-                        />
-                    </div>
-                    <div>
-                        <Image
-                            src={'/assets/react/2.jpg'}
-                            alt={'home'}
-                            width={400}
-                            height={400}
-                        />
-                    </div>
-                    <div>
-                        <Image
-                            src={'/assets/react/3.jpg'}
-                            alt={'ecommerce'}
-                            width={400}
-                            height={400}
-                        />
-                    </div>
-                    <div>
-                        <Image
-                            src={'/assets/react/4.png'}
-                            alt={'sales'}
-                            width={400}
-                            height={400}
-                        />
-                    </div>
-                </div>
-            </div>
-
-            {/* Our React Development Service */}
-            <div className={`lg:pt-[2em]  ${isDayTime ? 'bg-white' : 'bg-black'}`}>
-                <div id={'react-development'}
-                     className={'relative lg:py-[3em] py-[1em] lg:my-[3em] my-[1em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]'}>
-                    <div
-                        className={`relative grid lg:grid-cols-2 grid-cols-1 gap-4 mb-8 border-b-[1px] lg:pb-[4em] pb-[2em] ${isDayTime ? 'text-black' : 'text-white'} `}>
-                        <div>
-                            <h2 className={`lg:text-[3em] text-[1.5em] font-[500] justify-center tracking-tight lg:pr-[1em] leading-[1.1]`}>
-                                Our React.js <br className={'lg:block md:block hidden'}/>Development <br
-                                className={'lg:block md:block hidden'}/>Services
-                            </h2>
-                        </div>
-                        <div className={'lg:-ml-[4em] md:-ml-[4em]'}>
-                            <p className='text-[0.873em] font-[400] justify-center text-justify leading-[1.5] lg:-ml-[3em] tracking-noromal'>
-                                Our React.js development services are designed to modernize legacy applications by
-                                transforming outdated user interfaces through a component-based architecture. As a
-                                full-service React.js development company, we handle everything from concept and design
-                                to deployment and long-term maintenance—delivering scalable, high-performance, and
-                                user-friendly applications. Let’s build something exceptional together.
-                            </p>
-                        </div>
-                    </div>
-                    <div
-                        className='grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-16 lg:mt-28 md:mt-28 mt-6 px-6 max-w-full w-full mx-auto h-full'>
-                        <div
-                            className='lg:sticky md:sticky top-28 lg:h-screen md:h-screen lg:mr-[15em] overflow-hidden'>
-                            <h3 className={`text-[1.5em] font-[500] constant-text ${
-                                isDayTime ? 'text-black' : 'text-white'
-                            }`}>
-                                Our Services
-                            </h3>
-                            <ul className={`list-disc constant-text text-[0.873em] ml-4 font-[300] relative space-y-1 ${
-                                isDayTime ? 'text-black decoration-gray-600 focus:decoration-gray-900' : 'text-white decoration-gray-300 focus:decoration-gray-100'
-                            }`}>
-                                {[
-                                    {id: "01", title: "Custom Application Development", target: "CAD"},
-                                    {id: "02", title: "User Interface Implementation", target: "UII"},
-                                    {id: "03", title: "Component Development", target: "CD"},
-                                    {id: "04", title: "Migration & Upgrades", target: "MU"},
-                                    {id: "05", title: "Single Page Applications (SPAs)", target: "SPA"},
-                                    {id: "06", title: "Full-Stack Development", target: "FSD"},
-                                    {id: "07", title: "API Integration", target: "AI"},
-                                    {id: "08", title: "Performance Optimisation", target: "PO"},
-                                    {id: "09", title: "Server-Side Rendering", target: "SR"},
-                                    {id: "10", title: "Testing & Quality Assurance", target: "TQA"},
-                                    {id: "11", title: "Maintenance & Support", target: "MS"},
-                                ].map((item, index) => (
-                                    <li key={index} className={'group lg:mt-6 mt-4'}>
-                                        <button
-                                            onClick={() => scrollToSection(item.target)}
-                                            className={`w-full text-left flex items-center gap-4 mb-2 focus:font-[650] ${
-                                                isDayTime
-                                                    ? `focus:text-black ${activeId === item.target ? 'text-gray-900 font-[650]' : 'text-gray-500 font-[300]'}`
-                                                    : `focus:text-white ${activeId === item.target ? 'text-gray-100 font-[650]' : 'text-gray-400 font-[300]'}`
-                                            }`}
-                                        >
-                                            <div className={'flex gap-4'}>
-                                                <span className={'shrink-0'}>{item.id}</span>
-                                                <span
-                                                    className={`opacity-0 transition-opacity text-[2em] leading-[0.59em] ${activeId === item.target ? 'opacity-100' : ''}`}>→</span>
-                                                <span>{item.title}</span>
-                                            </div>
-                                        </button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div className={'lg:-ml-[8em] md:-ml-[8em] lg:mb-[8em] md:mb-[8em]'}>
-                            <div className="grid lg:grid-cols-[50px_auto] grid-cols-1 lg:gap-2 gap1 items-start">
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>01/
-                                </div>
-                                <div className={`lg:mb-44 mb-14  ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'CAD'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Custom Application Development
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Tailored solutions</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Adaptable applications</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>React development</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.873em] font-[300]'}>
-                                        Whether you need a real-time data dashboard, a secure collaboration tool, or a
-                                        dynamic user interface, our React.js solutions are tailored to your business
-                                        objectives. We begin with a thorough discovery process to understand your
-                                        workflows, user expectations, and industry-specific requirements. This ensures
-                                        we deliver purpose-built applications that are not only intuitive and scalable
-                                        but also aligned with your strategic goals. From fintech and logistics to
-                                        healthcare and e-commerce, we develop adaptable React.js solutions that create
-                                        measurable impact and long-term value.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>02/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'UII'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        User Interface Implementation
-                                    </h2>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        React.js is the go-to library for building highly interactive and efficient user
-                                        interfaces. Unlike
-                                        native <Link href={'/services/Javascript'}
-                                                     className={`border-b pb-[0.02em] ${
-                                                         isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
-                                                     }`}>JavaScript</Link>, which re-renders the entire page on
-                                        updates, React uses a virtual DOM to intelligently update only the components
-                                        that need changes. This results in faster performance, smoother user
-                                        experiences, and better resource efficiency. Its modular architecture and
-                                        reusable components make it an ideal choice for developing complex,
-                                        enterprise-grade applications with scalability and maintainability in mind.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>03/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'CD'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>Component Development</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Custom libraries</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Reusable design</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Brand specific design</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        We develop custom <Link href={'/services/ui-ux-design'}
-                                                                className={`border-b pb-[0.02em] ${
-                                                                    isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
-                                                                }`}>UI</Link> components and reusable design libraries
-                                        tailored to your brand, ensuring both visual consistency and development
-                                        efficiency. By standardizing core interface elements, we accelerate future
-                                        feature rollouts, reduce technical debt, and maintain a cohesive user experience
-                                        across your digital products. This approach not only supports scalability but
-                                        also aligns your frontend architecture with long-term product goals.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>04/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'MU'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>Migration & Upgrades</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>React migration</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>App updates</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Future proofing</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Seamless transitions</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Our React development team specializes in modernizing legacy applications by
-                                        transitioning them to the React.js ecosystem or upgrading them with the latest
-                                        React features. This transformation enhances performance, improves
-                                        maintainability, and ensures compatibility with modern web standards. By
-                                        aligning your applications with current technologies, we future-proof your
-                                        digital infrastructure and prepare your business to meet evolving user
-                                        expectations and industry demands.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>05/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'SPA'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>Single Page Applications (SPAs)</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Responsive apps</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>User experience</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        We build intuitive and responsive single-page applications (SPAs) using
-                                        React.js, delivering seamless user experiences through dynamic, real-time
-                                        interfaces. By minimizing page reloads and optimizing performance with React’s
-                                        efficient rendering, our SPAs enhance user engagement and drive higher
-                                        retention—ideal for businesses aiming to provide fast, fluid, and modern web
-                                        interactions.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>06/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'FSD'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>Full-Stack Development</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Integrated solutions</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Data management</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        We integrate React.js with robust backend technologies to develop comprehensive,
-                                        feature-rich applications. This full-stack approach ensures not only sleek and
-                                        responsive user interfaces but also efficient data handling, scalability, and
-                                        secure operations—delivering a cohesive digital solution aligned with your
-                                        business goals.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>07/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'AI'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>API Integration</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Extended capabilities</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>React functionality</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        We integrate APIs and third-party services into your React.js applications to
-                                        extend core functionality and enable smooth interactions with external
-                                        platforms—whether it&#39;s payment gateways, CRM systems, analytics tools, or
-                                        cloud
-                                        services. This ensures your app delivers a connected, scalable, and efficient
-                                        user experience.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>08/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'PO'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>Performance Optimisation</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Faster load times</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Optimised apps</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>User experience</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Our developers optimise React.js applications to effectively handle high traffic
-                                        volumes and complex content structures. Through performance tuning, code
-                                        splitting, lazy loading, and other advanced techniques, we reduce load times and
-                                        boost responsiveness—delivering a smoother user experience that scales with your
-                                        business demands.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>09/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'SR'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>Server-Side Rendering</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Improved discoverability</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Accessible apps</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Using server-side rendering (SSR), we enhance
-                                        both <Link href={'/services/seo'}
-                                                   className={`border-b pb-[0.02em] ${
-                                                       isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
-                                                   }`}>SEO</Link> and performance by
-                                        pre-rendering pages on the server before delivering them to the browser. This
-                                        results in faster initial load times and greater visibility in search engine
-                                        rankings—making your React.js application not only more discoverable but also
-                                        more accessible to a broader audience.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>10/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'TQA'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>Testing & Quality Assurance</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>React.js testing</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Reliable apps</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Bug free solutions</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        We rigorously test every React.js application to ensure it performs reliably
-                                        under real-world conditions. Our comprehensive quality assurance process
-                                        includes unit testing, integration testing, and performance benchmarking,
-                                        ensuring each feature functions as intended and meets both user expectations and
-                                        industry standards. The result is a stable, error-free application built for
-                                        long-term success.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>11/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'MS'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>Maintenance & Support</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>React.js maintenance</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Secure apps</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Continuous improvements</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Our ongoing maintenance and support services ensure your React.js applications
-                                        remain secure, current, and fully optimized. From implementing the latest
-                                        updates and patching vulnerabilities to accommodating new features or a
-                                        full-scale rebrand, we provide proactive assistance to keep your application
-                                        aligned with your business goals—ensuring performance, security, and user
-                                        satisfaction never falter.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Mid image*/}
-            <div id={'mid image'} className={'lg:-mt-[15em] md:-mt-[15em] h-auto max-w-full w-full mx-auto'}>
-                <Image
-                    className={' object-fill'}
-                    src={'/assets/react/mid.jpg'}
-                    alt={'Middle Image'}
-                    width={2560}
-                    height={1440}
-                    style={{
-                        objectFit: "fill",
-                        objectPosition: "center",
-                    }}
-                />
-            </div>
-
-            {/* Why React.js */}
-            <div
-                className='relative grid lg:grid-cols-2 grid-cols-1 lg:my-[3em] my-[1em] lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-16 pb-6 lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'>
-                <div className=''>
-                    <h6 className='constant-text uppercase lg:text-[0.85em] md:text-[0.85em] leading-[1.3] text-[0.8em] lg:font-[600] font-[600] lg:tracking-wider tracking-tight'>
-                        Building fast, interactive <br className={'lg:block md:block hidden'}/>user experiences
-                    </h6>
-                </div>
-                <div className='lg:-ml-[19em]'>
-                    <h3 className='lg:text-[3em] md:text-[3em] text-[1.8em] font-[500] lg:mt-[0.01em] lg:leading-[1.1] tracking-tight border-b lg:pb-[0.7em] lg:mb-[0.7em] leading-[1.1] pb-6'>
-                        Why React.js?
-                    </h3>
-                    <div
-                        className='grid lg:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]'>
-                        <div>
-                            <p>
-                                <Link href={'https://www.react.dev'}
-                                      className={`border-b pb-[0.02em] ${
-                                          isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
-                                      }`}>React.js</Link> is a free, open-source JavaScript library developed by Meta
-                                (formerly Facebook) in 2013 to build fast, dynamic, and highly interactive user
-                                interfaces. Designed for creating both single-page applications (SPAs) and native mobile
-                                apps, React powers the “view” layer of an application—essentially what users interact
-                                with. Its component-based architecture allows developers to break interfaces down into
-                                reusable modules, making applications easier to scale, maintain, and debug. For example,
-                                treating a website’s header, navigation bar, and content section as independent
-                                components enhances development efficiency and consistency.
-                            </p>
-                        </div>
-                        <div>
-                            <p>
-                                Trusted by global leaders like Facebook, Instagram, WhatsApp, Netflix, and Airbnb, React
-                                has become the preferred choice for building modern applications due to its agility,
-                                performance, and flexibility. Its virtual DOM efficiently manages UI updates, ensuring
-                                seamless experiences even with dynamic and content-heavy applications. At Grey InfoTech,
-                                we frequently recommend React for projects that demand speed, scalability, and a
-                                high-quality user experience. Whether you&#39;re building a new platform or modernising
-                                an existing one, React offers the adaptability and performance today’s digital products
-                                require.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* React.js Benefits */}
-            <div className={`${isDayTime ? 'bg-gray-50' : 'bg-gray-950'}`}>
-                <div
-                    className={`relative max-w-full w-full py-16 lg:mt-[3em] md:mt-[3em] mx-auto h-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]`}>
-                    <div
-                        className={`relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4 border-b-[1px] lg:pb-[3em] pb-[2em] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                        <div>
-                            <h2 className='lg:text-[3em] capitalize md:text-[2em] sm:text-[1em] font-[500] justify-center tracking-tight leading-[1.2]'>
-                                React.js Benefits
-                            </h2>
-                        </div>
-                        <div>
-                            <p className='text-[0.87em] font-[300] justify-center tracking-normal text-justify leading-[1.3] lg:-ml-[1.2em] md:-ml-[1.2em]'>
-                                A custom React web application delivers the reliability of traditional software with the
-                                speed and flexibility modern businesses demand. It’s cost-effective, scalable, and built
-                                to adapt as your needs grow. Grey InfoTech has delivered seamless, high-impact solutions
-                                across diverse industries with a focus on speed, quality, and ease of use.
-                            </p>
-                        </div>
-                    </div>
-                    <div
-                        className='relative grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 lg:gap-[6em] gap-4 lg:mb-8 mb-8'>
-                        <div className={`mt-12 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                            <Image
-                                src={isDayTime ? '/assets/react/icon/rc.svg' : '/assets/react/icon/rc1.svg'}
-                                alt='Reusable Components'
-                                width={60}
-                                height={60}
-                                className='mb-2'
-                            />
-                            <h3 className='capitalize text-[1.5em] font-[600] mb-2'>
-                                reusable components
-                            </h3>
-                            <p className='text-justify text-[0.85em] font-[400]'>
-                                React’s reusable components streamline development by leveraging modular building blocks
-                                with defined functionality, allowing teams to build complex, consistent user interfaces
-                                quickly and efficiently. This component-based architecture not only accelerates
-                                development but also simplifies maintenance, ensures design consistency, and supports
-                                scalable growth—making it an ideal solution for modern web applications across
-                                industries.
-                            </p>
-                        </div>
-                        <div className={`mt-12 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                            <Image
-                                src={isDayTime ? '/assets/react/icon/wap.svg' : '/assets/react/icon/wap1.svg'}
-                                alt='Web Application Development'
-                                width={60}
-                                height={60}
-                                className='mb-2'
-                            />
-                            <h3 className='capitalize leading-[1.2] text-[1.5em] font-[600] mb-2'>
-                                web application <br className={'lg:block md:block hidden'}/>development
-                            </h3>
-                            <p className='text-justify text-[0.85em] font-[400]'>
-                                At Grey InfoTech, we build fast, modern web applications using React, combining
-                                efficiency, scalability, and a smooth user experience. With reusable components and a
-                                modular approach, we ensure consistent, high-quality interfaces. For
-                                mobile, <Link href={'/services/React-Native-Development'}
-                                              className={`border-b pb-[0.02em] ${
-                                                  isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
-                                              }`}>React Native</Link> lets us deliver visually rich, high-performance
-                                apps on Android and <Link href={'/services/ios-development'}
-                                                          className={`border-b pb-[0.02em] ${
-                                                              isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
-                                                          }`}>iOS</Link> from a
-                                single codebase—streamlining development for businesses across all industries.
-                            </p>
-                        </div>
-                        <div className={`mt-12 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                            <Image
-                                src={isDayTime ? '/assets/react/icon/ip.svg' : '/assets/react/icon/ip1.svg'}
-                                alt='Improved Performance'
-                                width={60}
-                                height={60}
-                                className='mb-2'
-                            />
-                            <h3 className='capitalize text-[1.5em] font-[600] mb-2'>
-                                Improved Performance
-                            </h3>
-                            <p className='text-justify text-[0.85em] font-[400]'>
-                                React’s virtual DOM leverages a diffing algorithm to efficiently update only the changed
-                                elements in the real DOM, minimizing costly re-renders and improving application
-                                responsiveness. This optimized rendering process accelerates performance, reduces
-                                development complexity, and enables businesses to deploy scalable, high-performance web
-                                applications that enhance user engagement and drive operational efficiency.
-                            </p>
-                        </div>
-                        <div className={`mt-12 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                            <Image
-                                src={isDayTime ? '/assets/react/icon/sf.svg' : '/assets/react/icon/sf1.svg'}
-                                alt='SEO-Friendly'
-                                width={60}
-                                height={60}
-                                className='mb-2'
-                            />
-                            <h3 className='text-[1.5em] font-[600] mb-2'>
-                                SEO-Friendly
-                            </h3>
-                            <p className='text-justify text-[0.85em] font-[400]'>
-                                React’s server-side rendering capability allows content to be delivered similarly to
-                                traditional web pages, significantly improving search engine indexing and visibility.
-                                When combined with our specialized content optimization strategies, this ensures your
-                                application remains highly accessible, achieves competitive search rankings, and
-                                attracts increased organic traffic—supporting business growth across diverse industries.
-                            </p>
-                        </div>
-                        <div className={`mt-12 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                            <Image
-                                src={isDayTime ? '/assets/react/icon/sdm.svg' : '/assets/react/icon/sdm1.svg'}
-                                alt='Streamlined Data Management'
-                                width={60}
-                                height={60}
-                                className='mb-2'
-                            />
-                            <h3 className='capitalize text-[1.5em] font-[600] mb-2'>
-                                streamlined data <br className={'lg:block md:block hidden'}/>management
-                            </h3>
-                            <p className='text-justify text-[0.85em] font-[400]'>
-                                React’s unidirectional data flow enables efficient debugging and ensures predictable,
-                                consistent data management throughout the application. By maintaining a clear and
-                                structured flow of information between components, it minimizes the risk of errors,
-                                reduces ongoing maintenance costs, and supports the development of scalable, easily
-                                maintainable applications. This approach helps businesses across industries deliver
-                                reliable software solutions that remain manageable as they grow and evolve.
-                            </p>
-                        </div>
-                        <div className={`mt-12 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                            <Image
-                                src={isDayTime ? '/assets/react/icon/sc.svg' : '/assets/react/icon/sc1.svg'}
-                                alt='Strong Community'
-                                width={60}
-                                height={60}
-                                className='mb-2'
-                            />
-                            <h3 className='capitalize text-[1.5em] font-[600] mb-2'>
-                                strong community
-                            </h3>
-                            <p className='text-justify text-[0.85em] font-[400]'>
-                                React is backed by a large and active community, complemented by a robust ecosystem of
-                                tools and libraries. This strong foundation guarantees continuous innovation, regular
-                                updates, and swift access to essential resources. As a result, businesses across all
-                                sectors can accelerate their development processes, reduce time-to-market, and deliver
-                                innovative, high-quality solutions that meet evolving market demands.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Digital Products Suited To React.js */}
-            <div
-                className={`relative mx-auto px-4 sm:px-6 lg:px-[4.6em] lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[5em] md:pb-[5em] pb-[2em] ${isDayTime ? 'bg-black' : 'bg-white'}`}>
-                <div
-                    className={`relative grid lg:grid-cols-2 grid-cols-1 gap-4 mb-8 border-b-[1px] lg:pb-[4em] pb-[2em] ${isDayTime ? 'text-white' : 'text-black'} `}>
-                    <div>
-                        <h2 className={`lg:text-[3em] text-[1.5em] font-[500] justify-center tracking-tight lg:pr-[1em] leading-[1.1]`}>
-                            Digital Products<br className={'lg:block md:block hidden'}/>Suited To React.js
-                        </h2>
-                    </div>
-                    <div>
-                        <p className='text-[0.873em] font-[400] justify-center text-justify leading-[1.5] lg:-ml-[3em] tracking-noromal'>
-                            React.js serves as a versatile and powerful tool in digital product development. Its
-                            flexibility, performance optimization, and ability to manage complex user interfaces make it
-                            a preferred solution across a wide range of industries.
-                        </p>
-                    </div>
-                </div>
-
-                {/* Complex Web Applications */}
-                <div id={'CWA'}
-                     className={`grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:mb-8 md:mb-8 mb-6 gap-4 border-b-[1px] lg:pb-[2em] pb-[2em] ${isDayTime ? 'text-gray-700 hover:text-white' : 'text-gray-300 hover:text-black'} group`}>
-                    <div className='relative'>
-                        <h2 className='text-[2em] font-[500] capitalize justify-center tracking-tight lg:pr-[10em] md:pr-[10em] leading-[1.2] rounded-none'>
-                            complex web <br className={'lg:block md:block hidden'}/>applications
-                        </h2>
-                        <div
-                            className='absolute lg:block md:block sm:hidden lg:pl-[18em] lg:-mt-[3.4em] md:pl-[18em] md:-mt-[3.4em] inset-0 opacity-0 group-hover:opacity-90 transition-opacity  duration-300'>
-                            <Image
-                                src='/assets/react/cwa.jpg'
-                                alt='Complex Web Application'
-                                height={250}
-                                width={250}
-                            />
-                        </div>
-                    </div>
-                    <div>
-                        <p className='text-[0.85em] lg:-ml-[3em] md:-ml-[3em] font-[400] justify-center text-justify leading-[1.2] tracking-normal'>
-                            When building a dynamic and sophisticated application, React’s component-based architecture
-                            enables the creation of reusable UI elements—streamlining development and ensuring
-                            scalability. This approach is ideal for applications requiring sleek, modern interfaces and
-                            the ability to handle frequently changing content efficiently.
-                        </p>
-                    </div>
-                </div>
-
-                {/* Single Page Application (SPAs) */}
-                <div id={'SPA'}
-                     className={`grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:mb-8 md:mb-8 mb-6 gap-4 border-b-[1px] lg:pb-[2em] pb-[2em] ${isDayTime ? 'text-gray-700 hover:text-white' : 'text-gray-300 hover:text-black'} group`}>
-                    <div className='relative'>
-                        <h2 className='text-[2em] font-[500] justify-center tracking-tight lg:pr-[10em] md:pr-[10em] leading-[1.2] rounded-none'>
-                            Single Page <br className={'lg:block md:block hidden'}/>Applications (SPAs)
-                        </h2>
-                        <div
-                            className='absolute lg:block md:hidden sm:hidden lg:pl-[18em] lg:-mt-[3.3em] md:pl-[18em] md:-mt-[3.3em] inset-0 opacity-0 group-hover:opacity-90 transition-opacity  duration-300'>
-                            <Image
-                                src='/assets/react/spa.jpg'
-                                alt='Single Page Applications'
-                                height={250}
-                                width={250}
-                            />
-                        </div>
-                    </div>
-                    <div>
-                        <p className='text-[0.85em] lg:-ml-[3em] md:-ml-[3em] font-[400] justify-center text-justify leading-[1.2] tracking-normal'>
-                            React delivers seamless user experiences by intelligently updating only the necessary parts
-                            of a page without requiring a full reload. This results in faster content transitions and
-                            highly responsive applications—providing users with a smooth, uninterrupted experience that
-                            enhances engagement and satisfaction.
-                        </p>
-                    </div>
-                </div>
-
-                {/* Data Dashboards and Analytics Tools */}
-                <div id={'DDAT'}
-                     className={`grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:mb-8 md:mb-8 mb-6 gap-4 border-b-[1px] lg:pb-[2em] pb-[2em] ${isDayTime ? 'text-gray-700 hover:text-white' : 'text-gray-300 hover:text-black'} group`}>
-                    <div className='relative'>
-                        <h2 className='text-[2em] capitalize font-[500] justify-center tracking-tight lg:pr-[10em] md:pr-[10em] leading-[1.2] rounded-none'>
-                            Data Dashboard <br className={'lg:block md:block hidden'}/>& Analytics Tools
-                        </h2>
-                        <div
-                            className='absolute lg:block md:block sm:hidden lg:pl-[18em] lg:-mt-[3.3em] md:pl-[18em] md:-mt-[3.3em] inset-0 opacity-0 group-hover:opacity-90 transition-opacity  duration-300'>
-                            <Image
-                                src='/assets/react/ddat.jpg'
-                                alt='Data Dashboard and Analytics Tools'
-                                height={250}
-                                width={250}
-                            />
-                        </div>
-                    </div>
-                    <div>
-                        <p className='text-[0.85em] lg:-ml-[3em] md:-ml-[3em] font-[400] justify-center text-justify leading-[1.2] tracking-normal'>
-                            React is well-suited for applications that manage large volumes of data, making it an
-                            excellent choice for building responsive dashboards and real-time analytics tools. Its
-                            efficient rendering and ability to handle complex data representations enable smooth,
-                            intuitive data analysis—supporting smarter, faster decision-making across various business
-                            functions.
-                        </p>
-                    </div>
-                </div>
-
-                {/* Content Publishing Platforms */}
-                <div id={'CPP'}
-                     className={`grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:mb-8 md:mb-8 mb-6 gap-4 border-b-[1px] lg:pb-[2em] pb-[2em] ${isDayTime ? 'text-gray-700 hover:text-white' : 'text-gray-300 hover:text-black'} group`}>
-                    <div className='relative'>
-                        <h2 className='text-[2em] font-[500] justify-center tracking-tight lg:pr-[10em] md:pr-[10em] leading-[1.2] rounded-none'>
-                            Content Publishing <br className={'lg:block md:block hidden'}/>Platforms
-                        </h2>
-                        <div
-                            className='absolute lg:block md:block sm:hidden lg:pl-[18em] lg:-mt-[3.3em] md:pl-[18em] md:-mt-[3.3em] inset-0 opacity-0 group-hover:opacity-90 transition-opacity  duration-300'>
-                            <Image
-                                src='/assets/react/cpp.jpg'
-                                alt='Content Publishing Platforms'
-                                height={250}
-                                width={250}
-                            />
-                        </div>
-                    </div>
-                    <div>
-                        <p className='text-[0.85em] lg:-ml-[3em] md:-ml-[3em] font-[400] justify-center text-justify leading-[1.2] tracking-normal'>
-                            Managing large volumes of content can quickly become complex, but React’s robust state
-                            management and efficient data handling streamline the process. It enables swift, accurate
-                            updates without disrupting the user interface, ensuring a seamless and consistent user
-                            experience—even as content scales.
-                        </p>
-                    </div>
-                </div>
-
-                {/* Collaboration Tools */}
-                <div id={'CT'}
-                     className={`grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:mb-8 md:mb-8 mb-6 gap-4 border-b-[1px] lg:pb-[2em] pb-[2em] ${isDayTime ? 'text-gray-700 hover:text-white' : 'text-gray-300 hover:text-black'} group`}>
-                    <div className='relative'>
-                        <h2 className='text-[2em] font-[500] justify-center tracking-tight lg:pr-[10em] md:pr-[10em] leading-[1.2] rounded-none'>
-                            Collaboration Tools
-                        </h2>
-                        <div
-                            className='absolute lg:block md:block sm:hidden lg:pl-[18em] lg:-mt-[3.5em] md:pl-[18em] md:-mt-[3.5em] inset-0 opacity-0 group-hover:opacity-90 transition-opacity  duration-300'>
-                            <Image
-                                src='/assets/react/ct.jpg'
-                                alt='Collaboration Tools'
-                                height={250}
-                                width={250}
-                            />
-                        </div>
-                    </div>
-                    <div>
-                        <p className='text-[0.85em] lg:-ml-[3em] md:-ml-[3em] font-[400] justify-center text-justify leading-[1.2] tracking-normal'>
-                            React enables real-time collaboration in applications such as messaging platforms and
-                            multi-user interaction tools. Its ability to manage concurrent updates and support live
-                            communication ensures users stay synchronized across time zones—making it ideal for globally
-                            distributed teams and interactive, time-sensitive solutions.
-                        </p>
-                    </div>
-                </div>
-
-                {/* e-Commerce Platforms */}
-                <div id={'ECP'}
-                     className={`grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:mb-8 md:mb-8 mb-6 gap-4 border-b-[1px] lg:pb-[2em] pb-[2em] ${isDayTime ? 'text-gray-700 hover:text-white' : 'text-gray-300 hover:text-black'} group`}>
-                    <div className='relative'>
-                        <h2 className='text-[2em] font-[500] justify-center tracking-tight lg:pr-[10em] md:pr-[10em] leading-[1.2] rounded-none'>
-                            e-Commerce <br className={'lg:block md:block hidden'}/>Platforms
-                        </h2>
-                        <div
-                            className='absolute lg:block md:block sm:hidden lg:pl-[18em] lg:-mt-[3.2em] md:pl-[18em] md:-mt-[3.2em] inset-0 opacity-0 group-hover:opacity-90 transition-opacity  duration-300'>
-                            <Image
-                                src='/assets/react/ecp.jpg'
-                                alt='e-Commerce Platforms'
-                                height={250}
-                                width={250}
-                            />
-                        </div>
-                    </div>
-                    <div>
-                        <p className='text-[0.85em] lg:-ml-[3em] md:-ml-[3em] font-[400] justify-center text-justify leading-[1.2] tracking-normal'>
-                            React brings the ease of in-store shopping to the digital space by enabling seamless,
-                            real-time updates and intuitive navigation through product categories. This ensures a smooth
-                            and engaging user experience, enhancing customer satisfaction and driving higher conversion
-                            rates in online retail environments.
-                        </p>
-                    </div>
-                </div>
-
-                {/* Social Media Platforms */}
-                <div id={'SMP'}
-                     className={`grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:mb-8 md:mb-8 mb-6 gap-4 ${isDayTime ? 'text-gray-700 hover:text-white' : 'text-gray-300 hover:text-black'} group`}>
-                    <div className='relative'>
-                        <h2 className='text-[2em] font-[500] justify-center tracking-tight lg:pr-[10em] md:pr-[10em] leading-[1.2] rounded-none'>
-                            Social Media <br className={'lg:block md:block hidden'}/>Platforms
-                        </h2>
-                        <div
-                            className='absolute lg:block md:block sm:hidden lg:pl-[18em] lg:-mt-[3.3em] md:pl-[18em] md:-mt-[3.3em] inset-0 opacity-0 group-hover:opacity-90 transition-opacity  duration-300'>
-                            <Image
-                                src='/assets/react/smp.jpg'
-                                alt='Docial Media Platforms'
-                                height={250}
-                                width={250}
-                            />
-                        </div>
-                    </div>
-                    <div>
-                        <p className='text-[0.85em] lg:-ml-[3em] md:-ml-[3em] font-[400] justify-center text-justify leading-[1.2] tracking-normal'>
-                            React’s capability to efficiently manage frequent updates and dynamic content without
-                            compromising performance makes it an ideal choice for social media and other interactive
-                            platforms. It supports real-time user interactions and seamless content updates, ensuring a
-                            smooth, engaging, and scalable user experience.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            {/* Who is involved in the process */}
-            <div id={'involved'}
-                 className={`relative lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[5em] md:pb-[5em] pb-[2em] px-4 sm:px-6 lg:px-[4.6em] w-full max-w-full lg:mb-10 mb-8 ${
-                     isDayTime ? 'text-black' : 'text-white'}`}>
-                <div
-                    className={`relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6 lg:max-w-full mx-auto`}>
-                    <div className={'lg:mr-[8em]'}>
-                        <h2 className='lg:text-[3em] md:text-[3em] capitalize text-[1.5em] font-[500] tracking-tighter leading-[1.15] lg:pb-6 '>
-                            who is involved <br className={'lg:block md:block hidden'}/>in the process
-                        </h2>
-                        <p className='text-[0.85em] font-[400] lg:-mt-[0.2em] md:-mt-[0.2em] text-justify  leading-[1.5]'>
-                            At Grey InfoTech, React.js development is a collaborative effort driven by a skilled team
-                            working in alignment with your business goals. Each project is led by a dedicated project
-                            manager who ensures clear communication and smooth execution from start to finish. Our
-                            React.js developers focus on building dynamic, component-based user interfaces that are
-                            responsive, scalable, and optimized for performance. UI/UX designers craft intuitive user
-                            experiences, while QA engineers rigorously test each component to ensure the application is
-                            stable, user-friendly, and bug-free.<br/><br/>
-                            To support seamless deployment and performance, our DevOps engineers manage hosting
-                            environments, automate build processes, and ensure continuous integration. Throughout the
-                            process, your input as the client is central—we keep you informed, involved, and in control,
-                            while taking the complexity off your plate. This integrated team approach ensures the end
-                            product delivers both technical excellence and real business value.
-                        </p><br/>
-                        <Link href='/company'>
-                            <button
-                                className='relative mx-auto inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em]  border tracking-tighter  rounded-full py-2 px-6'>
-                        <span
-                            className={`w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 ${isDayTime ? 'bg-black' : 'bg-white'} opacity-[3%]`}></span>
-                                <span
-                                    className={`absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 ${isDayTime ? 'bg-black' : 'bg-white'} opacity-100 group-hover:-translate-x-8`}></span>
-                                <span
-                                    className={`relative w-full text-left transition-colors duration-200 ease-in-out ${isDayTime ? 'text-black group-hover:text-gray-300' : 'text-white group-hover:text-gray-800'}`}>About Us <span
-                                    className={`text-[1.5em] leading-[0.7]`}> →</span></span>
-                                <span
-                                    className={"absolute inset-0 border-[1px] border-gray-900 ${isDayTime ? 'border-black' : 'border-white'} rounded-full"}></span>
-                            </button>
-                        </Link>
-                    </div>
-                    <div
-                        className="relative flex flex-row lg:-ml-[2em] md:-ml-[2em] w-full h-auto max-w-full mx-auto gap-6">
-                        <div className="flex-1 flex lg:-mr-[17.5em] md:-mr-[17.5em] justify-center items-center">
-                            <div className="flex-1 flex justify-center h-auto items-center">
-                                <Image
-                                    src="/assets/hybrid/trip.jpg"
-                                    alt="Team at table"
-                                    width={900} // Add width
-                                    height={600} // Add height
-                                    style={{
-                                        objectFit: "fill",
-                                        objectPosition: "center",
-                                    }}
-                                    className="object-fill"
-                                />
-                            </div>
-                        </div>
-                        <div
-                            className="flex-1 flex justify-center lg:-my-[20em] md:-my-[20em] lg:pl-[15em] md:pl-[15em] lg:-mr-[4em] items-center">
-                            <Image
-                                src="/assets/hybrid/disc.jpg"
-                                alt="Team at table"
-                                height={700}
-                                width={220}
-                                style={{
-                                    objectFit: "fill",
-                                    objectPosition: "center",
-                                }}
-                                className="object-fill"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Last image*/}
-            <div id={'last-image'} className={'h-auto max-w-full w-full mx-auto'}>
-                <Image
-                    className={' object-fill'}
-                    src={'/assets/react/last.jpg'}
-                    alt={'Last Image'}
-                    width={1536}
-                    height={1038}
-                    style={{
-                        objectFit: "fill",
-                        objectPosition: "center",
-                    }}
-                />
-            </div>
-        </div>
-    );
-};
+        solutions={[
+            {
+                id: '01', title: 'SaaS Dashboards', target: 'WA',
+                tags: ['Data Visualization', 'Real-time', 'Performance'],
+                body: <>We build intelligent SaaS dashboards that visualize data in ways users understand. Interactive charts, real-time updates, drill-down capabilities, and responsive design enable users to make data-driven decisions quickly and confidently.</>,
+            },
+            {
+                id: '02', title: 'Real-time Applications', target: 'DE',
+                tags: ['WebSocket', 'Live Updates', 'Collaboration'],
+                body: <>We develop real-time applications where instant communication matters—collaborative tools, live notifications, streaming data, and instant messaging. React's efficient rendering combines with WebSocket architecture for seamless real-time experiences.</>,
+            },
+            {
+                id: '03', title: 'E-commerce Platforms', target: 'ML',
+                tags: ['Conversion', 'Shopping Experience', 'Scalable'],
+                body: <>We build e-commerce applications that convert browsers into buyers. Product discovery, intuitive checkout, personalization, and mobile responsiveness drive sales. React enables fast, engaging shopping experiences that compete with industry leaders.</>,
+            },
+            {
+                id: '04', title: 'Data Visualization & Analytics', target: 'AU',
+                tags: ['Charts', 'Graphs', 'Interactive'],
+                body: <>We create interactive data visualizations and analytics interfaces that transform raw data into insights. Custom charts, real-time metrics, drill-down capabilities, and responsive design make data accessible and actionable for decision-makers.</>,
+            },
+            {
+                id: '05', title: 'Progressive Web Apps', target: 'CD',
+                tags: ['PWA', 'Offline', 'Performance'],
+                body: <>We build progressive web apps with React that work offline, load instantly, and feel like native applications. Reliable performance, reduced data usage, and app-like experience convert users into engaged customers.</>,
+            },
+            {
+                id: '06', title: 'Performance & Optimization', target: 'MS',
+                tags: ['Performance', 'Optimization', 'Scalability'],
+                body: <>We optimize React applications for maximum performance—code-splitting, lazy loading, memoization, and efficient rendering. Fast applications drive conversions, improve SEO, and reduce infrastructure costs.</>,
+            },
+        ]}
+        reasons={[
+            {
+                id: 1, title: 'Component Reusability', image: '/assets/services/Development.jpg',
+                description: <>React's component model creates reusable, maintainable building blocks. Build complex UIs quickly while keeping code organized and easy to test.</>,
+            },
+            {
+                id: 2, title: 'Developer Experience', image: '/assets/services/Research-strategy.jpg',
+                description: <>React's declarative model makes code easy to understand and modify. Hot reloading, great tooling, and massive ecosystem accelerate development while reducing bugs.</>,
+            },
+            {
+                id: 3, title: 'Performance Optimizations', image: '/assets/services/services.jpg',
+                description: <>React's virtual DOM and efficient rendering keep applications fast even with complex UIs. Proper optimization practices enable smooth experiences even on lower-end devices.</>,
+            },
+            {
+                id: 4, title: 'Vibrant Ecosystem', image: '/assets/services/digital-optimisation.jpg',
+                description: <>React's mature ecosystem provides battle-tested libraries for routing, state management, forms, and UI components. Libraries like Redux, Zustand, and React Query solve common problems elegantly.</>,
+            },
+        ]}
+        ctaHeading={<>Build engaging interfaces <br className={'lg:block md:block hidden'}/>with React</>}
+        ctaBody={<>From SaaS dashboards and real-time applications to e-commerce platforms and interactive data visualizations, Grey InfoTech delivers React solutions that engage users and drive business metrics. Let's build something amazing together.</>}
+        stats={[
+            {label: 'Years Experience', value: 9, suffix: '+'},
+            {label: 'Team Members', value: 15, suffix: '+'},
+            {label: 'Applications Built', value: 200, suffix: '+'},
+            {label: 'Projects Delivered', value: 280, suffix: '+'},
+            {label: 'Client Satisfaction', value: 99, suffix: '%'},
+        ]}
+        testimonials={[
+            {name: 'Kofi Asante', title: 'CEO, Analytics SaaS', message: <>Grey InfoTech built our analytics dashboard and it's phenomenal. Real-time updates, beautiful visualizations, and the performance is incredible. Our users love it and engagement metrics have soared.</>},
+            {name: 'Priya Sharma', title: 'Founder, E-commerce Platform', message: <>Their React expertise transformed our online store. Conversion rates increased 40% after the redesign. The team understood e-commerce challenges and delivered solutions that actually drive sales.</>},
+            {name: 'Marcus Johnson', title: 'Product Lead, Collaboration Tool', message: <>Real-time collaboration features from Grey InfoTech's React implementation are seamless. Users can collaborate effortlessly and performance never suffers even with thousands of concurrent edits. Excellent work.</>},
+        ]}
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'SaaS Dashboards',
+                description: 'Build interactive dashboards that visualize business data in real-time, enabling users to monitor metrics and make data-driven decisions with confidence.'
+            },
+            {
+                id: 'vs2',
+                title: 'Real-time Applications',
+                description: 'Develop applications with instant communication and live updates, from collaborative tools to instant messaging and streaming data platforms.'
+            },
+            {
+                id: 'vs3',
+                title: 'E-commerce Platforms',
+                description: 'Create engaging online stores with intuitive product discovery, seamless checkout, and conversion-optimized experiences that drive sales.'
+            }
+        ]}/>
+);
 
 export default ReactjsDevelopment;

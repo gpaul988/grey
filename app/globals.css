@@ -1078,6 +1078,132 @@ body::after {
     position: sticky; top: 6.5rem;
 }
 
+/* === FUTURISTIC ERPSECTION ANIMATIONS === */
+
+/* Fade in animation for header sections */
+@keyframes animate-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Delayed fade in for right column */
+@keyframes animate-fade-in-delayed {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    10% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: animate-fade-in 0.8s ease-out forwards;
+}
+
+.animate-fade-in-delayed {
+    animation: animate-fade-in-delayed 1.2s ease-out forwards;
+}
+
+/* Smooth scale animation on hover */
+@keyframes scale-up {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.08);
+    }
+}
+
+.hover\:scale-110:hover {
+    animation: scale-up 0.3s ease-out forwards;
+}
+
+/* Glow effect for metrics */
+@keyframes glow-pulse {
+    0%, 100% {
+        box-shadow: 0 0 0px rgba(14, 240, 221, 0);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(14, 240, 221, 0.3);
+    }
+}
+
+/* Professional text shadow */
+.text-shadow-lg {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced drop shadow */
+.drop-shadow-lg {
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
+}
+
+/* Gradient text background */
+.bg-gradient-text {
+    background: linear-gradient(135deg, #0ef0dd 0%, #06b6d4 50%, #7c3aed 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Smooth overflow scrolling for accordion */
+.overflow-y-auto::-webkit-scrollbar {
+    width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #0ef0dd, #06b6d4);
+    border-radius: 3px;
+    opacity: 0.6;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Card hover elevation effect */
+.card-hover {
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(14, 240, 221, 0.15);
+}
+
+/* Accent border animation */
+@keyframes border-pulse {
+    0%, 100% {
+        border-color: rgba(14, 240, 221, 0.3);
+    }
+    50% {
+        border-color: rgba(14, 240, 221, 0.8);
+    }
+}
+
+/* Backdrop blur support */
+.backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* Smooth transitions for all interactive elements */
+button, [role="button"], a {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 @media (prefers-reduced-motion: reduce) {
     .gx-scanline::after,
     .gx-orbit,
@@ -1086,6 +1212,9 @@ body::after {
     .gx-data-stream-bg,
     .gx-hero-scan,
     .gx-stat-bar-fill,
-    .gx-neon-border { animation: none !important; }
+    .gx-neon-border,
+    .animate-fade-in,
+    .animate-fade-in-delayed,
+    .hover\:scale-110:hover { animation: none !important; transition: none !important; }
     .gx-hologram-card { transition: none !important; }
 }

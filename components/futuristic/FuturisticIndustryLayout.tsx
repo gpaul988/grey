@@ -22,7 +22,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxFrame, FxStatBar, FxOrbit } from '@/components/futuristic/fx';
+import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxFrame, FxOrbit } from '@/components/futuristic/fx';
 
 interface Props {
     isDayTime: boolean;
@@ -145,7 +145,7 @@ export default function FuturisticIndustryLayout({
                     <div className="gx-scanline pointer-events-none" />
                     <div className="relative z-10 max-w-[90rem] mx-auto text-center">
                         <FxReveal>
-                            <FxChip day={false} className="mb-6">Let's Work Together</FxChip>
+                            <FxChip day={false} className="mb-6">Let&#39;s Work Together</FxChip>
                             <h2 className="text-[2.5em] md:text-[3.5em] font-[800] leading-[1.1] tracking-tight mb-6">
                                 Ready to transform <span className="gx-gradient-text">your {industry} platform?</span>
                             </h2>
@@ -210,14 +210,14 @@ export function IndustryAccordionSection({
     title,
     reasons,
     activeIndex,
-    onSelect,
+    onSelectAction,
     image,
 }: {
     isDayTime: boolean;
     title?: string;
     reasons: { id: number; title: string; description: React.ReactNode; images?: string[] }[];
     activeIndex: number;
-    onSelect: (id: number) => void;
+    onSelectAction: (id: number) => void;
     image?: string;
 }) {
     const dark = !isDayTime;
@@ -245,7 +245,7 @@ export function IndustryAccordionSection({
                                 }`}
                             >
                                 <button
-                                    onClick={() => onSelect(r.id)}
+                                    onClick={() => onSelectAction(r.id)}
                                     className={`w-full text-left px-5 py-4 font-[600] flex justify-between items-center text-[0.95em] ${
                                         r.id === activeIndex
                                             ? dark ? 'text-teal-300' : 'text-teal-700'

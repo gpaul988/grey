@@ -68,6 +68,7 @@ export async function chat(
   context?: {
     userId?: string;
     previousMessages?: ChatMessage[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     searchContext?: { query: string; results: any[] };
   }
 ): Promise<ChatResponse> {
@@ -123,6 +124,7 @@ export async function chat(
       };
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const data = (await response.json()) as any;
     const assistantMessage = data.choices?.[0]?.message?.content;
 
@@ -268,6 +270,7 @@ export async function analyzeIntent(message: string): Promise<{
   );
 
   return {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     intent: detectedIntent as any,
     confidence,
     entities,

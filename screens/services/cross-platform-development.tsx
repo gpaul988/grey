@@ -123,8 +123,26 @@ const CrossPlatformDevelopment = () => (
                     eliminating data silos and ensuring real-time information availability across your entire
                     technology landscape.</>,
             },
+        ]}
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'Mobile & Desktop Apps',
+                description: 'Build native applications for iOS, Android, Windows and macOS with consistent functionality and platform-specific optimizations.'
+            },
+            {
+                id: 'vs2',
+                title: 'Enterprise Applications',
+                description: 'Deploy complex business applications across devices with offline sync, role-based access control and enterprise-grade reliability.'
+            },
+            {
+                id: 'vs3',
+                title: 'Real-time Collaboration Tools',
+                description: 'Develop productivity and collaboration platforms that work seamlessly across mobile and desktop with instant synchronization.'
+            }
         ]}/>
 );
 
 export default CrossPlatformDevelopment;
+
 

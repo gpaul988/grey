@@ -78,7 +78,24 @@ const DevOpsServices = () => (
             },
         ]}
         ctaHeading={<>Ship confidently.<br className="lg:block md:block hidden" />Every time.</>}
-        ctaBody="Your engineering team deserves tooling that helps them go faster without burning out. Let's build the DevOps platform that makes production feel safe."/>
+        ctaBody="Your engineering team deserves tooling that helps them go faster without burning out. Let's build the DevOps platform that makes production feel safe."
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'Cloud Migration & Modernization',
+                description: 'Plan and execute migrations to AWS, Azure or GCP with minimal downtime, leveraging containerization, serverless and managed services.'
+            },
+            {
+                id: 'vs2',
+                title: 'CI/CD Pipeline Automation',
+                description: 'Build reliable, automated deployment pipelines with infrastructure-as-code, automated testing, canary releases and instant rollback capabilities.'
+            },
+            {
+                id: 'vs3',
+                title: 'Infrastructure Security & Compliance',
+                description: 'Implement secure cloud architecture with IAM, encryption, network segmentation, compliance automation for SOC2, HIPAA, PCI-DSS and audit readiness.'
+            }
+        ]}/>
 );
 
 export default DevOpsServices;

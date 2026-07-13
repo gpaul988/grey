@@ -79,7 +79,24 @@ const QATesting = () => (
             },
         ]}
         ctaHeading={<>Quality is not<br className="lg:block md:block hidden" />optional</>}
-        ctaBody="Every bug that reaches production costs 10× more to fix than one caught in development. Grey InfoTech makes quality a competitive advantage, not an afterthought."/>
+        ctaBody="Every bug that reaches production costs 10× more to fix than one caught in development. Grey InfoTech makes quality a competitive advantage, not an afterthought."
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'Enterprise Testing Automation',
+                description: 'Build comprehensive test automation frameworks covering UI, API and database testing to accelerate release cycles and improve software quality.'
+            },
+            {
+                id: 'vs2',
+                title: 'Performance & Load Testing',
+                description: 'Conduct load, stress and scalability testing to ensure applications perform under real-world traffic and identify optimization opportunities.'
+            },
+            {
+                id: 'vs3',
+                title: 'Security & Compliance Testing',
+                description: 'Execute penetration testing, security code reviews and compliance validation against industry standards like OWASP, SOC2 and PCI-DSS.'
+            }
+        ]}/>
 );
 
 export default QATesting;

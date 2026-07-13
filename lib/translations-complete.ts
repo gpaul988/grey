@@ -3,6 +3,7 @@
  * Covers: UI (nav, buttons, labels) + Content sections (hero, services, testimonials, CTA)
  */
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type TranslationDict = Record<string, any>;
 
 const translations: Record<string, TranslationDict> = {

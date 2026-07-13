@@ -171,7 +171,7 @@ export default function CareerIntroduceScreen() {
                 {/* Header */}
                 <div className="grid lg:grid-cols-5 gap-12 mb-14 items-start">
                     <FxReveal className="lg:col-span-3">
-                        <FxChip day={isDayTime} className="mb-5">Don't see the right role?</FxChip>
+                        <FxChip day={isDayTime} className="mb-5">Don&#39;t see the right role?</FxChip>
                         <FxGlitchText tag="h1" className="text-[2.4em] md:text-[3em] font-[900] tracking-tight leading-[1.1] mb-4">
                             Introduce <span className="gx-gradient-text">Yourself</span>
                         </FxGlitchText>

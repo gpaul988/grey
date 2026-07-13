@@ -41,6 +41,7 @@ export const createPaymentIntent = async (
       id: intent.id,
       clientSecret: intent.client_secret || '',
       amount,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       status: intent.status as any,
     };
   } catch (error) {
@@ -71,6 +72,7 @@ export const refundPayment = async (
   try {
     const refund = await stripe.refunds.create({
       payment_intent: intentId,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       reason: (reason as any) || 'requested_by_customer',
     });
 

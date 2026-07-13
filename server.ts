@@ -89,6 +89,7 @@ const SESSION_PATHS = [
     '/set-password',
     '/portal',
     ADMIN_BASE_PATH,
+    `${ADMIN_BASE_PATH}/api`, // Explicitly include API routes for CSRF protection
 ];
 
 // Build a persistent SQLite-backed session store. Reuses the app's existing

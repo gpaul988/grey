@@ -79,7 +79,24 @@ const JoomlaDevelopment = () => (
             },
         ]}
         ctaHeading={<>Joomla done<br className="lg:block md:block hidden" />properly</>}
-        ctaBody="Joomla rewards expertise. Grey InfoTech builds Joomla sites that perform, stay secure and empower your editors to manage content without developer help."/>
+        ctaBody="Joomla rewards expertise. Grey InfoTech builds Joomla sites that perform, stay secure and empower your editors to manage content without developer help."
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'Publishing Platforms',
+                description: 'Flexible content management for media companies with multi-author workflows, SEO optimization, and sophisticated audience engagement features.'
+            },
+            {
+                id: 'vs2',
+                title: 'Community & User Portals',
+                description: 'Build member communities with user profiles, discussion forums, event management and personalized content recommendations for engagement.'
+            },
+            {
+                id: 'vs3',
+                title: 'Corporate Websites',
+                description: 'Professional corporate sites with team directories, news updates, document management and customer engagement tools tailored for enterprises.'
+            }
+        ]}/>
 );
 
 export default JoomlaDevelopment;

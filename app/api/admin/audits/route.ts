@@ -16,10 +16,12 @@ export async function GET(req: NextRequest) {
     let query = db.select().from(auditSubmissions);
 
     if (status) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       query = query.where(eq(auditSubmissions.status, status)) as any;
     }
 
     if (priority) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       query = query.where(eq(auditSubmissions.priority, priority)) as any;
     }
 
@@ -52,6 +54,7 @@ export async function PATCH(req: NextRequest) {
       );
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const updates: any = {
       updatedAt: new Date(),
     };

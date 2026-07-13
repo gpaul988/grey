@@ -50,6 +50,7 @@ export async function createStoreCustomer(data: {
 export async function verifyStoreCustomerPassword(
   email: string,
   password: string
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any | null> {
   const customers = await db
     .select()
@@ -173,6 +174,7 @@ export async function createStorePayment(data: {
   transactionId: string;
   reference?: string;
   paymentMethod?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   metadata?: Record<string, any>;
 }) {
   await db
@@ -221,6 +223,7 @@ export async function getStoreProducts(
   let query = db.select().from(storeProducts).where(eq(storeProducts.isActive, true));
 
   if (categoryId) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     query = query.where(eq(storeProducts.categoryId, categoryId)) as any;
   }
 

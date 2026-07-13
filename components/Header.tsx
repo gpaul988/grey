@@ -304,6 +304,7 @@ const HeaderContent: React.FC = () => {
                 {name: 'Data Analytics', href: '/services/data-analytics'},
                 {name: 'DevOps Services', href: '/services/devops-services'},
                 {name: 'Discovery Phase', href: '/services/discovery-phase'},
+                {name: 'Maritime & Port Management', href: '/services/maritime-port-management'},
                 {name: 'QA & Testing', href: '/services/qa-testing'},
                 {name: 'Salesforce Development', href: '/services/salesforce-development'},
                 {name: 'Unity Development', href: '/services/unity-development'},
@@ -378,16 +379,18 @@ const HeaderContent: React.FC = () => {
             title: '',
             items: [
                 {name: 'Logistics', href: '/industries/logistics'},
+                {name: 'Maritime & Shipping', href: '/industries/maritime'},
                 {name: 'Media & Entertainment', href: '/industries/media-entertainment'},
                 {name: 'Music', href: '/industries/music'},
                 {name: 'Oil and Gas', href: '/industries/oil-and-gas'},
                 {name: 'On-Demand', href: '/industries/ondemand'},
-                {name: 'Real Estate', href: '/industries/real-estate'},
             ],
         },
         {
             title: '',
             items: [
+                {name: 'Ports & Terminals', href: '/industries/port'},
+                {name: 'Real Estate', href: '/industries/real-estate'},
                 {name: 'Retail', href: '/industries/retail'},
                 {name: 'SaaS', href: '/industries/saas'},
                 {name: 'Sports Tech', href: '/industries/sports-tech'},

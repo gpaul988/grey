@@ -46,6 +46,7 @@ export const generateAdminToken = (user: AdminUser): string => {
  */
 export const verifyAdminToken = (token: string): AdminUser | null => {
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const decoded = jwt.verify(token, JWT_SECRET) as any;
     return {
       id: decoded.id,

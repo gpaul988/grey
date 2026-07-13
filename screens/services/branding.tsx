@@ -328,7 +328,7 @@ const Branding = () => {
                         intro="We provide comprehensive branding solutions that build distinctive identities, establish visual consistency, and communicate your unique value proposition across every touchpoint—from logo design and brand strategy to complete digital guidelines and packaging design."
                         navLabel="Branding Solutions"
                         activeId={activeId}
-                        onNavClick={scrollToSection}
+                        onNavClickAction={scrollToSection}
                         items={[
                             {
                                 id: "01",

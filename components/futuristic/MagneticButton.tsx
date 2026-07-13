@@ -20,7 +20,7 @@ type MagneticButtonProps = {
     className?: string;
     strength?: number; // px of magnetic travel
     haptic?: boolean;
-    onClick?: () => void;
+    onClickAction?: () => void;
     href?: string;
     as?: 'button' | 'a';
     type?: 'button' | 'submit';
@@ -32,7 +32,7 @@ export default function MagneticButton({
     className = '',
     strength = 14,
     haptic = true,
-    onClick,
+    onClickAction,
     href,
     as = 'button',
     type = 'button',
@@ -67,14 +67,16 @@ export default function MagneticButton({
         if (haptic) vibrate('tap');
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const MotionTag: any = as === 'a' ? motion.a : motion.button;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const tagProps: any = as === 'a' ? {href} : {type};
 
     return (
         <MotionTag
             ref={ref as React.Ref<HTMLButtonElement>}
             {...tagProps}
-            onClick={onClick}
+            onClick={onClickAction}
             onMouseMove={onMove}
             onMouseLeave={reset}
             onMouseDown={press}
