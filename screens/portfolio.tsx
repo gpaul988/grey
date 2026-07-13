@@ -122,7 +122,7 @@ export default function Portfolio() {
                         </FxReveal>
                         <FxReveal delay={0.1}>
                             <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]">
-                                <div><p>Every project in our portfolio represents a strategic engagement where we've helped clients achieve measurable business impact. From concept to launch, we focus on delivering digital solutions that solve real problems.</p></div>
+                                <div><p>Every project in our portfolio represents a strategic engagement where we&#39;ve helped clients achieve measurable business impact. From concept to launch, we focus on delivering digital solutions that solve real problems.</p></div>
                                 <div><p>From enterprise platforms to innovative startups, we craft digital solutions that drive growth and deliver results. Each project showcases our commitment to excellence, innovation, and creating lasting value.</p></div>
                             </div>
                         </FxReveal>

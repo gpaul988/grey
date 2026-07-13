@@ -169,7 +169,7 @@ const CaseStudies: React.FC = () => {
                             </FxReveal>
                             <FxReveal delay={0.1}>
                                 <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]">
-                                    <div><p>Each project represents a strategic collaboration where we've delivered measurable business results. From healthcare platforms to fintech solutions, our case studies showcase real-world impact and innovation.</p></div>
+                                    <div><p>Each project represents a strategic collaboration where we&#39;ve delivered measurable business results. From healthcare platforms to fintech solutions, our case studies showcase real-world impact and innovation.</p></div>
                                     <div><p>We focus on solving complex challenges with elegant solutions that drive growth, improve efficiency, and create lasting value for our clients and their users.</p></div>
                                 </div>
                             </FxReveal>

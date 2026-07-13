@@ -53,6 +53,7 @@ function loadFaqDocs(): KbDoc[] {
     try {
         // Lazy require so the model (and better-sqlite3 native binding) is only
         // touched at request time on the server, never at module eval on edge.
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const {Faqs} = require('../Admin/models');
         const rows = (Faqs.all('sort_order ASC, id ASC') as FaqRow[]).filter(
             (f) => f.active === 1,

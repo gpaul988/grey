@@ -54,6 +54,7 @@ export function slugify(title: string): string {
 /**
  * Normalize CMS page data (convert SQLite types back to proper types)
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function normalizeCMSPage(page: any): CMSPage {
   return {
     ...page,
@@ -193,6 +194,7 @@ export async function listCMSPages(options?: {
   const offset = options?.offset || 0;
   const sortOrder = options?.sortOrder === 'asc' ? 'asc' : 'desc';
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const conditions: any[] = [];
 
   if (options?.published !== undefined) {

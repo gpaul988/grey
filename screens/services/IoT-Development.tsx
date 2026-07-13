@@ -131,7 +131,23 @@ const IoTDevelopment = () => (
             {name: 'Lerato Molefe', title: 'CTO, SmartMeter Africa', message: <>Their security-first approach to OTA updates and device identity gave us total confidence rolling out tens of thousands of connected meters. Rock-solid and scalable.</>},
             {name: 'Emeka Nwosu', title: 'Plant Manager, FabriX Industries', message: <>The predictive-maintenance system they built cut our unplanned downtime dramatically. Edge analytics flag issues before they become failures. Genuinely transformative.</>},
         ]}
-    />
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'Industrial IoT & Manufacturing',
+                description: 'Connect production equipment and facilities with sensor networks for real-time monitoring, predictive maintenance and process optimization.'
+            },
+            {
+                id: 'vs2',
+                title: 'Smart Home & Consumer Devices',
+                description: 'Build connected consumer devices with reliable cloud backends, mobile apps, OTA updates and secure device management at scale.'
+            },
+            {
+                id: 'vs3',
+                title: 'Asset Tracking & Logistics',
+                description: 'Deploy GPS and RFID tracking solutions for real-time visibility into asset location, condition and chain-of-custody across supply chains.'
+            }
+        ]}/>
 );
 
 export default IoTDevelopment;

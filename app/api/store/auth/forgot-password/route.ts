@@ -1,16 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getStoreCustomerByEmail, createPasswordResetToken } from '@/lib/db/store-helpers';
-
-// Optionally use Resend if API key is available
-let resend: any = null;
-if (process.env.RESEND_API_KEY) {
-  const { Resend } = require('resend');
-  resend = new Resend(process.env.RESEND_API_KEY);
-}
-
 import { generatePasswordResetEmail } from '@/lib/emails/password-reset';
 
+// Optionally use Resend if API key is available
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let resend: any = null;
+
+async function initializeResend() {
+  if (!process.env.RESEND_API_KEY || resend) return;
+  try {
+    const resendModule = await import('resend');
+    const { Resend } = resendModule;
+    resend = new Resend(process.env.RESEND_API_KEY);
+  } catch (error) {
+    console.warn('Resend module not available');
+  }
+}
+
 export async function POST(request: NextRequest) {
+  await initializeResend();
   try {
     const { email } = await request.json();
 

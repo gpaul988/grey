@@ -154,7 +154,7 @@ const OpenTicket: React.FC = () => {
                                 <FxButton
                                     day={isDayTime}
                                     variant="ghost"
-                                    onClick={() => {
+                                    onClickAction={() => {
                                         setSubmitted(false);
                                         setForm({ name: '', email: '', subject: '', customSubject: '', priority: 'medium', description: '' });
                                     }}

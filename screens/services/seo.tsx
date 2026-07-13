@@ -444,7 +444,7 @@ const Seo = () => {
                 intro="Our SEO services are engineered to increase your visibility in search engines, drive targeted organic traffic, and establish your website as an authority in your industry. We combine technical excellence, data-driven strategies, and creative content optimization to help your business achieve sustained rankings and measurable growth in competitive search landscapes."
                 navLabel="SEO Solutions"
                 activeId={activeId}
-                onNavClick={scrollToSection}
+                onNavClickAction={scrollToSection}
                 items={[
                     {
                         id: "01",

@@ -37,6 +37,7 @@ export async function GET(
     }
 
     // Check if published (for public access)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const pageData = page[0] as any;
     if (!pageData.published) {
       // Allow access if admin/superadmin
@@ -89,6 +90,7 @@ export async function PATCH(
     const body = await req.json();
     const { title, slug, content, published } = body;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const updates: any = {
       updatedAt: new Date(),
     };

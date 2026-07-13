@@ -60,6 +60,7 @@ const recoveryCodeSchema = z.object({
 router.post('/setup', async (req: express.Request, res: express.Response) => {
   try {
     // Only allow authenticated users
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const userId = (req.session as any)?.user?.id;
     if (!userId) {
       logger.warn('2FA setup attempted without authentication');
@@ -125,6 +126,7 @@ router.post('/setup', async (req: express.Request, res: express.Response) => {
 router.post('/verify', async (req: express.Request, res: express.Response) => {
   try {
     // Only allow authenticated users
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const userId = (req.session as any)?.user?.id;
     if (!userId) {
       logger.warn('2FA verify attempted without authentication');
@@ -196,6 +198,7 @@ router.post('/verify', async (req: express.Request, res: express.Response) => {
 router.post('/disable', async (req: express.Request, res: express.Response) => {
   try {
     // Only allow authenticated users
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const userId = (req.session as any)?.user?.id;
     if (!userId) {
       logger.warn('2FA disable attempted without authentication');
@@ -267,6 +270,7 @@ router.post(
   async (req: express.Request, res: express.Response) => {
     try {
       // Only allow authenticated users
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const userId = (req.session as any)?.user?.id;
       if (!userId) {
         logger.warn('2FA recovery attempted without authentication');
@@ -326,6 +330,7 @@ router.post(
 router.get('/status', async (req: express.Request, res: express.Response) => {
   try {
     // Only allow authenticated users
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const userId = (req.session as any)?.user?.id;
     if (!userId) {
       logger.warn('2FA status check without authentication');

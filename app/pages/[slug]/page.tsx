@@ -64,7 +64,7 @@ export default function CMSPageViewer() {
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-lg border border-red-400/30 bg-red-500/10 p-8 text-center">
             <h1 className="text-3xl font-bold text-white mb-2">Page Not Found</h1>
-            <p className="text-slate-300 mb-6">The page you're looking for doesn't exist or hasn't been published yet.</p>
+            <p className="text-slate-300 mb-6">The page you&#39;re looking for doesn&#39;t exist or hasn&#39;t been published yet.</p>
             <Link
               href="/"
               className="inline-flex items-center gap-2 rounded-lg bg-cyan-500/20 px-4 py-2 text-cyan-300 hover:bg-cyan-500/30 transition"

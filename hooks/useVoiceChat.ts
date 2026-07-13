@@ -22,6 +22,7 @@ export const useVoiceChat = (options: UseChatOptions = {}) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [systemStatus, setSystemStatus] = useState<any>(null);
 
   // Transcribe audio to text

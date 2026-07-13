@@ -83,7 +83,24 @@ const ShopifyDevelopment = () => (
             },
         ]}
         ctaHeading={<>A Shopify store<br className="lg:block md:block hidden" />that earns its keep</>}
-        ctaBody="A beautiful store that doesn't convert is just expensive decoration. Grey InfoTech builds Shopify experiences engineered to generate revenue from day one."/>
+        ctaBody="A beautiful store that doesn't convert is just expensive decoration. Grey InfoTech builds Shopify experiences engineered to generate revenue from day one."
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'E-commerce Platforms',
+                description: 'Build scalable online stores with advanced product management, payment integration, and inventory systems tailored for high-traffic retail operations.'
+            },
+            {
+                id: 'vs2',
+                title: 'Multi-channel Commerce',
+                description: 'Connect storefronts across web, mobile, social and marketplaces with unified inventory and order management for seamless omnichannel retail.'
+            },
+            {
+                id: 'vs3',
+                title: 'Digital Marketplaces',
+                description: 'Launch B2B or B2C marketplaces with vendor management, commission tracking, and sophisticated search and filtering for multiple seller ecosystems.'
+            }
+        ]}/>
 );
 
 export default ShopifyDevelopment;

@@ -941,38 +941,20 @@ const WebDesign = () => {
                         className={`lg:-ml-[10.5em] md:-ml-[10.5em] lg:mr-[8em] md:mr-[8em] lg:mt-[4em] md:mt-[4em] ${isDayTime ? 'text-black' : 'text-white'}`}>
                         <h2
                             className='text-[1.5em] capitalize font-[500] tracking-tight leading-[1.1] mb-10 mr-[2em] md:text-[2em] lg:text-[3em] w-auto h-auto md:mr-[2.5em] lg:mr-[3.5em]'>
-                            Website support & maintenance — SRE-grade care
+                            Website support <br className={'lg:block md:block hidden'}/>and maintenance
                         </h2>
-
-                        <p className='text-[0.95em] font-[300] tracking-normal text-justify leading-[1.6] mb-4'>
-                            Post-launch reliability is critical. Our support and maintenance offerings are
-                            organised into clear tiers (Standard, Priority, Enterprise) with defined SLAs,
-                            security patching, backups, and proactive health checks. We treat your site as a
-                            production service—monitoring, measuring, and evolving it to meet business goals.
-                        </p>
-
-                        <ul className="list-disc pl-5 text-[0.92em] font-[300] leading-[1.6] mb-4">
-                            <li><strong>Standard:</strong> monthly security updates, weekly backups, email
-                                ticketing support (response within 48 hours), and uptime monitoring.</li>
-                            <li><strong>Priority:</strong> daily monitoring, weekly patching, priority ticketing
-                                (response within 4 hours), monthly performance reviews, and minor content
-                                changes included.</li>
-                            <li><strong>Enterprise:</strong> 24/7 on-call support, SLA-backed response times,
-                                incident management, dedicated account manager, and quarterly architecture
-                                reviews for capacity planning.</li>
-                        </ul>
-
-                        <p className='text-[0.92em] font-[300] leading-[1.6] mb-3'>
-                            Each plan includes a clear runbook for common incidents, disaster recovery
-                            procedures tested regularly, automated backups stored off-site, and a
-                            communications protocol for stakeholder updates during incidents.
-                        </p>
-
-                        <p className='text-[0.92em] font-[300] leading-[1.6] mb-3'>
-                            Pricing is usage and scale-dependent; we provide a baseline retainer model and
-                            convert to a managed service agreement for larger environments. All maintenance
-                            work is tracked transparently via our ticketing system with monthly reports and
-                            suggested roadmap items to continuously improve stability and ROI.
+                        <p className='text-[0.85em] font-[300] tracking-normal text-justify leading-[1.5] '>
+                            Our commitment to your success doesn’t end at launch. We offer a range of
+                            tailored support and maintenance packages designed to ensure your website continues to
+                            perform reliably, securely, and efficiently. From technical troubleshooting and bug fixes to
+                            software updates and system monitoring, our team is available via phone or ticketing system
+                            to respond promptly to your evolving needs. We also provide additional training to help your
+                            team manage and update the site with confidence.<br/><br/>
+                            Ongoing maintenance is essential to keeping your digital presence competitive and secure.
+                            Our proactive approach includes regular security patches, performance optimisations, and
+                            compatibility updates to safeguard your investment and minimise downtime. By partnering with
+                            us for long-term support, you can focus on growing your business while we handle the
+                            technical upkeep of your website.
                         </p>
                     </div>
                 </div>

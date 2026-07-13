@@ -128,7 +128,23 @@ const SocialNetworking = () => (
             {name: 'David Mensah', title: 'CEO, CreatorHub', message: <>Their real-time messaging and notification work transformed engagement on our creator platform. Daily active users climbed steadily after launch.</>},
             {name: 'Fatima Sani', title: 'Product Lead, StudyCircle', message: <>They understood that safety and scale matter as much as features. Our student community feels fast, fun and secure—exactly what we hoped for.</>},
         ]}
-    />
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'Social Community Platforms',
+                description: 'Build engaged communities with user profiles, activity feeds, real-time messaging, content sharing and sophisticated moderation tools.'
+            },
+            {
+                id: 'vs2',
+                title: 'Creator & Influencer Platforms',
+                description: 'Enable content creators with monetization tools, audience analytics, subscriber management and performance tracking for creator economy.'
+            },
+            {
+                id: 'vs3',
+                title: 'Mobile-first Social Apps',
+                description: 'Develop fast, engaging social applications with real-time notifications, video/image streaming, discovery algorithms and viral growth mechanics.'
+            }
+        ]}/>
 );
 
 export default SocialNetworking;

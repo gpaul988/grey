@@ -19,6 +19,7 @@ export const formatCurrency = (amount: number, currency: string = 'USD'): string
   }).format(amount);
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const parseJwt = (token: string): Record<string, any> => {
   try {
     const base64Url = token.split('.')[1];

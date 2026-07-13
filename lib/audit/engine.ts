@@ -503,6 +503,7 @@ async function auditRepo(input: string): Promise<AuditSection[]> {
         ];
     }
     const {owner, repo} = parsed;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const meta = await gh<any>(`/repos/${owner}/${repo}`);
     if (!meta.ok || !meta.data) {
         const detail = meta.status === 404 ? 'Repository not found or private (no access token configured).' : meta.status === 403 ? 'GitHub API rate-limited. Set GITHUB_TOKEN to lift the limit.' : `GitHub API returned status ${meta.status}.`;
@@ -529,10 +530,13 @@ async function auditRepo(input: string): Promise<AuditSection[]> {
 
     // Pull supporting data in parallel.
     const [contents, community, langs] = await Promise.all([
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         gh<any[]>(`/repos/${owner}/${repo}/contents`),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         gh<any>(`/repos/${owner}/${repo}/community/profile`),
         gh<Record<string, number>>(`/repos/${owner}/${repo}/languages`),
     ]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const files = new Set((Array.isArray(contents.data) ? contents.data : []).map((c: any) => String(c.name).toLowerCase()));
     const has = (name: string) => files.has(name.toLowerCase());
 
@@ -616,6 +620,7 @@ async function auditRepo(input: string): Promise<AuditSection[]> {
             });
         }
         // CI
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const workflows = await gh<any>(`/repos/${owner}/${repo}/contents/.github/workflows`);
         if (!workflows.ok || !Array.isArray(workflows.data) || workflows.data.length === 0) {
             f.push({
@@ -637,6 +642,7 @@ async function auditRepo(input: string): Promise<AuditSection[]> {
                 implementation: 'Create .github/dependabot.yml:\n```yaml\nversion: 2\nupdates:\n  - package-ecosystem: npm\n    directory: "/"\n    schedule:\n      interval: weekly\n```',
             });
         }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const hasTests = (Array.isArray(contents.data) ? contents.data : []).some((c: any) => /test|spec|__tests__/i.test(c.name));
         if (!hasTests) {
             f.push({

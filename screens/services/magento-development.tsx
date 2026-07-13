@@ -84,7 +84,24 @@ const MagentoDevelopment = () => (
             },
         ]}
         ctaHeading={<>Commerce at<br className="lg:block md:block hidden" />any scale</>}
-        ctaBody="Magento rewards proper engineering. Grey InfoTech builds Adobe Commerce and Magento solutions that handle enterprise catalogue complexity and peak traffic without flinching."/>
+        ctaBody="Magento rewards proper engineering. Grey InfoTech builds Adobe Commerce and Magento solutions that handle enterprise catalogue complexity and peak traffic without flinching."
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'Enterprise E-commerce Platforms',
+                description: 'Scalable, multi-site B2C and B2B commerce with advanced product management, pricing rules, segmentation and content merchandising.'
+            },
+            {
+                id: 'vs2',
+                title: 'Omnichannel Commerce',
+                description: 'Unified commerce across online stores, physical locations and marketplaces with synchronized inventory, pricing and customer data.'
+            },
+            {
+                id: 'vs3',
+                title: 'High-traffic Store Operations',
+                description: 'Optimize Magento for millions of daily shoppers with caching strategies, CDN integration, database optimization and elastic scaling.'
+            }
+        ]}/>
 );
 
 export default MagentoDevelopment;

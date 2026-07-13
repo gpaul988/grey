@@ -78,7 +78,24 @@ const DataAnalytics = () => (
             },
         ]}
         ctaHeading={<>Your data,<br className="lg:block md:block hidden" />finally working</>}
-        ctaBody="Stop making decisions based on gut feel or broken spreadsheets. Grey InfoTech builds the data platform that makes every team in your organisation smarter."/>
+        ctaBody="Stop making decisions based on gut feel or broken spreadsheets. Grey InfoTech builds the data platform that makes every team in your organisation smarter."
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'Business Intelligence Platforms',
+                description: 'Build self-service analytics dashboards that empower teams to explore data, identify trends and make data-driven decisions at scale.'
+            },
+            {
+                id: 'vs2',
+                title: 'Real-time Analytics & Streaming',
+                description: 'Ingest and analyze streaming data from IoT devices, user interactions and operational systems for instant insights and automated alerts.'
+            },
+            {
+                id: 'vs3',
+                title: 'Data Warehousing & Integration',
+                description: 'Centralize data from disparate sources into cloud data warehouses with transformation pipelines, data quality monitoring and governance.'
+            }
+        ]}/>
 );
 
 export default DataAnalytics;

@@ -45,6 +45,7 @@ export const createOrder = async (
     });
 
     const response = await client.execute(request);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const order = response.result as any;
 
     // Store transaction
@@ -73,6 +74,7 @@ export const captureOrder = async (
     request.requestBody({});
 
     const response = await client.execute(request);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const order = response.result as any;
 
     const amount = order.purchase_units[0].payments.captures[0].amount.value;
@@ -98,6 +100,7 @@ export const refundCapture = async (
     });
 
     const response = await client.execute(request);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const refund = response.result as any;
 
     return {
@@ -116,6 +119,7 @@ export const getOrderDetails = async (
   try {
     const request = new paypal.orders.OrdersGetRequest(orderId);
     const response = await client.execute(request);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const order = response.result as any;
 
     return {

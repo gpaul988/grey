@@ -6,6 +6,7 @@ import * as schema from './db/schema';
 
 let pgPool: Pool | null = null;
 let sqliteDb: Database.Database | null = null;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let dbInstance: any = null;
 
 /**
@@ -86,6 +87,7 @@ export const db = getDb();
 /**
  * Execute raw SQL query
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function query(sql: string, params?: any[]) {
   if (isSQLite()) {
     const db = getSqliteDb();

@@ -107,7 +107,8 @@ export async function getRatingDistribution() {
       .groupBy(reviews.rating)
       .orderBy(reviews.rating);
 
-    return distribution.reduce((acc, r) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return distribution.reduce((acc: Record<number, number>, r: any) => {
       acc[r.rating] = r.count;
       return acc;
     }, {} as Record<number, number>);

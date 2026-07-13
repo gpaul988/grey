@@ -17,6 +17,8 @@ export default function IndustriesPage() {
     { name: 'Manufacturing', slug: 'manufacturing' },
     { name: 'Automation', slug: 'automation' },
     { name: 'Biotech', slug: 'biotech' },
+    { name: 'Maritime & Shipping', slug: 'maritime' },
+    { name: 'Ports & Terminals', slug: 'port' },
   ];
 
   return (

@@ -3,6 +3,7 @@
  * Maps language code -> translation keys
  */
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const coreTranslations: Record<string, Record<string, any>> = {
   en: {
     greeting: {
@@ -300,6 +301,7 @@ const coreTranslations: Record<string, Record<string, any>> = {
   },
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getCoreTranslations(languageCode: string): Record<string, any> {
   return coreTranslations[languageCode] || coreTranslations.en;
 }

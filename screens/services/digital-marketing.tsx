@@ -938,7 +938,7 @@ const DigitalMarketing = () => {
                         navLabel="Our Solutions"
                         items={dmSolutions}
                         activeId={activeId}
-                        onNavClick={scrollToSection}
+                        onNavClickAction={scrollToSection}
                         day={false}
                     />
                 </div>

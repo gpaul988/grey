@@ -1085,7 +1085,7 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                     intro="We deliver comprehensive CRM solutions that revolutionize customer relationship management�from custom platform development and seamless integrations to mobile-first applications, advanced analytics, and intelligent automation�all designed to accelerate revenue growth and enhance customer lifetime value."
                     navLabel="CRM Solutions"
                     activeId={activeId}
-                    onNavClick={scrollToSection}
+                    onNavClickAction={scrollToSection}
                     items={crmSolutions}
                 />
             </div>

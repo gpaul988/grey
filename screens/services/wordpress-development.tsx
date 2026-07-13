@@ -83,7 +83,29 @@ const WordPressDevelopment = () => (
             },
         ]}
         ctaHeading={<>WordPress that<br className="lg:block md:block hidden" />won&apos;t let you down</>}
-        ctaBody="Properly built WordPress is fast, secure and a joy to manage. Grey InfoTech builds WordPress sites that your editors love and your users never notice—because they just work."/>
+        ctaBody="Properly built WordPress is fast, secure and a joy to manage. Grey InfoTech builds WordPress sites that your editors love and your users never notice—because they just work."
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'Publishing & Media Networks',
+                description: 'Headless WordPress powers modern media companies with WPGraphQL APIs feeding Next.js frontends, enabling real-time content delivery across web, mobile and syndication channels while maintaining editorial workflows.'
+            },
+            {
+                id: 'vs2',
+                title: 'SaaS Platforms & Communities',
+                description: 'WordPress as a service backbone—custom post types for tenant data isolation, REST APIs for third-party integrations, membership plugins, and automated workflows for multi-tenant provisioning and subscription management.'
+            },
+            {
+                id: 'vs3',
+                title: 'High-Performance E-commerce',
+                description: 'WooCommerce custom builds with Redis caching, headless architecture for Jamstack frontends, Stripe/Paystack integration, and subscription workflows for recurring revenue models with sub-second load times.'
+            },
+            {
+                id: 'vs4',
+                title: 'Enterprise Content Platforms',
+                description: 'WordPress at scale for Fortune 500 companies—multi-site networks, content governance with custom workflows, API-first architectures for internal applications, and compliance frameworks for regulated industries.'
+            }
+        ]}/>
 );
 
 export default WordPressDevelopment;

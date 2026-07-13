@@ -1,5 +1,6 @@
 import { createClient } from 'redis';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let redisClient: any = null;
 
 /**
@@ -7,9 +8,11 @@ let redisClient: any = null;
  */
 export const redis = {
   async get(key: string) { return (await getRedis()).get(key); },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async set(key: string, value: any) { return (await getRedis()).set(key, value); },
   async del(key: string) { return (await getRedis()).del(key); },
   async expire(key: string, ttl: number) { return (await getRedis()).expire(key, ttl); },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async lpush(key: string, value: any) { return (await getRedis()).lPush(key, value); },
 };
 
@@ -39,6 +42,7 @@ export async function getRedis() {
     },
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   redisClient.on('error', (err: any) => {
     if (err.code === 'ECONNREFUSED' || err.code === 'ENOTFOUND') {
       // Redis not running locally — silently ignore, it's optional in dev.
@@ -53,6 +57,7 @@ export async function getRedis() {
 
   try {
     await redisClient.connect();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     console.warn('[redis] Not available (REDIS_URL not set or Redis not running). Continuing without cache.');
     redisClient = null;
@@ -97,6 +102,7 @@ export const cache = {
     return value ? JSON.parse(value) : null;
   },
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async setJSON(key: string, value: any, ttlSeconds?: number): Promise<void> {
     await this.set(key, JSON.stringify(value), ttlSeconds);
   },

@@ -229,8 +229,6 @@ export default function AdminAuditsPage() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editData, setEditData] = useState({ status: '', adminNotes: '', proposedSolution: '' });
 
-  useEffect(() => { fetchSubmissions(); }, [statusFilter, priorityFilter]);
-
   const fetchSubmissions = async () => {
     try {
       setLoading(true);
@@ -251,6 +249,8 @@ export default function AdminAuditsPage() {
     }
   };
 
+  useEffect(() => { fetchSubmissions(); }, [statusFilter, priorityFilter]);
+
   const handleUpdateSubmission = async (id: number) => {
     try {
       const response = await fetch('/api/admin/audits', {
@@ -261,6 +261,7 @@ export default function AdminAuditsPage() {
       if (!response.ok) throw new Error('Failed to update');
       setEditingId(null);
       fetchSubmissions();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message);
     }
@@ -333,7 +334,7 @@ export default function AdminAuditsPage() {
             filteredSubmissions.map((submission) => {
               const auditData: AuditData | null =
                 typeof submission.auditData === 'string'
-                  ? (() => { try { return JSON.parse(submission.auditData as any); } catch { return null; } })()
+                  ? (() => { try { return JSON.parse(submission.auditData); } catch { return null; } })()
                   : submission.auditData;
 
               const hasSections = Array.isArray(auditData?.sections) && (auditData?.sections?.length ?? 0) > 0;

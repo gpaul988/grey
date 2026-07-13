@@ -76,7 +76,24 @@ const Consulting = () => (
             },
         ]}
         ctaHeading={<>Advice that<br className="lg:block md:block hidden" />actually ships</>}
-        ctaBody="Great consulting doesn't end with a report. We stay engaged to validate implementation, unblock decisions and ensure the strategy translates into software that works."/>
+        ctaBody="Great consulting doesn't end with a report. We stay engaged to validate implementation, unblock decisions and ensure the strategy translates into software that works."
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'Digital Transformation Strategy',
+                description: 'Evaluate technology landscape, identify modernization opportunities, and architect comprehensive digital strategies aligned with business objectives.'
+            },
+            {
+                id: 'vs2',
+                title: 'Technology Architecture',
+                description: 'Design scalable, resilient systems architecture that balances innovation with operational excellence, cost and technical debt management.'
+            },
+            {
+                id: 'vs3',
+                title: 'Vendor & Partnership Strategy',
+                description: 'Navigate vendor selection, negotiation, and long-term partnership strategies to optimize technology investments and business outcomes.'
+            }
+        ]}/>
 );
 
 export default Consulting;

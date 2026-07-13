@@ -51,6 +51,7 @@ function Core({pointer}: {pointer: React.MutableRefObject<{x: number; y: number}
 
 function Particles({count = 700}: {count?: number}) {
     const ref = useRef<THREE.Points>(null);
+     
     const positions = useMemo(() => {
         const arr = new Float32Array(count * 3);
         for (let i = 0; i < count; i++) {

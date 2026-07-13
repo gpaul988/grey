@@ -19,6 +19,7 @@ import {SITE} from "@/lib/seo";
 import AnnouncementBarWrapper from "@/components/futuristic/AnnouncementBarWrapper";
 import Preloader from "@/components/futuristic/Preloader";
 import CookieConsent from "@/components/futuristic/CookieConsent";
+import FloatingButton from "@/components/FloatingButton";
 
 
 // ─── Render on-demand instead of pre-rendering all pages at build ──────────
@@ -220,6 +221,7 @@ export default async function RootLayout({
         )}
         <AIChat/>
         <CookieConsent/>
+        <FloatingButton/>
         </ThemeProvider>
         </body>
         </html>

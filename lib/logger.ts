@@ -146,6 +146,7 @@ export function clearCorrelationId(): void {
 export function logPerformance(
   operation: string,
   duration: number,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   metadata?: Record<string, any>
 ) {
   if (duration > 1000) {
@@ -165,6 +166,7 @@ export function logPerformance(
 /**
  * Express/Next.js middleware to add correlation ID to all requests
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function correlationIdMiddleware(req: any, res: any, next: any) {
   const correlationId = req.headers['x-correlation-id'] || generateCorrelationId();
   global.correlationId = correlationId;
@@ -180,6 +182,7 @@ export function correlationIdMiddleware(req: any, res: any, next: any) {
 
   // Log response when done
   const originalSend = res.send;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   res.send = function (data: any) {
     logger.info('Request completed', {
       method: req.method,

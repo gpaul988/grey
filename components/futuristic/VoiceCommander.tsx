@@ -38,41 +38,11 @@ const ROUTES: {keys: string[]; href: string}[] = [
 export default function VoiceCommander() {
     const [state, setState] = useState<Listening>('idle');
     const [heard, setHeard] = useState('');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const recRef = useRef<any>(null);
     const router = useRouter();
     const {setTheme, toggle} = useTheme();
     const {vibrate} = useHaptics();
-
-    useEffect(() => {
-        const SR =
-            (typeof window !== 'undefined' &&
-                ((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition)) ||
-            null;
-        if (!SR) {
-            setState('unsupported');
-            return;
-        }
-        const rec = new SR();
-        rec.continuous = false;
-        rec.interimResults = false;
-        rec.lang = 'en-US';
-        rec.onresult = (e: any) => {
-            const text = (e.results?.[0]?.[0]?.transcript ?? '').toLowerCase().trim();
-            setHeard(text);
-            handleCommand(text);
-        };
-        rec.onend = () => setState('idle');
-        rec.onerror = () => setState('idle');
-        recRef.current = rec;
-        return () => {
-            try {
-                rec.abort();
-            } catch {
-                /* no-op */
-            }
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     const handleCommand = useCallback(
         (text: string) => {
@@ -117,6 +87,37 @@ export default function VoiceCommander() {
         },
         [router, setTheme, toggle, vibrate],
     );
+
+    useEffect(() => {
+        const SR =
+            (typeof window !== 'undefined' &&
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                ((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition)) ||
+            null;
+        if (!SR) {
+            setState('unsupported');
+            return;
+        }
+        const rec = new SR();
+        rec.continuous = false;
+        rec.interimResults = false;
+        rec.lang = 'en-US';
+        rec.onresult = (e: any) => {
+            const text = (e.results?.[0]?.[0]?.transcript ?? '').toLowerCase().trim();
+            setHeard(text);
+            handleCommand(text);
+        };
+        rec.onend = () => setState('idle');
+        rec.onerror = () => setState('idle');
+        recRef.current = rec;
+        return () => {
+            try {
+                rec.abort();
+            } catch {
+                /* no-op */
+            }
+        };
+    }, [handleCommand]);
 
     const start = () => {
         if (!recRef.current || state === 'listening') return;

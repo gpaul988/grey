@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useMemo } from 'react';
 import { FuturisticCard } from '@/components/futuristic/FuturisticCard';
 import { ModernSection } from '@/components/futuristic/ModernSection';
 import { Code2, Smartphone, Database, Layout, Blocks, Brain, Cloud, Megaphone, Palette, Briefcase, Zap, Rocket } from 'lucide-react';
@@ -36,6 +37,11 @@ export default function ServicesContent() {
     { name: 'Consulting', slug: 'consulting', desc: 'Strategic technology guidance' },
     { name: 'MVP Development', slug: 'MVP', desc: 'Fast-track product launches' },
   ];
+
+   
+  const serviceGradients = useMemo(() => {
+    return services.map(() => Math.random() > 0.5 ? 'cyan' : 'purple');
+  }, [services]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -83,11 +89,11 @@ export default function ServicesContent() {
             initial="hidden"
             animate="visible"
           >
-            {services.map((service) => (
+            {services.map((service, index) => (
               <motion.div key={service.slug} variants={itemVariants}>
                 <Link href={`/services/${service.slug}`}>
                   <FuturisticCard
-                    gradient={Math.random() > 0.5 ? 'cyan' : 'purple'}
+                    gradient={serviceGradients[index]}
                     hover="lift"
                     className="p-8 h-full flex flex-col justify-between group"
                   >

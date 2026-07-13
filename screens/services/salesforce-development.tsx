@@ -80,7 +80,24 @@ const SalesforceDevelopment = () => (
             },
         ]}
         ctaHeading={<>Salesforce that<br className="lg:block md:block hidden" />drives revenue</>}
-        ctaBody="Your CRM should be your competitive advantage, not a system your team works around. Grey InfoTech builds Salesforce solutions that match your process perfectly."/>
+        ctaBody="Your CRM should be your competitive advantage, not a system your team works around. Grey InfoTech builds Salesforce solutions that match your process perfectly."
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'Enterprise CRM Implementation',
+                description: 'Configure Sales Cloud, Service Cloud and Commerce Cloud for large organizations with complex sales processes, multi-region deployment and integrations.'
+            },
+            {
+                id: 'vs2',
+                title: 'Sales & Revenue Operations',
+                description: 'Build sales automation, pipeline management, forecasting and revenue analytics with custom objects, flows and AI-powered insights.'
+            },
+            {
+                id: 'vs3',
+                title: 'Customer Service Excellence',
+                description: 'Implement omnichannel support with case management, community forums, knowledge bases and AI-driven routing for superior customer experience.'
+            }
+        ]}/>
 );
 
 export default SalesforceDevelopment;

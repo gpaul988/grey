@@ -84,7 +84,24 @@ const DrupalDevelopment = () => (
             },
         ]}
         ctaHeading={<>Drupal that<br className="lg:block md:block hidden" />handles serious scale</>}
-        ctaBody="When your content requirements outgrow simpler platforms, Drupal—implemented correctly—is unmatched. Grey InfoTech builds Drupal solutions that editorial teams love."/>
+        ctaBody="When your content requirements outgrow simpler platforms, Drupal—implemented correctly—is unmatched. Grey InfoTech builds Drupal solutions that editorial teams love."
+        verticalSolutions={[
+            {
+                id: 'vs1',
+                title: 'Publishing & Media Networks',
+                description: 'Multi-site editorial platforms with sophisticated content workflows, user-generated content moderation, and flexible content syndication.'
+            },
+            {
+                id: 'vs2',
+                title: 'Enterprise Intranets',
+                description: 'Secure knowledge repositories and collaboration spaces for large organizations with fine-grained permissions, advanced search, and workflow automation.'
+            },
+            {
+                id: 'vs3',
+                title: 'Educational Institutions',
+                description: 'Learning management systems and student portals with course management, assessment integration, and community engagement features.'
+            }
+        ]}/>
 );
 
 export default DrupalDevelopment;

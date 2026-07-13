@@ -41,7 +41,7 @@ interface Props {
     heroVideo?: string;
     navSections?: NavSection[];
     activeId?: string;
-    onNavClick?: (id: string) => void;
+    onNavClickAction?: (id: string) => void;
     stats?: { label: string; value: string; percent: number }[];
     children: React.ReactNode;
     ctaHref?: string;
@@ -57,13 +57,14 @@ export default function FuturisticServiceLayout({
     heroVideo,
     navSections = [],
     activeId,
-    onNavClick,
+    onNavClickAction,
     stats = [],
     children,
     ctaHref = '/quote-request',
     ctaLabel = 'Get a Quote',
 }: Props) {
-    const resolvedIsDayTime = isDayTime !== undefined ? isDayTime : useIsDayTime();
+    const dayTimeHook = useIsDayTime();
+    const resolvedIsDayTime = isDayTime !== undefined ? isDayTime : dayTimeHook;
     const dark = !resolvedIsDayTime;
 
     return (
@@ -166,7 +167,7 @@ export default function FuturisticServiceLayout({
                                         {navSections.map(({ id, label }) => (
                                             <button
                                                 key={id}
-                                                onClick={() => onNavClick?.(id)}
+                                                onClick={() => onNavClickAction?.(id)}
                                                 className={`w-full text-left px-4 py-3 rounded-2xl text-[0.82em] font-[500] transition-all duration-200 border ${
                                                     activeId === id
                                                         ? 'border-teal-400/40 text-teal-300 ' + (dark ? 'bg-teal-400/08' : 'bg-teal-50')
@@ -291,12 +292,12 @@ export function ServiceWhyAccordion({
     isDayTime,
     reasons,
     activeIndex,
-    onSelect,
+    onSelectAction,
 }: {
     isDayTime: boolean;
     reasons: { id: number; title: React.ReactNode; description: React.ReactNode }[];
     activeIndex: number;
-    onSelect: (id: number) => void;
+    onSelectAction: (id: number) => void;
 }) {
     const dark = !isDayTime;
     return (
@@ -320,7 +321,7 @@ export function ServiceWhyAccordion({
                                 ? dark ? 'text-teal-300' : 'text-teal-700'
                                 : dark ? 'text-gray-400' : 'text-gray-500'
                         }`}
-                        onClick={() => onSelect(r.id)}
+                        onClick={() => onSelectAction(r.id)}
                     >
                         {r.title}
                         <span className={`text-[0.8em] transition-transform ${r.id === activeIndex ? 'rotate-90' : ''}`}>›</span>

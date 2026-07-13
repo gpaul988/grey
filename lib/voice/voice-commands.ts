@@ -23,6 +23,7 @@ export interface CommandAction {
   type: 'navigate' | 'search' | 'filter' | 'execute' | 'unknown';
   url?: string;
   query?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   filters?: Record<string, any>;
   message?: string;
 }

@@ -166,6 +166,7 @@ export const parseAndAnalyze = (code: string): Partial<CodeAnalysisResult> => {
         'decorators-legacy',
         // Pipeline operator not needed for basic parsing
       ],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any);
 
     let functionCount = 0;

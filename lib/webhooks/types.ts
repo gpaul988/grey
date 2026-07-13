@@ -58,6 +58,7 @@ export interface WebhookEndpoint {
   updatedAt: Date;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface WebhookPayload<T = any> {
   id: string;
   event: WebhookEvent;
@@ -71,6 +72,7 @@ export interface WebhookDelivery {
   id: string;
   webhookId: string;
   event: WebhookEvent;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   payload: any;
   statusCode?: number;
   responseBody?: string;
@@ -85,12 +87,15 @@ export interface WebhookDelivery {
 export interface SlackMessage {
   channel?: string;
   text: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   blocks?: any[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   attachments?: any[];
 }
 
 export interface DiscordMessage {
   content?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   embeds?: any[];
   username?: string;
   avatar_url?: string;

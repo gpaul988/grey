@@ -250,7 +250,7 @@ const Startups = () => {
                 intro="Writing code is only one aspect of developing software for a startup; another is laying the groundwork for expansion, creativity, and sustained success."
                 navLabel="Our Solutions"
                 activeId={activeId}
-                onNavClick={scrollToSection}
+                onNavClickAction={scrollToSection}
                 items={[
                     {
                         id: "01",

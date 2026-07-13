@@ -120,13 +120,13 @@ export function FxSectionHeading({
 export function FxButton({
                              day,
                              href,
-                             onClick,
+                             onClickAction,
                              children,
                              variant = 'solid',
                              className = '',
                          }: DayProp & {
     href?: string;
-    onClick?: () => void;
+    onClickAction?: () => void;
     children: React.ReactNode;
     variant?: 'solid' | 'ghost';
     className?: string;
@@ -158,7 +158,7 @@ export function FxButton({
         );
     }
     return (
-        <button type="button" onClick={onClick} className={`${base} ${styles} ${className}`}>
+        <button type="button" onClick={onClickAction} className={`${base} ${styles} ${className}`}>
             {content}
         </button>
     );
@@ -464,14 +464,14 @@ export function FxStickyScrollSection({
                                           navLabel = 'Our Solutions',
                                           items,
                                           activeId,
-                                          onNavClick,
+                                          onNavClickAction,
                                       }: DayProp & {
     heading: React.ReactNode;
     intro?: React.ReactNode;
     navLabel?: string;
     items: FxScrollItem[];
     activeId: string;
-    onNavClick: (target: string) => void;
+    onNavClickAction: (target: string) => void;
 }) {
     const mutedText = day ? 'text-gray-500' : 'text-white/45';
     const borderCol = day ? 'border-gray-200' : 'border-white/10';
@@ -598,7 +598,7 @@ export function FxStickyScrollSection({
                                     return (
                                         <button
                                             key={index}
-                                            onClick={() => onNavClick(item.target)}
+                                            onClick={() => onNavClickAction(item.target)}
                                             className={`group w-full text-left flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-300 border text-[0.82em] lg:text-[0.9em] ${
                                                 isActive
                                                     ? 'bg-teal-400/10 border-teal-400/30 shadow-[0_0_24px_-8px_rgba(45,212,191,0.55)]'

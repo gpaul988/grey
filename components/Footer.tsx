@@ -23,6 +23,13 @@ const customStyles = `
   }
   
   .scroll-container {
+    max-height: 220px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .scroll-container > * {
+    display: block;
     animation: scrollUp 50s linear infinite;
   }
 

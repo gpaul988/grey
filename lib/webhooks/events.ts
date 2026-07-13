@@ -21,6 +21,7 @@ export async function emitUserSignup(
  */
 export async function emitUserUpdated(
   userId: number,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   changes: Record<string, any>
 ): Promise<number> {
   return emitEvent('user.updated', {
@@ -39,6 +40,7 @@ export async function emitPaymentCompleted(
   amount: number,
   currency: string,
   gateway: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   metadata?: Record<string, any>
 ): Promise<number> {
   return emitEvent('payment.completed', {
@@ -77,6 +79,7 @@ export async function emitAuditCompleted(
  */
 export async function emitCustomEvent(
   eventName: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: Record<string, any>
 ): Promise<number> {
   return emitEvent(eventName, {

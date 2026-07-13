@@ -27,11 +27,6 @@ export default function AdminCMSPage() {
     published: false,
   });
 
-  // Fetch pages on mount
-  useEffect(() => {
-    fetchPages();
-  }, []);
-
   const fetchPages = async () => {
     try {
       setLoading(true);
@@ -46,6 +41,11 @@ export default function AdminCMSPage() {
       setLoading(false);
     }
   };
+
+  // Fetch pages on mount
+  useEffect(() => {
+    fetchPages();
+  }, []);
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,8 +70,9 @@ export default function AdminCMSPage() {
       setFormData({ title: '', slug: '', content: '', published: false });
       setShowNewForm(false);
       fetchPages();
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to create page';
+      setError(message);
     }
   };
 
@@ -95,8 +96,9 @@ export default function AdminCMSPage() {
 
       setEditingId(null);
       fetchPages();
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to update page';
+      setError(message);
     }
   };
 
@@ -117,7 +119,7 @@ export default function AdminCMSPage() {
     );
   };
 
-  const updatePageField = (id: number, field: string, value: any) => {
+  const updatePageField = (id: number, field: string, value: string | boolean) => {
     setPages((prevPages) =>
       prevPages.map((p) => (p.id === id ? { ...p, [field]: value } : p))
     );
@@ -429,10 +431,11 @@ export default function AdminCMSPage() {
             <li>• Click status badge to toggle published/draft state</li>
             <li>• Published pages are visible to public at /pages/[slug]</li>
             <li>• Draft pages are hidden from public view</li>
-            <li>• Click "View" to see page on live site</li>
+            <li>• Click &quot;View&quot; to see page on live site</li>
           </ul>
         </div>
       </div>
     </main>
   );
 }
+

@@ -387,7 +387,7 @@ const AppStoreOptimization = () => {
                 intro="We designed to increase your app's visibility, improve search rankings, and drive higher download rates. By leveraging data-driven keyword strategies, competitive analysis, and conversion-focused techniques, we help your app reach the right audience, maximize engagement, and achieve measurable growth in a competitive app marketplace."
                 navLabel="ASO Solutions"
                 activeId={activeId}
-                onNavClick={scrollToASOSection}
+                onNavClickAction={scrollToASOSection}
                 items={[
                     {
                         id: "01",

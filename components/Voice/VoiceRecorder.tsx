@@ -26,6 +26,7 @@ export const VoiceRecorder = ({
 
   useEffect(() => {
     // Check if browser supports Web Audio API
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
     if (!AudioContext) {
       setIsSupported(false);

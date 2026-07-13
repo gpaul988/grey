@@ -27,8 +27,11 @@
  */
 'use strict';
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const path = require('node:path');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const fs   = require('node:fs');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { execSync } = require('node:child_process');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'production';
@@ -98,6 +101,7 @@ if (!fs.existsSync(nodeModulesPath)) {
 
   let ok = false;
   let loadErr = null;
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   try { require(bsqlitePath); ok = true; } catch (e) { loadErr = e; }
 
   if (ok) {
@@ -120,7 +124,9 @@ if (!fs.existsSync(nodeModulesPath)) {
         cwd: projectRoot, stdio: 'inherit', timeout: 12 * 60 * 1000,
         env: { ...process.env, npm_config_build_from_source: 'true' },
       });
+       
       delete require.cache[require.resolve(bsqlitePath)];
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       require(bsqlitePath);
       rebuilt = true;
       console.log('[server.js] ✅ better-sqlite3 rebuilt successfully');
@@ -198,6 +204,7 @@ if (needsNextBuild()) {
 // Passenger spawned — so Passenger correctly detects the port bind.
 console.log('[server.js] Registering tsx CJS hook…');
 try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   require(path.join(projectRoot, 'node_modules', 'tsx', 'dist', 'cjs', 'index.cjs'));
   console.log('[server.js] ✅ tsx/cjs hook registered');
 } catch (err) {
@@ -210,4 +217,5 @@ try {
 }
 
 console.log('[server.js] Loading server.ts…');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 require(path.join(projectRoot, 'server.ts'));

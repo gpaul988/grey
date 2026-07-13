@@ -48,12 +48,13 @@ const SERVICE_SLUGS = [
     'cms-development', 'crm-development', 'cross-platform-development', 'digital-marketing',
     'discovery-phase', 'erp-development', 'flutter-development', 'frontend-development',
     'hybrid-app-development', 'ios-development', 'seo', 'ui-ux-design', 'unity-development',
+    'maritime-port-management',
 ];
 
 const INDUSTRY_SLUGS = [
     'automation', 'biotech', 'e-commerce-development', 'education', 'fintech', 'healthcare',
     'hr-tech', 'logistics', 'music', 'oil-and-gas', 'ondemand', 'real-estate', 'retail',
-    'saas', 'travel-and-hospitality',
+    'saas', 'travel-and-hospitality', 'maritime', 'port',
 ];
 
 const serviceLabel = (slug: string) => {
@@ -66,6 +67,7 @@ const serviceLabel = (slug: string) => {
         'ai-development-services': 'AI Development Services',
         seo: 'SEO Services',
         'ui-ux-design': 'UI/UX Design',
+        'maritime-port-management': 'Maritime & Port Management Service',
     };
     return map[slug] || titleize(slug);
 };
@@ -78,6 +80,8 @@ const industryLabel = (slug: string) => {
         saas: 'SaaS',
         ondemand: 'On-Demand',
         'travel-and-hospitality': 'Travel & Hospitality',
+        'maritime': 'Maritime & Shipping',
+        'port': 'Ports & Terminals',
     };
     return map[slug] || titleize(slug);
 };

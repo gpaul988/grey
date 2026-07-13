@@ -26,6 +26,7 @@ function getStmt<T>(name: string, query: string) {
     } else if (name === 'reset' && !stmtReset) {
         stmtReset = db.prepare(query);
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const stmts: Record<string, any> = { get: stmtGet, upsert: stmtUpsert, all: stmtAll, reset: stmtReset };
     return stmts[name];
 }

@@ -961,7 +961,7 @@ const CmsDevelopment = () => {
                         intro="We provide comprehensive CMS solutions that establish complete content management frameworks, enable multi-channel distribution, deliver automated workflows, and ensure seamless integrations—from custom platform development to legacy modernization and enhanced performance optimization."
                         navLabel="CMS Solutions"
                         activeId={activeId}
-                        onNavClick={scrollToSection}
+                        onNavClickAction={scrollToSection}
                         items={cmsSolutions}
                     />
                 </div>
