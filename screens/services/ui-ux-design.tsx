@@ -126,6 +126,25 @@ const UiUxDesign = () => {
         "testing"
     ];
 
+    // Color and label mapping for stages
+    const stageColors: Record<string, {color: string}> = {
+        'ideation': {color: '#00f5d4'},
+        'research': {color: '#7c3aed'},
+        'guidelines': {color: '#22d3ee'},
+        'vd': {color: '#ec4899'},
+        'testing': {color: '#f59e0b'},
+        'rounds': {color: '#10b981'}
+    };
+
+    const stageLabels: Record<string, string> = {
+        'ideation': 'Creative Direction',
+        'research': 'Discovery Phase',
+        'guidelines': 'System Design',
+        'vd': 'Visual Craft',
+        'testing': 'Validation',
+        'rounds': 'Refinement'
+    };
+
     const handleScrollStages = () => {
         for (const imageId of imageIds) {
             const textElement = document.getElementById(imageId); // Corresponding text element
@@ -1989,8 +2008,13 @@ const UiUxDesign = () => {
                     }}/>
                     
                     <motion.div initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.6}}>
-                        <span className={`inline-block text-xs font-semibold uppercase tracking-[0.25em] mb-4 px-3 py-1 rounded-full border ${isDayTime ? 'border-blue-300 bg-blue-300/15 text-blue-600' : 'border-blue-500/50 bg-blue-500/15 text-blue-300'}`}>
-                            Our Process
+                        {/* Dynamic header chip that changes based on active stage */}
+                        <span className={`inline-block text-xs font-semibold uppercase tracking-[0.25em] mb-4 px-3 py-1 rounded-full border`} style={{
+                            background: stageColors[activeId]?.color + '15' || '#3b82f6' + '15',
+                            borderColor: stageColors[activeId]?.color + '50' || '#3b82f6' + '50',
+                            color: stageColors[activeId]?.color || '#3b82f6'
+                        }}>
+                            {stageLabels[activeId] || 'Our Process'}
                         </span>
                         <h2 className="text-[2.4em] sm:text[3.2em] font-[700] leading-tight">Stages of Our UX/UI Process</h2>
                         <p className={`mt-3 text-[0.9em] max-w-lg ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
@@ -2011,7 +2035,7 @@ const UiUxDesign = () => {
                                 style={{
                                     width: activeId === id ? 28 : 8,
                                     height: 8,
-                                    background: activeId === id ? '#3b82f6' : (isDayTime ? '#d1d5db' : '#374151'),
+                                    background: activeId === id ? (stageColors[id]?.color || '#3b82f6') : (isDayTime ? '#d1d5db' : '#374151'),
                                 }}
                                 title={id.replace('-', ' ')}
                             />
@@ -2028,37 +2052,43 @@ const UiUxDesign = () => {
                                 id: 'ideation',
                                 name: 'Moodboards & Ideation',
                                 tags: ['Workshops', 'Competitor Analysis', 'Flow Diagrams'],
-                                desc: 'We create moodboards to establish the visual direction of your product, laying the groundwork for typography, iconography, and graphic design. This early-stage exploration allows us to experiment with a wide range of styles and themes.'
+                                desc: 'We create moodboards to establish the visual direction of your product, laying the groundwork for typography, iconography, and graphic design. This early-stage exploration allows us to experiment with a wide range of styles and themes.',
+                                color: '#00f5d4'
                             },
                             {
                                 id: 'research',
                                 name: 'Discovery & Research',
                                 tags: ['User Interviews', 'Market Analysis', 'Benchmarking'],
-                                desc: 'Our process begins with in-depth research to understand your audience\'s needs and behaviors. Through strategic analysis, we uncover valuable insights that inform every stage and ensure we create intuitive, engaging digital experiences.'
+                                desc: 'Our process begins with in-depth research to understand your audience\'s needs and behaviors. Through strategic analysis, we uncover valuable insights that inform every stage and ensure we create intuitive, engaging digital experiences.',
+                                color: '#7c3aed'
                             },
                             {
                                 id: 'guidelines',
                                 name: 'Design System & Guidelines',
                                 tags: ['Style Guides', 'Components', 'Documentation'],
-                                desc: 'Consistency at scale is key to building cohesive products. We develop comprehensive design systems—a toolkit of reusable components and clear guidelines that streamline collaboration and ensure visual consistency across all touchpoints.'
+                                desc: 'Consistency at scale is key to building cohesive products. We develop comprehensive design systems—a toolkit of reusable components and clear guidelines that streamline collaboration and ensure visual consistency across all touchpoints.',
+                                color: '#22d3ee'
                             },
                             {
                                 id: 'vd',
                                 name: 'Visual Design',
                                 tags: ['Wireframes', 'Prototyping', 'UI Design'],
-                                desc: 'Our design phase focuses on structure and functionality using wireframes and interactive prototypes. We prioritize intuitive navigation and clear hierarchy before layering in brand identity and visual elements.'
+                                desc: 'Our design phase focuses on structure and functionality using wireframes and interactive prototypes. We prioritize intuitive navigation and clear hierarchy before layering in brand identity and visual elements.',
+                                color: '#ec4899'
                             },
                             {
                                 id: 'testing',
                                 name: 'User Testing & Feedback',
                                 tags: ['Usability Tests', 'User Sessions', 'Analytics'],
-                                desc: 'Usability testing puts your product in users\' hands to uncover design flaws and opportunities. By observing real interactions, we gain invaluable insights that enhance satisfaction and boost performance.'
+                                desc: 'Usability testing puts your product in users\' hands to uncover design flaws and opportunities. By observing real interactions, we gain invaluable insights that enhance satisfaction and boost performance.',
+                                color: '#f59e0b'
                             },
                             {
                                 id: 'rounds',
                                 name: 'Feedback Rounds & Iteration',
                                 tags: ['Collaborative Reviews', 'Iterations', 'Refinement'],
-                                desc: 'We work collaboratively through regular check-ins and reviews at every stage. Using real-world data and analytics, we continuously refine the design—optimizing performance and ensuring maximum impact.'
+                                desc: 'We work collaboratively through regular check-ins and reviews at every stage. Using real-world data and analytics, we continuously refine the design—optimizing performance and ensuring maximum impact.',
+                                color: '#10b981'
                             }
                         ].map((stage, i) => (
                             <div
@@ -2069,7 +2099,7 @@ const UiUxDesign = () => {
                                 {/* Active indicator line */}
                                 <motion.div
                                     className="absolute left-0 top-0 w-[3px] h-full rounded-full"
-                                    animate={{background: activeId === stage.id ? '#3b82f6' : 'transparent'}}
+                                    animate={{background: activeId === stage.id ? stage.color : 'transparent'}}
                                     transition={{duration: 0.4}}
                                 />
 
@@ -2077,7 +2107,11 @@ const UiUxDesign = () => {
                                 <div className="pl-6">
                                     {/* Number + title */}
                                     <div className="flex items-center gap-4 mb-5">
-                                        <div className={`flex items-center justify-center w-10 h-10 rounded-full text-sm font-bold shrink-0 ${isDayTime ? 'bg-blue-100 text-blue-600 border border-blue-300' : 'bg-blue-500/20 text-blue-300 border border-blue-500/40'}`}>
+                                        <div className={`flex items-center justify-center w-10 h-10 rounded-full text-sm font-bold shrink-0`} style={{
+                                            background: stage.color + '18',
+                                            border: `1px solid ${stage.color}44`,
+                                            color: stage.color
+                                        }}>
                                             {String(i + 1).padStart(2, '0')}
                                         </div>
                                         <h3 className="text-[1.4em] sm:text-[1.6em] font-[600] leading-tight">{stage.name}</h3>
@@ -2086,7 +2120,11 @@ const UiUxDesign = () => {
                                     {/* Tags */}
                                     <div className="flex flex-wrap gap-2 mb-5">
                                         {stage.tags.map((tag) => (
-                                            <span key={tag} className={`px-3 py-1 text-[0.7em] font-medium rounded-full ${isDayTime ? 'bg-blue-100 text-blue-700 border border-blue-300' : 'bg-blue-500/15 text-blue-300 border border-blue-500/30'}`}>
+                                            <span key={tag} className={`px-3 py-1 text-[0.7em] font-medium rounded-full tracking-wide`} style={{
+                                                background: stage.color + '15',
+                                                border: `1px solid ${stage.color}33`,
+                                                color: stage.color
+                                            }}>
                                                 {tag}
                                             </span>
                                         ))}
@@ -2105,22 +2143,26 @@ const UiUxDesign = () => {
                                             fill
                                             className="object-cover"
                                         />
-                                        <div className="absolute inset-0" style={{background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2), transparent)'}} />
+                                        <div className="absolute inset-0" style={{background: `linear-gradient(135deg, ${stage.color}22, transparent)`}} />
                                     </div>
 
                                     {/* CTA */}
-                                    <Link href={`#${stage.id}`}>
+                                    <Link href={`/services/ui-ux-design#${stage.id}`}>
                                         <motion.button
                                             whileHover={{scale: 1.03}}
                                             whileTap={{scale: 0.97}}
-                                            className={`relative inline-flex items-center gap-3 px-6 py-3 rounded-full text-[0.82em] font-semibold tracking-wide overflow-hidden border ${isDayTime ? 'border-blue-400/50 text-blue-600 hover:bg-blue-50' : 'border-blue-500/50 text-blue-300 hover:bg-blue-500/10'}`}
+                                            className={`relative inline-flex items-center gap-3 px-6 py-3 rounded-full text-[0.82em] font-semibold tracking-wide overflow-hidden border`}
+                                            style={{
+                                                borderColor: stage.color + '55',
+                                                color: stage.color
+                                            }}
                                         >
                                             <motion.span
                                                 className="absolute inset-0 rounded-full"
                                                 initial={{scale: 0, opacity: 0}}
                                                 whileHover={{scale: 1, opacity: 1}}
                                                 transition={{duration: 0.3}}
-                                                style={{background: isDayTime ? 'rgba(59, 130, 246, 0.1)' : 'rgba(59, 130, 246, 0.2)'}}
+                                                style={{background: stage.color + '18'}}
                                             />
                                             <span className="relative z-10">Explore Stage</span>
                                             <span className="relative z-10 text-[1.3em] leading-none">→</span>
@@ -2136,6 +2178,7 @@ const UiUxDesign = () => {
                         <div ref={rightPanelRef} style={{
                             position: 'fixed', 
                             top: '5em', 
+                            right: 0,
                             width: 'calc(50% - 2.3em)', 
                             height: 'calc(100vh - 5em)', 
                             overflow: 'hidden',
