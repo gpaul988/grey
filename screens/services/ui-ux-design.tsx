@@ -28,9 +28,11 @@ import {
 const UiUxDesign = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const rightPanelRef = useRef<HTMLDivElement>(null);
+    const processSectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
     const [isVisible, setIsVisible] = useState(false);
+    const [isProcessSectionVisible, setIsProcessSectionVisible] = useState(false);
 
     // Floating button visibility hook
     useEffect(() => {
@@ -172,6 +174,22 @@ const UiUxDesign = () => {
         };
 
         window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    // Process section visibility hook (for hiding fixed image panel)
+    useEffect(() => {
+        const handleScroll = () => {
+            const processSection = document.getElementById('process');
+            if (processSection) {
+                const rect = processSection.getBoundingClientRect();
+                const isVisible = rect.top <= window.innerHeight && rect.bottom >= 0;
+                setIsProcessSectionVisible(isVisible);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // Initialize on mount
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
@@ -1961,7 +1979,7 @@ const UiUxDesign = () => {
             </div>
 
             {/* Stages of Our UX/UI Process - Services Layout */}
-            <section ref={sectionRef} id={'process'} className={`relative ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
+            <section ref={processSectionRef} id={'process'} className={`relative ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
                 {/* Header */}
                 <div className={`relative border-b px-6 sm:px-10 lg:px-[4.6em] pt-24 pb-10 overflow-hidden ${isDayTime ? 'border-gray-200' : 'border-gray-900'}`}>
                     {/* Grid background */}
@@ -2115,7 +2133,16 @@ const UiUxDesign = () => {
 
                     {/* RIGHT - fixed image panel (desktop only) */}
                     <div className="hidden lg:block" style={{height: `${imageIds.length * 520}px`}}>
-                        <div ref={rightPanelRef} style={{position: 'fixed', top: '5em', width: 'calc(50% - 2.3em)', height: 'calc(100vh - 5em)', overflow: 'hidden'}} className="overflow-hidden">
+                        <div ref={rightPanelRef} style={{
+                            position: 'fixed', 
+                            top: '5em', 
+                            width: 'calc(50% - 2.3em)', 
+                            height: 'calc(100vh - 5em)', 
+                            overflow: 'hidden',
+                            opacity: isProcessSectionVisible ? 1 : 0,
+                            pointerEvents: isProcessSectionVisible ? 'auto' : 'none',
+                            transition: 'opacity 0.3s ease-out'
+                        }} className="overflow-hidden">
                             <AnimatePresence mode="wait">
                                 {imageIds.map((imageId) => activeId === imageId && (
                                     <motion.div
