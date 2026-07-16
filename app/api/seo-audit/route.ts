@@ -3,7 +3,13 @@ import { JSDOM } from 'jsdom';
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    let body: any = null;
+    try {
+      body = await request.json();
+    } catch (e) {
+      const raw = await request.text();
+      return NextResponse.json({ ok: false, error: 'Invalid JSON', rawBody: raw }, { status: 400 });
+    }
     const url = body?.url;
     if (!url) return NextResponse.json({ ok: false, error: 'Missing url' }, { status: 400 });
 
