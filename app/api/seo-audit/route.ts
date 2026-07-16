@@ -3,11 +3,11 @@ import { JSDOM } from 'jsdom';
 
 export async function POST(request: Request) {
   try {
+    const raw = await request.text();
     let body: any = null;
     try {
-      body = await request.json();
+      body = JSON.parse(raw);
     } catch (e) {
-      const raw = await request.text();
       return NextResponse.json({ ok: false, error: 'Invalid JSON', rawBody: raw }, { status: 400 });
     }
     const url = body?.url;
