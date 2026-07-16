@@ -48,6 +48,151 @@ export default function AuditScreen() {
     if (r) setRepo(decodeURIComponent(r));
   }, [searchParams]);
 
+  // Instant SEO quick-check panel (futuristic, high-detail)
+  function InstantSeoPanel() {
+    const [input, setInput] = useState('');
+    const [loadingSeo, setLoadingSeo] = useState(false);
+    const [seoResult, setSeoResult] = useState<any | null>(null);
+    const [seoError, setSeoError] = useState<string | null>(null);
+
+    const runSeo = async (u?: string) => {
+      setSeoError(null);
+      setSeoResult(null);
+      setLoadingSeo(true);
+      try {
+        let url = (u ?? input).trim();
+        if (!/^https?:\/\//i.test(url)) {
+          if (url.startsWith('/')) url = window.location.origin + url;
+          else url = 'https://' + url;
+        }
+        const res = await fetch('/api/seo-audit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url })
+        });
+        const payload = await res.json();
+        if (!res.ok) throw new Error(payload?.error || 'Audit failed');
+        setSeoResult({ ...payload, url });
+      } catch (err:any) {
+        setSeoError(err?.message || String(err));
+      } finally {
+        setLoadingSeo(false);
+      }
+    };
+
+    return (
+      <section className="mt-8 mb-8 rounded-2xl border border-white/8 bg-gradient-to-br from-slate-900/70 to-slate-950/80 p-6 shadow-lg">
+        <div className="flex items-start gap-6">
+          <div className="flex-1">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
+              <h3 className="text-lg font-bold">Instant SEO Console</h3>
+            </div>
+            <p className="text-sm text-slate-400 mb-4">Run a focused, high-fidelity SEO check instantly. Uses server-side crawling to avoid browser CORS/CSP limits.</p>
+
+            <div className="flex gap-3">
+              <input value={input} onChange={(e)=>setInput(e.target.value)} className="flex-1 rounded-xl border border-white/10 bg-black/20 px-4 py-2 text-sm text-white" placeholder="example.com or /path or https://example.com" />
+              <button onClick={()=>runSeo()} disabled={loadingSeo} className="rounded-xl px-4 py-2 font-semibold" style={{background: 'linear-gradient(135deg,#06b6d4,#6366f1)', color: 'white'}}>{loadingSeo ? 'Running…' : 'Run SEO'}</button>
+            </div>
+
+            <div className="mt-3 text-xs text-slate-500">Tip: Use full URL for external sites. Results include title, meta, H1s, canonical, robots, images missing alt, link counts, word count, and an automated score with prioritized fixes.</div>
+          </div>
+
+          <div className="w-72 hidden sm:block">
+            <div className="rounded-xl border border-white/6 p-3 bg-gradient-to-b from-white/3 to-transparent">
+              <div className="text-xs text-slate-400">Quick Metrics</div>
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                <div className="text-sm">Live audit</div>
+                <div className="font-mono text-right text-sm">Server</div>
+                <div className="text-sm">Response</div>
+                <div className="font-mono text-right text-sm">jsdom</div>
+                <div className="text-sm">Checks</div>
+                <div className="font-mono text-right text-sm">10+</div>
+                <div className="text-sm">Output</div>
+                <div className="font-mono text-right text-sm">JSON</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {seoError && <div className="mt-4 rounded-md bg-rose-600/10 border border-rose-500/10 p-3 text-sm text-rose-300">{seoError}</div>}
+
+        {seoResult && (
+          <div className="mt-5 grid lg:grid-cols-3 gap-4">
+            <div className="p-3 rounded-lg border bg-black/20">
+              <div className="text-xs text-slate-400">URL</div>
+              <div className="font-mono break-all text-sm">{seoResult.url}</div>
+              <div className="mt-3 text-xs text-slate-400">Score</div>
+              <div className="text-2xl font-black" style={{color: gradeColor(seoResult.score)}}>{seoResult.score}/100</div>
+              <div className="mt-3 text-xs text-slate-400">Word count</div>
+              <div className="font-medium">{seoResult.wordCount}</div>
+            </div>
+
+            <div className="lg:col-span-2 p-3 rounded-lg border bg-black/10">
+              <div className="grid gap-3">
+                <div>
+                  <div className="text-xs text-slate-400">Title</div>
+                  <div className={`font-semibold ${!seoResult.title ? 'text-rose-400' : ''}`}>{seoResult.title || 'Missing'}</div>
+                </div>
+
+                <div>
+                  <div className="text-xs text-slate-400">Meta description</div>
+                  <div className={`${!seoResult.metaDescription ? 'text-rose-400' : ''}`}>{seoResult.metaDescription || 'Missing'}</div>
+                </div>
+
+                <div>
+                  <div className="text-xs text-slate-400">H1(s)</div>
+                  <div className="font-medium">{seoResult.h1s && seoResult.h1s.length ? seoResult.h1s.join(' • ') : 'None found'}</div>
+                </div>
+
+                <div className="grid lg:grid-cols-2 gap-3">
+                  <div>
+                    <div className="text-xs text-slate-400">Canonical</div>
+                    <div>{seoResult.canonical || 'Not set'}</div>
+                  </div>
+                  <div>
+                    <div className="text-xs text-slate-400">Robots</div>
+                    <div>{seoResult.robots || 'Not specified'}</div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-xs text-slate-400">Images missing alt (first 8)</div>
+                  <div className="text-sm">
+                    {seoResult.imagesMissingAlt && seoResult.imagesMissingAlt.length ? (
+                      <ul className="list-disc pl-5">
+                        {seoResult.imagesMissingAlt.slice(0,8).map((src:any,i:number)=> <li key={i}><code className="font-mono">{src}</code></li>)}
+                      </ul>
+                    ) : <div>None</div>}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-xs text-slate-400">Links</div>
+                  <div className="text-sm">Total: {seoResult.totalLinks} — Internal: {seoResult.internalLinks} — External: {seoResult.externalLinks}</div>
+                </div>
+
+                <div>
+                  <div className="text-xs text-slate-400">Automated Prioritized Fixes</div>
+                  <ol className="list-decimal pl-5 text-sm">
+                    {(!seoResult.title || !seoResult.metaDescription) && <li>Add meaningful title and meta description focusing on primary keywords.</li>}
+                    {seoResult.imagesMissingAlt && seoResult.imagesMissingAlt.length > 0 && <li>Add descriptive alt attributes to images ({seoResult.imagesMissingAlt.length} missing).</li>}
+                    {seoResult.canonical ? null : <li>Set a canonical link element to avoid duplicate content issues.</li>}
+                    <li>Ensure H1(s) reflect page topic and primary keywords (reduce multiplicity if >1).</li>
+                  </ol>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        )}
+      </section>
+    );
+  }
+
+  // Insert the InstantSeoPanel above the main input form
+  
+
   const handleRun = useCallback(async (e?: React.FormEvent) => {
     e?.preventDefault();
     setError('');
@@ -134,6 +279,7 @@ export default function AuditScreen() {
         </header>
 
         {/*  -  -  Input form  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
+        <InstantSeoPanel />
         <form
           onSubmit={handleRun}
           className="relative mx-auto max-w-3xl overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-950/80 p-6 shadow-2xl backdrop-blur-md sm:p-8"
