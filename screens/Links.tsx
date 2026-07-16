@@ -13,25 +13,25 @@ const Links = () => {    return (
                         Find us elsewhere on the web
                     </p>
                     <ol className=' text-gray-600 mb-6'>
-                        <li className='mb-4 before:content-["—"] hover:text-teal-600 before:mr-2'>
+                        <li className='mb-4 before:content-[" -"] hover:text-teal-600 before:mr-2'>
                             <a href='https://www.facebook.com/greyinfotechltd' className='underline-offset-8 font-semibold hover:text-teal-600 text-[18px] underline'>Facebook</a>
                         </li>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>
                             <a href='https://linkedin.com/company/greyinfotechltd' className='underline-offset-8 font-semibold hover:text-teal-600 text-[18px] underline'>Linkedin</a>
                         </li>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>
                             <a href='https://github.com/GREY-INFOTECH-LTD' className='underline-offset-8 font-semibold hover:text-teal-600 text-[18px] underline'>GitHub</a>
                         </li>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>
                             <a href='https://gitlab.com/grey-infotech' className='underline-offset-8 font-semibold hover:text-teal-600 text-[18px] underline'>GitLab</a>
                         </li>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>
                             <a href='https://x.com/greyinfotechltd' className='underline-offset-8 font-semibold hover:text-teal-600 text-[18px] underline'>X</a>
                         </li>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>
                             <a href='https://instagram.com/greyinfotechltd' className='underline-offset-8 font-semibold hover:text-teal-600 text-[18px] underline'>Instagram</a>
                         </li>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>
                             <a href='https://threads.net/greyinfotechltd' className='underline-offset-8 font-semibold hover:text-teal-600 text-[18px] underline'>Thresds</a>
                             </li>
                     </ol>

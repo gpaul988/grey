@@ -329,7 +329,7 @@ export default function CareerApplyScreen() {
                                             <p className={`font-[600] text-[0.9em] mb-1 ${dark ? 'text-gray-300' : 'text-gray-700'}`}>
                                                 Drag & drop your CV here, or <span className="text-teal-400">browse</span>
                                             </p>
-                                            <p className={`text-[0.78em] ${dark ? 'text-gray-500' : 'text-gray-400'}`}>PDF, DOC, DOCX — max 5 MB</p>
+                                            <p className={`text-[0.78em] ${dark ? 'text-gray-500' : 'text-gray-400'}`}>PDF, DOC, DOCX  - max 5 MB</p>
                                         </>
                                     )}
                                 </div>

@@ -27,7 +27,7 @@ const Typescript = () => (
             <>
                 TypeScript excels at enabling teams to work with complex systems confidently. Type definitions serve as documentation,
                 refactoring tools understand your code structure perfectly, and the compiler catches many bugs before runtime. We build
-                full-stack TypeScript applications—backend services, frontend applications, and CLIs—all sharing consistent type definitions
+                full-stack TypeScript applications -backend services, frontend applications, and CLIs -all sharing consistent type definitions
                 and patterns. TypeScript's maturity and adoption across frameworks (React, Node.js, Express, Next.js) make it the standard
                 for production JavaScript applications.
             </>,

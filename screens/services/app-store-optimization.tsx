@@ -1,9 +1,7 @@
 'use client';
 
-
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css';
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
@@ -142,7 +140,7 @@ const AppStoreOptimization = () => {
                     search phrases to deliver the most current insights into top-performing
                     terms and emerging trends. By automatically calculating your app’s
                     likelihood of indexing for each recommended keyword, we enable more
-                    accurate prioritization and data-driven decision-making—ensuring every
+                    accurate prioritization and data-driven decision-making -ensuring every
                     optimization effort is focused on the highest-impact opportunities for
                     visibility and growth.
                 </>
@@ -165,11 +163,6 @@ const AppStoreOptimization = () => {
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             {/* Hero Section - with video background */}
             <div id={'hero'} className={`relative min-h-[90vh] flex items-center justify-center overflow-hidden`}>
@@ -454,8 +447,8 @@ const AppStoreOptimization = () => {
                             <p>
                                 A/B testing is essential for optimizing the effectiveness of your app's listing
                                 in the app store. This service involves systematically testing different
-                                elements of your app's store page—such as the app icon, screenshots,
-                                descriptions, and call-to-action phrases—to determine which version drives the
+                                elements of your app's store page -such as the app icon, screenshots,
+                                descriptions, and call-to-action phrases -to determine which version drives the
                                 highest conversion rates. By running controlled experiments and analyzing the
                                 results, we identify the most effective elements for improving app store
                                 performance. A/B testing helps eliminate guesswork, ensuring that every change
@@ -549,7 +542,7 @@ const AppStoreOptimization = () => {
                                 </h2>
                                 <p className={`text-[1em] font-[300] leading-relaxed tracking-normal text-justify ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}>
                                     We combine strategic App Store Optimization, data-driven insights, and proven growth
-                                    frameworks to position your app as a market leader—driving visibility, sustainable
+                                    frameworks to position your app as a market leader -driving visibility, sustainable
                                     downloads, and long-term competitive advantage.
                                 </p>
                             </div>
@@ -621,9 +614,9 @@ const AppStoreOptimization = () => {
                         {[
                             {
                                 id: 'research',
-                                title: '🔬 Research',
+                                title: ' -  Research',
                                 icon: isDayTime ? '/assets/aso/icon/research1.svg' : '/assets/aso/icon/research.svg',
-                                description: 'We develop one of the most extensive and data-rich keyword research pools in the industry, analyzing over 5,000 keywords per language, per app store—20 times deeper than any other agency.'
+                                description: 'We develop one of the most extensive and data-rich keyword research pools in the industry, analyzing over 5,000 keywords per language, per app store -20 times deeper than any other agency.'
                             },
                             {
                                 id: 'experience',
@@ -722,7 +715,7 @@ const AppStoreOptimization = () => {
                                 step: 1
                             },
                             {
-                                title: '🔍 Keyword & Competitor Research',
+                                title: ' -  Keyword & Competitor Research',
                                 description: 'Deep analysis across thousands of keywords and competitive storefronts produces a prioritized list of opportunities and an actionable ASO roadmap tailored per store and market.',
                                 step: 2
                             },
@@ -777,7 +770,7 @@ const AppStoreOptimization = () => {
                     <p className={'text-[0.873em] font-[300] leading-[1.5] text-justify lg:pr-[33em] mb-10'}>
                         We specialize in crafting high-impact marketing websites, innovative web apps, and mobile
                         applications that drive real results. From funded startups to established businesses, we&#39;ve
-                        helped a wide range of clients bring their digital products to life—delivering standout
+                        helped a wide range of clients bring their digital products to life -delivering standout
                         experiences
                         that fuel growth, engagement, and long-term success.
                     </p>
@@ -906,7 +899,7 @@ const AppStoreOptimization = () => {
                     {[
                         {
                             id: 'discoverability',
-                            title: '🔍 Discoverability',
+                            title: ' -  Discoverability',
                             icon: isDayTime ? '/assets/front/icon2/test.svg' : '/assets/front/icon2/test1.svg',
                             copy: 'Enhances app presence in stores to ensure it\'s found by high-intent users through strategic keyword and metadata optimization.'
                         },
@@ -920,7 +913,7 @@ const AppStoreOptimization = () => {
                             id: 'conversions',
                             title: '💰 Conversions',
                             icon: isDayTime ? '/assets/front/icon2/att.svg' : '/assets/front/icon2/att1.svg',
-                            copy: 'Transforms visitors into users with conversion-first listing design—icons, screenshots and persuasive microcopy.'
+                            copy: 'Transforms visitors into users with conversion-first listing design -icons, screenshots and persuasive microcopy.'
                         },
                         {
                             id: 'organic-growth',
@@ -938,7 +931,7 @@ const AppStoreOptimization = () => {
                             id: 'ranking',
                             title: '🏆 Ranking',
                             icon: isDayTime ? '/assets/front/icon2/cust.svg' : '/assets/front/icon2/cust1.svg',
-                            copy: 'Boosts search and chart performance—creating a feedback loop of visibility, downloads and improved rankings.'
+                            copy: 'Boosts search and chart performance -creating a feedback loop of visibility, downloads and improved rankings.'
                         }
                     ].map((b, i) => (
                         <motion.div
@@ -985,3 +978,5 @@ const AppStoreOptimization = () => {
 };
 
 export default AppStoreOptimization;
+
+

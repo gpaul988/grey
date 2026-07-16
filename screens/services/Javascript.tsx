@@ -47,7 +47,7 @@ const Javascript = () => (
                 tags: ['Interactive Websites', 'Responsive Design', 'Web Interaction'],
                 body: <>We build modern websites that go beyond static content to deliver dynamic, user-centric digital 
                     experiences. Utilizing the power of JavaScript, we develop responsive designs, enhance interactivity, 
-                    and ensure seamless functionality across all devices—turning your web presence into a strategic asset 
+                    and ensure seamless functionality across all devices -turning your web presence into a strategic asset 
                     that drives measurable business results.</>,
             },
             {

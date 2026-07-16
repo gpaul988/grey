@@ -14,7 +14,7 @@ const CrossPlatformDevelopment = () => (
         eyebrow={<>Scalable Multi-Platform <br className={'lg:block md:block hidden'}/>Application Development</>}
         intro={
             <>
-                One codebase, every platform—iOS, Android, and web—delivered with native-quality performance and
+                One codebase, every platform -iOS, Android, and web -delivered with native-quality performance and
                 consistent brand experiences that cut time-to-market by up to 60%.
             </>
         }
@@ -32,7 +32,7 @@ const CrossPlatformDevelopment = () => (
                 <Link href={'/services/flutter-development'} className="border-b border-gray-500 hover:border-white">
                     Flutter
                 </Link>
-                , and Xamarin—enabling simultaneous deployment across{' '}
+                , and Xamarin -enabling simultaneous deployment across{' '}
                 <Link href={'/services/ios-development'} className="border-b border-gray-500 hover:border-white">iOS</Link>,{' '}
                 <Link href={'/services/android-development'} className="border-b border-gray-500 hover:border-white">Android</Link>, and{' '}
                 <Link href={'/services/Web-Development'} className="border-b border-gray-500 hover:border-white">web</Link>{' '}
@@ -43,7 +43,7 @@ const CrossPlatformDevelopment = () => (
                 60% and reduce development costs by 40–50% compared to native approaches while ensuring absolute
                 feature parity across all platforms. Our solutions incorporate offline functionality, real-time
                 synchronisation, secure authentication, third-party integrations, and comprehensive analytics that
-                drive continuous optimisation—giving you the agility to scale efficiently and achieve sustainable
+                drive continuous optimisation -giving you the agility to scale efficiently and achieve sustainable
                 growth in an increasingly mobile-first digital marketplace.
             </>,
         ]}
@@ -61,7 +61,7 @@ const CrossPlatformDevelopment = () => (
                 tags: ['Competitive Positioning', 'Market Analysis', 'Strategic Roadmapping'],
                 body: <>We develop comprehensive strategic roadmaps that position your cross-platform application
                     for sustained market success. Our consulting process begins with rigorous analysis of your
-                    business objectives, target audience, competitive landscape, and emerging industry trends—then
+                    business objectives, target audience, competitive landscape, and emerging industry trends -then
                     translates that insight into clear success metrics, optimal platform selection, feature
                     prioritisation, and phased deployment approaches that balance speed-to-market with quality
                     and scalability.</>,
@@ -73,7 +73,7 @@ const CrossPlatformDevelopment = () => (
                     aesthetics with intuitive functionality. Our design team employs user-centred principles,
                     comprehensive usability research, and contemporary interface patterns to craft visually
                     compelling applications that balance platform-specific conventions with unified brand
-                    expression—ensuring native-quality experiences on iOS, Android, and web while maximising
+                    expression -ensuring native-quality experiences on iOS, Android, and web while maximising
                     code reusability.</>,
             },
             {
@@ -82,7 +82,7 @@ const CrossPlatformDevelopment = () => (
                 body: <>We specialise in cross-platform application development that delivers seamless, consistent
                     user experiences across diverse devices and operating systems. Through strategic architecture
                     design and efficient code implementation, we maximise development efficiency without
-                    compromising functionality—providing unified feature sets, synchronised data experiences, and
+                    compromising functionality -providing unified feature sets, synchronised data experiences, and
                     consistent visual presentation that significantly expands market reach and reduces development
                     costs compared to native strategies.</>,
             },
@@ -111,7 +111,7 @@ const CrossPlatformDevelopment = () => (
                     organisation's unique operational requirements, strategic objectives, and competitive challenges.
                     Through collaborative development methodologies and iterative feedback cycles, we create
                     applications that incorporate the exact features, workflows, and integrations your business
-                    demands—eliminating the compromises inherent in generic, off-the-shelf solutions.</>,
+                    demands -eliminating the compromises inherent in generic, off-the-shelf solutions.</>,
             },
             {
                 id: '07', title: 'Cross-Platform App Integration', target: 'CPAI',
@@ -119,7 +119,7 @@ const CrossPlatformDevelopment = () => (
                 body: <>We provide comprehensive application integration services that connect your application with
                     essential business systems and third-party services. We employ proven integration methodologies,
                     RESTful APIs, middleware solutions, and modern integration platforms to establish reliable
-                    connections with CRM, ERP, payment gateways, analytics tools, and industry-specific applications—
+                    connections with CRM, ERP, payment gateways, analytics tools, and industry-specific applications -
                     eliminating data silos and ensuring real-time information availability across your entire
                     technology landscape.</>,
             },

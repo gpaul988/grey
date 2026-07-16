@@ -45,7 +45,7 @@ export default function Portfolio() {
     return (
         <div className={`min-h-screen transition-colors duration-500 ${dark ? 'bg-[#050810] text-white' : 'bg-white text-black'}`}>
 
-            {/* ── Hero ── */}
+            {/*  -  -  Hero  -  -  */}
             <section className="relative overflow-hidden min-h-[78vh] flex flex-col justify-end">
                 {/* Video bg */}
                 <video
@@ -100,7 +100,7 @@ export default function Portfolio() {
                 </div>
             </section>
 
-            {/* ── Intro ── */}
+            {/*  -  -  Intro  -  -  */}
             <section
                 ref={sectionRef}
                 className={`pt-16 transition-colors duration-500 ${
@@ -130,7 +130,7 @@ export default function Portfolio() {
                 </div>
             </section>
 
-            {/* ── Featured Work ── */}
+            {/*  -  -  Featured Work  -  -  */}
             <section className={`relative z-10 px-4 sm:px-6 md:px-10 lg:px-[4.5em] py-20 ${dark ? '' : ''}`}>
                 <FxBackground day={isDayTime} grid={false} aurora={true} className="opacity-20" />
                 <div className="max-w-[90rem] mx-auto relative z-10">
@@ -181,7 +181,7 @@ export default function Portfolio() {
                 </div>
             </section>
 
-            {/* ── Filter + Grid ── */}
+            {/*  -  -  Filter + Grid  -  -  */}
             <section className={`relative z-10 px-4 sm:px-6 md:px-10 lg:px-[4.5em] pb-24 ${dark ? '' : ''}`}>
                 <div className="max-w-[90rem] mx-auto">
 

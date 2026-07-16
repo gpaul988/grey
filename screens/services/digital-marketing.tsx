@@ -1,9 +1,7 @@
-﻿'use client';
-
+'use client';
 
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css';
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import Link from "next/link";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
@@ -161,7 +159,6 @@ const phases = [
     }
 ];
 
-
 const DigitalMarketing = () => {
     const isDayTime = useIsDayTime();
     const [isVisible, setIsVisible] = useState(false);
@@ -188,7 +185,7 @@ const DigitalMarketing = () => {
             body: <>We deliver comprehensive SEO strategies that improve organic search visibility, drive qualified
                 traffic, and establish sustainable online authority. Our services include technical audits, extensive
                 keyword research, on-page optimization, authoritative backlink acquisition through digital PR, and local
-                SEOâ€”providing transparent reporting with rankings tracking, organic traffic analysis, conversion
+                SEO -providing transparent reporting with rankings tracking, organic traffic analysis, conversion
                 attribution, and competitor benchmarking.</>,
         },
         {
@@ -197,7 +194,7 @@ const DigitalMarketing = () => {
             body: <>Our PPC management maximizes return on ad spend through data-driven strategies across Google Ads,
                 Microsoft Advertising, and social platforms. We develop comprehensive paid search campaigns with
                 granular keyword research, competitive bid analysis, compelling ad copy, and Google Shopping
-                optimizationâ€”plus remarketing strategies, multi-touch attribution modelling, and advanced responsive
+                optimization -plus remarketing strategies, multi-touch attribution modelling, and advanced responsive
                 search ad testing.</>,
         },
         {
@@ -214,7 +211,7 @@ const DigitalMarketing = () => {
             tags: ['Thought Leadership', 'Strategic Content Creation', 'Multi-Format Distribution', 'Content Personalization'],
             body: <>Our content marketing establishes thought leadership, attracts target audiences, and drives
                 conversions through strategically crafted content. We develop comprehensive strategies with buyer
-                journey mapping, competitive gap analysis, and editorial calendar planningâ€”producing blog posts,
+                journey mapping, competitive gap analysis, and editorial calendar planning -producing blog posts,
                 e-books, case studies, whitepapers, infographics, video content, podcasts, and webinars distributed
                 across owned, earned, and paid channels.</>,
         },
@@ -232,7 +229,7 @@ const DigitalMarketing = () => {
             tags: ['A/B Testing', 'User Experience Analysis', 'Conversion Funnel Optimization', 'Performance Improvement'],
             body: <>Our CRO services systematically improve website and landing page performance, maximising visitor
                 conversions and increasing marketing ROI. We conduct comprehensive audits with heatmaps, session
-                recordings, form analytics, and user surveysâ€”then run A/B tests on headlines, CTAs, page layouts,
+                recordings, form analytics, and user surveys -then run A/B tests on headlines, CTAs, page layouts,
                 pricing presentation, and trust signals, with multivariate testing and personalisation to deliver
                 measurable conversion lift.</>,
         },
@@ -252,10 +249,9 @@ const DigitalMarketing = () => {
                 implementation and strategic reporting. Our services include GA4 configuration, custom event tracking,
                 enhanced e-commerce tracking, server-side tracking, multi-touch attribution analysis, data-driven
                 attribution using machine learning, custom executive dashboards, cohort analysis, predictive analytics,
-                and competitive intelligenceâ€”providing clear performance visibility and proving marketing ROI.</>,
+                and competitive intelligence -providing clear performance visibility and proving marketing ROI.</>,
         },
     ];
-
 
     // Floating button visibility hook
     useEffect(() => {
@@ -703,14 +699,8 @@ const DigitalMarketing = () => {
         },
     ];
 
-
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             {/* Unified Futuristic Digital Marketing Hero - Background Image/Video with overlay */}
             <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
@@ -773,15 +763,13 @@ const DigitalMarketing = () => {
 
                             {/* Main Heading with Gradient */}
                             <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
-                                Drive Traffic &amp; <span className="gx-gradient-text">Revenue Growth</span> with
-                                Data-Driven Strategies
+                                Marketing That <span className="gx-gradient-text">Drives Real Revenue</span>
                             </h1>
 
                             {/* Description */}
                             <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
-                                Comprehensive digital marketing solutions combining SEO, paid advertising, social media
-                                marketing, content strategy, and conversion optimization to maximize your ROI and
-                                accelerate sustainable business growth.
+                                Data-driven digital marketing across Google Ads, Meta, LinkedIn, and SEO that delivers
+                                measurable ROI. 250% average client ROI increase. 3.5x ROAS. 85% retention. 200+ campaigns optimized.
                             </p>
 
                             {/* Key Capabilities Pills */}
@@ -803,7 +791,7 @@ const DigitalMarketing = () => {
                                             <span className="absolute inset-0" style={{
                                                 background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)'
                                             }}/>
-                                        <span className="relative">Start Your Campaign →</span>
+                                        <span className="relative">Start Your Campaign ?</span>
                                     </button>
                                 </Link>
                                 <Link href="/portfolio">
@@ -820,10 +808,10 @@ const DigitalMarketing = () => {
                         <div className="hidden lg:flex flex-col items-end">
                             <div className="grid grid-cols-2 gap-6 w-full">
                                 {[
+                                    {label: 'Average ROI Growth', value: '250%'},
+                                    {label: 'ROAS Achieved', value: '3.5x'},
                                     {label: 'Campaigns Managed', value: '200+'},
-                                    {label: 'Marketing Experts', value: '30+'},
-                                    {label: 'Avg ROI Increase', value: '300%'},
-                                    {label: 'Success Rate', value: '96%'}
+                                    {label: 'Client Retention', value: '85%'}
                                 ].map((stat) => (
                                     <div key={stat.label}
                                          className="px-6 py-5 rounded-2xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md hover:bg-teal-400/12 transition-all duration-300 hover:border-teal-400/50 text-right">
@@ -882,8 +870,8 @@ const DigitalMarketing = () => {
                     <div className="lg:-ml-[19em]">
                         <FxReveal>
                             <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
-                                Grow Your Digital <span
-                                className="gx-gradient-text">Marketing Revenue</span>
+                                Growth Marketing <span
+                                className="gx-gradient-text">Built on Data & ROI</span>
                             </h3>
                         </FxReveal>
                         <FxReveal delay={0.08}>
@@ -891,31 +879,23 @@ const DigitalMarketing = () => {
                                 className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[1em] leading-relaxed">
                                 <div>
                                     <p>
-                                        Digital marketing excellence requires a strategic blend of data-driven insights,
-                                        creative excellence, and relentless optimization. At Grey InfoTech, our digital
-                                        marketing specialists combine deep industry expertise with cutting-edge tools
-                                        and methodologies to deliver campaigns that drive measurable business results.
-                                        From SEO and paid advertising to content marketing and conversion optimization,
-                                        we architect comprehensive digital strategies that expand market reach, engage
-                                        high-value prospects, and accelerate sustainable revenue growth.
+                                        Our integrated digital marketing platform drives qualified leads, accelerates customer
+                                        acquisition, and scales revenue through data-driven strategies across Google Ads, Meta,
+                                        LinkedIn, SEO, and email. 250% average client ROI. 3.5x ROAS. 85% client retention. 200+
+                                        campaigns optimized with transparent attribution and continuous optimization.
                                     </p>
                                 </div>
                                 <div>
                                     <p>
-                                        Our data-driven approach integrates advanced analytics, behavioral targeting,
-                                        audience segmentation, and continuous performance optimization to maximize your
-                                        marketing ROI. We develop multi-channel strategies that leverage search
-                                        visibility, social media engagement, content distribution, paid media
-                                        efficiency, and conversion optimization across every digital touchpoint. By
-                                        combining strategic planning with agile execution and real-time performance
-                                        monitoring, we deliver transparent results that demonstrate clear attribution to
-                                        business outcomes. This comprehensive methodology ensures your digital marketing
-                                        investments consistently drive qualified leads, accelerate customer acquisition,
-                                        enhance brand authority, and achieve your most ambitious revenue objectives.
+                                        We combine strategic planning with agile execution, real-time performance monitoring, and
+                                        advanced analytics to maximize marketing effectiveness. Every channel is optimized for
+                                        lead quality, conversion efficiency, and revenue attribution. Whether scaling paid campaigns,
+                                        improving organic visibility, or building customer retention programs, we deliver measurable
+                                        results with transparent ROI tracking and continuous improvement cycles.
                                     </p>
 
                                     <div className="flex flex-wrap gap-3 text-[0.65em] mt-4">
-                                        {['SEO & SEM', 'Social Marketing', 'Content Strategy', 'Conversion Optimization'].map((p) => (
+                                        {['Google & Meta Ads', 'SEO & Content', 'Email & Automation', 'Analytics & CRO'].map((p) => (
                                             <span key={p} className="gx-data-pill">{p}</span>
                                         ))}
                                     </div>
@@ -931,11 +911,9 @@ const DigitalMarketing = () => {
                 className="bg-[#050810]">
                 <div id={'digital marketing Services Overview'}>
                     <FxStickyScrollSection
-                        heading={<>Our Prominent<br/>Digital Marketing<br/>Services</>}
-                        intro={<>Integrated solutions across search optimization, paid media, social engagement, and
-                            content strategyâ€”each engineered to drive visibility, engagement, and measurable
-                            conversion.</>}
-                        navLabel="Our Solutions"
+                        heading={<>Digital Marketing<br/>Solutions</>}
+                        intro={<>Integrated services across paid search (Google Ads), social (Meta, LinkedIn), organic (SEO, content), email, and conversion optimization—each channel optimized for lead quality, customer acquisition, and revenue growth. 250% average ROI. Proven results.</>}
+                        navLabel="Our Services"
                         items={dmSolutions}
                         activeId={activeId}
                         onNavClickAction={scrollToSection}
@@ -946,10 +924,10 @@ const DigitalMarketing = () => {
                 <div
                     className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-16 mb-24 pb-16 max-w-auto w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
                     {[
-                        {number: '30+', label: 'Marketing Experts'},
-                        {number: '50+', label: 'Campaigns Deployed'},
-                        {number: '3X', label: 'Faster Content Publishing'},
-                        {number: '70%', label: 'Better Multi-Channel ROI'},
+                        {number: '250%', label: 'Average Client ROI'},
+                        {number: '3.5x', label: 'ROAS Achieved'},
+                        {number: '85%', label: 'Client Retention'},
+                        {number: '120%', label: 'Avg Lead Quality Improvement'},
                     ].map((stat, i) => (
                         <FxHoloCard key={i} day={false} className="p-8 flex flex-col items-center text-center gap-2">
                             <div className="text-[#00f5d4] text-4xl lg:text-5xl font-bold">{stat.number}</div>
@@ -980,7 +958,7 @@ const DigitalMarketing = () => {
                         <div className='lg:-ml-[7.8em]'>
                             <p className='text-[0.873em] font-[300] lg:-mt-[0.2em] rounded-none leading-[1.5]'>
                                 We recognize that exceptional digital marketing partnerships extend beyond service
-                                deliveryâ€”they hinge on generating quantifiable business outcomes through strategic
+                                delivery -they hinge on generating quantifiable business outcomes through strategic
                                 planning, advanced analytics, and data-informed decision-making. Our comprehensive suite
                                 of capabilities is engineered to provide complete visibility into campaign performance,
                                 transparent reporting on key metrics and ROI, and adaptive, future-ready marketing
@@ -1142,8 +1120,8 @@ const DigitalMarketing = () => {
                             <p className="text-[0.85em] font-[400] leading-relaxed">
                                 Every element of our digital marketing services is designed with conversion in mind,
                                 ensuring activities drive tangible business results rather than just traffic or
-                                engagement. We optimize for actions that matter to your businessâ€”whether leads, sales,
-                                appointments, downloads, or other conversion goalsâ€”by implementing conversion tracking
+                                engagement. We optimize for actions that matter to your business -whether leads, sales,
+                                appointments, downloads, or other conversion goals -by implementing conversion tracking
                                 across all channels, creating compelling calls-to-action that motivate desired
                                 behaviors, designing landing pages with persuasive copy and friction-reducing layouts,
                                 developing nurturing sequences that guide prospects toward purchase decisions, and
@@ -1513,7 +1491,7 @@ const DigitalMarketing = () => {
             {/* Pricing / Packages replaced by currency-aware component */}
             <CurrencyAwarePricing/>
 
-            {/* Final CTA — Contact & Demo */}
+            {/* Final CTA - Contact & Demo */}
             <section className="py-20">
                 <div className="max-w-[90em] mx-auto px-6 sm:px-10 lg:px-[4.6em] text-center">
                     <h2 className="text-[2em] font-[800] mb-4">Ready to transform your marketing?</h2>
@@ -1544,37 +1522,37 @@ const DigitalMarketing = () => {
                 capabilities={[
                     {
                         id: "seo-content",
-                        icon: "🔍",
+                        icon: "??",
                         title: "SEO & Content",
                         description: "Advanced technical SEO audits, data-driven keyword strategy, and AI-enhanced content optimization to dominate search rankings."
                     },
                     {
                         id: "paid-advertising",
-                        icon: "🎯",
+                        icon: "??",
                         title: "Paid Advertising",
                         description: "Programmatic campaigns across Google, Meta, and LinkedIn with ML-powered targeting, real-time bid optimization, and transparent ROI tracking."
                     },
                     {
                         id: "social-media",
-                        icon: "📱",
+                        icon: "??",
                         title: "Social Media",
                         description: "Platform-native strategies with predictive analytics, community intelligence, and organic growth acceleration through authentic engagement."
                     },
                     {
                         id: "email-marketing",
-                        icon: "📧",
+                        icon: "??",
                         title: "Email Marketing",
                         description: "Intelligent automation with behavioral triggers, dynamic segmentation, and personalized lifecycle journeys that drive conversion and retention."
                     },
                     {
                         id: "analytics-reporting",
-                        icon: "📊",
+                        icon: "??",
                         title: "Analytics & Reporting",
                         description: "Real-time intelligence dashboards with advanced attribution modeling, predictive analytics, and actionable insights across all channels."
                     },
                     {
                         id: "conversion-optimization",
-                        icon: "📈",
+                        icon: "??",
                         title: "Conversion Optimisation",
                         description: "Continuous A/B testing, advanced funnel analysis, and conversion rate optimization powered by behavioral data and machine learning."
                     },
@@ -1585,3 +1563,5 @@ const DigitalMarketing = () => {
 };
 
 export default DigitalMarketing;
+
+

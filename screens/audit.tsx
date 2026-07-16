@@ -6,7 +6,7 @@ import type { AuditReport, AuditSection, Finding, Severity } from '@/lib/audit/e
 import { AuditRequestFixModal } from '@/components/AuditRequestFixModal';
 import { exportAsJSON, exportAsHTML } from '@/lib/audit/export';
 
-/* ── severity metadata ─────────────────────────────────────────────── */
+/*  -  -  severity metadata  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 const SEV_META: Record<Severity, { label: string; color: string; ring: string; bg: string }> = {
   critical: { label: 'Critical', color: '#ff4d6d', ring: 'rgba(255,77,109,.5)', bg: 'rgba(255,77,109,.08)' },
   high:     { label: 'High',     color: '#ff8a3d', ring: 'rgba(255,138,61,.5)', bg: 'rgba(255,138,61,.08)' },
@@ -28,9 +28,9 @@ interface AuditReportExtended extends AuditReport {
   shareUrl?: string;
 }
 
-/* ═══════════════════════════════════════════════════════════════════
+/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
    MAIN SCREEN
-══════════════════════════════════════════════════════════════════════ */
+ -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 export default function AuditScreen() {
   const searchParams = useSearchParams();
   const [website, setWebsite] = useState('');
@@ -98,7 +98,7 @@ export default function AuditScreen() {
       </div>
 
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6">
-        {/* ── Hero header ─────────────────────────────────────── */}
+        {/*  -  -  Hero header  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
         <header className="mb-14 text-center">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-400/25 bg-cyan-400/5 px-5 py-1.5">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-400" />
@@ -117,7 +117,7 @@ export default function AuditScreen() {
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-slate-400">
             Drop a live website and/or GitHub repository. We run security, performance, SEO, and
-            engineering checks — then tell you exactly what&apos;s broken. No sugar-coating.
+            engineering checks  - then tell you exactly what&apos;s broken. No sugar-coating.
           </p>
 
           {/* Feature pills */}
@@ -133,7 +133,7 @@ export default function AuditScreen() {
           </div>
         </header>
 
-        {/* ── Input form ──────────────────────────────────────── */}
+        {/*  -  -  Input form  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
         <form
           onSubmit={handleRun}
           className="relative mx-auto max-w-3xl overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-950/80 p-6 shadow-2xl backdrop-blur-md sm:p-8"
@@ -193,7 +193,7 @@ export default function AuditScreen() {
             {loading ? (
               <>
                 <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
-                Running audit — this takes ~20s…
+                Running audit  - this takes ~20s…
               </>
             ) : (
               <>
@@ -203,7 +203,7 @@ export default function AuditScreen() {
           </button>
         </form>
 
-        {/* ── Loading state ───────────────────────────────────── */}
+        {/*  -  -  Loading state  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
         {loading && (
           <div className="mt-14 flex flex-col items-center gap-5">
             <div className="relative h-16 w-16">
@@ -227,7 +227,7 @@ export default function AuditScreen() {
           </div>
         )}
 
-        {/* ── Report ─────────────────────────────────────────── */}
+        {/*  -  -  Report  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
         {report && (
           <Report
             report={report}
@@ -235,7 +235,7 @@ export default function AuditScreen() {
           />
         )}
 
-        {/* ── Request Fix Modal ───────────────────────────────── */}
+        {/*  -  -  Request Fix Modal  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
         <AuditRequestFixModal
           isOpen={showFixModal}
           onClose={() => setShowFixModal(false)}
@@ -250,9 +250,9 @@ export default function AuditScreen() {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════════
+/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
    SHARE MODAL
-══════════════════════════════════════════════════════════════════════ */
+ -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 function ShareModal({ isOpen, onClose, report }: { isOpen: boolean; onClose: () => void; report: AuditReportExtended }) {
   const [copied, setCopied] = useState(false);
 
@@ -285,8 +285,8 @@ function ShareModal({ isOpen, onClose, report }: { isOpen: boolean; onClose: () 
   const shareLinks = [
     {
       label: 'Twitter / X',
-      icon: '𝕏',
-      href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out this site audit by Grey InfoTech — Score: ${report.grade} (${report.overallScore}/100)`)}&url=${encodeURIComponent(shareUrl)}`,
+      icon: ' - ',
+      href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out this site audit by Grey InfoTech  - Score: ${report.grade} (${report.overallScore}/100)`)}&url=${encodeURIComponent(shareUrl)}`,
     },
     {
       label: 'LinkedIn',
@@ -296,7 +296,7 @@ function ShareModal({ isOpen, onClose, report }: { isOpen: boolean; onClose: () 
     {
       label: 'WhatsApp',
       icon: '💬',
-      href: `https://wa.me/?text=${encodeURIComponent(`Site audit result — Grade ${report.grade} (${report.overallScore}/100): ${shareUrl}`)}`,
+      href: `https://wa.me/?text=${encodeURIComponent(`Site audit result  - Grade ${report.grade} (${report.overallScore}/100): ${shareUrl}`)}`,
     },
   ];
 
@@ -313,12 +313,12 @@ function ShareModal({ isOpen, onClose, report }: { isOpen: boolean; onClose: () 
           onClick={onClose}
           className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition hover:bg-white/10 hover:text-white"
         >
-          ✕
+           -
         </button>
 
         <div className="mb-6">
           <div className="mb-2 flex items-center gap-2">
-            <span className="text-xl">🔗</span>
+            <span className="text-xl"> --</span>
             <h3 className="text-xl font-bold text-white">Share Report</h3>
           </div>
           <p className="text-sm text-slate-400">
@@ -386,9 +386,9 @@ function ShareModal({ isOpen, onClose, report }: { isOpen: boolean; onClose: () 
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════════
+/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
    REPORT
-══════════════════════════════════════════════════════════════════════ */
+ -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 function Report({ report, onRequestFix }: { report: AuditReportExtended; onRequestFix?: () => void }) {
   const [shareOpen, setShareOpen]   = useState(false);
   const [showDetails, setShowDetails] = useState(false);
@@ -457,7 +457,7 @@ function Report({ report, onRequestFix }: { report: AuditReportExtended; onReque
 
   return (
     <section className="mt-16">
-      {/* ── Overview card ───────────────────────────────── */}
+      {/*  -  -  Overview card  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
       <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-slate-900/80 to-slate-950/90 p-6 shadow-2xl sm:p-8">
         <div className="flex flex-col items-center gap-8 sm:flex-row">
           <ScoreRing score={report.overallScore} grade={report.grade} />
@@ -511,7 +511,7 @@ function Report({ report, onRequestFix }: { report: AuditReportExtended; onReque
         </div>
       </div>
 
-      {/* ── Detailed analysis accordion ─────────────────── */}
+      {/*  -  -  Detailed analysis accordion  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
       {report.detailedSummary && (
         <div className="mt-5 rounded-2xl border border-white/10 bg-slate-900/60 p-5 sm:p-7">
           <button
@@ -544,18 +544,18 @@ function Report({ report, onRequestFix }: { report: AuditReportExtended; onReque
         </div>
       )}
 
-      {/* ── Section cards ───────────────────────────────── */}
+      {/*  -  -  Section cards  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
       <div className="mt-5 grid gap-4">
         {report.sections.map((s) => <SectionCard key={s.name} section={s} />)}
       </div>
 
-      {/* ── Action buttons ──────────────────────────────── */}
+      {/*  -  -  Action buttons  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
       <div className="mt-10 flex flex-wrap items-center gap-3">
         <button
           onClick={() => setShareOpen(true)}
           className="inline-flex items-center gap-2 rounded-xl border border-cyan-400/40 bg-cyan-400/8 px-5 py-2.5 text-sm font-semibold text-cyan-300 transition hover:bg-cyan-400/15 hover:shadow-[0_0_20px_-6px_rgba(34,211,238,.4)]"
         >
-          🔗 Share Report
+           -- Share Report
         </button>
 
         <button
@@ -589,14 +589,14 @@ function Report({ report, onRequestFix }: { report: AuditReportExtended; onReque
         </button>
       </div>
 
-      {/* ── Support CTA ─────────────────────────────────── */}
+      {/*  -  -  Support CTA  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
       <div className="mt-12 overflow-hidden rounded-2xl border border-cyan-400/30 bg-gradient-to-br from-cyan-500/8 via-indigo-500/5 to-transparent p-8 text-center">
         <div className="mb-2 inline-block rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-cyan-400">
           Expert Remediation
         </div>
         <h3 className="mt-2 text-2xl font-bold text-white">Need Help Fixing These Issues?</h3>
         <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-slate-400">
-          Our senior full-stack team turns audit findings into production-grade software — security hardening,
+          Our senior full-stack team turns audit findings into production-grade software  - security hardening,
           performance optimization, architecture refactoring, and more.
         </p>
 
@@ -638,9 +638,9 @@ function Report({ report, onRequestFix }: { report: AuditReportExtended; onReque
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════════
+/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
    SCORE RING
-══════════════════════════════════════════════════════════════════════ */
+ -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 function ScoreRing({ score, grade }: { score: number; grade: string }) {
   const color = gradeColor(score);
   const deg   = Math.round((score / 100) * 360);
@@ -662,9 +662,9 @@ function ScoreRing({ score, grade }: { score: number; grade: string }) {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════════
+/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
    SECTION CARD
-══════════════════════════════════════════════════════════════════════ */
+ -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 function SectionCard({ section }: { section: AuditSection }) {
   const [open, setOpen] = useState(true);
   const color  = gradeColor(section.score);
@@ -687,7 +687,7 @@ function SectionCard({ section }: { section: AuditSection }) {
           <div className="hidden h-1.5 w-24 overflow-hidden rounded-full bg-white/10 sm:block">
             <div className="h-full rounded-full transition-all" style={{ width: `${section.score}%`, background: color }} />
           </div>
-          <span className="text-xs text-slate-500">{open ? '▲' : '▼'}</span>
+          <span className="text-xs text-slate-500">{open ? ' - ' : ' - '}</span>
         </div>
       </button>
 
@@ -706,9 +706,9 @@ function SectionCard({ section }: { section: AuditSection }) {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════════
+/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
    FINDING ROW
-══════════════════════════════════════════════════════════════════════ */
+ -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 function FindingRow({ f }: { f: Finding }) {
   const m = SEV_META[f.severity];
   return (
@@ -729,9 +729,9 @@ function FindingRow({ f }: { f: Finding }) {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════════
+/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
    HELPERS
-══════════════════════════════════════════════════════════════════════ */
+ -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 function sevRank(s: Severity): number {
   return { critical: 5, high: 4, medium: 3, low: 2, pass: 1 }[s];
 }
@@ -742,7 +742,7 @@ function buildPrintHTML(report: AuditReportExtended): string {
     .map(
       (s) => `
       <div style="margin-bottom:28px;page-break-inside:avoid">
-        <h2 style="font-size:18px;font-weight:700;margin-bottom:8px;color:#0f172a">${s.name} — ${s.score}/100</h2>
+        <h2 style="font-size:18px;font-weight:700;margin-bottom:8px;color:#0f172a">${s.name}  - ${s.score}/100</h2>
         <div style="height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden;margin-bottom:12px">
           <div style="height:100%;width:${s.score}%;background:${gradeColor(s.score)}"></div>
         </div>
@@ -757,7 +757,7 @@ function buildPrintHTML(report: AuditReportExtended): string {
     )
     .join('');
 
-  return `<!DOCTYPE html><html><head><title>Audit Report — Grey InfoTech</title>
+  return `<!DOCTYPE html><html><head><title>Audit Report  - Grey InfoTech</title>
   <style>body{font-family:system-ui,sans-serif;max-width:900px;margin:0 auto;padding:40px 24px;color:#1e293b}h1{font-size:28px;font-weight:900;margin-bottom:4px}@media print{button{display:none}}</style>
   </head><body>
   <h1>Audit Report</h1>

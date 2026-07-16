@@ -8,7 +8,7 @@ const JoomlaDevelopment = () => (
         heroVideoMobile="/assets/hero/hero.mp4"
         midImage="/assets/services/services.jpg"
         topImages={['/assets/services/digital-optimisation.jpg', '/assets/services/Development.jpg']}
-        intro="Custom Joomla extensions, themes and enterprise portals—built for performance, security and long-term maintainability."
+        intro="Custom Joomla extensions, themes and enterprise portals -built for performance, security and long-term maintainability."
         eyebrow="Joomla expertise for enterprise and community"
         introHeading={<>Joomla Built<br className="lg:block md:block hidden" />for the Long Haul</>}
         introBody={[
@@ -32,8 +32,8 @@ const JoomlaDevelopment = () => (
                 id: '01', title: 'Custom Component & Plugin Development', target: 'CC',
                 tags: ['MVC', 'Components', 'Plugins', 'Modules'],
                 body: <>We build bespoke Joomla components, plugins and modules following the MVC architecture
-                and Joomla extension standards. Custom features—membership systems, booking engines, directory
-                listings, custom forms—are built as proper extensions rather than hacked templates, making them
+                and Joomla extension standards. Custom features -membership systems, booking engines, directory
+                listings, custom forms -are built as proper extensions rather than hacked templates, making them
                 upgrade-safe and independently maintainable.</>,
             },
             {
@@ -51,7 +51,7 @@ const JoomlaDevelopment = () => (
                 body: <>Joomla version migrations require careful planning to preserve content, user accounts,
                 extensions and SEO rankings. We audit your current installation, identify incompatible extensions,
                 map migration risks and execute a phased upgrade with full database backups and rollback capability.
-                We also handle migrations from other CMS platforms—WordPress, Drupal—to Joomla.</>,
+                We also handle migrations from other CMS platforms -WordPress, Drupal -to Joomla.</>,
             },
             {
                 id: '04', title: 'Performance Optimisation', target: 'PO',

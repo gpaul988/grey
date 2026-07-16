@@ -13,14 +13,14 @@ const FlutterDevelopment = () => (
         intro={
             <>
                 One codebase, every platform. We build fast, beautiful, natively compiled Flutter apps for iOS,
-                Android, web and desktop—shipped quickly without compromising quality.
+                Android, web and desktop -shipped quickly without compromising quality.
             </>
         }
         eyebrow={<>One codebase, <br className={'lg:block md:block hidden'}/>every platform your users love</>}
         introHeading={<>Cross-Platform Apps <br className={'lg:block md:block hidden'}/>Built Once, Run Everywhere</>}
         introBody={[
             <>
-                Flutter lets teams ship a single, high-performance codebase to iOS, Android, web and desktop—and
+                Flutter lets teams ship a single, high-performance codebase to iOS, Android, web and desktop -and
                 Grey InfoTech uses it to help businesses reach every user faster and at a fraction of the cost of
                 building separate native apps. We design pixel-perfect interfaces that feel native on each
                 platform, backed by clean Dart architecture and robust state management. From early-stage MVPs
@@ -30,8 +30,8 @@ const FlutterDevelopment = () => (
             </>,
             <>
                 Our engineers treat Flutter as a serious production platform, not a shortcut. We architect apps
-                with proven patterns—Riverpod or BLoC for state, clean separation of layers, dependency
-                injection and comprehensive testing—so your codebase scales with confidence. We integrate native
+                with proven patterns -Riverpod or BLoC for state, clean separation of layers, dependency
+                injection and comprehensive testing -so your codebase scales with confidence. We integrate native
                 device capabilities, offline storage, real-time data, push notifications, payments and
                 analytics, and we automate builds and releases through CI/CD pipelines that publish to both app
                 stores. The outcome is a polished, reliable app delivered on time, with the long-term
@@ -41,7 +41,7 @@ const FlutterDevelopment = () => (
         solutionsHeading={<>Flutter <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                Grey InfoTech delivers the full Flutter lifecycle—from UI/UX and architecture to native
+                Grey InfoTech delivers the full Flutter lifecycle -from UI/UX and architecture to native
                 integrations, store deployment and ongoing support. Based in Nigeria and working globally, we
                 help startups and enterprises launch cross-platform products that are fast, beautiful and built
                 to last.
@@ -53,7 +53,7 @@ const FlutterDevelopment = () => (
                 tags: ['iOS', 'Android', 'Web', 'Desktop'],
                 body: <>We build a single Flutter codebase that compiles to truly native iOS, Android, web and
                     desktop apps. This dramatically reduces cost and time-to-market while ensuring a consistent
-                    brand experience everywhere your users are—without the maintenance burden of separate native
+                    brand experience everywhere your users are -without the maintenance burden of separate native
                     teams.</>,
             },
             {
@@ -67,22 +67,22 @@ const FlutterDevelopment = () => (
             {
                 id: '03', title: 'Native Integrations & APIs', target: 'NI',
                 tags: ['Camera', 'GPS', 'Bluetooth', 'Payments'],
-                body: <>We connect your app to the device and the world—camera, GPS, sensors, Bluetooth, biometric
-                    auth, push notifications and secure payments—while integrating cleanly with your REST or
+                body: <>We connect your app to the device and the world -camera, GPS, sensors, Bluetooth, biometric
+                    auth, push notifications and secure payments -while integrating cleanly with your REST or
                     GraphQL back-end and third-party services for a seamless end-to-end experience.</>,
             },
             {
                 id: '04', title: 'State Management & Architecture', target: 'SA',
                 tags: ['Riverpod', 'BLoC', 'Clean Architecture'],
-                body: <>We engineer maintainable apps using proven patterns—Riverpod or BLoC for predictable
-                    state, clean layered architecture, dependency injection and modular code—so your product
+                body: <>We engineer maintainable apps using proven patterns -Riverpod or BLoC for predictable
+                    state, clean layered architecture, dependency injection and modular code -so your product
                     stays testable and easy to extend as features and team size grow.</>,
             },
             {
                 id: '05', title: 'MVP & Product Engineering', target: 'MV',
                 tags: ['Rapid Build', 'Validation', 'Scale'],
                 body: <>Need to test an idea fast? We build lean, polished MVPs that validate your concept with
-                    real users, then evolve the same codebase into a production-grade product—no costly rewrites,
+                    real users, then evolve the same codebase into a production-grade product -no costly rewrites,
                     just steady, confident growth.</>,
             },
             {
@@ -97,7 +97,7 @@ const FlutterDevelopment = () => (
             {
                 id: 1, title: 'Faster Time-to-Market', image: '/assets/services/Web-App-Development-company.jpg',
                 description: <>One codebase means one team shipping to every platform at once. You reach iOS,
-                    Android, web and desktop users sooner—and update them all simultaneously.</>,
+                    Android, web and desktop users sooner -and update them all simultaneously.</>,
             },
             {
                 id: 2, title: 'Native-Quality Performance', image: '/assets/services/product-design.jpg',
@@ -112,12 +112,12 @@ const FlutterDevelopment = () => (
             {
                 id: 4, title: 'Built to Scale', image: '/assets/services/digital-optimisation.jpg',
                 description: <>Clean architecture, strong testing and CI/CD mean the MVP we build today grows
-                    into the production product you need tomorrow—no rewrites required.</>,
+                    into the production product you need tomorrow -no rewrites required.</>,
             },
         ]}
         ctaHeading={<>Ship to every <br className={'lg:block md:block hidden'}/>platform at once</>}
         ctaBody={<>Whether you&apos;re validating an MVP or scaling a product to thousands of users, Grey InfoTech
-            builds Flutter apps that are fast, beautiful and maintainable. One codebase, every platform—let&apos;s
+            builds Flutter apps that are fast, beautiful and maintainable. One codebase, every platform -let&apos;s
             bring your app to life.</>}
         stats={[
             {label: 'Years Experience', value: 8, suffix: '+'},
@@ -128,7 +128,7 @@ const FlutterDevelopment = () => (
         ]}
         testimonials={[
             {name: 'Tunde Bakare', title: 'Founder, MarketMate', message: <>Grey InfoTech delivered our marketplace app on iOS and Android from one Flutter codebase, on schedule and on budget. The animations and performance genuinely impressed our investors.</>},
-            {name: 'Grace Mwangi', title: 'Product Lead, FitLoop', message: <>They rebuilt our fitness app in Flutter and the difference is night and day—smoother, faster, and we now ship updates to both stores at the same time.</>},
+            {name: 'Grace Mwangi', title: 'Product Lead, FitLoop', message: <>They rebuilt our fitness app in Flutter and the difference is night and day -smoother, faster, and we now ship updates to both stores at the same time.</>},
             {name: 'Samuel Adeyemi', title: 'CTO, PaySwift', message: <>Their architecture and testing discipline meant our payments app scaled cleanly from MVP to tens of thousands of users without a rewrite. A genuinely senior team.</>},
         ]}
         verticalSolutions={[

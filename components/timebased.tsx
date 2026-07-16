@@ -4,7 +4,7 @@ import {useEffect} from 'react';
 import { useIsDayTime } from './useIsDayTime';
 
 /**
- * Timebased — lightweight adapter that exposes a stable `data-daytime` attribute
+ * Timebased  - lightweight adapter that exposes a stable `data-daytime` attribute
  * on <body> for legacy styles/scripts that relied on ad-hoc time checks.
  * The canonical source of truth is ThemeProvider/useIsDayTime; this component
  * simply mirrors that value to body.dataset.daytime and performs no direct

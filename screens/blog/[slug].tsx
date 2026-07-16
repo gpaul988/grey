@@ -106,7 +106,7 @@ export default function BlogPostPage() {
     return (
         <div className={`${bg} min-h-screen transition-colors duration-500`}>
 
-            {/* ── Breadcrumb ── */}
+            {/*  -  -  Breadcrumb  -  -  */}
             <div className={`border-b ${isDayTime ? 'border-gray-100' : 'border-zinc-800'}`}>
                 <div
                     className="mx-auto max-w-[100rem] px-4 sm:px-6 md:px-10 lg:px-[4.5em] py-3.5 flex items-center gap-2 text-xs">
@@ -121,7 +121,7 @@ export default function BlogPostPage() {
             <main className="mx-auto max-w-[100rem] px-4 sm:px-6 md:px-10 lg:px-[4.5em] py-14 md:py-20">
                 <article className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_300px] gap-12 xl:gap-16 items-start">
 
-                    {/* ── Main column ── */}
+                    {/*  -  -  Main column  -  -  */}
                     <div className="min-w-0">
 
                         {/* Category + Title */}
@@ -328,7 +328,7 @@ export default function BlogPostPage() {
                         </div>
                     </div>
 
-                    {/* ── Sidebar ── */}
+                    {/*  -  -  Sidebar  -  -  */}
                     <aside className="xl:sticky xl:top-24 self-start w-full xl:w-[300px] space-y-6">
 
                         {/* Table of contents */}
@@ -382,7 +382,7 @@ export default function BlogPostPage() {
                     </aside>
                 </article>
 
-                {/* ── Related posts ── */}
+                {/*  -  -  Related posts  -  -  */}
                 {relatedPosts.length > 0 && (
                     <section className={`py-16 border-t mt-16 ${isDayTime ? 'border-gray-200' : 'border-zinc-800'}`}>
                         <div className="flex items-end justify-between mb-10">
@@ -418,7 +418,7 @@ export default function BlogPostPage() {
                     </section>
                 )}
 
-                {/* ── CTA ── */}
+                {/*  -  -  CTA  -  -  */}
                 <div
                     className={`relative py-8 mx-auto px-4 sm:px-[2em] md:px-[3.2em] lg:px-[4.6em] max-w-full w-full h-auto ${
                         isDayTime ? 'bg-teal-100 text-teal-900' : 'bg-teal-950 text-white'

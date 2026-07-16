@@ -115,7 +115,7 @@ const Partners: React.FC = () => {
     return (
         <div className={`${isDayTime ? 'bg-white text-black' : 'bg-[#050810] text-white'} min-h-screen flex flex-col overflow-x-hidden transition-colors duration-500`}>
 
-            {/* ── Hero — extreme futuristic ── */}
+            {/*  -  -  Hero  - extreme futuristic  -  -  */}
             <section
                 ref={heroRef}
                 className="relative isolate overflow-hidden min-h-[80vh] flex flex-col justify-end"
@@ -166,7 +166,7 @@ const Partners: React.FC = () => {
                 </div>
             </section>
 
-            {/* ── Existing Partners Marquee ── */}
+            {/*  -  -  Existing Partners Marquee  -  -  */}
             {partners.length > 0 && (
                 <section className={`py-14 border-y ${isDayTime ? 'border-gray-100 bg-gray-50' : 'border-white/5 bg-white/[0.02]'}`}>
                     <p className={`text-center text-xs uppercase tracking-[0.25em] mb-9 ${isDayTime ? 'text-gray-400' : 'text-gray-400'}`}>
@@ -189,7 +189,7 @@ const Partners: React.FC = () => {
                 </section>
             )}
 
-            {/* ── Intro ── */}
+            {/*  -  -  Intro  -  -  */}
             <section
                 className={`pt-16 transition-colors duration-500 ${
                     isDayTime ? 'bg-white text-black' : 'bg-black text-white'
@@ -216,7 +216,7 @@ const Partners: React.FC = () => {
                 </div>
             </section>
 
-            {/* ── Ecosystem Categories ── */}
+            {/*  -  -  Ecosystem Categories  -  -  */}
             <section id="ecosystem" className="py-24 px-6">
                 <div className="max-w-6xl mx-auto">
                     <FxReveal>
@@ -246,7 +246,7 @@ const Partners: React.FC = () => {
                 </div>
             </section>
 
-            {/* ── Benefits ── */}
+            {/*  -  -  Benefits  -  -  */}
             <section className={`py-20 px-6 border-y ${isDayTime ? 'border-gray-100 bg-gray-50' : 'border-white/5 bg-white/[0.02]'}`}>
                 <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
                     <FxReveal>
@@ -254,7 +254,7 @@ const Partners: React.FC = () => {
                         <h2 className="text-3xl sm:text-4xl font-bold mt-2 mb-5">A partnership built to compound</h2>
                         <p className={`mb-7 ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
                             We invest in our partners with enablement, shared pipeline and real
-                            engineering support — so the relationship grows beyond a single deal.
+                            engineering support  - so the relationship grows beyond a single deal.
                         </p>
                         <FxButton day={isDayTime} href="#apply">Start the conversation</FxButton>
                     </FxReveal>
@@ -273,7 +273,7 @@ const Partners: React.FC = () => {
                 </div>
             </section>
 
-            {/* ── Application Form ── */}
+            {/*  -  -  Application Form  -  -  */}
             <section id="apply" className="py-24 px-6">
                 <div className="max-w-3xl mx-auto">
                     <FxReveal>

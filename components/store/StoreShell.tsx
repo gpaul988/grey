@@ -33,9 +33,9 @@ export default function StoreShell({ children, title }: { children: React.ReactN
     return (
         <ConfigContext.Provider value={config}>
             <Head>
-                <title>{title ? `${title} | Grey TechStore` : 'Grey TechStore — Laptops, Phones, Servers & More'}</title>
+                <title>{title ? `${title} | Grey TechStore` : 'Grey TechStore  - Laptops, Phones, Servers & More'}</title>
                 <link rel="icon" href="/favicon.ico" />
-                <meta name="description" content="Grey TechStore — Nigeria's trusted store for laptops, desktops, servers, phones and accessories." />
+                <meta name="description" content="Grey TechStore  - Nigeria's trusted store for laptops, desktops, servers, phones and accessories." />
             </Head>
             <StoreProvider usdRate={config?.usd_rate ?? 1600} usdEnabled={config?.usd_enabled ?? true}>
                 <StoreLayout>{children}</StoreLayout>

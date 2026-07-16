@@ -24,19 +24,19 @@ const FuturisticDevelopmentProcess: React.FC<FuturisticDevelopmentProcessProps> 
             id: 1,
             subtitle: "01",
             title: "We're Experienced",
-            description: "With a proven track record across a wide range of digital projects, we blend creative thinking, technical precision, strategic insight, and hands-on execution to deliver solutions that generate measurable business impact. Our approach is focused on achieving long-term value and sustainable growth—ensuring that every project not only meets expectations but drives real results.",
+            description: "With a proven track record across a wide range of digital projects, we blend creative thinking, technical precision, strategic insight, and hands-on execution to deliver solutions that generate measurable business impact. Our approach is focused on achieving long-term value and sustainable growth -ensuring that every project not only meets expectations but drives real results.",
         },
         {
             id: 2,
             subtitle: "02",
             title: "We're Proactive",
-            description: "You can rely on us to consistently exceed expectations by taking a proactive, solution-driven approach at every stage of your project. We identify potential challenges early, offer innovative recommendations without being asked, and continually look for new ways to deliver added value. Our commitment is not just to complete the work, but to elevate it—ensuring outcomes that are smarter, stronger, and aligned with your long-term goals.",
+            description: "You can rely on us to consistently exceed expectations by taking a proactive, solution-driven approach at every stage of your project. We identify potential challenges early, offer innovative recommendations without being asked, and continually look for new ways to deliver added value. Our commitment is not just to complete the work, but to elevate it -ensuring outcomes that are smarter, stronger, and aligned with your long-term goals.",
         },
         {
             id: 3,
             subtitle: "03",
             title: "We're Collaborative",
-            description: "While we're passionate about technology, our greatest strength lies in the people behind it. To us, collaboration means more than just being easy to work with—it's about becoming a trusted partner who shares your vision, ambition, and commitment to achieving something exceptional. We align with your goals, bring fresh thinking to the table, and work side by side to turn bold ideas into real business outcomes.",
+            description: "While we're passionate about technology, our greatest strength lies in the people behind it. To us, collaboration means more than just being easy to work with -it's about becoming a trusted partner who shares your vision, ambition, and commitment to achieving something exceptional. We align with your goals, bring fresh thinking to the table, and work side by side to turn bold ideas into real business outcomes.",
         },
         {
             id: 4,
@@ -47,7 +47,7 @@ const FuturisticDevelopmentProcess: React.FC<FuturisticDevelopmentProcessProps> 
     ];
 
     return (
-            <section className={`relative overflow-hidden overflow-y-hidden ${isDayTime ? 'bg-black' : 'bg-white'}`}>
+            <section suppressHydrationWarning className={`relative overflow-hidden overflow-y-hidden ${isDayTime ? 'bg-black' : 'bg-white'}`}>
                 <FxBackground day={isDayTime} grid aurora className="opacity-20"/>
                 <FxOrbit size={520} top="-90px" right="-140px" opacity={0.06} speed={36}/>
 

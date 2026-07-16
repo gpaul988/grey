@@ -1,9 +1,7 @@
 'use client';
 
-
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from 'next/link';
@@ -21,7 +19,7 @@ const reasons = [
         description: (
             <>
                 Our team comprises seasoned professionals who have refined their skills through years of real-world,
-                hands-on experience. This depth of expertise means you gain more than just technical capability—you
+                hands-on experience. This depth of expertise means you gain more than just technical capability -you
                 benefit from strategic insight and a problem-solving mindset that only comes from experience. We
                 understand the Unity engine inside and out, enabling us to maximise its capabilities and push creative
                 and technical boundaries. Whether it’s developing high-performance games, immersive VR experiences, or
@@ -38,7 +36,7 @@ const reasons = [
             <>
                 With Grey InfoTech as your partner, you gain access to a deep well of technical expertise, creative
                 innovation, and global industry insight. We collaborate closely with you to transform your ideas into
-                games that don’t just meet expectations—they exceed them. Our goal is to deliver experiences that
+                games that don’t just meet expectations -they exceed them. Our goal is to deliver experiences that
                 captivate users and drive commercial success, setting new benchmarks for quality and performance in the
                 gaming world.
             </>
@@ -50,7 +48,7 @@ const reasons = [
         title: 'Mastery Of Unity Technologies',
         description: (
             <>
-                Our deep expertise in Unity technologies allows us to fully harness its capabilities—from delivering
+                Our deep expertise in Unity technologies allows us to fully harness its capabilities -from delivering
                 stunning visuals to optimising game performance. We leverage Unity’s robust features to craft engaging,
                 scalable, and high-performing games that align with your goals. With Grey InfoTech, your vision is
                 transformed into a seamless, immersive experience that exceeds expectations and drives results.
@@ -79,7 +77,6 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
     const [activeId, setActiveId] = useState<string>("");
     const [activeIndex, setActiveIndex] = useState(1);
 
-
     // Floating button visibility hook
     useEffect(() => {
         const handleScroll = () => {
@@ -93,7 +90,6 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
 
     // isDaytime react hook
    const isDayTime = useIsDayTime();
-
 
     // Introductory section hook
     useEffect(() => {
@@ -168,16 +164,11 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             {/* Hero Section */}
             <div id={'hero'}
                  className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
+                {/*  -  -  -  Futuristic FX overlay (hero enhancement)  -  -  -  */}
                 <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
                     <div className="gx-scanline" />
                     <div className="gx-noise-overlay" />
@@ -229,7 +220,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                                     developing immersive games and sophisticated applications that perform flawlessly
                                     across devices. Leveraging Unity allows us to rapidly prototype ideas and accelerate
                                     development timelines without compromising on quality or innovation. We understand
-                                    that in today’s competitive market, speed and precision are critical — that’s why
+                                    that in today’s competitive market, speed and precision are critical  - that’s why
                                     every pixel and line of code we write is meticulously crafted to bring your vision
                                     to life with the highest standards of performance and user experience. At Grey
                                     InfoTech, we don’t just use Unity as a tool; we harness it as a strategic asset that
@@ -240,7 +231,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                             </div>
                             <div>
                                 <p>
-                                    At Grey InfoTech, we’re not just developers—we’re your dedicated creative and
+                                    At Grey InfoTech, we’re not just developers -we’re your dedicated creative and
                                     technology partner, committed to transforming your ideas into powerful,
                                     fully-fledged experiences that captivate users and deliver real business impact.
                                     With deep expertise in cross-platform development, especially using technologies
@@ -248,7 +239,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                                     craft solutions that are not only visually stunning but also scalable and
                                     performance-driven. Whether you’re launching a game, an interactive application, or
                                     an enterprise-grade tool, we ensure your product stands out across all
-                                    platforms—delivered faster than you thought possible and aligned perfectly with your
+                                    platforms -delivered faster than you thought possible and aligned perfectly with your
                                     business goals.
                                 </p>
                             </div>
@@ -311,7 +302,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                         <div className='lg:-ml-[8em]'>
                             <p className='text-[0.85em] font-[400] lg:-mt-[0.2em] rounded-none leading-[1.5]'>
                                 At Grey InfoTech, we use Unity to build immersive, cross-platform applications and games
-                                that support real business goals—from user engagement to training, marketing, or product
+                                that support real business goals -from user engagement to training, marketing, or product
                                 innovation. With advanced graphics, real-time rendering, and rapid prototyping, we help
                                 you bring ideas to life quickly and effectively.
                                 <br/><br/>
@@ -411,7 +402,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                                     <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
                                         Discover the full potential of 3D Unity game development with Grey InfoTech,
                                         where creativity meets cutting-edge technology. We specialise in building
-                                        immersive, visually compelling experiences that span a wide range of genres—from
+                                        immersive, visually compelling experiences that span a wide range of genres -from
                                         action-packed RPGs and simulations to expansive open-world adventures. Our
                                         development process is driven by a clear understanding of your audience and
                                         business goals, ensuring the final product not only looks impressive but
@@ -422,7 +413,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                                         interactive media, or seeking to strengthen customer engagement through
                                         gamification, our Unity-based 3D solutions are fully scalable and optimised for
                                         mobile, PC, VR, and console platforms. At Grey InfoTech, we don’t just build
-                                        games—we help you create market-ready products that stand out and drive results.
+                                        games -we help you create market-ready products that stand out and drive results.
                                     </p>
                                 </div>
                                 <div
@@ -453,7 +444,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                                         monetization strategies to help your game achieve commercial success in a highly
                                         competitive market. From initial idea and prototyping through development,
                                         testing, and launch, we work closely with you to align the game’s design and
-                                        features with your business objectives—whether that’s maximizing user
+                                        features with your business objectives -whether that’s maximizing user
                                         acquisition, increasing in-app revenue, or building long-term brand loyalty.
                                         With Grey InfoTech, you get a reliable partner committed to delivering
                                         compelling mobile gaming experiences that drive growth, generate revenue, and
@@ -484,7 +475,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                                         audience. At Grey InfoTech, we specialize in creating Unity-powered web games
                                         that run seamlessly across all devices and browsers, ensuring maximum reach and
                                         user accessibility. Our expertise goes beyond just building captivating gameplay
-                                        — we integrate advanced monetization strategies and comprehensive analytics
+                                         - we integrate advanced monetization strategies and comprehensive analytics
                                         tools, empowering you to monitor game performance, understand user behavior, and
                                         optimize revenue streams effectively. Whether your goal is to develop addictive
                                         puzzle games, realistic simulations, or rich narrative-driven experiences, we
@@ -586,7 +577,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                                         deeply immersive, interactive experiences. Our skilled team designs virtual and
                                         augmented reality environments tailored to your business objectives, ensuring
                                         that every project not only captivates users but also delivers measurable
-                                        value—whether through enhanced customer engagement, innovative training
+                                        value -whether through enhanced customer engagement, innovative training
                                         solutions, or powerful marketing tools. As VR and AR technologies rapidly evolve
                                         and reshape industries such as gaming, education, healthcare, real estate, and
                                         retail, we partner with you to craft scalable, future-proof applications that
@@ -621,7 +612,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                                         creates a powerful emotional connection between the player and the experience,
                                         leading to increased engagement, longer play sessions, and stronger brand
                                         loyalty. At Grey InfoTech, we specialize in designing Unity-based games that
-                                        prioritize immersion at every level — from cutting-edge visuals and realistic
+                                        prioritize immersion at every level  - from cutting-edge visuals and realistic
                                         physics to dynamic sound design and intuitive controls. Our team carefully
                                         crafts every element to ensure the gameplay feels natural, responsive, and
                                         emotionally resonant. By focusing on these aspects, we deliver unforgettable
@@ -725,7 +716,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                         </h3>
                         <p className='text-justify text-[0.85em] font-[400]'>
                             Unity’s support for over 25 platforms allows developers to build once and deploy across
-                            mobile, desktop, console, web, and AR/VR devices—maximising reach and revenue potential.
+                            mobile, desktop, console, web, and AR/VR devices -maximising reach and revenue potential.
                             With flexible plans like Unity Personal, Pro, and Enterprise, businesses of all sizes can
                             access the tools they need at the right scale. The Unity Asset Store further accelerates
                             development with a vast library of ready-to-use assets and tools, helping teams reduce costs
@@ -748,7 +739,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                             Unity’s robust multiplayer capabilities empower developers to build scalable,
                             high-performance systems that connect players in real-time across the globe. With built-in
                             support for cross-platform play, Unity enables seamless interaction between users on mobile,
-                            PC, consoles, and web—creating a unified and inclusive gaming ecosystem. More than just
+                            PC, consoles, and web -creating a unified and inclusive gaming ecosystem. More than just
                             connectivity, Unity’s multiplayer tools are designed to enhance player engagement by
                             fostering collaboration, competition, and lasting community bonds. For businesses, this
                             translates into higher user retention, increased monetisation opportunities, and a broader
@@ -791,8 +782,8 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                             60% of AR and VR content powered by Unity 3D, the platform stands as a market leader in
                             shaping the future of interactive technology. Its real-time rendering capabilities,
                             cross-platform support, and robust development ecosystem enable businesses to create
-                            cutting-edge applications—from immersive training simulations and virtual showrooms to
-                            next-generation gaming—helping them stay ahead in a rapidly evolving digital landscape.
+                            cutting-edge applications -from immersive training simulations and virtual showrooms to
+                            next-generation gaming -helping them stay ahead in a rapidly evolving digital landscape.
                         </p>
                     </div>
                     <div className={`mt-12 ${isDayTime ? 'text-black' : 'text-white'}`}>
@@ -849,7 +840,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                     </div>
                     <div className='lg:-ml-[3.5em]'>
                         <p className='text-[0.873em] font-[400] lg:-mt-[0.2em] text-justify leading-[1.5]'>
-                            In the dynamic world of Unity game development, the future is already unfolding—and at Grey
+                            In the dynamic world of Unity game development, the future is already unfolding -and at Grey
                             InfoTech, we&#39;re here to help you lead it. Whether you&#39;re building cross-platform
                             games,
                             immersive VR/AR experiences, or exploring the Metaverse, we combine technical expertise with
@@ -857,7 +848,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                             to help you break into new markets, captivate users, and build lasting digital experiences
                             across mobile, console, and web platforms. With Unity’s powerful engine and flexible
                             toolset, we accelerate time-to-market while ensuring high performance and visual fidelity.
-                            As your strategic development partner, we’re invested in your success—helping you unlock new
+                            As your strategic development partner, we’re invested in your success -helping you unlock new
                             business opportunities, outpace the competition, and shape the future of interactive media.
                         </p>
                     </div>
@@ -972,14 +963,14 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                         </h2>
                         <p className='text-[0.85em] font-[400] lg:-mt-[0.2em] md:-mt-[0.2em] text-justify  leading-[1.5]'>
                             Every successful project starts with a thoughtful discovery phase. We engage closely with
-                            your key stakeholders—executives, IT leaders, project sponsors, and end-users—to align on
+                            your key stakeholders -executives, IT leaders, project sponsors, and end-users -to align on
                             business goals, clarify priorities, and uncover essential insights that shape the direction
                             of the solution.<br/><br/>
-                            Our team—typically including a business analyst, product and project
+                            Our team -typically including a business analyst, product and project
                             managers, <Link href={'/services/ui-ux-design'}
                                             className={`border-b pb-[0.02em] ${
                                                 isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
-                                            }`}>UX/UI designer</Link>, and technical leads—works to understand your
+                                            }`}>UX/UI designer</Link>, and technical leads -works to understand your
                             requirements, assess technical feasibility, and define the right approach. This ensures
                             we’re solving the right problems in the most effective way.<br/><br/>By fostering close
                             collaboration early, we reduce risk, streamline development, and create a clear path
@@ -1025,3 +1016,4 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
 };
 
 export default UnityDevelopment;
+

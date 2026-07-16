@@ -10,7 +10,7 @@ import Image from 'next/image';
 import AIProjectEstimator from "@/components/AIProjectEstimator";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
-// ─── Static data (mirrors the listing page) ──────────────────────────────────
+//  -  -  -  Static data (mirrors the listing page)  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
 const STATIC_STUDIES = [
     {
         id: 's1',
@@ -19,17 +19,17 @@ const STATIC_STUDIES = [
         client: 'MediConnect NG',
         industry: 'Healthcare',
         services: ['Product Strategy', 'UX Design', 'Web Development'],
-        tagline: 'From broken booking to a seamless patient journey — in 10 weeks.',
+        tagline: 'From broken booking to a seamless patient journey  - in 10 weeks.',
         summary: 'Redesigned a legacy patient booking system that was causing high support volume and drop-off at key registration steps.',
         image: '/assets/services/digital-transformatio.jpg',
         heroImage: '/assets/services/digital-transformatio.jpg',
         results: '+62% booking completion · −40% support tickets',
         website: null,
-        body: `MediConnect NG had been struggling with an aging booking platform built six years earlier. Patients routinely abandoned the registration flow; support staff were handling 300+ manual bookings per week.\n\nOur engagement began with a two-week discovery phase — user interviews, session recordings, and a full audit of the existing flow. We found three critical drop-off points: an overly long registration form, a confusing time-slot picker, and a lack of SMS confirmation.\n\nWe proposed a phased redesign: Phase 1 simplified the booking journey to three steps. Phase 2 introduced real-time availability and SMS confirmations via Termii. Phase 3 unified the admin scheduling interface.`,
+        body: `MediConnect NG had been struggling with an aging booking platform built six years earlier. Patients routinely abandoned the registration flow; support staff were handling 300+ manual bookings per week.\n\nOur engagement began with a two-week discovery phase  - user interviews, session recordings, and a full audit of the existing flow. We found three critical drop-off points: an overly long registration form, a confusing time-slot picker, and a lack of SMS confirmation.\n\nWe proposed a phased redesign: Phase 1 simplified the booking journey to three steps. Phase 2 introduced real-time availability and SMS confirmations via Termii. Phase 3 unified the admin scheduling interface.`,
         sections: [
             {
                 title: 'Discovery & Research',
-                body: 'We conducted 14 user interviews and analysed six months of session recordings. The biggest pain point wasn\'t the form length — it was uncertainty. Users didn\'t trust that their booking had actually been recorded, leading to duplicate submissions and phone calls to confirm.',
+                body: 'We conducted 14 user interviews and analysed six months of session recordings. The biggest pain point wasn\'t the form length  - it was uncertainty. Users didn\'t trust that their booking had actually been recorded, leading to duplicate submissions and phone calls to confirm.',
                 image: '/assets/ui-ux/stages/testing.jpg',
                 caption: 'User testing sessions at MediConnect HQ, Lagos'
             },
@@ -37,7 +37,7 @@ const STATIC_STUDIES = [
                 title: 'Design & Prototyping',
                 body: 'We moved from a 12-field form to a progressive 3-step flow, introducing inline validation and a prominent confirmation modal. Every interaction was prototyped and tested before a single line of code was written.',
                 image: '/assets/ui-ux/hero.jpg',
-                caption: 'High-fidelity prototype — booking step 2 of 3'
+                caption: 'High-fidelity prototype  - booking step 2 of 3'
             },
             {
                 title: 'Development & Launch',
@@ -55,11 +55,11 @@ const STATIC_STUDIES = [
         client: 'FleetEdge Nigeria',
         industry: 'Logistics',
         services: ['Dashboard Design', 'React Development', 'Data Integration'],
-        tagline: 'One screen, every vehicle, every route — in real time.',
+        tagline: 'One screen, every vehicle, every route  - in real time.',
         summary: 'Consolidated fragmented fleet data into a single real-time command centre for dispatch teams managing 200+ vehicles.',
         image: '/assets/services/services.jpg',
         heroImage: '/assets/services/services.jpg',
-        results: '3× faster dispatch · Real-time visibility across 200+ vehicles',
+        results: '3 - faster dispatch · Real-time visibility across 200+ vehicles',
         website: null,
         body: `FleetEdge's dispatch team was managing operations across five separate tools: a legacy GPS portal, a WhatsApp group for driver updates, a shared spreadsheet for job assignments, and two separate systems for invoicing and fuel tracking.\n\nThis fragmentation meant decisions were slow and errors were common. Our brief was simple: build one dashboard that surfaces everything dispatch needs to make a decision in under 30 seconds.`,
         sections: [
@@ -76,7 +76,7 @@ const STATIC_STUDIES = [
                 caption: null
             },
         ],
-        resultsList: ['3× faster dispatch decision time', 'Real-time visibility across 200+ vehicles', '−55% phone calls between dispatch and drivers', 'Full route + fuel audit trail'],
+        resultsList: ['3 - faster dispatch decision time', 'Real-time visibility across 200+ vehicles', '−55% phone calls between dispatch and drivers', 'Full route + fuel audit trail'],
     },
     {
         id: 's3',
@@ -85,23 +85,23 @@ const STATIC_STUDIES = [
         client: 'PayLink Africa',
         industry: 'Fintech',
         services: ['Architecture Design', 'Backend Development', 'DevOps'],
-        tagline: 'Zero to compliant, zero to live — in 14 weeks.',
+        tagline: 'Zero to compliant, zero to live  - in 14 weeks.',
         summary: 'Delivered a modular, PCI-compliant payments platform from concept to production in 14 weeks with zero launch-day downtime.',
         image: '/assets/startup/market.jpg',
         heroImage: '/assets/startup/market.jpg',
         results: 'Launched on schedule · Zero downtime in first 90 days',
         website: null,
-        body: `PayLink needed to launch before a competitor entered the Nigerian SME payments market. They had a seed round, a product vision, and a 14-week runway before their investor update.\n\nWe joined as a full delivery partner — architecture, backend, DevOps, and QA. We made the deliberate choice to start with a narrower feature set and build it exceptionally well, rather than ship a broad but fragile product.`,
+        body: `PayLink needed to launch before a competitor entered the Nigerian SME payments market. They had a seed round, a product vision, and a 14-week runway before their investor update.\n\nWe joined as a full delivery partner  - architecture, backend, DevOps, and QA. We made the deliberate choice to start with a narrower feature set and build it exceptionally well, rather than ship a broad but fragile product.`,
         sections: [
             {
                 title: 'Architecture Decisions',
-                body: 'We chose a modular monolith over microservices for the initial launch — faster to ship, easier to debug, and straightforward to decompose later. Paystack and Flutterwave integrations were wrapped behind a unified payment abstraction layer.',
+                body: 'We chose a modular monolith over microservices for the initial launch  - faster to ship, easier to debug, and straightforward to decompose later. Paystack and Flutterwave integrations were wrapped behind a unified payment abstraction layer.',
                 image: '/assets/node/hero.jpg',
                 caption: null
             },
             {
                 title: 'Reliability Engineering',
-                body: 'Every critical path had automated integration tests. We ran load tests simulating 10× expected launch traffic before go-live. The first 90 days saw zero unplanned downtime.',
+                body: 'Every critical path had automated integration tests. We ran load tests simulating 10 - expected launch traffic before go-live. The first 90 days saw zero unplanned downtime.',
                 image: null,
                 caption: null
             },
@@ -115,13 +115,13 @@ const STATIC_STUDIES = [
         client: 'EduPath',
         industry: 'EdTech',
         services: ['Performance Engineering', 'CDN Strategy', 'Caching Architecture'],
-        tagline: 'Scaled to 10× traffic without touching the product team.',
-        summary: 'Scaled a growing EdTech platform to handle 10× traffic spikes with no degradation in user experience.',
+        tagline: 'Scaled to 10 - traffic without touching the product team.',
+        summary: 'Scaled a growing EdTech platform to handle 10 - traffic spikes with no degradation in user experience.',
         image: '/assets/ui-ux/hero.jpg',
         heroImage: '/assets/ui-ux/hero.jpg',
-        results: '91% faster page loads · 4× user retention uplift',
+        results: '91% faster page loads · 4 - user retention uplift',
         website: null,
-        body: `EduPath was growing fast — cohort sizes had tripled in eight months. But their infrastructure hadn't kept up. During peak lesson times, pages took 12–18 seconds to load and video delivery was unreliable.\n\nOur engagement was pure infrastructure and performance work, with no changes to the product itself. We audited every layer of the stack and implemented fixes in order of impact.`,
+        body: `EduPath was growing fast  - cohort sizes had tripled in eight months. But their infrastructure hadn't kept up. During peak lesson times, pages took 12–18 seconds to load and video delivery was unreliable.\n\nOur engagement was pure infrastructure and performance work, with no changes to the product itself. We audited every layer of the stack and implemented fixes in order of impact.`,
         sections: [
             {
                 title: 'Audit & Triage',
@@ -136,7 +136,7 @@ const STATIC_STUDIES = [
                 caption: null
             },
         ],
-        resultsList: ['91% reduction in median page load time (14s → 1.2s)', '4× improvement in 30-day user retention', 'CDN cache hit rate improved from 12% to 94%', 'Zero performance incidents in subsequent quarter'],
+        resultsList: ['91% reduction in median page load time (14s → 1.2s)', '4 - improvement in 30-day user retention', 'CDN cache hit rate improved from 12% to 94%', 'Zero performance incidents in subsequent quarter'],
     },
     {
         id: 's5',
@@ -151,7 +151,7 @@ const STATIC_STUDIES = [
         heroImage: '/assets/services/services.jpg',
         results: '+180% qualified leads · Series A closed within 6 months',
         website: null,
-        body: `Novaflow's product had matured but their brand hadn't. Competitors with fewer features were winning deals because they looked more enterprise-ready. The company had 8 weeks before a major industry conference that would serve as the unofficial Series A launch.\n\nWe ran a compressed brand sprint: competitor audit, positioning workshop, messaging framework, and visual identity — all in week one. The following six weeks were design and build.`,
+        body: `Novaflow's product had matured but their brand hadn't. Competitors with fewer features were winning deals because they looked more enterprise-ready. The company had 8 weeks before a major industry conference that would serve as the unofficial Series A launch.\n\nWe ran a compressed brand sprint: competitor audit, positioning workshop, messaging framework, and visual identity  - all in week one. The following six weeks were design and build.`,
         sections: [
             {
                 title: 'Positioning & Messaging',
@@ -161,7 +161,7 @@ const STATIC_STUDIES = [
             },
             {
                 title: 'Website Design & Build',
-                body: 'We designed and built the site in Next.js with Sanity CMS, optimised for enterprise buyer journeys — longer consideration cycles, multiple stakeholders, and a heavy emphasis on social proof.',
+                body: 'We designed and built the site in Next.js with Sanity CMS, optimised for enterprise buyer journeys  - longer consideration cycles, multiple stakeholders, and a heavy emphasis on social proof.',
                 image: null,
                 caption: null
             },
@@ -192,7 +192,7 @@ export default function CaseStudyDetail() {
     return (
         <div className={`${bg} min-h-screen transition-colors duration-500`}>
 
-            {/* ── Hero ── */}
+            {/*  -  -  Hero  -  -  */}
             <section className="relative w-full aspect-[16/7] max-h-[720px] overflow-hidden">
                 <Image src={study.heroImage} alt={study.title} fill className="object-cover" priority sizes="100vw"/>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/10"/>
@@ -207,7 +207,7 @@ export default function CaseStudyDetail() {
 
             <main className="mx-auto max-w-[100rem] px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
 
-                {/* ── Project meta bar ── */}
+                {/*  -  -  Project meta bar  -  -  */}
                 <section
                     className={`py-8 border-b grid grid-cols-2 md:grid-cols-4 gap-6 ${isDayTime ? 'border-gray-200' : 'border-zinc-800'}`}>
                     <div>
@@ -229,7 +229,7 @@ export default function CaseStudyDetail() {
                     </div>
                 </section>
 
-                {/* ── Content + Sidebar ── */}
+                {/*  -  -  Content + Sidebar  -  -  */}
                 <section
                     className="py-14 md:py-20 grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_300px] gap-16 items-start">
 
@@ -322,7 +322,7 @@ export default function CaseStudyDetail() {
                     </aside>
                 </section>
 
-                {/* ── Related work ── */}
+                {/*  -  -  Related work  -  -  */}
                 {related.length > 0 && (
                     <section className={`py-14 md:py-16 border-t ${isDayTime ? 'border-gray-200' : 'border-zinc-800'}`}>
                         <h2 className="text-2xl md:text-3xl font-semibold mb-10">More work</h2>
@@ -347,7 +347,7 @@ export default function CaseStudyDetail() {
                 )}
             </main>
 
-            {/* ── CTA ── */}
+            {/*  -  -  CTA  -  -  */}
 
             <div
                 className={`relative py-8 mx-auto px-4 sm:px-[2em] md:px-[3.2em] lg:px-[4.6em] max-w-full w-full h-auto ${

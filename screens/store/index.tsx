@@ -8,7 +8,7 @@ import { api, type StoreProduct, type Category, type Brand } from '@/components/
 import { FiArrowRight, FiTruck, FiShield, FiCreditCard, FiHeadphones } from 'react-icons/fi';
 
 const CAT_ICON: Record<string, string> = {
-    laptops: '💻', desktops: '🖥️', servers: '🗄️', phones: '📱',
+    laptops: '💻', desktops: ' - ️', servers: ' - ️', phones: '📱',
     tablets: '📲', networking: '📡', 'computer-accessories': '⌨️', 'mobile-accessories': '🎧',
 };
 
@@ -37,7 +37,7 @@ export default function StoreHome() {
                         <h1 className="text-3xl md:text-5xl font-extrabold mt-4 leading-tight">
                             Power your work with <span className="text-[var(--st-teal)]">premium tech</span>.
                         </h1>
-                        <p className="text-[var(--st-muted)] mt-4 max-w-md">Laptops, desktops, enterprise servers, flagship phones and accessories — all in one trusted Nigerian store.</p>
+                        <p className="text-[var(--st-muted)] mt-4 max-w-md">Laptops, desktops, enterprise servers, flagship phones and accessories  - all in one trusted Nigerian store.</p>
                         <div className="flex gap-3 mt-7">
                             <Link href="/store/products" className="st-btn px-6 py-3 flex items-center gap-2">Shop Now <FiArrowRight /></Link>
                             <Link href="/store/products?category=laptops" className="st-btn-ghost px-6 py-3">Browse Laptops</Link>

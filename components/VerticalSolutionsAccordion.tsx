@@ -2,7 +2,7 @@
 
 /**
  * VerticalSolutionsAccordion
- * ─────────────────────────────────────────────────────────────────────────────
+ *  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
  * Premium, reusable accordion component for showcasing industry-specific or
  * vertical-specific solutions. Supports dynamic title, subtitle, and case items.
  * 

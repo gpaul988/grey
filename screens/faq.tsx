@@ -84,7 +84,7 @@ export default function FaqScreen() {
     return (
         <div className={`min-h-screen transition-colors duration-500 ${isDayTime ? 'bg-white text-black' : 'bg-[#050810] text-white'}`}>
 
-            {/* ── Hero ── */}
+            {/*  -  -  Hero  -  -  */}
             <section className="relative overflow-hidden min-h-[42vh] flex flex-col justify-end">
                 <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-[#050810] to-[#071420]" />
                 <FxBackground day={false} grid aurora className="opacity-60" />
@@ -106,7 +106,7 @@ export default function FaqScreen() {
                                 </FxGlitchText>
                             </div>
                             <p className="text-white/55 max-w-2xl text-[0.95em] leading-relaxed">
-                                Everything about working with Grey InfoTech — process, pricing, timelines and support.
+                                Everything about working with Grey InfoTech  - process, pricing, timelines and support.
                                 Can&apos;t find an answer?{' '}
                                 <Link href="/contact" className="text-teal-400 hover:text-teal-300 underline underline-offset-4 transition-colors">
                                     Talk to us
@@ -117,7 +117,7 @@ export default function FaqScreen() {
                 </div>
             </section>
 
-            {/* ── Search + Tabs ── */}
+            {/*  -  -  Search + Tabs  -  -  */}
             <section className={`relative py-10 px-4 sm:px-6 lg:px-[4.5em] border-b ${borderCol} ${isDayTime ? 'bg-white' : 'bg-[#050810]'}`}>
                 <FxBackground day={isDayTime} grid={false} aurora className="opacity-20" />
                 <div className="relative z-10 max-w-3xl mx-auto">
@@ -164,7 +164,7 @@ export default function FaqScreen() {
                 </div>
             </section>
 
-            {/* ── FAQ list ── */}
+            {/*  -  -  FAQ list  -  -  */}
             <section className={`relative px-4 sm:px-6 lg:px-[4.5em] py-14 pb-28 ${isDayTime ? 'bg-white' : 'bg-[#050810]'}`}>
                 <FxBackground day={isDayTime} grid={false} aurora className="opacity-15" />
                 <div className="relative z-10 max-w-3xl mx-auto">

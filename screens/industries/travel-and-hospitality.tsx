@@ -9,7 +9,7 @@ const TravelAndHospitality = () => (
         topImages={['/assets/services/Web-App-Development-company.jpg', '/assets/services/services.jpg']}
         intro={
             <>
-                Booking platforms, property management systems and guest-facing apps—travel and hospitality
+                Booking platforms, property management systems and guest-facing apps -travel and hospitality
                 technology engineered for seamless journeys, frictionless stays and operations that run
                 smoothly through every peak season.
             </>
@@ -18,13 +18,13 @@ const TravelAndHospitality = () => (
         introHeading={<>Software That Makes Every <br className={'lg:block md:block hidden'}/>Journey Effortless</>}
         introBody={[
             <>
-                Travel and hospitality are, above all, about experience—and great software is what makes that
+                Travel and hospitality are, above all, about experience -and great software is what makes that
                 experience feel effortless. At Grey InfoTech we build booking and reservation platforms, hotel
                 and property management systems, and guest-facing apps that delight travellers while
                 streamlining the operations behind the scenes. From the first search and booking through to
                 check-in, in-stay services and post-stay loyalty, we help operators deliver the kind of journeys
                 guests remember for the right reasons. We understand that in this industry a single technical
-                failure—an overbooking, a payment error, a slow page during a flash sale—translates directly
+                failure -an overbooking, a payment error, a slow page during a flash sale -translates directly
                 into lost revenue and damaged reputation, so reliability and performance sit at the heart of
                 everything we build.
             </>,
@@ -32,7 +32,7 @@ const TravelAndHospitality = () => (
                 We handle the engineering challenges that are unique to travel and hospitality: real-time
                 availability and dynamic pricing, secure multi-currency payments, channel and inventory
                 management, and deep integrations with booking engines, GDS and online travel agencies. Our
-                platforms keep operators firmly in control while keeping guests happy—scalable enough to absorb
+                platforms keep operators firmly in control while keeping guests happy -scalable enough to absorb
                 peak-season surges and resilient enough to stay reliable when it matters most. Whether you run a
                 boutique property, a growing hotel group, a tour operator or an online travel marketplace, we
                 build technology that synchronises inventory everywhere, reduces manual work for your team and
@@ -53,7 +53,7 @@ const TravelAndHospitality = () => (
                 id: '01', title: 'Booking & Reservation Platforms', target: 'BP',
                 tags: ['Real-Time Availability', 'Dynamic Pricing', 'Payments', 'Search'],
                 body: <>We build booking platforms with real-time availability, dynamic pricing and secure
-                    multi-currency payments—making it effortless for guests to search, compare, book and pay.
+                    multi-currency payments -making it effortless for guests to search, compare, book and pay.
                     Our flows are engineered to stay accurate and fast even during flash sales and peak demand,
                     with abandoned-cart recovery, flexible cancellation rules and instant confirmations that keep
                     conversion high and support tickets low.</>,
@@ -62,7 +62,7 @@ const TravelAndHospitality = () => (
                 id: '02', title: 'Property Management Systems', target: 'PM',
                 tags: ['Front Desk', 'Housekeeping', 'Rates', 'Channel Manager'],
                 body: <>We develop property management systems covering front desk, reservations, housekeeping,
-                    rate management and channel distribution—giving operators full control of their property from
+                    rate management and channel distribution -giving operators full control of their property from
                     a single dashboard. Automated workflows for arrivals, departures and room status reduce manual
                     effort and eliminate the double-bookings and miscommunication that erode guest trust.</>,
             },
@@ -70,7 +70,7 @@ const TravelAndHospitality = () => (
                 id: '03', title: 'Guest Experience Apps', target: 'GE',
                 tags: ['Mobile Check-in', 'In-Stay Services', 'Loyalty', 'Messaging'],
                 body: <>We create guest-facing apps for mobile check-in and check-out, in-stay service requests,
-                    digital room keys, concierge messaging and loyalty programmes—elevating the guest experience
+                    digital room keys, concierge messaging and loyalty programmes -elevating the guest experience
                     while reducing front-desk load. By putting control in the guest&apos;s hands, we increase
                     satisfaction scores and free your team to focus on hospitality rather than admin.</>,
             },
@@ -87,7 +87,7 @@ const TravelAndHospitality = () => (
                 tags: ['Itineraries', 'Scheduling', 'Capacity', 'Vouchers'],
                 body: <>For tour operators and experience providers, we build platforms that handle itinerary
                     design, scheduling, capacity management, ticketing and digital vouchers. We support
-                    multi-day packages, guides and resource allocation, and seasonal pricing—so you can sell and
+                    multi-day packages, guides and resource allocation, and seasonal pricing -so you can sell and
                     operate complex experiences with confidence.</>,
             },
             {
@@ -114,7 +114,7 @@ const TravelAndHospitality = () => (
             },
             {
                 id: 3, title: 'Guest-First Experience', image: '/assets/services/services.jpg',
-                description: <>From mobile check-in to loyalty, we design experiences guests genuinely enjoy—
+                description: <>From mobile check-in to loyalty, we design experiences guests genuinely enjoy -
                     raising satisfaction scores and turning one-time visitors into repeat bookings.</>,
             },
             {

@@ -8,7 +8,7 @@ const DrupalDevelopment = () => (
         heroVideoMobile="/assets/hero/hero.mp4"
         midImage="/assets/services/Research-strategy.jpg"
         topImages={['/assets/services/digital-transformatio.jpg', '/assets/services/digital-optimisation.jpg']}
-        intro="Enterprise-grade Drupal solutions—custom modules, headless architecture and complex content models—built for the organisations that need serious content management power."
+        intro="Enterprise-grade Drupal solutions -custom modules, headless architecture and complex content models -built for the organisations that need serious content management power."
         eyebrow="Drupal expertise for complex digital experiences"
         introHeading={<>Enterprise Content<br className="lg:block md:block hidden" />Management, Evolved</>}
         introBody={[
@@ -18,7 +18,7 @@ const DrupalDevelopment = () => (
             expertise in custom module development, headless Drupal architectures, complex content migrations
             and Drupal performance at scale. We build Drupal solutions that match the complexity of your
             editorial workflows and content governance requirements.</>,
-            <>Our Drupal practice follows best practices rigorously—Composer-managed dependencies, configuration
+            <>Our Drupal practice follows best practices rigorously -Composer-managed dependencies, configuration
             management in Git, code reviews against Drupal coding standards, and automated testing with PHPUnit
             and Behat. We implement Drupal as part of a broader technology stack: headless as an API backend
             for a React or Next.js frontend, or fully coupled for content-heavy editorial environments.
@@ -32,7 +32,7 @@ const DrupalDevelopment = () => (
                 id: '01', title: 'Custom Module Development', target: 'CM',
                 tags: ['Drupal 10', 'PHP', 'Services', 'Hooks', 'Plugins'],
                 body: <>We build custom Drupal modules that extend the platform to meet your exact business
-                requirements—custom field types, entity bundles, workflow integrations, payment gateways,
+                requirements -custom field types, entity bundles, workflow integrations, payment gateways,
                 API clients and complex data transformations. Modules follow Drupal&apos;s object-oriented
                 architecture with dependency injection, event subscribers and proper testing, making them
                 upgrade-safe and maintainable.</>,
@@ -84,7 +84,7 @@ const DrupalDevelopment = () => (
             },
         ]}
         ctaHeading={<>Drupal that<br className="lg:block md:block hidden" />handles serious scale</>}
-        ctaBody="When your content requirements outgrow simpler platforms, Drupal—implemented correctly—is unmatched. Grey InfoTech builds Drupal solutions that editorial teams love."
+        ctaBody="When your content requirements outgrow simpler platforms, Drupal -implemented correctly -is unmatched. Grey InfoTech builds Drupal solutions that editorial teams love."
         verticalSolutions={[
             {
                 id: 'vs1',

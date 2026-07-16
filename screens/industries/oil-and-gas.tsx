@@ -1,7 +1,6 @@
 'use client';
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import Link from "next/link";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
@@ -13,7 +12,6 @@ import {PiTruck} from "react-icons/pi";
 import {SlEnergy} from "react-icons/sl";
 import {FaCode, FaRocket} from "react-icons/fa";
 import {useIsDayTime} from '../../components/useIsDayTime';
-
 
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 
@@ -107,7 +105,7 @@ const reasons = [
                 nearly a decade of industry-specific experience. We design world-class exploration and production (E&P)
                 software that maximizes operational efficiency, optimizes workflows, and enhances risk management across
                 the entire value chain. Our solutions cover every stage of upstream, midstream, and downstream
-                operations—from exploration and drilling to transportation and gas station distribution—while addressing
+                operations -from exploration and drilling to transportation and gas station distribution -while addressing
                 the unique requirements and niche workflows of each company. Through custom software development
                 tailored to established processes, we enable enterprises to streamline operations, improve
                 decision-making, and achieve strategic business objectives with greater speed, accuracy, and
@@ -150,7 +148,6 @@ const OilAndGas = () => {
     const {scrollYProgress} = useScroll({target: targetRef});
     const x = useTransform(scrollYProgress, [0, 1], ["0%", "-83%"]);
 
-
     // Floating button visibility hook
     useEffect(() => {
         const handleScroll = () => {
@@ -164,7 +161,6 @@ const OilAndGas = () => {
 
     // isDaytime react hook
    const isDayTime = useIsDayTime();
-
 
     // Introductory section hook
     useEffect(() => {
@@ -612,16 +608,11 @@ const OilAndGas = () => {
     };
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             {/* Hero Section */}
             <div id={'hero'}
                  className={"relative overflow-hidden lg:w-full lg:h-[720px] justify-center items-center md:w-full md:h-[700] w-full h-[700] pb-6"}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
+                {/*  -  -  -  Futuristic FX overlay (hero enhancement)  -  -  -  */}
                 <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
                     <div className="gx-scanline" />
                     <div className="gx-noise-overlay" />
@@ -646,8 +637,8 @@ const OilAndGas = () => {
                         <div className={'lg:-mr-[4em] md:-mr-[1em] lg:mt-[1em] md:mt-[1em]'}>
                             <p className={'text-[0.87em] font-[300]'}>
                                 Ready to elevate your operations, maximize profitability, and strengthen security? Our
-                                data-driven software solutions optimize every stage of your workflow—from drilling to
-                                distribution—ensuring efficiency, accuracy, and measurable business impact.
+                                data-driven software solutions optimize every stage of your workflow -from drilling to
+                                distribution -ensuring efficiency, accuracy, and measurable business impact.
                             </p>
                         </div>
                         <div
@@ -1321,7 +1312,7 @@ const OilAndGas = () => {
                                 Partnering with us gives energy companies access to deep industry expertise, advanced
                                 technology solutions, and a collaborative approach focused on business outcomes. We
                                 deliver secure, scalable, and data-driven software that optimizes operations, enhances
-                                decision-making, reduces costs, and drives long-term growth—helping organizations remain
+                                decision-making, reduces costs, and drives long-term growth -helping organizations remain
                                 competitive in a complex and rapidly evolving oil and gas landscape.
                             </p>
                         </div>
@@ -1490,8 +1481,8 @@ const OilAndGas = () => {
                             className={'text-teal-600'}>Spectrum</span>
                         </h1>
                         <p className={'text-justify text-[0.87em] font-[300] leading-normal mx-auto max-w-5xl'}>
-                            Grey InfoTech provides end-to-end oil and gas software solutions—covering production,
-                            operations, energy management, data analytics, and ERP systems—engineered to directly
+                            Grey InfoTech provides end-to-end oil and gas software solutions -covering production,
+                            operations, energy management, data analytics, and ERP systems -engineered to directly
                             support your strategic business objectives. With a focus on scalability, security, and
                             efficiency, our solutions are built to optimize critical processes, enhance operational
                             visibility, and drive data-informed decision-making. Leveraging deep industry expertise and
@@ -1687,7 +1678,7 @@ const OilAndGas = () => {
                                         onClick={() => setOpenIndex(openIndex === i ? null : i)}
                                     >
                                         {feature.title}
-                                        <span>{openIndex === i ? "▲" : "▼"}</span>
+                                        <span>{openIndex === i ? " - " : " - "}</span>
                                     </button>
                                     {openIndex === i &&
                                         <p className={`pb-4 text-gray-500 text-[0.873em] `}>{feature.content}</p>}
@@ -2200,3 +2191,4 @@ const OilAndGas = () => {
 };
 
 export default OilAndGas;
+

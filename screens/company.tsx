@@ -1,7 +1,6 @@
 'use client';
 
 import React, {useEffect, useRef, useState} from 'react';
-import FloatingButton from '@/components/FloatingButton';
 import Slider from 'react-slick';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -33,7 +32,7 @@ const reasons = [
         title: 'We Listen',
         description: (
             <>
-                Every project begins with a conversation—an opportunity for us to understand your goals, vision, and the
+                Every project begins with a conversation -an opportunity for us to understand your goals, vision, and the
                 challenges that matter most to your business. At Grey InfoTech, we go beyond the technical brief to
                 uncover what truly drives value for you. By aligning our strategy with your priorities from the start,
                 we&apos;re able to design and deliver solutions that solve real problems, unlock new opportunities, and
@@ -46,7 +45,7 @@ const reasons = [
         title: 'We Strategize',
         description: (
             <>
-                We design smart, scalable solutions tailored to your business goals—whether you&#39;re launching a new
+                We design smart, scalable solutions tailored to your business goals -whether you&#39;re launching a new
                 product, modernising legacy systems, or scaling operations. Our approach combines strategic thinking,
                 technical expertise, and industry insight to deliver platforms that are not only robust and
                 future-ready, but also aligned with your operational workflows and growth objectives.
@@ -58,7 +57,7 @@ const reasons = [
         title: 'We Create',
         description: (
             <>
-                Armed with insights, we move swiftly from strategy to execution—crafting intuitive designs, writing
+                Armed with insights, we move swiftly from strategy to execution -crafting intuitive designs, writing
                 robust code, and applying our technical expertise at every stage. With a blend of creativity and
                 precision, we build digital products that not only solve complex problems but also strengthen your
                 brand, enhance user experience, and drive measurable business results.
@@ -84,7 +83,7 @@ const reasons = [
             <>
                 Quality is at the core of everything we do. From day one, we integrate testing into every phase of
                 development to catch issues early and ensure reliability. Before launch, we rigorously test across
-                devices, browsers, and real-world scenarios—so your product performs flawlessly.
+                devices, browsers, and real-world scenarios -so your product performs flawlessly.
             </>
         ),
     },
@@ -93,7 +92,7 @@ const reasons = [
         title: 'We Stick Around',
         description: (
             <>
-                The journey doesn&apos;t stop at launch—it&apos;s just the beginning. As technology evolves and your
+                The journey doesn&apos;t stop at launch -it&apos;s just the beginning. As technology evolves and your
                 business
                 grows, we stay by your side to adapt, optimise, and enhance your product. Whether it&apos;s adding new
                 features, improving performance, or scaling to meet new demands, we provide ongoing support to ensure
@@ -108,7 +107,6 @@ const Company = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeIndex, setActiveIndex] = useState(1);
-
 
     const isDayTime = useIsDayTime();
 
@@ -139,7 +137,7 @@ const Company = () => {
     const handleMouseEnter = () => carouselRef.current?.classList.add('active');
     const handleMouseLeave = () => carouselRef.current?.classList.remove('active');
 
-    // Approach auto-cycle (single interval — do not duplicate)
+    // Approach auto-cycle (single interval  - do not duplicate)
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveIndex(prev => (prev % reasons.length) + 1);
@@ -159,32 +157,29 @@ const Company = () => {
         {
             num: '01',
             label: 'Innovative',
-            body: 'We stay ahead by combining deep expertise with smart, forward-thinking solutions. Every project is guided by strategy, underpinned by innovation, and focused on delivering measurable results that align with your business goals and long-term vision.\n\nNo two challenges are the same, so we tailor every solution to your needs—ensuring performance, scalability, efficiency, and readiness for sustainable growth.'
+            body: 'We stay ahead by combining deep expertise with smart, forward-thinking solutions. Every project is guided by strategy, underpinned by innovation, and focused on delivering measurable results that align with your business goals and long-term vision.\n\nNo two challenges are the same, so we tailor every solution to your needs -ensuring performance, scalability, efficiency, and readiness for sustainable growth.'
         },
         {
             num: '02',
             label: 'Collaborative',
-            body: 'We are customer-centric at every level. Our top priority is solving problems through a collaborative approach that ensures clients are not just heard, but truly understood—resulting in solutions that align with their vision and needs.\n\nBy fostering open communication and genuine partnership, we build lasting relationships based on trust, transparency, and mutual respect.'
+            body: 'We are customer-centric at every level. Our top priority is solving problems through a collaborative approach that ensures clients are not just heard, but truly understood -resulting in solutions that align with their vision and needs.\n\nBy fostering open communication and genuine partnership, we build lasting relationships based on trust, transparency, and mutual respect.'
         },
         {
             num: '03',
             label: 'Adaptable',
-            body: "We're happy to embrace change. Whether it's a shift in project scope or evolving customer needs, we remain agile and adaptable—quick to respond, adjust, and deliver with confidence.\n\nBy staying ahead of trends and exploring emerging technologies, we ensure our clients are future-ready in a fast-changing digital landscape."
+            body: "We're happy to embrace change. Whether it's a shift in project scope or evolving customer needs, we remain agile and adaptable -quick to respond, adjust, and deliver with confidence.\n\nBy staying ahead of trends and exploring emerging technologies, we ensure our clients are future-ready in a fast-changing digital landscape."
         },
         {
             num: '04',
             label: 'Accountable',
-            body: "We take ownership of every outcome—because accountability is key to building trust. Our clients can rely on us to deliver solutions that are on time, on brief, and aligned with their expectations.\n\nWith clear communication, proactive follow-through, and a focus on measurable results, we hold ourselves to the highest standards in every engagement."
+            body: "We take ownership of every outcome -because accountability is key to building trust. Our clients can rely on us to deliver solutions that are on time, on brief, and aligned with their expectations.\n\nWith clear communication, proactive follow-through, and a focus on measurable results, we hold ourselves to the highest standards in every engagement."
         },
     ];
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${isVisible ? 'mb-16' : 'mb-0'}`}
-            />
 
-            {/* ── Hero — extreme futuristic ── */}
+            {/*  -  -  Hero  - extreme futuristic  -  -  */}
             <div id="hero" className="relative w-full overflow-hidden min-h-screen flex flex-col justify-end">
                 {/* Background image */}
                 <div className="absolute inset-0">
@@ -256,7 +251,7 @@ const Company = () => {
                 </div>
             </div>
 
-            {/* ── Introductory section ── */}
+            {/*  -  -  Introductory section  -  -  */}
             <section
                 ref={sectionRef}
                 className={`pt-16 transition-colors duration-500 ${
@@ -281,7 +276,7 @@ const Company = () => {
                             <div
                                 className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]">
                                 <div><p>At Grey InfoTech, we&apos;re driven by a passion for transforming ideas into
-                                    digital realities. We believe in building products that matter—solutions that solve
+                                    digital realities. We believe in building products that matter -solutions that solve
                                     real problems, create lasting value, and drive meaningful impact for our clients and
                                     their users.</p></div>
                                 <div><p>Our team brings diverse expertise and a shared commitment to delivering
@@ -294,7 +289,7 @@ const Company = () => {
                 </div>
             </section>
 
-            {/* ── Top Image Carousel ── */}
+            {/*  -  -  Top Image Carousel  -  -  */}
             <div className={`${isDayTime ? 'bg-white' : 'bg-black'} lg:block md:block hidden`}>
                 <div id="top"
                      className="relative lg:max-w-full w-full lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[6em] md:pb-[6em] pb-[2em] mx-auto h-auto">
@@ -327,7 +322,7 @@ const Company = () => {
                                 <div className="custom-cursor"
                                      style={{left: `${cursorStyle.left}px`, top: `${cursorStyle.top}px`}}>
                                     <span>drag</span>
-                                    <span className="custom-cursor-arrow">↔</span>
+                                    <span className="custom-cursor-arrow"> -</span>
                                 </div>
 
                                 <div className="absolute top-4 right-4 z-20 flex items-center gap-2 rounded-full border border-teal-400/20 bg-black/40 px-3 py-1.5 backdrop-blur-xl">
@@ -421,7 +416,7 @@ const Company = () => {
                 </div>
             </div>
 
-            {/* ── Mid image ── */}
+            {/*  -  -  Mid image  -  -  */}
             <div id="mid image" className="h-auto max-w-full w-full mx-auto">
                 <Image
                     className="object-fill"
@@ -433,7 +428,7 @@ const Company = () => {
                 />
             </div>
 
-            {/* ── Our Mission ── */}
+            {/*  -  -  Our Mission  -  -  */}
             <div className={`relative overflow-hidden ${isDayTime ? 'bg-slate-950' : 'bg-white'}`}>
                 <FxBackground day={false} grid aurora className="opacity-30"/>
                 <FxOrbit size={520} top="-120px" right="-160px" opacity={0.1} speed={34}/>
@@ -490,7 +485,7 @@ const Company = () => {
                 </div>
             </div>
 
-            {/* ── Our Vision ── */}
+            {/*  -  -  Our Vision  -  -  */}
             <div className={`relative overflow-hidden ${isDayTime ? 'bg-white' : 'bg-slate-950'}`}>
                 <FxBackground day={false} grid={false} aurora className="opacity-20"/>
                 <FxOrbit size={460} top="80px" left="-140px" opacity={0.08} speed={28} reverse/>
@@ -532,7 +527,7 @@ const Company = () => {
                 </div>
             </div>
 
-            {/* ── Trusted Digital Partners + CountUp ── */}
+            {/*  -  -  Trusted Digital Partners + CountUp  -  -  */}
             <div className={`${isDayTime ? 'bg-white' : 'bg-black'}`}>
                 <div
                     id="partners"
@@ -573,7 +568,7 @@ const Company = () => {
                 </div>
             </div>
 
-            {/* ── Our Approach ── */}
+            {/*  -  -  Our Approach  -  -  */}
             <div
                 className={`relative overflow-hidden ${isDayTime ? 'bg-slate-950' : 'bg-slate-50'} lg:pt-[5em] pt-[3em] lg:pb-[6em] pb-[3em]`}>
                 <FxBackground day={false} grid aurora className="opacity-50"/>
@@ -591,7 +586,7 @@ const Company = () => {
                                 title="Our Approach"
                             />
                             <p className="text-[0.873em] font-[400] lg:-mt-[0.2em] leading-[1.5] text-white/55 lg:-ml-[7em]">
-                                We&apos;re not just here to ship software — we&apos;re here to make bold ideas happen.
+                                We&apos;re not just here to ship software  - we&apos;re here to make bold ideas happen.
                                 From ambitious
                                 startups to complex enterprise systems, we thrive on challenges that push the limits.
                             </p>
@@ -599,7 +594,7 @@ const Company = () => {
                     </FxReveal>
 
                     <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-8">
-                        {/* Left — FxHoloCard accordion */}
+                        {/* Left  - FxHoloCard accordion */}
                         <div className="flex flex-col gap-3 lg:pr-[3em]">
                             {reasons.map((reason, index) => {
                                 const isActive = index + 1 === activeIndex;
@@ -634,7 +629,7 @@ const Company = () => {
                             })}
                         </div>
 
-                        {/* Right — image */}
+                        {/* Right  - image */}
                         <div className="lg:mt-[2em]">
                             <FxFrame className="w-full">
                                 <Image src="/assets/comp/op.jpg" alt="Our Approach" width={660} height={480}
@@ -654,7 +649,7 @@ const Company = () => {
                 </div>
             </div>
 
-            {/* ── Our Values ── */}
+            {/*  -  -  Our Values  -  -  */}
             <div className={`-mt-[4em] ${isDayTime ? 'bg-white' : 'bg-black'}`}>
                 <div
                     id="values"
@@ -703,7 +698,7 @@ const Company = () => {
                 </div>
             </div>
 
-            {/* ── Why Choose Grey InfoTech — Interactive Card Grid ── */}
+            {/*  -  -  Why Choose Grey InfoTech  - Interactive Card Grid  -  -  */}
             <div className={`relative overflow-hidden ${isDayTime ? 'bg-[#020f0d]' : 'bg-white'}`}>
                 <FxBackground day={false} grid aurora className="opacity-50"/>
                 <div className="gx-noise-overlay pointer-events-none"/>
@@ -748,7 +743,7 @@ const Company = () => {
                                 num: '02',
                                 title: "We're Proactive",
                                 accent: '#06b6d4',
-                                body: "We don't just deliver on expectations — we exceed them. Our approach means we anticipate challenges before they arise and consistently look for new opportunities to drive your project forward."
+                                body: "We don't just deliver on expectations  - we exceed them. Our approach means we anticipate challenges before they arise and consistently look for new opportunities to drive your project forward."
                             },
                             {
                                 num: '03',
@@ -760,19 +755,19 @@ const Company = () => {
                                 num: '04',
                                 title: "We're Invested",
                                 accent: '#22d3ee',
-                                body: "Your goals become our mission. We take ownership of outcomes — not just delivery — ensuring your investment results in long-term, compounding value."
+                                body: "Your goals become our mission. We take ownership of outcomes  - not just delivery  - ensuring your investment results in long-term, compounding value."
                             },
                             {
                                 num: '05',
                                 title: "We're Transparent",
                                 accent: '#14b8a6',
-                                body: "No black boxes. You get live access to the dev environment, clear milestones, and proactive updates — so you always know exactly where your project stands."
+                                body: "No black boxes. You get live access to the dev environment, clear milestones, and proactive updates  - so you always know exactly where your project stands."
                             },
                             {
                                 num: '06',
                                 title: "We Stick Around",
                                 accent: '#0d9488',
-                                body: "The journey doesn't end at launch. As your business grows and technology evolves, we stay by your side — adapting, optimising, and scaling your product."
+                                body: "The journey doesn't end at launch. As your business grows and technology evolves, we stay by your side  - adapting, optimising, and scaling your product."
                             },
                         ].map((card, i) => (
                             <motion.div
@@ -821,3 +816,5 @@ const Company = () => {
 };
 
 export default Company;
+
+

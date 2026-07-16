@@ -1,9 +1,7 @@
 'use client';
 
-
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
@@ -28,7 +26,6 @@ const WebDesign = () => {
     const {scrollYProgress} = useScroll({target: targetRef});
     const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
 
-
     // Floating button visibility hook
     useEffect(() => {
         const handleScroll = () => {
@@ -42,7 +39,6 @@ const WebDesign = () => {
 
     // isDaytime react hook
     const isDayTime = useIsDayTime();
-
 
     // Introductory section hook
     useEffect(() => {
@@ -119,11 +115,6 @@ const WebDesign = () => {
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             {/* Unified Futuristic Web Design Hero - Background Image/Video with overlay */}
             <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
@@ -288,7 +279,7 @@ const WebDesign = () => {
                             <div
                                 className="grid lg:grid-cols-2 grid-cols-1 gap-6 mt-6 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
                                 <div className="space-y-4">
-                                    <p>Web design is not just about aesthetics—it's about creating strategic digital assets that drive measurable business outcomes. Our design philosophy merges visual excellence, behavioral psychology, and technical precision to deliver websites that captivate users and maximize conversions.</p>
+                                    <p>Web design is not just about aesthetics -it's about creating strategic digital assets that drive measurable business outcomes. Our design philosophy merges visual excellence, behavioral psychology, and technical precision to deliver websites that captivate users and maximize conversions.</p>
                                     <p>We employ a rigorous, data-driven design process: user research, competitive analysis, wireframing, prototyping, and iterative testing. Every pixel, interaction, and micromoment is intentional, designed to guide users toward desired actions while building trust and brand affinity.</p>
                                     <div className="flex flex-wrap gap-3 mt-4">
                                         {['Visual Strategy', 'UX Research', 'Interaction Design', 'Brand Expression'].map((p) => (
@@ -297,8 +288,8 @@ const WebDesign = () => {
                                     </div>
                                 </div>
                                 <div className="space-y-4">
-                                    <p>Whether launching a startup, rebranding an established business, or scaling eCommerce operations, we deliver responsive, accessible designs optimized for all devices and user scenarios. We ensure performance targets are met—fast load times, smooth interactions, optimal Core Web Vitals—because user experience directly impacts SEO rankings and conversion rates.</p>
-                                    <p>Our end-to-end approach spans discovery consultation, strategic planning, UX/UI design system creation, front-end implementation, deployment, and ongoing optimization. We partner collaboratively with your team, providing transparent communication, regular reviews, and strategic recommendations—focused on delivering long-term value and sustainable growth.</p>
+                                    <p>Whether launching a startup, rebranding an established business, or scaling eCommerce operations, we deliver responsive, accessible designs optimized for all devices and user scenarios. We ensure performance targets are met -fast load times, smooth interactions, optimal Core Web Vitals -because user experience directly impacts SEO rankings and conversion rates.</p>
+                                    <p>Our end-to-end approach spans discovery consultation, strategic planning, UX/UI design system creation, front-end implementation, deployment, and ongoing optimization. We partner collaboratively with your team, providing transparent communication, regular reviews, and strategic recommendations -focused on delivering long-term value and sustainable growth.</p>
                                     <div className="flex flex-wrap gap-3 mt-4">
                                         {['Mobile-First Design', 'Accessibility (WCAG)', 'Performance Optimization', 'Conversion Strategy'].map((p) => (
                                             <span key={p} className="gx-data-pill">{p}</span>
@@ -654,7 +645,7 @@ const WebDesign = () => {
                             Web Hosting</h2>
                         <p className={'text-{0.8em] font-[200] leading-[1.2] tracking-normal text-justify'}>
                             We provides scalable, business-ready hosting solutions designed to support
-                            companies of all sizes—from startups to large enterprises. Our offerings range from
+                            companies of all sizes -from startups to large enterprises. Our offerings range from
                             affordable entry-level plans to high-performance, enterprise-grade infrastructure with
                             features like load balancing and high availability. Each solution is built for reliability,
                             security, and performance, ensuring your digital operations run smoothly while aligning with
@@ -835,7 +826,7 @@ const WebDesign = () => {
                     <p className={'text-[0.873em] font-[300] leading-[1.5] text-justify lg:pr-[33em] mb-10'}>
                         We specialize in crafting high-impact marketing websites, innovative web apps, and mobile
                         applications that drive real results. From funded startups to established businesses, we&#39;ve
-                        helped a wide range of clients bring their digital products to life—delivering standout
+                        helped a wide range of clients bring their digital products to life -delivering standout
                         experiences
                         that fuel growth, engagement, and long-term success.
                     </p>
@@ -893,7 +884,7 @@ const WebDesign = () => {
                             className='grid lg:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]'>
                             <div>
                                 <p>
-                                    In today’s competitive digital landscape, web design is more than visual appeal—it
+                                    In today’s competitive digital landscape, web design is more than visual appeal -it
                                     is a core business asset. Your website often serves as the first and most lasting
                                     impression of your brand. A well-designed site communicates professionalism,
                                     credibility, and trust, all of which directly impact your ability to convert
@@ -908,13 +899,13 @@ const WebDesign = () => {
                             <div>
                                 <p>
                                     From a business perspective, professional web design is a powerful driver of growth.
-                                    It directly supports your digital marketing efforts—improving search engine
+                                    It directly supports your digital marketing efforts -improving search engine
                                     rankings, lowering bounce rates, and increasing time-on-site. A strong web presence
                                     also enhances customer service through features like chatbots, easy navigation, and
                                     clear contact paths. Moreover, a custom-designed website allows for seamless
                                     integration with backend systems like CRMs, analytics tools, and marketing
                                     automation, streamlining operations and driving better decision-making. Investing in
-                                    quality web design isn’t just a branding choice—it’s a strategic move to improve
+                                    quality web design isn’t just a branding choice -it’s a strategic move to improve
                                     customer engagement, increase ROI, and future-proof your digital growth.
                                 </p>
                             </div>
@@ -988,7 +979,7 @@ const WebDesign = () => {
                         <p className='text-[0.85em] font-[400] lg:-mt-[0.2em] md:-mt-[0.2em] text-justify  leading-[1.5]'>
                             Web design is a collaborative process that brings together creative and technical experts to
                             build a website that supports your business objectives and speaks to your
-                            audience—regardless of industry. At the core of the team is a project manager who
+                            audience -regardless of industry. At the core of the team is a project manager who
                             coordinates timelines, client feedback, and overall direction. UI/UX designers shape the
                             look, feel, and usability of the website to ensure a smooth and engaging user experience
                             across all devices.<br/><br/>
@@ -1049,7 +1040,6 @@ const WebDesign = () => {
                 </div>
             </div>
 
-
             {/* Stages of our development process */}
             <div className={`${isDayTime ? 'bg-white' : 'bg-black'}`}>
                 <div id={'development process'}
@@ -1064,7 +1054,7 @@ const WebDesign = () => {
                                 Stages Of Our <br className={'lg:block md:block hidden'}/>Development Process
                             </h2>
                             <p className={'text-[0.87em] font-[300] leading-[1.5] tracking-tight'}>
-                                We don’t just build functional products—we craft digital experiences that captivate
+                                We don’t just build functional products -we craft digital experiences that captivate
                                 users and drive meaningful results for your business.
                             </p>
                         </div>
@@ -1101,7 +1091,7 @@ const WebDesign = () => {
                                         title: "Planning & Architecture",
                                         description: (
                                             <>
-                                                We create a clear roadmap—defining the site structure, user journeys,
+                                                We create a clear roadmap -defining the site structure, user journeys,
                                                 and key features. Wireframes and sitemaps guide the user experience and
                                                 functionality.
                                             </>
@@ -1182,7 +1172,6 @@ const WebDesign = () => {
                 </div>
             </div>
 
-
             {/* NLast image*/}
             <div id={'nlast-image'} className={'h-auto max-w-full w-full mx-auto'}>
                 <Image
@@ -1198,7 +1187,6 @@ const WebDesign = () => {
                 />
             </div>
 
-
             {/* Futuristic Capabilities Section */}
             <ServiceCapabilities
                 heading="Our web design capabilities"
@@ -1211,13 +1199,13 @@ const WebDesign = () => {
                     {
                         id: 'ux-design',
                         title: 'UX-First Design',
-                        description: 'We design experiences around your users — not just aesthetics. Every layout decision is backed by user research, heatmaps, and conversion psychology.',
+                        description: 'We design experiences around your users  - not just aesthetics. Every layout decision is backed by user research, heatmaps, and conversion psychology.',
                         points: ['User journey mapping', 'Wireframing & prototyping', 'A/B test-ready layouts', 'Accessibility (WCAG 2.1)'],
                     },
                     {
                         id: 'web-dev',
                         title: 'High-Performance Dev',
-                        description: 'Clean, semantic code built for speed. We target Core Web Vitals scores in the green — because performance is a conversion tool.',
+                        description: 'Clean, semantic code built for speed. We target Core Web Vitals scores in the green  - because performance is a conversion tool.',
                         points: ['Next.js / React', 'Sub-2s load times', 'Mobile-first responsive', 'CDN-optimized'],
                     },
                     {
@@ -1235,7 +1223,7 @@ const WebDesign = () => {
                     {
                         id: 'ecommerce',
                         title: 'E-Commerce',
-                        description: 'Conversion-focused storefronts built to sell. From product pages to checkout — every touchpoint is optimized.',
+                        description: 'Conversion-focused storefronts built to sell. From product pages to checkout  - every touchpoint is optimized.',
                         points: ['Shopify / WooCommerce', 'Custom cart flows', 'Payment gateway integration', 'Inventory management'],
                     },
                     {
@@ -1251,3 +1239,4 @@ const WebDesign = () => {
 };
 
 export default WebDesign;
+

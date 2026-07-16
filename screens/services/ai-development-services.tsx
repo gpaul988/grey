@@ -1,9 +1,7 @@
 'use client';
 
-
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css';
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
@@ -37,7 +35,6 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
 
     // isDaytime react hook
    const isDayTime = useIsDayTime();
-
 
     // Introductory section hook
     useEffect(() => {
@@ -143,7 +140,7 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
                     From day one, you’ll experience a service culture grounded in professionalism, responsiveness, and
                     transparency. At Grey InfoTech, we prioritize clear and consistent communication, keeping you
                     informed at every stage of the development process. Our team is committed to staying on schedule,
-                    proactively managing expectations, and addressing challenges before they become issues—ensuring a
+                    proactively managing expectations, and addressing challenges before they become issues -ensuring a
                     seamless, collaborative, and stress-free experience from concept to launch.
                 </>
             ),
@@ -155,7 +152,7 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
             description: (
                 <>
                     As your business expands, your software requirements evolve too. At Grey InfoTech, we provide
-                    flexible and scalable solutions tailored to every stage—from Minimum Viable Products (MVPs) for
+                    flexible and scalable solutions tailored to every stage -from Minimum Viable Products (MVPs) for
                     startups to robust, enterprise-grade systems. Our modular development approach allows your
                     applications to grow seamlessly with your organization, minimizing costly rebuilds and enabling
                     efficient enhancements that keep pace with your changing needs.
@@ -168,7 +165,7 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
             title: 'Proactive, Client Facing',
             description: (
                 <>
-                    We go beyond simply executing tasks — we become your strategic partner. By taking a proactive
+                    We go beyond simply executing tasks  - we become your strategic partner. By taking a proactive
                     approach, we anticipate your needs, recommend improvements, and offer valuable insights throughout
                     the development journey. With Grey InfoTech, you’re not just hiring a vendor; you’re gaining a
                     dedicated technology partner fully invested in driving your success.
@@ -191,16 +188,11 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             {/* Hero Section */}
             <div id={'hero'}
                  className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
+                {/*  -  -  -  Futuristic FX overlay (hero enhancement)  -  -  -  */}
                 <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
                     <div className="gx-scanline" />
                     <div className="gx-noise-overlay" />
@@ -251,14 +243,14 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
                                     Harcourt, Nigeria, with a mission to help businesses embrace the future through
                                     intelligent digital solutions. With a strong foundation in custom software
                                     development and deep expertise in artificial intelligence, we partner with both
-                                    startups and enterprises across diverse sectors—including fintech, healthcare,
+                                    startups and enterprises across diverse sectors -including fintech, healthcare,
                                     logistics, real estate, and more. Our work is driven by a results-oriented mindset:
                                     we aim not only to introduce AI but to apply it in ways that drive meaningful
-                                    change—whether that’s automating routine operations, enhancing customer experiences,
+                                    change -whether that’s automating routine operations, enhancing customer experiences,
                                     improving business forecasting, or enabling data-driven innovation. By combining a
                                     strategic understanding of business goals with strong technical proficiency, Grey
                                     InfoTech delivers AI solutions that are impactful, scalable, and future-ready. We
-                                    don’t just build software—we help companies rethink what’s possible.
+                                    don’t just build software -we help companies rethink what’s possible.
                                 </p>
                             </div>
                             <div>
@@ -266,7 +258,7 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
                                     Our comprehensive suite of AI development services is designed to meet the evolving
                                     needs of modern businesses seeking competitive advantage through innovation. From
                                     ideation to deployment, we guide clients through every step of their AI
-                                    journey—offering consulting, solution design, model development, and ongoing
+                                    journey -offering consulting, solution design, model development, and ongoing
                                     support. We specialise in areas such as machine learning, computer vision, natural
                                     language processing, recommendation systems, intelligent automation, and predictive
                                     analytics. Whether you&#39;re enhancing an existing digital product with AI
@@ -274,7 +266,7 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
                                     or building an entirely new AI-powered application, our team leverages
                                     state-of-the-art frameworks, robust data pipelines, and cloud-native architectures
                                     to ensure speed, scalability, and reliability. At Grey InfoTech, we pride ourselves
-                                    on building solutions that don’t just meet requirements—they deliver measurable
+                                    on building solutions that don’t just meet requirements -they deliver measurable
                                     business outcomes. With an agile, collaborative approach and a commitment to
                                     excellence, we work as an extension of your team to deliver transformative value and
                                     position your organisation at the forefront of AI-driven growth.
@@ -354,7 +346,7 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
                                         reduce manual effort, minimise human error, and speed up decision-making,
                                         enabling faster, more accurate, and cost-effective operations. Whether it’s
                                         auto-triaging support tickets, forecasting inventory, or streamlining compliance
-                                        processes, our AI solutions deliver measurable benefits—saving time, lowering
+                                        processes, our AI solutions deliver measurable benefits -saving time, lowering
                                         costs, and freeing teams to focus on strategic goals.
                                     </p>
                                 </div>
@@ -370,12 +362,12 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
                                         strategy services are designed to demystify artificial intelligence and help you
                                         harness its potential effectively. We partner with CTOs, technology leaders, and
                                         business stakeholders to identify the most impactful use cases for AI within
-                                        your organisation—whether it&#39;s improving customer service, automating
+                                        your organisation -whether it&#39;s improving customer service, automating
                                         operations, or uncovering insights from complex data. Our process begins with
                                         in-depth workshops to understand your challenges, followed by a detailed AI
                                         readiness assessment. We then create a clear, actionable AI adoption roadmap
                                         tailored to your business objectives. This includes selecting the right
-                                        technologies—such as OpenAI, Claude, or Google AI—ensuring your data
+                                        technologies -such as OpenAI, Claude, or Google AI -ensuring your data
                                         infrastructure can support AI integration, and aligning every step with
                                         compliance and long-term value creation. From proof-of-concept development to
                                         full-scale implementation, we provide strategic guidance and hands-on expertise
@@ -498,7 +490,7 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
                         <p className='text-justify text-[0.85em] font-[400]'>
                             Web applications offer a fast and cost-effective path to getting your digital product to
                             market. Unlike traditional desktop software, web apps can be developed, updated, and
-                            distributed quickly—without the need for platform-specific deployment or manual updates for
+                            distributed quickly -without the need for platform-specific deployment or manual updates for
                             users. This streamlined approach reduces development time and overhead costs, allowing you
                             to focus resources on functionality, user experience, and growth. At Grey InfoTech, we
                             leverage modern frameworks and agile practices to deliver powerful web applications that
@@ -518,7 +510,7 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
                         </h3>
                         <p className='text-justify text-[0.85em] font-[400]'>
                             Custom web applications offer the flexibility and scalability that modern businesses need to
-                            stay competitive. As your company evolves, your software can evolve too—tailored web apps
+                            stay competitive. As your company evolves, your software can evolve too -tailored web apps
                             can be updated and expanded to meet shifting operational needs, user demands, and market
                             conditions. Built on scalable server architectures, these applications allow you to adjust
                             resources dynamically, scaling up during peak periods and down when demand is lower. This
@@ -540,7 +532,7 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
                         </h3>
                         <p className='text-justify text-[0.85em] font-[400]'>
                             With access to a wide range of open-source frameworks, pre-built components, and powerful
-                            development toolkits, we accelerate the custom software development process—reducing both
+                            development toolkits, we accelerate the custom software development process -reducing both
                             time and cost. These resources enable us to build robust, tailored solutions without
                             starting from scratch, allowing businesses to launch their products faster and respond
                             swiftly to market demands. At Grey InfoTech, we leverage these modern development
@@ -564,7 +556,7 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
                             cross-site request forgery (CSRF). By integrating best-in-class security practices and
                             continuously monitoring for threats, we ensure your application and sensitive data remain
                             safe. Business owners can rest assured that both their operational integrity and their
-                            customers&#39; information are protected—building trust, ensuring compliance, and reducing
+                            customers&#39; information are protected -building trust, ensuring compliance, and reducing
                             risk
                             in today’s increasingly digital landscape.
                         </p>
@@ -585,7 +577,7 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
                             essential third-party services such as payment gateways, CRM systems, analytics platforms,
                             and marketing automation tools. This flexibility allows businesses to enhance their software
                             with extended functionality, streamline operations, and deliver a more cohesive user
-                            experience. By connecting your web app with the tools you already use—or plan to use—you can
+                            experience. By connecting your web app with the tools you already use -or plan to use -you can
                             unlock greater efficiency, improve customer engagement, and scale your digital ecosystem
                             with ease.
                         </p>
@@ -773,7 +765,7 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
                 <p className={'text-[0.873em] font-[300] leading-[1.5] text-justify lg:pr-[33em] mb-10'}>
                     We specialize in crafting high-impact marketing websites, innovative web apps, and mobile
                     applications that drive real results. From funded startups to established businesses, we&#39;ve
-                    helped a wide range of clients bring their digital products to life—delivering standout experiences
+                    helped a wide range of clients bring their digital products to life -delivering standout experiences
                     that fuel growth, engagement, and long-term success.
                 </p>
                 <Link href='/contact'>
@@ -826,7 +818,7 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
                                 Stages of our <br className={'lg:block md:block hidden'}/>AI development process
                             </h2>
                             <p className={'text-[0.87em] font-[300] leading-[1.5] tracking-tight'}>
-                                We follow a structured, business-driven approach to AI development—ensuring each
+                                We follow a structured, business-driven approach to AI development -ensuring each
                                 solution is practical, scalable, and tailored to real-world use.
                             </p>
                         </div>
@@ -946,7 +938,7 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
                                                     how the model handles edge cases and rare scenarios, ensuring
                                                     robustness under varying conditions. Equally important is the
                                                     assessment of bias and fairness, especially in applications that may
-                                                    impact decision-making processes—our team tests the model for
+                                                    impact decision-making processes -our team tests the model for
                                                     unintended bias and makes necessary adjustments to maintain ethical
                                                     standards. The goal is not only to confirm technical soundness but
                                                     also to build trust in the solution’s reliability.
@@ -970,7 +962,7 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
                                                 <p>
                                                     Once the AI model has been validated, we move to the critical phase
                                                     of integration and deployment. Our team ensures the AI solution is
-                                                    seamlessly embedded into your existing digital infrastructure—be it
+                                                    seamlessly embedded into your existing digital infrastructure -be it
                                                     a web application, mobile app, backend system, or enterprise
                                                     platform. This involves deploying the model through scalable APIs or
                                                     microservices that enable real-time or batch interactions with other
@@ -1072,7 +1064,6 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
                     </section>
                 </div>
             </div>
-
 
             {/* last image*/}
             <div id={'last-image'} className={' h-auto max-w-full w-full mx-auto'}>
@@ -1189,3 +1180,4 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
 };
 
 export default AiDevelopmentServices;
+

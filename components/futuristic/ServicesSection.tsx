@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 
-/* ─── Service Data ───────────────────────────────────────────────────── */
+/*  -  -  -  Service Data  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 const SERVICES = [
   {
     id: 'web-design',
@@ -18,7 +18,7 @@ const SERVICES = [
     color: '#00f5d4',
     accent: 'from-cyan-400/20 to-teal-600/10',
     description:
-      'Effective web design goes beyond looking good — it drives tangible outcomes. Our approach centers on the user and is driven by results, ensuring every site we build is visually compelling, strategically crafted, and optimized to captivate your audience and boost revenue.',
+      'Effective web design goes beyond looking good  - it drives tangible outcomes. Our approach centers on the user and is driven by results, ensuring every site we build is visually compelling, strategically crafted, and optimized to captivate your audience and boost revenue.',
   },
   {
     id: 'web-app',
@@ -44,7 +44,7 @@ const SERVICES = [
     color: '#f59e0b',
     accent: 'from-amber-400/20 to-orange-600/10',
     description:
-      'We build modern, intuitive mobile apps for both iOS and Android. Whether you need native, cross-platform, or hybrid — we have the expertise to deliver engaging, high-quality applications from concept to app store launch.',
+      'We build modern, intuitive mobile apps for both iOS and Android. Whether you need native, cross-platform, or hybrid  - we have the expertise to deliver engaging, high-quality applications from concept to app store launch.',
   },
   {
     id: 'digital-market',
@@ -57,7 +57,7 @@ const SERVICES = [
     color: '#ec4899',
     accent: 'from-pink-400/20 to-rose-600/10',
     description:
-      'In a competitive digital world, your online presence is your first impression. Through strategic SEO, targeted PPC campaigns, and data-driven optimization, we position you where your customers are — and turn visibility into growth.',
+      'In a competitive digital world, your online presence is your first impression. Through strategic SEO, targeted PPC campaigns, and data-driven optimization, we position you where your customers are  - and turn visibility into growth.',
   },
   {
     id: 'ui-ux',
@@ -83,7 +83,7 @@ const SERVICES = [
     color: '#a3e635',
     accent: 'from-lime-400/20 to-green-600/10',
     description:
-      'Customer retention is about creating a brand experience that connects and endures. We help companies build strong, consistent identities that inspire trust and foster loyalty — from visual identity to brand voice and positioning.',
+      'Customer retention is about creating a brand experience that connects and endures. We help companies build strong, consistent identities that inspire trust and foster loyalty  - from visual identity to brand voice and positioning.',
   },
   {
     id: 'discovery',
@@ -96,11 +96,11 @@ const SERVICES = [
     color: '#f97316',
     accent: 'from-orange-400/20 to-red-600/10',
     description:
-      'Jumpstart your product journey with a tailored discovery process that aligns strategy with vision. We uncover key insights, define clear goals, and shape a roadmap that drives your business forward — turning early-stage thinking into confident action.',
+      'Jumpstart your product journey with a tailored discovery process that aligns strategy with vision. We uncover key insights, define clear goals, and shape a roadmap that drives your business forward  - turning early-stage thinking into confident action.',
   },
 ];
 
-/* ─── Animated orbit ring ────────────────────────────────────────────── */
+/*  -  -  -  Animated orbit ring  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 function OrbitRing({ color, size, duration, delay }: { color: string; size: number; duration: number; delay: number }) {
   return (
     <motion.div
@@ -126,7 +126,7 @@ function OrbitRing({ color, size, duration, delay }: { color: string; size: numb
   );
 }
 
-/* ─── Counter badge ──────────────────────────────────────────────────── */
+/*  -  -  -  Counter badge  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 function ServiceNumber({ n, color }: { n: number; color: string }) {
   return (
     <div
@@ -138,7 +138,7 @@ function ServiceNumber({ n, color }: { n: number; color: string }) {
   );
 }
 
-/* ─── Tag pill ───────────────────────────────────────────────────────── */
+/*  -  -  -  Tag pill  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 function Tag({ label, color }: { label: string; color: string }) {
   return (
     <span
@@ -150,7 +150,7 @@ function Tag({ label, color }: { label: string; color: string }) {
   );
 }
 
-/* ─── Main component ─────────────────────────────────────────────────── */
+/*  -  -  -  Main component  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 export default function ServicesSection({ isDayTime = false }: { isDayTime?: boolean }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const rightPanelRef = useRef<HTMLDivElement>(null);
@@ -217,7 +217,7 @@ export default function ServicesSection({ isDayTime = false }: { isDayTime?: boo
       className="relative"
       style={{ background: bg, color: text }}
     >
-      {/* ── Header ───────────────────────────────────────────────────── */}
+      {/*  -  -  Header  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
       <div
         className="relative border-b px-6 sm:px-10 lg:px-[4.6em] pt-24 pb-10 overflow-hidden"
         style={{ borderColor: isDayTime ? '#e5e7eb' : '#1f2937' }}
@@ -244,7 +244,7 @@ export default function ServicesSection({ isDayTime = false }: { isDayTime?: boo
           </span>
           <h2 className="text-[2.4em] sm:text-[3.2em] font-[700] leading-tight">Our services</h2>
           <p className="mt-3 text-[0.9em] max-w-lg" style={{ color: muted }}>
-            From strategy to launch — full-spectrum digital capability, built for results.
+            From strategy to launch  - full-spectrum digital capability, built for results.
           </p>
         </motion.div>
 
@@ -269,10 +269,10 @@ export default function ServicesSection({ isDayTime = false }: { isDayTime?: boo
         </div>
       </div>
 
-      {/* ── Body: Left scroll / Right fixed image ─────────────────────── */}
+      {/*  -  -  Body: Left scroll / Right fixed image  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
       <div className="relative lg:grid lg:grid-cols-2">
 
-        {/* LEFT — scrollable service entries */}
+        {/* LEFT  - scrollable service entries */}
         <div className="px-6 sm:px-10 lg:px-[4.6em] lg:pr-12 py-0 lg:pb-32">
           {SERVICES.map((svc, i) => (
             <div
@@ -288,7 +288,7 @@ export default function ServicesSection({ isDayTime = false }: { isDayTime?: boo
                 transition={{ duration: 0.4 }}
               />
 
-              {/* Content — indent pl-6 so text clears the indicator bar */}
+              {/* Content  - indent pl-6 so text clears the indicator bar */}
               <div className="pl-6">
 
               {/* Number + title row */}
@@ -340,7 +340,7 @@ export default function ServicesSection({ isDayTime = false }: { isDayTime?: boo
           ))}
         </div>
 
-        {/* RIGHT — fixed image panel (desktop only) */}
+        {/* RIGHT  - fixed image panel (desktop only) */}
         <div className="hidden lg:block" style={{ height: `${SERVICES.length * 520}px` }}>
           <div style={imagePanelStyle} className="overflow-hidden">
             <AnimatePresence mode="wait">
@@ -460,13 +460,13 @@ export default function ServicesSection({ isDayTime = false }: { isDayTime?: boo
 
       </div>
 
-      {/* ── Sticky bottom nav (desktop, within service section) ───────── */}
+      {/*  -  -  Sticky bottom nav (desktop, within service section)  -  -  -  -  -  -  -  -  -  */}
       <StickyServiceNav activeIndex={activeIndex} isDayTime={isDayTime} />
     </section>
   );
 }
 
-/* ─── Sticky bottom service nav ─────────────────────────────────────── */
+/*  -  -  -  Sticky bottom service nav  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 function StickyServiceNav({ activeIndex, isDayTime }: { activeIndex: number; isDayTime: boolean }) {
   const [visible, setVisible] = useState(false);
 

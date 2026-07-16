@@ -14,7 +14,7 @@ const steps = [
         num: '01',
         title: 'Enquiry',
         subtitle: 'First Contact',
-        body: 'From your initial call or message, we get to understand your requirements, budget, and timescale. We dive straight into what matters — your goals — so we can align from day one.',
+        body: 'From your initial call or message, we get to understand your requirements, budget, and timescale. We dive straight into what matters  - your goals  - so we can align from day one.',
         tags: ['Discovery Call', 'Budget Scoping', 'Timeline'],
         accent: '#2dd4bf',
     },
@@ -22,7 +22,7 @@ const steps = [
         num: '02',
         title: 'Discovery',
         subtitle: 'Deep Dive',
-        body: 'The discovery phase unlocks the full picture. We explore your business, competitors, market trends, and technical landscape. Everything gets factored in — deadlines, growth goals, user needs — before we agree on exact specifications.',
+        body: 'The discovery phase unlocks the full picture. We explore your business, competitors, market trends, and technical landscape. Everything gets factored in  - deadlines, growth goals, user needs  - before we agree on exact specifications.',
         tags: ['Competitor Review', 'Tech Audit', 'Spec Sign-off'],
         link: { href: '/services/discovery-phase', label: 'Learn about Discovery →' },
         accent: '#06b6d4',
@@ -31,7 +31,7 @@ const steps = [
         num: '03',
         title: 'Design',
         subtitle: 'Visual Architecture',
-        body: "Fast, fun, and collaborative. We create fully interactive mockups of key pages — establishing color systems, messaging hierarchy, and high-conversion UI patterns — before a single line of code is written.",
+        body: "Fast, fun, and collaborative. We create fully interactive mockups of key pages  - establishing color systems, messaging hierarchy, and high-conversion UI patterns  - before a single line of code is written.",
         tags: ['Wireframes', 'UI Mockups', 'Design System'],
         link: { href: '/services/ui-ux-design', label: 'See our UI/UX work →' },
         accent: '#a855f7',
@@ -40,7 +40,7 @@ const steps = [
         num: '04',
         title: 'Development',
         subtitle: 'Build Phase',
-        body: 'Once specs and designs are agreed, we move into build. You get live access to the dev environment at every stage. We use the right technology for your project — no stack religion, just the best tools for the job.',
+        body: 'Once specs and designs are agreed, we move into build. You get live access to the dev environment at every stage. We use the right technology for your project  - no stack religion, just the best tools for the job.',
         tags: ['Agile Sprints', 'Dev Preview', 'API Integration'],
         link: { href: '/services/Web-Development', label: 'Web Development services →' },
         accent: '#22d3ee',
@@ -49,7 +49,7 @@ const steps = [
         num: '05',
         title: 'Testing',
         subtitle: 'Quality Gate',
-        body: 'Rigorous QA is baked in from day one. We test across all devices, browsers, and real-world scenarios — including accessibility, performance, and edge cases — before any launch is considered.',
+        body: 'Rigorous QA is baked in from day one. We test across all devices, browsers, and real-world scenarios  - including accessibility, performance, and edge cases  - before any launch is considered.',
         tags: ['Cross-browser', 'Accessibility', 'Performance'],
         accent: '#2dd4bf',
     },
@@ -57,7 +57,7 @@ const steps = [
         num: '06',
         title: 'Launch',
         subtitle: 'Go Live',
-        body: "When defects are resolved, code is validated, and everything passes our checklist — we go live. Launch is not the end; it's the beginning of a post-launch feedback loop.",
+        body: "When defects are resolved, code is validated, and everything passes our checklist  - we go live. Launch is not the end; it's the beginning of a post-launch feedback loop.",
         tags: ['Deployment', 'DNS Migration', 'Monitoring'],
         accent: '#14b8a6',
     },
@@ -91,7 +91,7 @@ const OurApproach = () => {
     return (
         <div className={`min-h-screen transition-colors duration-500 ${dark ? 'bg-[#040b14] text-white' : 'bg-white text-black'}`}>
 
-            {/* ── Hero ── */}
+            {/*  -  -  Hero  -  -  */}
             <section className="relative overflow-hidden min-h-[78vh] flex flex-col justify-end">
                 <FxBackground day={false} grid aurora className="opacity-80" />
                 <div className="gx-scanline pointer-events-none" />
@@ -119,7 +119,7 @@ const OurApproach = () => {
                                 </FxGlitchText>
                             </div>
                             <p className="text-white/65 max-w-2xl text-[0.95em] md:text-[1.05em] leading-relaxed mb-8">
-                                Seven battle-tested stages. From first conversation to ongoing optimisation — this is how we build digital products that last.
+                                Seven battle-tested stages. From first conversation to ongoing optimisation  - this is how we build digital products that last.
                             </p>
                             <div className="flex flex-wrap gap-3">
                                 {['7 Stages', 'Transparent Process', 'Collaborative at Every Step', 'No Surprises'].map(s => (
@@ -131,7 +131,7 @@ const OurApproach = () => {
                 </div>
             </section>
 
-            {/* ── Intro + Terminal ── */}
+            {/*  -  -  Intro + Terminal  -  -  */}
             <section className={`relative py-20 lg:py-28 px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${dark ? 'bg-[#040b14]' : 'bg-gray-50'}`}>
                 <div className="max-w-[90rem] mx-auto grid lg:grid-cols-2 gap-14 items-center">
                     <FxReveal>
@@ -141,7 +141,7 @@ const OurApproach = () => {
                             <span className="gx-gradient-text">We engineer outcomes.</span>
                         </h2>
                         <p className={`text-[0.9em] leading-[1.8] mb-6 ${dark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            Starting a digital project can feel daunting. Our process removes the fog — with clear stages, shared access to the dev environment, and a team that communicates proactively at every milestone.
+                            Starting a digital project can feel daunting. Our process removes the fog  - with clear stages, shared access to the dev environment, and a team that communicates proactively at every milestone.
                         </p>
                         <p className={`text-[0.9em] leading-[1.8] ${dark ? 'text-gray-400' : 'text-gray-600'}`}>
                             We treat your business goals as our technical brief. Every stage feeds into the next, building a product that is robust, scalable, and ready for the real world.
@@ -154,7 +154,7 @@ const OurApproach = () => {
                 </div>
             </section>
 
-            {/* ── Numbered Timeline Steps ── */}
+            {/*  -  -  Numbered Timeline Steps  -  -  */}
             <section className={`relative py-24 px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${dark ? 'bg-[#020c18]' : 'bg-white'}`}>
                 <FxBackground day={isDayTime} grid={true} aurora={false} className="opacity-10" />
                 <div className="max-w-[90rem] mx-auto relative z-10">
@@ -239,7 +239,7 @@ const OurApproach = () => {
                 </div>
             </section>
 
-            {/* ── Why This Process Works ── */}
+            {/*  -  -  Why This Process Works  -  -  */}
             <section className={`relative py-24 px-4 sm:px-6 md:px-10 lg:px-[4.5em] overflow-hidden ${dark ? 'bg-[#040b14]' : 'bg-gray-50'}`}>
                 <FxBackground day={false} grid aurora className="opacity-40" />
                 <div className="gx-noise-overlay" />
@@ -254,7 +254,7 @@ const OurApproach = () => {
                             <ul className="space-y-5">
                                 {[
                                     'You have live access to the dev environment throughout',
-                                    'We communicate proactively — no chasing required',
+                                    'We communicate proactively  - no chasing required',
                                     'Every milestone is agreed before work begins',
                                     'Testing is integrated, not bolted on at the end',
                                     'We stay involved post-launch, not just until delivery',
@@ -292,7 +292,7 @@ const OurApproach = () => {
                 </div>
             </section>
 
-            {/* ── CTA ── */}
+            {/*  -  -  CTA  -  -  */}
             <section className={`relative overflow-hidden py-28 px-4 sm:px-6 md:px-10 lg:px-[4.5em] text-center ${dark ? 'bg-black/60' : 'bg-teal-950'} text-white`}>
                 <FxBackground day={false} grid aurora className="opacity-60" />
                 <div className="gx-scanline pointer-events-none" />
@@ -304,7 +304,7 @@ const OurApproach = () => {
                             <span className="gx-gradient-text">extraordinary together.</span>
                         </FxGlitchText>
                         <p className="text-white/60 max-w-xl mx-auto mb-10 text-[0.95em] leading-relaxed">
-                            Start with a quick conversation. No commitments, no pressure — just clarity on how we can help.
+                            Start with a quick conversation. No commitments, no pressure  - just clarity on how we can help.
                         </p>
                         <div className="flex flex-wrap justify-center gap-4">
                             <FxButton day={false} href="/contact" variant="solid">Start the Conversation</FxButton>

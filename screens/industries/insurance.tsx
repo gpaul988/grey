@@ -12,13 +12,13 @@ const InsuranceIndustry = () => (
         eyebrow="InsurTech solutions for modern carriers"
         introHeading={<>Insurance<br className="lg:block md:block hidden" />Transformed</>}
         introBody={[
-            <>The insurance industry is undergoing its most significant technology transformation in decades—
+            <>The insurance industry is undergoing its most significant technology transformation in decades -
             driven by embedded insurance, usage-based products, AI underwriting and the expectation of
             consumer-grade digital experiences. At Grey InfoTech we build the platforms that put insurers
             and brokers ahead of this change. From policy administration systems and claims workflows to
             customer-facing portals and API distribution layers, we engineer the insurance technology stack
             for the next decade.</>,
-            <>Our insurance technology team understands the nuances of the industry—regulatory requirements,
+            <>Our insurance technology team understands the nuances of the industry -regulatory requirements,
             actuarial data needs, claims fraud patterns and the complexity of reinsurance structures. We
             build systems that are not only technically excellent but compliant with NAICOM regulations in
             Nigeria and international insurance standards. We work with insurers, MGAs, brokers and embedded
@@ -31,8 +31,8 @@ const InsuranceIndustry = () => (
             {
                 id: '01', title: 'Policy Administration Systems', target: 'PA',
                 tags: ['Policy Lifecycle', 'Endorsements', 'Renewals', 'Multi-line'],
-                body: <>We build modern policy administration systems that handle the full policy lifecycle—
-                quoting, binding, endorsements, renewals and cancellations—across multiple product lines
+                body: <>We build modern policy administration systems that handle the full policy lifecycle -
+                quoting, binding, endorsements, renewals and cancellations -across multiple product lines
                 and distribution channels. Systems integrate with rating engines, document generation,
                 payment processors and regulatory reporting, designed for the flexibility that evolving
                 product portfolios require.</>,
@@ -58,7 +58,7 @@ const InsuranceIndustry = () => (
             {
                 id: '04', title: 'Embedded & API Insurance', target: 'EI',
                 tags: ['Open Insurance', 'REST API', 'Embedded', 'Partnerships'],
-                body: <>Embedded insurance distributes products at point of need—travel cover at checkout,
+                body: <>Embedded insurance distributes products at point of need -travel cover at checkout,
                 device protection with purchase. We build the API infrastructure that enables this: product
                 APIs, instant quoting engines, certificate generation, webhook notifications and partner
                 management portals. We design for the latency and reliability requirements of real-time

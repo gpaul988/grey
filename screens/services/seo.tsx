@@ -1,9 +1,7 @@
 'use client';
 
-
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import '@/app/globals.css';
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
@@ -39,7 +37,6 @@ const Seo = () => {
     const {scrollYProgress} = useScroll({target: targetRef});
     const x = useTransform(scrollYProgress, [0, 1], ["0%", "-60%"]);
 
-
     // Floating button visibility hook
     useEffect(() => {
         const handleScroll = () => {
@@ -53,7 +50,6 @@ const Seo = () => {
 
     // isDaytime react hook
     const isDayTime = useIsDayTime();
-
 
     // Introductory section hook
     useEffect(() => {
@@ -168,7 +164,7 @@ const Seo = () => {
                     you&#39;re a <Link href='/Startups'
                                        className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-black' : 'hover:border-white'}`}>startup</Link> looking
                     to launch or an established enterprise aiming to innovate, we manage the entire
-                    lifecycle—ensuring your app is not only functional and scalable but also aligned with your business
+                    lifecycle -ensuring your app is not only functional and scalable but also aligned with your business
                     goals.
                 </>
             ),
@@ -232,11 +228,6 @@ const Seo = () => {
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             {/* Unified Futuristic SEO Hero - Background Image/Video with overlay */}
             <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
@@ -346,7 +337,7 @@ const Seo = () => {
                             <div className="grid grid-cols-2 gap-6 w-full">
                                 {[
                                     {label: 'Projects Delivered', value: '500+'},
-                                    {label: 'Years of Expertise', value: '12+'},
+                                    {label: 'Years of Expertise', value: '8+'},
                                     {label: 'Client Retention', value: '95%'},
                                     {label: 'Avg ROI Growth', value: '300%'}
                                 ].map((stat) => (
@@ -618,7 +609,7 @@ const Seo = () => {
                                                     background: 'rgba(0,0,0,0.65)',
                                                     border: '1px solid rgba(45,212,191,0.35)'
                                                 }}>
-                                        ◈ Market Audits · Technical SEO · Site Structure
+                                        - Market Audits · Technical SEO · Site Structure
                                     </motion.div>
                                 </div>
                                 <motion.div initial={{opacity: 0, x: 20}} whileInView={{opacity: 1, x: 0}}
@@ -649,7 +640,7 @@ const Seo = () => {
                             <FxReveal delay={0.18}>
                                 <p className={`text-[0.95em] leading-[1.8] mb-6 ${isDayTime ? 'text-white/75' : 'text-black/70'}`}>We
                                     perform deep market audits, crawl analyses, and technical reviews to uncover
-                                    structural and content opportunities. Our goal is measurable uplift — more
+                                    structural and content opportunities. Our goal is measurable uplift - more
                                     visibility, better rankings, and higher-quality traffic tailored to business
                                     outcomes.</p>
                             </FxReveal>
@@ -729,7 +720,7 @@ const Seo = () => {
                                                     background: 'rgba(0,0,0,0.65)',
                                                     border: '1px solid rgba(45,212,191,0.35)'
                                                 }}>
-                                        ◈ Topical Clusters · Intent Mapping · SERP Analysis
+                                        - Topical Clusters · Intent Mapping · SERP Analysis
                                     </motion.div>
                                 </div>
                                 <motion.div initial={{opacity: 0, x: 20}} whileInView={{opacity: 1, x: 0}}
@@ -788,7 +779,7 @@ const Seo = () => {
                 </div>
             </div>
 
-            {/* Competitors Research — Digital Adventure style */}
+            {/* Competitors Research  - Digital Adventure style */}
             <div className={`relative lg:py-32 py-16 ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
                 <div className="pointer-events-none absolute inset-0" style={{
                     backgroundImage: `linear-gradient(${isDayTime ? 'rgba(45,212,191,0.06)' : 'rgba(13,148,136,0.07)'} 1px, transparent 1px), linear-gradient(90deg, ${isDayTime ? 'rgba(45,212,191,0.06)' : 'rgba(13,148,136,0.07)'} 1px, transparent 1px)`,
@@ -839,7 +830,7 @@ const Seo = () => {
                                                     background: 'rgba(0,0,0,0.65)',
                                                     border: '1px solid rgba(45,212,191,0.35)'
                                                 }}>
-                                        ◈ Backlink Analysis · Content Gaps · Position Tracking
+                                        - Backlink Analysis · Content Gaps · Position Tracking
                                     </motion.div>
                                 </div>
                                 <motion.div initial={{opacity: 0, x: 20}} whileInView={{opacity: 1, x: 0}}
@@ -968,7 +959,7 @@ const Seo = () => {
 
                     <FxReveal delay={0.18}>
                         <p className={`text-[0.95em] leading-[1.8] mb-3 lg:max-w-[95%] ${isDayTime ? 'text-white/75' : 'text-black/70'}`}>
-                            With comprehensive research complete, we transition into our optimization phase—where
+                            With comprehensive research complete, we transition into our optimization phase -where
                             data-driven strategy becomes tangible results. Our implementation approach combines
                             technical excellence, strategic content refinement, and authority building across three
                             interconnected phases that work synergistically to elevate your organic presence.
@@ -1010,7 +1001,7 @@ const Seo = () => {
                             },
                             {
                                 title: 'Authority Building',
-                                icon: '🔗',
+                                icon: ' --',
                                 number: '03',
                                 details: [
                                     'Develop targeted link-building strategies',
@@ -1150,7 +1141,8 @@ const Seo = () => {
                         </p>
                         <p className={`text-[0.95em] leading-[1.8] mb-12 lg:max-w-[90%] ${isDayTime ? 'text-black/70' : 'text-white/75'}`}>
                             Our approach combines deep technical expertise, creative strategy, and relentless focus on
-                            your business outcomes. Every recommendation, every implementation, every metric tracked—all
+                            your business outcomes. Every recommendation, every implementation, every metric tracked
+                            -all
                             designed to move your needle.
                         </p>
                     </FxReveal>
@@ -1192,12 +1184,12 @@ const Seo = () => {
                                     <h4 className={`font-[600] mb-2 ${isDayTime ? 'text-black/90' : 'text-white/90'}`}>Results-Driven
                                         Strategy</h4>
                                     <p className={`text-[0.85em] ${isDayTime ? 'text-black/60' : 'text-white/60'}`}>Every
-                                        tactic tied to your business KPIs. We obsess over metrics that matter—traffic,
-                                        leads, revenue—not vanity metrics.</p>
+                                        tactic tied to your business KPIs. We obsess over metrics that matter -traffic,
+                                        leads, revenue -not vanity metrics.</p>
                                 </div>
                                 <div>
                                     <div
-                                        className={`text-2xl mb-3 ${isDayTime ? 'text-teal-700' : 'text-teal-300'}`}>🔬
+                                        className={`text-2xl mb-3 ${isDayTime ? 'text-teal-700' : 'text-teal-300'}`}> -
                                     </div>
                                     <h4 className={`font-[600] mb-2 ${isDayTime ? 'text-black/90' : 'text-white/90'}`}>Data-Obsessed
                                         Approach</h4>
@@ -1307,7 +1299,7 @@ const Seo = () => {
                                 </div>
                                 <div>
                                     <h3 className={`text-[1.2em] font-[700] mb-3 flex items-center gap-3 ${isDayTime ? 'text-teal-300' : 'text-teal-600'}`}>
-                                        <span className="text-2xl">🔍</span> Strategic Insights & Recommendations
+                                        <span className="text-2xl"> - </span> Strategic Insights & Recommendations
                                     </h3>
                                     <p className={`text-[0.9em] leading-[1.6] ${isDayTime ? 'text-white/70' : 'text-black/70'}`}>
                                         Beyond raw data, we provide expert analysis and actionable recommendations. We
@@ -1344,7 +1336,7 @@ const Seo = () => {
                                         <span>✓</span> Custom KPI Tracking
                                     </h4>
                                     <p className={`text-[0.85em] ${isDayTime ? 'text-white/60' : 'text-black/60'}`}>We
-                                        measure what matters to you—revenue, qualified leads, market share growth, or
+                                        measure what matters to you -revenue, qualified leads, market share growth, or
                                         specific conversion goals.</p>
                                 </div>
                                 <div
@@ -1413,7 +1405,6 @@ const Seo = () => {
                     </FxReveal>
                 </div>
             </div>
-
 
             {/* Development Process & Methodology Section - MATCHED TO BRANDING STYLE */}
             <section className={`relative py-20 lg:py-32 ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
@@ -1494,7 +1485,7 @@ const Seo = () => {
                 />
             </div>
 
-            {/* Why Grey InfoTech — Professional approach */}
+            {/* Why Grey InfoTech  - Professional approach */}
             <div
                 className={`relative overflow-hidden ${isDayTime ? 'bg-slate-950' : 'bg-slate-50'} lg:pt-[5em] pt-[3em] lg:pb-[6em] pb-[3em]`}>
                 <FxBackground day={false} grid aurora className="opacity-50"/>
@@ -1521,7 +1512,7 @@ const Seo = () => {
                     </FxReveal>
 
                     <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-8">
-                        {/* Left — FxHoloCard accordion */}
+                        {/* Left  - FxHoloCard accordion */}
                         <div className="flex flex-col gap-3 lg:pr-[3em]">
                             {reasons.map((reason, index) => {
                                 const isActive = index + 1 === activeIndex;
@@ -1556,7 +1547,7 @@ const Seo = () => {
                             })}
                         </div>
 
-                        {/* Right — image */}
+                        {/* Right  - image */}
                         <div className="">
                             <FxFrame className="w-full">
                                 <Image src={reasons[activeIndex - 1]?.images?.[0] || '/assets/fin/grey.jpg'}
@@ -1582,3 +1573,5 @@ const Seo = () => {
 };
 
 export default Seo;
+
+

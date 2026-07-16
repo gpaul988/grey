@@ -13,13 +13,13 @@ const ConstructionIndustry = () => (
         introHeading={<>Building the<br className="lg:block md:block hidden" />Digital Infrastructure</>}
         introBody={[
             <>Construction and real estate are among the largest sectors of the African economy and among
-            the least digitised. Grey InfoTech builds technology that changes that—project management
+            the least digitised. Grey InfoTech builds technology that changes that -project management
             platforms that give developers and contractors real-time visibility of progress, cost and
             risk; PropTech solutions that streamline property search, transaction and management; and
             the data infrastructure that helps planners, investors and developers make better decisions.
             We work with developers, contractors, quantity surveyors, property managers and government
             planning agencies.</>,
-            <>Our construction and PropTech practice is grounded in understanding how projects actually fail—
+            <>Our construction and PropTech practice is grounded in understanding how projects actually fail -
             poor information flow, slow approval processes, fragmented subcontractor coordination and
             inadequate defect tracking. We build solutions that address these root causes: mobile-first
             field tools that work on site, approval workflows that keep projects moving and data
@@ -43,7 +43,7 @@ const ConstructionIndustry = () => (
             {
                 id: '02', title: 'Property Marketplace & Search', target: 'PM',
                 tags: ['Listing Platform', 'Virtual Tours', 'Mortgage Calculator', 'Agent Tools'],
-                body: <>We build property search and transaction platforms tailored to African markets—
+                body: <>We build property search and transaction platforms tailored to African markets -
                 advanced search and filtering, virtual tour integration, mortgage calculator with local
                 bank product data, agent management portals and developer project microsites. SEO-optimised
                 listing platforms with rich media support drive organic discovery and lead generation

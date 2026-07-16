@@ -25,7 +25,7 @@ const SoftwareDevelopment = () => (
             </>,
             <>
                 Beyond writing code, great software development requires understanding business context, designing robust architectures,
-                and building teams that collaborate effectively. We approach each project with strategic thinking—what problem are we solving,
+                and building teams that collaborate effectively. We approach each project with strategic thinking -what problem are we solving,
                 who benefits, what metrics matter. From architecture and design through development, testing, and deployment, we maintain focus
                 on delivering real value. Software that lasts combines technical quality with thoughtful design and clear purpose.
             </>,
@@ -41,17 +41,17 @@ const SoftwareDevelopment = () => (
             {
                 id: '01', title: 'Custom Enterprise Systems', target: 'WA',
                 tags: ['Scalable', 'Integration', 'Enterprise-grade'],
-                body: <>We architect and build custom enterprise systems tailored to your specific business processes. System integration, data management, workflow automation, and security architecture—designed for your organization's unique requirements and scale.</>,
+                body: <>We architect and build custom enterprise systems tailored to your specific business processes. System integration, data management, workflow automation, and security architecture -designed for your organization's unique requirements and scale.</>,
             },
             {
                 id: '02', title: 'Business Process Automation', target: 'DE',
                 tags: ['Automation', 'Workflow', 'Integration'],
-                body: <>We identify and automate repetitive business processes—from data entry and approval workflows to report generation and inter-system communication. Automation reduces errors, improves efficiency, and frees teams for higher-value work.</>,
+                body: <>We identify and automate repetitive business processes -from data entry and approval workflows to report generation and inter-system communication. Automation reduces errors, improves efficiency, and frees teams for higher-value work.</>,
             },
             {
                 id: '03', title: 'Data Management Solutions', target: 'ML',
                 tags: ['Databases', 'ETL', 'Analytics'],
-                body: <>We design and build data management solutions—data warehouses, ETL pipelines, and analytics platforms. Transform raw data into actionable intelligence with solutions that scale with your business.</>,
+                body: <>We design and build data management solutions -data warehouses, ETL pipelines, and analytics platforms. Transform raw data into actionable intelligence with solutions that scale with your business.</>,
             },
             {
                 id: '04', title: 'Integration & API Development', target: 'AU',
@@ -84,7 +84,7 @@ const SoftwareDevelopment = () => (
             },
             {
                 id: 4, title: 'Long-term Partnership', image: '/assets/services/digital-optimisation.jpg',
-                description: <>We're committed to your success beyond launch—ongoing support, maintenance, and evolution as your business needs change and technology advances.</>,
+                description: <>We're committed to your success beyond launch -ongoing support, maintenance, and evolution as your business needs change and technology advances.</>,
             },
         ]}
         ctaHeading={<>Transform with custom <br className={'lg:block md:block hidden'}/>software solutions</>}

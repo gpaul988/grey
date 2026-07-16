@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Grey AI — a futuristic, always-on assistant that answers product questions
+ * Grey AI  - a futuristic, always-on assistant that answers product questions
  * instantly using the site's knowledge base (RAG). It streams responses and
  * runs side-by-side with Tawk live chat (human handoff). Positioned bottom-LEFT
  * so it never collides with the Tawk widget (bottom-right).
@@ -31,7 +31,7 @@ export default function AIChat() {
         {
             role: 'assistant',
             content:
-                "Hi! I'm Grey AI ⚡ — ask me anything about our services, industries, pricing or process. I can also point you to the right page.",
+                "Hi! I'm Grey AI ⚡  - ask me anything about our services, industries, pricing or process. I can also point you to the right page.",
         },
     ]);
     const scrollRef = useRef<HTMLDivElement>(null);
@@ -108,7 +108,7 @@ export default function AIChat() {
                     next[next.length - 1] = {
                         role: 'assistant',
                         content:
-                            "Sorry — I had trouble connecting. Please try again, or reach the team at /contact or WhatsApp +234-802-809-5571.",
+                            "Sorry  - I had trouble connecting. Please try again, or reach the team at /contact or WhatsApp +234-802-809-5571.",
                     };
                     return next;
                 });

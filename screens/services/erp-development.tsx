@@ -1,9 +1,7 @@
 'use client';
 
-
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css';
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
@@ -34,7 +32,6 @@ const ErpDevelopment = () => {
     const [activeAcc, setActiveAcc] = useState<number | null>(null);
     const [isDesktop, setIsDesktop] = useState(false);
 
-
     // Floating button visibility hook
     useEffect(() => {
         const handleScroll = () => {
@@ -48,7 +45,6 @@ const ErpDevelopment = () => {
 
     // isDaytime react hook
     const isDayTime = useIsDayTime();
-
 
     // Introductory section hook
     useEffect(() => {
@@ -120,15 +116,15 @@ const ErpDevelopment = () => {
                     workflows, and stringent regulatory requirements converge. Healthcare organizations manage extensive
                     operations spanning patient care delivery, clinical documentation, diagnostic services,
                     pharmaceutical management, medical equipment tracking, patient billing, insurance claims processing,
-                    regulatory compliance, and financial administration—all requiring seamless coordination and data
+                    regulatory compliance, and financial administration -all requiring seamless coordination and data
                     integration. As a specialized ERP development company, we engineer robust, comprehensive ERP systems
                     specifically designed for healthcare environments, addressing the unique challenges of medical
                     operations, patient safety protocols, and compliance with HIPAA and other regulatory frameworks. Our
                     healthcare ERP solutions streamline complex workflows, eliminate operational inefficiencies,
                     automate critical reporting processes, and provide real-time visibility into clinical, financial,
                     and operational performance metrics. These integrated platforms connect disparate departments and
-                    functions—from emergency services and surgical units to pharmacy, laboratory, billing, and
-                    administration—ensuring accurate data flow, reducing administrative burden, and enabling healthcare
+                    functions -from emergency services and surgical units to pharmacy, laboratory, billing, and
+                    administration -ensuring accurate data flow, reducing administrative burden, and enabling healthcare
                     professionals to focus on patient care rather than manual processes. By delivering customized ERP
                     systems that align with healthcare-specific requirements, we empower medical facilities to enhance
                     operational efficiency, improve financial performance, ensure regulatory accountability, strengthen
@@ -469,11 +465,6 @@ const ErpDevelopment = () => {
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             {/* Unified Futuristic ERP Hero - Background Image/Video with overlay */}
             <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
@@ -535,16 +526,14 @@ const ErpDevelopment = () => {
 
                             {/* Main Heading with Gradient */}
                             <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
-                                Unify Operations &amp; <span className="gx-gradient-text">Accelerate Growth</span>
+                                Enterprise Integration &amp; <span className="gx-gradient-text">Digital Transformation</span>
                             </h1>
 
                             {/* Description */}
                             <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
-                                From finance and supply chain to HR and manufacturing, we deliver intelligent ERP
-                                solutions
-                                that eliminate silos, automate processes, and provide real-time visibility. Transform
-                                your
-                                enterprise into a unified, data-driven operation that scales with your ambitions.
+                                End-to-end ERP solutions that consolidate finance, supply chain, HR, and operations into
+                                unified systems. 150+ enterprises transformed. 40% process efficiency gains. 99.9% uptime.
+                                10M+ daily transactions. Real-time dashboards drive measurable ROI.
                             </p>
 
                             {/* Key Capabilities Pills */}
@@ -583,10 +572,10 @@ const ErpDevelopment = () => {
                         <div className="hidden lg:flex flex-col items-end">
                             <div className="grid grid-cols-2 gap-6 w-full">
                                 {[
-                                    {label: 'ERP Projects', value: '200+'},
-                                    {label: 'Years of Expertise', value: '12+'},
-                                    {label: 'Process Efficiency', value: '90%'},
-                                    {label: 'Avg Cost Savings', value: '40%'}
+                                    {label: 'Enterprises Served', value: '150+'},
+                                    {label: 'Years of Expertise', value: '10+'},
+                                    {label: 'Process Efficiency', value: '40%'},
+                                    {label: 'System Uptime', value: '99.9%'}
                                 ].map((stat) => (
                                     <div key={stat.label}
                                          className="px-6 py-5 rounded-2xl border border-cyan-400/25 bg-cyan-400/8 backdrop-blur-md hover:bg-cyan-400/12 transition-all duration-300 hover:border-cyan-400/50 text-right">
@@ -605,9 +594,9 @@ const ErpDevelopment = () => {
                 <div className="lg:hidden absolute bottom-12 left-0 right-0 z-[11] px-6">
                     <div className="grid grid-cols-3 gap-3">
                         {[
-                            {label: 'Projects', value: '20+'},
-                            {label: 'Experts', value: '8+'},
-                            {label: 'Efficiency', value: '90%'}
+                            {label: 'Enterprises', value: '150+'},
+                            {label: 'Experts', value: '10+'},
+                            {label: 'Efficiency', value: '40%'}
                         ].map((stat) => (
                             <div key={stat.label}
                                  className="px-3 py-2 rounded-xl border border-cyan-400/25 bg-cyan-400/8 backdrop-blur-md">
@@ -647,7 +636,7 @@ const ErpDevelopment = () => {
                     <div className="lg:-ml-[19em]">
                         <FxReveal>
                             <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
-                                Transform Enterprise Operations with Advanced <span className="gx-gradient-text">ERP Solutions</span>
+                                Enterprise ERP Built for <span className="gx-gradient-text">Scale & ROI</span>
                             </h3>
                         </FxReveal>
 
@@ -655,33 +644,20 @@ const ErpDevelopment = () => {
                             <div
                                 className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
                                 <div>
-                                    <p>Our enterprise resource planning software development services deliver
-                                        transformative business solutions engineered to revolutionize operational
-                                        efficiency, streamline cross-departmental workflows, and accelerate digital
-                                        transformation across your organization. We architect enterprise-grade platforms
-                                        that seamlessly consolidate critical business functions—including financial
-                                        management, human capital systems, supply chain operations, inventory
-                                        optimization, procurement automation, and advanced business intelligence—into
-                                        unified, real-time integrated systems. Our proprietary ERP solutions
-                                        consistently deliver up to 90% efficiency optimization, substantial reductions
-                                        in operational expenditures, complete elimination of process redundancies, and
-                                        measurable improvements in organizational agility across all business units.</p>
+                                    <p>We architect enterprise ERP solutions that unify finance, HR, supply chain, and
+                                        operations into real-time integrated systems. Our platforms handle 10M+ daily transactions,
+                                        achieve 99.9% uptime, and deliver 40% process efficiency gains. From SAP and Oracle to
+                                        custom-built solutions, our enterprise experts drive measurable transformation across
+                                        150+ organizations globally.</p>
                                 </div>
                                 <div>
-                                    <p>We combine deep technical excellence, cloud-native architecture principles, and
-                                        proprietary data-driven methodologies to help your organization achieve
-                                        sustained operational excellence and establish measurable competitive advantage
-                                        in dynamic markets. Our custom-built ERP platforms are meticulously architected
-                                        and tailored to address your unique business requirements, industry-specific
-                                        regulations, compliance frameworks, and long-term growth trajectory. Featuring
-                                        intuitive mobile and web applications, interactive real-time dashboards,
-                                        predictive analytics engines, and comprehensive decision-support systems, we
-                                        empower enterprise stakeholders and decision-makers at every organizational
-                                        level while ensuring enterprise-grade security, unlimited scalability,
-                                        regulatory compliance, and long-term technological sustainability across
-                                        evolving market environments.</p>
+                                    <p>Implementation excellence combined with post-go-live support ensures sustained adoption
+                                        and ROI realization. Our methodology emphasizes change management, user enablement, and
+                                        ongoing optimization. Clients report 300%+ ROI within 18 months through automation,
+                                        elimination of manual processes, improved data accuracy, and informed decision-making
+                                        powered by real-time dashboards and advanced analytics.</p>
                                     <div className="flex flex-wrap gap-3 mt-4">
-                                        {['Process Automation', 'Real-Time Analytics', 'System Integration', 'Cloud Architecture', 'AI/ML Capabilities', 'Enterprise Security'].map((p) => (
+                                        {['Finance Automation', 'Supply Chain Optimization', 'Workforce Planning', 'Real-Time Analytics', 'Integration Excellence', 'Change Management'].map((p) => (
                                             <span key={p} className="gx-data-pill">{p}</span>
                                         ))}
                                     </div>
@@ -791,9 +767,9 @@ const ErpDevelopment = () => {
                                     engineered specifically around your unique organizational structure, operational
                                     workflows, industry regulations, and strategic business objectives. Our custom ERP
                                     solutions provide comprehensive integration of all critical business
-                                    functions—including financial management systems, procurement automation, inventory
+                                    functions -including financial management systems, procurement automation, inventory
                                     control optimization, supply chain operations, human capital management, customer
-                                    relationship systems, and advanced business intelligence—into a unified, centralized
+                                    relationship systems, and advanced business intelligence -into a unified, centralized
                                     platform. By eliminating operational silos and creating a single source of truth for
                                     enterprise data, we enable real-time visibility across all departments, facilitate
                                     data-driven decision-making at every organizational level, improve cross-functional
@@ -996,7 +972,7 @@ const ErpDevelopment = () => {
                                 <span
                                     className={`text-[0.75em] px-4 py-2 rounded-full border font-[600] transition-all hover:scale-110 ${isDayTime ? 'border-[#0ef0dd]/60 bg-[#0ef0dd]/20 text-[#0ef0dd]' : 'border-[#0ef0dd]/40 bg-[#0ef0dd]/15 text-[#0ef0dd]'}`}>🏢 Multi-Industry Support</span>
                                 <span
-                                    className={`text-[0.75em] px-4 py-2 rounded-full border font-[600] transition-all hover:scale-110 ${isDayTime ? 'border-[#06b6d4]/60 bg-[#06b6d4]/20 text-[#06b6d4]' : 'border-[#06b6d4]/40 bg-[#06b6d4]/15 text-[#06b6d4]'}`}>🤖 AI & Automation</span>
+                                    className={`text-[0.75em] px-4 py-2 rounded-full border font-[600] transition-all hover:scale-110 ${isDayTime ? 'border-[#06b6d4]/60 bg-[#06b6d4]/20 text-[#06b6d4]' : 'border-[#06b6d4]/40 bg-[#06b6d4]/15 text-[#06b6d4]'}`}> - AI & Automation</span>
                                 <span
                                     className={`text-[0.75em] px-4 py-2 rounded-full border font-[600] transition-all hover:scale-110 ${isDayTime ? 'border-[#7c3aed]/60 bg-[#7c3aed]/20 text-[#7c3aed]' : 'border-[#7c3aed]/40 bg-[#7c3aed]/15 text-[#7c3aed]'}`}>✅ Regulatory Compliance</span>
                                 <span
@@ -1216,7 +1192,7 @@ const ErpDevelopment = () => {
                                                             <div
                                                                 className={`flex gap-4 p-4 rounded-xl transition-all hover:scale-105 ${isDayTime ? 'bg-[#0E3B46]/20 text-gray-200' : 'bg-white/50 text-gray-900'}`}>
                                                                 <span
-                                                                    className={`text-2xl font-[800] flex-shrink-0`}>🤖</span>
+                                                                    className={`text-2xl font-[800] flex-shrink-0`}> -</span>
                                                                 <div>
                                                                     <p className='font-[800] text-[0.98em] mb-2'>Intelligent
                                                                         Workflow Automation</p>
@@ -1230,7 +1206,7 @@ const ErpDevelopment = () => {
                                                             <div
                                                                 className={`flex gap-4 p-4 rounded-xl transition-all hover:scale-105 ${isDayTime ? 'bg-[#0E3B46]/20 text-gray-200' : 'bg-white/50 text-gray-900'}`}>
                                                                 <span
-                                                                    className={`text-2xl font-[800] flex-shrink-0`}>🔮</span>
+                                                                    className={`text-2xl font-[800] flex-shrink-0`}> - </span>
                                                                 <div>
                                                                     <p className='font-[800] text-[0.98em] mb-2'>Predictive
                                                                         & Prescriptive Intelligence</p>
@@ -1244,7 +1220,7 @@ const ErpDevelopment = () => {
                                                             <div
                                                                 className={`flex gap-4 p-4 rounded-xl transition-all hover:scale-105 ${isDayTime ? 'bg-[#0E3B46]/20 text-gray-200' : 'bg-white/50 text-gray-900'}`}>
                                                                 <span
-                                                                    className={`text-2xl font-[800] flex-shrink-0`}>🔐</span>
+                                                                    className={`text-2xl font-[800] flex-shrink-0`}> - </span>
                                                                 <div>
                                                                     <p className='font-[800] text-[0.98em] mb-2'>Enterprise
                                                                         Compliance & Security</p>
@@ -1333,7 +1309,7 @@ const ErpDevelopment = () => {
                                                             <div
                                                                 className={`text-center p-4 rounded-xl transition-all hover:scale-110 ${isDayTime ? 'bg-[#0E3B46]/30' : 'bg-white/60'}`}>
                                                                 <p className={`text-2.5xl md:text-4xl font-[900] ${isDayTime ? 'text-[#f59e0b]' : 'text-[#d97706]'} drop-shadow-lg`}>95%+</p>
-                                                                <p className={`text-[0.8em] mt-2 ${isDayTime ? 'text-gray-300' : 'text-gray-800'} font-[700] uppercase tracking-wide`}>🤖
+                                                                <p className={`text-[0.8em] mt-2 ${isDayTime ? 'text-gray-300' : 'text-gray-800'} font-[700] uppercase tracking-wide`}> -
                                                                     Task Automation</p>
                                                             </div>
                                                             <div
@@ -1359,7 +1335,7 @@ const ErpDevelopment = () => {
 
                                                     {/* Implementation Details & Timeline */}
                                                     <div className='mb-8'>
-                                                        <h3 className={`text-[1em] font-[800] mb-5 ${isDayTime ? 'text-gray-100' : 'text-gray-900'} uppercase tracking-wider drop-shadow-md`}>🗓️
+                                                        <h3 className={`text-[1em] font-[800] mb-5 ${isDayTime ? 'text-gray-100' : 'text-gray-900'} uppercase tracking-wider drop-shadow-md`}> - ️
                                                             Implementation Approach & Timeline</h3>
                                                         <div
                                                             className={`p-6 rounded-2xl border-l-4 ${isDayTime ? 'border-[#0ef0dd] bg-gradient-to-r from-[#0ef0dd]/8 to-transparent' : 'border-[#0ef0dd]/50 bg-gradient-to-r from-[#0ef0dd]/15 to-transparent'}`}>
@@ -1397,7 +1373,7 @@ const ErpDevelopment = () => {
                                                         </button>
                                                         <button
                                                             className={`px-8 py-4 text-[0.95em] font-[800] rounded-xl transition-all ${isDayTime ? 'text-gray-300 hover:text-[#0ef0dd] border-2 border-gray-500/30 hover:border-[#0ef0dd]/50' : 'text-gray-700 hover:text-[#0ef0dd] border-2 border-gray-300 hover:border-[#0ef0dd]'} uppercase tracking-wider`}>
-                                                            🏗️ View Technical Architecture →
+                                                             -️ View Technical Architecture →
                                                         </button>
                                                     </div>
                                                 </div>
@@ -1532,7 +1508,7 @@ const ErpDevelopment = () => {
                                     </div>
                                     <div
                                         className={`flex gap-3 p-4 rounded-lg ${isDayTime ? 'bg-[#0E3B46]/30' : 'bg-[#f0f9ff]/50'}`}>
-                                        <span className='text-2xl flex-shrink-0'>🔐</span>
+                                        <span className='text-2xl flex-shrink-0'> - </span>
                                         <div>
                                             <p className={`font-[800] text-[0.95em] ${isDayTime ? 'text-[#7c3aed]' : 'text-[#7c3aed]'}`}>Enterprise-Grade
                                                 Security & Resilience</p>
@@ -1690,7 +1666,7 @@ const ErpDevelopment = () => {
                                 >
                                     <span
                                         className={`capitalize lg:text-[1.55em] md:text-[1.45em] text-base font-[900] flex items-center gap-3 ${webIndex === 1 ? (isDayTime ? 'text-[#0284c7]' : 'text-[#06b6d4]') : (isDayTime ? 'text-[#031E29]' : 'text-white')}`}>
-                                        <span className='text-2xl lg:text-3xl'>🔗</span>
+                                        <span className='text-2xl lg:text-3xl'> --</span>
                                         Seamless Integration With Existing Systems
                                     </span>
                                     {webIndex === 1 ? (
@@ -1791,7 +1767,7 @@ const ErpDevelopment = () => {
                                 >
                                     <span
                                         className={`capitalize lg:text-[1.55em] md:text-[1.45em] text-base font-[900] flex items-center gap-3 ${webIndex === 3 ? (isDayTime ? 'text-[#059669]' : 'text-[#10b981]') : (isDayTime ? 'text-[#031E29]' : 'text-white')}`}>
-                                        <span className='text-2xl lg:text-3xl'>🔐</span>
+                                        <span className='text-2xl lg:text-3xl'> - </span>
                                         Complete Control And Ownership
                                     </span>
                                     {webIndex === 3 ? (
@@ -2340,3 +2316,4 @@ const ErpDevelopment = () => {
 };
 
 export default ErpDevelopment;
+

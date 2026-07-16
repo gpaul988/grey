@@ -8,11 +8,11 @@ const GolangDevelopment = () => (
         heroVideoMobile="/assets/hero/hero.mp4"
         midImage="/assets/services/digital-optimisation.jpg"
         topImages={['/assets/services/services.jpg', '/assets/services/product-design.jpg']}
-        intro="High-performance Go services, APIs and distributed systems engineered for the demands of modern infrastructure—fast, reliable and built to scale under real load."
+        intro="High-performance Go services, APIs and distributed systems engineered for the demands of modern infrastructure -fast, reliable and built to scale under real load."
         eyebrow="Go: built for performance at scale"
         introHeading={<>When Performance<br className="lg:block md:block hidden" />Is Non-Negotiable</>}
         introBody={[
-            <>Go was designed for the problems that matter most in production—high concurrency, fast startup,
+            <>Go was designed for the problems that matter most in production -high concurrency, fast startup,
             minimal memory footprint and simple deployment. At Grey InfoTech our Go engineers build the
             backend services, microservices, CLI tools and infrastructure software that power demanding
             systems where performance and reliability are non-negotiable. We use Go where it delivers real
@@ -33,7 +33,7 @@ const GolangDevelopment = () => (
                 tags: ['REST', 'gRPC', 'Protobuf', 'OpenAPI', 'Chi', 'Gin'],
                 body: <>We build Go APIs with clean layered architecture, middleware chains for auth, logging
                 and tracing, and generated OpenAPI/Swagger documentation. For internal service communication
-                we use gRPC with Protobuf—strongly typed, efficient over the wire and easy to version. Both
+                we use gRPC with Protobuf -strongly typed, efficient over the wire and easy to version. Both
                 REST and gRPC services are load-tested, rate-limited and hardened for production traffic.</>,
             },
             {
@@ -56,7 +56,7 @@ const GolangDevelopment = () => (
             {
                 id: '04', title: 'CLI Tools & Developer Tooling', target: 'CLI',
                 tags: ['Cobra', 'Viper', 'Homebrew', 'Cross-platform'],
-                body: <>Go produces statically linked binaries that run anywhere without a runtime dependency—
+                body: <>Go produces statically linked binaries that run anywhere without a runtime dependency -
                 making it the ideal language for CLIs and developer tools. We build polished command-line
                 applications with Cobra and Viper, distribute via package managers, and write comprehensive
                 integration tests to ensure reliability across Windows, macOS and Linux.</>,
@@ -64,7 +64,7 @@ const GolangDevelopment = () => (
             {
                 id: '05', title: 'Infrastructure & Platform Engineering', target: 'IP',
                 tags: ['Kubernetes Operators', 'Custom Controllers', 'Webhooks', 'Helm'],
-                body: <>Many of the cloud-native ecosystem&apos;s most important tools are written in Go—and for good
+                body: <>Many of the cloud-native ecosystem&apos;s most important tools are written in Go -and for good
                 reason. We build Kubernetes operators, custom resource definitions, admission webhooks and
                 controller-runtime based automation that extends Kubernetes with your business-specific
                 logic. We also build Go-based internal tooling for infrastructure automation, secret rotation

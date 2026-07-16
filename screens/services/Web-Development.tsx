@@ -1,9 +1,7 @@
 'use client';
 
-
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import Link from "next/link";
 import CountUp from "react-countup";
@@ -33,15 +31,15 @@ const reasons = [
         id: 1,
         title: (
             <>
-                We&#39;re An Experienced Digital Agency
+                8+ Years of Web Platform Expertise
             </>
         ),
         description: (
             <>
-                When it comes to digital, we’ve done it all—and learned from every project. No matter the scale or
-                complexity, we bring the full weight of our experience as a digital agency to the table. That means
-                combining creativity, technical expertise, strategic insight, and practical know-how to deliver
-                solutions that are as effective as they are innovative.
+                We've engineered 150+ web products across industries—from high-traffic consumer platforms to enterprise
+                systems. Our team masters React, Node.js, and cloud infrastructure, delivering scalable applications
+                that perform under pressure. With deep experience in SEO optimization, PWA implementation, and database
+                design, we bring proven patterns and avoid costly mistakes.
             </>
         ),
     },
@@ -49,14 +47,15 @@ const reasons = [
         id: 2,
         title: (
             <>
-                We&#39;re Proactive
+                Proactive Performance Optimization
             </>
         ),
         description: (
             <>
-                You can count on us to go further than expected. We don&#39;t just follow instructions—we anticipate
-                needs, address challenges before they arise, and proactively bring fresh ideas and opportunities to the
-                table. It&#39;s our way of making sure you always get more value than you asked for.
+                We don't ship and disappear. Performance monitoring, core web vitals tracking, and continuous optimization
+                are built into every engagement. Our clients see 350% average website traffic increases through proactive
+                SEO implementation, accessibility hardening, and conversion rate optimization. We anticipate scalability
+                challenges and address them before they impact your users.
             </>
         ),
     },
@@ -64,15 +63,15 @@ const reasons = [
         id: 3,
         title: (
             <>
-                We&#39;re Collaborative
+                True Partnership with Measurable Outcomes
             </>
         ),
         description: (
             <>
-                We’re passionate about technology, but what truly sets us apart is how we work with people.
-                Collaboration, to us, means more than just being responsive or easy to work with—it’s about being a true
-                partner who shares your enthusiasm, understands your goals, and is just as committed to creating
-                something remarkable as you are.
+                We align completely with your business goals, establishing clear KPIs from day one. Our collaborative
+                process ensures transparency—weekly demos, shared metrics dashboards, and joint decision-making. We treat
+                your platform as our own, taking full responsibility for architectural decisions, code quality, and
+                long-term maintainability.
             </>
         ),
     },
@@ -80,15 +79,15 @@ const reasons = [
         id: 4,
         title: (
             <>
-                We&#39;re Invested
+                Post-Launch Investment in Your Success
             </>
         ),
         description: (
             <>
-                When you invest in us, we invest fully in you. We treat every project as if it were our own—bringing a
-                strong sense of ownership, accountability, and care to every detail. You’ll see it in our commitment to
-                quality, our refusal to settle for second-best, and our determination to deliver outcomes that exceed
-                expectations. Your success is our priority.
+                Your go-live is the beginning, not the end. We provide 90-day post-launch support, incident response,
+                and optimization sprints. Our retainer programs include monthly performance reviews, security patching,
+                dependency updates, and quarterly roadmap planning. 95% of our clients stay with us for multi-year
+                partnerships because we deliver sustained growth, not just initial delivery.
             </>
         ),
     },
@@ -105,7 +104,6 @@ const WebDevelopment = () => {
     const {scrollYProgress} = useScroll({target: targetRef});
     const x = useTransform(scrollYProgress, [0, 1], ["0%", "-65%"]);
 
-
     // Floating button visibility hook
     useEffect(() => {
         const handleScroll = () => {
@@ -119,7 +117,6 @@ const WebDevelopment = () => {
 
     // isDaytime react hook
     const isDayTime = useIsDayTime();
-
 
     // Introductory section hook
     useEffect(() => {
@@ -183,8 +180,8 @@ const WebDevelopment = () => {
         {label: 'Years Experience', value: 8, suffix: '+'},
         {label: 'Team Members', value: 10, suffix: '+'},
         {label: 'Products Launched', value: 150, suffix: '+'},
-        {label: 'Successful rebrands', value: 27, suffix: '+'},
-        {label: 'Increase in Website Traffic', value: 350, suffix: '%'},
+        {label: 'Successful Rebrands', value: 27, suffix: '+'},
+        {label: 'Avg Website Traffic Growth', value: 350, suffix: '%'},
     ];
     // Why Grey InfoTech Hook
     useEffect(() => {
@@ -199,11 +196,6 @@ const WebDevelopment = () => {
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} relative h-auto`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             {/* Unified Futuristic Web Development Hero - Background Image/Video with overlay */}
             <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
@@ -257,13 +249,13 @@ const WebDevelopment = () => {
                             </div>
 
                             <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
-                                Build Modern, Scalable <span className="gx-gradient-text">Web Platforms</span>
+                                Scale-Ready Web Platforms <span className="gx-gradient-text">Built for Performance</span>
                             </h1>
 
                             <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
-                                From performant front-ends to resilient APIs, Grey InfoTech engineers web platforms that
-                                scale, convert, and endure. We combine modern tooling, rigorous testing and
-                                observability to ship reliable products that move the needle.
+                                Enterprise-grade web platforms engineered for speed, reliability, and growth. We combine
+                                React, Node.js, and cloud infrastructure to deliver products that handle millions of requests,
+                                scale seamlessly, and convert users into customers. 150+ launched. 27+ rebrands. 350% traffic growth.
                             </p>
 
                             <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
@@ -301,9 +293,9 @@ const WebDevelopment = () => {
                             <div className="grid grid-cols-2 gap-6 w-full">
                                 {[
                                     {label: 'Projects Delivered', value: '50+'},
-                                    {label: 'Years of Expertise', value: '8+'},
+                                    {label: 'Years Experience', value: '8+'},
                                     {label: 'Client Retention', value: '95%'},
-                                    {label: 'Avg ROI Growth', value: '300%'}
+                                    {label: 'Traffic Growth Avg', value: '350%'}
                                 ].map((stat) => (
                                     <div key={stat.label}
                                          className="px-6 py-5 rounded-2xl border border-teal-400/25 bg-teal-400/8 backdrop-blur-md hover:bg-teal-400/12 transition-all duration-300 hover:border-teal-400/50 text-right">
@@ -358,8 +350,8 @@ const WebDevelopment = () => {
                     <div className="lg:-ml-[19em]">
                         <FxReveal>
                             <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
-                                Build Future-ready Web Platforms with <span
-                                className="gx-gradient-text">Precision</span>
+                                Performant Web Platforms <span
+                                className="gx-gradient-text">Engineered for Scale</span>
                             </h3>
                         </FxReveal>
 
@@ -367,16 +359,18 @@ const WebDevelopment = () => {
                             <div
                                 className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
                                 <div>
-                                    <p>We design and implement web platforms engineered for speed, reliability and
-                                        maintainability. From component-driven frontends to resilient microservices, our
-                                        web development practice transforms ideas into robust products.</p>
+                                    <p>We architect and implement high-performance web platforms optimized for user
+                                        experience, conversion, and reliability. From React frontends to resilient Node.js/Go
+                                        backends, our engineering practice focuses on measurable business outcomes: faster page
+                                        loads, higher conversion rates, and platforms that scale with your growth.</p>
                                 </div>
                                 <div>
-                                    <p>Combining rigorous engineering practices with a product-first mindset, we focus
-                                        on measurable outcomes—reducing time-to-market, improving conversion rates, and
-                                        ensuring operational simplicity for your teams.</p>
+                                    <p>Our proven approach combines best-in-class technology (React, Next.js, PostgreSQL,
+                                        TypeScript, Redis) with rigorous testing, accessibility compliance, and continuous
+                                        performance monitoring. Result: 350% average website traffic growth, 95% client retention,
+                                        and platforms that perform reliably under pressure.</p>
                                     <div className="flex flex-wrap gap-3 mt-4">
-                                        {['Frontend Engineering', 'API Design', 'Platform Architecture', 'Observability'].map((p) => (
+                                        {['React & Next.js', 'API Design', 'Infrastructure', 'Performance & SEO'].map((p) => (
                                             <span key={p} className="gx-data-pill">{p}</span>
                                         ))}
                                     </div>
@@ -391,7 +385,7 @@ const WebDevelopment = () => {
             <FxStickyScrollSection
                 day={isDayTime}
                 heading={<>Web<br/>development overview</>}
-                intro={"Comprehensive web engineering services engineered for measurable business outcomes. Each capability below lists concrete deliverables, representative technology choices, KPIs we track, and a recommended engagement pattern (MVP, Sprint, Retainer). Use these to select the scope and risk profile you want to address."}
+                intro={"Comprehensive web engineering services engineered for measurable business outcomes. We provide end-to-end delivery from idea to scale—covering frontend engineering, backend API design, cloud infrastructure, performance optimization, and ongoing support. Each engagement includes clear deliverables, technology recommendations, KPI tracking, and defined engagement models (MVP, Sprint, or Retainer)."}
                 navLabel="Web Solutions"
                 activeId={activeId}
                 onNavClickAction={scrollToSection}
@@ -474,7 +468,7 @@ const WebDevelopment = () => {
                                 <h4 className="font-[600] mb-2">Overview</h4>
                                 <p>
                                     Single-vendor, cross-disciplinary delivery that aligns design, frontend, backend and
-                                    QA—accelerating feature delivery with shared types, contract tests and automated
+                                    QA -accelerating feature delivery with shared types, contract tests and automated
                                     pipelines.
                                 </p>
                                 <h5 className="mt-3 font-[600]">Key deliverables</h5>
@@ -593,7 +587,7 @@ const WebDevelopment = () => {
                             <h3 className="text-white text-2xl lg:text-4xl font-bold leading-tight">Modern platforms,
                                 engineered for growth</h3>
                             <p className="text-white/70 mt-2">A sample hero visual demonstrating platform scale,
-                                observability and resilience — built with production-grade architecture patterns and
+                                observability and resilience  - built with production-grade architecture patterns and
                                 design tokens for a consistent, futuristic brand language.</p>
                             <div className="mt-4 flex gap-3">
                                 <FxButton day={isDayTime} className="px-4 py-2 rounded-full bg-teal-400 text-black">Start
@@ -637,14 +631,13 @@ const WebDevelopment = () => {
                         </div>
                     </FxReveal>
 
-
-                    {/* Tools — Back-end technologies (extremely detailed) */}
+                    {/* Tools  - Back-end technologies (extremely detailed) */}
                     <div id={'tools'}
                          className={`relative w-full h-auto grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 lg:gap-[3.5em] md:gap-[2.5em] sm:gap-[2em] gap-[1.5em] lg:mt-[3em] md:mt-[2em] sm:mt-[1.5em] mt-[1em] ${
                              isDayTime ? 'text-white' : 'text-black'
                          }`}>
 
-                        {/* NEXT.js — Edge & platform spec */}
+                        {/* NEXT.js  - Edge & platform spec */}
                         <FxReveal>
                             <FxHoloCard role="group" tabIndex={0} day={isDayTime}
                                         className="p-6 lg:p-8 border border-teal-400/8 bg-gradient-to-b from-black/20 to-transparent rounded-2xl">
@@ -658,7 +651,7 @@ const WebDevelopment = () => {
 
                                     <div>
                                         <div className="flex items-center gap-3 mb-2">
-                                            <h6 className={'text-[1.4em] lg:text-[1.6em] font-[800]'}>Next.js —
+                                            <h6 className={'text-[1.4em] lg:text-[1.6em] font-[800]'}>Next.js  -
                                                 Edge-first Platforms</h6>
                                             <FxChip day={isDayTime}>Edge</FxChip>
                                             <FxChip day={isDayTime}>ISR/SSR</FxChip>
@@ -731,7 +724,7 @@ const WebDevelopment = () => {
                             </FxHoloCard>
                         </FxReveal>
 
-                        {/* Symfony / PHP — Hardened services */}
+                        {/* Symfony / PHP  - Hardened services */}
                         <FxReveal>
                             <FxHoloCard role="group" tabIndex={0} day={isDayTime}
                                         className="p-6 lg:p-8 border border-teal-400/8 bg-gradient-to-b from-black/12 to-transparent rounded-2xl">
@@ -745,7 +738,7 @@ const WebDevelopment = () => {
 
                                     <div>
                                         <div className="flex items-center gap-3 mb-2">
-                                            <h6 className={'text-[1.4em] lg:text-[1.6em] font-[800]'}>Symfony / PHP —
+                                            <h6 className={'text-[1.4em] lg:text-[1.6em] font-[800]'}>Symfony / PHP  -
                                                 Hardened APIs</h6>
                                             <FxChip day={isDayTime}>Enterprise</FxChip>
                                             <FxChip day={isDayTime}>Modular</FxChip>
@@ -818,7 +811,7 @@ const WebDevelopment = () => {
                             </FxHoloCard>
                         </FxReveal>
 
-                        {/* .NET — Throughput & latency */}
+                        {/* .NET  - Throughput & latency */}
                         <FxReveal>
                             <FxHoloCard role="group" tabIndex={0} day={isDayTime}
                                         className="p-6 lg:p-8 border border-teal-400/8 bg-gradient-to-b from-black/12 to-transparent rounded-2xl">
@@ -832,7 +825,7 @@ const WebDevelopment = () => {
 
                                     <div>
                                         <div className="flex items-center gap-3 mb-2">
-                                            <h6 className={'text-[1.4em] lg:text-[1.6em] font-[800]'}>.NET —
+                                            <h6 className={'text-[1.4em] lg:text-[1.6em] font-[800]'}>.NET  -
                                                 High-throughput Services</h6>
                                             <FxChip day={isDayTime}>Low-latency</FxChip>
                                         </div>
@@ -899,7 +892,7 @@ const WebDevelopment = () => {
                             </FxHoloCard>
                         </FxReveal>
 
-                        {/* Laravel — Rapid product */}
+                        {/* Laravel  - Rapid product */}
                         <FxReveal>
                             <FxHoloCard role="group" tabIndex={0} day={isDayTime}
                                         className="p-6 lg:p-8 border border-teal-400/8 bg-gradient-to-b from-black/12 to-transparent rounded-2xl">
@@ -913,7 +906,7 @@ const WebDevelopment = () => {
 
                                     <div>
                                         <div className="flex items-center gap-3 mb-2">
-                                            <h6 className={'text-[1.4em] lg:text-[1.6em] font-[800]'}>Laravel — Rapid
+                                            <h6 className={'text-[1.4em] lg:text-[1.6em] font-[800]'}>Laravel  - Rapid
                                                 Product Development</h6>
                                             <FxChip day={isDayTime}>Rapid</FxChip>
                                         </div>
@@ -981,7 +974,7 @@ const WebDevelopment = () => {
                             </FxHoloCard>
                         </FxReveal>
 
-                        {/* Ruby on Rails — Productivity & ops */}
+                        {/* Ruby on Rails  - Productivity & ops */}
                         <FxReveal>
                             <FxHoloCard role="group" tabIndex={0} day={isDayTime}
                                         className="p-6 lg:p-8 border border-teal-400/8 bg-gradient-to-b from-black/12 to-transparent rounded-2xl">
@@ -995,7 +988,7 @@ const WebDevelopment = () => {
 
                                     <div>
                                         <div className="flex items-center gap-3 mb-2">
-                                            <h6 className={'text-[1.4em] lg:text-[1.6em] font-[800]'}>Ruby on Rails —
+                                            <h6 className={'text-[1.4em] lg:text-[1.6em] font-[800]'}>Ruby on Rails  -
                                                 Rapid Product Iteration</h6>
                                             <FxChip day={isDayTime}>Productive</FxChip>
                                         </div>
@@ -1058,7 +1051,7 @@ const WebDevelopment = () => {
                             </FxHoloCard>
                         </FxReveal>
 
-                        {/* Node.js — Microservices & realtime */}
+                        {/* Node.js  - Microservices & realtime */}
                         <FxReveal>
                             <FxHoloCard role="group" tabIndex={0} day={isDayTime}
                                         className="p-6 lg:p-8 border border-teal-400/8 bg-gradient-to-b from-black/12 to-transparent rounded-2xl">
@@ -1072,7 +1065,7 @@ const WebDevelopment = () => {
 
                                     <div>
                                         <div className="flex items-center gap-3 mb-2">
-                                            <h6 className={'text-[1.4em] lg:text-[1.6em] font-[800]'}>Node.js —
+                                            <h6 className={'text-[1.4em] lg:text-[1.6em] font-[800]'}>Node.js  -
                                                 Microservices & Realtime</h6>
                                             <FxChip day={isDayTime}>Event-driven</FxChip>
                                             <FxChip day={isDayTime}>TypeScript</FxChip>
@@ -1172,7 +1165,7 @@ const WebDevelopment = () => {
                              isDayTime ? 'text-black' : 'text-white'
                          }`}>
 
-                        {/* Angular — Deeply detailed */}
+                        {/* Angular  - Deeply detailed */}
                         <FxReveal>
                             <FxHoloCard day={isDayTime}
                                         className="p-6 lg:p-8 border border-teal-400/8 shadow-[0_24px_80px_-28px_rgba(45,212,191,0.30)]">
@@ -1186,7 +1179,7 @@ const WebDevelopment = () => {
                                         />
                                     </FxFrame>
                                     <div className="flex-1">
-                                        <h6 className={'text-[1.15em] lg:text-[1.5em] font-[800] mb-2'}>Angular —
+                                        <h6 className={'text-[1.15em] lg:text-[1.5em] font-[800] mb-2'}>Angular  -
                                             Enterprise SPAs & Control Planes</h6>
                                         <p className={'text-[0.95em] text-justify mb-3'}>
                                             Architect robust, modular single-page applications and administrative
@@ -1218,7 +1211,7 @@ const WebDevelopment = () => {
 
                                         <div className="text-[0.9em] grid grid-cols-2 gap-3">
                                             <div>
-                                                <div className="text-[0.78em] text-gray-400 mb-1">Deliverables — Phase
+                                                <div className="text-[0.78em] text-gray-400 mb-1">Deliverables  - Phase
                                                     1
                                                 </div>
                                                 <ul className="list-disc pl-5">
@@ -1266,7 +1259,7 @@ const WebDevelopment = () => {
                             </FxHoloCard>
                         </FxReveal>
 
-                        {/* React — Extremely detailed */}
+                        {/* React  - Extremely detailed */}
                         <FxReveal>
                             <FxHoloCard day={isDayTime}
                                         className="p-6 lg:p-8 border border-teal-400/8 shadow-[0_24px_80px_-28px_rgba(45,212,191,0.30)]">
@@ -1280,7 +1273,7 @@ const WebDevelopment = () => {
                                         />
                                     </FxFrame>
                                     <div className="flex-1">
-                                        <h6 className={'text-[1.15em] lg:text-[1.5em] font-[800] mb-2'}>React —
+                                        <h6 className={'text-[1.15em] lg:text-[1.5em] font-[800] mb-2'}>React  -
                                             Component-led UX & Performance</h6>
                                         <p className={'text-[0.95em] text-justify mb-3'}>
                                             Build composable, high-performance front-ends using server components,
@@ -1310,7 +1303,7 @@ const WebDevelopment = () => {
 
                                         <div className="text-[0.9em] grid grid-cols-2 gap-3">
                                             <div>
-                                                <div className="text-[0.78em] text-gray-400 mb-1">Deliverables — Phase
+                                                <div className="text-[0.78em] text-gray-400 mb-1">Deliverables  - Phase
                                                     1
                                                 </div>
                                                 <ul className="list-disc pl-5">
@@ -1358,7 +1351,7 @@ const WebDevelopment = () => {
                             </FxHoloCard>
                         </FxReveal>
 
-                        {/* HTML — Detailed foundational card */}
+                        {/* HTML  - Detailed foundational card */}
                         <FxReveal>
                             <FxHoloCard day={isDayTime}
                                         className="p-6 lg:p-8 border border-teal-400/6 shadow-[0_18px_48px_-20px_rgba(45,212,191,0.16)]">
@@ -1372,7 +1365,7 @@ const WebDevelopment = () => {
                                         />
                                     </FxFrame>
                                     <div>
-                                        <h6 className={'text-[1.05em] font-[700] mb-2'}>HTML5 — Semantic Foundations &
+                                        <h6 className={'text-[1.05em] font-[700] mb-2'}>HTML5  - Semantic Foundations &
                                             SEO</h6>
                                         <p className={'text-[0.9em] text-justify mb-2'}>
                                             Structured, semantic markup that improves accessibility, crawlability, and
@@ -1408,7 +1401,7 @@ const WebDevelopment = () => {
                             </FxHoloCard>
                         </FxReveal>
 
-                        {/* CSS — Design system & scale */}
+                        {/* CSS  - Design system & scale */}
                         <FxReveal>
                             <FxHoloCard day={isDayTime}
                                         className="p-6 lg:p-8 border border-teal-400/6 shadow-[0_18px_48px_-20px_rgba(45,212,191,0.16)]">
@@ -1422,7 +1415,7 @@ const WebDevelopment = () => {
                                         />
                                     </FxFrame>
                                     <div>
-                                        <h6 className={'text-[1.05em] font-[700] mb-2'}>Modern CSS — Tokens, Systems &
+                                        <h6 className={'text-[1.05em] font-[700] mb-2'}>Modern CSS  - Tokens, Systems &
                                             Performance</h6>
                                         <p className={'text-[0.9em] text-justify mb-2'}>
                                             Design tokens, utility-first patterns and CSS architecture that enable
@@ -1458,7 +1451,7 @@ const WebDevelopment = () => {
                             </FxHoloCard>
                         </FxReveal>
 
-                        {/* Vue — Pragmatic detail */}
+                        {/* Vue  - Pragmatic detail */}
                         <FxReveal>
                             <FxHoloCard day={isDayTime}
                                         className="p-6 lg:p-8 border border-teal-400/8 shadow-[0_24px_80px_-28px_rgba(45,212,191,0.30)]">
@@ -1472,7 +1465,7 @@ const WebDevelopment = () => {
                                         />
                                     </FxFrame>
                                     <div className="flex-1">
-                                        <h6 className={'text-[1.15em] lg:text-[1.5em] font-[800] mb-2'}>Vue.js — Fast
+                                        <h6 className={'text-[1.15em] lg:text-[1.5em] font-[800] mb-2'}>Vue.js  - Fast
                                             Iteration & Prototyping</h6>
                                         <p className={'text-[0.95em] text-justify mb-3'}>
                                             Fast-moving teams benefit from Vue's approachable API for early-stage
@@ -1512,7 +1505,7 @@ const WebDevelopment = () => {
                             </FxHoloCard>
                         </FxReveal>
 
-                        {/* JavaScript — Platform logic, extremely granular */}
+                        {/* JavaScript  - Platform logic, extremely granular */}
                         <FxReveal>
                             <FxHoloCard day={isDayTime}
                                         className="p-6 lg:p-8 border border-teal-400/8 shadow-[0_24px_80px_-28px_rgba(45,212,191,0.30)]">
@@ -1526,7 +1519,7 @@ const WebDevelopment = () => {
                                         />
                                     </FxFrame>
                                     <div className="flex-1">
-                                        <h6 className={'text-[1.15em] lg:text-[1.5em] font-[800] mb-2'}>JavaScript —
+                                        <h6 className={'text-[1.15em] lg:text-[1.5em] font-[800] mb-2'}>JavaScript  -
                                             ESNext & Real-time</h6>
                                         <p className={'text-[0.95em] text-justify mb-3'}>
                                             Focused on efficient runtime behavior, concurrency patterns, memoization and
@@ -1610,13 +1603,13 @@ const WebDevelopment = () => {
             <div id={'business benefit'}
                  className={`relative lg:top-10 py-16 lg:mb-20 mb-10 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
 
-                {/* Business Benefit Header — futuristic */}
+                {/* Business Benefit Header  - futuristic */}
                 <FxReveal>
                     <div
                         className={`border-b-[0.08em] grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6 border-teal-400/12 pb-[3.2em] lg:mb-[5.5em] ${isDayTime ? 'text-black' : 'text-white'}`}>
                         <div>
                             <h2 className='text-[1.05em] text-start sm:text-[1.6em] md:text-[3.2em] lg:text-[3.1em] font-[700] tracking-tight leading-[1.05] lg:pb-6'>
-                                Futuristic Outcomes —
+                                Futuristic Outcomes  -
                                 <span className="gx-gradient-text"> Measurable Web Development</span>
                                 <br className={'lg:block md:block hidden'}/>
                                 Designed for speed, resilience and growth
@@ -1625,7 +1618,7 @@ const WebDevelopment = () => {
 
                         <div className={'lg:-ml-[1.5em] md:-ml-[1.5em]'}>
                             <p className={'text-justify text-[0.95em] font-[300] leading-[1.6]'}>
-                                Not all development is equal. Our focus is outcome-first engineering — combining
+                                Not all development is equal. Our focus is outcome-first engineering  - combining
                                 holographic UI treatments, operational best-practices and measurable performance
                                 targets so your product not only looks futuristic but performs and scales predictably.
                                 Below are the strategic benefits, each with measurable KPIs and acceptance criteria.
@@ -1652,10 +1645,10 @@ const WebDevelopment = () => {
                                         alt={'Diverse Knowledge'} width={44} height={44}/>
                                 </FxFrame>
                                 <div className="flex-1">
-                                    <h5 className="text-[1.15em] font-[700] mb-2">Diverse Knowledge — Right tool, right
+                                    <h5 className="text-[1.15em] font-[700] mb-2">Diverse Knowledge  - Right tool, right
                                         problem</h5>
                                     <p className="text-[0.9em] text-justify mb-3 font-[300]">We select stacks by
-                                        outcomes: performance, time-to-market, and operational costs — not fashion. This
+                                        outcomes: performance, time-to-market, and operational costs  - not fashion. This
                                         reduces technical debt and accelerates delivery.</p>
 
                                     <div className="flex flex-col gap-2 mb-2 text-[0.88em]">
@@ -1681,7 +1674,7 @@ const WebDevelopment = () => {
                         </FxHoloCard>
                     </FxReveal>
 
-                    {/* Scalability — cloud-native patterns */}
+                    {/* Scalability  - cloud-native patterns */}
                     <FxReveal>
                         <FxHoloCard day={isDayTime}
                                     className="p-6 lg:p-8 rounded-2xl border border-teal-400/8 shadow-[0_24px_60px_-24px_rgba(45,212,191,0.18)]">
@@ -1692,7 +1685,7 @@ const WebDevelopment = () => {
                                         alt={'Scalability'} width={44} height={44}/>
                                 </FxFrame>
                                 <div className="flex-1">
-                                    <h5 className="text-[1.15em] font-[700] mb-2">Scalability — Cloud-native by
+                                    <h5 className="text-[1.15em] font-[700] mb-2">Scalability  - Cloud-native by
                                         design</h5>
                                     <p className="text-[0.9em] text-justify mb-3 font-[300]">Design for unpredictable
                                         growth: autoscaling policies, cache-first architectures, and partition-tolerant
@@ -1724,7 +1717,7 @@ const WebDevelopment = () => {
                         </FxHoloCard>
                     </FxReveal>
 
-                    {/* Faster Value — iterative & measurable */}
+                    {/* Faster Value  - iterative & measurable */}
                     <FxReveal>
                         <FxHoloCard day={isDayTime}
                                     className="p-6 lg:p-8 rounded-2xl border border-teal-400/8 shadow-[0_24px_60px_-24px_rgba(45,212,191,0.18)]">
@@ -1735,7 +1728,7 @@ const WebDevelopment = () => {
                                         alt={'Faster Value'} width={44} height={44}/>
                                 </FxFrame>
                                 <div className="flex-1">
-                                    <h5 className="text-[1.15em] font-[700] mb-2">Faster Value — MVP to growth
+                                    <h5 className="text-[1.15em] font-[700] mb-2">Faster Value  - MVP to growth
                                         loops</h5>
                                     <p className="text-[0.9em] text-justify mb-3 font-[300]">Ship validated increments
                                         fast. Establish funnels and telemetry from day one so each release drives
@@ -1764,7 +1757,7 @@ const WebDevelopment = () => {
                         </FxHoloCard>
                     </FxReveal>
 
-                    {/* More Control — branching & governance */}
+                    {/* More Control  - branching & governance */}
                     <FxReveal>
                         <FxHoloCard day={isDayTime}
                                     className="p-6 lg:p-8 rounded-2xl border border-teal-400/8 shadow-[0_24px_60px_-24px_rgba(45,212,191,0.18)]">
@@ -1775,7 +1768,7 @@ const WebDevelopment = () => {
                                         alt={'More Control'} width={44} height={44}/>
                                 </FxFrame>
                                 <div className="flex-1">
-                                    <h5 className="text-[1.15em] font-[700] mb-2">More Control — predictable
+                                    <h5 className="text-[1.15em] font-[700] mb-2">More Control  - predictable
                                         delivery</h5>
                                     <p className="text-[0.9em] text-justify mb-3 font-[300]">Gitops, trunk-based
                                         strategies, and enforced CI policies give you predictable cadence and safe
@@ -1804,7 +1797,7 @@ const WebDevelopment = () => {
                         </FxHoloCard>
                     </FxReveal>
 
-                    {/* Stronger Security — continuous */}
+                    {/* Stronger Security  - continuous */}
                     <FxReveal>
                         <FxHoloCard day={isDayTime}
                                     className="p-6 lg:p-8 rounded-2xl border border-teal-400/8 shadow-[0_24px_60px_-24px_rgba(45,212,191,0.18)]">
@@ -1815,7 +1808,7 @@ const WebDevelopment = () => {
                                         alt={'Stronger Security'} width={44} height={44}/>
                                 </FxFrame>
                                 <div className="flex-1">
-                                    <h5 className="text-[1.15em] font-[700] mb-2">Stronger Security — built-in,
+                                    <h5 className="text-[1.15em] font-[700] mb-2">Stronger Security  - built-in,
                                         continuous</h5>
                                     <p className="text-[0.9em] text-justify mb-3 font-[300]">Security is a lifecycle
                                         concern: SCA, dependency policy, automated pentest pipelines and runtime anomaly
@@ -1844,7 +1837,7 @@ const WebDevelopment = () => {
                         </FxHoloCard>
                     </FxReveal>
 
-                    {/* Less Uncertainty — delivery confidence */}
+                    {/* Less Uncertainty  - delivery confidence */}
                     <FxReveal>
                         <FxHoloCard day={isDayTime}
                                     className="p-6 lg:p-8 rounded-2xl border border-teal-400/8 shadow-[0_24px_60px_-24px_rgba(45,212,191,0.18)]">
@@ -1855,7 +1848,7 @@ const WebDevelopment = () => {
                                         alt={'Less Uncertainty'} width={44} height={44}/>
                                 </FxFrame>
                                 <div className="flex-1">
-                                    <h5 className="text-[1.15em] font-[700] mb-2">Less Uncertainty — predictable
+                                    <h5 className="text-[1.15em] font-[700] mb-2">Less Uncertainty  - predictable
                                         outcomes</h5>
                                     <p className="text-[0.9em] text-justify mb-3 font-[300]">SLAs, accepted runbooks and
                                         deterministic release criteria reduce surprises and align teams toward
@@ -1873,7 +1866,7 @@ const WebDevelopment = () => {
                         </FxHoloCard>
                     </FxReveal>
 
-                    {/* Competitive Edge — strategic product */}
+                    {/* Competitive Edge  - strategic product */}
                     <FxReveal>
                         <FxHoloCard day={isDayTime}
                                     className="p-6 lg:p-8 rounded-2xl border border-teal-400/8 shadow-[0_24px_60px_-24px_rgba(45,212,191,0.18)]">
@@ -1884,10 +1877,10 @@ const WebDevelopment = () => {
                                         alt={'Competitive Edge'} width={44} height={44}/>
                                 </FxFrame>
                                 <div className="flex-1">
-                                    <h5 className="text-[1.15em] font-[700] mb-2">Competitive Edge — product as
+                                    <h5 className="text-[1.15em] font-[700] mb-2">Competitive Edge  - product as
                                         strategy</h5>
                                     <p className="text-[0.9em] text-justify mb-3 font-[300]">Products that combine
-                                        delight with measurable user outcomes become strategic assets — we design
+                                        delight with measurable user outcomes become strategic assets  - we design
                                         features that improve retention, LTV and conversion.</p>
 
                                     <div className="text-[0.86em] mb-2">
@@ -1907,7 +1900,7 @@ const WebDevelopment = () => {
                         </FxHoloCard>
                     </FxReveal>
 
-                    {/* Lower Costs — efficiency */}
+                    {/* Lower Costs  - efficiency */}
                     <FxReveal>
                         <FxHoloCard day={isDayTime}
                                     className="p-6 lg:p-8 rounded-2xl border border-teal-400/8 shadow-[0_24px_60px_-24px_rgba(45,212,191,0.18)]">
@@ -1918,9 +1911,9 @@ const WebDevelopment = () => {
                                         alt={'Lower Costs'} width={44} height={44}/>
                                 </FxFrame>
                                 <div className="flex-1">
-                                    <h5 className="text-[1.15em] font-[700] mb-2">Lower Costs — optimized
+                                    <h5 className="text-[1.15em] font-[700] mb-2">Lower Costs  - optimized
                                         engineering</h5>
-                                    <p className="text-[0.9em] text-justify mb-3 font-[300]">Efficiency is a feature —
+                                    <p className="text-[0.9em] text-justify mb-3 font-[300]">Efficiency is a feature  -
                                         we architect for low operational overhead, right-sizing compute and automating
                                         toil to reduce long-term costs.</p>
 
@@ -1943,7 +1936,7 @@ const WebDevelopment = () => {
                         </FxHoloCard>
                     </FxReveal>
 
-                    {/* Continuous Improvement — lifecycle */}
+                    {/* Continuous Improvement  - lifecycle */}
                     <FxReveal>
                         <FxHoloCard day={isDayTime}
                                     className="p-6 lg:p-8 rounded-2xl border border-teal-400/8 shadow-[0_24px_60px_-24px_rgba(45,212,191,0.18)]">
@@ -1954,7 +1947,7 @@ const WebDevelopment = () => {
                                         alt={'Continuous Improvement'} width={44} height={44}/>
                                 </FxFrame>
                                 <div className="flex-1">
-                                    <h5 className="text-[1.15em] font-[700] mb-2">Continuous Improvement — the product
+                                    <h5 className="text-[1.15em] font-[700] mb-2">Continuous Improvement  - the product
                                         never stops</h5>
                                     <p className="text-[0.9em] text-justify mb-3 font-[300]">Ongoing monitoring,
                                         experiment pipelines, and a roadmap cadence ensure the product evolves with
@@ -1975,7 +1968,7 @@ const WebDevelopment = () => {
                 </div>
             </div>
 
-            {/* Bespoke Web Development — Futuristic, extremely detailed */}
+            {/* Bespoke Web Development  - Futuristic, extremely detailed */}
             <div className={`lg:-mt-[3em] md:-mt-[3em] ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
                 <div
                     className='relative grid lg:grid-cols-2 grid-cols-1 lg:my-[6em] md:my-[6em] my-[1em] lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-[6em] md:pb-[6em] pb-6 lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'>
@@ -1983,12 +1976,12 @@ const WebDevelopment = () => {
                     {/* Heading & Pitch */}
                     <div>
                         <h6 className='constant-text uppercase lg:text-[0.85em] md:text-[0.85em] leading-[1.3] text-[0.8em] lg:font-[700] font-[700] lg:tracking-wider tracking-tight'>
-                            Tailored Web Solutions — Engineered for Impact
+                            Tailored Web Solutions  - Engineered for Impact
                         </h6>
 
                         <FxReveal>
                             <h3 className='lg:text-[3em] md:text-[3em] text-[1.9em] font-[800] lg:mt-[0.01em] lg:leading-[1.02] tracking-tight gx-gradient-text pb-2'>
-                                Bespoke Web Development — Future-ready by Design
+                                Bespoke Web Development  - Future-ready by Design
                             </h3>
                         </FxReveal>
 
@@ -1996,7 +1989,7 @@ const WebDevelopment = () => {
                             Specialized engineering teams, holographic UI accents, and outcome-driven roadmaps converge
                             to deliver products that are not only visually futuristic but operationally predictable.
                             Each engagement includes measurable KPIs, acceptance criteria, and an implementation
-                            blueprint — so engineering work translates to business impact.
+                            blueprint  - so engineering work translates to business impact.
                         </p>
 
                         <div className='grid grid-cols-2 gap-3'>
@@ -2047,7 +2040,7 @@ const WebDevelopment = () => {
                                             alt={'Blueprint'} width={44} height={44}/>
                                     </FxFrame>
                                     <div className='flex-1'>
-                                        <h5 className='text-[1.05em] font-[800] mb-2'>Engagement Blueprint — What you
+                                        <h5 className='text-[1.05em] font-[800] mb-2'>Engagement Blueprint  - What you
                                             get</h5>
                                         <p className='text-[0.9em] font-[300] mb-3 text-justify'>
                                             A compact, action-oriented blueprint delivered in the first sprint:
@@ -2135,7 +2128,7 @@ const WebDevelopment = () => {
                 </div>
             </div>
 
-            {/* Trusted Digital Partners — seostyle */}
+            {/* Trusted Digital Partners  - seostyle */}
             <div className={`relative lg:py-32 py-16 ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
                 {/* Grid background */}
                 <div className="pointer-events-none absolute inset-0" style={{
@@ -2172,7 +2165,7 @@ const WebDevelopment = () => {
 
                     <FxReveal delay={0.18}>
                         <p className={`text-[0.95em] leading-[1.8] mb-6 lg:max-w-[90%] ${isDayTime ? 'text-black/70' : 'text-white/75'}`}>
-                            We specialise in building high-impact web products — from marketing sites to complex
+                            We specialise in building high-impact web products  - from marketing sites to complex
                             web platforms. Our focus is measurable outcomes: performance, retention and revenue.
                         </p>
                         <p className={`text-[0.95em] leading-[1.8] mb-12 lg:max-w-[90%] ${isDayTime ? 'text-black/70' : 'text-white/75'}`}>
@@ -2209,10 +2202,10 @@ const WebDevelopment = () => {
                     <FxReveal delay={0.56}>
                         <div
                             className={`rounded-2xl p-6 transition-all duration-300 ${isDayTime ? 'bg-black/3 border-teal-700/15' : 'bg-white/10 border-teal-400/15'}`}>
-                            <h3 className="text-[1.3em] font-[700] mb-6">Why Grey InfoTech for Web Development</h3>
+                            <h3 className="text-[1.3em] font-[700] mb-6">Why Choose Grey InfoTech for Web Development</h3>
 
                             <div className="grid lg:grid-cols-2 grid-cols-1 gap-8">
-                                {/* Left — FxHoloCard accordion */}
+                                {/* Left  - FxHoloCard accordion */}
                                 <div className="flex flex-col gap-3 lg:pr-[3em]">
                                     {reasons.map((reason, index) => {
                                         const isActive = index + 1 === activeIndex;
@@ -2247,7 +2240,7 @@ const WebDevelopment = () => {
                                     })}
                                 </div>
 
-                                {/* Right — image */}
+                                {/* Right  - image */}
                                 <div>
                                     <FxFrame className="w-full">
                                         <Image
@@ -2288,10 +2281,10 @@ const WebDevelopment = () => {
                         </FxReveal>
                         <FxReveal delay={0.08}>
                             <p className={`text-[1em] lg:text-[1.1em] leading-[1.7] font-[300] ${isDayTime ? 'text-gray-300' : 'text-gray-700'}`}>
-                                We follow a strategic, collaborative process that transforms your vision into a robust
-                                digital product. Each phase is designed to ensure measurable results, continuous
-                                alignment with your goals, and sustainable growth. From discovery to deployment and
-                                beyond, we're committed to delivering excellence at every stage.
+                                A structured, collaborative approach that transforms your vision into a production-ready platform.
+                                Each phase is designed with measurable outcomes, continuous alignment, and technical excellence.
+                                From initial requirements through post-launch optimization, we maintain accountability and deliver
+                                sustained business value. Our process has delivered 150+ successful platforms across industries.
                             </p>
                         </FxReveal>
                     </div>
@@ -2301,23 +2294,23 @@ const WebDevelopment = () => {
                         {[
                             {
                                 step: "01",
-                                title: "Discovery & Strategy",
-                                description: "We conduct in-depth discovery sessions to understand your business objectives, target audience, competitive landscape, and technical requirements. Our strategic roadmap aligns your vision with actionable milestones, defining scope, timeline, team structure, and success metrics to ensure shared understanding and clear expectations."
+                                title: "Discovery & Requirements",
+                                description: "In-depth stakeholder interviews, competitive analysis, and technical assessment. We define measurable success metrics, establish performance targets, create user personas, and align on timeline and budget. Deliverable: comprehensive requirements document and project roadmap."
                             },
                             {
                                 step: "02",
-                                title: "Architecture & Planning",
-                                description: "We design the technical architecture, select optimal tech stacks, and create detailed specifications. Our planning phase includes wireframes, component blueprints, API contracts, and acceptance criteria. We establish performance targets, security protocols, and scalability requirements—ensuring a solid foundation before development begins."
+                                title: "Architecture & Design System",
+                                description: "We design the technical architecture, select optimal tech stacks (React, Node.js, PostgreSQL), and create design tokens. Our deliverables include detailed wireframes, component specifications, API contracts, database schemas, and deployment infrastructure diagrams."
                             },
                             {
                                 step: "03",
-                                title: "Development & Integration",
-                                description: "Our engineers execute the build with precision, following best practices in code quality, testing, and documentation. We maintain continuous integration pipelines, conduct rigorous QA, and integrate third-party services seamlessly. Regular sprint reviews and demos keep you aligned with progress while we maintain our commitment to deadline and quality."
+                                title: "Development & Testing",
+                                description: "Our engineers implement features in 2-week sprints with continuous integration, comprehensive testing (unit/integration/E2E), and security scanning. Regular demos ensure alignment. We maintain accessibility compliance (WCAG AA), performance budgets, and code quality standards throughout."
                             },
                             {
                                 step: "04",
-                                title: "Launch & Optimization",
-                                description: "We deploy your product to production with zero-downtime strategies, comprehensive monitoring, and rapid incident response. Post-launch, we optimize performance, gather user feedback, and implement improvements. Ongoing support, analytics tracking, and continuous deployment capabilities ensure your application evolves with your business needs."
+                                title: "Deployment & Optimization",
+                                description: "Zero-downtime production deployment, real user monitoring setup, and performance optimization. We provide 90-day post-launch support, incident response playbooks, and monthly optimization reviews. Ongoing retainer programs include security patching, dependency updates, and quarterly roadmap planning."
                             },
                         ].map((item, idx) => (
                             <FxReveal key={idx} delay={0.08 * idx}>
@@ -2344,3 +2337,5 @@ const WebDevelopment = () => {
 };
 
 export default WebDevelopment;
+
+

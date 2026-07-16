@@ -8,20 +8,20 @@ const MagentoDevelopment = () => (
         heroVideoMobile="/assets/hero/hero.mp4"
         midImage="/assets/services/Development.jpg"
         topImages={['/assets/services/Web-App-Development-company.jpg', '/assets/services/Research-strategy.jpg']}
-        intro="Enterprise-grade Magento and Adobe Commerce development—custom modules, performance engineering and complex B2B/B2C implementations that power serious e-commerce operations."
+        intro="Enterprise-grade Magento and Adobe Commerce development -custom modules, performance engineering and complex B2B/B2C implementations that power serious e-commerce operations."
         eyebrow="Magento expertise for high-volume commerce"
         introHeading={<>Magento Built<br className="lg:block md:block hidden" />for Commerce at Scale</>}
         introBody={[
             <>Magento and Adobe Commerce remain the platform of choice for enterprises that need catalogue
             depth, multi-store management, complex pricing rules and the extensibility to build highly
             customised commerce experiences. At Grey InfoTech our Magento developers bring hands-on
-            expertise across Magento Open Source and Adobe Commerce—building custom modules, optimising
+            expertise across Magento Open Source and Adobe Commerce -building custom modules, optimising
             performance, executing upgrades and integrating with the ERP, OMS and marketing systems
             that enterprise commerce demands.</>,
             <>Magento&apos;s power comes with complexity, and complexity handled poorly becomes technical debt
             that slows every future change. Our approach is to build Magento extensions that follow
             service contracts, use dependency injection correctly, avoid direct database calls and ship
-            with data patches rather than install scripts. We treat performance as a first-class concern—
+            with data patches rather than install scripts. We treat performance as a first-class concern -
             full-page cache configuration, Elasticsearch tuning, database query optimisation and Varnish
             configuration are part of every engagement. The result is a Magento platform that performs
             under load and is maintainable by your team long-term.</>,
@@ -33,7 +33,7 @@ const MagentoDevelopment = () => (
                 id: '01', title: 'Custom Module Development', target: 'CM',
                 tags: ['PHP', 'Service Contracts', 'DI', 'Plugin', 'Observer'],
                 body: <>We build Magento modules that extend the platform without compromising upgrade
-                compatibility—using service contracts, plugins and observers instead of class rewrites.
+                compatibility -using service contracts, plugins and observers instead of class rewrites.
                 Custom checkout steps, pricing algorithms, inventory integrations, loyalty programmes,
                 product configurators and admin grids are built to Magento coding standards with comprehensive
                 unit and integration tests.</>,
@@ -41,7 +41,7 @@ const MagentoDevelopment = () => (
             {
                 id: '02', title: 'Adobe Commerce (Magento 2) Implementation', target: 'AI',
                 tags: ['Adobe Commerce', 'Multi-store', 'B2B', 'B2C', 'Cloud'],
-                body: <>We implement Adobe Commerce for enterprise merchants—configuring multi-store/multi-website
+                body: <>We implement Adobe Commerce for enterprise merchants -configuring multi-store/multi-website
                 architectures, B2B company accounts and shared catalogues, advanced pricing rules, tiered
                 discounts and quote workflows. Adobe Commerce Cloud deployments include Cloud Docker, ECE Tools,
                 environment configuration and integration with Adobe Experience Cloud services.</>,
@@ -58,7 +58,7 @@ const MagentoDevelopment = () => (
             {
                 id: '04', title: 'Magento Upgrades & Migration', target: 'MU',
                 tags: ['M1 to M2', '2.3 to 2.4', 'Data Migration', 'Extension Audit'],
-                body: <>Upgrading Magento requires detailed preparation—extension compatibility audits,
+                body: <>Upgrading Magento requires detailed preparation -extension compatibility audits,
                 custom code refactoring, data migration testing and phased rollout planning. We have
                 executed M1-to-M2 migrations and multiple minor version upgrades for merchants with millions
                 of SKUs, preserving customer data, order history, catalogue configuration and URL structures
@@ -77,7 +77,7 @@ const MagentoDevelopment = () => (
                 id: '06', title: 'Headless & PWA Commerce', target: 'HC',
                 tags: ['PWA Studio', 'Vue Storefront', 'GraphQL', 'Next.js'],
                 body: <>Headless Magento delivers the flexibility of a modern JavaScript frontend with Magento&apos;s
-                commerce engine behind it. We build PWA storefronts using Magento&apos;s GraphQL API—either with
+                commerce engine behind it. We build PWA storefronts using Magento&apos;s GraphQL API -either with
                 Magento PWA Studio, Vue Storefront or a custom Next.js implementation. PWA storefronts deliver
                 app-like performance, offline support and significantly faster page loads than server-rendered
                 Magento themes.</>,

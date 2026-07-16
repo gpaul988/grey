@@ -344,26 +344,26 @@ const DataProtectionPolicy = () => {
                         conditions applies:
                     </p>
                     <ol className='text-[15px] text-gray-600 mb-6 list-none list-inside'>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>The country to which your Personal Data
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>The country to which your Personal Data
                             shall
                             be transferred ensures an adequate level of protection and can ensure your legal rights and
                             freedoms
                         </li>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>You have given your consent that your
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>You have given your consent that your
                             Personal
                             Data is transferred
                         </li>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>The transfer is necessary for one of the
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>The transfer is necessary for one of the
                             reasons
                             set out in the Enactments, including the performance of a contract between you and us, or to
                             protect
                             your vital interests.
                         </li>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>The transfer is legally required on
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>The transfer is legally required on
                             important
                             public interest grounds or for the establishment, exercise or defence of legal claims.
                         </li>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>The transfer is authorised by the NDPB and
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>The transfer is authorised by the NDPB and
                             we
                             have received evidence of adequate safeguards being in place regarding the protection of
                             your
@@ -391,22 +391,22 @@ const DataProtectionPolicy = () => {
                         necessary:
                     </p>
                     <ol className='text-[15px] text-gray-600 mb-6 list-none list-inside'>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>
                             To fulfil our contractual obligations and responsibilities to you;
                         </li>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>
                             To provide, maintain and improve our agency services;
                         </li>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>
                             We do not intend to use your personal data for the advertising and marketing of our services
                             and/or the services of our affiliates. In the very unlikely event that this will change, we
                             shall seek your separate express consent and you are entitled to opt out of these services at
                             any time.
                         </li>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>
                             To respond to your requests, queries and problems;
                         </li>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>
                             to inform you of any changes to our services and related notices, such as security and fraud notices.
                         </li>
                     </ol>
@@ -422,30 +422,30 @@ const DataProtectionPolicy = () => {
                         your Personal Data in certain situations:
                     </p>
                     <ol className='text-[15px] text-gray-600 mb-6 list-none list-inside'>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>
                             In our role as your digital agency, we may need to share your Personal Data with certain bodies
                             to fulfil our contract with you such as your suppliers, contractors and sub-contractors, regulatory
                             bodies.
                         </li>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>
                             The software provider we use to process electronic data, including personal data, is GSuite
                             (Email and Document Management ) These providers state that they are GDPR compliant and/or
                             applies equivalent/adequate safeguards:<br/> <a href='https://cloud.google.com/security/gdpr/'
                                                                             className='text-gray-800 font-bold hover:text-teal-700'>https://cloud.google.com/security/gdpr</a>
                         </li>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>
                             There may also be situations in which it is necessary for us to disclose your personal data to
                             other third parties, which include, but are not limited to, other governmental, regulatory bodies
                             and law enforcement agencies.
                         </li>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>
                             If we are under a duty to disclose or share your Personal Data in order to comply with any legal
                             obligation, lawful requests, court orders and legal process.
                         </li>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>
                             To enforce or apply any contract or other agreement with you.
                         </li>
-                        <li className='mb-4 before:content-["—"] before:mr-2'>
+                        <li className='mb-4 before:content-[" -"] before:mr-2'>
                             To protect our rights, property, or safety and that of our employees, members, or others, in
                             the course of investigating and preventing money laundering and fraud.
                         </li>
@@ -458,43 +458,43 @@ const DataProtectionPolicy = () => {
                             rights to:
                         </p>
                         <ol className='text-[15px] text-gray-600 mb-6 list-none list-inside'>
-                            <li className='mb-4 before:content-["—"] before:mr-2'>
+                            <li className='mb-4 before:content-[" -"] before:mr-2'>
                                 Request access to any data we hold about you;
                             </li>
-                            <li className='mb-4 before:content-["—"] before:mr-2'>
+                            <li className='mb-4 before:content-[" -"] before:mr-2'>
                                 Prevent the processing of your Personal Data for direct marketing purposes, if so instructed;
                             </li>
-                            <li className='mb-4 before:content-["—"] before:mr-2'>
+                            <li className='mb-4 before:content-[" -"] before:mr-2'>
                                 Ask to have inaccurate Personal Data amended;
                             </li>
-                            <li className='mb-4 before:content-["—"] before:mr-2'>
+                            <li className='mb-4 before:content-[" -"] before:mr-2'>
                                 Be forgotten, and have all relevant Personal Data erased (subject to our overriding legal
                                 obligations);
                             </li>
-                            <li className='mb-4 before:content-["—"] before:mr-2'>
+                            <li className='mb-4 before:content-[" -"] before:mr-2'>
                                 Prevent processing which is likely to cause damage or distress to you or anyone else;
                             </li>
-                            <li className='mb-4 before:content-["—"] before:mr-2'>
+                            <li className='mb-4 before:content-[" -"] before:mr-2'>
                                 Request certain restrictions on the processing of your Personal Data;
                             </li>
-                            <li className='mb-4 before:content-["—"] before:mr-2'>
+                            <li className='mb-4 before:content-[" -"] before:mr-2'>
                                 Receive a copy of your Personal Data and/or request a transfer of your Personal Data to
                                 another Data Controller;
                             </li>
-                            <li className='mb-4 before:content-["—"] before:mr-2'>
+                            <li className='mb-4 before:content-[" -"] before:mr-2'>
                                 Not be subject to automated decision making;
                             </li>
-                            <li className='mb-4 before:content-["—"] before:mr-2'>
+                            <li className='mb-4 before:content-[" -"] before:mr-2'>
                                 Be notified of a data security breach which affects your rights and freedoms, without undue
                                 delay;
                             </li>
-                            <li className='mb-4 before:content-["—"] before:mr-2'>
+                            <li className='mb-4 before:content-[" -"] before:mr-2'>
                                 If you have provided your express consent that your Personal Data may be processed for
                                 marketing and advertising purposes, you are entitled to withdraw that consent. Such a
                                 withdrawal will not affect any processing of the data completed before consent was withdrawn;
                                 and
                             </li>
-                                <li className='mb-4 before:content-["—"] before:mr-2'>
+                                <li className='mb-4 before:content-[" -"] before:mr-2'>
                                     to make certain requests to us concerning how your Personal Data is managed.
                                 </li>
                         </ol>

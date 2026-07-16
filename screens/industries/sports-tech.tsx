@@ -8,17 +8,17 @@ const SportsTechIndustry = () => (
         heroVideoMobile="/assets/hero/hero.mp4"
         midImage="/assets/services/services.jpg"
         topImages={['/assets/services/Development.jpg', '/assets/services/digital-transformatio.jpg']}
-        intro="Fan engagement platforms, sports analytics, ticketing systems and athlete performance tools that power the next generation of sport—from grassroots to elite."
+        intro="Fan engagement platforms, sports analytics, ticketing systems and athlete performance tools that power the next generation of sport -from grassroots to elite."
         eyebrow="SportsTech for the next generation of sport"
         introHeading={<>Sport Powered<br className="lg:block md:block hidden" />by Data</>}
         introBody={[
             <>Sport is no longer just about what happens on the pitch. Data analytics, fan engagement
             platforms, digital ticketing, athlete tracking and fantasy sports are reshaping how sport is
             played, watched and monetised. At Grey InfoTech we build sports technology that serves clubs,
-            federations, sports media companies and sports betting operators—engineering the digital
+            federations, sports media companies and sports betting operators -engineering the digital
             infrastructure that connects athletes, coaches, fans and commercial partners in a seamless
             digital ecosystem.</>,
-            <>Our sports technology team brings deep experience building high-concurrency systems—fan platforms
+            <>Our sports technology team brings deep experience building high-concurrency systems -fan platforms
             that handle the instantaneous spikes of match day, live data pipelines that process real-time
             stats and betting markets, and mobile apps that are the primary touchpoint between clubs and
             their supporters. We understand African sport: the fan demographics, mobile-first behaviour,
@@ -34,13 +34,13 @@ const SportsTechIndustry = () => (
                 body: <>We build official club apps and fan platforms with live match updates, player
                 statistics, fan community features, loyalty programmes and exclusive content. Second-screen
                 experiences deliver real-time data, polls and interactive features that keep fans engaged
-                throughout the match—increasing session time, merchandise sales and subscription revenue.</>,
+                throughout the match -increasing session time, merchandise sales and subscription revenue.</>,
             },
             {
                 id: '02', title: 'Sports Analytics & Performance', target: 'SA',
                 tags: ['Player Tracking', 'Video Analysis', 'Wearables', 'Data Visualisation'],
                 body: <>Elite performance requires elite data. We build sports analytics platforms that
-                ingest player tracking data, wearable sensor streams and video analysis outputs—presenting
+                ingest player tracking data, wearable sensor streams and video analysis outputs -presenting
                 coaches with actionable dashboards covering physical load, tactical patterns and opposition
                 analysis. Data pipelines handle real-time ingestion and historical analysis for session
                 planning and contract decision support.</>,
@@ -59,14 +59,14 @@ const SportsTechIndustry = () => (
                 tags: ['Fantasy Football', 'Prediction Games', 'Leaderboards', 'Prizes'],
                 body: <>Fantasy sports and prediction games are powerful fan retention tools and monetisation
                 vectors. We build fantasy sports platforms with real-time player data integration, private
-                leagues, live scoring, prize management and anti-abuse controls. Prediction game mechanics—
-                match result forecasts, player stat predictions—are built for rapid deployment around
+                leagues, live scoring, prize management and anti-abuse controls. Prediction game mechanics -
+                match result forecasts, player stat predictions -are built for rapid deployment around
                 live fixtures.</>,
             },
             {
                 id: '05', title: 'Sports Betting Technology', target: 'SB',
                 tags: ['Odds Engine', 'In-play Betting', 'Risk Management', 'Compliance'],
-                body: <>We build sports betting platforms and operator tools—odds integration, bet placement
+                body: <>We build sports betting platforms and operator tools -odds integration, bet placement
                 flows, in-play betting with real-time data feeds, wallet management, responsible gambling
                 controls and regulatory reporting for operators licensed by the National Lottery Regulatory
                 Commission. We work with betting operators and their technology partners to build fast,

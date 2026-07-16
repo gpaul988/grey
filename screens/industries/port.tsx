@@ -28,7 +28,7 @@ const Port = () => (
             {
                 id: '01', title: 'Terminal Operating System (TOS)', target: 'TOS',
                 tags: ['Yard', 'Crane', 'Scheduling'],
-                body: <>A modern TOS that handles vessel stowage, yard planning, yard equipment scheduling and resource allocation—optimising throughput and minimising conflicts.</>,
+                body: <>A modern TOS that handles vessel stowage, yard planning, yard equipment scheduling and resource allocation -optimising throughput and minimising conflicts.</>,
             },
             {
                 id: '02', title: 'Quay & Crane Automation', target: 'QC',
@@ -43,7 +43,7 @@ const Port = () => (
             {
                 id: '04', title: 'Yard Optimisation & Digital Twin', target: 'YD',
                 tags: ['Simulation', 'AI', 'Planning'],
-                body: <>AI-backed yard planning and digital twins for scenario simulation—improving stacking strategies and equipment utilisation under peak demand.</>,
+                body: <>AI-backed yard planning and digital twins for scenario simulation -improving stacking strategies and equipment utilisation under peak demand.</>,
             },
             {
                 id: '05', title: 'Secure Cargo Release', target: 'CR',

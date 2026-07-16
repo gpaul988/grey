@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * WebGLHero — the reusable, capability-gated 3D background.
+ * WebGLHero  - the reusable, capability-gated 3D background.
  *
  * Drop it anywhere as an absolutely-positioned layer behind hero content:
  *   <div className="relative">
@@ -12,7 +12,7 @@
  * - three.js is code-split via next/dynamic({ssr:false}) and ONLY loaded when
  *   useDeviceCapabilities says the device can afford it (webgl + memory + cores,
  *   not reduced-motion / save-data).
- * - When 3D isn't allowed it renders the elegant CSS aurora fallback instead —
+ * - When 3D isn't allowed it renders the elegant CSS aurora fallback instead  -
  *   so the section always looks intentional, never empty.
  * - Particle budget auto-scales down on mobile.
  */

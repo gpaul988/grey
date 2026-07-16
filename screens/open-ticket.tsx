@@ -20,7 +20,7 @@ const PRIORITIES = [
     { value: 'low',    label: 'Low',    color: '#2dd4bf', desc: 'General question or minor issue' },
     { value: 'medium', label: 'Medium', color: '#06b6d4', desc: 'Something is broken but has a workaround' },
     { value: 'high',   label: 'High',   color: '#f59e0b', desc: 'Major feature is impacted' },
-    { value: 'urgent', label: 'Urgent', color: '#ef4444', desc: 'Critical — system is down or unusable' },
+    { value: 'urgent', label: 'Urgent', color: '#ef4444', desc: 'Critical  - system is down or unusable' },
 ];
 
 const SUBJECTS = [
@@ -116,7 +116,7 @@ const OpenTicket: React.FC = () => {
         if (errors[field]) setErrors(prev => { const n = { ...prev }; delete n[field]; return n; });
     }
 
-    /* ── Success state ── */
+    /*  -  -  Success state  -  -  */
     if (submitted) {
         const ref = `GIT-${String(ticketId || 0).padStart(4, '0')}`;
         return (
@@ -169,11 +169,11 @@ const OpenTicket: React.FC = () => {
         );
     }
 
-    /* ── Main form ── */
+    /*  -  -  Main form  -  -  */
     return (
         <div className={`min-h-screen flex flex-col transition-colors duration-500 ${isDayTime ? 'bg-white text-black' : 'bg-[#050810] text-white'}`}>
 
-            {/* ── Hero ── */}
+            {/*  -  -  Hero  -  -  */}
             <section className="relative overflow-hidden min-h-[38vh] flex flex-col justify-end">
                 <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-[#050810] to-[#071420]" />
                 <FxBackground day={false} grid aurora className="opacity-60" />
@@ -200,7 +200,7 @@ const OpenTicket: React.FC = () => {
                 </div>
             </section>
 
-            {/* ── Form ── */}
+            {/*  -  -  Form  -  -  */}
             <main className="relative z-10 flex-1 w-full max-w-3xl mx-auto px-4 sm:px-8 py-14 md:py-20">
                 <form onSubmit={handleSubmit} noValidate>
                     <div className="space-y-6">
@@ -275,7 +275,7 @@ const OpenTicket: React.FC = () => {
                                         <textarea
                                             rows={6}
                                             className={`${inputCls} resize-y min-h-[120px] ${errors.description ? 'border-red-400/60' : ''}`}
-                                            placeholder="Describe the issue — what happened, what you expected, and steps to reproduce."
+                                            placeholder="Describe the issue  - what happened, what you expected, and steps to reproduce."
                                             value={form.description}
                                             onChange={e => set('description', e.target.value)}
                                         />

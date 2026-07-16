@@ -11,7 +11,7 @@ import FuturisticServiceLayout, {
 import FuturisticDevelopmentProcess from '@/components/FuturisticDevelopmentProcess';
 
 /**
- * Futuristic App Store Optimization page — polished, responsive, and free of layout glitches.
+ * Futuristic App Store Optimization page  - polished, responsive, and free of layout glitches.
  * Leverages existing FuturisticServiceLayout primitives and smooth motion for a professional finish.
  */
 export default function AppStoreOptimization(): React.ReactElement {

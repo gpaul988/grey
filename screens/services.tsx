@@ -80,7 +80,7 @@ export default function ServicesScreen() {
     return (
         <main className={`relative min-h-screen transition-colors duration-500 ${dark ? 'bg-[#050810] text-white' : 'bg-white text-black'}`}>
 
-            {/* ── Hero ── */}
+            {/*  -  -  Hero  -  -  */}
             <section className="relative overflow-hidden min-h-[70vh] flex flex-col justify-end">
                 {/* FX base */}
                 <FxBackground day={false} grid aurora className="opacity-70" />
@@ -121,7 +121,7 @@ export default function ServicesScreen() {
                 </div>
             </section>
 
-            {/* ── Intro ── */}
+            {/*  -  -  Intro  -  -  */}
             <section
                 ref={sectionRef}
                 className={`pt-16 transition-colors duration-500 ${
@@ -151,7 +151,7 @@ export default function ServicesScreen() {
                 </div>
             </section>
 
-            {/* ── Services grid ── */}
+            {/*  -  -  Services grid  -  -  */}
             <section className={`relative z-10 px-4 sm:px-6 md:px-10 lg:px-[4.5em] py-20 lg:py-28 ${dark ? '' : ''}`}>
                 {/* Subtle bg FX */}
                 <FxBackground day={isDayTime} grid={true} aurora={false} className="opacity-20" />
@@ -204,7 +204,7 @@ export default function ServicesScreen() {
                 </motion.div>
             </section>
 
-            {/* ── CTA ── */}
+            {/*  -  -  CTA  -  -  */}
             <section className={`relative overflow-hidden py-28 px-4 sm:px-6 md:px-10 lg:px-[4.5em] text-center ${dark ? 'bg-black/40' : 'bg-teal-950'} text-white`}>
                 <FxBackground day={false} grid aurora className="opacity-60" />
                 <div className="gx-scanline pointer-events-none" />

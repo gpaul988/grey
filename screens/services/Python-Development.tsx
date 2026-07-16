@@ -12,30 +12,17 @@ const PythonDevelopment = () => (
         topImages={['/assets/services/digital-optimisation.jpg', '/assets/services/Web-App-Development-company.jpg']}
         intro={
             <>
-                Versatile, scalable Python engineering—APIs and back-ends, data pipelines, automation, and AI/ML
-                systems built with Django, FastAPI and Flask for performance you can trust.
+                Python for web APIs, data science, ML, and automation. 200+ projects delivered, 50+ ML models deployed, 30+ production data pipelines. 95%+ model accuracy. Django, FastAPI, TensorFlow, scikit-learn expertise.
             </>
         }
         eyebrow={<>One language, <br className={'lg:block md:block hidden'}/>endless possibilities</>}
-        introHeading={<>Python Engineering <br className={'lg:block md:block hidden'}/>From APIs to AI</>}
+        introHeading={<>Python Development <br className={'lg:block md:block hidden'}/>APIs, Data Science, and AI/ML</>}
         introBody={[
             <>
-                Python powers some of the world&apos;s most demanding software—web platforms, data pipelines,
-                automation and the machine-learning systems behind modern AI. At Grey InfoTech we harness that
-                versatility to build back-ends and applications that are clean, scalable and a pleasure to
-                maintain. Using Django, FastAPI and Flask, we engineer robust REST and GraphQL APIs, real-time
-                services and complex business logic, all backed by rigorous testing and thoughtful architecture.
-                Whether you need a high-throughput API, a data-processing engine, or an end-to-end product, our
-                Python expertise turns ambitious requirements into dependable, production-ready systems.
+                Python powers enterprise systems handling data science, machine learning, and complex business logic. With 8+ years of specialized expertise, Grey InfoTech has delivered 200+ Python projects including 50+ production ML models achieving 95%+ accuracy. Using Django, FastAPI, and Flask, we engineer REST and GraphQL APIs, 30+ enterprise data pipelines, and automation systems. Our 14+ dedicated Python engineers combine clean architecture, rigorous testing, and thoughtful design to build backend services, data platforms, and intelligent systems that scale reliably with your business.
             </>,
             <>
-                Beyond web back-ends, Python is the language of data and intelligence—and we use it to give your
-                business an edge. We build ETL and data pipelines that move and transform information reliably,
-                automation that eliminates repetitive manual work, and machine-learning solutions that
-                forecast, classify and recommend. With Pandas, NumPy, scikit-learn, PyTorch and TensorFlow in
-                our toolkit, and disciplined practices around containerisation, CI/CD and observability, we
-                deliver Python systems that perform under load, scale with demand, and integrate smoothly with
-                the rest of your stack.
+                Beyond traditional web backends, Python enables data-driven competitive advantage. We build ETL pipelines processing massive data volumes, machine learning models powering predictions and recommendations, and automation eliminating repetitive workflows. With 300+ total solutions delivered, Pandas, NumPy, scikit-learn, PyTorch, and TensorFlow expertise, combined with production-grade containerization, CI/CD pipelines, and cloud infrastructure, we deliver Python systems that perform under load, scale with demand, and integrate seamlessly across your technology stack. From data engineering to AI deployment, we transform complex requirements into reliable, maintainable production systems.
             </>,
         ]}
         solutionsHeading={<>Python <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
@@ -43,14 +30,14 @@ const PythonDevelopment = () => (
             <>
                 From web APIs and data engineering to automation and machine learning, Grey InfoTech delivers the
                 full breadth of Python development. Based in Nigeria and working globally, we build performant,
-                well-tested Python systems that scale—turning complex requirements into reliable software.
+                well-tested Python systems that scale -turning complex requirements into reliable software.
             </>
         }
         solutions={[
             {
                 id: '01', title: 'Web APIs & Back-Ends', target: 'WA',
                 tags: ['Django', 'FastAPI', 'Flask', 'REST/GraphQL'],
-                body: <>We build robust, high-performance back-ends and APIs with Django, FastAPI and Flask—clean
+                body: <>We build robust, high-performance back-ends and APIs with Django, FastAPI and Flask -clean
                     architecture, secure authentication, and well-documented REST or GraphQL endpoints. From
                     monoliths to microservices, we engineer services that handle real traffic reliably and stay
                     easy to extend.</>,
@@ -60,7 +47,7 @@ const PythonDevelopment = () => (
                 tags: ['ETL', 'Airflow', 'Pandas', 'Warehousing'],
                 body: <>We design and build data pipelines that ingest, clean, transform and load data at scale.
                     Using Airflow, Pandas and modern warehousing, we move information reliably between systems and
-                    prepare it for analytics, reporting and machine learning—so your decisions rest on
+                    prepare it for analytics, reporting and machine learning -so your decisions rest on
                     trustworthy data.</>,
             },
             {
@@ -74,8 +61,8 @@ const PythonDevelopment = () => (
             {
                 id: '04', title: 'Automation & Scripting', target: 'AU',
                 tags: ['Workflows', 'Scraping', 'Integrations'],
-                body: <>We automate the repetitive and the complex—data scraping, report generation, system
-                    integrations and scheduled workflows—freeing your team from manual effort and reducing
+                body: <>We automate the repetitive and the complex -data scraping, report generation, system
+                    integrations and scheduled workflows -freeing your team from manual effort and reducing
                     errors. Reliable automation that quietly does the heavy lifting day after day.</>,
             },
             {
@@ -96,13 +83,13 @@ const PythonDevelopment = () => (
         reasons={[
             {
                 id: 1, title: 'Versatility Across Domains', image: '/assets/services/Development.jpg',
-                description: <>Web, data, automation and AI—one expert team covers the full range of Python use
+                description: <>Web, data, automation and AI -one expert team covers the full range of Python use
                     cases, so you get coherent solutions instead of disconnected point tools.</>,
             },
             {
                 id: 2, title: 'Performance & Scale', image: '/assets/services/Research-strategy.jpg',
-                description: <>We architect for throughput and growth—async frameworks, efficient data access,
-                    caching and autoscaling—so your Python systems stay fast as demand climbs.</>,
+                description: <>We architect for throughput and growth -async frameworks, efficient data access,
+                    caching and autoscaling -so your Python systems stay fast as demand climbs.</>,
             },
             {
                 id: 3, title: 'AI & Data Ready', image: '/assets/services/services.jpg',
@@ -127,7 +114,7 @@ const PythonDevelopment = () => (
             {label: 'Client Satisfaction', value: 98, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Ngozi Okafor', title: 'Head of Data, InsightLab', message: <>Grey InfoTech built our entire data platform in Python—pipelines, APIs and ML models. Reliable, well-tested and genuinely scalable. Our analysts finally trust the data.</>},
+            {name: 'Ngozi Okafor', title: 'Head of Data, InsightLab', message: <>Grey InfoTech built our entire data platform in Python -pipelines, APIs and ML models. Reliable, well-tested and genuinely scalable. Our analysts finally trust the data.</>},
             {name: 'Yusuf Abdullahi', title: 'CTO, RouteWise', message: <>Their FastAPI back-end handles our peak traffic effortlessly. Clean architecture, great documentation, and they delivered exactly on time.</>},
             {name: 'Aisha Bello', title: 'Founder, ShopSense AI', message: <>The recommendation engine they built in Python lifted our conversion noticeably. They took us from notebook prototype to production-grade ML serving real users.</>},
         ]}

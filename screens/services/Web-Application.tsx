@@ -25,10 +25,10 @@ const WebApplication = () => (
                 and user experience to create applications that users actually want to use.
             </>,
             <>
-                Web applications offer unmatched accessibility—no installation required, automatic updates, and reach across devices.
+                Web applications offer unmatched accessibility -no installation required, automatic updates, and reach across devices.
                 Modern browser APIs enable offline functionality, push notifications, and near-native performance. We build progressive web apps
                 that start simple but offer app-like experiences when installed. SaaS platforms that scale to millions of users. Content systems
-                that power publishing at scale. Web applications are no longer second-class citizens compared to native apps—they're often the
+                that power publishing at scale. Web applications are no longer second-class citizens compared to native apps -they're often the
                 smarter choice for reaching users across devices and platforms.
             </>,
         ]}
@@ -64,7 +64,7 @@ const WebApplication = () => (
             {
                 id: '05', title: 'Collaboration & Productivity Tools', target: 'CD',
                 tags: ['Real-time', 'Collaboration', 'Features'],
-                body: <>We build collaboration tools enabling teams to work together—document editing, task management, communication, and workflow automation. Real-time synchronization and responsive UI create seamless collaboration experiences.</>,
+                body: <>We build collaboration tools enabling teams to work together -document editing, task management, communication, and workflow automation. Real-time synchronization and responsive UI create seamless collaboration experiences.</>,
             },
             {
                 id: '06', title: 'Analytics & Reporting Dashboards', target: 'MS',
@@ -75,7 +75,7 @@ const WebApplication = () => (
         reasons={[
             {
                 id: 1, title: 'Universal Accessibility', image: '/assets/services/Development.jpg',
-                description: <>Web applications work on any device with a browser—desktop, tablet, mobile. No installation required. Users stay updated automatically as you deploy changes.</>,
+                description: <>Web applications work on any device with a browser -desktop, tablet, mobile. No installation required. Users stay updated automatically as you deploy changes.</>,
             },
             {
                 id: 2, title: 'Modern Capabilities', image: '/assets/services/Research-strategy.jpg',

@@ -6,7 +6,7 @@ import '@/app/globals.css';
 import { useIsDayTime } from '../components/useIsDayTime';
 import { FxBackground, FxChip, FxSectionHeading, FxButton, FxReveal, FxGlitchText, FxTerminal } from '@/components/futuristic/fx';
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+//  -  -  -  Types  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
 
 interface JobOpening {
     id: number;
@@ -26,13 +26,13 @@ interface JobOpening {
     created_at: string;
 }
 
-// ─── Data ────────────────────────────────────────────────────────────────────
+//  -  -  -  Data  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
 
 const perks = [
     { num: '01', title: 'Remote-first', body: 'Work from anywhere in the world. We care about great output, not where you open your laptop.', icon: '🌍' },
     { num: '02', title: 'Learning budget', body: 'Yearly budget for courses, books, and conferences. Growth is part of the job.', icon: '📚' },
     { num: '03', title: 'Ownership culture', body: 'Propose, build, ship. Every team member has real influence on what we make.', icon: '🚀' },
-    { num: '04', title: 'Real products', body: 'Ship features that real people use every day — no throwaway projects.', icon: '⚡' },
+    { num: '04', title: 'Real products', body: 'Ship features that real people use every day  - no throwaway projects.', icon: '⚡' },
 ];
 
 const techStack = ['React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'PostgreSQL', 'AWS', 'Docker'];
@@ -47,7 +47,7 @@ const ROLES = [
 const EXP_LEVELS = ['< 1 year', '1 – 2 years', '3 – 5 years', '5 – 8 years', '8+ years'];
 const AVAILABILITY = [
     'Immediately', 'Within 2 weeks', 'Within 1 month', '1 – 3 months',
-    'Not actively looking — open to the right role',
+    'Not actively looking  - open to the right role',
 ];
 const WORK_TYPES = ['Full-time', 'Part-time', 'Contract / Freelance', 'Internship'];
 
@@ -69,7 +69,7 @@ const TYPE_COLOR: Record<string, string> = {
     'remote': '#22c55e',
 };
 
-// ─── Shared file upload component ────────────────────────────────────────────
+//  -  -  -  Shared file upload component  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
 
 interface DocUploadProps {
     dark: boolean;
@@ -152,7 +152,7 @@ function DocUpload({ dark, files, onChange, label = 'Supporting Documents', sect
                     Drag & drop files here, or <span className="text-teal-400">browse</span>
                 </p>
                 <p className={`text-[0.75em] ${dark ? 'text-gray-600' : 'text-gray-400'}`}>
-                    PDF, DOC, DOCX, PNG, JPG — {files.length}/5 uploaded
+                    PDF, DOC, DOCX, PNG, JPG  - {files.length}/5 uploaded
                 </p>
             </div>
 
@@ -172,7 +172,7 @@ function DocUpload({ dark, files, onChange, label = 'Supporting Documents', sect
                                 onClick={e => { e.stopPropagation(); remove(i); }}
                                 className={`text-[1em] transition-opacity hover:opacity-70 ${dark ? 'text-gray-500' : 'text-gray-400'}`}
                                 aria-label="Remove file"
-                            >✕</button>
+                            > -</button>
                         </li>
                     ))}
                 </ul>
@@ -181,7 +181,7 @@ function DocUpload({ dark, files, onChange, label = 'Supporting Documents', sect
     );
 }
 
-// ─── Job Detail Modal ─────────────────────────────────────────────────────────
+//  -  -  -  Job Detail Modal  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
 
 interface JobDetailModalProps {
     job: JobOpening;
@@ -346,7 +346,7 @@ function JobSection({ dark, title, items, icon, accentColor = 'teal' }: {
     );
 }
 
-// ─── Job Apply Modal (applies to a specific opening) ─────────────────────────
+//  -  -  -  Job Apply Modal (applies to a specific opening)  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
 
 interface JobApplyModalProps {
     job: JobOpening;
@@ -472,7 +472,7 @@ function JobApplyModal({ job, isDayTime, onClose }: JobApplyModalProps) {
                     <div className="text-center mb-10">
                         <FxChip day={isDayTime} className="mb-4">{job.department || 'Open Role'}</FxChip>
                         <FxGlitchText tag="h2" className="text-[2em] md:text-[2.6em] font-[900] tracking-tight leading-[1.1] mb-3">
-                            Apply — <span className="gx-gradient-text">{job.title}</span>
+                            Apply  - <span className="gx-gradient-text">{job.title}</span>
                         </FxGlitchText>
                         <div className="flex flex-wrap items-center justify-center gap-2 mt-4">
                             {job.location && <span className={`text-[0.8em] ${dark ? 'text-gray-400' : 'text-gray-500'}`}>📍 {job.location}</span>}
@@ -545,7 +545,7 @@ function JobApplyModal({ job, isDayTime, onClose }: JobApplyModalProps) {
                                         <p className={`font-[600] text-[0.9em] mb-1 ${dark ? 'text-gray-300' : 'text-gray-700'}`}>
                                             Drag & drop your CV here, or <span className="text-teal-400">browse</span>
                                         </p>
-                                        <p className={`text-[0.78em] ${dark ? 'text-gray-500' : 'text-gray-400'}`}>PDF, DOC, DOCX — max 5 MB</p></>
+                                        <p className={`text-[0.78em] ${dark ? 'text-gray-500' : 'text-gray-400'}`}>PDF, DOC, DOCX  - max 5 MB</p></>
                                     )}
                                 </div>
                             </div>
@@ -603,7 +603,7 @@ function JobApplyModal({ job, isDayTime, onClose }: JobApplyModalProps) {
     );
 }
 
-// ─── Apply Form (Send CV — no specific job) ───────────────────────────────────
+//  -  -  -  Apply Form (Send CV  - no specific job)  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
 
 function ApplyForm({ isDayTime, onClose }: { isDayTime: boolean; onClose: () => void }) {
     const dark = !isDayTime;
@@ -766,7 +766,7 @@ function ApplyForm({ isDayTime, onClose }: { isDayTime: boolean; onClose: () => 
                                 <p className={`font-[600] text-[0.9em] mb-1 ${dark ? 'text-gray-300' : 'text-gray-700'}`}>
                                     Drag & drop your CV here, or <span className="text-teal-400">browse</span>
                                 </p>
-                                <p className={`text-[0.78em] ${dark ? 'text-gray-500' : 'text-gray-400'}`}>PDF, DOC, DOCX — max 5 MB</p></>
+                                <p className={`text-[0.78em] ${dark ? 'text-gray-500' : 'text-gray-400'}`}>PDF, DOC, DOCX  - max 5 MB</p></>
                             )}
                         </div>
                     </div>
@@ -822,7 +822,7 @@ function ApplyForm({ isDayTime, onClose }: { isDayTime: boolean; onClose: () => 
     );
 }
 
-// ─── Introduce Form ───────────────────────────────────────────────────────────
+//  -  -  -  Introduce Form  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
 
 function IntroduceForm({ isDayTime, onClose }: { isDayTime: boolean; onClose: () => void }) {
     const dark = !isDayTime;
@@ -855,7 +855,7 @@ function IntroduceForm({ isDayTime, onClose }: { isDayTime: boolean; onClose: ()
             const enriched = `${form.cover_letter}${form.availability ? `\n\nAvailability: ${form.availability}` : ''}${form.work_type ? `\nWork Type: ${form.work_type}` : ''}`;
 
             if (docFiles.length) {
-                // multipart — include docs
+                // multipart  - include docs
                 const fd = new FormData();
                 fd.append('form_type', 'self_introduction');
                 Object.entries({ ...form, cover_letter: enriched }).forEach(([k, v]) => fd.append(k, v));
@@ -920,7 +920,7 @@ function IntroduceForm({ isDayTime, onClose }: { isDayTime: boolean; onClose: ()
                 </div>
                 <div className="lg:col-span-2">
                     <FxTerminal day={isDayTime} lines={[
-                        '# grey infotech — talent radar',
+                        '# grey infotech  - talent radar',
                         'npm run meet-the-team', '',
                         '> Scanning incoming profile...',
                         '> Indexing skills...',
@@ -996,7 +996,7 @@ function IntroduceForm({ isDayTime, onClose }: { isDayTime: boolean; onClose: ()
                             <span className={sectionLabel}>Your Introduction <span className="text-red-400 normal-case font-[500] tracking-normal">*</span></span></div>
                         <div className="relative">
                             <textarea className={`${inputCls} min-h-[200px] resize-y`}
-                                placeholder="Tell us about yourself — what you've built, what drives you, why you're excited about Grey InfoTech, and what you bring to the table."
+                                placeholder="Tell us about yourself  - what you've built, what drives you, why you're excited about Grey InfoTech, and what you bring to the table."
                                 value={form.cover_letter} onChange={set('cover_letter')} rows={8} required />
                             <span className={`absolute bottom-3 right-4 text-[0.72em] tabular-nums ${
                                 charCount < 50 ? 'text-red-400/60' : dark ? 'text-gray-600' : 'text-gray-400'
@@ -1046,7 +1046,7 @@ function IntroduceForm({ isDayTime, onClose }: { isDayTime: boolean; onClose: ()
     );
 }
 
-// ─── Career Modal Shell ───────────────────────────────────────────────────────
+//  -  -  -  Career Modal Shell  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
 
 interface CareerModalProps {
     type: ModalType;
@@ -1098,7 +1098,7 @@ function CareerModal({ type, onClose, isDayTime }: CareerModalProps) {
     );
 }
 
-// ─── Job Card ─────────────────────────────────────────────────────────────────
+//  -  -  -  Job Card  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
 
 function JobCard({ job, isDayTime, onClick }: { job: JobOpening; isDayTime: boolean; onClick: () => void }) {
     const dark = !isDayTime;
@@ -1167,7 +1167,7 @@ function JobCard({ job, isDayTime, onClick }: { job: JobOpening; isDayTime: bool
     );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+//  -  -  -  Main Page  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
 
 const Careers: React.FC = () => {
     const isDayTime = useIsDayTime();
@@ -1221,12 +1221,12 @@ const Careers: React.FC = () => {
     return (
         <div className={`${dark ? 'bg-[#050810] text-white' : 'bg-white text-black'} min-h-screen transition-colors duration-500`}>
 
-            {/* ── Generic modals (apply / introduce) ── */}
+            {/*  -  -  Generic modals (apply / introduce)  -  -  */}
             {(activeModal === 'apply' || activeModal === 'introduce') && (
                 <CareerModal type={activeModal} onClose={closeModal} isDayTime={isDayTime} />
             )}
 
-            {/* ── Job detail modal ── */}
+            {/*  -  -  Job detail modal  -  -  */}
             {selectedJob && activeModal !== 'job-apply' && (
                 <JobDetailModal
                     job={selectedJob}
@@ -1239,7 +1239,7 @@ const Careers: React.FC = () => {
                 />
             )}
 
-            {/* ── Job apply modal ── */}
+            {/*  -  -  Job apply modal  -  -  */}
             {activeModal === 'job-apply' && selectedJob && (
                 <JobApplyModal
                     job={selectedJob}
@@ -1248,7 +1248,7 @@ const Careers: React.FC = () => {
                 />
             )}
 
-            {/* ── Hero ── */}
+            {/*  -  -  Hero  -  -  */}
             <section className="relative overflow-hidden min-h-[76vh] flex flex-col justify-end">
                 <Image
                     src="/assets/header/careers.jpg"
@@ -1284,7 +1284,7 @@ const Careers: React.FC = () => {
                 </div>
             </section>
 
-            {/* ── Intro ── */}
+            {/*  -  -  Intro  -  -  */}
             <section
                 className={`pt-16 transition-colors duration-500 ${
                     isDayTime ? 'bg-white text-black' : 'bg-black text-white'
@@ -1311,7 +1311,7 @@ const Careers: React.FC = () => {
                 </div>
             </section>
 
-            {/* ── Job Listings ── */}
+            {/*  -  -  Job Listings  -  -  */}
             <section className="relative z-10 px-4 sm:px-6 md:px-10 lg:px-[4.5em] pb-20">
                 <div className="max-w-[90rem] mx-auto">
                     {jobsLoading ? (
@@ -1392,7 +1392,7 @@ const Careers: React.FC = () => {
                 </div>
             </section>
 
-            {/* ── Why join us ── */}
+            {/*  -  -  Why join us  -  -  */}
             <section className={`relative overflow-hidden py-28 px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${dark ? 'bg-black/30' : 'bg-teal-950'} text-white`}>
                 <FxBackground day={false} grid aurora className="opacity-65" />
                 <div className="gx-scanline pointer-events-none" />
@@ -1402,7 +1402,7 @@ const Careers: React.FC = () => {
                             day={false}
                             eyebrow="Why Grey InfoTech"
                             title="A place where great work happens"
-                            subtitle="We build software people love — in an environment where craft, honesty, and ambition are the default."
+                            subtitle="We build software people love  - in an environment where craft, honesty, and ambition are the default."
                             align="center" className="mb-16 mx-auto"
                         />
                     </FxReveal>
@@ -1421,7 +1421,7 @@ const Careers: React.FC = () => {
                 </div>
             </section>
 
-            {/* ── CTA ── */}
+            {/*  -  -  CTA  -  -  */}
             <section className={`relative z-10 py-24 px-4 sm:px-6 md:px-10 lg:px-[4.5em] text-center ${dark ? '' : 'bg-gray-50'}`}>
                 <FxReveal>
                     <FxChip day={isDayTime} className="mb-6">Stay Connected</FxChip>

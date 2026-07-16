@@ -44,7 +44,7 @@ const PHPDevelopment = () => (
             {
                 id: '01', title: 'Content Management Systems', target: 'WA',
                 tags: ['WordPress', 'Drupal', 'Custom CMS'],
-                body: <>We build and customize powerful content management systems—WordPress for flexibility, Drupal for enterprise complexity, or bespoke solutions for unique requirements. Intuitive admin interfaces, extensibility, and performance optimization ensure your content reaches your audience effectively.</>,
+                body: <>We build and customize powerful content management systems -WordPress for flexibility, Drupal for enterprise complexity, or bespoke solutions for unique requirements. Intuitive admin interfaces, extensibility, and performance optimization ensure your content reaches your audience effectively.</>,
             },
             {
                 id: '02', title: 'eCommerce Platforms', target: 'DE',
@@ -64,12 +64,12 @@ const PHPDevelopment = () => (
             {
                 id: '05', title: 'Legacy System Modernization', target: 'CD',
                 tags: ['Refactoring', 'Migration', 'Security'],
-                body: <>We refactor aging PHP applications—upgrading to modern frameworks, improving security practices, adding tests, and enhancing performance. Gradual modernization minimizes disruption while bringing applications to current standards.</>,
+                body: <>We refactor aging PHP applications -upgrading to modern frameworks, improving security practices, adding tests, and enhancing performance. Gradual modernization minimizes disruption while bringing applications to current standards.</>,
             },
             {
                 id: '06', title: 'Support & Maintenance', target: 'MS',
                 tags: ['Updates', 'Security', 'Performance'],
-                body: <>We provide ongoing support and maintenance for PHP applications—security patches, dependency updates, performance optimization, and feature enhancements. Proactive monitoring and rapid issue resolution keep your systems running reliably.</>,
+                body: <>We provide ongoing support and maintenance for PHP applications -security patches, dependency updates, performance optimization, and feature enhancements. Proactive monitoring and rapid issue resolution keep your systems running reliably.</>,
             },
         ]}
         reasons={[

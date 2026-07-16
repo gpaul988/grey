@@ -19,16 +19,16 @@ const Maritime = () => (
                 The maritime sector is entering a new era of automation, digital-first operations and data-driven decision making. Grey InfoTech builds the software backbone for modern shipping and maritime logistics: voyage optimisation, predictive maintenance for fleets, AIS and sensor aggregation, and secure gateways for satellite and terrestrial telemetry. Our platforms improve berth utilisation, reduce fuel consumption and provide live cargo visibility across multimodal legs.
             </>,
             <>
-                We design hardened, low-bandwidth systems that operate reliably at sea and in port—offline-first dashboards, secure sync, and edge analytics that process sensor data locally before sending summaries to cloud decision platforms. Coupled with ML-driven ETA and demand forecasting, our solutions cut waiting times and demurrage costs while improving environmental performance through smarter routing and hybrid propulsion management.
+                We design hardened, low-bandwidth systems that operate reliably at sea and in port -offline-first dashboards, secure sync, and edge analytics that process sensor data locally before sending summaries to cloud decision platforms. Coupled with ML-driven ETA and demand forecasting, our solutions cut waiting times and demurrage costs while improving environmental performance through smarter routing and hybrid propulsion management.
             </>,
         ]}
         solutionsHeading={<>Maritime<br className="lg:block md:block hidden"/>Software<br className="lg:block md:block hidden"/>Solutions</>}
-        solutionsIntro={<>Port calls, fleet operations and cargo visibility—engineered for reliability and regulatory compliance.</>}
+        solutionsIntro={<>Port calls, fleet operations and cargo visibility -engineered for reliability and regulatory compliance.</>}
         solutions={[
             {
                 id: '01', title: 'Fleet Telemetry & Predictive Maintenance', target: 'FT',
                 tags: ['IoT', 'Predictive Maintenance', 'Telematics'],
-                body: <>Aggregate onboard sensors, run anomaly detection at the edge and schedule maintenance before failures occur—reducing downtime and repair costs.</>,
+                body: <>Aggregate onboard sensors, run anomaly detection at the edge and schedule maintenance before failures occur -reducing downtime and repair costs.</>,
             },
             {
                 id: '02', title: 'Voyage Optimisation & Emissions Management', target: 'VE',
@@ -38,7 +38,7 @@ const Maritime = () => (
             {
                 id: '03', title: 'Cargo Chain Visibility', target: 'CV',
                 tags: ['Tracking', 'Multimodal', 'ETAs'],
-                body: <>End-to-end cargo tracking from port to final mile—integrating manifests, carrier feeds and IoT telemetry to provide trusted ETAs and exception alerts.</>,
+                body: <>End-to-end cargo tracking from port to final mile -integrating manifests, carrier feeds and IoT telemetry to provide trusted ETAs and exception alerts.</>,
             },
             {
                 id: '04', title: 'Port Call & Berth Optimisation', target: 'PB',

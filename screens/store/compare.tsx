@@ -56,12 +56,12 @@ function CompareInner() {
                         </tr>
                     </thead>
                     <tbody className="text-sm">
-                        <Row label="Brand" cells={compare.map((p) => p.brand_name || '—')} />
-                        <Row label="Category" cells={compare.map((p) => p.category_name || '—')} />
-                        <Row label="Rating" cells={compare.map((p) => p.rating ? `${p.rating} ★` : '—')} />
+                        <Row label="Brand" cells={compare.map((p) => p.brand_name || ' -')} />
+                        <Row label="Category" cells={compare.map((p) => p.category_name || ' -')} />
+                        <Row label="Rating" cells={compare.map((p) => p.rating ? `${p.rating} ★` : ' -')} />
                         <Row label="Stock" cells={compare.map((p) => p.stock > 0 ? `${p.stock} available` : 'Out of stock')} />
                         {specKeys.map((k) => (
-                            <Row key={k} label={k} cells={compare.map((p) => (p.specs?.[k]) || '—')} />
+                            <Row key={k} label={k} cells={compare.map((p) => (p.specs?.[k]) || ' -')} />
                         ))}
                     </tbody>
                 </table>

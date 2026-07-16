@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '@/app/globals.css';
 import { LiaLongArrowAltDownSolid } from 'react-icons/lia';
-import FloatingButton from '@/components/FloatingButton';
 import SocialProof from '@/components/SocialProof';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -24,35 +23,35 @@ const WHY_US = [
   {
     num: '01',
     title: 'Battle-Tested Expertise',
-    body: 'Over 8 years shipping real products — MVPs, SaaS platforms, enterprise systems — across 15+ industries. We\'ve solved the hard problems so you don\'t have to.',
-    icon: '◈',
+    body: 'Over 8 years shipping real products  - MVPs, SaaS platforms, enterprise systems  - across 15+ industries. We\'ve solved the hard problems so you don\'t have to.',
+    icon: ' - ',
     color: '#2dd4bf',
   },
   {
     num: '02',
     title: 'Strategy-First Engineering',
     body: 'We combine business strategy with deep technical craft. Every line of code is deliberate, every architecture decision is aligned with your growth roadmap.',
-    icon: '◉',
+    icon: ' - ',
     color: '#06b6d4',
   },
   {
     num: '03',
     title: 'Radical Transparency',
-    body: 'No black boxes. You see the roadmap, the progress, the blockers — in real time. We hold ourselves accountable to outcomes, not just deliverables.',
-    icon: '◎',
+    body: 'No black boxes. You see the roadmap, the progress, the blockers  - in real time. We hold ourselves accountable to outcomes, not just deliverables.',
+    icon: ' - ',
     color: '#7c3aed',
   },
   {
     num: '04',
     title: 'Built to Scale',
     body: 'Architecture designed for where your business is going, not just where it is today. Clean code, cloud-native infra, and performance at every layer.',
-    icon: '◇',
+    icon: ' - ',
     color: '#f59e0b',
   },
   {
     num: '05',
     title: 'End-to-End Ownership',
-    body: 'From discovery to deployment and beyond. We don\'t hand off and disappear — we stay invested in your product\'s long-term success.',
+    body: 'From discovery to deployment and beyond. We don\'t hand off and disappear  - we stay invested in your product\'s long-term success.',
     icon: '⬡',
     color: '#10b981',
   },
@@ -97,18 +96,16 @@ const Home = () => {
   };
 
   const [userName, setUserName] = useState('');
+  const [greetingMessage, setGreetingMessage] = useState('Good morning, working early');
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     setUserName(getAutoUserName());
+    const h = new Date().getHours();
+    if (h < 12) setGreetingMessage('Good morning, working early');
+    else if (h < 18) setGreetingMessage('Good afternoon, crushing it');
+    else setGreetingMessage('Good evening, working late');
     setIsMounted(true);
   }, []);
-
-  const getGreetingMessage = () => {
-    const h = new Date().getHours();
-    if (h < 12) return 'Good morning, working early';
-    if (h < 18) return 'Good afternoon, crushing it';
-    return 'Good evening, working late';
-  };
 
   // Auto-cycle Why Us
   useEffect(() => {
@@ -120,9 +117,8 @@ const Home = () => {
 
   return (
     <div className={`${isHydrated ? (isDayTime ? 'bg-white' : 'bg-black') : 'bg-white'} min-h-screen`}>
-      <FloatingButton />
 
-      {/* ── Hero ── */}
+      {/*  -  -  Hero  -  -  */}
       <div id="hero" className="relative">
         <ResponsiveVideoHero
           videoDesktop="/assets/hero/hero.mp4"
@@ -142,7 +138,7 @@ const Home = () => {
             {isMounted && (
               <span className={`grey-parallax-soft inline-flex items-center gap-2 rounded-full px-3 py-1 mb-2 text-xs font-medium backdrop-blur-sm border ${isHydrated && isDayTime ? 'bg-white/40 border-teal-700/30 text-teal-900' : 'bg-white/10 border-white/20 text-teal-100'}`}>
                 <span className="h-1.5 w-1.5 rounded-full bg-teal-400 animate-pulse" />
-                {userName ? `${getGreetingMessage()}, ${userName}!` : getGreetingMessage()}
+                {userName ? `${greetingMessage}, ${userName}!` : greetingMessage}
               </span>
             )}
             <h1 className={`grey-parallax-mid ${isHydrated && isDayTime ? 'text-black' : 'text-white'} lg:text-[87px] text-[45px] lg:leading-[1.1] md:leading-[1.1] leading-[1.2] font-[600] lg:mb-6`}>
@@ -163,7 +159,7 @@ const Home = () => {
         </ResponsiveVideoHero>
       </div>
 
-      {/* ── Intro ── */}
+      {/*  -  -  Intro  -  -  */}
       <section
         ref={sectionRef}
         data-bg={isBackgroundActive ? (isDayTime ? 'Dark' : 'Light') : (isDayTime ? 'Light' : 'Dark')}
@@ -200,10 +196,10 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── Services ── */}
+      {/*  -  -  Services  -  -  */}
       <ServicesSection isDayTime={isDayTime} />
 
-      {/* ── WHY US — Full Cinematic Redesign ── */}
+      {/*  -  -  WHY US  - Full Cinematic Redesign  -  -  */}
       <section className={`relative overflow-hidden ${isDayTime ? 'bg-[#020f0d]' : 'bg-[#03060e]'} text-white`}>
         {/* Animated grid */}
         <div className="pointer-events-none absolute inset-0" style={{
@@ -237,7 +233,7 @@ const Home = () => {
             </p>
           </FxReveal>
 
-          {/* Why Us Grid — interactive cards */}
+          {/* Why Us Grid  - interactive cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-20">
             {WHY_US.map((item, i) => (
               <motion.div
@@ -282,7 +278,7 @@ const Home = () => {
             ))}
           </div>
 
-          {/* Horizontal scroll — extended feature strip */}
+          {/* Horizontal scroll  - extended feature strip */}
           <FxReveal>
             <div className="border border-white/08 rounded-3xl p-8 lg:p-12 overflow-hidden">
               <div className="flex items-center gap-4 mb-10">
@@ -323,7 +319,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── Digital Adventure ── */}
+      {/*  -  -  Digital Adventure  -  -  */}
       <section id="Adventure-section" className={`relative overflow-hidden ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
         <div className="pointer-events-none absolute inset-0" style={{
           backgroundImage: `linear-gradient(${isDayTime ? 'rgba(45,212,191,0.06)' : 'rgba(13,148,136,0.07)'} 1px, transparent 1px), linear-gradient(90deg, ${isDayTime ? 'rgba(45,212,191,0.06)' : 'rgba(13,148,136,0.07)'} 1px, transparent 1px)`,
@@ -359,7 +355,7 @@ const Home = () => {
                     <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }}
                       className="px-4 py-2 rounded-full backdrop-blur-md text-[0.72em] font-semibold tracking-wider text-teal-300"
                       style={{ background: 'rgba(0,0,0,0.65)', border: '1px solid rgba(45,212,191,0.35)' }}>
-                      ◈ MVPs · Platforms · Scale
+                       -  MVPs · Platforms · Scale
                     </motion.div>
                   </div>
                 </div>
@@ -425,7 +421,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── Trust Signals ── */}
+      {/*  -  -  Trust Signals  -  -  */}
       <section className={`relative overflow-hidden ${isDayTime ? 'bg-[#020f0d] text-white' : 'bg-teal-50 text-teal-900'}`}>
         <div className="pointer-events-none absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, #2dd4bf 2px, #2dd4bf 3px)', backgroundSize: '100% 3px' }} />
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -453,10 +449,10 @@ const Home = () => {
             variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.05 } } }}
           >
             {[
-              { value: 50,   label: 'Projects Delivered', suffix: '+', icon: '◈' },
-              { value: 15,   label: 'Industries Served',   suffix: '+', icon: '◉' },
-              { value: 99.9, label: 'Uptime SLA',          suffix: '%', icon: '◎' },
-              { value: 8,    label: 'Years Experience',    suffix: '+', icon: '◇' },
+              { value: 50,   label: 'Projects Delivered', suffix: '+', icon: ' - ' },
+              { value: 15,   label: 'Industries Served',   suffix: '+', icon: ' - ' },
+              { value: 99.9, label: 'Uptime SLA',          suffix: '%', icon: ' - ' },
+              { value: 8,    label: 'Years Experience',    suffix: '+', icon: ' - ' },
             ].map((item, idx) => (
               <motion.div key={item.label} className="gx-card group relative cursor-default" data-day={isDayTime ? 'false' : 'true'}
                 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
@@ -512,7 +508,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── AI Estimator ── */}
+      {/*  -  -  AI Estimator  -  -  */}
       <div className={`relative -mt-18 py-16 mx-auto px-4 sm:px-[2em] md:px-[3.2em] lg:px-[4.6em] mb-8 max-w-full w-full h-auto ${isDayTime ? 'bg-teal-100 text-teal-900' : 'bg-teal-950 text-white'}`}>
         <AIProjectEstimator />
       </div>
@@ -523,3 +519,5 @@ const Home = () => {
 };
 
 export default Home;
+
+

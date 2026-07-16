@@ -93,7 +93,7 @@ function Inner() {
                 </div>
             ) : done ? (
                 <div className="rounded-lg border border-[var(--st-teal)]/40 bg-[var(--st-teal)]/10 p-4 text-sm mt-2">
-                    Password updated — you&apos;re signed in. Redirecting to your account…
+                    Password updated  - you&apos;re signed in. Redirecting to your account…
                 </div>
             ) : (
                 <>

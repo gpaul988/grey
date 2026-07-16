@@ -48,7 +48,7 @@ function OrderInner() {
                     const payload: Record<string, string> = { gateway, reference: (reference || trxref || String(ref)) };
                     if (transaction_id) payload.transaction_id = transaction_id;
                     await api('/api/store/payment/verify', { method: 'POST', body: JSON.stringify(payload) });
-                } catch { /* ignore — show status from order */ }
+                } catch { /* ignore  - show status from order */ }
                 setVerifying(false);
             }
             await load();
@@ -97,9 +97,9 @@ function OrderInner() {
                 <div className="st-card p-6 mb-6">
                     <p className="font-bold text-[var(--st-teal)] mb-2">Bank Transfer Details</p>
                     <div className="text-sm space-y-1">
-                        <p>Bank: <b>{config.bank_transfer.bank_name || '—'}</b></p>
-                        <p>Account Number: <b>{config.bank_transfer.account_number || '—'}</b></p>
-                        <p>Account Name: <b>{config.bank_transfer.account_name || '—'}</b></p>
+                        <p>Bank: <b>{config.bank_transfer.bank_name || ' -'}</b></p>
+                        <p>Account Number: <b>{config.bank_transfer.account_number || ' -'}</b></p>
+                        <p>Account Name: <b>{config.bank_transfer.account_name || ' -'}</b></p>
                         <p>Amount: <b>{fmt(order.total)}</b></p>
                         <p className="text-[var(--st-muted)] text-xs mt-2">Reference: {order.order_number}</p>
                     </div>
@@ -113,7 +113,7 @@ function OrderInner() {
                         <div key={it.id} className="flex gap-3 text-sm items-center">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img src={it.product_image || ''} alt="" className="w-12 h-12 rounded-lg object-cover bg-[var(--st-surface-2)]" />
-                            <div className="flex-1"><p>{it.product_name}</p><p className="text-[var(--st-muted)]">×{it.quantity}</p></div>
+                            <div className="flex-1"><p>{it.product_name}</p><p className="text-[var(--st-muted)]"> -{it.quantity}</p></div>
                             <span>{fmt(it.total_price)}</span>
                         </div>
                     ))}

@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * SiteSearch — futuristic header searchbar.
+ * SiteSearch  - futuristic header searchbar.
  *
  * - Slim neon input in the header that opens a glassy results dropdown.
  * - Fuzzy/substring search over the static SEARCH_INDEX (pages, services,
@@ -32,11 +32,11 @@ function score(entry: SearchEntry, q: string): number {
 }
 
 const CAT_ICON: Record<string, string> = {
-    Service: '◆',
-    Industry: '◈',
-    Store: '▣',
+    Service: ' - ',
+    Industry: ' - ',
+    Store: ' - ',
     Tool: '⚙',
-    Page: '●',
+    Page: ' - ',
 };
 
 export default function SiteSearch({variant = 'desktop'}: {variant?: 'desktop' | 'mobile'}) {
@@ -152,7 +152,7 @@ export default function SiteSearch({variant = 'desktop'}: {variant?: 'desktop' |
                                 onClick={() => go(r)}
                             >
                                 <span className="grey-search__cat" aria-hidden="true">
-                                    {CAT_ICON[r.category] ?? '●'}
+                                    {CAT_ICON[r.category] ?? ' - '}
                                 </span>
                                 <span className="grey-search__title">{r.title}</span>
                                 <span className="grey-search__tag">{r.category}</span>

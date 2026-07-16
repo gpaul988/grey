@@ -1,9 +1,7 @@
 'use client';
 
-
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import ServiceHero from '@/components/futuristic/ServiceHero';
@@ -29,7 +27,6 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
     const {scrollYProgress} = useScroll({target: targetRef});
     const x = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
 
-
     // Floating button visibility hook
     useEffect(() => {
         const handleScroll = () => {
@@ -43,7 +40,6 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
 
     // isDaytime react hook
     const isDayTime = useIsDayTime();
-
 
     // Introductory section hook
     useEffect(() => {
@@ -150,11 +146,6 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
     ];
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             <ServiceHero
                 title="Front-End Development"
@@ -195,7 +186,7 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                             className='grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]'>
                             <div>
                                 <p>
-                                    At Grey InfoTech, we go beyond building interfaces—we create complete digital
+                                    At Grey InfoTech, we go beyond building interfaces -we create complete digital
                                     experiences that align with your business objectives. By combining creative vision,
                                     deep technical expertise, and a strong focus on user-centric design, we deliver
                                     solutions that not only look impressive but also drive results. Whether you&#39;re
@@ -326,7 +317,7 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                                 Leveraging the latest technologies and frameworks, we build scalable, future-proof
                                 platforms that support long-term growth and adaptability. Every element is crafted to
                                 drive engagement, communicate value clearly, and guide users toward meaningful
-                                action—ultimately helping your business convert, grow, and lead in its space.
+                                action -ultimately helping your business convert, grow, and lead in its space.
                             </p>
                         </div>
                         <div id={'CFD'} className={`mt-[3em]`}>
@@ -368,7 +359,7 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                                 efficient state management. Our SPAs eliminate unnecessary page reloads, ensuring that
                                 users can navigate smoothly and interact in real time. This approach not only enhances
                                 performance and responsiveness but also reduces bounce rates and increases user
-                                engagement—delivering digital experiences that feel modern, intuitive, and built for
+                                engagement -delivering digital experiences that feel modern, intuitive, and built for
                                 speed.
                             </p>
                         </div>
@@ -405,7 +396,7 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                             <p className='text-justify text-[0.85em] font-[400] hover:border-animation'>
                                 Our Progressive Web Apps (PWAs) bring app-like functionality to the web, offering
                                 features such as offline access, push notifications, and home screen
-                                installation—without the need for app store downloads. Designed with speed, usability,
+                                installation -without the need for app store downloads. Designed with speed, usability,
                                 and reliability in mind, our PWAs deliver seamless, consistent user experiences across
                                 all devices and browsers. Using technologies like Service Workers and Web App Manifests,
                                 we create robust platforms that load quickly, perform well under pressure, and remain
@@ -487,7 +478,7 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                                 codebases, and ensuring full compliance with current web standards. Our process begins
                                 with a comprehensive audit to uncover performance bottlenecks, UI/UX limitations, and
                                 architectural inefficiencies. From there, we deliver a complete front-end
-                                overhaul—transforming your platform into a fast, responsive, and scalable solution that
+                                overhaul -transforming your platform into a fast, responsive, and scalable solution that
                                 not only meets but exceeds modern user expectations. Let us help you future-proof your
                                 digital presence.
                             </p>
@@ -734,7 +725,7 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                                         real user interactions, allowing us to validate functionality, usability, and
                                         design early in the process. This approach helps reduce development risk,
                                         uncover potential issues, and refine the product before full-scale
-                                        implementation—ensuring a smoother path to launch and a solution that meets both
+                                        implementation -ensuring a smoother path to launch and a solution that meets both
                                         business and user expectations.
                                     </p>
                                 </div>
@@ -941,7 +932,7 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                                     We use CSS3 along with advanced layout techniques like Flexbox and Grid to build
                                     responsive, visually compelling designs that adapt seamlessly across all screen
                                     sizes. By leveraging preprocessors such as SASS and LESS, we write modular,
-                                    maintainable, and scalable stylesheets—enabling faster development and consistent
+                                    maintainable, and scalable stylesheets -enabling faster development and consistent
                                     design systems that grow with your product.
                                 </p>
                             </div>
@@ -1078,8 +1069,8 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                         <p className={'text-[0.873em] text-justify font-[300]'}>
                             Custom web applications offer the flexibility to evolve alongside your business, adapting to
                             new processes, markets, or customer needs without requiring a complete rebuild. With
-                            scalable server architecture, you can adjust resources on demand—scaling up during peak
-                            periods or down during quieter times—ensuring optimal performance and cost-efficiency as
+                            scalable server architecture, you can adjust resources on demand -scaling up during peak
+                            periods or down during quieter times -ensuring optimal performance and cost-efficiency as
                             your company grows.
                         </p>
                     </div>
@@ -1099,7 +1090,7 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                             across all devices, delivering a seamless and consistent user experience whether visitors
                             are browsing on desktop, tablet, or mobile. This not only enhances usability and engagement
                             but also strengthens your brand’s credibility, reduces bounce rates, and supports better
-                            performance in search rankings—key factors in driving business success in a digital-first
+                            performance in search rankings -key factors in driving business success in a digital-first
                             world.
                         </p>
                     </div>
@@ -1116,7 +1107,7 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                         </h5>
                         <p className={'text-[0.873em] text-justify font-[300]'}>
                             A visually appealing and user-friendly interface plays a crucial role in guiding users
-                            through key actions—such as signing up, making a purchase, or engaging with content—by
+                            through key actions -such as signing up, making a purchase, or engaging with content -by
                             creating intuitive navigation and reducing friction at every step. When users can interact
                             with your platform effortlessly and confidently, it not only enhances their experience but
                             also significantly improves conversion rates and contributes to overall business growth.
@@ -1134,8 +1125,8 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                             Enhanced User Experience
                         </h5>
                         <p className={'text-[0.873em] text-justify font-[300]'}>
-                            Optimising front-end code and assets—such as compressing images, minifying CSS and
-                            JavaScript, and leveraging browser caching—significantly improves load times. Faster
+                            Optimising front-end code and assets -such as compressing images, minifying CSS and
+                            JavaScript, and leveraging browser caching -significantly improves load times. Faster
                             websites reduce bounce rates, keep users engaged longer, and enhance the overall user
                             experience. In addition to boosting conversion rates, these improvements also contribute to
                             better SEO performance, as search engines prioritise speed and usability in their rankings.
@@ -1153,8 +1144,8 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                             Scalability & Future Proofing
                         </h5>
                         <p className={'text-[0.873em] text-justify font-[300]'}>
-                            Optimising front-end code and assets—such as compressing images, minifying CSS and
-                            JavaScript, and leveraging browser caching—significantly improves load times. Faster
+                            Optimising front-end code and assets -such as compressing images, minifying CSS and
+                            JavaScript, and leveraging browser caching -significantly improves load times. Faster
                             websites reduce bounce rates, keep users engaged longer, and enhance the overall user
                             experience. In addition to boosting conversion rates, these improvements also contribute to
                             better SEO performance, as search engines prioritise speed and usability in their rankings.
@@ -1172,8 +1163,8 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                             SEO Benefits
                         </h5>
                         <p className={'text-[0.873em] text-justify font-[300]'}>
-                            Properly structured and optimised front-end code—such as using semantic HTML, clean URLs,
-                            responsive design, and fast-loading assets—enhances your site’s search engine optimisation
+                            Properly structured and optimised front-end code -such as using semantic HTML, clean URLs,
+                            responsive design, and fast-loading assets -enhances your site’s search engine optimisation
                             (SEO). This makes it easier for search engines to crawl and index your content, improving
                             visibility in search results and driving more organic traffic to your website. A strong
                             front-end foundation is essential for long-term digital growth and discoverability.
@@ -1194,7 +1185,7 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                     <p className={'text-[0.873em] font-[300] leading-[1.5] text-justify lg:pr-[33em] mb-10'}>
                         We specialize in crafting high-impact marketing websites, innovative web apps, and mobile
                         applications that drive real results. From funded startups to established businesses, we&#39;ve
-                        helped a wide range of clients bring their digital products to life—delivering standout
+                        helped a wide range of clients bring their digital products to life -delivering standout
                         experiences
                         that fuel growth, engagement, and long-term success.
                     </p>
@@ -1234,7 +1225,6 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                 </div>
             </div>
 
-
             {/* Back-end development process */}
             <div className={`${isDayTime ? 'bg-white' : 'bg-black'}`}>
                 <div id={'development process'}
@@ -1270,7 +1260,7 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                                         ),
                                         description: (
                                             <>
-                                                We take a business-first approach to every project—no one-size-fits-all
+                                                We take a business-first approach to every project -no one-size-fits-all
                                                 solutions. Our bespoke front-end development is tailored to your brand,
                                                 target audience, and commercial objectives. By aligning design and
                                                 technology with your strategic goals, we help you create digital
@@ -1300,8 +1290,8 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                                         description: (
                                             <>
                                                 From initial concept to launch and beyond, we’re with you every step of
-                                                the way. Our team handles the technical complexities—design,
-                                                development, optimisation, and maintenance—so you can stay focused on
+                                                the way. Our team handles the technical complexities -design,
+                                                development, optimisation, and maintenance -so you can stay focused on
                                                 running and growing your business. We work as your long-term technology
                                                 partner, ensuring your digital product not only meets today’s needs but
                                                 also scales seamlessly for tomorrow’s opportunities.
@@ -1326,7 +1316,6 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
                 </div>
             </div>
 
-
             {/* Last image*/}
             <div id={'last image'} className={'lg:-mt-[10em] h-auto max-w-full w-full mx-auto'}>
                 <Image
@@ -1346,3 +1335,4 @@ const FrontendDevelopment = () => {    const [isVisible, setIsVisible] = useStat
 };
 
 export default FrontendDevelopment;
+

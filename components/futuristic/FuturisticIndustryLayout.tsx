@@ -2,7 +2,7 @@
 
 /**
  * FuturisticIndustryLayout
- * ─────────────────────────────────────────────────────────────────────────────
+ *  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
  * Drop-in wrapper for all 15 industry detail pages.
  *
  * Usage:
@@ -57,7 +57,7 @@ export default function FuturisticIndustryLayout({
     return (
         <div className={`min-h-screen transition-colors duration-500 ${dark ? 'bg-[#050810] text-white' : 'bg-white text-black'}`}>
 
-            {/* ── Full-bleed hero ── */}
+            {/*  -  -  Full-bleed hero  -  -  */}
             <section className="relative overflow-hidden min-h-[80vh] flex flex-col justify-end">
                 {/* Background media */}
                 {heroVideo ? (
@@ -117,7 +117,7 @@ export default function FuturisticIndustryLayout({
                 </div>
             </section>
 
-            {/* ── Body ── */}
+            {/*  -  -  Body  -  -  */}
             <div className="relative z-10">
                 <div className="pointer-events-none fixed inset-0 z-0">
                     <FxBackground day={isDayTime} grid aurora className="opacity-25" />
@@ -164,9 +164,9 @@ export default function FuturisticIndustryLayout({
     );
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
    Shared section components for industry pages
-   ─────────────────────────────────────────────────────────────────────────── */
+    -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 
 export function IndustrySolutionsGrid({
     isDayTime,

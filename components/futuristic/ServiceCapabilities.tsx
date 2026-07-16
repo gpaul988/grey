@@ -24,7 +24,7 @@ interface ServiceCapabilitiesProps {
   isDarkBg?: boolean;
 }
 
-/* ─── Terminal style variant ─────────────────────────────────────── */
+/*  -  -  -  Terminal style variant  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 function TerminalVariant({ capabilities, accentColor }: { capabilities: Capability[]; accentColor: string }) {
   const [active, setActive] = useState(0);
   const [typed, setTyped] = useState('');
@@ -139,7 +139,7 @@ function TerminalVariant({ capabilities, accentColor }: { capabilities: Capabili
   );
 }
 
-/* ─── Cards variant ──────────────────────────────────────────────── */
+/*  -  -  -  Cards variant  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 function CardsVariant({ capabilities, accentColor }: { capabilities: Capability[]; accentColor: string }) {
   const [hovered, setHovered] = useState<string | null>(null);
   return (
@@ -201,7 +201,7 @@ function CardsVariant({ capabilities, accentColor }: { capabilities: Capability[
   );
 }
 
-/* ─── Tabs variant ───────────────────────────────────────────────── */
+/*  -  -  -  Tabs variant  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 function TabsVariant({ capabilities, accentColor }: { capabilities: Capability[]; accentColor: string }) {
   const [active, setActive] = useState(0);
   return (
@@ -262,7 +262,7 @@ function TabsVariant({ capabilities, accentColor }: { capabilities: Capability[]
   );
 }
 
-/* ─── Main export ─────────────────────────────────────────────────── */
+/*  -  -  -  Main export  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 export default function ServiceCapabilities({
   heading = 'What we deliver',
   subheading,

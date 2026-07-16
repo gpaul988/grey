@@ -8,13 +8,13 @@ const DataAnalytics = () => (
         heroVideoMobile="/assets/hero/hero.mp4"
         midImage="/assets/services/digital-transformatio.jpg"
         topImages={['/assets/services/Research-strategy.jpg', '/assets/services/product-design.jpg']}
-        intro="Turn raw data into competitive advantage—pipelines, warehouses, dashboards and ML models that surface the insights your business needs to act decisively."
+        intro="Turn raw data into competitive advantage -pipelines, warehouses, dashboards and ML models that surface the insights your business needs to act decisively."
         eyebrow="Data-driven decisions at every level"
         introHeading={<>From Raw Data<br className="lg:block md:block hidden" />To Real Decisions</>}
         introBody={[
             <>Data is only valuable when it is accurate, accessible and interpretable by the people who need
-            to act on it. At Grey InfoTech we build the full data stack—ingestion pipelines, warehouses,
-            transformation layers, analytical models and self-service dashboards—that turn fragmented data
+            to act on it. At Grey InfoTech we build the full data stack -ingestion pipelines, warehouses,
+            transformation layers, analytical models and self-service dashboards -that turn fragmented data
             sources into a single source of truth your entire organisation can trust. Whether you are starting
             from spreadsheets or scaling a mature data platform, we meet you where you are.</>,
             <>Our data engineers combine modern tooling (dbt, Airbyte, Snowflake, BigQuery, Redshift) with
@@ -29,8 +29,8 @@ const DataAnalytics = () => (
             {
                 id: '01', title: 'Data Engineering & Pipelines', target: 'DE',
                 tags: ['Airbyte', 'Kafka', 'Spark', 'dbt', 'Airflow'],
-                body: <>We design and build data pipelines that ingest from any source—APIs, databases, event
-                streams, flat files—transform and validate the data, and load it into your analytical store.
+                body: <>We design and build data pipelines that ingest from any source -APIs, databases, event
+                streams, flat files -transform and validate the data, and load it into your analytical store.
                 Pipelines are idempotent, observable and tested, with automated data quality checks at every
                 stage to ensure what arrives in your warehouse is accurate and complete.</>,
             },
