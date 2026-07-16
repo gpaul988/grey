@@ -29,6 +29,7 @@ import {
 const UiUxDesign = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
+    const [activeId, setActiveId] = useState<string>("ux");
     const [isVisible, setIsVisible] = useState(false);
 
     // Floating button visibility hook
@@ -65,10 +66,43 @@ const UiUxDesign = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    // Design Solutions section scroll tracking
+    useEffect(() => {
+        const handleScroll = () => {
+            const sections = [
+                "ux",
+                "ui",
+                "visual",
+                "access",
+                "proto",
+                "inter",
+                "info",
+                "use",
+            ];
+
+            for (const sectionId of sections) {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top >= 0 && rect.top <= window.innerHeight / 2) {
+                        setActiveId(sectionId);
+                        break;
+                    }
+                }
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
     const scrollToSection = (target: string) => {
         const section = document.getElementById(target);
         if (section) {
             section.scrollIntoView({behavior: "smooth", block: "start"});
+            setActiveId(target);
         }
     };
 
