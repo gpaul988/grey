@@ -178,7 +178,7 @@ export default function AuditScreen() {
                     {(!seoResult.title || !seoResult.metaDescription) && <li>Add meaningful title and meta description focusing on primary keywords.</li>}
                     {seoResult.imagesMissingAlt && seoResult.imagesMissingAlt.length > 0 && <li>Add descriptive alt attributes to images ({seoResult.imagesMissingAlt.length} missing).</li>}
                     {seoResult.canonical ? null : <li>Set a canonical link element to avoid duplicate content issues.</li>}
-                    <li>Ensure H1(s) reflect page topic and primary keywords (reduce multiplicity if >1).</li>
+                    <li>Ensure H1(s) reflect page topic and primary keywords (reduce multiplicity if {'>'} 1).</li>
                   </ol>
                 </div>
 
