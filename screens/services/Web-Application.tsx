@@ -549,19 +549,68 @@ const WebApplication = () => {
                     <div className="gx-grid"/>
                 </div>
 
-                <div className="relative z-10 max-w-6xl mx-auto">
+                <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
                     <FxReveal>
                         <div className="text-center mb-16">
-                            <div className="inline-block mb-6">
-                                <span
-                                    className={`px-4 py-2 rounded-full text-xs lg:text-sm font-bold uppercase tracking-[0.15em] ${isDayTime ? 'bg-teal-100 text-teal-700' : 'bg-teal-950 text-teal-200'}`}>
-                                    Why Choose Us
-                                </span>
-                            </div>
-                            <FxSectionHeading day={isDayTime} title="Grey InfoTech: Engineering Excellence at Every Layer"/>
-                            <p className={`mt-6 text-lg lg:text-xl leading-relaxed max-w-3xl mx-auto ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
+                            {/* Futuristic badge */}
+                            <motion.div 
+                                className="inline-block mb-8"
+                                initial={{opacity: 0, y: 20}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{duration: 0.6}}
+                            >
+                                <div className={`relative group`}>
+                                    <div className={`absolute inset-0 rounded-full blur-lg opacity-60 ${isDayTime ? 'bg-gradient-to-r from-teal-400 to-cyan-400' : 'bg-gradient-to-r from-teal-500 to-cyan-500'}`}/>
+                                    <span className={`relative px-6 py-2.5 rounded-full text-xs lg:text-sm font-bold uppercase tracking-[0.2em] backdrop-blur-md border ${isDayTime ? 'bg-teal-50/40 border-teal-200/60 text-teal-700' : 'bg-teal-950/40 border-teal-400/40 text-teal-200'}`}>
+                                        ⚡ Why Choose Grey
+                                    </span>
+                                </div>
+                            </motion.div>
+
+                            {/* Futuristic title with gradient & effects */}
+                            <motion.div
+                                initial={{opacity: 0, y: 30}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{duration: 0.8, delay: 0.1}}
+                            >
+                                <h2 className={`text-5xl lg:text-6xl xl:text-7xl font-[900] tracking-tight leading-[1.1] mb-6 ${isDayTime ? 'text-black' : 'text-white'}`}>
+                                    <span className={`bg-clip-text text-transparent bg-gradient-to-r ${isDayTime ? 'from-teal-600 via-cyan-600 to-teal-600' : 'from-teal-300 via-cyan-300 to-teal-400'}`}>
+                                        Engineering Excellence
+                                    </span>
+                                    <br/>
+                                    <span className={`font-light ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}>at Every Layer</span>
+                                </h2>
+                            </motion.div>
+
+                            {/* Futuristic divider with animated line */}
+                            <motion.div 
+                                className="flex items-center justify-center gap-4 mb-8"
+                                initial={{opacity: 0}}
+                                animate={{opacity: 1}}
+                                transition={{duration: 0.8, delay: 0.2}}
+                            >
+                                <div className={`flex-1 h-px ${isDayTime ? 'bg-gradient-to-r from-transparent via-teal-400 to-transparent' : 'bg-gradient-to-r from-transparent via-teal-400 to-transparent'}`}/>
+                                <div className={`w-2 h-2 rounded-full ${isDayTime ? 'bg-teal-500' : 'bg-teal-400'} animate-pulse`}/>
+                                <div className={`flex-1 h-px ${isDayTime ? 'bg-gradient-to-r from-transparent via-teal-400 to-transparent' : 'bg-gradient-to-r from-transparent via-teal-400 to-transparent'}`}/>
+                            </motion.div>
+
+                            {/* Enhanced description */}
+                            <motion.p 
+                                className={`mt-8 text-lg lg:text-xl leading-relaxed max-w-4xl mx-auto ${isDayTime ? 'text-gray-600' : 'text-gray-300'}`}
+                                initial={{opacity: 0, y: 20}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{duration: 0.8, delay: 0.3}}
+                            >
                                 Strategic partnerships backed by proven expertise, transformative results, and unwavering commitment to your success. We combine cutting-edge architecture, rigorous security practices, and relentless performance optimization to deliver outcomes that exceed expectations.
-                            </p>
+                            </motion.p>
+
+                            {/* Futuristic accent elements */}
+                            <div className="absolute top-10 left-10 w-32 h-32 opacity-20 pointer-events-none">
+                                <div className={`absolute inset-0 rounded-full blur-3xl ${isDayTime ? 'bg-teal-300' : 'bg-teal-500'} animate-pulse`} style={{animationDuration: '4s'}}/>
+                            </div>
+                            <div className="absolute bottom-10 right-10 w-40 h-40 opacity-15 pointer-events-none">
+                                <div className={`absolute inset-0 rounded-full blur-3xl ${isDayTime ? 'bg-cyan-300' : 'bg-cyan-500'} animate-pulse`} style={{animationDuration: '5s', animationDelay: '0.5s'}}/>
+                            </div>
                         </div>
                     </FxReveal>
 
