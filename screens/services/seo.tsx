@@ -170,7 +170,7 @@ const Seo = () => {
             }
 
             // Call server-side audit endpoint to avoid CORS/CSP issues
-            const res = await fetch('/seo-audit', {
+            const res = await fetch('/api/seo-audit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ url: u }),
