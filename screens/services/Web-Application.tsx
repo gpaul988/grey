@@ -558,10 +558,9 @@ const WebApplication = () => {
                                     Why Choose Us
                                 </span>
                             </div>
-                            <FxSectionHeading day={isDayTime} title="Grey InfoTech: Engineering Excellence"/>
+                            <FxSectionHeading day={isDayTime} title="Grey InfoTech: Engineering Excellence at Every Layer"/>
                             <p className={`mt-6 text-lg lg:text-xl leading-relaxed max-w-3xl mx-auto ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
-                                Strategic partnerships backed by proven expertise, transformative results, and
-                                unwavering commitment to your success
+                                Strategic partnerships backed by proven expertise, transformative results, and unwavering commitment to your success. We combine cutting-edge architecture, rigorous security practices, and relentless performance optimization to deliver outcomes that exceed expectations.
                             </p>
                         </div>
                     </FxReveal>
@@ -609,16 +608,27 @@ const WebApplication = () => {
                                             </h3>
 
                                             {/* Description with enhanced typography */}
-                                            <p className={`text-lg lg:text-lg leading-relaxed font-light mb-8 ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}>
+                                            <p className={`text-lg lg:text-lg leading-relaxed font-light mb-6 ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}>
                                                 {reason.description}
                                             </p>
 
+                                            {/* Deep dive section */}
+                                            <div className={`p-4 rounded-lg mb-6 ${isDayTime ? 'bg-teal-50/40' : 'bg-teal-950/40'} border ${isDayTime ? 'border-teal-100/60' : 'border-teal-900/60'}`}>
+                                                <p className={`text-sm leading-relaxed ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
+                                                    {activeIndex === 1 ? 'Our engineering team brings 15+ years combined expertise in building scalable systems handling millions of concurrent users. We architect with security-first principles, implement comprehensive monitoring and observability, and maintain zero-downtime deployment practices. Every project includes architectural review, performance profiling, and continuous optimization cycles.' 
+                                                    : activeIndex === 2 ? 'Security is embedded in our DNA. We implement defense-in-depth strategies: network layer (DDoS mitigation, WAF), application layer (input validation, CSRF protection), infrastructure (encryption at rest/transit), and access control (RBAC/ABAC, MFA). All systems undergo annual penetration testing and maintain SOC 2 Type II compliance with continuous audit logging.' 
+                                                    : activeIndex === 3 ? 'Partnership is not transactional—it\'s transformational. We embed with your team, understand your business metrics, and align engineering decisions with revenue impact. Our methodology includes quarterly business reviews, roadmap co-planning, and dedicated account management ensuring alignment and visibility.' 
+                                                    : 'We provide enterprise-grade support with 24/7/365 availability, sub-1 hour response times for critical issues, and a dedicated support engineer who understands your entire system. Our knowledge base and runbooks ensure continuity, and proactive monitoring catches issues before they impact users.'}
+                                                </p>
+                                            </div>
+
                                             {/* Metrics or details */}
-                                            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+                                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                                                 {activeIndex === 1 && [
-                                                    {label: 'Projects', value: '34+'},
-                                                    {label: 'Experience', value: '8+ Years'},
+                                                    {label: 'Projects Delivered', value: '120+'},
+                                                    {label: 'Combined Experience', value: '8+ Years'},
                                                     {label: 'Technologies', value: '50+'},
+                                                    {label: 'Client Retention', value: '95%'},
                                                 ].map((m, i) => (
                                                     <motion.div
                                                         key={i}
@@ -635,8 +645,9 @@ const WebApplication = () => {
                                                 ))}
                                                 {activeIndex === 2 && [
                                                     {label: 'Compliance', value: 'SOC 2 Type II'},
-                                                    {label: 'Uptime', value: '99.99%'},
-                                                    {label: 'Encryption', value: 'AES-256'},
+                                                    {label: 'Uptime SLA', value: '99.99%'},
+                                                    {label: 'Encryption', value: 'AES-256 + TLS'},
+                                                    {label: 'Incident Response', value: '<1hr'},
                                                 ].map((m, i) => (
                                                     <motion.div
                                                         key={i}
@@ -652,9 +663,10 @@ const WebApplication = () => {
                                                     </motion.div>
                                                 ))}
                                                 {activeIndex === 3 && [
-                                                    {label: 'Retention', value: '92%'},
-                                                    {label: 'Partnerships', value: 'Multi-year'},
-                                                    {label: 'NPS Score', value: '78+'},
+                                                    {label: 'Client Retention', value: '92%'},
+                                                    {label: 'Multi-year Partnerships', value: '78%'},
+                                                    {label: 'Net Promoter Score', value: '78+'},
+                                                    {label: 'Revenue Growth', value: '45% avg'},
                                                 ].map((m, i) => (
                                                     <motion.div
                                                         key={i}
@@ -670,9 +682,10 @@ const WebApplication = () => {
                                                     </motion.div>
                                                 ))}
                                                 {activeIndex === 4 && [
-                                                    {label: 'Team Size', value: '15+ Engineers'},
-                                                    {label: 'Avg Response', value: '<1 hours'},
-                                                    {label: 'Availability', value: '24/7 Support'},
+                                                    {label: 'Engineering Team', value: '15+ Engineers'},
+                                                    {label: 'Response Time', value: '<1 hour'},
+                                                    {label: '24/7 Support', value: 'Always On'},
+                                                    {label: 'MTTR', value: '<30 min'},
                                                 ].map((m, i) => (
                                                     <motion.div
                                                         key={i}
