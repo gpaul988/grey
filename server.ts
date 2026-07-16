@@ -290,6 +290,53 @@ nextApp.prepare().then(() => {
     // index 1: *"). A pathless `app.use()` is the correct Express 5 way to
     // register a final catch-all middleware — it matches every method and
     // path, which is exactly what we want for delegating to Next.js.
+    // Public SEO audit endpoint (server-side fetch to avoid CORS/CSP issues)
+    app.post('/seo-audit', express.json(), async (req, res) => {
+        try {
+            const { url } = req.body || {};
+            if (!url) return res.status(400).json({ ok: false, error: 'Missing url' });
+            let normalized = String(url).trim();
+            if (!/^https?:\/\//i.test(normalized)) normalized = `https://${normalized}`;
+            try {
+                const fetched = await fetch(normalized, { redirect: 'follow' });
+                const status = fetched.status;
+                const contentType = fetched.headers.get('content-type') || '';
+                const text = await fetched.text();
+                const { JSDOM } = await import('jsdom');
+                const dom = new JSDOM(text);
+                const doc = dom.window.document;
+                const title = doc.querySelector('title')?.textContent?.trim() || '';
+                const metaDesc = doc.querySelector('meta[name="description"]')?.getAttribute('content') || '';
+                const h1s = Array.from(doc.querySelectorAll('h1')).map(h => h.textContent?.trim() || '');
+                const canonical = doc.querySelector('link[rel="canonical"]')?.getAttribute('href') || '';
+                const robots = doc.querySelector('meta[name="robots"]')?.getAttribute('content') || '';
+                const viewport = doc.querySelector('meta[name="viewport"]')?.getAttribute('content') || '';
+                const jsonLd = Array.from(doc.querySelectorAll('script[type="application/ld+json"]')).map(s => s.textContent?.trim() || '');
+                const imgs = Array.from(doc.querySelectorAll('img')).map(img => ({ src: img.getAttribute('src') || '', alt: img.getAttribute('alt') || '' }));
+                const imagesMissingAlt = imgs.filter(i => !i.alt || i.alt.trim() === '').slice(0, 50);
+                const anchors = Array.from(doc.querySelectorAll('a'));
+                const links = anchors.map(a => a.getAttribute('href') || '');
+                let hostname = '';
+                try { hostname = new URL(normalized).hostname; } catch (e) { hostname = ''; }
+                const internalLinks = links.filter(h => h && (h.startsWith('/') || (hostname && h.includes(hostname))));
+                const externalLinks = links.filter(h => h && !internalLinks.includes(h));
+                const bodyText = doc.body?.textContent || '';
+                const wordCount = bodyText.split(/\s+/).filter(Boolean).length;
+                const hasViewport = Boolean(viewport);
+                const score = Math.max(0, Math.min(100, Math.round(
+                    ( (title ? 20 : 0) + (metaDesc ? 20 : 0) + (h1s.length ? 15 : 0) + (canonical ? 10 : 0) + (jsonLd.length ? 10 : 0) + (hasViewport ? 10 : 0) + (imagesMissingAlt.length === 0 ? 15 : 5) )
+                )));
+                return res.json({ ok: true, url: normalized, status, contentType, title, metaDescription: metaDesc, h1s, canonical, robots, viewport, jsonLdCount: jsonLd.length, imagesCount: imgs.length, imagesMissingAlt, linksCount: links.length, internalLinksCount: internalLinks.length, externalLinksCount: externalLinks.length, wordCount, mobileFriendly: hasViewport, score });
+            } catch (fetchErr:any) {
+                console.error('[seo-audit] fetch error', fetchErr);
+                return res.status(500).json({ ok: false, error: String(fetchErr) });
+            }
+        } catch (err:any) {
+            console.error('[seo-audit] error', err);
+            return res.status(500).json({ ok: false, error: err.message || String(err) });
+        }
+    });
+
     app.use(async (req, res) => {
         try {
             const parsedUrl = getRequestUrl(req);

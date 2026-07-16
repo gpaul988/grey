@@ -186,6 +186,100 @@ export const PersonalizedGreeting = () => {
   };
 
   const greetings: Record<string, Record<string, string>> = {
+    en: {
+      morning: 'Good morning',
+      afternoon: 'Good afternoon',
+      evening: 'Good evening',
+    },
+    es: {
+      morning: 'Buenos días',
+      afternoon: 'Buenas tardes',
+      evening: 'Buenas noches',
+    },
+    fr: {
+      morning: 'Bonjour',
+      afternoon: 'Bon après-midi',
+      evening: 'Bonsoir',
+    },
+    de: {
+      morning: 'Guten Morgen',
+      afternoon: 'Guten Nachmittag',
+      evening: 'Guten Abend',
+    },
+    it: {
+      morning: 'Buongiorno',
+      afternoon: 'Buon pomeriggio',
+      evening: 'Buonasera',
+    },
+    pt: {
+      morning: 'Bom dia',
+      afternoon: 'Boa tarde',
+      evening: 'Boa noite',
+    },
+    zh: {
+      morning: '早上好',
+      afternoon: '下午好',
+      evening: '晚上好',
+    },
+    ja: {
+      morning: 'おはようございます',
+      afternoon: 'こんにちは',
+      evening: 'こんばんは',
+    },
+    ru: {
+      morning: 'Доброе утро',
+      afternoon: 'Добрый день',
+      evening: 'Добрый вечер',
+    },
+    ar: {
+      morning: 'صباح الخير',
+      afternoon: 'مساء الخير',
+      evening: 'مساء الخير',
+    },
+    hi: {
+      morning: 'सुप्रभात',
+      afternoon: 'नमस्ते',
+      evening: 'नमस्ते',
+    },
+    sw: {
+      morning: 'Habari ya asubuhi',
+      afternoon: 'Habari ya mchana',
+      evening: 'Habari ya jioni',
+    },
+    yo: {
+      morning: 'Ekaaro o',
+      afternoon: 'Ọsán o',
+      evening: 'Irole o',
+    },
+  };
+
+  const languages = [
+    { code: 'en', name: 'English' },
+    { code: 'es', name: 'Español' },
+    { code: 'fr', name: 'Français' },
+    { code: 'de', name: 'Deutsch' },
+    { code: 'it', name: 'Italiano' },
+    { code: 'pt', name: 'Português' },
+    { code: 'zh', name: '中文' },
+    { code: 'ja', name: '日本語' },
+    { code: 'ru', name: 'Русский' },
+    { code: 'ar', name: 'العربية' },
+    { code: 'hi', name: 'हिन्दी' },
+    { code: 'sw', name: 'Swahili' },
+    { code: 'yo', name: 'Yorùbá' },
+  ];
+
+  const lang = preferences.language || 'en';
+  const timeOfDayKey = getGreetingTime();
+  const greeting = greetings[lang]?.[timeOfDayKey] || greetings['en'][timeOfDayKey];
+  const location = preferences.location?.city || preferences.location?.country || '';
+
+  return (
+    <div className="personalized-greeting px-4 py-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-lg shadow-sm">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+        {greeting}{preferences.username ? `, ${preferences.username}` : ''}
+        {location && <span className="text-lg ml-2">📍 {location}</span>}
+      </h2>
 
       {/* User Controls */}
       <div className="controls flex flex-wrap gap-4 items-center text-sm">
@@ -211,7 +305,6 @@ export const PersonalizedGreeting = () => {
           >
             <span>🌍</span>
             {languages.find((l) => l.code === lang)?.name || 'English'}
-            <span> - </span>
           </button>
 
           {showLanguageSelector && (

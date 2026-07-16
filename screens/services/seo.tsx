@@ -151,6 +151,46 @@ const Seo = () => {
         {label: 'Increase in Website Traffic', value: 350, suffix: '%'},
     ];
 
+    // Client-side SEO audit state & runner (works for same-origin or CORS-enabled targets)
+    const [_auditUrl, setAuditUrl] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [result, setResult] = useState<any | null>(null);
+    const [error, setError] = useState<string | null>(null);
+
+    async function runAudit(inputUrl: string) {
+        setError(null);
+        setResult(null);
+        setLoading(true);
+        try {
+            let u = inputUrl.trim();
+            if (!/^https?:\/\//i.test(u)) {
+                if (u.startsWith('/')) u = window.location.origin + u;
+                else u = 'https://' + u;
+            }
+
+            // Call server-side audit endpoint to avoid CORS/CSP issues
+            const res = await fetch('/seo-audit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url: u }),
+            });
+
+            if (!res.ok) {
+                const err = await res.json().catch(() => ({ error: 'Unknown error' }));
+                throw new Error(err?.error || 'Audit failed');
+            }
+
+            const payload = await res.json();
+            if (!payload.ok) throw new Error(payload.error || 'Audit failed');
+
+            setResult(payload);
+        } catch (e:any) {
+            setError(e.message || String(e));
+        } finally {
+            setLoading(false);
+        }
+    }
+
 // Reasons
     const reasons = [
         {
@@ -382,6 +422,99 @@ const Seo = () => {
             </section>
 
             {/* Introductory section (futuristic style) */}
+
+            {/* ===== SEO Audit Tool (client-side) ===== */}
+            <section className={`relative py-12 px-6 ${isDayTime ? 'bg-white' : 'bg-black'}`}>
+              <div className="max-w-4xl mx-auto">
+                <FxReveal>
+                  <h3 className="text-2xl font-bold mb-4">Instant SEO Audit</h3>
+                </FxReveal>
+                <p className="text-sm text-gray-500 mb-6">Enter a URL on this site (or a CORS-enabled external URL) to run a quick audit of core SEO signals (title, meta description, H1, canonical, robots, images without alt).</p>
+
+                <div className="flex gap-3 mb-4">
+                  <input
+                    type="text"
+                    placeholder="/path-or-full-url (e.g. /services/web-development or https://example.com)"
+                    value={_auditUrl}
+                    onChange={(e) => setAuditUrl(e.target.value)}
+                    className="flex-1 px-4 py-2 rounded border"
+                  />
+                  <button
+                    onClick={() => runAudit(_auditUrl)}
+                    disabled={loading}
+                    className={`px-4 py-2 rounded font-semibold ${loading ? 'bg-gray-400' : 'bg-teal-500 text-white'}`}
+                  >
+                    {loading ? 'Running…' : 'Run Audit'}
+                  </button>
+                </div>
+
+                {error && (
+                  <div className="text-sm text-red-600 mb-4">{error}</div>
+                )}
+
+                {result && (
+                  <div className="grid lg:grid-cols-3 gap-4 mt-6">
+                    <div className="p-4 rounded border">
+                      <div className="text-xs text-gray-500">URL</div>
+                      <div className="font-mono break-all">{result.url}</div>
+                      <div className="mt-3 text-xs text-gray-500">Status</div>
+                      <div>{result.status}</div>
+                      <div className="mt-3 text-xs text-gray-500">Score</div>
+                      <div className="font-semibold">{result.score}/100</div>
+                    </div>
+
+                    <div className="p-4 rounded border lg:col-span-2">
+                      <div className="grid gap-3">
+                        <div>
+                          <div className="text-xs text-gray-500">Title</div>
+                          <div className={`font-medium ${!result.title ? 'text-red-600' : ''}`}>{result.title || 'Missing'}</div>
+                        </div>
+
+                        <div>
+                          <div className="text-xs text-gray-500">Meta description</div>
+                          <div className={`font-medium ${!result.metaDescription ? 'text-red-600' : ''}`}>{result.metaDescription || 'Missing'}</div>
+                        </div>
+
+                        <div>
+                          <div className="text-xs text-gray-500">H1(s)</div>
+                          <div className="font-medium">{result.h1s.length ? result.h1s.join(' • ') : 'None found'}</div>
+                        </div>
+
+                        <div>
+                          <div className="text-xs text-gray-500">Canonical</div>
+                          <div className="font-medium">{result.canonical || 'Not set'}</div>
+                        </div>
+
+                        <div>
+                          <div className="text-xs text-gray-500">Robots</div>
+                          <div className="font-medium">{result.robots || 'Not specified'}</div>
+                        </div>
+
+                        <div>
+                          <div className="text-xs text-gray-500">Images missing alt (first 10)</div>
+                          <div>
+                            {result.imagesMissingAlt && result.imagesMissingAlt.length ? (
+                              <ul className="list-disc pl-5 text-sm">
+                                {result.imagesMissingAlt.slice(0,10).map((img:any, i:number)=> (
+                                  <li key={i}><code className="font-mono">{img.src || '(no src)'}</code></li>
+                                ))}
+                              </ul>
+                            ) : <div className="text-sm">None</div>}
+                          </div>
+                        </div>
+
+                        <div>
+                          <div className="text-xs text-gray-500">Links</div>
+                          <div className="text-sm">Total: {result.linksCount} — Internal: {result.internalLinksCount} — External: {result.externalLinksCount}</div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+              </div>
+            </section>
             <section
                 ref={sectionRef}
                 data-bg={isBackgroundActive ? (isDayTime ? 'Dark' : 'Light') : (isDayTime ? 'Light' : 'Dark')}
