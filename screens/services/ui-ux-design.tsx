@@ -2187,28 +2187,157 @@ const UiUxDesign = () => {
                             transition: 'opacity 0.3s ease-out'
                         }} className="overflow-hidden">
                             <AnimatePresence mode="wait">
-                                {imageIds.map((imageId) => activeId === imageId && (
+                                {[
+                                    {id: 'ideation', name: 'Moodboards & Ideation', color: '#00f5d4'},
+                                    {id: 'research', name: 'Discovery & Research', color: '#7c3aed'},
+                                    {id: 'guidelines', name: 'Design System & Guidelines', color: '#22d3ee'},
+                                    {id: 'vd', name: 'Visual Design', color: '#ec4899'},
+                                    {id: 'testing', name: 'User Testing & Feedback', color: '#f59e0b'},
+                                    {id: 'rounds', name: 'Feedback Rounds & Iteration', color: '#10b981'}
+                                ].map((stage) => activeId === stage.id && (
                                     <motion.div
-                                        key={imageId}
+                                        key={stage.id}
                                         className="relative w-full h-full"
                                         initial={{opacity: 0, scale: 1.04}}
                                         animate={{opacity: 1, scale: 1}}
-                                        exit={{opacity: 0, scale: 0.96}}
-                                        transition={{duration: 0.5, ease: 'easeOut'}}
+                                        exit={{opacity: 0, scale: 0.97}}
+                                        transition={{duration: 0.5, ease: 'easeInOut'}}
                                     >
+                                        {/* Main image */}
                                         <Image
-                                            src={`/assets/ui-ux/stages/${imageId}.jpg`}
-                                            alt={imageId}
+                                            src={`/assets/ui-ux/stages/${stage.id}.jpg`}
+                                            alt={stage.name}
                                             fill
                                             className="object-cover"
+                                            priority
                                         />
-                                        <motion.div
+
+                                        {/* Color overlay */}
+                                        <div
                                             className="absolute inset-0"
-                                            initial={{opacity: 1}}
-                                            animate={{opacity: 0}}
-                                            transition={{duration: 0.6, delay: 0.1}}
-                                            style={{background: isDayTime ? 'linear-gradient(135deg, rgba(255,255,255,0.3), transparent)' : 'linear-gradient(135deg, rgba(0,0,0,0.3), transparent)'}}
+                                            style={{background: `linear-gradient(135deg, ${stage.color}25 0%, #00000088 100%)`}}
                                         />
+
+                                        {/* Grid overlay */}
+                                        <div
+                                            className="absolute inset-0 opacity-[0.06]"
+                                            style={{
+                                                backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`,
+                                                backgroundSize: '30px 30px',
+                                            }}
+                                        />
+
+                                        {/* Orbit rings */}
+                                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                            <motion.div
+                                                className="absolute rounded-full border pointer-events-none"
+                                                style={{
+                                                    width: 220,
+                                                    height: 220,
+                                                    borderColor: stage.color + '33',
+                                                }}
+                                                animate={{rotate: 360}}
+                                                transition={{duration: 12, repeat: Infinity, ease: 'linear'}}
+                                            >
+                                                <motion.div
+                                                    className="absolute w-2 h-2 rounded-full"
+                                                    style={{background: stage.color, top: -4, left: '50%', x: '-50%', boxShadow: `0 0 8px ${stage.color}`}}
+                                                />
+                                            </motion.div>
+                                            <motion.div
+                                                className="absolute rounded-full border pointer-events-none"
+                                                style={{
+                                                    width: 360,
+                                                    height: 360,
+                                                    borderColor: stage.color + '33',
+                                                }}
+                                                animate={{rotate: 360}}
+                                                transition={{duration: 20, repeat: Infinity, ease: 'linear', delay: 2}}
+                                            />
+                                            <motion.div
+                                                className="absolute rounded-full border pointer-events-none"
+                                                style={{
+                                                    width: 500,
+                                                    height: 500,
+                                                    borderColor: stage.color + '33',
+                                                }}
+                                                animate={{rotate: 360}}
+                                                transition={{duration: 30, repeat: Infinity, ease: 'linear', delay: 5}}
+                                            />
+                                        </div>
+
+                                        {/* Info overlay at bottom */}
+                                        <div className="absolute bottom-0 left-0 right-0 p-8">
+                                            <div
+                                                className="rounded-2xl p-6 backdrop-blur-md"
+                                                style={{background: 'rgba(0,0,0,0.55)', border: `1px solid ${stage.color}33`}}
+                                            >
+                                                {/* Progress bar */}
+                                                <div className="flex items-center gap-3 mb-4">
+                                                    <div className="flex-1 h-[2px] rounded-full" style={{background: 'rgba(255,255,255,0.1)'}}>
+                                                        <motion.div
+                                                            className="h-full rounded-full"
+                                                            style={{background: stage.color}}
+                                                            initial={{width: 0}}
+                                                            animate={{width: `${((imageIds.indexOf(stage.id) + 1) / imageIds.length) * 100}%`}}
+                                                            transition={{duration: 0.6}}
+                                                        />
+                                                    </div>
+                                                    <span className="text-[0.72em] font-mono text-white/50">
+                                                        {imageIds.indexOf(stage.id) + 1}/{imageIds.length}
+                                                    </span>
+                                                </div>
+
+                                                {/* Title and description */}
+                                                <motion.h4
+                                                    key={stage.id + '-title'}
+                                                    initial={{opacity: 0, y: 8}}
+                                                    animate={{opacity: 1, y: 0}}
+                                                    className="text-white font-bold text-[1.1em] mb-1"
+                                                >
+                                                    {stage.name}
+                                                </motion.h4>
+                                                <motion.p
+                                                    key={stage.id + '-desc'}
+                                                    initial={{opacity: 0}}
+                                                    animate={{opacity: 1}}
+                                                    transition={{delay: 0.15}}
+                                                    className="text-white/60 text-[0.78em] leading-relaxed line-clamp-2"
+                                                >
+                                                    {stage.id === 'ideation' && 'Establish visual direction through mood research and style exploration.'}
+                                                    {stage.id === 'research' && 'Uncover user needs and market insights that shape our strategy.'}
+                                                    {stage.id === 'guidelines' && 'Build scalable design systems for consistency and efficiency.'}
+                                                    {stage.id === 'vd' && 'Craft intuitive interfaces that balance form and function.'}
+                                                    {stage.id === 'testing' && 'Validate designs with real users and iterate based on feedback.'}
+                                                    {stage.id === 'rounds' && 'Continuously refine through collaborative reviews and data analysis.'}
+                                                </motion.p>
+
+                                                {/* Stage indicator dots */}
+                                                <div className="flex gap-2 mt-4">
+                                                    {[
+                                                        {id: 'ideation', color: '#00f5d4'},
+                                                        {id: 'research', color: '#7c3aed'},
+                                                        {id: 'guidelines', color: '#22d3ee'},
+                                                        {id: 'vd', color: '#ec4899'},
+                                                        {id: 'testing', color: '#f59e0b'},
+                                                        {id: 'rounds', color: '#10b981'}
+                                                    ].map((s, i) => (
+                                                        <motion.button
+                                                            key={s.id}
+                                                            onClick={() => {
+                                                                const el = document.getElementById(s.id);
+                                                                el?.scrollIntoView({behavior: 'smooth', block: 'center'});
+                                                            }}
+                                                            className="w-2 h-2 rounded-full transition-all"
+                                                            style={{
+                                                                background: activeId === s.id ? s.color : 'rgba(255,255,255,0.3)'
+                                                            }}
+                                                            whileHover={{scale: 1.4}}
+                                                        />
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </motion.div>
                                 ))}
                             </AnimatePresence>
