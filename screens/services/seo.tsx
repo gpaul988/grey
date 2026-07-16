@@ -34,7 +34,8 @@ const Seo = () => {
     const [activeIndex, setActiveIndex] = useState(1);
     // x-scroller
     const targetRef = useRef<HTMLDivElement | null>(null);
-    const {scrollYProgress} = useScroll({target: targetRef});
+    // Guarded useScroll: only set target when the ref is hydrated to avoid framer-motion invariant
+    const {scrollYProgress} = useScroll({ target: (typeof window !== 'undefined' && targetRef.current) ? targetRef : undefined });
     const x = useTransform(scrollYProgress, [0, 1], ["0%", "-60%"]);
 
     // Floating button visibility hook

@@ -85,7 +85,8 @@ const WebApplication = () => {
     const [activeId, setActiveId] = useState<string>("");
     const [activeIndex, setActiveIndex] = useState(1);
     const targetRef = useRef<HTMLDivElement | null>(null);
-    const {scrollYProgress} = useScroll({target: targetRef});
+    // Guarded useScroll: only pass a target when it's mounted to prevent 'Target ref is defined but not hydrated' errors
+    const {scrollYProgress} = useScroll({ target: (typeof window !== 'undefined' && targetRef.current) ? targetRef : undefined });
     const x = useTransform(scrollYProgress, [0, 1], ["0%", "-65%"]);
 
     // Floating button visibility
