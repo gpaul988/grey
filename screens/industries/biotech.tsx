@@ -9,7 +9,7 @@ const Biotech = () => (
         topImages={['/assets/services/Development.jpg', '/assets/services/digital-transformatio.jpg']}
         intro={
             <>
-                Accelerating science with software—LIMS, research data platforms, bioinformatics and compliant
+                Accelerating science with software -LIMS, research data platforms, bioinformatics and compliant
                 systems that turn complex biological data into discovery.
             </>
         }
@@ -17,7 +17,7 @@ const Biotech = () => (
         introHeading={<>Biotech Innovation <br className={'lg:block md:block hidden'}/>Powered by Software</>}
         introBody={[
             <>
-                Modern biotechnology runs on data—genomic sequences, assay results, clinical samples, instrument
+                Modern biotechnology runs on data -genomic sequences, assay results, clinical samples, instrument
                 readouts and research records that must be captured, managed and analysed with absolute rigour.
                 Grey InfoTech builds the software that makes that possible. We develop laboratory information
                 management systems (LIMS), research data platforms, sample-tracking tools and bioinformatics
@@ -33,7 +33,7 @@ const Biotech = () => (
                 data. We integrate with laboratory instruments and existing scientific tools, build secure cloud
                 platforms that scale with growing datasets, and apply analytics and machine learning to surface
                 insight from complex biological information. The result is software you can trust with your most
-                valuable data—and that helps you reach discovery faster.
+                valuable data -and that helps you reach discovery faster.
             </>,
         ]}
         solutionsHeading={<>Biotech <br className={'lg:block md:block hidden'}/>Software <br className={'lg:block md:block hidden'}/>Solutions</>}
@@ -49,7 +49,7 @@ const Biotech = () => (
                 id: '01', title: 'LIMS & Lab Software', target: 'LM',
                 tags: ['Sample Tracking', 'Workflows', 'Instruments'],
                 body: <>We build laboratory information management systems that track samples, manage workflows,
-                    capture results and integrate with instruments—bringing precision and full traceability to
+                    capture results and integrate with instruments -bringing precision and full traceability to
                     lab operations, from intake to reporting.</>,
             },
             {
@@ -57,34 +57,34 @@ const Biotech = () => (
                 tags: ['Data Capture', 'ELN', 'Collaboration'],
                 body: <>We develop research data platforms and electronic lab notebooks that centralise
                     experimental data, support collaboration, and preserve a complete, auditable record of the
-                    science—so knowledge is never lost and results are always reproducible.</>,
+                    science -so knowledge is never lost and results are always reproducible.</>,
             },
             {
                 id: '03', title: 'Bioinformatics Pipelines', target: 'BP',
                 tags: ['Genomics', 'Pipelines', 'Visualisation'],
-                body: <>We build and automate bioinformatics pipelines—processing genomic and other high-volume
-                    biological data at scale—with reliable orchestration and clear visualisation that turns raw
+                body: <>We build and automate bioinformatics pipelines -processing genomic and other high-volume
+                    biological data at scale -with reliable orchestration and clear visualisation that turns raw
                     sequence data into interpretable, actionable results.</>,
             },
             {
                 id: '04', title: 'Compliance & Data Integrity', target: 'CD',
                 tags: ['GxP', 'Audit Trails', 'Validation'],
                 body: <>We engineer systems with the auditability, access control, validation and traceability
-                    that regulated life sciences demand—mindful of GxP, HIPAA and data-protection requirements—so
+                    that regulated life sciences demand -mindful of GxP, HIPAA and data-protection requirements -so
                     your data and processes stand up to scrutiny.</>,
             },
             {
                 id: '05', title: 'Analytics & AI for Life Sciences', target: 'AA',
                 tags: ['ML', 'Insights', 'Predictive'],
-                body: <>We apply analytics and machine learning to complex biological datasets—pattern discovery,
-                    classification and prediction—surfacing insight that accelerates research and supports better
+                body: <>We apply analytics and machine learning to complex biological datasets -pattern discovery,
+                    classification and prediction -surfacing insight that accelerates research and supports better
                     scientific and clinical decisions.</>,
             },
             {
                 id: '06', title: 'Integration & Secure Cloud', target: 'IC',
                 tags: ['Instruments', 'Cloud', 'Scale', 'Security'],
                 body: <>We integrate with lab instruments and scientific tools and deploy on secure, scalable
-                    cloud infrastructure built for growing datasets—keeping sensitive research and health data
+                    cloud infrastructure built for growing datasets -keeping sensitive research and health data
                     protected, available and performant.</>,
             },
         ]}
@@ -96,7 +96,7 @@ const Biotech = () => (
             },
             {
                 id: 2, title: 'Compliance-Aware Engineering', image: '/assets/services/digital-transformatio.jpg',
-                description: <>We design with GxP, HIPAA and data-protection requirements in mind—audit trails,
+                description: <>We design with GxP, HIPAA and data-protection requirements in mind -audit trails,
                     validation and access control as first-class concerns, not afterthoughts.</>,
             },
             {
@@ -106,7 +106,7 @@ const Biotech = () => (
             },
             {
                 id: 4, title: 'Insight from Information', image: '/assets/services/digital-optimisation.jpg',
-                description: <>Analytics and ML turn raw biological data into discovery—patterns, predictions and
+                description: <>Analytics and ML turn raw biological data into discovery -patterns, predictions and
                     insight that move research forward.</>,
             },
         ]}

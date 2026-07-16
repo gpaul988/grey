@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * CookieConsent — a GDPR-style, extremely futuristic consent manager.
+ * CookieConsent  - a GDPR-style, extremely futuristic consent manager.
  *
  * Modes: Accept all / Reject all / Customize (granular categories).
  * Persists the choice in localStorage and exposes it on `window.__greyConsent`
@@ -77,7 +77,7 @@ export default function CookieConsent() {
             if (raw) {
                 const parsed = JSON.parse(raw) as StoredConsent;
                 publish(parsed.categories);
-                return; // already decided — stay hidden
+                return; // already decided  - stay hidden
             }
         } catch {
             /* ignore */

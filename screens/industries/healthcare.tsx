@@ -1,14 +1,12 @@
 'use client';
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
-import FloatingButton from "@/components/FloatingButton";
 import Link from "next/link";
 import Image from "next/image";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import {FaCode, FaPencilRuler, FaRocket, FaSearch, FaShieldAlt, FaVial,} from "react-icons/fa";
 import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
 import {useIsDayTime} from '../../components/useIsDayTime';
-
 
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 
@@ -28,7 +26,7 @@ const reasons = [
                 identify technical gaps, compliance risks, and improvement opportunities, ensuring your software meets
                 current industry standards and regulatory requirements. Our expertise spans cloud migration, performance
                 optimization, advanced security enhancements, seamless multi-system integrations, and intuitive
-                interface redesign—enabling healthcare organizations to unlock new capabilities, streamline operations,
+                interface redesign -enabling healthcare organizations to unlock new capabilities, streamline operations,
                 and provide a more secure, efficient, and future-ready technology infrastructure that supports both
                 clinical excellence and business growth.
             </>
@@ -45,7 +43,7 @@ const reasons = [
                 Every healthcare organization operates with distinct objectives, workflows, and challenges, which is why
                 we specialize in delivering fully customized healthcare IT solutions that align precisely with your
                 vision and operational needs. Our end-to-end software development services encompass the full lifecycle
-                of web, desktop, and mobile application development—from initial consultation, requirements gathering,
+                of web, desktop, and mobile application development -from initial consultation, requirements gathering,
                 and architecture design to coding, rigorous testing, deployment, and ongoing support. Whether you
                 require a complex medical platform built from the ground up, an MVP to validate your concept, or the
                 enhancement and scaling of an existing solution, we ensure every stage is executed with technical
@@ -119,7 +117,7 @@ const reasons = [
             <>
                 Our healthcare development experts partner with you to translate your vision into effective, scalable
                 solutions that meet the dynamic needs of the healthcare industry. By leveraging industry insights and
-                technical expertise, we guide you through the entire development process—whether launching a minimum
+                technical expertise, we guide you through the entire development process -whether launching a minimum
                 viable product (MVP) to validate your concept, enhancing and updating existing applications to improve
                 functionality and user experience, or seamlessly integrating new features to stay ahead of market
                 trends. Our collaborative, user-focused approach ensures that your software remains aligned with
@@ -171,7 +169,6 @@ const reasons = [
     },
 ];
 
-
 const Healthcare = () => {
     const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
@@ -184,7 +181,6 @@ const Healthcare = () => {
     const targetRef = useRef<HTMLDivElement | null>(null);
     const {scrollYProgress} = useScroll({target: targetRef});
     const x = useTransform(scrollYProgress, [0, 1], ["0%", "-83%"]);
-
 
     // Floating button visibility hook
     useEffect(() => {
@@ -294,7 +290,7 @@ const Healthcare = () => {
             heading: "Compliance-First Planning",
             description: (<>
                 From the very beginning, we integrate HIPAA, HL7, and all relevant regulatory requirements into every
-                stage of the planning process—ensuring compliance is not an afterthought but a foundational element. Our
+                stage of the planning process -ensuring compliance is not an afterthought but a foundational element. Our
                 approach eliminates risks, avoids costly rework, and guarantees that your healthcare application meets
                 strict industry standards for security, privacy, and interoperability. By embedding compliance into the
                 core architecture and workflows, we deliver solutions that inspire trust, protect sensitive data, and
@@ -312,7 +308,7 @@ const Healthcare = () => {
                 balance aesthetic appeal with functional clarity, streamlining navigation and reducing cognitive load.
                 Our design process incorporates user research, wireframing, and prototyping to validate workflows and
                 optimize every interaction. The result is a healthcare application that enhances engagement, improves
-                accessibility, and delivers a seamless experience across all devices—fostering satisfaction, trust, and
+                accessibility, and delivers a seamless experience across all devices -fostering satisfaction, trust, and
                 long-term adoption.
             </>),
             icon: <FaPencilRuler/>,
@@ -615,16 +611,11 @@ const Healthcare = () => {
     };
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             {/* Hero Section */}
             <div id={'hero'}
                  className={"relative overflow-hidden lg:w-full lg:h-180 justify-center items-center md:w-full md:h-[700] w-full h-[700] pb-6"}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
+                {/*  -  -  -  Futuristic FX overlay (hero enhancement)  -  -  -  */}
                 <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
                     <div className="gx-scanline" />
                     <div className="gx-noise-overlay" />
@@ -708,7 +699,7 @@ const Healthcare = () => {
                             </div>
                             <div>
                                 <p>
-                                    As a strategic technology partner—not just a service provider—we offer end-to-end
+                                    As a strategic technology partner -not just a service provider -we offer end-to-end
                                     expertise in software architecture, cross-platform application development, system
                                     modernization, and integration. Our team applies proven methodologies to manage
                                     risks, accelerate delivery, and maintain regulatory compliance. With a strong
@@ -893,7 +884,7 @@ const Healthcare = () => {
                                     <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
                                         These healthcare management solutions are equipped with integrated modules for
                                         resource allocation, staff scheduling, billing, and electronic patient
-                                        records—ensuring a centralized and cohesive approach to operational oversight.
+                                        records -ensuring a centralized and cohesive approach to operational oversight.
                                         By automating routine processes and minimizing the risk of administrative
                                         errors, they help reduce patient wait times, optimize staff productivity, and
                                         maintain regulatory compliance. This leads to smoother, more efficient clinical
@@ -925,7 +916,7 @@ const Healthcare = () => {
                                         decision-making and allows for the development of tailored treatment plans based
                                         on individual patient needs. As a result, providers can deliver more accurate
                                         diagnoses, reduce delays in care, and offer highly personalized, effective
-                                        treatment—ultimately improving clinical outcomes and patient satisfaction.
+                                        treatment -ultimately improving clinical outcomes and patient satisfaction.
                                     </p>
                                 </div>
                                 <div
@@ -1049,7 +1040,7 @@ const Healthcare = () => {
                             <p className='text-[0.85em] font-[400] lg:-mt-[0.2em] rounded-none leading-[1.5]'>
                                 We specialize in developing secure, compliant, and scalable healthcare software tailored
                                 to diverse clinical and operational needs. Our capabilities span EHR systems, telehealth
-                                platforms, patient engagement tools, data analytics, and system integrations—empowering
+                                platforms, patient engagement tools, data analytics, and system integrations -empowering
                                 healthcare providers to enhance care delivery, optimize workflows, and drive measurable
                                 outcomes.
                             </p>
@@ -1276,8 +1267,8 @@ const Healthcare = () => {
                                         mHealth applications have become essential tools for empowering patients to
                                         actively manage their health and wellness through intuitive, mobile platforms.
                                         These solutions provide seamless access to a wide range of healthcare
-                                        services—from booking appointments and receiving timely medication reminders to
-                                        tracking vital signs and accessing personalized health education—all from the
+                                        services -from booking appointments and receiving timely medication reminders to
+                                        tracking vital signs and accessing personalized health education -all from the
                                         convenience of a smartphone or tablet. By facilitating continuous patient
                                         engagement and supporting adherence to treatment plans, mHealth apps play a
                                         critical role in promoting healthier behaviors and improving clinical outcomes.
@@ -1710,7 +1701,7 @@ const Healthcare = () => {
                                         onClick={() => setOpenIndex(openIndex === i ? null : i)}
                                     >
                                         {feature.title}
-                                        <span>{openIndex === i ? "▲" : "▼"}</span>
+                                        <span>{openIndex === i ? " - " : " - "}</span>
                                     </button>
                                     {openIndex === i &&
                                         <p className={`pb-4 text-gray-500 text-[0.873em] `}>{feature.content}</p>}
@@ -2222,3 +2213,4 @@ const Healthcare = () => {
 };
 
 export default Healthcare;
+

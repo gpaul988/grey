@@ -1,7 +1,6 @@
 'use client';
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import Link from "next/link";
 import {useIsDayTime} from '../../components/useIsDayTime';
@@ -17,7 +16,6 @@ const [isVisible, setIsVisible] = useState(false);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
 
-
     // Floating button visibility hook
     useEffect(() => {
         const handleScroll = () => {
@@ -31,7 +29,6 @@ const [isVisible, setIsVisible] = useState(false);
 
     // isDaytime react hook
     const isDayTime = useIsDayTime();
-
 
     // Introductory section hook
     useEffect(() => {
@@ -89,19 +86,13 @@ const [isVisible, setIsVisible] = useState(false);
         }
     };
 
-
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             {/* Hero Section */}
             <div id={'hero'}
                  className={"relative overflow-hidden lg:w-full lg:h-[720px] justify-center items-center md:w-full md:h-[700] w-full h-[700] pb-6"}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
+                {/*  -  -  -  Futuristic FX overlay (hero enhancement)  -  -  -  */}
                 <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
                     <div className="gx-scanline" />
                     <div className="gx-noise-overlay" />
@@ -125,7 +116,7 @@ const [isVisible, setIsVisible] = useState(false);
                         className={'relative grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 lg:mt-[1em] md:mt-[1em] mt-[0.5em] '}>
                         <div className={'lg:-mr-[4em] md:-mr-[1em] lg:mt-[1em] md:mt-[1em]'}>
                             <p className={'text-[0.87em] font-[300]'}>
-                                Shopify, Magento, Big Cartel, WooCommerce—whatever your ecommerce platform, we&#39;ve
+                                Shopify, Magento, Big Cartel, WooCommerce -whatever your ecommerce platform, we&#39;ve
                                 got
                                 the expertise to support and scale your online store.
                             </p>
@@ -207,7 +198,7 @@ const [isVisible, setIsVisible] = useState(false);
                                     to create solutions that support sustainable growth. From initial planning and
                                     design to development, deployment, and long-term optimization, we provide end-to-end
                                     eCommerce services that deliver lasting value. By partnering with us, you gain more
-                                    than just a website—you gain a digital asset designed to enhance your market
+                                    than just a website -you gain a digital asset designed to enhance your market
                                     presence, strengthen customer relationships, and drive measurable business success.
                                 </p>
                             </div>
@@ -422,7 +413,7 @@ const [isVisible, setIsVisible] = useState(false);
                                             className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Sales-driven Marketing Solutions</span>
                                     </div>
                                     <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Building or relaunching your eCommerce website is only the first step—success
+                                        Building or relaunching your eCommerce website is only the first step -success
                                         depends on ensuring your customers can find and engage with your products
                                         online. This requires a comprehensive eCommerce marketing strategy designed to
                                         drive traffic, attract the right audience, and convert visits into
@@ -471,3 +462,4 @@ const [isVisible, setIsVisible] = useState(false);
 };
 
 export default ECommerceDevelopment;
+

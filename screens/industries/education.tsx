@@ -9,7 +9,7 @@ const Education = () => (
         topImages={['/assets/services/Web-App-Development-company.jpg', '/assets/services/Development.jpg']}
         intro={
             <>
-                Transforming how the world learns—LMS platforms, virtual classrooms, e-learning apps and school
+                Transforming how the world learns -LMS platforms, virtual classrooms, e-learning apps and school
                 management systems that make education engaging, accessible and measurable.
             </>
         }
@@ -20,19 +20,19 @@ const Education = () => (
                 Education is being reinvented by technology, and learners now expect engaging, personalised,
                 always-available experiences. Grey InfoTech builds the platforms that deliver them. We develop
                 learning management systems, e-learning apps, virtual classrooms and school management software
-                that make teaching and learning more effective—interactive content, assessments, progress
+                that make teaching and learning more effective -interactive content, assessments, progress
                 tracking, live and recorded classes, and analytics that show educators exactly how their
                 students are doing. Whether you run a school, a university, a training company, or an EdTech
                 startup, we build products that engage learners, support teachers and scale to thousands of
                 concurrent users.
             </>,
             <>
-                Great EdTech is more than content delivery—it&apos;s about outcomes, accessibility and
+                Great EdTech is more than content delivery -it&apos;s about outcomes, accessibility and
                 administration working together. We design platforms that personalise learning paths, gamify
                 engagement, and surface analytics that help educators intervene early. We build accessible,
                 multi-device experiences so learning happens anywhere, integrate video, payments and
-                certification, and engineer the administrative backbone—enrolment, scheduling, grading and
-                reporting—that keeps institutions running. With secure handling of student data and the ability
+                certification, and engineer the administrative backbone -enrolment, scheduling, grading and
+                reporting -that keeps institutions running. With secure handling of student data and the ability
                 to scale during exam seasons and enrolment peaks, we deliver education software that improves
                 results and stands up to real-world demand.
             </>,
@@ -49,36 +49,36 @@ const Education = () => (
             {
                 id: '01', title: 'Learning Management Systems', target: 'LM',
                 tags: ['Courses', 'Assessments', 'Tracking'],
-                body: <>We build full-featured LMS platforms—course creation, content delivery, quizzes and
-                    assessments, progress tracking and certificates—giving educators the tools to teach
+                body: <>We build full-featured LMS platforms -course creation, content delivery, quizzes and
+                    assessments, progress tracking and certificates -giving educators the tools to teach
                     effectively and learners a clear path through their studies.</>,
             },
             {
                 id: '02', title: 'Virtual Classrooms & Live Learning', target: 'VC',
                 tags: ['Video', 'Whiteboard', 'Recording'],
                 body: <>We develop virtual classroom experiences with live video, interactive whiteboards, chat,
-                    breakout rooms and recordings—recreating the energy of in-person teaching online and making
+                    breakout rooms and recordings -recreating the energy of in-person teaching online and making
                     it available on demand.</>,
             },
             {
                 id: '03', title: 'E-Learning & Mobile Apps', target: 'EL',
                 tags: ['Interactive', 'Offline', 'Gamification'],
-                body: <>We craft engaging e-learning web and mobile apps—interactive lessons, gamification,
-                    offline access and microlearning—that keep learners motivated and let education happen
+                body: <>We craft engaging e-learning web and mobile apps -interactive lessons, gamification,
+                    offline access and microlearning -that keep learners motivated and let education happen
                     anywhere, on any device.</>,
             },
             {
                 id: '04', title: 'School & Institution Management', target: 'SM',
                 tags: ['Enrolment', 'Grading', 'Scheduling', 'Reporting'],
-                body: <>We build the administrative backbone—enrolment, attendance, scheduling, grading, fees and
-                    reporting—plus parent and teacher portals, so institutions run smoothly and everyone stays
+                body: <>We build the administrative backbone -enrolment, attendance, scheduling, grading, fees and
+                    reporting -plus parent and teacher portals, so institutions run smoothly and everyone stays
                     informed.</>,
             },
             {
                 id: '05', title: 'Personalisation & Analytics', target: 'PA',
                 tags: ['Adaptive', 'Insights', 'Early Intervention'],
                 body: <>We add adaptive learning paths and analytics that reveal how each student is progressing,
-                    helping educators personalise teaching and intervene early—turning data into better learning
+                    helping educators personalise teaching and intervene early -turning data into better learning
                     outcomes.</>,
             },
             {
@@ -92,7 +92,7 @@ const Education = () => (
         reasons={[
             {
                 id: 1, title: 'Engagement That Lasts', image: '/assets/services/product-design.jpg',
-                description: <>Interactivity, gamification and thoughtful UX keep learners motivated—because
+                description: <>Interactivity, gamification and thoughtful UX keep learners motivated -because
                     completed courses, not just enrolments, are what matter.</>,
             },
             {
@@ -107,7 +107,7 @@ const Education = () => (
             },
             {
                 id: 4, title: 'Scales for Peak Demand', image: '/assets/services/digital-optimisation.jpg',
-                description: <>Exam seasons and enrolment surges won&apos;t break your platform—we architect for the
+                description: <>Exam seasons and enrolment surges won&apos;t break your platform -we architect for the
                     spikes that education inevitably brings.</>,
             },
         ]}
@@ -117,8 +117,8 @@ const Education = () => (
             delivers real outcomes.</>}
         testimonials={[
             {name: 'Funmi Adebayo', title: 'Founder, LearnBridge', message: <>Grey InfoTech built our LMS and mobile app, and engagement soared. Course completion rates are the best we&apos;ve ever seen. They clearly understand learners.</>},
-            {name: 'Joseph Mwangi', title: 'IT Director, Summit Academy', message: <>Their school management system transformed our admin—enrolment, grading and parent portals all in one place. It even held up flawlessly through exam season.</>},
-            {name: 'Aisha Garba', title: 'CEO, SkillUp Africa', message: <>The virtual classroom platform they built feels alive—live video, whiteboards, recordings. Our trainers and students love it, and it scales beautifully.</>},
+            {name: 'Joseph Mwangi', title: 'IT Director, Summit Academy', message: <>Their school management system transformed our admin -enrolment, grading and parent portals all in one place. It even held up flawlessly through exam season.</>},
+            {name: 'Aisha Garba', title: 'CEO, SkillUp Africa', message: <>The virtual classroom platform they built feels alive -live video, whiteboards, recordings. Our trainers and students love it, and it scales beautifully.</>},
         ]}
     />
 );

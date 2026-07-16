@@ -42,7 +42,7 @@ const AVAILABILITY = [
     'Within 2 weeks',
     'Within 1 month',
     '1 – 3 months',
-    'Not actively looking — open to the right role',
+    'Not actively looking  - open to the right role',
 ];
 
 const WORK_TYPES = ['Full-time', 'Part-time', 'Contract / Freelance', 'Internship'];
@@ -185,7 +185,7 @@ export default function CareerIntroduceScreen() {
                         <FxTerminal
                             day={isDayTime}
                             lines={[
-                                '# grey infotech — talent radar',
+                                '# grey infotech  - talent radar',
                                 'npm run meet-the-team',
                                 '',
                                 '> Scanning incoming profile...',
@@ -205,7 +205,7 @@ export default function CareerIntroduceScreen() {
                             ? 'bg-white/[0.02] border-white/8 backdrop-blur-sm'
                             : 'bg-white border-gray-100 shadow-xl shadow-gray-100/80'
                     }`}>
-                        {/* Corner accents — cyan theme to differentiate from CV form */}
+                        {/* Corner accents  - cyan theme to differentiate from CV form */}
                         <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-cyan-400/30 rounded-tl-2xl pointer-events-none" />
                         <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-cyan-400/30 rounded-br-2xl pointer-events-none" />
 
@@ -315,7 +315,7 @@ export default function CareerIntroduceScreen() {
                                 <div className="relative">
                                     <textarea
                                         className={`${inputCls} min-h-[200px] resize-y`}
-                                        placeholder="Tell us about yourself — what you've built, what drives you, why you're excited about what Grey InfoTech does, and what you bring to the table. Be genuine. We read every message."
+                                        placeholder="Tell us about yourself  - what you've built, what drives you, why you're excited about what Grey InfoTech does, and what you bring to the table. Be genuine. We read every message."
                                         value={form.cover_letter}
                                         onChange={set('cover_letter')}
                                         rows={8}

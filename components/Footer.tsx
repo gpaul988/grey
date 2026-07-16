@@ -216,8 +216,8 @@ const Footer = () => {
                 UX/UI design, and digital strategy. From startups in Port Harcourt to established corporations across
                 Nigeria and abroad, we provide scalable solutions that enhance digital presence, improve customer
                 engagement, and drive measurable business growth.<br/><br/>
-                Our reputation is built on helping organizations—whether local SMEs in Rivers State or international B2B
-                and B2C clients—navigate digital transformation. For startups, we build minimum viable products (MVPs)
+                Our reputation is built on helping organizations -whether local SMEs in Rivers State or international B2B
+                and B2C clients -navigate digital transformation. For startups, we build minimum viable products (MVPs)
                 and support them from ideation to market launch, while for established companies, we deliver
                 enterprise-level platforms and digital strategies that create lasting competitive advantage.</p><br/>
             <h5>Web Design & Development Services</h5><br/>
@@ -245,7 +245,7 @@ const Footer = () => {
                 user feedback, and implement data-driven improvements, ensuring that our clients’ platforms remain
                 competitive both locally and internationally.</p><br/><br/>
             <h5>Digital Marketing & SEO Services</h5><br/>
-            <p>Grey InfoTech is more than a design and development company—we are also a trusted digital marketing and
+            <p>Grey InfoTech is more than a design and development company -we are also a trusted digital marketing and
                 SEO agency in Port Harcourt, Nigeria. We understand that visibility is critical for business success,
                 and we deliver strategies that help our clients rank higher, attract qualified leads, and convert
                 traffic into customers.<br/><br/>
@@ -271,7 +271,7 @@ const Footer = () => {
 
     // The /store/* routes render their own storefront footer via StoreLayout.
     // Suppress the global site footer there to prevent a duplicated footer.
-    // Additive guard — placed after all hooks so hook order stays stable.
+    // Additive guard  - placed after all hooks so hook order stays stable.
     if (pathname?.startsWith('/store')) {
         return null;
     }
@@ -471,7 +471,7 @@ const Footer = () => {
                                     </p>
                                 </div>
 
-                                {/* Compact newsletter signup — sits right below the main office address */}
+                                {/* Compact newsletter signup  - sits right below the main office address */}
                                 <div
                                     className="rounded-xl border border-cyan-400/20 bg-gradient-to-r from-teal-500/10 via-cyan-500/10 to-indigo-500/10 p-3">
                                     <h4 className="text-white text-[0.85em] font-medium">
@@ -585,6 +585,7 @@ const Footer = () => {
             {
                 isModalOpen && (
                     <div
+                        suppressHydrationWarning
                         className={`fixed py-[2em] inset-0 z-50 ${isDayTime ? 'bg-white/85' : 'bg-black/85'} backdrop-blur-md w-full h-full overflow-auto overflow-x-hidden`}
                     >
                         <div

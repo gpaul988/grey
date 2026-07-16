@@ -51,7 +51,7 @@ function CheckoutInner() {
         if (config?.paystack?.enabled) g.push({ id: 'paystack', name: 'Paystack', desc: 'Card, bank, USSD, transfer' });
         if (config?.flutterwave?.enabled) g.push({ id: 'flutterwave', name: 'Flutterwave', desc: 'Card, bank, mobile money' });
         if (config?.monnify?.enabled) g.push({ id: 'monnify', name: 'Monnify', desc: 'Card & bank transfer' });
-        if (config?.bank_transfer?.enabled) g.push({ id: 'bank_transfer', name: 'Direct Bank Transfer', desc: 'Manual transfer — order confirmed after payment' });
+        if (config?.bank_transfer?.enabled) g.push({ id: 'bank_transfer', name: 'Direct Bank Transfer', desc: 'Manual transfer  - order confirmed after payment' });
         return g;
     }, [config]);
 
@@ -107,7 +107,7 @@ function CheckoutInner() {
             if (url) { window.location.href = url; return; }
             router.push(`/store/orders/${orderNumber}`);
         } catch (e) {
-            setError('Payment init failed: ' + (e as Error).message + '. Your order was created — view it below.');
+            setError('Payment init failed: ' + (e as Error).message + '. Your order was created  - view it below.');
             router.push(`/store/orders/${orderNumber}`);
         }
     };
@@ -180,9 +180,9 @@ function CheckoutInner() {
                         {payment === 'bank_transfer' && config?.bank_transfer && (
                             <div className="mt-4 st-card p-4 text-sm space-y-1" style={{ background: 'var(--st-surface-2)' }}>
                                 <p className="font-semibold text-[var(--st-teal)]">Bank Transfer Details</p>
-                                <p>Bank: {config.bank_transfer.bank_name || '—'}</p>
-                                <p>Account: {config.bank_transfer.account_number || '—'}</p>
-                                <p>Name: {config.bank_transfer.account_name || '—'}</p>
+                                <p>Bank: {config.bank_transfer.bank_name || ' -'}</p>
+                                <p>Account: {config.bank_transfer.account_number || ' -'}</p>
+                                <p>Name: {config.bank_transfer.account_name || ' -'}</p>
                                 <p className="text-[var(--st-muted)] text-xs mt-1">Use your order number as the transfer reference. We confirm & ship once payment reflects.</p>
                             </div>
                         )}
@@ -197,7 +197,7 @@ function CheckoutInner() {
                             <div key={l.product.id} className="flex gap-3 text-sm">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img src={l.product.thumbnail || ''} alt="" className="w-12 h-12 rounded-lg object-cover" />
-                                <div className="flex-1 min-w-0"><p className="truncate">{l.product.name}</p><p className="text-[var(--st-muted)]">×{l.quantity}</p></div>
+                                <div className="flex-1 min-w-0"><p className="truncate">{l.product.name}</p><p className="text-[var(--st-muted)]"> -{l.quantity}</p></div>
                                 <span>{formatPrice(l.product.price * l.quantity, currency, usdRate)}</span>
                             </div>
                         ))}

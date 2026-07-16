@@ -2,7 +2,7 @@
 
 /**
  * FuturisticServiceLayout
- * ─────────────────────────────────────────────────────────────────────────────
+ *  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
  * Drop-in wrapper for all 40 service detail pages.
  * Replace the old <h1> + sticky-scroll pattern with this component.
  *
@@ -70,7 +70,7 @@ export default function FuturisticServiceLayout({
     return (
         <div className={`min-h-screen transition-colors duration-500 ${dark ? 'bg-[#050810] text-white' : 'bg-white text-black'}`}>
 
-            {/* ── Full-bleed hero ── */}
+            {/*  -  -  Full-bleed hero  -  -  */}
             <section className="gx-page-hero relative overflow-hidden min-h-[78vh] flex flex-col justify-end">
                 {/* Video / image background */}
                 {heroVideo ? (
@@ -144,7 +144,7 @@ export default function FuturisticServiceLayout({
                 </div>
             </section>
 
-            {/* ── Main content ── */}
+            {/*  -  -  Main content  -  -  */}
             <div className="relative z-10">
 
                 {/* Background FX for body */}
@@ -212,9 +212,9 @@ export default function FuturisticServiceLayout({
     );
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
    Helper sub-components for service page sections
-   ─────────────────────────────────────────────────────────────────────────── */
+    -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 
 /** Full-width intro section with chip + large heading */
 export function ServiceIntro({

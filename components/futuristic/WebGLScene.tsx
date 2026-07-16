@@ -1,10 +1,10 @@
 'use client';
 
 /**
- * WebGLScene — the actual three.js content (loaded lazily, never on the
+ * WebGLScene  - the actual three.js content (loaded lazily, never on the
  * critical path). A slowly-rotating wireframe icosahedron core wrapped in a
  * drifting particle field, with subtle pointer parallax. Brand-tinted, dark,
- * professional — not a toy.
+ * professional  - not a toy.
  *
  * Imported ONLY via next/dynamic({ssr:false}) from WebGLHero, so three.js is
  * code-split out of the main bundle and only fetched on capable devices.

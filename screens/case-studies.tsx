@@ -35,7 +35,7 @@ const STATIC_STUDIES = [
         services: ['Dashboard Design', 'React Development', 'Data Integration'],
         summary: 'Consolidated fragmented fleet data into a single real-time command centre for dispatch teams.',
         image: '/assets/startup/market.jpg',
-        results: '3× faster dispatch decisions · Real-time visibility across 200+ vehicles',
+        results: '3 - faster dispatch decisions · Real-time visibility across 200+ vehicles',
         resultMetrics: [80, 95, 100],
         resultLabels: ['Dispatch Speed', 'Fleet Visibility', 'Data Accuracy'],
         published: 1,
@@ -63,9 +63,9 @@ const STATIC_STUDIES = [
         client: 'EduPath',
         industry: 'EdTech',
         services: ['Performance Engineering', 'CDN Strategy', 'Caching Architecture'],
-        summary: 'Scaled a growing learning platform to handle 10× traffic spikes with no degradation in UX.',
+        summary: 'Scaled a growing learning platform to handle 10 - traffic spikes with no degradation in UX.',
         image: '/assets/services/services.jpg',
-        results: '91% reduction in page load time · 4× user retention uplift',
+        results: '91% reduction in page load time · 4 - user retention uplift',
         resultMetrics: [91, 80, 400],
         resultLabels: ['Load Time Reduction', 'User Retention Up', 'Traffic Scale'],
         published: 1,
@@ -101,7 +101,7 @@ const CaseStudies: React.FC = () => {
     return (
         <div className={`${dark ? 'bg-[#050810] text-white' : 'bg-white text-black'} min-h-screen transition-colors duration-500`}>
 
-            {/* ── Hero ── */}
+            {/*  -  -  Hero  -  -  */}
             <section className="relative overflow-hidden min-h-[78vh] flex flex-col justify-end">
                 <video src="/assets/fin/hero.mp4" autoPlay loop muted playsInline
                     className="absolute inset-0 h-full w-full object-cover opacity-30" />
@@ -150,7 +150,7 @@ const CaseStudies: React.FC = () => {
 
             <main className="relative z-10">
 
-                {/* ── Intro ── */}
+                {/*  -  -  Intro  -  -  */}
                 <section
                     className={`pt-16 transition-colors duration-500 ${
                         isDayTime ? 'bg-white text-black' : 'bg-black text-white'
@@ -177,7 +177,7 @@ const CaseStudies: React.FC = () => {
                     </div>
                 </section>
 
-                {/* ── Featured ── */}
+                {/*  -  -  Featured  -  -  */}
                 <section className={`py-16 md:py-20 px-4 sm:px-6 md:px-10 lg:px-[4.5em] border-b ${dark ? 'border-white/08' : 'border-gray-100'}`}>
                     <div className="max-w-[90rem] mx-auto">
                         <Link href={`/case-studies/${featured.slug}`} className="group block">
@@ -228,7 +228,7 @@ const CaseStudies: React.FC = () => {
                     </div>
                 </section>
 
-                {/* ── Filter + grid ── */}
+                {/*  -  -  Filter + grid  -  -  */}
                 <section className="px-4 sm:px-6 md:px-10 lg:px-[4.5em] py-14">
                     <div className="max-w-[90rem] mx-auto">
                         {/* Filter */}

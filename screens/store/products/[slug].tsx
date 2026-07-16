@@ -99,7 +99,7 @@ function Detail({ slug }: { slug: string }) {
                     <p className="text-[var(--st-muted)] mt-4 leading-relaxed">{product.description}</p>
 
                     <p className={`mt-4 text-sm flex items-center gap-2 ${product.stock > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
-                        <FiCheck /> {product.stock > 0 ? `In stock — ${product.stock} available` : 'Out of stock'}
+                        <FiCheck /> {product.stock > 0 ? `In stock  - ${product.stock} available` : 'Out of stock'}
                     </p>
 
                     <div className="flex items-center gap-3 mt-6">

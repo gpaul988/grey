@@ -1,9 +1,7 @@
 'use client';
 
-
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css';
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import ServiceHero from '@/components/futuristic/ServiceHero';
@@ -14,19 +12,29 @@ import {motion} from 'framer-motion';
 
 import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
 
-import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxStickyScrollSection, FxScrollItem } from '@/components/futuristic/fx';interface Benefit {
+import {
+    FxBackground,
+    FxChip,
+    FxReveal,
+    FxButton,
+    FxHoloCard,
+    FxStickyScrollSection,
+    FxScrollItem
+} from '@/components/futuristic/fx';
+
+interface Benefit {
     icon: React.ReactNode;
     title: string;
     description: React.ReactNode;
 }
 
-const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(false);
+const CrmDevelopment = () => {
+    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
     const [activeAcc, setActiveAcc] = useState<number | null>(null);
     const [isDesktop, setIsDesktop] = useState(false);
-
 
     // Floating button visibility hook
     useEffect(() => {
@@ -41,7 +49,6 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
 
     // isDaytime react hook
     const isDayTime = useIsDayTime();
-
 
     // Introductory section hook
     useEffect(() => {
@@ -167,7 +174,7 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                     Purpose-built CRM solutions deliver strategic capabilities that off-the-shelf platforms cannot
                     match. Our industry-specific functionalities are engineered to address your unique operational
                     challenges and competitive requirements. Each feature is strategically designed to optimize
-                    workflows, enhance customer insights, and accelerate business outcomes—ensuring your technology
+                    workflows, enhance customer insights, and accelerate business outcomes -ensuring your technology
                     investment directly supports growth objectives and delivers measurable competitive advantage.
                 </>
             )
@@ -224,7 +231,7 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                     solutions connect seamlessly with existing enterprise systems, third-party applications, and
                     specialized tools to create a cohesive operational environment. By enabling real-time data
                     synchronization and cross-platform workflows, we eliminate information silos, enhance organizational
-                    collaboration, and provide unified visibility across all customer touchpoints—empowering informed
+                    collaboration, and provide unified visibility across all customer touchpoints -empowering informed
                     decision-making and operational agility.
                 </>
             )
@@ -258,7 +265,7 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                     Security is foundational to our CRM architecture. We implement enterprise-grade protection through
                     advanced encryption, multi-layered authentication, and proactive threat mitigation to safeguard
                     sensitive customer data. Our comprehensive security framework ensures regulatory compliance,
-                    maintains data integrity, and protects your organization against evolving cyber threats—providing
+                    maintains data integrity, and protects your organization against evolving cyber threats -providing
                     the confidence needed to manage critical business information with complete peace of mind.
                 </>
             )
@@ -281,7 +288,7 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             description: (
                 <>
                     Scale with confidence through CRM architecture designed for dynamic growth. Our solutions adapt
-                    seamlessly to evolving business requirements—whether expanding customer operations, integrating new
+                    seamlessly to evolving business requirements -whether expanding customer operations, integrating new
                     capabilities, or penetrating emerging markets. Built on flexible, modular frameworks, our systems
                     accommodate increased transaction volumes, user expansion, and functional enhancements without
                     compromising performance. This strategic scalability ensures your CRM investment delivers sustained
@@ -313,7 +320,8 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                     Our solutions feature streamlined navigation, role-based dashboards, and contextual functionality
                     that minimize training requirements and maximize productivity. By designing user experiences
                     tailored to specific team functions and processes, we ensure seamless adoption across your
-                    organization—enabling teams to leverage CRM capabilities effectively from day one and achieve faster
+                    organization -enabling teams to leverage CRM capabilities effectively from day one and achieve
+                    faster
                     time-to-value on your technology investment.
                 </>
             )
@@ -347,7 +355,7 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                     illuminate customer behavior, sales trends, and operational performance. By providing
                     decision-makers with actionable intelligence and customizable analytics, we enable data-driven
                     strategy formulation, proactive opportunity identification, and measurable performance
-                    optimization—ensuring every business decision is grounded in accurate, timely information that
+                    optimization -ensuring every business decision is grounded in accurate, timely information that
                     drives competitive outcomes.
                 </>
             )
@@ -374,7 +382,7 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                 <>
                     Differentiate your enterprise through strategically engineered CRM solutions that address your
                     specific market position and competitive challenges. Our custom platforms transform customer
-                    relationship management into a strategic differentiator—enabling proprietary workflows, unique
+                    relationship management into a strategic differentiator -enabling proprietary workflows, unique
                     customer experiences, and operational capabilities that competitors using generic systems cannot
                     replicate. By aligning technology precisely with your business model and value proposition, we
                     create sustainable competitive advantages that strengthen market positioning and accelerate growth
@@ -450,7 +458,6 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
         }
     ];
-
 
     // Accordion
     const steps = [
@@ -802,7 +809,11 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             tags: ["Enterprise Architecture", "Scalable Platform", "Business-Aligned"],
             body: (
                 <p>
-                    We design and deliver bespoke CRM platforms meticulously engineered to transform how your organization manages customer interactions, sales processes, and customer engagement strategies. Our tailored CRM solutions go beyond off-the-shelf platforms by addressing your unique business workflows, industry-specific requirements, and organizational structure, ensuring that every feature and functionality directly supports your strategic objectives.
+                    We design and deliver bespoke CRM platforms meticulously engineered to transform how your
+                    organization manages customer interactions, sales processes, and customer engagement strategies. Our
+                    tailored CRM solutions go beyond off-the-shelf platforms by addressing your unique business
+                    workflows, industry-specific requirements, and organizational structure, ensuring that every feature
+                    and functionality directly supports your strategic objectives.
                 </p>
             ),
         },
@@ -813,7 +824,11 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             tags: ["Seamless Integration", "System Connectivity", "Data Unification"],
             body: (
                 <p>
-                    We provide comprehensive integration solutions that connect your CRM with your entire technology ecosystem—from marketing automation and ERP systems to accounting platforms and third-party applications. Our integration expertise enables seamless data flow, eliminates information silos, and creates a unified digital environment where customer information is consistently accessible and synchronized across all business systems.
+                    We provide comprehensive integration solutions that connect your CRM with your entire technology
+                    ecosystem -from marketing automation and ERP systems to accounting platforms and third-party
+                    applications. Our integration expertise enables seamless data flow, eliminates information silos,
+                    and creates a unified digital environment where customer information is consistently accessible and
+                    synchronized across all business systems.
                 </p>
             ),
         },
@@ -824,7 +839,11 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             tags: ["Legacy Modernization", "Data Migration", "Zero Downtime"],
             body: (
                 <p>
-                    We specialize in seamless CRM migration and modernization services that facilitate smooth transitions from legacy platforms to modern, cloud-ready solutions. Our migration expertise includes comprehensive data preservation, workflow continuity assurance, and zero-downtime deployment strategies. We handle all aspects of data mapping, system configuration, user training, and post-migration support.
+                    We specialize in seamless CRM migration and modernization services that facilitate smooth
+                    transitions from legacy platforms to modern, cloud-ready solutions. Our migration expertise includes
+                    comprehensive data preservation, workflow continuity assurance, and zero-downtime deployment
+                    strategies. We handle all aspects of data mapping, system configuration, user training, and
+                    post-migration support.
                 </p>
             ),
         },
@@ -835,7 +854,11 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             tags: ["Mobile-First", "Cross-Platform", "Field Enablement"],
             body: (
                 <p>
-                    We develop powerful mobile CRM applications that enable your sales, service, and field teams to access customer information and manage interactions from anywhere. Our mobile solutions feature offline capabilities, real-time synchronization, intuitive interfaces, and device-optimized performance. We build native and cross-platform applications that empower your teams with instant access to critical customer data and workflow tools.
+                    We develop powerful mobile CRM applications that enable your sales, service, and field teams to
+                    access customer information and manage interactions from anywhere. Our mobile solutions feature
+                    offline capabilities, real-time synchronization, intuitive interfaces, and device-optimized
+                    performance. We build native and cross-platform applications that empower your teams with instant
+                    access to critical customer data and workflow tools.
                 </p>
             ),
         },
@@ -846,7 +869,11 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             tags: ["Business Intelligence", "Predictive Analytics", "Dashboards"],
             body: (
                 <p>
-                    We deliver sophisticated analytics and reporting solutions that transform raw CRM data into actionable business intelligence. Our platforms provide real-time dashboards, predictive analytics, sales pipeline analysis, customer segmentation, and performance metrics that enable strategic decision-making. We implement advanced analytics capabilities that help you identify trends, optimize processes, and uncover new revenue opportunities.
+                    We deliver sophisticated analytics and reporting solutions that transform raw CRM data into
+                    actionable business intelligence. Our platforms provide real-time dashboards, predictive analytics,
+                    sales pipeline analysis, customer segmentation, and performance metrics that enable strategic
+                    decision-making. We implement advanced analytics capabilities that help you identify trends,
+                    optimize processes, and uncover new revenue opportunities.
                 </p>
             ),
         },
@@ -857,7 +884,11 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             tags: ["Workflow Automation", "Process Optimization", "Efficiency Gains"],
             body: (
                 <p>
-                    We design and implement comprehensive automation workflows that eliminate manual tasks, reduce administrative overhead, and accelerate sales cycles. Our automation solutions include lead scoring and routing, automated communications, contract management, task automation, and approval workflows. By automating repetitive processes, we enable your teams to focus on high-value activities that drive revenue growth.
+                    We design and implement comprehensive automation workflows that eliminate manual tasks, reduce
+                    administrative overhead, and accelerate sales cycles. Our automation solutions include lead scoring
+                    and routing, automated communications, contract management, task automation, and approval workflows.
+                    By automating repetitive processes, we enable your teams to focus on high-value activities that
+                    drive revenue growth.
                 </p>
             ),
         },
@@ -868,7 +899,11 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             tags: ["Vertical Solutions", "Compliance", "Domain Expertise"],
             body: (
                 <p>
-                    We develop industry-specific CRM solutions customized for the unique requirements of healthcare, financial services, manufacturing, retail, and other sectors. Our solutions incorporate industry best practices, compliance frameworks, and specialized workflows that address sector-specific challenges. We combine deep domain knowledge with CRM expertise to deliver platforms that maximize value within your industry context.
+                    We develop industry-specific CRM solutions customized for the unique requirements of healthcare,
+                    financial services, manufacturing, retail, and other sectors. Our solutions incorporate industry
+                    best practices, compliance frameworks, and specialized workflows that address sector-specific
+                    challenges. We combine deep domain knowledge with CRM expertise to deliver platforms that maximize
+                    value within your industry context.
                 </p>
             ),
         },
@@ -879,7 +914,11 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             tags: ["Strategic Planning", "Best Practices", "Continuous Support"],
             body: (
                 <p>
-                    We provide strategic CRM consulting services designed to guide your organization through implementation, optimization, and sustained value realization. Our experienced consultants develop comprehensive CRM roadmaps, identify optimization opportunities, and provide change management support. We offer ongoing advisory services, user training, and performance monitoring to ensure your CRM investment continues to deliver measurable ROI and business value.
+                    We provide strategic CRM consulting services designed to guide your organization through
+                    implementation, optimization, and sustained value realization. Our experienced consultants develop
+                    comprehensive CRM roadmaps, identify optimization opportunities, and provide change management
+                    support. We offer ongoing advisory services, user training, and performance monitoring to ensure
+                    your CRM investment continues to deliver measurable ROI and business value.
                 </p>
             ),
         },
@@ -887,11 +926,6 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             {/* Unified Futuristic CRM Hero - Background Image with overlay */}
             <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
@@ -946,12 +980,14 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
 
                             {/* Description */}
                             <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
-                                Custom CRM platforms engineered for enterprise growth with advanced automation, seamless integrations, predictive analytics, and comprehensive workflow optimization that transforms customer relationships into competitive advantage.
+                                Custom CRM platforms engineered for enterprise growth with advanced automation, seamless
+                                integrations, predictive analytics, and comprehensive workflow optimization that
+                                transforms customer relationships into competitive advantage.
                             </p>
 
                             {/* Key Capabilities Pills */}
                             <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
-                                {["Customer Analytics", "Process Automation", "Sales Pipeline", "360� View", "Integration Hub", "Real-Time Reporting"].map((badge) => (
+                                {["Customer Analytics", "Process Automation", "Sales Pipeline", "360  View", "Integration Hub", "Real-Time Reporting"].map((badge) => (
                                     <span key={badge}
                                           className="px-3 py-1.5 rounded-full bg-teal-400/10 border border-teal-400/30 text-teal-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">
                                             {badge}
@@ -985,8 +1021,8 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                         <div className="hidden lg:flex flex-col items-end">
                             <div className="grid grid-cols-2 gap-6 w-full">
                                 {[
-                                    {label: 'CRM Implementations', value: '120+'},
-                                    {label: 'Enterprise Clients', value: '95+'},
+                                    {label: 'CRM Implementations', value: '24+'},
+                                    {label: 'Enterprise Clients', value: '13+'},
                                     {label: 'Automation Workflows', value: '500+'},
                                     {label: 'Customer Retention', value: '94%'}
                                 ].map((stat) => (
@@ -1056,12 +1092,28 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                                 className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
                                 <div>
                                     <p>
-                                        Modern CRM platforms are the cornerstone of customer-centric organizations. At Grey InfoTech, our CRM experts deliver enterprise-grade solutions that revolutionize how you manage customer relationships, streamline sales processes, and optimize marketing campaigns. From custom CRM development to seamless integration with your existing systems, we architect comprehensive platforms that centralize customer data, automate workflows, provide predictive analytics, and empower your teams to deliver exceptional customer experiences at every touchpoint.
+                                        Modern CRM platforms are the cornerstone of customer-centric organizations. At
+                                        Grey InfoTech, our CRM experts deliver enterprise-grade solutions that
+                                        revolutionize how you manage customer relationships, streamline sales processes,
+                                        and optimize marketing campaigns. From custom CRM development to seamless
+                                        integration with your existing systems, we architect comprehensive platforms
+                                        that centralize customer data, automate workflows, provide predictive analytics,
+                                        and empower your teams to deliver exceptional customer experiences at every
+                                        touchpoint.
                                     </p>
                                 </div>
                                 <div>
                                     <p>
-                                        Our CRM development approach prioritizes user adoption, operational efficiency, and measurable business outcomes. We design systems with intuitive interfaces, powerful automation capabilities, advanced reporting dashboards, and mobile-first functionality that enable your teams to work smarter and faster. Our solutions integrate seamlessly with your marketing automation, ERP, accounting, and support platforms, creating a unified digital ecosystem that eliminates data silos and enables intelligent decision-making. This comprehensive strategy ensures your CRM becomes a transformative tool that accelerates revenue growth, improves customer lifetime value, enhances team productivity, and establishes a competitive advantage in your market.
+                                        Our CRM development approach prioritizes user adoption, operational efficiency,
+                                        and measurable business outcomes. We design systems with intuitive interfaces,
+                                        powerful automation capabilities, advanced reporting dashboards, and
+                                        mobile-first functionality that enable your teams to work smarter and faster.
+                                        Our solutions integrate seamlessly with your marketing automation, ERP,
+                                        accounting, and support platforms, creating a unified digital ecosystem that
+                                        eliminates data silos and enables intelligent decision-making. This
+                                        comprehensive strategy ensures your CRM becomes a transformative tool that
+                                        accelerates revenue growth, improves customer lifetime value, enhances team
+                                        productivity, and establishes a competitive advantage in your market.
                                     </p>
 
                                     <div className="flex flex-wrap gap-3 mt-4">
@@ -1078,17 +1130,17 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
 
             {/* CRM Solutions - Enhanced Visual Section */}
             <section className={`relative`}>
-            <div className="relative z-10">
-                <FxStickyScrollSection
-                    day={isDayTime}
-                    heading={<>Our CRM<br/>Solutions</>}
-                    intro="We deliver comprehensive CRM solutions that revolutionize customer relationship management�from custom platform development and seamless integrations to mobile-first applications, advanced analytics, and intelligent automation�all designed to accelerate revenue growth and enhance customer lifetime value."
-                    navLabel="CRM Solutions"
-                    activeId={activeId}
-                    onNavClickAction={scrollToSection}
-                    items={crmSolutions}
-                />
-            </div>
+                <div className="relative z-10">
+                    <FxStickyScrollSection
+                        day={isDayTime}
+                        heading={<>Our CRM<br/>Solutions</>}
+                        intro="We deliver comprehensive CRM solutions that revolutionize customer relationship management from custom platform development and seamless integrations to mobile-first applications, advanced analytics, and intelligent automation all designed to accelerate revenue growth and enhance customer lifetime value."
+                        navLabel="CRM Solutions"
+                        activeId={activeId}
+                        onNavClickAction={scrollToSection}
+                        items={crmSolutions}
+                    />
+                </div>
             </section>
 
             {/* Our CRM System Development Process */}
@@ -1360,7 +1412,7 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                         <p className="mx-auto mt-4 max-w-6xl text-[0.87em] leading-relaxed ">
                             As a premier CRM development partner, we enable enterprises to transform their customer
                             relationship platforms into powerful strategic assets. Our expertise spans the complete
-                            solution lifecycle—from initial assessment and strategic design to custom development and
+                            solution lifecycle -from initial assessment and strategic design to custom development and
                             ongoing optimization. We architect scalable, intuitive systems that streamline client
                             interactions, enhance data intelligence, and drive measurable business outcomes. Through our
                             collaborative approach and deep industry knowledge, we help organizations maximize their CRM
@@ -1696,4 +1748,5 @@ const CrmDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
 };
 
 export default CrmDevelopment;
+
 

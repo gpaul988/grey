@@ -89,13 +89,13 @@ const Support: React.FC = () => {
         '> auth: verified ✓',
         '> channels: WhatsApp · Email · Ticket · Phone',
         '> avg first response: < 1 business day',
-        '> current status: ONLINE — team ready',
+        '> current status: ONLINE  - team ready',
     ];
 
     return (
         <div className={`${dark ? 'bg-[#050810] text-white' : 'bg-white text-black'} min-h-screen flex flex-col transition-colors duration-500`}>
 
-            {/* ── Hero ── */}
+            {/*  -  -  Hero  -  -  */}
             <section className="relative overflow-hidden min-h-[60vh] flex flex-col justify-end">
                 <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/45 to-black/95" />
                 <div className="absolute inset-0 bg-gradient-to-r from-teal-950/70 to-black/50" />
@@ -128,7 +128,7 @@ const Support: React.FC = () => {
                 </div>
             </section>
 
-            {/* ── Support Channels ── */}
+            {/*  -  -  Support Channels  -  -  */}
             <section className={`relative overflow-hidden px-4 sm:px-6 md:px-10 lg:px-[4.5em] py-20 lg:py-28 ${dark ? '' : ''}`}>
                 <FxBackground day={isDayTime} grid={true} aurora={false} className="opacity-25" />
                 <div className="relative z-10 max-w-[90rem] mx-auto">
@@ -137,7 +137,7 @@ const Support: React.FC = () => {
                         <FxSectionHeading
                             day={isDayTime}
                             title="How can we help you?"
-                            subtitle="Reach our team through any of these channels — we're ready."
+                            subtitle="Reach our team through any of these channels  - we're ready."
                             align="left"
                         />
                     </FxReveal>
@@ -271,7 +271,7 @@ const Support: React.FC = () => {
                 </div>
             </section>
 
-            {/* ── CTA ── */}
+            {/*  -  -  CTA  -  -  */}
             <section className="relative overflow-hidden bg-[#050810] py-24 px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
                 <FxBackground day={false} grid aurora className="opacity-60" />
                 <div className="gx-scanline pointer-events-none" />
@@ -299,7 +299,7 @@ const Support: React.FC = () => {
                 </div>
             </section>
 
-            {/* ── Quote Request Modal ── */}
+            {/*  -  -  Quote Request Modal  -  -  */}
             <AnimatePresence>
                 {isQuoteModalOpen && (
                     <motion.div

@@ -18,7 +18,7 @@ const ReactjsDevelopment = () => (
         introHeading={<>React Development <br className={'lg:block md:block hidden'}/>From Simple to Complex</>}
         introBody={[
             <>
-                React powers some of the world's most interactive applications—SaaS dashboards, real-time collaboration tools,
+                React powers some of the world's most interactive applications -SaaS dashboards, real-time collaboration tools,
                 e-commerce platforms, and complex data visualizations. At Grey InfoTech we harness React's component model and
                 modern JavaScript to build user interfaces that are fast, responsive, and a pleasure to use. Whether building from scratch
                 or enhancing existing applications, our React expertise delivers interfaces that engage users and drive business metrics.
@@ -49,7 +49,7 @@ const ReactjsDevelopment = () => (
             {
                 id: '02', title: 'Real-time Applications', target: 'DE',
                 tags: ['WebSocket', 'Live Updates', 'Collaboration'],
-                body: <>We develop real-time applications where instant communication matters—collaborative tools, live notifications, streaming data, and instant messaging. React's efficient rendering combines with WebSocket architecture for seamless real-time experiences.</>,
+                body: <>We develop real-time applications where instant communication matters -collaborative tools, live notifications, streaming data, and instant messaging. React's efficient rendering combines with WebSocket architecture for seamless real-time experiences.</>,
             },
             {
                 id: '03', title: 'E-commerce Platforms', target: 'ML',
@@ -69,7 +69,7 @@ const ReactjsDevelopment = () => (
             {
                 id: '06', title: 'Performance & Optimization', target: 'MS',
                 tags: ['Performance', 'Optimization', 'Scalability'],
-                body: <>We optimize React applications for maximum performance—code-splitting, lazy loading, memoization, and efficient rendering. Fast applications drive conversions, improve SEO, and reduce infrastructure costs.</>,
+                body: <>We optimize React applications for maximum performance -code-splitting, lazy loading, memoization, and efficient rendering. Fast applications drive conversions, improve SEO, and reduce infrastructure costs.</>,
             },
         ]}
         reasons={[

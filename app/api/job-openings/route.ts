@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
   try {
     const db = getDb(true);
 
-    // Check table exists — if not yet migrated, return empty
+    // Check table exists  - if not yet migrated, return empty
     const tableExists = db
       .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='job_openings'")
       .get();

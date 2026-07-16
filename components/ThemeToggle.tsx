@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Futuristic animated theme toggle — light / dark / system.
+ * Futuristic animated theme toggle  - light / dark / system.
  * A compact segmented pill with a sliding glow indicator (framer-motion).
  */
 import React from 'react';

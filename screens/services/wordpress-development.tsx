@@ -8,13 +8,13 @@ const WordPressDevelopment = () => (
         heroVideoMobile="/assets/hero/hero.mp4"
         midImage="/assets/services/Research-strategy.jpg"
         topImages={['/assets/services/digital-transformatio.jpg', '/assets/services/Development.jpg']}
-        intro="Custom WordPress themes, plugins and headless implementations—built for performance, security and editorial teams that need genuine flexibility without developer dependency."
+        intro="Custom WordPress themes, plugins and headless implementations -built for performance, security and editorial teams that need genuine flexibility without developer dependency."
         eyebrow="WordPress built beyond the template"
         introHeading={<>WordPress That<br className="lg:block md:block hidden" />Works Seriously Hard</>}
         introBody={[
             <>WordPress powers 40% of the web, but most WordPress sites are held back by bloated themes, poorly
             written plugins and performance that degrades under real traffic. At Grey InfoTech we build custom
-            WordPress solutions from the ground up—clean custom themes, purpose-built plugins, performant
+            WordPress solutions from the ground up -clean custom themes, purpose-built plugins, performant
             hosting configurations and headless architectures that use WordPress as a content API for modern
             frontends. Our WordPress is lean, fast and built to last.</>,
             <>We work with WordPress as a professional engineering platform, not a click-and-drag tool. That
@@ -25,12 +25,12 @@ const WordPressDevelopment = () => (
             team is fully self-sufficient from day one.</>,
         ]}
         solutionsHeading={<>WordPress<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From custom themes and plugins to headless WordPress and WooCommerce—Grey InfoTech builds WordPress experiences that perform and empower your editors."
+        solutionsIntro="From custom themes and plugins to headless WordPress and WooCommerce -Grey InfoTech builds WordPress experiences that perform and empower your editors."
         solutions={[
             {
                 id: '01', title: 'Custom Theme Development', target: 'CT',
                 tags: ['Block Themes', 'FSE', 'ACF', 'Responsive', 'Core Web Vitals'],
-                body: <>We build custom WordPress themes following modern WordPress standards—block themes with
+                body: <>We build custom WordPress themes following modern WordPress standards -block themes with
                 Full Site Editing, theme.json for design tokens, and template parts for editorial flexibility.
                 For more controlled designs we build classic themes with ACF Pro field groups and custom
                 templates. All themes are responsive, accessible, optimised for Core Web Vitals and
@@ -41,7 +41,7 @@ const WordPressDevelopment = () => (
                 tags: ['Custom Post Types', 'REST API', 'Admin UI', 'Cron', 'Blocks'],
                 body: <>We build WordPress plugins that add functionality without the overhead and security risk
                 of third-party plugins. Custom post types, meta boxes, admin settings pages, REST API
-                endpoints, custom Gutenberg blocks, WP-CLI commands and background job processing—all written
+                endpoints, custom Gutenberg blocks, WP-CLI commands and background job processing -all written
                 to WordPress coding standards with proper data sanitisation, capability checks and nonce
                 verification.</>,
             },
@@ -58,7 +58,7 @@ const WordPressDevelopment = () => (
                 id: '04', title: 'Headless WordPress', target: 'HW',
                 tags: ['WPGraphQL', 'REST API', 'Next.js', 'Faust.js', 'ISR'],
                 body: <>Headless WordPress uses the CMS as a content management layer while a modern JavaScript
-                frontend—typically Next.js—handles rendering. This delivers preview performance, better
+                frontend -typically Next.js -handles rendering. This delivers preview performance, better
                 developer experience and full control over the frontend stack while keeping the familiar
                 WordPress editing experience for content teams. We implement WPGraphQL or REST API, configure
                 preview, handle authentication and deploy on Vercel or Netlify.</>,
@@ -83,7 +83,7 @@ const WordPressDevelopment = () => (
             },
         ]}
         ctaHeading={<>WordPress that<br className="lg:block md:block hidden" />won&apos;t let you down</>}
-        ctaBody="Properly built WordPress is fast, secure and a joy to manage. Grey InfoTech builds WordPress sites that your editors love and your users never notice—because they just work."
+        ctaBody="Properly built WordPress is fast, secure and a joy to manage. Grey InfoTech builds WordPress sites that your editors love and your users never notice -because they just work."
         verticalSolutions={[
             {
                 id: 'vs1',
@@ -93,7 +93,7 @@ const WordPressDevelopment = () => (
             {
                 id: 'vs2',
                 title: 'SaaS Platforms & Communities',
-                description: 'WordPress as a service backbone—custom post types for tenant data isolation, REST APIs for third-party integrations, membership plugins, and automated workflows for multi-tenant provisioning and subscription management.'
+                description: 'WordPress as a service backbone -custom post types for tenant data isolation, REST APIs for third-party integrations, membership plugins, and automated workflows for multi-tenant provisioning and subscription management.'
             },
             {
                 id: 'vs3',
@@ -103,7 +103,7 @@ const WordPressDevelopment = () => (
             {
                 id: 'vs4',
                 title: 'Enterprise Content Platforms',
-                description: 'WordPress at scale for Fortune 500 companies—multi-site networks, content governance with custom workflows, API-first architectures for internal applications, and compliance frameworks for regulated industries.'
+                description: 'WordPress at scale for Fortune 500 companies -multi-site networks, content governance with custom workflows, API-first architectures for internal applications, and compliance frameworks for regulated industries.'
             }
         ]}/>
 );

@@ -12,7 +12,7 @@ const IoTDevelopment = () => (
         topImages={['/assets/services/ecommerce-web-design.jpg', '/assets/services/digital-optimisation.jpg']}
         intro={
             <>
-                Connected products, end to end—firmware, secure connectivity, cloud platforms and real-time
+                Connected products, end to end -firmware, secure connectivity, cloud platforms and real-time
                 dashboards that turn devices and sensor data into actionable intelligence.
             </>
         }
@@ -20,7 +20,7 @@ const IoTDevelopment = () => (
         introHeading={<>The Internet of Things <br className={'lg:block md:block hidden'}/>Engineered End to End</>}
         introBody={[
             <>
-                The Internet of Things turns physical products into intelligent, connected systems—but delivering
+                The Internet of Things turns physical products into intelligent, connected systems -but delivering
                 IoT well demands expertise across firmware, connectivity, cloud and analytics, all working as one.
                 Grey InfoTech builds complete IoT solutions: we engineer the embedded firmware on the device,
                 the secure protocols that move data, the cloud platform that ingests and processes it at scale,
@@ -43,7 +43,7 @@ const IoTDevelopment = () => (
             <>
                 From embedded firmware to cloud platforms and analytics, Grey InfoTech delivers the full IoT
                 stack. Based in Nigeria and serving clients globally, we build secure, scalable connected
-                products that bridge hardware and software—turning devices and sensor data into measurable
+                products that bridge hardware and software -turning devices and sensor data into measurable
                 business value.
             </>
         }
@@ -51,7 +51,7 @@ const IoTDevelopment = () => (
             {
                 id: '01', title: 'Embedded Firmware & Devices', target: 'EF',
                 tags: ['C/C++', 'RTOS', 'Microcontrollers', 'Sensors'],
-                body: <>We develop reliable embedded firmware for microcontrollers and edge devices—integrating
+                body: <>We develop reliable embedded firmware for microcontrollers and edge devices -integrating
                     sensors, actuators and radios with efficient, low-power C/C++ and RTOS code. We handle secure
                     boot, device provisioning and over-the-air updates so your fleet stays maintainable in the
                     field long after deployment.</>,
@@ -59,8 +59,8 @@ const IoTDevelopment = () => (
             {
                 id: '02', title: 'Connectivity & Protocols', target: 'CN',
                 tags: ['MQTT', 'CoAP', 'BLE', 'LoRaWAN'],
-                body: <>We implement the right connectivity for your use case—MQTT, CoAP and HTTPS over Wi-Fi,
-                    cellular, BLE or LoRaWAN—with encrypted transport and resilient reconnection. Devices stay
+                body: <>We implement the right connectivity for your use case -MQTT, CoAP and HTTPS over Wi-Fi,
+                    cellular, BLE or LoRaWAN -with encrypted transport and resilient reconnection. Devices stay
                     connected reliably even across unstable networks, and data flows securely to the cloud.</>,
             },
             {
@@ -81,15 +81,15 @@ const IoTDevelopment = () => (
             {
                 id: '05', title: 'Edge Computing & Analytics', target: 'EC',
                 tags: ['Edge AI', 'Filtering', 'Predictive'],
-                body: <>When latency, bandwidth or privacy matter, we push processing to the edge—filtering,
+                body: <>When latency, bandwidth or privacy matter, we push processing to the edge -filtering,
                     aggregating and even running ML inference on-device. Combined with cloud analytics, this
                     enables predictive maintenance, anomaly detection and smarter automation across your fleet.</>,
             },
             {
                 id: '06', title: 'Security & Lifecycle Management', target: 'SL',
                 tags: ['Device Identity', 'OTA', 'Encryption', 'Monitoring'],
-                body: <>We secure the whole system—unique device identity, encrypted communication, signed OTA
-                    updates and continuous monitoring—and manage the device lifecycle from provisioning to
+                body: <>We secure the whole system -unique device identity, encrypted communication, signed OTA
+                    updates and continuous monitoring -and manage the device lifecycle from provisioning to
                     decommissioning. Your connected products stay protected, compliant and up to date.</>,
             },
         ]}
@@ -97,12 +97,12 @@ const IoTDevelopment = () => (
             {
                 id: 1, title: 'Full-Stack IoT Expertise', image: '/assets/services/Development.jpg',
                 description: <>Firmware, connectivity, cloud and analytics from one team. No finger-pointing
-                    between hardware and software vendors—we own the entire connected experience.</>,
+                    between hardware and software vendors -we own the entire connected experience.</>,
             },
             {
                 id: 2, title: 'Security by Design', image: '/assets/services/digital-transformatio.jpg',
                 description: <>Device identity, encrypted transport and signed OTA updates are built in from day
-                    one, not bolted on later—because an insecure IoT device is a liability, not an asset.</>,
+                    one, not bolted on later -because an insecure IoT device is a liability, not an asset.</>,
             },
             {
                 id: 3, title: 'Built to Scale', image: '/assets/services/services.jpg',
@@ -127,7 +127,7 @@ const IoTDevelopment = () => (
             {label: 'Client Satisfaction', value: 98, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Chidi Anyaoku', title: 'Operations Director, AgroSense', message: <>Grey InfoTech built our agricultural sensor platform end to end—firmware, connectivity and dashboards. We now monitor soil and climate data across hundreds of farms in real time.</>},
+            {name: 'Chidi Anyaoku', title: 'Operations Director, AgroSense', message: <>Grey InfoTech built our agricultural sensor platform end to end -firmware, connectivity and dashboards. We now monitor soil and climate data across hundreds of farms in real time.</>},
             {name: 'Lerato Molefe', title: 'CTO, SmartMeter Africa', message: <>Their security-first approach to OTA updates and device identity gave us total confidence rolling out tens of thousands of connected meters. Rock-solid and scalable.</>},
             {name: 'Emeka Nwosu', title: 'Plant Manager, FabriX Industries', message: <>The predictive-maintenance system they built cut our unplanned downtime dramatically. Edge analytics flag issues before they become failures. Genuinely transformative.</>},
         ]}

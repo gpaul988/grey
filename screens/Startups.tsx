@@ -1,12 +1,10 @@
 'use client';
 
-
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
 import {AnimatePresence, motion} from 'framer-motion'
 import Image from "next/image";
 import Link from "next/link";
-import FloatingButton from "@/components/FloatingButton";
 import {useIsDayTime} from '../components/useIsDayTime';
 import {
     FxBackground,
@@ -84,7 +82,6 @@ const Startups = () => {
     // isDaytime react hook
     const isDayTime = useIsDayTime();
 
-
     const handleScroll = () => {
         const sections = [
             "integration",
@@ -143,13 +140,8 @@ const Startups = () => {
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
-            {/* ── Futuristic Hero ── */}
+            {/*  -  -  Futuristic Hero  -  -  */}
             <section className="relative overflow-hidden min-h-[80vh] flex flex-col justify-end">
                 <div className="absolute inset-0">
                     <Image
@@ -183,7 +175,7 @@ const Startups = () => {
                                 </FxGlitchText>
                             </div>
                             <p className="text-white/65 max-w-3xl text-[0.95em] md:text-[1.05em] leading-relaxed mb-8">
-                                From validated MVP to scaled platform — we&apos;ve helped startups launch, grow, and
+                                From validated MVP to scaled platform  - we&apos;ve helped startups launch, grow, and
                                 succeed in over 15 industries.
                             </p>
                             <div className="flex flex-wrap gap-3">
@@ -196,7 +188,7 @@ const Startups = () => {
                 </div>
             </section>
 
-            {/* ── Intro ── */}
+            {/*  -  -  Intro  -  -  */}
             <section
                 ref={sectionRef}
                 data-bg={isBackgroundActive ? (isDayTime ? 'Dark' : 'Light') : (isDayTime ? 'Light' : 'Dark')}
@@ -405,7 +397,7 @@ const Startups = () => {
                                                     background: 'rgba(0,0,0,0.65)',
                                                     border: '1px solid rgba(45,212,191,0.35)'
                                                 }}>
-                                        ◈ MVPs · Custom Apps · Scale
+                                         -  MVPs · Custom Apps · Scale
                                     </motion.div>
                                 </div>
                                 <motion.div initial={{opacity: 0, x: 20}} whileInView={{opacity: 1, x: 0}}
@@ -444,7 +436,7 @@ const Startups = () => {
                             </FxReveal>
                             <FxReveal delay={0.24}>
                                 <p className={`text-[0.9em] leading-[1.8] mb-10 pb-10 border-b ${isDayTime ? 'text-white/75 border-white/10' : 'text-black/70 border-black/10'}`}>
-                                    We understand the unique challenges startups face — limited budgets, tight
+                                    We understand the unique challenges startups face  - limited budgets, tight
                                     timelines, and the need for scalable solutions. That&apos;s why we deliver lean,
                                     agile, and cost-effective solutions tailored to your growth trajectory.
                                 </p>
@@ -489,7 +481,7 @@ const Startups = () => {
                 </div>
             </div>
 
-            {/* ── Why Grey InfoTech — Company-style approach ── */}
+            {/*  -  -  Why Grey InfoTech  - Company-style approach  -  -  */}
             <div
                 className={`relative overflow-hidden ${isDayTime ? 'bg-slate-950' : 'bg-slate-50'} lg:pt-[5em] pt-[3em] lg:pb-[6em] pb-[3em]`}>
                 <FxBackground day={false} grid aurora className="opacity-50"/>
@@ -514,7 +506,7 @@ const Startups = () => {
                     </FxReveal>
 
                     <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-8">
-                        {/* Left — FxHoloCard accordion */}
+                        {/* Left  - FxHoloCard accordion */}
                         <div className="flex flex-col gap-3 lg:pr-[3em]">
                             {reasons.map((reason, index) => {
                                 const isActive = index + 1 === activeIndex;
@@ -549,7 +541,7 @@ const Startups = () => {
                             })}
                         </div>
 
-                        {/* Right — image */}
+                        {/* Right  - image */}
                         <div className="">
                             <FxFrame className="w-full">
                                 <Image src="/assets/startup/mockup.jpg" alt="Why Grey InfoTech for your startup"
@@ -570,7 +562,7 @@ const Startups = () => {
                 </div>
             </div>
 
-            {/* Startups Products — Redesigned Modern Card Layout */}
+            {/* Startups Products  - Redesigned Modern Card Layout */}
             <div
                 className={`relative overflow-hidden lg:-mt-20 lg:py-32 md:py-16 py-8 lg:mt-32 md:mt-24 mt-8 ${isDayTime ? 'bg-white' : 'bg-[#050810]'}`}>
                 <FxBackground day={isDayTime} grid={false} aurora className="opacity-20"/>
@@ -960,7 +952,7 @@ const Startups = () => {
                                     id: 'speed',
                                     emoji: '⚡',
                                     title: 'Speed of Development',
-                                    body: 'With open source frameworks and robust toolkits, we swiftly create unique software solutions — enabling companies to launch their products more quickly.',
+                                    body: 'With open source frameworks and robust toolkits, we swiftly create unique software solutions  - enabling companies to launch their products more quickly.',
                                     gradient: 'from-blue-600/5 via-cyan-500/5 to-blue-400/5',
                                     borderGradient: 'from-blue-400 via-cyan-400 to-blue-500',
                                     glowColor: 'bg-blue-500/25',
@@ -1118,7 +1110,7 @@ const Startups = () => {
                                     id: 'scalability',
                                     emoji: '📈',
                                     title: 'Scalability',
-                                    body: 'The software may grow with your organization. Customised web applications adjust and develop as business demands do — with scalable server design.',
+                                    body: 'The software may grow with your organization. Customised web applications adjust and develop as business demands do  - with scalable server design.',
                                     gradient: 'from-orange-600/5 via-red-500/5 to-orange-400/5',
                                     borderGradient: 'from-orange-400 via-red-400 to-orange-500',
                                     glowColor: 'bg-orange-500/25',
@@ -1127,7 +1119,7 @@ const Startups = () => {
                                 },
                                 {
                                     id: 'integration',
-                                    emoji: '🔗',
+                                    emoji: ' --',
                                     title: 'Third-party integration',
                                     body: 'By integrating web apps with marketing tools, payment gateways, and more, companies leverage a wealth of features to improve their software.',
                                     gradient: 'from-indigo-600/5 via-blue-500/5 to-indigo-400/5',
@@ -1138,9 +1130,9 @@ const Startups = () => {
                                 },
                                 {
                                     id: 'security',
-                                    emoji: '🔒',
+                                    emoji: ' - ',
                                     title: 'Web app security',
-                                    body: 'Our security team uses measures that guard against typical online threats — keeping your data and your customers\' data safe and secure.',
+                                    body: 'Our security team uses measures that guard against typical online threats  - keeping your data and your customers\' data safe and secure.',
                                     gradient: 'from-red-600/5 via-pink-500/5 to-red-400/5',
                                     borderGradient: 'from-red-400 via-pink-400 to-red-500',
                                     glowColor: 'bg-red-500/25',
@@ -1277,3 +1269,4 @@ const Startups = () => {
 };
 
 export default Startups;
+

@@ -9,7 +9,7 @@ const Logistics = () => (
         topImages={['/assets/services/Development.jpg', '/assets/services/digital-optimisation.jpg']}
         intro={
             <>
-                Moving goods smarter—fleet and route optimisation, real-time tracking, warehouse and supply-chain
+                Moving goods smarter -fleet and route optimisation, real-time tracking, warehouse and supply-chain
                 systems that cut cost and deliver on time, every time.
             </>
         }
@@ -17,7 +17,7 @@ const Logistics = () => (
         introHeading={<>Logistics & Supply Chain <br className={'lg:block md:block hidden'}/>How We Optimise It</>}
         introBody={[
             <>
-                Logistics is a business of margins, timing and visibility—and software is what turns chaos into
+                Logistics is a business of margins, timing and visibility -and software is what turns chaos into
                 coordination. Grey InfoTech builds the systems that move goods efficiently: transportation
                 management, fleet and route optimisation, real-time shipment tracking, warehouse management and
                 supply-chain platforms that give you control end to end. We connect dispatchers, drivers,
@@ -31,7 +31,7 @@ const Logistics = () => (
                 tracking so you and your customers always know where a shipment is, route-optimisation that
                 reduces fuel and time, and analytics that expose inefficiencies across the chain. We integrate
                 with carriers, GPS, telematics, ERPs and e-commerce platforms so data flows without manual
-                re-entry, and we architect for the scale and reliability logistics demands—because downtime
+                re-entry, and we architect for the scale and reliability logistics demands -because downtime
                 means missed deliveries. The result is a connected, data-driven operation that runs leaner,
                 delivers faster, and adapts as your network grows.
             </>,
@@ -49,13 +49,13 @@ const Logistics = () => (
                 id: '01', title: 'Transportation Management (TMS)', target: 'TM',
                 tags: ['Dispatch', 'Orders', 'Carriers'],
                 body: <>We build transportation management systems that handle order intake, dispatch, carrier
-                    selection and documentation—coordinating shipments end to end and replacing spreadsheets and
+                    selection and documentation -coordinating shipments end to end and replacing spreadsheets and
                     phone calls with one streamlined platform.</>,
             },
             {
                 id: '02', title: 'Fleet & Route Optimisation', target: 'FR',
                 tags: ['Routing', 'Telematics', 'Fuel', 'Maintenance'],
-                body: <>We engineer route-optimisation and fleet management—reducing distance, fuel and time while
+                body: <>We engineer route-optimisation and fleet management -reducing distance, fuel and time while
                     tracking vehicle health and driver activity. Smarter routing means more deliveries per shift
                     and lower operating cost.</>,
             },
@@ -63,35 +63,35 @@ const Logistics = () => (
                 id: '03', title: 'Real-Time Tracking & Visibility', target: 'RT',
                 tags: ['GPS', 'Live ETA', 'Notifications'],
                 body: <>We deliver real-time shipment tracking with GPS, live ETAs and proactive notifications, so
-                    you, your team and your customers always know where goods are—turning visibility into trust
+                    you, your team and your customers always know where goods are -turning visibility into trust
                     and fewer support calls.</>,
             },
             {
                 id: '04', title: 'Warehouse Management (WMS)', target: 'WM',
                 tags: ['Inventory', 'Picking', 'Barcode'],
                 body: <>We build warehouse management systems that optimise inventory, picking, packing and
-                    stock accuracy—with barcode and scanning workflows—so fulfilment is fast, accurate and fully
+                    stock accuracy -with barcode and scanning workflows -so fulfilment is fast, accurate and fully
                     visible from receipt to dispatch.</>,
             },
             {
                 id: '05', title: 'Supply-Chain Platforms', target: 'SC',
                 tags: ['End-to-End', 'Suppliers', 'Forecasting'],
                 body: <>We develop supply-chain platforms that connect suppliers, inventory, transport and
-                    demand—with forecasting and analytics—giving you end-to-end control and the insight to plan
+                    demand -with forecasting and analytics -giving you end-to-end control and the insight to plan
                     ahead rather than react.</>,
             },
             {
                 id: '06', title: 'Integrations & Analytics', target: 'IA',
                 tags: ['Carriers', 'ERP', 'E-commerce', 'Insights'],
                 body: <>We integrate with carriers, telematics, ERPs and e-commerce platforms so data flows
-                    seamlessly, and add analytics that expose inefficiencies and cost—helping you continuously
+                    seamlessly, and add analytics that expose inefficiencies and cost -helping you continuously
                     optimise the whole operation.</>,
             },
         ]}
         reasons={[
             {
                 id: 1, title: 'Visibility End to End', image: '/assets/services/Development.jpg',
-                description: <>Real-time tracking across the chain means no more blind spots—you and your
+                description: <>Real-time tracking across the chain means no more blind spots -you and your
                     customers always know where every shipment stands.</>,
             },
             {

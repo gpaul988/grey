@@ -16,13 +16,13 @@ const SalesforceDevelopment = () => (
             nuance of a real business process. At Grey InfoTech our certified Salesforce developers and
             architects customise, integrate and optimise the platform to match exactly how your teams sell,
             service and operate. We bring deep expertise in Sales Cloud, Service Cloud, Marketing Cloud,
-            Experience Cloud and Salesforce Platform—delivering solutions that drive adoption rather than
+            Experience Cloud and Salesforce Platform -delivering solutions that drive adoption rather than
             frustration.</>,
             <>Our engagements go beyond clicking through setup menus. We write clean Apex, build Lightning
             Web Components, design scalable data models and integrate Salesforce with your wider technology
             stack using APIs, middleware and native connectors. We also implement DevOps best practices for
-            Salesforce—version-controlled metadata, CI/CD with Salesforce DX, automated testing with Apex
-            test classes, and sandbox management—so your org is maintainable and deployable like a proper
+            Salesforce -version-controlled metadata, CI/CD with Salesforce DX, automated testing with Apex
+            test classes, and sandbox management -so your org is maintainable and deployable like a proper
             software project.</>,
         ]}
         solutionsHeading={<>Salesforce<br className="lg:block md:block hidden" />Solutions</>}
@@ -31,7 +31,7 @@ const SalesforceDevelopment = () => (
             {
                 id: '01', title: 'Salesforce Implementation', target: 'SI',
                 tags: ['Sales Cloud', 'Service Cloud', 'Experience Cloud', 'Setup'],
-                body: <>We implement Salesforce from scratch or augment existing orgs—covering requirements
+                body: <>We implement Salesforce from scratch or augment existing orgs -covering requirements
                 discovery, data model design, process automation, user permission configuration, validation
                 rules, page layouts and reports/dashboards. Every implementation is documented, tested
                 and backed by change management support to drive user adoption from day one.</>,
@@ -42,12 +42,12 @@ const SalesforceDevelopment = () => (
                 body: <>When declarative tools reach their limits, we write clean, well-tested Apex code.
                 Our developers build custom triggers, batch processes, scheduled jobs and REST/SOAP API
                 services. On the front-end we create Lightning Web Components that extend the Salesforce UI
-                with functionality tailored to your users&apos; workflows—fast, accessible and mobile-responsive.</>,
+                with functionality tailored to your users&apos; workflows -fast, accessible and mobile-responsive.</>,
             },
             {
                 id: '03', title: 'Salesforce Integrations', target: 'IN',
                 tags: ['MuleSoft', 'REST', 'Platform Events', 'ERP', 'Marketing'],
-                body: <>Salesforce is most powerful when connected to your wider systems—ERP, marketing
+                body: <>Salesforce is most powerful when connected to your wider systems -ERP, marketing
                 automation, billing, support ticketing and data warehouse. We design integration architectures
                 using Platform Events, Change Data Capture, Salesforce APIs and middleware like MuleSoft
                 or custom Node.js/Python services. We build for reliability with retry logic, dead-letter
@@ -56,7 +56,7 @@ const SalesforceDevelopment = () => (
             {
                 id: '04', title: 'Marketing Cloud & Pardot', target: 'MC',
                 tags: ['Email Studio', 'Journey Builder', 'AMPscript', 'Pardot'],
-                body: <>We configure and customise Marketing Cloud to power sophisticated customer journeys—
+                body: <>We configure and customise Marketing Cloud to power sophisticated customer journeys -
                 personalised email campaigns, SMS flows, push notifications and social studio. Our work
                 covers Journey Builder design, AMPscript and SQL query activities, connector setup and
                 cross-cloud data synchronisation with Sales Cloud for closed-loop reporting on marketing ROI.</>,
@@ -72,7 +72,7 @@ const SalesforceDevelopment = () => (
             {
                 id: '06', title: 'Salesforce DevOps & Migrations', target: 'DO',
                 tags: ['SFDX', 'Copado', 'Gearset', 'Org Migration'],
-                body: <>We modernise Salesforce development with proper DevOps practices—Salesforce DX project
+                body: <>We modernise Salesforce development with proper DevOps practices -Salesforce DX project
                 structure, version control in Git, CI/CD with Gearset or Copado and automated Apex test
                 execution. For org migrations and refreshes we design sandbox strategies, manage metadata
                 deployments and handle data migration with tools like Data Loader, Informatica and

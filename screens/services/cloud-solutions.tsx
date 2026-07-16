@@ -12,7 +12,7 @@ const CloudSolutions = () => (
         eyebrow="Cloud-first architecture for modern businesses"
         introHeading={<>Engineered for Scale<br className="lg:block md:block hidden" />Built for Resilience</>}
         introBody={[
-            <>Cloud is no longer a destination—it is the operating model. At Grey InfoTech we design and deliver
+            <>Cloud is no longer a destination -it is the operating model. At Grey InfoTech we design and deliver
             cloud architectures that match your workload characteristics, compliance requirements and cost profile.
             Whether you are lifting legacy systems off on-premise hardware, re-platforming monoliths into
             microservices, or building cloud-native from day one, we provide the engineering depth to do it right.
@@ -20,12 +20,12 @@ const CloudSolutions = () => (
             single vendor.</>,
             <>Our cloud practice covers infrastructure-as-code, containerisation, Kubernetes orchestration,
             CI/CD pipelines, observability stacks and FinOps. We embed security from the first line of
-            Terraform—IAM, network segmentation, secrets management, encryption at rest and in transit—and
+            Terraform -IAM, network segmentation, secrets management, encryption at rest and in transit -and
             we deliver architecture review documents and runbooks so your team owns what we build. The result
             is cloud infrastructure that performs predictably, costs less to operate and scales on demand.</>,
         ]}
         solutionsHeading={<>Cloud<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From lift-and-shift migrations to cloud-native architectures, Grey InfoTech delivers the full cloud stack—designed for scale, security and speed."
+        solutionsIntro="From lift-and-shift migrations to cloud-native architectures, Grey InfoTech delivers the full cloud stack -designed for scale, security and speed."
         solutions={[
             {
                 id: '01', title: 'Cloud Architecture & Design', target: 'CA',
@@ -48,7 +48,7 @@ const CloudSolutions = () => (
                 tags: ['Kubernetes', 'Docker', 'Helm', 'Service Mesh'],
                 body: <>We containerise applications, build Helm charts and deploy production-grade Kubernetes
                 clusters on EKS, GKE or AKS. Our work covers horizontal pod autoscaling, resource quotas,
-                network policies, Istio service-mesh configuration and GitOps pipelines—giving your engineering
+                network policies, Istio service-mesh configuration and GitOps pipelines -giving your engineering
                 teams a self-service platform that scales automatically under load.</>,
             },
             {

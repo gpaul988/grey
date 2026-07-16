@@ -1,12 +1,10 @@
 'use client';
 import React, {useEffect, useRef, useState} from 'react';
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import Link from "next/link";
 import CountUp from "react-countup";
 import {AnimatePresence, motion} from "framer-motion";
 import {useIsDayTime} from '../../components/useIsDayTime';
-
 
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 
@@ -20,7 +18,7 @@ const reasons = [
         description: (
             <>
                 Our deep industry expertise allows us to understand your specific business landscape, anticipate
-                challenges, and craft solutions that align with your goals. We don’t just build software—we build
+                challenges, and craft solutions that align with your goals. We don’t just build software -we build
                 strategic tools tailored to your operations, ensuring they solve real problems and drive measurable
                 results.
             </>
@@ -33,7 +31,7 @@ const reasons = [
         description: (
             <>
                 What truly sets us apart is our steadfast commitment to transparency. We believe in complete honesty and
-                accountability throughout the development process—keeping you informed every step of the way. From clear
+                accountability throughout the development process -keeping you informed every step of the way. From clear
                 communication to early visual and technical insights, we ensure you&#39;re always in control and
                 confident
                 in the direction of your project.
@@ -47,7 +45,7 @@ const reasons = [
         description: (
             <>
                 We believe strong communication and seamless collaboration are critical to every project&#39;s success.
-                That’s why we prioritize clear, consistent updates and foster a transparent workflow—keeping all
+                That’s why we prioritize clear, consistent updates and foster a transparent workflow -keeping all
                 stakeholders aligned, informed, and engaged from start to finish.
             </>
         ),
@@ -76,7 +74,6 @@ const Fintech = () => {
     const [activeId, setActiveId] = useState<string>("");
     const [activeIndex, setActiveIndex] = useState(1);
 
-
     // Floating button visibility hook
     useEffect(() => {
         const handleScroll = () => {
@@ -90,7 +87,6 @@ const Fintech = () => {
 
     // isDaytime react hook
     const isDayTime = useIsDayTime();
-
 
     // Introductory section hook
     useEffect(() => {
@@ -209,16 +205,11 @@ const Fintech = () => {
     // Partners Section hook
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             {/* Hero Section */}
             <div id={'hero'}
                  className={"relative overflow-hidden lg:w-full lg:h-[720px] justify-center items-center md:w-full md:h-[700] w-full h-[700] pb-6"}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
+                {/*  -  -  -  Futuristic FX overlay (hero enhancement)  -  -  -  */}
                 <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
                     <div className="gx-scanline" />
                     <div className="gx-noise-overlay" />
@@ -312,7 +303,7 @@ const Fintech = () => {
                                     In today’s competitive landscape, Fintech development is essential for driving
                                     innovation and improving customer engagement. Our team leverages cutting-edge
                                     technologies such as blockchain, artificial intelligence, and machine learning to
-                                    build secure, efficient, and user-centric financial products—from mobile payments
+                                    build secure, efficient, and user-centric financial products -from mobile payments
                                     and digital wallets to compliance tools and core banking systems. With Grey
                                     InfoTech, you gain a partner focused on creating solutions that not only meet
                                     regulatory demands but also deliver measurable business value and sustainable
@@ -447,8 +438,8 @@ const Fintech = () => {
                                         robust security, and seamless financial experiences across digital platforms. We
                                         combine intuitive design with powerful functionality to help businesses and
                                         their customers manage financial transactions efficiently and confidently. With
-                                        a strong focus on data privacy and cybersecurity, our solutions—ranging from B2B
-                                        payment systems to digital wallets—are developed with strict compliance
+                                        a strong focus on data privacy and cybersecurity, our solutions -ranging from B2B
+                                        payment systems to digital wallets -are developed with strict compliance
                                         standards to safeguard sensitive financial information, ensuring trust,
                                         reliability, and long-term business value.
                                     </p>
@@ -614,7 +605,7 @@ const Fintech = () => {
                                         claims processing, fraud prevention, and billing by automating and optimizing
                                         these workflows. This technology enables insurance companies to streamline
                                         operations, boost productivity, reduce errors, and deliver faster, more accurate
-                                        services—ultimately enhancing customer satisfaction and driving competitive
+                                        services -ultimately enhancing customer satisfaction and driving competitive
                                         advantage in a rapidly evolving market.
                                     </p>
                                 </div>
@@ -719,7 +710,7 @@ const Fintech = () => {
                                         planning by offering precise and easy-to-use tools for calculating mortgages,
                                         retirement savings, investments, loans, and compound interest. By enabling users
                                         to make informed decisions quickly, these calculators improve financial
-                                        accuracy, support strategic planning, and enhance customer engagement—delivering
+                                        accuracy, support strategic planning, and enhance customer engagement -delivering
                                         timely insights that contribute to overall financial confidence and efficiency.
                                     </p>
                                 </div>
@@ -986,7 +977,7 @@ const Fintech = () => {
                                         Throughout the process, we prioritise rigorous quality assurance, advanced
                                         security protocols, and strict regulatory compliance. By working closely with
                                         our clients, we ensure a smooth product launch and long-term success. Our custom
-                                        financial software enhances customer engagement and business efficiency—powered
+                                        financial software enhances customer engagement and business efficiency -powered
                                         by our technical expertise and dedication to excellence. Partner with Grey
                                         InfoTech to transform your fintech vision into reality.
                                     </p>
@@ -1049,7 +1040,7 @@ const Fintech = () => {
                                 experience, we&#39;ve refined our approach to deliver solutions that are both innovative
                                 and commercially viable.<br/><br/>
                                 Beyond partnering with established enterprises, we&#39;ve successfully supported
-                                numerous funded startups—developing MVPs, launching scalable digital products,
+                                numerous funded startups -developing MVPs, launching scalable digital products,
                                 strengthening their infrastructure, and supporting them through growth and acquisition.
                                 We bring this hands-on experience and strategic insight to every project, helping you
                                 navigate the journey from concept to market success.
@@ -1091,7 +1082,7 @@ const Fintech = () => {
                         <div className='lg:-ml-[8em]'>
                             <p className='text-[0.85em] font-[400] lg:-mt-[0.2em] rounded-none leading-[1.5]'>
                                 With unmatched expertise and a strong record of success, Grey InfoTech is a trusted
-                                leader in fintech software—delivering tailored solutions that drive real impact.
+                                leader in fintech software -delivering tailored solutions that drive real impact.
                             </p>
                         </div>
                     </div>
@@ -1192,7 +1183,7 @@ const Fintech = () => {
                     <p className={'text-[0.873em] font-[300] leading-[1.5] text-justify lg:pr-[33em] mb-10'}>
                         We specialize in crafting high-impact marketing websites, innovative web apps, and mobile
                         applications that drive real results. From funded startups to established businesses, we&#39;ve
-                        helped a wide range of clients bring their digital products to life—delivering standout
+                        helped a wide range of clients bring their digital products to life -delivering standout
                         experiences
                         that fuel growth, engagement, and long-term success.
                     </p>
@@ -1232,8 +1223,6 @@ const Fintech = () => {
                 </div>
             </div>
 
-
-
             {/* Top Image*/}
             <div className={`${isDayTime ? 'bg-white' : 'bg-black'}`}>
                 <div id={'top'}
@@ -1271,3 +1260,4 @@ const Fintech = () => {
 };
 
 export default Fintech;
+

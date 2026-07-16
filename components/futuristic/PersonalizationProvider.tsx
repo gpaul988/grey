@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * PersonalizationProvider — privacy-safe predictive personalization.
+ * PersonalizationProvider  - privacy-safe predictive personalization.
  *
  * 100% client-side. No backend, no cookies, no PII. It reads only:
  *   - local time of day  -> daypart greeting + warm/cool accent bias

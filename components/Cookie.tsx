@@ -29,6 +29,7 @@ const CookieNotification: React.FC = () => {
 
     return (
         <div
+            suppressHydrationWarning
             className={`fixed mx-[4.6em] bottom-0 left-0 p-4 z-50 ${
                 isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
             <div className="relative mx-auto flex  items-center">

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, AlertTriangle, AlertCircle, Info, CheckCircle, Wrench } from 'lucide-react';
 
-/* ─── Types ─────────────────────────────────────────────────────── */
+/*  -  -  -  Types  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 interface Finding {
   id: string;
   title: string;
@@ -54,12 +54,12 @@ interface AuditSubmission {
   respondedAt: string | null;
 }
 
-/* ─── Colour maps ────────────────────────────────────────────────── */
+/*  -  -  -  Colour maps  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 const priorityColors = {
   low:      { bg: 'bg-blue-500/20',   text: 'text-blue-300',   label: '🟢 Low' },
   medium:   { bg: 'bg-yellow-500/20', text: 'text-yellow-300', label: '🟡 Medium' },
-  high:     { bg: 'bg-orange-500/20', text: 'text-orange-300', label: '🔴 High' },
-  critical: { bg: 'bg-red-500/20',    text: 'text-red-300',    label: '🔥 Critical' },
+  high:     { bg: 'bg-orange-500/20', text: 'text-orange-300', label: ' -  High' },
+  critical: { bg: 'bg-red-500/20',    text: 'text-red-300',    label: ' -  Critical' },
 };
 
 const statusColors = {
@@ -79,7 +79,7 @@ const sevMeta: Record<string, { icon: React.ReactNode; color: string; bg: string
   pass:     { icon: <CheckCircle className="h-3.5 w-3.5" />,   color: 'text-emerald-400',bg: 'bg-emerald-500/10 border-emerald-500/30', label: 'Pass' },
 };
 
-/* ─── Sub-components ─────────────────────────────────────────────── */
+/*  -  -  -  Sub-components  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 
 /** Renders a single finding with its fix/implementation steps */
 function FindingCard({ f }: { f: Finding }) {
@@ -154,10 +154,10 @@ function AuditFindingsPanel({ auditData }: { auditData: AuditData }) {
             <span className="text-lg font-bold text-white">{auditData.overallScore}<span className="text-xs text-slate-500">/100</span></span>
           </div>
           <div className="flex flex-wrap gap-2 text-xs">
-            {counts.critical > 0 && <span className="rounded px-2 py-0.5 bg-red-500/20 text-red-300">🔴 {counts.critical} Critical</span>}
+            {counts.critical > 0 && <span className="rounded px-2 py-0.5 bg-red-500/20 text-red-300"> -  {counts.critical} Critical</span>}
             {counts.high     > 0 && <span className="rounded px-2 py-0.5 bg-orange-500/20 text-orange-300">🟠 {counts.high} High</span>}
             {counts.medium   > 0 && <span className="rounded px-2 py-0.5 bg-yellow-500/20 text-yellow-300">🟡 {counts.medium} Medium</span>}
-            {counts.low      > 0 && <span className="rounded px-2 py-0.5 bg-blue-500/20 text-blue-300">🔵 {counts.low} Low</span>}
+            {counts.low      > 0 && <span className="rounded px-2 py-0.5 bg-blue-500/20 text-blue-300"> -  {counts.low} Low</span>}
           </div>
           {auditData.generatedAt && (
             <span className="ml-auto text-[10px] text-slate-600">
@@ -217,7 +217,7 @@ function AuditFindingsPanel({ auditData }: { auditData: AuditData }) {
   );
 }
 
-/* ─── Main page ──────────────────────────────────────────────────── */
+/*  -  -  -  Main page  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 export default function AdminAuditsPage() {
   const [submissions, setSubmissions] = useState<AuditSubmission[]>([]);
   const [loading, setLoading] = useState(true);
@@ -284,7 +284,7 @@ export default function AdminAuditsPage() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-white">Audit Submissions</h1>
-          <p className="mt-1 text-slate-400">Client audit fix requests — findings &amp; solutions included</p>
+          <p className="mt-1 text-slate-400">Client audit fix requests  - findings &amp; solutions included</p>
         </div>
 
         {/* Filters */}
@@ -381,7 +381,7 @@ export default function AdminAuditsPage() {
                   {isExpanded && (
                     <div className="border-t border-slate-700/50 bg-slate-800/20">
 
-                      {/* Tabs — only show Findings tab when sections exist */}
+                      {/* Tabs  - only show Findings tab when sections exist */}
                       <div className="flex border-b border-slate-700/40">
                         <button
                           onClick={() => setTab(submission.id, 'details')}
@@ -417,11 +417,11 @@ export default function AdminAuditsPage() {
                           <div className="grid gap-4 sm:grid-cols-2">
                             <div>
                               <p className="text-xs font-semibold text-slate-400 mb-1">PHONE</p>
-                              <p className="text-white">{submission.userPhone || '—'}</p>
+                              <p className="text-white">{submission.userPhone || ' -'}</p>
                             </div>
                             <div>
                               <p className="text-xs font-semibold text-slate-400 mb-1">COMPANY</p>
-                              <p className="text-white">{submission.userCompany || '—'}</p>
+                              <p className="text-white">{submission.userCompany || ' -'}</p>
                             </div>
                             <div>
                               <p className="text-xs font-semibold text-slate-400 mb-1">PREFERRED CONTACT</p>
@@ -429,7 +429,7 @@ export default function AdminAuditsPage() {
                             </div>
                             <div>
                               <p className="text-xs font-semibold text-slate-400 mb-1">BUDGET RANGE</p>
-                              <p className="text-white">{submission.budgetEstimate || '—'}</p>
+                              <p className="text-white">{submission.budgetEstimate || ' -'}</p>
                             </div>
                           </div>
 

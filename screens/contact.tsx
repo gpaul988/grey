@@ -35,15 +35,15 @@ const Contact: React.FC = () => {
         '> loading contact protocols...',
         '> channels: WhatsApp, Email, Calendly, Form',
         '> avg response time: < 2 hours',
-        '> status: ONLINE — ready for your message',
+        '> status: ONLINE  - ready for your message',
     ];
 
     return (
         <div className={`min-h-screen transition-colors duration-500 ${dark ? 'bg-[#040b14] text-white' : 'bg-white text-black'}`}>
 
-            {/* ── Split-screen Hero ── */}
+            {/*  -  -  Split-screen Hero  -  -  */}
             <section className={`relative overflow-hidden min-h-[78vh] flex flex-col lg:flex-row`}>
-                {/* Left panel — dark FX side */}
+                {/* Left panel  - dark FX side */}
                 <div className="relative flex-1 min-h-[50vh] lg:min-h-full flex flex-col justify-end bg-[#020c18] overflow-hidden">
                     <FxBackground day={false} grid aurora className="opacity-70" />
                     <div className="gx-scanline pointer-events-none" />
@@ -59,7 +59,7 @@ const Contact: React.FC = () => {
                                 <span className="gx-gradient-text">Something Great</span>
                             </FxGlitchText>
                             <p className="text-white/60 text-[0.95em] leading-relaxed max-w-sm mb-8">
-                                Whether you have a project in mind, a business challenge to solve, or just want to explore what&apos;s possible — we&apos;re ready to listen.
+                                Whether you have a project in mind, a business challenge to solve, or just want to explore what&apos;s possible  - we&apos;re ready to listen.
                             </p>
                             <div className="space-y-3">
                                 {quickFacts.map((f, i) => (
@@ -76,7 +76,7 @@ const Contact: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Right panel — terminal */}
+                {/* Right panel  - terminal */}
                 <div className={`relative flex-1 flex flex-col justify-center items-center px-8 md:px-12 lg:px-14 py-16 ${dark ? 'bg-[#050e1a]' : 'bg-gray-900'} overflow-hidden`}>
                     {/* Subtle neon border */}
                     <div className="absolute left-0 top-[20%] bottom-[20%] w-px bg-gradient-to-b from-transparent via-teal-500/50 to-transparent" />
@@ -94,7 +94,7 @@ const Contact: React.FC = () => {
                 </div>
             </section>
 
-            {/* ── Intro ── */}
+            {/*  -  -  Intro  -  -  */}
             <section
                 className={`pt-16 transition-colors duration-500 ${
                     isDayTime ? 'bg-white text-black' : 'bg-black text-white'
@@ -121,7 +121,7 @@ const Contact: React.FC = () => {
                 </div>
             </section>
 
-            {/* ── Quick Actions ── */}
+            {/*  -  -  Quick Actions  -  -  */}
             <section className={`relative z-10 py-16 px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${dark ? 'bg-[#040b14]' : 'bg-gray-50'}`}>
                 <div className="max-w-[90rem] mx-auto">
                     <FxReveal className="mb-10">
@@ -134,14 +134,14 @@ const Contact: React.FC = () => {
                 </div>
             </section>
 
-            {/* ── Contact Form + Business Info ── */}
+            {/*  -  -  Contact Form + Business Info  -  -  */}
             <section className={`relative z-10 py-20 px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${dark ? 'bg-[#020c18]' : 'bg-white'}`}>
                 <FxBackground day={isDayTime} grid={false} aurora={true} className="opacity-15" />
                 <div className="max-w-[90rem] mx-auto relative z-10">
                     <FxReveal className="mb-12">
                         <FxChip day={isDayTime} className="mb-4">Send a Message</FxChip>
                         <h2 className={`text-[1.8em] md:text-[2.4em] font-[700] tracking-tight ${dark ? 'text-white' : 'text-gray-900'}`}>
-                            Drop us a line —<br />
+                            Drop us a line  -<br />
                             <span className="gx-gradient-text">we respond within hours.</span>
                         </h2>
                     </FxReveal>
@@ -167,7 +167,7 @@ const Contact: React.FC = () => {
                 </div>
             </section>
 
-            {/* ── AI Estimator ── */}
+            {/*  -  -  AI Estimator  -  -  */}
             <section className={`relative py-20 px-4 sm:px-6 md:px-10 lg:px-[4.5em] overflow-hidden ${dark ? 'bg-[#040b14]' : 'bg-gray-50'}`}>
                 <FxBackground day={isDayTime} grid aurora={false} className="opacity-20" />
                 <div className="relative z-10 max-w-[90rem] mx-auto">
@@ -186,14 +186,14 @@ const Contact: React.FC = () => {
                 </div>
             </section>
 
-            {/* ── Map ── */}
+            {/*  -  -  Map  -  -  */}
             <section className={`relative py-16 px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${dark ? 'bg-[#020c18]' : 'bg-white'}`}>
                 <div className="max-w-[90rem] mx-auto">
                     <FxReveal className="mb-8">
                         <div className="flex items-center gap-3 mb-2">
                             <MapPin className={`w-5 h-5 ${dark ? 'text-teal-400' : 'text-teal-600'}`} />
                             <h3 className={`text-[1.2em] font-[700] ${dark ? 'text-white' : 'text-gray-900'}`}>
-                                Find Us — Port Harcourt, Nigeria
+                                Find Us  - Port Harcourt, Nigeria
                             </h3>
                         </div>
                     </FxReveal>

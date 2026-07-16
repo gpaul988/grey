@@ -4,7 +4,7 @@
  * Futuristic theme system (audit §5).
  *
  * Replaces the old "time-of-day only" theming with a real user-controllable
- * light / dark / system theme — while preserving the brand's signature
+ * light / dark / system theme  - while preserving the brand's signature
  * behaviour: when set to "system", it still honours the time of day
  * (dark 6pm–6am) on top of the OS preference, so the site keeps its
  * day/night character but the visitor can override it and the choice sticks.
@@ -25,23 +25,25 @@ const STORAGE_KEY = 'grey-theme';
 
 function computeSystem(): 'light' | 'dark' {
     if (typeof window === 'undefined') return 'light';
-    const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+    const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
     const hour = new Date().getHours();
     const isNight = hour >= 18 || hour < 6;
-    // Dark if the OS asks for it OR it's night — keeps the day/night identity.
+    // Dark if the OS asks for it OR it's night  - keeps the day/night identity.
     return prefersDark || isNight ? 'dark' : 'light';
 }
 
 export function ThemeProvider({children}: {children: React.ReactNode}) {
     const [theme, setThemeState] = useState<Theme>('system');
     const [resolved, setResolved] = useState<'light' | 'dark'>('light');
+    const [isHydrated, setIsHydrated] = useState(false);
     // Ambient lux from AmbientLightSensor (null = unsupported/unknown).
     const [ambientLux, setAmbientLux] = useState<number | null>(null);
 
-    // Hydrate from storage once.
+    // Hydrate from storage once on client only. Mark when hydration completes.
     useEffect(() => {
         const saved = (localStorage.getItem(STORAGE_KEY) as Theme) || 'system';
         setThemeState(saved);
+        setIsHydrated(true);
     }, []);
 
     // Ambient light sensor (progressive enhancement). When the device exposes
@@ -73,7 +75,8 @@ export function ThemeProvider({children}: {children: React.ReactNode}) {
     }, []);
 
     // Recompute resolved theme whenever theme changes, system updates, or the
-    // ambient light reading changes.
+    // ambient light reading changes. Only applies theme AFTER client hydration
+    // to prevent mismatches with server-rendered content.
     useEffect(() => {
         const apply = () => {
             let r = theme === 'system' ? computeSystem() : theme;
@@ -99,7 +102,7 @@ export function ThemeProvider({children}: {children: React.ReactNode}) {
             mq.removeEventListener('change', apply);
             clearInterval(interval);
         };
-    }, [theme, ambientLux]);
+    }, [theme, ambientLux, isHydrated]);
 
     const setTheme = useCallback((t: Theme) => {
         setThemeState(t);
@@ -119,6 +122,7 @@ export function useTheme(): ThemeCtx {
     if (!ctx) {
         // Safe fallback so legacy components that read the hook never crash
         // even if rendered outside the provider during migration.
+        // Default to 'light' to match server initial state and prevent hydration mismatch.
         return {theme: 'system', resolved: 'light', setTheme: () => {}, toggle: () => {}};
     }
     return ctx;

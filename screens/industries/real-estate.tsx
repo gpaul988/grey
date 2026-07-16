@@ -9,7 +9,7 @@ const RealEstate = () => (
         topImages={['/assets/services/Web-App-Development-company.jpg', '/assets/services/product-design.jpg']}
         intro={
             <>
-                Transforming property—listing portals, property management, CRM and virtual tours that connect
+                Transforming property -listing portals, property management, CRM and virtual tours that connect
                 buyers, sellers, agents and tenants in one seamless digital experience.
             </>
         }
@@ -18,7 +18,7 @@ const RealEstate = () => (
         introBody={[
             <>
                 Property is one of the world&apos;s largest markets, and it&apos;s being reshaped by software. Grey
-                InfoTech builds the platforms that move it—listing portals with rich search, property and tenancy
+                InfoTech builds the platforms that move it -listing portals with rich search, property and tenancy
                 management systems, agent CRMs, virtual tours and the transaction tools that turn browsing into
                 deals. We connect buyers, sellers, renters, agents and property managers in one seamless digital
                 experience, replacing fragmented spreadsheets, paperwork and phone calls with platforms that are
@@ -30,7 +30,7 @@ const RealEstate = () => (
                 Great PropTech blends discovery, management and trust. We engineer powerful search and map-based
                 discovery so the right property surfaces instantly, immersive virtual tours and media that sell
                 remotely, and CRM and lead tools that help agents convert. For owners and managers we build
-                end-to-end management—listings, tenants, leases, maintenance, rent collection and reporting—and
+                end-to-end management -listings, tenants, leases, maintenance, rent collection and reporting -and
                 we integrate payments, e-signatures and analytics so transactions are smooth and decisions are
                 data-driven. With secure handling of sensitive financial and personal data and the scale to serve
                 large portfolios, we deliver real estate software that performs in the real market.
@@ -49,34 +49,34 @@ const RealEstate = () => (
                 id: '01', title: 'Property Listing Portals', target: 'PL',
                 tags: ['Search', 'Maps', 'Media', 'Filters'],
                 body: <>We build listing portals with powerful search, map-based discovery, rich media and smart
-                    filters—so buyers and renters find the right property fast, and listings get the visibility
+                    filters -so buyers and renters find the right property fast, and listings get the visibility
                     they deserve.</>,
             },
             {
                 id: '02', title: 'Property Management Systems', target: 'PM',
                 tags: ['Tenants', 'Leases', 'Maintenance', 'Rent'],
-                body: <>We develop end-to-end management platforms—listings, tenants, leases, maintenance requests,
-                    rent collection and reporting—giving owners and managers full control of their portfolios from
+                body: <>We develop end-to-end management platforms -listings, tenants, leases, maintenance requests,
+                    rent collection and reporting -giving owners and managers full control of their portfolios from
                     one place.</>,
             },
             {
                 id: '03', title: 'Agent & Brokerage CRM', target: 'CR',
                 tags: ['Leads', 'Pipeline', 'Automation'],
-                body: <>We build CRMs tailored to real estate—lead capture, pipeline management, follow-up
-                    automation and deal tracking—helping agents nurture prospects and close more transactions
+                body: <>We build CRMs tailored to real estate -lead capture, pipeline management, follow-up
+                    automation and deal tracking -helping agents nurture prospects and close more transactions
                     with less manual effort.</>,
             },
             {
                 id: '04', title: 'Virtual Tours & Media', target: 'VT',
                 tags: ['3D Tours', '360°', 'Video'],
                 body: <>We integrate immersive virtual tours, 360° walkthroughs and video so properties sell
-                    remotely—letting buyers and renters explore from anywhere and dramatically widening your
+                    remotely -letting buyers and renters explore from anywhere and dramatically widening your
                     market reach.</>,
             },
             {
                 id: '05', title: 'Transactions, Payments & E-Sign', target: 'TP',
                 tags: ['Payments', 'E-Signature', 'Documents'],
-                body: <>We streamline the deal—online payments, e-signatures, document management and workflow—so
+                body: <>We streamline the deal -online payments, e-signatures, document management and workflow -so
                     transactions complete faster with less friction and a clear, auditable record for everyone
                     involved.</>,
             },
@@ -91,7 +91,7 @@ const RealEstate = () => (
         reasons={[
             {
                 id: 1, title: 'Discovery That Converts', image: '/assets/services/Web-App-Development-company.jpg',
-                description: <>Powerful search, maps and media help the right buyer find the right property fast—
+                description: <>Powerful search, maps and media help the right buyer find the right property fast -
                     turning browsing into genuine leads and deals.</>,
             },
             {

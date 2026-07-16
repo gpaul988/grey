@@ -21,6 +21,7 @@ export const PersonalizedGreeting = () => {
   const [preferences, setPreferences] = useState<UserPreferences>({});
   const [isLoading, setIsLoading] = useState(true);
   const [showLanguageSelector, setShowLanguageSelector] = useState(false);
+  const [timeOfDay, setTimeOfDay] = useState<'morning' | 'afternoon' | 'evening'>('morning');
 
   const getStoredUsername = (): string => {
     if (typeof window === 'undefined') return '';
@@ -158,6 +159,14 @@ export const PersonalizedGreeting = () => {
     initializePreferences();
   }, []);
 
+  // Compute time of day only on client after mount to avoid hydration mismatch
+  useEffect(() => {
+    const hour = new Date().getHours();
+    if (hour < 12) setTimeOfDay('morning');
+    else if (hour < 17) setTimeOfDay('afternoon');
+    else setTimeOfDay('evening');
+  }, []);
+
   const handleLanguageChange = (lang: string) => {
     const updated = { ...preferences, language: lang };
     setPreferences(updated);
@@ -172,126 +181,11 @@ export const PersonalizedGreeting = () => {
     localStorage.setItem('userPreferences', JSON.stringify(updated));
   };
 
-  const getGreetingTime = (): string => {
-    const hour = new Date().getHours();
-    if (hour < 12) return 'morning';
-    if (hour < 17) return 'afternoon';
-    return 'evening';
+  const getGreetingTime = (): 'morning' | 'afternoon' | 'evening' => {
+    return timeOfDay;
   };
 
   const greetings: Record<string, Record<string, string>> = {
-    en: {
-      morning: 'Good morning',
-      afternoon: 'Good afternoon',
-      evening: 'Good evening',
-    },
-    es: {
-      morning: 'Buenos días',
-      afternoon: 'Buenas tardes',
-      evening: 'Buenas noches',
-    },
-    fr: {
-      morning: 'Bonjour',
-      afternoon: 'Bon après-midi',
-      evening: 'Bonsoir',
-    },
-    de: {
-      morning: 'Guten Morgen',
-      afternoon: 'Guten Nachmittag',
-      evening: 'Guten Abend',
-    },
-    pt: {
-      morning: 'Bom dia',
-      afternoon: 'Boa tarde',
-      evening: 'Boa noite',
-    },
-    zh: {
-      morning: '早上好',
-      afternoon: '下午好',
-      evening: '晚上好',
-    },
-    ar: {
-      morning: 'صباح الخير',
-      afternoon: 'مساء الخير',
-      evening: 'تصبح على خير',
-    },
-    sw: {
-      morning: 'Habari za asubuhi',
-      afternoon: 'Habari za jioni',
-      evening: 'Usiku mwema',
-    },
-    yo: {
-      morning: 'Ekú àárọ̀',
-      afternoon: 'Ewu ọ̀san',
-      evening: 'Kúrọ̀ẹ̀ ni',
-    },
-    ig: {
-      morning: 'Ụtụtụ ọma',
-      afternoon: 'Ehihie ọma',
-      evening: 'Mgbede ọma',
-    },
-    ja: {
-      morning: 'おはよう',
-      afternoon: 'こんにちは',
-      evening: 'こんばんは',
-    },
-    ru: {
-      morning: 'Доброе утро',
-      afternoon: 'Добрый день',
-      evening: 'Добрый вечер',
-    },
-    hi: {
-      morning: 'नमस्ते',
-      afternoon: 'नमस्कार',
-      evening: 'शुभ संध्या',
-    },
-    it: {
-      morning: 'Buongiorno',
-      afternoon: 'Buonpomeriggio',
-      evening: 'Buonasera',
-    },
-  };
-
-  const timeOfDay = getGreetingTime();
-  const lang = preferences.language || 'en';
-  const baseGreeting = greetings[lang]?.[timeOfDay] || 'Hello';
-  const username = preferences.username || 'Guest';
-  const location = preferences.location?.city || preferences.location?.country || '';
-  const greeting = `${baseGreeting}, ${username}! ${location ? `(${location})` : ''}`;
-
-  const languages = [
-    { code: 'en', name: 'English' },
-    { code: 'es', name: 'Español' },
-    { code: 'fr', name: 'Français' },
-    { code: 'de', name: 'Deutsch' },
-    { code: 'pt', name: 'Português' },
-    { code: 'zh', name: '简体中文' },
-    { code: 'ar', name: 'العربية' },
-    { code: 'sw', name: 'Kiswahili' },
-    { code: 'yo', name: 'Yorùbá' },
-    { code: 'ig', name: 'Igbo' },
-    { code: 'ja', name: '日本語' },
-    { code: 'ru', name: 'Русский' },
-    { code: 'hi', name: 'हिन्दी' },
-    { code: 'it', name: 'Italiano' },
-  ];
-
-  if (isLoading) {
-    return (
-      <div className="greeting-skeleton animate-pulse">
-        <div className="h-8 bg-gray-300 rounded w-64" />
-      </div>
-    );
-  }
-
-  return (
-    <div className="personalized-greeting space-y-4 p-4 rounded-lg bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-900 border border-blue-200 dark:border-gray-700">
-      {/* Main Greeting */}
-      <div className="greeting-text">
-        <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          {greeting}
-        </h2>
-      </div>
 
       {/* User Controls */}
       <div className="controls flex flex-wrap gap-4 items-center text-sm">
@@ -317,7 +211,7 @@ export const PersonalizedGreeting = () => {
           >
             <span>🌍</span>
             {languages.find((l) => l.code === lang)?.name || 'English'}
-            <span>▼</span>
+            <span> - </span>
           </button>
 
           {showLanguageSelector && (

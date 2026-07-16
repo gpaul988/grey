@@ -8,7 +8,7 @@ const Consulting = () => (
         heroVideoMobile="/assets/hero/hero.mp4"
         midImage="/assets/services/Web-App-Development-company.jpg"
         topImages={['/assets/services/Development.jpg', '/assets/services/services.jpg']}
-        intro="Strategic technology guidance that turns complex decisions into clear roadmaps—helping your business move faster, build the right things and avoid costly mistakes."
+        intro="Strategic technology guidance that turns complex decisions into clear roadmaps -helping your business move faster, build the right things and avoid costly mistakes."
         eyebrow="Strategic technology guidance for growth"
         introHeading={<>Clarity From<br className="lg:block md:block hidden" />Complexity</>}
         introBody={[
@@ -17,9 +17,9 @@ const Consulting = () => (
             with confidence. Whether you are a startup choosing a founding tech stack, a scale-up navigating a
             re-platform, or an enterprise modernising legacy systems, our consultants combine deep engineering
             knowledge with commercial acumen to give you recommendations that are practical, not theoretical.</>,
-            <>We do not produce slide decks that gather dust. Every engagement produces actionable artefacts—
+            <>We do not produce slide decks that gather dust. Every engagement produces actionable artefacts -
             architecture diagrams, build-vs-buy analyses, vendor shortlists, risk registers, RFP templates and
-            prioritised roadmaps—and we remain available to validate implementation progress. Our consultants
+            prioritised roadmaps -and we remain available to validate implementation progress. Our consultants
             have shipped real products across fintech, healthtech, logistics and e-commerce, so the advice is
             grounded in what actually works in production, not just what looks good on paper.</>,
         ]}
@@ -62,7 +62,7 @@ const Consulting = () => (
                 id: '05', title: 'CTO-as-a-Service', target: 'CTO',
                 tags: ['Fractional CTO', 'Startups', 'Scale-ups'],
                 body: <>Not every company needs a full-time CTO from day one. Our fractional CTO service
-                provides senior technical leadership on a part-time basis—sitting in board meetings, leading
+                provides senior technical leadership on a part-time basis -sitting in board meetings, leading
                 engineering hiring, setting technical direction, reviewing vendor contracts and mentoring
                 your engineering team. Engagement scales from 2 days/month to full-time as you grow.</>,
             },

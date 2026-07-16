@@ -1,9 +1,7 @@
 'use client';
 
-
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import ServiceHero from '@/components/futuristic/ServiceHero';
@@ -19,7 +17,6 @@ const IosDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
 
-
     // Floating button visibility hook
     useEffect(() => {
         const handleScroll = () => {
@@ -33,7 +30,6 @@ const IosDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
 
     // isDaytime react hook
    const isDayTime = useIsDayTime();
-
 
     // Introductory section hook
     useEffect(() => {
@@ -91,11 +87,6 @@ const IosDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             <ServiceHero
                 title="iOS App Development"
@@ -389,7 +380,7 @@ const IosDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                                     provides a consistent, secure, and high-quality environment that fosters customer
                                     trust and loyalty. With Apple’s rigorous app review process and strict guidelines,
                                     iOS apps tend to deliver superior performance, reliability, and a seamless user
-                                    experience—key factors that help businesses build strong brand reputations and drive
+                                    experience -key factors that help businesses build strong brand reputations and drive
                                     customer retention.
                                 </p>
                             </div>
@@ -425,7 +416,7 @@ const IosDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                             iOS Application Development delivers high-performance, secure, and user-friendly mobile
                             solutions tailored for Apple’s ecosystem. It enables businesses to reach premium users,
                             ensure app store compliance, and provide a seamless, engaging experience across iPhone,
-                            iPad, and Apple Watch—driving customer loyalty and long-term growth.
+                            iPad, and Apple Watch -driving customer loyalty and long-term growth.
                         </p>
                     </div>
                 </div>
@@ -463,7 +454,7 @@ const IosDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                         <p className='text-justify text-[0.85em] font-[400]'>
                             Apple’s closed ecosystem and rigorous app review process ensure a higher standard of
                             security. iOS applications benefit from built-in security features such as data encryption,
-                            secure transactions, and controlled app permissions—making the platform especially suitable
+                            secure transactions, and controlled app permissions -making the platform especially suitable
                             for finance, healthcare, and enterprise solutions.
                         </p>
                     </div>
@@ -498,7 +489,7 @@ const IosDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                         <p className='text-justify text-[0.85em] font-[400]'>
                             Unlike Android, where device and OS fragmentation can delay development, iOS apps are built
                             for a limited number of devices and screen sizes. This allows for faster development,
-                            simplified testing, and a quicker time-to-market—helping businesses stay agile and
+                            simplified testing, and a quicker time-to-market -helping businesses stay agile and
                             responsive.
                         </p>
                     </div>
@@ -561,8 +552,8 @@ const IosDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
                             <br/><br/>
                             Quality assurance engineers rigorously test the app across devices to ensure reliability,
                             while DevOps specialists handle deployment, updates, and performance monitoring. Throughout
-                            the process, we keep you actively involved—providing regular updates and incorporating your
-                            feedback—so the final product delivers real business impact and meets both user and market
+                            the process, we keep you actively involved -providing regular updates and incorporating your
+                            feedback -so the final product delivers real business impact and meets both user and market
                             expectations.
                         </p><br/>
                         <Link href='/company'>
@@ -619,3 +610,4 @@ const IosDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
 };
 
 export default IosDevelopment;
+

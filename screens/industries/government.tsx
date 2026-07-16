@@ -14,7 +14,7 @@ const GovernmentIndustry = () => (
         introBody={[
             <>Governments face a unique technology challenge: serving citizens across every demographic, device
             and connectivity level while meeting strict security, accessibility and compliance requirements.
-            At Grey InfoTech we design and build government digital services that put citizens at the centre—
+            At Grey InfoTech we design and build government digital services that put citizens at the centre -
             simple interfaces, inclusive design, fast performance and secure data handling. We work across
             federal, state and local government, understanding the procurement, compliance and change management
             constraints of the public sector.</>,
@@ -31,7 +31,7 @@ const GovernmentIndustry = () => (
             {
                 id: '01', title: 'Citizen Service Portals', target: 'CP',
                 tags: ['e-Government', 'Self-Service', 'Accessibility', 'Multi-channel'],
-                body: <>We build citizen-facing portals that make government services accessible online—
+                body: <>We build citizen-facing portals that make government services accessible online -
                 licence renewals, permit applications, tax submissions, benefit claims and document requests.
                 Designed for inclusive access with screen reader support, plain language content and mobile-first
                 interfaces that work on low-end devices and variable connectivity.</>,
@@ -40,7 +40,7 @@ const GovernmentIndustry = () => (
                 id: '02', title: 'Case Management Systems', target: 'CM',
                 tags: ['Workflow', 'Document Management', 'Audit Trail', 'Integration'],
                 body: <>We build case management systems for social services, regulatory bodies, courts and
-                licensing agencies—managing applications, correspondence, approvals and case history with
+                licensing agencies -managing applications, correspondence, approvals and case history with
                 full audit trails, role-based access and integration with national databases and payment
                 systems. Systems are designed for the caseworker&apos;s daily reality, not the IT department&apos;s
                 preference.</>,
@@ -58,7 +58,7 @@ const GovernmentIndustry = () => (
                 id: '04', title: 'Legacy System Modernisation', target: 'LM',
                 tags: ['Strangler Fig', 'Microservices', 'API Layer', 'Migration'],
                 body: <>Many critical government systems run on technology that is decades old and expensive
-                to maintain. We modernise legacy systems using a strangler-fig approach—incrementally
+                to maintain. We modernise legacy systems using a strangler-fig approach -incrementally
                 replacing functionality without big-bang rewrites that carry unacceptable delivery risk.
                 We wrap legacy systems with API layers, migrate data to modern stores and retire old components
                 as new ones are validated.</>,
@@ -76,7 +76,7 @@ const GovernmentIndustry = () => (
                 id: '06', title: 'Smart City & IoT Platforms', target: 'SC',
                 tags: ['Sensors', 'CCTV', 'Traffic', 'Utilities', 'Real-time'],
                 body: <>Smart city initiatives require platforms that ingest, process and act on data from
-                thousands of connected sensors—traffic cameras, environmental monitors, utility meters and
+                thousands of connected sensors -traffic cameras, environmental monitors, utility meters and
                 emergency response systems. We build the data platforms, dashboards and alerting systems
                 that help city operations teams manage urban infrastructure in real time.</>,
             },

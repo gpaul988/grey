@@ -1,9 +1,7 @@
 'use client';
 
-
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import ServiceHero from '@/components/futuristic/ServiceHero';
@@ -38,7 +36,6 @@ const BackendDevelopment = () => {    const [isVisible, setIsVisible] = useState
 
     // isDaytime react hook
 const isDayTime = useIsDayTime();
-
 
     // Introductory section hook
     useEffect(() => {
@@ -112,11 +109,6 @@ const isDayTime = useIsDayTime();
     ];
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             <ServiceHero
                 title="Back-end Development"
@@ -165,14 +157,14 @@ const isDayTime = useIsDayTime();
                                     architectures that support everything from user authentication and database
                                     management to API integration and real-time functionality. We focus on building
                                     systems that are not only technically sound but also aligned with your business
-                                    goals—ensuring your product is secure, efficient, and ready to grow with your users
+                                    goals -ensuring your product is secure, efficient, and ready to grow with your users
                                     and evolving needs.
                                 </p>
                             </div>
                             <div>
                                 <p>
                                     Our experienced development team delivers tailored back-end solutions designed to
-                                    meet your specific business needs—whether that involves designing and building
+                                    meet your specific business needs -whether that involves designing and building
                                     intuitive admin interfaces, integrating third-party services, or developing and
                                     managing robust APIs. We ensure every system is secure, scalable, and built to
                                     perform reliably under real-world conditions. From architecting efficient databases
@@ -252,7 +244,7 @@ const isDayTime = useIsDayTime();
                             integrations or a GraphQL solution for more complex, flexible data structures, we focus on
                             creating APIs that are secure, scalable, and easy to consume. Our approach ensures your
                             backend can support third-party integrations, mobile and web clients, and future platform
-                            growth—all while maintaining performance, reliability, and security standards critical to
+                            growth -all while maintaining performance, reliability, and security standards critical to
                             your business.
                         </p>
                     </div>
@@ -307,7 +299,7 @@ const isDayTime = useIsDayTime();
                             Our mobile app back-end development expertise ensures that your app’s server-side logic is
                             tightly integrated with its front-end for optimal performance. We build back-end systems
                             that support seamless data synchronization, real-time communication, and secure
-                            transactions—creating a smooth and responsive user experience
+                            transactions -creating a smooth and responsive user experience
                             across <Link href={'/services/ios-development'}
                                          className={`border-b pb-[0.05em] ${
                                              isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
@@ -337,7 +329,7 @@ const isDayTime = useIsDayTime();
                         <p className='text-justify text-[0.85em] font-[400]'>
                             Every application has its own set of requirements, and our custom server development
                             services are built to meet those unique demands. We design, configure, and optimize
-                            high-performance servers tailored to your specific use case—whether for web, mobile, or
+                            high-performance servers tailored to your specific use case -whether for web, mobile, or
                             enterprise applications. By prioritizing reliability, security, and operational efficiency,
                             we ensure your infrastructure can support your app’s performance, scale with growth, and
                             maintain stability under varying workloads.
@@ -367,7 +359,7 @@ const isDayTime = useIsDayTime();
                             and database architecture to API development and server optimization, every solution is
                             designed with performance, security, and scalability at its core. By leveraging the latest
                             technologies and adhering to industry best practices, we ensure your back-end is robust,
-                            efficient, and future-ready—capable of supporting your app&#39;s success as it grows and
+                            efficient, and future-ready -capable of supporting your app&#39;s success as it grows and
                             evolves.
                         </p>
                     </div>
@@ -396,7 +388,7 @@ const isDayTime = useIsDayTime();
                                       isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                   }`}>Google</Link> Cloud, and Microsoft Azure to
                             build resilient, high-performing applications. Our cloud-based back-end solutions are
-                            architected for scalability, cost-efficiency, and high availability—giving your app the
+                            architected for scalability, cost-efficiency, and high availability -giving your app the
                             flexibility to grow without infrastructure limitations. Whether you&#39;re launching a new
                             product or scaling an existing system, we ensure your back-end is optimized for performance,
                             security, and long-term success in the cloud.
@@ -423,7 +415,7 @@ const isDayTime = useIsDayTime();
                         <p className='text-justify text-[0.85em] font-[400]'>
                             If you already have an existing back-end, we can help you optimize it for better
                             performance, security, and scalability. Our comprehensive code audits uncover
-                            vulnerabilities, inefficiencies, and architectural bottlenecks—providing clear, actionable
+                            vulnerabilities, inefficiencies, and architectural bottlenecks -providing clear, actionable
                             recommendations to strengthen your system. Whether you&#39;re preparing for growth or
                             looking to
                             improve stability, we ensure your back-end is robust, secure, and ready to support your
@@ -478,7 +470,7 @@ const isDayTime = useIsDayTime();
                             A strong architectural foundation is essential to any successful back-end. We design
                             scalable, secure, and efficient infrastructures that ensure long-term stability and
                             performance. By building robust, future-proof systems tailored to your needs, we help you
-                            reduce technical risks and operational overhead—so you can focus on innovation and business
+                            reduce technical risks and operational overhead -so you can focus on innovation and business
                             growth with confidence.
                         </p>
                     </div>
@@ -564,7 +556,7 @@ const isDayTime = useIsDayTime();
                                         performance, and ease of use. Using RESTful APIs for simplicity and broad
                                         compatibility or GraphQL for more complex, flexible data handling, we ensure
                                         that every integration is efficient, maintainable, and aligned with your
-                                        business goals—empowering your system to operate as a cohesive, connected whole.
+                                        business goals -empowering your system to operate as a cohesive, connected whole.
                                     </p>
                                 </div>
                                 <div
@@ -587,7 +579,7 @@ const isDayTime = useIsDayTime();
                                         tailored content management solution, we focus on creating intuitive,
                                         user-friendly systems that simplify content creation, editing, and publishing.
                                         Our CMS solutions are designed to meet the unique needs of your
-                                        business—balancing ease of use with flexibility and control. From seamless
+                                        business -balancing ease of use with flexibility and control. From seamless
                                         integrations and role-based access to secure workflows and scalable
                                         architecture, we ensure your content is both protected and easy to manage. The
                                         result is a streamlined content experience that empowers your team to deliver
@@ -615,7 +607,7 @@ const isDayTime = useIsDayTime();
                                         such as MySQL and PostgreSQL for structured data needs, while also leveraging
                                         NoSQL solutions like MongoDB for projects that require greater flexibility and
                                         scalability. Our expertise ensures optimized data models, fast and reliable data
-                                        retrieval, and strong data integrity—supporting your application’s performance
+                                        retrieval, and strong data integrity -supporting your application’s performance
                                         and reliability as it grows. Whether you’re dealing with high-volume
                                         transactions, complex data relationships, or real-time analytics, we build
                                         database solutions tailored to your business requirements and future growth.
@@ -637,8 +629,8 @@ const isDayTime = useIsDayTime();
                                             className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Chat apps</span>
                                     </div>
                                     <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        For applications that rely on real-time updates—such as chat platforms, live
-                                        tracking systems, multiplayer games, or trading tools—we implement real-time
+                                        For applications that rely on real-time updates -such as chat platforms, live
+                                        tracking systems, multiplayer games, or trading tools -we implement real-time
                                         functionality using technologies like WebSockets and frameworks such as
                                         Socket.IO. These solutions enable instant, bidirectional communication between
                                         the server and client, ensuring fast, consistent, and responsive data delivery.
@@ -669,7 +661,7 @@ const isDayTime = useIsDayTime();
                                         everything from inventory management and product catalog organization to secure
                                         payment processing and order fulfillment. Our solutions are designed to handle
                                         multi-currency transactions, real-time stock updates, and dynamic
-                                        pricing—ensuring a smooth and reliable shopping experience for customers. With a
+                                        pricing -ensuring a smooth and reliable shopping experience for customers. With a
                                         strong focus on security, scalability, and performance, we build e-commerce
                                         back-ends that integrate seamlessly with third-party services, support business
                                         growth, and adapt to evolving market demands.
@@ -724,7 +716,7 @@ const isDayTime = useIsDayTime();
                                         cycles. Leveraging tools like Docker and Kubernetes, we ensure consistent
                                         environment configuration, efficient resource management, and scalable
                                         infrastructure. This approach not only increases development velocity but also
-                                        improves stability and operational efficiency—giving your team the confidence to
+                                        improves stability and operational efficiency -giving your team the confidence to
                                         deploy updates quickly and securely.
                                     </p>
                                 </div>
@@ -862,7 +854,6 @@ const isDayTime = useIsDayTime();
                         </div>
                     </div>
 
-
                     {/* Tools */}
                     <div id={'tools'}
                          className={`relative w-full h-auto grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 lg:gap-[6em] md:gap-[4em] sm:gap-[3em] gap-[2em] lg:mt-[3em] md:mt-[2em] sm:mt-[1.5em] mt-[1em] ${
@@ -886,7 +877,7 @@ const isDayTime = useIsDayTime();
                                                           className={`border-b pb-[0.01em] ${isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'}`}>React</Link> applications,
                                     offering a seamless development experience, improved SEO, and enhanced performance
                                     out of the box. With features like automatic routing, server-side rendering, and
-                                    static site generation, it enables faster load times and greater scalability—making
+                                    static site generation, it enables faster load times and greater scalability -making
                                     it ideal for modern web applications that demand speed, reliability, and
                                     flexibility.
                                 </p>
@@ -955,7 +946,7 @@ const isDayTime = useIsDayTime();
                                     A versatile framework for building high-performance web, desktop, and cloud
                                     applications across multiple programming languages. It offers a secure, scalable
                                     architecture and a rich ecosystem of tools and libraries, enabling rapid development
-                                    while maintaining reliability and long-term maintainability—ideal for
+                                    while maintaining reliability and long-term maintainability -ideal for
                                     enterprise-grade solutions and cross-platform deployment.
                                 </p>
                                 <Link href={'/services/Net-Development'}
@@ -994,7 +985,7 @@ const isDayTime = useIsDayTime();
                                     className={`border-b pb-[0.01em] ${isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'}`}>web
                                     application</Link> development. With
                                     built-in support for routing, authentication, caching, and more, Laravel enables the
-                                    rapid creation of secure, maintainable, and scalable applications—making it a
+                                    rapid creation of secure, maintainable, and scalable applications -making it a
                                     preferred choice for businesses seeking efficient and modern PHP-based solutions.
                                 </p>
                                 <Link href={'/services/Laravel-Development'}
@@ -1028,7 +1019,7 @@ const isDayTime = useIsDayTime();
                                     A dynamic web application framework that emphasizes convention over configuration,
                                     enabling rapid development, clean code, and long-term maintainability. By
                                     streamlining repetitive tasks and encouraging best practices, it allows developers
-                                    to build powerful, scalable applications quickly—making it a strong choice for
+                                    to build powerful, scalable applications quickly -making it a strong choice for
                                     startups and enterprises alike seeking fast time-to-market and robust architecture
                                 </p>
                                 <Link href={'/services/Ruby-on-Rails'}
@@ -1066,7 +1057,7 @@ const isDayTime = useIsDayTime();
                                     designed for building fast,
                                     scalable network applications using server-side scripting. Its event-driven,
                                     non-blocking architecture makes it ideal for handling high-concurrency workloads
-                                    such as APIs, real-time services, and microservices—enabling efficient development
+                                    such as APIs, real-time services, and microservices -enabling efficient development
                                     and performance at scale across diverse platforms.
                                 </p>
                                 <Link href={'/services/Nodejs-Development'}
@@ -1171,8 +1162,8 @@ const isDayTime = useIsDayTime();
                             Scalable
                         </h5>
                         <p className={'text-[0.873em] text-justify font-[300]'}>
-                            We leverage the latest technologies—including microservices, containerization, and
-                            serverless architecture—to build scalable, resilient systems that evolve with your business.
+                            We leverage the latest technologies -including microservices, containerization, and
+                            serverless architecture -to build scalable, resilient systems that evolve with your business.
                             This modern approach enables greater flexibility, faster deployment, and efficient resource
                             utilization, ensuring your infrastructure is ready to support growth, innovation, and
                             long-term success.
@@ -1193,7 +1184,7 @@ const isDayTime = useIsDayTime();
                     <p className={'text-[0.873em] font-[300] leading-[1.5] text-justify lg:pr-[33em] mb-10'}>
                         We specialize in crafting high-impact marketing websites, innovative web apps, and mobile
                         applications that drive real results. From funded startups to established businesses, we&#39;ve
-                        helped a wide range of clients bring their digital products to life—delivering standout
+                        helped a wide range of clients bring their digital products to life -delivering standout
                         experiences
                         that fuel growth, engagement, and long-term success.
                     </p>
@@ -1233,7 +1224,6 @@ const isDayTime = useIsDayTime();
                 </div>
             </div>
 
-
             {/* Back-end development process */}
             <div className={`${isDayTime ? 'bg-white' : 'bg-black'}`}>
                 <div id={'development process'}
@@ -1249,7 +1239,7 @@ const isDayTime = useIsDayTime();
                             </h2>
                             <p className={'text-[0.87em] font-[300] leading-[1.5] tracking-tight'}>
                                 Our process is strategically designed to align your MVP with both your product
-                                vision and real market <br className={'lg:block md:block hidden'}/>demands—ensuring it
+                                vision and real market <br className={'lg:block md:block hidden'}/>demands -ensuring it
                                 delivers
                                 value from day one and sets the stage for future growth.
                             </p>
@@ -1293,7 +1283,7 @@ const isDayTime = useIsDayTime();
                                                 application and smooth integration with third-party services. We focus
                                                 on creating a robust technical foundation that supports long-term
                                                 performance, enables future growth, and aligns with your strategic
-                                                business goals—whether you&#39;re launching a new product or modernising
+                                                business goals -whether you&#39;re launching a new product or modernising
                                                 legacy systems.
                                             </>
                                         ),
@@ -1308,7 +1298,7 @@ const isDayTime = useIsDayTime();
                                                 frontend interfaces and external systems. Our focus on security,
                                                 scalability, and performance ensures that your APIs can handle high data
                                                 volumes and complex interactions without compromising speed or
-                                                reliability—supporting your product&#39;s growth and integration needs
+                                                reliability -supporting your product&#39;s growth and integration needs
                                                 with
                                                 confidence.
                                             </>
@@ -1384,7 +1374,6 @@ const isDayTime = useIsDayTime();
                 </div>
             </div>
 
-
             {/* Last image*/}
             <div id={'last-image'} className={'lg:-mt-[10em] h-auto max-w-full w-full mx-auto'}>
                 <Image
@@ -1404,3 +1393,4 @@ const isDayTime = useIsDayTime();
 };
 
 export default BackendDevelopment;
+

@@ -5,7 +5,7 @@ import OrderScreen from '@/screens/store/orders/[ref]';
 export async function generateMetadata({params}: {params: Promise<{ref: string}>}): Promise<Metadata> {
     const {ref} = await params;
     return buildMetadata('/store/orders', {
-        title: 'Order ' + ref + ' — Grey InfoTech Store',
+        title: 'Order ' + ref + '  - Grey InfoTech Store',
         description: 'View your order details and status.',
         noindex: true,
     });

@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * ParallaxProvider — "respond to user movement" without a camera.
+ * ParallaxProvider  - "respond to user movement" without a camera.
  *
  * Publishes pointer position + device tilt as CSS custom properties on
  * <html>, so any element can react with pure CSS (no per-frame React renders):

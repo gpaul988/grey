@@ -229,10 +229,10 @@ export function FxSection({
     );
 }
 
-/* ══════════════════════════════════════════════════════
-   EXTENDED FX PRIMITIVES v3 — scanlines, glitch, orbit,
+/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
+   EXTENDED FX PRIMITIVES v3  - scanlines, glitch, orbit,
    terminal, stat bars, full-bleed hero layer
-   ══════════════════════════════════════════════════════ */
+    -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 
 /* ---------- Full-bleed futuristic hero wrapper ---------- */
 export function FxHero({
@@ -444,11 +444,11 @@ export function FxFrame({
     );
 }
 
-/* ══════════════════════════════════════════════════════
-   FxStickyScrollSection — shared sticky-left/scroll-right
+/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
+   FxStickyScrollSection  - shared sticky-left/scroll-right
    layout used for "Development Solutions", "Development
    Process", "Service Solutions" across all pages.
-   ══════════════════════════════════════════════════════ */
+    -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 export type FxScrollItem = {
     id: string;        // e.g. "01"
     title: string;

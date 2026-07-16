@@ -45,7 +45,7 @@ const LaravelDevelopment = () => (
                 tags: ['CMS Development', 'Laravel', 'Scalable'],
                 body: <>We build scalable content management systems and platforms with Laravel that organize, publish and 
                     distribute content efficiently. Our CMS solutions provide powerful content administration tools, flexible 
-                    workflows, and seamless content delivery across channels—empowering teams to manage digital assets effectively.</>,
+                    workflows, and seamless content delivery across channels -empowering teams to manage digital assets effectively.</>,
             },
             {
                 id: '02', title: 'Business Applications', target: 'BAD',

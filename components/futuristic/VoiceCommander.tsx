@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * VoiceCommander — hands-free navigation via the Web Speech API.
+ * VoiceCommander  - hands-free navigation via the Web Speech API.
  *
  * Privacy-safe by design: recognition runs on-device (browser), is OFF until
  * the user taps the mic, stops automatically, and no audio/text leaves the
@@ -76,7 +76,7 @@ export default function VoiceCommander() {
             // back
             if (/go back|previous page|back/.test(text)) return router.back?.();
 
-            // navigation — longest key match wins
+            // navigation  - longest key match wins
             let best: {href: string; len: number} | null = null;
             for (const r of ROUTES) {
                 for (const k of r.keys) {
@@ -145,7 +145,7 @@ export default function VoiceCommander() {
                 onClick={start}
                 aria-label={state === 'listening' ? 'Listening…' : 'Activate voice navigation'}
                 className={`grey-voice-btn ${state === 'listening' ? 'is-listening' : ''}`}
-                title="Voice navigation — say e.g. 'go to contact'"
+                title="Voice navigation  - say e.g. 'go to contact'"
             >
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path

@@ -246,7 +246,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Send emails (non-blocking — don't fail if SMTP not configured)
+    // Send emails (non-blocking  - don't fail if SMTP not configured)
     const resolvedProjectType = projectType || otherProjectType || 'General';
     const resolvedCountry = country || otherCountry || 'Not specified';
     const resolvedIndustry = industryType || otherIndustryType || 'Not specified';
@@ -291,7 +291,7 @@ export async function POST(req: NextRequest) {
     try {
       await send({
         to: process.env.ADMIN_EMAIL || 'hello@greyinfotech.com.ng',
-        subject: `📋 New Contact Form Submission — ${resolvedProjectType}`,
+        subject: `📋 New Contact Form Submission  - ${resolvedProjectType}`,
         html: `
           <div style="font-family:Arial,sans-serif;color:#333;max-width:600px;margin:0 auto;">
             <h2 style="color:#059669;">New Contact Form Submission</h2>

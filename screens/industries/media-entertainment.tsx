@@ -13,12 +13,12 @@ const MediaEntertainmentIndustry = () => (
         introHeading={<>Entertainment<br className="lg:block md:block hidden" />Engineered</>}
         introBody={[
             <>The media and entertainment industry has been transformed by streaming, social platforms and
-            creator economies—and the technology that powers successful media businesses is increasingly
+            creator economies -and the technology that powers successful media businesses is increasingly
             complex. At Grey InfoTech we build the platforms, tools and infrastructure that help content
             creators, broadcasters, publishers and entertainment companies deliver compelling experiences
             to their audiences. From video streaming platforms to digital publishing systems and creator
             monetisation tools, we engineer for engagement and scale.</>,
-            <>Our media technology practice understands the unique requirements of content-intensive systems—
+            <>Our media technology practice understands the unique requirements of content-intensive systems -
             high-bandwidth video delivery, content protection, rights management, recommendation algorithms
             and the real-time analytics that drive editorial and product decisions. We work with African media
             companies navigating the shift from linear broadcast to digital-first distribution, and with
@@ -51,7 +51,7 @@ const MediaEntertainmentIndustry = () => (
                 id: '03', title: 'Creator Tools & Monetisation', target: 'CT',
                 tags: ['Subscriptions', 'Pay-per-view', 'Creator Economy', 'Payouts'],
                 body: <>We build creator platforms with the tools creators need to build sustainable
-                businesses—channel management, subscription tiers, pay-per-view events, merchandise
+                businesses -channel management, subscription tiers, pay-per-view events, merchandise
                 integration, fan communities and automated payout processing. Platforms are designed
                 to maximise creator retention and give them the data they need to understand and
                 grow their audience.</>,
@@ -68,7 +68,7 @@ const MediaEntertainmentIndustry = () => (
             {
                 id: '05', title: 'Live Streaming & Events', target: 'LS',
                 tags: ['Live Video', 'Interactive', 'Pay-per-view', 'Low Latency'],
-                body: <>Live events—concerts, sports, conferences, ceremonies—require real-time reliability
+                body: <>Live events -concerts, sports, conferences, ceremonies -require real-time reliability
                 at scale. We build live streaming infrastructure with low-latency delivery, concurrent
                 viewer capacity, live chat and interactive features, pay-per-view ticketing and
                 post-event VOD archiving. We design for peak traffic events where performance cannot
@@ -77,7 +77,7 @@ const MediaEntertainmentIndustry = () => (
             {
                 id: '06', title: 'Gaming & Interactive Entertainment', target: 'GI',
                 tags: ['Game Backends', 'Leaderboards', 'Matchmaking', 'In-app Purchase'],
-                body: <>We build the server-side infrastructure for games and interactive entertainment—
+                body: <>We build the server-side infrastructure for games and interactive entertainment -
                 player authentication and profiles, real-time leaderboards, matchmaking services,
                 in-app purchase flows, virtual currency systems and game analytics. For African studios
                 we design for the mobile-first, low-latency requirements of the Nigerian and pan-African
@@ -85,7 +85,7 @@ const MediaEntertainmentIndustry = () => (
             },
         ]}
         ctaHeading={<>Technology that<br className="lg:block md:block hidden" />entertains at scale</>}
-        ctaBody="Great content deserves great technology. Grey InfoTech builds the platforms that bring your stories to millions—reliably, beautifully and on every screen."/>
+        ctaBody="Great content deserves great technology. Grey InfoTech builds the platforms that bring your stories to millions -reliably, beautifully and on every screen."/>
 );
 
 export default MediaEntertainmentIndustry;

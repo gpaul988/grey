@@ -196,7 +196,7 @@ export async function POST(req: NextRequest) {
     try {
       await send({
         to: email,
-        subject: `✅ Application Received — Grey InfoTech`,
+        subject: `✅ Application Received  - Grey InfoTech`,
         html: `
           <div style="font-family:Arial,sans-serif;color:#333;max-width:600px;margin:0 auto;border-radius:8px;overflow:hidden;">
             <div style="background:linear-gradient(135deg,#0f172a,#0d9488);padding:32px;text-align:center;">
@@ -222,7 +222,7 @@ export async function POST(req: NextRequest) {
     try {
       await send({
         to: process.env.ADMIN_EMAIL || 'hello@greyinfotech.com.ng',
-        subject: `🧑‍💼 New ${typeLabel} — ${full_name}`,
+        subject: `🧑‍💼 New ${typeLabel}  - ${full_name}`,
         html: `
           <div style="font-family:Arial,sans-serif;color:#333;max-width:600px;margin:0 auto;">
             <h2 style="color:#0d9488;">New ${typeLabel}</h2>
@@ -268,7 +268,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// GET — list applications
+// GET  - list applications
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);

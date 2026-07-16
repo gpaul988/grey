@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * AdBanner — Ultra-futuristic, high-impact promotional banner
+ * AdBanner  - Ultra-futuristic, high-impact promotional banner
  * Features: 3D effects, neon glows, particle effects, dramatic animations
  * Now with automatic ad rotation every 6 seconds
  */
@@ -354,7 +354,7 @@ export default function AdBanner({placement = 'home_banner'}: {placement?: strin
                                 exit={{opacity: 0, y: 10}}
                                 className="fixed bottom-6 right-6 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 px-6 py-3 text-sm font-bold text-black shadow-2xl shadow-cyan-500/50 z-50"
                             >
-                                ✓ Caption copied — paste it on Instagram
+                                ✓ Caption copied  - paste it on Instagram
                             </motion.div>
                         )}
                     </AnimatePresence>

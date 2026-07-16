@@ -18,7 +18,7 @@ const RubyOnRails = () => (
         introHeading={<>Ruby on Rails Development <br className={'lg:block md:block hidden'}/>Ideas to Launch</>}
         introBody={[
             <>
-                Ruby on Rails powers some of the fastest-growing startups and platforms—from Airbnb and Shopify to GitHub and Hulu.
+                Ruby on Rails powers some of the fastest-growing startups and platforms -from Airbnb and Shopify to GitHub and Hulu.
                 At Grey InfoTech we harness Rails's "convention over configuration" philosophy and rich ecosystem to build MVPs and
                 complete platforms in record time. Rails enables small teams to do what would require much larger teams with other
                 frameworks. Whether proving an idea, launching a startup, or scaling existing platforms, our Rails expertise delivers
@@ -53,12 +53,12 @@ const RubyOnRails = () => (
             {
                 id: '03', title: 'Content Management Systems', target: 'ML',
                 tags: ['CMS', 'Content Publishing', 'Flexible'],
-                body: <>We build custom content management systems with Rails tailored to specific business needs. Content workflows, editorial calendars, multi-language support, and publishing automation—all built on Rails's solid foundation.</>,
+                body: <>We build custom content management systems with Rails tailored to specific business needs. Content workflows, editorial calendars, multi-language support, and publishing automation -all built on Rails's solid foundation.</>,
             },
             {
                 id: '04', title: 'Marketplace Platforms', target: 'AU',
                 tags: ['Two-sided', 'Payments', 'Ratings'],
-                body: <>We develop marketplace platforms connecting buyers and sellers. Payment processing, reputation systems, dispute resolution, and commission management—Rails handles the complexity of two-sided platforms elegantly.</>,
+                body: <>We develop marketplace platforms connecting buyers and sellers. Payment processing, reputation systems, dispute resolution, and commission management -Rails handles the complexity of two-sided platforms elegantly.</>,
             },
             {
                 id: '05', title: 'Admin Interfaces & Dashboards', target: 'CD',
@@ -68,7 +68,7 @@ const RubyOnRails = () => (
             {
                 id: '06', title: 'Modernisation & Support', target: 'MS',
                 tags: ['Upgrades', 'Refactoring', 'Maintenance'],
-                body: <>We maintain and upgrade Rails applications—framework updates, dependency management, performance optimization, and security patches. Keep your applications current, secure, and maintainable as Rails and Ruby evolve.</>,
+                body: <>We maintain and upgrade Rails applications -framework updates, dependency management, performance optimization, and security patches. Keep your applications current, secure, and maintainable as Rails and Ruby evolve.</>,
             },
         ]}
         reasons={[
@@ -86,7 +86,7 @@ const RubyOnRails = () => (
             },
             {
                 id: 4, title: 'Rich Ecosystem', image: '/assets/services/digital-optimisation.jpg',
-                description: <>Rails community provides battle-tested gems (libraries) for virtually every requirement. Authentication, payments, file storage, and business logic—proven solutions exist and integrate seamlessly.</>,
+                description: <>Rails community provides battle-tested gems (libraries) for virtually every requirement. Authentication, payments, file storage, and business logic -proven solutions exist and integrate seamlessly.</>,
             },
         ]}
         ctaHeading={<>Launch your startup <br className={'lg:block md:block hidden'}/>with Rails</>}
@@ -101,7 +101,7 @@ const RubyOnRails = () => (
         testimonials={[
             {name: 'David Mensah', title: 'Founder, Tech Startup', message: <>Grey InfoTech's Rails expertise got our MVP to market in 8 weeks. The platform handles our growth seamlessly and the code quality is exceptional. Best decision we made for our startup.</>},
             {name: 'Elena Vasquez', title: 'CEO, Marketplace Platform', message: <>They built our two-sided marketplace on Rails and it scales beautifully. From concept to 100k users took less than a year. Their understanding of Rails and startup challenges was invaluable.</>},
-            {name: 'Raj Patel', title: 'Product Manager, SaaS Company', message: <>Rails development from Grey InfoTech powers our SaaS platform. The productivity advantages are incredible—features that would take weeks elsewhere ship in days. Highly recommended.</>},
+            {name: 'Raj Patel', title: 'Product Manager, SaaS Company', message: <>Rails development from Grey InfoTech powers our SaaS platform. The productivity advantages are incredible -features that would take weeks elsewhere ship in days. Highly recommended.</>},
         ]}
         verticalSolutions={[
             {

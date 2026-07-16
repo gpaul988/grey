@@ -9,7 +9,7 @@ const Automation = () => (
         topImages={['/assets/services/Development.jpg', '/assets/services/digital-transformatio.jpg']}
         intro={
             <>
-                Doing more with less—workflow automation, RPA, AI-driven processes and seamless integrations that
+                Doing more with less -workflow automation, RPA, AI-driven processes and seamless integrations that
                 eliminate manual work and unlock measurable efficiency.
             </>
         }
@@ -17,17 +17,17 @@ const Automation = () => (
         introHeading={<>Intelligent Automation <br className={'lg:block md:block hidden'}/>How We Drive Efficiency</>}
         introBody={[
             <>
-                Every business runs on processes—and too many of them still rely on manual, repetitive work that
+                Every business runs on processes -and too many of them still rely on manual, repetitive work that
                 drains time, introduces errors and frustrates skilled people. Grey InfoTech builds automation
                 that takes that burden away. We map your workflows, identify where automation delivers the
-                greatest return, and build the software—workflow engines, robotic process automation, AI-driven
-                decisioning and system integrations—that runs the routine reliably so your team can focus on the
+                greatest return, and build the software -workflow engines, robotic process automation, AI-driven
+                decisioning and system integrations -that runs the routine reliably so your team can focus on the
                 work that actually needs human judgement. The outcome is faster cycle times, fewer errors, lower
                 cost and a workforce freed to do higher-value work.
             </>,
             <>
-                Real automation goes beyond simple scripts. We connect the systems you already use—CRMs, ERPs,
-                accounting, support tools and databases—so data flows automatically instead of being re-keyed,
+                Real automation goes beyond simple scripts. We connect the systems you already use -CRMs, ERPs,
+                accounting, support tools and databases -so data flows automatically instead of being re-keyed,
                 and we layer in AI where it adds intelligence, from document understanding to predictive routing.
                 Everything we build is observable, resilient and auditable, with clear logging and human-in-the-
                 loop controls where decisions matter. Whether you need to automate a single painful process or
@@ -40,35 +40,35 @@ const Automation = () => (
             <>
                 From workflow automation and RPA to AI-driven processes and integrations, Grey InfoTech delivers
                 automation that works. Based in Nigeria and serving clients globally, we eliminate manual effort
-                and connect your systems—turning operational friction into measurable efficiency.
+                and connect your systems -turning operational friction into measurable efficiency.
             </>
         }
         solutions={[
             {
                 id: '01', title: 'Workflow Automation', target: 'WF',
                 tags: ['Process Design', 'Orchestration', 'Approvals'],
-                body: <>We design and automate end-to-end workflows—approvals, handoffs, notifications and
-                    multi-step processes—so work moves through your organisation automatically, with clear status
+                body: <>We design and automate end-to-end workflows -approvals, handoffs, notifications and
+                    multi-step processes -so work moves through your organisation automatically, with clear status
                     visibility and no items falling through the cracks.</>,
             },
             {
                 id: '02', title: 'Robotic Process Automation (RPA)', target: 'RP',
                 tags: ['Bots', 'Data Entry', 'Repetitive Tasks'],
-                body: <>We build software bots that handle high-volume, rule-based tasks—data entry, reconciliation,
-                    report generation and form processing—across applications, even those without APIs, freeing
+                body: <>We build software bots that handle high-volume, rule-based tasks -data entry, reconciliation,
+                    report generation and form processing -across applications, even those without APIs, freeing
                     staff from tedious work and slashing error rates.</>,
             },
             {
                 id: '03', title: 'AI-Driven Automation', target: 'AI',
                 tags: ['Document AI', 'NLP', 'Predictive', 'Decisioning'],
-                body: <>We add intelligence to automation—document understanding, classification, natural-language
-                    processing and predictive decisioning—so processes handle unstructured inputs and judgement
+                body: <>We add intelligence to automation -document understanding, classification, natural-language
+                    processing and predictive decisioning -so processes handle unstructured inputs and judgement
                     calls that traditional rules can&apos;t, with human oversight where it counts.</>,
             },
             {
                 id: '04', title: 'System Integrations', target: 'SI',
                 tags: ['APIs', 'CRM/ERP', 'Webhooks', 'iPaaS'],
-                body: <>We connect your tools—CRMs, ERPs, accounting, support and databases—through APIs, webhooks
+                body: <>We connect your tools -CRMs, ERPs, accounting, support and databases -through APIs, webhooks
                     and integration platforms, so data flows automatically between systems instead of being
                     manually copied, keeping everything in sync.</>,
             },
@@ -76,14 +76,14 @@ const Automation = () => (
                 id: '05', title: 'Custom Automation Software', target: 'CA',
                 tags: ['Bespoke', 'Scheduling', 'Dashboards'],
                 body: <>When off-the-shelf tools fall short, we build bespoke automation software tailored to your
-                    exact processes—schedulers, internal tools and dashboards—that fit how your business actually
+                    exact processes -schedulers, internal tools and dashboards -that fit how your business actually
                     works and scale as it grows.</>,
             },
             {
                 id: '06', title: 'Monitoring & Support', target: 'MS',
                 tags: ['Logging', 'Alerts', 'Audit', 'Maintenance'],
-                body: <>We make automation observable and dependable—logging, alerting, audit trails and
-                    error-handling—and provide ongoing support so your automated processes keep running smoothly
+                body: <>We make automation observable and dependable -logging, alerting, audit trails and
+                    error-handling -and provide ongoing support so your automated processes keep running smoothly
                     and adapt as your systems and rules evolve.</>,
             },
         ]}
@@ -91,7 +91,7 @@ const Automation = () => (
             {
                 id: 1, title: 'ROI-Focused Approach', image: '/assets/services/Development.jpg',
                 description: <>We start by finding where automation pays back fastest, so you see measurable
-                    efficiency and cost savings—not automation for its own sake.</>,
+                    efficiency and cost savings -not automation for its own sake.</>,
             },
             {
                 id: 2, title: 'Intelligence Where It Counts', image: '/assets/services/digital-transformatio.jpg',
@@ -106,7 +106,7 @@ const Automation = () => (
             {
                 id: 4, title: 'Reliable & Auditable', image: '/assets/services/digital-optimisation.jpg',
                 description: <>Logging, alerts, audit trails and human-in-the-loop controls keep automation
-                    dependable and compliant—so you can trust it with critical work.</>,
+                    dependable and compliant -so you can trust it with critical work.</>,
             },
         ]}
         ctaHeading={<>Automate what <br className={'lg:block md:block hidden'}/>slows you down</>}

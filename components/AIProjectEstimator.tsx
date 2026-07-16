@@ -632,6 +632,7 @@ export default function AIProjectEstimator() {
     return (
         <>
             <motion.section
+                suppressHydrationWarning
                 initial={{opacity: 0, y: 22}}
                 whileInView={{opacity: 1, y: 0}}
                 viewport={{once: true, amount: 0.2}}
@@ -988,7 +989,7 @@ export default function AIProjectEstimator() {
                                     Summary
                                     {useDetected && (
                                         <span className={`text-xs px-2 py-1 rounded-full ${isDayTime ? 'bg-teal-100 text-teal-700' : 'bg-teal-700 text-white'}`}>
-                                            🤖 AI-Detected Services
+                                             - AI-Detected Services
                                         </span>
                                     )}
                                 </div>

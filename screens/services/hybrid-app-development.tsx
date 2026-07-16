@@ -1,9 +1,7 @@
 'use client';
 
-
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import ServiceHero from '@/components/futuristic/ServiceHero';
@@ -19,7 +17,6 @@ const HybridAppDevelopment = () => {    const sectionRef = useRef<HTMLDivElement
     const [isVisible, setIsVisible] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
 
-
     // Floating button visibility hook
     useEffect(() => {
         const handleScroll = () => {
@@ -33,7 +30,6 @@ const HybridAppDevelopment = () => {    const sectionRef = useRef<HTMLDivElement
 
     // isDaytime react hook
    const isDayTime = useIsDayTime();
-
 
     // Introductory section hook
     useEffect(() => {
@@ -92,11 +88,6 @@ const HybridAppDevelopment = () => {    const sectionRef = useRef<HTMLDivElement
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             <ServiceHero
                 title="Hybrid App Development"
@@ -135,7 +126,7 @@ const HybridAppDevelopment = () => {    const sectionRef = useRef<HTMLDivElement
                             <div>
                                 <p>
                                     At Grey InfoTech, we specialise in developing high-performance hybrid applications
-                                    that provide seamless experiences across all major platforms—iOS, Android, and web.
+                                    that provide seamless experiences across all major platforms -iOS, Android, and web.
                                     By combining the strengths of native app functionality with the flexibility of web
                                     technologies, we offer a cost-effective solution that allows businesses to reach a
                                     wider audience while simplifying app maintenance. Our hybrid approach reduces time
@@ -150,7 +141,7 @@ const HybridAppDevelopment = () => {    const sectionRef = useRef<HTMLDivElement
                                     native technology stack, we work closely with you throughout every phase of
                                     development. Our team ensures that each application we build is intuitive, engaging,
                                     and designed for long-term success. With Grey InfoTech, you gain more than just a
-                                    cross-platform app—you gain a strategic partner focused on delivering measurable
+                                    cross-platform app -you gain a strategic partner focused on delivering measurable
                                     results and growth.
                                 </p>
                             </div>
@@ -250,7 +241,7 @@ const HybridAppDevelopment = () => {    const sectionRef = useRef<HTMLDivElement
                             <p className='text-[0.85em] font-[400] lg:-mt-[0.2em] rounded-none leading-[1.5]'>
                                 Grey InfoTech delivers high-performance hybrid apps that combine the best of web and
                                 native
-                                technologies. From idea to launch, we handle design, development, and support—ensuring
+                                technologies. From idea to launch, we handle design, development, and support -ensuring
                                 your
                                 app works seamlessly across iOS and Android from a single codebase. This speeds up
                                 delivery,
@@ -322,11 +313,11 @@ const HybridAppDevelopment = () => {    const sectionRef = useRef<HTMLDivElement
                                               }`}>React Native</Link> is a powerful, industry-leading framework backed
                                         by Meta
                                         (Facebook), enabling the development of mobile applications that deliver a
-                                        native-like experience across both iOS and Android platforms—all from a single
+                                        native-like experience across both iOS and Android platforms -all from a single
                                         codebase. This approach significantly reduces development time and cost while
                                         maintaining high performance and visual appeal.<br/>
                                         At Grey InfoTech, we use React Native to serve businesses of all sizes and
-                                        industries—from startups to enterprises. Whether you’re launching a new product,
+                                        industries -from startups to enterprises. Whether you’re launching a new product,
                                         enhancing an existing app, or expanding to new platforms, our team ensures your
                                         application is fast, user-friendly, and built for scale. With React Native, we
                                         help
@@ -360,7 +351,7 @@ const HybridAppDevelopment = () => {    const sectionRef = useRef<HTMLDivElement
                                         Angular, Ionic is ideal for creating responsive, high-performance apps.<br/>
                                         At Grey InfoTech, we leverage Ionic to build fast, stylish applications tailored
                                         to
-                                        your business goals—whether you&#39;re launching a simple utility app or a
+                                        your business goals -whether you&#39;re launching a simple utility app or a
                                         complex
                                         feature-rich platform. Our team ensures your app delivers a consistent user
                                         experience across devices, helping you reach a wider audience without
@@ -387,7 +378,7 @@ const HybridAppDevelopment = () => {    const sectionRef = useRef<HTMLDivElement
                                         If you&#39;re looking to transition from a native app to a hybrid solution, Grey
                                         InfoTech can help streamline the process. Migrating to a hybrid app offers
                                         strategic
-                                        advantages—reduced development and maintenance costs, faster updates, and the
+                                        advantages -reduced development and maintenance costs, faster updates, and the
                                         ability to reach iOS and Android users from a single codebase.<br/>
                                         Our team ensures a seamless migration by preserving your app’s core
                                         functionality
@@ -413,7 +404,7 @@ const HybridAppDevelopment = () => {    const sectionRef = useRef<HTMLDivElement
                                             className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Ongoing support</span>
                                     </div>
                                     <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Building an app is only the beginning—ongoing maintenance is essential to keep
+                                        Building an app is only the beginning -ongoing maintenance is essential to keep
                                         it
                                         secure, optimised, and aligned with evolving user expectations. At Grey
                                         InfoTech, we
@@ -493,36 +484,36 @@ const HybridAppDevelopment = () => {    const sectionRef = useRef<HTMLDivElement
                                 strategy.
                                 While native apps are known for performance and platform-specific optimization, hybrid
                                 development offers a powerful blend of flexibility, efficiency, and modern
-                                capability—making
+                                capability -making
                                 it an increasingly popular choice for startups and enterprise teams alike.<br/><br/>
                                 <span
                                     className={'font-[500] text-[1.2em]'}>Why Hybrid Development Makes Sense</span></p>
                             <br/>
                             <ul>
-                                <li className={"font-[400] mb-3  before:content-[\"—\"] before:mr-2 leading-[1.3]"}>
+                                <li className={"font-[400] mb-3  before:content-[\" -\"] before:mr-2 leading-[1.3]"}>
                                     Cost-Efficiency: Build once, deploy everywhere. A shared codebase for iOS and
                                     Android reduces engineering hours, QA complexity, and long-term maintenance
-                                    costs—translating into a more efficient burn rate and higher ROI.
+                                    costs -translating into a more efficient burn rate and higher ROI.
                                 </li>
-                                <li className={"font-[400] mb-3  before:content-[\"—\"] before:mr-2 leading-[1.3]"}>
+                                <li className={"font-[400] mb-3  before:content-[\" -\"] before:mr-2 leading-[1.3]"}>
                                     Accelerated Time-to-Market:With a unified development approach, product teams can
                                     launch MVPs and updates faster, respond to user feedback in real time, and capture
                                     market opportunities before competitors.
                                 </li>
-                                <li className={"font-[400] mb-3 before:content-[\"—\"] before:mr-2 leading-[1.3]"}>
+                                <li className={"font-[400] mb-3 before:content-[\" -\"] before:mr-2 leading-[1.3]"}>
                                     Cross-Platform Consistency: Using frameworks like React Native, Ionic, and Flutter,
                                     hybrid apps deliver a seamless user experience across devices while allowing access
                                     to native device features when needed.
                                 </li>
-                                <li className={"font-[400] mb-3  before:content-[\"—\"] before:mr-2 leading-[1.3]"}>
+                                <li className={"font-[400] mb-3  before:content-[\" -\"] before:mr-2 leading-[1.3]"}>
                                     Streamlined Maintenance: Updates, bug fixes, and feature rollouts happen across
                                     platforms simultaneously, improving release velocity and reducing risk of platform
                                     fragmentation.
                                 </li>
-                                <li className={"font-[400] before:content-[\"—\"] before:mr-2 leading-[1.3]"}>
+                                <li className={"font-[400] before:content-[\" -\"] before:mr-2 leading-[1.3]"}>
                                     Modern, Native-Like UX: Hybrid frameworks have evolved significantly. With proper
                                     implementation, hybrid apps now rival native apps in look, feel, and
-                                    responsiveness—users often can’t tell the difference.
+                                    responsiveness -users often can’t tell the difference.
                                 </li>
                             </ul>
                             <br/>
@@ -557,16 +548,16 @@ const HybridAppDevelopment = () => {    const sectionRef = useRef<HTMLDivElement
                             <p className='text-[0.85em] font-[400] lg:-mt-[0.2em] md:-mt-[0.2em] text-justify  leading-[1.5]'>
                                 Every successful project starts with a thoughtful discovery phase. We engage closely
                                 with
-                                your key stakeholders—executives, IT leaders, project sponsors, and end-users—to align
+                                your key stakeholders -executives, IT leaders, project sponsors, and end-users -to align
                                 on
                                 business goals, clarify priorities, and uncover essential insights that shape the
                                 direction
                                 of the solution.<br/><br/>
-                                Our team—typically including a business analyst, product and project
+                                Our team -typically including a business analyst, product and project
                                 managers, <Link href={'/services/ui-ux-design'}
                                                 className={`border-b pb-[0.02em] ${
                                                     isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
-                                                }`}>UX/UI designer</Link>, and technical leads—works to understand your
+                                                }`}>UX/UI designer</Link>, and technical leads -works to understand your
                                 requirements, assess technical feasibility, and define the right approach. This ensures
                                 we’re solving the right problems in the most effective way.<br/><br/>By fostering close
                                 collaboration early, we reduce risk, streamline development, and create a clear path
@@ -615,3 +606,4 @@ const HybridAppDevelopment = () => {    const sectionRef = useRef<HTMLDivElement
 };
 
 export default HybridAppDevelopment;
+

@@ -12,7 +12,7 @@ const Cybersecurity = () => (
         eyebrow="Security engineered in, not bolted on"
         introHeading={<>Security Is<br className="lg:block md:block hidden" />An Engineering Problem</>}
         introBody={[
-            <>Cyber threats are not abstract—they are persistent, sophisticated and targeted at businesses of
+            <>Cyber threats are not abstract -they are persistent, sophisticated and targeted at businesses of
             every size. At Grey InfoTech we approach security as an engineering discipline, embedding controls
             into development workflows and infrastructure rather than layering on tools after the fact. Our
             security team combines offensive security expertise with defensive architecture knowledge, so we
@@ -39,7 +39,7 @@ const Cybersecurity = () => (
             {
                 id: '02', title: 'Security Architecture Review', target: 'SA',
                 tags: ['Threat Modelling', 'STRIDE', 'Zero Trust', 'Defence in Depth'],
-                body: <>We review your system architecture through an attacker&apos;s lens—identifying trust boundary
+                body: <>We review your system architecture through an attacker&apos;s lens -identifying trust boundary
                 violations, privilege escalation paths, insecure data flows and misconfigured controls. We use
                 STRIDE threat modelling to systematically identify threats and produce an architecture remediation
                 roadmap aligned to your risk tolerance and engineering capacity.</>,

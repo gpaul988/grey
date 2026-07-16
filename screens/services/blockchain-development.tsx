@@ -12,7 +12,7 @@ const BlockchainDevelopment = () => (
         topImages={['/assets/services/Development.jpg', '/assets/services/Web-App-Development-company.jpg']}
         intro={
             <>
-                Secure, scalable decentralised systems—smart contracts, dApps, tokenisation and enterprise
+                Secure, scalable decentralised systems -smart contracts, dApps, tokenisation and enterprise
                 ledgers engineered for trust, transparency and real-world performance.
             </>
         }
@@ -32,8 +32,8 @@ const BlockchainDevelopment = () => (
                 estate.
             </>,
             <>
-                Our engineers work across leading ecosystems—Ethereum and EVM-compatible chains such as Polygon,
-                Arbitrum and BSC, alongside Solana and permissioned frameworks like Hyperledger Fabric—pairing
+                Our engineers work across leading ecosystems -Ethereum and EVM-compatible chains such as Polygon,
+                Arbitrum and BSC, alongside Solana and permissioned frameworks like Hyperledger Fabric -pairing
                 rigorous smart-contract development with thorough security review. We treat audits, gas
                 optimisation, key management and upgradeability as first-class concerns rather than
                 afterthoughts. Every contract is unit-tested, fuzz-tested and statically analysed before it ever
@@ -49,7 +49,7 @@ const BlockchainDevelopment = () => (
                 From smart contracts and decentralised applications to enterprise ledgers and token economies,
                 Grey InfoTech delivers a complete blockchain capability. Based in Nigeria and serving clients
                 worldwide, we build secure, audited, gas-efficient systems that turn distributed-ledger
-                technology into measurable business value—without compromising on compliance or reliability.
+                technology into measurable business value -without compromising on compliance or reliability.
             </>
         }
         solutions={[
@@ -60,7 +60,7 @@ const BlockchainDevelopment = () => (
                     From token standards (ERC-20, ERC-721, ERC-1155) to complex DeFi vaults, staking, escrow and
                     governance logic, we write clean, well-documented Solidity and Rust code. Every contract is
                     hardened through static analysis, comprehensive unit and fuzz testing, invariant checks and
-                    third-party-style security review—minimising attack surface and runtime cost while giving
+                    third-party-style security review -minimising attack surface and runtime cost while giving
                     your stakeholders verifiable assurance before deployment.</>,
             },
             {
@@ -85,8 +85,8 @@ const BlockchainDevelopment = () => (
             {
                 id: '04', title: 'DeFi Platforms', target: 'DF',
                 tags: ['Lending', 'DEX', 'Staking', 'Yield'],
-                body: <>We engineer decentralised finance protocols—lending and borrowing markets, automated
-                    market makers, staking and yield strategies—with security and capital efficiency at their
+                body: <>We engineer decentralised finance protocols -lending and borrowing markets, automated
+                    market makers, staking and yield strategies -with security and capital efficiency at their
                     core. We model economic attack vectors, integrate trusted oracles such as Chainlink, and
                     build the monitoring and circuit-breakers needed to operate financial primitives responsibly
                     on-chain.</>,
@@ -96,7 +96,7 @@ const BlockchainDevelopment = () => (
                 tags: ['Hyperledger', 'Supply Chain', 'Permissioned Ledgers'],
                 body: <>For organisations that need privacy and control, we implement permissioned ledgers using
                     Hyperledger Fabric and similar frameworks. These power use cases like supply-chain
-                    traceability, cross-party settlement, provenance and tamper-evident record keeping—delivering
+                    traceability, cross-party settlement, provenance and tamper-evident record keeping -delivering
                     the auditability of blockchain within the governance, identity and confidentiality controls
                     enterprises require.</>,
             },
@@ -113,19 +113,19 @@ const BlockchainDevelopment = () => (
             {
                 id: 1, title: 'Security-First Engineering', image: '/assets/services/Development.jpg',
                 description: <>Every line of contract code we ship is tested, analysed and reviewed before it
-                    reaches mainnet. We design for the worst case—reentrancy, oracle manipulation, key
-                    compromise—so your protocol and your users&apos; funds stay protected.</>,
+                    reaches mainnet. We design for the worst case -reentrancy, oracle manipulation, key
+                    compromise -so your protocol and your users&apos; funds stay protected.</>,
             },
             {
                 id: 2, title: 'Multi-Chain Expertise', image: '/assets/services/digital-transformatio.jpg',
                 description: <>We are not tied to one ecosystem. We select the right chain for your performance,
-                    cost and governance needs—EVM chains, Solana or permissioned Hyperledger networks—and build
+                    cost and governance needs -EVM chains, Solana or permissioned Hyperledger networks -and build
                     interoperable systems that can grow across them.</>,
             },
             {
                 id: 3, title: 'Production, Not Prototypes', image: '/assets/services/services.jpg',
                 description: <>Many blockchain efforts stall at proof of concept. We bring senior product
-                    engineering discipline—CI/CD, monitoring, documentation and clear upgrade paths—so your
+                    engineering discipline -CI/CD, monitoring, documentation and clear upgrade paths -so your
                     solution actually ships and stays maintainable.</>,
             },
             {
@@ -137,7 +137,7 @@ const BlockchainDevelopment = () => (
         ctaHeading={<>Build on <br className={'lg:block md:block hidden'}/>decentralised rails</>}
         ctaBody={<>From smart contracts and DeFi to tokenisation and enterprise ledgers, Grey InfoTech turns
             blockchain ambition into secure, production-ready systems. Let&apos;s scope your idea, model the risks,
-            and ship something your users—and your auditors—can trust.</>}
+            and ship something your users -and your auditors -can trust.</>}
         stats={[
             {label: 'Years Experience', value: 8, suffix: '+'},
             {label: 'Team Members', value: 13, suffix: '+'},
@@ -163,7 +163,7 @@ const BlockchainDevelopment = () => (
             {
                 name: 'Daniel Okonkwo',
                 title: 'Founder, YieldNest',
-                message: <>They engineered our DeFi staking protocol end to end—contracts, oracles, monitoring and
+                message: <>They engineered our DeFi staking protocol end to end -contracts, oracles, monitoring and
                     front-end. The economic modelling they did up front saved us from mistakes that sink most
                     projects.</>
             },

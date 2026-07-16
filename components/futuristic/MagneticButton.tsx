@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * MagneticButton — physics-based micro-interaction primitive.
+ * MagneticButton  - physics-based micro-interaction primitive.
  *
  * - magnetic pull toward the cursor (inertial, spring-eased via framer-motion)
  * - squish on press, expand on release (makes flat UI feel 3D)

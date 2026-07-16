@@ -1,9 +1,7 @@
 'use client';
 
-
 import React, {useEffect, useRef, useState} from 'react';
 import Link from "next/link";
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import ServiceHero from '@/components/futuristic/ServiceHero';
@@ -43,7 +41,6 @@ const Branding = () => {
 
     // isDaytime react hook
     const isDayTime = useIsDayTime();
-
 
     // Introductory section hook
     useEffect(() => {
@@ -112,11 +109,6 @@ const Branding = () => {
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             {/* Unified Futuristic Branding Hero - Background Image with overlay */}
             <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
@@ -173,7 +165,7 @@ const Branding = () => {
                             <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
                                 Create lasting impressions through cohesive visual identity, compelling brand strategy,
                                 and
-                                comprehensive guidelines that ensure consistency across every touchpoint—from logos and
+                                comprehensive guidelines that ensure consistency across every touchpoint -from logos and
                                 colour systems to packaging and digital experiences.
                             </p>
 
@@ -289,7 +281,7 @@ const Branding = () => {
                                         apart, builds customer trust, and creates lasting emotional connections. At Grey
                                         InfoTech, our branding experts craft unique brand identities that reflect your
                                         vision,
-                                        values, and competitive advantage—from logo design and brand strategy to
+                                        values, and competitive advantage -from logo design and brand strategy to
                                         comprehensive
                                         guidelines and voice development.
                                     </p>
@@ -304,7 +296,7 @@ const Branding = () => {
                                         comprehensive digital branding guidelines and style systems that ensure your
                                         brand
                                         remains cohesive, recognizable, and aligned with your core identity across every
-                                        touchpoint—enabling sustainable growth in competitive markets.
+                                        touchpoint -enabling sustainable growth in competitive markets.
                                     </p>
 
                                     <div className="flex flex-wrap gap-3 mt-4">
@@ -325,7 +317,7 @@ const Branding = () => {
                     <FxStickyScrollSection
                         day={isDayTime}
                         heading={<>Our Branding<br/>solutions</>}
-                        intro="We provide comprehensive branding solutions that build distinctive identities, establish visual consistency, and communicate your unique value proposition across every touchpoint—from logo design and brand strategy to complete digital guidelines and packaging design."
+                        intro="We provide comprehensive branding solutions that build distinctive identities, establish visual consistency, and communicate your unique value proposition across every touchpoint -from logo design and brand strategy to complete digital guidelines and packaging design."
                         navLabel="Branding Solutions"
                         activeId={activeId}
                         onNavClickAction={scrollToSection}
@@ -343,7 +335,7 @@ const Branding = () => {
                                         logo
                                         usage, colour palettes, typography, imagery style, tone of voice, and
                                         application
-                                        examples—providing your team with clear standards to maintain brand integrity at
+                                        examples -providing your team with clear standards to maintain brand integrity at
                                         scale.
                                     </p>
                                 ),
@@ -359,7 +351,7 @@ const Branding = () => {
                                         unique
                                         selling proposition. We craft cohesive identity systems that extend across your
                                         entire
-                                        organisation—from signage and uniforms to digital assets and training materials.
+                                        organisation -from signage and uniforms to digital assets and training materials.
                                         We
                                         define key visual and verbal elements such as brand marks, typography,
                                         photographic
@@ -418,7 +410,7 @@ const Branding = () => {
                                         palettes, typography hierarchies, iconography standards, and component
                                         libraries. This
                                         allows your team to produce on-brand materials quickly while maintaining visual
-                                        excellence and recognizability across every platform—web, print, social, and
+                                        excellence and recognizability across every platform -web, print, social, and
                                         beyond.
                                     </p>
                                 ),
@@ -453,7 +445,7 @@ const Branding = () => {
                                         develop
                                         comprehensive tone-of-voice frameworks that define how your brand communicates
                                         across
-                                        channels—from marketing copy to customer service. We establish messaging
+                                        channels -from marketing copy to customer service. We establish messaging
                                         pillars,
                                         communication guidelines, and copywriting standards that ensure every piece of
                                         content
@@ -566,7 +558,7 @@ const Branding = () => {
                                         {
                                             icon: "🎯",
                                             title: "Strategic Approach",
-                                            desc: "We don't just design—we strategize. Every visual element serves a purpose rooted in your business goals and market positioning."
+                                            desc: "We don't just design -we strategize. Every visual element serves a purpose rooted in your business goals and market positioning."
                                         },
                                         {
                                             icon: "💡",
@@ -574,7 +566,7 @@ const Branding = () => {
                                             desc: "Our award-winning designers combine artistic vision with strategic thinking to create brands that stand out and endure."
                                         },
                                         {
-                                            icon: "🔄",
+                                            icon: " - ",
                                             title: "Collaborative Process",
                                             desc: "We partner with you throughout the journey, valuing your insights and ensuring the final brand reflects your authentic identity."
                                         },
@@ -681,7 +673,6 @@ const Branding = () => {
                 />
             </div>
 
-
             {/* Trusted Digital Partners */}
             <div className={`${isDayTime ? 'bg-black' : 'bg-white'}`}>
                 <div id={'partners'}
@@ -695,7 +686,7 @@ const Branding = () => {
                         We specialize in crafting high-impact marketing websites, innovative web apps, and mobile
                         applications that drive real results. From funded startups to established businesses,
                         we&#39;ve
-                        helped a wide range of clients bring their digital products to life—delivering standout
+                        helped a wide range of clients bring their digital products to life -delivering standout
                         experiences
                         that fuel growth, engagement, and long-term success.
                     </p>
@@ -739,3 +730,5 @@ const Branding = () => {
 };
 
 export default Branding;
+
+

@@ -1,6 +1,5 @@
 'use client';
 import React, {useEffect, useRef, useState} from 'react';
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import {ArrowLeft, ArrowRight, Quote} from "lucide-react";
 import '@/app/globals.css';
@@ -39,7 +38,7 @@ const testimonials = [
             <>
                 We came to Grey InfoTech with a cluttered and outdated interface. They gave our platform a fresh,
                 intuitive design that not only looks great but also improved engagement and usability. Their work speaks
-                for itself — sharp, professional, and conversion-focused.
+                for itself  - sharp, professional, and conversion-focused.
             </>
         ),
     },
@@ -52,7 +51,7 @@ const services = [
         target: "CW",
         tags: ["Careers Website", "Candidate Attraction", "Online Hiring Strategy", "Recruitment Success"],
         description:
-            "Your careers website is a vital component of your talent acquisition strategy, serving as a key touchpoint for prospective candidates—statistics show that nearly every successful hire will visit your site at least once. At Grey InfoTech, we focus on creating recruitment websites that are professionally designed, fully optimised for speed, accessibility, and mobile responsiveness, ensuring a seamless user experience across all devices. By aligning design, content, and functionality with your employer brand and hiring objectives, we help you attract, engage, and convert top talent more effectively.",
+            "Your careers website is a vital component of your talent acquisition strategy, serving as a key touchpoint for prospective candidates -statistics show that nearly every successful hire will visit your site at least once. At Grey InfoTech, we focus on creating recruitment websites that are professionally designed, fully optimised for speed, accessibility, and mobile responsiveness, ensuring a seamless user experience across all devices. By aligning design, content, and functionality with your employer brand and hiring objectives, we help you attract, engage, and convert top talent more effectively.",
     },
     {
         id: "02",
@@ -158,7 +157,7 @@ const integrations = [
         logoDark: "/assets/hr/bullhorn.svg",
         imageOffset: "lg:-mt-[3em] md:-mt-[3em]",
         description:
-            "Bullhorn is a cloud-based CRM and operations platform tailored for the staffing industry, offering streamlined recruitment management. Our integration with Bullhorn enables efficient handling of the entire recruitment lifecycle—from candidate sourcing and tracking to placement—seamlessly embedding its powerful features into your HR system. This integration enhances your staffing operations by improving workflow automation, candidate engagement, and data accuracy, ultimately boosting recruitment efficiency and outcomes.",
+            "Bullhorn is a cloud-based CRM and operations platform tailored for the staffing industry, offering streamlined recruitment management. Our integration with Bullhorn enables efficient handling of the entire recruitment lifecycle -from candidate sourcing and tracking to placement -seamlessly embedding its powerful features into your HR system. This integration enhances your staffing operations by improving workflow automation, candidate engagement, and data accuracy, ultimately boosting recruitment efficiency and outcomes.",
     },
     {
         id: "broadbean",
@@ -262,7 +261,6 @@ const integrations = [
     },
 ];
 
-
 const HrTech = () => {
     const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
@@ -332,16 +330,10 @@ const HrTech = () => {
     const prev = () => setCurrent((value) => (value - 1 + testimonials.length) % testimonials.length);
     const next = () => setCurrent((value) => (value + 1) % testimonials.length);
 
-
     const {name, title, message} = testimonials[current];
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             {/* Hero Section */}
             <div
@@ -434,7 +426,7 @@ const HrTech = () => {
                                 platforms.
                             </p>
                             <p>
-                                We take a strategic, user-centric approach—aligning technology with your business goals
+                                We take a strategic, user-centric approach -aligning technology with your business goals
                                 to
                                 ensure your HR tools are not only functional but also intuitive and future-ready.
                                 Whether
@@ -466,7 +458,7 @@ const HrTech = () => {
                         <div>
                             <p className="text-[0.85em] font-[400] justify-center text-justify leading-[1.5] lg:-ml-[7.5em] tracking-normal">
                                 We deliver end-to-end solutions that seamlessly integrate human resources functionality
-                                into your corporate website—covering everything from employee onboarding and performance
+                                into your corporate website -covering everything from employee onboarding and performance
                                 tracking to benefits management, payroll systems, employee profiles, and beyond.
                             </p>
                         </div>
@@ -606,7 +598,7 @@ const HrTech = () => {
                             technology
                             into your corporate website is critical to improving operational efficiency and employee
                             engagement. At Grey InfoTech, we offer tailored HR Technology Solutions that go beyond
-                            functionality—they are strategically designed to align with your business goals.
+                            functionality -they are strategically designed to align with your business goals.
                         </p>
                     </div>
                 </div>
@@ -694,7 +686,7 @@ const HrTech = () => {
                                 a
                                 decade of experience, we deliver smart, efficient solutions that integrate seamlessly
                                 into
-                                your careers website—enhancing employee engagement, streamlining HR processes, and
+                                your careers website -enhancing employee engagement, streamlining HR processes, and
                                 supporting business growth.
                             </p>
                         </div>
@@ -855,3 +847,4 @@ const HrTech = () => {
 };
 
 export default HrTech;
+

@@ -13,7 +13,7 @@ const AgriTechIndustry = () => (
         introHeading={<>Agriculture<br className="lg:block md:block hidden" />Reimagined</>}
         introBody={[
             <>Agriculture is the foundation of African economies, and technology has the power to transform
-            productivity across the entire value chain—from seed selection and soil management through
+            productivity across the entire value chain -from seed selection and soil management through
             to harvest, storage, processing and market access. At Grey InfoTech we build agricultural
             technology platforms that solve the real problems facing African farmers: market fragmentation,
             input access, weather risk, post-harvest losses and financial exclusion. We design for the
@@ -41,8 +41,8 @@ const AgriTechIndustry = () => (
                 id: '02', title: 'Agricultural Marketplaces', target: 'AM',
                 tags: ['Farmer-Buyer', 'Price Discovery', 'Escrow', 'Logistics'],
                 body: <>Market fragmentation and information asymmetry cost African farmers significant
-                income. We build agricultural marketplaces that connect farmers directly to buyers—
-                processors, exporters, retailers and consumers—with real-time price discovery, quality
+                income. We build agricultural marketplaces that connect farmers directly to buyers -
+                processors, exporters, retailers and consumers -with real-time price discovery, quality
                 grading, escrow payment and logistics coordination. Marketplace design accounts for
                 literacy levels, language diversity and the transaction patterns of agricultural trade.</>,
             },
@@ -60,7 +60,7 @@ const AgriTechIndustry = () => (
                 tags: ['Soil Sensors', 'Drones', 'Remote Sensing', 'Irrigation', 'NDVI'],
                 body: <>Precision agriculture uses sensor data to optimise inputs and maximise yield. We
                 build data platforms that ingest soil sensor readings, drone imagery, NDVI satellite data
-                and weather station telemetry—providing farmers and agronomists with variable-rate
+                and weather station telemetry -providing farmers and agronomists with variable-rate
                 application recommendations for fertiliser, irrigation and crop protection. IoT
                 dashboards enable remote monitoring of large commercial farm operations.</>,
             },
@@ -78,7 +78,7 @@ const AgriTechIndustry = () => (
                 tags: ['SMS/USSD', 'Chatbot', 'Agronomist Network', 'Weather Alerts'],
                 body: <>Digital extension services close the knowledge gap between agronomists and smallholder
                 farmers at scale. We build advisory platforms that deliver localised, crop-specific guidance
-                via SMS, USSD, WhatsApp chatbot and app—covering planting calendars, pest and disease alerts,
+                via SMS, USSD, WhatsApp chatbot and app -covering planting calendars, pest and disease alerts,
                 market prices and weather warnings. Agronomist management tools support field teams servicing
                 large farmer networks.</>,
             },

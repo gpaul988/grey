@@ -8,11 +8,11 @@ const QATesting = () => (
         heroVideoMobile="/assets/hero/hero.mp4"
         midImage="/assets/services/ecommerce-web-design.jpg"
         topImages={['/assets/services/product-design.jpg', '/assets/services/digital-transformatio.jpg']}
-        intro="Comprehensive quality assurance—manual, automated and performance testing—that catches defects before your users do and ships confidence with every release."
+        intro="Comprehensive quality assurance -manual, automated and performance testing -that catches defects before your users do and ships confidence with every release."
         eyebrow="Quality built into every release cycle"
         introHeading={<>Ship With<br className="lg:block md:block hidden" />Confidence</>}
         introBody={[
-            <>Quality assurance is not a gate at the end of development—it is a discipline woven through
+            <>Quality assurance is not a gate at the end of development -it is a discipline woven through
             the entire engineering process. At Grey InfoTech our QA engineers embed alongside your development
             teams, writing tests in parallel with code, automating regression suites and defining acceptance
             criteria before features are built. This shift-left approach means defects are caught when they
@@ -20,7 +20,7 @@ const QATesting = () => (
             <>We combine manual exploratory testing with robust automated suites, covering functional,
             regression, integration, performance and security testing. Our test automation engineers build
             maintainable frameworks rather than brittle scripts, and we measure the quality of the test
-            suite itself—coverage, flakiness rate and time-to-feedback. Whether you need a dedicated QA
+            suite itself -coverage, flakiness rate and time-to-feedback. Whether you need a dedicated QA
             team, automation uplift or a one-time audit before a major launch, we deliver measurable
             improvement in software quality.</>,
         ]}
@@ -63,7 +63,7 @@ const QATesting = () => (
             {
                 id: '05', title: 'Mobile App Testing', target: 'MB',
                 tags: ['iOS', 'Android', 'Device Farm', 'Appium', 'XCUITest'],
-                body: <>Mobile testing is uniquely complex—device fragmentation, OS versions, gesture
+                body: <>Mobile testing is uniquely complex -device fragmentation, OS versions, gesture
                 interactions and network conditions all affect quality. We test across real devices using
                 cloud device farms (AWS Device Farm, BrowserStack), write Appium and XCUITest suites for
                 automated regression, and conduct manual testing across the device matrix most representative
@@ -75,11 +75,11 @@ const QATesting = () => (
                 body: <>Quality extends beyond functional correctness. We integrate OWASP ZAP into CI for
                 automated security scanning, conduct manual OWASP Top 10 reviews and run accessibility
                 audits against WCAG 2.1 AA standards using Axe and manual assistive-technology testing.
-                Products that pass our quality bar are not just bug-free—they are secure and inclusive.</>,
+                Products that pass our quality bar are not just bug-free -they are secure and inclusive.</>,
             },
         ]}
         ctaHeading={<>Quality is not<br className="lg:block md:block hidden" />optional</>}
-        ctaBody="Every bug that reaches production costs 10× more to fix than one caught in development. Grey InfoTech makes quality a competitive advantage, not an afterthought."
+        ctaBody="Every bug that reaches production costs 10 - more to fix than one caught in development. Grey InfoTech makes quality a competitive advantage, not an afterthought."
         verticalSolutions={[
             {
                 id: 'vs1',

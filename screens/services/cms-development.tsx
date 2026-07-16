@@ -1,9 +1,7 @@
 ﻿'use client';
 
-
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css';
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
@@ -95,7 +93,6 @@ const CmsDevelopment = () => {
     const [isDesktop, setIsDesktop] = useState(false);
     const [activeFront, setActiveFront] = useState("frontend");
 
-
     // Floating button visibility hook
     useEffect(() => {
         const handleScroll = () => {
@@ -109,7 +106,6 @@ const CmsDevelopment = () => {
 
     // isDaytime react hook
     const isDayTime = useIsDayTime();
-
 
     // Introductory section hook
     useEffect(() => {
@@ -746,11 +742,6 @@ const CmsDevelopment = () => {
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             {/* Unified Futuristic CMS Hero - Background Image with overlay */}
             <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
@@ -829,7 +820,7 @@ const CmsDevelopment = () => {
                                             <span className="absolute inset-0" style={{
                                                 background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)'
                                             }}/>
-                                        <span className="relative">Start Your CMS Project →</span>
+                                        <span className="relative">Start Your CMS Project ?</span>
                                     </button>
                                 </Link>
                                 <Link href="/portfolio">
@@ -847,7 +838,7 @@ const CmsDevelopment = () => {
                             <div className="grid grid-cols-2 gap-6 w-full">
                                 {[
                                     {label: 'CMS Platforms', value: '15+'},
-                                    {label: 'Projects Delivered', value: '80+'},
+                                    {label: 'Projects Delivered', value: '45+'},
                                     {label: 'Content Volume', value: '10M+'},
                                     {label: 'Uptime Guarantee', value: '99.9%'}
                                 ].map((stat) => (
@@ -923,7 +914,7 @@ const CmsDevelopment = () => {
                                         workflows, and comprehensive governance frameworks. From headless CMS
                                         implementations to traditional platforms, we architect solutions that streamline
                                         content creation, enable team collaboration, maintain brand consistency, and
-                                        scale with your organization's growth—enabling seamless management of digital
+                                        scale with your organization's growth-enabling seamless management of digital
                                         content across all touchpoints.
                                     </p>
                                 </div>
@@ -958,7 +949,7 @@ const CmsDevelopment = () => {
                     <FxStickyScrollSection
                         day={isDayTime}
                         heading={<>Our CMS<br/>Solutions</>}
-                        intro="We provide comprehensive CMS solutions that establish complete content management frameworks, enable multi-channel distribution, deliver automated workflows, and ensure seamless integrations—from custom platform development to legacy modernization and enhanced performance optimization."
+                        intro="We provide comprehensive CMS solutions that establish complete content management frameworks, enable multi-channel distribution, deliver automated workflows, and ensure seamless integrations-from custom platform development to legacy modernization and enhanced performance optimization."
                         navLabel="CMS Solutions"
                         activeId={activeId}
                         onNavClickAction={scrollToSection}
@@ -1009,7 +1000,7 @@ const CmsDevelopment = () => {
                         </div>
                         <div className='lg:-ml-[7.8em]'>
                             <p className='text-[0.873em] font-[300] lg:-mt-[0.2em] rounded-none leading-[1.5]'>
-                                Our CMS specialists deliver scalable, enterprise-grade solutions—whether modernizing
+                                Our CMS specialists deliver scalable, enterprise-grade solutions-whether modernizing
                                 existing systems or implementing new platforms. We engineer customizable architectures
                                 with headless capabilities, advanced workflow automation, and robust content delivery
                                 optimization to meet your business requirements.
@@ -1209,9 +1200,9 @@ const CmsDevelopment = () => {
                         <div className='lg:-ml-[7.8em]'>
                             <p className='text-[0.873em] font-[300] lg:-mt-[0.2em] rounded-none leading-[1.5]'>
                                 Our CMS development organization employs streamlined agile methodologies and iterative
-                                development frameworks throughout the entire project lifecycle—from strategic planning
+                                development frameworks throughout the entire project lifecycle-from strategic planning
                                 and requirements analysis through user-centric design, rigorous testing, and seamless
-                                deployment—to guarantee that every platform launch delivers optimal performance,
+                                deployment-to guarantee that every platform launch delivers optimal performance,
                                 measurable business value, and robust capabilities that strengthen your modern digital
                                 marketing infrastructure, accelerate time-to-market, and support your evolving content
                                 strategy objectives.
@@ -1738,3 +1729,5 @@ const CmsDevelopment = () => {
 };
 
 export default CmsDevelopment;
+
+

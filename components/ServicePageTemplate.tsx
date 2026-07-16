@@ -6,7 +6,6 @@ import CountUp from 'react-countup';
 import {AnimatePresence, motion, useScroll, useTransform} from 'framer-motion';
 import {AiFillCaretUp, AiFillCaretDown} from 'react-icons/ai';
 
-import FloatingButton from '@/components/FloatingButton';
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import FuturisticDevelopmentProcess from '@/components/FuturisticDevelopmentProcess';
 import VerticalSolutionsAccordion from '@/components/VerticalSolutionsAccordion';
@@ -26,9 +25,9 @@ import {
     FxTerminal,
 } from '@/components/futuristic/fx';
 
-// ─────────────────────────────────────────────────────────
+//  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
 // INTERFACES
-// ─────────────────────────────────────────────────────────
+//  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
 export interface SolutionItem {
     id: string;
     title: string;
@@ -118,13 +117,13 @@ const defaultHeroStats: HeroStat[] = [
     {label: 'Products Launched', value: '123+'},
 ];
 
-// Why-Us card colour palette — same visual logic as Home.tsx WHY_US
+// Why-Us card colour palette  - same visual logic as Home.tsx WHY_US
 const CARD_COLORS = ['#2dd4bf', '#06b6d4', '#7c3aed', '#f59e0b', '#10b981', '#ef4444'];
-const CARD_ICONS = ['◈', '◉', '◎', '◇', '⬡', '⬢'];
+const CARD_ICONS = [' - ', ' - ', ' - ', ' - ', '⬡', '⬢'];
 
-// ─────────────────────────────────────────────────────────
+//  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
 // SERVICE-SPECIFIC PRICING DATA
-// ─────────────────────────────────────────────────────────
+//  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
 const SERVICE_PRICING: Record<string, ServicePricingData> = {
     'digital-marketing': {
         plans: [
@@ -485,9 +484,9 @@ const SERVICE_PRICING: Record<string, ServicePricingData> = {
     }
 };
 
-// ─────────────────────────────────────────────────────────
+//  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
 // COMPONENT
-// ─────────────────────────────────────────────────────────
+//  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
 // Currency-aware Pricing component with Monthly/Yearly toggle
 export const CurrencyAwarePricing: React.FC<{
     defaultCurrency?: string;
@@ -527,9 +526,9 @@ export const CurrencyAwarePricing: React.FC<{
 
     const format = (amountGBP: number | null, to: string) => {
         if (amountGBP === null) return 'Custom pricing';
-        if (!rates) return '—';
+        if (!rates) return ' -';
         const rate = (to === 'GBP') ? 1 : rates[to];
-        if (!rate) return '—';
+        if (!rate) return ' -';
         const converted = amountGBP * rate;
         try {
             const locale = to === 'GBP' ? 'en-GB' : to === 'NGN' ? 'en-NG' : (to === 'USD' ? 'en-US' : 'en-IE');
@@ -548,7 +547,7 @@ export const CurrencyAwarePricing: React.FC<{
     };
 
     return (
-        <section className="py-24">
+        <section suppressHydrationWarning className="py-24">
             <div className="max-w-[90em] mx-auto px-6 sm:px-10 lg:px-[4.6em]">
                 <div className="mb-12">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
@@ -810,7 +809,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
     const resolvedTitle = clientDerivedTitle ?? title ?? 'Our Services';
     const titleText = typeof resolvedTitle === 'string' ? resolvedTitle : String(resolvedTitle);
 
-    const resolvedIntroHeading = introHeading ?? (`${titleText} — Futuristic, data-driven solutions`);
+    const resolvedIntroHeading = introHeading ?? (`${titleText}  - Futuristic, data-driven solutions`);
     const resolvedIntroBody: [ReactNode, ReactNode] = introBody ?? [
         intro ?? `We design and build ${titleText} with modern, scalable architectures, AI-augmented decisioning and measurable ROI.`,
         <>Speak with our experts to tailor a roadmap for your product.</>
@@ -1140,13 +1139,10 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
 
     return (
         <div className={`${isDayTime ? 'bg-white text-black' : 'bg-[#050810] text-white'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${isVisible ? 'mb-16' : 'mb-0'}`}
-            />
 
-            {/* ══════════════════════════════════════════
-                HERO — cinematic full-bleed with data HUD
-                ══════════════════════════════════════════ */}
+            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
+                HERO  - cinematic full-bleed with data HUD
+                 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
             <div id="hero">
                 <ResponsiveVideoHero
                     videoDesktop={heroVideo}
@@ -1252,9 +1248,9 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                 </ResponsiveVideoHero>
             </div>
 
-            {/* ══════════════════════════════════════════
-                INTRO — always-dark two-col with FX
-                ══════════════════════════════════════════ */}
+            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
+                INTRO  - always-dark two-col with FX
+                 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
             <section className="relative overflow-hidden bg-[#050810] text-white">
                 <FxBackground day={false} grid aurora/>
                 <FxOrbit size={620} top="-120px" right="-180px" opacity={0.12} speed={40}/>
@@ -1315,9 +1311,9 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                 </div>
             </section>
 
-            {/* ══════════════════════════════════════════
-                TOP IMAGES — cinematic dual FxFrame reveal
-                ══════════════════════════════════════════ */}
+            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
+                TOP IMAGES  - cinematic dual FxFrame reveal
+                 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
             {topImages && (
                 <section className="bg-[#050810] py-12 lg:py-16">
                     <div className="max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
@@ -1347,10 +1343,10 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                 </section>
             )}
 
-            {/* ══════════════════════════════════════════
-                SOLUTIONS — sticky-left / scroll-right
+            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
+                SOLUTIONS  - sticky-left / scroll-right
                 Sentinel div at bottom releases sticky nav
-                ══════════════════════════════════════════ */}
+                 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
             <FxStickyScrollSection
                 day={false}
                 heading={solutionsHeading}
@@ -1361,9 +1357,9 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                 items={solutions}
             />
 
-            {/* ══════════════════════════════════════════
-                MID IMAGE — standalone FxFrame section
-                ══════════════════════════════════════════ */}
+            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
+                MID IMAGE  - standalone FxFrame section
+                 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
             {midImage && (
                 <section className="bg-[#050810] py-10 lg:py-14">
                     <div className="max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
@@ -1392,7 +1388,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                 </section>
             )}
 
-            {/* ══════════════════════════════════════════
+            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
                 WHY GREY INFOTECH
                 Matches Home.tsx WHY_US grid exactly:
                 - bg-[#050810] always
@@ -1400,7 +1396,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                 - layoutId="why-glow" spring animation
                 - auto-cycle 3500ms
                 - stat strip below
-                ══════════════════════════════════════════ */}
+                 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
             {reasons.length > 0 && (
                 <section className="relative overflow-hidden bg-[#050810]">
                     <FxBackground day={false} grid aurora/>
@@ -1430,7 +1426,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                             </p>
                         </FxReveal>
 
-                        {/* Interactive 3-col grid — exact Home.tsx pattern */}
+                        {/* Interactive 3-col grid  - exact Home.tsx pattern */}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-20">
                             {reasons.map((r, i) => {
                                 const color = CARD_COLORS[i % CARD_COLORS.length];
@@ -1496,7 +1492,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                             })}
                         </div>
 
-                        {/* Stat strip — bordered box, 4 stats */}
+                        {/* Stat strip  - bordered box, 4 stats */}
                         <FxReveal>
                             <div className="border border-white/08 rounded-3xl p-8 lg:p-12 overflow-hidden">
                                 <div className="flex items-center gap-4 mb-10">
@@ -1533,9 +1529,9 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                 </section>
             )}
 
-            {/* ══════════════════════════════════════════
+            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
                TECHNOLOGIES & INDUSTRY SOLUTIONS
-               ══════════════════════════════════════════ */}
+                -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
             {/* Technologies We Use */}
             <div
                 className={`lg:pt-[2em] md:pt-[2em] pt-[1em] lg:pb-[2em] md:pb-[2em] pb-[1em] ${isDayTime ? 'bg-white' : 'bg-slate-600'}`}>
@@ -1612,9 +1608,9 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                 />
             )}
 
-            {/* ══════════════════════════════════════════
+            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
                OUR PROVEN 90-DAY PROCESS
-               ══════════════════════════════════════════ */}
+                -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
             <div
                 className={`lg:pt-[2em] md:pt-[2em] pt-[1em] lg:pb-[2em] md:pb-[2em] pb-[1em] ${isDayTime ? 'bg-black' : 'bg-white'}`}>
                 <div id={'Our-proven-process'}
@@ -1775,7 +1771,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                 <div className="flex gap-2">
                                     <button onClick={() => setIsPlaying((s) => !s)}
                                             className={`px-5 py-2 rounded-lg font-mono text-[0.7em] font-[700] tracking-[0.2em] uppercase transition-all duration-300 ${isDayTime ? 'bg-teal-600 text-white hover:bg-teal-700 shadow-md' : 'bg-[#00f5d4] text-black hover:bg-cyan-300 shadow-lg shadow-cyan-500/20'}`}>
-                                        {isPlaying ? '⏸ Pause' : '▶ Play'}
+                                        {isPlaying ? '⏸ Pause' : ' -  Play'}
                                     </button>
                                     <button onClick={() => {
                                         setIsPlaying(false);
@@ -1910,7 +1906,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                 Join industry-leading companies transforming their digital landscape with our
                                 proven {phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)}-day
                                 methodology. From discovery to scale, we deliver measurable impact at every
-                                stage—accelerating growth while ensuring strategic alignment and sustainable competitive
+                                stage -accelerating growth while ensuring strategic alignment and sustainable competitive
                                 advantage.
                             </p>
 
@@ -1932,7 +1928,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
 
 
             </div>
-            {/* Pricing — show when requested */}
+            {/* Pricing  - show when requested */}
             {showPricing && <CurrencyAwarePricing serviceType={derivedServiceType}/>}
 
             <style>{`
@@ -1948,17 +1944,17 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                             .animate-pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
                           `}</style>
 
-            {/* ══════════════════════════════════════════
+            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
                    DEVELOPMENT PROCESS
-                   ══════════════════════════════════════════ */}
+                    -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
             <FuturisticDevelopmentProcess
                 day={isDayTime}
                 description={developmentProcessDescription}
             />
 
-            {/* ══════════════════════════════════════════
+            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
                 CTA + COUNTUP (ENHANCED)
-                ══════════════════════════════════════════ */}
+                 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
             <section
                 className={`relative overflow-hidden transition-colors duration-700 ${isDayTime ? 'bg-gradient-to-b from-white via-gray-50 to-slate-100' : 'bg-gradient-to-b from-[#050810] via-gray-950 to-black'}`}>
                 <FxBackground day={isDayTime} grid aurora/>
@@ -1997,7 +1993,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                     <>We specialize in crafting high-impact marketing websites, innovative web apps, and
                                         mobile applications that drive real results. From funded startups to established
                                         businesses, we&apos;ve helped a wide range of clients bring their digital
-                                        products to life—delivering standout experiences that fuel growth, engagement,
+                                        products to life -delivering standout experiences that fuel growth, engagement,
                                         and long-term success.</>
                                 )}
                             </p>
@@ -2082,10 +2078,10 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                         <FxTerminal
                             day={false}
                             lines={[
-                                '# Grey InfoTech — where innovation ships',
+                                '# Grey InfoTech  - where innovation ships',
                                 'npm run build:production',
                                 'Deploying to edge network...',
-                                '✓ Build complete — 0 errors',
+                                '✓ Build complete  - 0 errors',
                             ]}
                         />
                     </FxReveal>

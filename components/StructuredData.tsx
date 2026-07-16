@@ -43,7 +43,7 @@ export function OrganizationSchema({
 }
 
 /**
- * WebSite schema with SearchAction — enables the sitelinks search box in
+ * WebSite schema with SearchAction  - enables the sitelinks search box in
  * Google results and reinforces the canonical site identity.
  */
 export function WebSiteSchema() {
@@ -71,7 +71,7 @@ export function WebSiteSchema() {
 }
 
 /**
- * BreadcrumbList schema generator — call from any page that wants breadcrumbs
+ * BreadcrumbList schema generator  - call from any page that wants breadcrumbs
  * in search results. items: [{name, url}] in order from Home → current page.
  */
 export function BreadcrumbSchema({items}: {items: {name: string; url: string}[]}) {

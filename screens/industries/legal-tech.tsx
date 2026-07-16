@@ -14,12 +14,12 @@ const LegalTechIndustry = () => (
         introBody={[
             <>The legal profession is at an inflection point. Clients expect faster responses, transparent
             billing and digital access to their matters. Firms that embrace technology win clients and
-            run more profitably. At Grey InfoTech we build legal technology platforms—practice management
+            run more profitably. At Grey InfoTech we build legal technology platforms -practice management
             systems, contract lifecycle management, legal research tools, document automation and client
-            portals—that give law firms and legal departments the productivity gains they need to compete
+            portals -that give law firms and legal departments the productivity gains they need to compete
             in a changing market.</>,
             <>Our legal technology work is grounded in an understanding of how legal professionals actually
-            work—billing, matter management, compliance, privilege and confidentiality are first-class
+            work -billing, matter management, compliance, privilege and confidentiality are first-class
             concerns in everything we build. We design for the reality of busy lawyers: interfaces that
             minimise data entry, automation that handles routine tasks, and integrations with the court
             filing systems, e-signature platforms and billing tools that form the backbone of legal
@@ -47,8 +47,8 @@ const LegalTechIndustry = () => (
             {
                 id: '03', title: 'Legal Document Automation', target: 'DA',
                 tags: ['Template Engine', 'Conditional Logic', 'e-Signature', 'PDF Generation'],
-                body: <>Repetitive document generation—NDAs, employment agreements, shareholder resolutions,
-                demand letters—is a massive productivity drain. We build document automation platforms
+                body: <>Repetitive document generation -NDAs, employment agreements, shareholder resolutions,
+                demand letters -is a massive productivity drain. We build document automation platforms
                 that generate complex legal documents from intelligent questionnaires, integrating with
                 e-signature platforms for end-to-end automation and built-in version control for
                 template management.</>,
@@ -58,7 +58,7 @@ const LegalTechIndustry = () => (
                 tags: ['Case Law', 'Statute Search', 'Summarisation', 'LLM', 'RAG'],
                 body: <>AI-powered legal research dramatically reduces the time junior lawyers spend
                 on routine research tasks. We build legal research tools using RAG architectures over
-                curated legal corpora—case law, statutes, regulatory guidance—with citation tracking,
+                curated legal corpora -case law, statutes, regulatory guidance -with citation tracking,
                 answer grounding and hallucination controls. We also build AI contract review tools
                 that flag risk clauses against firm playbooks.</>,
             },

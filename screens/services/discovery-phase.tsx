@@ -1,8 +1,6 @@
 'use client';
 
-
 import React, {useEffect, useRef, useState} from 'react';
-import FloatingButton from "@/components/FloatingButton";
 import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import ServiceHero from '@/components/futuristic/ServiceHero';
@@ -20,7 +18,6 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
 
-
     // Floating button visibility hook
     useEffect(() => {
         const handleScroll = () => {
@@ -34,7 +31,6 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
 
     // isDaytime react hook
     const isDayTime = useIsDayTime();
-
 
     // Introductory section hook
     useEffect(() => {
@@ -172,11 +168,6 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
 
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
-            <FloatingButton
-                className={`fixed bottom-6 right-6 transition-all z-50 duration-300 ${
-                    isVisible ? 'mb-16' : 'mb-0'
-                }`}
-            />
 
             <ServiceHero
                 title="Discovery Phase"
@@ -189,10 +180,10 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                 accentColor="#f97316"
                 variant="terminal"
                 capabilities={[
-                    { id: "cap-1", icon: "🔍", title: "Requirements Gathering", description: "Structured stakeholder interviews and workshops to surface functional, technical, and business requirements." },
-                    { id: "cap-2", icon: "🗺️", title: "Technical Roadmapping", description: "Architecture decisions, technology selection, and phased delivery plans that reduce risk from day one." },
+                    { id: "cap-1", icon: " - ", title: "Requirements Gathering", description: "Structured stakeholder interviews and workshops to surface functional, technical, and business requirements." },
+                    { id: "cap-2", icon: " - ️", title: "Technical Roadmapping", description: "Architecture decisions, technology selection, and phased delivery plans that reduce risk from day one." },
                     { id: "cap-3", icon: "📋", title: "Feasibility Analysis", description: "Technical and commercial feasibility assessments that give you confidence before committing budget." },
-                    { id: "cap-4", icon: "🖼️", title: "Wireframing & IA", description: "Low-fidelity wireframes and information architecture that align teams on structure before visual design begins." },
+                    { id: "cap-4", icon: " - ️", title: "Wireframing & IA", description: "Low-fidelity wireframes and information architecture that align teams on structure before visual design begins." },
                     { id: "cap-5", icon: "⚠️", title: "Risk Assessment", description: "Identify and mitigate technical, timeline, and commercial risks before they become expensive problems." },
                     { id: "cap-6", icon: "📄", title: "Project Documentation", description: "Full discovery output: SOW, technical spec, user stories, acceptance criteria, and project charter." },
                 ]}
@@ -201,7 +192,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
             {/* Hero Section */}
             <div id={'hero'}
                  className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                {/* ─── Futuristic FX overlay (hero enhancement) ─── */}
+                {/*  -  -  -  Futuristic FX overlay (hero enhancement)  -  -  -  */}
                 <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
                     <div className="gx-scanline" />
                     <div className="gx-noise-overlay" />
@@ -214,7 +205,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                     Project <br className={'lg:block md:block hidden'}/>Discovery Phase
                 </h1>
                 <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
-                    Unlock your product’s potential with strategic roadmapping and user-focused design — built to drive
+                    Unlock your product’s potential with strategic roadmapping and user-focused design  - built to drive
                     market success and elevate user satisfaction.
                 </p>
                 <ResponsiveVideoHero videoDesktop="/assets/disc/hero.mp4" videoMobile="/assets/disc/hero-mobile.mp4" posterImage="/assets/disc/hero.jpg" />
@@ -395,7 +386,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                             className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Prototyping</span>
                                     </div>
                                     <p className={'text-justify leading-[1.5] text-[0.873em] font-[300]'}>
-                                        Let’s get to know the people who matter most to your business—your customers. We
+                                        Let’s get to know the people who matter most to your business -your customers. We
                                         begin by engaging with them directly, listening to their experiences, and
                                         gaining a clear understanding of what motivates their decisions, behaviours, and
                                         expectations.<br/><br/>
@@ -440,7 +431,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                         Working closely with you, we define key audience segments, evaluate market
                                         demand, and validate the potential of your product. This data-driven approach
                                         ensures your go-to-market strategy is focused, relevant, and aligned with
-                                        customer expectations—setting your business up for long-term growth and success.
+                                        customer expectations -setting your business up for long-term growth and success.
                                     </p>
                                 </div>
                                 <div
@@ -467,7 +458,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                             className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>User Feedback</span>
                                     </div>
                                     <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Imagine being able to see your product come to life—before a single line of code
+                                        Imagine being able to see your product come to life -before a single line of code
                                         is written. With interactive prototypes and detailed wireframes, we turn your
                                         ideas into tangible experiences, allowing you to visualise how users will engage
                                         with your product. This early-stage validation helps ensure that every feature
@@ -509,7 +500,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                         Our business analysis services focus on aligning your products and services with
                                         your core business objectives to drive growth and profitability. We assess your
                                         unique requirements and goals to identify effective monetisation strategies and
-                                        customer support solutions—like knowledge bases and chatbots—that enhance
+                                        customer support solutions -like knowledge bases and chatbots -that enhance
                                         engagement and satisfaction. By evaluating revenue potential, we help develop
                                         pricing models designed to maximise profitability and market impact.<br/><br/>
 
@@ -584,7 +575,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                         on what’s achievable, and our role is to help you define a clear, focused
                                         product vision and development strategy. With structured milestones and
                                         transparent timelines, we ensure every step aligns with your business
-                                        goals—keeping progress measurable, purposeful, and within budget.<br/><br/>
+                                        goals -keeping progress measurable, purposeful, and within budget.<br/><br/>
 
                                         To maximise impact and efficiency, we recommend prioritising features for your
                                         Minimum Viable Product (MVP) and mapping out follow-up development phases. This
@@ -658,7 +649,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                         Your internal team, end users, and stakeholders hold valuable insights that are
                                         critical to shaping a successful product. By engaging them early through
                                         workshops and interviews, we uncover their expectations, challenges, and
-                                        objectives—ensuring the solution is aligned with real-world needs, not
+                                        objectives -ensuring the solution is aligned with real-world needs, not
                                         assumptions.<br/><br/>
 
                                         These sessions foster clarity and collaboration, allowing us to define
@@ -708,7 +699,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                         </div>
                         <div className={'lg:-ml-[1.5em] md:-ml-[1.5em]'}>
                             <p className={'text-justify text-[0.87em] font-[300]'}>
-                                Kicking off with a discovery phase isn’t just smart—it’s strategic. It sets the
+                                Kicking off with a discovery phase isn’t just smart -it’s strategic. It sets the
                                 technical foundation for your software project, helping you validate ideas, uncover
                                 risks, align stakeholders, and define a clear roadmap. Here are just a few of the
                                 game-changing benefits.
@@ -922,7 +913,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                         on priorities. While we always welcome face-to-face meetings to foster stronger
                                         relationships and gain deeper insights, we also offer seamless virtual sessions
                                         via MS Teams, Google Meet, or Zoom. Whichever format you prefer, our focus
-                                        remains the same—laying the foundation for a successful collaboration built on
+                                        remains the same -laying the foundation for a successful collaboration built on
                                         clarity, trust, and shared purpose.
                                     </p>
                                 </div>
@@ -993,7 +984,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                         into a detailed report and presentation that serves as a clear and actionable
                                         roadmap for your project. This comprehensive documentation will outline key
                                         milestones, timelines, budget estimates, technical recommendations, and
-                                        potential risks—ensuring you have full visibility and alignment before
+                                        potential risks -ensuring you have full visibility and alignment before
                                         development begins. It acts as both a reference and a blueprint, equipping you
                                         with the clarity and confidence to move forward efficiently and effectively.
                                     </p>
@@ -1150,7 +1141,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                             </h2>
                             <p className={'text-[0.873em] font-[400] leading-[1.5] tracking-normal text-justify'}>
                                 To ensure your project’s success, we provide clear, actionable deliverables that align
-                                stakeholders, streamline development, and maintain transparency—keeping your business
+                                stakeholders, streamline development, and maintain transparency -keeping your business
                                 goals front and center throughout the process.
                             </p>
                         </div>
@@ -1198,8 +1189,8 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                 </button>
                                 {webIndex === 1 && (
                                     <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                        A comprehensive profile of your target audience — covering demographics,
-                                        behaviours, goals, and interaction patterns — enables you to design a product
+                                        A comprehensive profile of your target audience  - covering demographics,
+                                        behaviours, goals, and interaction patterns  - enables you to design a product
                                         that resonates with real users. This insight-driven approach ensures your
                                         solution is relevant, user-centric, and positioned to deliver meaningful value
                                         and long-term engagement.
@@ -1223,8 +1214,8 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                 </button>
                                 {webIndex === 2 && (
                                     <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                        A visual representation of your product—featuring user flows, interactive
-                                        wireframes, and high-fidelity mockups—enables you to test core functionality,
+                                        A visual representation of your product -featuring user flows, interactive
+                                        wireframes, and high-fidelity mockups -enables you to test core functionality,
                                         validate assumptions, and gather real user feedback early. This iterative
                                         process helps refine the user experience, reduce development risks, and ensure
                                         the final product aligns with user expectations and business objectives.
@@ -1248,8 +1239,8 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                 </button>
                                 {webIndex === 3 && (
                                     <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                        A comprehensive overview of your system’s architecture—covering components such
-                                        as database schema, APIs, and integration points—ensures technical alignment
+                                        A comprehensive overview of your system’s architecture -covering components such
+                                        as database schema, APIs, and integration points -ensures technical alignment
                                         with your business needs. This foundational clarity supports scalability,
                                         performance, and future enhancements, reducing development friction and enabling
                                         smoother implementation.
@@ -1345,7 +1336,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                     <p className={'text-[0.873em] font-[300] leading-[1.5] text-justify lg:pr-[33em] mb-10'}>
                         We specialize in crafting high-impact marketing websites, innovative web apps, and mobile
                         applications that drive real results. From funded startups to established businesses, we&#39;ve
-                        helped a wide range of clients bring their digital products to life—delivering standout
+                        helped a wide range of clients bring their digital products to life -delivering standout
                         experiences
                         that fuel growth, engagement, and long-term success.
                     </p>
@@ -1389,3 +1380,4 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
 };
 
 export default DiscoveryPhase;
+

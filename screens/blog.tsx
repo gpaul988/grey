@@ -35,9 +35,9 @@ const Blog = () => {
     return (
         <div className={`min-h-screen transition-colors duration-500 ${dark ? 'bg-[#04090f] text-white' : 'bg-white text-black'}`}>
 
-            {/* ── Hero ── */}
+            {/*  -  -  Hero  -  -  */}
             <section className="relative overflow-hidden min-h-[72vh] flex flex-col justify-end">
-                {/* Editorial bg — angled split */}
+                {/* Editorial bg  - angled split */}
                 <div className={`absolute inset-0 ${dark ? 'bg-[#04090f]' : 'bg-gray-900'}`} />
                 {/* Diagonal accent */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -69,7 +69,7 @@ const Blog = () => {
                                 </FxGlitchText>
                             </div>
                             <p className="text-white/65 max-w-2xl text-[0.95em] md:text-[1.05em] leading-relaxed mb-8">
-                                Perspectives on technology, product design, and digital strategy — written by the team building real products every day.
+                                Perspectives on technology, product design, and digital strategy  - written by the team building real products every day.
                             </p>
                             <div className="flex flex-wrap gap-3">
                                 {[`${blogPosts.length} Articles`, 'Weekly Updates', 'Tech + Strategy + Design'].map(s => (
@@ -81,7 +81,7 @@ const Blog = () => {
                 </div>
             </section>
 
-            {/* ── Intro ── */}
+            {/*  -  -  Intro  -  -  */}
             <section
                 className={`pt-16 transition-colors duration-500 ${
                     isDayTime ? 'bg-white text-black' : 'bg-black text-white'
@@ -100,7 +100,7 @@ const Blog = () => {
                         </FxReveal>
                         <FxReveal delay={0.1}>
                             <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]">
-                                <div><p>Perspectives on technology, product design, and digital strategy — written by the team building real products every day. We share insights from our experience working with clients across industries.</p></div>
+                                <div><p>Perspectives on technology, product design, and digital strategy  - written by the team building real products every day. We share insights from our experience working with clients across industries.</p></div>
                                 <div><p>From emerging trends to practical tips, our blog covers topics that matter to modern businesses. Read on for actionable advice, case studies, and thought leadership from our team.</p></div>
                             </div>
                         </FxReveal>
@@ -108,7 +108,7 @@ const Blog = () => {
                 </div>
             </section>
 
-            {/* ── Category Filter ── */}
+            {/*  -  -  Category Filter  -  -  */}
             <section className={`sticky top-0 z-30 py-4 px-4 sm:px-6 md:px-10 lg:px-[4.5em] backdrop-blur-lg border-b ${
                 dark ? 'bg-[#04090f]/90 border-white/10' : 'bg-white/90 border-gray-200'
             }`}>
@@ -131,7 +131,7 @@ const Blog = () => {
                 </div>
             </section>
 
-            {/* ── Featured Article — Editorial Spread ── */}
+            {/*  -  -  Featured Article  - Editorial Spread  -  -  */}
             {featured && (
                 <section className={`relative py-16 px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${dark ? 'bg-[#04090f]' : 'bg-gray-50'}`}>
                     <div className="max-w-[90rem] mx-auto">
@@ -194,7 +194,7 @@ const Blog = () => {
                 </section>
             )}
 
-            {/* ── Article Grid — Magazine Layout ── */}
+            {/*  -  -  Article Grid  - Magazine Layout  -  -  */}
             <section className={`relative py-16 px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${dark ? 'bg-[#020810]' : 'bg-white'}`}>
                 <FxBackground day={isDayTime} grid={true} aurora={false} className="opacity-08" />
                 <div className="max-w-[90rem] mx-auto relative z-10">
@@ -299,7 +299,7 @@ const Blog = () => {
                 </div>
             </section>
 
-            {/* ── CTA ── */}
+            {/*  -  -  CTA  -  -  */}
             <section className={`relative overflow-hidden py-24 px-4 sm:px-6 md:px-10 lg:px-[4.5em] text-center ${dark ? 'bg-black/40' : 'bg-teal-950'} text-white`}>
                 <FxBackground day={false} grid aurora className="opacity-60" />
                 <div className="gx-scanline pointer-events-none" />

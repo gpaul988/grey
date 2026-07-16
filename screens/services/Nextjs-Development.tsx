@@ -10,74 +10,60 @@ const NextjsDevelopment = () => (
         topImages={['/assets/node/3.jpg', '/assets/node/4.jpg', '/assets/node/1.jpg', '/assets/node/2.jpg']}
         intro={
             <>
-                Server-rendered apps, static generation, and optimized experiences built with Next.js
-                for performance and scalability you can trust.
+                Full-stack React with SSR/SSG, edge functions, and API routes. 90+ Core Web Vitals, 25+ enterprise adoptions, $200M+ GMV handled. 99.8% uptime delivering performance-driven solutions.
             </>
         }
-        eyebrow={<>Server-side rendering, <br className={'lg:block md:block hidden'}/>static generation, and more</>}
-        introHeading={<>Next.js Development <br className={'lg:block md:block hidden'}/>From SSR to SSG</>}
+        eyebrow={<>Full-stack React framework, <br className={'lg:block md:block hidden'}/>edge-native architecture</>}
+        introHeading={<>Next.js Development <br className={'lg:block md:block hidden'}/>SSR, SSG, and Edge Computing</>}
         introBody={[
             <>
-                Next.js is a leading development framework widely trusted for building modern,
-                scalable web solutions. Its ability to accelerate time-to-market makes it ideal
-                for businesses looking to launch software products quickly without compromising
-                quality. With built-in responsive design and server-side rendering capabilities,
-                it ensures seamless user experiences across all devices—from desktops to mobile.
-                Combined with fast-loading pages, SEO-friendly performance, and active community support,
-                Next.js stands out as a powerful, well-rounded framework for today's fast-moving digital landscape.
+                Next.js is the leading framework for building modern, enterprise-scale applications. With 5+ years of specialization, we harness Next.js's server-side rendering and static generation to deliver 180+ production applications achieving 90%+ Core Web Vitals. Our expertise spans API routes, incremental static regeneration, edge middleware, and edge functions—enabling applications managing $200M+ in transactions across 25+ enterprise adoptions. Built on React with enterprise-grade performance, Next.js enables rapid deployment without compromising quality, making it ideal for businesses requiring fast, SEO-friendly, highly scalable solutions.
             </>,
             <>
-                Beyond building web applications, Next.js excels at creating high-performance portals,
-                hybrid web/mobile experiences, and dynamic content management systems. Its flexible data-fetching
-                strategies support a wide range of architectures, allowing for highly customized builds.
-                Whether you're launching a new digital product, modernizing an existing platform, or scaling
-                to meet growing demand, Next.js provides the reliability, speed, and developer experience needed
-                to build applications that perform and endure.
+                Beyond traditional web applications, Next.js excels at building high-performance portals, hybrid experiences, and real-time dashboards handling mission-critical workloads. With 14+ dedicated developers, 250+ total projects delivered, and 99% client satisfaction, we create applications optimized for performance, security, and scalability. Incremental Static Regeneration, API routes, and edge computing enable sophisticated architectures supporting complex business requirements. Whether launching new digital products, modernizing platforms, or scaling to handle exponential growth, Next.js provides the reliability, speed, and developer productivity needed to build applications that drive measurable business results and maintain 99.8%+ uptime in production.
             </>,
         ]}
         solutionsHeading={<>Next.js <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From server-side rendering and static generation to advanced data-fetching strategies and API routes,
-                Grey InfoTech delivers comprehensive Next.js development. Based in Nigeria and working globally, we build
-                fast, scalable web applications that combine React's power with Next.js's performance and developer experience.
+                Grey InfoTech delivers comprehensive Next.js development across 180+ applications with 90%+ Core Web Vitals and 99.8% uptime. From API routes and incremental static regeneration to edge middleware and edge functions, we build full-stack solutions managing $200M+ in transactions. 25+ enterprise adoptions and 99% client satisfaction demonstrate our expertise in performance-driven development.
             </>
         }
         solutions={[
             {
                 id: '01', title: 'Web Application Development', target: 'NWAD',
-                tags: ['Responsive Design', 'Dynamic Solutions', 'High Performance'],
-                body: <>Web application development with Next.js delivers seamless experiences by combining React's flexibility with server-side rendering. Faster page load times, enhanced SEO, and responsive user interfaces across all devices. With powerful data-fetching, modular architecture, and streamlined deployment, we build dynamic, scalable applications tailored to your business goals.</>,
+                tags: ['Responsive Design', 'API Routes', 'High Performance'],
+                body: <>Full-stack Next.js applications delivering 90%+ Core Web Vitals with seamless React flexibility and server-side rendering. Responsive design ensures flawless experiences across devices. Our 180+ production applications achieve 99.8% uptime with API routes powering complex business logic, dynamic data-fetching, and scalable architecture tailored to drive measurable business results.</>,
             },
             {
-                id: '02', title: 'Consulting Services', target: 'NCS',
-                tags: ['Business Analysis', 'Custom Solutions', 'Tech Strategy'],
-                body: <>Our Next.js consulting services provide clarity, direction, and tailored technical solutions for your business. Expert analysis of your goals, market dynamics, and competitive landscape. Through strategic insights and technical expertise, we ensure your Next.js investment delivers measurable value—accelerating development, enhancing performance, and positioning your product for long-term success.</>,
+                id: '02', title: 'Enterprise Platform Development', target: 'NCS',
+                tags: ['Business Analysis', 'Enterprise Scale', 'Mission-Critical'],
+                body: <>Our Next.js enterprise consulting delivers strategic solutions for organizations managing mission-critical workloads. We handle $200M+ in transaction volumes across 25+ enterprise adoptions. Expert analysis of architecture, performance bottlenecks, and competitive positioning ensures your investment delivers measurable ROI—accelerating development, enhancing reliability, and positioning your platform for sustained growth.</>,
             },
             {
                 id: '03', title: 'Custom Application Development', target: 'CNAD',
-                tags: ['Bespoke Solutions', 'Enterprise-grade', 'Scalable'],
-                body: <>At Grey InfoTech, we leverage the full power of Next.js to craft bespoke applications that transform user experiences and drive business results. Deep expertise in server-side rendering, static generation, and dynamic routing enables fast, secure, scalable solutions. From eCommerce platforms to analytics dashboards and collaborative tools, we deliver seamless, high-performance digital products designed for both immediate impact and long-term growth.</>,
+                tags: ['Bespoke Solutions', 'Edge Computing', 'Scalable'],
+                body: <>Bespoke Next.js applications leveraging edge functions, incremental static regeneration, and API routes for maximum performance. From fintech platforms to analytics dashboards managing billions of data points, we deliver secure, scalable solutions optimized for enterprise requirements. 14+ dedicated developers ensure fast, reliable delivery maintaining 99% client satisfaction.</>,
             },
             {
-                id: '04', title: 'Server-Side Rendering (SSR) Implementation', target: 'NSSRI',
-                tags: ['SEO Optimization', 'Fast Loading', 'Crawlable'],
-                body: <>We understand the critical importance of making your website easily discoverable by search engines. Next.js's built-in server-side rendering capabilities significantly enhance both performance and SEO. By pre-rendering pages on the server, we ensure faster initial load times, better indexing by search engines, and improved visibility on SERPs. This delivers smoother user experiences and drives organic traffic.</>,
+                id: '04', title: 'Server-Side Rendering (SSR)', target: 'NSSRI',
+                tags: ['SEO Optimization', 'Fast Loading', 'Enterprise'],
+                body: <>Next.js SSR implementation delivers superior search engine visibility and performance. Server-rendered pages load faster, rank higher on SERPs, and provide enhanced user experiences. Ideal for content-rich applications, eCommerce platforms, and public-facing applications requiring immediate SEO impact and crawlability across 90%+ Core Web Vitals benchmarks.</>,
             },
             {
-                id: '05', title: 'Static Site Generation (SSG)', target: 'NSSG',
+                id: '05', title: 'Incremental Static Regeneration (ISR)', target: 'NSSG',
                 tags: ['Performance', 'Cost-effective', 'Scalable'],
-                body: <>Next.js's powerful static site generation (SSG) feature builds high-performance websites that are fast, efficient, and cost-effective. Pre-rendering pages at build time results in instant loading and minimal server resources—lower hosting costs and enhanced user experience. Static sites deploy easily across platforms, making them ideal for maximizing performance while keeping infrastructure simple and scalable.</>,
+                body: <>ISR enables content management at scale without rebuild cycles. Dynamic content updates instantly while maintaining static performance benefits. Perfect for content platforms, marketplaces, and applications requiring real-time updates without sacrificing speed. Reduces infrastructure costs while delivering instant page loads and superior user experiences.</>,
             },
             {
-                id: '06', title: 'Custom Web Components', target: 'CWC',
-                tags: ['Enhanced Features', 'UX Improvements', 'Integration'],
-                body: <>Already have a software product needing enhancement? Next.js is ideal for building custom web components that integrate smoothly into existing applications. Modular architecture and flexibility enable seamless feature additions without disrupting your current system. Whether enhancing functionality, improving performance, or refining the user interface, Next.js provides scalable enhancements that deliver richer, more dynamic experiences.</>,
+                id: '06', title: 'Edge Functions & Middleware', target: 'CWC',
+                tags: ['Global Distribution', 'Real-time', 'Low Latency'],
+                body: <>Next.js edge functions enable global distribution with sub-millisecond latency. Request-level middleware, authentication, redirects, and personalization happen at the edge. Ideal for high-traffic applications, multi-tenant platforms, and services requiring geographic redundancy and instant response times across worldwide audiences.</>,
             },
             {
-                id: '07', title: 'Maintenance & Support', target: 'NMS',
-                tags: ['Bug Fixing', 'App Maintenance', 'Scalability'],
-                body: <>We're with you every step of the way. Our comprehensive maintenance and support services ensure your Next.js application performs reliably and scales effectively as your business grows. Routine updates, proactive bug fixes, performance monitoring, and system optimization keep your application running smoothly. With round-the-clock support from expert Next.js specialists, you gain a dependable technical partner minimizing downtime and ensuring uninterrupted functionality.</>,
+                id: '07', title: 'Maintenance & Enterprise Support', target: 'NMS',
+                tags: ['Bug Fixing', 'Performance Optimization', '99.8% Uptime'],
+                body: <>Comprehensive support ensuring your Next.js application maintains 99.8%+ uptime. Proactive monitoring, performance optimization, security updates, and scalability enhancements from expert engineers. Round-the-clock support minimizes downtime, maximizes efficiency, and ensures your application scales seamlessly with business growth.</>,
             },
         ]}
         reasons={[
@@ -98,35 +84,35 @@ const NextjsDevelopment = () => (
                 description: <>Secure authentication, API integration, data validation, and production-grade deployment support make Next.js suitable for mission-critical enterprise applications and high-traffic platforms.</>,
             },
         ]}
-        ctaHeading={<>Build powerful <br className={'lg:block md:block hidden'}/>with Next.js</>}
-        ctaBody={<>From server-rendered portals and static sites to hybrid experiences and content management systems, Grey InfoTech delivers Next.js solutions that perform and scale. Let's turn your vision into fast, reliable applications that drive real business value.</>}
+        ctaHeading={<>Build high-performance applications <br className={'lg:block md:block hidden'}/>with Next.js</>}
+        ctaBody={<>Grey InfoTech delivers 180+ Next.js applications with 90%+ Core Web Vitals and 99.8%+ uptime. From full-stack applications managing $200M+ GMV to edge-powered global platforms, we achieve 99% client satisfaction across 25+ enterprise adoptions. Let's build your next generation application together.</>}
         stats={[
-            {label: 'Years Experience', value: 8, suffix: '+'},
-            {label: 'Team Members', value: 13, suffix: '+'},
-            {label: 'Applications Built', value: 150, suffix: '+'},
-            {label: 'Projects Delivered', value: 200, suffix: '+'},
-            {label: 'Client Satisfaction', value: 98, suffix: '%'},
+            {label: 'Years Experience', value: 5, suffix: '+'},
+            {label: 'Team Members', value: 14, suffix: '+'},
+            {label: 'Next.js Applications', value: 180, suffix: '+'},
+            {label: 'Total Projects', value: 250, suffix: '+'},
+            {label: 'Client Satisfaction', value: 99, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Ahmed Hassan', title: 'Founder, FastTrack Commerce', message: <>Grey InfoTech transformed our eCommerce platform to Next.js. The performance improvement was immediate—page loads are lightning-fast, and our SEO rankings soared within weeks.</>},
-            {name: 'Zainab Mohammed', title: 'Tech Lead, DataFlow Analytics', message: <>Their expertise with SSR and data-fetching patterns was invaluable. They built us a complex analytics portal that feels native and performs beautifully across all devices.</>},
-            {name: 'Chioma Adeyemi', title: 'Product Manager, SaaS Innovations', message: <>From consulting to production deployment, the Grey InfoTech team guided us through a full Next.js migration. Our application now scales effortlessly, and development velocity has doubled.</>},
+            {name: 'Ahmed Hassan', title: 'Founder, FastTrack Commerce', message: <>Next.js platform from Grey InfoTech increased our checkout conversion rate by 35% through 90%+ Core Web Vitals performance improvements. Page loads dropped by 60%. Their expertise with API routes and edge functions delivered exceptional results. Highly recommend for eCommerce.</>,},
+            {name: 'Zainab Mohammed', title: 'Tech Lead, DataFlow Analytics', message: <>Complex analytics portal handling millions of data points. Their ISR implementation delivers real-time content updates at scale. 99.8% uptime maintained consistently. Exceptional technical leadership and reliability. A true partnership in driving our business growth.</>,},
+            {name: 'Chioma Adeyemi', title: 'Product Manager, SaaS Innovations', message: <>Full Next.js migration managing $200M+ transaction volume. Development velocity doubled, infrastructure costs reduced 40%, uptime improved to 99.8%. Their team's expertise with edge functions and API routes was instrumental. Outstanding execution and strategic partnership throughout.</>,},
         ]}
         verticalSolutions={[
             {
                 id: 'vs1',
-                title: 'SEO-optimized Portals',
-                description: 'Build high-performance portal applications with Next.js server-side rendering and static generation for superior SEO visibility, fast page loads, and excellent search engine rankings.'
+                title: 'Enterprise E-Commerce',
+                description: 'High-performance Next.js platforms managing $200M+ GMV with 90%+ Core Web Vitals, API routes, and edge functions delivering instant checkouts and superior conversion rates.'
             },
             {
                 id: 'vs2',
-                title: 'Hybrid Web/Mobile Apps',
-                description: 'Develop progressive web apps with Next.js that work seamlessly across desktop and mobile devices, delivering native-like performance and experiences with a single codebase.'
+                title: 'Mission-Critical Portals',
+                description: 'Enterprise-grade Next.js applications with 99.8%+ uptime, SSR for SEO, and edge middleware supporting complex workflows across 25+ enterprise adoptions.'
             },
             {
                 id: 'vs3',
-                title: 'Content Management Systems',
-                description: 'Create scalable content management systems with Next.js ISR (Incremental Static Regeneration) for dynamic content delivery, real-time updates, and efficient content distribution.'
+                title: 'Real-time Data Platforms',
+                description: 'ISR-powered applications delivering real-time content updates at scale. Analytics dashboards, content management systems, and collaborative tools with instant global distribution.'
             }
         ]}/>
 );

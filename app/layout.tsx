@@ -22,10 +22,10 @@ import CookieConsent from "@/components/futuristic/CookieConsent";
 import FloatingButton from "@/components/FloatingButton";
 
 
-// ─── Render on-demand instead of pre-rendering all pages at build ──────────
+//  -  -  -  Render on-demand instead of pre-rendering all pages at build  -  -  -  -  -  -  -  -  -  - 
 // This site is served by a long-running custom Express server (server.ts), not
 // `next start`, so there is NO benefit to statically pre-rendering every page
-// at build time — the live Node process renders them per request anyway.
+// at build time  - the live Node process renders them per request anyway.
 //
 // Pre-rendering all 92 routes in a single build pass held every rendered page
 // in memory at once and blew past cPanel's 1GB cap (peak ~1.8GB -> OOM/SIGABRT).
@@ -150,7 +150,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
     width: "device-width",
     initialScale: 1,
-    maximumScale: 5, // allow zoom for accessibility — never lock to 1
+    maximumScale: 5, // allow zoom for accessibility  - never lock to 1
     userScalable: true,
     themeColor: [
         {media: "(prefers-color-scheme: light)", color: "#ffffff"},
@@ -177,7 +177,7 @@ export default async function RootLayout({
             className={`${merriweather.variable} ${roboto.variable} antialiased`}
         >
         <ThemeProvider>
-        {/* First-load boot sequence — shows once per session */}
+        {/* First-load boot sequence  - shows once per session */}
         <Preloader/>
 
         {/* Skip-to-content link for keyboard/screen-reader users (WCAG) */}
@@ -188,7 +188,7 @@ export default async function RootLayout({
             Skip to main content
         </a>
 
-        {/* Structured data (Schema.org) for rich results — now with real sameAs links */}
+        {/* Structured data (Schema.org) for rich results  - now with real sameAs links */}
         <OrganizationSchema socialLinks={[...SITE.socials]}/>
         <WebSiteSchema/>
 

@@ -1,13 +1,13 @@
 'use client';
 
 /**
- * Preloader — an extremely futuristic, first-load-only boot sequence.
+ * Preloader  - an extremely futuristic, first-load-only boot sequence.
  *
  * Shows ONCE per browser session (sessionStorage gate). Renders a fullscreen
  * neon "system boot" with an animated holographic logo ring, a scanning grid,
  * progress that eases to 100%, and a smooth iris-out reveal of the site.
  *
- * Pure CSS + framer-motion. No layout shift — it sits above everything and
+ * Pure CSS + framer-motion. No layout shift  - it sits above everything and
  * unmounts cleanly. Respects prefers-reduced-motion.
  */
 import React, {useEffect, useState} from 'react';
@@ -33,7 +33,7 @@ export default function Preloader() {
         try {
             already = sessionStorage.getItem(SESSION_KEY) === '1';
         } catch {
-            /* storage blocked — show once anyway */
+            /* storage blocked  - show once anyway */
         }
         if (already) return;
 

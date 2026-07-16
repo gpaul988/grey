@@ -11,7 +11,7 @@ interface AuditRequestFixModalProps {
   website?: string;
   gitHubRepo?: string;
   onSuccess?: () => void;
-  /** Full audit report — attached to submission so admin sees all findings + fixes */
+  /** Full audit report  - attached to submission so admin sees all findings + fixes */
   auditReport?: AuditReport & { externalId?: string };
 }
 
@@ -87,7 +87,7 @@ export function AuditRequestFixModal({
 
     setLoading(true);
     try {
-      // Build auditData — always include the full report so admin has every finding + fix
+      // Build auditData  - always include the full report so admin has every finding + fix
       const auditData: Record<string, unknown> = {
         submittedAt: new Date().toISOString(),
         userAgent:   typeof navigator !== 'undefined' ? navigator.userAgent : 'Unknown',
@@ -248,10 +248,10 @@ export function AuditRequestFixModal({
                     onChange={handleChange}
                     className="input-field"
                   >
-                    <option value="low">🟢 Low — No rush</option>
-                    <option value="medium">🟡 Medium — Normal timeline</option>
-                    <option value="high">🔴 High — Urgent</option>
-                    <option value="critical">🔥 Critical — ASAP</option>
+                    <option value="low">🟢 Low  - No rush</option>
+                    <option value="medium">🟡 Medium  - Normal timeline</option>
+                    <option value="high"> -  High  - Urgent</option>
+                    <option value="critical"> -  Critical  - ASAP</option>
                   </select>
                 </Field>
                 <Field label="Budget Range" required>
@@ -316,7 +316,7 @@ export function AuditRequestFixModal({
                   name="specificIssues"
                   value={formData.specificIssues}
                   onChange={handleChange}
-                  placeholder="Describe the specific findings from the audit you'd like us to address — e.g. missing security headers, slow LCP, no HTTPS redirect…"
+                  placeholder="Describe the specific findings from the audit you'd like us to address  - e.g. missing security headers, slow LCP, no HTTPS redirect…"
                   rows={4}
                   className="input-field resize-none"
                   required

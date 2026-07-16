@@ -19,7 +19,7 @@ interface ServiceHeroProps {
   variant?: 'grid' | 'circuit' | 'wave' | 'particles' | 'hologram';
 }
 
-/* ─── Animated Particle field ─────────────────────────────────────── */
+/*  -  -  -  Animated Particle field  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 function ParticleField({ color }: { color: string }) {
    
   const particles = useMemo(() => {
@@ -64,7 +64,7 @@ function ParticleField({ color }: { color: string }) {
   );
 }
 
-/* ─── Circuit Board Lines ─────────────────────────────────────────── */
+/*  -  -  -  Circuit Board Lines  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 function CircuitLines({ color }: { color: string }) {
   return (
     <svg className="absolute inset-0 w-full h-full opacity-[0.07] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +85,7 @@ function CircuitLines({ color }: { color: string }) {
   );
 }
 
-/* ─── Hologram scanline ───────────────────────────────────────────── */
+/*  -  -  -  Hologram scanline  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 function ScanLine({ color }: { color: string }) {
   return (
     <motion.div
@@ -97,7 +97,7 @@ function ScanLine({ color }: { color: string }) {
   );
 }
 
-/* ─── Corner Bracket ──────────────────────────────────────────────── */
+/*  -  -  -  Corner Bracket  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 function CornerBracket({ color, position }: { color: string; position: 'tl' | 'tr' | 'bl' | 'br' }) {
   const styles: Record<string, React.CSSProperties> = {
     tl: { top: 16, left: 16, borderTop: `2px solid ${color}`, borderLeft: `2px solid ${color}` },
@@ -110,7 +110,7 @@ function CornerBracket({ color, position }: { color: string; position: 'tl' | 't
   );
 }
 
-/* ─── Main ServiceHero ────────────────────────────────────────────── */
+/*  -  -  -  Main ServiceHero  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 export default function ServiceHero({
   title,
   subtitle,

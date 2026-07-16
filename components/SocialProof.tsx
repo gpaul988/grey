@@ -78,7 +78,7 @@ export default function SocialProof({page}: {page: string}) {
     );
 }
 
-/* ───────────────────────── Partners carousel ───────────────────────── */
+/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Partners carousel  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 
 function PartnersCarousel({partners}: {partners: Partner[]}) {
     // Duplicate the list so the marquee loops seamlessly.
@@ -147,7 +147,7 @@ function PartnersCarousel({partners}: {partners: Partner[]}) {
                     opacity: 0.6;
                     margin: 0 0 1.75rem;
                 }
-                /* ── desktop marquee ── */
+                /*  -  -  desktop marquee  -  -  */
                 .sp-marquee {
                     position: relative;
                     width: 100%;
@@ -168,7 +168,7 @@ function PartnersCarousel({partners}: {partners: Partner[]}) {
                     from { transform: translateX(0); }
                     to { transform: translateX(-50%); }
                 }
-                /* ── mobile swipe ── */
+                /*  -  -  mobile swipe  -  -  */
                 .sp-swipe {
                     display: none;
                     gap: 1.25rem;
@@ -231,7 +231,7 @@ function PartnersCarousel({partners}: {partners: Partner[]}) {
     );
 }
 
-/* ───────────────────────── Reviews slider ───────────────────────── */
+/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Reviews slider  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
 
 function ReviewsSlider({reviews}: {reviews: Review[]}) {
     const [idx, setIdx] = useState(0);
