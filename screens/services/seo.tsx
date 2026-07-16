@@ -424,96 +424,12 @@ const Seo = () => {
 
             {/* Introductory section (futuristic style) */}
 
-            {/* ===== SEO Audit Tool (client-side) ===== */}
+            {/* Instant SEO Audit moved to the central Audit screen. Visit the Audit page for the fully-featured, instant SEO console. */}
             <section className={`relative py-12 px-6 ${isDayTime ? 'bg-white' : 'bg-black'}`}>
-              <div className="max-w-4xl mx-auto">
-                <FxReveal>
-                  <h3 className="text-2xl font-bold mb-4">Instant SEO Audit</h3>
-                </FxReveal>
-                <p className="text-sm text-gray-500 mb-6">Enter a URL on this site (or a CORS-enabled external URL) to run a quick audit of core SEO signals (title, meta description, H1, canonical, robots, images without alt).</p>
-
-                <div className="flex gap-3 mb-4">
-                  <input
-                    type="text"
-                    placeholder="/path-or-full-url (e.g. /services/web-development or https://example.com)"
-                    value={_auditUrl}
-                    onChange={(e) => setAuditUrl(e.target.value)}
-                    className="flex-1 px-4 py-2 rounded border"
-                  />
-                  <button
-                    onClick={() => runAudit(_auditUrl)}
-                    disabled={loading}
-                    className={`px-4 py-2 rounded font-semibold ${loading ? 'bg-gray-400' : 'bg-teal-500 text-white'}`}
-                  >
-                    {loading ? 'Running…' : 'Run Audit'}
-                  </button>
-                </div>
-
-                {error && (
-                  <div className="text-sm text-red-600 mb-4">{error}</div>
-                )}
-
-                {result && (
-                  <div className="grid lg:grid-cols-3 gap-4 mt-6">
-                    <div className="p-4 rounded border">
-                      <div className="text-xs text-gray-500">URL</div>
-                      <div className="font-mono break-all">{result.url}</div>
-                      <div className="mt-3 text-xs text-gray-500">Status</div>
-                      <div>{result.status}</div>
-                      <div className="mt-3 text-xs text-gray-500">Score</div>
-                      <div className="font-semibold">{result.score}/100</div>
-                    </div>
-
-                    <div className="p-4 rounded border lg:col-span-2">
-                      <div className="grid gap-3">
-                        <div>
-                          <div className="text-xs text-gray-500">Title</div>
-                          <div className={`font-medium ${!result.title ? 'text-red-600' : ''}`}>{result.title || 'Missing'}</div>
-                        </div>
-
-                        <div>
-                          <div className="text-xs text-gray-500">Meta description</div>
-                          <div className={`font-medium ${!result.metaDescription ? 'text-red-600' : ''}`}>{result.metaDescription || 'Missing'}</div>
-                        </div>
-
-                        <div>
-                          <div className="text-xs text-gray-500">H1(s)</div>
-                          <div className="font-medium">{result.h1s.length ? result.h1s.join(' • ') : 'None found'}</div>
-                        </div>
-
-                        <div>
-                          <div className="text-xs text-gray-500">Canonical</div>
-                          <div className="font-medium">{result.canonical || 'Not set'}</div>
-                        </div>
-
-                        <div>
-                          <div className="text-xs text-gray-500">Robots</div>
-                          <div className="font-medium">{result.robots || 'Not specified'}</div>
-                        </div>
-
-                        <div>
-                          <div className="text-xs text-gray-500">Images missing alt (first 10)</div>
-                          <div>
-                            {result.imagesMissingAlt && result.imagesMissingAlt.length ? (
-                              <ul className="list-disc pl-5 text-sm">
-                                {result.imagesMissingAlt.slice(0,10).map((img:any, i:number)=> (
-                                  <li key={i}><code className="font-mono">{img.src || '(no src)'}</code></li>
-                                ))}
-                              </ul>
-                            ) : <div className="text-sm">None</div>}
-                          </div>
-                        </div>
-
-                        <div>
-                          <div className="text-xs text-gray-500">Links</div>
-                          <div className="text-sm">Total: {result.linksCount} — Internal: {result.internalLinksCount} — External: {result.externalLinksCount}</div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>
-                )}
-
+              <div className="max-w-4xl mx-auto text-center">
+                <h3 className="text-2xl font-bold mb-4">Instant SEO Audit (moved)</h3>
+                <p className="text-sm text-gray-500 mb-4">This quick-audit console has been moved to the site-wide Audit tool for a more powerful, secure, and consistent experience.</p>
+                <a href="/audit" className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-teal-400 to-indigo-500 text-black font-semibold">Open Audit Console →</a>
               </div>
             </section>
             <section
