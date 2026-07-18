@@ -1375,7 +1375,7 @@ const isDayTime = useIsDayTime();
             </div>
 
             {/* Last image*/}
-            <div id={'last-image'} className={'lg:-mt-[10em] h-auto max-w-full w-full mx-auto'}>
+            <div id={'last-image'} className={'h-auto max-w-full w-full mx-auto'}>
                 <Image
                     className={' object-fill'}
                     src={'/assets/back/last.jpg'}
