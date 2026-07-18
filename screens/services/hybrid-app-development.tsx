@@ -289,7 +289,7 @@ const HybridAppDevelopment = () => {    const sectionRef = useRef<HTMLDivElement
                                 ))}
                             </ul>
                         </div>
-                        <div className={'lg:-ml-[8em] md:-ml-[8em] lg:mb-[32em] md:mb-[32em]'}>
+                        <div className={'lg:-ml-[8em] md:-ml-[8em] lg:mb-[8em] md:mb-[8em]'}>
                             <div className="grid lg:grid-cols-[50px_auto] grid-cols-1 lg:gap-2 gap1 items-start">
                                 <div
                                     className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>01/

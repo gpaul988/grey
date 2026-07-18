@@ -358,7 +358,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                 ))}
                             </ul>
                         </div>
-                        <div className={'lg:-ml-[8em] md:-ml-[8em] lg:mb-[10em] md:mb-[19em]'}>
+                        <div className={'lg:-ml-[8em] md:-ml-[8em] lg:mb-[6em] md:mb-[6em]'}>
                             <div className="grid lg:grid-cols-[50px_auto] grid-cols-1 lg:gap-2 gap1 items-start">
                                 <div
                                     className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>01/
@@ -893,7 +893,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                             <div className={'lg:mr-28 md:mr-28 lg:mb-[9em] md:mb-[9em]'}>
 
                                 {/* Initial Meeting */}
-                                <div className={`lg:mb-[15em] md:mb-[15em] mb-14`} id={'Initial Meeting'}>
+                                <div className={`lg:mb-[6em] md:mb-[6em] mb-14`} id={'Initial Meeting'}>
                                     <h2 className={`text-[1.5em] font-[500] mb-3`}>Initial Meeting</h2>
                                     <div
                                         className={`flex flex-wrap gap-3 mb-3 text-[0.8em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
@@ -919,7 +919,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                 </div>
 
                                 {/* Workshops */}
-                                <div className={`lg:mb-[15em] md:mb-[15em] mb-14`} id={'Workshops'}>
+                                <div className={`lg:mb-[6em] md:mb-[6em] mb-14`} id={'Workshops'}>
                                     <h2 className={`text-[1.5em] font-[500] mb-3`}>Workshops</h2>
                                     <div
                                         className={`flex flex-wrap gap-3 mb-3 text-[0.8em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
@@ -944,7 +944,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                 </div>
 
                                 {/* Follow-up Meetings */}
-                                <div className={`lg:mb-[15em] md:mb-[15em] mb-14`} id={'Follow-up Meetings'}>
+                                <div className={`lg:mb-[6em] md:mb-[6em] mb-14`} id={'Follow-up Meetings'}>
                                     <h2 className={`text-[1.5em] font-[500] mb-3`}>Follow-up Meetings</h2>
                                     <div
                                         className={`flex flex-wrap gap-3 mb-3 text-[0.8em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
@@ -968,7 +968,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                 </div>
 
                                 {/* Write-up & Presentation */}
-                                <div className={`lg:mb-[15em] md:mb-[15em] mb-14`} id={'Write-up & Presentation'}>
+                                <div className={`lg:mb-[6em] md:mb-[6em] mb-14`} id={'Write-up & Presentation'}>
                                     <h2 className={`text-[1.5em] font-[500] mb-3`}>Write-up & Presentation</h2>
                                     <div
                                         className={`flex flex-wrap gap-3 mb-3 text-[0.8em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
