@@ -416,7 +416,7 @@ const AiDevelopmentServices = () => {    const [isVisible, setIsVisible] = useSt
             </div>
 
             {/* Mid image*/}
-            <div id={'mid image'} className={'-mt-[30em] h-auto max-w-full w-full mx-auto'}>
+            <div id={'mid image'} className={'h-auto max-w-full w-full mx-auto'}>
                 <Image
                     className={' object-fill'}
                     src={'/assets/ads/mid.jpg'}

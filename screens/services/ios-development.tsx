@@ -342,7 +342,7 @@ const IosDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
             </div>
 
             {/* Mid image*/}
-            <div id={'mid image'} className={'lg:-mt-[32em] md:-mt-[32em] h-auto max-w-full w-full mx-auto'}>
+            <div id={'mid image'} className={'h-auto max-w-full w-full mx-auto'}>
                 <Image
                     className={' object-fill'}
                     src={'/assets/ios/mid.jpg'}
