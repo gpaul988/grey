@@ -174,7 +174,7 @@ export default async function RootLayout({
             />
         </head>
         <body
-            className={`${merriweather.variable} ${roboto.variable} antialiased`}
+            className={`${merriweather.variable} ${roboto.variable} antialiased min-h-screen flex flex-col`}
         >
         <ThemeProvider>
         {/* First-load boot sequence  - shows once per session */}
@@ -199,7 +199,7 @@ export default async function RootLayout({
         <Header/>
 
         {/* semantic <main> landmark + id target for skip link */}
-        <main id="main-content">{children}</main>
+        <main id="main-content" className="flex-1">{children}</main>
 
         <Footer/>
 
