@@ -1080,7 +1080,7 @@ const isDayTime = useIsDayTime();
             </div>
 
             {/* Mid image*/}
-            <div id={'mid image'} className={'lg:-mt-[3em] h-auto max-w-full w-full mx-auto'}>
+            <div id={'mid image'} className={'h-auto max-w-full w-full mx-auto'}>
                 <Image
                     className={' object-fill'}
                     src={'/assets/back/meet.jpg'}

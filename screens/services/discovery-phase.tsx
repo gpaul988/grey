@@ -669,7 +669,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
             </div>
 
             {/* Mid image*/}
-            <div id={'mid image'} className={'lg:-mt-[27em] md:-mt-[27em] h-auto max-w-full w-full mx-auto'}>
+            <div id={'mid image'} className={'h-auto max-w-full w-full mx-auto'}>
                 <Image
                     className={' object-fill'}
                     src={'/assets/disc/mid.jpg'}

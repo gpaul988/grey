@@ -663,7 +663,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
             </div>
 
             {/* Mid image*/}
-            <div id={'mid image'} className={'lg:-mt-[20em] h-auto max-w-full w-full mx-auto'}>
+            <div id={'mid image'} className={'h-auto max-w-full w-full mx-auto'}>
                 <Image
                     className={' object-fill'}
                     src={'/assets/unity/ani.jpg'}
