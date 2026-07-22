@@ -19,7 +19,7 @@ const BlockchainDevelopment = () => (
         eyebrow={<>Decentralised systems <br className={'lg:block md:block hidden'}/>built for trust and scale</>}
         introHeading={<>Demystifying Blockchain <br className={'lg:block md:block hidden'}/>How We Engineer Trust</>}
         introBody={[
-            <>
+            <React.Fragment key="intro-1">
                 Blockchain is reshaping how value, data and ownership move across the internet, yet most
                 organisations struggle to move beyond proofs of concept into production. At Grey InfoTech we
                 bridge that gap. We help businesses cut through the hype and design decentralised architectures
@@ -30,8 +30,8 @@ const BlockchainDevelopment = () => (
                 can rely on. Our delivery model pairs blockchain specialists with senior product engineers, so
                 what we build is not an isolated experiment but a maintainable part of your wider technology
                 estate.
-            </>,
-            <>
+            </React.Fragment>,
+            <React.Fragment key="intro-2">
                 Our engineers work across leading ecosystems -Ethereum and EVM-compatible chains such as Polygon,
                 Arbitrum and BSC, alongside Solana and permissioned frameworks like Hyperledger Fabric -pairing
                 rigorous smart-contract development with thorough security review. We treat audits, gas
@@ -40,7 +40,7 @@ const BlockchainDevelopment = () => (
                 touches mainnet, and we design clear upgrade and governance paths so your protocol can evolve
                 safely. The result is decentralised software that is not only innovative but safe, cost-efficient
                 and ready to scale with your business and your community.
-            </>,
+            </React.Fragment>,
         ]}
         solutionsHeading={<>Blockchain <br className={'lg:block md:block hidden'}/>Development <br
             className={'lg:block md:block hidden'}/>Solutions</>}
