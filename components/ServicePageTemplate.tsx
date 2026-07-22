@@ -627,13 +627,31 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                 </section>
             )}
 
-            {/* Technologies / Tools - compact */}
-            <div className={`py-10 ${isDayTime ? 'bg-white' : 'bg-transparent'}`}>
+            {/* Technologies / Tools - compact (detailed, futuristic) */}
+            <section className={`py-10 ${isDayTime ? 'bg-white' : 'bg-transparent'}`}>
                 <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-[4.5em]">
-                    <h2 className={`text-2xl font-bold ${isDayTime ? 'text-black' : 'text-white'}`}>Technologies We
-                        Use</h2>
+                    <h2 className={`font-extrabold mb-4 ${isDayTime ? 'text-gray-900' : 'text-white'} text-3xl md:text-4xl lg:text-[4.5em] leading-tight`}>Technologies &amp; Tooling</h2>
+                    <p className={`mb-6 ${isDayTime ? 'text-gray-700' : 'text-white/70'} text-sm max-w-3xl`}>Production-ready, security-first stacks and operational primitives used to architect decentralised systems, private compute and resilient on-chain/off-chain integrations.</p>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                        {[
+                            {id: 't1', title: 'Protocol & Layer-2', desc: 'EVM, Solana, optimistic and zk rollups, sequencers and canonical proofs.'},
+                            {id: 't2', title: 'Smart Contract Tooling', desc: 'Solidity, Rust, Move — Hardhat, Foundry, Viem; formal verification & static analysis.'},
+                            {id: 't3', title: 'Privacy & Zero Knowledge', desc: 'zkSNARKs/zk-STARKs, ZKVMs, private state channels and confidential compute.'},
+                            {id: 't4', title: 'Indexing & Data', desc: 'The Graph, custom indexers, verifiable off-chain storage and signed attestations.'},
+                            {id: 't5', title: 'Wallets & UX', desc: 'Account abstraction, WalletConnect, MetaMask, gasless flows and developer SDKs.'},
+                            {id: 't6', title: 'Infrastructure & Ops', desc: 'Infra-as-code, validator/node fleets, monitoring, MEV protection and chaos-tested deployments.'},
+                            {id: 't7', title: 'Oracles & Bridges', desc: 'Secure oracle networks, canonical message relayers and cross-chain composability.'},
+                            {id: 't8', title: 'Security & Assurance', desc: 'Comprehensive testing, fuzzing, invariant checks, audits and continuous security pipelines.'},
+                        ].map(t => (
+                            <div key={t.id} className={`p-3 rounded-lg border ${isDayTime ? 'border-gray-200 bg-white/70' : 'border-white/6 bg-white/[0.03]'} `}>
+                                <h4 className={`text-sm font-semibold ${isDayTime ? 'text-gray-900' : 'text-white'}`}>{t.title}</h4>
+                                <p className={`mt-1 text-xs ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>{t.desc}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            </div>
+            </section>
 
             {/* Optional vertical solutions */}
             {verticalSolutions && verticalSolutions.length > 0 && (
