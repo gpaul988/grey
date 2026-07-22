@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
+
 import React, {useEffect, useState, useRef, type ReactNode} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import CountUp from 'react-countup';
-import {AnimatePresence, motion, useScroll, useTransform} from 'framer-motion';
-import {AiFillCaretUp, AiFillCaretDown} from 'react-icons/ai';
+import {AnimatePresence, motion} from 'framer-motion';
 
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import FuturisticDevelopmentProcess from '@/components/FuturisticDevelopmentProcess';
@@ -25,50 +25,56 @@ import {
     FxTerminal,
 } from '@/components/futuristic/fx';
 
-//  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
-// INTERFACES
-//  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
+// Interfaces
 export interface SolutionItem {
     id: string;
     title: string;
     target: string;
     tags: string[];
-    body: ReactNode;
+    body: ReactNode
 }
 
 export interface StatItem {
     label: string;
     value: number;
-    suffix?: string;
+    suffix?: string
 }
 
 export interface HeroStat {
     label: string;
-    value: string;
+    value: string
 }
 
 export interface Testimonial {
     name: string;
     title: string;
-    message: ReactNode;
+    message: ReactNode
 }
 
 export interface PricePlan {
     name: string;
     monthlyGBP: number | null;
     yearlyGBP: number | null;
-    bullets: string[];
+    bullets: string[]
 }
 
 export interface ServicePricingData {
-    plans: PricePlan[];
+    plans: PricePlan[]
 }
 
 export interface ReasonItem {
     id: number;
     title: string;
     description: ReactNode;
-    image: string;
+    image: string
+}
+
+export interface IntroMetric {
+    id?: string | number;
+    label: string;
+    value: string;
+    description?: ReactNode;
+    details?: string[]
 }
 
 export interface ServicePageProps {
@@ -81,9 +87,9 @@ export interface ServicePageProps {
     topImages?: string[];
     midImage?: string;
     eyebrow: ReactNode;
-    introHeading: ReactNode;
-    introBody: [ReactNode, ReactNode];
-    solutionsHeading: ReactNode;
+    introHeading?: ReactNode;
+    introBody?: [ReactNode, ReactNode];
+    solutionsHeading?: ReactNode;
     solutionsIntro?: ReactNode;
     solutions: SolutionItem[];
     reasons?: ReasonItem[];
@@ -92,15 +98,18 @@ export interface ServicePageProps {
     ctaBody?: ReactNode;
     stats?: StatItem[];
     testimonials?: Testimonial[];
-    // New: whether to show the currency-aware pricing section (default true)
     showPricing?: boolean;
-    // Service type for pricing (e.g., 'digital-marketing', 'web-development')
     serviceType?: string;
-    // New: vertical solutions accordion props
     verticalSolutions?: Array<{ id: string | number; title: string; description: string }>;
     verticalSolutionsTitle?: string;
     verticalSolutionsSubtitle?: string;
     verticalSolutionsEyebrow?: string;
+    // Optional intro pill labels shown under intro paragraphs (per-page)
+    introPills?: string[];
+    // Optional structured, professional metrics shown in the intro (per-page)
+    introMetrics?: IntroMetric[];
+    // Explicit list of deliverables to display in the intro (per-page)
+    introDeliverables?: string[];
 }
 
 const defaultStats: StatItem[] = [
@@ -117,402 +126,56 @@ const defaultHeroStats: HeroStat[] = [
     {label: 'Products Launched', value: '123+'},
 ];
 
-// Why-Us card colour palette  - same visual logic as Home.tsx WHY_US
-const CARD_COLORS = ['#2dd4bf', '#06b6d4', '#7c3aed', '#f59e0b', '#10b981', '#ef4444'];
-const CARD_ICONS = [' - ', ' - ', ' - ', ' - ', '⬡', '⬢'];
-
-//  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
-// SERVICE-SPECIFIC PRICING DATA
-//  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
+// Minimal pricing dataset used by CurrencyAwarePricing (kept small here)
 const SERVICE_PRICING: Record<string, ServicePricingData> = {
-    'digital-marketing': {
-        plans: [
-            {
-                name: 'Starter Campaign',
-                monthlyGBP: 200,
-                yearlyGBP: 2040,
-                bullets: [
-                    'Monthly strategy consultation',
-                    '3-4 PPC campaigns (Google & Meta)',
-                    'Basic conversion tracking setup',
-                    '20 hours monthly optimization',
-                    'Weekly performance reports',
-                    'Social media ads (2 platforms)',
-                    'Email campaign integration',
-                    'A/B testing on 3 campaigns',
-                ]
-            },
-            {
-                name: 'Growth Strategy',
-                monthlyGBP: 350,
-                yearlyGBP: 3570,
-                bullets: [
-                    'Full-funnel digital strategy',
-                    'Multichannel campaigns (5+ channels)',
-                    'Advanced analytics & ML-powered insights',
-                    '60 hours monthly optimization',
-                    'Daily campaign monitoring & adjustments',
-                    'Dedicated account manager',
-                    'Landing page optimization',
-                    'CRM integration & automation',
-                    'Monthly executive reporting',
-                ]
-            },
-            {
-                name: 'Enterprise Solution',
-                monthlyGBP: null,
-                yearlyGBP: null,
-                bullets: [
-                    'Dedicated marketing team',
-                    'Custom platform integrations',
-                    'Real-time campaign orchestration',
-                    'SLA-backed 99.9% uptime guarantee',
-                    'Executive quarterly reporting',
-                    'Unlimited campaign variations',
-                    'Predictive analytics & forecasting',
-                    'Priority technical support 24/7',
-                    'Custom training & workshops',
-                ]
-            }
-        ]
-    },
-    'web-development': {
-        plans: [
-            {
-                name: 'Website Starter',
-                monthlyGBP: 1250,
-                yearlyGBP: 12750,
-                bullets: [
-                    'Up to 8 responsive pages',
-                    'Mobile & tablet optimized',
-                    'Content management system (CMS)',
-                    'Basic SEO optimization',
-                    'SSL certificate included',
-                    '12 months hosting included',
-                    'Email integration setup',
-                    'Performance optimization',
-                ]
-            },
-            {
-                name: 'Web Application Pro',
-                monthlyGBP: 5550,
-                yearlyGBP: 56610,
-                bullets: [
-                    'Full-stack web application',
-                    'Custom database architecture',
-                    'User authentication & authorization',
-                    'Advanced API development',
-                    'Real-time features & notifications',
-                    'Admin dashboard included',
-                    'Payment gateway integration',
-                    'Performance monitoring & analytics',
-                    '24 hours of support per month',
-                ]
-            },
-            {
-                name: 'Enterprise Platform',
-                monthlyGBP: null,
-                yearlyGBP: null,
-                bullets: [
-                    'Large-scale web platform',
-                    'Microservices architecture',
-                    'Global CDN deployment',
-                    'Advanced security (penetration testing)',
-                    'Dedicated DevOps engineer',
-                    'Unlimited API endpoints',
-                    'Priority support & SLA',
-                    'Scalability to millions of users',
-                    'Custom compliance requirements',
-                ]
-            }
-        ]
-    },
-    'mobile-application': {
-        plans: [
-            {
-                name: 'Native Starter',
-                monthlyGBP: 2150,
-                yearlyGBP: 21930,
-                bullets: [
-                    'Single platform (iOS or Android)',
-                    'Up to 8 core features',
-                    'Basic app store optimization',
-                    'Push notification system',
-                    'User authentication setup',
-                    'Third-party API integration',
-                    '6 months maintenance included',
-                    'Analytics integration',
-                ]
-            },
-            {
-                name: 'Cross-Platform Pro',
-                monthlyGBP: 10800,
-                yearlyGBP: 110160,
-                bullets: [
-                    'iOS + Android development',
-                    '100% code sharing capability',
-                    'Advanced UI/UX design',
-                    'Real-time data synchronization',
-                    'Offline mode functionality',
-                    'In-app messaging system',
-                    'App store submission & publishing',
-                    'Monthly feature updates',
-                    '12 months support included',
-                ]
-            },
-            {
-                name: 'Mobile Platform Enterprise',
-                monthlyGBP: null,
-                yearlyGBP: null,
-                bullets: [
-                    'Multi-platform deployment (iOS, Android, Web)',
-                    'Advanced machine learning integration',
-                    'Blockchain/Web3 capabilities',
-                    'White-label distribution options',
-                    'Enterprise-grade security',
-                    'Dedicated development team (4-6 devs)',
-                    'Custom backend infrastructure',
-                    'Priority app store support',
-                    '24/7 technical assistance',
-                ]
-            }
-        ]
-    },
-    'ui-ux-design': {
-        plans: [
-            {
-                name: 'Design Essentials',
-                monthlyGBP: 850,
-                yearlyGBP: 8670,
-                bullets: [
-                    'User research & personas',
-                    'Wireframing (up to 15 screens)',
-                    'Visual design systems',
-                    'Mobile & desktop mockups',
-                    'Prototype with interactions',
-                    'Design handoff documentation',
-                    'One round of revisions',
-                    'Design file access (Figma)',
-                ]
-            },
-            {
-                name: 'Design Professional',
-                monthlyGBP: 4100,
-                yearlyGBP: 41820,
-                bullets: [
-                    'Complete design discovery',
-                    'Detailed user journey mapping',
-                    'Full design system creation',
-                    'Accessibility audit (WCAG 2.1)',
-                    'Animation & interaction design',
-                    'Responsive design for all breakpoints',
-                    'Design-to-code implementation',
-                    '3 rounds of revisions',
-                    'Quarterly design audits',
-                ]
-            },
-            {
-                name: 'Design Studio Enterprise',
-                monthlyGBP: null,
-                yearlyGBP: null,
-                bullets: [
-                    'Dedicated design team (2-3 designers)',
-                    'Continuous design evolution',
-                    'Advanced UX research & testing',
-                    'Conversion optimization consulting',
-                    'Multivariate A/B testing',
-                    'Design accessibility certification',
-                    'Custom animation library development',
-                    'Unlimited revisions & iterations',
-                    'Quarterly strategy reviews',
-                ]
-            }
-        ]
-    },
-    'seo': {
-        plans: [
-            {
-                name: 'SEO Foundation',
-                monthlyGBP: 400,
-                yearlyGBP: 4080,
-                bullets: [
-                    'Technical SEO audit',
-                    'Keyword research & targeting',
-                    'On-page optimization (5-8 pages)',
-                    'Meta tags & structured data',
-                    'Basic link building (5 links/month)',
-                    'Monthly performance reports',
-                    'Search Console monitoring',
-                    'Mobile usability optimization',
-                ]
-            },
-            {
-                name: 'SEO Growth',
-                monthlyGBP: 2400,
-                yearlyGBP: 24480,
-                bullets: [
-                    'Comprehensive site audit',
-                    'Competitor analysis & benchmarking',
-                    'Content strategy (2-3 pieces/month)',
-                    'On-page optimization (unlimited)',
-                    'Advanced link building program',
-                    'Local SEO optimization',
-                    'Schema markup implementation',
-                    'Weekly progress tracking',
-                    'Dedicated SEO specialist',
-                ]
-            },
-            {
-                name: 'Enterprise SEO',
-                monthlyGBP: null,
-                yearlyGBP: null,
-                bullets: [
-                    'Full-scale SEO transformation',
-                    'International SEO strategy',
-                    'Content creation (unlimited)',
-                    'Advanced technical SEO',
-                    'Proprietary ranking tools access',
-                    'Enterprise link building network',
-                    'Algorithm update response team',
-                    'Executive monthly reporting',
-                    'Dedicated account team',
-                ]
-            }
-        ]
-    },
-    'e-commerce-development': {
-        plans: [
-            {
-                name: 'Starter Store',
-                monthlyGBP: 1200,
-                yearlyGBP: 12240,
-                bullets: [
-                    'Shopify/WooCommerce setup',
-                    'Up to 100 products',
-                    'Payment gateway integration',
-                    'Basic inventory management',
-                    'Email notification setup',
-                    'Mobile-responsive design',
-                    'Basic analytics dashboard',
-                    '6 months technical support',
-                ]
-            },
-            {
-                name: 'Professional Store',
-                monthlyGBP: 4500,
-                yearlyGBP: 45900,
-                bullets: [
-                    'Custom e-commerce platform',
-                    'Unlimited products & variants',
-                    'Multiple payment methods',
-                    'Advanced inventory automation',
-                    'Customer loyalty program',
-                    'Marketing automation integration',
-                    'Advanced reporting & analytics',
-                    'Conversion rate optimization',
-                    'Monthly maintenance & updates',
-                ]
-            },
-            {
-                name: 'Enterprise Marketplace',
-                monthlyGBP: null,
-                yearlyGBP: null,
-                bullets: [
-                    'Custom multi-vendor platform',
-                    'Advanced marketplace features',
-                    'Real-time inventory sync',
-                    'Sophisticated pricing engine',
-                    'Multi-currency/language support',
-                    'Advanced fraud detection',
-                    'Dedicated infrastructure',
-                    'White-label capabilities',
-                    '24/7 support team',
-                ]
-            }
-        ]
-    },
-    'default': {
+    default: {
         plans: [
             {
                 name: 'Professional Starter',
                 monthlyGBP: 2000,
                 yearlyGBP: 22000,
-                bullets: [
-                    'Initial project setup & architecture',
-                    'Team onboarding & kickoff',
-                    '80 hours of development',
-                    'Bi-weekly progress meetings',
-                    'Agile sprint planning',
-                    'Quality assurance & testing',
-                    'Documentation & handoff',
-                    'First 3 months support included',
-                ]
+                bullets: ['Initial project setup', 'Team onboarding', '80 hours development']
             },
             {
                 name: 'Professional Growth',
                 monthlyGBP: 6000,
                 yearlyGBP: 66000,
-                bullets: [
-                    'Dedicated development team',
-                    '240 hours monthly development',
-                    'Weekly strategy sessions',
-                    'Advanced architecture design',
-                    'Continuous integration/deployment',
-                    'Performance optimization',
-                    'Security audits & hardening',
-                    'Unlimited scope flexibility',
-                    'Priority bug resolution',
-                ]
+                bullets: ['Dedicated team', 'Advanced architecture', 'Continuous delivery']
             },
             {
                 name: 'Enterprise Custom',
                 monthlyGBP: null,
                 yearlyGBP: null,
-                bullets: [
-                    'Dedicated development team (5-8)',
-                    'Custom SLA agreements',
-                    'Unlimited development hours',
-                    'Executive quarterly reviews',
-                    'Advanced technology implementation',
-                    'Team training & certification',
-                    '24/7 technical support',
-                    'Innovation consulting included',
-                    'Dedicated project manager',
-                ]
-            }
+                bullets: ['Full SLA', 'Dedicated engineers', 'Custom integrations']
+            },
         ]
     }
 };
 
-//  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
-// COMPONENT
-//  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
-// Currency-aware Pricing component with Monthly/Yearly toggle
+// Currency-aware Pricing component (keeps network call in useEffect so SSR-safe)
 export const CurrencyAwarePricing: React.FC<{
     defaultCurrency?: string;
     serviceType?: string
-}> = ({defaultCurrency = 'NGN', serviceType = 'default'}) => {
+}> = ({defaultCurrency = 'GBP', serviceType = 'default'}) => {
     const isDayTimeLocal = useIsDayTime();
-    const [rates, setRates] = React.useState<Record<string, number> | null>(null);
-    const [loading, setLoading] = React.useState(true);
-    const [currency, setCurrency] = React.useState<string>(defaultCurrency || 'NGN');
-    const [billingCycle, setBillingCycle] = React.useState<'monthly' | 'yearly'>('monthly');
+    const [rates, setRates] = useState<Record<string, number> | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [currency, setCurrency] = useState<string>(defaultCurrency || 'GBP');
+    const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
 
-    const basePlans = SERVICE_PRICING[serviceType] || SERVICE_PRICING['default'];
-
-    React.useEffect(() => {
+    useEffect(() => {
         let mounted = true;
 
         async function fetchRates() {
             try {
                 setLoading(true);
-                const res = await fetch('/api/exchange');
-                const json = await res.json();
+                const res = await fetch('/api/exchange').catch(() => null);
+                if (!res) return;
+                const json = await res.json().catch(() => null);
                 if (mounted && json && json.rates) setRates(json.rates as Record<string, number>);
-            } catch (e) {
-                console.error('Failed to fetch currency rates', e);
+            } catch (e) { /* silent */
             } finally {
-                if (mounted) setLoading(false);
+                if (mounted) setLoading(false)
             }
         }
 
@@ -520,198 +183,73 @@ export const CurrencyAwarePricing: React.FC<{
         const iv = setInterval(fetchRates, 10 * 60 * 1000);
         return () => {
             mounted = false;
-            clearInterval(iv);
+            clearInterval(iv)
         };
     }, []);
 
     const format = (amountGBP: number | null, to: string) => {
         if (amountGBP === null) return 'Custom pricing';
         if (!rates) return ' -';
-        const rate = (to === 'GBP') ? 1 : rates[to];
+        const rate = to === 'GBP' ? 1 : rates[to];
         if (!rate) return ' -';
         const converted = amountGBP * rate;
         try {
-            const locale = to === 'GBP' ? 'en-GB' : to === 'NGN' ? 'en-NG' : (to === 'USD' ? 'en-US' : 'en-IE');
-            return new Intl.NumberFormat(locale, {style: 'currency', currency: to}).format(converted);
+            return new Intl.NumberFormat('en-GB', {style: 'currency', currency: to}).format(converted)
         } catch (e) {
-            return `${to} ${converted.toFixed(0)}`;
+            return `${to} ${Math.round(converted)}`
         }
-    };
+    }
 
-    const getCurrentPrice = (plan: PricePlan) => {
-        if (billingCycle === 'monthly') {
-            return plan.monthlyGBP;
-        } else {
-            return plan.yearlyGBP;
-        }
-    };
+    const basePlans = SERVICE_PRICING[serviceType || 'default'] ?? SERVICE_PRICING.default;
 
     return (
-        <section suppressHydrationWarning className="py-24">
-            <div className="max-w-[90em] mx-auto px-6 sm:px-10 lg:px-[4.6em]">
-                <div className="mb-12">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-                        <div>
-                            <h3 className={`text-[2.2em] font-[800] mb-2 ${isDayTimeLocal ? 'text-gray-900' : 'text-white'}`}>
-                                Transparent Pricing
-                            </h3>
-                            <p className={`text-base ${isDayTimeLocal ? 'text-gray-600' : 'text-white/60'}`}>
-                                Choose the plan that fits your needs. All plans include comprehensive support and
-                                regular updates.
-                            </p>
-                        </div>
-
-                        <div className="flex flex-col sm:flex-row gap-4 items-start md:items-center">
-                            {/* Billing Toggle */}
-                            <div
-                                className={`px-2 py-1 rounded-full flex items-center gap-1 ${isDayTimeLocal ? 'bg-gray-100 border border-gray-300' : 'bg-white/10 border border-white/20'}`}>
-                                <button
-                                    onClick={() => setBillingCycle('monthly')}
-                                    className={`px-4 py-2 rounded-full font-[600] transition-all ${billingCycle === 'monthly'
-                                        ? isDayTimeLocal
-                                            ? 'bg-teal-500 text-white'
-                                            : 'bg-[#00f5d4] text-black'
-                                        : isDayTimeLocal
-                                            ? 'text-gray-600 hover:text-gray-900'
-                                            : 'text-white/60 hover:text-white'}`}
-                                >
-                                    Monthly
-                                </button>
-                                <button
-                                    onClick={() => setBillingCycle('yearly')}
-                                    className={`px-4 py-2 rounded-full font-[600] transition-all ${billingCycle === 'yearly'
-                                        ? isDayTimeLocal
-                                            ? 'bg-teal-500 text-white'
-                                            : 'bg-[#00f5d4] text-black'
-                                        : isDayTimeLocal
-                                            ? 'text-gray-600 hover:text-gray-900'
-                                            : 'text-white/60 hover:text-white'}`}
-                                >
-                                    Yearly
-                                    <span
-                                        className={`ml-1 text-xs font-[800] ${isDayTimeLocal ? 'text-teal-600' : 'text-cyan-400'}`}>
-                                        Save 15%
-                                    </span>
-                                </button>
-                            </div>
-
-                            {/* Currency Selector */}
-                            <div className="flex items-center gap-3">
-                                <label
-                                    className={`text-sm font-[600] ${isDayTimeLocal ? 'text-gray-600' : 'text-white/60'}`}>
-                                    Currency
-                                </label>
-                                <select
-                                    value={currency}
-                                    onChange={(e) => setCurrency(e.target.value)}
-                                    className={`px-3 py-2 rounded-lg border font-[600] transition-all ${isDayTimeLocal
-                                        ? 'bg-white/5 border-gray-300 text-gray-900 hover:bg-gray-50'
-                                        : 'bg-white/10 border-white/20 text-white hover:bg-white/20'}`}
-                                >
-                                    <option value="GBP">GBP (£)</option>
-                                    <option value="NGN">NGN (₦)</option>
-                                    <option value="USD">USD ($)</option>
-                                    <option value="EUR">EUR (€)</option>
-                                </select>
-                            </div>
-                        </div>
+        <section suppressHydrationWarning className="py-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex items-center justify-between mb-8">
+                    <div>
+                        <h3 className={`text-2xl font-bold ${isDayTimeLocal ? 'text-gray-900' : 'text-white'}`}>Transparent
+                            Pricing</h3>
+                        <p className={`text-sm ${isDayTimeLocal ? 'text-gray-600' : 'text-white/80'}`}>Clear plans,
+                            clear outcomes.</p>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <select value={currency} onChange={(e) => setCurrency(e.target.value)}
+                                className="px-3 py-2 rounded-md">
+                            <option value="GBP">GBP (£)</option>
+                            <option value="USD">USD ($)</option>
+                            <option value="EUR">EUR (€)</option>
+                        </select>
                     </div>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-8">
-                    {basePlans.plans.map((p: PricePlan, idx: number) => {
-                        const price = getCurrentPrice(p);
-                        const isPopular = idx === 1;
-
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {basePlans.plans.map((p) => {
+                        const price = billingCycle === 'monthly' ? p.monthlyGBP : p.yearlyGBP;
                         return (
-                            <div key={p.name} className="relative">
-                                {isPopular && (
-                                    <div
-                                        className={`absolute -top-4 left-1/2 transform -translate-x-1/2 px-4 py-1 rounded-full text-xs font-[800] ${isDayTimeLocal
-                                            ? 'bg-teal-500 text-white'
-                                            : 'bg-[#00f5d4] text-black'}`}>
-                                        MOST POPULAR
-                                    </div>
+                            <FxHoloCard key={p.name} day={isDayTimeLocal} className="p-6">
+                                <div className="mb-4 font-bold text-lg">{p.name}</div>
+                                <div className="text-3xl font-extrabold mb-2">{format(price ?? null, currency)}</div>
+                                <div
+                                    className="text-sm text-gray-500 mb-4">{billingCycle === 'monthly' ? 'per month' : 'per year'}</div>
+                                <ul className="mb-4 space-y-2 text-sm">
+                                    {p.bullets.map(b => <li key={b}>✓ {b}</li>)}
+                                </ul>
+                                {price === null ? (
+                                    <Link href="/quote-request"
+                                          className="inline-block w-full text-center py-2 px-4 rounded-md bg-indigo-600 text-white">Request
+                                        Quote</Link>
+                                ) : (
+                                    <button onClick={() => location.assign('/quote-request')}
+                                            className="inline-block w-full text-center py-2 px-4 rounded-md bg-indigo-600 text-white">Start</button>
                                 )}
-                                <FxHoloCard
-                                    key={p.name}
-                                    day={isDayTimeLocal}
-                                    className={`h-full p-8 text-left relative overflow-hidden transition-all ${isPopular ? 'ring-2 ring-teal-500/50 scale-105 md:scale-100' : ''}`}
-                                >
-                                    <div
-                                        className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-gradient-to-br from-teal-400/20 to-cyan-400/20 blur-3xl animate-blob opacity-70"/>
-                                    <div className="relative z-10">
-                                        <div
-                                            className={`text-xs uppercase font-[800] tracking-widest mb-3 ${isDayTimeLocal ? 'text-teal-600' : 'text-cyan-400'}`}>
-                                            {p.name}
-                                        </div>
-
-                                        <div className="mb-6">
-                                            <div
-                                                className={`text-4xl font-[800] mb-2 ${isDayTimeLocal ? 'text-black' : 'text-white'}`}>
-                                                {format(price, currency)}
-                                            </div>
-                                            <div
-                                                className={`text-sm ${isDayTimeLocal ? 'text-gray-600' : 'text-white/50'}`}>
-                                                {billingCycle === 'monthly' ? 'per month' : 'per year'}{price !== null ? ' • Billed ' + (billingCycle === 'monthly' ? 'monthly' : 'annually') : ''}
-                                            </div>
-                                            {loading && (
-                                                <div
-                                                    className={`text-xs mt-2 ${isDayTimeLocal ? 'text-gray-500' : 'text-white/40'}`}>
-                                                    Fetching live exchange rates…
-                                                </div>
-                                            )}
-                                        </div>
-
-                                        <ul className={`space-y-3 mb-8 ${isDayTimeLocal ? 'text-gray-700' : 'text-white/70'}`}>
-                                            {p.bullets.map((bullet: string) => (
-                                                <li key={bullet} className="flex items-start gap-3">
-                                                    <span
-                                                        className={`text-lg font-[800] mt-0.5 flex-shrink-0 ${isDayTimeLocal ? 'text-teal-500' : 'text-cyan-400'}`}>
-                                                        ✓
-                                                    </span>
-                                                    <span className="text-sm leading-relaxed">{bullet}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-
-                                        {price === null ? (
-                                            <Link href="/quote-request" className="block">
-                                                <button
-                                                    className={`w-full px-6 py-3 rounded-lg font-[700] transition-all ${isDayTimeLocal
-                                                        ? 'bg-gray-900 text-white hover:bg-black'
-                                                        : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'}`}>
-                                                    Get Custom Quote
-                                                </button>
-                                            </Link>
-                                        ) : (
-                                            <button
-                                                onClick={() => window.location.href = '/quote-request?plan=' + encodeURIComponent(p.name) + '&billing=' + billingCycle}
-                                                className={`w-full px-6 py-3 rounded-lg font-[700] transition-all ${isPopular
-                                                    ? `${isDayTimeLocal ? 'bg-teal-500 text-white hover:bg-teal-600' : 'bg-[#00f5d4] text-black hover:bg-[#00f5d4]/90'}`
-                                                    : `${isDayTimeLocal ? 'bg-gray-900 text-white hover:bg-black' : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'}`}`}
-                                            >
-                                                Start Free Trial →
-                                            </button>
-                                        )}
-                                    </div>
-                                </FxHoloCard>
-                            </div>
-                        );
+                            </FxHoloCard>
+                        )
                     })}
-                </div>
-
-                <div
-                    className={`mt-12 p-6 rounded-lg ${isDayTimeLocal ? 'bg-gray-50 border border-gray-200' : 'bg-white/5 border border-white/10'}`}>
-                    <p className={`text-center text-sm ${isDayTimeLocal ? 'text-gray-600' : 'text-white/60'}`}>
-                        All plans include comprehensive support, monthly consultations, and access to our latest tools.
-                        No long-term contracts required. Cancel anytime.
-                    </p>
                 </div>
             </div>
         </section>
-    );
-};
+    )
+}
 
 const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                                              title,
@@ -740,409 +278,78 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                                                              verticalSolutionsTitle,
                                                              verticalSolutionsSubtitle,
                                                              verticalSolutionsEyebrow,
+                                                             introPills,
+                                                             introMetrics,
+                                                             introDeliverables,
                                                          }) => {
-    // Client-side derived defaults: if a page passed generic/missing props, derive meaningful
-    // headings/details from the current path to avoid identical content across pages.
-    const [clientDerivedTitle, setClientDerivedTitle] = useState<ReactNode | null>(null);
-    const [derivedServiceType, setDerivedServiceType] = useState<string>('default');
+    // keep client-only derived behavior within effects
+    const [clientTitle, setClientTitle] = useState<ReactNode | null>(null);
+    const [derivedServiceType, setDerivedServiceType] = useState<string>(serviceType ?? 'default');
+    const isDayTime = useIsDayTime();
+    const [activeId, setActiveId] = useState<string>(solutions?.[0]?.target ?? '');
+
+    // Intro section visibility/overlay control (copied behavior from Web-Design.tsx)
+    const sectionRef = useRef<HTMLDivElement | null>(null);
+    const [isBackgroundActive, setIsBackgroundActive] = useState(false);
 
     useEffect(() => {
         if (typeof window === 'undefined') return;
-        try {
-            const path = window.location.pathname || '';
-            const seg = path.split('/').filter(Boolean).pop() || '';
-            const human = seg ? seg.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => String(c).toUpperCase()) : '';
-            if (!title || (typeof title === 'string' && title.trim().length === 0)) {
-                setClientDerivedTitle(human || 'Our Services');
-            }
-
-            // Derive serviceType from path if not provided
-            if (!serviceType && seg) {
-                const typeMap: Record<string, string> = {
-                    'digital-marketing': 'digital-marketing',
-                    'web-development': 'web-development',
-                    'web-application': 'web-development',
-                    'mobile-application': 'mobile-application',
-                    'mobile-app-development': 'mobile-application',
-                    'ui-ux-design': 'ui-ux-design',
-                    'seo': 'seo',
-                    'e-commerce-development': 'e-commerce-development',
-                    'social-networking': 'default',
-                    'android-development': 'default',
-                    'angular-development': 'default',
-                    'backend-devlopment': 'default',
-                    'backend-development': 'default',
-                    'cross-platform-development': 'mobile-application',
-                    'fintech': 'default',
-                    'frontend-development': 'default',
-                    'hr-tech': 'default',
-                    'healthcare': 'default',
-                    'hybrid-app-development': 'mobile-application',
-                    'javascript-development': 'default',
-                    'laravel-development': 'default',
-                    'mvp': 'default',
-                    'nextjs-development': 'default',
-                    'nodejs-development': 'default',
-                    'oil-and-gas': 'default',
-                    'php-development': 'default',
-                    'react-native-development': 'mobile-application',
-                    'reactjs-development': 'default',
-                    'ruby-on-rails': 'default',
-                    'typescript-development': 'default',
-                    'unity-development': 'default',
-                    'vuejs-development': 'default',
-                    'software-development': 'default',
-                    'branding': 'default',
-                    'web-design': 'default',
-                    'ios-app-development': 'mobile-application',
-                    'app-store-optimization': 'default',
-                };
-                setDerivedServiceType(typeMap[seg] || 'default');
-            } else if (serviceType) {
-                setDerivedServiceType(serviceType);
-            }
-        } catch (e) {
-            // no-op
-        }
-    }, [title, serviceType]);
-
-    const resolvedTitle = clientDerivedTitle ?? title ?? 'Our Services';
-    const titleText = typeof resolvedTitle === 'string' ? resolvedTitle : String(resolvedTitle);
-
-    const resolvedIntroHeading = introHeading ?? (`${titleText}  - Futuristic, data-driven solutions`);
-    const resolvedIntroBody: [ReactNode, ReactNode] = introBody ?? [
-        intro ?? `We design and build ${titleText} with modern, scalable architectures, AI-augmented decisioning and measurable ROI.`,
-        <>Speak with our experts to tailor a roadmap for your product.</>
-    ];
-
-    const [isVisible, setIsVisible] = useState(false);
-    const [activeId, setActiveId] = useState<string>(solutions[0]?.target ?? '');
-    const [activeWhyUs, setActiveWhyUs] = useState(0);
-    const [activeFront, setActiveFront] = useState('frontend');
-    const [webIndex, setWebIndex] = useState(0);
-    const [activePhase, setActivePhase] = useState<number>(0);
-    const [scrollProgress, setScrollProgress] = useState<number>(0);
-    const [currentDay, setCurrentDay] = useState<number>(1);
-    const [isPlaying, setIsPlaying] = useState<boolean>(false);
-    const [pointer, setPointer] = useState<{ x: number; y: number }>({x: 0, y: 0});
-    const canvasRef = useRef<HTMLCanvasElement | null>(null);
-    const particlesRef = useRef<Array<{ x: number; y: number; vx: number; vy: number; size: number }>>([]);
-    const rafRef = useRef<number | null>(null);
-    const intervalRef = useRef<number | null>(null);
-
-    const isDayTime = useIsDayTime();
-
-    // floating button show/hide
-    useEffect(() => {
-        const fn = () => setIsVisible(window.scrollY > 200);
-        window.addEventListener('scroll', fn);
-        return () => window.removeEventListener('scroll', fn);
+        const p = window.location.pathname.split('/').filter(Boolean).pop() || '';
+        if (!title) setClientTitle(p.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase()));
+        if (!serviceType && p) setDerivedServiceType(p as string);
     }, []);
 
-    // active solution tracking
+    // Intro background activation (mirrors Web-Design.tsx behaviour)
     useEffect(() => {
-        const fn = () => {
-            for (const s of solutions) {
-                const el = document.getElementById(s.target);
-                if (el) {
-                    const {top} = el.getBoundingClientRect();
-                    if (top >= 0 && top <= window.innerHeight * 0.55) {
-                        setActiveId(s.target);
-                        break;
-                    }
+        if (typeof window === 'undefined') return;
+        const handleScroll = () => {
+            if (sectionRef.current) {
+                const {top, bottom} = sectionRef.current.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                if (top < windowHeight * -0.2 || bottom < windowHeight * -0.1) {
+                    setIsBackgroundActive(true);
+                } else {
+                    setIsBackgroundActive(false);
                 }
             }
         };
-        window.addEventListener('scroll', fn, {passive: true});
-        return () => window.removeEventListener('scroll', fn);
-    }, [solutions]);
-
-    // auto-cycle why-us
-    useEffect(() => {
-        if (!reasons.length) return;
-        const t = setInterval(() => setActiveWhyUs(p => (p + 1) % reasons.length), 3500);
-        return () => clearInterval(t);
-    }, [reasons]);
-
-    // pointer events (works for mouse + touch + pen)
-    const onPointerMove = (e: PointerEvent) => {
-        setPointer({x: e.clientX, y: e.clientY});
-    };
-
-    useEffect(() => {
-        window.addEventListener('pointermove', onPointerMove, {passive: true});
-        return () => window.removeEventListener('pointermove', onPointerMove);
-    }, []);
-
-    // scroll progress
-    useEffect(() => {
-        const handleScroll = () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollPercent = (scrollTop / docHeight) * 100;
-            setScrollProgress(scrollPercent);
-        };
-        window.addEventListener('scroll', handleScroll, {passive: true});
+        window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // canvas animation
+    // Track active solution via IntersectionObserver (no oversized offsets)
     useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return;
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const initParticles = () => {
-            particlesRef.current = [];
-            for (let i = 0; i < 50; i++) {
-                particlesRef.current.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 2,
-                    vy: (Math.random() - 0.5) * 2,
-                    size: Math.random() * 2 + 1,
-                });
-            }
-        };
-
-        initParticles();
-
-        const animate = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(45, 212, 191, 0.5)';
-
-            particlesRef.current.forEach(p => {
-                p.x += p.vx;
-                p.y += p.vy;
-                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-                ctx.fillRect(p.x, p.y, p.size, p.size);
-            });
-
-            rafRef.current = requestAnimationFrame(animate);
-        };
-
-        animate();
-
-        const handleResize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        };
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-            if (rafRef.current) cancelAnimationFrame(rafRef.current);
-        };
-    }, []);
-
-    const scrollToSection = (target: string) => {
-        const el = document.getElementById(target);
-        if (el) {
-            el.scrollIntoView({behavior: 'smooth', block: 'start'});
-            setActiveId(target);
-        }
-    };
-
-    const mutedText = isDayTime ? 'text-gray-600' : 'text-gray-400';
-    const borderCol = isDayTime ? 'border-gray-200' : 'border-teal-400/15';
-
-    const toggleWeb = (index: number) => {
-        setWebIndex(webIndex === index ? -1 : index);
-    };
-
-    const tabs = [
-        {key: 'frontend', label: 'Frontend'},
-        {key: 'backend', label: 'Backend'},
-        {key: 'mobile', label: 'Mobile'},
-    ];
-
-    // Helper function to get detailed explanations for deliverables
-    const getDeliverableDescription = (item: string): string => {
-        const descriptions: Record<string, string> = {
-            // Discovery phase
-            'Deep-dive business intelligence gathering': 'Comprehensive analysis of your market landscape, competitive positioning, and growth opportunities with data-driven insights.',
-            'Competitive landscape mapping': 'Systematic evaluation of competitor strategies, strengths, and market gaps to identify your unique advantages.',
-            'Audience psychographic profiling': 'In-depth understanding of your target audience behaviors, preferences, and decision-making patterns.',
-            'Strategic KPI framework design': 'Establishment of measurable success metrics aligned with your business objectives and growth targets.',
-            'Omnichannel blueprint creation': 'Development of integrated multi-channel strategies ensuring consistent messaging across all customer touchpoints.',
-
-            // Launch phase
-            'Campaign infrastructure setup': 'Construction of technical foundation for campaign execution with analytics and tracking infrastructure.',
-            'Asset creation and optimization': 'Production of high-quality creative content optimized for performance across all channels.',
-            'Platform configuration': 'Strategic setup of advertising platforms, CRMs, and marketing automation tools.',
-            'Team training and enablement': 'Comprehensive training ensuring your team understands strategies and executes with precision.',
-            'Go-live management': 'Coordinated launch with continuous monitoring to ensure smooth campaign initiation.',
-
-            // Scale phase
-            'Performance optimization': 'Ongoing refinement of campaigns based on real-time data to maximize ROI and conversion rates.',
-            'Audience expansion': 'Strategic growth of your customer base through refined targeting and channel diversification.',
-            'Advanced analytics integration': 'Implementation of sophisticated reporting dashboards providing actionable business intelligence.',
-            'Continuous improvement protocols': 'Establishment of feedback loops and iterative processes for sustained performance enhancement.',
-            'Scaling infrastructure': 'Expansion of systems and resources to support accelerated growth and increased market reach.',
-        };
-
-        // Try to match the item with known descriptions
-        for (const [key, desc] of Object.entries(descriptions)) {
-            if (item.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(item.toLowerCase().split(' ')[0])) {
-                return desc;
-            }
-        }
-
-        // Fallback: Generate contextual description
-        return `Strategic implementation of ${item.toLowerCase()} to drive measurable progress toward your business objectives.`;
-    };
-
-    const data: Record<string, Array<{ name: string; logo: string }>> = {
-        frontend: [
-            {name: 'React', logo: '/assets/cms/logos/react.svg'},
-            {name: 'Vue', logo: '/assets/cms/logos/vue.svg'},
-            {name: 'Angular', logo: '/assets/cms/logos/angular.svg'},
-            {name: 'Next.js', logo: '/assets/cms/logos/next.svg'},
-            {name: 'Tailwind', logo: '/assets/cms/logos/tailwind.svg'},
-            {name: 'Figma', logo: '/assets/cms/logos/figma.svg'},
-            {name: 'Bootstrap', logo: '/assets/cms/logos/Bootstrap.svg'},
-        ],
-        backend: [
-            {name: 'Node.js', logo: '/assets/cms/logos/node.svg'},
-            {name: 'Django', logo: '/assets/cms/logos/django.svg'},
-            {name: 'Laravel', logo: '/assets/cms/logos/laravel.svg'},
-            {name: 'PostgreSQL', logo: '/assets/cms/logos/postgresql.svg'},
-            {name: 'MongoDB', logo: '/assets/cms/logos/mongodb.svg'},
-            {name: 'Docker', logo: '/assets/cms/logos/docker.svg'},
-            {name: 'AWS', logo: '/assets/cross/logos/aws.svg'},
-        ],
-        mobile: [
-            {name: 'React Native', logo: '/assets/cross/logos/react_native.svg'},
-            {name: 'Flutter', logo: '/assets/cross/logos/flutter.svg'},
-            {name: 'Ionic', logo: '/assets/cross/logos/ionic.svg'},
-            {name: 'Kotlin', logo: '/assets/cross/logos/kotlin.svg'},
-            {name: 'Xamarin', logo: '/assets/cross/logos/xamarin.svg'},
-            {name: 'Cordova', logo: '/assets/cross/logos/cordova.svg'},
-            {name: 'Go', logo: '/assets/cms/logos/go.svg'},
-        ],
-    };
-
-    const phases = [
-        {
-            days: '1-30',
-            title: 'Discovery & Strategy',
-            tagline: 'Understanding Your Needs',
-            description: 'This discovery phase establishes the strategic foundation for your project. Our experts conduct comprehensive stakeholder interviews, market analysis, and technical assessments to define clear objectives and align all parties on vision and outcomes.',
-            color: 'from-cyan-400 via-blue-500 to-indigo-600',
-            accentColor: 'bg-cyan-500',
-            items: [
-                'Deep-dive business requirements analysis',
-                'Technical architecture planning',
-                'Cross-platform strategy definition',
-                'Technology stack selection',
-                'Development roadmap creation'
-            ],
-            icon: (
-                <svg className="w-full h-full" viewBox="0 0 100 100" fill="none">
-                    <defs>
-                        <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.8"/>
-                            <stop offset="100%" stopColor="#4f46e5" stopOpacity="0.8"/>
-                        </linearGradient>
-                    </defs>
-                    <circle cx="50" cy="50" r="35" stroke="url(#g1)" strokeWidth="2" fill="none" opacity="0.3"/>
-                    <circle cx="50" cy="50" r="25" stroke="url(#g1)" strokeWidth="3" fill="none"/>
-                    <path d="M50 25 L50 50 L70 40" stroke="url(#g1)" strokeWidth="3" strokeLinecap="round"/>
-                    <circle cx="50" cy="50" r="5" fill="url(#g1)"/>
-                </svg>
-            )
-        },
-        {
-            days: '31-60',
-            title: 'Development & Integration',
-            tagline: 'Building Your Solution',
-            description: 'The development phase transforms strategy into reality through agile execution. Our team builds core features, integrates systems, implements security protocols, and establishes real-time synchronization to deliver a robust, scalable foundation.',
-            color: 'from-purple-400 via-pink-500 to-rose-600',
-            accentColor: 'bg-purple-500',
-            items: [
-                'Core feature development',
-                'Third-party API integration',
-                'Database architecture implementation',
-                'Real-time synchronization setup',
-                'Security implementation'
-            ],
-            icon: (
-                <svg className="w-full h-full" viewBox="0 0 100 100" fill="none">
-                    <defs>
-                        <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#c084fc" stopOpacity="0.8"/>
-                            <stop offset="100%" stopColor="#f43f5e" stopOpacity="0.8"/>
-                        </linearGradient>
-                    </defs>
-                    <path d="M50 15 L65 35 L85 35 L70 50 L75 70 L50 55 L25 70 L30 50 L15 35 L35 35 Z" stroke="url(#g2)"
-                          strokeWidth="3" fill="none"/>
-                    <circle cx="50" cy="50" r="12" fill="url(#g2)"/>
-                </svg>
-            )
-        },
-        {
-            days: '61-90',
-            title: 'Testing & Launch',
-            tagline: 'Delivering Excellence',
-            description: 'The launch phase ensures quality, performance, and market readiness. Comprehensive testing across all platforms, optimization for peak performance, and coordinated deployment strategies guarantee a successful release with continuous monitoring and support.',
-            color: 'from-emerald-400 via-teal-500 to-cyan-600',
-            accentColor: 'bg-emerald-500',
-            items: [
-                'Comprehensive quality assurance',
-                'Performance optimization',
-                'Cross-platform testing',
-                'App store submission preparation',
-                'Production deployment & monitoring'
-            ],
-            icon: (
-                <svg className="w-full h-full" viewBox="0 0 100 100" fill="none">
-                    <defs>
-                        <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#34d399" stopOpacity="0.8"/>
-                            <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.8"/>
-                        </linearGradient>
-                    </defs>
-                    <path d="M30 50 L45 65 L70 35" stroke="url(#g3)" strokeWidth="3" fill="none" strokeLinecap="round"
-                          strokeLinejoin="round"/>
-                    <circle cx="50" cy="50" r="35" stroke="url(#g3)" strokeWidth="2" fill="none" opacity="0.3"/>
-                </svg>
-            )
-        }
-    ];
-
-    const phase = phases[activePhase];
-
-    // Play button timeline animation - now after phases is defined
-    useEffect(() => {
-        if (!isPlaying) return;
-
-        const interval = setInterval(() => {
-            setCurrentDay(prev => {
-                const totalDays = phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0);
-                if (prev >= totalDays) {
-                    setIsPlaying(false);
-                    return totalDays;
+        if (typeof window === 'undefined') return;
+        const observer = new IntersectionObserver((entries) => {
+            for (const e of entries) {
+                if (e.isIntersecting && e.target instanceof HTMLElement) {
+                    const id = e.target.id;
+                    if (id) setActiveId(id);
                 }
-                return prev + 1;
-            });
-        }, 500); // Advance day every 500ms
+            }
+        }, {root: null, rootMargin: '0px 0px -40% 0px', threshold: 0});
 
-        return () => clearInterval(interval);
-    }, [isPlaying, phases]);
+        solutions.forEach(s => {
+            const el = document.getElementById(s.target);
+            if (el) observer.observe(el);
+        });
 
+        return () => observer.disconnect();
+    }, [solutions]);
+
+    const handleNavClick = (id: string) => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({behavior: 'smooth', block: 'start'});
+        setActiveId(id);
+    }
+
+    const resolvedTitle = clientTitle ?? title ?? 'Our Services';
 
     return (
-        <div className={`${isDayTime ? 'bg-white text-black' : 'bg-[#050810] text-white'} min-h-screen`}>
+        // Important: do NOT force min-h-screen here. Let layout (app/layout.tsx main flex-1) manage footer anchoring.
+        <div className={`${isDayTime ? 'bg-white text-black' : 'bg-[#050810] text-white'} w-full`}>
 
-            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
-                HERO  - cinematic full-bleed with data HUD
-                 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
+            {/* HERO */}
             <div id="hero">
                 <ResponsiveVideoHero
                     videoDesktop={heroVideo}
@@ -1150,946 +357,337 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                     posterImage={heroImage}
                     posterAlt={typeof title === 'string' ? title : 'hero'}
                     overlayOpacity={0.55}
-                    heights={{mobile: 'h-[680px]', tablet: 'md:h-[740px]', desktop: 'lg:h-[820px]'}}
+                    heights={{mobile: 'h-[480px]', tablet: 'md:h-[540px]', desktop: 'lg:h-[620px]'}}
                     className="rounded-none"
                 >
-                    {/* Grid + scanline layers */}
                     <div className="absolute inset-0 gx-grid opacity-20 pointer-events-none"/>
                     <div className="gx-scanline pointer-events-none"/>
 
-                    {/* Vertical accent line */}
                     <div
-                        className="absolute left-[4.5em] top-0 bottom-0 w-px bg-teal-400/15 hidden lg:block pointer-events-none"/>
-
-                    {/* Orbit accents */}
-                    <div
-                        className="absolute -top-[15vmax] -right-[15vmax] w-[60vmax] h-[60vmax] rounded-full border border-teal-400/10 gx-orbit pointer-events-none"/>
-                    <div
-                        className="absolute -top-[5vmax] -right-[5vmax] w-[40vmax] h-[40vmax] rounded-full border border-cyan-400/08 gx-orbit-reverse pointer-events-none"/>
-
-                    {/* Content */}
-                    <div
-                        className="absolute inset-0 flex flex-col justify-end max-w-auto w-full pb-12 md:pb-16 px-6 sm:px-8 md:px-10 lg:px-[4.5em] text-white">
-
-                        {/* Eyebrow chip */}
-                        <motion.div
-                            initial={{opacity: 0, y: 20}}
-                            animate={{opacity: 1, y: 0}}
-                            transition={{duration: 0.7, delay: 0.2}}
-                            className="mb-5"
-                        >
-                            <FxChip day={false}>{eyebrow}</FxChip>
-                        </motion.div>
-
-                        {/* Headline */}
-                        <motion.h1
-                            initial={{opacity: 0, y: 32}}
-                            animate={{opacity: 1, y: 0}}
-                            transition={{duration: 0.8, delay: 0.35, ease: [0.2, 0.7, 0.2, 1]}}
-                            className="gx-glitch cursor-default select-none text-[2.2em] sm:text-[3em] md:text-[4em] lg:text-[5em] font-[700] leading-[1.05] tracking-tight mb-5 "
-                        >
-                            {title}
-                        </motion.h1>
-
-                        {/* Divider */}
-                        <motion.div
-                            initial={{scaleX: 0}}
-                            animate={{scaleX: 1}}
-                            transition={{duration: 0.6, delay: 0.55}}
-                            className="origin-left h-px bg-white/20 w-full  mb-5"
-                        />
-
-                        {/* Bottom row: intro + stats */}
-                        <div className="grid lg:grid-cols-2 grid-cols-1 gap-6 ">
-                            <motion.p
-                                initial={{opacity: 0}}
-                                animate={{opacity: 1}}
-                                transition={{duration: 0.7, delay: 0.65}}
-                                className="text-[0.87em] font-[300] leading-[1.6] text-white/80"
-                            >
-                                {intro}
-                            </motion.p>
-
-                            {/* Stat pills */}
-                            <motion.div
-                                initial={{opacity: 0, x: 20}}
-                                animate={{opacity: 1, x: 0}}
-                                transition={{duration: 0.7, delay: 0.75}}
-                                className="hidden lg:flex gap-6 items-end justify-end"
-                            >
-                                {heroStats.map((s, i) => (
-                                    <div
-                                        key={i}
-                                        className="flex flex-col items-center px-5 py-3 rounded-xl border border-teal-400/25 bg-teal-400/05 backdrop-blur-sm"
-                                        style={{boxShadow: '0 0 20px -8px rgba(45,212,191,0.35)'}}
-                                    >
-                                        <span
-                                            className="gx-gradient-text text-[2.2em] font-[700] leading-none">{s.value}</span>
-                                        <span
-                                            className="text-[0.68em] font-[400] text-white/55 tracking-wider mt-1">{s.label}</span>
-                                    </div>
-                                ))}
-                            </motion.div>
-                        </div>
-
-                        {/* Data readout bar */}
-                        <motion.div
-                            initial={{opacity: 0}}
-                            animate={{opacity: 1}}
-                            transition={{duration: 0.6, delay: 0.9}}
-                            className="hidden lg:flex items-center gap-6 mt-8 border-t border-white/10 pt-4 font-mono text-[0.65em] tracking-widest text-white/25"
-                        >
-                            <span>SYS://GREY-INFOTECH</span>
-                            <div className="flex-1 h-px bg-white/08"/>
-                            <span>STATUS: ACTIVE</span>
-                            <div className="w-2 h-2 rounded-full bg-teal-400 animate-pulse"/>
-                        </motion.div>
+                        className="absolute inset-0 flex flex-col justify-end pb-12 px-6 sm:px-8 md:px-10 lg:px-[4.5em] text-white">
+                        <div className="mb-5"><FxChip day={!isDayTime}>{eyebrow}</FxChip></div>
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">{resolvedTitle}</h1>
+                        <div className="mt-4 max-w-3xl text-base text-white/80">{intro}</div>
                     </div>
                 </ResponsiveVideoHero>
             </div>
 
-            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
-                INTRO  - always-dark two-col with FX
-                 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
-            <section className="relative overflow-hidden bg-[#050810] text-white">
-                <FxBackground day={false} grid aurora/>
-                <FxOrbit size={620} top="-120px" right="-180px" opacity={0.12} speed={40}/>
-                <FxOrbit size={360} top="160px" left="-120px" opacity={0.08} speed={28} reverse/>
-
+            <section
+                ref={sectionRef}
+                data-bg={isBackgroundActive ? (isDayTime ? 'Dark' : 'Light') : (isDayTime ? 'Light' : 'Dark')}
+                className={`pt-16 transition-colors duration-500 ${
+                    isBackgroundActive
+                        ? isDayTime ? 'bg-black text-white' : 'bg-white text-black'
+                        : isDayTime ? 'bg-white text-black' : 'bg-black text-white'
+                }`}>
+                <FxBackground day={isDayTime}/>
                 <div
-                    className="relative z-10 lg:py-[6em] md:py-[4em] py-12 max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
-                    <FxReveal>
-                        <div className="flex items-center gap-5 mb-14">
-                            <FxChip day={false}>{eyebrow}</FxChip>
-                            <div className="flex-1 h-px bg-white/10"/>
-                            <span className="font-mono text-[0.7em] tracking-widest text-white/30">
-                                {typeof introHeading === 'string' ? introHeading : 'INTRO'}
-                            </span>
-                        </div>
-                    </FxReveal>
+                    className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
+                    <div>
+                        <FxChip
+                            day={!isBackgroundActive ? !isDayTime : isDayTime}>{eyebrow ?? 'DESIGN EXCELLENCE'}</FxChip>
+                    </div>
 
-                    <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+                    <div className="lg:-ml-[19em]">
                         <FxReveal>
-                            <div className="relative">
-                                <div
-                                    className="absolute -top-3 -left-3 w-8 h-8 border-t-2 border-l-2 border-teal-400 rounded-tl-sm z-10"/>
-                                <div
-                                    className="absolute -top-3 -right-3 w-8 h-8 border-t-2 border-r-2 border-teal-400 rounded-tr-sm z-10"/>
-                                <div
-                                    className="absolute -bottom-3 -left-3 w-8 h-8 border-b-2 border-l-2 border-teal-400 rounded-bl-sm z-10"/>
-                                <div
-                                    className="absolute -bottom-3 -right-3 w-8 h-8 border-b-2 border-r-2 border-teal-400 rounded-br-sm z-10"/>
-                                <div className="absolute inset-0 rounded-2xl opacity-40"
-                                     style={{boxShadow: '0 0 60px -10px rgba(45,212,191,0.45)'}}/>
-                                <div
-                                    className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-7 lg:p-8">
-                                    <FxGlitchText tag="h3"
-                                                  className="text-[2.1em] sm:text-[2.6em] lg:text-[3.4em] font-[700] leading-[1.08] tracking-tight">
-                                        {introHeading}
-                                    </FxGlitchText>
-                                    <div className="mt-6 flex flex-wrap gap-3">
-                                        {heroStats.slice(0, 3).map((s) => (
-                                            <span key={s.label} className="gx-data-pill">{s.label}</span>
-                                        ))}
-                                    </div>
+                            <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
+                                {typeof introHeading === 'string' ? (() => {
+                                    const words = String(introHeading).trim().split(/\s+/);
+                                    const last = words.pop();
+                                    return <>{words.join(' ')} <span className="gx-gradient-text">{last}</span></>;
+                                })() : (introHeading ? <>{introHeading}</> : <><span
+                                    className="gx-gradient-text">{resolvedTitle}</span></>)}
+                            </h3>
+                        </FxReveal>
+
+                        <FxReveal delay={0.08}>
+                            <div
+                                className="grid lg:grid-cols-2 grid-cols-1 gap-6 mt-6 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
+                                <div className="space-y-4">
+                                    <p>{(introBody && introBody[0]) ?? (typeof intro === 'string' ? intro : '')}</p>
+                                    <p>{(introBody && introBody[1]) ?? ''}</p>
+                                    {(introPills && introPills.length > 0) ? (
+                                        <div className="flex flex-wrap gap-3 mt-4">
+                                            {introPills.map((pill: string) => (
+                                                <span key={pill} className="gx-data-pill">{pill}</span>
+                                            ))}
+                                        </div>
+                                    ) : null}
+                                </div>
+                                <div className="space-y-4">
+                                    <p>{(introBody && introBody[1]) ?? ''}</p>
+                                    <p className="text-sm text-white/60">{''}</p>
+
+                                    {(introPills && introPills.length > 0) ? (
+                                        <div className="flex flex-wrap gap-3 mt-4">
+                                            {introPills.map((pill: string) => (
+                                                <span key={pill} className="gx-data-pill">{pill}</span>
+                                            ))}
+                                        </div>
+                                    ) : null}
                                 </div>
                             </div>
                         </FxReveal>
 
-                        <FxReveal delay={0.12}>
-                            <div
-                                className="grid lg:grid-cols-2 grid-cols-1 gap-5 font-[300] text-[0.87em] leading-[1.7] tracking-normal text-gray-300">
-                                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 lg:p-6">
-                                    {introBody[0]}
-                                </div>
-                                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 lg:p-6">
-                                    {introBody[1]}
+                        {/* Detailed intro panel — professional outcomes, deliverables, process snapshot */}
+                        <div className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div className="rounded-2xl p-6 border border-white/6 bg-white/[0.02]">
+                                <h4 className="text-sm font-semibold text-teal-300 uppercase tracking-wider mb-3">Expected
+                                    Outcomes</h4>
+                                <p className="text-sm text-white/75 mb-4">High-level measurable outcomes this engagement
+                                    aims to deliver (page provides specifics via <code>introMetrics</code>).</p>
+                                <div className="space-y-4">
+                                    {introMetrics && introMetrics.length ? introMetrics.map((m: IntroMetric) => (
+                                        <div key={m.id ?? m.label}>
+                                            <div className="text-2xl font-extrabold text-white">{m.value}</div>
+                                            <div className="text-sm text-white/70 mt-1">{m.label}</div>
+                                            {m.description &&
+                                                <div className="text-sm text-white/60 mt-2">{m.description}</div>}
+                                        </div>
+                                    )) : (
+                                        <div>
+                                            {heroStats.map(s => (
+                                                <div key={s.label} className="mb-3">
+                                                    <div className="text-xl font-bold text-white">{s.value}</div>
+                                                    <div className="text-sm text-white/70">{s.label}</div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
-                        </FxReveal>
+
+                            <div className="rounded-2xl p-6 border border-white/6 bg-white/[0.02]">
+                                <h4 className="text-sm font-semibold mb-3">Deliverables</h4>
+                                <p className="text-sm text-white/75 mb-3">What you'll receive during and at the end of
+                                    the engagement.</p>
+                                <ul className="list-disc pl-5 space-y-2 text-white/70">
+                                    {introDeliverables && introDeliverables.length ? introDeliverables.map((d, i) => (
+                                        <li key={i}>{d}</li>
+                                    )) : (
+                                        <>
+                                            <li>Discovery & prioritised requirements brief</li>
+                                            <li>Interactive prototypes & component library</li>
+                                            <li>Production-ready, accessible front-end</li>
+                                            <li>CI/CD pipeline and deployment documentation</li>
+                                        </>
+                                    )}
+                                </ul>
+                            </div>
+
+                            <div className="rounded-2xl p-6 border border-white/6 bg-white/[0.02]">
+                                <h4 className="text-sm font-semibold mb-3">Process Snapshot</h4>
+                                <p className="text-sm text-white/75 mb-3">A concise view of our workflow and governance
+                                    for the project.</p>
+                                <div className="text-sm text-white/70 space-y-2">
+                                    <div><strong>Phases:</strong> Discovery → Design → Build → Validate → Launch</div>
+                                    <div><strong>Typical timeline:</strong> 6–12 weeks (dependent on scope)</div>
+                                    <div><strong>Engagement model:</strong> Fixed-scope, Time & Materials, or Dedicated
+                                        Team
+                                    </div>
+                                    <div><strong>Support:</strong> Optional SLA & post-launch support packages</div>
+                                </div>
+                                {developmentProcessDescription &&
+                                    <div className="mt-4 text-sm text-white/60">{developmentProcessDescription}</div>}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
-                TOP IMAGES  - cinematic dual FxFrame reveal
-                 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
-            {topImages && (
-                <section className="bg-[#050810] py-12 lg:py-16">
-                    <div className="max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
-                        <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-8">
-                            {([0, 1] as const).map(idx => (
-                                <FxReveal key={idx} delay={idx * 0.15}>
-                                    <FxFrame className="w-full overflow-hidden">
-                                        <div className="relative w-full aspect-[4/3]">
-                                            <Image
-                                                src={topImages[idx]}
-                                                alt="detail"
-                                                fill
-                                                className="object-cover"
-                                                sizes="(max-width: 768px) 100vw, 50vw"
-                                            />
-                                            {/* Overlay scanline for depth */}
-                                            <div
-                                                className="absolute inset-0 pointer-events-none"
-                                                style={{backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(45,212,191,0.025) 3px,rgba(45,212,191,0.025) 4px)'}}
-                                            />
-                                        </div>
-                                    </FxFrame>
-                                </FxReveal>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-            )}
-
-            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
-                SOLUTIONS  - sticky-left / scroll-right
-                Sentinel div at bottom releases sticky nav
-                 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
+            {/* Sticky Solutions (uses FxStickyScrollSection, which handles internal sticky behavior safely) */}
             <FxStickyScrollSection
-                day={false}
+                day={!isDayTime}
                 heading={solutionsHeading}
                 intro={solutionsIntro}
                 navLabel="Our Solutions"
                 activeId={activeId}
-                onNavClickAction={scrollToSection}
+                onNavClickAction={handleNavClick}
                 items={solutions}
             />
 
-            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
-                MID IMAGE  - standalone FxFrame section
-                 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
+            {/* Mid image - keep full width, preserve height while avoiding negative margins */}
             {midImage && (
-                <section className="bg-[#050810] py-10 lg:py-14">
-                    <div className="max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
-                        <FxReveal>
-                            <FxFrame className="w-full overflow-hidden">
-                                <div className="relative w-full">
-                                    <Image
-                                        src={midImage}
-                                        alt={typeof title === 'string' ? title : 'detail'}
-                                        width={2560}
-                                        height={1440}
-                                        className="w-full h-auto object-cover"
-                                    />
-                                    {/* Scanline depth overlay */}
-                                    <div
-                                        className="absolute inset-0 pointer-events-none"
-                                        style={{backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(45,212,191,0.02) 3px,rgba(45,212,191,0.02) 4px)'}}
-                                    />
-                                    {/* Bottom gradient fade */}
-                                    <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
-                                         style={{background: 'linear-gradient(to top, rgba(5,8,16,0.6), transparent)'}}/>
-                                </div>
-                            </FxFrame>
-                        </FxReveal>
+                <section aria-label="Showcase" className="relative w-full overflow-hidden" style={{height: '85vh'}}>
+
+                    {/* Full-bleed background image + subtle dark overlay (image-first) */}
+                    <div className="absolute inset-0">
+                        <Image src={midImage} alt={typeof title === 'string' ? title : 'detail'} fill
+                               className="object-cover w-full h-full"/>
+                        <div className="absolute inset-0 bg-black/40"/>
                     </div>
-                </section>
-            )}
 
-            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
-                WHY GREY INFOTECH
-                Matches Home.tsx WHY_US grid exactly:
-                - bg-[#050810] always
-                - 3-col interactive grid cards
-                - layoutId="why-glow" spring animation
-                - auto-cycle 3500ms
-                - stat strip below
-                 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
-            {reasons.length > 0 && (
-                <section className="relative overflow-hidden bg-[#050810]">
-                    <FxBackground day={false} grid aurora/>
-                    <FxOrbit size={600} top="-80px" left="-180px" opacity={0.12} speed={40}/>
-                    <FxOrbit size={350} bottom="-60px" right="-100px" opacity={0.09} speed={25} reverse/>
-
-                    <div
-                        className="relative z-10 max-w-full w-full mx-auto px-6 sm:px-8 md:px-10 lg:px-[4.5em] lg:py-[6em] md:py-20 py-14 text-white">
-                        {/* Scanline */}
-                        <div className="gx-scanline pointer-events-none"/>
-
-                        {/* Header */}
-                        <FxReveal>
-                            <div className="flex items-center gap-5 mb-6">
-                                <FxChip day={false}>WHY CHOOSE US</FxChip>
-                                <div className="flex-1 h-px bg-white/10"/>
-                                <span
-                                    className="font-mono text-[0.68em] tracking-widest text-white/25">8+ YRS PROVEN</span>
-                            </div>
-                            <h2 className="text-[2.8em] lg:text-[4em] font-[800] leading-[1.05] tracking-tight mb-6">
-                                Not just a vendor.<br/>
-                                <span className="gx-gradient-text">Your competitive edge.</span>
-                            </h2>
-                            <p className="text-white/55 max-w-2xl text-[0.95em] leading-[1.8] mb-16">
-                                We&apos;ve built, scaled, and delivered digital products across industries. Here&apos;s
-                                why forward-thinking teams trust Grey InfoTech with their most critical builds.
-                            </p>
-                        </FxReveal>
-
-                        {/* Interactive 3-col grid  - exact Home.tsx pattern */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-20">
-                            {reasons.map((r, i) => {
-                                const color = CARD_COLORS[i % CARD_COLORS.length];
-                                const icon = CARD_ICONS[i % CARD_ICONS.length];
-                                const isActive = activeWhyUs === i;
-                                return (
-                                    <motion.div
-                                        key={r.id}
-                                        className="relative group cursor-pointer rounded-2xl p-7 border transition-all duration-500 overflow-hidden"
-                                        style={{
-                                            background: isActive ? `${color}10` : 'rgba(255,255,255,0.02)',
-                                            borderColor: isActive ? `${color}50` : 'rgba(255,255,255,0.07)',
-                                        }}
-                                        onClick={() => setActiveWhyUs(i)}
-                                        initial={{opacity: 0, y: 30}}
-                                        whileInView={{opacity: 1, y: 0}}
-                                        viewport={{once: true}}
-                                        transition={{delay: i * 0.08, duration: 0.6}}
-                                        whileHover={{y: -4}}
-                                    >
-                                        {/* Spring glow on active */}
-                                        {isActive && (
-                                            <motion.div
-                                                layoutId="why-glow"
-                                                className="absolute inset-0 rounded-2xl"
-                                                style={{boxShadow: `inset 0 0 40px -15px ${color}30`}}
-                                                transition={{type: 'spring', stiffness: 120, damping: 20}}
-                                            />
-                                        )}
-
-                                        {/* Number + Icon */}
-                                        <div className="flex items-start justify-between mb-5">
-                                            <span className="font-mono text-[0.65em] tracking-widest"
-                                                  style={{color: color + '99'}}>
-                                                {String(i + 1).padStart(2, '0')}
-                                            </span>
-                                            <motion.span
-                                                className="text-[1.8em]"
-                                                style={{color}}
-                                                animate={{rotate: isActive ? [0, 15, -10, 0] : 0}}
-                                                transition={{duration: 1.2, ease: 'easeInOut'}}
-                                            >
-                                                {icon}
-                                            </motion.span>
-                                        </div>
-
-                                        <h3 className="text-[1.1em] font-[700] mb-3 tracking-tight text-white">{r.title}</h3>
-                                        <p className="text-white/55 text-[0.83em] leading-[1.7]">{r.description}</p>
-
-                                        {/* Bottom accent line */}
-                                        <div
-                                            className="mt-5 h-[2px] w-0 group-hover:w-full transition-all duration-700 rounded-full"
-                                            style={{background: `linear-gradient(90deg, ${color}80, transparent)`}}
-                                        />
-                                        {isActive && (
-                                            <div
-                                                className="mt-0 h-[2px] w-full rounded-full"
-                                                style={{background: `linear-gradient(90deg, ${color}, transparent)`}}
-                                            />
-                                        )}
-                                    </motion.div>
-                                );
-                            })}
+                    {/* Minimal but high-quality FX layers to amplify futurism without overpowering */}
+                    <div className="pointer-events-none absolute inset-0">
+                        <FxBackground day={!isDayTime} grid={false} aurora={true} className="opacity-60"/>
+                        <FxOrbit size={520} top="-120px" right="-160px" opacity={0.08} speed={36}/>
+                        <div className="absolute inset-0">
+                            {/* SVG stroke network for subtle futuristic lines */}
+                            <svg className="w-full h-full" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"
+                                 aria-hidden>
+                                <defs>
+                                    <linearGradient id="g1" x1="0" x2="1">
+                                        <stop offset="0%" stopColor="#2dd4bf" stopOpacity="0.12"/>
+                                        <stop offset="100%" stopColor="#6366f1" stopOpacity="0"/>
+                                    </linearGradient>
+                                </defs>
+                                <rect width="100%" height="100%" fill="none"/>
+                                <path d="M0 30 C 200 80, 400 0, 1000 60" stroke="url(#g1)" strokeWidth="1.5" fill="none"
+                                      className="opacity-40"/>
+                            </svg>
                         </div>
+                    </div>
 
-                        {/* Stat strip  - bordered box, 4 stats */}
-                        <FxReveal>
-                            <div className="border border-white/08 rounded-3xl p-8 lg:p-12 overflow-hidden">
-                                <div className="flex items-center gap-4 mb-10">
-                                    <span className="text-[0.7em] font-[700] uppercase tracking-[0.25em] text-teal-400">WHAT SETS US APART</span>
-                                    <div className="flex-1 h-px bg-white/08"/>
+                    {/* Foreground — minimal overlays to keep image dominant */}
+                    <div className="relative z-10 h-full flex items-center">
+                        <div className="max-w-full mx-auto w-full px-6 sm:px-8 md:px-10 lg:px-[4.5em]">
+                            <div className="grid lg:grid-cols-2 items-center gap-8">
+
+                                {/* Left: compact overlay — eyebrow, concise heading, single CTA */}
+                                <div className="text-white max-w-lg">
+                                    {eyebrow && <FxChip day={!isDayTime}>{eyebrow}</FxChip>}
+
+                                    <h2 className="mt-4 text-[1.6rem] md:text-[2.2rem] lg:text-[2.8rem] font-extrabold leading-tight">
+                                        {introHeading ? (typeof introHeading === 'string' ? introHeading : introHeading) : resolvedTitle}
+                                    </h2>
+
+                                    <p className="mt-3 text-sm text-white/70">{(introBody && introBody[0]) ? String((introBody && introBody[0])) : ''}</p>
+
+                                    <div className="mt-4">
+                                        <FxButton day={!isDayTime} href="/contact">Request Consultation</FxButton>
+                                    </div>
                                 </div>
-                                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                                    {[
-                                        {val: '50+', label: 'Products Delivered', sub: 'Live in production'},
-                                        {val: '8+', label: 'Years Experience', sub: 'Since 2016'},
-                                        {val: '15+', label: 'Industries', sub: 'Served globally'},
-                                        {val: '99%', label: 'Client Retention', sub: 'They come back'},
-                                    ].map((s, i) => (
-                                        <motion.div
-                                            key={s.label}
-                                            className="text-center lg:text-left"
-                                            initial={{opacity: 0, y: 20}}
-                                            whileInView={{opacity: 1, y: 0}}
-                                            viewport={{once: true}}
-                                            transition={{delay: i * 0.1 + 0.2}}
-                                        >
-                                            <div
-                                                className="text-[3em] font-[900] gx-gradient-text leading-none mb-1">{s.val}</div>
-                                            <div
-                                                className="text-white/70 text-[0.82em] font-[600] mb-0.5">{s.label}</div>
-                                            <div
-                                                className="text-white/30 text-[0.68em] uppercase tracking-wider">{s.sub}</div>
-                                        </motion.div>
-                                    ))}
+
+                                {/* Right: compact snapshot card with professional microdetails */}
+                                <div className="flex justify-end">
+                                    <div className="w-full max-w-sm">
+                                        <div
+                                            className="rounded-2xl overflow-hidden border border-white/8 bg-gradient-to-b from-white/[0.02] to-white/[0.01] p-4 backdrop-blur-md shadow-[0_30px_80px_-30px_rgba(2,6,23,0.75)]">
+
+                                            <div className="flex items-center justify-between">
+                                                <div>
+                                                    <div className="text-xs text-white/60">Est. delivery</div>
+                                                    <div
+                                                        className="text-lg font-bold text-white mt-1">{introMetrics && introMetrics[0] ? introMetrics[0].value : '8–12 wks'}</div>
+                                                    <div
+                                                        className="text-sm text-white/70">{introMetrics && introMetrics[0] ? introMetrics[0].label : 'Delivery'}</div>
+                                                </div>
+
+                                                <div className="text-right">
+                                                    <div className="text-xs text-white/60">Team size</div>
+                                                    <div
+                                                        className="text-lg font-bold text-white mt-1">{introMetrics && introMetrics[1] ? introMetrics[1].value : '3–6'}</div>
+                                                    <div
+                                                        className="text-sm text-white/70">{introMetrics && introMetrics[1] ? introMetrics[1].label : 'Engineers'}</div>
+                                                </div>
+                                            </div>
+
+                                            <div className="mt-4 text-sm text-white/70">
+                                                {(introDeliverables && introDeliverables.length ? introDeliverables.slice(0, 3) : ['Discovery brief', 'Prototype', 'Production front-end']).map((d, idx) => (
+                                                    <div key={idx} className="flex items-start gap-2 mb-2">
+                                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                                                             xmlns="http://www.w3.org/2000/svg"
+                                                             className="mt-1 text-teal-400">
+                                                            <path d="M20 6L9 17l-5-5" stroke="currentColor"
+                                                                  strokeWidth="2" strokeLinecap="round"
+                                                                  strokeLinejoin="round"/>
+                                                        </svg>
+                                                        <div>{d}</div>
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            <div className="mt-4 text-xs text-white/60">Includes scoping call, QA, and
+                                                deployment support.
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
-                        </FxReveal>
+                        </div>
                     </div>
                 </section>
             )}
 
-            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
-               TECHNOLOGIES & INDUSTRY SOLUTIONS
-                -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
-            {/* Technologies We Use */}
-            <div
-                className={`lg:pt-[2em] md:pt-[2em] pt-[1em] lg:pb-[2em] md:pb-[2em] pb-[1em] ${isDayTime ? 'bg-white' : 'bg-slate-600'}`}>
-                <div id={'Toolchain'}
-                     className={`relative lg:mt-[1.5em] md:mt-[1.5em] mt-[1em] lg:mb-16 md:mb-16 mb-5 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                    <div className={`${isDayTime ? 'text-black' : 'text-white'} text-center`}>
-                        <h2 className="capitalize text-[1.8em] md:text-[3em] lg:text-[3.3em] font-[700] tracking-tight leading-[1.2] lg:pb-6">
-                            <span className={'text-[#00f5d4]'}>Technologies</span> We Use
-                        </h2>
-                        <p className="mx-auto mt-4 max-w-5xl text-[0.9em] leading-relaxed ">
-                            Grey InfoTech harnesses cutting-edge cross-platform technologies and frameworks to architect
-                            mobile solutions that align precisely with your strategic business objectives. Our
-                            development team leverages industry-leading platforms including React Native, Flutter, and
-                            Xamarin, combined with cloud-native architectures, advanced API integrations, and modern
-                            DevOps practices to create scalable, high-performance applications. By employing progressive
-                            development methodologies, real-time analytics integration, and AI-powered features, we
-                            ensure your mobile presence not only meets current market demands but anticipates future
-                            technological evolution.
-                        </p>
-
-                        {/* Tabs */}
-                        <div
-                            className="mt-20 flex flex-wrap justify-center gap-8 border-b text-[1.3em] font-[500] text-gray-400">
-                            {tabs.map((tab) => (
-                                <button
-                                    key={tab.key}
-                                    onClick={() => setActiveFront(tab.key)}
-                                    className={`pb-1.5 transition-colors ${
-                                        activeFront === tab.key
-                                            ? "border-b-1 border-[#00f5d4] text-[#00f5d4]"
-                                            : "hover:text-gray-800"
-                                    }`}
-                                >
-                                    {tab.label}
-                                </button>
+            {/* Reasons / Why choose us - simplified and safe */}
+            {reasons && reasons.length > 0 && (
+                <section className="bg-[#050810] py-12">
+                    <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-[4.5em] text-white">
+                        <div className="mb-6"><FxChip day={!isDayTime}>WHY CHOOSE US</FxChip></div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {reasons.map(r => (
+                                <div key={r.id} className="p-6 rounded-2xl border border-white/10 bg-white/[0.03]">
+                                    <h3 className="text-lg font-bold mb-2">{r.title}</h3>
+                                    <div className="text-sm text-white/70">{r.description}</div>
+                                </div>
                             ))}
                         </div>
-
-                        {/* Content */}
-                        <div className="mt-16">
-                            <div
-                                className="mx-auto grid grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-8 justify-start items-start">
-                                {data[activeFront]?.map((item) => (
-                                    <div key={item.name} className="flex flex-col items-center gap-1.5">
-                                        <div className="relative h-16 w-16 lg:h-28 lg:w-28 md:h-20 md:w-20">
-                                            <Image
-                                                src={item.logo}
-                                                alt={item.name}
-                                                fill
-                                                className="object-contain"
-                                                sizes="(min-width:1024px) 64px, (min-width:768px) 56px, 48px"
-                                            />
-                                        </div>
-                                        <span
-                                            className="text-[1em] md:text-[1.3em] lg:text-[1.3em] text-center font-medium  break-words max-w-[8rem]">
-                                          {item.name}
-                                        </span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
                     </div>
+                </section>
+            )}
+
+            {/* Technologies / Tools - compact */}
+            <div className={`py-10 ${isDayTime ? 'bg-white' : 'bg-transparent'}`}>
+                <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-[4.5em]">
+                    <h2 className={`text-2xl font-bold ${isDayTime ? 'text-black' : 'text-white'}`}>Technologies We
+                        Use</h2>
                 </div>
             </div>
 
-            {/* Vertical Solutions Accordion - NEW FUTURISTIC SECTION */}
+            {/* Optional vertical solutions */}
             {verticalSolutions && verticalSolutions.length > 0 && (
                 <VerticalSolutionsAccordion
-                    isDayTime={isDayTime}
-                    title={verticalSolutionsTitle || 'Vertical Solutions'}
+                    isDayTime={!isDayTime}
+                    title={verticalSolutionsTitle ?? 'Vertical Solutions'}
                     subtitle={verticalSolutionsSubtitle}
                     items={verticalSolutions}
-                    eyebrow={verticalSolutionsEyebrow || 'Expertise'}
+                    eyebrow={verticalSolutionsEyebrow}
                 />
             )}
 
-            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
-               OUR PROVEN 90-DAY PROCESS
-                -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
-            <div
-                className={`lg:pt-[2em] md:pt-[2em] pt-[1em] lg:pb-[2em] md:pb-[2em] pb-[1em] ${isDayTime ? 'bg-black' : 'bg-white'}`}>
-                <div id={'Our-proven-process'}
-                     className={`relative z-10 lg:mt-[1.5em] md:mt-[1.5em] mt-[1em] lg:mb-16 md:mb-16 mb-5 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] overflow-visible`}>
+            {/* Development process */}
+            <FuturisticDevelopmentProcess day={!isDayTime} description={developmentProcessDescription}/>
 
-                    <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-0"/>
-
-                    <div
-                        className={`absolute inset-0 z-0 pointer-events-none ${isDayTime ? 'opacity-[0.14]' : 'opacity-10'}`}
-                        style={{
-                            transform: `translate(${pointer.x * 20}px, ${pointer.y * 20}px)`,
-                            transition: 'transform 0.3s ease-out'
-                        }}
-                    >
-                        <div
-                            className="absolute top-20 left-20 w-72 h-72 md:w-96 md:h-96 bg-cyan-500 rounded-full blur-3xl"/>
-                        <div
-                            className="absolute bottom-20 right-20 w-72 h-72 md:w-96 md:h-96 bg-purple-500 rounded-full blur-3xl"/>
-                        <div
-                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 md:w-96 md:h-96 bg-emerald-500 rounded-full blur-3xl"/>
+            {/* CTA section */}
+            <section className={`py-12 ${isDayTime ? 'bg-white' : 'bg-[#050810]'}`}>
+                <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-[4.5em] text-center">
+                    <FxGlitchText tag="h2"
+                                  className={`text-3xl font-extrabold mb-4 ${isDayTime ? 'text-gray-900' : 'text-white'}`}>{ctaHeading ?? 'Ready to Launch?'}</FxGlitchText>
+                    <p className={`mb-8 ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>{ctaBody ?? 'Let us build something extraordinary together.'}</p>
+                    <div className="flex items-center justify-center gap-4">
+                        <FxButton day={!isDayTime} href="/contact">Start Your Project →</FxButton>
+                        <Link href="/portfolio" className="px-6 py-3 rounded-lg border">View Our Work</Link>
                     </div>
-
-                    {/* holographic grid */}
-                    <div
-                        aria-hidden
-                        className="absolute inset-0 z-0 pointer-events-none"
-                        style={{
-                            backgroundImage: `linear-gradient(${isDayTime ? 'rgba(15,23,42,0.06)' : 'rgba(0,245,212,0.06)'} 1px, transparent 1px), linear-gradient(90deg, ${isDayTime ? 'rgba(15,23,42,0.06)' : 'rgba(0,245,212,0.06)'} 1px, transparent 1px)`,
-                            backgroundSize: '44px 44px',
-                            maskImage: 'radial-gradient(ellipse 90% 75% at 50% 40%, black 25%, transparent 100%)',
-                            WebkitMaskImage: 'radial-gradient(ellipse 90% 75% at 50% 40%, black 25%, transparent 100%)'
-                        }}
-                    />
-
-                    {/* scanline sweep */}
-                    <div aria-hidden className="absolute inset-0 z-0 pointer-events-none">
-                        <div
-                            className={`dm-scanline absolute left-0 right-0 h-px ${isDayTime ? 'bg-gradient-to-r from-transparent via-[rgba(13,148,136,0.45)] to-transparent' : 'bg-gradient-to-r from-transparent via-[rgba(0,245,212,0.55)] to-transparent'}`}/>
-                    </div>
-
-                    {/* Header */}
-                    <div
-                        className={`relative ${isDayTime ? 'text-gray-900' : 'text-white'} text-center mb-12 md:mb-20 lg:mb-20 border-b ${isDayTime ? 'border-gray-200' : 'border-gray-700'} pb-[2em] space-y-6`}>
-                        <div
-                            className={`inline-flex items-center gap-3 px-5 py-2 rounded-full border backdrop-blur-sm font-mono text-[0.65em] font-[600] tracking-[0.35em] uppercase ${isDayTime ? 'border-teal-600/30 bg-teal-500/5 text-teal-700' : 'border-[#00f5d4]/30 bg-[#00f5d4]/5 text-[#00f5d4]'}`}>
-                            <span className="relative flex h-2 w-2">
-                                <span
-                                    className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
-                                <span
-                                    className={`relative inline-flex rounded-full h-2 w-2 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
-                            </span>
-                            Mission Protocol // Transformation Timeline
-                        </div>
-                        <h2 className={`capitalize text-[1.8em] md:text-[3em] lg:text-[3.3em] font-[700] tracking-tight leading-[1.2] lg:pb-6 ${isDayTime ? 'text-white' : 'text-black'}`}>
-                            Our Proven <span
-                            className={`text-transparent bg-clip-text bg-gradient-to-r animate-gradient ${isDayTime ? 'from-teal-600 via-cyan-600 to-violet-600' : 'from-[#00f5d4] via-cyan-400 to-violet-400'}`}>{phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)}-Day Process</span>
-                        </h2>
-                        <p className={`text-[1em] font-[300] lg:-mt-[0.2em] rounded-none leading-[1.6] mx-auto max-w-7xl ${isDayTime ? 'text-gray-50' : 'text-gray-950'}`}>
-                            Our comprehensive {phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)}-day
-                            transformation methodology is engineered for measurable impact. Through strategic discovery,
-                            precise execution, and continuous optimization across {phases.length} distinct phases, we
-                            accelerate your time-to-value while maintaining alignment with your business objectives at
-                            every milestone. Our proven framework combines industry-leading best practices with adaptive
-                            agile responsiveness, turning initial engagement into tangible, sustainable outcomes that
-                            drive competitive advantage and long-term growth trajectory.
-                        </p>
-                        <div className="flex justify-center items-center gap-4 pt-8 flex-wrap">
-                            {phases.map((p, i) => (
-                                <button
-                                    key={i}
-                                    onClick={() => setActivePhase(i)}
-                                    className={`group relative transition-all duration-500 ${activePhase === i ? 'scale-110' : 'scale-100 opacity-70'}`}
-                                    aria-label={`Select phase ${i + 1}`}
-                                >
-                                    <div
-                                        className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br ${p.color} p-0.5 transition-all duration-500 ${activePhase === i ? 'rotate-0 shadow-lg shadow-cyan-500/30' : 'rotate-45'}`}>
-                                        <div
-                                            className={`w-full h-full ${isDayTime ? 'bg-white' : 'bg-black'} rounded-2xl flex items-center justify-center transition-colors duration-500`}>
-                                            <span
-                                                className={`text-base font-bold font-mono transition-transform duration-500 ${activePhase === i ? 'rotate-0' : '-rotate-45'} ${isDayTime ? 'text-gray-900' : 'text-white'}`}>{String(i + 1).padStart(2, '0')}</span>
-                                        </div>
-                                    </div>
-                                    {activePhase === i && <div
-                                        className={`absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-2 h-2 ${isDayTime ? 'bg-gray-900' : 'bg-white'} rounded-full animate-ping`}/>}
-                                </button>
-                            ))}
-                        </div>
-
-                        {/* Mission timeline HUD */}
-                        <div
-                            className={`relative max-w-4xl mx-auto text-left rounded-2xl border backdrop-blur-md px-8 py-7 ${isDayTime ? 'border-gray-200 bg-white/70 shadow-lg' : 'border-gray-800 bg-gray-900/50 shadow-2xl'}`}>
-                            <span aria-hidden
-                                  className={`absolute -top-px -left-px w-5 h-5 border-t-2 border-l-2 rounded-tl-2xl ${isDayTime ? 'border-teal-600' : 'border-[#00f5d4]'}`}/>
-                            <span aria-hidden
-                                  className={`absolute -top-px -right-px w-5 h-5 border-t-2 border-r-2 rounded-tr-2xl ${isDayTime ? 'border-teal-600' : 'border-[#00f5d4]'}`}/>
-                            <span aria-hidden
-                                  className={`absolute -bottom-px -left-px w-5 h-5 border-b-2 border-l-2 rounded-bl-2xl ${isDayTime ? 'border-teal-600' : 'border-[#00f5d4]'}`}/>
-                            <span aria-hidden
-                                  className={`absolute -bottom-px -right-px w-5 h-5 border-b-2 border-r-2 rounded-br-2xl ${isDayTime ? 'border-teal-600' : 'border-[#00f5d4]'}`}/>
-
-                            <div
-                                className={`flex items-center justify-between font-mono text-[0.95em] tracking-[0.3em] uppercase mb-4 ${isDayTime ? 'text-gray-500' : 'text-gray-400'}`}>
-                                <span className="font-bold">MISSION TIMELINE</span>
-                                <span
-                                    className={`font-bold ${isDayTime ? 'text-teal-700' : 'text-[#00f5d4]'}`}>DAY {String(currentDay).padStart(2, '0')} / {phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)}</span>
-                            </div>
-
-                            <div className="mb-6">
-                                <div
-                                    className={`relative h-3 rounded-full overflow-hidden ${isDayTime ? 'bg-gradient-to-r from-gray-100 to-gray-200' : 'bg-gradient-to-r from-gray-800 to-gray-900'}`}>
-                                    <div
-                                        className="h-full rounded-full bg-gradient-to-r from-cyan-400 via-purple-500 to-emerald-500 transition-all duration-300 shadow-lg shadow-cyan-500/30"
-                                        style={{width: `${(currentDay / phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)) * 100}%`}}/>
-
-                                    {/* Dynamic phase dividers based on actual phase day ranges */}
-                                    {phases.map((phase, idx) => {
-                                        const startDay = phases.slice(0, idx).reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0);
-                                        const endDay = startDay + parseInt(phase.days.split('-')[1]);
-                                        const phasePercentage = (endDay / phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)) * 100;
-
-                                        return (
-                                            <span
-                                                key={idx}
-                                                aria-hidden
-                                                className={`absolute top-0 bottom-0 w-px transition-colors duration-300 ${isDayTime ? 'bg-white/60' : 'bg-gray-950/60'}`}
-                                                style={{left: `${phasePercentage}%`}}
-                                            />
-                                        );
-                                    })}
-                                </div>
-                            </div>
-
-                            <div className="flex flex-wrap items-center justify-between gap-4">
-                                <div
-                                    className={`flex gap-6 font-mono text-[0.7em] tracking-[0.25em] uppercase font-bold ${isDayTime ? 'text-gray-500' : 'text-gray-400'}`}>
-                                    {phases.map((phase, idx) => {
-                                        const phaseStartDay = phases.slice(0, idx).reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0) + 1;
-                                        const phaseEndDay = phaseStartDay + parseInt(phase.days.split('-')[1]) - 1;
-
-                                        return (
-                                            <div
-                                                key={idx}
-                                                className={`flex flex-col items-center transition-all duration-300 ${activePhase === idx ? (isDayTime ? 'text-gray-900' : 'text-white') : ''}`}
-                                            >
-                                                <span
-                                                    className={`text-[1em] font-black ${activePhase === idx ? (isDayTime ? (idx === 0 ? 'text-cyan-700' : idx === 1 ? 'text-purple-700' : 'text-emerald-700') : (idx === 0 ? 'text-cyan-400' : idx === 1 ? 'text-purple-400' : 'text-emerald-400')) : ''}`}>
-                                                    {String(idx + 1).padStart(2, '0')} {phase.title.split(' ')[0]}
-                                                </span>
-                                                <span
-                                                    className={`text-[0.95em] font-mono mt-1 ${isDayTime ? 'text-gray-500' : 'text-gray-200'}`}>
-                                                    D{phaseStartDay}-{phaseEndDay}
-                                                </span>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-
-                                <div className="flex gap-2">
-                                    <button onClick={() => setIsPlaying((s) => !s)}
-                                            className={`px-5 py-2 rounded-lg font-mono text-[0.7em] font-[700] tracking-[0.2em] uppercase transition-all duration-300 ${isDayTime ? 'bg-teal-600 text-white hover:bg-teal-700 shadow-md' : 'bg-[#00f5d4] text-black hover:bg-cyan-300 shadow-lg shadow-cyan-500/20'}`}>
-                                        {isPlaying ? '⏸ Pause' : ' -  Play'}
-                                    </button>
-                                    <button onClick={() => {
-                                        setIsPlaying(false);
-                                        setCurrentDay(1);
-                                    }}
-                                            className={`px-5 py-2 rounded-lg border font-mono text-[0.95em] font-[700] tracking-[0.2em] uppercase transition-all duration-300 ${isDayTime ? 'border-gray-300 text-gray-600 hover:bg-gray-100' : 'border-gray-600 text-gray-300 hover:bg-gray-800/50'}`}>
-                                        ↺ Reset
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Main */}
-                    <div className="grid lg:grid-cols-2 gap-16 items-start mb-24 overflow-visible">
-                        <div className="order-2 lg:order-1 flex justify-center">
-                            <div className="relative w-80 h-80 sm:w-96 sm:h-96">
-                                <div
-                                    className={`absolute inset-0 rounded-full bg-gradient-to-r ${phase.color} blur-3xl transition-opacity duration-700 ${isDayTime ? 'opacity-20' : 'opacity-25'}`}/>
-                                <div
-                                    className={`absolute inset-0 rounded-full bg-gradient-to-r ${phase.color} ${isDayTime ? 'opacity-30' : 'opacity-20'} animate-spin-slow`}/>
-                                <div
-                                    className={`absolute inset-4 rounded-full border border-dashed animate-spin-reverse ${isDayTime ? 'border-gray-300' : 'border-gray-700'}`}/>
-                                <div className="absolute inset-0 animate-spin-slow">
-                                    <span
-                                        className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full ${phase.accentColor} shadow-lg`}/>
-                                </div>
-                                <div
-                                    className={`absolute inset-8 rounded-full bg-gradient-to-br ${phase.color} p-1 animate-pulse-slow`}>
-                                    <div
-                                        className={`w-full h-full ${isDayTime ? 'bg-white' : 'bg-black'} rounded-full flex items-center justify-center p-12 transition-colors duration-700`}>{phase.icon}</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="order-1 lg:order-2 space-y-10 lg:pt-4 overflow-visible">
-                            {/* Phase Header */}
-                            <div className="space-y-5">
-                                <div className="flex items-center gap-3 mb-5 flex-wrap">
-                                    <div
-                                        className={`px-6 py-2 rounded-full bg-gradient-to-r ${phase.color} text-white font-mono font-bold text-sm tracking-[0.2em] uppercase shadow-lg`}>
-                                        {(() => {
-                                            const phaseStartDay = phases.slice(0, phases.indexOf(phase)).reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0) + 1;
-                                            const phaseEndDay = phaseStartDay + parseInt(phase.days.split('-')[1]) - 1;
-                                            return `Days ${phaseStartDay}-${phaseEndDay}`;
-                                        })()}
-                                    </div>
-                                    <div
-                                        className={`px-4 py-2 rounded-full backdrop-blur border ${isDayTime ? 'border-gray-200 bg-white/50 text-gray-700' : 'border-gray-700 bg-gray-800/50 text-gray-300'} font-mono text-sm font-bold tracking-[0.15em]`}>
-                                        {parseInt(phase.days.split('-')[1])} DAYS
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <h3 className={`text-4xl sm:text-5xl font-black mb-3 bg-gradient-to-r ${isDayTime ? 'from-gray-900 to-gray-600' : 'from-gray-100 to-gray-600'} bg-clip-text text-transparent`}>{phase.title}</h3>
-                                    <p className={`text-lg font-light bg-gradient-to-r ${phase.color} bg-clip-text text-transparent mb-4 leading-[1.6]`}>{phase.tagline}</p>
-                                </div>
-
-                                {/* Detailed Phase Overview */}
-                                <div
-                                    className={`p-6 rounded-2xl border ${isDayTime ? 'bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200' : 'bg-gradient-to-br from-gray-800/30 to-gray-900/30 border-gray-700'} space-y-4`}>
-                                    <p className={`text-base leading-[1.8] font-[400] ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}>
-                                        {phase.description || 'This transformational phase combines strategic planning with operational excellence. Our specialized team collaborates with your organization to implement proven frameworks, establish measurement protocols, and ensure continuous value delivery aligned with your business objectives and growth aspirations.'}
-                                    </p>
-                                    <div
-                                        className={`text-sm font-mono tracking-wider leading-relaxed ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
-                                        <p>✓ Comprehensive stakeholder alignment and goal setting</p>
-                                        <p>✓ Systematic implementation with risk mitigation protocols</p>
-                                        <p>✓ Continuous monitoring, optimization, and course correction</p>
-                                        <p>✓ Measurable KPI achievement and performance validation</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Key Deliverables - Expanded */}
-                            <div className="space-y-5 overflow-visible">
-                                <div>
-                                    <h4 className={`text-base font-mono tracking-[0.25em] uppercase font-bold mb-5 ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>📋
-                                        Key Deliverables & Outcomes</h4>
-                                </div>
-                                <div className="space-y-3 overflow-visible">
-                                    {phase.items.map((item, idx) => (
-                                        <div key={idx}
-                                             className={`group p-5 rounded-2xl transition-all duration-300 overflow-visible ${isDayTime ? 'bg-white/70 border-gray-200 hover:border-cyan-400 shadow-sm hover:shadow-lg hover:bg-white' : 'bg-gray-900/50 border-gray-800 hover:border-cyan-500 hover:bg-gray-800/80'} backdrop-blur-sm border`}>
-                                            <div className="flex items-start gap-4">
-                                                <div
-                                                    className={`flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br ${phase.color} flex items-center justify-center text-sm font-bold text-white font-mono`}>{idx + 1}</div>
-                                                <div className="flex-1 overflow-visible">
-                                                    <p className={`font-semibold text-[17px] mb-2 ${isDayTime ? 'text-gray-900 group-hover:text-gray-900' : 'text-white group-hover:text-white'} transition-colors`}>{item}</p>
-                                                    <p className={`text-[14px] leading-[1.7] ${isDayTime ? 'text-gray-600 group-hover:text-gray-700' : 'text-gray-400 group-hover:text-gray-300'} transition-colors`}>
-                                                        {getDeliverableDescription(item)}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* CTA */}
-                    <div className="relative group mt-12">
-                        <div
-                            className={`absolute inset-0 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 rounded-3xl blur-3xl transition-opacity ${isDayTime ? 'opacity-25 group-hover:opacity-40' : 'opacity-35 group-hover:opacity-50'}`}/>
-                        <div
-                            className={`relative overflow-hidden ${isDayTime ? 'bg-white/85 backdrop-blur-lg border-gray-200' : 'bg-gradient-to-r from-gray-900 to-black border-gray-800'} rounded-3xl p-12 md:p-16 border text-center`}>
-                            <span aria-hidden
-                                  className={`absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 ${isDayTime ? 'border-teal-600/60' : 'border-[#00f5d4]/60'}`}/>
-                            <span aria-hidden
-                                  className={`absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 ${isDayTime ? 'border-teal-600/60' : 'border-[#00f5d4]/60'}`}/>
-                            <span aria-hidden
-                                  className={`absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 ${isDayTime ? 'border-teal-600/60' : 'border-[#00f5d4]/60'}`}/>
-                            <span aria-hidden
-                                  className={`absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 ${isDayTime ? 'border-teal-600/60' : 'border-[#00f5d4]/60'}`}/>
-
-                            <div
-                                className={`mb-6 inline-flex items-center gap-2 px-5 py-2 rounded-full border backdrop-blur-sm font-mono text-[0.65em] font-[600] tracking-[0.3em] uppercase ${isDayTime ? 'border-teal-600/30 bg-teal-500/10 text-teal-700' : 'border-[#00f5d4]/30 bg-[#00f5d4]/10 text-[#00f5d4]'}`}>
-                                <span className="relative flex h-2 w-2">
-                                    <span
-                                        className={`animate-pulse absolute inline-flex h-full w-full rounded-full opacity-75 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
-                                    <span
-                                        className={`relative inline-flex rounded-full h-2 w-2 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
-                                </span>
-                                Accelerate Your Growth
-                            </div>
-
-                            <h3 className={`text-4xl sm:text-5xl font-black mb-4 bg-gradient-to-r ${isDayTime ? 'from-gray-900 via-gray-700 to-gray-600' : 'from-white via-gray-200 to-gray-300'} bg-clip-text text-transparent`}>Ready
-                                to Launch?</h3>
-
-                            <p className={`text-lg leading-[1.7] mb-10 max-w-5xl mx-auto ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
-                                Join industry-leading companies transforming their digital landscape with our
-                                proven {phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)}-day
-                                methodology. From discovery to scale, we deliver measurable impact at every
-                                stage -accelerating growth while ensuring strategic alignment and sustainable competitive
-                                advantage.
-                            </p>
-
-                            <div className="flex flex-col sm:flex-row justify-center gap-4 flex-wrap">
-                                <Link href="/contact"
-                                      className={`px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg ${isDayTime ? 'bg-gradient-to-r from-teal-600 to-cyan-600 text-white hover:shadow-xl hover:from-teal-700 hover:to-cyan-700' : 'bg-gradient-to-r from-[#00f5d4] to-cyan-400 text-black hover:shadow-xl hover:shadow-cyan-500/50 font-semibold'}`}>
-                                    Start Your {phases.reduce((sum, p) => sum + parseInt(p.days.split('-')[1]), 0)}-Day
-                                    Journey
-                                </Link>
-                                <Link href="/portfolio"
-                                      className={`px-8 py-4 rounded-xl border-2 font-bold text-lg transition-all duration-300 ${isDayTime ? 'border-gray-300 text-gray-700 hover:border-gray-500 hover:bg-gray-100' : 'border-gray-600 text-gray-300 hover:border-gray-400 hover:bg-gray-800/50'}`}>
-                                    View Our Work
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-
-            </div>
-            {/* Pricing  - show when requested */}
-            {showPricing && <CurrencyAwarePricing serviceType={derivedServiceType}/>}
-
-            <style>{`
-                            @keyframes blob { 0%,100%{transform:translate(0,0) scale(1);}25%{transform:translate(20px,-50px) scale(1.1);}50%{transform:translate(-20px,20px) scale(0.9);}75%{transform:translate(50px,50px) scale(1.05);} }
-                            @keyframes gradient { 0%,100%{background-position:0% 50%}50%{background-position:100% 50%} }
-                            @keyframes spin-slow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-                            @keyframes spin-reverse { from{transform:rotate(360deg)} to{transform:rotate(0deg)} }
-                            @keyframes pulse-slow { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.8;transform:scale(1.05)} }
-                            .animate-blob { animation: blob 7s infinite; }
-                            .animate-gradient { background-size: 200% auto; animation: gradient 3s ease infinite; }
-                            .animate-spin-slow { animation: spin-slow 20s linear infinite; }
-                            .animate-spin-reverse { animation: spin-reverse 15s linear infinite; }
-                            .animate-pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
-                          `}</style>
-
-            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
-                   DEVELOPMENT PROCESS
-                    -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
-            <FuturisticDevelopmentProcess
-                day={isDayTime}
-                description={developmentProcessDescription}
-            />
-
-            {/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
-                CTA + COUNTUP (ENHANCED)
-                 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
-            <section
-                className={`relative overflow-hidden transition-colors duration-700 ${isDayTime ? 'bg-gradient-to-b from-white via-gray-50 to-slate-100' : 'bg-gradient-to-b from-[#050810] via-gray-950 to-black'}`}>
-                <FxBackground day={isDayTime} grid aurora/>
-                <FxOrbit size={800} top="-200px" left="50%" opacity={isDayTime ? 0.04 : 0.08} speed={60}/>
-                <FxOrbit size={500} bottom="-100px" right="-150px" opacity={isDayTime ? 0.05 : 0.10} speed={30}
-                         reverse/>
-
-                <div
-                    className={`relative z-10 lg:py-24 md:py-20 py-16 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${isDayTime ? 'text-gray-900' : 'text-white'}`}>
-
-                    {/* Enhanced Header with Page Context */}
-                    <FxReveal>
-                        <div className="mb-8">
-                            <div
-                                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-sm font-mono text-[0.65em] font-[600] tracking-[0.3em] uppercase mb-6 ${isDayTime ? 'border-teal-600/30 bg-teal-500/10 text-teal-700' : 'border-[#00f5d4]/30 bg-[#00f5d4]/10 text-[#00f5d4]'}`}>
-                                <span className="relative flex h-2 w-2">
-                                    <span
-                                        className={`animate-pulse absolute inline-flex h-full w-full rounded-full opacity-75 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
-                                    <span
-                                        className={`relative inline-flex rounded-full h-2 w-2 ${isDayTime ? 'bg-teal-600' : 'bg-[#00f5d4]'}`}/>
-                                </span>
-                                Ready to Transform
-                            </div>
-                        </div>
-                        <FxGlitchText tag="h1"
-                                      className={`lg:text-[5em] md:text-[4em] sm:text-[3em] text-[2em] font-[700] leading-[1.1] mb-[0.5em] ${isDayTime ? 'bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 bg-clip-text text-transparent' : 'gx-gradient-text'}`}>
-                            {ctaHeading || (<>Your trusted<br className="lg:block md:block hidden"/>digital partner</>)}
-                        </FxGlitchText>
-                    </FxReveal>
-
-                    {/* Enhanced Description with Page-Specific Details */}
-                    <FxReveal delay={0.15}>
-                        <div className="lg:pr-[33em] mb-10 space-y-6">
-                            <p className={`text-[0.95em] font-[300] leading-[1.8] ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}>
-                                {ctaBody || (
-                                    <>We specialize in crafting high-impact marketing websites, innovative web apps, and
-                                        mobile applications that drive real results. From funded startups to established
-                                        businesses, we&apos;ve helped a wide range of clients bring their digital
-                                        products to life -delivering standout experiences that fuel growth, engagement,
-                                        and long-term success.</>
-                                )}
-                            </p>
-
-                            {/* Page-Specific Details */}
-                            <div
-                                className={`grid md:grid-cols-2 gap-6 pt-4 ${isDayTime ? 'border-t border-gray-300' : 'border-t border-gray-700'}`}>
-                                <div className="space-y-3">
-                                    <h4 className={`text-sm font-mono tracking-[0.2em] uppercase font-bold ${isDayTime ? 'text-teal-700' : 'text-[#00f5d4]'}`}>🎯
-                                        Our Approach</h4>
-                                    <ul className={`text-sm space-y-2 ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>
-                                        <li className="flex gap-2"><span
-                                            className={isDayTime ? 'text-teal-600' : 'text-cyan-400'}>✓</span> Strategic
-                                            discovery & planning
-                                        </li>
-                                        <li className="flex gap-2"><span
-                                            className={isDayTime ? 'text-teal-600' : 'text-cyan-400'}>✓</span> Agile
-                                            development & iteration
-                                        </li>
-                                        <li className="flex gap-2"><span
-                                            className={isDayTime ? 'text-teal-600' : 'text-cyan-400'}>✓</span> Continuous
-                                            optimization
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="space-y-3">
-                                    <h4 className={`text-sm font-mono tracking-[0.2em] uppercase font-bold ${isDayTime ? 'text-purple-700' : 'text-purple-400'}`}>⚡
-                                        Why Partner With Us</h4>
-                                    <ul className={`text-sm space-y-2 ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>
-                                        <li className="flex gap-2"><span
-                                            className={isDayTime ? 'text-purple-600' : 'text-purple-400'}>✓</span> 8+
-                                            years of proven expertise
-                                        </li>
-                                        <li className="flex gap-2"><span
-                                            className={isDayTime ? 'text-purple-600' : 'text-purple-400'}>✓</span> 200+
-                                            projects delivered
-                                        </li>
-                                        <li className="flex gap-2"><span
-                                            className={isDayTime ? 'text-purple-600' : 'text-purple-400'}>✓</span> 98%
-                                            client satisfaction
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </FxReveal>
-
-                    {/* Enhanced CTA Buttons */}
-                    <FxReveal delay={0.2}>
-                        <div className="flex flex-wrap gap-4 items-center mb-16">
-                            <FxButton day={isDayTime} href="/contact" variant="solid">
-                                Start Your Project →
-                            </FxButton>
-                            <button
-                                className={`px-8 py-3 rounded-lg font-bold text-lg transition-all duration-300 border-2 ${isDayTime ? 'border-gray-400 text-gray-700 hover:border-gray-600 hover:bg-gray-100' : 'border-gray-700 text-gray-300 hover:border-gray-500 hover:bg-gray-900/50'}`}>
-                                Schedule Consultation
-                            </button>
-                        </div>
-                    </FxReveal>
-
-                    {/* Enhanced Countup stats */}
-                    <FxReveal delay={0.25}>
-                        <div
-                            className={`grid lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-3 grid-cols-1 gap-px rounded-2xl overflow-hidden border ${isDayTime ? 'border-gray-300 bg-white' : borderCol}`}>
-                            {stats.map((stat, index) => (
-                                <div key={index}
-                                     className={`relative flex flex-col justify-center items-center py-10 px-4 transition-all duration-300 ${isDayTime ? 'bg-white hover:bg-teal-50' : 'bg-white/[0.03] hover:bg-teal-400/5'}`}>
-                                    <div className="absolute inset-0 pointer-events-none"
-                                         style={{backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 3px, ${isDayTime ? 'rgba(13,148,136,0.015)' : 'rgba(45,212,191,0.015)'} 3px, ${isDayTime ? 'rgba(13,148,136,0.015)' : 'rgba(45,212,191,0.015)'} 4px)`}}
-                                    />
-                                    <h2 className={`lg:text-[3.2em] md:text-[3em] sm:text-[2em] text-[1.8em] font-[700] leading-none mb-2 ${isDayTime ? 'bg-gradient-to-r from-teal-700 to-cyan-700 bg-clip-text text-transparent' : 'gx-gradient-text'}`}>
-                                        <CountUp end={stat.value} duration={2} suffix={stat.suffix || ''}/>
-                                    </h2>
-                                    <p className={`text-[0.78em] font-[400] text-center ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>{stat.label}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </FxReveal>
-
-                    {/* Terminal decoration */}
-                    <FxReveal delay={0.3} className="mt-14 max-w-lg">
-                        <FxTerminal
-                            day={false}
-                            lines={[
-                                '# Grey InfoTech  - where innovation ships',
-                                'npm run build:production',
-                                'Deploying to edge network...',
-                                '✓ Build complete  - 0 errors',
-                            ]}
-                        />
-                    </FxReveal>
                 </div>
             </section>
+
+            {/* Pricing */}
+            {showPricing && <CurrencyAwarePricing serviceType={derivedServiceType}/>}
+
+            {/* Stats / Countup */}
+            <section className={`py-12 ${isDayTime ? 'bg-white' : 'bg-[#050810]'}`}>
+                <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-[4.5em]">
+                    <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                        {stats.map((s, i) => (
+                            <div key={i} className="py-6 text-center">
+                                <h3 className="text-3xl font-bold"><CountUp end={s.value} duration={2}
+                                                                            suffix={s.suffix || ''}/></h3>
+                                <p className="text-sm text-white/70 mt-2">{s.label}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Terminal */}
+            <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-[4.5em] pb-12">
+                <FxTerminal day={!isDayTime}
+                            lines={["# Grey InfoTech - innovation ships", "Build complete", "Deployed to edge"]}/>
+            </div>
+
         </div>
     );
-};
+}
 
 export default ServicePageTemplate;
-

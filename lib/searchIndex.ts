@@ -30,7 +30,7 @@ export const SEARCH_INDEX: SearchEntry[] = [
     },
     {
         "title": "Startups",
-        "href": "/Startups",
+        "href": "/startups",
         "category": "Page"
     },
     {

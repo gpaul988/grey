@@ -235,7 +235,7 @@ const HeaderContent: React.FC = () => {
         {label: 'Technologies', href: '/technologies', hasSubmenu: true},
         {label: 'Blog', href: '/blog'},
         {label: 'Company', href: '/company', hasSubmenu: true},
-        {label: 'Startups', href: '/Startups'},
+        {label: 'Startups', href: '/startups'},
         {label: 'Store', href: '/store'},
         {label: 'Contact us', href: '/contact'},
     ];
@@ -245,7 +245,7 @@ const HeaderContent: React.FC = () => {
             title: 'ABOUT',
             items: [
                 {name: 'About Company', href: '/company', description: 'Our story, mission and values'},
-                {name: 'Our Approach', href: '/Our-Approach', description: 'How we deliver excellence'},
+                {name: 'Our Approach', href: '/our-approach', description: 'How we deliver excellence'},
                 {name: 'Careers', href: '/careers', description: 'Join the Grey team'},
                 {name: 'Partners', href: '/partners', description: 'Our global partnerships'},
             ],

@@ -35,7 +35,7 @@ const Seo = () => {
     // x-scroller
     const targetRef = useRef<HTMLDivElement | null>(null);
     // Guarded useScroll: only set target when the ref is hydrated to avoid framer-motion invariant
-    const {scrollYProgress} = useScroll({ target: (typeof window !== 'undefined' && targetRef.current) ? targetRef : undefined });
+    const {scrollYProgress} = useScroll({target: (typeof window !== 'undefined' && targetRef.current) ? targetRef : undefined});
     const x = useTransform(scrollYProgress, [0, 1], ["0%", "-60%"]);
 
     // Floating button visibility hook
@@ -172,12 +172,12 @@ const Seo = () => {
             // Call server-side audit endpoint to avoid CORS/CSP issues
             const res = await fetch('/api/seo-audit', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ url: u }),
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({url: u}),
             });
 
             if (!res.ok) {
-                const err = await res.json().catch(() => ({ error: 'Unknown error' }));
+                const err = await res.json().catch(() => ({error: 'Unknown error'}));
                 throw new Error(err?.error || 'Audit failed');
             }
 
@@ -185,7 +185,7 @@ const Seo = () => {
             if (!payload.ok) throw new Error(payload.error || 'Audit failed');
 
             setResult(payload);
-        } catch (e:any) {
+        } catch (e: any) {
             setError(e.message || String(e));
         } finally {
             setLoading(false);
@@ -423,15 +423,6 @@ const Seo = () => {
             </section>
 
             {/* Introductory section (futuristic style) */}
-
-            {/* Instant SEO Audit moved to the central Audit screen. Visit the Audit page for the fully-featured, instant SEO console. */}
-            <section className={`relative py-12 px-6 ${isDayTime ? 'bg-white' : 'bg-black'}`}>
-              <div className="max-w-4xl mx-auto text-center">
-                <h3 className="text-2xl font-bold mb-4">Instant SEO Audit (moved)</h3>
-                <p className="text-sm text-gray-500 mb-4">This quick-audit console has been moved to the site-wide Audit tool for a more powerful, secure, and consistent experience.</p>
-                <a href="/audit" className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-teal-400 to-indigo-500 text-black font-semibold">Open Audit Console →</a>
-              </div>
-            </section>
             <section
                 ref={sectionRef}
                 data-bg={isBackgroundActive ? (isDayTime ? 'Dark' : 'Light') : (isDayTime ? 'Light' : 'Dark')}
@@ -1448,7 +1439,7 @@ const Seo = () => {
                                     No strings attached. No pressure. Just actionable insights backed by data.
                                 </p>
                             </div>
-                            <FxButton day={!isDayTime} href="/contact" variant="solid">
+                            <FxButton day={!isDayTime} href="/audit" variant="solid">
                                 Request Free SEO Audit <span className="text-[1.2em] leading-none ml-1">→</span>
                             </FxButton>
                         </div>

@@ -98,11 +98,11 @@ const STATIC: Record<string, SeoEntry> = {
         title: 'About Grey InfoTech — Our Story, Team & Mission',
         description: 'Meet the team behind Grey InfoTech. Eight years building award-winning digital products across fintech, healthcare, e-commerce and more.',
     },
-    '/Our-Approach': {
+    '/our-approach': {
         title: 'Our Approach — How Grey InfoTech Builds Products',
         description: 'Discovery, design, engineering and growth. See the proven, transparent process behind every Grey InfoTech project.',
     },
-    '/Startups': {
+    '/startups': {
         title: 'Startup Development Services — From Idea to Launch',
         description: 'End-to-end product development for startups: MVPs, scalable architecture, design and go-to-market support from Grey InfoTech.',
     },
@@ -148,11 +148,11 @@ const STATIC: Record<string, SeoEntry> = {
         title: 'Request a Quote | Grey InfoTech',
         description: 'Tell us about your project and get a tailored quote from Grey InfoTech.',
     },
-    '/Links': {
+    '/links': {
         title: 'Links | Grey InfoTech',
         description: 'Quick links to Grey InfoTech resources and channels.',
     },
-    '/Terms-Conditions': {title: 'Terms & Conditions | Grey InfoTech', description: 'Terms and conditions for using Grey InfoTech services and website.', noindex: false},
+    '/terms-conditions': {title: 'Terms & Conditions | Grey InfoTech', description: 'Terms and conditions for using Grey InfoTech services and website.', noindex: false},
     '/cookies-policy': {title: 'Cookies Policy | Grey InfoTech', description: 'How Grey InfoTech uses cookies and similar technologies.'},
     '/data-protection-policy': {title: 'Data Protection Policy | Grey InfoTech', description: 'Grey InfoTech’s data protection and privacy commitments, aligned with the NDPR.'},
     '/store': {title: 'Store — Software, Templates & Digital Products | Grey InfoTech', description: 'Browse and buy digital products, templates and tools built by Grey InfoTech.'},

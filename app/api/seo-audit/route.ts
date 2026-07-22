@@ -21,21 +21,26 @@ export async function POST(request: Request) {
     const dom = new JSDOM(html);
     const document = dom.window.document;
 
-    const title = document.querySelector('title')?.textContent?.trim() || '';
-    const metaDescription = document.querySelector('meta[name="description"]')?.getAttribute('content') || '';
-    const h1s = Array.from(document.querySelectorAll('h1')).map(h => h.textContent?.trim()).filter(Boolean);
-    const canonical = document.querySelector('link[rel="canonical"]')?.getAttribute('href') || '';
-    const robots = document.querySelector('meta[name="robots"]')?.getAttribute('content') || '';
-    const viewport = document.querySelector('meta[name="viewport"]')?.getAttribute('content') || '';
+    const title = (document.querySelector('title') as HTMLTitleElement | null)?.textContent?.trim() || '';
+    const metaDescription = (document.querySelector('meta[name="description"]') as HTMLMetaElement | null)?.getAttribute('content') || '';
+
+    // Explicitly type NodeList conversions to avoid 'unknown' inference
+    const h1s = Array.from(document.querySelectorAll('h1') as NodeListOf<HTMLHeadingElement>)
+      .map(h => h.textContent?.trim())
+      .filter(Boolean) as string[];
+
+    const canonical = (document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null)?.getAttribute('href') || '';
+    const robots = (document.querySelector('meta[name="robots"]') as HTMLMetaElement | null)?.getAttribute('content') || '';
+    const viewport = (document.querySelector('meta[name="viewport"]') as HTMLMetaElement | null)?.getAttribute('content') || '';
     const jsonLdCount = document.querySelectorAll('script[type="application/ld+json"]').length;
 
-    const images = Array.from(document.querySelectorAll('img'));
+    const images = Array.from(document.querySelectorAll('img') as NodeListOf<HTMLImageElement>);
     const imagesMissingAlt = images
-      .filter(img => !(img.getAttribute('alt') || '').trim())
+      .filter(img => !((img.getAttribute('alt') || '').trim()))
       .slice(0, 50)
       .map(img => img.getAttribute('src') || '');
 
-    const links = Array.from(document.querySelectorAll('a'))
+    const links = Array.from(document.querySelectorAll('a') as NodeListOf<HTMLAnchorElement>)
       .map(a => a.getAttribute('href'))
       .filter(Boolean) as string[];
 

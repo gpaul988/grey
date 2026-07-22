@@ -101,6 +101,22 @@ const WebApplication = () => {
 
     const isDayTime = useIsDayTime();
 
+    // Desktop detection for responsive layout (guarded for SSR)
+    const [isDesktop, setIsDesktop] = useState<boolean>(typeof window !== 'undefined' ? window.innerWidth >= 1024 : false);
+    useEffect(() => {
+        const onResize = () => setIsDesktop(window.innerWidth >= 1024);
+        if (typeof window !== 'undefined') {
+            onResize();
+            window.addEventListener('resize', onResize);
+        }
+        return () => {
+            if (typeof window !== 'undefined') window.removeEventListener('resize', onResize);
+        };
+    }, []);
+
+    // Accordion active index for industry panels
+    const [activeAcc, setActiveAcc] = useState<number>(0);
+
     // Intro section background toggle
     useEffect(() => {
         const handleScroll = () => {
@@ -869,6 +885,255 @@ const WebApplication = () => {
                     </div>
                 </div>
             </section>
+
+            {/* Web Application Solutions For Diverse Industries */}
+            <div
+                className={`lg:pt-[3em] md:pt-[2.5em] pt-[1.5em] lg:pb-[3em] md:pb-[2.5em] pb-[1.5em] relative overflow-hidden ${isDayTime ? 'bg-black' : 'bg-white'}`}>
+                {/* Animated background gradient */}
+                <div
+                    className={`absolute inset-0 ${isDayTime ? 'bg-gradient-to-br from-[#031E29]/30 via-transparent to-[#041f2d]/30' : 'bg-gradient-to-br from-[#f0f9ff]/50 via-transparent to-[#f3e8ff]/50'} pointer-events-none`}/>
+                <div id={'industry-solutions'}
+                     className={`relative lg:mt-[1.5em] md:mt-[1.5em] mt-[1em] lg:mb-16 md:mb-16 mb-5 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] z-10`}>
+
+                    {/* Header with EXTREME Detail */}
+                    <div
+                        className={`relative grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 border-b-2 lg:pb-[3em] md:pb-[3em] pb-[1em] mb-20 ${
+                            isDayTime ? 'text-white border-[#0ef0dd]/30' : 'text-black border-[#0ef0dd]/20'
+                        }`}>
+                        <div className='animate-fade-in'>
+                            <h2 className={`capitalize text-[1.8em] md:text-[3em] lg:text-[3.3em] font-[800] tracking-tight leading-[1.2] lg:pb-6 text-shadow-lg`}>
+                                <span className={`text-[#0ef0dd] drop-shadow-lg`}>Purpose-Built Web Apps</span> <br
+                                className={'lg:block md:block hidden'}/>Engineered for <span
+                                className={`text-[#06b6d4] drop-shadow-lg`}>Industry-Specific Excellence</span>
+                            </h2>
+                            <p className={`text-[0.9em] font-[400] leading-[1.7] mb-4 ${isDayTime ? 'text-gray-300' : 'text-gray-700'}`}>
+                                Transforming business operations with intelligent web solutions tailored to unique sector challenges and regulatory requirements
+                            </p>
+                            <div className={`flex gap-2 mt-5 flex-wrap`}>
+                                <span
+                                    className={`text-[0.75em] px-4 py-2 rounded-full border font-[600] transition-all hover:scale-110 ${isDayTime ? 'border-[#0ef0dd]/60 bg-[#0ef0dd]/20 text-[#0ef0dd]' : 'border-[#0ef0dd]/40 bg-[#0ef0dd]/15 text-[#0ef0dd]'}`}>🏭 Multi-Industry</span>
+                                <span
+                                    className={`text-[0.75em] px-4 py-2 rounded-full border font-[600] transition-all hover:scale-110 ${isDayTime ? 'border-[#06b6d4]/60 bg-[#06b6d4]/20 text-[#06b6d4]' : 'border-[#06b6d4]/40 bg-[#06b6d4]/15 text-[#06b6d4]'}`}> - Compliant</span>
+                                <span
+                                    className={`text-[0.75em] px-4 py-2 rounded-full border font-[600] transition-all hover:scale-110 ${isDayTime ? 'border-[#7c3aed]/60 bg-[#7c3aed]/20 text-[#7c3aed]' : 'border-[#7c3aed]/40 bg-[#7c3aed]/15 text-[#7c3aed]'}`}>✅ Domain-Focused</span>
+                                <span
+                                    className={`text-[0.75em] px-4 py-2 rounded-full border font-[600] transition-all hover:scale-110 ${isDayTime ? 'border-[#f59e0b]/60 bg-[#f59e0b]/20 text-[#f59e0b]' : 'border-[#f59e0b]/40 bg-[#f59e0b]/15 text-[#f59e0b]'}`}>⚡ Real-Time</span>
+                                <span
+                                    className={`text-[0.75em] px-4 py-2 rounded-full border font-[600] transition-all hover:scale-110 ${isDayTime ? 'border-[#10b981]/60 bg-[#10b981]/20 text-[#10b981]' : 'border-[#10b981]/40 bg-[#10b981]/15 text-[#10b981]'}`}>🔐 Secure</span>
+                            </div>
+                        </div>
+                        <div className='animate-fade-in-delayed'>
+                            <p className={`text-[0.92em] font-[400] lg:-mt-[0.2em] rounded-lg leading-[1.85] mb-5 p-5 ${isDayTime ? 'bg-[#0ef0dd]/5 border border-[#0ef0dd]/20' : 'bg-[#0ef0dd]/5 border border-[#0ef0dd]/20'}`}>
+                                Our purpose-built web applications represent the pinnacle of modern web engineering, meticulously customized to address the most demanding operational challenges across healthcare, financial services, real estate, logistics, retail, manufacturing, media & entertainment, education, hospitality, and government sectors. We architect solutions that seamlessly navigate complex regulatory frameworks (HIPAA, PCI-DSS, GDPR, SOX, FDA), optimize mission-critical workflows, and overcome sector-specific challenges with surgical precision. Our web platforms consistently deliver transformative business outcomes through intelligent automation, enterprise-grade security, real-time data synchronization, and scalable cloud infrastructure supporting millions of concurrent users globally.
+                            </p>
+                            <div className={`grid grid-cols-2 gap-4 mb-5`}>
+                                <div
+                                    className={`p-4 rounded-xl border-l-4 transition-all hover:shadow-lg ${isDayTime ? 'border-[#0ef0dd]/80 bg-gradient-to-br from-[#0ef0dd]/15 to-[#0ef0dd]/5' : 'border-[#0ef0dd]/60 bg-gradient-to-br from-[#0ef0dd]/20 to-[#0ef0dd]/10'}`}>
+                                    <p className={`text-[0.8em] font-[800] ${isDayTime ? 'text-[#0ef0dd]' : 'text-[#0ef0dd]'}`}>200+</p>
+                                    <p className={`text-[0.75em] font-[600] ${isDayTime ? 'text-gray-400' : 'text-gray-600'}`}>Applications Deployed</p>
+                                </div>
+                                <div
+                                    className={`p-4 rounded-xl border-l-4 transition-all hover:shadow-lg ${isDayTime ? 'border-[#06b6d4]/80 bg-gradient-to-br from-[#06b6d4]/15 to-[#06b6d4]/5' : 'border-[#06b6d4]/60 bg-gradient-to-br from-[#06b6d4]/20 to-[#06b6d4]/10'}`}>
+                                    <p className={`text-[0.8em] font-[800] ${isDayTime ? 'text-[#06b6d4]' : 'text-[#06b6d4]'}`}>18+</p>
+                                    <p className={`text-[0.75em] font-[600] ${isDayTime ? 'text-gray-400' : 'text-gray-600'}`}>Industries Served</p>
+                                </div>
+                                <div
+                                    className={`p-4 rounded-xl border-l-4 transition-all hover:shadow-lg ${isDayTime ? 'border-[#7c3aed]/80 bg-gradient-to-br from-[#7c3aed]/15 to-[#7c3aed]/5' : 'border-[#7c3aed]/60 bg-gradient-to-br from-[#7c3aed]/20 to-[#7c3aed]/10'}`}>
+                                    <p className={`text-[0.8em] font-[800] ${isDayTime ? 'text-[#7c3aed]' : 'text-[#7c3aed]'}`}>$1.5B+</p>
+                                    <p className={`text-[0.75em] font-[600] ${isDayTime ? 'text-gray-400' : 'text-gray-600'}`}>Transaction Value</p>
+                                </div>
+                                <div
+                                    className={`p-4 rounded-xl border-l-4 transition-all hover:shadow-lg ${isDayTime ? 'border-[#f59e0b]/80 bg-gradient-to-br from-[#f59e0b]/15 to-[#f59e0b]/5' : 'border-[#f59e0b]/60 bg-gradient-to-br from-[#f59e0b]/20 to-[#f59e0b]/10'}`}>
+                                    <p className={`text-[0.8em] font-[800] ${isDayTime ? 'text-[#f59e0b]' : 'text-[#f59e0b]'}`}>99.97%</p>
+                                    <p className={`text-[0.75em] font-[600] ${isDayTime ? 'text-gray-400' : 'text-gray-600'}`}>Uptime SLA</p>
+                                </div>
+                            </div>
+                            <div
+                                className={`p-5 rounded-xl border-l-4 ${isDayTime ? 'border-[#0ef0dd] bg-gradient-to-r from-[#0ef0dd]/10 to-transparent' : 'border-[#0ef0dd]/50 bg-gradient-to-r from-[#0ef0dd]/15 to-transparent'}`}>
+                                <p className={`text-[0.85em] font-[600] leading-[1.8] ${isDayTime ? 'text-gray-200' : 'text-gray-800'}`}>
+                                    🏆 <strong>Proven Excellence:</strong> 200+ successful web application deployments across 18+ industries with $1.5B+ in managed transaction value, 99.97% uptime SLA, and average 18-month ROI achievement ensuring measurable competitive advantage
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Accordion Tabs with Enhanced Styling */}
+                    <div className={`flex max-w-full mx-auto gap-[2px] ${isDesktop ? "flex-row h-[600px]" : "flex-col h-auto"}`}>
+                        {(() => {
+                            // pull the industries data into a reusable array for the accordion
+                            const industries = [
+                                { number: '01', title: 'Healthcare & Life Sciences', heading: 'Patient-Centric Digital Ecosystems', description: 'Build HIPAA-compliant, patient engagement platforms with integrated telemedicine, EHR interoperability, appointment scheduling, secure messaging, and AI-powered diagnostics. Our architectures support real-time clinical workflows, multi-facility coordination, and advanced analytics for population health management.', capabilities: [ {icon: '🏥', title: 'HIPAA & HITRUST Compliance', desc: 'End-to-end encryption, audit trails, role-based access control, and data residency compliance'}, {icon: '📱', title: 'Patient Engagement Portal', desc: 'Mobile-first design with appointment booking, prescription refills, secure messaging, and health records access'}, {icon: '🔬', title: 'Clinical Integration Layer', desc: 'HL7/FHIR standards, EHR interoperability, lab system connectors, pharmacy integration'}, {icon: '📊', title: 'Predictive Analytics', desc: 'ML models for readmission risk, treatment optimization, population segmentation'} ] },
+                                { number: '02', title: 'Financial Services & Fintech', heading: 'Secure, Compliant Payment Ecosystems', description: 'Engineering robust banking, lending, and investment platforms with real-time settlement, multi-currency support, KYC/AML automation, and advanced fraud detection. Our solutions support PCI-DSS Level 1 compliance, regulatory reporting (MiFID II, Dodd-Frank), and seamless API integrations with core banking systems.', capabilities: [ {icon: '🏦', title: 'PCI-DSS Level 1 Compliance', desc: '3DSecure, tokenization, encrypted payment processing, comprehensive audit trails'}, {icon: '💳', title: 'Multi-Channel Payments', desc: 'Card processing, wallet integrations, wire transfers, SWIFT, ACH, blockchain settlement'}, {icon: '🔍', title: 'KYC/AML & Fraud Prevention', desc: 'Real-time identity verification, sanctions screening, behavioral analysis, anomaly detection'}, {icon: '📈', title: 'Portfolio & Risk Analytics', desc: 'Real-time VaR calculations, stress testing, regulatory reporting, multi-asset trading'} ] },
+                                { number: '03', title: 'Real Estate & Property Management', heading: 'Intelligent Property Platforms', description: 'Transform real estate operations with comprehensive property management, tenant portals, maintenance scheduling, rent collection automation, and market analytics. Our platforms integrate IoT sensors, smart building automation, dynamic pricing engines, and investment analysis dashboards.', capabilities: [ {icon: '🏢', title: 'Property Management Suite', desc: 'Multi-property control, tenant communication, lease management, document storage'}, {icon: '🔧', title: 'Maintenance & Operations', desc: 'Predictive maintenance, work order automation, contractor management, asset tracking'}, {icon: '💰', title: 'Rent & Financial Management', desc: 'Automated rent collection, late payment notifications, expense tracking, profitability analysis'}, {icon: '📍', title: 'Market Intelligence & Valuations', desc: 'Comparable property analysis, price forecasting, neighborhood insights, investment ROI modeling'} ] },
+                                { number: '04', title: 'E-Commerce & Retail', heading: 'Omnichannel Commerce Platforms', description: 'Build high-performance e-commerce and retail solutions with unified inventory, dynamic pricing, personalization engines, and seamless POS integration. Our platforms scale to billions of transactions annually with real-time recommendations, social commerce integration, and advanced fulfillment automation.', capabilities: [ {icon: '🛍️', title: 'Unified Commerce', desc: 'Omnichannel inventory, seamless checkout, subscription management, loyalty programs'}, {icon: '🤖', title: 'AI Personalization & Recommendations', desc: 'ML-driven product recommendations, dynamic content, A/B testing, behavioral targeting'}, {icon: '📦', title: 'Fulfillment Automation', desc: 'Real-time order routing, warehouse management, last-mile tracking, returns processing'}, {icon: '💳', title: 'Payment & Risk Management', desc: '200+ payment gateways, fraud detection, chargeback prevention, currency conversion'} ] },
+                                { number: '05', title: 'Logistics & Supply Chain', heading: 'End-to-End Supply Chain Visibility', description: 'Create intelligent logistics platforms with real-time fleet tracking, route optimization, predictive maintenance, and supply chain visibility. Our solutions integrate IoT telematics, blockchain verification, demand forecasting, and multi-modal transportation coordination.', capabilities: [ {icon: '🚚', title: 'Fleet Management & Tracking', desc: 'Real-time GPS tracking, fuel optimization, driver behavior monitoring, maintenance alerts'}, {icon: '📍', title: 'Route Optimization Engine', desc: 'ML-powered route planning, traffic prediction, delivery time accuracy, cost minimization'}, {icon: '📦', title: 'Warehouse & Inventory Control', desc: 'RFID integration, automated picking, barcode scanning, predictive stocking, network optimization'}, {icon: '⛓️', title: 'Supply Chain Transparency', desc: 'Blockchain tracking, supplier collaboration, quality assurance, regulatory documentation'} ] },
+                                { number: '06', title: 'Manufacturing & Industry 4.0', heading: 'Intelligent Manufacturing Operations', description: 'Engineer advanced manufacturing platforms with predictive maintenance, production optimization, quality control automation, and IoT integration. Our solutions leverage digital twins, AI-powered defect detection, real-time shop floor control, and supply chain coordination.', capabilities: [ {icon: '🏭', title: 'MES & Shop Floor Control', desc: 'Real-time production tracking, worker assignment, quality control, downtime reduction'}, {icon: '🔧', title: 'Predictive Maintenance', desc: 'Sensor data analytics, equipment health monitoring, failure prediction, optimal maintenance scheduling'}, {icon: '🤖', title: 'Quality & Defect Detection', desc: 'Computer vision inspection, SPC charts, defect root cause analysis, continuous improvement'}, {icon: '⛓️', title: 'Supply Chain & Demand Planning', desc: 'Demand forecasting, inventory optimization, supplier coordination, procurement automation'} ] },
+                                { number: '07', title: 'Media & Entertainment', heading: 'Content Delivery & Engagement Platforms', description: 'Build powerful media platforms with video streaming, content management, monetization engines, and audience analytics. Our solutions support adaptive bitrate streaming, multi-format delivery, rights management, recommendation systems, and audience engagement tools.', capabilities: [ {icon: '📺', title: 'Video Streaming Infrastructure', desc: 'HLS/DASH adaptive streaming, CDN optimization, 4K/HDR support, offline download capability'}, {icon: '📝', title: 'Content Management System', desc: 'Metadata management, multi-language support, scheduling, publishing workflows, rights tracking'}, {icon: '💰', title: 'Monetization & Analytics', desc: 'Subscription management, ad insertion, pay-per-view, audience analytics, revenue optimization'}, {icon: '👥', title: 'Audience Engagement', desc: 'Social integration, recommendation engine, interactive experiences, live chat & engagement tools'} ] },
+                                { number: '08', title: 'Education & E-Learning', heading: 'Intelligent Learning Platforms', description: 'Create comprehensive education technology platforms with course management, adaptive learning, student progress tracking, and institutional analytics. Our solutions support virtual classrooms, AI tutoring, assessment automation, certification management, and institutional integration.', capabilities: [ {icon: '📚', title: 'Learning Management System', desc: 'Course authoring, assignment submission, grading automation, progress tracking, certification'}, {icon: '🎓', title: 'Adaptive Learning Engine', desc: 'Personalized learning paths, AI-powered tutoring, knowledge gap analysis, content recommendation'}, {icon: '🎥', title: 'Virtual Classroom Technology', desc: 'Live streaming, screen sharing, whiteboarding, recording, interactive engagement tools'}, {icon: '📊', title: 'Analytics & Outcomes Tracking', desc: 'Student performance analytics, cohort analysis, retention prediction, institutional effectiveness metrics'} ] },
+                                { number: '09', title: 'Hospitality & Tourism', heading: 'Guest-Centric Hospitality Platforms', description: 'Engineer guest experience platforms with reservation management, property control, revenue optimization, and guest engagement. Our solutions integrate smart room technology, dynamic pricing, loyalty programs, and comprehensive property analytics.', capabilities: [ {icon: '🏨', title: 'Booking & Reservation Engine', desc: 'Multi-property availability, dynamic pricing, channel management, corporate contracts, OTA integration'}, {icon: '🔑', title: 'Smart Room & Property Control', desc: 'IoT-enabled rooms, mobile check-in, keyless entry, room automation, energy optimization'}, {icon: '💰', title: 'Revenue Management System', desc: 'Demand forecasting, rate optimization, length-of-stay recommendations, revenue maximization'}, {icon: '👥', title: 'Guest Experience & Loyalty', desc: 'Guest profiles, personalization, loyalty programs, feedback collection, satisfaction metrics'} ] },
+                                { number: '10', title: 'Government & Public Sector', heading: 'Secure Citizen Services Platforms', description: 'Build secure government and public sector platforms with citizen portals, benefit management, license processing, and compliance reporting. Our solutions ensure SOC 2 Type II compliance, accessibility standards, multi-language support, and secure data handling.', capabilities: [ {icon: '🏛️', title: 'Citizen Portals & Self-Service', desc: 'License renewal, benefit applications, document submission, payment processing, status tracking'}, {icon: '🔐', title: 'Security & Compliance', desc: 'FedRAMP certification, SOC 2 Type II, WCAG accessibility, multi-factor authentication, data residency'}, {icon: '📋', title: 'Case & License Management', desc: 'Automated workflows, document management, approval routing, archival, compliance reporting'}, {icon: '📊', title: 'Public Sector Analytics', desc: 'Service usage analytics, performance metrics, outcome measurement, budget optimization'} ] },
+                            ];
+
+                            return industries.map((step, idx) => {
+                                const isActive = idx === activeAcc;
+                                return (
+                                    <div
+                                        key={idx}
+                                        className={`transition-all duration-700 ease-in-out flex flex-col bg-gradient-to-br ${isDayTime ? 'from-[#031E29] via-[#041f2d] to-[#0a2d3a]' : 'from-[#f8fafb] via-[#f0f3f7] to-[#e8ecf1]'} border-2 ${isDayTime ? 'border-[#0E3B46]' : 'border-[#d1e7f1]'} rounded-xl overflow-hidden transition-all shadow-xl hover:shadow-2xl relative ${
+                                            isActive ? isDayTime ? 'hover:border-[#0ef0dd]/80' : 'hover:border-[#0ef0dd]/60' : isDayTime ? 'hover:border-[#0ef0dd]/40' : 'hover:border-[#06b6d4]/40'
+                                        } ${
+                                            isDesktop ? "mx-[0.15em]" : "mb-4"
+                                        }`}
+                                        style={{
+                                            width: isDesktop
+                                                ? isActive
+                                                    ? '100%'
+                                                    : '70px'
+                                                : '100%'
+                                        }}
+                                    >
+                                        {/* Inactive Panel - Compact */}
+                                        {!isActive && (
+                                            <div
+                                                onClick={() => setActiveAcc(idx)}
+                                                className={`flex cursor-pointer group ${isDayTime ? 'hover:bg-[#0E3B46]/50' : 'hover:bg-[#0ef0dd]/8'} transition-all duration-300 ${
+                                                    isDesktop
+                                                        ? "flex-col items-center justify-center h-full pt-6 px-3"
+                                                        : "flex-row items-center p-6"
+                                                }`}>
+                                                <div className={`${isDayTime ? 'text-[#0ef0dd]' : 'text-[#0ef0dd]'} text-[2.2em] font-[800] group-hover:scale-125 transition-transform duration-300`}>
+                                                    {step.number}
+                                                </div>
+
+                                                <div className={`${isDesktop ? 'flex items-center justify-center h-full flex-col' : 'items-center w-full '} `}>
+                                                    <span className={`text-[0.8em] font-[700] tracking-wider uppercase ${isDayTime ? 'text-gray-500 group-hover:text-[#0ef0dd]' : 'text-gray-700 group-hover:text-[#0ef0dd]'} transition-all duration-300 ${
+                                                        isDesktop ? "mt-6 text-center" : "ml-4 text-left"
+                                                    }`}
+                                                        style={
+                                                            isDesktop
+                                                                ? {
+                                                                    writingMode: "vertical-rl",
+                                                                    transform: "rotate(180deg)",
+                                                                }
+                                                                : {}
+                                                        }
+                                                    >
+                                                        {step.title}
+                                                    </span>
+                                                </div>
+                                                <div className={`text-[0.65em] mt-2 font-[600] ${isDayTime ? 'text-gray-600 group-hover:text-gray-400' : 'text-gray-500 group-hover:text-gray-700'} transition-all duration-300`}>
+                                                    {isDesktop ? '↑' : '→'}
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* Active Panel - EXTREMELY DETAILED & COMPREHENSIVE */}
+                                        {isActive && (
+                                            <div
+                                                className={`flex ${
+                                                    isDesktop
+                                                        ? "flex-row"
+                                                        : "flex-col"
+                                                } flex-1 cursor-pointer transition-all duration-500`}
+                                                onClick={() => setActiveAcc(idx)}
+                                            >
+                                                <div
+                                                    className={`${
+                                                        isDesktop
+                                                            ? 'w-28 flex flex-col items-center justify-start pt-8 border-r px-4'
+                                                            : 'flex-row items-center p-6 border-b'
+                                                    } ${isDayTime ? 'border-[#0E3B46]/70 bg-gradient-to-b from-[#0E3B46]/60 to-[#0E3B46]/20' : 'border-[#d1e7f1] bg-gradient-to-b from-[#f0f9ff] to-[#e8ecf1]'}`}
+                                                >
+                                                    <div className={`${isDayTime ? 'text-[#0ef0dd]' : 'text-[#0ef0dd]'} text-[2.5em] font-[800] drop-shadow-lg`}>
+                                                        {step.number}
+                                                    </div>
+
+                                                    <span className={`text-[0.8em] font-[800] tracking-wider uppercase ${isDayTime ? 'text-gray-300' : 'text-gray-800'} ${
+                                                        isDesktop ? 'mt-10 text-center' : 'ml-4'
+                                                    }`}
+                                                        style={
+                                                            isDesktop
+                                                                ? {
+                                                                    writingMode: "vertical-rl",
+                                                                    transform: "rotate(180deg)",
+                                                                }
+                                                                : {}
+                                                        }
+                                                    >
+                                                        {step.title}
+                                                    </span>
+                                                </div>
+
+                                                {/* Right content - EXTREMELY DETAILED & COMPREHENSIVE */}
+                                                <div
+                                                    className={`flex-1 mx-0 relative overflow-y-auto transition-all duration-500 ease-in-out ${
+                                                        isDesktop
+                                                            ? "max-h-[600px]"
+                                                            : isActive
+                                                                ? "max-h-[4000px]"
+                                                                : "max-h-0"
+                                                    }`}>
+                                                    <div
+                                                        className={`h-full border-l-2 ${isDayTime ? 'border-[#0E3B46]/70' : 'border-[#d1e7f1]'} px-8 md:px-12 py-8 flex flex-col justify-start transform transition-all duration-500 ease-in-out bg-gradient-to-br ${isDayTime ? 'from-[#041f2d]/50 to-transparent' : 'from-white/50 to-transparent'} ${
+                                                            isActive
+                                                                ? "opacity-100 translate-y-0"
+                                                                : "opacity-0 -translate-y-4"
+                                                        }`}>
+
+                                                        {/* Main Heading with Badge */}
+                                                        <div className='flex items-start justify-between mb-4 gap-4'>
+                                                            <h2 className={`text-2xl md:text-4xl font-[900] ${isDayTime ? 'text-[#0ef0dd]' : 'text-[#0ef0dd]'} leading-tight max-w-4xl drop-shadow-lg`}>
+                                                                {step.heading}
+                                                            </h2>
+                                                            <span className={`text-[0.7em] px-3.5 py-1.5 rounded-full font-[700] whitespace-nowrap ml-3 ${isDayTime ? 'bg-gradient-to-r from-[#0ef0dd]/30 to-[#06b6d4]/20 text-[#0ef0dd] border border-[#0ef0dd]/50' : 'bg-gradient-to-r from-[#0ef0dd]/25 to-[#06b6d4]/15 text-[#0ef0dd] border border-[#0ef0dd]/40'}`}>
+                                                                {['⭐ Enterprise', '📈 Scalable', '🧠 Intelligent', '✅ Compliant'][idx] || '🚀 Advanced'}
+                                                            </span>
+                                                        </div>
+
+                                                        {/* Subheading */}
+                                                        <p className={`text-[1em] font-[700] mb-3 ${isDayTime ? 'text-[#06b6d4]' : 'text-[#0284c7]'} tracking-wide`}>
+                                                            🎯 Comprehensive web solution for industry-specific challenges
+                                                        </p>
+                                                        <div className={`w-16 h-1.5 rounded-full mb-7 ${isDayTime ? 'bg-gradient-to-r from-[#0ef0dd] via-[#06b6d4] to-[#7c3aed]' : 'bg-gradient-to-r from-[#0ef0dd] via-[#06b6d4] to-[#7c3aed]'} shadow-lg`}/>
+
+                                                        {/* Main Comprehensive Description */}
+                                                        <p className={`text-[0.95em] leading-[1.95] mb-8 ${isDayTime ? 'text-gray-200' : 'text-gray-800'} text-justify font-[500]`}>
+                                                            {step.description}
+                                                        </p>
+
+                                                        {/* Advanced Capabilities Grid - 4 Columns */}
+                                                        <div className='mb-8'>
+                                                            <h3 className={`text-[1em] font-[800] mb-5 ${isDayTime ? 'text-gray-100' : 'text-gray-900'} uppercase tracking-wider drop-shadow-md`}>⚙️ Core Capabilities & Features</h3>
+                                                            <div className={`grid grid-cols-1 md:grid-cols-2 gap-5 p-6 rounded-2xl border-2 ${isDayTime ? 'bg-[#0E3B46]/30 border-[#0E3B46]/60' : 'bg-gradient-to-br from-[#f0f9ff]/80 to-[#e0f7ff]/60 border-[#bae6fd]/70'} backdrop-blur-sm`}>
+                                                                {step.capabilities.map((c,i) => (
+                                                                    <div key={i} className={`flex gap-4 p-4 rounded-xl transition-all hover:scale-105 ${isDayTime ? 'bg-[#0E3B46]/20 text-gray-200' : 'bg-white/50 text-gray-900'}`}>
+                                                                        <span className={`text-2xl font-[800] flex-shrink-0`}>{c.icon}</span>
+                                                                        <div>
+                                                                            <p className='font-[800] text-[0.98em] mb-2'>{c.title}</p>
+                                                                            <p className={`text-[0.85em] leading-[1.7] font-[500] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>{c.desc}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+
+                                                        <div className='mt-auto'>
+                                                            <Link href="/contact" className={`inline-block px-6 py-3 rounded-lg font-[700] text-[0.95em] transition-all duration-300 ${isDayTime ? 'bg-gradient-to-r from-[#0ef0dd]/30 to-[#06b6d4]/20 text-[#0ef0dd] hover:from-[#0ef0dd]/50 hover:to-[#06b6d4]/30 border border-[#0ef0dd]/50' : 'bg-gradient-to-r from-[#0ef0dd]/25 to-[#06b6d4]/15 text-[#0ef0dd] hover:from-[#0ef0dd]/40 hover:to-[#06b6d4]/25 border border-[#0ef0dd]/40'}`}>
+                                                                Explore Solution →
+                                                            </Link>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                );
+                            });
+                        })()}
+                    </div>
+                </div>
+            </div>
 
         </div>
     );
