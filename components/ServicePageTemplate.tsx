@@ -610,18 +610,34 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
                 </section>
             )}
 
-            {/* Reasons / Why choose us - simplified and safe */}
+            {/* Reasons / Why choose us - detailed, futuristic */}
             {reasons && reasons.length > 0 && (
                 <section className="bg-[#050810] py-12">
-                    <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-[4.5em] text-white">
+                    <div className="mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em] max-w-full text-white">
                         <div className="mb-6"><FxChip day={!isDayTime}>WHY CHOOSE US</FxChip></div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {reasons.map(r => (
-                                <div key={r.id} className="p-6 rounded-2xl border border-white/10 bg-white/[0.03]">
-                                    <h3 className="text-lg font-bold mb-2">{r.title}</h3>
-                                    <div className="text-sm text-white/70">{r.description}</div>
-                                </div>
-                            ))}
+                            {reasons.map(r => {
+                                const extra: Record<string,string> = {
+                                    'Security-First Engineering': 'We bake security into every phase: formal verification where appropriate, layered testing (unit, integration, property-based and fuzzing), automated invariant checks and a continuous vulnerability monitoring pipeline. Contracts are designed for upgradeability with clear governance and emergency pause patterns.',
+                                    'Multi-Chain Expertise': 'Our architecture choices are driven by threat models and performance SLAs: EVM layer-2s for throughput, Solana for high-velocity use cases, and permissioned ledgers for confidentiality. We design canonical settlement guarantees and cross-chain proofs to maintain consistency across heterogeneous chains.',
+                                    'Production, Not Prototypes': 'We operationalise blockchain: CI/CD for contract releases, infra-as-code for node fleets, observability (tracing, mempool and MEV telemetry), and runbooks for incident response. Our deployments emphasise recoverability, upgrade paths and measurable SLOs.',
+                                    'Transparent Partnership': 'We align product, legal and compliance early: tokenomics modelling, audit-ready documentation, KYC/AML considerations where applicable, and transparent SLAs so stakeholders keep control while innovation scales.'
+                                };
+
+                                return (
+                                    <div key={r.id} className="p-6 rounded-2xl border border-white/10 bg-white/[0.03]">
+                                        <h3 className="text-lg font-bold mb-2">{r.title}</h3>
+                                        <div className="text-sm text-white/70">{r.description}</div>
+                                        <p className="mt-3 text-sm text-white/60">{extra[r.title] || 'Deep domain expertise and operational rigor combine to make blockchain solutions that are secure, maintainable and aligned with business outcomes.'}</p>
+                                        <ul className="mt-3 ml-4 list-disc text-xs text-white/60">
+                                            <li>Formal verification & static analysis</li>
+                                            <li>Continuous security pipelines & monitoring</li>
+                                            <li>Governance, upgradeability & audit trails</li>
+                                            <li>Operational CI/CD and disaster recovery</li>
+                                        </ul>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 </section>
@@ -629,24 +645,28 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
 
             {/* Technologies / Tools - compact (detailed, futuristic) */}
             <section className={`py-10 ${isDayTime ? 'bg-white' : 'bg-transparent'}`}>
-                <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-[4.5em]">
+                <div className="mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em] max-w-full">
                     <h2 className={`font-extrabold mb-4 ${isDayTime ? 'text-gray-900' : 'text-white'} text-3xl md:text-4xl lg:text-[4.5em] leading-tight`}>Technologies &amp; Tooling</h2>
-                    <p className={`mb-6 ${isDayTime ? 'text-gray-700' : 'text-white/70'} text-sm max-w-3xl`}>Production-ready, security-first stacks and operational primitives used to architect decentralised systems, private compute and resilient on-chain/off-chain integrations.</p>
+                    <p className={`mb-6 ${isDayTime ? 'text-gray-700' : 'text-white/70'} text-sm max-w-3xl`}>Production-grade stacks, cryptographic primitives and operational tooling used to build verifiable, private and resilient decentralised systems that integrate cleanly with enterprise platforms.</p>
 
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                         {[
                             {id: 't1', title: 'Protocol & Layer-2', desc: 'EVM, Solana, optimistic and zk rollups, sequencers and canonical proofs.'},
-                            {id: 't2', title: 'Smart Contract Tooling', desc: 'Solidity, Rust, Move — Hardhat, Foundry, Viem; formal verification & static analysis.'},
-                            {id: 't3', title: 'Privacy & Zero Knowledge', desc: 'zkSNARKs/zk-STARKs, ZKVMs, private state channels and confidential compute.'},
-                            {id: 't4', title: 'Indexing & Data', desc: 'The Graph, custom indexers, verifiable off-chain storage and signed attestations.'},
-                            {id: 't5', title: 'Wallets & UX', desc: 'Account abstraction, WalletConnect, MetaMask, gasless flows and developer SDKs.'},
-                            {id: 't6', title: 'Infrastructure & Ops', desc: 'Infra-as-code, validator/node fleets, monitoring, MEV protection and chaos-tested deployments.'},
-                            {id: 't7', title: 'Oracles & Bridges', desc: 'Secure oracle networks, canonical message relayers and cross-chain composability.'},
-                            {id: 't8', title: 'Security & Assurance', desc: 'Comprehensive testing, fuzzing, invariant checks, audits and continuous security pipelines.'},
+                            {id: 't2', title: 'Smart Contract Tooling', desc: 'Solidity, Rust, Move — Hardhat, Foundry, Viem; formal verification, symbolic execution and static analysis.'},
+                            {id: 't3', title: 'Privacy & Zero Knowledge', desc: 'zkSNARKs/zk-STARKs, ZKVMs, confidential compute and privacy-preserving state channels.'},
+                            {id: 't4', title: 'Indexing & Verifiable Data', desc: 'The Graph, bespoke indexers, IPFS/Arweave for immutable storage and cryptographic attestation layers.'},
+                            {id: 't5', title: 'Wallets & Developer UX', desc: 'Account abstraction, WalletConnect v2, gasless UX, SDKs and secure key-management integrations.'},
+                            {id: 't6', title: 'Infrastructure & Ops', desc: 'Terraform/Ansible, node fleets, monitoring (tracing, alerting), MEV protection and chaos-tested deployments.'},
+                            {id: 't7', title: 'Oracles, Bridges & Interop', desc: 'Verified oracles, secure relayers, canonical messaging and cross-chain protocol design.'},
+                            {id: 't8', title: 'Security & Assurance', desc: 'End-to-end testing: unit, integration, fuzzing, property-based tests, invariant checks and audit orchestration.'},
                         ].map(t => (
                             <div key={t.id} className={`p-3 rounded-lg border ${isDayTime ? 'border-gray-200 bg-white/70' : 'border-white/6 bg-white/[0.03]'} `}>
                                 <h4 className={`text-sm font-semibold ${isDayTime ? 'text-gray-900' : 'text-white'}`}>{t.title}</h4>
                                 <p className={`mt-1 text-xs ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>{t.desc}</p>
+                                <div className="mt-2 text-[10px] text-white/50">
+                                    {t.id === 't2' && <><strong>Example stack:</strong> Foundry, Slither, Certora.</>}
+                                    {t.id === 't6' && <><strong>Ops:</strong> Terraform, Prometheus, Grafana, Loki.</>}
+                                </div>
                             </div>
                         ))}
                     </div>
