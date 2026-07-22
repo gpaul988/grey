@@ -12,6 +12,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {motion} from 'framer-motion';
 import Link from 'next/link';
+import CountUp from 'react-countup';
 
 type DayProp = { day?: boolean };
 
@@ -449,12 +450,23 @@ export function FxFrame({
    layout used for "Development Solutions", "Development
    Process", "Service Solutions" across all pages.
     -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
+export type FxMetric = {
+    id?: string | number;
+    label: string;
+    value: string;
+    description?: React.ReactNode;
+    details?: string[]
+};
+
 export type FxScrollItem = {
     id: string;        // e.g. "01"
     title: string;
     target: string;    // DOM id for scrollTo
     tags?: string[];
     body: React.ReactNode;
+    metrics?: FxMetric[]; // optional structured metrics (value, label, description)
+    deliverables?: string[]; // optional deliverables list
+    cta?: { label: string; href: string };
 };
 
 export function FxStickyScrollSection({
@@ -575,7 +587,7 @@ export function FxStickyScrollSection({
                     >
                         <div
                             ref={railRef}
-                                                className="relative overflow-hidden rounded-[1.75rem] border border-teal-400/15 bg-white/[0.03] p-6 shadow-[0_0_60px_-20px_rgba(45,212,191,0.65)] backdrop-blur-2xl"
+                            className="relative overflow-hidden rounded-[1.75rem] border border-teal-400/15 bg-white/[0.03] p-6 shadow-[0_0_60px_-20px_rgba(45,212,191,0.65)] backdrop-blur-2xl"
                         >
                             <div
                                 className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(45,212,191,0.18),transparent_46%)]"/>
@@ -589,7 +601,8 @@ export function FxStickyScrollSection({
                                 Command <span className="gx-gradient-text">stack</span>
                             </h3>
                             <p className={`relative mt-4 text-[0.75em] lg:text-[0.78em] font-[300] leading-[1.6] lg:leading-[1.7] ${day ? 'text-gray-600' : 'text-white/55'}`}>
-                                A guided experience for startup solutions, designed like a futuristic mission control panel.
+                                A guided experience for startup solutions, designed like a futuristic mission control
+                                panel.
                             </p>
 
                             <div className="relative mt-6 space-y-1">
@@ -613,7 +626,8 @@ export function FxStickyScrollSection({
                                                 className={`text-[0.85em] lg:text-[0.9em] font-[500] leading-snug ${isActive ? (day ? 'text-gray-900' : 'text-white') : (day ? 'text-gray-700' : 'text-white/70')}`}>
                                                 {item.title}
                                             </span>
-                                            {isActive && <span className="ml-auto text-teal-400 text-[1em] lg:text-[1.1em]">→</span>}
+                                            {isActive && <span
+                                                className="ml-auto text-teal-400 text-[1em] lg:text-[1.1em]">→</span>}
                                         </button>
                                     );
                                 })}
@@ -641,6 +655,140 @@ export function FxStickyScrollSection({
                                         <div
                                             className={`text-[0.8em] lg:text-[0.85em] font-[300] leading-[1.6] lg:leading-[1.7] text-justify ${day ? 'text-gray-700' : 'text-white/65'}`}>
                                             {item.body}
+                                        </div>
+
+                                        {/* Professional detail band: metrics, deliverables, CTA (enhanced) */}
+                                        <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
+                                            {/* Metrics column with CountUp for numeric values */}
+                                            <div>
+                                                {item.metrics && item.metrics.length ? (
+                                                    <div className="grid grid-cols-2 gap-3">
+                                                        {item.metrics.map((m, mi) => (
+                                                            <div key={mi}
+                                                                 className="p-3 rounded-xl border border-teal-400/8 bg-white/[0.02]">
+                                                                {/* Render numeric values with CountUp when possible */}
+                                                                {(() => {
+                                                                    const raw = String(m.value ?? '');
+                                                                    const numeric = parseFloat(raw.replace(/[^0-9+\-.,]/g, '').replace(/,/g, ''));
+                                                                    const hasNumber = !Number.isNaN(numeric);
+                                                                    const suffix = raw.replace(/[0-9,\.\s+-]/g, '');
+                                                                    return (
+                                                                        <div>
+                                                                            {hasNumber ? (
+                                                                                <div
+                                                                                    className="flex items-baseline gap-2">
+                                                                                    <div
+                                                                                        className="text-[1.6em] font-extrabold  leading-none">
+                                                                                        <CountUp end={numeric}
+                                                                                                 duration={1.4}
+                                                                                                 separator=","
+                                                                                                 preserveValue/>
+                                                                                    </div>
+                                                                                    {suffix && <div
+                                                                                        className="text-[0.9em] ">{suffix}</div>}
+                                                                                </div>
+                                                                            ) : (
+                                                                                <div
+                                                                                    className="text-[1.25em] font-extrabold  leading-none">{raw}</div>
+                                                                            )}
+                                                                            <div
+                                                                                className="text-xs mt-1">{m.label}</div>
+                                                                            {m.description && <div
+                                                                                className="text-[0.82em] mt-2">{m.description}</div>}
+                                                                        </div>
+                                                                    );
+                                                                })()}
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                ) : (
+                                                    <div className="text-sm ">No metrics provided for this
+                                                        solution. Provide per-item <code>metrics</code> to display KPIs.
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            {/* Deliverables column with concise, professional list */}
+                                            <div>
+                                                <h4 className="text-sm font-semibold mb-2">Deliverables</h4>
+                                                <ul className="list-disc pl-5  space-y-2 text-sm">
+                                                    {item.deliverables && item.deliverables.length ? (
+                                                        item.deliverables.slice(0, 6).map((d, di) => (
+                                                            <li key={di} className="flex items-start gap-2">
+                                                                <svg width="14" height="14" viewBox="0 0 24 24"
+                                                                     fill="none" xmlns="http://www.w3.org/2000/svg"
+                                                                     className="mt-1 text-teal-400">
+                                                                    <path d="M20 6L9 17l-5-5" stroke="currentColor"
+                                                                          strokeWidth="2" strokeLinecap="round"
+                                                                          strokeLinejoin="round"/>
+                                                                </svg>
+                                                                <span>{d}</span>
+                                                            </li>
+                                                        ))
+                                                    ) : (
+                                                        <>
+                                                            <li className="flex items-start gap-2">
+                                                                <svg width="14" height="14" viewBox="0 0 24 24"
+                                                                     fill="none" xmlns="http://www.w3.org/2000/svg"
+                                                                     className="mt-1 text-teal-400">
+                                                                    <path d="M20 6L9 17l-5-5" stroke="currentColor"
+                                                                          strokeWidth="2" strokeLinecap="round"
+                                                                          strokeLinejoin="round"/>
+                                                                </svg>
+                                                                <span>Requirements & prioritised scope brief</span></li>
+                                                            <li className="flex items-start gap-2">
+                                                                <svg width="14" height="14" viewBox="0 0 24 24"
+                                                                     fill="none" xmlns="http://www.w3.org/2000/svg"
+                                                                     className="mt-1 text-teal-400">
+                                                                    <path d="M20 6L9 17l-5-5" stroke="currentColor"
+                                                                          strokeWidth="2" strokeLinecap="round"
+                                                                          strokeLinejoin="round"/>
+                                                                </svg>
+                                                                <span>Design system & component library (Figma + tokens)</span>
+                                                            </li>
+                                                            <li className="flex items-start gap-2">
+                                                                <svg width="14" height="14" viewBox="0 0 24 24"
+                                                                     fill="none" xmlns="http://www.w3.org/2000/svg"
+                                                                     className="mt-1 text-teal-400">
+                                                                    <path d="M20 6L9 17l-5-5" stroke="currentColor"
+                                                                          strokeWidth="2" strokeLinecap="round"
+                                                                          strokeLinejoin="round"/>
+                                                                </svg>
+                                                                <span>Production-ready, accessible front-end and docs</span>
+                                                            </li>
+                                                        </>
+                                                    )}
+                                                    {item.deliverables && item.deliverables.length && item.deliverables.length > 6 ? (
+                                                        <li className="text-sm ">+{item.deliverables.length - 6} more
+                                                            items (available on request)</li>
+                                                    ) : null}
+                                                </ul>
+                                            </div>
+
+                                            {/* CTA / Meta column (professional microcopy) */}
+                                            <div className="flex flex-col justify-between">
+                                                <div>
+                                                    <h5 className="text-sm font-semibold mb-2">Timeline &
+                                                        Engagement</h5>
+                                                    <div className="text-sm text-white/70">Typical delivery: 6–12 weeks
+                                                        depending on scope. Engagement models: Fixed-price, Time &
+                                                        Materials, or Dedicated Team. Post-launch SLA available.
+                                                    </div>
+                                                </div>
+
+                                                <div className="mt-4">
+                                                    {item.cta ? (
+                                                        <FxButton href={item.cta.href}
+                                                                  day={day}>{item.cta.label}</FxButton>
+                                                    ) : (
+                                                        <FxButton href="/contact" day={day}>Discuss this
+                                                            solution</FxButton>
+                                                    )}
+                                                    <div className="mt-2 text-xs text-white/60">Includes initial scoping
+                                                        call and delivery plan.
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </FxHoloCard>
                                 </div>

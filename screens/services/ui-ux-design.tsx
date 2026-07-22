@@ -30,6 +30,7 @@ const UiUxDesign = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
+    const [activeId, setActiveId] = useState<string>("");
 
     // Floating button visibility hook
     useEffect(() => {

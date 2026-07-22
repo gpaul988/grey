@@ -11,7 +11,7 @@ import type {KbDoc} from './aiKnowledge';
 export const PAGE_KB: KbDoc[] = [
     {
         "title": "Our Approach",
-        "url": "/Our-Approach",
+        "url": "/our-approach",
         "body": "Grey InfoTech follows a clear delivery approach: discovery, design, build, launch and grow. We scope lean, validate with users, and iterate so projects ship on time and on budget.",
         "tags": [
             "approach",
@@ -22,8 +22,8 @@ export const PAGE_KB: KbDoc[] = [
     },
     {
         "title": "Startups",
-        "url": "/Startups",
-        "body": "We partner with startups to go from idea to MVP and beyond — product strategy, lean scope, fast iteration and a roadmap to raise and scale. See /Startups.",
+        "url": "/startups",
+        "body": "We partner with startups to go from idea to MVP and beyond — product strategy, lean scope, fast iteration and a roadmap to raise and scale. See /startups.",
         "tags": [
             "startup",
             "founder",

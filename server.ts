@@ -305,16 +305,16 @@ nextApp.prepare().then(() => {
                 const { JSDOM } = await import('jsdom');
                 const dom = new JSDOM(text);
                 const doc = dom.window.document;
-                const title = doc.querySelector('title')?.textContent?.trim() || '';
-                const metaDesc = doc.querySelector('meta[name="description"]')?.getAttribute('content') || '';
-                const h1s = Array.from(doc.querySelectorAll('h1')).map(h => h.textContent?.trim() || '');
-                const canonical = doc.querySelector('link[rel="canonical"]')?.getAttribute('href') || '';
-                const robots = doc.querySelector('meta[name="robots"]')?.getAttribute('content') || '';
-                const viewport = doc.querySelector('meta[name="viewport"]')?.getAttribute('content') || '';
-                const jsonLd = Array.from(doc.querySelectorAll('script[type="application/ld+json"]')).map(s => s.textContent?.trim() || '');
-                const imgs = Array.from(doc.querySelectorAll('img')).map(img => ({ src: img.getAttribute('src') || '', alt: img.getAttribute('alt') || '' }));
+                const title = (doc.querySelector('title') as HTMLTitleElement | null)?.textContent?.trim() || '';
+                const metaDesc = (doc.querySelector('meta[name="description"]') as HTMLMetaElement | null)?.getAttribute('content') || '';
+                const h1s = Array.from(doc.querySelectorAll('h1') as NodeListOf<HTMLHeadingElement>).map(h => h.textContent?.trim() || '');
+                const canonical = (doc.querySelector('link[rel="canonical"]') as HTMLLinkElement | null)?.getAttribute('href') || '';
+                const robots = (doc.querySelector('meta[name="robots"]') as HTMLMetaElement | null)?.getAttribute('content') || '';
+                const viewport = (doc.querySelector('meta[name="viewport"]') as HTMLMetaElement | null)?.getAttribute('content') || '';
+                const jsonLd = Array.from(doc.querySelectorAll('script[type="application/ld+json"]') as NodeListOf<HTMLScriptElement>).map(s => s.textContent?.trim() || '');
+                const imgs = Array.from(doc.querySelectorAll('img') as NodeListOf<HTMLImageElement>).map(img => ({ src: img.getAttribute('src') || '', alt: img.getAttribute('alt') || '' }));
                 const imagesMissingAlt = imgs.filter(i => !i.alt || i.alt.trim() === '').slice(0, 50);
-                const anchors = Array.from(doc.querySelectorAll('a'));
+                const anchors = Array.from(doc.querySelectorAll('a') as NodeListOf<HTMLAnchorElement>);
                 const links = anchors.map(a => a.getAttribute('href') || '');
                 let hostname = '';
                 try { hostname = new URL(normalized).hostname; } catch (e) { hostname = ''; }

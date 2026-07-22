@@ -410,7 +410,7 @@ const Footer = () => {
                         {/* For Startups Column */}
                         <div className="text-[0.8em] font-medium mb-4 order-2 md:order-2">
                             <ul className="space-y-3 text-gray-400">
-                                <li><Link href="/Startups" className="hover:text-white transition-colors">For
+                                <li><Link href="/startups" className="hover:text-white transition-colors">For
                                     startups</Link>
                                 </li>
                                 <li><Link href="/industries/fintech" className="hover:text-white transition-colors">FinTech
@@ -523,11 +523,11 @@ const Footer = () => {
                             className="flex flex-col md:flex-row md:justify-between items-center text-[0.873em] text-gray-400">
                             {/* Footer Links */}
                             <div className="flex flex-wrap justify-center md:justify-start space-x-4 mb-4 md:mb-0">
-                                <Link href="/Terms-Conditions" className="hover:text-white">Terms & Conditions</Link>
+                                <Link href="/terms-conditions" className="hover:text-white">Terms & Conditions</Link>
                                 <Link href="/cookies-policy" className="hover:text-white">Cookies Policy</Link>
                                 <Link href="/data-protection-policy" className="hover:text-white">Data Protection
                                     Policy</Link>
-                                <Link href="/Links" className="hover:text-white">Links</Link>
+                                <Link href="/links" className="hover:text-white">Links</Link>
                                 <Link href="https://linktr.ee/greyinfotechltd"
                                       className="hover:text-white">Linktree</Link>
                             </div>
