@@ -20,26 +20,10 @@ const BlockchainDevelopment = () => (
         introHeading={<>Demystifying Blockchain <br className={'lg:block md:block hidden'}/>How We Engineer Trust</>}
         introBody={[
             <React.Fragment key="intro-1">
-                Blockchain is reshaping how value, data and ownership move across the internet, yet most
-                organisations struggle to move beyond proofs of concept into production. At Grey InfoTech we
-                bridge that gap. We help businesses cut through the hype and design decentralised architectures
-                that solve concrete problems around trust, traceability, settlement and disintermediation.
-                Whether you are exploring tokenisation, launching a decentralised application, modernising
-                back-office reconciliation, or building a permissioned consortium network, we translate complex
-                distributed-ledger concepts into production-grade systems your users, regulators and auditors
-                can rely on. Our delivery model pairs blockchain specialists with senior product engineers, so
-                what we build is not an isolated experiment but a maintainable part of your wider technology
-                estate.
+                At the forefront of decentralized innovation, Grey InfoTech engineers production-grade distributed ledger systems that prioritize security, determinism and operational resilience. We design modular architectures—combining layer-2 rollups, verifiable compute, and robust key-management—to deliver provable integrity, low-latency settlement and auditable state transitions. Our approach integrates formal verification, static analysis, comprehensive unit and fuzz testing, and staged on-chain upgrade patterns so contracts move safely from testnets to mainnet. We architect middleware—indexers, oracles, cryptographic attestation layers—and privacy-preserving primitives (zkSNARKs/zk-STARKs) where confidentiality is required, enabling compliant data-sharing without sacrificing verifiability.
             </React.Fragment>,
             <React.Fragment key="intro-2">
-                Our engineers work across leading ecosystems -Ethereum and EVM-compatible chains such as Polygon,
-                Arbitrum and BSC, alongside Solana and permissioned frameworks like Hyperledger Fabric -pairing
-                rigorous smart-contract development with thorough security review. We treat audits, gas
-                optimisation, key management and upgradeability as first-class concerns rather than
-                afterthoughts. Every contract is unit-tested, fuzz-tested and statically analysed before it ever
-                touches mainnet, and we design clear upgrade and governance paths so your protocol can evolve
-                safely. The result is decentralised software that is not only innovative but safe, cost-efficient
-                and ready to scale with your business and your community.
+                We operationalize blockchain for enterprise: CI/CD for smart contracts, infrastructure-as-code for validator and node fleets, observability for MEV and mempool monitoring, and automated incident playbooks. Cross-chain composability (bridges, message relayers, canonical proofs) and account-abstraction strategies are evaluated against threat models to balance UX and security. Our delivery pairs protocol engineers with senior backend and DevOps leads to ensure on-chain components are first-class citizens in your existing systems—governance models, tokenomics, legal compliance and auditability included—so decentralised platforms become durable, auditable business infrastructure.
             </React.Fragment>,
         ]}
         solutionsHeading={<>Blockchain <br className={'lg:block md:block hidden'}/>Development <br
