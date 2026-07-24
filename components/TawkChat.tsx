@@ -35,7 +35,7 @@ export default function TawkChat({ propertyId, widgetId, offsetPx = 80 }: TawkCh
                     .join(' ');
                 return (
                     (args.length === 1 && args[0] === true) ||
-                    /Tawk\/Logger|i18next is not a function|\$_Tawk/i.test(joined)
+                    /Tawk\/Logger|i18next|Tawk_API|\$_Tawk/i.test(joined)
                 );
             } catch { return false; }
         };
@@ -46,10 +46,10 @@ export default function TawkChat({ propertyId, widgetId, offsetPx = 80 }: TawkCh
         //  -  -  Suppress unhandled Tawk rejections & script errors  -  -  -  -  -  -  -  -  -  -  -  - 
         const onRejection = (e: PromiseRejectionEvent) => {
             const msg = String((e.reason as {message?: string})?.message ?? e.reason ?? '');
-            if (/tawk\.to|twk-chunk|i18next/i.test(msg)) e.preventDefault();
+            if (/tawk\.to|twk-chunk|i18next|Tawk_API/i.test(msg)) e.preventDefault();
         };
         const onError = (e: ErrorEvent) => {
-            if (/tawk\.to/i.test(e.filename ?? '') || /tawk|twk/i.test(e.message ?? ''))
+            if (/tawk\.to/i.test(e.filename ?? '') || /tawk|twk|i18next|Tawk_API/i.test(e.message ?? ''))
                 e.preventDefault();
         };
         window.addEventListener('unhandledrejection', onRejection, true);
