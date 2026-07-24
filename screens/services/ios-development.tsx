@@ -88,65 +88,184 @@ const IosDevelopment = () => {    const [isVisible, setIsVisible] = useState(fal
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
 
-            <ServiceHero
-                title="iOS App Development"
-                subtitle="Native iOS apps for iPhone, iPad, and Apple Watch"
-                accentColor="#00f5d4"
-                variant="hologram"
-                badges={["Swift","SwiftUI","App Store","Performance"]}
-                ctaHref="/contact"
-                ctaLabel="Get started"
-            />
+            {/* Unified Futuristic iOS Development Hero - Background Image/Video with overlay */}
+            <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
+                {/* Video Background (desktop) and Image fallback (mobile) */}
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    className="hidden lg:block absolute inset-0 w-full h-full object-cover"
+                    poster="/assets/ios/hero.jpg"
+                >
+                    <source src="/assets/ios/hero-mobile.mp4" type="video/mp4"/>
+                </video>
 
-            {/* Introductory section */}
-            <section ref={sectionRef}
-                     className={`py-12 transition-colors duration-500 ${
-                         isBackgroundActive
-                             ? isDayTime
-                                 ? "bg-black text-white"
-                                 : "bg-white text-black"
-                             : isDayTime
-                                 ? "bg-white text-black"
-                                 : "bg-black text-white"
-                     }`}>
+                <Image
+                    src="/assets/ios/hero.jpg"
+                    alt="iOS App Development Hero"
+                    fill
+                    priority
+                    className="lg:hidden object-cover"
+                />
+
+                {/* Grid & FX Background */}
+                <div className="pointer-events-none absolute inset-0 z-[1]">
+                    <FxBackground day={false} grid={true} aurora={true}/>
+                </div>
+
+                {/* Gradient Overlay with Glow */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50 z-[2]"/>
                 <div
-                    className='relative grid lg:grid-cols-2 grid-cols-1 lg:my-[3em] my-[1em] lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-16 pb-6 lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'>
-                    <div className=''>
-                        <h6 className='constant-text uppercase lg:text-[0.85em] md:text-[0.85em] leading-[1.3] text-[0.8em] lg:font-[600] font-[600] lg:tracking-wider tracking-tight'>
-                            Unlock the power of <br className={'lg:block md:block hidden'}/>Apple’s ecosystem
-                        </h6>
-                    </div>
-                    <div className='lg:-ml-[19em]'>
-                        <h3 className='lg:text-[3em] md:text-[3em] text-[1.8em] font-[500] lg:mt-[0.01em] lg:leading-[1.3] tracking-tight border-b lg:pb-[0.7em] lg:mb-[0.7em] leading-[1.1] pb-6'>
-                            Expert iOS Development <br className={'lg:block md:block hidden'}/>For Impactful Apps
-                        </h3>
-                        <div
-                            className='grid lg:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]'>
-                            <div>
-                                <p>
-                                    At Grey InfoTech, we specialize in native iOS app development using Objective-C and
-                                    Swift. This approach allows us to fully leverage the capabilities of Apple devices,
-                                    ensuring optimal performance and a seamless user experience that meets the high
-                                    expectations of today’s mobile users.<br/><br/>
-                                    Native development unlocks full access to device hardware and operating system
-                                    features, including advanced sensors, GPS, accelerometers, magnetometers, iBeacons,
-                                    and cameras. By harnessing these technologies, we help businesses deliver innovative
-                                    solutions that enhance user engagement and operational efficiency.
-                                </p>
+                    className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,245,212,0.12),transparent_50%)] z-[2]"/>
+
+                {/* Futuristic FX Elements */}
+                <div className="pointer-events-none absolute inset-0 z-[3]">
+                    <div className="gx-scanline"/>
+                    <div className="gx-noise-overlay"/>
+                    <div className="gx-orbit absolute"
+                         style={{width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .12}}/>
+                </div>
+
+                {/* Content Container */}
+                <div className="absolute inset-0 flex items-center top-32 z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+                    <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        <div>
+                            <div className="flex items-center gap-3 mb-6 lg:mb-8">
+                                <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"/>
+                                <span
+                                    className="text-cyan-400 text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">iOS Development</span>
                             </div>
-                            <div>
-                                <p>
-                                    Choosing native iOS apps means your product will benefit from better stability,
-                                    faster performance, and tighter security compared to cross-platform alternatives.
-                                    This translates into greater customer satisfaction, stronger brand reputation, and
-                                    increased competitive advantage in your market.<br/><br/>
-                                    Ultimately, our focus on native development ensures your app is not only polished
-                                    and powerful but also future-proofed to adapt to ongoing iOS updates and new
-                                    hardware capabilities. We’re committed to delivering apps that drive real business
-                                    value and lasting user loyalty.
-                                </p>
+
+                            <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
+                                Native iOS Apps, <span className="gx-gradient-text">Extraordinary Results</span>
+                            </h1>
+
+                            <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
+                                Expert iOS development for iPhone, iPad, and Apple Watch. We build high-performance native apps that deliver seamless user experiences and unlock the full potential of Apple's ecosystem.
+                            </p>
+
+                            <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
+                                {['Swift & SwiftUI', 'App Store Ready', 'Native Performance', 'Secure Architecture', 'Hardware Integration'].map((badge) => (
+                                    <span key={badge}
+                                          className="px-3 py-1.5 rounded-full bg-cyan-400/10 border border-cyan-400/30 text-cyan-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">
+                                            {badge}
+                                        </span>
+                                ))}
+                            </div>
+
+                            <div className="flex flex-wrap gap-4 items-center">
+                                <Link href="/contact">
+                                    <button
+                                        className="relative px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap"
+                                        style={{background: '#06b6d4', color: '#000'}}>
+                                            <span className="absolute inset-0" style={{
+                                                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)'
+                                            }}/>
+                                        <span className="relative">Start a project →</span>
+                                    </button>
+                                </Link>
+                                <Link href="/portfolio">
+                                    <button
+                                        className="px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap"
+                                        style={{border: `1px solid rgba(255,255,255,0.15)`}}>
+                                        View Case Studies
+                                    </button>
+                                </Link>
                             </div>
                         </div>
+
+                        {/* Right Column - Impact Stats */}
+                        <div className="hidden lg:flex flex-col items-end">
+                            <div className="grid grid-cols-2 gap-6 w-full">
+                                {[
+                                    {label: 'Apps Delivered', value: '40+'},
+                                    {label: 'Years Experience', value: '8+'},
+                                    {label: 'App Store Success', value: '100%'},
+                                    {label: 'Avg Rating', value: '4.8★'}
+                                ].map((stat) => (
+                                    <div key={stat.label}
+                                         className="px-6 py-5 rounded-2xl border border-cyan-400/25 bg-cyan-400/8 backdrop-blur-md hover:bg-cyan-400/12 transition-all duration-300 hover:border-cyan-400/50 text-right">
+                                        <div
+                                            className="text-cyan-300 text-[0.7em] uppercase tracking-wider font-[600] mb-2">{stat.label}</div>
+                                        <div
+                                            className="text-white text-[1.8em] font-[700]">{stat.value}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Mobile Stats - Visible on small screens only */}
+                <div className="lg:hidden absolute bottom-12 left-0 right-0 z-[11] px-6">
+                    <div className="grid grid-cols-3 gap-3">
+                        {[
+                            {label: 'Apps', value: '40+'},
+                            {label: 'Experts', value: '8+'},
+                            {label: 'Rating', value: '4.8★'}
+                        ].map((stat) => (
+                            <div key={stat.label}
+                                 className="px-3 py-2 rounded-xl border border-cyan-400/25 bg-cyan-400/8 backdrop-blur-md">
+                                <div
+                                    className="text-cyan-300 text-[0.5em] uppercase tracking-wider font-[600] mb-1">{stat.label}</div>
+                                <div
+                                    className="text-white text-[1.2em] font-[700]">{stat.value}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Introductory section (futuristic style) */}
+            <section
+                ref={sectionRef}
+                data-bg={isBackgroundActive ? (isDayTime ? 'Dark' : 'Light') : (isDayTime ? 'Light' : 'Dark')}
+                className={`pt-16 transition-colors duration-500 ${
+                    isBackgroundActive
+                        ? isDayTime ? 'bg-black text-white' : 'bg-white text-black'
+                        : isDayTime ? 'bg-white text-black' : 'bg-black text-white'
+                }`}>
+                <FxBackground day={isDayTime}/>
+                <div
+                    className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
+                    <div>
+                        <FxChip day={!isBackgroundActive ? !isDayTime : isDayTime}>NATIVE EXCELLENCE</FxChip>
+                    </div>
+
+                    <div className="lg:-ml-[19em]">
+                        <FxReveal>
+                            <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
+                                Powerful iOS Apps, <span
+                                className="gx-gradient-text">Unlimited Potential</span>
+                            </h3>
+                        </FxReveal>
+
+                        <FxReveal delay={0.08}>
+                            <div
+                                className="grid lg:grid-cols-2 grid-cols-1 gap-6 mt-6 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
+                                <div className="space-y-4">
+                                    <p>Native iOS development unlocks the full potential of Apple's ecosystem. At Grey InfoTech, we specialize in crafting high-performance apps using Swift and SwiftUI that deliver exceptional user experiences. Our approach maximizes device capabilities—GPS, sensors, cameras, biometrics—to create innovative solutions that drive real business value.</p>
+                                    <p>We follow rigorous best practices: thorough requirements analysis, architecture design, secure implementation, comprehensive testing, and iterative refinement. Every feature is intentionally crafted to be intuitive, performant, and aligned with Apple's Human Interface Guidelines, ensuring your app stands out in the App Store.</p>
+                                    <div className="flex flex-wrap gap-3 mt-4">
+                                        {['Swift Development', 'App Store Optimization', 'Hardware Integration', 'Security & Privacy'].map((p) => (
+                                            <span key={p} className="gx-data-pill">{p}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="space-y-4">
+                                    <p>Whether building consumer apps, enterprise solutions, or custom tools for iPhone, iPad, or Apple Watch, we deliver scalable applications optimized for performance, security, and user satisfaction. Native development means zero compromise on speed or access to device hardware—your users get the smoothest, most responsive experience possible.</p>
+                                    <p>Our end-to-end process spans discovery, prototyping, implementation, App Store submission, launch support, and ongoing optimization. We partner closely with your team, providing transparent progress tracking, regular updates, and strategic guidance to ensure your app achieves long-term success and user loyalty.</p>
+                                    <div className="flex flex-wrap gap-3 mt-4">
+                                        {['iOS Performance', 'Accessibility (VoiceOver)', 'Continuous Deployment', 'User Retention'].map((p) => (
+                                            <span key={p} className="gx-data-pill">{p}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </FxReveal>
                     </div>
                 </div>
             </section>
