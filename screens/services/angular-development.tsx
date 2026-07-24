@@ -5,7 +5,7 @@ import '@/app/globals.css'
 import Image from "next/image";
 import Link from "next/link";
 import {AiFillCaretDown, AiFillCaretUp} from "react-icons/ai";
-import {motion, useScroll, useTransform, useMotionValue} from "framer-motion";
+import {motion} from "framer-motion";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
 import {FxBackground, FxCard, FxChip, FxReveal, FxStickyScrollSection, FxOrbit} from '@/components/futuristic/fx';
@@ -14,13 +14,6 @@ const AngularDevelopment = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
-    // x-scroller
-    const targetRef = useRef<HTMLDivElement | null>(null);
-    const [isMounted, setIsMounted] = useState(false);
-    useEffect(()=> setIsMounted(true), []);
-    const fallbackScroll = useMotionValue(0);
-    const { scrollYProgress } = useScroll({ target: isMounted ? targetRef : undefined });
-    const x = useTransform(scrollYProgress ?? fallbackScroll, [0, 1], ["0%", "-70%"]);
 
     // isDaytime react hook
     const isDayTime = useIsDayTime();

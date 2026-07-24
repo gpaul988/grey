@@ -5,7 +5,7 @@ import '@/app/globals.css'
 import Image from "next/image";
 import Link from "next/link";
 import CountUp from "react-countup";
-import {AnimatePresence, motion, useScroll, useTransform, useMotionValue} from "framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
 import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
@@ -84,12 +84,6 @@ const WebApplication = () => {
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
     const [activeIndex, setActiveIndex] = useState(1);
-    const targetRef = useRef<HTMLDivElement | null>(null);
-    const [isMounted, setIsMounted] = useState(false);
-    useEffect(()=> setIsMounted(true), []);
-    const fallbackScroll = useMotionValue(0);
-    const { scrollYProgress } = useScroll({ target: isMounted ? targetRef : undefined });
-    const x = useTransform(scrollYProgress ?? fallbackScroll, [0, 1], ["0%", "-65%"]);
 
     // Floating button visibility
     useEffect(() => {
