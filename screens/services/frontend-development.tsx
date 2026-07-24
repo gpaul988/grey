@@ -5,7 +5,7 @@ import '@/app/globals.css'
 import Image from "next/image";
 import Link from "next/link";
 import CountUp from "react-countup";
-import {motion, useScroll, useTransform} from "framer-motion";
+import {motion, useScroll, useTransform, useMotionValue} from "framer-motion";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
 import {FxBackground, FxChip, FxReveal, FxCard, FxStickyScrollSection, FxOrbit} from '@/components/futuristic/fx';
@@ -19,8 +19,9 @@ const FrontendDevelopment = () => {
     // Avoid useScroll passing an unhydrated ref: only attach target after client mount
     const [isMounted, setIsMounted] = useState(false);
     useEffect(() => { setIsMounted(true); }, []);
+    const fallback = useMotionValue(0);
     const { scrollYProgress } = useScroll({ target: isMounted ? targetRef : undefined });
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
+    const x = useTransform(scrollYProgress ?? fallback, [0, 1], ["0%", "-50%"]);
 
     // isDaytime react hook
     const isDayTime = useIsDayTime();

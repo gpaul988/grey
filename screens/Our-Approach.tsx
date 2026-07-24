@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react';
 import Link from 'next/link';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useIsDayTime } from '../components/useIsDayTime';
 import {
     FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxGlitchText, FxFrame, FxTerminal
