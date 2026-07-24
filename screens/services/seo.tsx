@@ -6,7 +6,7 @@ import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 import Link from "next/link";
-import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
+import {AnimatePresence, motion, useScroll, useTransform, useMotionValue} from "framer-motion";
 import CountUp from "react-countup";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
@@ -32,11 +32,12 @@ const Seo = () => {
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
     const [activeIndex, setActiveIndex] = useState(1);
-    // x-scroller
     const targetRef = useRef<HTMLDivElement | null>(null);
-    // Guarded useScroll: only set target when the ref is hydrated to avoid framer-motion invariant
-    const {scrollYProgress} = useScroll({target: (typeof window !== 'undefined' && targetRef.current) ? targetRef : undefined});
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-60%"]);
+    const [isMounted, setIsMounted] = useState(false);
+    useEffect(()=> setIsMounted(true), []);
+    const fallbackScroll = useMotionValue(0);
+    const { scrollYProgress } = useScroll({ target: isMounted ? targetRef : undefined });
+    const x = useTransform(scrollYProgress ?? fallbackScroll, [0, 1], ["0%", "-60%"]);
 
     // Floating button visibility hook
     useEffect(() => {
