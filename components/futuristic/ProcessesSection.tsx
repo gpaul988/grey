@@ -259,7 +259,7 @@ export default function ProcessesSection({ isDayTime = false }: { isDayTime?: bo
               {/* Glow on left edge when active */}
               <motion.div
                 className="absolute left-0 top-0 w-[3px] h-full rounded-full"
-                animate={{ background: activeIndex === i ? proc.color : 'transparent' }}
+                animate={{ background: activeIndex === i ? proc.color : 'rgba(0,0,0,0)' }}
                 transition={{ duration: 0.4 }}
               />
 

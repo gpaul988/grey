@@ -559,7 +559,7 @@ const HeaderContent: React.FC = () => {
                     <div className="container max-w-full relative z-10 mx-auto w-full h-auto px-4 lg:px-[4.6em]">
                         <div className="flex items-center justify-between h-auto gap-3 md:gap-4">
                             {/* Logo */}
-                            <div className="shrink-0 grey-logo-orbit">
+                            <div suppressHydrationWarning={true} className="shrink-0 grey-logo-orbit">
                                 <Link href="/#">
                                     <Image
                                         src="/logon.png"

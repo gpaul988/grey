@@ -4,7 +4,7 @@ import '@/app/globals.css'
 import Image from "next/image";
 import Link from "next/link";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
-import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
+import {AnimatePresence, motion, useScroll, useTransform, useMotionValue} from "framer-motion";
 import {FaOilWell} from "react-icons/fa6";
 import {IoMdAnalytics} from "react-icons/io";
 import {GiOilPump, GiRefinery} from "react-icons/gi";
@@ -145,8 +145,11 @@ const OilAndGas = () => {
     const [isDesktop, setIsDesktop] = useState(false);
     // x-scroller
     const targetRef = useRef<HTMLDivElement | null>(null);
-    const {scrollYProgress} = useScroll({target: targetRef});
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-83%"]);
+    const [isMounted, setIsMounted] = useState(false);
+    useEffect(()=> setIsMounted(true), []);
+    const fallbackScroll = useMotionValue(0);
+    const { scrollYProgress } = useScroll({ target: isMounted ? targetRef : undefined });
+    const x = useTransform(scrollYProgress ?? fallbackScroll, [0, 1], ["0%", "-83%"]);
 
     // Floating button visibility hook
     useEffect(() => {
