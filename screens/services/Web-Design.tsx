@@ -7,7 +7,7 @@ import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import CountUp from "react-countup";
-import {motion, useScroll, useTransform, useMotionValue} from "framer-motion";
+import {motion} from "framer-motion";
 import {useIsDayTime} from '../../components/useIsDayTime';
 import ServiceHero from '@/components/futuristic/ServiceHero';
 import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
@@ -29,13 +29,6 @@ const WebDesign = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
-    // x-scroller
-    const targetRef = useRef<HTMLDivElement | null>(null);
-    const [isMounted, setIsMounted] = useState(false);
-    useEffect(()=> setIsMounted(true), []);
-    const fallbackScroll = useMotionValue(0);
-    const { scrollYProgress } = useScroll({ target: isMounted ? targetRef : undefined });
-    const x = useTransform(scrollYProgress ?? fallbackScroll, [0, 1], ["0%", "-80%"]);
 
     // Floating button visibility hook
     useEffect(() => {
