@@ -27,18 +27,33 @@ export default function AnnouncementBar() {
         const dismissed = sessionStorage.getItem('grey-ann-dismissed');
         if (dismissed === 'true') return;
 
-        fetch('/api/announcement')
-            .then((r) => r.json())
-            .then((d: { announcement: Announcement | null }) => {
-                if (!alive || !d.announcement) return;
-                setAnn(d.announcement);
-                setVisible(true);
-            })
-            .catch((err) => {
-                if (process.env.NODE_ENV === 'development') {
-                    console.error('[AnnouncementBar] Fetch error:', err);
+        const fetchAnnouncement = async () => {
+            try {
+                const response = await fetch('/api/announcement', {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                    cache: 'no-cache',
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
-            });
+                
+                const data = await response.json() as { announcement: Announcement | null };
+                
+                if (alive && data.announcement) {
+                    setAnn(data.announcement);
+                    setVisible(true);
+                }
+            } catch (err) {
+                // Silently fail - announcements are optional
+                if (process.env.NODE_ENV === 'development') {
+                    console.warn('[AnnouncementBar] Failed to fetch announcement:', err);
+                }
+            }
+        };
+
+        fetchAnnouncement();
 
         return () => {
             alive = false;
