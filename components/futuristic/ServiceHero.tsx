@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FxBackground, FxChip, FxOrbit, FxHoloCard } from '@/components/futuristic/fx';
 
