@@ -64,8 +64,14 @@ export default function TawkChat({ propertyId, widgetId, offsetPx = 80 }: TawkCh
             document
                 .querySelectorAll<HTMLElement>('[id^="tawk-"], iframe[src*="tawk.to"]')
                 .forEach(el => {
-                    if (el.getBoundingClientRect().height < 120)
-                        el.style.setProperty('bottom', `${offsetPx}px`, 'important');
+                    try {
+                        const rect = el.getBoundingClientRect();
+                        if (rect && rect.height < 120) {
+                            el.style.setProperty('bottom', `${offsetPx}px`, 'important');
+                        }
+                    } catch (e) {
+                        // ignore elements not fully available yet
+                    }
                 });
         };
 

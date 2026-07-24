@@ -6,7 +6,7 @@ import { LiaLongArrowAltDownSolid } from 'react-icons/lia';
 import SocialProof from '@/components/SocialProof';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
 import CountUp from 'react-countup';
 import { FaStar, FaGoogle, FaLinkedin } from 'react-icons/fa6';
 import { FaFileAlt } from 'react-icons/fa';
@@ -71,8 +71,11 @@ const Home = () => {
   const [activeWhyUs, setActiveWhyUs] = useState(0);
   const { greeting, returning, ready: personalReady } = usePersonalization();
 
-  const { scrollYProgress } = useScroll({ target: whyUsRef });
-  const whyX = useTransform(scrollYProgress, [0, 1], ['0%', '-62%']);
+  const [whyMounted, setWhyMounted] = useState(false);
+  useEffect(()=> setWhyMounted(true), []);
+  const fallbackWhy = useMotionValue(0);
+  const { scrollYProgress } = useScroll({ target: whyMounted ? whyUsRef : undefined });
+  const whyX = useTransform(scrollYProgress ?? fallbackWhy, [0, 1], ['0%', '-62%']);
 
   useEffect(() => {
     const handleScroll = () => {

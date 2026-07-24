@@ -7,14 +7,22 @@ import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from "next/link";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import CountUp from "react-countup";
-import {motion, useScroll, useTransform} from "framer-motion";
+import {motion, useScroll, useTransform, useMotionValue} from "framer-motion";
 import {useIsDayTime} from '../../components/useIsDayTime';
 import ServiceHero from '@/components/futuristic/ServiceHero';
 import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 
 import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
 
-import {FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxStickyScrollSection, FxOrbit} from '@/components/futuristic/fx';
+import {
+    FxBackground,
+    FxChip,
+    FxReveal,
+    FxButton,
+    FxHoloCard,
+    FxStickyScrollSection,
+    FxOrbit
+} from '@/components/futuristic/fx';
 
 const WebDesign = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -23,8 +31,11 @@ const WebDesign = () => {
     const [activeId, setActiveId] = useState<string>("");
     // x-scroller
     const targetRef = useRef<HTMLDivElement | null>(null);
-    const {scrollYProgress} = useScroll({target: targetRef});
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
+    const [isMounted, setIsMounted] = useState(false);
+    useEffect(()=> setIsMounted(true), []);
+    const fallbackScroll = useMotionValue(0);
+    const { scrollYProgress } = useScroll({ target: isMounted ? targetRef : undefined });
+    const x = useTransform(scrollYProgress ?? fallbackScroll, [0, 1], ["0%", "-80%"]);
 
     // Floating button visibility hook
     useEffect(() => {
@@ -126,13 +137,13 @@ const WebDesign = () => {
                     playsInline
                     preload="auto"
                     className="hidden lg:block absolute inset-0 w-full h-full object-cover"
-                    poster="/assets/hero/hero.jpg"
+                    poster="/assets/wd/hero.jpg"
                 >
-                    <source src="/assets/webd/hero.mp4" type="video/mp4"/>
+                    <source src="/assets/wd/hero-mobile.mp4" type="video/mp4"/>
                 </video>
 
                 <Image
-                    src="/assets/hero/hero.jpg"
+                    src="/assets/wd/hero.jpg"
                     alt="Web Design Hero"
                     fill
                     priority
@@ -1832,9 +1843,9 @@ const WebDesign = () => {
 
             {/* Development Process & Methodology Section - FUTURISTIC, DETAILED */}
             <section className={`relative py-20 lg:py-32 ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
-                <FxBackground day={isDayTime} aurora grid />
-                <FxOrbit size={520} top="-120px" right="-160px" opacity={0.08} speed={22} />
-                <FxOrbit size={320} bottom="-80px" left="-100px" opacity={0.06} speed={30} reverse />
+                <FxBackground day={isDayTime} aurora grid/>
+                <FxOrbit size={520} top="-120px" right="-160px" opacity={0.08} speed={22}/>
+                <FxOrbit size={320} bottom="-80px" left="-100px" opacity={0.06} speed={30} reverse/>
 
                 <div className="relative z-10 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
                     {/* Section Header */}
@@ -1847,8 +1858,10 @@ const WebDesign = () => {
                         </FxReveal>
                         <FxReveal delay={0.06}>
                             <p className={`text-[1em] lg:text-[1.05em] leading-[1.7] font-[300] ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
-                                A rigorous, research-first approach combining product thinking, design systems and engineering
-                                rigor. Each phase includes measurable outputs, acceptance criteria and handovers to keep delivery
+                                A rigorous, research-first approach combining product thinking, design systems and
+                                engineering
+                                rigor. Each phase includes measurable outputs, acceptance criteria and handovers to keep
+                                delivery
                                 predictable, fast and optimised for scale.
                             </p>
                         </FxReveal>
@@ -1887,20 +1900,27 @@ const WebDesign = () => {
                             }
                         ].map((c, idx) => (
                             <FxReveal key={c.step} delay={0.06 + idx * 0.06}>
-                                <div className={`relative p-6 rounded-2xl overflow-hidden border transition-all duration-300 hover:scale-[1.015] hover:shadow-2xl ${isDayTime ? 'bg-white/95 text-black border-slate-100' : 'bg-white/6 text-white border-white/8'}`}>
+                                <div
+                                    className={`relative p-6 rounded-2xl overflow-hidden border transition-all duration-300 hover:scale-[1.015] hover:shadow-2xl ${isDayTime ? 'bg-white/95 text-black border-slate-100' : 'bg-white/6 text-white border-white/8'}`}>
 
                                     {/* ambient glow */}
-                                    <div className="absolute inset-0 pointer-events-none rounded-2xl" style={{boxShadow: isDayTime ? '0 30px 80px rgba(14,165,233,0.04)' : '0 40px 120px rgba(2,6,23,0.6)'}} />
+                                    <div className="absolute inset-0 pointer-events-none rounded-2xl"
+                                         style={{boxShadow: isDayTime ? '0 30px 80px rgba(14,165,233,0.04)' : '0 40px 120px rgba(2,6,23,0.6)'}}/>
 
                                     <div className="flex items-start justify-between">
                                         <div>
                                             <div className="text-[0.9em] font-mono text-slate-400">{c.step}</div>
                                             <h3 className="mt-3 text-[1.35em] font-[700] leading-[1.05]">{c.title}</h3>
-                                            <div className={`mt-2 text-xs font-semibold ${isDayTime ? 'text-slate-600' : 'text-white/70'}`}>{c.timeframe}</div>
+                                            <div
+                                                className={`mt-2 text-xs font-semibold ${isDayTime ? 'text-slate-600' : 'text-white/70'}`}>{c.timeframe}</div>
                                         </div>
                                         <div className="hidden lg:flex flex-col items-end gap-2">
-                                            <div className={`px-3 py-1 rounded-full text-xs font-semibold ${isDayTime ? 'bg-slate-50 text-slate-700' : 'bg-white/6 text-white/80'} border ${isDayTime ? 'border-slate-100' : 'border-white/8'}`}>Deliverables</div>
-                                            <div className={`px-3 py-1 rounded-full text-xs font-semibold ${isDayTime ? 'bg-slate-50 text-slate-700' : 'bg-white/6 text-white/80'} border ${isDayTime ? 'border-slate-100' : 'border-white/8'}`}>KPIs</div>
+                                            <div
+                                                className={`px-3 py-1 rounded-full text-xs font-semibold ${isDayTime ? 'bg-slate-50 text-slate-700' : 'bg-white/6 text-white/80'} border ${isDayTime ? 'border-slate-100' : 'border-white/8'}`}>Deliverables
+                                            </div>
+                                            <div
+                                                className={`px-3 py-1 rounded-full text-xs font-semibold ${isDayTime ? 'bg-slate-50 text-slate-700' : 'bg-white/6 text-white/80'} border ${isDayTime ? 'border-slate-100' : 'border-white/8'}`}>KPIs
+                                            </div>
                                         </div>
                                     </div>
 
@@ -1908,8 +1928,10 @@ const WebDesign = () => {
 
                                     <div className="mt-4 grid gap-2">
                                         {c.items.map((it) => (
-                                            <div key={it} className={`flex items-center gap-3 text-sm ${isDayTime ? 'text-slate-600' : 'text-white/70'}`}>
-                                                <div className={`w-2 h-2 rounded-full ${isDayTime ? 'bg-sky-400' : 'bg-teal-300'}`} />
+                                            <div key={it}
+                                                 className={`flex items-center gap-3 text-sm ${isDayTime ? 'text-slate-600' : 'text-white/70'}`}>
+                                                <div
+                                                    className={`w-2 h-2 rounded-full ${isDayTime ? 'bg-sky-400' : 'bg-teal-300'}`}/>
                                                 <div className="truncate">{it}</div>
                                             </div>
                                         ))}
@@ -1917,10 +1939,13 @@ const WebDesign = () => {
 
                                     <div className="mt-5 flex items-center justify-between">
                                         <div className="text-[0.85em] font-[500] text-slate-400">Acceptance</div>
-                                        <div className="text-[0.9em] font-extrabold gx-gradient-text">{c.acceptance.split(',')[0]}</div>
+                                        <div
+                                            className="text-[0.9em] font-extrabold gx-gradient-text">{c.acceptance.split(',')[0]}</div>
                                     </div>
 
-                                    <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full opacity-10 pointer-events-none" style={{background: isDayTime ? 'radial-gradient(circle,#7dd3fc,transparent)' : 'radial-gradient(circle,#0891b2,transparent)'}} />
+                                    <div
+                                        className="absolute -right-6 -top-6 w-24 h-24 rounded-full opacity-10 pointer-events-none"
+                                        style={{background: isDayTime ? 'radial-gradient(circle,#7dd3fc,transparent)' : 'radial-gradient(circle,#0891b2,transparent)'}}/>
                                 </div>
                             </FxReveal>
                         ))}
@@ -1928,12 +1953,20 @@ const WebDesign = () => {
 
                     {/* Horizontal KPI strip */}
                     <FxReveal delay={0.4}>
-                        <div className={`mt-10 p-6 rounded-2xl backdrop-blur-md border ${isDayTime ? 'bg-white/5 border-teal-400/20' : 'bg-black/5 border-teal-700/20'}`}>
+                        <div
+                            className={`mt-10 p-6 rounded-2xl backdrop-blur-md border ${isDayTime ? 'bg-white/5 border-teal-400/20' : 'bg-black/5 border-teal-700/20'}`}>
                             <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
-                                {[{val: 'Predictable Sprints', label: '2-week cadence'}, {val: 'Design System', label: 'Versioned & Accessible'}, {val: 'Coverage', label: 'Accessibility & WCAG'}, {val: 'Monitoring', label: 'Realtime dashboards'}].map((s,i) => (
+                                {[{val: 'Predictable Sprints', label: '2-week cadence'}, {
+                                    val: 'Design System',
+                                    label: 'Versioned & Accessible'
+                                }, {val: 'Coverage', label: 'Accessibility & WCAG'}, {
+                                    val: 'Monitoring',
+                                    label: 'Realtime dashboards'
+                                }].map((s, i) => (
                                     <div key={i} className="text-center lg:text-left">
                                         <div className="text-[1.6em] font-[800] gx-gradient-text mb-1">{s.val}</div>
-                                        <div className={`text-[0.78em] font-[600] ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>{s.label}</div>
+                                        <div
+                                            className={`text-[0.78em] font-[600] ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>{s.label}</div>
                                     </div>
                                 ))}
                             </div>
@@ -1944,8 +1977,11 @@ const WebDesign = () => {
                     <FxReveal delay={0.52}>
                         <div className="mt-8 flex items-center justify-between gap-6">
                             <div>
-                                <h4 className={`text-[1.05em] font-[700] ${isDayTime ? 'text-gray-800' : 'text-white/90'}`}>Ready for predictable product delivery?</h4>
-                                <p className={`text-[0.95em] ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>We pair design and engineering to ship measurable outcomes. Book a discovery session to review timeline and risks.</p>
+                                <h4 className={`text-[1.05em] font-[700] ${isDayTime ? 'text-gray-800' : 'text-white/90'}`}>Ready
+                                    for predictable product delivery?</h4>
+                                <p className={`text-[0.95em] ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>We pair
+                                    design and engineering to ship measurable outcomes. Book a discovery session to
+                                    review timeline and risks.</p>
                             </div>
                             <FxButton day={!isDayTime} href="/contact" variant="solid">Book a discovery →</FxButton>
                         </div>
@@ -1954,7 +1990,8 @@ const WebDesign = () => {
             </section>
 
             {/* Full-width Hero Image — Futuristic, Detailed */}
-            <div id={'nlast-image'} className={`relative w-full h-auto overflow-hidden ${isDayTime ? 'bg-slate-50' : 'bg-slate-950'}`}>
+            <div id={'nlast-image'}
+                 className={`relative w-full h-auto overflow-hidden ${isDayTime ? 'bg-slate-50' : 'bg-slate-950'}`}>
                 {/* Grid background */}
                 <div className="pointer-events-none absolute inset-0" style={{
                     backgroundImage: `linear-gradient(${isDayTime ? 'rgba(13,148,136,0.05)' : 'rgba(45,212,191,0.04)'} 1px, transparent 1px), linear-gradient(90deg, ${isDayTime ? 'rgba(13,148,136,0.05)' : 'rgba(45,212,191,0.04)'} 1px, transparent 1px)`,
@@ -1973,16 +2010,22 @@ const WebDesign = () => {
                 <div className="relative z-10 px-6 sm:px-8 lg:px-[4.6em] py-8 lg:py-12">
                     <div className="relative group">
                         {/* Neon rim + glow */}
-                        <div className="absolute -inset-2 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                             style={{background: isDayTime ? 'linear-gradient(135deg, rgba(14,165,233,0.4), rgba(99,102,241,0.2))' : 'linear-gradient(135deg, rgba(6,182,212,0.3), rgba(2,6,23,0.8))'}}/>
+                        <div
+                            className="absolute -inset-2 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                            style={{background: isDayTime ? 'linear-gradient(135deg, rgba(14,165,233,0.4), rgba(99,102,241,0.2))' : 'linear-gradient(135deg, rgba(6,182,212,0.3), rgba(2,6,23,0.8))'}}/>
 
-                        <div className="absolute inset-0 rounded-2xl pointer-events-none" style={{boxShadow: isDayTime ? '0 30px 120px rgba(14,165,233,0.08), inset 0 0 60px rgba(14,165,233,0.04)' : '0 50px 180px rgba(6,182,212,0.15), inset 0 0 80px rgba(6,182,212,0.06)'}}/>
+                        <div className="absolute inset-0 rounded-2xl pointer-events-none"
+                             style={{boxShadow: isDayTime ? '0 30px 120px rgba(14,165,233,0.08), inset 0 0 60px rgba(14,165,233,0.04)' : '0 50px 180px rgba(6,182,212,0.15), inset 0 0 80px rgba(6,182,212,0.06)'}}/>
 
                         {/* Corner accents */}
-                        <div className="absolute -top-3 -left-3 w-8 h-8 border-t-2 border-l-2 border-teal-400 rounded-tl-lg z-10 opacity-60"/>
-                        <div className="absolute -top-3 -right-3 w-8 h-8 border-t-2 border-r-2 border-teal-400 rounded-tr-lg z-10 opacity-60"/>
-                        <div className="absolute -bottom-3 -left-3 w-8 h-8 border-b-2 border-l-2 border-teal-400 rounded-bl-lg z-10 opacity-60"/>
-                        <div className="absolute -bottom-3 -right-3 w-8 h-8 border-b-2 border-r-2 border-teal-400 rounded-br-lg z-10 opacity-60"/>
+                        <div
+                            className="absolute -top-3 -left-3 w-8 h-8 border-t-2 border-l-2 border-teal-400 rounded-tl-lg z-10 opacity-60"/>
+                        <div
+                            className="absolute -top-3 -right-3 w-8 h-8 border-t-2 border-r-2 border-teal-400 rounded-tr-lg z-10 opacity-60"/>
+                        <div
+                            className="absolute -bottom-3 -left-3 w-8 h-8 border-b-2 border-l-2 border-teal-400 rounded-bl-lg z-10 opacity-60"/>
+                        <div
+                            className="absolute -bottom-3 -right-3 w-8 h-8 border-b-2 border-r-2 border-teal-400 rounded-br-lg z-10 opacity-60"/>
 
                         {/* Image container */}
                         <div className="relative overflow-hidden rounded-2xl">
@@ -2004,21 +2047,35 @@ const WebDesign = () => {
                                  style={{backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(45,212,191,0.02) 3px, rgba(45,212,191,0.02) 4px)'}}/>
 
                             {/* Floating detail badge */}
-                            <motion.div initial={{opacity: 0, y: 20}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{delay: 0.3, duration: 0.6}}
+                            <motion.div initial={{opacity: 0, y: 20}} whileInView={{opacity: 1, y: 0}}
+                                        viewport={{once: true}} transition={{delay: 0.3, duration: 0.6}}
                                         className="absolute bottom-6 left-6 px-5 py-3 rounded-full backdrop-blur-xl text-[0.8em] font-semibold tracking-wider text-teal-300"
-                                        style={{background: isDayTime ? 'rgba(255,255,255,0.85)' : 'rgba(8,10,20,0.7)', border: '1px solid rgba(45,212,191,0.4)'}}>
+                                        style={{
+                                            background: isDayTime ? 'rgba(255,255,255,0.85)' : 'rgba(8,10,20,0.7)',
+                                            border: '1px solid rgba(45,212,191,0.4)'
+                                        }}>
                                 ✦ Research-led Design · Performance-Optimized · Conversion-Focused
                             </motion.div>
 
                             {/* Floating stats card */}
-                            <motion.div initial={{opacity: 0, x: -20}} whileInView={{opacity: 1, x: 0}} viewport={{once: true}}
+                            <motion.div initial={{opacity: 0, x: -20}} whileInView={{opacity: 1, x: 0}}
+                                        viewport={{once: true}}
                                         transition={{delay: 0.4, duration: 0.6, type: 'spring', stiffness: 100}}
                                         className="absolute top-6 right-6 hidden lg:block rounded-2xl px-6 py-4 backdrop-blur-xl"
-                                        style={{background: isDayTime ? 'rgba(255,255,255,0.8)' : 'rgba(15,15,15,0.8)', border: '1px solid rgba(45,212,191,0.3)'}}>
+                                        style={{
+                                            background: isDayTime ? 'rgba(255,255,255,0.8)' : 'rgba(15,15,15,0.8)',
+                                            border: '1px solid rgba(45,212,191,0.3)'
+                                        }}>
                                 <div className="text-right">
-                                    <div className={`text-xs font-semibold tracking-widest ${isDayTime ? 'text-slate-500' : 'text-white/70'}`}>DELIVERED</div>
-                                    <div className="text-[1.8em] font-extrabold gx-gradient-text leading-none">500+</div>
-                                    <div className={`text-[0.75em] font-[500] mt-1 ${isDayTime ? 'text-slate-600' : 'text-white/60'}`}>Web projects worldwide</div>
+                                    <div
+                                        className={`text-xs font-semibold tracking-widest ${isDayTime ? 'text-slate-500' : 'text-white/70'}`}>DELIVERED
+                                    </div>
+                                    <div className="text-[1.8em] font-extrabold gx-gradient-text leading-none">500+
+                                    </div>
+                                    <div
+                                        className={`text-[0.75em] font-[500] mt-1 ${isDayTime ? 'text-slate-600' : 'text-white/60'}`}>Web
+                                        projects worldwide
+                                    </div>
                                 </div>
                             </motion.div>
                         </div>
@@ -2026,7 +2083,7 @@ const WebDesign = () => {
                 </div>
 
                 {/* Bottom accent bar */}
-                <div className="relative z-5 h-1 bg-gradient-to-r from-transparent via-teal-400/40 to-transparent" />
+                <div className="relative z-5 h-1 bg-gradient-to-r from-transparent via-teal-400/40 to-transparent"/>
             </div>
 
             {/* Futuristic Capabilities Section — Detailed, Rich */}
