@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, {useEffect, useRef, useState} from 'react';
 import Image from "next/image";
@@ -12,8 +12,10 @@ import {useIsDayTime} from '../../components/useIsDayTime';
 
 import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
 
-import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
-const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(false);
+import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxStickyScrollSection } from '@/components/futuristic/fx';
+
+const DiscoveryPhase = () => {
+    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
@@ -169,710 +171,649 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
 
-            <ServiceHero
-                title="Discovery Phase"
-                subtitle="Deep-dive discovery sessions that uncover insights, align stakeholders, and build bulletproof project foundations before a single line of code is written."
-                accentColor="#f97316"
-                variant="grid"
-                badges={["Requirements", "Workshops", "Wireframes", "Roadmapping", "Feasibility", "Risk Analysis"]}
-            />
-            <ServiceCapabilities
-                accentColor="#f97316"
-                variant="terminal"
-                capabilities={[
-                    { id: "cap-1", icon: " - ", title: "Requirements Gathering", description: "Structured stakeholder interviews and workshops to surface functional, technical, and business requirements." },
-                    { id: "cap-2", icon: " - ️", title: "Technical Roadmapping", description: "Architecture decisions, technology selection, and phased delivery plans that reduce risk from day one." },
-                    { id: "cap-3", icon: "📋", title: "Feasibility Analysis", description: "Technical and commercial feasibility assessments that give you confidence before committing budget." },
-                    { id: "cap-4", icon: " - ️", title: "Wireframing & IA", description: "Low-fidelity wireframes and information architecture that align teams on structure before visual design begins." },
-                    { id: "cap-5", icon: "⚠️", title: "Risk Assessment", description: "Identify and mitigate technical, timeline, and commercial risks before they become expensive problems." },
-                    { id: "cap-6", icon: "📄", title: "Project Documentation", description: "Full discovery output: SOW, technical spec, user stories, acceptance criteria, and project charter." },
-                ]}
-            />
+            {/* Unified Futuristic Discovery Phase Hero - Background Image/Video with overlay */}
+            <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
+                {/* Video Background (desktop) and Image fallback (mobile) */}
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    className="hidden lg:block absolute inset-0 w-full h-full object-cover"
+                    poster="/assets/disc/hero.jpg"
+                >
+                    <source src="/assets/disc/hero.mp4" type="video/mp4"/>
+                </video>
 
-            {/* Hero Section */}
-            <div id={'hero'}
-                 className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                {/*  -  -  -  Futuristic FX overlay (hero enhancement)  -  -  -  */}
-                <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
-                    <div className="gx-scanline" />
-                    <div className="gx-noise-overlay" />
-                    <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
+                <Image
+                    src="/assets/disc/hero.jpg"
+                    alt="Discovery Phase Hero"
+                    fill
+                    priority
+                    className="lg:hidden object-cover"
+                />
+
+                {/* Grid & FX Background */}
+                <div className="pointer-events-none absolute inset-0 z-[1]">
+                    <FxBackground day={false} grid={true} aurora={true}/>
                 </div>
-                <h1
-                    className={`border-b pb-[0.5em] border-gray-500/50 px-0 gx-hero-title constant-text lg:text-[5em] md:text-[3em] sm:text-[2em] text-[2.5em] lg:mt-[3em] md:mt-[3em] mt-[1.5em] leading-[1.1] font-[800] ${
-                        isDayTime ? 'text-black' : 'text-white'
-                    }`}>
-                    Project <br className={'lg:block md:block hidden'}/>Discovery Phase
-                </h1>
-                <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
-                    Unlock your product’s potential with strategic roadmapping and user-focused design  - built to drive
-                    market success and elevate user satisfaction.
-                </p>
-                <ResponsiveVideoHero videoDesktop="/assets/disc/hero.mp4" videoMobile="/assets/disc/hero-mobile.mp4" posterImage="/assets/disc/hero.jpg" />
-            </div>
 
-            {/* Introductory section */}
-            <section ref={sectionRef}
-                     className={`py-12 transition-colors duration-500 ${
-                         isBackgroundActive
-                             ? isDayTime
-                                 ? "bg-black text-white"
-                                 : "bg-white text-black"
-                             : isDayTime
-                                 ? "bg-white text-black"
-                                 : "bg-black text-white"
-                     }`}>
+                {/* Gradient Overlay with Glow */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50 z-[2]"/>
                 <div
-                    className='relative grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 md:pt-20 pt-6 lg:pb-16 md:pb-16 pb-6 lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'>
-                    <div className=''>
-                        <h6 className='constant-text uppercase lg:text-[0.85em] md:text-[0.85em] leading-[1.3] text-[0.8em] lg:font-[600] font-[600] lg:tracking-wider tracking-tight'>
-                            Simplifying product discovery
-                        </h6>
+                    className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(249,115,22,0.12),transparent_50%)] z-[2]"/>
+
+                {/* Futuristic FX Elements */}
+                <div className="pointer-events-none absolute inset-0 z-[3]">
+                    <div className="gx-scanline"/>
+                    <div className="gx-noise-overlay"/>
+                    <div className="gx-orbit absolute"
+                         style={{width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .12}}/>
+                </div>
+
+                {/* Content Container */}
+                <div className="absolute inset-0 flex items-center top-32 z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+                    <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        <div>
+                            <div className="flex items-center gap-3 mb-6 lg:mb-8">
+                                <div className="w-2.5 h-2.5 rounded-full bg-orange-500 animate-pulse"/>
+                                <span
+                                    className="text-orange-500 text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">Discovery Phase</span>
+                            </div>
+
+                            <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
+                                Strategic Discovery, <span className="gx-gradient-text">Flawless Execution</span>
+                            </h1>
+
+                            <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
+                                Deep-dive discovery sessions that uncover insights, align stakeholders, and build
+                                bulletproof project foundations before a single line of code is written. We transform
+                                ambiguity into clarity.
+                            </p>
+
+                            <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
+                                {['Requirements', 'Workshops', 'Wireframes', 'Roadmapping', 'Feasibility', 'Risk Analysis'].map((badge) => (
+                                    <span key={badge}
+                                          className="px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/30 text-orange-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">
+                                            {badge}
+                                        </span>
+                                ))}
+                            </div>
+
+                            <div className="flex flex-wrap gap-4 items-center">
+                                <Link href="/contact">
+                                    <button
+                                        className="relative px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap"
+                                        style={{background: '#f97316', color: '#000'}}>
+                                            <span className="absolute inset-0" style={{
+                                                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)'
+                                            }}/>
+                                        <span className="relative">Start Discovery â†’</span>
+                                    </button>
+                                </Link>
+                                <Link href="/portfolio">
+                                    <button
+                                        className="px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap"
+                                        style={{border: `1px solid rgba(255,255,255,0.15)`}}>
+                                        View Case Studies
+                                    </button>
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* Right Column - Impact Stats */}
+                        <div className="hidden lg:flex flex-col items-end">
+                            <div className="grid grid-cols-2 gap-6 w-full">
+                                {[
+                                    {label: 'Discoveries', value: '150+'},
+                                    {label: 'Years Experience', value: '8+'},
+                                    {label: 'Success Rate', value: '100%'},
+                                    {label: 'Avg Alignment', value: '99%'}
+                                ].map((stat) => (
+                                    <div key={stat.label}
+                                         className="px-6 py-5 rounded-2xl border border-orange-500/25 bg-orange-500/8 backdrop-blur-md hover:bg-orange-500/12 transition-all duration-300 hover:border-orange-500/50 text-right">
+                                        <div
+                                            className="text-orange-300 text-[0.7em] uppercase tracking-wider font-[600] mb-2">{stat.label}</div>
+                                        <div
+                                            className="text-white text-[1.8em] font-[700]">{stat.value}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
-                    <div className='lg:-ml-[19em]'>
-                        <h3 className='lg:text-[3em] md:text-[3em] text-[1.8em] font-[500] lg:mt-[0.01em] lg:leading-[1.1] tracking-tight border-b lg:pb-[0.7em] lg:mb-[0.7em] leading-[1.1] pb-6'>
-                            What is the Discovery Phase <br className={'lg:block md:block hidden'}/>and How Does it
-                            Work?
-                        </h3>
+                </div>
+
+                {/* Mobile Stats - Visible on small screens only */}
+                <div className="lg:hidden absolute bottom-12 left-0 right-0 z-[11] px-6">
+                    <div className="grid grid-cols-3 gap-3">
+                        {[
+                            {label: 'Discoveries', value: '150+'},
+                            {label: 'Experts', value: '8+'},
+                            {label: 'Success', value: '100%'}
+                        ].map((stat) => (
+                            <div key={stat.label}
+                                 className="px-3 py-2 rounded-xl border border-orange-500/25 bg-orange-500/8 backdrop-blur-md">
+                                <div
+                                    className="text-orange-300 text-[0.5em] uppercase tracking-wider font-[600] mb-1">{stat.label}</div>
+                                <div
+                                    className="text-white text-[1.2em] font-[700]">{stat.value}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Strategic Discovery Framework & Methodology */}
+            <section ref={sectionRef}
+                     data-bg={isBackgroundActive ? (isDayTime ? 'Dark' : 'Light') : (isDayTime ? 'Light' : 'Dark')}
+                     className={`pt-16 transition-colors duration-500 ${
+                         isBackgroundActive
+                             ? isDayTime ? 'bg-black text-white' : 'bg-white text-black'
+                             : isDayTime ? 'bg-white text-black' : 'bg-black text-white'
+                     }`}>
+                <FxBackground day={isDayTime}/>
+                <div
+                    className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
+                    <div>
+                        <FxChip day={!isBackgroundActive ? !isDayTime : isDayTime}>STRATEGIC DISCOVERY</FxChip>
+                    </div>
+
+                    <div className="lg:-ml-[19em]">
+                        <FxReveal>
+                            <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
+                                Transform Vision Into <span
+                                className="gx-gradient-text">Executable Strategy</span>
+                            </h3>
+                        </FxReveal>
+
+                        <FxReveal delay={0.08}>
+                            <div
+                                className="grid lg:grid-cols-2 grid-cols-1 gap-6 mt-6 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
+                                <div className="space-y-4">
+                                    <p>Discovery is the strategic foundation that separates high-impact products from
+                                        mediocre implementations. We orchestrate comprehensive, multi-disciplinary
+                                        discovery engagements that systematically uncover competitive advantages,
+                                        validate market assumptions, and architect technically sound product strategies
+                                        grounded in genuine business outcomes.</p>
+                                    <p>Through intensive stakeholder workshops, user research synthesis, competitive
+                                        intelligence, and business analysis, we establish shared organizational
+                                        understanding. Every technical decision, feature prioritization, and
+                                        architectural choice becomes grounded in measurable KPIs and validated user
+                                        insights rather than assumptions or politics.</p>
+                                    <div className="flex flex-wrap gap-3 mt-4">
+                                        {['Market Validation', 'User Research', 'Technical Architecture', 'Risk Assessment'].map((p) => (
+                                            <span key={p} className="gx-data-pill">{p}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="space-y-4">
+                                    <p>Whether launching innovative startups, transforming established enterprises, or
+                                        scaling complex platforms, discovery delivers a comprehensive strategic roadmap
+                                        validated before significant investment. We ensure alignment across product,
+                                        technical, and business stakeholders while identifying feasibility constraints,
+                                        market opportunities, and scalability requirements early.</p>
+                                    <p>Our discovery methodology prioritizes risk mitigation and opportunity
+                                        acceleration. We deliver actionable clarity: validated product vision, technical
+                                        blueprint, prioritized feature roadmap, go-to-market strategy, and
+                                        organizational alignment. This strategic foundation empowers your team to
+                                        execute with confidence, reduce time-to-market, and achieve sustainable
+                                        product-market fit and growth.</p>
+                                    <div className="flex flex-wrap gap-3 mt-4">
+                                        {['Roadmapping', 'Feasibility Analysis', 'Stakeholder Alignment', 'Go-To-Market'].map((p) => (
+                                            <span key={p} className="gx-data-pill">{p}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </FxReveal>
+                    </div>
+                </div>
+            </section>
+
+            {/* Futuristic showcase */}
+            <section className={`${isDayTime ? 'bg-white' : 'bg-black'} py-12 lg:py-20`}>
+                <div id={'top'}
+                     className={'relative lg:max-w-full w-full mx-auto h-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'}>
+                    <div className="relative overflow-hidden rounded-[2rem] p-6 sm:p-8 lg:p-10 border border-white/10">
                         <div
-                            className='grid lg:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]'>
-                            <div>
-                                <p>
-                                    Kickstart your digital product with a focused and collaborative discovery process
-                                    tailored to align with your business vision and objectives. Whether you&#39;re
-                                    building a solution from the ground up or refining an existing concept, our team
-                                    partners with you to define success metrics, understand your users, and uncover
-                                    opportunities that deliver measurable value. Through detailed market research, user
-                                    experience mapping, and stakeholder alignment, we craft a solid foundation that
-                                    informs every decision moving forward.
+                            className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(249,115,22,0.18),transparent_30%),linear-gradient(130deg,rgba(255,255,255,0.04),rgba(2,6,23,0.94))]"/>
+                        <div className="absolute inset-0 border border-white/10 rounded-[2rem] pointer-events-none"/>
+                        <div
+                            className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-400/70 to-transparent"/>
+                        <div
+                            className="absolute right-6 top-6 h-24 w-24 rounded-full border border-orange-400/20 blur-3xl"/>
+                        <div
+                            className="absolute bottom-8 left-8 h-28 w-28 rounded-full border border-orange-400/15 blur-[90px]"/>
+                        <div
+                            className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.035)_50%,transparent_100%)]"/>
+                        <div
+                            className="absolute inset-0 bg-[linear-gradient(0deg,transparent_0%,rgba(255,255,255,0.025)_50%,transparent_100%)]"/>
+
+                        <div className="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+                            <div className="max-w-2xl">
+                                <FxChip day={false} className="mb-4">DISCOVERY SHOWCASE</FxChip>
+                                <h3 className="text-[1.7em] sm:text-[2.2em] lg:text-[2.7em] font-[700] tracking-tight leading-[1.08] text-white">
+                                    Strategic insights transformed into market-ready solutions.
+                                </h3>
+                                <p className="mt-4 max-w-xl text-[0.9em] sm:text-[1em] leading-[1.7] text-white/70">
+                                    A premium gallery of validated concepts, user-centered designs, and data-informed
+                                    strategiesâ€”showcasing the power of discovery-driven development.
                                 </p>
                             </div>
-                            <div>
-                                <p>
-                                    We prioritise features that drive the most impact while identifying secure, scalable
-                                    technologies that support growth and performance over time. From architecture
-                                    planning to user journey optimisation, every recommendation is made with long-term
-                                    ROI in mind. Our goal is to help you reduce risk, accelerate time-to-market, and
-                                    confidently achieve product-market fit. With a strategic discovery phase, you gain
-                                    clarity, direction, and a roadmap for meaningful digital success.
-                                </p>
+                            <div className="grid gap-2 sm:grid-cols-2 lg:min-w-[290px]">
+                                {[
+                                    {label: 'User Insights', value: '01'},
+                                    {label: 'Market Validation', value: '02'},
+                                    {label: 'Strategic Vision', value: '03'},
+                                    {label: 'Executable Plan', value: '04'}
+                                ].map((item) => (
+                                    <div key={item.label}
+                                         className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-sm">
+                                        <div
+                                            className="text-[0.58em] uppercase tracking-[0.3em] text-orange-300/80">{item.label}</div>
+                                        <div className="mt-1 text-[1.05em] font-[600] text-white">{item.value}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="relative z-10 mt-8 grid gap-4 lg:grid-cols-[1.35fr_0.9fr]">
+                            <div
+                                className="group relative overflow-hidden rounded-[1.6rem] border border-white/10 h-[320px] sm:h-[420px] lg:h-[540px]">
+                                <Image
+                                    src="/assets/disc/2.jpg"
+                                    alt="Discovery market validation showcase"
+                                    fill
+                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                />
+                                <div
+                                    className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(2,6,23,0.2)_40%,rgba(2,6,23,0.88)_100%)]"/>
+                                <div className="absolute inset-0 border border-white/10"/>
+                                <div
+                                    className="absolute left-4 top-4 rounded-full border border-orange-400/30 bg-black/30 px-3 py-1 text-[0.62em] uppercase tracking-[0.3em] text-orange-300">
+                                    01 / Strategy
+                                </div>
+                                <div className="absolute bottom-4 left-4 right-4">
+                                    <p className="text-[0.62em] uppercase tracking-[0.3em] text-orange-300 font-[600]">Market
+                                        Analysis</p>
+                                    <p className="mt-2 max-w-xl text-sm sm:text-base text-white/90">Deep competitive
+                                        insights and opportunity mapping for market leadership.</p>
+                                </div>
+                            </div>
+
+                            <div className="grid gap-4">
+                                <div
+                                    className="group relative overflow-hidden rounded-[1.35rem] border border-white/10 h-[250px] sm:h-[260px] lg:h-[260px]">
+                                    <Image
+                                        src="/assets/disc/3.jpg"
+                                        alt="Discovery user experience design showcase"
+                                        fill
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                    />
+                                    <div
+                                        className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(2,6,23,0.16)_55%,rgba(2,6,23,0.78)_100%)]"/>
+                                    <div className="absolute inset-0 border border-white/10"/>
+                                    <div
+                                        className="absolute left-3 top-3 rounded-full border border-white/15 bg-black/20 px-2.5 py-1 text-[0.56em] uppercase tracking-[0.28em] text-orange-200">
+                                        02 / Design
+                                    </div>
+                                </div>
+
+                                <div
+                                    className="group relative overflow-hidden rounded-[1.35rem] border border-white/10 h-[250px] sm:h-[260px] lg:h-[260px]">
+                                    <Image
+                                        src="/assets/disc/1.jpg"
+                                        alt="Discovery user research showcase"
+                                        fill
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                    />
+                                    <div
+                                        className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(2,6,23,0.16)_55%,rgba(2,6,23,0.78)_100%)]"/>
+                                    <div className="absolute inset-0 border border-white/10"/>
+                                    <div
+                                        className="absolute left-3 top-3 rounded-full border border-white/15 bg-black/20 px-2.5 py-1 text-[0.56em] uppercase tracking-[0.28em] text-orange-200">
+                                        03 / Research
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                className="group relative overflow-hidden rounded-[1.6rem] border border-white/10 h-[240px] sm:h-[260px] lg:h-[260px] lg:col-span-2">
+                                <Image
+                                    src="/assets/disc/4.jpg"
+                                    alt="Discovery roadmap execution showcase"
+                                    fill
+                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                />
+                                <div
+                                    className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(2,6,23,0.1)_35%,rgba(2,6,23,0.82)_100%)]"/>
+                                <div className="absolute inset-0 border border-white/10"/>
+                                <div
+                                    className="absolute left-3 top-3 rounded-full border border-orange-400/30 bg-black/30 px-2.5 py-1 text-[0.56em] uppercase tracking-[0.28em] text-orange-300">
+                                    04 / Execution
+                                </div>
+                                <div className="absolute bottom-4 left-4 right-4">
+                                    <p className="text-white/90 text-sm sm:text-base">Actionable roadmaps and validated
+                                        strategies built for sustainable growth.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Top Image*/}
-            <div className={`${isDayTime ? 'bg-white' : 'bg-black'}`}>
-                <div id={'top'}
-                     className={'relative lg:max-w-full w-full lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[5em] md:pb-[5em] pb-[2em]  mx-auto h-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'}>
-                    <div className={'relative grid lg:grid-cols-4 h-auto md:grid-cols-4 grid-cols-1 gap-6'}>
-                        <div className={'h-auto w-full max-w-full'}>
-                            <Image
-                                src={'/assets/disc/2.jpg'}
-                                alt={'home'}
-                                width={400}
-                                height={400}
-                            />
-                        </div>
-                        <div>
-                            <Image
-                                src={'/assets/disc/3.jpg'}
-                                alt={'Restaurant'}
-                                width={400}
-                                height={400}
-                            />
-                        </div>
-                        <div>
-                            <Image
-                                src={'/assets/disc/1.jpg'}
-                                alt={'calender'}
-                                width={400}
-                                height={400}
-                            />
-                        </div>
-                        <div>
-                            <Image
-                                src={'/assets/disc/4.jpg'}
-                                alt={'Restaurant'}
-                                width={400}
-                                height={400}
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             {/* Discovery process solutions */}
-            <div
-                className={`lg:pt-[2em] md:pt-[2em] pt-[1em] lg:pb-[4em] md:pb-[4em] pb-[1em]  ${isDayTime ? 'bg-black' : 'bg-white'}`}>
-                <div id={'node-development'}
-                     className={'relative lg:pt-[3em] md:pt-[3em] pt-[1em] lg:pb-[6em] md:pb-[6em] pb-[1em] lg:mt-[3em] md:mt-[3em] mt-[1em] lg:mb-[6em] md:mb-[6em] mb-[1em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]'}>
-                    <div
-                        className={`mb-8 border-b-[1px]  pb-[3em] ${isDayTime ? 'text-white' : 'text-black'} `}>
-                        <div>
-                            <h2 className={`lg:text-[3.25em] md:text-[3.25em] text-[1.5em] font-[500] justify-center tracking-tight  leading-[1.1]`}>
-                                Discovery Process Solutions
-                            </h2>
-                        </div>
-                    </div>
-                    <div
-                        className='grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-16 lg:mt-28 md:mt-28 mt-6 px-6 max-w-full w-full mx-auto h-full'>
-                        <div
-                            className='lg:sticky md:sticky top-28 lg:h-screen md:h-screen lg:mr-[11em] overflow-hidden'>
-                            <h3 className={`text-[1.5em] font-[500] tracking-tight constant-text ${
-                                isDayTime ? 'text-white' : 'text-black'
-                            }`}>
-                                Our Solutions
-                            </h3>
-                            <ul className={`list-disc constant-text text-[0.89em] ml-4 font-[600] relative space-y-3 ${
-                                isDayTime ? 'text-white decoration-gray-300 focus:decoration-gray-600' : 'text-black decoration-gray-600 focus:decoration-gray-900'
-                            }`}>
-                                {[
-                                    {id: "01", title: "User Research & Experience Design", target: "URED"},
-                                    {id: "02", title: "Competitor Research & Analysis", target: "CRA"},
-                                    {id: "03", title: "Prototyping & Validation", target: "PV"},
-                                    {id: "04", title: "Business Analysis", target: "BA"},
-                                    {id: "05", title: "Technical Feasibility Assessment", target: "TFA"},
-                                    {id: "06", title: "Product Roadmapping", target: "PR"},
-                                    {id: "07", title: "Project Planning & Estimation", target: "PPE"},
-                                    {id: "08", title: "Stakeholder Alignment", target: "SHA"},
-                                ].map((item, index) => (
-                                    <li key={index} className={'group lg:mt-6 mt-4'}>
-                                        <button
-                                            onClick={() => scrollToSection(item.target)}
-                                            className={`w-full text-left flex items-center gap-4 mb-4 focus:font-[650] ${
-                                                isDayTime
-                                                    ? `focus:text-white ${activeId === item.target ? 'text-gray-100 font-[650]' : 'text-gray-500 font-[400]'}`
-                                                    : `focus:text-black ${activeId === item.target ? 'text-gray-900 font-[650]' : 'text-gray-500 font-[400]'}`
-                                            }`}
-                                        >
-                                            <div className={'flex gap-4'}>
-                                                <span className={'shrink-0'}>{item.id}</span>
-                                                <span
-                                                    className={`opacity-0 transition-opacity text-[2em] leading-[0.59em] ${activeId === item.target ? 'opacity-100' : ''}`}>→</span>
-                                                <span>{item.title}</span>
-                                            </div>
-                                        </button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div className={'lg:-ml-[8em] md:-ml-[8em] lg:mb-[6em] md:mb-[6em]'}>
-                            <div className="grid lg:grid-cols-[50px_auto] grid-cols-1 lg:gap-2 gap1 items-start">
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>01/
-                                </div>
-                                <div className={`lg:mb-44 mb-14  ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'URED'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        User Research & Experience Design
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>User Research</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Experience Design</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>UX Design</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Usability Testing</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>User Personas</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>User Journey Mapping</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Prototyping</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.873em] font-[300]'}>
-                                        Let’s get to know the people who matter most to your business -your customers. We
-                                        begin by engaging with them directly, listening to their experiences, and
-                                        gaining a clear understanding of what motivates their decisions, behaviours, and
-                                        expectations.<br/><br/>
-
-                                        Through meaningful interviews, surveys, and data analysis, we identify patterns,
-                                        pain points, and opportunities that your product can address. These insights
-                                        help us craft detailed user personas and customer journey maps, providing a
-                                        strategic foundation for designing a product experience that’s intuitive,
-                                        relevant, and tailored to real user needs.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>02/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'CRA'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Competitor Research & Analysis
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Market Research</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Competitor Analysis</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Audience Segmentation</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Market Strategy</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Industry Trends</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Business Growth</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Competitor research and analysis are vital to understanding the market dynamics
-                                        that shape your industry. By examining competitor products, positioning, and
-                                        customer feedback, we deliver clear, actionable insights that support smarter
-                                        product decisions. Our thorough analysis helps you uncover gaps in the market,
-                                        anticipate trends, and refine your value proposition to gain a competitive edge.
-                                        <br/><br/>
-                                        Working closely with you, we define key audience segments, evaluate market
-                                        demand, and validate the potential of your product. This data-driven approach
-                                        ensures your go-to-market strategy is focused, relevant, and aligned with
-                                        customer expectations -setting your business up for long-term growth and success.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>03/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'PV'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Prototyping & Validation
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Prototyping</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>User Testing</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Design Iteration</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Product Validation</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Wireframing</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>User Feedback</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Imagine being able to see your product come to life -before a single line of code
-                                        is written. With interactive prototypes and detailed wireframes, we turn your
-                                        ideas into tangible experiences, allowing you to visualise how users will engage
-                                        with your product. This early-stage validation helps ensure that every feature
-                                        aligns with real user needs and business objectives, reducing the risk of costly
-                                        rework later on.<br/><br/>
-                                        By gathering feedback directly from your target audience and rapidly iterating
-                                        on designs, we fine-tune the user experience to be intuitive, effective, and
-                                        aligned with expectations. This user-first approach enhances decision-making,
-                                        strengthens stakeholder confidence, and ensures your final product is primed for
-                                        real-world success.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>04/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'BA'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Business Analysis
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Business Analysis</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Monetisation Strategies</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Customer Support</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Revenue Evaluation</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Pricing Models</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Market Entry Plans</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Marketing Strategy</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Our business analysis services focus on aligning your products and services with
-                                        your core business objectives to drive growth and profitability. We assess your
-                                        unique requirements and goals to identify effective monetisation strategies and
-                                        customer support solutions -like knowledge bases and chatbots -that enhance
-                                        engagement and satisfaction. By evaluating revenue potential, we help develop
-                                        pricing models designed to maximise profitability and market impact.<br/><br/>
-
-                                        Beyond monetisation, we craft tailored market entry and marketing plans that
-                                        position your product strategically for success. This comprehensive, data-driven
-                                        approach ensures your business is well-equipped to thrive in competitive markets
-                                        and adapt to evolving customer needs.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>05/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'TFA'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Technical Feasibility Assessment
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Technical Feasibility</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Technology Stack</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Infrastructure Requirements</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Scalability</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>System Integration</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Web Applications</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        A technical feasibility assessment helps us identify the ideal technology stack
-                                        tailored to your business needs, ensuring your product is both viable and
-                                        scalable for the future. Drawing on our experience with high-traffic systems, we
-                                        evaluate infrastructure and growth requirements to recommend solutions that
-                                        support long-term performance and reliability.<br/><br/>
-
-                                        We also assess integration capabilities to ensure your new product works
-                                        seamlessly within your existing systems. This approach minimises operational
-                                        disruptions and maximises efficiency, enabling smooth data flow and cohesive
-                                        business processes.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>06/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'PR'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Product Roadmapping
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Product Roadmapping</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>MVP Development</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Strategic Planning</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Budget Management</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Milestone Planning</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Feature Prioritisation</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        We understand that budgets are finite and that the scope of any collaboration
-                                        must reflect your available resources. Investors and stakeholders need clarity
-                                        on what’s achievable, and our role is to help you define a clear, focused
-                                        product vision and development strategy. With structured milestones and
-                                        transparent timelines, we ensure every step aligns with your business
-                                        goals -keeping progress measurable, purposeful, and within budget.<br/><br/>
-
-                                        To maximise impact and efficiency, we recommend prioritising features for your
-                                        Minimum Viable Product (MVP) and mapping out follow-up development phases. This
-                                        phased approach allows essential features to be delivered early, providing value
-                                        to users and actionable feedback for improvement. Our high-level development
-                                        roadmap provides the strategic clarity you need to allocate resources wisely and
-                                        build a product that is both market-ready and future-proof.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>07/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'PPE'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Project Planning & Estimation
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Project Planning</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Cost Estimation</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Risk Management</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Development Strategy</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Resource Management</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Timeline Management</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Stay on track and within budget with our precise time and cost estimates
-                                        tailored to your development goals. By clearly defining the project scope, key
-                                        deliverables, and iterative phases, we help you maintain focus, reduce scope
-                                        creep, and stay aligned with your strategic objectives throughout the
-                                        development lifecycle.<br/><br/>
-
-                                        We also work collaboratively to identify potential risks early and implement
-                                        effective mitigation strategies. This proactive planning approach ensures that
-                                        unforeseen challenges are addressed before they impact your timeline or budget.
-                                        With full visibility into your development roadmap, you can manage resources
-                                        with confidence and drive your project toward successful, on-time delivery.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>08/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'SHA'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Stakeholder Alignment
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Stakeholder Alignment</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Project Workshops</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Requirements Gathering</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Project Planning</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Collaboration</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Product Vision</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Your internal team, end users, and stakeholders hold valuable insights that are
-                                        critical to shaping a successful product. By engaging them early through
-                                        workshops and interviews, we uncover their expectations, challenges, and
-                                        objectives -ensuring the solution is aligned with real-world needs, not
-                                        assumptions.<br/><br/>
-
-                                        These sessions foster clarity and collaboration, allowing us to define
-                                        requirements, prioritise features, and align on key outcomes. With everyone
-                                        working toward the same goals, we eliminate misalignment and ensure informed
-                                        decision-making at every stage of the project.<br/><br/>
-
-                                        We document all findings in a structured format, creating a clear roadmap that
-                                        guides development. This ensures transparency, supports strategic planning, and
-                                        sets the foundation for a product that delivers measurable business value.
-                                    </p>
-                                </div>
+            <FxStickyScrollSection
+                day={isDayTime}
+                heading={<>Discovery<br/>process solutions</>}
+                intro="We translate research, user needs, and technical assessment into validated product strategies and prioritised roadmaps. Our discovery solutions reduce risk, accelerate alignment, and create executable plans for delivery."
+                navLabel="Discovery Solutions"
+                activeId={activeId}
+                onNavClickAction={scrollToSection}
+                items={[
+                    {
+                        id: '01',
+                        title: 'User Research & UX Strategy',
+                        target: 'URED',
+                        tags: ['Qualitative', 'Quantitative', 'Personas'],
+                        body: (
+                            <div>
+                                <p>
+                                    We engage with users through interviews, surveys, and usability studies to build
+                                    deep empathy and uncover latent needs. This insight becomes the backbone of your
+                                    product strategy — informing priorities, experience flows, and measurable
+                                    success criteria.
+                                </p>
+                                <p className="mt-3">
+                                    Outputs include detailed personas, journey maps, and validated experience
+                                    patterns ready for prototyping and development handoff.
+                                </p>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        ),
+                        metrics: [
+                            {label: 'Interviews', value: '30+'},
+                            {label: 'Validated Flows', value: '12+'},
+                        ],
+                        deliverables: ['User research report', 'Personas & journeys', 'Experience hypotheses']
+                    },
+                    {
+                        id: '02',
+                        title: 'Market & Competitive Analysis',
+                        target: 'CRA',
+                        tags: ['Positioning', 'Opportunity Mapping'],
+                        body: (
+                            <div>
+                                <p>
+                                    A disciplined market analysis highlights whitespace, competitor strengths, and
+                                    opportunities for differentiation. We combine product, pricing, and user data to
+                                    craft a clear go-to-market direction.
+                                </p>
+                                <p className="mt-3">
+                                    Recommendations focus on positioning, feature prioritisation, and business model
+                                    opportunities that maximise product-market fit.
+                                </p>
+                            </div>
+                        ),
+                        metrics: [
+                            {label: 'Opportunities', value: '5+'},
+                            {label: 'Segments', value: '3+'},
+                        ],
+                        deliverables: ['Competitive analysis', 'Opportunity report', 'Go-to-market brief']
+                    },
+                    {
+                        id: '03',
+                        title: 'Prototyping & Validation',
+                        target: 'PV',
+                        tags: ['Rapid Prototyping', 'User Testing'],
+                        body: (
+                            <div>
+                                <p>
+                                    Interactive prototypes allow rapid validation of hypotheses with real users and
+                                    stakeholders. This reduces technical risk and provides clear guidance for the
+                                    engineering team.
+                                </p>
+                                <p className="mt-3">
+                                    Iterative testing cycles ensure features solve real problems and deliver
+                                    measurable value before costly implementation begins.
+                                </p>
+                            </div>
+                        ),
+                        metrics: [
+                            {label: 'Sessions', value: '40+'},
+                            {label: 'Iterations', value: '3+'},
+                        ],
+                        deliverables: ['Clickable prototypes', 'Test reports', 'Validated feature set']
+                    },
+                    {
+                        id: '04',
+                        title: 'Business & Monetisation Strategy',
+                        target: 'BA',
+                        tags: ['Value Modeling', 'Pricing'],
+                        body: (
+                            <div>
+                                <p>
+                                    We align product features with clear business outcomes — revenue, retention,
+                                    or operational efficiency — and recommend viable monetisation approaches.
+                                </p>
+                                <p className="mt-3">
+                                    This includes pricing experiments, success metrics, and a prioritized list of
+                                    commercially important features.
+                                </p>
+                            </div>
+                        ),
+                        metrics: [
+                            {label: 'Models', value: '3'},
+                            {label: 'Recommendations', value: 'Top 5'},
+                        ],
+                        deliverables: ['Business model canvas', 'Pricing recommendations', 'Commercial roadmap']
+                    },
+                    {
+                        id: '05',
+                        title: 'Technical Feasibility',
+                        target: 'TFA',
+                        tags: ['Architecture', 'Integrations'],
+                        body: (
+                            <div>
+                                <p>
+                                    Technical assessments evaluate architecture options, integration complexity,
+                                    and scalability trade-offs so you can plan reliable, maintainable systems.
+                                </p>
+                                <p className="mt-3">
+                                    We surface required APIs, data flows, and infrastructure considerations to
+                                    reduce surprises during implementation.
+                                </p>
+                            </div>
+                        ),
+                        metrics: [
+                            {label: 'Assessments', value: '1 comprehensive'},
+                            {label: 'Integrations', value: 'Points identified'},
+                        ],
+                        deliverables: ['Feasibility report', 'Integration map', 'Tech risk register']
+                    },
+                    {
+                        id: '06',
+                        title: 'Product Roadmapping',
+                        target: 'PR',
+                        tags: ['MVP', 'Milestones'],
+                        body: (
+                            <div>
+                                <p>
+                                    We convert validated insights into a phased roadmap that balances business
+                                    impact with delivery risk — prioritising an MVP that proves value early.
+                                </p>
+                                <p className="mt-3">
+                                    Roadmaps include release milestones, dependencies, and expected outcomes per
+                                    phase.
+                                </p>
+                            </div>
+                        ),
+                        metrics: [
+                            {label: 'Milestones', value: '4+'},
+                            {label: 'MVP Scope', value: 'Defined'},
+                        ],
+                        deliverables: ['Phase roadmap', 'MVP definition', 'Release plan']
+                    },
+                    {
+                        id: '07',
+                        title: 'Project Planning & Estimation',
+                        target: 'PPE',
+                        tags: ['Estimates', 'Risks'],
+                        body: (
+                            <div>
+                                <p>
+                                    Detailed planning and estimation give stakeholders confidence to commit
+                                    resources. We identify tasks, dependencies, and realistic timelines.
+                                </p>
+                                <p className="mt-3">
+                                    Our estimates include assumptions and risk buffers, enabling transparent
+                                    decision-making.
+                                </p>
+                            </div>
+                        ),
+                        metrics: [
+                            {label: 'Estimates', value: 'T-Shirt/Story points'},
+                        ],
+                        deliverables: ['Estimate pack', 'Risk register', 'Delivery plan']
+                    },
+                    {
+                        id: '08',
+                        title: 'Stakeholder Alignment',
+                        target: 'SHA',
+                        tags: ['Workshops', 'Roadmaps'],
+                        body: (
+                            <div>
+                                <p>
+                                    Structured workshops and documentation ensure alignment across teams and
+                                    decision-makers so the product vision is shared and actionable.
+                                </p>
+                                <p className="mt-3">
+                                    This reduces rework and accelerates approvals, keeping projects on schedule and
+                                    on budget.
+                                </p>
+                            </div>
+                        ),
+                        metrics: [
+                            {label: 'Workshops', value: '4+'},
+                            {label: 'Aligned stakeholders', value: 'Key teams'},
+                        ],
+                        deliverables: ['Alignment workshop notes', 'Requirements backlog', 'Decision log']
+                    }
+                ]}
+            />
 
-            {/* Mid image*/}
-            <div id={'mid image'} className={'h-auto max-w-full w-full mx-auto'}>
-                <Image
-                    className={' object-fill'}
-                    src={'/assets/disc/mid.jpg'}
-                    alt={'Middle Image'}
-                    width={2560}
-                    height={1440}
-                    style={{
-                        objectFit: "fill",
-                        objectPosition: "center",
-                    }}
-                />
-            </div>
+            {/* Discovery process benefits - Premium Grid */}
+            <div className={`lg:pt-[3em] md:pt-[3em] pt-[1em] lg:pb-[3em] md:pb-[3em] pb-[1em] ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
+                <div id={'discovery-phase-benefit'} className={`relative lg:top-10 py-16 lg:mb-20 mb-10 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
 
-            {/* Discovery process benefits */}
-            <div
-                className={`lg:pt-[3em] md:pt-[3em] pt-[1em] lg:pb-[3em] md:pb-[3em] pb-[1em] ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
-                <div id={'discovery-phase-benefit'}
-                     className={`relative lg:top-10 py-16 lg:mb-20 mb-10 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-
-                    {/* .Net Benefit Header */}
-                    <div
-                        className={`border-b-[0.1em] grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6 border-gray-300/50 pb-[3em] lg:mb-[5em]`}>
+                    {/* Section Header */}
+                    <div className={`grid lg:grid-cols-2 grid-cols-1 gap-6 pb-[3em] lg:mb-[5em] border-b border-gray-300/20`}>
                         <div>
-                            <h2 className='text-[1em] text-start sm:text-[1.5em] md:text-[3.2em] lg:text-[3.2em] font-[550] tracking-tight leading-[1.15] lg:pb-6'>
+                            <h2 className={`text-[1em] sm:text-[1.5em] md:text-[2.6em] lg:text-[3.2em] font-[700] tracking-tight leading-[1.08]`}> 
                                 Discovery <br className={'lg:block md:block hidden'}/>Process Benefits
                             </h2>
+                            <p className={`mt-4 text-[0.95em] font-[300] max-w-xl`}>A focused discovery phase transforms ambiguity into a clear, executable plan. The premium benefits below articulate the measurable outcomes, operational efficiencies, and competitive advantages organisations achieve when discovery is engineered as a strategic investment.</p>
                         </div>
+
                         <div className={'lg:-ml-[1.5em] md:-ml-[1.5em]'}>
-                            <p className={'text-justify text-[0.87em] font-[300]'}>
-                                Kicking off with a discovery phase isn’t just smart -it’s strategic. It sets the
-                                technical foundation for your software project, helping you validate ideas, uncover
-                                risks, align stakeholders, and define a clear roadmap. Here are just a few of the
-                                game-changing benefits.
+                            <p className={'text-justify text-[0.93em] font-[300]'}>
+                                Our discovery engagements combine product strategy, technical validation, user research, and commercial modelling to deliver investor‑grade artefacts and an actionable delivery roadmap. Each benefit below maps to outcomes, typical metrics, and recommended artefacts for executive review.
                             </p>
                         </div>
                     </div>
 
-                    {/* Benefits */}
-                    <div
-                        className={`relative w-full h-auto grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-[4em] md:gap-[3em] sm:gap-[3em] gap-[2em]`}>
-                        <div id={'reduced-risk'}>
-                            <Image
-                                src={isDayTime ? '/assets/disc/icon/risk1.svg' : '/assets/disc/icon/risk.svg'}
-                                alt={'Reduced Risk'}
-                                width={60}
-                                height={60}
-                                className={'h-auto w-auto mb-2'}
-                            />
-                            <h5 className={'lg:text-[1.6em] md:text-[1.7em] sm:text-[1.6em] text-[1.3em] font-[500] mb-8'}>
-                                Reduced Risk
-                            </h5>
-                            <p className={'text-[0.873em] text-justify font-[300]'}>
-                                The discovery phase plays a critical role in reducing project risk by uncovering
-                                technical, market, and operational challenges early on. By aligning goals, validating
-                                assumptions, and planning strategically, it enables informed decision-making, prevents
-                                costly delays, and sets a clear path for efficient, on-budget execution.
-                            </p>
-                        </div>
-                        <div id={'cost-saving'}>
-                            <Image
-                                src={isDayTime ? '/assets/disc/icon/sca1.svg' : '/assets/disc/icon/sca.svg'}
-                                alt={'Cost Savings'}
-                                width={60}
-                                height={60}
-                                className={'h-auto w-auto mb-2'}
-                            />
-                            <h5 className={'lg:text-[1.6em] capitalize md:text-[1.7em] sm:text-[1.6em] text-[1.1em] font-[500] mb-8'}>
-                                Cost Savings
-                            </h5>
-                            <p className={'text-[0.873em] text-justify font-[300]'}>
-                                Investing in discovery helps reduce overall development costs by clarifying
-                                requirements, validating concepts early, and identifying potential roadblocks before
-                                they become costly issues. This upfront alignment ensures that resources are used
-                                efficiently, minimizing rework and accelerating time-to-market.
-                            </p>
-                        </div>
-                        <div id={'improved-ux'}>
-                            <Image
-                                src={isDayTime ? '/assets/disc/icon/test1.svg' : '/assets/disc/icon/test.svg'}
-                                alt={'Improved User Experience'}
-                                width={60}
-                                height={60}
-                                className={'h-auto w-auto mb-2'}
-                            />
-                            <h5 className={'lg:text-[1.6em] md:text-[1.7em] sm:text-[1.6em] text-[1.3em] font-[500] mb-8'}>
-                                Improved User Experience
-                            </h5>
-                            <p className={'text-[0.873em] text-justify font-[300]'}>
-                                Through in-depth user research and interactive prototyping, the discovery phase ensures
-                                your product is built around genuine user needs, behaviors, and expectations. This
-                                strategic, user-centric approach enhances usability, boosts satisfaction, and increases
-                                the likelihood of adoption and long-term business success.
-                            </p>
-                        </div>
-                        <div id={'clear-direction-goals'}>
-                            <Image
-                                src={isDayTime ? '/assets/disc/icon/att1.svg' : '/assets/disc/icon/att.svg'}
-                                alt={'Clear Direction & Goals'}
-                                width={60}
-                                height={60}
-                                className={'h-auto w-auto mb-2'}
-                            />
-                            <h5 className={'capitalize lg:text-[1.6em] md:text-[1.7em] sm:text-[1.6em] text-[1.3em] font-[500] mb-8'}>
-                                Clear Direction & Goals
-                            </h5>
-                            <p className={'text-[0.873em] text-justify font-[300]'}>
-                                The discovery process establishes a clear product vision, strategic goals, and a defined
-                                roadmap, ensuring alignment across all stakeholders. This solid foundation guides
-                                decision-making, keeps development focused, and increases the likelihood of delivering a
-                                successful, market-ready product.
-                            </p>
-                        </div>
-                        <div id={'market-validation'}>
-                            <Image
-                                src={isDayTime ? '/assets/disc/icon/fast1.svg' : '/assets/disc/icon/fast.svg'}
-                                alt={'Market Validation'}
-                                width={60}
-                                height={60}
-                                className={'h-auto w-auto mb-2'}
-                            />
-                            <h5 className={'capitalize lg:text-[1.6em] md:text-[1.7em] sm:text-[1.6em] text-[1.3em] font-[500] mb-8'}>
-                                Market Validation
-                            </h5>
-                            <p className={'text-[0.873em] text-justify font-[300]'}>
-                                By conducting thorough market research and competitor analysis, you can validate your
-                                product idea early, assess demand, and identify opportunities for differentiation. This
-                                helps you achieve product-market fit before investing heavily, reducing risk and
-                                increasing your chances of success.
-                            </p>
-                        </div>
-                        <div id={'accurate-estimation'}>
-                            <Image
-                                src={isDayTime ? '/assets/disc/icon/test1.svg' : '/assets/disc/icon/test.svg'}
-                                alt={'Accurate Estimation'}
-                                width={60}
-                                height={60}
-                                className={'h-auto w-auto mb-2'}
-                            />
-                            <h5 className={'capitalize lg:text-[1.6em] md:text-[1.7em] sm:text-[1.6em] text-[1.3em] font-[500] mb-8'}>
-                                Accurate Estimation
-                            </h5>
-                            <p className={'text-[0.873em] text-justify font-[300]'}>
-                                The comprehensive understanding gained during discovery allows for more accurate and
-                                reliable time and budget estimates. This precision supports effective resource
-                                allocation, reduces the risk of unexpected costs, and helps keep the entire development
-                                process on schedule and within financial targets.
-                            </p>
-                        </div>
-                        <div id={'informed-decision-making'}>
-                            <Image
-                                src={isDayTime ? '/assets/disc/icon/cust1.svg' : '/assets/disc/icon/cust.svg'}
-                                alt={'Informed Decision Making'}
-                                width={60}
-                                height={60}
-                                className={'h-auto w-auto mb-2'}
-                            />
-                            <h5 className={'capitalize lg:text-[1.6em] md:text-[1.7em] sm:text-[1.6em] text-[1.3em] font-[500] mb-8'}>
-                                Informed Decision Making
-                            </h5>
-                            <p className={'text-[0.873em] text-justify font-[300]'}>
-                                The insights gathered during discovery empower stakeholders to make informed,
-                                data-driven decisions regarding the product’s features, design, and strategic direction.
-                                This clarity ensures the development aligns with business goals and user needs,
-                                increasing the likelihood of market success.
-                            </p>
-                        </div>
-                        <div id={'team-alignment'}>
-                            <Image
-                                src={isDayTime ? '/assets/disc/icon/risk1.svg' : '/assets/disc/icon/risk.svg'}
-                                alt={'Team Alignment'}
-                                width={60}
-                                height={60}
-                                className={'h-auto w-auto mb-2'}
-                            />
-                            <h5 className={'capitalize lg:text-[1.6em] md:text-[1.7em] sm:text-[1.6em] text-[1.3em] font-[500] mb-8'}>
-                                Team Alignment
-                            </h5>
-                            <p className={'text-[0.873em] text-justify font-[300]'}>
-                                The discovery phase ensures all team members and stakeholders are aligned with a shared
-                                understanding of the project’s goals, technical requirements, user needs, and potential
-                                challenges. This alignment streamlines communication, reduces ambiguity, and lays the
-                                groundwork for effective collaboration and successful delivery.
-                            </p>
-                        </div>
-                        <div id={'enhanced-stakeholder-confidence'}>
-                            <Image
-                                src={isDayTime ? '/assets/disc/icon/sca1.svg' : '/assets/disc/icon/sca.svg'}
-                                alt={'Enhanced Stakeholder Confidence'}
-                                width={60}
-                                height={60}
-                                className={'h-auto w-auto mb-2'}
-                            />
-                            <h5 className={'capitalize lg:text-[1.6em] md:text-[1.7em] sm:text-[1.6em] text-[1.3em] leading-[1.3] font-[500] mb-8'}>
-                                Enhanced Stakeholder <br className={'lg:block md:block hidden'}/>Confidence
-                            </h5>
-                            <p className={'text-[0.873em] text-justify font-[300]'}>
-                                The discovery phase fosters trust by actively involving stakeholders from the start,
-                                aligning business objectives, and encouraging transparent collaboration. This early
-                                engagement creates a sense of shared ownership and accountability, boosting confidence
-                                in the project’s direction and paving the way for smoother execution, informed
-                                decisions, and stronger long-term outcomes.
-                            </p>
-                        </div>
+                    {/* Premium Grid */}
+                    <div className={`relative w-full h-auto grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8 lg:gap-12 mt-8`}>
+                        {[
+                            {
+                                id: 'reduced-risk',
+                                icon: isDayTime ? '/assets/disc/icon/risk1.svg' : '/assets/disc/icon/risk.svg',
+                                title: 'Mitigated Delivery Risk',
+                                desc: 'Early technical and market validation exposes failure modes and reduces uncertainty, turning hypotheses into testable assumptions.',
+                                notes: ['Risk register', 'Mitigation roadmap', 'Decision gates']
+                            },
+                            {
+                                id: 'cost-savings',
+                                icon: isDayTime ? '/assets/disc/icon/sca1.svg' : '/assets/disc/icon/sca.svg',
+                                title: 'Optimised Cost-to-Market',
+                                desc: 'Targeted scoping and prioritisation reduce wasted engineering effort and shorten time-to-value, improving capital efficiency.',
+                                notes: ['MVP scope', 'Cost scenarios', 'Resource plan']
+                            },
+                            {
+                                id: 'validated-ux',
+                                icon: isDayTime ? '/assets/disc/icon/test1.svg' : '/assets/disc/icon/test.svg',
+                                title: 'Validated User Experience',
+                                desc: 'Mixed-method research and prototype testing ensure product decisions are driven by user evidence—improving adoption and retention.',
+                                notes: ['User journeys', 'Prototype tests', 'Acceptance criteria']
+                            },
+                            {
+                                id: 'clear-direction',
+                                icon: isDayTime ? '/assets/disc/icon/att1.svg' : '/assets/disc/icon/att.svg',
+                                title: 'Strategic Roadmapping',
+                                desc: 'A sequenced delivery plan aligns commercial goals with technical feasibility, enabling phased launches that de‑risk investment.',
+                                notes: ['Release roadmap', 'Milestone KPIs', 'Dependency map']
+                            },
+                            {
+                                id: 'market-validation',
+                                icon: isDayTime ? '/assets/disc/icon/fast1.svg' : '/assets/disc/icon/fast.svg',
+                                title: 'Market & Competitive Validation',
+                                desc: 'Competitive mapping and demand analysis clarify positioning and reveal differentiated opportunities that scale.',
+                                notes: ['Competitor matrix', 'TAM/SOM workbook', 'Go-to-market brief']
+                            },
+                            {
+                                id: 'accurate-estimation',
+                                icon: isDayTime ? '/assets/disc/icon/test1.svg' : '/assets/disc/icon/test.svg',
+                                title: 'Precise Estimation',
+                                desc: 'Implementation-level estimations with assumptions and risk buffers reduce scope creep and enable predictable delivery.',
+                                notes: ['Estimate pack', 'Assumption log', 'Risk buffers']
+                            },
+                            {
+                                id: 'informed-decisions',
+                                icon: isDayTime ? '/assets/disc/icon/cust1.svg' : '/assets/disc/icon/cust.svg',
+                                title: 'Data-Driven Decisions',
+                                desc: 'Synthesis of research and analytics provides executive-ready insights that prioritise product choices with measurable impact.',
+                                notes: ['Research synthesis', 'OKR alignment', 'Hypothesis backlog']
+                            },
+                            {
+                                id: 'team-alignment',
+                                icon: isDayTime ? '/assets/disc/icon/risk1.svg' : '/assets/disc/icon/risk.svg',
+                                title: 'Cross‑Functional Alignment',
+                                desc: 'Workshops and artefacts align stakeholders, reducing communication overhead and accelerating approvals.',
+                                notes: ['Workshop outputs', 'Roles & responsibilities', 'Decision logs']
+                            },
+                            {
+                                id: 'stakeholder-confidence',
+                                icon: isDayTime ? '/assets/disc/icon/sca1.svg' : '/assets/disc/icon/sca.svg',
+                                title: 'Investor‑Ready Artefacts',
+                                desc: 'Concise, evidence-backed deliverables that support funding decisions, procurement, and executive buy-in.',
+                                notes: ['Feasibility report', 'Commercial scenarios', 'Executive summary']
+                            }
+                        ].map((b, i) => (
+                            <FxReveal key={b.id} delay={i * 0.04}>
+                                <FxFrame className={`p-6 rounded-2xl h-full transition-transform duration-300 hover:scale-[1.02] ${isDayTime ? 'bg-gradient-to-br from-black/5 to-black/10 border border-white/8' : 'bg-gradient-to-br from-white/6 to-white/3 border border-white/8'}`}>
+                                    <div className="flex flex-col h-full">
+                                        <div className="flex items-center gap-4 mb-4">
+                                            <div className={`w-14 h-14 rounded-xl flex items-center justify-center ${isDayTime ? 'bg-orange-600/10 border border-orange-400/20' : 'bg-orange-500/10 border border-orange-300/20'}`}>
+                                                <Image src={b.icon} alt={b.title} width={44} height={44} className="object-contain" />
+                                            </div>
+                                            <h3 className={`text-[1.15em] font-[700] ${isDayTime ? 'text-white' : 'text-black'}`}>{b.title}</h3>
+                                        </div>
+
+                                        <p className={`text-[0.92em] font-[300] leading-[1.6] mb-4 flex-grow ${isDayTime ? 'text-gray-300' : 'text-gray-700'}`}>{b.desc}</p>
+
+                                        <div className="mt-4 pt-4 border-t border-white/6">
+                                            <div className="flex flex-wrap gap-2">
+                                                {b.notes.map((n, idx) => (
+                                                    <span key={idx} className={`text-[0.72em] px-3 py-1 rounded-full font-[600] uppercase tracking-wide ${isDayTime ? 'bg-orange-500/10 text-orange-300 border border-orange-400/10' : 'bg-orange-400/8 text-orange-700 border border-orange-300/10'}`}>
+                                                        {n}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </FxFrame>
+                            </FxReveal>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -931,13 +872,13 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                             className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Flow Diagrams</span>
                                     </div>
                                     <p className={'text-justify leading-[1.5] text-[0.81em] lg:mb-[3em] mb-[1.5em] font-[300]'}>
-                                        Next, we’ll conduct a series of structured, collaborative workshops to delve
-                                        deeper into your project’s requirements, user expectations, and overall business
+                                        Next, weâ€™ll conduct a series of structured, collaborative workshops to delve
+                                        deeper into your projectâ€™s requirements, user expectations, and overall business
                                         goals. These sessions are designed to align stakeholders, clarify priorities,
                                         and uncover potential challenges or constraints early in the process. Together,
-                                        we’ll map out user journeys, define core workflows, and assess any technical or
+                                        weâ€™ll map out user journeys, define core workflows, and assess any technical or
                                         operational considerations that may impact delivery. Whether hosted in person or
-                                        virtually, these workshops are tailored to your organisation’s needs and focused
+                                        virtually, these workshops are tailored to your organisationâ€™s needs and focused
                                         on generating actionable insights, enabling informed decisions that shape a
                                         clear and strategic roadmap for your product.
                                     </p>
@@ -954,7 +895,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                             className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Flow Diagrams</span>
                                     </div>
                                     <p className={'text-justify leading-[1.5] text-[0.81em] lg:mb-[3em] mb-[1.5em] font-[300]'}>
-                                        Following the workshops, we’ll hold structured follow-up meetings to present our
+                                        Following the workshops, weâ€™ll hold structured follow-up meetings to present our
                                         findings, validate key assumptions, and outline actionable recommendations
                                         tailored to your business objectives. These sessions are designed to be
                                         collaborative and outcome-driven, giving you the opportunity to review our
@@ -980,7 +921,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                             className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Flow Diagrams</span>
                                     </div>
                                     <p className={'text-justify leading-[1.5] text-[0.81em] lg:mb-[3em] mb-[1.5em] font-[300]'}>
-                                        Finally, we’ll consolidate all insights, findings, and strategic recommendations
+                                        Finally, weâ€™ll consolidate all insights, findings, and strategic recommendations
                                         into a detailed report and presentation that serves as a clear and actionable
                                         roadmap for your project. This comprehensive documentation will outline key
                                         milestones, timelines, budget estimates, technical recommendations, and
@@ -1087,7 +1028,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                         className={`absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 ${isDayTime ? 'bg-white' : 'bg-black'} opacity-100 group-hover:-translate-x-8`}></span>
                                     <span
                                         className={`relative w-full text-left transition-colors duration-200 ease-in-out ${isDayTime ? 'text-white group-hover:text-gray-800' : 'text-black group-hover:text-gray-300'}`}>About Us <span
-                                        className={`text-[1.5em] leading-[0.7]`}> →</span></span>
+                                        className={`text-[1.5em] leading-[0.7]`}> â†’</span></span>
                                     <span
                                         className={"absolute inset-0 border-[1px] border-gray-900 ${isDayTime ? 'border-white' : 'border-black'} rounded-full"}></span>
                                 </button>
@@ -1140,7 +1081,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                 Discovery Process <br className={'lg:block md:block hidden'}/>Deliverables
                             </h2>
                             <p className={'text-[0.873em] font-[400] leading-[1.5] tracking-normal text-justify'}>
-                                To ensure your project’s success, we provide clear, actionable deliverables that align
+                                To ensure your projectâ€™s success, we provide clear, actionable deliverables that align
                                 stakeholders, streamline development, and maintain transparency -keeping your business
                                 goals front and center throughout the process.
                             </p>
@@ -1164,7 +1105,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                 </button>
                                 {webIndex === 0 && (
                                     <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                        A clearly defined overview of your product’s vision, strategic goals, core
+                                        A clearly defined overview of your productâ€™s vision, strategic goals, core
                                         features, user interface design, and key performance indicators ensures
                                         alignment across all teams and stakeholders. This shared understanding minimizes
                                         miscommunication, streamlines decision-making, and keeps the project focused on
@@ -1189,8 +1130,8 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                 </button>
                                 {webIndex === 1 && (
                                     <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                        A comprehensive profile of your target audience  - covering demographics,
-                                        behaviours, goals, and interaction patterns  - enables you to design a product
+                                        A comprehensive profile of your target audience - covering demographics,
+                                        behaviours, goals, and interaction patterns - enables you to design a product
                                         that resonates with real users. This insight-driven approach ensures your
                                         solution is relevant, user-centric, and positioned to deliver meaningful value
                                         and long-term engagement.
@@ -1239,7 +1180,7 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                                 </button>
                                 {webIndex === 3 && (
                                     <p className="mt-4 text-[0.873em] text-justify tracking-normal leading-[1.5]text-gray-400">
-                                        A comprehensive overview of your system’s architecture -covering components such
+                                        A comprehensive overview of your systemâ€™s architecture -covering components such
                                         as database schema, APIs, and integration points -ensures technical alignment
                                         with your business needs. This foundational clarity supports scalability,
                                         performance, and future enhancements, reducing development friction and enabling
@@ -1324,60 +1265,154 @@ const DiscoveryPhase = () => {    const [isVisible, setIsVisible] = useState(fal
                 </div>
             </div>
 
-            {/* Trusted Digital Partners */}
+            {/* Strategic Digital Partnership & Impact Metrics */}
             <div className={`${isDayTime ? 'bg-black' : 'bg-white'}`}>
                 <div id={'partners'}
-                     className={`relative lg:py-14 md:py-16 lg:mb-16 md:mb-16 mb-5 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]  ${
+                     className={`relative lg:py-20 md:py-16 lg:mb-16 md:mb-16 mb-5 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]  ${
                          isDayTime ? 'text-white' : 'text-black'
                      }`}>
-                    <h1 className={'lg:text-5em] md:text-[4em] sm:text-[3em] text-[2em] font-[600] leading-[1.1]  mb-[0.6em]'}>
-                        Your trusted <br className={'lg:block md:block hidden'}/>digital partner
-                    </h1>
-                    <p className={'text-[0.873em] font-[300] leading-[1.5] text-justify lg:pr-[33em] mb-10'}>
-                        We specialize in crafting high-impact marketing websites, innovative web apps, and mobile
-                        applications that drive real results. From funded startups to established businesses, we&#39;ve
-                        helped a wide range of clients bring their digital products to life -delivering standout
-                        experiences
-                        that fuel growth, engagement, and long-term success.
-                    </p>
-                    <Link href='/contact'>
-                        <button
-                            className='relative mx-auto inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em]  border tracking-tighter  rounded-full py-2 px-6'>
-                        <span
-                            className={`w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 ${isDayTime ? 'bg-white' : 'bg-black'} opacity-[3%]`}></span>
-                            <span
-                                className={`absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 ${isDayTime ? 'bg-white' : 'bg-black'} opacity-100 group-hover:-translate-x-8`}></span>
-                            <span
-                                className={`relative w-full text-left transition-colors duration-200 ease-in-out ${isDayTime ? 'text-white group-hover:text-gray-300' : 'text-black group-hover:text-gray-800'}`}>
-                            Start a project <span className={`text-[1.5em] leading-[0.7]`}> →</span></span>
-                            <span
-                                className={"absolute inset-0 border-[1px] border-gray-900 ${isDayTime ? 'border-white' : 'border-black'} rounded-full"}></span>
-                        </button>
-                    </Link>
 
-                    {/* Countup */}
-                    <div id={'countup'}
-                         className={`grid lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-3 grid-cols-1 text-center lg:mt-[3em] py-12 divide-x divide-gray-500 ${
-                             isDayTime ? 'text-white' : 'text-black'
-                         }`}
-                    >
-                        {stats.map((stat, index) => (
-                            <div
-                                key={index}
-                                className="flex flex-col justify-center items-center "
-                            >
-                                <h2 className="gx-gradient-text lg:text-[3.2em] md:text-[3em] sm:text-[2em] text-[1.5em] text-start font-[600]">
-                                    <CountUp end={stat.value} duration={2} suffix={stat.suffix || ''}/>
-                                </h2>
-                                <p className="text-[0.873em] font-[400] mt-1">{stat.label}</p>
+                    {/* Decorative Background Elements */}
+                    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+                        <div
+                            className={`absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl opacity-[0.04] ${isDayTime ? 'bg-orange-500' : 'bg-orange-400'}`}></div>
+                        <div
+                            className={`absolute bottom-0 left-0 w-80 h-80 rounded-full blur-3xl opacity-[0.03] ${isDayTime ? 'bg-cyan-500' : 'bg-cyan-400'}`}></div>
+                    </div>
+
+                    <div className="relative z-10">
+                        <h1 className={'lg:text-[4.5em] md:text-[3.5em] sm:text-[2.5em] text-[1.8em] font-[700] leading-[1.1]  mb-[0.8em] tracking-tight'}>
+                            Your Strategic <br className={'lg:block md:block hidden'}/>Digital Innovation Partner
+                        </h1>
+
+                        <p className={'text-[0.95em] font-[300] leading-[1.8] text-justify lg:pr-[35em] mb-6'}>
+                            At Grey InfoTech, we orchestrate transformative digital solutions that transcend traditional
+                            boundaries. Our discovery-driven approach combines deep strategic insights with cutting-edge
+                            technical execution to deliver high-impact products that drive exponential growth. From
+                            early-stage innovation to enterprise-scale digital transformation, we've guided hundreds of
+                            organizations through complex technology landscapesâ€”architecting solutions that unlock
+                            competitive advantage, accelerate market capture, and establish lasting digital leadership.
+                        </p>
+
+                        <p className={'text-[0.92em] font-[300] leading-[1.7] text-justify lg:pr-[25em] mb-8 opacity-90'}>
+                            Our methodology prioritizes deep discovery and strategic alignment before execution,
+                            ensuring every technical decision is grounded in measurable business outcomes. We don't just
+                            buildâ€”we architect scalable, secure, and future-ready platforms that anticipate market
+                            evolution and empower your organization to lead.
+                        </p>
+
+                        <Link href='/contact'>
+                            <button
+                                className='relative inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em]  border tracking-tighter  rounded-full py-3 px-8'>
+                            <span
+                                className={`w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 ${isDayTime ? 'bg-white' : 'bg-black'} opacity-[3%]`}></span>
+                                <span
+                                    className={`absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 ${isDayTime ? 'bg-white' : 'bg-black'} opacity-100 group-hover:-translate-x-8`}></span>
+                                <span
+                                    className={`relative w-full text-left transition-colors duration-200 ease-in-out ${isDayTime ? 'text-white group-hover:text-gray-300' : 'text-black group-hover:text-gray-800'}`}>
+                                Start Your Discovery Journey <span
+                                    className={`text-[1.5em] leading-[0.7]`}> â†’</span></span>
+                                <span
+                                    className={"absolute inset-0 border-[1px] border-gray-900 ${isDayTime ? 'border-white' : 'border-black'} rounded-full"}></span>
+                            </button>
+                        </Link>
+
+                        {/* Performance Metrics Grid */}
+                        <div id={'countup'}
+                             className={`grid lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-3 grid-cols-1 text-center lg:mt-[4.5em] md:mt-[3em] mt-[2em] py-12 gap-6 lg:gap-0 lg:divide-x divide-gray-500`}
+                        >
+                            {stats.map((stat, index) => (
+                                <div
+                                    key={index}
+                                    className={`flex flex-col justify-center items-center px-4 py-6 rounded-lg transition-all duration-300 ${
+                                        isDayTime ? 'hover:bg-white/5' : 'hover:bg-black/5'
+                                    }`}
+                                >
+                                    <div className="mb-2 inline-flex items-center justify-center w-12 h-12 rounded-lg"
+                                         style={{
+                                             background: isDayTime ? 'linear-gradient(135deg, #f97316/20, #f97316/10)' : 'linear-gradient(135deg, #f97316/15, #f97316/5)'
+                                         }}>
+                                        <span className="text-orange-500 font-bold">â†—</span>
+                                    </div>
+                                    <h2 className="gx-gradient-text lg:text-[3.2em] md:text-[2.8em] sm:text-[2em] text-[1.5em] font-[700] leading-tight">
+                                        <CountUp end={stat.value} duration={2.5} suffix={stat.suffix || ''}/>
+                                    </h2>
+                                    <p className={`text-[0.85em] font-[500] mt-2 tracking-wide uppercase ${isDayTime ? 'text-gray-400' : 'text-gray-600'}`}>
+                                        {stat.label}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Trust Indicators */}
+                        <div
+                            className={`mt-12 pt-12 border-t ${isDayTime ? 'border-gray-600/30' : 'border-gray-400/20'}`}>
+                            <p className={`text-[0.8em] uppercase tracking-[0.15em] font-[600] mb-6 ${isDayTime ? 'text-gray-500' : 'text-gray-600'}`}>
+                                Trusted By Industry Leaders
+                            </p>
+                            <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
+                                {['Enterprise Scale', 'Security Certified', 'Award Winning', 'Globally Distributed'].map((badge) => (
+                                    <div key={badge}
+                                         className={`px-4 py-2.5 rounded-lg border text-[0.75em] font-[600] uppercase tracking-wider text-center ${
+                                             isDayTime
+                                                 ? 'bg-white/8 border-white/15 text-gray-300'
+                                                 : 'bg-black/8 border-black/15 text-gray-700'
+                                         }`}>
+                                        {badge}
+                                    </div>
+                                ))}
                             </div>
-                        ))}
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <ServiceCapabilities
+                accentColor="#f97316"
+                variant="terminal"
+                capabilities={[
+                    {
+                        id: "cap-1",
+                        icon: " - ",
+                        title: "Requirements Gathering",
+                        description: "Structured stakeholder interviews and workshops to surface functional, technical, and business requirements."
+                    },
+                    {
+                        id: "cap-2",
+                        icon: " - ï¸",
+                        title: "Technical Roadmapping",
+                        description: "Architecture decisions, technology selection, and phased delivery plans that reduce risk from day one."
+                    },
+                    {
+                        id: "cap-3",
+                        icon: "ðŸ“‹",
+                        title: "Feasibility Analysis",
+                        description: "Technical and commercial feasibility assessments that give you confidence before committing budget."
+                    },
+                    {
+                        id: "cap-4",
+                        icon: " - ï¸",
+                        title: "Wireframing & IA",
+                        description: "Low-fidelity wireframes and information architecture that align teams on structure before visual design begins."
+                    },
+                    {
+                        id: "cap-5",
+                        icon: "âš ï¸",
+                        title: "Risk Assessment",
+                        description: "Identify and mitigate technical, timeline, and commercial risks before they become expensive problems."
+                    },
+                    {
+                        id: "cap-6",
+                        icon: "ðŸ“„",
+                        title: "Project Documentation",
+                        description: "Full discovery output: SOW, technical spec, user stories, acceptance criteria, and project charter."
+                    },
+                ]}
+            />
         </div>
     );
 };
 
 export default DiscoveryPhase;
+
 
