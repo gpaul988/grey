@@ -1102,81 +1102,120 @@ const DiscoveryPhase = () => {
                 </div>
             </div>
 
-            {/* Who is involved in the process */}
-            <div className={`${isDayTime ? 'bg-black' : 'bg-white'}`}>
-                <div id={'involved'}
-                     className={`relative lg:pt-[7em] md:pt-[7em] pt-[2em] lg:pb-[7em] md:pb-[7em] pb-[2em] px-4 sm:px-6 lg:px-[4.6em] w-full max-w-full lg:mb-10 mb-8 ${
-                         isDayTime ? 'text-white' : 'text-black'}`}>
-                    <div
-                        className={`relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6 max-w-full mx-auto`}>
-                        <div className={'lg:mr-[8em] md:mr-[8em] lg:mt-[2em] md:mt-[2em] '}>
-                            <h2 className='lg:text-[3em] md:text-[3em] capitalize text-[1.5em] font-[500] tracking-tighter leading-[1.15] lg:pb-6 '>
-                                who is involved <br className={'lg:block md:block hidden'}/>in the process
-                            </h2>
-                            <p className='text-[0.85em] font-[400] lg:-mt-[0.2em] md:-mt-[0.2em] text-justify  leading-[1.5]'>
-                                At Grey InfoTech, .NET development is driven by a dedicated team focused on delivering
-                                scalable, secure, and high-performance business applications. A project manager
-                                coordinates the process, ensuring clear communication, timely delivery, and alignment
-                                with your strategic objectives. Our experienced .NET developers build robust backend
-                                systems and integrate custom features tailored to your unique business needs, while
-                                UI/UX designers create intuitive, user-friendly interfaces.<br/><br/>
+            {/* Who is involved — Futuristic, extremely detailed professional overview */}
+            <section id={'involved'} className={`relative lg:pt-[7.5em] pt-[3em] lg:pb-[7.5em] pb-[3em] px-4 sm:px-6 lg:px-[4.6em] ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
+                <div className="max-w-[95em] mx-auto">
+                    <div className="grid lg:grid-cols-2 grid-cols-1 gap-12 items-center">
 
-                                Supporting the development team are quality assurance specialists who conduct thorough
-                                testing to guarantee reliability and security. DevOps engineers manage deployment, cloud
-                                integration, and ongoing maintenance to ensure optimal performance and scalability.
-                                Throughout the project, your feedback is actively incorporated, ensuring the final
-                                product delivers measurable value and supports your long-term business growth.
-                            </p><br/>
-                            <Link href='/company'>
-                                <button
-                                    className='relative mx-auto inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em]  border tracking-tighter  rounded-full py-2 px-6'>
-                        <span
-                            className={`w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 ${isDayTime ? 'bg-white' : 'bg-black'} opacity-[3%]`}></span>
-                                    <span
-                                        className={`absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 ${isDayTime ? 'bg-white' : 'bg-black'} opacity-100 group-hover:-translate-x-8`}></span>
-                                    <span
-                                        className={`relative w-full text-left transition-colors duration-200 ease-in-out ${isDayTime ? 'text-white group-hover:text-gray-800' : 'text-black group-hover:text-gray-300'}`}>About Us <span
-                                        className={`text-[1.5em] leading-[0.7]`}> â†’</span></span>
-                                    <span
-                                        className={"absolute inset-0 border-[1px] border-gray-900 ${isDayTime ? 'border-white' : 'border-black'} rounded-full"}></span>
-                                </button>
-                            </Link>
-                        </div>
-                        <div
-                            className="relative flex flex-row lg:-ml-[2em] md:-ml-[2em] w-full h-auto max-w-full mx-auto gap-6">
-                            <div className="flex-1 flex lg:-mr-[17.5em] md:-mr-[17.5em] justify-center items-center">
-                                <div className="flex-1 flex justify-center h-auto items-center">
+                        {/* Left: High-fidelity visual showcase with ambient aura and holographic indicators */}
+                        <div className="relative order-1 lg:order-1 flex items-center justify-center">
+                            <div className="relative w-full max-w-3xl">
+                                <div aria-hidden className="absolute -inset-8 rounded-3xl blur-4xl opacity-30 bg-gradient-to-tr from-orange-400/60 to-violet-500/10 transform-gpu rotate-6 pointer-events-none" />
+
+                                <div className="relative rounded-3xl overflow-hidden shadow-[0_40px_80px_rgba(9,10,12,0.6)] border border-white/6 bg-gradient-to-b from-black/6 to-black/2 transition-transform duration-700 hover:-translate-y-2">
                                     <Image
-                                        src="/assets/hybrid/trip.jpg"
-                                        alt="Team at table"
-                                        width={900} // Add width
-                                        height={600} // Add height
-                                        style={{
-                                            objectFit: "fill",
-                                            objectPosition: "center",
-                                        }}
-                                        className="object-fill"
+                                        src={'/assets/hybrid/trip.jpg'}
+                                        alt={'Team collaboration — high-fidelity'}
+                                        width={1600}
+                                        height={1000}
+                                        className="w-full h-auto object-cover block"
                                     />
+
+                                    <div className="absolute top-5 left-5 px-3 py-2 rounded-md bg-black/30 backdrop-blur-sm text-xs text-white/90">Holographic notes • Live collaboration</div>
+
+                                    {/* Subtle edge glow */}
+                                    <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 0 0 60px rgba(249,115,22,0.06)' }} />
                                 </div>
+
+                                {/* Floating micro-cards (roles & micro-responsibilities) */}
+                                <div className="absolute -bottom-20 left-6 flex flex-col gap-3">
+                                    {[
+                                        { title: 'Product Owner', sub: 'Defines outcomes & success metrics', icon: 'PO' },
+                                        { title: 'Lead Engineer', sub: 'Architecture, observability & reliability', icon: 'LE' },
+                                        { title: 'Design Researcher', sub: 'Validated user insights & prototypes', icon: 'DR' }
+                                    ].map((c, i) => (
+                                        <div key={i} className="w-72 bg-white/6 backdrop-blur-sm border border-white/6 rounded-2xl px-4 py-3 shadow-lg transform transition-all duration-500 hover:-translate-y-2">
+                                            <div className="flex items-start gap-3">
+                                                <div className="flex-none w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-red-400 flex items-center justify-center text-black font-semibold">{c.icon}</div>
+                                                <div>
+                                                    <div className="text-xs text-slate-300">{c.title}</div>
+                                                    <div className="mt-1 text-sm font-medium text-white/90">{c.sub}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Decorative vertical accent */}
+                                <div aria-hidden className="hidden lg:block absolute -right-10 top-10 w-2 h-64 rounded-full bg-gradient-to-b from-orange-500 to-pink-500 opacity-90 shadow-sm"/>
                             </div>
-                            <div
-                                className="flex-1 flex justify-center lg:-my-[20em] md:-my-[20em] lg:pl-[15em] md:pl-[15em] lg:-mr-[4em] items-center">
-                                <Image
-                                    src="/assets/hybrid/disc.jpg"
-                                    alt="Team at table"
-                                    height={700}
-                                    width={220}
-                                    style={{
-                                        objectFit: "fill",
-                                        objectPosition: "center",
-                                    }}
-                                    className="object-fill"
-                                />
+                        </div>
+
+                        {/* Right: Ultra-detailed responsibilities, measurable outcomes and technology stack */}
+                        <div className="order-2 lg:order-2">
+                            <div className={`max-w-xl ${isDayTime ? 'text-white' : 'text-black'}`}>
+                                <div className="inline-flex items-center gap-3 mb-4">
+                                    <span className="px-3 py-1 rounded-full bg-gradient-to-r from-orange-500 to-rose-500 text-black text-xs font-semibold tracking-wide">FUTURISTIC TEAMS</span>
+                                    <span className="text-xs text-slate-400">Cross-functional · Data-first · Outcome-led</span>
+                                </div>
+
+                                <h3 className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight">Who is involved — Modern, collaborative teams</h3>
+
+                                <p className="mt-4 text-lg text-slate-400">Each engagement is staffed with a compact, empowered team combining strategic product leadership, resilient engineering, and research-led design. Roles are outcome-owned and measurable — not advisory. Below is a precise breakdown of core participants and what they deliver.</p>
+
+                                <div className="mt-6 space-y-5">
+                                    {[
+                                        { tag: 'PM', title: 'Product Manager', desc: 'Owns success metrics, stakeholder alignment, and go-to-market readiness. Accountable for roadmap delivery and ROI.' },
+                                        { tag: 'ENG', title: 'Lead Engineers', desc: 'Design and ship resilient backend services and performant frontends, responsible for latency, scalability and observability.' },
+                                        { tag: 'UX', title: 'Design & Research', desc: 'Run rapid discovery sprints, validate hypotheses with prototypes, and deliver design systems for scale.' },
+                                        { tag: 'QA', title: 'Quality & Automation', desc: 'Implement CI-driven test suites, define acceptance criteria, and maintain release quality.' },
+                                        { tag: 'OPS', title: 'DevOps / SRE', desc: 'Ensure deployment automation, monitoring, and incident response. Maintain SLOs and runbooks.' }
+                                    ].map((r, i) => (
+                                        <div key={i} className="flex items-start gap-3">
+                                            <div className="flex-none w-12 h-12 rounded-lg bg-gradient-to-br from-orange-400 to-red-400 flex items-center justify-center text-black font-semibold text-sm">{r.tag}</div>
+                                            <div>
+                                                <div className="text-sm font-semibold">{r.title}</div>
+                                                <div className="text-xs text-slate-400">{r.desc}</div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Measurable KPIs */}
+                                <div className="mt-8 grid grid-cols-3 gap-3">
+                                    <div className="bg-white/6 rounded-lg p-4 border border-white/6">
+                                        <div className="text-xs text-slate-300">Time-to-insight</div>
+                                        <div className="text-2xl font-bold mt-1">1–3 weeks</div>
+                                        <div className="text-[11px] text-slate-400 mt-1">From discovery to validated prototype</div>
+                                    </div>
+                                    <div className="bg-white/6 rounded-lg p-4 border border-white/6">
+                                        <div className="text-xs text-slate-300">Service SLO</div>
+                                        <div className="text-2xl font-bold mt-1">99.95%</div>
+                                        <div className="text-[11px] text-slate-400 mt-1">Targeted availability for core services</div>
+                                    </div>
+                                    <div className="bg-white/6 rounded-lg p-4 border border-white/6">
+                                        <div className="text-xs text-slate-300">Sprint cadence</div>
+                                        <div className="text-2xl font-bold mt-1">2 weeks</div>
+                                        <div className="text-[11px] text-slate-400 mt-1">Predictable, measurable delivery</div>
+                                    </div>
+                                </div>
+
+                                {/* Technology chips */}
+                                <div className="mt-6 flex flex-wrap gap-2">
+                                    {['C#', '.NET 8', 'Azure', 'TypeScript', 'React', 'Docker', 'Kubernetes', 'Terraform'].map((t) => (
+                                        <span key={t} className="text-xs bg-white/6 px-3 py-1 rounded-full border border-white/6">{t}</span>
+                                    ))}
+                                </div>
+
+                                <div className="mt-8 flex items-center gap-4">
+                                    <Link href={'/company'} className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white px-5 py-3 font-semibold shadow-lg hover:scale-[1.02] transition-transform">Meet the team</Link>
+                                    <Link href={'/contact'} className="inline-flex items-center justify-center rounded-xl border border-white/10 text-sm text-slate-400 px-4 py-2">Start discovery</Link>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
             {/* Discovery Process Deliverables */}
             <div className={`lg:-mt-[3.5em] md:-mt-[3.5em] ${isDayTime ? 'bg-white' : 'bg-black'}`}>
@@ -1373,107 +1412,99 @@ const DiscoveryPhase = () => {
                 </div>
             </div>
 
-            {/* Strategic Digital Partnership & Impact Metrics */}
-            <div className={`${isDayTime ? 'bg-black' : 'bg-white'}`}>
-                <div id={'partners'}
-                     className={`relative lg:py-20 md:py-16 lg:mb-16 md:mb-16 mb-5 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]  ${
-                         isDayTime ? 'text-white' : 'text-black'
-                     }`}>
+                        {/* Strategic Digital Partnership — Futuristic Impact & Metrics */}
+            <section id="partners" className={`${isDayTime ? 'bg-black text-white' : 'bg-white text-black'} relative`}>
+                <div className="pointer-events-none absolute inset-0 overflow-hidden">
+                    {/* Dynamic aurora */}
+                    <div className={`absolute -top-40 -right-36 w-[780px] h-[780px] rounded-full blur-3xl opacity-20 ${isDayTime ? 'bg-orange-500/30' : 'bg-orange-400/20'}`} />
+                    <div className={`absolute -bottom-36 -left-28 w-[680px] h-[680px] rounded-full blur-3xl opacity-12 ${isDayTime ? 'bg-cyan-400/20' : 'bg-cyan-300/10'}`} />
+                    {/* Micro-grid overlay */}
+                    <div className="absolute inset-0 opacity-5" style={{backgroundImage: `linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)`, backgroundSize: '44px 44px'}}/>
+                </div>
 
-                    {/* Decorative Background Elements */}
-                    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-                        <div
-                            className={`absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl opacity-[0.04] ${isDayTime ? 'bg-orange-500' : 'bg-orange-400'}`}></div>
-                        <div
-                            className={`absolute bottom-0 left-0 w-80 h-80 rounded-full blur-3xl opacity-[0.03] ${isDayTime ? 'bg-cyan-500' : 'bg-cyan-400'}`}></div>
-                    </div>
+                <div className="relative z-10 max-w-[95em] mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] py-20">
+                    <div className="grid lg:grid-cols-2 gap-12 items-start">
+                        <div>
+                            <h1 className="text-[2.6em] lg:text-[4em] font-extrabold leading-tight tracking-tight mb-4">Your Strategic Digital Innovation Partner</h1>
+                            <p className="text-[1em] text-slate-400 leading-relaxed mb-6">Grey InfoTech fuses strategic foresight with engineering precision to design platforms that scale, adapt, and lead markets. Our discovery engagements surface the highest-leverage opportunities, validate hypotheses with rapid prototypes, and produce executable roadmaps that reduce time-to-market.</p>
 
-                    <div className="relative z-10">
-                        <h1 className={'lg:text-[4.5em] md:text-[3.5em] sm:text-[2.5em] text-[1.8em] font-[700] leading-[1.1]  mb-[0.8em] tracking-tight'}>
-                            Your Strategic <br className={'lg:block md:block hidden'}/>Digital Innovation Partner
-                        </h1>
-
-                        <p className={'text-[0.95em] font-[300] leading-[1.8] text-justify lg:pr-[35em] mb-6'}>
-                            At Grey InfoTech, we orchestrate transformative digital solutions that transcend traditional
-                            boundaries. Our discovery-driven approach combines deep strategic insights with cutting-edge
-                            technical execution to deliver high-impact products that drive exponential growth. From
-                            early-stage innovation to enterprise-scale digital transformation, we've guided hundreds of
-                            organizations through complex technology landscapesâ€”architecting solutions that unlock
-                            competitive advantage, accelerate market capture, and establish lasting digital leadership.
-                        </p>
-
-                        <p className={'text-[0.92em] font-[300] leading-[1.7] text-justify lg:pr-[25em] mb-8 opacity-90'}>
-                            Our methodology prioritizes deep discovery and strategic alignment before execution,
-                            ensuring every technical decision is grounded in measurable business outcomes. We don't just
-                            buildâ€”we architect scalable, secure, and future-ready platforms that anticipate market
-                            evolution and empower your organization to lead.
-                        </p>
-
-                        <Link href='/contact'>
-                            <button
-                                className='relative inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em]  border tracking-tighter  rounded-full py-3 px-8'>
-                            <span
-                                className={`w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 ${isDayTime ? 'bg-white' : 'bg-black'} opacity-[3%]`}></span>
-                                <span
-                                    className={`absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 ${isDayTime ? 'bg-white' : 'bg-black'} opacity-100 group-hover:-translate-x-8`}></span>
-                                <span
-                                    className={`relative w-full text-left transition-colors duration-200 ease-in-out ${isDayTime ? 'text-white group-hover:text-gray-300' : 'text-black group-hover:text-gray-800'}`}>
-                                Start Your Discovery Journey <span
-                                    className={`text-[1.5em] leading-[0.7]`}> â†’</span></span>
-                                <span
-                                    className={"absolute inset-0 border-[1px] border-gray-900 ${isDayTime ? 'border-white' : 'border-black'} rounded-full"}></span>
-                            </button>
-                        </Link>
-
-                        {/* Performance Metrics Grid */}
-                        <div id={'countup'}
-                             className={`grid lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-3 grid-cols-1 text-center lg:mt-[4.5em] md:mt-[3em] mt-[2em] py-12 gap-6 lg:gap-0 lg:divide-x divide-gray-500`}
-                        >
-                            {stats.map((stat, index) => (
-                                <div
-                                    key={index}
-                                    className={`flex flex-col justify-center items-center px-4 py-6 rounded-lg transition-all duration-300 ${
-                                        isDayTime ? 'hover:bg-white/5' : 'hover:bg-black/5'
-                                    }`}
-                                >
-                                    <div className="mb-2 inline-flex items-center justify-center w-12 h-12 rounded-lg"
-                                         style={{
-                                             background: isDayTime ? 'linear-gradient(135deg, #f97316/20, #f97316/10)' : 'linear-gradient(135deg, #f97316/15, #f97316/5)'
-                                         }}>
-                                        <span className="text-orange-500 font-bold">â†—</span>
+                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6">
+                                <li className="flex items-start gap-3">
+                                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-400 to-red-400 flex items-center justify-center text-black font-bold">1</div>
+                                    <div>
+                                        <div className="font-semibold">Strategic Diagnostics</div>
+                                        <div className="text-xs text-slate-400">Hypothesis-driven analysis and prioritized opportunity mapping.</div>
                                     </div>
-                                    <h2 className="gx-gradient-text lg:text-[3.2em] md:text-[2.8em] sm:text-[2em] text-[1.5em] font-[700] leading-tight">
-                                        <CountUp end={stat.value} duration={2.5} suffix={stat.suffix || ''}/>
-                                    </h2>
-                                    <p className={`text-[0.85em] font-[500] mt-2 tracking-wide uppercase ${isDayTime ? 'text-gray-400' : 'text-gray-600'}`}>
-                                        {stat.label}
-                                    </p>
-                                </div>
-                            ))}
+                                </li>
+                                <li className="flex items-start gap-3">
+                                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-yellow-300 to-orange-400 flex items-center justify-center text-black font-bold">2</div>
+                                    <div>
+                                        <div className="font-semibold">Rapid Prototyping</div>
+                                        <div className="text-xs text-slate-400">Validated prototypes with measurable user feedback loops.</div>
+                                    </div>
+                                </li>
+                                <li className="flex items-start gap-3">
+                                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-300 to-yellow-400 flex items-center justify-center text-black font-bold">3</div>
+                                    <div>
+                                        <div className="font-semibold">Engineering Precision</div>
+                                        <div className="text-xs text-slate-400">Architectures designed for resilience, observability and scale.</div>
+                                    </div>
+                                </li>
+                                <li className="flex items-start gap-3">
+                                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-300 to-blue-400 flex items-center justify-center text-black font-bold">4</div>
+                                    <div>
+                                        <div className="font-semibold">Operational Excellence</div>
+                                        <div className="text-xs text-slate-400">Automated delivery, monitoring, and runbooks for production confidence.</div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <div className="mt-8 flex items-center gap-4">
+                                <Link href="/contact" className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-orange-500 to-rose-500 text-white px-5 py-3 font-semibold shadow-lg hover:scale-[1.02] transition-transform">Start discovery</Link>
+                                <Link href="/company" className="inline-flex items-center justify-center rounded-xl border border-white/10 text-sm text-slate-400 px-4 py-2">Our approach</Link>
+                            </div>
                         </div>
 
-                        {/* Trust Indicators */}
-                        <div
-                            className={`mt-12 pt-12 border-t ${isDayTime ? 'border-gray-600/30' : 'border-gray-400/20'}`}>
-                            <p className={`text-[0.8em] uppercase tracking-[0.15em] font-[600] mb-6 ${isDayTime ? 'text-gray-500' : 'text-gray-600'}`}>
-                                Trusted By Industry Leaders
-                            </p>
-                            <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
-                                {['Enterprise Scale', 'Security Certified', 'Award Winning', 'Globally Distributed'].map((badge) => (
-                                    <div key={badge}
-                                         className={`px-4 py-2.5 rounded-lg border text-[0.75em] font-[600] uppercase tracking-wider text-center ${
-                                             isDayTime
-                                                 ? 'bg-white/8 border-white/15 text-gray-300'
-                                                 : 'bg-black/8 border-black/15 text-gray-700'
-                                         }`}>
-                                        {badge}
+                        {/* Right: Futuristic metrics & trust */}
+                        <div>
+                            <div className="bg-gradient-to-b from-black/6 to-black/1 rounded-2xl p-6 shadow-lg border border-white/6">
+                                <div className="flex items-center justify-between">
+                                    <div>
+                                        <div className="text-xs text-slate-400 uppercase tracking-wide">Impact metrics</div>
+                                        <div className="text-2xl font-bold">Outcomes that move the needle</div>
                                     </div>
-                                ))}
+                                    <div className="text-sm text-slate-400">Measured & auditable</div>
+                                </div>
+
+                                <div className="mt-6 grid grid-cols-3 gap-4">
+                                    {stats.map((s, i) => (
+                                        <div key={i} className="flex flex-col items-center p-4 rounded-lg bg-white/3">
+                                            <div className="w-12 h-12 rounded-full flex items-center justify-center mb-2 bg-gradient-to-br from-orange-400 to-red-400 text-black">{i+1}</div>
+                                            <div className="text-2xl font-extrabold gx-gradient-text"><CountUp end={s.value} duration={2.5} suffix={s.suffix || ''}/></div>
+                                            <div className="text-xs text-slate-300 mt-1 uppercase tracking-wider">{s.label}</div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className="mt-6 border-t pt-6">
+                                    <p className="text-xs text-slate-400 uppercase tracking-wide mb-3">Trusted by</p>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        {['Enterprise Scale', 'Security Certified', 'Award Winning', 'Globally Distributed'].map((b) => (
+                                            <div key={b} className="flex items-center gap-3 px-3 py-2 rounded-lg bg-white/4 border border-white/6">
+                                                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm">LG</div>
+                                                <div className="text-xs font-semibold">{b}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
+
+                            {/* Small note */}
+                            <div className="mt-4 text-xs text-slate-400">All metrics are derived from past engagements and represent typical outcomes. Individual results vary by scope and inputs.</div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
             <ServiceCapabilities
                 accentColor="#f97316"
@@ -1522,5 +1553,6 @@ const DiscoveryPhase = () => {
 };
 
 export default DiscoveryPhase;
+
 
 
