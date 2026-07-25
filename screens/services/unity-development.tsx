@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
@@ -10,7 +10,7 @@ import {useIsDayTime} from '../../components/useIsDayTime';
 
 import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
 
-import {FxBackground, FxChip, FxReveal, FxButton, FxHoloCard} from '@/components/futuristic/fx';
+import {FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxStickyScrollSection} from '@/components/futuristic/fx';
 // Reasons
 const reasons = [
     {
@@ -22,9 +22,9 @@ const reasons = [
                 hands-on experience. This depth of expertise means you gain more than just technical capability -you
                 benefit from strategic insight and a problem-solving mindset that only comes from experience. We
                 understand the Unity engine inside and out, enabling us to maximise its capabilities and push creative
-                and technical boundaries. Whether it’s developing high-performance games, immersive VR experiences, or
+                and technical boundaries. Whether itâ€™s developing high-performance games, immersive VR experiences, or
                 scalable multiplayer systems, we deliver solutions that are not only innovative but also commercially
-                viable in today’s competitive gaming landscape.
+                viable in todayâ€™s competitive gaming landscape.
             </>
         ),
         images: ['/assets/unity/exp.jpg']
@@ -36,7 +36,7 @@ const reasons = [
             <>
                 With Grey InfoTech as your partner, you gain access to a deep well of technical expertise, creative
                 innovation, and global industry insight. We collaborate closely with you to transform your ideas into
-                games that don’t just meet expectations -they exceed them. Our goal is to deliver experiences that
+                games that donâ€™t just meet expectations -they exceed them. Our goal is to deliver experiences that
                 captivate users and drive commercial success, setting new benchmarks for quality and performance in the
                 gaming world.
             </>
@@ -49,7 +49,7 @@ const reasons = [
         description: (
             <>
                 Our deep expertise in Unity technologies allows us to fully harness its capabilities -from delivering
-                stunning visuals to optimising game performance. We leverage Unity’s robust features to craft engaging,
+                stunning visuals to optimising game performance. We leverage Unityâ€™s robust features to craft engaging,
                 scalable, and high-performing games that align with your goals. With Grey InfoTech, your vision is
                 transformed into a seamless, immersive experience that exceeds expectations and drives results.
             </>
@@ -152,6 +152,94 @@ const UnityDevelopment = () => {
         }
     };
 
+    // Unity solutions data (used by FxStickyScrollSection)
+    const unityItems = [
+        {
+            id: '01',
+            title: '2D Unity Games',
+            target: '2D',
+            tags: ['2D game development','Platformers','Educational'],
+            body: (
+                <div>
+                    <p>
+                        We specialise in building high-quality 2D Unity titles for entertainment and educational use-cases. From retro-inspired platformers to interactive storytelling, these experiences are optimised for performance and player engagement.
+                    </p>
+                </div>
+            ),
+            metrics: [{label: 'Prototype Velocity', value: '1â€“3 weeks'}],
+            deliverables: ['Playable prototype','Art & animation pipelines','Performance budget']
+        },
+        {
+            id: '02',
+            title: '3D Unity Games',
+            target: '3D',
+            tags: ['3D engines','Open world','RPG'],
+            body: (
+                <div>
+                    <p>
+                        Full-stack 3D development combining advanced rendering, physics and narrative design. Optimised for multi-platform deployment, from mobile to consoles and PC.
+                    </p>
+                </div>
+            ),
+            metrics: [{label: 'Average Uptime', value: '99.95%'}],
+            deliverables: ['Engine & systems design','Performance profiling','Cross-platform builds']
+        },
+        {
+            id: '03',
+            title: 'Mobile Games',
+            target: 'MG',
+            tags: ['iOS','Android','Monetisation'],
+            body: (<div><p>Cross-platform mobile games engineered for retention and monetisation with platform-specific optimisation and store readiness.</p></div>),
+            deliverables: ['Device-specific optimisation','App Store/Play Store readiness']
+        },
+        {
+            id: '04',
+            title: 'Web-Based Games',
+            target: 'WBG',
+            tags: ['WebGL','Browser-first','Progressive'],
+            body: (<div><p>Web-targeted experiences with progressive enhancement and fast load times, suitable for marketing and social distribution.</p></div>),
+            deliverables: ['WebGL builds','Hosting guidance','CDN optimisation']
+        },
+        {
+            id: '05',
+            title: 'Immersive Experiences',
+            target: 'IE',
+            tags: ['XR','Training','Simulations'],
+            body: (<div><p>AR/VR solutions for training, visualization and immersive storytelling with an emphasis on usability and measurable outcomes.</p></div>),
+            deliverables: ['XR prototype','Interaction design','Hardware recommendations']
+        },
+        {
+            id: '06',
+            title: 'Elevate The Gaming Experience',
+            target: 'EGE',
+            tags: ['Innovation','VR/AR','Immersion'],
+            body: (<div><p>Advanced sensory design and systems work that enhances player presence, retention and long-term engagement.</p></div>),
+            deliverables: ['Experience design','Audio & haptics integration']
+        },
+        {
+            id: '07',
+            title: 'Unlocking New Realities',
+            target: 'UNR',
+            tags: ['Future tech','Scale','Integration'],
+            body: (<div><p>Strategic projects combining cutting-edge tech and pragmatic engineering to open new business opportunities.</p></div>),
+        },
+        {
+            id: '08',
+            title: 'Enhancing Gameplay, Creating Presence',
+            target: 'EGCP',
+            tags: ['Immersion','Design','Retention'],
+            body: (<div><p>Focused on player immersion through visual fidelity, sound design and responsive mechanics to drive deeper engagement.</p></div>),
+        },
+        {
+            id: '09',
+            title: 'Virtual & Augmented Reality',
+            target: 'VRAR',
+            tags: ['VR','AR','Spatial UX'],
+            body: (<div><p>End-to-end VR/AR development, from prototypes to production, with hardware-aware optimisation and robust sync systems.</p></div>),
+            deliverables: ['Prototype','XR performance report']
+        }
+    ];
+
     // Why Work hook
     useEffect(() => {
         const interval = setInterval(() => {
@@ -166,7 +254,7 @@ const UnityDevelopment = () => {
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
 
-            {/* Unified Unity Hero — Background Video/Image with Futuristic Overlay */}
+            {/* Unified Unity Hero â€” Background Video/Image with Futuristic Overlay */}
             <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
                 {/* Video Background (desktop) and Image fallback (mobile) */}
                 <video
@@ -224,7 +312,7 @@ const UnityDevelopment = () => {
                             </h1>
 
                             <p className="text-white/70 text-[0.9em] lg:text-[1.05em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
-                                From high-performance multiplayer systems to photoreal visuals and XR experiences — Grey
+                                From high-performance multiplayer systems to photoreal visuals and XR experiences â€” Grey
                                 InfoTech
                                 engineers deliver robust, scalable Unity projects designed for long-term success and
                                 measurable impact.
@@ -244,7 +332,7 @@ const UnityDevelopment = () => {
                                         style={{background: '#06b6d4', color: '#000'}}>
                                         <span className="absolute inset-0"
                                               style={{background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)'}}/>
-                                        <span className="relative">Start a project →</span>
+                                        <span className="relative">Start a project â†’</span>
                                     </button>
                                 </Link>
                                 <Link href="/portfolio">
@@ -278,7 +366,7 @@ const UnityDevelopment = () => {
                 </div>
             </section>
 
-            {/* Introductory section — ERP-styled (from UI/UX) */}
+            {/* Introductory section â€” ERP-styled (from UI/UX) */}
             <section
                 ref={sectionRef}
                 data-bg={isBackgroundActive ? (isDayTime ? 'Dark' : 'Light') : (isDayTime ? 'Light' : 'Dark')}
@@ -349,7 +437,7 @@ const UnityDevelopment = () => {
                                             <ul className='space-y-2'>
                                                 {capability.items.map((item, i) => (
                                                     <li key={i} className='text-[0.85em] flex items-start gap-2'>
-                                                        <span className='text-cyan-400 font-bold mt-0.5'>•</span>
+                                                        <span className='text-cyan-400 font-bold mt-0.5'>â€¢</span>
                                                         <span>{item}</span>
                                                     </li>
                                                 ))}
@@ -367,7 +455,7 @@ const UnityDevelopment = () => {
                                     {[
                                         {
                                             metric: 'Prototype Velocity',
-                                            value: '1–3 weeks',
+                                            value: '1â€“3 weeks',
                                             description: 'Time from discovery to validated prototype'
                                         },
                                         {
@@ -397,7 +485,7 @@ const UnityDevelopment = () => {
                     <div className={'hidden lg:block pr-6'}>
                         <div className={'rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm'}>
                             <div className="text-[0.72em] uppercase tracking-[0.28em] text-cyan-300/80">Showcase</div>
-                            <h4 className={'text-[1.6em] font-[600] mt-2 mb-3'}>Realtime scenes • Production-ready</h4>
+                            <h4 className={'text-[1.6em] font-[600] mt-2 mb-3'}>Realtime scenes â€¢ Production-ready</h4>
                             <p className={'text-sm text-slate-300 mb-4'}>A curated gallery of realtime experiences, lighting & rendering pipelines, and systems engineered for performance and scale.</p>
 
                             <div className="grid gap-2 sm:grid-cols-2">
@@ -490,384 +578,16 @@ const UnityDevelopment = () => {
             </section>
 
             {/* Unity Development Solutions */}
-            <div className={`lg:-mt-[3em] md:-mt-[3em] lg:pt-[2em]  ${isDayTime ? 'bg-gray-50' : 'bg-gray-950'}`}>
-                <div id={'development service'}
-                     className={'relative lg:py-[3em] py-[1em] lg:my-[3em] my-[1em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]'}>
-                    <div
-                        className={`relative border-b pb-[1em] border-gray-500 grid lg:grid-cols-2 grid-cols-1  lg:gap-14 gap-6 lg:max-w-full mx-auto`}>
-                        <div>
-                            <h2 className='lg:text-[3em] capitalize text-[1.5em] font-[500] tracking-tighter leading-[1.15] lg:pb-6 rounded-none'>
-                                Our Unity <br className={'lg:block md:block hidden'}/>development <br
-                                className={'lg:block md:block hidden'}/>solutions
-                            </h2>
-                        </div>
-                        <div className='lg:-ml-[8em]'>
-                            <p className='text-[0.85em] font-[400] lg:-mt-[0.2em] rounded-none leading-[1.5]'>
-                                At Grey InfoTech, we use Unity to build immersive, cross-platform applications and games
-                                that support real business goals -from user engagement to training, marketing, or
-                                product
-                                innovation. With advanced graphics, real-time rendering, and rapid prototyping, we help
-                                you bring ideas to life quickly and effectively.
-                                <br/><br/>
-                                Whether you need an interactive experience, AR/VR solution, or a custom simulation, our
-                                Unity development is focused on delivering measurable value at speed and scale.
-                            </p>
-                        </div>
-                    </div>
-                    <div
-                        className='grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6 lg:mt-28 mt-6 px-6 max-w-full w-full mx-auto h-full'>
-                        <div className='lg:sticky top-28 lg:h-screen overflow-hidden'>
-                            <h3 className={`text-[1.5em] font-[500] constant-text ${
-                                isDayTime ? 'text-black' : 'text-white'
-                            }`}>
-                                Our Solutions
-                            </h3>
-                            <ul className={`list-disc constant-text text-[0.873em] ml-4 font-[300] relative space-y-1 ${
-                                isDayTime ? 'text-black decoration-gray-600 focus:decoration-gray-900' : 'text-white decoration-gray-300 focus:decoration-gray-100'
-                            }`}>
-                                {[
-                                    {id: "01", title: "2D Unity Games", target: "2D"},
-                                    {id: "02", title: "3D Unity Games", target: "3D"},
-                                    {id: "03", title: "Mobile Games", target: "MG"},
-                                    {id: "04", title: "Web-Based Games", target: "WBG"},
-                                    {id: "05", title: "Immersive Experiences", target: "IE"},
-                                    {id: "06", title: "Elevate The Gaming Experiences", target: "EGE"},
-                                    {id: "07", title: "Unlocking New Realities With Grey InfoTech", target: "UNR"},
-                                    {id: "08", title: "Enhancing Gameplay, Creating Presence", target: "EGCP"},
-                                    {id: "09", title: "Virtual Reality & Augmented Reality", target: "VRAR"},
-                                ].map((item, index) => (
-                                    <li key={index} className={'group lg:mt-6 mt-4'}>
-                                        <button
-                                            onClick={() => scrollToSection(item.target)}
-                                            className={`w-full text-left flex items-center gap-4 mb-2 focus:font-[650] ${
-                                                isDayTime
-                                                    ? `focus:text-black ${activeId === item.target ? 'text-gray-900 font-[650]' : 'text-gray-500 font-[300]'}`
-                                                    : `focus:text-white ${activeId === item.target ? 'text-gray-100 font-[650]' : 'text-gray-400 font-[300]'}`
-                                            }`}
-                                        >
-                                            <div className={'flex gap-4'}>
-                                                <span className={'shrink-0'}>{item.id}</span>
-                                                <span
-                                                    className={`opacity-0 transition-opacity text-[2em] leading-[0.59em] ${activeId === item.target ? 'opacity-100' : ''}`}>→</span>
-                                                <span>{item.title}</span>
-                                            </div>
-                                        </button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div className={'lg:-ml-[7em] lg:mb-[6em]'}>
-                            <div className="grid lg:grid-cols-[50px_auto] grid-cols-1 lg:gap-2 gap1 items-start">
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>01/
-                                </div>
-                                <div className={`lg:mb-44 mb-14  ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'2D'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>2D Unity Games</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>2D game development</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Classic game inspiration</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Platformers and puzzles</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.873em] font-[300]'}>
-                                        At Grey InfoTech, we specialise in building impactful 2D Unity games that serve
-                                        both entertainment and strategic business goals. From educational tools and
-                                        branded mini-games to platformers and interactive storytelling, our 2D titles
-                                        are designed to engage users, reinforce brand identity, and deliver measurable
-                                        results. Drawing inspiration from industry-defining classics like Pac-Man, Sonic
-                                        the Hedgehog, and Mario, we blend nostalgic appeal with modern gameplay
-                                        mechanics to create memorable experiences. Whether you&#39;re a startup looking
-                                        to launch an educational app or a brand seeking a new way to connect with
-                                        audiences, we bring your vision to life with creativity, technical excellence,
-                                        and a clear business focus. Our Self Learn Read and Spell game is just one
-                                        example of how we transform game concepts into purposeful, high-quality digital
-                                        products.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>02/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`} id={'3D'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>3D Unity Games</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                    <span
-                                        className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>3D game development</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>RPGs and open worlds</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Multi-platform gaming</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Discover the full potential of 3D Unity game development with Grey InfoTech,
-                                        where creativity meets cutting-edge technology. We specialise in building
-                                        immersive, visually compelling experiences that span a wide range of genres
-                                        -from
-                                        action-packed RPGs and simulations to expansive open-world adventures. Our
-                                        development process is driven by a clear understanding of your audience and
-                                        business goals, ensuring the final product not only looks impressive but
-                                        delivers tangible value. Inspired by industry-defining titles like Skyrim and
-                                        The Witcher 3, we blend high-performance design, engaging storytelling, and
-                                        responsive gameplay to create memorable experiences that keep users coming back.
-                                        Whether you&#39;re launching a new entertainment venture, expanding into
-                                        interactive media, or seeking to strengthen customer engagement through
-                                        gamification, our Unity-based 3D solutions are fully scalable and optimised for
-                                        mobile, PC, VR, and console platforms. At Grey InfoTech, we don’t just build
-                                        games -we help you create market-ready products that stand out and drive
-                                        results.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>03/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'MG'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>Mobile Games</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Unity mobile development</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>iOS and Android games</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Market-dominating apps</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Mobile gaming is a rapidly expanding global industry, and at Grey InfoTech, we
-                                        leverage Unity’s powerful cross-platform capabilities to deliver high-quality
-                                        mobile games tailored for both <Link
-                                        href={'/services/ios-development'}
-                                        className={`border-b pb-[0.05em] ${isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'}`}>iOS</Link> and
-                                        Android devices. As a seasoned Unity mobile game development partner, we combine
-                                        creative innovation with technical expertise to transform your concepts into
-                                        captivating, user-friendly games designed to engage and retain players. Our
-                                        approach prioritizes scalable architecture, seamless performance, and
-                                        monetization strategies to help your game achieve commercial success in a highly
-                                        competitive market. From initial idea and prototyping through development,
-                                        testing, and launch, we work closely with you to align the game’s design and
-                                        features with your business objectives -whether that’s maximizing user
-                                        acquisition, increasing in-app revenue, or building long-term brand loyalty.
-                                        With Grey InfoTech, you get a reliable partner committed to delivering
-                                        compelling mobile gaming experiences that drive growth, generate revenue, and
-                                        expand your reach to millions of players worldwide.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>04/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'WBG'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>Web-Based Games</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Cross-platform web games</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Unity-powered development</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Monetisation and analytics integration</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        <Link
-                                            href={'/services/Web-Application'}
-                                            className={`border-b pb-[0.05em] ${isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'}`}>Web-based</Link> gaming
-                                        is experiencing rapid growth, and Unity’s powerful, flexible platform offers
-                                        unparalleled opportunities to deliver engaging, accessible experiences to a wide
-                                        audience. At Grey InfoTech, we specialize in creating Unity-powered web games
-                                        that run seamlessly across all devices and browsers, ensuring maximum reach and
-                                        user accessibility. Our expertise goes beyond just building captivating gameplay
-                                        - we integrate advanced monetization strategies and comprehensive analytics
-                                        tools, empowering you to monitor game performance, understand user behavior, and
-                                        optimize revenue streams effectively. Whether your goal is to develop addictive
-                                        puzzle games, realistic simulations, or rich narrative-driven experiences, we
-                                        work closely with you to transform your ideas into high-quality, scalable
-                                        products that deliver exceptional user engagement and measurable business
-                                        impact. With a strong focus on performance, security, and user experience, Grey
-                                        InfoTech is your trusted partner for leveraging web-based gaming as a dynamic
-                                        channel to grow your brand and achieve sustainable success in the digital
-                                        marketplace.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>05/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'IE'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>Immersive Experiences</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Immersive gameplay</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Unity environments</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>VR storytelling</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Immersive experiences in gaming go far beyond traditional play by placing users
-                                        directly inside dynamic, interactive worlds where they are not just observers
-                                        but active participants shaping the narrative and environment. At Grey InfoTech,
-                                        we leverage Unity’s advanced capabilities to build richly detailed, responsive
-                                        game environments that adapt seamlessly to player actions, creating deeper
-                                        engagement and stronger emotional connections. This level of immersion increases
-                                        user retention, drives higher player satisfaction, and ultimately boosts
-                                        monetization opportunities. Furthermore, with the rise of Virtual Reality (VR),
-                                        we create fully immersive digital realms that transport players into entirely
-                                        new dimensions, offering experiences that feel real and captivating. By
-                                        integrating VR technology, we help businesses differentiate their products in a
-                                        crowded market, attracting a broader audience and opening up innovative revenue
-                                        streams. Our business-focused approach ensures that every immersive experience
-                                        we design aligns with your strategic goals, maximizing return on investment
-                                        while delivering cutting-edge entertainment that resonates with your target
-                                        market.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>06/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'EGE'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>Elevate The Gaming Experience</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Industry innovation</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>VR and AR applications</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Interactive technology</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        The reach of VR and AR technologies goes far beyond gaming, fundamentally
-                                        transforming a wide range of industries including education, healthcare,
-                                        architecture, marketing, retail, and manufacturing. These immersive technologies
-                                        are reshaping how businesses engage with their customers, train employees, and
-                                        visualize complex data or designs. For example, apps like the Dulux Visualizer
-                                        enable customers to see paint colors in real time before making a purchase,
-                                        while automotive brands like Ford use AR to explore and refine 3D car models
-                                        during the design process. At Grey InfoTech, we leverage this transformative
-                                        potential to develop tailored VR and AR solutions that meet your specific
-                                        business needs. Whether it’s creating immersive training simulations,
-                                        interactive product demonstrations, virtual showrooms, or innovative marketing
-                                        campaigns, we focus on delivering scalable, user-centric experiences that drive
-                                        measurable results. Our expert team combines deep technical knowledge with a
-                                        clear understanding of your industry challenges to ensure your investment in VR
-                                        and AR technologies translates into enhanced customer engagement, operational
-                                        efficiencies, and a meaningful competitive advantage in today’s digital economy.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>07/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'UNR'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>Unlocking New Realities With Grey
-                                        InfoTech</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Cutting-edge gaming</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Interactive worlds</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>VR and AR game development</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        At Grey InfoTech, we leverage the full potential of Unity to develop
-                                        cutting-edge VR and AR games that go beyond traditional gameplay to create
-                                        deeply immersive, interactive experiences. Our skilled team designs virtual and
-                                        augmented reality environments tailored to your business objectives, ensuring
-                                        that every project not only captivates users but also delivers measurable
-                                        value -whether through enhanced customer engagement, innovative training
-                                        solutions, or powerful marketing tools. As VR and AR technologies rapidly evolve
-                                        and reshape industries such as gaming, education, healthcare, real estate, and
-                                        retail, we partner with you to craft scalable, future-proof applications that
-                                        elevate your brand and drive growth. From concept through development and
-                                        ongoing support, Grey InfoTech provides strategic insight and technical
-                                        expertise to bring your vision to life with seamless performance, intuitive
-                                        design, and cutting-edge features that position your business at the forefront
-                                        of digital innovation.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>08/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'EGCP'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Enhancing Gameplay, Creating Presence
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Player immersion</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Sensory engagement</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Seamless gameplay</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Immersive gameplay engages all the senses, drawing players deeply into the game
-                                        world whether they’re dodging virtual obstacles, exploring richly detailed
-                                        landscapes, or battling challenging foes. This heightened sense of presence
-                                        creates a powerful emotional connection between the player and the experience,
-                                        leading to increased engagement, longer play sessions, and stronger brand
-                                        loyalty. At Grey InfoTech, we specialize in designing Unity-based games that
-                                        prioritize immersion at every level - from cutting-edge visuals and realistic
-                                        physics to dynamic sound design and intuitive controls. Our team carefully
-                                        crafts every element to ensure the gameplay feels natural, responsive, and
-                                        emotionally resonant. By focusing on these aspects, we deliver unforgettable
-                                        experiences that captivate your audience and maximize user retention. Whether
-                                        developing action-packed adventures, narrative-driven titles, or complex
-                                        simulations, Grey InfoTech blends creativity with technical expertise to bring
-                                        your vision to life and help you stand out in a competitive market
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>09/
-                                </div>
-                                <div className={`${isDayTime ? 'text-black' : 'text-white'}`}
-                                     id={'VRAR'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Virtual Reality & Augmented Reality
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Bespoke VR/AR solutions</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Unity game expertise</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Physical-digital integration</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        VR and AR technologies are fundamentally transforming the gaming industry by
-                                        merging physical reality with immersive digital environments, offering players
-                                        unprecedented levels of interaction and engagement. At Grey InfoTech, we
-                                        leverage our deep expertise in Unity to develop custom VR and AR games that go
-                                        beyond traditional gameplay, delivering rich, fully immersive experiences
-                                        tailored to your unique vision and audience. We push the boundaries of
-                                        innovation to create interactive worlds that respond dynamically to player
-                                        actions, ensuring every moment is engaging and meaningful. Our approach focuses
-                                        on combining cutting-edge technology with creative design to produce games that
-                                        captivate users, boost retention, and drive market success. As VR and AR
-                                        continue to expand across not only gaming but also education, healthcare,
-                                        architecture, and marketing, Grey InfoTech is your strategic partner for
-                                        harnessing these technologies to create impactful, future-proof experiences that
-                                        differentiate your brand and deliver measurable business value.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Mid image*/}
+            <FxStickyScrollSection
+                day={isDayTime}
+                heading={<>Our Unity<br/>development solutions</>}
+                intro={"At Grey InfoTech, we use Unity to build immersive, cross-platform applications and games that support real business goals — from user engagement to training, marketing, or product innovation. Our teams combine creative design with engineering rigour to deliver production-ready systems at speed."}
+                navLabel={"Unity Solutions"}
+                activeId={activeId}
+                onNavClickAction={scrollToSection}
+                items={unityItems}
+            />
+{/* Mid image*/}
             <div id={'mid image'} className={'h-auto max-w-full w-full mx-auto'}>
                 <Image
                     className={' object-fill'}
@@ -920,7 +640,7 @@ const UnityDevelopment = () => {
                             Cross-platform <br className={'lg:block md:block hidden'}/>games development
                         </h3>
                         <p className='text-justify text-[0.85em] font-[400]'>
-                            Unity’s support for over 25 platforms allows developers to build once and deploy across
+                            Unityâ€™s support for over 25 platforms allows developers to build once and deploy across
                             mobile, desktop, console, web, and AR/VR devices -maximising reach and revenue potential.
                             With flexible plans like Unity Personal, Pro, and Enterprise, businesses of all sizes can
                             access the tools they need at the right scale. The Unity Asset Store further accelerates
@@ -941,11 +661,11 @@ const UnityDevelopment = () => {
                             Multiplayer support
                         </h3>
                         <p className='text-justify text-[0.85em] font-[400]'>
-                            Unity’s robust multiplayer capabilities empower developers to build scalable,
+                            Unityâ€™s robust multiplayer capabilities empower developers to build scalable,
                             high-performance systems that connect players in real-time across the globe. With built-in
                             support for cross-platform play, Unity enables seamless interaction between users on mobile,
                             PC, consoles, and web -creating a unified and inclusive gaming ecosystem. More than just
-                            connectivity, Unity’s multiplayer tools are designed to enhance player engagement by
+                            connectivity, Unityâ€™s multiplayer tools are designed to enhance player engagement by
                             fostering collaboration, competition, and lasting community bonds. For businesses, this
                             translates into higher user retention, increased monetisation opportunities, and a broader
                             market reach.
@@ -1002,7 +722,7 @@ const UnityDevelopment = () => {
                         <h3 className='capitalize text-[1.5em] font-[600] mb-2'>
                             Enhanced customisation</h3>
                         <p className='text-justify text-[0.85em] font-[400]'>
-                            Unity’s flexibility empowers developers to fully customise games and interactive experiences
+                            Unityâ€™s flexibility empowers developers to fully customise games and interactive experiences
                             to align with their creative and strategic vision. Whether fine-tuning physics engines for
                             realistic gameplay, designing bespoke shaders for unique visual styles, or integrating
                             third-party plugins to extend functionality, Unity provides the freedom and control required
@@ -1033,7 +753,7 @@ const UnityDevelopment = () => {
                 </div>
             </div>
 
-            {/* Unlocking tomorrow’s gaming possibilities today */}
+            {/* Unlocking tomorrowâ€™s gaming possibilities today */}
             <div id={'unlocking'} className={`relative ${isDayTime ? 'bg-black' : 'bg-white'}`}>
                 <div
                     className={`relative grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:max-w-[90em] py-14 mx-auto px-4 sm:px-6 lg:px-[4.6em] ${isDayTime ? 'text-white' : 'text-black'}`}>
@@ -1051,9 +771,9 @@ const UnityDevelopment = () => {
                             immersive VR/AR experiences, or exploring the Metaverse, we combine technical expertise with
                             creative vision to bring your ideas to life. Our tailored development solutions are designed
                             to help you break into new markets, captivate users, and build lasting digital experiences
-                            across mobile, console, and web platforms. With Unity’s powerful engine and flexible
+                            across mobile, console, and web platforms. With Unityâ€™s powerful engine and flexible
                             toolset, we accelerate time-to-market while ensuring high performance and visual fidelity.
-                            As your strategic development partner, we’re invested in your success -helping you unlock
+                            As your strategic development partner, weâ€™re invested in your success -helping you unlock
                             new
                             business opportunities, outpace the competition, and shape the future of interactive media.
                         </p>
@@ -1149,7 +869,7 @@ const UnityDevelopment = () => {
                                     className={`absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-90 -translate-x-56 -translate-y-24 ${isDayTime ? 'bg-black' : 'bg-white'} opacity-100 group-hover:-translate-x-8`}></span>
                                 <span
                                     className={`relative w-full text-left text-black ${isDayTime ? 'text-black group-hover:text-white' : 'text-white group-hover:text-black'} transition-colors duration-200 ease-in-out`}>Get
-                                started <span className={`text-[1.5em] leading-[0.7]`}> →</span></span>
+                                started <span className={`text-[1.5em] leading-[0.7]`}> â†’</span></span>
                                 <span className="absolute inset-0 rounded-full "></span>
                             </button>
                         </Link>
@@ -1178,7 +898,7 @@ const UnityDevelopment = () => {
                                                 isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
                                             }`}>UX/UI designer</Link>, and technical leads -works to understand your
                             requirements, assess technical feasibility, and define the right approach. This ensures
-                            we’re solving the right problems in the most effective way.<br/><br/>By fostering close
+                            weâ€™re solving the right problems in the most effective way.<br/><br/>By fostering close
                             collaboration early, we reduce risk, streamline development, and create a clear path
                             forward. This process sets the foundation for delivering a product that is strategically
                             aligned, user-centered, and technically sound.
@@ -1222,4 +942,5 @@ const UnityDevelopment = () => {
 };
 
 export default UnityDevelopment;
+
 
