@@ -10,7 +10,7 @@ import {useIsDayTime} from '../../components/useIsDayTime';
 
 import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
 
-import {FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxStickyScrollSection} from '@/components/futuristic/fx';
+import {FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxFrame, FxStickyScrollSection} from '@/components/futuristic/fx';
 // Reasons
 const reasons = [
     {
@@ -49,7 +49,8 @@ const reasons = [
         description: (
             <>
                 Our deep expertise in Unity technologies allows us to fully harness its capabilities -from delivering
-                stunning visuals to optimising game performance. We leverage Unityâ€™s robust features to craft engaging,
+                stunning visuals to optimising game performance. We leverage Unityâ€™s robust features to craft
+                engaging,
                 scalable, and high-performing games that align with your goals. With Grey InfoTech, your vision is
                 transformed into a seamless, immersive experience that exceeds expectations and drives results.
             </>
@@ -158,14 +159,17 @@ const UnityDevelopment = () => {
             id: '01',
             title: '2D Unity Games',
             target: '2D',
-            tags: ['2D game development','Platformers','Educational'],
+            tags: ['2D game development', 'Platformers', 'Educational'],
             body: (
                 <div>
                     <p>
-                        Specialist 2D production pipeline: concept, rapid prototyping, playable vertical, and full production.
+                        Specialist 2D production pipeline: concept, rapid prototyping, playable vertical, and full
+                        production.
                     </p>
                     <p className="mt-3">
-                        Our process is evidence-driven — design hypotheses are validated with lightweight prototypes and player telemetry. UX flows, input mapping and performance budgets are established in discovery, ensuring the final title meets business KPIs for retention and monetisation.
+                        Our process is evidence-driven — design hypotheses are validated with lightweight prototypes and
+                        player telemetry. UX flows, input mapping and performance budgets are established in discovery,
+                        ensuring the final title meets business KPIs for retention and monetisation.
                     </p>
                     <ul className="mt-3 list-disc pl-5">
                         <li>Prototyping & concept validation</li>
@@ -175,7 +179,11 @@ const UnityDevelopment = () => {
                 </div>
             ),
             metrics: [
-                {label: 'Prototype Velocity', value: '1–3 weeks', description: 'Validated playable prototype delivered quickly'},
+                {
+                    label: 'Prototype Velocity',
+                    value: '1–3 weeks',
+                    description: 'Validated playable prototype delivered quickly'
+                },
                 {label: 'Target FPS', value: '60+', description: 'Engineering budget for smooth mobile/desktop play'}
             ],
             deliverables: ['Playable prototype', 'Art & animation pipelines', 'Performance budget', 'Retention & monetisation plan'],
@@ -185,14 +193,16 @@ const UnityDevelopment = () => {
             id: '02',
             title: '3D Unity Games',
             target: '3D',
-            tags: ['3D engines','Open world','RPG'],
+            tags: ['3D engines', 'Open world', 'RPG'],
             body: (
                 <div>
                     <p>
-                        End-to-end 3D production combining advanced rendering, deterministic networking and modular systems architecture designed for scale.
+                        End-to-end 3D production combining advanced rendering, deterministic networking and modular
+                        systems architecture designed for scale.
                     </p>
                     <p className="mt-3">
-                        Deliverables include data-driven entity systems, LOD/streaming strategies, server-authoritative networking and automated build pipelines to support multi-platform shipping and live-ops.
+                        Deliverables include data-driven entity systems, LOD/streaming strategies, server-authoritative
+                        networking and automated build pipelines to support multi-platform shipping and live-ops.
                     </p>
                     <ul className="mt-3 list-disc pl-5">
                         <li>Engine & systems architecture (networking, replication, persistence)</li>
@@ -212,14 +222,17 @@ const UnityDevelopment = () => {
             id: '03',
             title: 'Mobile Games',
             target: 'MG',
-            tags: ['iOS','Android','Monetisation'],
+            tags: ['iOS', 'Android', 'Monetisation'],
             body: (
                 <div>
                     <p>
-                        Mobile-first game development with device-specific optimisation, energy budgets, and store-delivery readiness.
+                        Mobile-first game development with device-specific optimisation, energy budgets, and
+                        store-delivery readiness.
                     </p>
                     <p className="mt-3">
-                        Focus areas include adaptive rendering, asset bundling strategies, memory budgets per device class, and store submission support (iOS App Store & Google Play). A/B frameworks and analytics are integrated for incremental growth.
+                        Focus areas include adaptive rendering, asset bundling strategies, memory budgets per device
+                        class, and store submission support (iOS App Store & Google Play). A/B frameworks and analytics
+                        are integrated for incremental growth.
                     </p>
                 </div>
             ),
@@ -234,14 +247,16 @@ const UnityDevelopment = () => {
             id: '04',
             title: 'Web-Based Games',
             target: 'WBG',
-            tags: ['WebGL','Browser-first','Progressive'],
+            tags: ['WebGL', 'Browser-first', 'Progressive'],
             body: (
                 <div>
                     <p>
-                        High-performance WebGL builds and progressive delivery strategies that prioritise first-load speed and graceful degradation across browsers.
+                        High-performance WebGL builds and progressive delivery strategies that prioritise first-load
+                        speed and graceful degradation across browsers.
                     </p>
                     <p className="mt-3">
-                        Includes asset streaming, code-splitting, and CDN deployment guidance to ensure low latency and broad accessibility for marketing, social and embed use-cases.
+                        Includes asset streaming, code-splitting, and CDN deployment guidance to ensure low latency and
+                        broad accessibility for marketing, social and embed use-cases.
                     </p>
                 </div>
             ),
@@ -256,14 +271,17 @@ const UnityDevelopment = () => {
             id: '05',
             title: 'Immersive Experiences',
             target: 'IE',
-            tags: ['XR','Training','Simulations'],
+            tags: ['XR', 'Training', 'Simulations'],
             body: (
                 <div>
                     <p>
-                        XR solutions tailored for training, simulation and immersive storytelling with a strong emphasis on measurable outcomes and usability.
+                        XR solutions tailored for training, simulation and immersive storytelling with a strong emphasis
+                        on measurable outcomes and usability.
                     </p>
                     <p className="mt-3">
-                        Projects include hardware compatibility analysis, interaction model design, and data capture for assessment and analytics. Accessibility and safety are first-class concerns in all immersive deployments.
+                        Projects include hardware compatibility analysis, interaction model design, and data capture for
+                        assessment and analytics. Accessibility and safety are first-class concerns in all immersive
+                        deployments.
                     </p>
                 </div>
             ),
@@ -278,19 +296,25 @@ const UnityDevelopment = () => {
             id: '06',
             title: 'Elevate The Gaming Experience',
             target: 'EGE',
-            tags: ['Innovation','VR/AR','Immersion'],
+            tags: ['Innovation', 'VR/AR', 'Immersion'],
             body: (
                 <div>
                     <p>
-                        Experience design that fuses sensory systems — audio, haptics and environmental feedback — with adaptive gameplay loops to increase presence and retention.
+                        Experience design that fuses sensory systems — audio, haptics and environmental feedback — with
+                        adaptive gameplay loops to increase presence and retention.
                     </p>
                     <p className="mt-3">
-                        Technical work focuses on low-latency input, procedural content systems, and modular audio/haptics pipelines for consistent cross-platform behaviour.
+                        Technical work focuses on low-latency input, procedural content systems, and modular
+                        audio/haptics pipelines for consistent cross-platform behaviour.
                     </p>
                 </div>
             ),
             metrics: [
-                {label: 'Retention Lift', value: '+10–30%', description: 'Estimated uplift from sensory & flow improvements'},
+                {
+                    label: 'Retention Lift',
+                    value: '+10–30%',
+                    description: 'Estimated uplift from sensory & flow improvements'
+                },
             ],
             deliverables: ['Experience design', 'Audio & haptics integration', 'Procedural content systems'],
             cta: {label: 'Schedule experience workshop', href: '/contact'}
@@ -299,14 +323,16 @@ const UnityDevelopment = () => {
             id: '07',
             title: 'Unlocking New Realities',
             target: 'UNR',
-            tags: ['Future tech','Scale','Integration'],
+            tags: ['Future tech', 'Scale', 'Integration'],
             body: (
                 <div>
                     <p>
-                        Strategic, high-leverage engagements blending R&D, platform integration and proof-of-value pilots to open new markets or products.
+                        Strategic, high-leverage engagements blending R&D, platform integration and proof-of-value
+                        pilots to open new markets or products.
                     </p>
                     <p className="mt-3">
-                        Workstreams include infrastructure cost modelling, partner integration (cloud, analytics, auth), and MVP roadmap aligned to measurable business objectives.
+                        Workstreams include infrastructure cost modelling, partner integration (cloud, analytics, auth),
+                        and MVP roadmap aligned to measurable business objectives.
                     </p>
                 </div>
             ),
@@ -317,14 +343,16 @@ const UnityDevelopment = () => {
             id: '08',
             title: 'Enhancing Gameplay, Creating Presence',
             target: 'EGCP',
-            tags: ['Immersion','Design','Retention'],
+            tags: ['Immersion', 'Design', 'Retention'],
             body: (
                 <div>
                     <p>
-                        Focused R&D and feature work to improve core gameplay loops, fidelity and perceived presence using data-driven optimisation.
+                        Focused R&D and feature work to improve core gameplay loops, fidelity and perceived presence
+                        using data-driven optimisation.
                     </p>
                     <p className="mt-3">
-                        Outputs include tuning frameworks, session telemetry, and UI/UX interventions that materially improve player satisfaction.
+                        Outputs include tuning frameworks, session telemetry, and UI/UX interventions that materially
+                        improve player satisfaction.
                     </p>
                 </div>
             ),
@@ -335,19 +363,25 @@ const UnityDevelopment = () => {
             id: '09',
             title: 'Virtual & Augmented Reality',
             target: 'VRAR',
-            tags: ['VR','AR','Spatial UX'],
+            tags: ['VR', 'AR', 'Spatial UX'],
             body: (
                 <div>
                     <p>
-                        End-to-end VR & AR development: hardware-aware engineering, spatial UX design, and robust performance optimisation for comfortable, high-fidelity experiences.
+                        End-to-end VR & AR development: hardware-aware engineering, spatial UX design, and robust
+                        performance optimisation for comfortable, high-fidelity experiences.
                     </p>
                     <p className="mt-3">
-                        Includes automation for multi-device testing, repro-capture for bug triage, and guidance for long-term support and distribution strategies.
+                        Includes automation for multi-device testing, repro-capture for bug triage, and guidance for
+                        long-term support and distribution strategies.
                     </p>
                 </div>
             ),
             metrics: [
-                {label: 'Prototype Deliverable', value: 'Playable module', description: 'Hardware-tested on target devices'},
+                {
+                    label: 'Prototype Deliverable',
+                    value: 'Playable module',
+                    description: 'Hardware-tested on target devices'
+                },
             ],
             deliverables: ['Prototype', 'XR performance report', 'Multi-device test matrix'],
             cta: {label: 'Request XR pilot', href: '/contact'}
@@ -426,7 +460,8 @@ const UnityDevelopment = () => {
                             </h1>
 
                             <p className="text-white/70 text-[0.9em] lg:text-[1.05em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
-                                From high-performance multiplayer systems to photoreal visuals and XR experiences â€” Grey
+                                From high-performance multiplayer systems to photoreal visuals and XR experiences â€”
+                                Grey
                                 InfoTech
                                 engineers deliver robust, scalable Unity projects designed for long-term success and
                                 measurable impact.
@@ -593,14 +628,17 @@ const UnityDevelopment = () => {
             </section>
 
             {/* Futuristic showcase */}
-            <section id={'top'} className={'relative lg:max-w-full w-full py-16 mx-auto h-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'}>
+            <section id={'top'}
+                     className={'relative lg:max-w-full w-full py-16 mx-auto h-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'}>
                 <div className={'relative grid lg:grid-cols-2 grid-cols-1 gap-6 items-start'}>
                     {/* Left: KPI / Mini-cards (visible on lg) */}
                     <div className={'hidden lg:block pr-6'}>
                         <div className={'rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm'}>
                             <div className="text-[0.72em] uppercase tracking-[0.28em] text-cyan-300/80">Showcase</div>
-                            <h4 className={'text-[1.6em] font-[600] mt-2 mb-3'}>Realtime scenes â€¢ Production-ready</h4>
-                            <p className={'text-sm text-slate-300 mb-4'}>A curated gallery of realtime experiences, lighting & rendering pipelines, and systems engineered for performance and scale.</p>
+                            <h4 className={'text-[1.6em] font-[600] mt-2 mb-3'}>Realtime scenes â€¢
+                                Production-ready</h4>
+                            <p className={'text-sm text-slate-300 mb-4'}>A curated gallery of realtime experiences,
+                                lighting & rendering pipelines, and systems engineered for performance and scale.</p>
 
                             <div className="grid gap-2 sm:grid-cols-2">
                                 {[
@@ -609,8 +647,10 @@ const UnityDevelopment = () => {
                                     {label: 'Optimization', value: 'LOD & Baking'},
                                     {label: 'Tooling', value: 'Profiling & CI'}
                                 ].map((item) => (
-                                    <div key={item.label} className="rounded-2xl border border-white/10 bg-white/6 px-4 py-3">
-                                        <div className="text-[0.58em] uppercase tracking-[0.3em] text-teal-300/80">{item.label}</div>
+                                    <div key={item.label}
+                                         className="rounded-2xl border border-white/10 bg-white/6 px-4 py-3">
+                                        <div
+                                            className="text-[0.58em] uppercase tracking-[0.3em] text-teal-300/80">{item.label}</div>
                                         <div className="mt-1 text-[1.05em] font-[600] text-white">{item.value}</div>
                                     </div>
                                 ))}
@@ -618,12 +658,20 @@ const UnityDevelopment = () => {
 
                             <div className="mt-6 grid gap-3 sm:grid-cols-2">
                                 <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-3">
-                                    <div className="text-[0.72em] uppercase tracking-[0.28em] text-teal-300">Realtime 3D</div>
-                                    <div className="mt-2 text-sm text-white/80">Interactive scenes & shader-driven visuals.</div>
+                                    <div className="text-[0.72em] uppercase tracking-[0.28em] text-teal-300">Realtime
+                                        3D
+                                    </div>
+                                    <div className="mt-2 text-sm text-white/80">Interactive scenes & shader-driven
+                                        visuals.
+                                    </div>
                                 </div>
                                 <div className="rounded-2xl border border-teal-400/10 bg-white/[0.03] p-3">
-                                    <div className="text-[0.72em] uppercase tracking-[0.28em] text-teal-300">Multiplayer</div>
-                                    <div className="mt-2 text-sm text-white/80">Authoritative servers & deterministic sync.</div>
+                                    <div
+                                        className="text-[0.72em] uppercase tracking-[0.28em] text-teal-300">Multiplayer
+                                    </div>
+                                    <div className="mt-2 text-sm text-white/80">Authoritative servers & deterministic
+                                        sync.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -631,60 +679,83 @@ const UnityDevelopment = () => {
 
                     {/* Right: Gallery */}
                     <div className={'relative z-10 mt-8 grid gap-4 lg:grid-cols-[1.35fr_0.9fr]'}>
-                        <div className={'group relative overflow-hidden rounded-[1.6rem] border border-white/10 h-[320px] sm:h-[420px] lg:h-[540px]'}>
+                        <div
+                            className={'group relative overflow-hidden rounded-[1.6rem] border border-white/10 h-[320px] sm:h-[420px] lg:h-[540px]'}>
                             <Image
                                 src={'/assets/unity/1.jpg'}
                                 alt={'Unity architecture showcase'}
                                 fill
                                 className={'object-cover transition-transform duration-700 group-hover:scale-105'}
                             />
-                            <div className={'absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(2,6,23,0.2)_40%,rgba(2,6,23,0.88)_100%)]'} />
+                            <div
+                                className={'absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(2,6,23,0.2)_40%,rgba(2,6,23,0.88)_100%)]'}/>
                             <div className="absolute inset-0 border border-white/10"/>
-                            <div className="absolute left-4 top-4 rounded-full border border-teal-400/30 bg-black/30 px-3 py-1 text-[0.62em] uppercase tracking-[0.3em] text-teal-300">01 / Realtime</div>
+                            <div
+                                className="absolute left-4 top-4 rounded-full border border-teal-400/30 bg-black/30 px-3 py-1 text-[0.62em] uppercase tracking-[0.3em] text-teal-300">01
+                                / Realtime
+                            </div>
                             <div className="absolute bottom-4 left-4 right-4">
-                                <p className="text-[0.62em] uppercase tracking-[0.3em] text-teal-300 font-[600]">Realtime Rendering</p>
-                                <p className="mt-2 max-w-xl text-sm sm:text-base text-white/90">High-fidelity realtime scenes with scalable lighting and shader systems.</p>
+                                <p className="text-[0.62em] uppercase tracking-[0.3em] text-teal-300 font-[600]">Realtime
+                                    Rendering</p>
+                                <p className="mt-2 max-w-xl text-sm sm:text-base text-white/90">High-fidelity realtime
+                                    scenes with scalable lighting and shader systems.</p>
                             </div>
                         </div>
 
                         <div className="grid gap-4">
-                            <div className="group relative overflow-hidden rounded-[1.35rem] border border-white/10 h-[250px] sm:h-[260px] lg:h-[260px]">
+                            <div
+                                className="group relative overflow-hidden rounded-[1.35rem] border border-white/10 h-[250px] sm:h-[260px] lg:h-[260px]">
                                 <Image
                                     src={'/assets/unity/2.jpg'}
                                     alt={'Unity UI detail showcase'}
                                     fill
                                     className={'object-cover transition-transform duration-700 group-hover:scale-105'}
                                 />
-                                <div className={'absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(2,6,23,0.16)_55%,rgba(2,6,23,0.78)_100%)]'} />
-                                <div className={'absolute inset-0 border border-white/10'} />
-                                <div className={'absolute left-3 top-3 rounded-full border border-white/15 bg-black/20 px-2.5 py-1 text-[0.56em] uppercase tracking-[0.28em] text-teal-200'}>02 / UI</div>
+                                <div
+                                    className={'absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(2,6,23,0.16)_55%,rgba(2,6,23,0.78)_100%)]'}/>
+                                <div className={'absolute inset-0 border border-white/10'}/>
+                                <div
+                                    className={'absolute left-3 top-3 rounded-full border border-white/15 bg-black/20 px-2.5 py-1 text-[0.56em] uppercase tracking-[0.28em] text-teal-200'}>02
+                                    / UI
+                                </div>
                             </div>
 
-                            <div className={'group relative overflow-hidden rounded-[1.35rem] border border-white/10 h-[250px] sm:h-[260px] lg:h-[260px]'}>
+                            <div
+                                className={'group relative overflow-hidden rounded-[1.35rem] border border-white/10 h-[250px] sm:h-[260px] lg:h-[260px]'}>
                                 <Image
                                     src={'/assets/unity/3.jpg'}
                                     alt={'Unity workflow showcase'}
                                     fill
                                     className={'object-cover transition-transform duration-700 group-hover:scale-105'}
                                 />
-                                <div className={'absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(2,6,23,0.16)_55%,rgba(2,6,23,0.78)_100%)]'} />
-                                <div className={'absolute inset-0 border border-white/10'} />
-                                <div className={'absolute left-3 top-3 rounded-full border border-white/15 bg-black/20 px-2.5 py-1 text-[0.56em] uppercase tracking-[0.28em] text-teal-200'}>03 / Workflow</div>
+                                <div
+                                    className={'absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(2,6,23,0.16)_55%,rgba(2,6,23,0.78)_100%)]'}/>
+                                <div className={'absolute inset-0 border border-white/10'}/>
+                                <div
+                                    className={'absolute left-3 top-3 rounded-full border border-white/15 bg-black/20 px-2.5 py-1 text-[0.56em] uppercase tracking-[0.28em] text-teal-200'}>03
+                                    / Workflow
+                                </div>
                             </div>
                         </div>
 
-                        <div className={'group relative overflow-hidden rounded-[1.6rem] border border-white/10 h-[240px] sm:h-[260px] lg:h-[260px] lg:col-span-2'}>
+                        <div
+                            className={'group relative overflow-hidden rounded-[1.6rem] border border-white/10 h-[240px] sm:h-[260px] lg:h-[260px] lg:col-span-2'}>
                             <Image
                                 src={'/assets/unity/4.jpg'}
                                 alt={'Unity product experience showcase'}
                                 fill
                                 className={'object-cover transition-transform duration-700 group-hover:scale-105'}
                             />
-                            <div className={'absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(2,6,23,0.1)_35%,rgba(2,6,23,0.82)_100%)]'} />
-                            <div className={'absolute inset-0 border border-white/10'} />
-                            <div className={'absolute left-3 top-3 rounded-full border border-teal-400/30 bg-black/30 px-2.5 py-1 text-[0.56em] uppercase tracking-[0.28em] text-teal-300'}>04 / Experience</div>
+                            <div
+                                className={'absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(2,6,23,0.1)_35%,rgba(2,6,23,0.82)_100%)]'}/>
+                            <div className={'absolute inset-0 border border-white/10'}/>
+                            <div
+                                className={'absolute left-3 top-3 rounded-full border border-teal-400/30 bg-black/30 px-2.5 py-1 text-[0.56em] uppercase tracking-[0.28em] text-teal-300'}>04
+                                / Experience
+                            </div>
                             <div className={'absolute bottom-4 left-4 right-4'}>
-                                <p className={'text-white/90 text-sm sm:text-base'}>Premium, optimized product experiences built for production deployment.</p>
+                                <p className={'text-white/90 text-sm sm:text-base'}>Premium, optimized product
+                                    experiences built for production deployment.</p>
                             </div>
                         </div>
                     </div>
@@ -701,20 +772,63 @@ const UnityDevelopment = () => {
                 onNavClickAction={scrollToSection}
                 items={unityItems}
             />
-{/* Mid image*/}
-            <div id={'mid image'} className={'h-auto max-w-full w-full mx-auto'}>
-                <Image
-                    className={' object-fill'}
-                    src={'/assets/unity/ani.jpg'}
-                    alt={'Middle Image'}
-                    width={2560}
-                    height={1440}
-                    style={{
-                        objectFit: "fill",
-                        objectPosition: "center",
-                    }}
-                />
-            </div>
+            
+            {/* Mid image — Futuristic showcase */}
+            <section id={'mid image'} className={'relative max-w-full w-full mx-auto py-12'}>
+                <div className={'relative max-w-[1400px] mx-auto px-6'}>
+                    <FxFrame className={'rounded-3xl overflow-hidden'}>
+                        <div className={'relative h-[420px] sm:h-[560px] lg:h-[720px]'}>
+                            <Image
+                                src={'/assets/unity/ani.jpg'}
+                                alt={'Unity realtime showcase'}
+                                fill
+                                className={'object-cover transition-transform duration-1000 scale-100 hover:scale-105'}
+                            />
+
+                            {/* Depth & gradient overlays */}
+                            <div className={'absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(2,6,23,0.15)_35%,rgba(2,6,23,0.7)_100%)]'} />
+                            <div className={'pointer-events-none absolute inset-0'}>
+                                <FxBackground day={isDayTime} grid={true} aurora={true} className={'opacity-90'} />
+                            </div>
+
+                            {/* Eyebrow chip */}
+                            <div className={'absolute left-8 top-8'}>
+                                <FxChip day={isDayTime}>FUTURISTIC SHOWCASE</FxChip>
+                            </div>
+
+                            {/* Lead content */}
+                            <div className={'absolute left-8 bottom-8 max-w-lg'}>
+                                <FxReveal>
+                                    <h3 className={'text-white lg:text-3xl text-xl font-[700] tracking-tight'}>Realtime pipelines — live rendering, streaming & authoritative systems</h3>
+                                    <p className={'text-white/80 mt-3 text-sm'}>A production snapshot showcasing our realtime rendering fidelity, streaming asset pipelines and low-latency networking. Designed for sustained performance across devices and scalable live-ops.</p>
+                                    <div className={'mt-4 flex gap-3'}>
+                                        <FxButton day={isDayTime} href={'/contact'}>Start a pilot</FxButton>
+                                        <Link href={'/portfolio'} className={'inline-flex items-center text-sm text-white/70 underline px-3 py-2'}>View case studies</Link>
+                                    </div>
+                                </FxReveal>
+                            </div>
+
+                            {/* Floating holo stats */}
+                            <div className={'absolute right-8 top-24 flex flex-col gap-4'}>
+                                <FxHoloCard day={isDayTime} className={'p-4 w-44'}>
+                                    <div className={'text-[0.66em] uppercase tracking-[0.18em] text-slate-300'}>Render throughput</div>
+                                    <div className={'text-2xl font-[800] mt-1'}>4K • 60fps</div>
+                                    <div className={'text-xs text-slate-400 mt-1'}>Optimised GPU & batching</div>
+                                </FxHoloCard>
+
+                                <FxHoloCard day={isDayTime} className={'p-4 w-44'}>
+                                    <div className={'text-[0.66em] uppercase tracking-[0.18em] text-slate-300'}>Authoritative tick</div>
+                                    <div className={'text-2xl font-[800] mt-1'}>60Hz</div>
+                                    <div className={'text-xs text-slate-400 mt-1'}>Deterministic networking options</div>
+                                </FxHoloCard>
+                            </div>
+
+                            {/* Subtle orbit decoration */}
+                            <div aria-hidden className={'hidden lg:block absolute -right-20 -top-20 w-[40vmax] h-[40vmax] rounded-full opacity-10'} />
+                        </div>
+                    </FxFrame>
+                </div>
+            </section>
 
             {/* The benefits of Unity game development services */}
             <div
@@ -836,7 +950,8 @@ const UnityDevelopment = () => {
                         <h3 className='capitalize text-[1.5em] font-[600] mb-2'>
                             Enhanced customisation</h3>
                         <p className='text-justify text-[0.85em] font-[400]'>
-                            Unityâ€™s flexibility empowers developers to fully customise games and interactive experiences
+                            Unityâ€™s flexibility empowers developers to fully customise games and interactive
+                            experiences
                             to align with their creative and strategic vision. Whether fine-tuning physics engines for
                             realistic gameplay, designing bespoke shaders for unique visual styles, or integrating
                             third-party plugins to extend functionality, Unity provides the freedom and control required
