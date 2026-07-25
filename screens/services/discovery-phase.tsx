@@ -107,7 +107,6 @@ const DiscoveryPhase = () => {
     const [stageActiveId, setStageActiveId] = useState<string>("Initial Meeting");
     const [isStagesFixed, setIsStagesFixed] = useState(false);
     const [isStagesPast, setIsStagesPast] = useState(false);
-    const [stagesSectionBottom, setStagesSectionBottom] = useState(0);
 
     // Scroll tracking for process stages - updates when section is in viewport
     useEffect(() => {
@@ -132,7 +131,6 @@ const DiscoveryPhase = () => {
                 const past = rect.bottom < window.innerHeight;
                 setIsStagesFixed(within);
                 setIsStagesPast(past);
-                setStagesSectionBottom(stagesRef.current.offsetTop + stagesRef.current.offsetHeight);
             }
         };
 
@@ -1069,14 +1067,13 @@ const DiscoveryPhase = () => {
                     {/* RIGHT - fixed image panel (desktop only) */}
                     <div className="hidden lg:block" style={{height: `${imageIds.length * 520}px`}}>
                         <div 
-                            style={{
-                                position: isStagesPast ? 'absolute' : isStagesFixed ? 'fixed' : 'absolute',
-                                top: isStagesPast ? stagesSectionBottom - window.innerHeight : 0,
-                                right: 0,
-                                width: '50%',
-                                height: '100vh',
-                                overflow: 'hidden'
-                            }}>
+                            style={
+                                isStagesPast
+                                    ? { position: 'absolute', bottom: 0, right: 0, width: '50%', height: '100vh', overflow: 'hidden' }
+                                    : isStagesFixed
+                                    ? { position: 'fixed', top: 0, right: 0, width: '50%', height: '100vh', overflow: 'hidden' }
+                                    : { position: 'absolute', top: 0, right: 0, width: '50%', height: '100vh', overflow: 'hidden' }
+                            }>
                             <AnimatePresence mode="wait">
                                 {stageActiveId && (
                                     <motion.div
@@ -1106,7 +1103,7 @@ const DiscoveryPhase = () => {
             </div>
 
             {/* Who is involved in the process */}
-            <div className={`lg:-mt-[9em] md:-mt-[9em] ${isDayTime ? 'bg-black' : 'bg-white'}`}>
+            <div className={`${isDayTime ? 'bg-black' : 'bg-white'}`}>
                 <div id={'involved'}
                      className={`relative lg:pt-[7em] md:pt-[7em] pt-[2em] lg:pb-[7em] md:pb-[7em] pb-[2em] px-4 sm:px-6 lg:px-[4.6em] w-full max-w-full lg:mb-10 mb-8 ${
                          isDayTime ? 'text-white' : 'text-black'}`}>
