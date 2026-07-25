@@ -103,23 +103,30 @@ const DiscoveryPhase = () => {
         "Write-up & Presentation",
     ];
 
-    const handleScrollStages = () => {
-        for (const imageId of imageIds) {
-            const textElement = document.getElementById(imageId); // Corresponding text element
-            const imageElement = document.getElementById(imageId); // Corresponding image element
+    const stagesRef = useRef<HTMLDivElement>(null);
+    const [stageActiveId, setStageActiveId] = useState<string>("Initial Meeting");
 
-            if (textElement && imageElement) {
-                const textRect = textElement.getBoundingClientRect();
-                const screenCenter = window.innerHeight / 2; // Center of the screen
-
-                // Check if the text is centered on the screen
-                if (textRect.top <= screenCenter && textRect.bottom >= screenCenter) {
-                    setActiveId(imageId); // Set activeId when the text is centered
-                    break;
+    // Scroll tracking for process stages - updates when section is in viewport
+    useEffect(() => {
+        const handleStagesScroll = () => {
+            const stageEls = imageIds.map((id) => document.getElementById(id));
+            const mid = window.innerHeight * 0.4;
+            for (let i = stageEls.length - 1; i >= 0; i--) {
+                const el = stageEls[i];
+                if (el) {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top <= mid) {
+                        setStageActiveId(imageIds[i]);
+                        break;
+                    }
                 }
             }
-        }
-    };
+        };
+
+        window.addEventListener("scroll", handleStagesScroll, {passive: true});
+        handleStagesScroll(); // initial
+        return () => window.removeEventListener("scroll", handleStagesScroll);
+    }, []);
 
     useEffect(() => {
         window.addEventListener("scroll", handleScrollStages);
@@ -903,7 +910,7 @@ const DiscoveryPhase = () => {
             </div>
 
             {/* Stages of Our Discovery Process - Services-style layout */}
-            <div className={`relative ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
+            <div ref={stagesRef} className={`relative ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
                 {/* Header */}
                 <div
                     className={`relative border-b px-6 sm:px-10 lg:px-[4.6em] pt-24 pb-10 overflow-hidden`}
@@ -945,9 +952,9 @@ const DiscoveryPhase = () => {
                                 }}
                                 className="transition-all duration-300 rounded-full"
                                 style={{
-                                    width: activeId === id ? 28 : 8,
+                                    width: stageActiveId === id ? 28 : 8,
                                     height: 8,
-                                    background: activeId === id ? '#f97316' : (isDayTime ? '#d1d5db' : '#374151'),
+                                    background: stageActiveId === id ? '#f97316' : (isDayTime ? '#d1d5db' : '#374151'),
                                 }}
                                 title={id}
                             />
@@ -990,7 +997,7 @@ const DiscoveryPhase = () => {
                                 {/* Glow on left edge when active */}
                                 <motion.div
                                     className="absolute left-0 top-0 w-[3px] h-full rounded-full"
-                                    animate={{background: activeId === stage.id ? '#f97316' : 'rgba(0,0,0,0)'}}
+                                    animate={{background: stageActiveId === stage.id ? '#f97316' : 'rgba(0,0,0,0)'}}
                                     transition={{duration: 0.4}}
                                 />
 
@@ -1057,26 +1064,25 @@ const DiscoveryPhase = () => {
                     <div className="hidden lg:block" style={{height: `${imageIds.length * 520}px`}}>
                         <div 
                             style={{
-                                position: isVisible ? 'fixed' : 'absolute',
+                                position: 'fixed',
                                 top: 0,
                                 right: 0,
                                 width: '50%',
                                 height: '100vh',
                                 overflow: 'hidden'
-                            }}
-                            className="overflow-hidden">
+                            }}>
                             <AnimatePresence mode="wait">
-                                {activeId && (
+                                {stageActiveId && (
                                     <motion.div
-                                        key={activeId}
+                                        key={stageActiveId}
                                         className="relative w-full h-full"
                                         initial={{opacity: 0, scale: 1.04}}
                                         animate={{opacity: 1, scale: 1}}
                                         exit={{opacity: 0, scale: 0.96}}
                                         transition={{duration: 0.5}}>
                                         <Image
-                                            src={`/assets/disc/stages/${activeId}.jpg`}
-                                            alt={activeId}
+                                            src={`/assets/disc/stages/${stageActiveId}.jpg`}
+                                            alt={stageActiveId}
                                             fill
                                             className="object-cover"
                                         />
