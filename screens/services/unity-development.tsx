@@ -162,12 +162,24 @@ const UnityDevelopment = () => {
             body: (
                 <div>
                     <p>
-                        We specialise in building high-quality 2D Unity titles for entertainment and educational use-cases. From retro-inspired platformers to interactive storytelling, these experiences are optimised for performance and player engagement.
+                        Specialist 2D production pipeline: concept, rapid prototyping, playable vertical, and full production.
                     </p>
+                    <p className="mt-3">
+                        Our process is evidence-driven — design hypotheses are validated with lightweight prototypes and player telemetry. UX flows, input mapping and performance budgets are established in discovery, ensuring the final title meets business KPIs for retention and monetisation.
+                    </p>
+                    <ul className="mt-3 list-disc pl-5">
+                        <li>Prototyping & concept validation</li>
+                        <li>Pixel/Vector art pipelines & animation rigs</li>
+                        <li>Optimization for memory & frame stability across target devices</li>
+                    </ul>
                 </div>
             ),
-            metrics: [{label: 'Prototype Velocity', value: '1â€“3 weeks'}],
-            deliverables: ['Playable prototype','Art & animation pipelines','Performance budget']
+            metrics: [
+                {label: 'Prototype Velocity', value: '1–3 weeks', description: 'Validated playable prototype delivered quickly'},
+                {label: 'Target FPS', value: '60+', description: 'Engineering budget for smooth mobile/desktop play'}
+            ],
+            deliverables: ['Playable prototype', 'Art & animation pipelines', 'Performance budget', 'Retention & monetisation plan'],
+            cta: {label: 'Request 2D scoping', href: '/contact'}
         },
         {
             id: '02',
@@ -177,66 +189,168 @@ const UnityDevelopment = () => {
             body: (
                 <div>
                     <p>
-                        Full-stack 3D development combining advanced rendering, physics and narrative design. Optimised for multi-platform deployment, from mobile to consoles and PC.
+                        End-to-end 3D production combining advanced rendering, deterministic networking and modular systems architecture designed for scale.
                     </p>
+                    <p className="mt-3">
+                        Deliverables include data-driven entity systems, LOD/streaming strategies, server-authoritative networking and automated build pipelines to support multi-platform shipping and live-ops.
+                    </p>
+                    <ul className="mt-3 list-disc pl-5">
+                        <li>Engine & systems architecture (networking, replication, persistence)</li>
+                        <li>Graphics pipeline: PBR materials, clustered lighting, GPU-instancing</li>
+                        <li>Live-ops readiness: analytics, remote config, content pipelines</li>
+                    </ul>
                 </div>
             ),
-            metrics: [{label: 'Average Uptime', value: '99.95%'}],
-            deliverables: ['Engine & systems design','Performance profiling','Cross-platform builds']
+            metrics: [
+                {label: 'Average Uptime', value: '99.95%', description: 'Target for core runtime services'},
+                {label: 'Network Tick', value: '30–60Hz', description: 'Authoritative server tick rate options'}
+            ],
+            deliverables: ['Engine & systems design', 'Performance profiling & toolchain', 'Cross-platform CI/CD', 'Server-authoritative networking'],
+            cta: {label: 'Discuss 3D architecture', href: '/contact'}
         },
         {
             id: '03',
             title: 'Mobile Games',
             target: 'MG',
             tags: ['iOS','Android','Monetisation'],
-            body: (<div><p>Cross-platform mobile games engineered for retention and monetisation with platform-specific optimisation and store readiness.</p></div>),
-            deliverables: ['Device-specific optimisation','App Store/Play Store readiness']
+            body: (
+                <div>
+                    <p>
+                        Mobile-first game development with device-specific optimisation, energy budgets, and store-delivery readiness.
+                    </p>
+                    <p className="mt-3">
+                        Focus areas include adaptive rendering, asset bundling strategies, memory budgets per device class, and store submission support (iOS App Store & Google Play). A/B frameworks and analytics are integrated for incremental growth.
+                    </p>
+                </div>
+            ),
+            metrics: [
+                {label: 'Load Time', value: '<1.2s', description: 'Fast cold start for retention'},
+                {label: 'Battery Impact', value: '-5%', description: 'Average runtime improvement vs baseline'}
+            ],
+            deliverables: ['Device-specific optimisation', 'App Store/Play Store readiness', 'A/B test & analytics integration'],
+            cta: {label: 'Plan a mobile audit', href: '/contact'}
         },
         {
             id: '04',
             title: 'Web-Based Games',
             target: 'WBG',
             tags: ['WebGL','Browser-first','Progressive'],
-            body: (<div><p>Web-targeted experiences with progressive enhancement and fast load times, suitable for marketing and social distribution.</p></div>),
-            deliverables: ['WebGL builds','Hosting guidance','CDN optimisation']
+            body: (
+                <div>
+                    <p>
+                        High-performance WebGL builds and progressive delivery strategies that prioritise first-load speed and graceful degradation across browsers.
+                    </p>
+                    <p className="mt-3">
+                        Includes asset streaming, code-splitting, and CDN deployment guidance to ensure low latency and broad accessibility for marketing, social and embed use-cases.
+                    </p>
+                </div>
+            ),
+            metrics: [
+                {label: 'First Paint', value: '<1.5s', description: 'Optimised for low-bandwidth environments'},
+                {label: 'Bundle Size', value: '<3MB', description: 'Typical compressed initial payload target'}
+            ],
+            deliverables: ['WebGL builds', 'Hosting & CDN plan', 'Progressive asset streaming'],
+            cta: {label: 'Request Web demo', href: '/contact'}
         },
         {
             id: '05',
             title: 'Immersive Experiences',
             target: 'IE',
             tags: ['XR','Training','Simulations'],
-            body: (<div><p>AR/VR solutions for training, visualization and immersive storytelling with an emphasis on usability and measurable outcomes.</p></div>),
-            deliverables: ['XR prototype','Interaction design','Hardware recommendations']
+            body: (
+                <div>
+                    <p>
+                        XR solutions tailored for training, simulation and immersive storytelling with a strong emphasis on measurable outcomes and usability.
+                    </p>
+                    <p className="mt-3">
+                        Projects include hardware compatibility analysis, interaction model design, and data capture for assessment and analytics. Accessibility and safety are first-class concerns in all immersive deployments.
+                    </p>
+                </div>
+            ),
+            metrics: [
+                {label: 'Prototype Time', value: '2–6 weeks', description: 'Validated XR interaction prototype'},
+                {label: 'Target Frame', value: '90Hz', description: 'Recommended for comfortable VR UXR'}
+            ],
+            deliverables: ['XR prototype', 'Interaction design', 'Hardware compatibility report'],
+            cta: {label: 'Explore XR options', href: '/contact'}
         },
         {
             id: '06',
             title: 'Elevate The Gaming Experience',
             target: 'EGE',
             tags: ['Innovation','VR/AR','Immersion'],
-            body: (<div><p>Advanced sensory design and systems work that enhances player presence, retention and long-term engagement.</p></div>),
-            deliverables: ['Experience design','Audio & haptics integration']
+            body: (
+                <div>
+                    <p>
+                        Experience design that fuses sensory systems — audio, haptics and environmental feedback — with adaptive gameplay loops to increase presence and retention.
+                    </p>
+                    <p className="mt-3">
+                        Technical work focuses on low-latency input, procedural content systems, and modular audio/haptics pipelines for consistent cross-platform behaviour.
+                    </p>
+                </div>
+            ),
+            metrics: [
+                {label: 'Retention Lift', value: '+10–30%', description: 'Estimated uplift from sensory & flow improvements'},
+            ],
+            deliverables: ['Experience design', 'Audio & haptics integration', 'Procedural content systems'],
+            cta: {label: 'Schedule experience workshop', href: '/contact'}
         },
         {
             id: '07',
             title: 'Unlocking New Realities',
             target: 'UNR',
             tags: ['Future tech','Scale','Integration'],
-            body: (<div><p>Strategic projects combining cutting-edge tech and pragmatic engineering to open new business opportunities.</p></div>),
+            body: (
+                <div>
+                    <p>
+                        Strategic, high-leverage engagements blending R&D, platform integration and proof-of-value pilots to open new markets or products.
+                    </p>
+                    <p className="mt-3">
+                        Workstreams include infrastructure cost modelling, partner integration (cloud, analytics, auth), and MVP roadmap aligned to measurable business objectives.
+                    </p>
+                </div>
+            ),
+            deliverables: ['R&D prototype', 'MVP roadmap', 'Integration plan'],
+            cta: {label: 'Start strategic discussion', href: '/contact'}
         },
         {
             id: '08',
             title: 'Enhancing Gameplay, Creating Presence',
             target: 'EGCP',
             tags: ['Immersion','Design','Retention'],
-            body: (<div><p>Focused on player immersion through visual fidelity, sound design and responsive mechanics to drive deeper engagement.</p></div>),
+            body: (
+                <div>
+                    <p>
+                        Focused R&D and feature work to improve core gameplay loops, fidelity and perceived presence using data-driven optimisation.
+                    </p>
+                    <p className="mt-3">
+                        Outputs include tuning frameworks, session telemetry, and UI/UX interventions that materially improve player satisfaction.
+                    </p>
+                </div>
+            ),
+            deliverables: ['Feature R&D', 'Telemetry & tuning frameworks', 'UX improvements'],
+            cta: {label: 'Discuss feature R&D', href: '/contact'}
         },
         {
             id: '09',
             title: 'Virtual & Augmented Reality',
             target: 'VRAR',
             tags: ['VR','AR','Spatial UX'],
-            body: (<div><p>End-to-end VR/AR development, from prototypes to production, with hardware-aware optimisation and robust sync systems.</p></div>),
-            deliverables: ['Prototype','XR performance report']
+            body: (
+                <div>
+                    <p>
+                        End-to-end VR & AR development: hardware-aware engineering, spatial UX design, and robust performance optimisation for comfortable, high-fidelity experiences.
+                    </p>
+                    <p className="mt-3">
+                        Includes automation for multi-device testing, repro-capture for bug triage, and guidance for long-term support and distribution strategies.
+                    </p>
+                </div>
+            ),
+            metrics: [
+                {label: 'Prototype Deliverable', value: 'Playable module', description: 'Hardware-tested on target devices'},
+            ],
+            deliverables: ['Prototype', 'XR performance report', 'Multi-device test matrix'],
+            cta: {label: 'Request XR pilot', href: '/contact'}
         }
     ];
 
