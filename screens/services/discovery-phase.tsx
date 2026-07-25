@@ -8,7 +8,7 @@ import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 import Link from "next/link";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import {ArrowRight} from 'lucide-react';
-import {motion} from 'framer-motion';
+import {motion, AnimatePresence} from 'framer-motion';
 import CountUp from "react-countup";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
@@ -902,177 +902,192 @@ const DiscoveryPhase = () => {
                 </div>
             </div>
 
-            {/* Stages of Our Discovery Process */}
-            <div className={` lg:pt-[2em]  ${isDayTime ? 'bg-white' : 'bg-black'}`}>
-                <div className={`${isDayTime ? 'text-black' : ' text-white'}`}>
-                    <div id={'process'}
-                         className={`relative lg:pt-[2em] md:pt-[2em] pt-[1em] lg:mt-[3em] md:mt-[3em] mt-[1em] lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em] `}>
-                        <h2 className={'border-b pb-[0.8em] capitalize border-gray-500 px-0 constant-text lg:text-[3em] md:text-[2em] sm:text-[1.5em] text-[1.5em] leading-[1.1] font-[500]'}>
+            {/* Stages of Our Discovery Process - Services-style layout */}
+            <div className={`relative ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
+                {/* Header */}
+                <div
+                    className={`relative border-b px-6 sm:px-10 lg:px-[4.6em] pt-24 pb-10 overflow-hidden`}
+                    style={{borderColor: isDayTime ? '#e5e7eb' : '#1f2937'}}>
+                    {/* Animated grid bg */}
+                    <div
+                        className="absolute inset-0 opacity-[0.03]"
+                        style={{
+                            backgroundImage: `linear-gradient(${isDayTime ? '#111111' : '#f5f5f5'} 1px, transparent 1px), linear-gradient(90deg, ${isDayTime ? '#111111' : '#f5f5f5'} 1px, transparent 1px)`,
+                            backgroundSize: '40px 40px',
+                        }}
+                    />
+                    <motion.div
+                        initial={{opacity: 0, y: 16}}
+                        whileInView={{opacity: 1, y: 0}}
+                        viewport={{once: true}}
+                        transition={{duration: 0.6}}>
+                        <span
+                            className="inline-block text-xs font-semibold uppercase tracking-[0.25em] mb-4 px-3 py-1 rounded-full"
+                            style={{background: '#f97316' + '15', color: '#f97316', border: `1px solid #f9731633`}}>
+                            Process Overview
+                        </span>
+                        <h2 className="text-[2.4em] sm:text-[3.2em] font-[700] leading-tight">
                             Stages of Our<br className={'lg:block md:block hidden'}/>Discovery Process
                         </h2>
+                        <p className={`mt-3 text-[0.9em] max-w-lg ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
+                            A structured, collaborative journey from initial discovery through validated strategy and delivery roadmap.
+                        </p>
+                    </motion.div>
 
-                        <div id={'stages'}
-                             className={'grid lg:grid-cols-2 grid-cols-1 gap-10 lg:mt-[10em] mt-6 max-w-full mx-auto w-full h-full lg:mb-0 mb-6'}>
+                    {/* Service nav dots (desktop) */}
+                    <div className="hidden lg:flex items-center gap-2 mt-6">
+                        {imageIds.map((id, i) => (
+                            <button
+                                key={id}
+                                onClick={() => {
+                                    const el = document.getElementById(id);
+                                    el?.scrollIntoView({behavior: 'smooth', block: 'center'});
+                                }}
+                                className="transition-all duration-300 rounded-full"
+                                style={{
+                                    width: activeId === id ? 28 : 8,
+                                    height: 8,
+                                    background: activeId === id ? '#f97316' : (isDayTime ? '#d1d5db' : '#374151'),
+                                }}
+                                title={id}
+                            />
+                        ))}
+                    </div>
+                </div>
 
-                            {/* Left Section */}
-                            <div className={'lg:mr-28 md:mr-28 lg:mb-[9em] md:mb-[9em]'}>
+                {/* Body: Left scroll / Right fixed image */}
+                <div className="relative lg:grid lg:grid-cols-2">
 
-                                {/* Initial Meeting */}
-                                <div className={`lg:mb-[6em] md:mb-[6em] mb-14`} id={'Initial Meeting'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>Initial Meeting</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.8em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                    <span
-                                        className={`px-4 py-2 ${isDayTime ? 'bg-black' : 'bg-white'} rounded-full`}>Workshops</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Competitor Analysis</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Flow Diagrams</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] lg:mb-[3em] mb-[1.5em] font-[300]'}>
-                                        We begin with an initial meeting to understand your project goals, business
-                                        objectives, and technical requirements. This session allows us to explore your
-                                        vision, clarify expectations, and assess how we can deliver value from day one.
-                                        It&#39;s also a chance for you to experience our process, ask questions, and
-                                        align
-                                        on priorities. While we always welcome face-to-face meetings to foster stronger
-                                        relationships and gain deeper insights, we also offer seamless virtual sessions
-                                        via MS Teams, Google Meet, or Zoom. Whichever format you prefer, our focus
-                                        remains the same -laying the foundation for a successful collaboration built on
-                                        clarity, trust, and shared purpose.
-                                    </p>
-                                </div>
-
-                                {/* Workshops */}
-                                <div className={`lg:mb-[6em] md:mb-[6em] mb-14`} id={'Workshops'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>Workshops</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.8em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                    <span
-                                        className={`px-4 py-2 ${isDayTime ? 'bg-black' : 'bg-white'} rounded-full`}>Workshops</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Competitor Analysis</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Flow Diagrams</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] lg:mb-[3em] mb-[1.5em] font-[300]'}>
-                                        Next, weâ€™ll conduct a series of structured, collaborative workshops to delve
-                                        deeper into your projectâ€™s requirements, user expectations, and overall business
-                                        goals. These sessions are designed to align stakeholders, clarify priorities,
-                                        and uncover potential challenges or constraints early in the process. Together,
-                                        weâ€™ll map out user journeys, define core workflows, and assess any technical or
-                                        operational considerations that may impact delivery. Whether hosted in person or
-                                        virtually, these workshops are tailored to your organisationâ€™s needs and focused
-                                        on generating actionable insights, enabling informed decisions that shape a
-                                        clear and strategic roadmap for your product.
-                                    </p>
-                                </div>
-
-                                {/* Follow-up Meetings */}
-                                <div className={`lg:mb-[6em] md:mb-[6em] mb-14`} id={'Follow-up Meetings'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>Follow-up Meetings</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.8em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                    <span
-                                        className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Competitor Analysis</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Flow Diagrams</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] lg:mb-[3em] mb-[1.5em] font-[300]'}>
-                                        Following the workshops, weâ€™ll hold structured follow-up meetings to present our
-                                        findings, validate key assumptions, and outline actionable recommendations
-                                        tailored to your business objectives. These sessions are designed to be
-                                        collaborative and outcome-driven, giving you the opportunity to review our
-                                        insights, provide feedback, and ensure strategic alignment before moving into
-                                        execution. By addressing open questions, refining priorities, and confirming the
-                                        project direction, we establish a clear, shared understanding across all
-                                        stakeholders. Whether conducted in person or remotely, these meetings are
-                                        focused on delivering clarity, accountability, and measurable value for your
-                                        organisation.
-                                    </p>
-                                </div>
-
-                                {/* Write-up & Presentation */}
-                                <div className={`lg:mb-[6em] md:mb-[6em] mb-14`} id={'Write-up & Presentation'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>Write-up & Presentation</h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.8em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                    <span
-                                        className={`px-4 py-2 ${isDayTime ? 'bg-black' : 'bg-white'} rounded-full`}>Workshops</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Competitor Analysis</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}>Flow Diagrams</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] lg:mb-[3em] mb-[1.5em] font-[300]'}>
-                                        Finally, weâ€™ll consolidate all insights, findings, and strategic recommendations
-                                        into a detailed report and presentation that serves as a clear and actionable
-                                        roadmap for your project. This comprehensive documentation will outline key
-                                        milestones, timelines, budget estimates, technical recommendations, and
-                                        potential risks -ensuring you have full visibility and alignment before
-                                        development begins. It acts as both a reference and a blueprint, equipping you
-                                        with the clarity and confidence to move forward efficiently and effectively.
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Right Section */}
+                    {/* LEFT - scrollable stage entries */}
+                    <div className="px-6 sm:px-10 lg:px-[4.6em] lg:pr-12 py-0 lg:pb-32">
+                        {[
+                            {
+                                id: 'Initial Meeting',
+                                title: 'Initial Meeting',
+                                description: 'We begin with an initial meeting to understand your project goals, business objectives, and technical requirements. This session allows us to explore your vision, clarify expectations, and assess how we can deliver value from day one. It\'s a chance to experience our process, ask questions, and align on priorities.'
+                            },
+                            {
+                                id: 'Workshops',
+                                title: 'Workshops',
+                                description: 'We conduct a series of structured, collaborative workshops to delve deeper into your project\'s requirements, user expectations, and overall business goals. These sessions are designed to align stakeholders, clarify priorities, and uncover potential challenges or constraints early in the process.'
+                            },
+                            {
+                                id: 'Follow-up Meetings',
+                                title: 'Follow-up Meetings',
+                                description: 'Following the workshops, we hold structured follow-up meetings to present our findings, validate key assumptions, and outline actionable recommendations tailored to your business objectives. These sessions are designed to be collaborative and outcome-driven, giving you the opportunity to review insights and provide feedback.'
+                            },
+                            {
+                                id: 'Write-up & Presentation',
+                                title: 'Write-up & Presentation',
+                                description: 'Finally, we consolidate all insights, findings, and strategic recommendations into a detailed report and presentation that serves as a clear and actionable roadmap for your project. This comprehensive documentation will outline key milestones, timelines, budget estimates, technical recommendations, and potential risks.'
+                            }
+                        ].map((stage, i) => (
                             <div
-                                className='lg:sticky md:sticky lg:top-[5em] md:top-[5em] justify-center items-center w-full max-w-full h-screen lg:h-screen md:h-screen overflow-hidden'>
-                                <div>
-                                    {imageIds.map((imageId: string) => (
-                                        activeId === imageId && (
-                                            <div
-                                                key={imageId}
-                                                className="relative shadow-lg transition-opacity duration-500 ease-in-out opacity-100"
-                                                id={imageId}
-                                            >
-                                                <Image
-                                                    src={`/assets/disc/stages/${imageId}.jpg`}
-                                                    alt={imageId}
-                                                    className="transition-transform duration-500 ease-in-out transform scale-105 hover:scale-110"
-                                                    width={1030}
-                                                    height={768}
-                                                />
-                                            </div>
-                                        )
-                                    ))}
-                                </div>
+                                key={stage.id}
+                                id={stage.id}
+                                className={`relative py-16 lg:py-28 border-b last:border-b-0 group`}
+                                style={{borderColor: isDayTime ? '#f3f4f6' : '#111827'}}>
+                                {/* Glow on left edge when active */}
+                                <motion.div
+                                    className="absolute left-0 top-0 w-[3px] h-full rounded-full"
+                                    animate={{background: activeId === stage.id ? '#f97316' : 'rgba(0,0,0,0)'}}
+                                    transition={{duration: 0.4}}
+                                />
 
-                                {/* sticky menu */}
-                                {isVisible && (
-                                    <div
-                                        className={`lg:fixed justify-center md:fixed bottom-0 left-0 w-full ${
-                                            isDayTime ? 'bg-black text-white' : 'bg-white text-black'} py-5 z-50`}>
+                                {/* Content */}
+                                <div className="pl-6">
+                                    {/* Number + title row */}
+                                    <div className="flex items-center gap-4 mb-5">
                                         <div
-                                            className={`grid lg:grid-cols-4 md:grid-cols-4 grid-cols-1 lg:max-w-full w-full h-auto lg:px-[4.6em] mx-auto justify-center gap-0 ${
-                                                isDayTime ? 'border-gray-500' : 'border-gray-500'}`}>
-                                            {imageIds.map((id) => (
-                                                <button
-                                                    key={id}
-                                                    onClick={() => {
-                                                        const element = document.getElementById(id);
-                                                        if (element) {
-                                                            element.scrollIntoView({behavior: 'smooth'});
-                                                        }
-                                                    }}
-                                                    className={`mt-4 ${
-                                                        activeId === id
-                                                            ? isDayTime
-                                                                ? 'text-white hover:text-gray-500 focus:text-gray-500'
-                                                                : 'text-black hover:text-gray-500 focus:text-gray-500'
-                                                            : isDayTime
-                                                                ? 'text-gray-500 hover:text-white focus:text-white'
-                                                                : 'text-gray-500 hover:text-black focus:text-black'
-                                                    }`}
-                                                >
-                                                    {id.replace('-', ' ')}
-                                                </button>
-                                            ))}
+                                            className="flex items-center justify-center w-10 h-10 rounded-full text-sm font-bold shrink-0"
+                                            style={{background: '#f97316' + '18', border: `1px solid #f9731644`, color: '#f97316'}}>
+                                            {String(i + 1).padStart(2, '0')}
                                         </div>
+                                        <h3 className="text-[1.4em] sm:text-[1.6em] font-[600] leading-tight">{stage.title}</h3>
                                     </div>
-                                )}
+
+                                    {/* Tags */}
+                                    <div className="flex flex-wrap gap-2 mb-5">
+                                        {['Collaborative', 'Outcome-focused', 'Strategic'].map((tag) => (
+                                            <span
+                                                key={tag}
+                                                className="px-3 py-1 text-[0.7em] font-medium rounded-full tracking-wide"
+                                                style={{background: '#f97316' + '15', border: `1px solid #f9731633`, color: '#f97316'}}>
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+
+                                    {/* Description */}
+                                    <p className={`text-[0.85em] leading-[1.7] mb-6 max-w-lg ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
+                                        {stage.description}
+                                    </p>
+
+                                    {/* Mobile image (shows only on small screens) */}
+                                    <div className="lg:hidden relative w-full h-48 mb-6 rounded-2xl overflow-hidden">
+                                        <Image src={`/assets/disc/stages/${stage.id}.jpg`} alt={stage.title} fill className="object-cover" />
+                                        <div className="absolute inset-0" style={{background: 'linear-gradient(135deg, #f9731622, transparent)'}}/>
+                                    </div>
+
+                                    {/* CTA */}
+                                    <Link href={`#${stage.id}`}>
+                                        <motion.button
+                                            whileHover={{scale: 1.03}}
+                                            whileTap={{scale: 0.97}}
+                                            className="relative inline-flex items-center gap-3 px-6 py-3 rounded-full text-[0.82em] font-semibold tracking-wide overflow-hidden group/btn"
+                                            style={{border: `1px solid #f9731655`, color: '#f97316'}}>
+                                            {/* Fill on hover */}
+                                            <motion.span
+                                                className="absolute inset-0 rounded-full"
+                                                initial={{scale: 0, opacity: 0}}
+                                                whileHover={{scale: 1, opacity: 1}}
+                                                transition={{duration: 0.3}}
+                                                style={{background: '#f97316' + '18', originX: 0}}
+                                            />
+                                            <span className="relative z-10">Learn more</span>
+                                            <span className="relative z-10 text-[1.3em] leading-none">→</span>
+                                        </motion.button>
+                                    </Link>
+                                </div>
                             </div>
+                        ))}
+                    </div>
+
+                    {/* RIGHT - fixed image panel (desktop only) */}
+                    <div className="hidden lg:block" style={{height: `${imageIds.length * 520}px`}}>
+                        <div 
+                            style={{
+                                position: isVisible ? 'fixed' : 'absolute',
+                                top: 0,
+                                right: 0,
+                                width: '50%',
+                                height: '100vh',
+                                overflow: 'hidden'
+                            }}
+                            className="overflow-hidden">
+                            <AnimatePresence mode="wait">
+                                {activeId && (
+                                    <motion.div
+                                        key={activeId}
+                                        className="relative w-full h-full"
+                                        initial={{opacity: 0, scale: 1.04}}
+                                        animate={{opacity: 1, scale: 1}}
+                                        exit={{opacity: 0, scale: 0.96}}
+                                        transition={{duration: 0.5}}>
+                                        <Image
+                                            src={`/assets/disc/stages/${activeId}.jpg`}
+                                            alt={activeId}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                        {/* Gradient overlay */}
+                                        <div
+                                            className="absolute inset-0"
+                                            style={{background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.1), transparent)'}}
+                                        />
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     </div>
                 </div>
