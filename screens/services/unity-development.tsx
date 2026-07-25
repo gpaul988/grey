@@ -247,7 +247,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                         {/* Right Column - Impact Stats */}
                         <div className="hidden lg:flex flex-col items-end">
                             <div className="grid grid-cols-2 gap-6 w-full">
-                                {[{ label: 'Projects', value: '40+' }, { label: 'XR Experiences', value: '12+' }, { label: 'Multiplayer Systems', value: '8+' }, { label: 'Optimisations', value: '100s' }].map((s, i) => (
+                                {[{ label: 'Projects', value: '10+' }, { label: 'XR Experiences', value: '8+' }, { label: 'Multiplayer Systems', value: '2+' }, { label: 'Optimisations', value: '100s' }].map((s, i) => (
                                     <div key={i} className="bg-white/6 rounded-lg p-4 w-56">
                                         <div className="text-xs text-slate-300">{s.label}</div>
                                         <div className="text-2xl font-bold mt-1">{s.value}</div>
@@ -259,60 +259,71 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                 </div>
             </section>
 
-            {/* Introductory section */}
+            {/* Introductory section — Futuristic style */}
             <section ref={sectionRef}
-                     className={`py-12 transition-colors duration-500 ${
-                         isBackgroundActive
-                             ? isDayTime
-                                 ? "bg-black text-white"
-                                 : "bg-white text-black"
-                             : isDayTime
-                                 ? "bg-white text-black"
-                                 : "bg-black text-white"
-                     }`}>
-                <div
-                    className='relative grid lg:grid-cols-2 grid-cols-1 lg:my-[3em] my-[1em] lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-16 pb-6 lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'>
-                    <div className=''>
-                        <h6 className='constant-text uppercase lg:text-[0.8em] text-[0.8em] lg:font-[600] font-[600] lg:tracking-wider tracking-tight'>
-                            Streamlined unity <br className={'lg:block md:block hidden'}/>development
-                        </h6>
-                    </div>
-                    <div className='lg:-ml-[19em]'>
-                        <h3 className='capitalize lg:text-[3em] md:text-[3em] text-[1.8em] font-[500] lg:mt-[0.01em] lg:leading-[1.1] tracking-tight border-b lg:pb-[0.7em] lg:mb-[0.7em] leading-[1.1] pb-6'>
-                            Looking for a Unity <br className={'lg:block md:block hidden'}/>development company?
-                        </h3>
-                        <div
-                            className='grid lg:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]'>
-                            <div>
-                                <p>
-                                    You’ve found the right partner to unlock the full potential of Unity’s powerful
-                                    platform. Unity stands out for its seamless cross-platform capabilities, robust
-                                    physics engine, and state-of-the-art graphics features, making it ideal for
-                                    developing immersive games and sophisticated applications that perform flawlessly
-                                    across devices. Leveraging Unity allows us to rapidly prototype ideas and accelerate
-                                    development timelines without compromising on quality or innovation. We understand
-                                    that in today’s competitive market, speed and precision are critical  - that’s why
-                                    every pixel and line of code we write is meticulously crafted to bring your vision
-                                    to life with the highest standards of performance and user experience. At Grey
-                                    InfoTech, we don’t just use Unity as a tool; we harness it as a strategic asset that
-                                    opens the door to endless possibilities, helping your business deliver captivating
-                                    digital experiences that engage audiences, drive growth, and stand out in the
-                                    marketplace.
-                                </p>
-                            </div>
-                            <div>
-                                <p>
-                                    At Grey InfoTech, we’re not just developers -we’re your dedicated creative and
-                                    technology partner, committed to transforming your ideas into powerful,
-                                    fully-fledged experiences that captivate users and deliver real business impact.
-                                    With deep expertise in cross-platform development, especially using technologies
-                                    like Unity, we bring together creativity, strategy, and technical excellence to
-                                    craft solutions that are not only visually stunning but also scalable and
-                                    performance-driven. Whether you’re launching a game, an interactive application, or
-                                    an enterprise-grade tool, we ensure your product stands out across all
-                                    platforms -delivered faster than you thought possible and aligned perfectly with your
-                                    business goals.
-                                </p>
+                     className={`py-16 transition-colors duration-500 ${isBackgroundActive ? (isDayTime ? 'bg-black text-white' : 'bg-white text-black') : (isDayTime ? 'bg-white text-black' : 'bg-black text-white')}`}>
+                <div className="relative max-w-[95em] mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] py-8">
+                    <div className="grid lg:grid-cols-2 grid-cols-1 gap-10 items-start">
+                        {/* Left: Intro narrative similar to Web-Design */}
+                        <div>
+                            <FxReveal>
+                                <div className="inline-flex items-center gap-3 mb-4">
+                                    <FxChip day={isDayTime}>UNITY CAPABILITIES</FxChip>
+                                    <div className="flex-1 h-px bg-white/10" />
+                                    <span className="font-mono text-[0.68em] tracking-widest text-white/25">Production-grade</span>
+                                </div>
+
+                                <h2 className="text-[2.4em] sm:text-[3.2em] font-[700] leading-tight mb-4">Real-time 3D Engineering — Scalable, performant, immersive</h2>
+                                <p className="text-[0.96em] text-slate-400 leading-[1.75] mb-6">Grey InfoTech blends creative craftsmanship with engineering rigour to build Unity experiences that scale from prototypes to production. Our discovery-first approach ensures we validate core interactions early, iterate with real users, and architect systems with observability and performance baked in.</p>
+
+                                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div className="flex items-start gap-3">
+                                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-400 to-red-400 flex items-center justify-center text-black font-bold">⚙️</div>
+                                        <div>
+                                            <div className="text-sm font-semibold">Engineering for scale</div>
+                                            <div className="text-xs text-slate-400">Latency budgets, observability, and resilient architectures.</div>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-start gap-3">
+                                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-300 to-blue-400 flex items-center justify-center text-black font-bold">🎮</div>
+                                        <div>
+                                            <div className="text-sm font-semibold">Player-first design</div>
+                                            <div className="text-xs text-slate-400">Human-centred UX, performant interactions, and retention funnels.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="mt-8 flex items-center gap-4">
+                                    <Link href="/contact" className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white px-5 py-3 font-semibold shadow-lg hover:scale-[1.02] transition-transform">Start discovery</Link>
+                                    <Link href="/company" className="inline-flex items-center justify-center rounded-xl border border-white/10 text-sm text-slate-400 px-4 py-2">Our approach</Link>
+                                </div>
+                            </FxReveal>
+                        </div>
+
+                        {/* Right: Visual showcase and micro-cards */}
+                        <div className="relative flex items-center justify-center">
+                            <div className="relative w-full max-w-2xl">
+                                <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/6 bg-gradient-to-b from-black/8 to-black/2 transition-transform duration-700">
+                                    <Image src={'/assets/unity/1.jpg'} alt={'Unity showcase'} width={1400} height={900} className="w-full h-auto object-cover" />
+                                    <div className="absolute top-4 left-4 px-3 py-2 rounded-md bg-black/30 backdrop-blur-sm text-xs text-white/90">Realtime rendering • XR-ready</div>
+                                </div>
+
+                                <div className="absolute -bottom-16 left-6 flex flex-col gap-3">
+                                    {[{title: 'Realtime 3D', sub: 'Interactive scenes & shaders'}, {title: 'Multiplayer', sub: 'Authoritative servers & sync'}].map((c, i) => (
+                                        <div key={i} className="w-64 bg-white/6 backdrop-blur-sm border border-white/6 rounded-2xl px-4 py-3 shadow-lg transition-transform duration-500 hover:-translate-y-2">
+                                            <div className="flex items-start gap-3">
+                                                <div className="flex-none w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-red-400 flex items-center justify-center text-black font-semibold">{i===0? '3D' : 'MP'}</div>
+                                                <div>
+                                                    <div className="text-xs text-slate-300">{c.title}</div>
+                                                    <div className="mt-1 text-sm font-medium text-white/90">{c.sub}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div aria-hidden className="hidden lg:block absolute -right-8 top-8 w-2 h-56 rounded-full bg-gradient-to-b from-orange-500 to-pink-500 opacity-90 shadow-sm" />
                             </div>
                         </div>
                     </div>
