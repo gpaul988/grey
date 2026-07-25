@@ -367,7 +367,6 @@ const UiUxDesign = () => {
                 </div>
             </section>
 
-            {/* Design Services Section */}
             {/* Futuristic UI/UX Design Services Section */}
             <section
                 className={`relative lg:py-[4em] py-[2em] lg:my-[6em] my-[3em] lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em] ${
@@ -1867,7 +1866,7 @@ const UiUxDesign = () => {
             </div>
 
             {/* Stages of Our UX/UI Process - Using ProcessesSection Component */}
-            <ProcessesSection isDayTime={isDayTime} />
+            <ProcessesSection isDayTime={isDayTime}/>
 
             {/* Trusted Digital Partners - Advanced Premium Section */}
             <div

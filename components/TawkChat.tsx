@@ -35,7 +35,7 @@ export default function TawkChat({ propertyId, widgetId, offsetPx = 80 }: TawkCh
                     .join(' ');
                 return (
                     (args.length === 1 && args[0] === true) ||
-                    /Tawk\/Logger|i18next|Tawk_API|\$_Tawk|forEach/i.test(joined) ||
+                    /Tawk\/Logger|i18next|Tawk_API|\$_Tawk|forEach|parseVisitorName|setVisitorInformation/i.test(joined) ||
                     (typeof args[0] === 'string' && args[0].includes('is not a function'))
                 );
             } catch { return false; }
