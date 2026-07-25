@@ -7,6 +7,8 @@ import ServiceHero from '@/components/futuristic/ServiceHero';
 import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 import Link from "next/link";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
+import {ArrowRight} from 'lucide-react';
+import {motion} from 'framer-motion';
 import CountUp from "react-countup";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
@@ -702,116 +704,198 @@ const DiscoveryPhase = () => {
                 ]}
             />
 
-            {/* Discovery process benefits - Premium Grid */}
-            <div className={`lg:pt-[3em] md:pt-[3em] pt-[1em] lg:pb-[3em] md:pb-[3em] pb-[1em] ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
-                <div id={'discovery-phase-benefit'} className={`relative lg:top-10 py-16 lg:mb-20 mb-10 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
+            {/* Business Benefits - Advanced Premium Grid */}
+            <div className={`relative lg:py-32 py-20 max-w-full w-full mx-auto overflow-hidden transition-colors duration-500 ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
 
-                    {/* Section Header */}
-                    <div className={`grid lg:grid-cols-2 grid-cols-1 gap-6 pb-[3em] lg:mb-[5em] border-b border-gray-300/20`}>
-                        <div>
-                            <h2 className={`text-[1em] sm:text-[1.5em] md:text-[2.6em] lg:text-[3.2em] font-[700] tracking-tight leading-[1.08]`}> 
-                                Discovery <br className={'lg:block md:block hidden'}/>Process Benefits
-                            </h2>
-                            <p className={`mt-4 text-[0.95em] font-[300] max-w-xl`}>A focused discovery phase transforms ambiguity into a clear, executable plan. The premium benefits below articulate the measurable outcomes, operational efficiencies, and competitive advantages organisations achieve when discovery is engineered as a strategic investment.</p>
-                        </div>
+                {/* Advanced Grid background with animation */}
+                <div className="pointer-events-none absolute inset-0 overflow-hidden">
+                    <div className="absolute inset-0 opacity-40 animate-pulse" style={{
+                        backgroundImage: `linear-gradient(${isDayTime ? 'rgba(249,115,22,0.08)' : 'rgba(249,115,22,0.09)'} 1px, transparent 1px), linear-gradient(90deg, ${isDayTime ? 'rgba(249,115,22,0.08)' : 'rgba(249,115,22,0.09)'} 1px, transparent 1px)`,
+                        backgroundSize: '44px 44px',
+                    }}/>
+                </div>
 
-                        <div className={'lg:-ml-[1.5em] md:-ml-[1.5em]'}>
-                            <p className={'text-justify text-[0.93em] font-[300]'}>
-                                Our discovery engagements combine product strategy, technical validation, user research, and commercial modelling to deliver investor‑grade artefacts and an actionable delivery roadmap. Each benefit below maps to outcomes, typical metrics, and recommended artefacts for executive review.
-                            </p>
+                {/* Multiple layered aurora blobs with staggered animation */}
+                <div className="pointer-events-none absolute inset-0 overflow-hidden">
+                    <div
+                        className="absolute -top-40 -right-32 w-[600px] h-[600px] rounded-full opacity-30 animate-pulse"
+                        style={{background: 'radial-gradient(circle, #f97316 0%, transparent 70%)'}}/>
+                    <div
+                        className="absolute -bottom-32 -left-24 w-[480px] h-[480px] rounded-full opacity-15 animate-pulse"
+                        style={{
+                            background: 'radial-gradient(circle, #fb923c 0%, transparent 70%)',
+                            animationDelay: '0.5s'
+                        }}/>
+                    <div
+                        className="absolute top-1/3 right-1/4 w-[350px] h-[350px] rounded-full opacity-10 animate-pulse"
+                        style={{
+                            background: 'radial-gradient(circle, #fed7aa 0%, transparent 70%)',
+                            animationDelay: '1s'
+                        }}/>
+                </div>
+
+                <div className={`relative z-10 px-4 sm:px-6 md:px-10 lg:px-[4.5em]`} id={'discovery-phase-benefit'}>
+                    {/* Header Section with enhanced styling */}
+                    <FxReveal>
+                        <div className="flex items-center gap-5 mb-16">
+                            <FxChip day={isDayTime}>DISCOVERY IMPACT</FxChip>
+                            <div className={`flex-1 h-px ${isDayTime ? 'bg-white/10' : 'bg-black/10'}`}/>
+                            <span className={`font-mono text-[0.7em] tracking-widest ${isDayTime ? 'text-white/30' : 'text-black/30'}`}>STRATEGIC VALUE</span>
                         </div>
+                    </FxReveal>
+
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20">
+                        <FxReveal>
+                            <div>
+                                <h2 className={`text-[2.6em] lg:text-[3.4em] font-[700] leading-[1.1] tracking-tight mb-8`}>
+                                    Discovery <span className="gx-gradient-text">process benefits</span>
+                                </h2>
+                                <p className={`text-[0.95em] leading-[1.8] mb-6 ${isDayTime ? 'text-white/75' : 'text-black/70'}`}>
+                                    A focused discovery phase transforms ambiguity into a clear, executable plan. Strategic validation and risk mitigation deliver measurable business outcomes—faster time-to-market, lower delivery costs, and higher confidence in product success.
+                                </p>
+                                <p className={`text-[0.95em] leading-[1.8] mb-8 ${isDayTime ? 'text-white/75' : 'text-black/70'}`}>
+                                    We've guided 50+ organisations through discovery engagements that combine user research, market analysis, and technical feasibility. Partner with us for investor‑grade artefacts and a phased roadmap built on evidence.
+                                </p>
+                                <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg border ${isDayTime ? 'border-orange-500/30 bg-orange-500/10' : 'border-orange-400/30 bg-orange-400/10'}`}>
+                                    <div className={`w-2 h-2 rounded-full animate-pulse ${isDayTime ? 'bg-orange-400' : 'bg-orange-600'}`}/>
+                                    <span className={`text-xs font-semibold ${isDayTime ? 'text-orange-300' : 'text-orange-700'}`}>Evidence-Based Strategy</span>
+                                </div>
+                            </div>
+                        </FxReveal>
+
+                        <FxReveal delay={0.1}>
+                            <div className={`grid grid-cols-2 gap-6 relative`}>
+                                {[
+                                    {value: '50+', label: 'Discovery Projects', icon: '🎯'},
+                                    {value: '8+', label: 'Years Experience', icon: '⭐'},
+                                    {value: '40%', label: 'Faster Delivery', icon: '⚡'},
+                                    {value: '98%', label: 'Stakeholder Alignment', icon: '✓'}
+                                ].map((stat, idx) => (
+                                    <motion.div key={stat.label}
+                                                initial={{opacity: 0, y: 10}}
+                                                whileInView={{opacity: 1, y: 0}}
+                                                viewport={{once: true}}
+                                                transition={{delay: 0.15 + (idx * 0.1), type: 'spring', stiffness: 100}}
+                                                className={`group relative p-6 rounded-xl border backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-default ${isDayTime ? 'border-orange-500/30 bg-slate-900/70 hover:bg-slate-900/90' : 'border-orange-400/30 bg-white/70 hover:bg-white/90'}`}>
+                                        <div className="relative">
+                                            <div className="text-2xl mb-2">{stat.icon}</div>
+                                            <div className={`text-2xl font-bold mb-2 ${isDayTime ? 'text-orange-300' : 'text-orange-600'}`}>{stat.value}</div>
+                                            <p className={`text-sm font-medium ${isDayTime ? 'text-gray-400' : 'text-gray-600'}`}>{stat.label}</p>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </FxReveal>
                     </div>
 
-                    {/* Premium Grid */}
-                    <div className={`relative w-full h-auto grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8 lg:gap-12 mt-8`}>
+                    {/* Benefits Grid - 9 cards with enhanced styling */}
+                    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 mb-8">
                         {[
                             {
-                                id: 'reduced-risk',
-                                icon: isDayTime ? '/assets/disc/icon/risk1.svg' : '/assets/disc/icon/risk.svg',
                                 title: 'Mitigated Delivery Risk',
                                 desc: 'Early technical and market validation exposes failure modes and reduces uncertainty, turning hypotheses into testable assumptions.',
-                                notes: ['Risk register', 'Mitigation roadmap', 'Decision gates']
+                                icon: isDayTime ? '/assets/disc/icon/risk1.svg' : '/assets/disc/icon/risk.svg',
+                                feature: 'Risk Register',
+                                delay: 0.12
                             },
                             {
-                                id: 'cost-savings',
-                                icon: isDayTime ? '/assets/disc/icon/sca1.svg' : '/assets/disc/icon/sca.svg',
                                 title: 'Optimised Cost-to-Market',
                                 desc: 'Targeted scoping and prioritisation reduce wasted engineering effort and shorten time-to-value, improving capital efficiency.',
-                                notes: ['MVP scope', 'Cost scenarios', 'Resource plan']
+                                icon: isDayTime ? '/assets/disc/icon/sca1.svg' : '/assets/disc/icon/sca.svg',
+                                feature: 'MVP Scope',
+                                delay: 0.2
                             },
                             {
-                                id: 'validated-ux',
-                                icon: isDayTime ? '/assets/disc/icon/test1.svg' : '/assets/disc/icon/test.svg',
                                 title: 'Validated User Experience',
                                 desc: 'Mixed-method research and prototype testing ensure product decisions are driven by user evidence—improving adoption and retention.',
-                                notes: ['User journeys', 'Prototype tests', 'Acceptance criteria']
+                                icon: isDayTime ? '/assets/disc/icon/test1.svg' : '/assets/disc/icon/test.svg',
+                                feature: 'User Validation',
+                                delay: 0.28
                             },
                             {
-                                id: 'clear-direction',
-                                icon: isDayTime ? '/assets/disc/icon/att1.svg' : '/assets/disc/icon/att.svg',
                                 title: 'Strategic Roadmapping',
                                 desc: 'A sequenced delivery plan aligns commercial goals with technical feasibility, enabling phased launches that de‑risk investment.',
-                                notes: ['Release roadmap', 'Milestone KPIs', 'Dependency map']
+                                icon: isDayTime ? '/assets/disc/icon/att1.svg' : '/assets/disc/icon/att.svg',
+                                feature: 'Release Roadmap',
+                                delay: 0.36
                             },
                             {
-                                id: 'market-validation',
-                                icon: isDayTime ? '/assets/disc/icon/fast1.svg' : '/assets/disc/icon/fast.svg',
                                 title: 'Market & Competitive Validation',
                                 desc: 'Competitive mapping and demand analysis clarify positioning and reveal differentiated opportunities that scale.',
-                                notes: ['Competitor matrix', 'TAM/SOM workbook', 'Go-to-market brief']
+                                icon: isDayTime ? '/assets/disc/icon/fast1.svg' : '/assets/disc/icon/fast.svg',
+                                feature: 'Market Analysis',
+                                delay: 0.44
                             },
                             {
-                                id: 'accurate-estimation',
-                                icon: isDayTime ? '/assets/disc/icon/test1.svg' : '/assets/disc/icon/test.svg',
                                 title: 'Precise Estimation',
                                 desc: 'Implementation-level estimations with assumptions and risk buffers reduce scope creep and enable predictable delivery.',
-                                notes: ['Estimate pack', 'Assumption log', 'Risk buffers']
+                                icon: isDayTime ? '/assets/disc/icon/test1.svg' : '/assets/disc/icon/test.svg',
+                                feature: 'Estimate Pack',
+                                delay: 0.52
                             },
                             {
-                                id: 'informed-decisions',
-                                icon: isDayTime ? '/assets/disc/icon/cust1.svg' : '/assets/disc/icon/cust.svg',
                                 title: 'Data-Driven Decisions',
                                 desc: 'Synthesis of research and analytics provides executive-ready insights that prioritise product choices with measurable impact.',
-                                notes: ['Research synthesis', 'OKR alignment', 'Hypothesis backlog']
+                                icon: isDayTime ? '/assets/disc/icon/cust1.svg' : '/assets/disc/icon/cust.svg',
+                                feature: 'Research Synthesis',
+                                delay: 0.6
                             },
                             {
-                                id: 'team-alignment',
-                                icon: isDayTime ? '/assets/disc/icon/risk1.svg' : '/assets/disc/icon/risk.svg',
                                 title: 'Cross‑Functional Alignment',
                                 desc: 'Workshops and artefacts align stakeholders, reducing communication overhead and accelerating approvals.',
-                                notes: ['Workshop outputs', 'Roles & responsibilities', 'Decision logs']
+                                icon: isDayTime ? '/assets/disc/icon/risk1.svg' : '/assets/disc/icon/risk.svg',
+                                feature: 'Workshops',
+                                delay: 0.68
                             },
                             {
-                                id: 'stakeholder-confidence',
-                                icon: isDayTime ? '/assets/disc/icon/sca1.svg' : '/assets/disc/icon/sca.svg',
                                 title: 'Investor‑Ready Artefacts',
                                 desc: 'Concise, evidence-backed deliverables that support funding decisions, procurement, and executive buy-in.',
-                                notes: ['Feasibility report', 'Commercial scenarios', 'Executive summary']
+                                icon: isDayTime ? '/assets/disc/icon/sca1.svg' : '/assets/disc/icon/sca.svg',
+                                feature: 'Executive Summary',
+                                delay: 0.76
                             }
-                        ].map((b, i) => (
-                            <FxReveal key={b.id} delay={i * 0.04}>
-                                <FxFrame className={`p-6 rounded-2xl h-full transition-transform duration-300 hover:scale-[1.02] ${isDayTime ? 'bg-gradient-to-br from-black/5 to-black/10 border border-white/8' : 'bg-gradient-to-br from-white/6 to-white/3 border border-white/8'}`}>
-                                    <div className="flex flex-col h-full">
-                                        <div className="flex items-center gap-4 mb-4">
-                                            <div className={`w-14 h-14 rounded-xl flex items-center justify-center ${isDayTime ? 'bg-orange-600/10 border border-orange-400/20' : 'bg-orange-500/10 border border-orange-300/20'}`}>
-                                                <Image src={b.icon} alt={b.title} width={44} height={44} className="object-contain" />
-                                            </div>
-                                            <h3 className={`text-[1.15em] font-[700] ${isDayTime ? 'text-white' : 'text-black'}`}>{b.title}</h3>
+                        ].map((benefit) => (
+                            <FxReveal key={benefit.title} delay={benefit.delay}>
+                                <motion.div className="relative group h-full"
+                                            whileHover={{y: -8}}
+                                            transition={{duration: 0.3}}>
+                                    {/* Multi-layer glow effect */}
+                                    <div
+                                        className={`absolute -inset-2 rounded-xl blur-3xl opacity-25 group-hover:opacity-50 transition duration-700 ${isDayTime ? 'bg-gradient-to-br from-orange-500 to-amber-500' : 'bg-gradient-to-br from-orange-400 to-amber-400'}`}/>
+                                    <div
+                                        className={`absolute -inset-1 rounded-xl blur-xl opacity-0 group-hover:opacity-30 transition duration-300 ${isDayTime ? 'bg-gradient-to-r from-amber-500 to-orange-500' : 'bg-gradient-to-r from-amber-400 to-orange-400'}`}/>
+
+                                    <div className={`relative rounded-xl overflow-hidden border h-full p-8 flex flex-col backdrop-blur-md transition-all duration-300 ${isDayTime ? 'border-orange-500/25 bg-slate-900/85 hover:bg-slate-900/95' : 'border-orange-400/25 bg-white/85 hover:bg-white/95'}`}>
+                                        {/* Top accent line */}
+                                        <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent opacity-0 group-hover:opacity-100 transition duration-300`}/>
+
+                                        {/* Icon container with glow */}
+                                        <div
+                                            className={`w-16 h-16 rounded-lg flex items-center justify-center mb-6 flex-shrink-0 relative ${isDayTime ? 'bg-orange-500/20' : 'bg-orange-400/20'} border ${isDayTime ? 'border-orange-500/40' : 'border-orange-400/40'} group-hover:shadow-lg transition duration-300`}
+                                            style={{boxShadow: '0 0 20px rgba(249,115,22,0.3)'}}>
+                                            <Image src={benefit.icon} alt={benefit.title} width={32} height={32} />
                                         </div>
 
-                                        <p className={`text-[0.92em] font-[300] leading-[1.6] mb-4 flex-grow ${isDayTime ? 'text-gray-300' : 'text-gray-700'}`}>{b.desc}</p>
+                                        {/* Feature badge */}
+                                        <div className={`inline-flex items-center gap-2 mb-4 w-fit px-3 py-1 rounded-full text-xs font-semibold ${isDayTime ? 'bg-orange-500/15 text-orange-300 border border-orange-500/30' : 'bg-orange-400/15 text-orange-700 border border-orange-400/30'}`}>
+                                            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{backgroundColor: isDayTime ? 'rgb(251, 146, 60)' : 'rgb(249, 115, 22)'}}/>
+                                            {benefit.feature}
+                                        </div>
 
-                                        <div className="mt-4 pt-4 border-t border-white/6">
-                                            <div className="flex flex-wrap gap-2">
-                                                {b.notes.map((n, idx) => (
-                                                    <span key={idx} className={`text-[0.72em] px-3 py-1 rounded-full font-[600] uppercase tracking-wide ${isDayTime ? 'bg-orange-500/10 text-orange-300 border border-orange-400/10' : 'bg-orange-400/8 text-orange-700 border border-orange-300/10'}`}>
-                                                        {n}
-                                                    </span>
-                                                ))}
-                                            </div>
+                                        <h3 className={`text-lg font-bold mb-3 ${isDayTime ? 'text-white' : 'text-black'}`}>
+                                            {benefit.title}
+                                        </h3>
+                                        <p className={`text-[0.93em] leading-[1.6] flex-1 ${isDayTime ? 'text-gray-300' : 'text-gray-600'}`}>
+                                            {benefit.desc}
+                                        </p>
+
+                                        {/* Bottom action indicator */}
+                                        <div className={`mt-6 pt-4 border-t flex items-center justify-between ${isDayTime ? 'border-orange-500/10' : 'border-orange-400/10'}`}>
+                                            <span className={`text-xs font-semibold ${isDayTime ? 'text-orange-400/60' : 'text-orange-600/60'}`}>Learn more</span>
+                                            <ArrowRight size={16} className={isDayTime ? 'text-orange-400/60' : 'text-orange-600/60'} />
                                         </div>
                                     </div>
-                                </FxFrame>
+                                </motion.div>
                             </FxReveal>
                         ))}
                     </div>
