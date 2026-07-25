@@ -287,8 +287,9 @@ const UnityDevelopment = () => {
                         ? isDayTime ? 'bg-black text-white' : 'bg-white text-black'
                         : isDayTime ? 'bg-white text-black' : 'bg-black text-white'
                 }`}>
-                <FxBackground day={isDayTime} />
-                <div className='relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'>
+                <FxBackground day={isDayTime}/>
+                <div
+                    className='relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'>
                     <div>
                         <FxChip day={!isBackgroundActive ? !isDayTime : isDayTime}>ENGINEERING-LED EXPERIENCES</FxChip>
                     </div>
@@ -301,12 +302,19 @@ const UnityDevelopment = () => {
                         </FxReveal>
 
                         <FxReveal delay={0.08}>
-                            <div className='grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed'>
+                            <div
+                                className='grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed'>
                                 <div>
-                                    <p>We engineer real-time experiences that balance creative fidelity with production reliability. From rapid prototyping and shader-driven visuals to authoritative multiplayer architectures, our process unites research, iteration, and production-grade engineering to reduce risk and accelerate value.</p>
+                                    <p>We engineer real-time experiences that balance creative fidelity with production
+                                        reliability. From rapid prototyping and shader-driven visuals to authoritative
+                                        multiplayer architectures, our process unites research, iteration, and
+                                        production-grade engineering to reduce risk and accelerate value.</p>
                                 </div>
                                 <div>
-                                    <p>Our delivery model focuses on observable, testable outcomes: latency budgets, deterministic replay for debugging, automated performance pipelines, and XR compatibility. We deliver design systems, tooling, and production workflows that integrate with your engineering lifecycle for seamless handoff and scale.</p>
+                                    <p>Our delivery model focuses on observable, testable outcomes: latency budgets,
+                                        deterministic replay for debugging, automated performance pipelines, and XR
+                                        compatibility. We deliver design systems, tooling, and production workflows that
+                                        integrate with your engineering lifecycle for seamless handoff and scale.</p>
                                     <div className='flex flex-wrap gap-3 mt-4'>
                                         {['Real-time 3D', 'Multiplayer', 'XR-Ready', 'Optimized Rendering', 'CI/CD', 'Observability'].map((p) => (
                                             <span key={p} className='gx-data-pill'>{p}</span>
@@ -317,8 +325,9 @@ const UnityDevelopment = () => {
                         </FxReveal>
 
                         <FxReveal delay={0.16}>
-                            <div className='mt-12 pt-8 border-t border-white/10'>
-                                <h4 className='text-[1.2em] font-[600] tracking-tight mb-6'>Engineering Capabilities</h4>
+                            <div className='mt-12 pt-8 border-t'>
+                                <h4 className='text-[1.2em] font-[600] tracking-tight mb-6'>Engineering
+                                    Capabilities</h4>
                                 <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6'>
                                     {[
                                         {
@@ -334,8 +343,9 @@ const UnityDevelopment = () => {
                                             items: ['CI/CD pipelines', 'Automated Performance Tests', 'Observability & Tracing', 'Runbooks & SLOs']
                                         }
                                     ].map((capability, idx) => (
-                                        <div key={idx} className='p-4 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 transition-colors duration-300'>
-                                            <h5 className='font-[600] text-[0.95em] mb-3 text-white'>{capability.title}</h5>
+                                        <div key={idx}
+                                             className='p-4 rounded-lg border bg-white/5 hover:bg-white/10 transition-colors duration-300'>
+                                            <h5 className='font-[600] text-[0.95em] mb-3'>{capability.title}</h5>
                                             <ul className='space-y-2'>
                                                 {capability.items.map((item, i) => (
                                                     <li key={i} className='text-[0.85em] flex items-start gap-2'>
@@ -351,7 +361,7 @@ const UnityDevelopment = () => {
                         </FxReveal>
 
                         <FxReveal delay={0.24}>
-                            <div className='mt-12 pt-8 border-t border-white/10'>
+                            <div className='mt-12 pt-8 border-t '>
                                 <h4 className='text-[1.2em] font-[600] tracking-tight mb-6'>Impact & Outcomes</h4>
                                 <div className='grid lg:grid-cols-2 grid-cols-1 gap-6'>
                                     {[
@@ -366,9 +376,10 @@ const UnityDevelopment = () => {
                                             description: 'Targeted availability for critical runtime services'
                                         }
                                     ].map((m, i) => (
-                                        <div key={i} className='p-4 rounded-lg border border-white/10 bg-white/5'>
-                                            <div className='text-xs text-slate-300 uppercase tracking-wider font-[600] mb-2'>{m.metric}</div>
-                                            <div className='text-white text-[1.6em] font-[700]'>{m.value}</div>
+                                        <div key={i} className='p-4 rounded-lg border bg-white/5'>
+                                            <div
+                                                className='text-xs text-slate-300 uppercase tracking-wider font-[600] mb-2'>{m.metric}</div>
+                                            <div className='text-[1.6em] font-[700]'>{m.value}</div>
                                             <div className='text-[0.85em] text-slate-400 mt-2'>{m.description}</div>
                                         </div>
                                     ))}
@@ -379,44 +390,104 @@ const UnityDevelopment = () => {
                 </div>
             </section>
 
-            {/* Top Images */}
-            <div id={'top'}
-                 className={'relative lg:max-w-full w-full py-16 mx-auto h-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'}>
-                <div className={'relative grid lg:grid-cols-4 h-auto md:grid-cols-4 grid-cols-1 gap-6'}>
-                    <div className={'h-auto w-full max-w-full'}>
-                        <Image
-                            src={'/assets/unity/1.jpg'}
-                            alt={''}
-                            width={400}
-                            height={400}
-                        />
+            {/* Futuristic showcase */}
+            <section id={'top'} className={'relative lg:max-w-full w-full py-16 mx-auto h-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'}>
+                <div className={'relative grid lg:grid-cols-2 grid-cols-1 gap-6 items-start'}>
+                    {/* Left: KPI / Mini-cards (visible on lg) */}
+                    <div className={'hidden lg:block pr-6'}>
+                        <div className={'rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm'}>
+                            <div className="text-[0.72em] uppercase tracking-[0.28em] text-cyan-300/80">Showcase</div>
+                            <h4 className={'text-[1.6em] font-[600] mt-2 mb-3'}>Realtime scenes • Production-ready</h4>
+                            <p className={'text-sm text-slate-300 mb-4'}>A curated gallery of realtime experiences, lighting & rendering pipelines, and systems engineered for performance and scale.</p>
+
+                            <div className="grid gap-2 sm:grid-cols-2">
+                                {[
+                                    {label: 'Rendering', value: 'Physically-based'},
+                                    {label: 'Networking', value: 'Authoritative'},
+                                    {label: 'Optimization', value: 'LOD & Baking'},
+                                    {label: 'Tooling', value: 'Profiling & CI'}
+                                ].map((item) => (
+                                    <div key={item.label} className="rounded-2xl border border-white/10 bg-white/6 px-4 py-3">
+                                        <div className="text-[0.58em] uppercase tracking-[0.3em] text-teal-300/80">{item.label}</div>
+                                        <div className="mt-1 text-[1.05em] font-[600] text-white">{item.value}</div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-3">
+                                    <div className="text-[0.72em] uppercase tracking-[0.28em] text-teal-300">Realtime 3D</div>
+                                    <div className="mt-2 text-sm text-white/80">Interactive scenes & shader-driven visuals.</div>
+                                </div>
+                                <div className="rounded-2xl border border-teal-400/10 bg-white/[0.03] p-3">
+                                    <div className="text-[0.72em] uppercase tracking-[0.28em] text-teal-300">Multiplayer</div>
+                                    <div className="mt-2 text-sm text-white/80">Authoritative servers & deterministic sync.</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <Image
-                            src={'/assets/unity/2.jpg'}
-                            alt={''}
-                            width={400}
-                            height={400}
-                        />
-                    </div>
-                    <div>
-                        <Image
-                            src={'/assets/unity/3.jpg'}
-                            alt={''}
-                            width={400}
-                            height={400}
-                        />
-                    </div>
-                    <div>
-                        <Image
-                            src={'/assets/unity/4.jpg'}
-                            alt={''}
-                            width={400}
-                            height={400}
-                        />
+
+                    {/* Right: Gallery */}
+                    <div className={'relative z-10 mt-8 grid gap-4 lg:grid-cols-[1.35fr_0.9fr]'}>
+                        <div className={'group relative overflow-hidden rounded-[1.6rem] border border-white/10 h-[320px] sm:h-[420px] lg:h-[540px]'}>
+                            <Image
+                                src={'/assets/unity/1.jpg'}
+                                alt={'Unity architecture showcase'}
+                                fill
+                                className={'object-cover transition-transform duration-700 group-hover:scale-105'}
+                            />
+                            <div className={'absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(2,6,23,0.2)_40%,rgba(2,6,23,0.88)_100%)]'} />
+                            <div className="absolute inset-0 border border-white/10"/>
+                            <div className="absolute left-4 top-4 rounded-full border border-teal-400/30 bg-black/30 px-3 py-1 text-[0.62em] uppercase tracking-[0.3em] text-teal-300">01 / Realtime</div>
+                            <div className="absolute bottom-4 left-4 right-4">
+                                <p className="text-[0.62em] uppercase tracking-[0.3em] text-teal-300 font-[600]">Realtime Rendering</p>
+                                <p className="mt-2 max-w-xl text-sm sm:text-base text-white/90">High-fidelity realtime scenes with scalable lighting and shader systems.</p>
+                            </div>
+                        </div>
+
+                        <div className="grid gap-4">
+                            <div className="group relative overflow-hidden rounded-[1.35rem] border border-white/10 h-[250px] sm:h-[260px] lg:h-[260px]">
+                                <Image
+                                    src={'/assets/unity/2.jpg'}
+                                    alt={'Unity UI detail showcase'}
+                                    fill
+                                    className={'object-cover transition-transform duration-700 group-hover:scale-105'}
+                                />
+                                <div className={'absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(2,6,23,0.16)_55%,rgba(2,6,23,0.78)_100%)]'} />
+                                <div className={'absolute inset-0 border border-white/10'} />
+                                <div className={'absolute left-3 top-3 rounded-full border border-white/15 bg-black/20 px-2.5 py-1 text-[0.56em] uppercase tracking-[0.28em] text-teal-200'}>02 / UI</div>
+                            </div>
+
+                            <div className={'group relative overflow-hidden rounded-[1.35rem] border border-white/10 h-[250px] sm:h-[260px] lg:h-[260px]'}>
+                                <Image
+                                    src={'/assets/unity/3.jpg'}
+                                    alt={'Unity workflow showcase'}
+                                    fill
+                                    className={'object-cover transition-transform duration-700 group-hover:scale-105'}
+                                />
+                                <div className={'absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(2,6,23,0.16)_55%,rgba(2,6,23,0.78)_100%)]'} />
+                                <div className={'absolute inset-0 border border-white/10'} />
+                                <div className={'absolute left-3 top-3 rounded-full border border-white/15 bg-black/20 px-2.5 py-1 text-[0.56em] uppercase tracking-[0.28em] text-teal-200'}>03 / Workflow</div>
+                            </div>
+                        </div>
+
+                        <div className={'group relative overflow-hidden rounded-[1.6rem] border border-white/10 h-[240px] sm:h-[260px] lg:h-[260px] lg:col-span-2'}>
+                            <Image
+                                src={'/assets/unity/4.jpg'}
+                                alt={'Unity product experience showcase'}
+                                fill
+                                className={'object-cover transition-transform duration-700 group-hover:scale-105'}
+                            />
+                            <div className={'absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(2,6,23,0.1)_35%,rgba(2,6,23,0.82)_100%)]'} />
+                            <div className={'absolute inset-0 border border-white/10'} />
+                            <div className={'absolute left-3 top-3 rounded-full border border-teal-400/30 bg-black/30 px-2.5 py-1 text-[0.56em] uppercase tracking-[0.28em] text-teal-300'}>04 / Experience</div>
+                            <div className={'absolute bottom-4 left-4 right-4'}>
+                                <p className={'text-white/90 text-sm sm:text-base'}>Premium, optimized product experiences built for production deployment.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
             {/* Unity Development Solutions */}
             <div className={`lg:-mt-[3em] md:-mt-[3em] lg:pt-[2em]  ${isDayTime ? 'bg-gray-50' : 'bg-gray-950'}`}>
