@@ -105,6 +105,9 @@ const DiscoveryPhase = () => {
 
     const stagesRef = useRef<HTMLDivElement>(null);
     const [stageActiveId, setStageActiveId] = useState<string>("Initial Meeting");
+    const [isStagesFixed, setIsStagesFixed] = useState(false);
+    const [isStagesPast, setIsStagesPast] = useState(false);
+    const [stagesSectionBottom, setStagesSectionBottom] = useState(0);
 
     // Scroll tracking for process stages - updates when section is in viewport
     useEffect(() => {
@@ -120,6 +123,16 @@ const DiscoveryPhase = () => {
                         break;
                     }
                 }
+            }
+
+            // Track if stages section is in viewport
+            if (stagesRef.current) {
+                const rect = stagesRef.current.getBoundingClientRect();
+                const within = rect.top <= 0 && rect.bottom >= window.innerHeight;
+                const past = rect.bottom < window.innerHeight;
+                setIsStagesFixed(within);
+                setIsStagesPast(past);
+                setStagesSectionBottom(stagesRef.current.offsetTop + stagesRef.current.offsetHeight);
             }
         };
 
@@ -1057,8 +1070,8 @@ const DiscoveryPhase = () => {
                     <div className="hidden lg:block" style={{height: `${imageIds.length * 520}px`}}>
                         <div 
                             style={{
-                                position: 'fixed',
-                                top: 0,
+                                position: isStagesPast ? 'absolute' : isStagesFixed ? 'fixed' : 'absolute',
+                                top: isStagesPast ? stagesSectionBottom - window.innerHeight : 0,
                                 right: 0,
                                 width: '50%',
                                 height: '100vh',
