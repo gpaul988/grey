@@ -12,7 +12,7 @@ import {useIsDayTime} from '../../components/useIsDayTime';
 
 import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
 
-import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxStickyScrollSection } from '@/components/futuristic/fx';
+import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxFrame, FxStickyScrollSection } from '@/components/futuristic/fx';
 
 const DiscoveryPhase = () => {
     const [isVisible, setIsVisible] = useState(false);
