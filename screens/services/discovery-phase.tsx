@@ -128,13 +128,6 @@ const DiscoveryPhase = () => {
         return () => window.removeEventListener("scroll", handleStagesScroll);
     }, []);
 
-    useEffect(() => {
-        window.addEventListener("scroll", handleScrollStages);
-        return () => {
-            window.removeEventListener("scroll", handleScrollStages);
-        };
-    }, []);
-
     // Sticky menu hook
     useEffect(() => {
         const handleScroll = () => {
