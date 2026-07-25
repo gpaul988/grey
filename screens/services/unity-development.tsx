@@ -10,7 +10,7 @@ import {useIsDayTime} from '../../components/useIsDayTime';
 
 import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
 
-import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
+import {FxBackground, FxChip, FxReveal, FxButton, FxHoloCard} from '@/components/futuristic/fx';
 // Reasons
 const reasons = [
     {
@@ -71,7 +71,8 @@ const reasons = [
     },
 ];
 
-const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(false);
+const UnityDevelopment = () => {
+    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
@@ -89,7 +90,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
     }, []);
 
     // isDaytime react hook
-   const isDayTime = useIsDayTime();
+    const isDayTime = useIsDayTime();
 
     // Introductory section hook
     useEffect(() => {
@@ -177,7 +178,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                     className="hidden lg:block absolute inset-0 w-full h-full object-cover"
                     poster="/assets/unity/hero.jpg"
                 >
-                    <source src="/assets/unity/hero.mp4" type="video/mp4" />
+                    <source src="/assets/unity/hero.mp4" type="video/mp4"/>
                 </video>
 
                 <Image
@@ -190,18 +191,20 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
 
                 {/* Grid & FX Background */}
                 <div className="pointer-events-none absolute inset-0 z-[1]">
-                    <FxBackground day={!isDayTime} grid={true} aurora={true} />
+                    <FxBackground day={!isDayTime} grid={true} aurora={true}/>
                 </div>
 
                 {/* Gradient Overlay with glow */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/60 to-black/40 z-[2]" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(249,115,22,0.12),transparent_40%)] z-[2]" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/60 to-black/40 z-[2]"/>
+                <div
+                    className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(249,115,22,0.12),transparent_40%)] z-[2]"/>
 
                 {/* Futuristic FX Elements */}
                 <div className="pointer-events-none absolute inset-0 z-[3]">
-                    <div className="gx-scanline" />
-                    <div className="gx-noise-overlay" />
-                    <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .12 }} />
+                    <div className="gx-scanline"/>
+                    <div className="gx-noise-overlay"/>
+                    <div className="gx-orbit absolute"
+                         style={{width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .12}}/>
                 </div>
 
                 {/* Content Container */}
@@ -210,34 +213,44 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                         {/* Left: Headline + CTA */}
                         <div>
                             <div className="flex items-center gap-3 mb-6 lg:mb-8">
-                                <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse" />
-                                <span className="text-teal-400 text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">Unity Development</span>
+                                <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse"/>
+                                <span
+                                    className="text-teal-400 text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">Unity Development</span>
                             </div>
 
                             <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
-                                Build Immersive, <span className="gx-gradient-text">Real-Time Experiences</span> with Unity
+                                Build Immersive, <span className="gx-gradient-text">Real-Time Experiences</span> with
+                                Unity
                             </h1>
 
                             <p className="text-white/70 text-[0.9em] lg:text-[1.05em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
-                                From high-performance multiplayer systems to photoreal visuals and XR experiences — Grey InfoTech
-                                engineers deliver robust, scalable Unity projects designed for long-term success and measurable impact.
+                                From high-performance multiplayer systems to photoreal visuals and XR experiences — Grey
+                                InfoTech
+                                engineers deliver robust, scalable Unity projects designed for long-term success and
+                                measurable impact.
                             </p>
 
                             <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
                                 {['Real-time 3D', 'XR & AR/VR', 'Multiplayer', 'Optimised Rendering', 'Tooling & CI'].map((badge) => (
-                                    <span key={badge} className="px-3 py-1.5 rounded-full bg-teal-400/10 border border-teal-400/30 text-teal-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">{badge}</span>
+                                    <span key={badge}
+                                          className="px-3 py-1.5 rounded-full bg-teal-400/10 border border-teal-400/30 text-teal-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">{badge}</span>
                                 ))}
                             </div>
 
                             <div className="flex flex-wrap gap-4 items-center">
                                 <Link href="/contact">
-                                    <button className="relative px-8 py-3 rounded-full text-[0.9em] lg:text-[0.95em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap" style={{ background: '#06b6d4', color: '#000' }}>
-                                        <span className="absolute inset-0" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)' }} />
+                                    <button
+                                        className="relative px-8 py-3 rounded-full text-[0.9em] lg:text-[0.95em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap"
+                                        style={{background: '#06b6d4', color: '#000'}}>
+                                        <span className="absolute inset-0"
+                                              style={{background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)'}}/>
                                         <span className="relative">Start a project →</span>
                                     </button>
                                 </Link>
                                 <Link href="/portfolio">
-                                    <button className="px-8 py-3 rounded-full text-[0.9em] lg:text-[0.95em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap" style={{ border: `1px solid rgba(255,255,255,0.15)` }}>
+                                    <button
+                                        className="px-8 py-3 rounded-full text-[0.9em] lg:text-[0.95em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap"
+                                        style={{border: `1px solid rgba(255,255,255,0.15)`}}>
                                         View Case Studies
                                     </button>
                                 </Link>
@@ -247,7 +260,13 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                         {/* Right Column - Impact Stats */}
                         <div className="hidden lg:flex flex-col items-end">
                             <div className="grid grid-cols-2 gap-6 w-full">
-                                {[{ label: 'Projects', value: '10+' }, { label: 'XR Experiences', value: '8+' }, { label: 'Multiplayer Systems', value: '2+' }, { label: 'Optimisations', value: '100s' }].map((s, i) => (
+                                {[{label: 'Projects', value: '10+'}, {
+                                    label: 'XR Experiences',
+                                    value: '8+'
+                                }, {label: 'Multiplayer Systems', value: '2+'}, {
+                                    label: 'Optimisations',
+                                    value: '100s'
+                                }].map((s, i) => (
                                     <div key={i} className="bg-white/6 rounded-lg p-4 w-56">
                                         <div className="text-xs text-slate-300">{s.label}</div>
                                         <div className="text-2xl font-bold mt-1">{s.value}</div>
@@ -259,73 +278,103 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                 </div>
             </section>
 
-            {/* Introductory section — Futuristic style */}
-            <section ref={sectionRef}
-                     className={`py-16 transition-colors duration-500 ${isBackgroundActive ? (isDayTime ? 'bg-black text-white' : 'bg-white text-black') : (isDayTime ? 'bg-white text-black' : 'bg-black text-white')}`}>
-                <div className="relative max-w-[95em] mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] py-8">
-                    <div className="grid lg:grid-cols-2 grid-cols-1 gap-10 items-start">
-                        {/* Left: Intro narrative similar to Web-Design */}
-                        <div>
-                            <FxReveal>
-                                <div className="inline-flex items-center gap-3 mb-4">
-                                    <FxChip day={isDayTime}>UNITY CAPABILITIES</FxChip>
-                                    <div className="flex-1 h-px bg-white/10" />
-                                    <span className="font-mono text-[0.68em] tracking-widest text-white/25">Production-grade</span>
+            {/* Introductory section — ERP-styled (from UI/UX) */}
+            <section
+                ref={sectionRef}
+                data-bg={isBackgroundActive ? (isDayTime ? 'Dark' : 'Light') : (isDayTime ? 'Light' : 'Dark')}
+                className={`pt-16 transition-colors duration-500 ${
+                    isBackgroundActive
+                        ? isDayTime ? 'bg-black text-white' : 'bg-white text-black'
+                        : isDayTime ? 'bg-white text-black' : 'bg-black text-white'
+                }`}>
+                <FxBackground day={isDayTime} />
+                <div className='relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'>
+                    <div>
+                        <FxChip day={!isBackgroundActive ? !isDayTime : isDayTime}>ENGINEERING-LED EXPERIENCES</FxChip>
+                    </div>
+
+                    <div className='lg:-ml-[19em]'>
+                        <FxReveal>
+                            <h3 className='lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4'>
+                                Real-time Systems & <span className='gx-gradient-text'>Immersive Interactions</span>
+                            </h3>
+                        </FxReveal>
+
+                        <FxReveal delay={0.08}>
+                            <div className='grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed'>
+                                <div>
+                                    <p>We engineer real-time experiences that balance creative fidelity with production reliability. From rapid prototyping and shader-driven visuals to authoritative multiplayer architectures, our process unites research, iteration, and production-grade engineering to reduce risk and accelerate value.</p>
                                 </div>
-
-                                <h2 className="text-[2.4em] sm:text-[3.2em] font-[700] leading-tight mb-4">Real-time 3D Engineering — Scalable, performant, immersive</h2>
-                                <p className="text-[0.96em] text-slate-400 leading-[1.75] mb-6">Grey InfoTech blends creative craftsmanship with engineering rigour to build Unity experiences that scale from prototypes to production. Our discovery-first approach ensures we validate core interactions early, iterate with real users, and architect systems with observability and performance baked in.</p>
-
-                                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div className="flex items-start gap-3">
-                                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-400 to-red-400 flex items-center justify-center text-black font-bold">⚙️</div>
-                                        <div>
-                                            <div className="text-sm font-semibold">Engineering for scale</div>
-                                            <div className="text-xs text-slate-400">Latency budgets, observability, and resilient architectures.</div>
-                                        </div>
+                                <div>
+                                    <p>Our delivery model focuses on observable, testable outcomes: latency budgets, deterministic replay for debugging, automated performance pipelines, and XR compatibility. We deliver design systems, tooling, and production workflows that integrate with your engineering lifecycle for seamless handoff and scale.</p>
+                                    <div className='flex flex-wrap gap-3 mt-4'>
+                                        {['Real-time 3D', 'Multiplayer', 'XR-Ready', 'Optimized Rendering', 'CI/CD', 'Observability'].map((p) => (
+                                            <span key={p} className='gx-data-pill'>{p}</span>
+                                        ))}
                                     </div>
-
-                                    <div className="flex items-start gap-3">
-                                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-300 to-blue-400 flex items-center justify-center text-black font-bold">🎮</div>
-                                        <div>
-                                            <div className="text-sm font-semibold">Player-first design</div>
-                                            <div className="text-xs text-slate-400">Human-centred UX, performant interactions, and retention funnels.</div>
-                                        </div>
-                                    </div>
                                 </div>
+                            </div>
+                        </FxReveal>
 
-                                <div className="mt-8 flex items-center gap-4">
-                                    <Link href="/contact" className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white px-5 py-3 font-semibold shadow-lg hover:scale-[1.02] transition-transform">Start discovery</Link>
-                                    <Link href="/company" className="inline-flex items-center justify-center rounded-xl border border-white/10 text-sm text-slate-400 px-4 py-2">Our approach</Link>
-                                </div>
-                            </FxReveal>
-                        </div>
-
-                        {/* Right: Visual showcase and micro-cards */}
-                        <div className="relative flex items-center justify-center">
-                            <div className="relative w-full max-w-2xl">
-                                <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/6 bg-gradient-to-b from-black/8 to-black/2 transition-transform duration-700">
-                                    <Image src={'/assets/unity/1.jpg'} alt={'Unity showcase'} width={1400} height={900} className="w-full h-auto object-cover" />
-                                    <div className="absolute top-4 left-4 px-3 py-2 rounded-md bg-black/30 backdrop-blur-sm text-xs text-white/90">Realtime rendering • XR-ready</div>
-                                </div>
-
-                                <div className="absolute -bottom-16 left-6 flex flex-col gap-3">
-                                    {[{title: 'Realtime 3D', sub: 'Interactive scenes & shaders'}, {title: 'Multiplayer', sub: 'Authoritative servers & sync'}].map((c, i) => (
-                                        <div key={i} className="w-64 bg-white/6 backdrop-blur-sm border border-white/6 rounded-2xl px-4 py-3 shadow-lg transition-transform duration-500 hover:-translate-y-2">
-                                            <div className="flex items-start gap-3">
-                                                <div className="flex-none w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-red-400 flex items-center justify-center text-black font-semibold">{i===0? '3D' : 'MP'}</div>
-                                                <div>
-                                                    <div className="text-xs text-slate-300">{c.title}</div>
-                                                    <div className="mt-1 text-sm font-medium text-white/90">{c.sub}</div>
-                                                </div>
-                                            </div>
+                        <FxReveal delay={0.16}>
+                            <div className='mt-12 pt-8 border-t border-white/10'>
+                                <h4 className='text-[1.2em] font-[600] tracking-tight mb-6'>Engineering Capabilities</h4>
+                                <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6'>
+                                    {[
+                                        {
+                                            title: 'Core Engine & Systems',
+                                            items: ['Performance Profiling', 'Deterministic Networking', 'Server Authoritative Architecture', 'Optimization & LOD Systems']
+                                        },
+                                        {
+                                            title: 'Visual & Interaction Systems',
+                                            items: ['Advanced Shader Pipelines', 'XR Interactions', 'Cinematic Rendering', 'Tooling & Debugging UIs']
+                                        },
+                                        {
+                                            title: 'DevOps & Reliability',
+                                            items: ['CI/CD pipelines', 'Automated Performance Tests', 'Observability & Tracing', 'Runbooks & SLOs']
+                                        }
+                                    ].map((capability, idx) => (
+                                        <div key={idx} className='p-4 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 transition-colors duration-300'>
+                                            <h5 className='font-[600] text-[0.95em] mb-3 text-white'>{capability.title}</h5>
+                                            <ul className='space-y-2'>
+                                                {capability.items.map((item, i) => (
+                                                    <li key={i} className='text-[0.85em] flex items-start gap-2'>
+                                                        <span className='text-cyan-400 font-bold mt-0.5'>•</span>
+                                                        <span>{item}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
                                         </div>
                                     ))}
                                 </div>
-
-                                <div aria-hidden className="hidden lg:block absolute -right-8 top-8 w-2 h-56 rounded-full bg-gradient-to-b from-orange-500 to-pink-500 opacity-90 shadow-sm" />
                             </div>
-                        </div>
+                        </FxReveal>
+
+                        <FxReveal delay={0.24}>
+                            <div className='mt-12 pt-8 border-t border-white/10'>
+                                <h4 className='text-[1.2em] font-[600] tracking-tight mb-6'>Impact & Outcomes</h4>
+                                <div className='grid lg:grid-cols-2 grid-cols-1 gap-6'>
+                                    {[
+                                        {
+                                            metric: 'Prototype Velocity',
+                                            value: '1–3 weeks',
+                                            description: 'Time from discovery to validated prototype'
+                                        },
+                                        {
+                                            metric: 'Average Uptime',
+                                            value: '99.95%',
+                                            description: 'Targeted availability for critical runtime services'
+                                        }
+                                    ].map((m, i) => (
+                                        <div key={i} className='p-4 rounded-lg border border-white/10 bg-white/5'>
+                                            <div className='text-xs text-slate-300 uppercase tracking-wider font-[600] mb-2'>{m.metric}</div>
+                                            <div className='text-white text-[1.6em] font-[700]'>{m.value}</div>
+                                            <div className='text-[0.85em] text-slate-400 mt-2'>{m.description}</div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </FxReveal>
                     </div>
                 </div>
             </section>
@@ -384,7 +433,8 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                         <div className='lg:-ml-[8em]'>
                             <p className='text-[0.85em] font-[400] lg:-mt-[0.2em] rounded-none leading-[1.5]'>
                                 At Grey InfoTech, we use Unity to build immersive, cross-platform applications and games
-                                that support real business goals -from user engagement to training, marketing, or product
+                                that support real business goals -from user engagement to training, marketing, or
+                                product
                                 innovation. With advanced graphics, real-time rendering, and rapid prototyping, we help
                                 you bring ideas to life quickly and effectively.
                                 <br/><br/>
@@ -484,7 +534,8 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                                     <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
                                         Discover the full potential of 3D Unity game development with Grey InfoTech,
                                         where creativity meets cutting-edge technology. We specialise in building
-                                        immersive, visually compelling experiences that span a wide range of genres -from
+                                        immersive, visually compelling experiences that span a wide range of genres
+                                        -from
                                         action-packed RPGs and simulations to expansive open-world adventures. Our
                                         development process is driven by a clear understanding of your audience and
                                         business goals, ensuring the final product not only looks impressive but
@@ -495,7 +546,8 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                                         interactive media, or seeking to strengthen customer engagement through
                                         gamification, our Unity-based 3D solutions are fully scalable and optimised for
                                         mobile, PC, VR, and console platforms. At Grey InfoTech, we don’t just build
-                                        games -we help you create market-ready products that stand out and drive results.
+                                        games -we help you create market-ready products that stand out and drive
+                                        results.
                                     </p>
                                 </div>
                                 <div
@@ -557,7 +609,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                                         audience. At Grey InfoTech, we specialize in creating Unity-powered web games
                                         that run seamlessly across all devices and browsers, ensuring maximum reach and
                                         user accessibility. Our expertise goes beyond just building captivating gameplay
-                                         - we integrate advanced monetization strategies and comprehensive analytics
+                                        - we integrate advanced monetization strategies and comprehensive analytics
                                         tools, empowering you to monitor game performance, understand user behavior, and
                                         optimize revenue streams effectively. Whether your goal is to develop addictive
                                         puzzle games, realistic simulations, or rich narrative-driven experiences, we
@@ -694,7 +746,7 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                                         creates a powerful emotional connection between the player and the experience,
                                         leading to increased engagement, longer play sessions, and stronger brand
                                         loyalty. At Grey InfoTech, we specialize in designing Unity-based games that
-                                        prioritize immersion at every level  - from cutting-edge visuals and realistic
+                                        prioritize immersion at every level - from cutting-edge visuals and realistic
                                         physics to dynamic sound design and intuitive controls. Our team carefully
                                         crafts every element to ensure the gameplay feels natural, responsive, and
                                         emotionally resonant. By focusing on these aspects, we deliver unforgettable
@@ -930,7 +982,8 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
                             to help you break into new markets, captivate users, and build lasting digital experiences
                             across mobile, console, and web platforms. With Unity’s powerful engine and flexible
                             toolset, we accelerate time-to-market while ensuring high performance and visual fidelity.
-                            As your strategic development partner, we’re invested in your success -helping you unlock new
+                            As your strategic development partner, we’re invested in your success -helping you unlock
+                            new
                             business opportunities, outpace the competition, and shape the future of interactive media.
                         </p>
                     </div>
