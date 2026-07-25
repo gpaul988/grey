@@ -165,28 +165,99 @@ const UnityDevelopment = () => {    const [isVisible, setIsVisible] = useState(f
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
 
-            {/* Hero Section */}
-            <div id={'hero'}
-                 className={`relative max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]`}>
-                {/*  -  -  -  Futuristic FX overlay (hero enhancement)  -  -  -  */}
-                <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
+            {/* Unified Unity Hero — Background Video/Image with Futuristic Overlay */}
+            <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
+                {/* Video Background (desktop) and Image fallback (mobile) */}
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    className="hidden lg:block absolute inset-0 w-full h-full object-cover"
+                    poster="/assets/unity/hero.jpg"
+                >
+                    <source src="/assets/unity/hero.mp4" type="video/mp4" />
+                </video>
+
+                <Image
+                    src="/assets/unity/hero.jpg"
+                    alt="Unity Hero"
+                    fill
+                    priority
+                    className="lg:hidden object-cover"
+                />
+
+                {/* Grid & FX Background */}
+                <div className="pointer-events-none absolute inset-0 z-[1]">
+                    <FxBackground day={!isDayTime} grid={true} aurora={true} />
+                </div>
+
+                {/* Gradient Overlay with glow */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/60 to-black/40 z-[2]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(249,115,22,0.12),transparent_40%)] z-[2]" />
+
+                {/* Futuristic FX Elements */}
+                <div className="pointer-events-none absolute inset-0 z-[3]">
                     <div className="gx-scanline" />
                     <div className="gx-noise-overlay" />
-                    <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .15 }} />
+                    <div className="gx-orbit absolute" style={{ width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .12 }} />
                 </div>
-                <h1
-                    className={`border-b pb-[0.5em] border-gray-500/50 px-0 gx-hero-title constant-text lg:text-[5em] md:text-[3em] sm:text-[2em] text-[2.5em] lg:mt-[3em] md:mt-[3em] mt-[1.5em] leading-[1.1] font-[800] ${
-                        isDayTime ? 'text-black' : 'text-white'
-                    }`}>
-                    Unity <br className={'lg:block md:block hidden'}/> Development Company
-                </h1>
-                <p className={'lg:mt-[4em] mt-[1.5em] text-[0.87em] font-[300]'}>
-                    Our deep expertise in Unity technologies allows us to fully leverage its capabilities to deliver
-                    scalable, high-quality solutions that align with our <br
-                    className={'lg:block md:block hidden'}/>clients&#39; business goals.
-                </p>
-                <ResponsiveVideoHero videoDesktop="/assets/unity/hero.mp4" videoMobile="/assets/unity/hero-mobile.mp4" posterImage="/assets/unity/hero.jpg" />
-            </div>
+
+                {/* Content Container */}
+                <div className="absolute inset-0 flex items-center top-24 z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+                    <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        {/* Left: Headline + CTA */}
+                        <div>
+                            <div className="flex items-center gap-3 mb-6 lg:mb-8">
+                                <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse" />
+                                <span className="text-teal-400 text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">Unity Development</span>
+                            </div>
+
+                            <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
+                                Build Immersive, <span className="gx-gradient-text">Real-Time Experiences</span> with Unity
+                            </h1>
+
+                            <p className="text-white/70 text-[0.9em] lg:text-[1.05em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
+                                From high-performance multiplayer systems to photoreal visuals and XR experiences — Grey InfoTech
+                                engineers deliver robust, scalable Unity projects designed for long-term success and measurable impact.
+                            </p>
+
+                            <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
+                                {['Real-time 3D', 'XR & AR/VR', 'Multiplayer', 'Optimised Rendering', 'Tooling & CI'].map((badge) => (
+                                    <span key={badge} className="px-3 py-1.5 rounded-full bg-teal-400/10 border border-teal-400/30 text-teal-300 text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider">{badge}</span>
+                                ))}
+                            </div>
+
+                            <div className="flex flex-wrap gap-4 items-center">
+                                <Link href="/contact">
+                                    <button className="relative px-8 py-3 rounded-full text-[0.9em] lg:text-[0.95em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap" style={{ background: '#06b6d4', color: '#000' }}>
+                                        <span className="absolute inset-0" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)' }} />
+                                        <span className="relative">Start a project →</span>
+                                    </button>
+                                </Link>
+                                <Link href="/portfolio">
+                                    <button className="px-8 py-3 rounded-full text-[0.9em] lg:text-[0.95em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap" style={{ border: `1px solid rgba(255,255,255,0.15)` }}>
+                                        View Case Studies
+                                    </button>
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* Right Column - Impact Stats */}
+                        <div className="hidden lg:flex flex-col items-end">
+                            <div className="grid grid-cols-2 gap-6 w-full">
+                                {[{ label: 'Projects', value: '40+' }, { label: 'XR Experiences', value: '12+' }, { label: 'Multiplayer Systems', value: '8+' }, { label: 'Optimisations', value: '100s' }].map((s, i) => (
+                                    <div key={i} className="bg-white/6 rounded-lg p-4 w-56">
+                                        <div className="text-xs text-slate-300">{s.label}</div>
+                                        <div className="text-2xl font-bold mt-1">{s.value}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             {/* Introductory section */}
             <section ref={sectionRef}
