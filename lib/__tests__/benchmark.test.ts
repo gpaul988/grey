@@ -158,8 +158,8 @@ describe('Performance Benchmarking (Phase 6.9)', () => {
     });
 
     it('should indicate performance improvement', async () => {
-      const slow = { latency: { mean: 100 } } as any;
-      const fast = { latency: { mean: 50 } } as any;
+      const slow = { latency: { mean: 100 } } as unknown;
+      const fast = { latency: { mean: 50 } } as unknown;
 
       const result = compareBenchmarks(slow, fast);
       expect(result.improvement).toBeGreaterThan(0);
@@ -167,8 +167,8 @@ describe('Performance Benchmarking (Phase 6.9)', () => {
     });
 
     it('should indicate performance regression', async () => {
-      const fast = { latency: { mean: 50 } } as any;
-      const slow = { latency: { mean: 100 } } as any;
+      const fast = { latency: { mean: 50 } } as unknown;
+      const slow = { latency: { mean: 100 } } as unknown;
 
       const result = compareBenchmarks(fast, slow);
       expect(result.improvement).toBeLessThan(0);

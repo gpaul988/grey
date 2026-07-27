@@ -8,10 +8,11 @@ import {useIsDayTime} from '../../components/useIsDayTime';
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 
 import FuturisticIndustryLayout from '@/components/futuristic/FuturisticIndustryLayout';
-import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
+import {FxBackground, FxChip, FxReveal, FxButton, FxHoloCard} from '@/components/futuristic/fx';
+
 const ECommerceDevelopment = () => {
 
-const [isVisible, setIsVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const [isBackgroundActive, setIsBackgroundActive] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
@@ -29,6 +30,9 @@ const [isVisible, setIsVisible] = useState(false);
 
     // isDaytime react hook
     const isDayTime = useIsDayTime();
+
+    const pageAccent = '#ff005d';
+    const pageAccentRgb = '255,0,93';
 
     // Introductory section hook
     useEffect(() => {
@@ -87,122 +91,206 @@ const [isVisible, setIsVisible] = useState(false);
     };
 
     return (
-        <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
+        <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}
+             style={{['--ecom-accent' as any]: pageAccent, ['--ecom-accent-rgb' as any]: pageAccentRgb}}>
 
-            {/* Hero Section */}
-            <div id={'hero'}
-                 className={"relative overflow-hidden lg:w-full lg:h-[720px] justify-center items-center md:w-full md:h-[700] w-full h-[700] pb-6"}>
-                {/*  -  -  -  Futuristic FX overlay (hero enhancement)  -  -  -  */}
-                <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
-                    <div className="gx-scanline" />
-                    <div className="gx-noise-overlay" />
-                    <div className="gx-orbit absolute" style={{ width: '65vmax', height: '65vmax', top: '-22vmax', right: '-22vmax', opacity: .15 }} />
-                </div>
+            {/* Unified Futuristic eCommerce Hero - Background Image/Video with overlay */}
+            <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
+                {/* Video/Image Background */}
                 <ResponsiveVideoHero
                     videoFallback="/assets/ecom/hero.mp4"
-                    posterImage="/images/default-poster.jpg"
+                    posterImage="/assets/ecom/hero.jpg"
                 />
+
+                {/* Grid & FX Background */}
+                <div className="pointer-events-none absolute inset-0 z-[1]">
+                    <FxBackground day={false} grid={true} aurora={true}/>
+                </div>
+
+                {/* Gradient Overlay with Glow */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50 z-[2]"/>
                 <div
-                    className={`absolute top-0 left-0 w-full h-full flex flex-col justify-center items-start text-start lg:max-w-[90em] px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] ${
-                        isDayTime ? 'text-white' : 'text-white'}`}>
-                    <div
-                        className="flex flex-col justify-start items-start border-b pb-[0.3em] border-gray-500/50 max-w-full w-full mx-auto ">
-                        <h1
-                            className={`px-0 constant-text lg:text-[5.35em] md:text-[4.4em] sm:text-[3.5em] text-[2em] lg:mt-[3em] md:mt-[3em] mt-[4em] w-auto h-auto leading-[1.1] font-[600]`}>
-                            eCommerce Website <br className={'lg:block md:block hidden'}/>Design Agency
-                        </h1>
-                    </div>
-                    <div
-                        className={'relative grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 lg:mt-[1em] md:mt-[1em] mt-[0.5em] '}>
-                        <div className={'lg:-mr-[4em] md:-mr-[1em] lg:mt-[1em] md:mt-[1em]'}>
-                            <p className={'text-[0.87em] font-[300]'}>
-                                Shopify, Magento, Big Cartel, WooCommerce -whatever your ecommerce platform, we&#39;ve
-                                got
-                                the expertise to support and scale your online store.
+                    className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(var(--ecom-accent-rgb),0.12),transparent_50%)] z-[2]"/>
+
+                {/* Futuristic FX Elements */}
+                <div className="pointer-events-none absolute inset-0 z-[3]">
+                    <div className="gx-scanline"/>
+                    <div className="gx-noise-overlay"/>
+                    <div className="gx-orbit absolute"
+                         style={{width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .12}}/>
+                </div>
+
+                {/* Content Container */}
+                <div className="absolute inset-0 flex items-center top-32 z-[11] px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
+                    <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        <div>
+                            <div className="flex items-center gap-3 mb-6 lg:mb-8">
+                                <div className="w-2.5 h-2.5 rounded-full animate-pulse"
+                                     style={{background: 'var(--ecom-accent)'}}/>
+                                <span className="text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]"
+                                      style={{color: 'var(--ecom-accent)'}}>eCommerce</span>
+                            </div>
+
+                            <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
+                                Build Scalable, <span className="gx-gradient-text">Conversion-First</span> Online Stores
+                            </h1>
+
+                            <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
+                                From storefront design to payment integrations and performance optimization, deliver
+                                best-in-class eCommerce experiences that convert.
                             </p>
+
+                            <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
+                                {['Shopify', 'Magento', 'WooCommerce', 'Headless', 'PIM'].map((badge) => (
+                                    <span key={badge}
+                                          className="px-3 py-1.5 rounded-full text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider"
+                                          style={{
+                                              background: 'rgba(var(--ecom-accent-rgb),0.08)',
+                                              border: '1px solid rgba(var(--ecom-accent-rgb),0.18)',
+                                              color: 'rgba(var(--ecom-accent-rgb),0.95)'
+                                          }}>
+                                            {badge}
+                                        </span>
+                                ))}
+                            </div>
+
+                            <div className="flex flex-wrap gap-4 items-center">
+                                <Link href="/contact">
+                                    <button
+                                        className="relative px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap"
+                                        style={{background: 'var(--ecom-accent)', color: '#fff'}}>
+                                            <span className="absolute inset-0" style={{
+                                                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)'
+                                            }}/>
+                                        <span className="relative">Start a project →</span>
+                                    </button>
+                                </Link>
+                                <Link href="/portfolio">
+                                    <button
+                                        className="px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap"
+                                        style={{border: `1px solid rgba(255,255,255,0.15)`}}>
+                                        View Case Studies
+                                    </button>
+                                </Link>
+                            </div>
                         </div>
-                        <div
-                            className={'relative grid lg:grid-cols-3 lg:gap-8 lg:ml-[8em]'}>
-                            <div className={'border-0 lg:block md:hidden sm:hidden hidden'}>
-                                <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>8+</h6>
-                                <p className={'text-[0.7em] font-[300]'}>Years Experience</p>
-                            </div>
-                            <div className={'border-0 lg:block md:hidden sm:hidden hidden'}>
-                                <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>13+</h6>
-                                <p className={'text-[0.7em] font-[300]'}>Team Members</p>
-                            </div>
-                            <div className={'border-0 lg:block md:hidden sm:hidden hidden'}>
-                                <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>123+</h6>
-                                <p className={'text-[0.7em] font-[300]'}>Products Launched</p>
+
+                        {/* Right Column - Impact Stats */}
+                        <div className="hidden lg:flex flex-col items-end">
+                            <div className="grid grid-cols-2 gap-6 w-full">
+                                {[
+                                    {label: 'Integrations', value: '100+'},
+                                    {label: 'Years Experience', value: '8+'},
+                                    {label: 'Products Launched', value: '123+'},
+                                    {label: 'Avg Conversion Lift', value: '200%'}
+                                ].map((stat) => (
+                                    <div key={stat.label}
+                                         className="px-6 py-5 rounded-2xl backdrop-blur-md transition-all duration-300 text-right"
+                                         style={{
+                                             border: '1px solid rgba(var(--ecom-accent-rgb),0.22)',
+                                             background: 'rgba(var(--ecom-accent-rgb),0.06)'
+                                         }}>
+                                        <div
+                                            className="text-[0.7em] uppercase tracking-wider font-[600] mb-2"
+                                            style={{color: 'rgba(var(--ecom-accent-rgb),0.95)'}}>{stat.label}</div>
+                                        <div
+                                            className="text-white text-[1.8em] font-[700]">{stat.value}</div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            {/* Introductory section */}
-            <section ref={sectionRef}
-                     className={`py-12 transition-colors duration-500 ${
-                         isBackgroundActive
-                             ? isDayTime
-                                 ? "bg-black text-white"
-                                 : "bg-white text-black"
-                             : isDayTime
-                                 ? "bg-white text-black"
-                                 : "bg-black text-white"
-                     }`}>
-                <div
-                    className='relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:gap-14 md:gap-8 gap-6 lg:pt-20 md:pt-20 pt-6 lg:pb-16 md:pb-16 pb-6 max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]'>
-                    <div className={'pt-2'}>
-                        <h6 className='constant-text uppercase text-[0.85em] leading-[1.3]lg:font-[600] font-[600] tracking-wider'>
-                            High-performing <br className={'lg:block md:block hidden'}/>eCommerce solutions
-                        </h6>
+                {/* Mobile Stats - Visible on small screens only */}
+                <div className="lg:hidden absolute bottom-12 left-0 right-0 z-[11] px-6">
+                    <div className="grid grid-cols-3 gap-3">
+                        {[
+                            {label: 'Integrations', value: '100+'},
+                            {label: 'Experts', value: '8+'},
+                            {label: 'Satisfaction', value: '99%'}
+                        ].map((stat) => (
+                            <div key={stat.label}
+                                 className="px-3 py-2 rounded-xl backdrop-blur-md" style={{
+                                border: '1px solid rgba(var(--ecom-accent-rgb),0.22)',
+                                background: 'rgba(var(--ecom-accent-rgb),0.06)'
+                            }}>
+                                <div
+                                    className="text-[0.5em] uppercase tracking-wider font-[600] mb-1"
+                                    style={{color: 'rgba(var(--ecom-accent-rgb),0.95)'}}>{stat.label}</div>
+                                <div className="text-white text-[1.1em] font-[700]">{stat.value}</div>
+                            </div>
+                        ))}
                     </div>
-                    <div
-                        className='lg:-ml-[25em] md:-ml-[16em] md:pl-[6em] mx-auto w-auto sm:break-words sm:whitespace-normal'>
-                        <h3 className='lg:text-[3.2em] md:text-[3.2em] text-[1.8em] font-[500] lg:mt-[0.01em] lg:leading-[1.1] tracking-tight border-b lg:pb-[0.7em] lg:mb-[0.7em] leading-[1.1] pb-6'>
-                            eCommerce Web Development
-                        </h3>
-                        <div
-                            className='grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]'>
-                            <div>
-                                <p>
-                                    At Grey InfoTech, we deliver high-performance eCommerce solutions designed to help
-                                    businesses sell online effectively and competitively. Our expert team specializes in
-                                    creating tailored eCommerce platforms that not only showcase your products or
-                                    services but also drive measurable results through increased traffic, conversions,
-                                    and revenue. Every platform we build is designed with user experience, speed, and
-                                    functionality in mind, ensuring your customers enjoy a seamless and engaging online
-                                    shopping journey.<br/><br/>
+                </div>
+            </section>
 
-                                    Our experience spans across diverse industries, having successfully supported
-                                    retailers, manufacturers, wholesalers, and service providers in both
-                                    Business-to-Consumer (B2C) and Business-to-Business (B2B) markets. From intuitive
-                                    storefronts and product catalogs to secure payment gateways and multi-channel
-                                    integration, we ensure every solution is scalable, reliable, and fully aligned with
-                                    your operational and growth objectives. By implementing modern technologies and best
-                                    practices, we build eCommerce platforms that are prepared to handle both current
-                                    demands and future expansion.
-                                </p>
-                            </div>
-                            <div>
-                                <p>
-                                    Beyond development, we recognize that launching an eCommerce website is only part of
-                                    the journey. Driving traffic, acquiring customers, and generating consistent online
-                                    sales requires a comprehensive strategy. That’s why our services extend beyond
-                                    technical delivery to include strategic consultation on digital marketing, customer
-                                    engagement, and conversion optimization. This ensures your online store not only
-                                    functions efficiently but also thrives in a competitive marketplace.<br/><br/>
+            {/* Introductory section (futuristic style) */}
+            <section
+                ref={sectionRef}
+                data-bg={isBackgroundActive ? (isDayTime ? 'Dark' : 'Light') : (isDayTime ? 'Light' : 'Dark')}
+                className={`pt-16 transition-colors duration-500 ${
+                    isBackgroundActive
+                        ? isDayTime ? 'bg-black text-white' : 'bg-white text-black'
+                        : isDayTime ? 'bg-white text-black' : 'bg-black text-white'
+                }`}>
+                <FxBackground day={isDayTime}/>
+                <div aria-hidden style={{
+                    height: '6px',
+                    width: '80px',
+                    background: 'var(--ecom-accent)',
+                    borderRadius: '999px',
+                    margin: '12px 0'
+                }}/>
+                <div
+                    className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
+                    <div>
+                        <FxChip day={!isBackgroundActive ? !isDayTime : isDayTime}>ECOMMERCE EXCELLENCE</FxChip>
+                    </div>
 
-                                    At Grey InfoTech, our approach combines technical excellence with business insight
-                                    to create solutions that support sustainable growth. From initial planning and
-                                    design to development, deployment, and long-term optimization, we provide end-to-end
-                                    eCommerce services that deliver lasting value. By partnering with us, you gain more
-                                    than just a website -you gain a digital asset designed to enhance your market
-                                    presence, strengthen customer relationships, and drive measurable business success.
-                                </p>
+                    <div className="lg:-ml-[19em]">
+                        <FxReveal>
+                            <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
+                                Build Fast, Reliable, <span className="gx-gradient-text">Revenue-Driving</span> Stores
+                            </h3>
+                        </FxReveal>
+
+                        <FxReveal delay={0.08}>
+                            <div
+                                className="grid lg:grid-cols-2 grid-cols-1 gap-6 mt-6 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
+                                <div className="space-y-4">
+                                    <p>We craft eCommerce platforms that put conversions first — optimized checkout
+                                        flows,
+                                        fast performance, and reliable integrations. Our approach blends commerce
+                                        strategy,
+                                        UX optimization, and secure engineering to reduce friction and increase purchase
+                                        velocity.</p>
+                                    <p>From headless architectures to managed SaaS platforms, we select the right stack
+                                        for scale, maintainability, and speed. Tracking and experimentation are baked in
+                                        to
+                                        iterate on experience and maximize lifetime value.</p>
+                                    <div className="flex flex-wrap gap-3 mt-4">
+                                        {['Checkout UX', 'Headless CMS', 'Payments', 'Search & Merchandising'].map((p) => (
+                                            <span key={p} className="gx-data-pill">{p}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="space-y-4">
+                                    <p>Launch with confidence: secure payment gateways, scalable hosting, observability,
+                                        and performance budgets ensure your store stays fast under peak traffic and
+                                        converts
+                                        reliably.</p>
+                                    <p>We partner through discovery, implementation, and optimization — delivering not
+                                        just code but measurable growth. Technical debt is avoided with robust testing,
+                                        CI/CD, and modular architecture.</p>
+                                    <div className="flex flex-wrap gap-3 mt-4">
+                                        {['Observability', 'A/B Testing', 'Performance Budgets', 'Platform Integrations'].map((p) => (
+                                            <span key={p} className="gx-data-pill">{p}</span>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </FxReveal>
                     </div>
                 </div>
             </section>

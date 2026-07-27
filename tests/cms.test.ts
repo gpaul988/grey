@@ -41,7 +41,7 @@ describe('CMS Library', () => {
     it('should validate page type', () => {
       const result = CMS.validate({
         title: 'Test',
-        type: 'invalid' as any,
+        type: 'invalid' as unknown,
       });
       expect(result.valid).toBe(false);
     });

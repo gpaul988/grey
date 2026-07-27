@@ -9,7 +9,7 @@ import {useIsDayTime} from '../../components/useIsDayTime';
 
 import FuturisticIndustryLayout from '@/components/futuristic/FuturisticIndustryLayout';
 
-import {FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxStickyScrollSection} from '@/components/futuristic/fx';
+import {FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxStickyScrollSection, FxFrame} from '@/components/futuristic/fx';
 
 const testimonials = [
     {
@@ -395,6 +395,332 @@ const integrations = [
             "Workforce is a comprehensive human capital management platform that streamlines recruitment, employee management, and payroll processes. Integrating Workforce into your HR operations enhances efficiency by automating key workflows and providing real-time insights into your talent pool. This integration supports better workforce planning and engagement, helping you attract, retain, and develop skilled employees while driving overall organizational productivity.",
     },
 ];
+
+// Advanced Accordion Integration Component for 2-Column Layout (Compact Version)
+const AccordionIntegrationAdvanced = ({ integration, isDayTime, index }: { integration: any; isDayTime: boolean; index: number }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+        <div
+            className={`group relative rounded-2xl overflow-hidden border backdrop-blur-lg transition-all duration-500 ${
+                isOpen
+                    ? isDayTime
+                        ? 'bg-gradient-to-br from-purple-50/90 to-white/70 border-purple-300/60 shadow-2xl'
+                        : 'bg-gradient-to-br from-purple-500/20 to-white/8 border-purple-400/60 shadow-[0_20px_60px_rgba(139,92,246,0.3)]'
+                    : isDayTime
+                    ? 'bg-white/50 border-gray-200/40 hover:border-purple-300/50 hover:bg-white/60'
+                    : 'bg-white/8 border-white/15 hover:border-purple-400/40 hover:bg-white/10'
+            }`}
+        >
+            {/* Gradient overlay on expand */}
+            {isOpen && (
+                <div className="absolute inset-0 opacity-100 transition-opacity duration-500" style={{background: isDayTime ? 'linear-gradient(135deg, rgba(147,51,234,0.08), transparent)' : 'linear-gradient(135deg, rgba(139,92,246,0.15), transparent)'}}/>
+            )}
+
+            <div className="relative">
+                {/* Header - Always Visible */}
+                <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="w-full text-left p-5 lg:p-6 flex items-center justify-between"
+                >
+                    <div className="flex items-center gap-4 flex-1">
+                        {/* Logo Badge */}
+                        <div className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${isDayTime ? 'bg-gray-100 group-hover:bg-purple-100' : 'bg-white/12 group-hover:bg-purple-500/20'} transition-colors duration-300`}>
+                            <Image
+                                src={isDayTime ? integration.logoLight : integration.logoDark}
+                                alt={integration.alt}
+                                width={32}
+                                height={32}
+                                className="object-contain"
+                            />
+                        </div>
+
+                        {/* Title & Status */}
+                        <div className="flex-1 min-w-0">
+                            <h3 className={`text-[1.1em] font-[700] leading-tight transition-all duration-300 truncate ${isDayTime ? 'text-black' : 'text-white'}`}>
+                                {integration.title}
+                            </h3>
+                            <p className={`text-xs transition-all duration-300 truncate ${isDayTime ? 'text-gray-600' : 'text-white/50'}`}>
+                                Enterprise Integration
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Toggle Icon */}
+                    <div className={`flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg transition-all duration-500 ml-3 ${
+                        isDayTime 
+                            ? 'bg-purple-100 text-purple-700' 
+                            : 'bg-purple-500/20 text-purple-300'
+                    } ${isOpen ? 'rotate-180' : ''}`}>
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                        </svg>
+                    </div>
+                </button>
+
+                {/* Expanded Content */}
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.4 }}
+                        className="overflow-hidden"
+                    >
+                        <div className={`px-5 lg:px-6 pb-6 border-t ${isDayTime ? 'border-gray-200/40' : 'border-white/10'}`}>
+                            <div className="pt-6 space-y-6">
+                                {/* Main Description */}
+                                <div>
+                                    <h4 className={`text-xs font-bold uppercase tracking-wider mb-3 ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>
+                                        Overview
+                                    </h4>
+                                    <p className={`text-sm leading-[1.6] ${isDayTime ? 'text-black/70' : 'text-white/75'}`}>
+                                        {integration.description}
+                                    </p>
+                                </div>
+
+                                {/* Tech Specs Grid - Compact 2x2 */}
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <div className={`text-xs font-bold uppercase tracking-wider mb-2 ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>API</div>
+                                        <div className={`text-sm font-[700] ${isDayTime ? 'text-purple-700' : 'text-purple-300'}`}>REST/GraphQL</div>
+                                    </div>
+                                    <div>
+                                        <div className={`text-xs font-bold uppercase tracking-wider mb-2 ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>Data Sync</div>
+                                        <div className={`text-sm font-[700] ${isDayTime ? 'text-purple-700' : 'text-purple-300'}`}>Real-time</div>
+                                    </div>
+                                    <div>
+                                        <div className={`text-xs font-bold uppercase tracking-wider mb-2 ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>Security</div>
+                                        <div className={`text-sm font-[700] ${isDayTime ? 'text-purple-700' : 'text-purple-300'}`}>OAuth 2.0</div>
+                                    </div>
+                                    <div>
+                                        <div className={`text-xs font-bold uppercase tracking-wider mb-2 ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>Status</div>
+                                        <div className={`text-sm font-[700] flex items-center gap-2 ${isDayTime ? 'text-green-700' : 'text-green-400'}`}>
+                                            <span className="w-2 h-2 rounded-full bg-current inline-block" style={{animation: 'pulse 2s infinite'}}></span>
+                                            Active
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Feature Highlights - Compact */}
+                                <div>
+                                    <h5 className={`text-xs font-bold uppercase tracking-wider mb-3 ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>Key Features</h5>
+                                    <ul className={`space-y-2 ${isDayTime ? 'text-black/65' : 'text-white/70'}`}>
+                                        <li className="flex items-start gap-2 text-xs">
+                                            <span className={`text-base flex-shrink-0 ${isDayTime ? 'text-purple-600' : 'text-purple-400'}`}>✦</span>
+                                            <span>Enterprise-grade API reliability</span>
+                                        </li>
+                                        <li className="flex items-start gap-2 text-xs">
+                                            <span className={`text-base flex-shrink-0 ${isDayTime ? 'text-purple-600' : 'text-purple-400'}`}>✦</span>
+                                            <span>Bidirectional data synchronization</span>
+                                        </li>
+                                        <li className="flex items-start gap-2 text-xs">
+                                            <span className={`text-base flex-shrink-0 ${isDayTime ? 'text-purple-600' : 'text-purple-400'}`}>✦</span>
+                                            <span>Advanced compliance protocols</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                {/* CTA Button - Compact */}
+                                <Link
+                                    href={`/integrations/${integration.id}`}
+                                    className={`block w-full text-center px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 ${
+                                        isDayTime
+                                            ? 'bg-purple-600 hover:bg-purple-700 text-white'
+                                            : 'bg-purple-500/30 hover:bg-purple-500/40 text-purple-200 border border-purple-400/40'
+                                    }`}
+                                >
+                                    Learn More
+                                </Link>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </div>
+        </div>
+    );
+};
+
+// Futuristic Accordion Integration Component (Original - Full Featured)
+const AccordionIntegration = ({ integration, isDayTime, index }: { integration: any; isDayTime: boolean; index: number }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+        <div
+            className={`group relative rounded-2xl overflow-hidden border backdrop-blur-lg transition-all duration-500 ${
+                isOpen
+                    ? isDayTime
+                        ? 'bg-gradient-to-br from-purple-50/90 to-white/70 border-purple-300/60 shadow-2xl'
+                        : 'bg-gradient-to-br from-purple-500/20 to-white/8 border-purple-400/60 shadow-[0_20px_60px_rgba(139,92,246,0.3)]'
+                    : isDayTime
+                    ? 'bg-white/50 border-gray-200/40 hover:border-purple-300/50 hover:bg-white/60'
+                    : 'bg-white/8 border-white/15 hover:border-purple-400/40 hover:bg-white/10'
+            }`}
+        >
+            {/* Gradient overlay on expand */}
+            {isOpen && (
+                <div className="absolute inset-0 opacity-100 transition-opacity duration-500" style={{background: isDayTime ? 'linear-gradient(135deg, rgba(147,51,234,0.08), transparent)' : 'linear-gradient(135deg, rgba(139,92,246,0.15), transparent)'}}/>
+            )}
+
+            <div className="relative">
+                {/* Header - Always Visible */}
+                <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="w-full text-left p-6 lg:p-8 flex items-center justify-between"
+                >
+                    <div className="flex items-center gap-6 flex-1">
+                        {/* Logo Badge */}
+                        <div className={`w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 ${isDayTime ? 'bg-gray-100 group-hover:bg-purple-100' : 'bg-white/12 group-hover:bg-purple-500/20'} transition-colors duration-300`}>
+                            <Image
+                                src={isDayTime ? integration.logoLight : integration.logoDark}
+                                alt={integration.alt}
+                                width={40}
+                                height={40}
+                                className="object-contain"
+                            />
+                        </div>
+
+                        {/* Title & Status */}
+                        <div className="flex-1">
+                            <h3 className={`text-[1.4em] font-[700] mb-1 transition-all duration-300 ${isDayTime ? 'text-black' : 'text-white'}`}>
+                                {integration.title}
+                            </h3>
+                            <p className={`text-sm transition-all duration-300 ${isDayTime ? 'text-gray-600' : 'text-white/50'}`}>
+                                Enterprise API Integration
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Toggle Icon */}
+                    <div className={`flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-500 ${
+                        isDayTime 
+                            ? 'bg-purple-100 text-purple-700' 
+                            : 'bg-purple-500/20 text-purple-300'
+                    } ${isOpen ? 'rotate-180' : ''}`}>
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                        </svg>
+                    </div>
+                </button>
+
+                {/* Expanded Content */}
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.4 }}
+                        className="overflow-hidden"
+                    >
+                        <div className={`px-6 lg:px-8 pb-8 border-t ${isDayTime ? 'border-gray-200/40' : 'border-white/10'}`}>
+                            <div className="pt-8 grid lg:grid-cols-3 gap-8">
+                                {/* Main Description */}
+                                <div className="lg:col-span-2">
+                                    <h4 className={`text-sm font-bold uppercase tracking-wider mb-4 ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>
+                                        Overview
+                                    </h4>
+                                    <p className={`text-[0.95em] leading-[1.8] mb-8 ${isDayTime ? 'text-black/70' : 'text-white/75'}`}>
+                                        {integration.description}
+                                    </p>
+
+                                    {/* Tech Specs Grid */}
+                                    <div className="grid grid-cols-2 gap-6 mb-8">
+                                        <div>
+                                            <div className={`text-xs font-bold uppercase tracking-wider mb-3 ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>API Standard</div>
+                                            <div className={`text-sm font-[700] ${isDayTime ? 'text-purple-700' : 'text-purple-300'}`}>REST / GraphQL</div>
+                                        </div>
+                                        <div>
+                                            <div className={`text-xs font-bold uppercase tracking-wider mb-3 ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>Data Sync</div>
+                                            <div className={`text-sm font-[700] ${isDayTime ? 'text-purple-700' : 'text-purple-300'}`}>Real-time</div>
+                                        </div>
+                                        <div>
+                                            <div className={`text-xs font-bold uppercase tracking-wider mb-3 ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>Security</div>
+                                            <div className={`text-sm font-[700] ${isDayTime ? 'text-purple-700' : 'text-purple-300'}`}>OAuth 2.0</div>
+                                        </div>
+                                        <div>
+                                            <div className={`text-xs font-bold uppercase tracking-wider mb-3 ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>Status</div>
+                                            <div className={`text-sm font-[700] flex items-center gap-2 ${isDayTime ? 'text-green-700' : 'text-green-400'}`}>
+                                                <span className="w-2 h-2 rounded-full bg-current inline-block" style={{animation: 'pulse 2s infinite'}}></span>
+                                                Active
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Feature Highlights */}
+                                    <div>
+                                        <h5 className={`text-xs font-bold uppercase tracking-wider mb-4 ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>Key Features</h5>
+                                        <ul className={`space-y-2 ${isDayTime ? 'text-black/65' : 'text-white/70'}`}>
+                                            <li className="flex items-start gap-3 text-sm">
+                                                <span className={`text-lg ${isDayTime ? 'text-purple-600' : 'text-purple-400'}`}>✦</span>
+                                                <span>Native API integration with enterprise-grade reliability</span>
+                                            </li>
+                                            <li className="flex items-start gap-3 text-sm">
+                                                <span className={`text-lg ${isDayTime ? 'text-purple-600' : 'text-purple-400'}`}>✦</span>
+                                                <span>Bidirectional data synchronization at scale</span>
+                                            </li>
+                                            <li className="flex items-start gap-3 text-sm">
+                                                <span className={`text-lg ${isDayTime ? 'text-purple-600' : 'text-purple-400'}`}>✦</span>
+                                                <span>Advanced security protocols and compliance standards</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                {/* Sidebar - Logo Showcase + CTA */}
+                                <div className="flex flex-col items-center justify-between">
+                                    {/* Logo Display */}
+                                    <div className={`w-full p-6 rounded-xl mb-8 flex items-center justify-center min-h-[200px] ${isDayTime ? 'bg-gray-100' : 'bg-white/8 border border-white/15'}`}>
+                                        <Image
+                                            src={isDayTime ? integration.logoLight : integration.logoDark}
+                                            alt={integration.alt}
+                                            width={120}
+                                            height={120}
+                                            className="object-contain"
+                                        />
+                                    </div>
+
+                                    {/* Tech Tags */}
+                                    <div className="flex flex-wrap gap-2 mb-8 w-full justify-center">
+                                        <span className={`text-xs px-3 py-2 rounded-full font-semibold ${isDayTime ? 'bg-purple-100 text-purple-700' : 'bg-purple-500/20 text-purple-300'}`}>
+                                            REST API
+                                        </span>
+                                        <span className={`text-xs px-3 py-2 rounded-full font-semibold ${isDayTime ? 'bg-blue-100 text-blue-700' : 'bg-blue-500/20 text-blue-300'}`}>
+                                            OAuth 2.0
+                                        </span>
+                                    </div>
+
+                                    {/* CTA Buttons */}
+                                    <div className="flex flex-col gap-3 w-full">
+                                        <Link
+                                            href={`/integrations/${integration.id}`}
+                                            className={`text-center py-3 px-4 rounded-lg font-[600] text-sm transition-all ${
+                                                isDayTime
+                                                    ? 'bg-purple-600 text-white hover:bg-purple-700'
+                                                    : 'bg-purple-500/40 text-purple-200 hover:bg-purple-500/60'
+                                            }`}
+                                        >
+                                            Explore Integration
+                                        </Link>
+                                        <Link
+                                            href={`/contact?integration=${integration.id}`}
+                                            className={`text-center py-3 px-4 rounded-lg font-[600] text-sm border transition-all ${
+                                                isDayTime
+                                                    ? 'border-purple-300 text-purple-700 hover:bg-purple-50'
+                                                    : 'border-purple-400/40 text-purple-300 hover:bg-purple-500/10'
+                                            }`}
+                                        >
+                                            Request Demo
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </div>
+        </div>
+    );
+};
 
 const HrTech = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -1544,132 +1870,205 @@ const HrTech = () => {
                 </div>
             </section>
 
-            {/* Futuristic Showcase - Premium HR Interfaces */}
-            <section className={`relative lg:py-[5em] py-[3em] transition-colors duration-500 ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
-                <FxBackground day={isDayTime} className="opacity-30" />
-
-                <div id="top-images" className="relative z-10 max-w-7xl mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
-                    <FxReveal>
-                        <div className="mb-10 text-center">
-                            <div className={`inline-block mb-4 px-4 py-2 rounded-full border ${isDayTime ? 'border-gray-200/30 bg-gray-100/10' : 'border-white/10 bg-white/5'}`}>
-                                <span className={`text-xs font-semibold tracking-widest uppercase ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>PREMIUM SHOWCASE</span>
-                            </div>
-                            <h2 className={`text-3xl lg:text-4xl font-bold mb-4 ${isDayTime ? 'text-black' : 'text-white'}`}>Futuristic HR Interfaces</h2>
-                            <p className={`max-w-3xl mx-auto ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}>A curated glimpse into our HR product interfaces demonstrating clean information hierarchy, accessible interactions, and enterprise-ready integrations — presented with layered depth and premium visual treatments.</p>
+            {/* Middle - Futuristic showcase */}
+            <section className="relative h-auto pt-16 lg:pt-20">
+                <div className="relative max-w-Full mx-auto px-4 sm:px-6 lg:px-[4.6em]">
+                    <div className="relative rounded-2xl overflow-hidden">
+                        {/* Decorative orbs and aurora */}
+                        <FxBackground day={isDayTime} grid={false} aurora/>
+                        <div className="absolute inset-0 pointer-events-none">
+                            <div
+                                className="absolute -top-32 -left-32 w-[520px] h-[520px] bg-[radial-gradient(circle,rgba(139,92,246,0.12),transparent_40%)] blur-3xl transform-gpu animate-tilt"/>
+                            <div
+                                className="absolute -bottom-32 -right-20 w-[380px] h-[380px] bg-[radial-gradient(circle,rgba(139,92,246,0.08),transparent_40%)] blur-2xl"/>
                         </div>
-                    </FxReveal>
 
-                    <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-8 items-stretch">
-                        {[{
-                            src: '/assets/hr/1.jpg',
-                            alt: 'HR app interface',
-                            title: 'Talent Dashboard',
-                            tags: ['Dashboards', 'Real-time'],
-                            badge: 'Featured'
-                        },{
-                            src: '/assets/hr/2.jpg',
-                            alt: 'HR collaboration',
-                            title: 'Collaborative Workflows',
-                            tags: ['Collaboration','Onboarding'],
-                            badge: 'Workflow'
-                        },{
-                            src: '/assets/hr/3.jpg',
-                            alt: 'HR digital workflow',
-                            title: 'Automated HR Flows',
-                            tags: ['Automation','Compliance'],
-                            badge: 'Automation'
-                        }].map((card, idx) => (
-                            <FxReveal key={card.src} delay={0.08 + idx * 0.06}>
-                                <div className={`relative group rounded-2xl overflow-hidden border transition-all duration-500 ${isDayTime ? 'border-gray-200/30 bg-gradient-to-br from-white/80 to-white/60 hover:border-transparent' : 'border-white/10 bg-white/6 hover:border-white/20'}`}>
-                                    {/* Ambient glow */}
-                                    <div className={`absolute -inset-2 rounded-2xl blur-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-700`} style={{background: `linear-gradient(135deg, rgba(${accentRgb},0.18), rgba(${accentRgb},0.06))`}}/>
+                        <div className="relative grid lg:grid-cols-2 gap-8 items-center">
+                            <FxReveal>
+                                <FxFrame className="lg:order-1">
+                                    <Image
+                                        src={'/assets/hr/1.jpg'}
+                                        alt={'HR platform showcase'}
+                                        width={1536}
+                                        height={1025}
+                                        className={`w-full h-auto object-cover rounded-xl`}
+                                    />
+                                    <div
+                                        className="absolute inset-0 bg-gradient-to-t from-black/28 to-transparent rounded-xl mix-blend-overlay"/>
+                                </FxFrame>
+                            </FxReveal>
 
-                                    <div className="relative h-64 lg:h-72 overflow-hidden">
-                                        <Image src={card.src} alt={card.alt} width={1600} height={900} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                            <FxReveal>
+                                <div className="p-6 lg:p-12 relative z-10">
+                                    <FxChip day={isDayTime} colorScheme="purple">HR INTERFACES</FxChip>
+                                    <h3 className={`mt-4 text-[1.6em] font-[700] ${isDayTime ? 'text-black' : 'text-white'}`}>
+                                        Futuristic HR Interfaces
+                                    </h3>
+                                    <p className={`mt-4 text-[0.95em] ${isDayTime ? 'text-black/70' : 'text-white/75'}`}>
+                                        A curated showcase of our premium HR product interfaces demonstrating clean information hierarchy, accessible interactions, and enterprise-ready integrations — presented with layered depth and cutting-edge visual treatments.
+                                    </p>
 
-                                        {/* Top-right badge */}
-                                        <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold ${isDayTime ? 'bg-white/80 text-black' : 'bg-white/12 text-white/90'}`} style={{border: `1px solid rgba(${accentRgb},0.08)`}}>{card.badge}</div>
-
-                                        {/* Bottom overlay */}
-                                        <div className={`absolute bottom-4 left-4 right-4 p-4 rounded-lg backdrop-blur-sm ${isDayTime ? 'bg-white/70' : 'bg-black/50'}`} style={{border: `1px solid rgba(${accentRgb},0.06)`}}>
-                                            <div className="flex items-start justify-between">
-                                                <div>
-                                                    <h3 className={`text-lg font-bold ${isDayTime ? 'text-black' : 'text-white'}`}>{card.title}</h3>
-                                                    <div className="flex flex-wrap gap-2 mt-2">
-                                                        {card.tags.map((t) => (
-                                                            <span key={t} className={`text-xs px-2 py-1 rounded-full font-medium ${isDayTime ? 'bg-gray-100/40 text-black' : 'bg-white/6 text-white/80'}`} style={{border: `1px solid rgba(${accentRgb},0.04)`}}>{t}</span>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                                <div className="flex items-center gap-3">
-                                                    <Link href={`/case-studies?topic=${card.title.replace(/\s+/g,'-').toLowerCase()}`} className="inline-flex items-center px-3 py-2 rounded-full text-sm font-semibold transition-transform transform group-hover:scale-105" style={{background: pageAccent, color: '#fff'}} aria-label={`View case study for ${card.title}`}>
-                                                        Explore
-                                                    </Link>
-                                                </div>
-                                            </div>
+                                    <div className="mt-6 grid grid-cols-3 gap-3">
+                                        <div
+                                            className={`p-3 rounded-lg text-center ${isDayTime ? 'bg-black/6 border border-black/6' : 'bg-white/6 border border-white/6'}`}>
+                                            <div className="text-sm font-semibold">Platform</div>
+                                            <div className="text-lg font-[700] mt-1">Enterprise</div>
+                                        </div>
+                                        <div
+                                            className={`p-3 rounded-lg text-center ${isDayTime ? 'bg-black/6 border border-black/6' : 'bg-white/6 border border-white/6'}`}>
+                                            <div className="text-sm font-semibold">Users</div>
+                                            <div className="text-lg font-[700] mt-1">Unlimited</div>
+                                        </div>
+                                        <div
+                                            className={`p-3 rounded-lg text-center ${isDayTime ? 'bg-black/6 border border-black/6' : 'bg-white/6 border border-white/6'}`}>
+                                            <div className="text-sm font-semibold">Uptime</div>
+                                            <div className="text-lg font-[700] mt-1">99.9%</div>
                                         </div>
                                     </div>
+
+                                    <div className="mt-6 flex gap-3">
+                                        <FxButton href="/case-studies" day={isDayTime} colorScheme="purple">Explore Cases</FxButton>
+                                        <FxButton href="/contact" day={isDayTime} variant="ghost" colorScheme="purple">Book Demo</FxButton>
+                                    </div>
+
+                                    <ul className={`mt-6 space-y-2 text-sm ${isDayTime ? 'text-black/70' : 'text-white/70'}`}>
+                                        <li>• Talent Dashboard with real-time analytics</li>
+                                        <li>• Collaborative workflows for seamless onboarding</li>
+                                        <li>• Automated compliance and audit trails</li>
+                                    </ul>
                                 </div>
                             </FxReveal>
-                        ))}
+                        </div>
                     </div>
-
                 </div>
             </section>
 
-            {/* Integrations */}
-            <div
-                className={`relative mx-auto px-4 sm:px-6 lg:px-[4.6em] md:px-[4.6em] lg:pt-[6em] md:pt-[6em] pt-[2em] lg:pb-[6em] md:pb-[6em] pb-[2em] ${isDayTime ? 'bg-black' : 'bg-white'}`}>
-                <div
-                    className={`relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4 mb-8 border-b-[1px] lg:pb-[6em] md:pb-[6em] pb-[3em] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                    <div>
-                        <h2 className="lg:text-[3em] md:text-[3em] text-[1.5em] font-[500] justify-center tracking-tight lg:pr-[1em] md:pr-[1em] leading-[1.2]">
-                            Advanced Integration <br className="lg:block md:block hidden"/>with Leading <br
-                            className="lg:block md:block hidden"/>HR Technologies
-                        </h2>
-                    </div>
-
-                    <div>
-                        <p className="text-[0.873em] font-[400] justify-center text-justify leading-[1.5] lg:-ml-[3em] md:-ml-[3em] tracking-normal">
-                            Our HR Technology Solutions seamlessly integrate with leading HR platforms to boost your
-                            corporate website’s functionality and efficiency. We specialize in back-end development, API
-                            integration, database management, and consulting services. Let’s make it happen.
-                        </p>
-                    </div>
+            {/* Integrations - Premium Futuristic 2-Column with Accordions */}
+            <section className={`relative mx-auto lg:px-[4.6em] md:px-[4.6em] px-4 sm:px-6 lg:py-[10em] md:py-[8em] py-[4em] ${isDayTime ? 'bg-white' : 'bg-black'}`}>
+                {/* Advanced Decorative Background */}
+                <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                    <FxBackground day={isDayTime} className="opacity-25" />
+                    <div className="absolute top-0 right-1/4 w-[900px] h-[900px] bg-gradient-to-br from-purple-600/15 to-transparent rounded-full blur-3xl transform -translate-y-1/4 translate-x-1/3"/>
+                    <div className="absolute bottom-0 left-0 w-[700px] h-[700px] bg-gradient-to-tr from-purple-500/10 to-transparent rounded-full blur-3xl transform translate-y-1/4 -translate-x-1/3"/>
+                    <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-gradient-to-l from-blue-500/8 to-transparent rounded-full blur-3xl transform translate-y-1/2"/>
                 </div>
 
-                {integrations.map((integration, index) => (
-                    <div
-                        key={integration.id}
-                        id={integration.id}
-                        className={`grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:mb-8 md:mb-8 mb-6 gap-4 ${
-                            index === integrations.length - 1 ? '' : 'border-b-[1px] pb-[2em]'
-                        } text-gray-500 ${isDayTime ? 'hover:text-white' : 'hover:text-black'} group`}
-                    >
-                        <div className="relative">
-                            <h2 className="capitalize text-[1.75em] font-[500] justify-center tracking-tight leading-[1.2] rounded-none">
-                                {integration.title}
+                <div className="relative z-10">
+                    {/* Header */}
+                    <FxReveal>
+                        <div className="text-center mb-16">
+                            <FxChip day={isDayTime} colorScheme="purple" className="mb-6 inline-block">ENTERPRISE ECOSYSTEM</FxChip>
+                            <h2 className="lg:text-[3.8em] md:text-[3em] text-[2em] font-[800] tracking-tight leading-[1.1] mb-6 max-w-4xl mx-auto">
+                                <span className={isDayTime ? 'text-black' : 'text-white'}>Integrated HR</span>
+                                <br/>
+                                <span className={`bg-gradient-to-r ${isDayTime ? 'from-purple-700 to-purple-600' : 'from-purple-400 to-purple-300'} bg-clip-text text-transparent`}>
+                                    Technology Platform
+                                </span>
                             </h2>
-
-                            <div
-                                className={`absolute lg:block md:hidden sm:hidden lg:pl-[14em] md:pl-[12em] ${integration.imageOffset} inset-0 opacity-0 group-hover:opacity-90 transition-opacity duration-300`}>
-                                <Image
-                                    src={isDayTime ? integration.logoLight : integration.logoDark}
-                                    alt={integration.alt}
-                                    height={250}
-                                    width={300}
-                                />
-                            </div>
-                        </div>
-
-                        <div>
-                            <p className="text-[0.85em] lg:-ml-[3em] md:-ml-[3em] font-[400] justify-center text-justify leading-[1.2] tracking-normal">
-                                {integration.description}
+                            <p className={`text-[1em] font-[400] leading-[1.7] max-w-3xl mx-auto ${isDayTime ? 'text-black/65' : 'text-white/70'}`}>
+                                12+ enterprise platforms. Real-time APIs. Advanced security. Seamless sync.
                             </p>
                         </div>
+                    </FxReveal>
+
+                    {/* 2-Column Layout */}
+                    <div className="grid lg:grid-cols-2 gap-12 items-start">
+                        {/* LEFT: Logo Showcase */}
+                        <FxReveal>
+                            <div className={`rounded-3xl overflow-hidden border backdrop-blur-xl p-12 sticky top-20 ${
+                                isDayTime 
+                                    ? 'bg-gradient-to-br from-purple-50/80 to-white/60 border-gray-200/50' 
+                                    : 'bg-gradient-to-br from-purple-500/15 to-white/8 border-white/20'
+                            }`}>
+                                <div>
+                                    <h3 className={`text-[1.3em] font-[700] mb-8 ${isDayTime ? 'text-black' : 'text-white'}`}>
+                                        Connected Platforms
+                                    </h3>
+                                    
+                                    {/* Logo Grid */}
+                                    <div className="grid grid-cols-2 gap-4 mb-12">
+                                        {integrations.map((integration, idx) => (
+                                            <motion.div 
+                                                key={integration.id}
+                                                whileHover={{ scale: 1.05 }}
+                                                transition={{ duration: 0.3 }}
+                                                className={`p-4 rounded-xl flex items-center justify-center h-24 border transition-all ${
+                                                    isDayTime 
+                                                        ? 'bg-white/50 border-gray-200/40 hover:border-purple-300/60 hover:bg-white/70' 
+                                                        : 'bg-white/8 border-white/15 hover:border-purple-400/50 hover:bg-white/12'
+                                                }`}
+                                            >
+                                                <Image
+                                                    src={isDayTime ? integration.logoLight : integration.logoDark}
+                                                    alt={integration.alt}
+                                                    width={48}
+                                                    height={48}
+                                                    className="object-contain"
+                                                />
+                                            </motion.div>
+                                        ))}
+                                    </div>
+
+                                    {/* Stats */}
+                                    <div className={`border-t ${isDayTime ? 'border-gray-200/40' : 'border-white/10'} pt-8 space-y-4`}>
+                                        <div className="flex items-center justify-between">
+                                            <span className={`text-sm font-semibold ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>Total Integrations</span>
+                                            <span className={`text-lg font-[700] ${isDayTime ? 'text-purple-700' : 'text-purple-300'}`}>12+</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <span className={`text-sm font-semibold ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>API Support</span>
+                                            <span className={`text-lg font-[700] ${isDayTime ? 'text-purple-700' : 'text-purple-300'}`}>REST/GraphQL</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <span className={`text-sm font-semibold ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>Uptime SLA</span>
+                                            <span className={`text-lg font-[700] ${isDayTime ? 'text-purple-700' : 'text-purple-300'}`}>99.9%</span>
+                                        </div>
+                                    </div>
+
+                                    {/* Description */}
+                                    <p className={`mt-8 text-sm leading-[1.6] ${isDayTime ? 'text-black/60' : 'text-white/65'}`}>
+                                        Enterprise-grade ecosystem with real-time synchronization, advanced security protocols, and intelligent workflow orchestration built for Fortune 500 scale.
+                                    </p>
+                                </div>
+                            </div>
+                        </FxReveal>
+
+                        {/* RIGHT: Accordion Dropdowns */}
+                        <div className="space-y-3">
+                            {integrations.map((integration, index) => (
+                                <FxReveal key={integration.id} delay={0.05 + index * 0.03}>
+                                    <AccordionIntegrationAdvanced 
+                                        integration={integration} 
+                                        isDayTime={isDayTime}
+                                        index={index}
+                                    />
+                                </FxReveal>
+                            ))}
+                        </div>
                     </div>
-                ))}
-            </div>
+
+                    {/* Bottom CTA */}
+                    <FxReveal delay={0.6}>
+                        <div className={`mt-20 rounded-2xl overflow-hidden border backdrop-blur-lg ${
+                            isDayTime 
+                                ? 'bg-gradient-to-r from-purple-600 to-purple-700 border-purple-400/50' 
+                                : 'bg-gradient-to-r from-purple-600/40 to-purple-700/30 border-purple-400/30'
+                        }`}>
+                            <div className="p-12 lg:p-16 text-center">
+                                <h3 className="text-[2em] font-[800] mb-4 text-white">
+                                    Need Custom Integration?
+                                </h3>
+                                <p className={`text-[1em] max-w-2xl mx-auto mb-8 leading-[1.7] ${isDayTime ? 'text-white/90' : 'text-white/80'}`}>
+                                    Our engineering architects build bespoke integrations tailored to your unique enterprise requirements.
+                                </p>
+                                <FxButton href="/contact" day={isDayTime} colorScheme="purple">
+                                    Schedule Consultation
+                                </FxButton>
+                            </div>
+                        </div>
+                    </FxReveal>
+                </div>
+            </section>
 
         </div>
     );

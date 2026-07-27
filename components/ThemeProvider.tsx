@@ -53,7 +53,7 @@ export function ThemeProvider({children}: {children: React.ReactNode}) {
     useEffect(() => {
         // @ts-expect-error AmbientLightSensor is experimental / not in TS libs
         if (typeof window === 'undefined' || typeof window.AmbientLightSensor === 'undefined') return;
-        let sensor: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+        let sensor: unknown;  
         try {
             // @ts-expect-error experimental constructor
             sensor = new window.AmbientLightSensor({frequency: 1});

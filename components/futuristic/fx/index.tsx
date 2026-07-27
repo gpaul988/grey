@@ -66,10 +66,19 @@ export function FxChip({
                            day,
                            children,
                            className = '',
-                       }: DayProp & { children: React.ReactNode; className?: string }) {
+                           colorScheme = 'teal',
+                       }: DayProp & {
+    children: React.ReactNode;
+    className?: string;
+    colorScheme?: 'teal' | 'purple' | 'cyan' | 'orange'
+}) {
+    // Color scheme mapping for chip styles
+    const chipClass = colorScheme === 'teal' ? '' : `gx-chip-${colorScheme}`;
+    const dotClass = colorScheme === 'teal' ? 'gx-dot' : `gx-dot-${colorScheme}`;
+
     return (
-        <span data-day={day ? 'true' : 'false'} className={`gx-chip ${className}`}>
-            <span className="gx-dot"/>
+        <span data-day={day ? 'true' : 'false'} className={`gx-chip ${chipClass} ${className}`}>
+            <span className={dotClass}/>
             {children}
         </span>
     );
@@ -125,21 +134,49 @@ export function FxButton({
                              children,
                              variant = 'solid',
                              className = '',
+                             colorScheme = 'teal',
                          }: DayProp & {
     href?: string;
     onClickAction?: () => void;
     children: React.ReactNode;
     variant?: 'solid' | 'ghost';
     className?: string;
+    colorScheme?: 'teal' | 'purple' | 'cyan' | 'orange';
 }) {
     const base =
         'group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-3 text-[0.9em] font-[600] tracking-tight transition-all duration-300 grey-squish';
+
+    // Color scheme mapping for buttons
+    const colorMap = {
+        teal: {
+            solid: 'text-[#04110f] bg-gradient-to-r from-teal-400 to-cyan-400 shadow-[0_10px_30px_-10px_rgba(34,211,238,.8)] hover:shadow-[0_16px_40px_-10px_rgba(45,212,191,.9)] hover:-translate-y-0.5',
+            ghostLight: 'text-teal-800 border border-teal-700/30 hover:border-teal-600 hover:bg-teal-50',
+            ghostDark: 'text-teal-100 border border-white/20 hover:border-teal-300/60 hover:bg-white/5'
+        },
+        purple: {
+            solid: 'text-[#04110f] bg-gradient-to-r from-purple-400 to-purple-500 shadow-[0_10px_30px_-10px_rgba(168,85,247,.8)] hover:shadow-[0_16px_40px_-10px_rgba(139,92,246,.9)] hover:-translate-y-0.5',
+            ghostLight: 'text-purple-800 border border-purple-700/30 hover:border-purple-600 hover:bg-purple-50',
+            ghostDark: 'text-purple-100 border border-white/20 hover:border-purple-300/60 hover:bg-white/5'
+        },
+        cyan: {
+            solid: 'text-[#04110f] bg-gradient-to-r from-cyan-400 to-blue-400 shadow-[0_10px_30px_-10px_rgba(34,211,238,.8)] hover:shadow-[0_16px_40px_-10px_rgba(34,211,238,.9)] hover:-translate-y-0.5',
+            ghostLight: 'text-cyan-800 border border-cyan-700/30 hover:border-cyan-600 hover:bg-cyan-50',
+            ghostDark: 'text-cyan-100 border border-white/20 hover:border-cyan-300/60 hover:bg-white/5'
+        },
+        orange: {
+            solid: 'text-[#04110f] bg-gradient-to-r from-orange-400 to-orange-500 shadow-[0_10px_30px_-10px_rgba(249,115,22,.8)] hover:shadow-[0_16px_40px_-10px_rgba(249,115,22,.9)] hover:-translate-y-0.5',
+            ghostLight: 'text-orange-800 border border-orange-700/30 hover:border-orange-600 hover:bg-orange-50',
+            ghostDark: 'text-orange-100 border border-white/20 hover:border-orange-300/60 hover:bg-white/5'
+        }
+    };
+
+    const colors = colorMap[colorScheme];
     const styles =
         variant === 'solid'
-            ? 'text-[#04110f] bg-gradient-to-r from-teal-400 to-cyan-400 shadow-[0_10px_30px_-10px_rgba(34,211,238,.8)] hover:shadow-[0_16px_40px_-10px_rgba(45,212,191,.9)] hover:-translate-y-0.5'
+            ? colors.solid
             : day
-                ? 'text-teal-800 border border-teal-700/30 hover:border-teal-600 hover:bg-teal-50'
-                : 'text-teal-100 border border-white/20 hover:border-teal-300/60 hover:bg-white/5';
+                ? colors.ghostLight
+                : colors.ghostDark;
 
     const content = (
         <>
@@ -467,6 +504,9 @@ export type FxScrollItem = {
     metrics?: FxMetric[]; // optional structured metrics (value, label, description)
     deliverables?: string[]; // optional deliverables list
     cta?: { label: string; href: string };
+    // Optional timeline & engagement metadata (rendered in CTA/meta column)
+    timeline?: string;
+    engagement?: string;
 };
 
 export function FxStickyScrollSection({
@@ -477,6 +517,7 @@ export function FxStickyScrollSection({
                                           items,
                                           activeId,
                                           onNavClickAction,
+                                          colorScheme = 'teal',
                                       }: DayProp & {
     heading: React.ReactNode;
     intro?: React.ReactNode;
@@ -484,11 +525,74 @@ export function FxStickyScrollSection({
     items: FxScrollItem[];
     activeId: string;
     onNavClickAction: (target: string) => void;
+    colorScheme?: 'teal' | 'purple' | 'cyan' | 'orange';
 }) {
     const mutedText = day ? 'text-gray-500' : 'text-white/45';
     const borderCol = day ? 'border-gray-200' : 'border-white/10';
     const bgColor = day ? 'bg-white' : 'bg-black';
     const textColor = day ? 'text-black' : 'text-white';
+
+    // Color scheme mappings
+    const colorMap = {
+        teal: {
+            rail: 'border-teal-400/15 shadow-[0_0_60px_-20px_rgba(45,212,191,0.65)]',
+            grad1: 'bg-[radial-gradient(circle_at_top_left,rgba(45,212,191,0.18),transparent_46%)]',
+            grad2: 'via-teal-400/80',
+            grad3: 'via-teal-400/20',
+            active: 'bg-teal-400/10 border-teal-400/30 shadow-[0_0_24px_-8px_rgba(45,212,191,0.55)]',
+            hover: 'border-teal-400/15 hover:bg-teal-400/5',
+            accent: 'text-teal-400',
+            cardBorder: 'border-teal-400/10 shadow-[0_0_50px_-24px_rgba(45,212,191,0.35)]',
+            metricBorder: 'border-teal-400/8',
+            topGrad: 'via-teal-400/80',
+            leftGrad: 'via-teal-400/20',
+            orbGrad: 'bg-[radial-gradient(circle_at_top,rgba(45,212,191,0.08),transparent_38%)]',
+        },
+        purple: {
+            rail: 'border-purple-400/15 shadow-[0_0_60px_-20px_rgba(139,92,246,0.65)]',
+            grad1: 'bg-[radial-gradient(circle_at_top_left,rgba(139,92,246,0.18),transparent_46%)]',
+            grad2: 'via-purple-400/80',
+            grad3: 'via-purple-400/20',
+            active: 'bg-purple-400/10 border-purple-400/30 shadow-[0_0_24px_-8px_rgba(139,92,246,0.55)]',
+            hover: 'border-purple-400/15 hover:bg-purple-400/5',
+            accent: 'text-purple-400',
+            cardBorder: 'border-purple-400/10 shadow-[0_0_50px_-24px_rgba(139,92,246,0.35)]',
+            metricBorder: 'border-purple-400/8',
+            topGrad: 'via-purple-400/80',
+            leftGrad: 'via-purple-400/20',
+            orbGrad: 'bg-[radial-gradient(circle_at_top,rgba(139,92,246,0.08),transparent_38%)]',
+        },
+        cyan: {
+            rail: 'border-cyan-400/15 shadow-[0_0_60px_-20px_rgba(34,211,238,0.65)]',
+            grad1: 'bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.18),transparent_46%)]',
+            grad2: 'via-cyan-400/80',
+            grad3: 'via-cyan-400/20',
+            active: 'bg-cyan-400/10 border-cyan-400/30 shadow-[0_0_24px_-8px_rgba(34,211,238,0.55)]',
+            hover: 'border-cyan-400/15 hover:bg-cyan-400/5',
+            accent: 'text-cyan-400',
+            cardBorder: 'border-cyan-400/10 shadow-[0_0_50px_-24px_rgba(34,211,238,0.35)]',
+            metricBorder: 'border-cyan-400/8',
+            topGrad: 'via-cyan-400/80',
+            leftGrad: 'via-cyan-400/20',
+            orbGrad: 'bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.08),transparent_38%)]',
+        },
+        orange: {
+            rail: 'border-orange-400/15 shadow-[0_0_60px_-20px_rgba(249,115,22,0.65)]',
+            grad1: 'bg-[radial-gradient(circle_at_top_left,rgba(249,115,22,0.18),transparent_46%)]',
+            grad2: 'via-orange-400/80',
+            grad3: 'via-orange-400/20',
+            active: 'bg-orange-400/10 border-orange-400/30 shadow-[0_0_24px_-8px_rgba(249,115,22,0.55)]',
+            hover: 'border-orange-400/15 hover:bg-orange-400/5',
+            accent: 'text-orange-400',
+            cardBorder: 'border-orange-400/10 shadow-[0_0_50px_-24px_rgba(249,115,22,0.35)]',
+            metricBorder: 'border-orange-400/8',
+            topGrad: 'via-orange-400/80',
+            leftGrad: 'via-orange-400/20',
+            orbGrad: 'bg-[radial-gradient(circle_at_top,rgba(249,115,22,0.08),transparent_38%)]',
+        },
+    };
+
+    const colors = colorMap[colorScheme];
     const sectionRef = useRef<HTMLElement | null>(null);
     const headerRef = useRef<HTMLDivElement | null>(null);
     const railRef = useRef<HTMLDivElement | null>(null);
@@ -556,8 +660,16 @@ export function FxStickyScrollSection({
                 <FxBackground day={day} grid aurora/>
                 <FxOrbit size={700} top="-150px" right="-200px" opacity={0.12} speed={35}/>
                 <FxOrbit size={400} top="200px" left="-150px" opacity={0.10} speed={28} reverse/>
-                <div
-                    className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(45,212,191,0.08),transparent_38%)]"/>
+                <div className={`absolute inset-0 ${colors.orbGrad}`}/>
+                {/* Additional purple gradient overlays for enhanced color cohesion */}
+                {colorScheme === 'purple' && (
+                    <>
+                        <div
+                            className="absolute top-0 right-0 w-[600px] h-[600px] bg-[radial-gradient(circle_at_right_top,rgba(139,92,246,0.12),transparent_60%)] pointer-events-none"/>
+                        <div
+                            className="absolute bottom-1/3 left-1/4 w-[500px] h-[500px] bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.08),transparent_70%)] pointer-events-none"/>
+                    </>
+                )}
             </div>
 
             <div
@@ -587,14 +699,14 @@ export function FxStickyScrollSection({
                     >
                         <div
                             ref={railRef}
-                            className="relative overflow-hidden rounded-[1.75rem] border border-teal-400/15 bg-white/[0.03] p-6 shadow-[0_0_60px_-20px_rgba(45,212,191,0.65)] backdrop-blur-2xl"
+                            className={`relative overflow-hidden rounded-[1.75rem] border ${colors.rail} bg-white/[0.03] p-6 backdrop-blur-2xl`}
                         >
                             <div
-                                className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(45,212,191,0.18),transparent_46%)]"/>
+                                className={`pointer-events-none absolute inset-0 ${colors.grad1}`}/>
                             <div
-                                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-teal-400/80 to-transparent"/>
+                                className={`pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent ${colors.grad2} to-transparent`}/>
                             <div
-                                className="pointer-events-none absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent via-teal-400/20 to-transparent"/>
+                                className={`pointer-events-none absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent ${colors.grad3} to-transparent`}/>
 
                             <FxChip day={day} className="relative mb-5">{navLabel}</FxChip>
                             <h3 className={`relative text-[1.5em] lg:text-[2.3em] font-[700] leading-[1.05] tracking-tight ${day ? 'text-gray-900' : 'text-white'}`}>
@@ -614,12 +726,12 @@ export function FxStickyScrollSection({
                                             onClick={() => onNavClickAction(item.target)}
                                             className={`group w-full text-left flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-300 border text-[0.82em] lg:text-[0.9em] ${
                                                 isActive
-                                                    ? 'bg-teal-400/10 border-teal-400/30 shadow-[0_0_24px_-8px_rgba(45,212,191,0.55)]'
-                                                    : `border-transparent hover:border-teal-400/15 hover:bg-teal-400/5 ${mutedText}`
+                                                    ? colors.active
+                                                    : `border-transparent ${colors.hover} ${mutedText}`
                                             }`}
                                         >
                                             <span
-                                                className={`text-[0.65em] lg:text-[0.7em] font-[700] tracking-wider tabular-nums shrink-0 ${isActive ? 'text-teal-400' : (day ? 'text-gray-400' : 'text-white/40')}`}>
+                                                className={`text-[0.65em] lg:text-[0.7em] font-[700] tracking-wider tabular-nums shrink-0 ${isActive ? colors.accent : (day ? 'text-gray-400' : 'text-white/40')}`}>
                                                 {item.id}
                                             </span>
                                             <span
@@ -627,7 +739,7 @@ export function FxStickyScrollSection({
                                                 {item.title}
                                             </span>
                                             {isActive && <span
-                                                className="ml-auto text-teal-400 text-[1em] lg:text-[1.1em]">→</span>}
+                                                className={`ml-auto ${colors.accent} text-[1em] lg:text-[1.1em]`}>→</span>}
                                         </button>
                                     );
                                 })}
@@ -641,31 +753,38 @@ export function FxStickyScrollSection({
                             <FxReveal key={index} delay={0.08 * index}>
                                 <div id={item.target} className="scroll-mt-28">
                                     <FxHoloCard day={day}
-                                                className="p-4 lg:p-9 border border-teal-400/10 shadow-[0_0_50px_-24px_rgba(45,212,191,0.35)]">
-                                        <div className="flex items-start gap-4 mb-4">
+                                                className={`p-4 lg:p-9 border ${colors.cardBorder} relative overflow-hidden`}>
+                                        {/* Purple gradient overlay for color cohesion */}
+                                        {colorScheme === 'purple' && (
+                                            <div
+                                                className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(139,92,246,0.08),transparent_70%)] pointer-events-none"/>
+                                        )}
+                                        <div className="relative z-10 flex items-start gap-4 mb-4">
                                             <span
                                                 className={`text-[0.65em] lg:text-[0.7em] font-[700] tabular-nums shrink-0 mt-1 ${day ? 'text-gray-500' : 'text-white/50'}`}>{item.id}/</span>
                                             <h2 className={`text-[1.15em] lg:text-[1.65em] font-[600] leading-snug ${day ? 'text-gray-900' : 'text-white'}`}>{item.title}</h2>
                                         </div>
                                         {item.tags && item.tags.length > 0 && (
-                                            <div className="flex flex-wrap gap-2 mb-5">
-                                                {item.tags.map((tag, t) => <FxChip key={t} day={day}>{tag}</FxChip>)}
+                                            <div className="relative z-10 flex flex-wrap gap-2 mb-5">
+                                                {item.tags.map((tag, t) => <FxChip key={t} day={day}
+                                                                                   colorScheme={colorScheme}>{tag}</FxChip>)}
                                             </div>
                                         )}
                                         <div
-                                            className={`text-[0.8em] lg:text-[0.85em] font-[300] leading-[1.6] lg:leading-[1.7] text-justify ${day ? 'text-gray-700' : 'text-white/65'}`}>
+                                            className={`relative z-10 text-[0.8em] lg:text-[0.85em] font-[300] leading-[1.6] lg:leading-[1.7] text-justify ${day ? 'text-gray-700' : 'text-white/65'}`}>
                                             {item.body}
                                         </div>
 
                                         {/* Professional detail band: metrics, deliverables, CTA (enhanced) */}
-                                        <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
+                                        <div
+                                            className="relative z-10 mt-6 grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
                                             {/* Metrics column with CountUp for numeric values */}
                                             <div>
                                                 {item.metrics && item.metrics.length ? (
                                                     <div className="grid grid-cols-2 gap-3">
                                                         {item.metrics.map((m, mi) => (
                                                             <div key={mi}
-                                                                 className="p-3 rounded-xl border border-teal-400/8 bg-white/[0.02]">
+                                                                 className={`p-3 rounded-xl border ${colors.metricBorder} bg-white/[0.02]`}>
                                                                 {/* Render numeric values with CountUp when possible */}
                                                                 {(() => {
                                                                     const raw = String(m.value ?? '');
@@ -717,7 +836,7 @@ export function FxStickyScrollSection({
                                                             <li key={di} className="flex items-start gap-2">
                                                                 <svg width="14" height="14" viewBox="0 0 24 24"
                                                                      fill="none" xmlns="http://www.w3.org/2000/svg"
-                                                                     className="mt-1 text-teal-400">
+                                                                     className={`mt-1 ${colors.accent}`}>
                                                                     <path d="M20 6L9 17l-5-5" stroke="currentColor"
                                                                           strokeWidth="2" strokeLinecap="round"
                                                                           strokeLinejoin="round"/>
@@ -730,16 +849,17 @@ export function FxStickyScrollSection({
                                                             <li className="flex items-start gap-2">
                                                                 <svg width="14" height="14" viewBox="0 0 24 24"
                                                                      fill="none" xmlns="http://www.w3.org/2000/svg"
-                                                                     className="mt-1 text-teal-400">
+                                                                     className={`mt-1 ${colors.accent}`}>
                                                                     <path d="M20 6L9 17l-5-5" stroke="currentColor"
                                                                           strokeWidth="2" strokeLinecap="round"
                                                                           strokeLinejoin="round"/>
                                                                 </svg>
-                                                                <span>Requirements & prioritised scope brief</span></li>
+                                                                <span>Requirements & prioritised scope brief</span>
+                                                            </li>
                                                             <li className="flex items-start gap-2">
                                                                 <svg width="14" height="14" viewBox="0 0 24 24"
                                                                      fill="none" xmlns="http://www.w3.org/2000/svg"
-                                                                     className="mt-1 text-teal-400">
+                                                                     className={`mt-1 ${colors.accent}`}>
                                                                     <path d="M20 6L9 17l-5-5" stroke="currentColor"
                                                                           strokeWidth="2" strokeLinecap="round"
                                                                           strokeLinejoin="round"/>
@@ -749,7 +869,7 @@ export function FxStickyScrollSection({
                                                             <li className="flex items-start gap-2">
                                                                 <svg width="14" height="14" viewBox="0 0 24 24"
                                                                      fill="none" xmlns="http://www.w3.org/2000/svg"
-                                                                     className="mt-1 text-teal-400">
+                                                                     className={`mt-1 ${colors.accent}`}>
                                                                     <path d="M20 6L9 17l-5-5" stroke="currentColor"
                                                                           strokeWidth="2" strokeLinecap="round"
                                                                           strokeLinejoin="round"/>
@@ -770,18 +890,24 @@ export function FxStickyScrollSection({
                                                 <div>
                                                     <h5 className="text-sm font-semibold mb-2">Timeline &
                                                         Engagement</h5>
-                                                    <div className="text-sm text-white/70">Typical delivery: 6–12 weeks
-                                                        depending on scope. Engagement models: Fixed-price, Time &
-                                                        Materials, or Dedicated Team. Post-launch SLA available.
+                                                    <div className="text-sm ">
+                                                        <div className="mb-2">
+                                                            <span className="font-medium">Delivery:</span> {item.timeline}
+                                                        </div>
+                                                        <div>
+                                                            <span className="font-medium">Model:</span> {item.engagement}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div className="mt-4">
                                                     {item.cta ? (
                                                         <FxButton href={item.cta.href}
-                                                                  day={day}>{item.cta.label}</FxButton>
+                                                                  day={day}
+                                                                  colorScheme={colorScheme}>{item.cta.label}</FxButton>
                                                     ) : (
-                                                        <FxButton href="/contact" day={day}>Discuss this
+                                                        <FxButton href="/contact" day={day} colorScheme={colorScheme}>Discuss
+                                                            this
                                                             solution</FxButton>
                                                     )}
                                                     <div className="mt-2 text-xs text-white/60">Includes initial scoping

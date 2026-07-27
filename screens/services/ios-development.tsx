@@ -1230,6 +1230,54 @@ const IosDevelopment = () => {
                     </div>
                 </div>
             </section>
+
+            <ServiceCapabilities
+                heading="iOS product delivery capabilities"
+                subheading="PLATFORM EXPERTISE"
+                accentColor="#06b6d4"
+                isDarkBg={!isDayTime}
+                variant="terminal"
+                ctaHref="/quote-request"
+                ctaLabel="Start your iOS project"
+                capabilities={[
+                    {
+                        id: 'strategy',
+                        title: 'Discovery & Product Strategy',
+                        description: 'We translate business goals into a focused iOS roadmap with clear priorities, user journeys, and a premium experience blueprint.',
+                        points: ['Product workshops', 'User flow maps', 'Roadmap planning', 'Success metrics']
+                    },
+                    {
+                        id: 'engineering',
+                        title: 'Native iOS Engineering',
+                        description: 'Our engineers build secure, scalable Swift applications using modern Apple frameworks, polished architecture, and high-performance patterns.',
+                        points: ['Swift & SwiftUI', 'UIKit modernization', 'API integration', 'Performance tuning']
+                    },
+                    {
+                        id: 'design',
+                        title: 'Premium UI & Experience',
+                        description: 'We design interfaces that reflect Apple’s design language while elevating conversion, trust, and retention.',
+                        points: ['HIG-guided UI', 'Accessibility', 'Motion systems', 'Design QA']
+                    },
+                    {
+                        id: 'quality',
+                        title: 'Testing & Release Readiness',
+                        description: 'From TestFlight to App Store readiness, we ensure your product launches smoothly and stays stable across devices.',
+                        points: ['Automated QA', 'Device coverage', 'TestFlight rollout', 'Release management']
+                    },
+                    {
+                        id: 'security',
+                        title: 'Security & Privacy',
+                        description: 'We implement privacy-first patterns and secure data handling to support compliance and customer confidence.',
+                        points: ['Secure auth', 'Privacy controls', 'Data protection', 'Compliance support']
+                    },
+                    {
+                        id: 'growth',
+                        title: 'Post-Launch Optimization',
+                        description: 'We support long-term growth with analytics, iteration sprints, performance upgrades, and feature expansion.',
+                        points: ['Analytics events', 'Iteration cycles', 'Feature expansion', 'Maintenance']
+                    }
+                ]}
+            />
         </div>
     );
 };

@@ -2079,95 +2079,139 @@ const WebDesign = () => {
                 <div className="relative z-5 h-1 bg-gradient-to-r from-transparent via-teal-400/40 to-transparent"/>
             </div>
 
-            {/* Futuristic Capabilities Section — Detailed, Rich */}
-            <ServiceCapabilities
-                heading="Web Design Capabilities & Expertise"
-                subheading="Full-Stack Expertise"
-                accentColor="#00f5d4"
-                variant="terminal"
-                ctaHref="/contact"
-                ctaLabel="Explore your solution"
-                capabilities={[
-                    {
-                        id: 'ux-design',
-                        title: 'Human-Centered UX Design',
-                        description: 'User-first methodology combining research, behavioral psychology and design systems. Every interface decision is validated through user testing, accessibility audits and conversion optimization.',
-                        points: [
-                            'User research & personas',
-                            'Wireframing & interactive prototypes',
-                            'Usability testing (SUS scores)',
-                            'WCAG 2.1 AA compliance',
-                            'Design system documentation',
-                            'Design-to-dev handoff specs'
-                        ],
-                    },
-                    {
-                        id: 'web-dev',
-                        title: 'Production-Grade Development',
-                        description: 'Enterprise-level architecture with modern frameworks. We prioritize performance, scalability and maintainability using component-driven development and automated testing.',
-                        points: [
-                            'Next.js / React with TypeScript',
-                            'Sub-1.5s FCP, <2.5s LCP',
-                            'Mobile-first responsive design',
-                            'CDN + edge caching strategy',
-                            'CI/CD automation (GitHub Actions)',
-                            'Automated E2E testing'
-                        ],
-                    },
-                    {
-                        id: 'seo-ready',
-                        title: 'Technical SEO Foundation',
-                        description: 'Built for organic discovery from day one. Semantic HTML, schema markup, performance optimization and strategic content architecture work together to dominate search rankings.',
-                        points: [
-                            'Core Web Vitals optimization',
-                            'Structured data (JSON-LD)',
-                            'XML sitemap & robots.txt',
-                            'Mobile-first indexing prep',
-                            'Internal linking strategy',
-                            'Canonical & meta tag setup'
-                        ],
-                    },
-                    {
-                        id: 'cms',
-                        title: 'Headless CMS Integration',
-                        description: 'Decouple content from presentation. Your team manages pages independently with a modern admin interface while developers deploy updates seamlessly through APIs.',
-                        points: [
-                            'Contentful / Sanity / Strapi',
-                            'WordPress headless mode',
-                            'Custom admin dashboards',
-                            'Real-time content preview',
-                            'Version control & publishing',
-                            'Multi-language content support'
-                        ],
-                    },
-                    {
-                        id: 'ecommerce',
-                        title: 'Conversion-Optimized E-Commerce',
-                        description: 'Storefronts engineered to sell. Product discovery, checkout flows and post-purchase experience are designed around reducing friction and maximizing revenue per visitor.',
-                        points: [
-                            'Shopify Plus / WooCommerce',
-                            'Headless commerce architecture',
-                            'PCI-compliant payment flows',
-                            'Dynamic inventory sync',
-                            'Cart abandonment recovery',
-                            'Revenue analytics dashboard'
-                        ],
-                    },
-                    {
-                        id: 'analytics',
-                        title: 'Data & Insights Infrastructure',
-                        description: 'Every site ships with complete measurement infrastructure. Track user behavior, conversion funnels and revenue impact from day one to fuel continuous optimization.',
-                        points: [
-                            'GA4 + custom events setup',
-                            'Hotjar / FullStory integration',
-                            'Conversion funnel tracking',
-                            'Revenue attribution modeling',
-                            'Monthly performance reports',
-                            'Quarterly optimization roadmap'
-                        ],
-                    },
-                ]}
-            />
+            {/* Futuristic Capabilities Section — Hero Pattern */}
+            <section id="capabilities" className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-auto w-full h-auto py-20">
+                {/* Video Background (desktop) and Image fallback (mobile) */}
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    className="hidden lg:block absolute inset-0 w-full h-full object-cover"
+                    poster="/assets/wd/capabilities-hero.jpg"
+                >
+                    <source src="/assets/wd/capabilities-hero.mp4" type="video/mp4"/>
+                </video>
+
+                <Image
+                    src="/assets/wd/capabilities-hero.jpg"
+                    alt="Capabilities Hero"
+                    fill
+                    priority
+                    className="lg:hidden object-cover absolute inset-0"
+                />
+
+                {/* Grid & FX Background */}
+                <div className="pointer-events-none absolute inset-0 z-[1]">
+                    <FxBackground day={false} grid={true} aurora={true}/>
+                </div>
+
+                {/* Gradient Overlay with Glow */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50 z-[2]"/>
+                <div
+                    className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(45,212,191,0.12),transparent_50%)] z-[2]"/>
+
+                {/* Futuristic FX Elements */}
+                <div className="pointer-events-none absolute inset-0 z-[3]">
+                    <div className="gx-scanline"/>
+                    <div className="gx-noise-overlay"/>
+                    <div className="gx-orbit absolute"
+                         style={{width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .12}}/>
+                </div>
+
+                {/* Content Container */}
+                <div className="relative z-[11]">
+                    <ServiceCapabilities
+                        heading="Web Design Capabilities & Expertise"
+                        subheading="Full-Stack Expertise"
+                        accentColor="#00f5d4"
+                        variant="terminal"
+                        ctaHref="/contact"
+                        ctaLabel="Explore your solution"
+                        capabilities={[
+                            {
+                                id: 'ux-design',
+                                title: 'Human-Centered UX Design',
+                                description: 'User-first methodology combining research, behavioral psychology and design systems. Every interface decision is validated through user testing, accessibility audits and conversion optimization.',
+                                points: [
+                                    'User research & personas',
+                                    'Wireframing & interactive prototypes',
+                                    'Usability testing (SUS scores)',
+                                    'WCAG 2.1 AA compliance',
+                                    'Design system documentation',
+                                    'Design-to-dev handoff specs'
+                                ],
+                            },
+                            {
+                                id: 'web-dev',
+                                title: 'Production-Grade Development',
+                                description: 'Enterprise-level architecture with modern frameworks. We prioritize performance, scalability and maintainability using component-driven development and automated testing.',
+                                points: [
+                                    'Next.js / React with TypeScript',
+                                    'Sub-1.5s FCP, <2.5s LCP',
+                                    'Mobile-first responsive design',
+                                    'CDN + edge caching strategy',
+                                    'CI/CD automation (GitHub Actions)',
+                                    'Automated E2E testing'
+                                ],
+                            },
+                            {
+                                id: 'seo-ready',
+                                title: 'Technical SEO Foundation',
+                                description: 'Built for organic discovery from day one. Semantic HTML, schema markup, performance optimization and strategic content architecture work together to dominate search rankings.',
+                                points: [
+                                    'Core Web Vitals optimization',
+                                    'Structured data (JSON-LD)',
+                                    'XML sitemap & robots.txt',
+                                    'Mobile-first indexing prep',
+                                    'Internal linking strategy',
+                                    'Canonical & meta tag setup'
+                                ],
+                            },
+                            {
+                                id: 'cms',
+                                title: 'Headless CMS Integration',
+                                description: 'Decouple content from presentation. Your team manages pages independently with a modern admin interface while developers deploy updates seamlessly through APIs.',
+                                points: [
+                                    'Contentful / Sanity / Strapi',
+                                    'WordPress headless mode',
+                                    'Custom admin dashboards',
+                                    'Real-time content preview',
+                                    'Version control & publishing',
+                                    'Multi-language content support'
+                                ],
+                            },
+                            {
+                                id: 'ecommerce',
+                                title: 'Conversion-Optimized E-Commerce',
+                                description: 'Storefronts engineered to sell. Product discovery, checkout flows and post-purchase experience are designed around reducing friction and maximizing revenue per visitor.',
+                                points: [
+                                    'Shopify Plus / WooCommerce',
+                                    'Headless commerce architecture',
+                                    'PCI-compliant payment flows',
+                                    'Dynamic inventory sync',
+                                    'Cart abandonment recovery',
+                                    'Revenue analytics dashboard'
+                                ],
+                            },
+                            {
+                                id: 'analytics',
+                                title: 'Data & Insights Infrastructure',
+                                description: 'Every site ships with complete measurement infrastructure. Track user behavior, conversion funnels and revenue impact from day one to fuel continuous optimization.',
+                                points: [
+                                    'GA4 + custom events setup',
+                                    'Hotjar / FullStory integration',
+                                    'Conversion funnel tracking',
+                                    'Revenue attribution modeling',
+                                    'Monthly performance reports',
+                                    'Quarterly optimization roadmap'
+                                ],
+                            },
+                        ]}
+                    />
+                </div>
+            </section>
         </div>
     );
 };

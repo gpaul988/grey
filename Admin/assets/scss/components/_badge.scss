@@ -49,3 +49,19 @@
 .badge {
     vertical-align: middle;
 }
+
+/* Page/background badge: match page background and text */
+.badge-page,
+.bg-page-subtle {
+    background-color: $body-bg !important;
+    color: $body-color !important;
+}
+
+.avatar-sm.bg-page-subtle {
+    background-color: $body-bg !important;
+    color: $body-color !important;
+}
+
+.text-page {
+    color: $body-color !important;
+}
