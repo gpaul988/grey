@@ -310,7 +310,7 @@ const ECommerceDevelopment = () => {
                                     <span className="px-4 py-2 rounded-full badge-page">eCommerce Strategy</span>
                                 </div>
                                 <p className={'text-justify leading-[1.5] text-[0.873em] font-[300]'}>
-                                    We select the right platform for scale and implement high-converting storefronts with performance, accessibility, and modular design systems in mind. Our handoffs include interactive prototypes and implementation-ready tokens for engineering teams.
+                                    We architect and develop conversion-optimized storefronts across Shopify Plus, WooCommerce, Magento, and headless solutions. Our expertise spans platform selection, theme customization, custom apps, API integrations, and advanced merchandising. We build with performance-first principles—fast checkout flows, mobile-first design, accessibility compliance (WCAG 2.1 AA), and SEO best practices. Every storefront includes design tokens, component libraries, and implementation documentation for seamless handoff to your engineering team.
                                 </p>
                             </div>
                         ),
@@ -328,7 +328,7 @@ const ECommerceDevelopment = () => {
                                     <span className="px-4 py-2 rounded-full badge-page">Custom eCommerce Development</span>
                                 </div>
                                 <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                    From subscription paywalls to multi-vendor marketplaces, build platforms that monetize content and commerce reliably with secure recurring billing, vendor onboarding flows, and moderation tooling.
+                                    We engineer sophisticated multi-vendor marketplaces and subscription platforms with robust billing infrastructure. Our solutions handle recurring revenue management, vendor onboarding workflows, commission splits, real-time inventory sync, dispute resolution, and comprehensive admin dashboards. We integrate leading payment processors, implement fraud detection systems, and build tiered access controls. From B2B SaaS platforms to creator marketplaces, we deliver scalable systems handling millions in GMV with enterprise-grade reliability and compliance (PCI-DSS, GDPR, SOC 2).
                                 </p>
                             </div>
                         ),
@@ -345,7 +345,7 @@ const ECommerceDevelopment = () => {
                                     <span className="px-4 py-2 rounded-full badge-page">Innovative Payment Solutions</span>
                                 </div>
                                 <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                    Implement secure, compliant payment flows with Stripe, PayPal and alternative local gateways. Ensure PCI compliance, fraud protection, and smooth checkout experiences to minimize abandonment.
+                                    We architect secure, PCI-compliant payment systems integrating Stripe, PayPal, Square, Adyen, and regional gateways. Our expertise includes payment orchestration, 3D Secure authentication, tokenization, recurring billing, dynamic pricing, multi-currency support, and comprehensive fraud prevention. We optimize checkout flows using data-driven UX patterns—reducing cart abandonment, streamlining mobile payments, and supporting alternative methods (digital wallets, buy now pay later). Full compliance with industry standards and continuous security monitoring ensure your customers transact with confidence.
                                 </p>
                             </div>
                         ),
@@ -363,7 +363,7 @@ const ECommerceDevelopment = () => {
                                     <span className="px-4 py-2 rounded-full badge-page">A/B Testing Solutions</span>
                                 </div>
                                 <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                    Combine analytics, experimentation and UX refinements to increase average order value and conversion. We design hypotheses, implement experiments, and measure impact against business KPIs.
+                                    We drive quantifiable revenue growth through rigorous experimentation and data-informed UX optimization. Our approach combines heatmap analysis, user session recording, multivariate A/B testing, and advanced analytics to identify friction points in the customer journey. We systematically test checkout flows, product recommendations, pricing strategies, and retention mechanics—measuring impact on conversion rates, average order value, and customer lifetime value. Documented insights inform roadmap prioritization while statistical rigor ensures all improvements are validated and scalable.
                                 </p>
                             </div>
                         ),
@@ -381,7 +381,7 @@ const ECommerceDevelopment = () => {
                                     <span className="px-4 py-2 rounded-full badge-page">Sales-driven Marketing Solutions</span>
                                 </div>
                                 <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                    Integrate SEO, structured data for product discoverability, and growth marketing to drive qualified traffic and improve product visibility across search and shopping surfaces.
+                                    We amplify product visibility and drive high-intent traffic through integrated SEO, content marketing, and performance advertising. Our eCommerce SEO strategy covers technical optimization, product schema markup, merchant center management, and category-level ranking. We build content strategies that capture buyer intent while managing Google Shopping campaigns, remarketing, and marketplace advertising across Amazon and other channels. Combined with conversion optimization and retention campaigns, we deliver sustainable growth in customer acquisition and lifetime value.
                                 </p>
                             </div>
                         ),
