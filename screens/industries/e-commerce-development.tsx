@@ -34,6 +34,11 @@ const ECommerceDevelopment = () => {
     const pageAccent = '#ff005d';
     const pageAccentRgb = '255,0,93';
 
+    const rootStyle: React.CSSProperties & Record<string, string> = {
+        '--ecom-accent': pageAccent,
+        '--ecom-accent-rgb': pageAccentRgb,
+    };
+
     // Introductory section hook
     useEffect(() => {
         const handleScroll = () => {
@@ -91,8 +96,7 @@ const ECommerceDevelopment = () => {
     };
 
     return (
-        <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}
-             style={{['--ecom-accent' as any]: pageAccent, ['--ecom-accent-rgb' as any]: pageAccentRgb}}>
+        <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`} style={rootStyle}>
 
             {/* Unified Futuristic eCommerce Hero - Background Image/Video with overlay */}
             <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
