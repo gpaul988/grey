@@ -149,12 +149,7 @@ const ECommerceDevelopment = () => {
                             <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
                                 {['Shopify', 'Magento', 'WooCommerce', 'Headless', 'PIM'].map((badge) => (
                                     <span key={badge}
-                                          className="px-3 py-1.5 rounded-full text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider"
-                                          style={{
-                                              background: 'rgba(var(--ecom-accent-rgb),0.08)',
-                                              border: '1px solid rgba(var(--ecom-accent-rgb),0.18)',
-                                              color: 'rgba(var(--ecom-accent-rgb),0.95)'
-                                          }}>
+                                          className="px-3 py-1.5 rounded-full text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider badge-page">
                                             {badge}
                                         </span>
                                 ))}
@@ -191,14 +186,9 @@ const ECommerceDevelopment = () => {
                                     {label: 'Avg Conversion Lift', value: '200%'}
                                 ].map((stat) => (
                                     <div key={stat.label}
-                                         className="px-6 py-5 rounded-2xl backdrop-blur-md transition-all duration-300 text-right"
-                                         style={{
-                                             border: '1px solid rgba(var(--ecom-accent-rgb),0.22)',
-                                             background: 'rgba(var(--ecom-accent-rgb),0.06)'
-                                         }}>
+                                         className="px-6 py-5 rounded-2xl backdrop-blur-md transition-all duration-300 text-right page-accent-panel">
                                         <div
-                                            className="text-[0.7em] uppercase tracking-wider font-[600] mb-2"
-                                            style={{color: 'rgba(var(--ecom-accent-rgb),0.95)'}}>{stat.label}</div>
+                                            className="text-[0.7em] uppercase tracking-wider font-[600] mb-2 page-accent-label">{stat.label}</div>
                                         <div
                                             className="text-white text-[1.8em] font-[700]">{stat.value}</div>
                                     </div>
@@ -217,13 +207,9 @@ const ECommerceDevelopment = () => {
                             {label: 'Satisfaction', value: '99%'}
                         ].map((stat) => (
                             <div key={stat.label}
-                                 className="px-3 py-2 rounded-xl backdrop-blur-md" style={{
-                                border: '1px solid rgba(var(--ecom-accent-rgb),0.22)',
-                                background: 'rgba(var(--ecom-accent-rgb),0.06)'
-                            }}>
+                                 className="px-3 py-2 rounded-xl backdrop-blur-md page-accent-panel-mobile">
                                 <div
-                                    className="text-[0.5em] uppercase tracking-wider font-[600] mb-1"
-                                    style={{color: 'rgba(var(--ecom-accent-rgb),0.95)'}}>{stat.label}</div>
+                                    className="text-[0.5em] uppercase tracking-wider font-[600] mb-1 page-accent-label">{stat.label}</div>
                                 <div className="text-white text-[1.1em] font-[700]">{stat.value}</div>
                             </div>
                         ))}
