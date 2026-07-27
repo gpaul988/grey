@@ -65,3 +65,18 @@
 .text-page {
   color: var(--page-accent, $primary) !important;
 }
+
+/* Panels that pick up the page accent */
+.page-accent-panel {
+  border: 1px solid rgba(var(--page-accent-rgb, 76,76,92), 0.22) !important;
+  background-color: rgba(var(--page-accent-rgb, 76,76,92), 0.06) !important;
+}
+.page-accent-panel .page-accent-label,
+.page-accent-label {
+  color: var(--page-accent, $primary) !important;
+}
+
+.page-accent-panel-mobile {
+  border: 1px solid rgba(var(--page-accent-rgb, 76,76,92), 0.22) !important;
+  background-color: rgba(var(--page-accent-rgb, 76,76,92), 0.06) !important;
+}
