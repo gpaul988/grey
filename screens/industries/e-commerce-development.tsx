@@ -376,8 +376,8 @@ const ECommerceDevelopment = () => {
                             <div>
                                 <div className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
                                     <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>eCommerce Marketing Strategy</span>
-                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'`}>Search Engine Visibility</span>
-                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'`}>Sales-driven Marketing Solutions</span>
+                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Search Engine Visibility</span>
+                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Sales-driven Marketing Solutions</span>
                                 </div>
                                 <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
                                     Integrate SEO, structured data for product discoverability, and growth marketing to drive qualified traffic and improve product visibility across search and shopping surfaces.
