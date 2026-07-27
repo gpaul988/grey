@@ -50,18 +50,18 @@
     vertical-align: middle;
 }
 
-/* Page/background badge: match page background and text */
+/* Page/accent badge: use page-accent CSS variables when present */
 .badge-page,
 .bg-page-subtle {
-    background-color: $body-bg !important;
-    color: $body-color !important;
+  background-color: rgba(var(--page-accent-rgb, 76,76,92), 0.12) !important;
+  color: var(--page-accent, $primary) !important;
 }
 
 .avatar-sm.bg-page-subtle {
-    background-color: $body-bg !important;
-    color: $body-color !important;
+  background-color: rgba(var(--page-accent-rgb, 76,76,92), 0.12) !important;
+  color: var(--page-accent, $primary) !important;
 }
 
 .text-page {
-    color: $body-color !important;
+  color: var(--page-accent, $primary) !important;
 }

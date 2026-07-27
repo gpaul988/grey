@@ -37,6 +37,8 @@ const ECommerceDevelopment = () => {
     const rootStyle: React.CSSProperties & Record<string, string> = {
         '--ecom-accent': pageAccent,
         '--ecom-accent-rgb': pageAccentRgb,
+        '--page-accent': pageAccent,
+        '--page-accent-rgb': pageAccentRgb,
     };
 
     // Introductory section hook
