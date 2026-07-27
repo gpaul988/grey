@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import type { BenchmarkMetrics } from '@/lib/bench/benchmark-runner';
 import {
   runBenchmark,
   runConcurrentBenchmarks,
@@ -158,8 +159,8 @@ describe('Performance Benchmarking (Phase 6.9)', () => {
     });
 
     it('should indicate performance improvement', async () => {
-      const slow = { latency: { mean: 100 } } as unknown;
-      const fast = { latency: { mean: 50 } } as unknown;
+      const slow = { latency: { mean: 100 } } as unknown as BenchmarkMetrics;
+      const fast = { latency: { mean: 50 } } as unknown as BenchmarkMetrics;
 
       const result = compareBenchmarks(slow, fast);
       expect(result.improvement).toBeGreaterThan(0);
@@ -167,8 +168,8 @@ describe('Performance Benchmarking (Phase 6.9)', () => {
     });
 
     it('should indicate performance regression', async () => {
-      const fast = { latency: { mean: 50 } } as unknown;
-      const slow = { latency: { mean: 100 } } as unknown;
+      const fast = { latency: { mean: 50 } } as unknown as BenchmarkMetrics;
+      const slow = { latency: { mean: 100 } } as unknown as BenchmarkMetrics;
 
       const result = compareBenchmarks(fast, slow);
       expect(result.improvement).toBeLessThan(0);
