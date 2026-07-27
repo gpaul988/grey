@@ -8,7 +8,7 @@ import {useIsDayTime} from '../../components/useIsDayTime';
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 
 import FuturisticIndustryLayout from '@/components/futuristic/FuturisticIndustryLayout';
-import {FxBackground, FxChip, FxReveal, FxButton, FxHoloCard} from '@/components/futuristic/fx';
+import {FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxStickyScrollSection} from '@/components/futuristic/fx';
 
 const ECommerceDevelopment = () => {
 
@@ -287,239 +287,106 @@ const ECommerceDevelopment = () => {
                 </div>
             </section>
 
-            {/* eCommerce solutions */}
-            <div className={`lg:pt-[2em] md:pt-[2em] pt-[0.5em] ${isDayTime ? 'bg-black' : 'bg-white'}`}>
-                <div id={'ecommerce solutions'}
-                     className={'relative lg:py-[3em] py-[1em] lg:my-[3em] my-[1em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]'}>
-                    <div
-                        className={`relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4 mb-8 border-b-[1px] pb-[2em] ${isDayTime ? 'text-white' : 'text-black'} `}>
-                        <div>
-                            <h2 className={`lg:text-[3.3em] md:text-[2.5em] sm:text-[2em] text-[2em] font-[500] justify-center tracking-tight leading-[1.1]`}>
-                                eCommerce <br className={'lg:block md:block hidden'}/>Solutions
-                            </h2>
-                        </div>
-                        <div>
-                            <p className='text-[0.873em] font-[400] justify-center text-justify leading-[1.5] lg:-ml-[7.5em] md:-ml-[3.5em] tracking-noromal'>
-                                Our eCommerce solutions empower businesses to sell smarter with secure, scalable, and
-                                user-friendly online stores. From seamless product management to optimized checkout
-                                experiences, we deliver platforms designed to drive sales and enhance customer
-                                satisfaction.
-                            </p>
-                        </div>
-                    </div>
-                    <div
-                        className='grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:gap-[4em] md:gap-[6em] gap-6 lg:mt-28 md:mt-28 mt-6 px-6 max-w-full w-full mx-auto h-full'>
-                        <div
-                            className='lg:sticky md:sticky top-28 lg:h-screen md:h-screen lg:mr-[6em] overflow-hidden'>
-                            <h3 className={`text-[1.5em] font-[500] constant-text ${
-                                isDayTime ? 'text-white' : 'text-black'
-                            }`}>
-                                Our Solutions
-                            </h3>
-                            <ul className={`list-disc constant-text text-[0.873em] font-[300] relative space-y-1 md:break-words md:whitespace-normal ${
-                                isDayTime ? 'text-white decoration-gray-300 focus:decoration-gray-600' : 'text-black decoration-gray-600 focus:decoration-gray-900'
-                            }`}>
-                                {[
-                                    {id: "01", title: "eCommerce Web Design", target: "EWD"},
-                                    {id: "02", title: "Membership Site & Marketplaces", target: "MSMP"},
-                                    {id: "03", title: "eCommerce Payment Systems & Gateways", target: "EPSG"},
-                                    {id: "04", title: "Increase Sales & Conversions Online", target: "ISCO"},
-                                    {id: "05", title: "eCommerce SEO, eCommerce Marketing", target: "ESEM"},
-                                ].map((item, index) => (
-                                    <li key={index} className={'group lg:mt-6 md:mt-3 mt-2'}>
-                                        <button
-                                            onClick={() => scrollToSection(item.target)}
-                                            className={`w-full text-left flex items-center gap-4 mb-2 focus:font-[650] ${
-                                                isDayTime
-                                                    ? `focus:text-white ${activeId === item.target ? 'text-gray-100 font-[650]' : 'text-gray-500 font-[300]'}`
-                                                    : `focus:text-black ${activeId === item.target ? 'text-gray-900 font-[650]' : 'text-gray-500 font-[300]'}`
-                                            }`}
-                                        >
-                                            <div className={'flex gap-2'}>
-                                                <span className={'shrink-0'}>{item.id}</span>
-                                                <span
-                                                    className={`opacity-0 transition-opacity text-[1.5em] leading-[0.59em] ${activeId === item.target ? 'opacity-100' : ''}`}>→</span>
-                                                <span>{item.title}</span>
-                                            </div>
-                                        </button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div className={'lg:-ml-[8em] md:-ml-[4em] lg:mb-[19em] md:mb-[23em]'}>
-                            <div
-                                className="grid lg:grid-cols-[50px_auto] md:grid-cols-[50px_auto] grid-cols-1 lg:gap-2 md:gap-2 gap1 items-start">
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>01/
+            {/* eCommerce solutions (sticky scroll section) */}
+            <FxStickyScrollSection
+                day={isDayTime}
+                heading={<>eCommerce<br/>solutions overview</>}
+                intro="Our eCommerce offerings cover end-to-end storefront strategy, headless and SaaS platforms, payments, and growth engineering — all focused on driving conversions and long-term retention."
+                navLabel="Our Solutions"
+                activeId={activeId}
+                onNavClickAction={scrollToSection}
+                items={[
+                    {
+                        id: '01',
+                        title: 'eCommerce Web Design',
+                        target: 'EWD',
+                        tags: ['Shopify', 'Online Store', 'Design'],
+                        body: (
+                            <div>
+                                <div className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
+                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Shopify Development</span>
+                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Online Store Development</span>
+                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>eCommerce Strategy</span>
                                 </div>
-                                <div className={`lg:mb-44 mb-14  ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'EWD'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        eCommerce Web Design
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Shopify Development</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Online Store Development</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>eCommerce Strategy</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.873em] font-[300]'}>
-                                        At Grey InfoTech, we work with a wide range of leading eCommerce platforms to
-                                        deliver solutions tailored to your unique business requirements. Our team has
-                                        successfully implemented solutions using Shopify, Big Cartel, WooCommerce,
-                                        and <Link href='/services/cms-development'
-                                                  className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white  border-gray-800' : 'hover:border-black border-gray-300'}`}>Drupal</Link> Commerce,
-                                        each selected based on its strengths and suitability for the
-                                        project. By carefully evaluating your goals, operational needs, and scalability
-                                        requirements, we determine the most effective platform to power your online
-                                        store and support long-term growth.<br/><br/>
-
-                                        Our eCommerce design team combines deep technical expertise with practical
-                                        knowledge of online consumer behavior to create high-converting digital
-                                        storefronts. From strategically placing purchase actions like “Buy” buttons to
-                                        implementing best practices in product photography and designing persuasive
-                                        calls to action, every element is optimized to enhance user experience and drive
-                                        sales. This attention to detail ensures your eCommerce website is not only
-                                        visually compelling but also functionally effective, helping you achieve
-                                        measurable success in the competitive online marketplace.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>02/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'MSMP'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Membership Sites & Marketplaces
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Paywall Solutions</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Membership Site Development</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Custom eCommerce Development</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        At Grey InfoTech, our eCommerce expertise extends far beyond selling physical
-                                        products. We have successfully developed advanced solutions such as
-                                        paywall-enabled membership platforms that securely process recurring payments
-                                        for premium content and online services. Additionally, we have built
-                                        marketplace-style websites that empower users to upload, manage, and sell
-                                        products directly to one another, creating dynamic, revenue-generating
-                                        ecosystems. Our ability to deliver these diverse eCommerce models ensures that
-                                        we can meet the unique digital requirements of businesses seeking innovative
-                                        ways to monetize their products, services, and content.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>03/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'EPSG'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        eCommerce Payment Systems & Gateways
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Online Payment System</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Innovative Payment Solutions</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>                                </span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Selecting the right payment system is a critical step in launching a successful
-                                        eCommerce business, as it directly impacts revenue collection, customer
-                                        experience, and operational efficiency. Today, businesses have access to a wide
-                                        range of secure and innovative payment solutions, from widely trusted platforms
-                                        like Stripe, PayPal, Google Checkout, SagePay, and Worldpay to emerging digital
-                                        payment technologies that empower seamless online transactions. Leveraging the
-                                        right payment gateway not only ensures smooth and reliable payment processing
-                                        but also provides businesses and entrepreneurs with the flexibility and
-                                        scalability needed to confidently sell and grow online.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>04/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'ISCO'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        Increase Sales & Conversions Online
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>User Experience Improvement</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Conversion Rate Strategies</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>A/B Testing Solutions</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        At Grey InfoTech, we offer a comprehensive approach to boosting your online
-                                        sales by combining strategic visibility with optimized on-site conversions. From
-                                        presenting your products and services effectively to guiding customers through a
-                                        seamless purchasing journey, we leverage a range of proven tools and strategies
-                                        to maximize results. Our team utilizes analytics, A/B testing, and funnel
-                                        visualization to gain actionable insights into user behavior, allowing us to
-                                        measure, refine, and enhance the customer experience continuously. By leaving no
-                                        aspect of the sales process unexplored, we ensure your eCommerce platform
-                                        performs at its best, driving engagement, conversions, and sustained revenue
-                                        growth.
-                                    </p>
-                                </div>
-                                <div
-                                    className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-400' : 'text-gray-700'}`}>05/
-                                </div>
-                                <div className={`lg:mb-44 mb-14 ${isDayTime ? 'text-white' : 'text-black'}`}
-                                     id={'ESEM'}>
-                                    <h2 className={`text-[1.5em] font-[500] mb-3`}>
-                                        eCommerce SEO, eCommerce Marketing
-                                    </h2>
-                                    <div
-                                        className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>eCommerce Marketing Strategy</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Search Engine Visibility</span>
-                                        <span
-                                            className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Sales-driven Marketing Solutions</span>
-                                    </div>
-                                    <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
-                                        Building or relaunching your eCommerce website is only the first step -success
-                                        depends on ensuring your customers can find and engage with your products
-                                        online. This requires a comprehensive eCommerce marketing strategy designed to
-                                        drive traffic, attract the right audience, and convert visits into
-                                        sales.<br/><br/>
-
-                                        At Grey InfoTech, we integrate eCommerce marketing and <Link
-                                        href='/services/seo'
-                                        className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}>SEO</Link> strategies
-                                        into the
-                                        foundation of every project. For new websites, we implement best practices from
-                                        the very beginning to optimize visibility in search engines. For existing
-                                        stores, we conduct detailed assessments to recommend improvements, enhancing
-                                        your online presence and setting your sales on the right trajectory.<br/><br/>
-
-                                        To maximize product discoverability, we leverage advanced techniques such as
-                                        structured product schema, Google Merchant Center integration, and optimized
-                                        product sitemaps. These strategies ensure that your products are accurately
-                                        indexed, visible across relevant marketplaces, and positioned to convert
-                                        potential customers into loyal buyers.
-                                    </p>
-                                </div>
+                                <p className={'text-justify leading-[1.5] text-[0.873em] font-[300]'}>
+                                    We select the right platform for scale and implement high-converting storefronts with performance, accessibility, and modular design systems in mind. Our handoffs include interactive prototypes and implementation-ready tokens for engineering teams.
+                                </p>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        ),
+                    },
+                    {
+                        id: '02',
+                        title: 'Membership Sites & Marketplaces',
+                        target: 'MSMP',
+                        tags: ['Subscription', 'Marketplace', 'Monetization'],
+                        body: (
+                            <div>
+                                <div className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
+                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Paywall Solutions</span>
+                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Membership Site Development</span>
+                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Custom eCommerce Development</span>
+                                </div>
+                                <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
+                                    From subscription paywalls to multi-vendor marketplaces, build platforms that monetize content and commerce reliably with secure recurring billing, vendor onboarding flows, and moderation tooling.
+                                </p>
+                            </div>
+                        ),
+                    },
+                    {
+                        id: '03',
+                        title: 'Payments & Gateways',
+                        target: 'EPSG',
+                        tags: ['Payments', 'Stripe', 'PCI'],
+                        body: (
+                            <div>
+                                <div className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
+                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Online Payment System</span>
+                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Innovative Payment Solutions</span>
+                                </div>
+                                <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
+                                    Implement secure, compliant payment flows with Stripe, PayPal and alternative local gateways. Ensure PCI compliance, fraud protection, and smooth checkout experiences to minimize abandonment.
+                                </p>
+                            </div>
+                        ),
+                    },
+                    {
+                        id: '04',
+                        title: 'Conversion Optimization',
+                        target: 'ISCO',
+                        tags: ['CRO', 'A/B Testing', 'Analytics'],
+                        body: (
+                            <div>
+                                <div className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
+                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>User Experience Improvement</span>
+                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Conversion Rate Strategies</span>
+                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>A/B Testing Solutions</span>
+                                </div>
+                                <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
+                                    Combine analytics, experimentation and UX refinements to increase average order value and conversion. We design hypotheses, implement experiments, and measure impact against business KPIs.
+                                </p>
+                            </div>
+                        ),
+                    },
+                    {
+                        id: '05',
+                        title: 'eCommerce Marketing & SEO',
+                        target: 'ESEM',
+                        tags: ['SEO', 'Merchant Center', 'Growth'],
+                        body: (
+                            <div>
+                                <div className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
+                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>eCommerce Marketing Strategy</span>
+                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'`}>Search Engine Visibility</span>
+                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'`}>Sales-driven Marketing Solutions</span>
+                                </div>
+                                <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
+                                    Integrate SEO, structured data for product discoverability, and growth marketing to drive qualified traffic and improve product visibility across search and shopping surfaces.
+                                </p>
+                            </div>
+                        ),
+                    },
+                ]}
+            />
 
             {/* Mid image*/}
             <div id={'mid image'}
