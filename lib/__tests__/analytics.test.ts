@@ -95,8 +95,8 @@ describe('Analytics', () => {
 
       await trackEvent(event);
 
-      expect(redis.lpush).toHaveBeenCalled();
-      expect(redis.expire).toHaveBeenCalledWith(expect.stringContaining('analytics:'), 86400);
+      expect(vi.mocked(redis).lpush).toHaveBeenCalled();
+      expect(vi.mocked(redis).expire).toHaveBeenCalledWith(expect.stringContaining('analytics:'), 86400);
     });
   });
 
@@ -126,7 +126,7 @@ describe('Analytics', () => {
       await getEventStats('7d');
       await getEventStats('30d');
 
-      expect(rawQuery).toHaveBeenCalledTimes(3);
+      expect(vi.mocked(rawQuery)).toHaveBeenCalledTimes(3);
     });
 
     it('should return empty object on error', async () => {
