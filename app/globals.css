@@ -824,6 +824,12 @@ body::after {
 [data-day="true"]  .gx-chip-orange { color: #9a3412; background: rgba(249,115,22,.10); border-color: rgba(249,115,22,.25); }
 .gx-chip-orange .gx-dot-orange { width: 7px; height: 7px; border-radius: 50%; background: #fb923c; box-shadow: 0 0 10px #fb923c; animation: gxPulse 2s ease-in-out infinite; }
 
+/* --- Page-accent chip variant (uses --page-accent CSS variable) --- */
+.gx-chip-page-accent { }
+[data-day="false"] .gx-chip-page-accent { color: var(--page-accent, #ff005d); background: rgba(var(--page-accent-rgb, 255,0,93),.12); border-color: rgba(var(--page-accent-rgb, 255,0,93),.3); }
+[data-day="true"]  .gx-chip-page-accent { color: var(--page-accent, #ff005d); background: rgba(var(--page-accent-rgb, 255,0,93),.10); border-color: rgba(var(--page-accent-rgb, 255,0,93),.25); }
+.gx-chip-page-accent .gx-dot-page-accent { width: 7px; height: 7px; border-radius: 50%; background: var(--page-accent, #ff005d); box-shadow: 0 0 10px var(--page-accent, #ff005d); animation: gxPulse 2s ease-in-out infinite; }
+
 @keyframes gxPulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(.7); } }
 
 /* --- Scanline / hologram shimmer for media --- */

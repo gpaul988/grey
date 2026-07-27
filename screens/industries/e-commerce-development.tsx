@@ -295,6 +295,7 @@ const ECommerceDevelopment = () => {
                 navLabel="Our Solutions"
                 activeId={activeId}
                 onNavClickAction={scrollToSection}
+                colorScheme="page-accent"
                 items={[
                     {
                         id: '01',
@@ -303,10 +304,10 @@ const ECommerceDevelopment = () => {
                         tags: ['Shopify', 'Online Store', 'Design'],
                         body: (
                             <div>
-                                <div className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Shopify Development</span>
-                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Online Store Development</span>
-                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>eCommerce Strategy</span>
+                                <div className="flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300]">
+                                    <span className="px-4 py-2 rounded-full badge-page">Shopify Development</span>
+                                    <span className="px-4 py-2 rounded-full badge-page">Online Store Development</span>
+                                    <span className="px-4 py-2 rounded-full badge-page">eCommerce Strategy</span>
                                 </div>
                                 <p className={'text-justify leading-[1.5] text-[0.873em] font-[300]'}>
                                     We select the right platform for scale and implement high-converting storefronts with performance, accessibility, and modular design systems in mind. Our handoffs include interactive prototypes and implementation-ready tokens for engineering teams.
@@ -321,10 +322,10 @@ const ECommerceDevelopment = () => {
                         tags: ['Subscription', 'Marketplace', 'Monetization'],
                         body: (
                             <div>
-                                <div className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Paywall Solutions</span>
-                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Membership Site Development</span>
-                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Custom eCommerce Development</span>
+                                <div className="flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300]">
+                                    <span className="px-4 py-2 rounded-full badge-page">Paywall Solutions</span>
+                                    <span className="px-4 py-2 rounded-full badge-page">Membership Site Development</span>
+                                    <span className="px-4 py-2 rounded-full badge-page">Custom eCommerce Development</span>
                                 </div>
                                 <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
                                     From subscription paywalls to multi-vendor marketplaces, build platforms that monetize content and commerce reliably with secure recurring billing, vendor onboarding flows, and moderation tooling.
@@ -339,9 +340,9 @@ const ECommerceDevelopment = () => {
                         tags: ['Payments', 'Stripe', 'PCI'],
                         body: (
                             <div>
-                                <div className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Online Payment System</span>
-                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Innovative Payment Solutions</span>
+                                <div className="flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300]">
+                                    <span className="px-4 py-2 rounded-full badge-page">Online Payment System</span>
+                                    <span className="px-4 py-2 rounded-full badge-page">Innovative Payment Solutions</span>
                                 </div>
                                 <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
                                     Implement secure, compliant payment flows with Stripe, PayPal and alternative local gateways. Ensure PCI compliance, fraud protection, and smooth checkout experiences to minimize abandonment.
@@ -356,10 +357,10 @@ const ECommerceDevelopment = () => {
                         tags: ['CRO', 'A/B Testing', 'Analytics'],
                         body: (
                             <div>
-                                <div className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>User Experience Improvement</span>
-                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Conversion Rate Strategies</span>
-                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>A/B Testing Solutions</span>
+                                <div className="flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300]">
+                                    <span className="px-4 py-2 rounded-full badge-page">User Experience Improvement</span>
+                                    <span className="px-4 py-2 rounded-full badge-page">Conversion Rate Strategies</span>
+                                    <span className="px-4 py-2 rounded-full badge-page">A/B Testing Solutions</span>
                                 </div>
                                 <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
                                     Combine analytics, experimentation and UX refinements to increase average order value and conversion. We design hypotheses, implement experiments, and measure impact against business KPIs.
@@ -374,10 +375,10 @@ const ECommerceDevelopment = () => {
                         tags: ['SEO', 'Merchant Center', 'Growth'],
                         body: (
                             <div>
-                                <div className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>eCommerce Marketing Strategy</span>
-                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Search Engine Visibility</span>
-                                    <span className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-white' : 'bg-black'}`}>Sales-driven Marketing Solutions</span>
+                                <div className="flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300]">
+                                    <span className="px-4 py-2 rounded-full badge-page">eCommerce Marketing Strategy</span>
+                                    <span className="px-4 py-2 rounded-full badge-page">Search Engine Visibility</span>
+                                    <span className="px-4 py-2 rounded-full badge-page">Sales-driven Marketing Solutions</span>
                                 </div>
                                 <p className={'text-justify leading-[1.5] text-[0.81em] font-[300]'}>
                                     Integrate SEO, structured data for product discoverability, and growth marketing to drive qualified traffic and improve product visibility across search and shopping surfaces.
