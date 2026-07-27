@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+import type { QueryResult } from 'pg';
 import { trackEvent, getEventStats, getCohortData } from '@/lib/analytics';
 
 // Mock database and redis
@@ -31,8 +32,8 @@ describe('Analytics', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     // Setup default mocks for db.query and rawQuery
-    vi.mocked(db).query.mockResolvedValue({ rows: [] });
-    vi.mocked(rawQuery).mockResolvedValue({ rows: [] });
+    vi.mocked(db).query.mockResolvedValue({ rows: [] } as unknown as QueryResult<any>);
+    vi.mocked(rawQuery).mockResolvedValue({ rows: [] } as unknown as QueryResult<any>);
   });
 
   describe('trackEvent', () => {
@@ -110,7 +111,7 @@ describe('Analytics', () => {
         ],
       };
 
-      vi.mocked(rawQuery).mockResolvedValue(mockResult);
+      vi.mocked(rawQuery).mockResolvedValue(mockResult as unknown as QueryResult<any>);
 
       const stats = await getEventStats('30d');
 
@@ -120,7 +121,7 @@ describe('Analytics', () => {
     });
 
     it('should support different timeframes', async () => {
-      vi.mocked(rawQuery).mockResolvedValue({ rows: [] });
+      vi.mocked(rawQuery).mockResolvedValue({ rows: [] } as unknown as QueryResult<any>);
 
       await getEventStats('24h');
       await getEventStats('7d');
@@ -148,7 +149,7 @@ describe('Analytics', () => {
         ],
       };
 
-      vi.mocked(rawQuery).mockResolvedValue(mockResult);
+      vi.mocked(rawQuery).mockResolvedValue(mockResult as unknown as QueryResult<any>);
 
       const cohorts = await getCohortData('device', '30d');
 
@@ -165,7 +166,7 @@ describe('Analytics', () => {
         ],
       };
 
-      vi.mocked(rawQuery).mockResolvedValue(mockResult);
+      vi.mocked(rawQuery).mockResolvedValue(mockResult as unknown as QueryResult<any>);
 
       const cohorts = await getCohortData('channel', '30d');
 
@@ -195,7 +196,7 @@ describe('Analytics', () => {
 
   describe('edge cases', () => {
     it('should handle empty results gracefully', async () => {
-      vi.mocked(rawQuery).mockResolvedValue({ rows: [] });
+      vi.mocked(rawQuery).mockResolvedValue({ rows: [] } as unknown as QueryResult<any>);
 
       const stats = await getEventStats('30d');
       expect(stats).toEqual({});
