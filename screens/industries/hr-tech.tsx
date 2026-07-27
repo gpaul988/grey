@@ -1,13 +1,16 @@
 'use client';
 import React, {useEffect, useRef, useState} from 'react';
+import {motion} from 'framer-motion';
 import Image from "next/image";
+import Link from "next/link";
 import {ArrowLeft, ArrowRight, Quote} from "lucide-react";
 import '@/app/globals.css';
 import {useIsDayTime} from '../../components/useIsDayTime';
 
 import FuturisticIndustryLayout from '@/components/futuristic/FuturisticIndustryLayout';
 
-import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard } from '@/components/futuristic/fx';
+import {FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxStickyScrollSection} from '@/components/futuristic/fx';
+
 const testimonials = [
     {
         name: "Isabel Martínez",
@@ -38,7 +41,7 @@ const testimonials = [
             <>
                 We came to Grey InfoTech with a cluttered and outdated interface. They gave our platform a fresh,
                 intuitive design that not only looks great but also improved engagement and usability. Their work speaks
-                for itself  - sharp, professional, and conversion-focused.
+                for itself - sharp, professional, and conversion-focused.
             </>
         ),
     },
@@ -49,49 +52,170 @@ const services = [
         id: "01",
         title: "Careers Websites",
         target: "CW",
-        tags: ["Careers Website", "Candidate Attraction", "Online Hiring Strategy", "Recruitment Success"],
-        description:
-            "Your careers website is a vital component of your talent acquisition strategy, serving as a key touchpoint for prospective candidates -statistics show that nearly every successful hire will visit your site at least once. At Grey InfoTech, we focus on creating recruitment websites that are professionally designed, fully optimised for speed, accessibility, and mobile responsiveness, ensuring a seamless user experience across all devices. By aligning design, content, and functionality with your employer brand and hiring objectives, we help you attract, engage, and convert top talent more effectively.",
+        tags: ["Careers Website", "Candidate Attraction", "Online Hiring Strategy"],
+        body: (
+            <div>
+                <p>
+                    Your careers website is a vital component of your talent acquisition strategy, serving as a key
+                    touchpoint for prospective candidates. Statistics show that nearly every successful hire will visit
+                    your site at least once. At Grey InfoTech, we focus on creating recruitment websites that are
+                    professionally designed, fully optimised for speed, accessibility, and mobile responsiveness,
+                    ensuring a seamless user experience across all devices.
+                </p>
+                <p className="mt-3">
+                    By aligning design, content, and functionality with your employer brand and hiring objectives, we
+                    help you attract, engage, and convert top talent more effectively.
+                </p>
+            </div>
+        ),
+        metrics: [
+            {label: 'Mobile Ready', value: '100%', description: 'Full responsive design'},
+            {label: 'Load Time', value: '<2s', description: 'Optimised performance'},
+            {label: 'Conversion', value: '35%+', description: 'Increased applications'},
+        ],
+        deliverables: ['Custom design', 'Job listings integration', 'Application portal', 'Mobile optimised', 'SEO setup', 'Analytics tracking'],
+        timeline: '6–10 weeks',
+        engagement: 'Fixed-price or Dedicated Team',
     },
     {
         id: "02",
         title: "Customisable HR Portal",
         target: "CHRP",
-        tags: ["Branded HR Portals", "Training and Development", "HR Technology", "Workforce Engagement"],
-        description:
-            "Tailored to reflect your brand’s identity and culture, our custom HR portals provide a centralised, user-friendly hub where employees can efficiently access and manage essential HR functions such as benefits administration, training resources, performance evaluations, leave management, and internal communications. This seamless integration not only improves employee engagement and productivity but also reinforces consistency across your digital workplace experience.",
+        tags: ["Branded HR Portals", "Training and Development", "Workforce Engagement"],
+        body: (
+            <div>
+                <p>
+                    Tailored to reflect your brand's identity and culture, our custom HR portals provide a centralised,
+                    user-friendly hub where employees can efficiently access and manage essential HR functions such as
+                    benefits administration, training resources, performance evaluations, leave management, and internal
+                    communications.
+                </p>
+                <p className="mt-3">
+                    This seamless integration not only improves employee engagement and productivity but also reinforces
+                    consistency across your digital workplace experience.
+                </p>
+            </div>
+        ),
+        metrics: [
+            {label: 'User Engagement', value: '85%+', description: 'Active monthly usage'},
+            {label: 'Self-Service Rate', value: '70%', description: 'Reduced HR workload'},
+            {label: 'Satisfaction', value: '4.8/5', description: 'Employee feedback'},
+        ],
+        deliverables: ['Custom portal design', 'Multi-module setup', 'SSO integration', 'Training materials', 'Support documentation', 'Change management'],
+        timeline: '10–14 weeks',
+        engagement: 'Agile sprints or Dedicated Team',
     },
     {
         id: "03",
         title: "HR Analytics & Reporting",
         target: "HRAR",
         tags: ["Data-Driven Insights", "HR Analytics", "Performance Metrics"],
-        description:
-            "Leverage data-driven insights to drive smarter, more strategic HR decision-making across your organisation. Our solutions provide robust analytics and fully customisable reporting tools, enabling you to track and analyse critical HR metrics such as employee performance, engagement levels, retention trends, recruitment efficiency, and workforce productivity. By turning data into actionable intelligence, we help you identify areas for improvement, optimise resource allocation, and align your HR initiatives with broader business goals for long-term success.",
+        body: (
+            <div>
+                <p>
+                    Leverage data-driven insights to drive smarter, more strategic HR decision-making across your
+                    organisation. Our solutions provide robust analytics and fully customisable reporting tools,
+                    enabling you to track and analyse critical HR metrics such as employee performance, engagement
+                    levels, retention trends, recruitment efficiency, and workforce productivity.
+                </p>
+                <p className="mt-3">
+                    By turning data into actionable intelligence, we help you identify areas for improvement, optimise
+                    resource allocation, and align your HR initiatives with broader business goals for long-term
+                    success.
+                </p>
+            </div>
+        ),
+        metrics: [
+            {label: 'Dashboards', value: '50+', description: 'Pre-built analytics'},
+            {label: 'Data Accuracy', value: '99.8%', description: 'Real-time insights'},
+            {label: 'ROI Impact', value: '2.5x', description: 'Decision efficiency'},
+        ],
+        deliverables: ['Custom dashboards', 'Real-time reporting', 'Data visualisation', 'Predictive analytics', 'Export capabilities', 'Training program'],
+        timeline: '8–12 weeks',
+        engagement: 'Fixed-price, Time & Materials, or Team',
     },
     {
         id: "04",
         title: "Automated Workflows & Processes",
         target: "AWP",
         tags: ["HR Automation", "Onboarding Solutions", "Increased Accuracy"],
-        description:
-            "Streamline your HR operations through intelligent automation that enhances efficiency across the entire employee lifecycle. From onboarding and compliance management to performance reviews and offboarding, our technology simplifies complex processes, eliminates repetitive manual tasks, and ensures greater accuracy and consistency. This not only reduces administrative overhead but also frees up your HR team to focus on strategic initiatives that drive employee satisfaction and organisational growth.",
+        body: (
+            <div>
+                <p>
+                    Streamline your HR operations through intelligent automation that enhances efficiency across the
+                    entire employee lifecycle. From onboarding and compliance management to performance reviews and
+                    offboarding, our technology simplifies complex processes, eliminates repetitive manual tasks, and
+                    ensures greater accuracy and consistency.
+                </p>
+                <p className="mt-3">
+                    This not only reduces administrative overhead but also frees up your HR team to focus on strategic
+                    initiatives that drive employee satisfaction and organisational growth.
+                </p>
+            </div>
+        ),
+        metrics: [
+            {label: 'Time Saved', value: '60%', description: 'Process efficiency'},
+            {label: 'Error Rate', value: '< 0.5%', description: 'Automation accuracy'},
+            {label: 'Coverage', value: '95%', description: 'Process automation'},
+        ],
+        deliverables: ['Workflow design', 'Process mapping', 'Automation setup', 'Compliance integration', 'Testing & QA', 'Go-live support'],
+        timeline: '8–12 weeks',
+        engagement: 'Dedicated Team or Time & Materials',
     },
     {
         id: "05",
         title: "Engagement & Recruiting Tools",
         target: "ERT",
         tags: ["Talent Acquisition", "Talent Management", "Applicant Tracking Systems"],
-        description:
-            "From advanced applicant tracking systems that simplify and accelerate the recruitment process to employee engagement platforms that foster a connected and motivated workplace culture, our HR technology solutions are designed to enhance every stage of the employee journey. These tools not only improve hiring efficiency and candidate experience but also support ongoing engagement, retention, and performance across your organisation.",
+        body: (
+            <div>
+                <p>
+                    From advanced applicant tracking systems that simplify and accelerate the recruitment process to
+                    employee engagement platforms that foster a connected and motivated workplace culture, our HR
+                    technology solutions are designed to enhance every stage of the employee journey.
+                </p>
+                <p className="mt-3">
+                    These tools not only improve hiring efficiency and candidate experience but also support ongoing
+                    engagement, retention, and performance across your organisation.
+                </p>
+            </div>
+        ),
+        metrics: [
+            {label: 'Hiring Speed', value: '40%', description: 'Faster recruitment'},
+            {label: 'ATS Adoption', value: '92%', description: 'Team utilisation'},
+            {label: 'Retention', value: '45%+', description: 'Engagement impact'},
+        ],
+        deliverables: ['ATS implementation', 'Engagement platform', 'Custom workflows', 'Integration setup', 'User training', 'Support plan'],
+        timeline: '10–14 weeks',
+        engagement: 'Dedicated Team or Agile sprints',
     },
     {
         id: "06",
         title: "Talent Acquisition",
         target: "TA",
-        tags: ["Recruitment Strategies", "Dynamic Work Environment", "Cutting-Edge Recruitment Tools"],
-        description:
-            "Talent acquisition is a strategic function focused not only on sourcing qualified candidates but on identifying individuals whose capabilities, values, and ambitions align with your organisation’s vision and culture. At Grey InfoTech, we develop and execute tailored recruitment strategies that combine industry expertise, technology-driven sourcing tools, and data insights to attract top-tier professionals. Our approach ensures you secure talent that contributes to long-term business success, supports innovation, and drives meaningful growth in competitive and evolving markets.",
+        tags: ["Recruitment Strategies", "Dynamic Work Environment", "Cutting-Edge Tools"],
+        body: (
+            <div>
+                <p>
+                    Talent acquisition is a strategic function focused not only on sourcing qualified candidates but on
+                    identifying individuals whose capabilities, values, and ambitions align with your organisation's
+                    vision and culture. At Grey InfoTech, we develop and execute tailored recruitment strategies that
+                    combine industry expertise, technology-driven sourcing tools, and data insights.
+                </p>
+                <p className="mt-3">
+                    Our approach ensures you secure talent that contributes to long-term business success, supports
+                    innovation, and drives meaningful growth in competitive and evolving markets.
+                </p>
+            </div>
+        ),
+        metrics: [
+            {label: 'Hire Quality', value: '88%', description: 'Long-term retention'},
+            {label: 'Cost per Hire', value: '-45%', description: 'Efficiency gains'},
+            {label: 'Time to Fill', value: '21 days', description: 'Average reduction'},
+        ],
+        deliverables: ['Talent pipeline', 'Sourcing strategy', 'Candidate screening', 'Assessment tools', 'Employer branding', 'Analytics reports'],
+        timeline: '12–16 weeks',
+        engagement: 'Dedicated Recruitment Team',
     },
 ];
 
@@ -116,6 +240,7 @@ const benefits = [
         iconDark: "/assets/hr/icon/wap.svg",
         alt: "Business-Oriented Development",
         title: "Expertise in HR Tech",
+        feature: "HR Domain Expertise",
         description:
             "With years of experience in HR technology, our team brings a comprehensive understanding of human resource processes, compliance standards, and workforce dynamics. We stay at the forefront of industry advancements, leveraging emerging technologies to design and implement solutions that streamline HR operations, improve employee experiences, and support strategic business goals.",
     },
@@ -125,6 +250,7 @@ const benefits = [
         iconDark: "/assets/hr/icon/tap.svg",
         alt: "Customisation and Flexibility",
         title: "Customisation and Flexibility",
+        feature: "Tailored Integrations",
         description:
             "We believe in delivering solutions tailored to your specific business needs, ensuring every service we provide is adaptable, scalable, and aligned with your corporate environment. Our approach prioritises flexibility and strategic alignment, allowing us to create value-driven HR technology solutions that evolve with your organisation’s goals and workforce requirements.",
     },
@@ -134,6 +260,7 @@ const benefits = [
         iconDark: "/assets/hr/icon/sc.svg",
         alt: "User-centric Design",
         title: "User-centric Design",
+        feature: "Intuitive UX",
         description:
             "Our emphasis on user experience ensures that both employees and HR managers benefit from intuitive, efficient, and accessible solutions. By designing with usability in mind, we help streamline daily HR tasks, improve engagement, and enhance overall productivity across your organisation.",
     },
@@ -143,10 +270,18 @@ const benefits = [
         iconDark: "/assets/hr/icon/sf.svg",
         alt: "Continuous support and development",
         title: "Continuous Support and Development",
+        feature: "Ongoing SLA-backed Support",
         description:
             "We are committed to continuous improvement, providing ongoing support, regular updates, and enhancements to ensure your HR technology remains secure, scalable, and aligned with evolving business needs and industry standards.",
     },
 ];
+
+const benefitOutcomes: Record<string, {impact: string; time: string; compliance: string}> = {
+    expertise: {impact: '+30% Hiring Efficiency', time: '4–6 wks', compliance: 'GDPR-ready'},
+    customisation: {impact: '40% faster integrations', time: '6–10 wks', compliance: 'SAML/SSO'},
+    'user-centric': {impact: '+25% Adoption', time: '3–6 wks', compliance: 'WCAG AA'},
+    'continuous-support-development': {impact: '99.9% uptime', time: 'Ongoing', compliance: 'SLA-backed'},
+};
 
 const integrations = [
     {
@@ -270,6 +405,18 @@ const HrTech = () => {
 
     const isDayTime = useIsDayTime();
 
+    // Page-specific accent color (HR Tech)
+    const pageAccent = '#7c3aed'; // purple-indigo
+    const hexToRgb = (hex: string) => {
+        const cleaned = hex.replace('#', '');
+        const bigint = parseInt(cleaned, 16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+        return `${r},${g},${b}`;
+    };
+    const accentRgb = hexToRgb(pageAccent);
+
     useEffect(() => {
         const handleScroll = () => {
             setIsVisible(window.scrollY > 200);
@@ -327,6 +474,56 @@ const HrTech = () => {
         }
     };
 
+    // Orbit animation state for partner orb (high-performance DOM-driven animation)
+    const orbitRef = useRef<HTMLDivElement | null>(null);
+    const orbitPausedRef = useRef(false);
+    const [orbitHovered, setOrbitHovered] = useState(false);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        // Respect reduced-motion
+        const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReduced) return;
+
+        let rafId: number | null = null;
+        let last = performance.now();
+        let rotation = 0; // degrees
+        const speed = 6; // degrees per second (gentle)
+
+        const tick = (now: number) => {
+            const dt = (now - last) / 1000;
+            last = now;
+
+            if (!orbitPausedRef.current) {
+                rotation = (rotation + dt * speed) % 360;
+                // update child transforms directly for smoother perf (no React re-renders)
+                const el = orbitRef.current;
+                if (el) {
+                    const children = Array.from(el.children) as HTMLElement[];
+                    const N = Math.max(1, children.length);
+                    // radius relative to container size for responsiveness
+                    const radius = Math.min(130, Math.max(60, el.clientWidth * 0.35 || 130));
+
+                    children.forEach((c, i) => {
+                        const step = 360 / N;
+                        const a = (rotation + step * i) * (Math.PI / 180);
+                        const x = Math.cos(a) * radius;
+                        const y = Math.sin(a) * radius;
+                        // outer wrapper is positioned at 50%/50% and will be translated
+                        (c as HTMLElement).style.transform = `translate(${x}px, ${y}px) rotate(${-(rotation + step * i)}deg)`;
+                    });
+                }
+            }
+
+            rafId = requestAnimationFrame(tick);
+        };
+
+        rafId = requestAnimationFrame(tick);
+        return () => {
+            if (rafId) cancelAnimationFrame(rafId);
+        };
+    }, []);
+
     const prev = () => setCurrent((value) => (value - 1 + testimonials.length) % testimonials.length);
     const next = () => setCurrent((value) => (value + 1) % testimonials.length);
 
@@ -335,420 +532,1090 @@ const HrTech = () => {
     return (
         <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
 
-            {/* Hero Section */}
-            <div
-                id="hero"
-                className={`relative max-w-full w-full pb-[6em] mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] ${
-                    isDayTime ? 'text-black' : 'text-white'
-                }`}
-            >
-                <h1 className="border-b pb-[0.3em] border-gray-500/50 px-0 constant-text lg:text-[5.35em] md:text-[5.35em] sm:text-[2em] text-[2.5em] lg:mt-[2.5em] md:mt-[2.5em] mt-[1em] leading-[1.1] font-[600]">
-                    HR Software <br className="lg:block md:block hidden"/>Development Services
-                </h1>
+            {/* Unified Futuristic HR Tech Hero - Background Image/Video with overlay */}
+            <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
+                {/* Video Background (desktop) and Image fallback (mobile) */}
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    className="hidden lg:block absolute inset-0 w-full h-full object-cover"
+                    poster="/assets/hr/hero.jpg"
+                >
+                    <source src="/assets/hr/hero-video.mp4" type="video/mp4"/>
+                </video>
 
+                <Image
+                    src="/assets/hr/hero.jpg"
+                    alt="HR Tech Hero"
+                    fill
+                    priority
+                    className="lg:hidden object-cover absolute inset-0"
+                />
+
+                {/* Grid & FX Background */}
+                <div className="pointer-events-none absolute inset-0 z-[1]">
+                    <FxBackground day={false} grid={true} aurora={true}/>
+                </div>
+
+                {/* Gradient Overlay with Glow */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50 z-[2]"/>
                 <div
-                    className="relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:mt-[1em] md:mt-[1em] mt-[0.5em]">
-                    <div className="lg:-mr-[4em] md:-mr-[4em] lg:mt-[2em] md:mt-[2em]">
-                        <p className="text-[0.87em] font-[300]">
-                            We develop tailored HR software that streamlines operations, enhances efficiency, and
-                            supports better workforce management at scale.
-                        </p>
-                    </div>
+                    className="absolute inset-0 z-[2]"
+                    style={{background: `radial-gradient(circle at top right, rgba(${accentRgb},0.12), transparent 50%)`}}
+                />
 
-                     <div
-                            className={'relative grid lg:grid-cols-3 lg:gap-8 lg:ml-[13em]'}>
-                            <div className={'border-0 lg:block md:hidden sm:hidden hidden'}>
-                                <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>8+</h6>
-                                <p className={'text-[0.7em] font-[300]'}>Years Experience</p>
+                {/* Futuristic FX Elements */}
+                <div className="pointer-events-none absolute inset-0 z-[3]">
+                    <div className="gx-scanline"/>
+                    <div className="gx-noise-overlay"/>
+                    <div className="gx-orbit absolute"
+                         style={{width: '60vmax', height: '60vmax', top: '-20vmax', right: '-20vmax', opacity: .12}}/>
+                </div>
+
+                {/* Content Container */}
+                <div className="absolute inset-0 flex items-center top-32 z-[11] px-6 sm:px-6 md:px-10 lg:px-[4.5em]">
+                    <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        <div>
+                            <div className="flex items-center gap-3 mb-6 lg:mb-8">
+                                <div className="w-2.5 h-2.5 rounded-full animate-pulse"
+                                     style={{background: pageAccent}}/>
+                                <span style={{color: pageAccent}}
+                                      className="text-[0.7em] lg:text-[0.82em] uppercase tracking-[0.22em] font-[600]">HR Tech</span>
                             </div>
-                            <div className={'border-0 lg:block md:hidden sm:hidden hidden'}>
-                                <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>13+</h6>
-                                <p className={'text-[0.7em] font-[300]'}>Team Members</p>
+
+                            <h1 className="text-white text-[2em] lg:text-[4.5em] font-[700] leading-[1.08] tracking-tight mb-6 lg:mb-8">
+                                Build Modern, <span className="gx-gradient-text">People-First HR Platforms</span>
+                            </h1>
+
+                            <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
+                                Enterprise-grade HR software that streamlines hiring, onboarding, payroll, and
+                                performance management — designed for scale, security, and outstanding employee
+                                experience.
+                            </p>
+
+                            <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
+                                {['Talent Acquisition', 'HR Portals', 'Analytics', 'Automation', 'Integrations'].map((badge) => (
+                                    <span key={badge}
+                                          className="px-3 py-1.5 rounded-full text-[0.7em] lg:text-[0.75em] font-[600] uppercase tracking-wider"
+                                          style={{
+                                              backgroundColor: `rgba(${accentRgb},0.08)`,
+                                              border: `1px solid rgba(${accentRgb},0.18)`,
+                                              color: pageAccent
+                                          }}>
+                                            {badge}
+                                        </span>
+                                ))}
                             </div>
-                            <div className={'border-0 lg:block md:hidden sm:hidden hidden'}>
-                                <h6 className={'text-[3em] font-[500] -mb-[0.3em] justify-center'}>123+</h6>
-                                <p className={'text-[0.7em] font-[300]'}>Products Launched</p>
+
+                            <div className="flex flex-wrap gap-4 items-center">
+                                <Link href="/contact"
+                                   className="relative px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-bold overflow-hidden hover:shadow-lg transition-shadow duration-300 whitespace-nowrap"
+                                   style={{background: pageAccent, color: '#fff'}}>
+                                    <span className="absolute inset-0"
+                                          style={{background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)'}}/>
+                                    <span className="relative">Start a project →</span>
+                                </Link>
+                                <Link href="/case-studies"
+                                   className="px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap"
+                                   style={{border: `1px solid rgba(255,255,255,0.15)`}}>
+                                    View Case Studies
+                                </Link>
                             </div>
                         </div>
+
+                        {/* Right Column - Impact Stats */}
+                        <div className="hidden lg:flex flex-col items-end">
+                            <div className="grid grid-cols-2 gap-6 w-full">
+                                {[
+                                    {label: 'Years Experience', value: '8+'},
+                                    {label: 'Team Members', value: '13+'},
+                                    {label: 'Products Launched', value: '123+'},
+                                    {label: 'Avg Efficiency Lift', value: '40%'}
+                                ].map((stat) => (
+                                    <div key={stat.label}
+                                         className="px-6 py-5 rounded-2xl transition-all duration-300 text-right"
+                                         style={{
+                                             border: `1px solid rgba(${accentRgb},0.25)`,
+                                             background: `rgba(${accentRgb},0.08)`,
+                                             backdropFilter: 'blur(6px)'
+                                         }}>
+                                        <div style={{color: pageAccent}}
+                                             className="text-[0.7em] uppercase tracking-wider font-[600] mb-2">{stat.label}</div>
+                                        <div className="text-white text-[1.8em] font-[700]">{stat.value}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div className="relative max-w-full w-full h-auto mt-[2em] lg:mt-[3em] bg-gray-300/10">
-                    <Image
-                        src="/assets/hr/hero.jpg"
-                        alt="HR Tech"
-                        width={1920}
-                        height={1080}
-                        priority
-                        loading="eager"
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                            width: '100%',
-                            height: 'auto',
-                        }}
-                    />
+                {/* Mobile Stats - Visible on small screens only */}
+                <div className="lg:hidden absolute bottom-12 left-0 right-0 z-[11] px-6">
+                    <div className="grid grid-cols-3 gap-3">
+                        {[
+                            {label: 'Years', value: '8+'},
+                            {label: 'Experts', value: '13+'},
+                            {label: 'Products', value: '123+'}
+                        ].map((stat) => (
+                            <div key={stat.label}
+                                 className="px-3 py-2 rounded-xl transition-all duration-300"
+                                 style={{
+                                     border: `1px solid rgba(${accentRgb},0.25)`,
+                                     background: `rgba(${accentRgb},0.08)`,
+                                     backdropFilter: 'blur(6px)'
+                                 }}>
+                                <div style={{color: pageAccent}}
+                                     className="text-[0.5em] uppercase tracking-wider font-[600] mb-1">{stat.label}</div>
+                                <div className="text-white text-[1.2em] font-[700]">{stat.value}</div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            </div>
+            </section>
 
-            {/* Introductory section */}
+            {/* Introductory section (futuristic style) */}
             <section
                 ref={sectionRef}
-                className={`py-12 transition-colors duration-500 ${
+                data-bg={isBackgroundActive ? (isDayTime ? 'Dark' : 'Light') : (isDayTime ? 'Light' : 'Dark')}
+                className={`pt-16 transition-colors duration-500 ${
                     isBackgroundActive
-                        ? isDayTime
-                            ? "bg-white text-black"
-                            : "bg-black text-white"
-                        : isDayTime
-                            ? "bg-black text-white"
-                            : "bg-white text-black"
-                }`}
-            >
+                        ? isDayTime ? 'bg-black text-white' : 'bg-white text-black'
+                        : isDayTime ? 'bg-white text-black' : 'bg-black text-white'
+                }`}>
+                <FxBackground day={isDayTime}/>
+
                 <div
-                    className="relative grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 md:pt-20 pt-6 lg:pb-16 md:pb-16 pb-6 lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
+                    className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
                     <div>
-                        <h6 className="constant-text uppercase lg:text-[0.85em] md:text-[0.85em] leading-[1.3] text-[0.8em] lg:font-[600] font-[600] lg:tracking-wider tracking-tight">
-                            Revolutionize HR tech <br className="lg:block md:block hidden"/>integration effortlessly
-                        </h6>
+                        <FxChip day={!isBackgroundActive ? !isDayTime : isDayTime}>HR TECHNOLOGY</FxChip>
                     </div>
 
                     <div className="lg:-ml-[19em]">
-                        <h3 className="lg:text-[3.2em] md:text-[3.2em] text-[1.8em] font-[500] lg:mt-[0.01em] lg:leading-[1.1] tracking-tight border-b lg:pb-[0.7em] lg:mb-[0.7em] leading-[1.1] pb-6">
-                            Empowering your <br className="lg:block md:block hidden"/>HR Tech Journey Forward
-                        </h3>
+                        <FxReveal>
+                            <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] tracking-tight leading-[1.15] mt-4">
+                                Empowering your <span className="gx-gradient-text">HR Tech</span> Journey Forward
+                            </h3>
+                        </FxReveal>
 
-                        <div
-                            className="grid lg:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]">
-                            <p>
-                                In today’s competitive business landscape, the seamless integration of Human Resources
-                                technology into corporate careers websites is a strategic imperative. Our HR Technology
-                                Solutions are designed to help organisations attract, engage, and retain top talent by
-                                embedding smart, scalable, and secure HR functionalities directly into their digital
-                                platforms.
-                            </p>
-                            <p>
-                                We take a strategic, user-centric approach -aligning technology with your business goals
-                                to
-                                ensure your HR tools are not only functional but also intuitive and future-ready.
-                                Whether
-                                it’s implementing applicant tracking systems, onboarding solutions, or employee
-                                self-service
-                                portals, we focus on improving efficiency, enhancing data visibility, and reducing
-                                administrative burden.
-                            </p>
-                        </div>
+                        <FxReveal delay={0.08}>
+                            <div
+                                className="grid lg:grid-cols-2 grid-cols-1 gap-6 mt-6 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
+                                <div className="space-y-4">
+                                    <p>
+                                        In today’s competitive business landscape, integrating HR technology is
+                                        strategic — not optional. Our HR solutions prioritise security, scalability, and
+                                        employee experience, ensuring your platforms support recruitment, onboarding,
+                                        payroll, and performance at enterprise scale.
+                                    </p>
+                                    <p>
+                                        We combine product thinking, UX-led design, and robust engineering practices to
+                                        deliver systems that reduce administrative overhead, improve data visibility,
+                                        and drive measurable HR outcomes.
+                                    </p>
+                                    <div className="flex flex-wrap gap-3 mt-4">
+                                        {['Talent Acquisition', 'HR Portals', 'Analytics', 'Automation'].map((p) => (
+                                            <span key={p} className="gx-data-pill" style={{
+                                                backgroundColor: `rgba(${accentRgb},0.08)`,
+                                                border: `1px solid rgba(${accentRgb},0.16)`,
+                                                color: pageAccent
+                                            }}>{p}</span>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="space-y-4">
+                                    <p>
+                                        Our integrations with ATS, payroll providers and analytics tooling ensure a
+                                        unified HR ecosystem. Every deployment is backed by secure APIs, role-based
+                                        access, and observability so your HR teams can operate with confidence.
+                                    </p>
+
+                                    <p>
+                                        Deliverables include architecture blueprints, integration playbooks, data
+                                        mapping, and operational runbooks to keep your HR platform reliable and
+                                        future-ready.
+                                    </p>
+
+                                    <div className="mt-6 flex items-center gap-4">
+                                        <Link href="/contact"
+                                              className="inline-flex items-center justify-center rounded-xl transition-transform transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 focus:outline-none focus:ring-2 focus:ring-purple-400/30"
+                                              style={{
+                                                  background: pageAccent,
+                                                  color: '#fff',
+                                                  padding: '12px 20px',
+                                                  fontWeight: 600
+                                              }}>Start discovery</Link>
+                                        <Link href="/company"
+                                              className="inline-flex items-center justify-center rounded-xl border border-white/10 text-sm text-slate-400 px-4 py-2 transition-transform transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-400/30">Our
+                                            approach</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </FxReveal>
                     </div>
                 </div>
             </section>
 
             {/* HR Technology & Marketing Services */}
-            <div
-                className={`lg:pt-[2em] md:pt-[2em] pt-[1em] lg:pb-[4em] md:pb-[4em] pb-[1em] ${isDayTime ? 'bg-white' : 'bg-black'}`}>
-                <div
-                    id="hr-technology-marketing-services"
-                    className="relative lg:pt-[3em] md:pt-[3em] pt-[1em] lg:pb-[6em] md:pb-[6em] pb-[1em] lg:mt-[3em] md:mt-[3em] mt-[1em] lg:mb-[6em] md:mb-[6em] mb-[1em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]"
-                >
-                    <div
-                        className={`relative grid lg:grid-cols-2 grid-cols-1 gap-4 mb-8 border-b-[1px] pb-[3em] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                        <div>
-                            <h2 className="lg:text-[3.2em] md:text-[3.2em] text-[1.5em] font-[500] justify-center tracking-tight leading-[1.1]">
-                                HR Technology &<br className="lg:block md:block hidden"/>Marketing Services
-                            </h2>
-                        </div>
+            <FxStickyScrollSection
+                day={isDayTime}
+                colorScheme="purple"
+                heading={<>HR Technology &<br className="lg:block md:block hidden"/>Marketing Services</>}
+                intro="We deliver end-to-end solutions that seamlessly integrate human resources functionality into your corporate website—covering everything from employee onboarding and performance tracking to benefits management, payroll systems, employee profiles, and beyond."
+                navLabel="Our Services"
+                activeId={activeId}
+                onNavClickAction={scrollToSection}
+                items={services}
+            />
 
-                        <div>
-                            <p className="text-[0.85em] font-[400] justify-center text-justify leading-[1.5] lg:-ml-[7.5em] tracking-normal">
-                                We deliver end-to-end solutions that seamlessly integrate human resources functionality
-                                into your corporate website -covering everything from employee onboarding and performance
-                                tracking to benefits management, payroll systems, employee profiles, and beyond.
-                            </p>
-                        </div>
+            {/* Futuristic partner carousel */}
+            <section className={`relative py-20 overflow-hidden ${isDayTime ? 'bg-black' : 'bg-white'}`}
+                     aria-label="Trusted partners">
+                <FxHoloCard day={isDayTime}
+                            className="relative max-w-7xl mx-auto p-8 lg:p-12">
+                    {/* Ambient gradients and orbits for depth */}
+                    <div className="pointer-events-none absolute inset-0">
+                        <div
+                            className="absolute -left-40 -top-40 w-96 h-96 rounded-full"
+                            style={{background: `radial-gradient(circle at top left, rgba(${accentRgb},0.12), transparent 40%)`}}/>
+                        <div
+                            className="absolute -right-28 -bottom-28 w-72 h-72 rounded-full"
+                            style={{background: `radial-gradient(circle at bottom right, rgba(${accentRgb},0.08), transparent 40%)`}}/>
                     </div>
 
-                    <div
-                        className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-16 lg:mt-28 md:mt-28 mt-6 px-6 max-w-full w-full mx-auto h-full">
+                    <div className="relative z-10 flex flex-col lg:flex-row items-center gap-8">
+                        <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left">
+                            <h3 className={`text-[1.25em] lg:text-[1.6em] font-[700] tracking-tight ${isDayTime ? 'text-white' : 'text-black'}`}>Trusted
+                                by HR innovators</h3>
+                            <p className="mt-3 text-sm text-gray-400 max-w-xl">
+                                Leading HR platforms and enterprises rely on our secure, scalable HR tech solutions. The
+                                visual below presents partner integrations and platform certifications that form the
+                                backbone of modern HR ecosystems.
+                            </p>
+                            <div className="mt-6 flex items-center gap-4">
+                                <Link href="/contact"
+                                      className="inline-flex items-center gap-3 px-4 py-2 rounded-lg font-semibold transition-transform transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/30 focus:outline-none focus:ring-2 focus:ring-purple-400/30"
+                                      style={{background: pageAccent, color: '#fff'}}>
+                                    Talk to an HR tech specialist
+                                </Link>
+                                <Link href="/case-studies"
+                                      className={`inline-flex items-center gap-3 px-4 py-2 rounded-lg border transition-transform transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-400/30 ${isDayTime ? 'text-white' : 'text-black'}`}
+                                      style={{borderColor: `rgba(${accentRgb},0.12)`}}>
+                                    View case studies
+                                </Link>
+                            </div>
+                        </div>
+
+                        <div className="flex-1 flex items-center justify-center">
+                            {/* Logo orb: logos arranged on a circular orbit for a futuristic holo effect */}
+                            <div
+                                className={`relative w-[360px] h-[360px] flex items-center justify-center transform transition-all duration-500 ${orbitHovered ? 'scale-105' : 'scale-100'}`}
+                                style={orbitHovered ? {boxShadow: `0 20px 60px rgba(${accentRgb},0.18)`} : undefined}>
+                                <div
+                                    className="absolute inset-0 rounded-full border border-purple-400/6 backdrop-blur-md"/>
+                                <div className="absolute w-[280px] h-[280px] rounded-full"
+                                     style={{background: `radial-gradient(circle at center, rgba(${accentRgb},0.06), transparent 40%)`}}/>
+
+                                {/* Center holographic badge */}
+                                <div className="relative z-20 w-28 h-28 rounded-full flex items-center justify-center"
+                                     style={{background: pageAccent, boxShadow: `0 8px 48px rgba(${accentRgb},0.18)`}}>
+                                    <span className="text-white font-extrabold">HR</span>
+                                </div>
+
+                                {/* Orbiting logos - high-performance DOM-driven animation */}
+                                <div className="absolute inset-0" ref={orbitRef} onMouseEnter={() => {
+                                    orbitPausedRef.current = true;
+                                    setOrbitHovered(true);
+                                }} onMouseLeave={() => {
+                                    orbitPausedRef.current = false;
+                                    setOrbitHovered(false);
+                                }} onFocus={() => {
+                                    orbitPausedRef.current = true;
+                                    setOrbitHovered(true);
+                                }} onBlur={() => {
+                                    orbitPausedRef.current = false;
+                                    setOrbitHovered(false);
+                                }} role="list" aria-label="Partner integrations">
+                                    {carouselLogos.map((logo) => (
+                                        <div key={logo.name} style={{
+                                            position: 'absolute',
+                                            left: '50%',
+                                            top: '50%',
+                                            transform: 'translate(0px, 0px) rotate(0deg)'
+                                        }}>
+                                            <div tabIndex={0} role="listitem" aria-label={logo.name}
+                                                 className="w-16 h-16 rounded-full flex items-center justify-center p-2 bg-white/6 backdrop-blur-sm border border-white/6 transition-transform duration-300 ease-out hover:scale-110 focus:scale-110"
+                                                 style={{boxShadow: '0 6px 30px rgba(12,18,36,0.45)'}}>
+                                                <Image src={isDayTime ? logo.light : logo.dark} alt={logo.name}
+                                                       width={48} height={48} style={{width: 'auto', height: 'auto'}}/>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Subtle rotation on hover for interactivity */}
+                                <div className="absolute inset-0 z-0" aria-hidden>
+                                    {/* Decorative ring */}
+                                    <svg className="w-full h-full" viewBox="0 0 360 360" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="180" cy="180" r="130" stroke={`rgba(${accentRgb},0.06)`}
+                                                strokeWidth="2"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </FxHoloCard>
+            </section>
+
+            {/* First image - Futuristic showcase */}
+            <section id="first-image" className="relative w-full max-w-full mx-auto">
+                <FxHoloCard day={isDayTime} className="relative overflow-hidden p-0">
+                    {/* Layered ambient gradients */}
+                    <div className="pointer-events-none absolute inset-0 -z-10">
                         <div
-                            className="lg:sticky md:sticky top-28 lg:h-screen md:h-screen lg:mr-[11em] overflow-hidden">
-                            <h3 className={`text-[1.5em] font-[500] tracking-tight constant-text ${isDayTime ? 'text-black' : 'text-white'}`}>
-                                Our Services
+                            style={{background: `radial-gradient(circle at 10% 10%, rgba(${accentRgb},0.12), transparent 25%)`}}
+                            className="absolute inset-0"/>
+                        <div
+                            style={{background: `radial-gradient(circle at 90% 80%, rgba(${accentRgb},0.06), transparent 25%)`}}
+                            className="absolute inset-0"/>
+                        <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 1200 600"
+                             preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="g1" x1="0" x2="1">
+                                    <stop offset="0" stopColor="rgba(255,255,255,0.04)"/>
+                                    <stop offset="1" stopColor="rgba(255,255,255,0)"/>
+                                </linearGradient>
+                            </defs>
+                            <rect width="1200" height="600" fill="url(#g1)"/>
+                            <g stroke={`rgba(255, 255, 255, 0.03)`} strokeWidth="1">
+                                {[...Array(10)].map((_, i) => (
+                                    <line key={i} x1={0} y1={(i + 1) * 50} x2={1200} y2={(i + 1) * 50}/>
+                                ))}
+                            </g>
+                        </svg>
+                    </div>
+
+                    {/* Hero image with glass overlay and holographic content */}
+                    <div className="relative w-full">
+                        <Image
+                            className="w-full h-[75vh] object-cover"
+                            src="/assets/hr/first.jpg"
+                            alt="HR technology platform"
+                            width={2560}
+                            height={1440}
+                            style={{objectFit: 'cover', objectPosition: 'center'}}
+                        />
+
+                        {/* Glass content card - center */}
+                        <div
+                            className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[85%] md:w-3/4 lg:w-2/3">
+                            <div
+                                className="backdrop-blur-3xl bg-white/6 dark:bg-black/40 rounded-2xl p-6 lg:p-10 border border-white/6"
+                                style={{boxShadow: '0 24px 80px rgba(16,24,40,0.5)'}}>
+                                <h2 className="text-[1.4em] lg:text-[2.6em] font-extrabold tracking-tight"
+                                    style={{color: pageAccent}}>
+                                    Modern HR Platform Architecture
+                                </h2>
+                                <p className="mt-3 text-sm lg:text-[1em] font-[300] text-white/85">
+                                    Secure, composable HR infrastructure—identity, payroll, performance, and
+                                    analytics—connected through realtime APIs and event-driven pipelines. Designed for
+                                    scale, observability and privacy.
+                                </p>
+
+                                <div className="mt-6 flex flex-wrap gap-3">
+                                    <FxChip day={isDayTime} className="px-4 py-2">SSO & SAML</FxChip>
+                                    <FxChip day={isDayTime} className="px-4 py-2">GDPR-ready</FxChip>
+                                    <FxChip day={isDayTime} className="px-4 py-2">Realtime Analytics</FxChip>
+                                </div>
+
+                                <div className="mt-6 flex items-center gap-4">
+                                    <Link href="/contact"
+                                          className="inline-flex items-center gap-3 px-4 py-2 rounded-lg font-semibold transition-transform transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/30 focus:outline-none focus:ring-2 focus:ring-purple-400/30"
+                                          style={{background: pageAccent, color: '#fff'}}>
+                                        Speak with HR architects
+                                    </Link>
+                                    <Link href="/our-approach"
+                                          className="inline-flex items-center gap-3 px-4 py-2 rounded-lg border transition-transform transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-400/30"
+                                          style={{borderColor: `rgba(${accentRgb},0.12)`}}>
+                                        Learn our approach
+                                    </Link>
+                                </div>
+                            </div>
+
+                            {/* Floating micro-metrics */}
+                            <div className="mt-6 flex gap-4 justify-center lg:justify-start">
+                                <div
+                                    className="p-3 rounded-lg bg-white/4 border border-white/6 backdrop-blur-sm text-center">
+                                    <div className="text-[1.1em] font-extrabold">99.8%</div>
+                                    <div className="text-xs mt-1">Data accuracy</div>
+                                </div>
+                                <div
+                                    className="p-3 rounded-lg bg-white/4 border border-white/6 backdrop-blur-sm text-center">
+                                    <div className="text-[1.1em] font-extrabold"><span
+                                        style={{color: pageAccent}}>8–12</span> wks
+                                    </div>
+                                    <div className="text-xs mt-1">Typical timeline</div>
+                                </div>
+                                <div
+                                    className="p-3 rounded-lg bg-white/4 border border-white/6 backdrop-blur-sm text-center">
+                                    <div className="text-[1.1em] font-extrabold">Scale</div>
+                                    <div className="text-xs mt-1">Enterprise-ready</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </FxHoloCard>
+            </section>
+
+            {/* What Grey InfoTech Does - Deeply detailed futuristic breakdown */}
+            <section
+                className={`relative overflow-visible lg:py-20 ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}
+                aria-label="What Grey InfoTech Does">
+                <FxHoloCard day={isDayTime}
+                            className="relative max-w-[95em] w-full mx-auto p-8 lg:p-12">
+
+                    {/* Decorative depth layers */}
+                    <div className="pointer-events-none absolute inset-0 -z-10">
+                        <div
+                            style={{background: `radial-gradient(circle at 12% 12%, rgba(${accentRgb},0.08), transparent 18%)`}}
+                            className="absolute inset-0"/>
+                        <div style={{background: `linear-gradient(180deg, rgba(${accentRgb},0.02), transparent 30%)`}}
+                             className="absolute inset-0"/>
+                        <svg className="absolute inset-0 w-full h-full opacity-7" viewBox="0 0 1200 600"
+                             preserveAspectRatio="none">
+                            <defs>
+                                <filter id="f1" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feGaussianBlur stdDeviation="12" result="b"/>
+                                    <feBlend in="SourceGraphic" in2="b" mode="normal"/>
+                                </filter>
+                            </defs>
+                            <g stroke={`rgba(255, 255, 255, 0.02)`} strokeWidth="1">
+                                {[...Array(10)].map((_, i) => (
+                                    <line key={i} x1={0} y1={(i + 1) * 55} x2={1200} y2={(i + 1) * 55}/>
+                                ))}
+                            </g>
+                        </svg>
+                    </div>
+
+                    <div className="relative z-10 grid lg:grid-cols-2 grid-cols-1 gap-10 items-start">
+                        {/* Left column: Authoritative narrative + technical specifics */}
+                        <div className="space-y-6 lg:pr-8">
+                            <h3 className="text-[2.6rem] lg:text-[3.6rem] font-extrabold tracking-tight leading-[1.02]">
+                                What Grey <br className="lg:block md:block hidden"/>Infotech Does
                             </h3>
 
-                            <ul className={`list-disc constant-text text-[0.89em] ml-4 font-[600] relative space-y-3 ${
-                                isDayTime
-                                    ? 'text-black decoration-gray-600 focus:decoration-gray-900'
-                                    : 'text-white decoration-gray-400 focus:decoration-gray-600'
-                            }`}>
-                                {services.map((item) => (
-                                    <li key={item.target} className="group lg:mt-6 mt-4">
-                                        <button
-                                            type="button"
-                                            onClick={() => scrollToSection(item.target)}
-                                            className={`w-full text-left flex items-center gap-4 mb-4 focus:font-[650] ${
-                                                isDayTime
-                                                    ? `focus:text-black ${activeId === item.target ? 'text-gray-900 font-[650]' : 'text-gray-500 font-[400]'}`
-                                                    : `focus:text-white ${activeId === item.target ? 'text-gray-100 font-[650]' : 'text-gray-500 font-[400]'}`
-                                            }`}
-                                        >
-                                            <div className="flex gap-4">
-                                                <span className="shrink-0">{item.id}</span>
-                                                <span
-                                                    className={`opacity-0 transition-opacity text-[2em] leading-[0.59em] ${activeId === item.target ? 'opacity-100' : ''}`}>→</span>
-                                                <span>{item.title}</span>
-                                            </div>
-                                        </button>
-                                    </li>
-                                ))}
-                            </ul>
+                            <p className="text-[1em] font-[300] leading-[1.7] text-justify max-w-2xl">
+                                Grey InfoTech architects enterprise HR platforms with production-grade practices and
+                                engineering rigor. Solutions are built API-first, backed by event streams for realtime
+                                orchestration (Kafka / Pulsar), persisted in resilient datastores with sensible sharding
+                                and
+                                encryption-at-rest, and observed through OpenTelemetry for full traceability.
+                            </p>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                                <div className="flex items-start gap-4">
+                                    <div className="w-12 h-12 rounded-xl flex items-center justify-center"
+                                         style={{background: pageAccent}}>
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 2v4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"
+                                                  strokeLinejoin="round"/>
+                                            <path d="M20 12h-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"
+                                                  strokeLinejoin="round"/>
+                                            <path d="M12 20v-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"
+                                                  strokeLinejoin="round"/>
+                                            <path d="M4 12h4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"
+                                                  strokeLinejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div className="font-semibold">API-first Integration</div>
+                                        <div className="text-xs text-slate-400 mt-1">OpenAPI contracts, versioning, SDK
+                                            generation and secure API gateways.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-start gap-4">
+                                    <div className="w-12 h-12 rounded-xl flex items-center justify-center "
+                                         style={{background: pageAccent}}>
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3 12h18" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"
+                                                  strokeLinejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div className="font-semibold">Event-driven Workflows</div>
+                                        <div className="text-xs text-slate-400 mt-1">Stream processing, idempotent
+                                            consumers, and robust retries for onboarding and payroll flows.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-start gap-4">
+                                    <div className="w-12 h-12 rounded-xl flex items-center justify-center "
+                                         style={{background: pageAccent}}>
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 6v6l4 2" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"
+                                                  strokeLinejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div className="font-semibold">Observability & Security</div>
+                                        <div className="text-xs text-slate-400 mt-1">OpenTelemetry tracing, Prometheus
+                                            metrics, SSO (SAML/OAuth2), RBAC and encryption keys managed via KMS.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-start gap-4">
+                                    <div className="w-12 h-12 rounded-xl flex items-center justify-center "
+                                         style={{background: pageAccent}}>
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 2a10 10 0 100 20 10 10 0 000-20z" stroke="#fff"
+                                                  strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div className="font-semibold">Privacy by Design</div>
+                                        <div className="text-xs text-slate-400 mt-1">Data minimisation,
+                                            pseudonymisation, consent flows, and compliance artefacts for GDPR/CCPA.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <Link href="/contact"
+                                      className="inline-flex items-center gap-3 px-4 py-2 rounded-lg font-semibold transition-transform transform hover:scale-105 hover:shadow-lg"
+                                      style={{background: pageAccent, color: '#fff'}}>
+                                    Start a discovery
+                                </Link>
+                                <Link href="/case-studies"
+                                      className="inline-flex items-center gap-3 px-4 py-2 rounded-lg border transition-transform transform hover:scale-105"
+                                      style={{borderColor: `rgba(${accentRgb},0.12)`}}>
+                                    View case studies
+                                </Link>
+                            </div>
+
+                            {/* Compact architecture summary */}
+                            <div className="mt-6 p-4 rounded-xl border border-white/6 bg-white/4 backdrop-blur-sm">
+                                <div className="text-sm font-semibold mb-2">Architecture at a glance</div>
+                                <ul className="text-xs space-y-1 text-slate-400">
+                                    <li>• API Gateway → Authentication & rate limiting</li>
+                                    <li>• Event Bus (Kafka/Pulsar) → Asynchronous workflows</li>
+                                    <li>• Microservices (stateless) → Horizontal scaling</li>
+                                    <li>• Data Warehouse & OLAP → Analytics & retention modelling</li>
+                                </ul>
+                            </div>
                         </div>
 
-                        <div className="lg:-ml-[8em] md:-ml-[8em] lg:mb-[15em] md:mb-[19em]">
-                            <div className="grid lg:grid-cols-[50px_auto] grid-cols-1 lg:gap-2 gap-1 items-start">
-                                {services.map((service) => (
-                                    <React.Fragment key={service.target}>
-                                        <div
-                                            className={`font-[300] text-[0.873em] ${isDayTime ? 'text-gray-700' : 'text-gray-400'}`}>
-                                            {service.id}/
-                                        </div>
-
-                                        <div
-                                            id={service.target}
-                                            className={`lg:mb-44 mb-14 ${isDayTime ? 'text-black' : 'text-white'}`}
-                                        >
-                                            <h2 className="text-[1.5em] font-[500] mb-3">
-                                                {service.title}
-                                            </h2>
-
+                        {/* Right column: detailed holographic capability panels */}
+                        <div className="space-y-6 lg:pl-6">
+                            {[
+                                {
+                                    k: 'architecture',
+                                    title: 'Composable Architecture',
+                                    desc: 'Microservices, API gateways, and clear contracts enabling incremental delivery and safe migrations.',
+                                    metric: 'Scale to 10k+'
+                                },
+                                {
+                                    k: 'automation',
+                                    title: 'Intelligent Automation',
+                                    desc: 'Orchestrated onboarding, compliance and payroll with retry-logic and human-in-the-loop steps.',
+                                    metric: '60% time saved'
+                                },
+                                {
+                                    k: 'insights',
+                                    title: 'Operational Insights',
+                                    desc: 'Realtime dashboards, cohort analysis, predictive retention modelling and anomaly detection.',
+                                    metric: '99.8% accuracy'
+                                }
+                            ].map((c, i) => (
+                                <FxReveal key={c.k} className="relative">
+                                    <div
+                                        className="p-5 lg:p-6 rounded-2xl border border-white/6 bg-white/4 backdrop-blur-md hover:scale-[1.03] transform transition-all duration-350"
+                                        style={{boxShadow: '0 20px 80px rgba(12,18,36,0.55)'}}>
+                                        <div className="flex items-start gap-4">
                                             <div
-                                                className={`flex flex-wrap gap-3 mb-3 text-[0.7em] font-[300] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                                                {service.tags.map((tag) => (
-                                                    <span
-                                                        key={`${service.target}-${tag}`}
-                                                        className={`px-4 py-2 rounded-full ${isDayTime ? 'bg-black' : 'bg-white'}`}
-                                                    >
-                                                        {tag}
-                                                    </span>
-                                                ))}
+                                                className="w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-br from-purple-500 to-indigo-500 text-white font-bold">{i + 1}</div>
+                                            <div>
+                                                <div className="font-semibold text-lg">{c.title}</div>
+                                                <div className="text-sm text-slate-400 mt-2">{c.desc}</div>
+                                            </div>
+                                        </div>
+
+                                        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                            <div>
+                                                <div className="text-xs text-slate-400">Typical deliverables</div>
+                                                <ul className="text-sm mt-2 list-disc pl-4 space-y-1">
+                                                    {c.k === 'architecture' && (
+                                                        <>
+                                                            <li>System design & blueprints</li>
+                                                            <li>API contract library (OpenAPI)</li>
+                                                            <li>Deployment & CI/CD pipelines</li>
+                                                        </>
+                                                    )}
+                                                    {c.k === 'automation' && (
+                                                        <>
+                                                            <li>Workflow definitions & automations</li>
+                                                            <li>Human-in-loop escalation playbooks</li>
+                                                            <li>Test harness & rollback strategies</li>
+                                                        </>
+                                                    )}
+                                                    {c.k === 'insights' && (
+                                                        <>
+                                                            <li>Realtime dashboards</li>
+                                                            <li>Cohort & retention reports</li>
+                                                            <li>Predictive models & alerting</li>
+                                                        </>
+                                                    )}
+                                                </ul>
                                             </div>
 
-                                            <p className="text-justify leading-[1.5] text-[0.873em] font-[300]">
-                                                {service.description}
-                                            </p>
+                                            <div className="text-right self-center">
+                                                <div className="text-sm font-bold"
+                                                     style={{color: pageAccent}}>{c.metric}</div>
+                                                <div className="text-xs text-slate-400 mt-2">Engagements: Fixed-price,
+                                                    T&M, Dedicated
+                                                </div>
+                                            </div>
                                         </div>
-                                    </React.Fragment>
+                                    </div>
+
+                                    {/* Decorative holo ring */}
+                                    <svg className="absolute -right-6 -top-6 w-28 h-28 opacity-30 pointer-events-none"
+                                         viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="40" cy="40" r="32" stroke={`rgba(${accentRgb},0.08)`}
+                                                strokeWidth="2"/>
+                                        <path d="M10 40h60" stroke={`rgba(${accentRgb},0.06)`} strokeWidth="1"/>
+                                    </svg>
+                                </FxReveal>
+                            ))}
+                        </div>
+                    </div>
+                </FxHoloCard>
+            </section>
+
+            {/* Mid image - Futuristic collaborative showcase */}
+            <section id="mid-image" className="relative w-full max-w-full mx-auto">
+                <FxHoloCard day={isDayTime} className="relative overflow-hidden p-6 lg:p-10">
+                    {/* Depth layers */}
+                    <div className="pointer-events-none absolute inset-0 -z-10">
+                        <div
+                            style={{background: `radial-gradient(circle at 20% 20%, rgba(${accentRgb},0.12), transparent 25%)`}}
+                            className="absolute inset-0"/>
+                        <div
+                            style={{background: `radial-gradient(circle at 80% 80%, rgba(${accentRgb},0.06), transparent 25%)`}}
+                            className="absolute inset-0"/>
+                    </div>
+
+                    <div className="relative z-10 grid lg:grid-cols-2 gap-6 items-center">
+                        <div className="p-4 lg:pr-8">
+                            <h3 className="text-[1.6rem] lg:text-[2.4rem] font-extrabold tracking-tight"
+                                style={{color: pageAccent}}>
+                                Collaborative HR Workspaces
+                            </h3>
+                            <p className="mt-3 text-sm text-slate-400 max-w-xl">
+                                Embed secure collaboration directly inside your HR platform — encrypted document vaults,
+                                role-based workflows, threaded feedback and realtime notifications. Built for
+                                auditability
+                                and scale, with enterprise-grade controls.
+                            </p>
+
+                            <ul className="mt-4 list-disc pl-5 text-sm space-y-2 text-slate-400">
+                                <li>Encrypted document vaults with immutable audit logs and retention controls</li>
+                                <li>Role-based task queues, approvals and SLA monitoring with alerts</li>
+                                <li>Realtime collaboration, comments and micro-surveys integrated into employee
+                                    records
+                                </li>
+                            </ul>
+
+                            <div className="mt-6 flex gap-3">
+                                <Link href="/contact"
+                                      className="inline-flex items-center px-4 py-2 rounded-lg font-semibold transition-transform transform hover:scale-105 hover:shadow-lg"
+                                      style={{background: pageAccent, color: '#fff'}}>
+                                    Request demo
+                                </Link>
+                                <Link href="/case-studies"
+                                      className="inline-flex items-center px-4 py-2 rounded-lg border transition-transform transform hover:scale-105"
+                                      style={{borderColor: `rgba(${accentRgb},0.12)`}}>
+                                    See examples
+                                </Link>
+                            </div>
+
+                            <div
+                                className="mt-6 p-4 rounded-xl border border-white/6 bg-white/4 backdrop-blur-sm text-sm text-slate-400">
+                                <div className="font-semibold mb-2">Technology highlights</div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                    <div>API-first sync & webhooks</div>
+                                    <div>Encrypted at-rest & in-transit</div>
+                                    <div>OpenTelemetry tracing</div>
+                                    <div>Fine-grained RBAC & SSO</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="p-4 flex items-center justify-center">
+                            <div
+                                className="relative w-[520px] h-[320px] rounded-2xl overflow-hidden border border-white/6"
+                                style={{boxShadow: `0 30px 80px rgba(${accentRgb},0.08)`}}>
+                                <Image src="/assets/hr/mid.jpg" alt="Office collaboration" fill
+                                       className="object-cover"/>
+
+                                <div
+                                    className="absolute bottom-4 left-4 p-3 rounded-md bg-white/6 backdrop-blur-sm text-sm"
+                                    style={{border: `1px solid rgba(${accentRgb},0.08)`}}>
+                                    Live collaboration • Encrypted • Audit-ready
+                                </div>
+
+                                {/* Micro overlay metrics */}
+                                <div className="absolute top-4 right-4 flex gap-3">
+                                    <div className="px-3 py-2 rounded-lg bg-white/6 text-xs font-semibold"
+                                         style={{border: `1px solid rgba(${accentRgb},0.06)`}}>99.8% uptime
+                                    </div>
+                                    <div className="px-3 py-2 rounded-lg bg-white/6 text-xs font-semibold"
+                                         style={{border: `1px solid rgba(${accentRgb},0.06)`}}>Realtime sync
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </FxHoloCard>
+            </section>
+
+            {/* Designers Collaborate - Digital Adventure Style (Recruitment SEO rewritten) */}
+            <section
+                className={`relative lg:py-[4em] py-[2em] lg:my-[3em] my-[2em] ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
+                <FxBackground day={isDayTime} grid aurora/>
+
+                <div className="relative z-10 max-w-[95em] mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
+                    <FxReveal>
+                        <h2 className={`mb-6 lg:mb-12 text-[1.6em] lg:text-[3.2em] font-[700] tracking-tight ${isDayTime ? 'text-black' : 'text-white'}`}>
+                            Recruitment SEO — <span className="gx-gradient-text">Digital Discovery & Visibility</span>
+                        </h2>
+                    </FxReveal>
+
+                    <div className="grid lg:grid-cols-2 grid-cols-1 gap-8 items-center">
+                        <FxReveal>
+                            <div className="space-y-4">
+                                <p className="text-[0.95em] font-[300] leading-[1.7] text-justify">
+                                    At Grey InfoTech, SEO is baked into every stage of development — from structured
+                                    job schema and accessible markup to fast, indexable templates and discoverable
+                                    career listings. Our technical SEO playbooks ensure compliance with Google for Jobs
+                                    and maximise candidate reach while preserving privacy and performance.
+                                </p>
+
+                                <div className="mt-4 flex flex-wrap gap-3">
+                                    {['Structured Data', 'Canonicalization', 'Sitemap Automation', 'Google for Jobs'].map((p) => (
+                                        <span key={p}
+                                              className={`px-3 py-1.5 rounded-full text-[0.78em] font-[600] ${isDayTime ? 'bg-black/5 text-black' : 'bg-white/5 text-white'}`}>
+                                            {p}
+                                        </span>
+                                    ))}
+                                </div>
+
+                                <div className="mt-6 flex gap-3">
+                                    <Link href="/contact"
+                                          className="inline-flex items-center gap-3 px-4 py-2 rounded-full font-semibold transition-transform transform hover:scale-105 hover:shadow-lg"
+                                          style={{background: pageAccent, color: '#fff'}}>
+                                        Start your SEO audit
+                                    </Link>
+                                    <Link href="/case-studies"
+                                          className="inline-flex items-center gap-3 px-4 py-2 rounded-full border transition-transform transform hover:scale-105"
+                                          style={{borderColor: `rgba(${accentRgb},0.12)`}}>
+                                        See recruitment case studies
+                                    </Link>
+                                </div>
+
+                                <div className="mt-6 grid grid-cols-3 gap-3">
+                                    <div className="p-3 rounded-lg bg-white/4 border border-white/6 text-center">
+                                        <div className="text-[1.1em] font-extrabold" style={{color: pageAccent}}>98%
+                                        </div>
+                                        <div className="text-xs mt-1">Indexing accuracy</div>
+                                    </div>
+                                    <div className="p-3 rounded-lg bg-white/4 border border-white/6 text-center">
+                                        <div className="text-[1.1em] font-extrabold"><span
+                                            style={{color: pageAccent}}>4–8</span> wks
+                                        </div>
+                                        <div className="text-xs mt-1">Audit & fixes</div>
+                                    </div>
+                                    <div className="p-3 rounded-lg bg-white/4 border border-white/6 text-center">
+                                        <div className="text-[1.1em] font-extrabold">Reliable</div>
+                                        <div className="text-xs mt-1">Enterprise-grade hosting</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </FxReveal>
+
+                        <FxReveal>
+                            <div className="relative">
+                                <div className="rounded-2xl overflow-hidden border border-white/6"
+                                     style={{boxShadow: `0 30px 80px rgba(${accentRgb},0.06)`}}>
+                                    <Image src="/assets/fin/data.jpg" alt="Recruitment SEO data insights" width={900}
+                                           height={600} className="w-full h-auto object-cover"/>
+
+                                    <div
+                                        className="absolute bottom-4 left-4 p-3 rounded-md bg-white/6 backdrop-blur-sm text-sm"
+                                        style={{border: `1px solid rgba(${accentRgb},0.08)`}}>
+                                        Structured markup • Fast index • Google for Jobs ready
+                                    </div>
+
+                                    <div className="absolute top-4 right-4 flex gap-3">
+                                        <div className="px-3 py-2 rounded-lg bg-white/6 text-xs font-semibold"
+                                             style={{border: `1px solid rgba(${accentRgb},0.06)`}}>98% uptime
+                                        </div>
+                                        <div className="px-3 py-2 rounded-lg bg-white/6 text-xs font-semibold"
+                                             style={{border: `1px solid rgba(${accentRgb},0.06)`}}>Realtime sync
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </FxReveal>
+                    </div>
+
+                    {/* Bottom CTA bar (digital adventure style) */}
+                    <FxReveal delay={0.18} className="mt-10">
+                        <div
+                            className={`p-6 rounded-2xl border ${isDayTime ? 'bg-gradient-to-r from-black/2 to-black/5 border-gray-200' : 'bg-gradient-to-r from-white/5 to-white/8 border-white/10'}`}>
+                            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                                <div>
+                                    <h4 className={`text-[1.25em] font-[700] ${isDayTime ? 'text-black' : 'text-white'}`}>Ready
+                                        to be discovered?</h4>
+                                    <p className={`text-sm ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}>Schedule a
+                                        technical SEO review and get a prioritized action list for your recruitment
+                                        platform.</p>
+                                </div>
+
+                                <div className="flex gap-3">
+                                    <Link href="/contact"
+                                          className="inline-flex items-center px-4 py-2 rounded-lg font-semibold transition-transform transform hover:scale-105"
+                                          style={{background: pageAccent, color: '#fff'}}>
+                                        Book a review
+                                    </Link>
+                                    <Link href="/quote-request"
+                                          className="inline-flex items-center px-4 py-2 rounded-lg border transition-transform transform hover:scale-105"
+                                          style={{borderColor: `rgba(${accentRgb},0.12)`}}>
+                                        Get a quote
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </FxReveal>
+                </div>
+            </section>
+
+            {/* Why Choose Us — Advanced Premium Benefits Grid */}
+            <section
+                className={`relative lg:py-[4em] py-[2.5em] transition-colors duration-500 ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
+                {/* Subtle grid + aurora background using page accent */}
+                <div className="pointer-events-none absolute inset-0 opacity-40" style={{
+                    backgroundImage: `linear-gradient( ${isDayTime ? `rgba(${accentRgb},0.06)` : `rgba(${accentRgb},0.06)`} 1px, transparent 1px), linear-gradient(90deg, ${isDayTime ? `rgba(${accentRgb},0.06)` : `rgba(${accentRgb},0.06)`} 1px, transparent 1px)`,
+                    backgroundSize: '44px 44px'
+                }}/>
+                <div className="pointer-events-none absolute inset-0 overflow-hidden">
+                    <div className="absolute -top-40 -left-32 w-[560px] h-[560px] rounded-full opacity-18"
+                         style={{background: `radial-gradient(circle, ${pageAccent} 0%, transparent 70%)`}}/>
+                    <div className="absolute -bottom-28 -right-20 w-[420px] h-[420px] rounded-full opacity-12"
+                         style={{background: `radial-gradient(circle, ${pageAccent}55 0%, transparent 70%)`}}/>
+                </div>
+
+                <div id="why-choose-us"
+                     className="relative z-10 max-w-[95em] mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
+                    <FxReveal>
+                        <div className="flex items-center gap-5 mb-12">
+                            <FxChip day={isDayTime}>BUSINESS IMPACT</FxChip>
+                            <div className={`flex-1 h-px ${isDayTime ? 'bg-white/10' : 'bg-black/10'}`}/>
+                            <span
+                                className={`font-mono text-[0.7em] tracking-widest ${isDayTime ? 'text-white/30' : 'text-black/30'}`}>HR TRANSFORMATION</span>
+                        </div>
+                    </FxReveal>
+
+                    <div className="grid lg:grid-cols-2 gap-12 items-start mb-12">
+                        <FxReveal>
+                            <div>
+                                <h2 className={`text-[2em] lg:text-[2.8em] font-[700] leading-[1.08] tracking-tight mb-6`}>
+                                    Why Choose Grey for HR Tech?
+                                </h2>
+                                <p className={`text-[0.95em] leading-[1.8] mb-4 ${isDayTime ? 'text-white/75' : 'text-black/70'}`}>
+                                    We combine deep HR domain knowledge with robust engineering to deliver career
+                                    platforms that scale, stay secure, and keep candidate experience central.
+                                </p>
+                                <p className={`text-[0.95em] leading-[1.8] mb-6 ${isDayTime ? 'text-white/75' : 'text-black/70'}`}>
+                                    From GDPR-compliant applicant flows to optimized job indexing and enterprise
+                                    integrations, Grey delivers measurable efficiency and engagement improvements.
+                                </p>
+
+                                <div className="inline-flex items-center gap-3 px-4 py-2 rounded-lg" style={{
+                                    background: `rgba(${accentRgb},0.06)`,
+                                    border: `1px solid rgba(${accentRgb},0.08)`
+                                }}>
+                                    <div className={`w-2 h-2 rounded-full animate-pulse`}
+                                         style={{background: pageAccent}}/>
+                                    <span className={`text-xs font-semibold`}
+                                          style={{color: isDayTime ? 'rgba(255,255,255,0.85)' : 'rgba(0,0,0,0.85)'}}>Proven HR outcomes</span>
+                                </div>
+                            </div>
+                        </FxReveal>
+
+                        <FxReveal delay={0.08}>
+                            <div className="grid grid-cols-2 gap-6 relative">
+                                <div className={`absolute -inset-3 rounded-2xl blur-2xl opacity-16`}
+                                     style={{background: `linear-gradient(135deg, rgba(${accentRgb},0.12), rgba(${accentRgb},0.06)`}}/>
+
+                                {[{value: '98%', label: 'Indexing Accuracy'}, {
+                                    value: '4–8 wks',
+                                    label: 'Audit & Fixes'
+                                }, {value: 'Enterprise', label: 'Hosting'}, {
+                                    value: 'Reliable',
+                                    label: 'Support SLAs'
+                                }].map((stat, idx) => (
+                                    <motion.div key={stat.label} initial={{opacity: 0, y: 8}}
+                                                whileInView={{opacity: 1, y: 0}} viewport={{once: true}}
+                                                transition={{delay: 0.12 + idx * 0.06}}
+                                                className={`group relative p-5 rounded-xl border backdrop-blur-sm transition-all duration-300 hover:scale-105 ${isDayTime ? 'border-white/8 bg-slate-900/60' : 'border-black/8 bg-white/80'}`}>
+                                        <div className="text-2xl font-bold mb-1"
+                                             style={{color: pageAccent}}>{stat.value}</div>
+                                        <p className={`text-sm font-medium ${isDayTime ? 'text-white/70' : 'text-black/70'}`}>{stat.label}</p>
+                                    </motion.div>
                                 ))}
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Carousel image */}
-            <div className={`carousel py-[4em] lg:mt-[-35em] md:mt-[-35em] ${isDayTime ? 'bg-black' : 'bg-white'}`}>
-                <div className="track">
-                    {[0, 1].map((carouselIndex) => (
-                        <React.Fragment key={`hr-logo-carousel-${carouselIndex}`}>
-                            {carouselLogos.map((logo) => (
-                                <Image
-                                    key={`hr-logo-carousel-${carouselIndex}-${logo.name}`}
-                                    className="image"
-                                    src={isDayTime ? logo.light : logo.dark}
-                                    alt={logo.name}
-                                    width={50}
-                                    height={50}
-                                    style={{
-                                        width: 'auto',
-                                        height: 'auto',
-                                    }}
-                                />
-                            ))}
-                        </React.Fragment>
-                    ))}
-                </div>
-            </div>
-
-            {/* First image */}
-            <div id="first-image" className="h-auto max-w-full w-full mx-auto">
-                <Image
-                    className="object-fill"
-                    src="/assets/hr/first.jpg"
-                    alt="HR technology platform"
-                    width={2560}
-                    height={1440}
-                    style={{
-                        objectFit: "fill",
-                        objectPosition: "center",
-                        width: '100%',
-                        height: 'auto',
-                    }}
-                />
-            </div>
-
-            {/* What Grey InfoTech Does */}
-            <div className={`lg:-mt-[3em] md:-mt-[3em] ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
-                <div
-                    className="relative grid lg:grid-cols-2 grid-cols-1 lg:my-[3em] my-[1em] lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-16 pb-6 lg:max-w-full w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
-                    <div>
-                        <h3 className="lg:text-[3.3em] md:text-[3.3em] text-[1.8em] font-[500] tracking-tight lg:mb-[0.7em] md:mb-[0.7em] leading-[1.1] pb-6">
-                            What Grey <br className="lg:block md:block hidden"/>Infotech Does
-                        </h3>
+                        </FxReveal>
                     </div>
 
-                    <div className="lg:-ml-[8em] md:-ml-[8em]">
-                        <p className="mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]">
-                            In today’s digital and fast-paced business environment, seamless integration of HR
-                            technology
-                            into your corporate website is critical to improving operational efficiency and employee
-                            engagement. At Grey InfoTech, we offer tailored HR Technology Solutions that go beyond
-                            functionality -they are strategically designed to align with your business goals.
-                        </p>
-                    </div>
-                </div>
-            </div>
+                    {/* Benefits grid — premium cards (3 columns on desktop) */}
+                    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 mt-6">
+                        {benefits.map((b, i) => (
+                            <FxReveal key={b.id} delay={0.08 + (i * 0.06)}>
+                                <motion.div whileHover={{y: -6}} transition={{duration: 0.28}}
+                                            className={`relative group h-full`}>
+                                    <div
+                                        className={`absolute -inset-2 rounded-xl blur-3xl opacity-20 group-hover:opacity-45 transition duration-700`}
+                                        style={{background: `linear-gradient(135deg, rgba(${accentRgb},0.18), rgba(${accentRgb},0.06)`}}/>
+                                    <div
+                                        className={`relative rounded-xl overflow-hidden border h-full p-6 flex flex-col backdrop-blur-md transition-all duration-300 ${isDayTime ? 'border-white/10 bg-slate-900/80 hover:bg-slate-900/95' : 'border-black/10 bg-white/90 hover:bg-white/98'}`}>
+                                        <div className="flex items-center gap-4 mb-4">
+                                            <div
+                                                className={`w-14 h-14 rounded-lg flex items-center justify-center ${isDayTime ? 'bg-white/6' : 'bg-black/6'} border`}
+                                                style={{borderColor: `rgba(${accentRgb},0.08)`}}>
+                                                <Image src={isDayTime ? b.iconLight : b.iconDark} alt={b.alt} width={36}
+                                                       height={36}/>
+                                            </div>
+                                            <div>
+                                                <div className="text-xs font-semibold"
+                                                     style={{color: pageAccent}}>{b.title}</div>
+                                                <div className="text-sm text-[0.9em] mt-1"
+                                                     style={{color: isDayTime ? 'rgba(255,255,255,0.85)' : 'rgba(0,0,0,0.85)'}}>{b.feature || ''}</div>
+                                            </div>
+                                        </div>
 
-            {/* Mid image */}
-            <div id="mid-image" className="h-auto max-w-full w-full mx-auto lg:-mt-[3em] md:-mt-[3em]">
-                <Image
-                    className="object-fill"
-                    src="/assets/hr/mid.jpg"
-                    alt="Office collaboration"
-                    width={2560}
-                    height={1440}
-                    style={{
-                        objectFit: "fill",
-                        objectPosition: "center",
-                        width: '100%',
-                        height: 'auto',
-                    }}
-                />
-            </div>
+                                        <h4 className={`text-lg font-bold mb-3 ${isDayTime ? 'text-white' : 'text-black'}`}>{b.title}</h4>
+                                        <p className={`text-[0.92em] leading-[1.6] flex-1 ${isDayTime ? 'text-white/70' : 'text-black/70'}`}>{b.description}</p>
 
-            {/* Recruitment SEO */}
-            <div className={`border-b ${isDayTime ? 'bg-white' : 'bg-black'}`}>
-                <div
-                    className="relative lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[5em] md:pb-[5em] pb-[2em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]">
-                    <div className="relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:gap-[6em] gap-4 h-auto">
-                        <div
-                            className={`lg:mt-[4em] md:mt-[4em] lg:-mr-[5.4em] md:-mr-[5.4em] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                            <h2 className="text-[1.5em] capitalize font-[500] tracking-tight leading-[1.1] pb-8 md:text-[3.2em] lg:text-[3.2em] w-auto h-auto">
-                                Recruitment SEO
-                            </h2>
+                                        {/* Key outcomes & delivery quick-glance */}
+                                        <div className="mt-4 flex flex-wrap gap-2">
+                                            {benefitOutcomes[b.id] ? (
+                                                <>
+                                                    <span className="text-xs px-2 py-1 rounded-full font-semibold" style={{background: `rgba(${accentRgb},0.08)`, color: pageAccent}}>{benefitOutcomes[b.id].impact}</span>
+                                                    <span className="text-xs px-2 py-1 rounded-full font-medium" style={{background: 'rgba(0,0,0,0.04)'}}>{benefitOutcomes[b.id].time}</span>
+                                                    <span className="text-xs px-2 py-1 rounded-full font-medium" style={{background: 'rgba(0,0,0,0.02)'}}>{benefitOutcomes[b.id].compliance}</span>
+                                                </>
+                                            ) : null}
+                                        </div>
 
-                            <p className="text-[0.85em] font-[400] tracking-normal text-justify lg:-mt-[0.5em] leading-[1.5] lg:mr-[2em]">
-                                At Grey InfoTech, we prioritise search engine visibility from the outset by embedding
-                                SEO
-                                best practices and ensuring full compliance with Google for Jobs standards. Every
-                                project
-                                includes robust, scalable hosting and proactive technical support to resolve issues
-                                quickly
-                                and efficiently.
-                                <br/><br/>
-                                Our approach to HR website development is strategic and comprehensive, aligning
-                                technology
-                                with your business objectives. We create high-performing, user-centric platforms that
-                                are
-                                optimised for discoverability, functionality, and future scalability.
-                            </p>
-                        </div>
-
-                        <div
-                            className="relative mb-4 w-full h-auto max-w-full lg:pr-[11em] md:pr-[11em] lg:ml-[3.5em] md:ml-[3.5em]">
-                            <Image
-                                src="/assets/fin/data.jpg"
-                                alt="Recruitment SEO data insights"
-                                width={400}
-                                height={500}
-                                style={{
-                                    width: '100%',
-                                    height: 'auto',
-                                }}
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Why Choose Us */}
-            <div className={`lg:pt-[2em] ${isDayTime ? 'bg-black' : 'bg-white'}`}>
-                <div
-                    id="why-choose-us"
-                    className="relative lg:pt-[4em] md:pt-[4em] pt-[2em] lg:pb-[6em] md:pb-[6em] pb-[2em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em]"
-                >
-                    <div
-                        className={`border-b-[0.1em] grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6 border-gray-300/50 pb-[3em] lg:mb-[5em] md:mb-[5em] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                        <div>
-                            <h2 className="text-[1em] text-start sm:text-[1.5em] md:text-[3.2em] lg:text-[3.1em] font-[550] tracking-tight leading-[1.15] lg:pb-6">
-                                Why Choose Us?
-                            </h2>
-                        </div>
-
-                        <div className="lg:-ml-[1.5em] md:-ml-[1.5em]">
-                            <p className="text-justify text-[0.87em] font-[300]">
-                                Partnering with Grey InfoTech means choosing a proven leader in HR technology. With over
-                                a
-                                decade of experience, we deliver smart, efficient solutions that integrate seamlessly
-                                into
-                                your careers website -enhancing employee engagement, streamlining HR processes, and
-                                supporting business growth.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div
-                        className={`relative w-full h-auto grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-[4em] md:gap-[3em] sm:gap-[3em] gap-[2em] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                        {benefits.map((benefit) => (
-                            <div key={benefit.id} id={benefit.id}>
-                                <Image
-                                    src={isDayTime ? benefit.iconLight : benefit.iconDark}
-                                    alt={benefit.alt}
-                                    width={60}
-                                    height={60}
-                                    className="h-auto w-auto mb-2"
-                                />
-
-                                <h5 className="capitalize lg:text-[1.6em] md:text-[1.7em] sm:text-[1.6em] text-[1.3em] font-[500] mb-8">
-                                    {benefit.title}
-                                </h5>
-
-                                <p className="text-[0.873em] text-justify font-[300]">
-                                    {benefit.description}
-                                </p>
-                            </div>
+                                        <div className={`mt-6 pt-4 border-t flex items-center justify-between ${isDayTime ? 'border-white/6' : 'border-black/6'}`}>
+                                            <Link href={`/case-studies?topic=${b.id}`} className="inline-flex items-center gap-2 text-xs font-semibold" aria-label={`Learn more about ${b.title}`}>
+                                                <span style={{color: isDayTime ? 'rgba(255,255,255,0.85)' : 'rgba(0,0,0,0.85)'}}>Learn more</span>
+                                                <ArrowRight className={`w-4 h-4 transition-transform group-hover:translate-x-1`} style={{color: pageAccent}}/>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </FxReveal>
                         ))}
                     </div>
                 </div>
-            </div>
+            </section>
 
-            {/* Three Images */}
-            <div className={`${isDayTime ? 'bg-white' : 'bg-black'}`}>
-                <div
-                    id="top-images"
-                    className="relative lg:max-w-full w-full lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[5em] md:pb-[5em] pb-[2em] mx-auto h-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]"
-                >
-                    <div className="relative grid lg:grid-cols-3 h-auto md:grid-cols-3 grid-cols-1 gap-6">
-                        {[
-                            {
-                                src: "/assets/hr/1.jpg",
-                                alt: "HR app interface",
-                                className: "lg:mt-[1.2em] md:mt-[1.2em]"
-                            },
-                            {src: "/assets/hr/2.jpg", alt: "HR collaboration", className: ""},
-                            {src: "/assets/hr/3.jpg", alt: "HR digital workflow", className: "lg:mt-[8em] md:mt-[8em]"},
-                        ].map((image) => (
-                            <div key={image.src} className={`h-auto w-full max-w-full ${image.className}`}>
-                                <Image
-                                    src={image.src}
-                                    alt={image.alt}
-                                    width={1396}
-                                    height={1440}
-                                    style={{
-                                        width: '100%',
-                                        height: 'auto',
-                                    }}
-                                />
+            {/* Futuristic Showcase - Premium HR Interfaces */}
+            <section className={`relative lg:py-[5em] py-[3em] transition-colors duration-500 ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
+                <FxBackground day={isDayTime} className="opacity-30" />
+
+                <div id="top-images" className="relative z-10 max-w-7xl mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em]">
+                    <FxReveal>
+                        <div className="mb-10 text-center">
+                            <div className={`inline-block mb-4 px-4 py-2 rounded-full border ${isDayTime ? 'border-gray-200/30 bg-gray-100/10' : 'border-white/10 bg-white/5'}`}>
+                                <span className={`text-xs font-semibold tracking-widest uppercase ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>PREMIUM SHOWCASE</span>
                             </div>
+                            <h2 className={`text-3xl lg:text-4xl font-bold mb-4 ${isDayTime ? 'text-black' : 'text-white'}`}>Futuristic HR Interfaces</h2>
+                            <p className={`max-w-3xl mx-auto ${isDayTime ? 'text-gray-700' : 'text-gray-300'}`}>A curated glimpse into our HR product interfaces demonstrating clean information hierarchy, accessible interactions, and enterprise-ready integrations — presented with layered depth and premium visual treatments.</p>
+                        </div>
+                    </FxReveal>
+
+                    <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-8 items-stretch">
+                        {[{
+                            src: '/assets/hr/1.jpg',
+                            alt: 'HR app interface',
+                            title: 'Talent Dashboard',
+                            tags: ['Dashboards', 'Real-time'],
+                            badge: 'Featured'
+                        },{
+                            src: '/assets/hr/2.jpg',
+                            alt: 'HR collaboration',
+                            title: 'Collaborative Workflows',
+                            tags: ['Collaboration','Onboarding'],
+                            badge: 'Workflow'
+                        },{
+                            src: '/assets/hr/3.jpg',
+                            alt: 'HR digital workflow',
+                            title: 'Automated HR Flows',
+                            tags: ['Automation','Compliance'],
+                            badge: 'Automation'
+                        }].map((card, idx) => (
+                            <FxReveal key={card.src} delay={0.08 + idx * 0.06}>
+                                <div className={`relative group rounded-2xl overflow-hidden border transition-all duration-500 ${isDayTime ? 'border-gray-200/30 bg-gradient-to-br from-white/80 to-white/60 hover:border-transparent' : 'border-white/10 bg-white/6 hover:border-white/20'}`}>
+                                    {/* Ambient glow */}
+                                    <div className={`absolute -inset-2 rounded-2xl blur-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-700`} style={{background: `linear-gradient(135deg, rgba(${accentRgb},0.18), rgba(${accentRgb},0.06))`}}/>
+
+                                    <div className="relative h-64 lg:h-72 overflow-hidden">
+                                        <Image src={card.src} alt={card.alt} width={1600} height={900} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+
+                                        {/* Top-right badge */}
+                                        <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold ${isDayTime ? 'bg-white/80 text-black' : 'bg-white/12 text-white/90'}`} style={{border: `1px solid rgba(${accentRgb},0.08)`}}>{card.badge}</div>
+
+                                        {/* Bottom overlay */}
+                                        <div className={`absolute bottom-4 left-4 right-4 p-4 rounded-lg backdrop-blur-sm ${isDayTime ? 'bg-white/70' : 'bg-black/50'}`} style={{border: `1px solid rgba(${accentRgb},0.06)`}}>
+                                            <div className="flex items-start justify-between">
+                                                <div>
+                                                    <h3 className={`text-lg font-bold ${isDayTime ? 'text-black' : 'text-white'}`}>{card.title}</h3>
+                                                    <div className="flex flex-wrap gap-2 mt-2">
+                                                        {card.tags.map((t) => (
+                                                            <span key={t} className={`text-xs px-2 py-1 rounded-full font-medium ${isDayTime ? 'bg-gray-100/40 text-black' : 'bg-white/6 text-white/80'}`} style={{border: `1px solid rgba(${accentRgb},0.04)`}}>{t}</span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                                <div className="flex items-center gap-3">
+                                                    <Link href={`/case-studies?topic=${card.title.replace(/\s+/g,'-').toLowerCase()}`} className="inline-flex items-center px-3 py-2 rounded-full text-sm font-semibold transition-transform transform group-hover:scale-105" style={{background: pageAccent, color: '#fff'}} aria-label={`View case study for ${card.title}`}>
+                                                        Explore
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </FxReveal>
                         ))}
                     </div>
+
                 </div>
-            </div>
+            </section>
 
             {/* Integrations */}
             <div
@@ -804,44 +1671,6 @@ const HrTech = () => {
                 ))}
             </div>
 
-            {/* Testimonials */}
-            <div
-                className={`relative lg:pt-[6em] md:pt-[6em] pt-[2em] lg:pb-[6em] md:pb-[6em] pb-[2em] max-w-full w-full h-auto ${isDayTime ? 'bg-white' : 'bg-black'}`}>
-                <div
-                    className={`relative mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 gap-6 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                    <div>
-                        <h5 className="uppercase text-xs font-[500] tracking-widest mb-4">
-                            What our clients say
-                        </h5>
-                    </div>
-
-                    <div className="lg:ml-[-20em] md:ml-[-20em] sm:ml-[-10em]">
-                        <div className="flex items-start gap-4 text-[1.5em] font-[500] mb-6">
-                            <Quote className="w-6 h-6 shrink-0"/>
-                            <p className="leading-tight text-justify border-b-[0.1em] border-gray-300/20 pb-12">
-                                {message}
-                            </p>
-                        </div>
-
-                        <div className="flex ml-10 items-center gap-4">
-                            <div>
-                                <p className="font-semibold text-[1.3em]">{name}</p>
-                                <p className="text-[0.8em]">{title}</p>
-                            </div>
-                        </div>
-
-                        <div className="flex justify-end gap-4 mt-1">
-                            <button type="button" onClick={prev} aria-label="Previous testimonial">
-                                <ArrowLeft className="w-8 h-6"/>
-                            </button>
-
-                            <button type="button" onClick={next} aria-label="Next testimonial">
-                                <ArrowRight className="w-8 h-6"/>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     );
 };
