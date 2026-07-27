@@ -5,21 +5,21 @@ declare module '@paypal/checkout-server-sdk' {
     }
     class PayPalHttpClient {
        
-      constructor(environment: any);
+      constructor(environment: unknown);
        
-      execute(request: any): Promise<any>;
+      execute(request: unknown): Promise<any>;
     }
   }
   export namespace orders {
     class OrdersCreateRequest {
       prefer(value: string): void;
        
-      requestBody(body: any): void;
+      requestBody(body: unknown): void;
     }
     class OrdersCaptureRequest {
       constructor(orderId: string);
        
-      requestBody(body: any): void;
+      requestBody(body: unknown): void;
     }
     class OrdersGetRequest {
       constructor(orderId: string);
@@ -29,7 +29,7 @@ declare module '@paypal/checkout-server-sdk' {
     class CapturesRefundRequest {
       constructor(captureId: string);
        
-      requestBody(body: any): void;
+      requestBody(body: unknown): void;
     }
   }
 }

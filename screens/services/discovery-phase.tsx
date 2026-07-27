@@ -16,6 +16,196 @@ import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLa
 
 import { FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxFrame, FxStickyScrollSection } from '@/components/futuristic/fx';
 
+const discoveryProcessSolutions = [
+    {
+        id: '01',
+        title: 'User Research & UX Strategy',
+        target: 'URED',
+        tags: ['Qualitative', 'Quantitative', 'Personas'],
+        body: (
+            <div>
+                <p>
+                    We engage with users through interviews, surveys, and usability studies to build
+                    deep empathy and uncover latent needs. This insight becomes the backbone of your
+                    product strategy — informing priorities, experience flows, and measurable
+                    success criteria.
+                </p>
+                <p className="mt-3">
+                    Outputs include detailed personas, journey maps, and validated experience
+                    patterns ready for prototyping and development handoff.
+                </p>
+            </div>
+        ),
+        metrics: [
+            {label: 'Interviews', value: '30+'},
+            {label: 'Validated Flows', value: '12+'},
+        ],
+        deliverables: ['User research report', 'Personas & journeys', 'Experience hypotheses']
+    },
+    {
+        id: '02',
+        title: 'Market & Competitive Analysis',
+        target: 'CRA',
+        tags: ['Positioning', 'Opportunity Mapping'],
+        body: (
+            <div>
+                <p>
+                    A disciplined market analysis highlights whitespace, competitor strengths, and
+                    opportunities for differentiation. We combine product, pricing, and user data to
+                    craft a clear go-to-market direction.
+                </p>
+                <p className="mt-3">
+                    Recommendations focus on positioning, feature prioritisation, and business model
+                    opportunities that maximise product-market fit.
+                </p>
+            </div>
+        ),
+        metrics: [
+            {label: 'Opportunities', value: '5+'},
+            {label: 'Segments', value: '3+'},
+        ],
+        deliverables: ['Competitive analysis', 'Opportunity report', 'Go-to-market brief']
+    },
+    {
+        id: '03',
+        title: 'Prototyping & Validation',
+        target: 'PV',
+        tags: ['Rapid Prototyping', 'User Testing'],
+        body: (
+            <div>
+                <p>
+                    Interactive prototypes allow rapid validation of hypotheses with real users and
+                    stakeholders. This reduces technical risk and provides clear guidance for the
+                    engineering team.
+                </p>
+                <p className="mt-3">
+                    Iterative testing cycles ensure features solve real problems and deliver
+                    measurable value before costly implementation begins.
+                </p>
+            </div>
+        ),
+        metrics: [
+            {label: 'Sessions', value: '40+'},
+            {label: 'Iterations', value: '3+'},
+        ],
+        deliverables: ['Clickable prototypes', 'Test reports', 'Validated feature set']
+    },
+    {
+        id: '04',
+        title: 'Business & Monetisation Strategy',
+        target: 'BA',
+        tags: ['Value Modeling', 'Pricing'],
+        body: (
+            <div>
+                <p>
+                    We align product features with clear business outcomes — revenue, retention,
+                    or operational efficiency — and recommend viable monetisation approaches.
+                </p>
+                <p className="mt-3">
+                    This includes pricing experiments, success metrics, and a prioritized list of
+                    commercially important features.
+                </p>
+            </div>
+        ),
+        metrics: [
+            {label: 'Models', value: '3'},
+            {label: 'Recommendations', value: 'Top 5'},
+        ],
+        deliverables: ['Business model canvas', 'Pricing recommendations', 'Commercial roadmap']
+    },
+    {
+        id: '05',
+        title: 'Technical Feasibility',
+        target: 'TFA',
+        tags: ['Architecture', 'Integrations'],
+        body: (
+            <div>
+                <p>
+                    Technical assessments evaluate architecture options, integration complexity,
+                    and scalability trade-offs so you can plan reliable, maintainable systems.
+                </p>
+                <p className="mt-3">
+                    We surface required APIs, data flows, and infrastructure considerations to
+                    reduce surprises during implementation.
+                </p>
+            </div>
+        ),
+        metrics: [
+            {label: 'Assessments', value: '1 comprehensive'},
+            {label: 'Integrations', value: 'Points identified'},
+        ],
+        deliverables: ['Feasibility report', 'Integration map', 'Tech risk register']
+    },
+    {
+        id: '06',
+        title: 'Product Roadmapping',
+        target: 'PR',
+        tags: ['MVP', 'Milestones'],
+        body: (
+            <div>
+                <p>
+                    We convert validated insights into a phased roadmap that balances business
+                    impact with delivery risk — prioritising an MVP that proves value early.
+                </p>
+                <p className="mt-3">
+                    Roadmaps include release milestones, dependencies, and expected outcomes per
+                    phase.
+                </p>
+            </div>
+        ),
+        metrics: [
+            {label: 'Milestones', value: '4+'},
+            {label: 'MVP Scope', value: 'Defined'},
+        ],
+        deliverables: ['Phase roadmap', 'MVP definition', 'Release plan']
+    },
+    {
+        id: '07',
+        title: 'Project Planning & Estimation',
+        target: 'PPE',
+        tags: ['Estimates', 'Risks'],
+        body: (
+            <div>
+                <p>
+                    Detailed planning and estimation give stakeholders confidence to commit
+                    resources. We identify tasks, dependencies, and realistic timelines.
+                </p>
+                <p className="mt-3">
+                    Our estimates include assumptions and risk buffers, enabling transparent
+                    decision-making.
+                </p>
+            </div>
+        ),
+        metrics: [
+            {label: 'Estimates', value: 'T-Shirt/Story points'},
+        ],
+        deliverables: ['Estimate pack', 'Risk register', 'Delivery plan']
+    },
+    {
+        id: '08',
+        title: 'Stakeholder Alignment',
+        target: 'SHA',
+        tags: ['Workshops', 'Roadmaps'],
+        body: (
+            <div>
+                <p>
+                    Structured workshops and documentation ensure alignment across teams and
+                    decision-makers so the product vision is shared and actionable.
+                </p>
+                <p className="mt-3">
+                    This reduces rework and accelerates approvals, keeping projects on schedule and
+                    on budget.
+                </p>
+            </div>
+        ),
+        metrics: [
+            {label: 'Workshops', value: '4+'},
+            {label: 'Aligned stakeholders', value: 'Key teams'},
+        ],
+        deliverables: ['Alignment workshop notes', 'Requirements backlog', 'Decision log']
+    },
+];
+
 const DiscoveryPhase = () => {
     const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
@@ -524,195 +714,7 @@ const DiscoveryPhase = () => {
                 navLabel="Discovery Solutions"
                 activeId={activeId}
                 onNavClickAction={scrollToSection}
-                items={[
-                    {
-                        id: '01',
-                        title: 'User Research & UX Strategy',
-                        target: 'URED',
-                        tags: ['Qualitative', 'Quantitative', 'Personas'],
-                        body: (
-                            <div>
-                                <p>
-                                    We engage with users through interviews, surveys, and usability studies to build
-                                    deep empathy and uncover latent needs. This insight becomes the backbone of your
-                                    product strategy — informing priorities, experience flows, and measurable
-                                    success criteria.
-                                </p>
-                                <p className="mt-3">
-                                    Outputs include detailed personas, journey maps, and validated experience
-                                    patterns ready for prototyping and development handoff.
-                                </p>
-                            </div>
-                        ),
-                        metrics: [
-                            {label: 'Interviews', value: '30+'},
-                            {label: 'Validated Flows', value: '12+'},
-                        ],
-                        deliverables: ['User research report', 'Personas & journeys', 'Experience hypotheses']
-                    },
-                    {
-                        id: '02',
-                        title: 'Market & Competitive Analysis',
-                        target: 'CRA',
-                        tags: ['Positioning', 'Opportunity Mapping'],
-                        body: (
-                            <div>
-                                <p>
-                                    A disciplined market analysis highlights whitespace, competitor strengths, and
-                                    opportunities for differentiation. We combine product, pricing, and user data to
-                                    craft a clear go-to-market direction.
-                                </p>
-                                <p className="mt-3">
-                                    Recommendations focus on positioning, feature prioritisation, and business model
-                                    opportunities that maximise product-market fit.
-                                </p>
-                            </div>
-                        ),
-                        metrics: [
-                            {label: 'Opportunities', value: '5+'},
-                            {label: 'Segments', value: '3+'},
-                        ],
-                        deliverables: ['Competitive analysis', 'Opportunity report', 'Go-to-market brief']
-                    },
-                    {
-                        id: '03',
-                        title: 'Prototyping & Validation',
-                        target: 'PV',
-                        tags: ['Rapid Prototyping', 'User Testing'],
-                        body: (
-                            <div>
-                                <p>
-                                    Interactive prototypes allow rapid validation of hypotheses with real users and
-                                    stakeholders. This reduces technical risk and provides clear guidance for the
-                                    engineering team.
-                                </p>
-                                <p className="mt-3">
-                                    Iterative testing cycles ensure features solve real problems and deliver
-                                    measurable value before costly implementation begins.
-                                </p>
-                            </div>
-                        ),
-                        metrics: [
-                            {label: 'Sessions', value: '40+'},
-                            {label: 'Iterations', value: '3+'},
-                        ],
-                        deliverables: ['Clickable prototypes', 'Test reports', 'Validated feature set']
-                    },
-                    {
-                        id: '04',
-                        title: 'Business & Monetisation Strategy',
-                        target: 'BA',
-                        tags: ['Value Modeling', 'Pricing'],
-                        body: (
-                            <div>
-                                <p>
-                                    We align product features with clear business outcomes — revenue, retention,
-                                    or operational efficiency — and recommend viable monetisation approaches.
-                                </p>
-                                <p className="mt-3">
-                                    This includes pricing experiments, success metrics, and a prioritized list of
-                                    commercially important features.
-                                </p>
-                            </div>
-                        ),
-                        metrics: [
-                            {label: 'Models', value: '3'},
-                            {label: 'Recommendations', value: 'Top 5'},
-                        ],
-                        deliverables: ['Business model canvas', 'Pricing recommendations', 'Commercial roadmap']
-                    },
-                    {
-                        id: '05',
-                        title: 'Technical Feasibility',
-                        target: 'TFA',
-                        tags: ['Architecture', 'Integrations'],
-                        body: (
-                            <div>
-                                <p>
-                                    Technical assessments evaluate architecture options, integration complexity,
-                                    and scalability trade-offs so you can plan reliable, maintainable systems.
-                                </p>
-                                <p className="mt-3">
-                                    We surface required APIs, data flows, and infrastructure considerations to
-                                    reduce surprises during implementation.
-                                </p>
-                            </div>
-                        ),
-                        metrics: [
-                            {label: 'Assessments', value: '1 comprehensive'},
-                            {label: 'Integrations', value: 'Points identified'},
-                        ],
-                        deliverables: ['Feasibility report', 'Integration map', 'Tech risk register']
-                    },
-                    {
-                        id: '06',
-                        title: 'Product Roadmapping',
-                        target: 'PR',
-                        tags: ['MVP', 'Milestones'],
-                        body: (
-                            <div>
-                                <p>
-                                    We convert validated insights into a phased roadmap that balances business
-                                    impact with delivery risk — prioritising an MVP that proves value early.
-                                </p>
-                                <p className="mt-3">
-                                    Roadmaps include release milestones, dependencies, and expected outcomes per
-                                    phase.
-                                </p>
-                            </div>
-                        ),
-                        metrics: [
-                            {label: 'Milestones', value: '4+'},
-                            {label: 'MVP Scope', value: 'Defined'},
-                        ],
-                        deliverables: ['Phase roadmap', 'MVP definition', 'Release plan']
-                    },
-                    {
-                        id: '07',
-                        title: 'Project Planning & Estimation',
-                        target: 'PPE',
-                        tags: ['Estimates', 'Risks'],
-                        body: (
-                            <div>
-                                <p>
-                                    Detailed planning and estimation give stakeholders confidence to commit
-                                    resources. We identify tasks, dependencies, and realistic timelines.
-                                </p>
-                                <p className="mt-3">
-                                    Our estimates include assumptions and risk buffers, enabling transparent
-                                    decision-making.
-                                </p>
-                            </div>
-                        ),
-                        metrics: [
-                            {label: 'Estimates', value: 'T-Shirt/Story points'},
-                        ],
-                        deliverables: ['Estimate pack', 'Risk register', 'Delivery plan']
-                    },
-                    {
-                        id: '08',
-                        title: 'Stakeholder Alignment',
-                        target: 'SHA',
-                        tags: ['Workshops', 'Roadmaps'],
-                        body: (
-                            <div>
-                                <p>
-                                    Structured workshops and documentation ensure alignment across teams and
-                                    decision-makers so the product vision is shared and actionable.
-                                </p>
-                                <p className="mt-3">
-                                    This reduces rework and accelerates approvals, keeping projects on schedule and
-                                    on budget.
-                                </p>
-                            </div>
-                        ),
-                        metrics: [
-                            {label: 'Workshops', value: '4+'},
-                            {label: 'Aligned stakeholders', value: 'Key teams'},
-                        ],
-                        deliverables: ['Alignment workshop notes', 'Requirements backlog', 'Decision log']
-                    }
-                ]}
+                items={discoveryProcessSolutions}
             />
 
             {/* Business Benefits - Advanced Premium Grid */}

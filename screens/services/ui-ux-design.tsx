@@ -1984,11 +1984,51 @@ const UiUxDesign = () => {
                 </div>
             </div>
 
+            <ServiceCapabilities
+                heading="UX/UI capability stack"
+                subheading="STRATEGIC DESIGN"
+                accentColor="#3b82f6"
+                isDarkBg={!isDayTime}
+                variant="terminal"
+                ctaHref="/quote-request"
+                ctaLabel="Start your design engagement"
+                capabilities={[
+                    {
+                        id: 'research',
+                        title: 'Research & Strategy',
+                        description: 'We ground every experience in deep user insight, market context, and business goals so design decisions are purposeful and measurable.',
+                        points: ['Competitor analysis', 'User research', 'Journey mapping', 'Strategy workshops']
+                    },
+                    {
+                        id: 'systems',
+                        title: 'Design Systems',
+                        description: 'We create scalable visual and interaction systems that keep your product coherent across every touchpoint.',
+                        points: ['Component libraries', 'Design tokens', 'Accessibility rules', 'Documentation']
+                    },
+                    {
+                        id: 'product',
+                        title: 'Product Design',
+                        description: 'From wireframes to polished prototypes, we design intuitive flows that reduce friction and improve activation.',
+                        points: ['Wireframes', 'Prototypes', 'Interaction design', 'Validation']
+                    },
+                    {
+                        id: 'delivery',
+                        title: 'Delivery & QA',
+                        description: 'We ensure implementation quality with handoff-ready specs, developer collaboration, and design validation loops.',
+                        points: ['Handoff specs', 'Developer sync', 'Design QA', 'Iteration support']
+                    },
+                    {
+                        id: 'growth',
+                        title: 'Optimization',
+                        description: 'We refine experiences continuously through analytics, usability testing, and product iteration to maximize impact.',
+                        points: ['Usability testing', 'Analytics review', 'Conversion tuning', 'Roadmap planning']
+                    }
+                ]}
+            />
 
         </div>
     );
 };
-
 export default UiUxDesign;
 
 

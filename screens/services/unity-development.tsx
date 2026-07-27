@@ -6,25 +6,37 @@ import Image from "next/image";
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import Link from 'next/link';
 import {AnimatePresence, motion} from "framer-motion";
+import {ArrowRight, Circle, Globe2, MonitorSmartphone, Rocket, ShieldCheck, Sparkles, Users, Wand2} from 'lucide-react';
 import {useIsDayTime} from '../../components/useIsDayTime';
 
 import FuturisticServiceLayout from '@/components/futuristic/FuturisticServiceLayout';
 
-import {FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxFrame, FxStickyScrollSection} from '@/components/futuristic/fx';
+import {
+    FxBackground,
+    FxChip,
+    FxReveal,
+    FxButton,
+    FxHoloCard,
+    FxFrame,
+    FxStickyScrollSection
+} from '@/components/futuristic/fx';
 // Reasons
 const reasons = [
     {
         id: 1,
         title: 'Experience Meets Innovation',
+        summary: 'A seasoned delivery team that combines product intuition, technical mastery, and launch discipline.',
+        detail: 'We bridge product strategy, technical architecture, and delivery governance to keep ambitious concepts grounded in execution.',
+        focusPoints: ['Product strategy', 'Delivery discipline', 'Studio-grade execution'],
         description: (
             <>
                 Our team comprises seasoned professionals who have refined their skills through years of real-world,
-                hands-on experience. This depth of expertise means you gain more than just technical capability -you
+                hands-on experience. This depth of expertise means you gain more than just technical capability; you
                 benefit from strategic insight and a problem-solving mindset that only comes from experience. We
                 understand the Unity engine inside and out, enabling us to maximise its capabilities and push creative
-                and technical boundaries. Whether itâ€™s developing high-performance games, immersive VR experiences, or
+                and technical boundaries. Whether it’s developing high-performance games, immersive VR experiences, or
                 scalable multiplayer systems, we deliver solutions that are not only innovative but also commercially
-                viable in todayâ€™s competitive gaming landscape.
+                viable in today’s competitive gaming landscape.
             </>
         ),
         images: ['/assets/unity/exp.jpg']
@@ -32,11 +44,14 @@ const reasons = [
     {
         id: 2,
         title: 'Creating Outstanding Games',
+        summary: 'We turn ambitious concepts into polished, memorable player journeys that stand out in a crowded market.',
+        detail: 'From concept framing to release readiness, every experience is shaped around playability, retention, and commercial impact.',
+        focusPoints: ['Player experience', 'Retention design', 'Launch readiness'],
         description: (
             <>
                 With Grey InfoTech as your partner, you gain access to a deep well of technical expertise, creative
                 innovation, and global industry insight. We collaborate closely with you to transform your ideas into
-                games that donâ€™t just meet expectations -they exceed them. Our goal is to deliver experiences that
+                games that don’t just meet expectations; they exceed them. Our goal is to deliver experiences that
                 captivate users and drive commercial success, setting new benchmarks for quality and performance in the
                 gaming world.
             </>
@@ -46,12 +61,15 @@ const reasons = [
     {
         id: 3,
         title: 'Mastery Of Unity Technologies',
+        summary: 'Deep technical fluency across Unity’s ecosystem, enabling premium visuals, efficient systems, and scalable builds.',
+        detail: 'We combine technical depth with production discipline to deliver performant, maintainable builds that scale with ambition.',
+        focusPoints: ['Technical depth', 'Performance engineering', 'Scalable architecture'],
         description: (
             <>
-                Our deep expertise in Unity technologies allows us to fully harness its capabilities -from delivering
-                stunning visuals to optimising game performance. We leverage Unityâ€™s robust features to craft
-                engaging,
-                scalable, and high-performing games that align with your goals. With Grey InfoTech, your vision is
+                Our deep expertise in Unity technologies allows us to fully harness its capabilities, from delivering
+                stunning visuals to optimising game performance. We leverage Unity’s robust features to craft
+                engaging, scalable, and high-performing games that align with your goals. With Grey InfoTech, your
+                vision is
                 transformed into a seamless, immersive experience that exceeds expectations and drives results.
             </>
         ),
@@ -60,6 +78,9 @@ const reasons = [
     {
         id: 4,
         title: 'An Array Of Opportunities',
+        summary: 'A broad perspective shaped by cross-industry collaboration, helping us build future-ready products with confidence.',
+        detail: 'Cross-industry exposure allows us to bring sharper thinking to product strategy, technical choices, and long-term growth planning.',
+        focusPoints: ['Cross-industry insight', 'Future readiness', 'Growth planning'],
         description: (
             <>
                 Our collaborations with renowned companies have expanded our perspective, exposing us to diverse
@@ -70,6 +91,70 @@ const reasons = [
         ),
         images: ['/assets/unity/arr.jpg']
     },
+    {
+        id: 5,
+        title: 'Precision Delivery Governance',
+        summary: 'A structured operating model that keeps scope, risk, and momentum under control from day one.',
+        detail: 'We bring predictable decision-making, milestone-based transparency, and disciplined execution so teams can move with confidence.',
+        focusPoints: ['Delivery governance', 'Risk clarity', 'Milestone control'],
+        description: (
+            <>
+                Our delivery approach is built around structure and accountability. By aligning stakeholders, timelines,
+                and technical decisions from the outset, we reduce friction and keep every phase of the product journey
+                focused,
+                measurable, and commercially sound.
+            </>
+        ),
+        images: ['/assets/unity/mast.jpg']
+    },
+    {
+        id: 6,
+        title: 'Future-Ready Product Evolution',
+        summary: 'We design for long-term growth, enabling products to adapt, expand, and evolve with market demand.',
+        detail: 'Our approach balances immediate launch goals with the flexibility required for live updates, platform expansion, and ongoing product maturity.',
+        focusPoints: ['Product evolution', 'Long-term growth', 'Platform expansion'],
+        description: (
+            <>
+                We think beyond the initial release. Every Unity product we build is prepared for future updates,
+                broader
+                audience reach, and changing market expectations so the experience remains relevant and resilient over
+                time.
+            </>
+        ),
+        images: ['/assets/unity/exp.jpg']
+    },
+];
+
+const unlockCapabilities = [
+    {
+        title: 'Rapid prototyping',
+        description: 'Move from concept to playable verticals quickly with aligned UX, technical, and content milestones.',
+        icon: Rocket
+    },
+    {
+        title: 'Cross-platform delivery',
+        description: 'Deploy premium experiences across mobile, desktop, browser, and console without compromising quality.',
+        icon: Globe2
+    },
+    {
+        title: 'Performance engineering',
+        description: 'Fine-tune frame pacing, memory budgets, and runtime stability for a polished player experience.',
+        icon: ShieldCheck
+    },
+    {
+        title: 'Live growth systems',
+        description: 'Integrate analytics, backend hooks, and live-ops readiness from day one to support expansion.',
+        icon: Users
+    },
+];
+
+const unlockStats = [
+    {
+        label: 'Prototype velocity',
+        value: '1–3 weeks',
+        description: 'Playable validation loops with measurable feedback'
+    },
+    {label: 'Platform reach', value: '6+ targets', description: 'Built for multi-device release and scale'}
 ];
 
 const UnityDevelopment = () => {
@@ -399,8 +484,47 @@ const UnityDevelopment = () => {
         }; // Clean up the interval on unmount
     }, []);
 
+    const benefits = [
+        {
+            icon: Globe2,
+            title: 'Cross-platform reach',
+            description: 'Deploy once across mobile, desktop, console, web and XR while keeping performance polished and content pipelines efficient.',
+            metric: '25+ platforms',
+        },
+        {
+            icon: Users,
+            title: 'Multiplayer engagement',
+            description: 'Create scalable networking, shared worlds and competitive systems that keep players connected and retention high.',
+            metric: 'Real-time multiplayer',
+        },
+        {
+            icon: Rocket,
+            title: 'Faster launch cycles',
+            description: 'Accelerate from prototype to production with high-velocity workflows, reusable systems and a streamlined content pipeline.',
+            metric: '1–3 week prototypes',
+        },
+        {
+            icon: MonitorSmartphone,
+            title: 'XR-ready experiences',
+            description: 'Blend immersive VR and AR experiences with responsive UI and device-aware engineering for modern interactive products.',
+            metric: 'Immersive by design',
+        },
+        {
+            icon: Wand2,
+            title: 'Flexible customisation',
+            description: 'Tailor the experience with bespoke systems, shader work, tooling and integrations that align with your creative vision.',
+            metric: 'Bespoke systems',
+        },
+        {
+            icon: ShieldCheck,
+            title: 'Smarter ROI',
+            description: 'Reduce rework and production overhead with a modular architecture that keeps projects lean, maintainable and cost-conscious.',
+            metric: 'Lower delivery risk',
+        },
+    ];
+
     return (
-        <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
+        <div suppressHydrationWarning className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
 
             {/* Unified Unity Hero â€” Background Video/Image with Futuristic Overlay */}
             <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
@@ -481,7 +605,10 @@ const UnityDevelopment = () => {
                                         style={{background: '#06b6d4', color: '#000'}}>
                                         <span className="absolute inset-0"
                                               style={{background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)'}}/>
-                                        <span className="relative">Start a project â†’</span>
+                                        <span className="relative inline-flex items-center gap-2">
+                                            Start a project
+                                            <ArrowRight className="h-4 w-4"/>
+                                        </span>
                                     </button>
                                 </Link>
                                 <Link href="/portfolio">
@@ -515,7 +642,7 @@ const UnityDevelopment = () => {
                 </div>
             </section>
 
-            {/* Introductory section â€” ERP-styled (from UI/UX) */}
+            {/* Introductory section — ERP-styled (from UI/UX) */}
             <section
                 ref={sectionRef}
                 data-bg={isBackgroundActive ? (isDayTime ? 'Dark' : 'Light') : (isDayTime ? 'Light' : 'Dark')}
@@ -586,7 +713,10 @@ const UnityDevelopment = () => {
                                             <ul className='space-y-2'>
                                                 {capability.items.map((item, i) => (
                                                     <li key={i} className='text-[0.85em] flex items-start gap-2'>
-                                                        <span className='text-cyan-400 font-bold mt-0.5'>â€¢</span>
+                                                                    <span
+                                                                        className='mt-0.5 inline-flex h-4 w-4 items-center justify-center text-cyan-400'>
+                                                            <Circle className='h-3 w-3 fill-current'/>
+                                                        </span>
                                                         <span>{item}</span>
                                                     </li>
                                                 ))}
@@ -604,7 +734,7 @@ const UnityDevelopment = () => {
                                     {[
                                         {
                                             metric: 'Prototype Velocity',
-                                            value: '1â€“3 weeks',
+                                            value: '1–3 weeks',
                                             description: 'Time from discovery to validated prototype'
                                         },
                                         {
@@ -635,8 +765,12 @@ const UnityDevelopment = () => {
                     <div className={'hidden lg:block pr-6'}>
                         <div className={'rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm'}>
                             <div className="text-[0.72em] uppercase tracking-[0.28em] text-cyan-300/80">Showcase</div>
-                            <h4 className={'text-[1.6em] font-[600] mt-2 mb-3'}>Realtime scenes â€¢
-                                Production-ready</h4>
+                            <h4 className={'text-[1.9em] font-[700] mt-2 mb-3 inline-flex items-center gap-2'}>
+                                <Sparkles className={'h-4 w-4 text-teal-400'}/>
+                                Realtime scenes
+                                <span className={'text-teal-400'}>•</span>
+                                Production-ready
+                            </h4>
                             <p className={'text-sm text-slate-300 mb-4'}>A curated gallery of realtime experiences,
                                 lighting & rendering pipelines, and systems engineered for performance and scale.</p>
 
@@ -648,20 +782,20 @@ const UnityDevelopment = () => {
                                     {label: 'Tooling', value: 'Profiling & CI'}
                                 ].map((item) => (
                                     <div key={item.label}
-                                         className="rounded-2xl border border-white/10 bg-white/6 px-4 py-3">
+                                         className="rounded-2xl border bg-white/6 px-4 py-3">
                                         <div
                                             className="text-[0.58em] uppercase tracking-[0.3em] text-teal-300/80">{item.label}</div>
-                                        <div className="mt-1 text-[1.05em] font-[600] text-white">{item.value}</div>
+                                        <div className="mt-1 text-[1.05em] font-[600]">{item.value}</div>
                                     </div>
                                 ))}
                             </div>
 
                             <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-3">
+                                <div className="rounded-2xl border  bg-white/[0.03] p-3">
                                     <div className="text-[0.72em] uppercase tracking-[0.28em] text-teal-300">Realtime
                                         3D
                                     </div>
-                                    <div className="mt-2 text-sm text-white/80">Interactive scenes & shader-driven
+                                    <div className="mt-2 text-sm ">Interactive scenes & shader-driven
                                         visuals.
                                     </div>
                                 </div>
@@ -669,7 +803,7 @@ const UnityDevelopment = () => {
                                     <div
                                         className="text-[0.72em] uppercase tracking-[0.28em] text-teal-300">Multiplayer
                                     </div>
-                                    <div className="mt-2 text-sm text-white/80">Authoritative servers & deterministic
+                                    <div className="mt-2 text-sm ">Authoritative servers & deterministic
                                         sync.
                                     </div>
                                 </div>
@@ -772,10 +906,10 @@ const UnityDevelopment = () => {
                 onNavClickAction={scrollToSection}
                 items={unityItems}
             />
-            
+
             {/* Mid image — Futuristic showcase */}
             <section id={'mid image'} className={'relative max-w-full w-full mx-auto py-12'}>
-                <div className={'relative max-w-[1400px] mx-auto px-6'}>
+                <div className={'relative max-w-full mx-auto px-6'}>
                     <FxFrame className={'rounded-3xl overflow-hidden'}>
                         <div className={'relative h-[420px] sm:h-[560px] lg:h-[720px]'}>
                             <Image
@@ -786,9 +920,10 @@ const UnityDevelopment = () => {
                             />
 
                             {/* Depth & gradient overlays */}
-                            <div className={'absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(2,6,23,0.15)_35%,rgba(2,6,23,0.7)_100%)]'} />
+                            <div
+                                className={'absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(2,6,23,0.15)_35%,rgba(2,6,23,0.7)_100%)]'}/>
                             <div className={'pointer-events-none absolute inset-0'}>
-                                <FxBackground day={isDayTime} grid={true} aurora={true} className={'opacity-90'} />
+                                <FxBackground day={isDayTime} grid={true} aurora={true} className={'opacity-90'}/>
                             </div>
 
                             {/* Eyebrow chip */}
@@ -799,11 +934,17 @@ const UnityDevelopment = () => {
                             {/* Lead content */}
                             <div className={'absolute left-8 bottom-8 max-w-lg'}>
                                 <FxReveal>
-                                    <h3 className={'text-white lg:text-3xl text-xl font-[700] tracking-tight'}>Realtime pipelines — live rendering, streaming & authoritative systems</h3>
-                                    <p className={'text-white/80 mt-3 text-sm'}>A production snapshot showcasing our realtime rendering fidelity, streaming asset pipelines and low-latency networking. Designed for sustained performance across devices and scalable live-ops.</p>
+                                    <h3 className={'text-white lg:text-3xl text-xl font-[700] tracking-tight'}>Realtime
+                                        pipelines — live rendering, streaming & authoritative systems</h3>
+                                    <p className={'text-white/80 mt-3 text-sm'}>A production snapshot showcasing our
+                                        realtime rendering fidelity, streaming asset pipelines and low-latency
+                                        networking. Designed for sustained performance across devices and scalable
+                                        live-ops.</p>
                                     <div className={'mt-4 flex gap-3'}>
                                         <FxButton day={isDayTime} href={'/contact'}>Start a pilot</FxButton>
-                                        <Link href={'/portfolio'} className={'inline-flex items-center text-sm text-white/70 underline px-3 py-2'}>View case studies</Link>
+                                        <Link href={'/portfolio'}
+                                              className={'inline-flex items-center text-sm text-white/70 underline px-3 py-2'}>View
+                                            case studies</Link>
                                     </div>
                                 </FxReveal>
                             </div>
@@ -811,361 +952,707 @@ const UnityDevelopment = () => {
                             {/* Floating holo stats */}
                             <div className={'absolute right-8 top-24 flex flex-col gap-4'}>
                                 <FxHoloCard day={isDayTime} className={'p-4 w-44'}>
-                                    <div className={'text-[0.66em] uppercase tracking-[0.18em] text-slate-300'}>Render throughput</div>
+                                    <div className={'text-[0.66em] uppercase tracking-[0.18em] text-slate-300'}>Render
+                                        throughput
+                                    </div>
                                     <div className={'text-2xl font-[800] mt-1'}>4K • 60fps</div>
                                     <div className={'text-xs text-slate-400 mt-1'}>Optimised GPU & batching</div>
                                 </FxHoloCard>
 
                                 <FxHoloCard day={isDayTime} className={'p-4 w-44'}>
-                                    <div className={'text-[0.66em] uppercase tracking-[0.18em] text-slate-300'}>Authoritative tick</div>
+                                    <div
+                                        className={'text-[0.66em] uppercase tracking-[0.18em] text-slate-300'}>Authoritative
+                                        tick
+                                    </div>
                                     <div className={'text-2xl font-[800] mt-1'}>60Hz</div>
-                                    <div className={'text-xs text-slate-400 mt-1'}>Deterministic networking options</div>
+                                    <div className={'text-xs text-slate-400 mt-1'}>Deterministic networking options
+                                    </div>
                                 </FxHoloCard>
                             </div>
 
                             {/* Subtle orbit decoration */}
-                            <div aria-hidden className={'hidden lg:block absolute -right-20 -top-20 w-[40vmax] h-[40vmax] rounded-full opacity-10'} />
+                            <div aria-hidden
+                                 className={'hidden lg:block absolute -right-20 -top-20 w-[40vmax] h-[40vmax] rounded-full opacity-10'}/>
                         </div>
                     </FxFrame>
                 </div>
             </section>
 
             {/* The benefits of Unity game development services */}
-            <div
-                className={`relative max-w-full w-full py-16 lg:mt-[3em] md:mt-[3em] mx-auto h-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]`}>
-                <div
-                    className={`relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4 border-b-[1px] lg:pb-[3em] pb-[2em] ${isDayTime ? 'text-black' : 'text-white'}`}>
-                    <div>
-                        <h2 className='lg:text-[3em] capitalize md:text-[2em] sm:text-[1em] font-[500] justify-center tracking-tight leading-[1.2]'>
-                            The benefits <br className={'lg:block md:block hidden'}/>of Unity game <br
-                            className={'lg:block md:block hidden'}/>development services
-                        </h2>
-                    </div>
-                    <div>
-                        <p className='text-[0.87em] font-[300] justify-center tracking-normal text-justify leading-[1.3] lg:-ml-[1.2em] md:-ml-[1.2em]'>
-                            Unity is a leading choice in game development, renowned for its versatility and
-                            comprehensive feature set. It combines a user-friendly interface with powerful scripting
-                            capabilities and cross-platform support, enabling developers to build and deploy games
-                            efficiently. The Unity Asset Store offers a vast library of ready-made assets and plugins,
-                            streamlining production and reducing development time. Real-time previews, advanced graphics
-                            rendering, and a strong developer community further contribute to its appeal. With the
-                            ability to export to mobile, console, and PC platforms, Unity empowers developers to reach a
-                            wide audience, solidifying its position as a top-tier game engine.
-                        </p>
-                    </div>
-                </div>
-                <div
-                    className='relative grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 lg:gap-[6em] gap-4 lg:mb-8 mb-8'>
-                    <div className={`mt-12 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                        <Image
-                            src={isDayTime ? '/assets/unity/icon/cross.svg' : '/assets/unity/icon/cross1.svg'}
-                            alt='Cross-platform games development'
-                            width={60}
-                            height={60}
-                            className='mb-2'
-                        />
-                        <h3 className='capitalize text-[1.5em] leading-[1.2] font-[600] mb-2'>
-                            Cross-platform <br className={'lg:block md:block hidden'}/>games development
-                        </h3>
-                        <p className='text-justify text-[0.85em] font-[400]'>
-                            Unityâ€™s support for over 25 platforms allows developers to build once and deploy across
-                            mobile, desktop, console, web, and AR/VR devices -maximising reach and revenue potential.
-                            With flexible plans like Unity Personal, Pro, and Enterprise, businesses of all sizes can
-                            access the tools they need at the right scale. The Unity Asset Store further accelerates
-                            development with a vast library of ready-to-use assets and tools, helping teams reduce costs
-                            and speed up time-to-market. For companies aiming to deliver engaging, cross-platform
-                            experiences efficiently, Unity offers a robust and scalable solution.
-                        </p>
-                    </div>
-                    <div className={`mt-12 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                        <Image
-                            src={isDayTime ? '/assets/unity/icon/mult.svg' : '/assets/unity/icon/mult1.svg'}
-                            alt='Multiplayer Support'
-                            width={60}
-                            height={60}
-                            className='mb-2'
-                        />
-                        <h3 className='capitalize text-[1.5em] font-[600] mb-2'>
-                            Multiplayer support
-                        </h3>
-                        <p className='text-justify text-[0.85em] font-[400]'>
-                            Unityâ€™s robust multiplayer capabilities empower developers to build scalable,
-                            high-performance systems that connect players in real-time across the globe. With built-in
-                            support for cross-platform play, Unity enables seamless interaction between users on mobile,
-                            PC, consoles, and web -creating a unified and inclusive gaming ecosystem. More than just
-                            connectivity, Unityâ€™s multiplayer tools are designed to enhance player engagement by
-                            fostering collaboration, competition, and lasting community bonds. For businesses, this
-                            translates into higher user retention, increased monetisation opportunities, and a broader
-                            market reach.
-                        </p>
-                    </div>
-                    <div className={`mt-12 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                        <Image
-                            src={isDayTime ? '/assets/unity/icon/acc.svg' : '/assets/unity/icon/acc1.svg'}
-                            alt='Accelerated games development'
-                            width={60}
-                            height={60}
-                            className='mb-2'
-                        />
-                        <h3 className='capitalize text-[1.5em] leading-[1.2] font-[600] mb-2'>
-                            Accelerated game <br className={'lg:block md:block hidden'}/>development </h3>
-                        <p className='text-justify text-[0.85em] font-[400]'>
-                            Unity streamlines the entire game development lifecycle, enabling creators to move rapidly
-                            from concept to launch with maximum efficiency. Its powerful engine, intuitive interface,
-                            and comprehensive suite of development tools help reduce production time while maintaining
-                            high performance and visual quality. Whether building casual mobile games or complex,
-                            AAA-style experiences, Unity supports all genres and scales, making it an ideal solution for
-                            businesses looking to accelerate time-to-market and maximise ROI without compromising on
-                            creativity or functionality.
-                        </p>
-                    </div>
-                    <div className={`mt-12 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                        <Image
-                            src={isDayTime ? '/assets/unity/icon/mult.svg' : '/assets/unity/icon/mult1.svg'}
-                            alt='AR & VR Support'
-                            width={60}
-                            height={60}
-                            className='mb-2'
-                        />
-                        <h3 className='capitalize text-[1.5em] font-[600] mb-2'>
-                            AR & VR support</h3>
-                        <p className='text-justify text-[0.85em] font-[400]'>
-                            Unity leads the way in AR and VR game development, providing advanced tools and workflows
-                            that empower developers to build rich, immersive experiences across industries. With over
-                            60% of AR and VR content powered by Unity 3D, the platform stands as a market leader in
-                            shaping the future of interactive technology. Its real-time rendering capabilities,
-                            cross-platform support, and robust development ecosystem enable businesses to create
-                            cutting-edge applications -from immersive training simulations and virtual showrooms to
-                            next-generation gaming -helping them stay ahead in a rapidly evolving digital landscape.
-                        </p>
-                    </div>
-                    <div className={`mt-12 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                        <Image
-                            src={isDayTime ? '/assets/unity/icon/enh.svg' : '/assets/unity/icon/enh1.svg'}
-                            alt='Enhanced Customisation'
-                            width={60}
-                            height={60}
-                            className='mb-2'
-                        />
-                        <h3 className='capitalize text-[1.5em] font-[600] mb-2'>
-                            Enhanced customisation</h3>
-                        <p className='text-justify text-[0.85em] font-[400]'>
-                            Unityâ€™s flexibility empowers developers to fully customise games and interactive
-                            experiences
-                            to align with their creative and strategic vision. Whether fine-tuning physics engines for
-                            realistic gameplay, designing bespoke shaders for unique visual styles, or integrating
-                            third-party plugins to extend functionality, Unity provides the freedom and control required
-                            for innovation. This adaptability makes it the ideal choice for businesses seeking tailored
-                            game development solutions that stand out in a competitive market while delivering precise,
-                            high-quality results.
-                        </p>
-                    </div>
-                    <div className={`mt-12 ${isDayTime ? 'text-black' : 'text-white'}`}>
-                        <Image
-                            src={isDayTime ? '/assets/unity/icon/cost.svg' : '/assets/unity/icon/cost1.svg'}
-                            alt='Cost Efficiency For Development'
-                            width={60}
-                            height={60}
-                            className='mb-2'
-                        />
-                        <h3 className='capitalize text-[1.5em] leading-[1.2] font-[600] mb-2'>
-                            Cost-efficiency <br className={'lg:block md:block hidden'}/>for development</h3>
-                        <p className='text-justify text-[0.85em] font-[400]'>
-                            Unity offers cost-effective development solutions that are especially beneficial for
-                            startups and small to medium-sized teams. With flexible licensing options like Unity
-                            Personal, and access to a vast Asset Store filled with ready-made assets, tools, and
-                            templates, developers can significantly reduce production costs without compromising on
-                            quality. This allows businesses to focus their resources on creativity, rapid prototyping,
-                            and innovation, ensuring faster time to market and better return on investment.
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <section
+                className={`relative max-w-full w-full py-20 lg:mt-[3em] md:mt-[3em] mx-auto h-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em] ${isDayTime ? 'text-black' : 'text-white'}`}>
+                <div className="relative z-10">
+                    <FxReveal>
+                        <div className="max-w-3xl mb-12">
+                            <div
+                                className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[0.72em] font-semibold uppercase tracking-[0.24em] ${isDayTime ? 'border-black/10 bg-black/[0.03] text-black/70' : 'border-cyan-400/20 bg-cyan-400/10 text-cyan-300'}`}>
+                                <Sparkles className="h-3.5 w-3.5"/>
+                                Business Benefits
+                            </div>
+                            <h2 className={`mt-6 text-3xl md:text-4xl lg:text-[3.2rem] font-[700] tracking-tight leading-[1.08] ${isDayTime ? 'text-black' : 'text-white'}`}>
+                                Why Unity development delivers <span
+                                className={`bg-gradient-to-r ${isDayTime ? 'from-slate-700 to-slate-950' : 'from-cyan-300 to-blue-400'} bg-clip-text text-transparent`}>measurable business value</span>
+                            </h2>
+                            <p className={`mt-5 max-w-2xl text-[0.95rem] leading-[1.7] ${isDayTime ? 'text-slate-700' : 'text-slate-300'}`}>
+                                Unity gives teams a fast, flexible foundation for building premium games and interactive
+                                products — from rapid prototypes to full-scale launches across devices and platforms.
+                            </p>
+                        </div>
+                    </FxReveal>
 
-            {/* Unlocking tomorrowâ€™s gaming possibilities today */}
-            <div id={'unlocking'} className={`relative ${isDayTime ? 'bg-black' : 'bg-white'}`}>
-                <div
-                    className={`relative grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:max-w-[90em] py-14 mx-auto px-4 sm:px-6 lg:px-[4.6em] ${isDayTime ? 'text-white' : 'text-black'}`}>
-                    <div>
-                        <h2 className={'lg:text-[3em] text-[1.5em] font-[500] tracking-tight leading-[1.1] lg:pb-6 capitalize'}>
-                            unlocking <br className={'lg:block md:block hidden'}/>gaming potential<br
-                            className={'lg:block md:block hidden'}/>of tomorrow now
-                        </h2>
-                    </div>
-                    <div className='lg:-ml-[3.5em]'>
-                        <p className='text-[0.873em] font-[400] lg:-mt-[0.2em] text-justify leading-[1.5]'>
-                            In the dynamic world of Unity game development, the future is already unfolding -and at Grey
-                            InfoTech, we&#39;re here to help you lead it. Whether you&#39;re building cross-platform
-                            games,
-                            immersive VR/AR experiences, or exploring the Metaverse, we combine technical expertise with
-                            creative vision to bring your ideas to life. Our tailored development solutions are designed
-                            to help you break into new markets, captivate users, and build lasting digital experiences
-                            across mobile, console, and web platforms. With Unityâ€™s powerful engine and flexible
-                            toolset, we accelerate time-to-market while ensuring high performance and visual fidelity.
-                            As your strategic development partner, weâ€™re invested in your success -helping you unlock
-                            new
-                            business opportunities, outpace the competition, and shape the future of interactive media.
-                        </p>
+                    <div className="grid gap-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+                        {benefits.map((benefit, index) => {
+                            const Icon = benefit.icon;
+                            return (
+                                <FxReveal key={benefit.title} delay={0.06 * (index + 1)}>
+                                    <FxFrame className="h-full">
+                                        <div
+                                            className={`group relative h-full overflow-hidden rounded-[1.6rem] border p-8 transition-all duration-300 hover:-translate-y-1 ${isDayTime ? 'border-slate-200 bg-gradient-to-br from-white to-slate-50 shadow-[0_20px_60px_rgba(15,23,42,0.08)]' : 'border-white/10 bg-gradient-to-br from-white/10 to-white/[0.03] shadow-[0_20px_60px_rgba(0,0,0,0.22)]'}`}>
+                                            <div
+                                                className={`absolute inset-0 bg-gradient-to-br ${isDayTime ? 'from-slate-900/[0.03] to-transparent' : 'from-cyan-400/[0.08] to-transparent'}`}/>
+                                            <div
+                                                className={`absolute -right-10 -top-10 h-28 w-28 rounded-full blur-3xl ${isDayTime ? 'bg-slate-900/10' : 'bg-cyan-400/10'}`}/>
+                                            <div className="relative">
+                                                <div
+                                                    className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl border ${isDayTime ? 'border-slate-200 bg-white text-slate-900 shadow-sm' : 'border-cyan-400/20 bg-cyan-400/10 text-cyan-300'}`}>
+                                                    <Icon className="h-5 w-5"/>
+                                                </div>
+                                                <div
+                                                    className={`mt-6 h-1 w-12 rounded-full ${isDayTime ? 'bg-slate-900' : 'bg-cyan-400'}`}/>
+                                                <h3 className={`mt-5 text-[1.2rem] font-[700] tracking-tight ${isDayTime ? 'text-slate-900' : 'text-white'}`}>
+                                                    {benefit.title}
+                                                </h3>
+                                                <p className={`mt-3 text-[0.92rem] leading-[1.75] ${isDayTime ? 'text-slate-600' : 'text-slate-300'}`}>
+                                                    {benefit.description}
+                                                </p>
+                                                <div
+                                                    className={`mt-8 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[0.75rem] font-semibold uppercase tracking-[0.18em] ${isDayTime ? 'bg-slate-900 text-white' : 'bg-cyan-400/10 text-cyan-300'}`}>
+                                                    {benefit.metric}
+                                                    <ArrowRight
+                                                        className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </FxFrame>
+                                </FxReveal>
+                            );
+                        })}
                     </div>
                 </div>
-            </div>
+            </section>
 
-            {/* Reasons to partner with Grey InfoTech */}
-            <div className={`${isDayTime ? 'bg-gray-50' : 'bg-gray-950'}`}>
+            {/* Unlocking tomorrow’s gaming possibilities today */}
+            <section id="unlocking"
+                     className={`relative overflow-hidden py-20 lg:py-24 ${isDayTime ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'}`}>
+                <div className="absolute inset-0 overflow-hidden">
+                    <div
+                        className={`absolute left-0 top-0 h-72 w-72 rounded-full blur-3xl ${isDayTime ? 'bg-cyan-400/20' : 'bg-cyan-500/15'}`}/>
+                    <div
+                        className={`absolute bottom-0 right-0 h-80 w-80 rounded-full blur-3xl ${isDayTime ? 'bg-blue-500/20' : 'bg-indigo-400/15'}`}/>
+                    <div
+                        className={`absolute inset-0 ${isDayTime ? 'bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.18),transparent_38%)]' : 'bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.12),transparent_38%)]'}`}/>
+                    <div
+                        className={`absolute inset-0 opacity-20 ${isDayTime ? 'bg-[linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)]' : 'bg-[linear-gradient(90deg,rgba(15,23,42,0.08)_1px,transparent_1px),linear-gradient(rgba(15,23,42,0.08)_1px,transparent_1px)]'} [background-size:26px_26px]`}/>
+                </div>
+
                 <div
-                    className={`relative lg:pt-32 lg:pb-14 px-4 sm:px-6 lg:px-[4.6em] w-full max-w-full lg:mb-20 mb-12 ${
-                        isDayTime ? 'text-black' : 'text-white'}`}>
-                    <div
-                        className={`relative lg:max-w-full mx-auto border-b-[0.001em] pb-2`}>
-                        <h2 className='lg:text-[3em] text-[1.5em] font-[600] tracking-tight leading-[1.1] lg:pb-6'>
-                            Reasons to partner <br className={'lg:block md:block hidden'}/>with Grey InfoTech
-                        </h2>
-                    </div>
-                    <div
-                        className='relative lg:mt-[6em] md:mt-[6em] mt-[3em]mx-auto px-4 grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:mb-24'>
-                        {/* Left Section */}
+                    className="relative mx-auto grid max-w-full gap-8 px-4 sm:px-6 lg:grid-cols-[1.03fr,0.97fr] lg:px-[4.6em]">
+                    <FxReveal>
                         <div
-                            className={`relative text-[0.873em] lg:leading-[1.5] ${isDayTime ? 'text-black' : 'text-white'} flex flex-col justify-center mb-4`}>
-                            {reasons.map((reason, index) => (
+                            className={`relative overflow-hidden rounded-[2rem] border p-7 lg:p-8 ${isDayTime ? 'border-white/10 bg-slate-900/70 shadow-[0_30px_120px_rgba(2,8,23,0.45)]' : 'border-slate-200 bg-white/90 shadow-[0_25px_90px_rgba(15,23,42,0.12)]'}`}>
+                            <div
+                                className={`absolute inset-0 ${isDayTime ? 'bg-gradient-to-br from-cyan-400/10 via-transparent to-blue-500/10' : 'bg-gradient-to-br from-slate-900/[0.03] via-transparent to-slate-900/[0.05]'}`}/>
+                            <div className="relative">
                                 <div
-                                    key={reason.id}
-                                    className={`relative mb-6 ${
-                                        index + 1 === activeIndex
-                                            ? isDayTime
-                                                ? 'bg-gray-50 py-5'
-                                                : 'bg-gray-950 py-5'
-                                            : ''
-                                    }`}
-                                >
-                                    <h3
-                                        className={`relative leading-[1.2] lg:text-[1.5em] md:text-[1.5em] text-[1em] mb-4 font-[600] cursor-pointer transition-all ${
-                                            index + 1 === activeIndex
-                                                ? isDayTime
-                                                    ? 'text-black font-[600]'
-                                                    : 'text-white font-[600]'
-                                                : 'text-gray-500'
-                                        }`}
-                                        onClick={() => setActiveIndex(index + 1)}
-                                    >
-                                        {reason.title}
-                                    </h3>
-                                    <div className={'lg:pr-[9.3em] md:pr-[9.3em]'}>
-                                        <AnimatePresence mode="wait">
-                                            {index + 1 === activeIndex && (
-                                                <motion.div
-                                                    key={reason.id}
-                                                    initial={{opacity: 0, y: -20}}
-                                                    animate={{opacity: 1, y: 0}}
-                                                    exit={{opacity: 0, y: -20}}
-                                                    transition={{duration: 0.5, ease: "easeInOut"}}
-                                                    className={`relative text-justify inline-block ${
-                                                        isDayTime ? 'text-black font-[300]' : 'text-white font-[300]'
-                                                    }`}
-                                                >
-                                                    {reason.description}
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
+                                    className={`inline-flex w-fit items-center gap-2 rounded-full border px-4 py-2 text-[0.72em] font-semibold uppercase tracking-[0.24em] ${isDayTime ? 'border-cyan-400/20 bg-cyan-400/10 text-cyan-300' : 'border-slate-300 bg-slate-50 text-slate-700'}`}>
+                                    <Sparkles className="h-3.5 w-3.5"/>
+                                    Future-ready Unity delivery
+                                </div>
+
+                                <h2 className={`mt-6 text-3xl font-[700] leading-[1.04] tracking-tight md:text-4xl lg:text-[3.15rem] ${isDayTime ? 'text-white' : 'text-slate-950'}`}>
+                                    Designing <span
+                                    className={`bg-gradient-to-r ${isDayTime ? 'from-cyan-300 via-blue-400 to-slate-100' : 'from-slate-700 via-slate-900 to-slate-950'} bg-clip-text text-transparent`}>high-performance interactive systems</span>{' '}
+                                    with precision, clarity, and strategic pace
+                                </h2>
+
+                                <p className={`mt-5 max-w-2xl text-[0.95rem] leading-[1.8] ${isDayTime ? 'text-slate-300' : 'text-slate-700'}`}>
+                                    Grey InfoTech brings together product thinking, technical architecture, and
+                                    production
+                                    discipline to build Unity experiences that feel premium from the first interaction
+                                    to
+                                    the final release. Every layer is shaped to improve retention, reduce uncertainty,
+                                    and
+                                    create a more durable digital product.
+                                </p>
+
+                                <div className="mt-8 grid gap-4 lg:grid-cols-2">
+                                    {unlockStats.map((stat) => (
+                                        <div key={stat.label}
+                                             className={`rounded-[1.2rem] border p-4 ${isDayTime ? 'border-white/10 bg-white/[0.04] backdrop-blur-sm' : 'border-slate-200 bg-slate-50/90'}`}>
+                                            <p className={`text-[0.65rem] font-semibold uppercase tracking-[0.24em] ${isDayTime ? 'text-cyan-300/90' : 'text-slate-500'}`}>
+                                                {stat.label}
+                                            </p>
+                                            <p className={`mt-2 text-2xl font-[700] ${isDayTime ? 'text-white' : 'text-slate-950'}`}>
+                                                {stat.value}
+                                            </p>
+                                            <p className={`mt-1 text-sm leading-[1.6] ${isDayTime ? 'text-slate-400' : 'text-slate-600'}`}>
+                                                {stat.description}
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div
+                                    className={`mt-6 rounded-[1.4rem] border p-5 ${isDayTime ? 'border-cyan-400/20 bg-cyan-400/10' : 'border-slate-200 bg-slate-50/90'}`}>
+                                    <div className="flex flex-wrap items-start justify-between gap-4">
+                                        <div className="flex items-start gap-3">
+                                            <div
+                                                className={`flex h-11 w-11 items-center justify-center rounded-2xl ${isDayTime ? 'bg-slate-950/80 text-cyan-300' : 'bg-slate-900 text-white'}`}>
+                                                <ShieldCheck className="h-5 w-5"/>
+                                            </div>
+                                            <div>
+                                                <p className={`text-[0.95rem] font-[700] ${isDayTime ? 'text-white' : 'text-slate-950'}`}>
+                                                    Delivery intelligence
+                                                </p>
+                                                <p className={`mt-1 text-sm leading-[1.7] ${isDayTime ? 'text-slate-300' : 'text-slate-600'}`}>
+                                                    We structure each build around measurable milestones, platform
+                                                    readiness,
+                                                    and long-term maintainability so the roadmap stays calm, credible,
+                                                    and
+                                                    commercially focused.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div
+                                            className={`rounded-full border px-3 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.2em] ${isDayTime ? 'border-cyan-400/20 text-cyan-300' : 'border-slate-300 text-slate-700'}`}>
+                                            Operational clarity
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-5 grid gap-2 sm:grid-cols-3">
+                                        <div
+                                            className={`rounded-2xl border px-3 py-3 text-sm ${isDayTime ? 'border-white/10 bg-slate-950/70 text-slate-200' : 'border-slate-200 bg-white text-slate-700'}`}>
+                                            Production governance
+                                        </div>
+                                        <div
+                                            className={`rounded-2xl border px-3 py-3 text-sm ${isDayTime ? 'border-white/10 bg-slate-950/70 text-slate-200' : 'border-slate-200 bg-white text-slate-700'}`}>
+                                            Performance assurance
+                                        </div>
+                                        <div
+                                            className={`rounded-2xl border px-3 py-3 text-sm ${isDayTime ? 'border-white/10 bg-slate-950/70 text-slate-200' : 'border-slate-200 bg-white text-slate-700'}`}>
+                                            Growth-ready systems
+                                        </div>
                                     </div>
                                 </div>
-                            ))}
-                        </div>
-                        {/* Right Section */}
-                        <div className='lg:mt-[2em] md:mt-[2em] h-auto w-full max-w-full sticky'>
-                            {reasons[activeIndex - 1]?.images?.map((image, idx) => (
-                                <Image
-                                    key={idx}
-                                    src={image}
-                                    alt={`Reason ${activeIndex} Image ${idx + 1}`}
-                                    width={1024}
-                                    height={583}
-                                    className="mb-4 object-cover"
-                                />
-                            ))}
-                        </div>
-                    </div>
-                    <div
-                        className={`items-center ${isDayTime ? 'text-black' : 'text-white'} justify-center`}>
-                        <h2 className='lg:text-[3em] text-[1.5em] font-[600] tracking-tighter leading-[1.1] pb-6 text-center'>
-                            Ready to start the <br className={'lg:block md:block hidden'}/>conversation?
-                        </h2><br/>
-                        <Link href='/contact' className='flex items-center justify-center-safe text-center'>
-                            <button
-                                className='relative mx-auto inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em] border tracking-tighter rounded-full py-2 px-6'>
-                        <span
-                            className={`w-32 h-32 rotate-45 translate-x-[4em] -translate-y-[2.8em] absolute left-0 top-0 ${isDayTime ? 'bg-white' : 'bg-black'} opacity-[100%]`}></span>
-                                <span
-                                    className={`absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-90 -translate-x-56 -translate-y-24 ${isDayTime ? 'bg-black' : 'bg-white'} opacity-100 group-hover:-translate-x-8`}></span>
-                                <span
-                                    className={`relative w-full text-left text-black ${isDayTime ? 'text-black group-hover:text-white' : 'text-white group-hover:text-black'} transition-colors duration-200 ease-in-out`}>Get
-                                started <span className={`text-[1.5em] leading-[0.7]`}> â†’</span></span>
-                                <span className="absolute inset-0 rounded-full "></span>
-                            </button>
-                        </Link>
-                    </div>
-                </div>
-            </div>
-
-            {/* Who is involved in the process */}
-            <div id={'involved'}
-                 className={`relative py-16 px-4 sm:px-6 lg:px-[4.6em] w-full max-w-full lg:mb-10 mb-8 ${
-                     isDayTime ? 'text-black' : 'text-white'}`}>
-                <div
-                    className={`relative grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6 lg:max-w-full mx-auto`}>
-                    <div className={'lg:mr-[8em]'}>
-                        <h2 className='lg:text-[3em] md:text-[3em] capitalize text-[1.5em] font-[500] tracking-tighter leading-[1.15] lg:pb-6 '>
-                            who is involved <br className={'lg:block md:block hidden'}/>in the process
-                        </h2>
-                        <p className='text-[0.85em] font-[400] lg:-mt-[0.2em] md:-mt-[0.2em] text-justify  leading-[1.5]'>
-                            Every successful project starts with a thoughtful discovery phase. We engage closely with
-                            your key stakeholders -executives, IT leaders, project sponsors, and end-users -to align on
-                            business goals, clarify priorities, and uncover essential insights that shape the direction
-                            of the solution.<br/><br/>
-                            Our team -typically including a business analyst, product and project
-                            managers, <Link href={'/services/ui-ux-design'}
-                                            className={`border-b pb-[0.02em] ${
-                                                isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
-                                            }`}>UX/UI designer</Link>, and technical leads -works to understand your
-                            requirements, assess technical feasibility, and define the right approach. This ensures
-                            weâ€™re solving the right problems in the most effective way.<br/><br/>By fostering close
-                            collaboration early, we reduce risk, streamline development, and create a clear path
-                            forward. This process sets the foundation for delivering a product that is strategically
-                            aligned, user-centered, and technically sound.
-                        </p>
-                    </div>
-                    <div
-                        className="relative flex flex-row lg:-ml-[2em] md:-ml-[2em] w-full h-auto max-w-full mx-auto gap-6">
-                        <div className="flex-1 flex lg:-mr-[17.5em] md:-mr-[17.5em] justify-center items-center">
-                            <div className="flex-1 flex justify-center h-auto items-center">
-                                <Image
-                                    src="/assets/hybrid/trip.jpg"
-                                    alt="Team at table"
-                                    width={900} // Add width
-                                    height={600} // Add height
-                                    style={{
-                                        objectFit: "fill",
-                                        objectPosition: "center",
-                                    }}
-                                    className="object-fill"
-                                />
                             </div>
                         </div>
+                    </FxReveal>
+
+                    <FxReveal delay={0.08}>
+                        <FxHoloCard day={isDayTime}
+                                    className={`overflow-hidden rounded-[2rem] border p-0 ${isDayTime ? 'border-white/10 bg-slate-900/80 shadow-[0_30px_120px_rgba(2,8,23,0.5)]' : 'border-slate-200 bg-white/90 shadow-[0_25px_90px_rgba(15,23,42,0.12)]'}`}>
+                            <div
+                                className={`relative overflow-hidden p-7 lg:p-8 ${isDayTime ? 'bg-slate-950/70' : 'bg-white/95'}`}>
+                                <div
+                                    className={`absolute inset-0 ${isDayTime ? 'bg-gradient-to-br from-cyan-500/12 via-transparent to-blue-500/12' : 'bg-gradient-to-br from-slate-900/[0.03] via-transparent to-slate-900/[0.05]'}`}/>
+                                <div className="relative">
+                                    <div className="flex flex-wrap items-center justify-between gap-3">
+                                        <div
+                                            className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.24em] ${isDayTime ? 'border-cyan-400/20 bg-cyan-400/10 text-cyan-300' : 'border-slate-300 bg-slate-50 text-slate-700'}`}>
+                                            <Wand2 className="h-3.5 w-3.5"/>
+                                            Precision systems
+                                        </div>
+                                        <div
+                                            className={`rounded-full border px-3 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.2em] ${isDayTime ? 'border-white/10 text-slate-300' : 'border-slate-200 text-slate-600'}`}>
+                                            Live production stack
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className={`mt-7 rounded-[1.5rem] border p-5 ${isDayTime ? 'border-white/10 bg-white/[0.04]' : 'border-slate-200 bg-slate-50/90'}`}>
+                                        <div className="flex flex-wrap items-start justify-between gap-4">
+                                            <div className="max-w-2xl">
+                                                <p className={`text-[0.68rem] font-semibold uppercase tracking-[0.24em] ${isDayTime ? 'text-cyan-300/90' : 'text-slate-500'}`}>
+                                                    Operational model
+                                                </p>
+                                                <h3 className={`mt-2 text-[1.14rem] font-[700] leading-[1.25] ${isDayTime ? 'text-white' : 'text-slate-950'}`}>
+                                                    A premium execution framework for ambitious Unity products
+                                                </h3>
+                                                <p className={`mt-3 text-sm leading-[1.75] ${isDayTime ? 'text-slate-400' : 'text-slate-600'}`}>
+                                                    We combine strategic direction, technical rigor, and production
+                                                    discipline so
+                                                    the experience feels deliberate at every stage, from concept
+                                                    validation to
+                                                    launch readiness.
+                                                </p>
+                                            </div>
+                                            <div
+                                                className={`rounded-full border px-3 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.2em] ${isDayTime ? 'border-cyan-400/20 text-cyan-300' : 'border-slate-300 text-slate-700'}`}>
+                                                Product-grade
+                                            </div>
+                                        </div>
+
+                                        <div className="mt-6 grid gap-4 lg:grid-cols-2">
+                                            {unlockCapabilities.map((item) => {
+                                                const Icon = item.icon;
+                                                return (
+                                                    <FxFrame key={item.title} className="h-full">
+                                                        <div
+                                                            className={`h-full rounded-[1.2rem] border p-4 transition-all duration-300 hover:-translate-y-1 ${isDayTime ? 'border-white/10 bg-slate-950/70' : 'border-slate-200 bg-white'}`}>
+                                                            <div
+                                                                className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl ${isDayTime ? 'bg-cyan-400/10 text-cyan-300' : 'bg-slate-900 text-white'}`}>
+                                                                <Icon className="h-5 w-5"/>
+                                                            </div>
+                                                            <h3 className={`mt-4 text-[1rem] font-[700] ${isDayTime ? 'text-white' : 'text-slate-950'}`}>
+                                                                {item.title}
+                                                            </h3>
+                                                            <p className={`mt-2 text-sm leading-[1.7] ${isDayTime ? 'text-slate-400' : 'text-slate-600'}`}>
+                                                                {item.description}
+                                                            </p>
+                                                        </div>
+                                                    </FxFrame>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className={`mt-6 rounded-[1.4rem] border p-5 ${isDayTime ? 'border-cyan-400/20 bg-cyan-400/10' : 'border-slate-200 bg-slate-50/90'}`}>
+                                        <div className="flex flex-wrap items-start justify-between gap-4">
+                                            <div className="flex items-start gap-3">
+                                                <div
+                                                    className={`flex h-11 w-11 items-center justify-center rounded-2xl ${isDayTime ? 'bg-slate-950/80 text-cyan-300' : 'bg-slate-900 text-white'}`}>
+                                                    <Rocket className="h-5 w-5"/>
+                                                </div>
+                                                <div>
+                                                    <p className={`text-[0.95rem] font-[700] ${isDayTime ? 'text-white' : 'text-slate-950'}`}>
+                                                        Prototype velocity
+                                                    </p>
+                                                    <p className={`mt-1 text-sm leading-[1.7] ${isDayTime ? 'text-slate-300' : 'text-slate-600'}`}>
+                                                        Rapid concept validation, focused playtesting, and
+                                                        production-ready
+                                                        handoff without compromising quality or momentum.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div
+                                                className={`rounded-full border px-3 py-1.5 text-sm font-semibold ${isDayTime ? 'border-cyan-400/20 text-cyan-300' : 'border-slate-300 text-slate-700'}`}>
+                                                1–3 weeks
+                                            </div>
+                                        </div>
+
+                                        <div className="mt-5 grid gap-3 md:grid-cols-3">
+                                            <div
+                                                className={`rounded-2xl border px-3 py-3 ${isDayTime ? 'border-white/10 bg-slate-950/70 text-slate-200' : 'border-slate-200 bg-white text-slate-700'}`}>
+                                                <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em]">Concept
+                                                    clarity</p>
+                                                <p className="mt-1 text-sm">Tight scope and rapid validation loops</p>
+                                            </div>
+                                            <div
+                                                className={`rounded-2xl border px-3 py-3 ${isDayTime ? 'border-white/10 bg-slate-950/70 text-slate-200' : 'border-slate-200 bg-white text-slate-700'}`}>
+                                                <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em]">System
+                                                    integrity</p>
+                                                <p className="mt-1 text-sm">Architecture designed to support scale</p>
+                                            </div>
+                                            <div
+                                                className={`rounded-2xl border px-3 py-3 ${isDayTime ? 'border-white/10 bg-slate-950/70 text-slate-200' : 'border-slate-200 bg-white text-slate-700'}`}>
+                                                <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em]">Launch
+                                                    confidence</p>
+                                                <p className="mt-1 text-sm">Polished readiness for release</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-6 flex flex-wrap items-center gap-3">
+                                        <Link href="/contact"
+                                              className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-transform duration-300 hover:-translate-y-0.5 ${isDayTime ? 'bg-cyan-400 text-slate-950' : 'bg-slate-900 text-white'}`}>
+                                            Book a discovery call
+                                            <ArrowRight className="h-4 w-4"/>
+                                        </Link>
+                                        <div
+                                            className={`rounded-full border px-3 py-2 text-sm font-medium ${isDayTime ? 'border-white/10 text-slate-300' : 'border-slate-200 text-slate-600'}`}>
+                                            Built for ambitious studios and product teams
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </FxHoloCard>
+                    </FxReveal>
+                </div>
+            </section>
+
+            {/* Reasons to partner with Grey InfoTech */}
+            <section
+                className={`relative overflow-hidden py-20 lg:py-24 ${isDayTime ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'}`}>
+                <div className="absolute inset-0 overflow-hidden">
+                    <div
+                        className={`absolute left-0 top-0 h-72 w-72 rounded-full blur-3xl ${isDayTime ? 'bg-cyan-400/20' : 'bg-cyan-500/15'}`}/>
+                    <div
+                        className={`absolute bottom-0 right-0 h-80 w-80 rounded-full blur-3xl ${isDayTime ? 'bg-blue-500/20' : 'bg-indigo-400/15'}`}/>
+                    <div
+                        className={`absolute inset-0 ${isDayTime ? 'bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.18),transparent_38%)]' : 'bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.12),transparent_38%)]'}`}/>
+                    <div
+                        className={`absolute inset-0 opacity-20 ${isDayTime ? 'bg-[linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)]' : 'bg-[linear-gradient(90deg,rgba(15,23,42,0.08)_1px,transparent_1px),linear-gradient(rgba(15,23,42,0.08)_1px,transparent_1px)]'} [background-size:22px_22px]`}/>
+                </div>
+
+                <div className="relative mx-auto max-w-full px-4 sm:px-6 lg:px-[4.6em]">
+                    <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+                        <div className="max-w-3xl">
+                            <div
+                                className={`inline-flex w-fit items-center gap-2 rounded-full border px-4 py-2 text-[0.72em] font-semibold uppercase tracking-[0.24em] ${isDayTime ? 'border-cyan-400/20 bg-cyan-400/10 text-cyan-300' : 'border-slate-300 bg-white/70 text-slate-700'}`}>
+                                <Sparkles className="h-3.5 w-3.5"/>
+                                Strategic partnership architecture
+                            </div>
+                            <h2 className={`mt-6 text-3xl font-[700] leading-[1.05] tracking-tight md:text-4xl lg:text-[3.2rem] ${isDayTime ? 'text-white' : 'text-slate-950'}`}>
+                                Reasons to partner with <span
+                                className={`bg-gradient-to-r ${isDayTime ? 'from-cyan-300 via-blue-400 to-slate-100' : 'from-slate-700 via-slate-900 to-slate-950'} bg-clip-text text-transparent`}>Grey InfoTech</span>
+                            </h2>
+                            <p className={`mt-4 max-w-2xl text-[0.96rem] leading-[1.8] ${isDayTime ? 'text-slate-300' : 'text-slate-700'}`}>
+                                We combine product thinking, engineering excellence, and launch discipline to create
+                                Unity
+                                experiences that are clear, resilient, and ready to scale.
+                            </p>
+                        </div>
                         <div
-                            className="flex-1 flex justify-center lg:-my-[20em] md:-my-[20em] lg:pl-[15em] md:pl-[15em] lg:-mr-[4em] items-center">
-                            <Image
-                                src="/assets/hybrid/disc.jpg"
-                                alt="Team at table"
-                                height={700}
-                                width={220}
-                                style={{
-                                    objectPosition: "center",
-                                }}
-                                className="object-fill"
-                            />
+                            className={`rounded-full border px-4 py-2 text-sm font-medium ${isDayTime ? 'border-white/10 text-slate-300' : 'border-slate-200 text-slate-600'}`}>
+                            Built for studios, founders, and growth teams
+                        </div>
+                    </div>
+
+                    <div className="mt-12 flex flex-col gap-6 lg:flex-row lg:items-stretch">
+                        <div className="order-2 w-full lg:order-1 lg:w-[42%] xl:w-[38%]">
+                            <div className="space-y-3">
+                                {reasons.map((reason, index) => {
+                                    const isActive = index + 1 === activeIndex;
+                                    return (
+                                        <button
+                                            key={reason.id}
+                                            type="button"
+                                            onClick={() => setActiveIndex(index + 1)}
+                                            className={`w-full rounded-[1.35rem] border p-5 text-left transition-all duration-300 ${isActive
+                                                ? isDayTime
+                                                    ? 'border-cyan-400/30 bg-cyan-400/10 shadow-[0_20px_80px_rgba(34,211,238,0.14)]'
+                                                    : 'border-slate-300 bg-white shadow-[0_20px_80px_rgba(15,23,42,0.08)]'
+                                                : isDayTime
+                                                    ? 'border-white/10 bg-white/[0.03] hover:border-cyan-400/20 hover:bg-white/[0.06]'
+                                                    : 'border-slate-200 bg-white/70 hover:border-slate-300 hover:bg-white'}`}
+                                        >
+                                            <div className="flex items-start gap-4">
+                                                <div
+                                                    className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl text-sm font-semibold ${isActive
+                                                        ? isDayTime
+                                                            ? 'bg-cyan-400 text-slate-950'
+                                                            : 'bg-slate-900 text-white'
+                                                        : isDayTime
+                                                            ? 'bg-white/[0.08] text-slate-300'
+                                                            : 'bg-slate-100 text-slate-700'}`}>
+                                                    0{index + 1}
+                                                </div>
+                                                <div className="min-w-0 flex-1">
+                                                    <div className="flex flex-wrap items-center justify-between gap-3">
+                                                        <h3 className={`text-[1.02rem] font-[700] ${isActive ? (isDayTime ? 'text-white' : 'text-slate-950') : (isDayTime ? 'text-slate-200' : 'text-slate-700')}`}>
+                                                            {reason.title}
+                                                        </h3>
+                                                        <span
+                                                            className={`rounded-full px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] ${isActive
+                                                                ? isDayTime
+                                                                    ? 'bg-cyan-400/10 text-cyan-300'
+                                                                    : 'bg-slate-900/5 text-slate-700'
+                                                                : isDayTime
+                                                                    ? 'bg-white/[0.06] text-slate-400'
+                                                                    : 'bg-slate-100 text-slate-500'}`}>
+                                                            {isActive ? 'Active focus' : 'Strategic lens'}
+                                                        </span>
+                                                    </div>
+                                                    <p className={`mt-2 text-sm leading-[1.7] ${isDayTime ? 'text-slate-400' : 'text-slate-600'}`}>
+                                                        {reason.summary}
+                                                    </p>
+                                                    <div className="mt-3 flex flex-wrap gap-2">
+                                                        {reason.focusPoints?.map((point) => (
+                                                            <span key={point}
+                                                                  className={`rounded-full px-2.5 py-1 text-[0.64rem] font-semibold uppercase tracking-[0.18em] ${isDayTime ? 'bg-white/[0.06] text-slate-300' : 'bg-slate-100 text-slate-600'}`}>
+                                                                {point}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+
+                        <div className="order-1 w-full lg:order-2 lg:w-[58%] xl:w-[62%]">
+                            <FxReveal delay={0.08}>
+                                <FxHoloCard day={isDayTime}
+                                            className={`overflow-hidden rounded-[2rem] border p-0 ${isDayTime ? 'border-white/10 bg-slate-900/80 shadow-[0_30px_120px_rgba(2,8,23,0.5)]' : 'border-slate-200 bg-white/90 shadow-[0_25px_90px_rgba(15,23,42,0.12)]'}`}>
+                                    <div
+                                        className={`relative overflow-hidden p-6 lg:p-7 ${isDayTime ? 'bg-slate-950/70' : 'bg-white/95'}`}>
+                                        <div
+                                            className={`absolute inset-0 ${isDayTime ? 'bg-gradient-to-br from-cyan-500/12 via-transparent to-blue-500/12' : 'bg-gradient-to-br from-slate-900/[0.03] via-transparent to-slate-900/[0.05]'}`}/>
+                                        <div className="relative">
+                                            <div className="flex flex-wrap items-center justify-between gap-3">
+                                                <div
+                                                    className={`rounded-full border px-3 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.24em] ${isDayTime ? 'border-cyan-400/20 text-cyan-300' : 'border-slate-300 text-slate-700'}`}>
+                                                    Selected capability
+                                                </div>
+                                                <div
+                                                    className={`rounded-full border px-3 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.2em] ${isDayTime ? 'border-white/10 text-slate-300' : 'border-slate-200 text-slate-600'}`}>
+                                                    {activeIndex}/6
+                                                </div>
+                                            </div>
+
+                                            <div className="mt-6 grid gap-5 lg:grid-cols-[1fr,0.95fr]">
+                                                <div className="flex flex-col justify-between">
+                                                    <div>
+                                                        <p className={`text-[0.68rem] font-semibold uppercase tracking-[0.24em] ${isDayTime ? 'text-cyan-300/90' : 'text-slate-500'}`}>
+                                                            Current strategic lens
+                                                        </p>
+                                                        <h3 className={`mt-2 text-[1.28rem] font-[700] leading-[1.2] ${isDayTime ? 'text-white' : 'text-slate-950'}`}>
+                                                            {reasons[activeIndex - 1]?.title}
+                                                        </h3>
+                                                        <p className={`mt-3 text-sm leading-[1.8] ${isDayTime ? 'text-slate-400' : 'text-slate-600'}`}>
+                                                            {reasons[activeIndex - 1]?.summary}
+                                                        </p>
+                                                        <p className={`mt-3 text-sm leading-[1.8] ${isDayTime ? 'text-slate-300' : 'text-slate-700'}`}>
+                                                            {reasons[activeIndex - 1]?.detail}
+                                                        </p>
+                                                    </div>
+                                                    <div className="mt-5 flex flex-wrap gap-2">
+                                                        {reasons[activeIndex - 1]?.focusPoints?.map((point) => (
+                                                            <span key={point}
+                                                                  className={`rounded-full px-3 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.2em] ${isDayTime ? 'bg-white/[0.06] text-slate-300' : 'bg-slate-100 text-slate-700'}`}>
+                                                                {point}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                    <div className="mt-5 flex flex-wrap gap-2">
+                                                        <span
+                                                            className={`rounded-full px-3 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.2em] ${isDayTime ? 'bg-white/[0.06] text-slate-300' : 'bg-slate-100 text-slate-700'}`}>
+                                                            Product clarity
+                                                        </span>
+                                                        <span
+                                                            className={`rounded-full px-3 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.2em] ${isDayTime ? 'bg-white/[0.06] text-slate-300' : 'bg-slate-100 text-slate-700'}`}>
+                                                            Technical depth
+                                                        </span>
+                                                        <span
+                                                            className={`rounded-full px-3 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.2em] ${isDayTime ? 'bg-white/[0.06] text-slate-300' : 'bg-slate-100 text-slate-700'}`}>
+                                                            Launch confidence
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div
+                                                    className={`relative overflow-hidden rounded-[1.6rem] border ${isDayTime ? 'border-white/10' : 'border-slate-200'}`}>
+                                                    {reasons[activeIndex - 1]?.images?.map((image, idx) => (
+                                                        <Image
+                                                            key={idx}
+                                                            src={image}
+                                                            alt={`Reason ${activeIndex} Image ${idx + 1}`}
+                                                            width={1024}
+                                                            height={583}
+                                                            className="h-full min-h-[260px] w-full object-cover"
+                                                        />
+                                                    ))}
+                                                    <div
+                                                        className={`absolute inset-0 bg-gradient-to-t ${isDayTime ? 'from-slate-950/80 via-slate-950/20 to-transparent' : 'from-slate-950/70 via-slate-950/20 to-transparent'}`}/>
+                                                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                                                        <div
+                                                            className={`inline-flex rounded-full border px-3 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.24em] ${isDayTime ? 'border-cyan-400/20 bg-cyan-400/10 text-cyan-300' : 'border-slate-300 bg-white/70 text-slate-700'}`}>
+                                                            Studio-grade visibility
+                                                        </div>
+                                                        <p className={`mt-3 text-sm leading-[1.7] ${isDayTime ? 'text-slate-200' : 'text-slate-700'}`}>
+                                                            Every engagement is shaped around clarity, precision, and
+                                                            confident delivery.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div
+                                                className={`mt-6 rounded-[1.4rem] border p-4 ${isDayTime ? 'border-white/10 bg-white/[0.04]' : 'border-slate-200 bg-slate-50/90'}`}>
+                                                <AnimatePresence mode="wait">
+                                                    <motion.div
+                                                        key={reasons[activeIndex - 1]?.id}
+                                                        initial={{opacity: 0, y: 12}}
+                                                        animate={{opacity: 1, y: 0}}
+                                                        exit={{opacity: 0, y: -12}}
+                                                        transition={{duration: 0.35, ease: 'easeOut'}}
+                                                        className={`text-sm leading-[1.8] ${isDayTime ? 'text-slate-300' : 'text-slate-700'}`}
+                                                    >
+                                                        {reasons[activeIndex - 1]?.description}
+                                                    </motion.div>
+                                                </AnimatePresence>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </FxHoloCard>
+                            </FxReveal>
+                        </div>
+                    </div>
+
+                    <div
+                        className={`mt-10 rounded-[2rem] border p-6 lg:p-8 ${isDayTime ? 'border-white/10 bg-white/[0.04]' : 'border-slate-200 bg-white/80'}`}>
+                        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+                            <div>
+                                <p className={`text-[0.7rem] font-semibold uppercase tracking-[0.24em] ${isDayTime ? 'text-cyan-300/90' : 'text-slate-500'}`}>
+                                    Ready for a sharper delivery experience?
+                                </p>
+                                <h3 className={`mt-2 text-[1.45rem] font-[700] leading-[1.15] ${isDayTime ? 'text-white' : 'text-slate-950'}`}>
+                                    Let’s create a Unity product experience that feels designed, not improvised.
+                                </h3>
+                            </div>
+                            <Link href="/contact"
+                                  className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-transform duration-300 hover:-translate-y-0.5 ${isDayTime ? 'bg-cyan-400 text-slate-950' : 'bg-slate-900 text-white'}`}>
+                                Start the conversation
+                                <ArrowRight className="h-4 w-4"/>
+                            </Link>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
+
+            {/* Who is involved — Expert Unity development teams */}
+            <section id={'involved'}
+                     className={`relative lg:pt-28 pt-12 lg:pb-28 pb-12 px-4 sm:px-6 lg:px-[4.6em] w-full max-w-full ${isDayTime ? 'text-slate-900' : 'text-white'}`}>
+                <div className="relative max-w-[96em] mx-auto">
+                    <div className="flex items-center gap-4 mb-8">
+                        <span
+                            className={`inline-block w-1.5 h-1.5 rounded-full ${isDayTime ? 'bg-gradient-to-br from-sky-400 to-cyan-400' : 'bg-gradient-to-br from-teal-400 to-blue-500'}`}></span>
+                        <h6 className={`uppercase tracking-widest text-xs font-semibold ${isDayTime ? 'text-slate-500' : 'text-slate-300'}`}>Expert Team</h6>
+                    </div>
+
+                    <div className="grid lg:grid-cols-2 gap-10 items-start">
+                        {/* Left: Narrative + Roles */}
+                        <div className="space-y-6">
+                            <h2 className='lg:text-[3em] md:text-[3em] capitalize text-[1.5em] font-[500] tracking-tighter leading-[1.15] lg:pb-6 '>
+                                who is involved <br className={'lg:block md:block hidden'}/>in the process
+                            </h2>
+
+                            <div
+                                className={`p-4 rounded-xl backdrop-blur-sm ${isDayTime ? 'bg-white/80 border border-slate-100/30' : 'bg-black/40 border border-white/12'}`}>
+                                <p className='text-[0.92em] font-[400] lg:-mt-[0.2em] md:-mt-[0.2em] text-justify leading-[1.6]'>
+                                    Every successful project starts with a thoughtful discovery phase. We engage closely with your key stakeholders—executives, IT leaders, project sponsors, and end-users—to align on business goals, clarify priorities, and uncover essential insights that shape the direction of the solution.
+                                </p>
+
+                                <p className='text-[0.92em] font-[400] mt-4 text-justify leading-[1.6]'>
+                                    Our team—typically including a business analyst, product and project managers, <Link href={'/services/ui-ux-design'}
+                                                    className={`border-b pb-[0.02em] ${
+                                                        isDayTime ? 'border-gray-500 hover:border-black' : 'border-gray-500 hover:border-white'
+                                                    }`}>UX/UI designer</Link>, and technical leads—works to understand your requirements, assess technical feasibility, and define the right approach. By fostering close collaboration early, we reduce risk, streamline development, and create a clear path forward.
+                                </p>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {[
+                                    {
+                                        role: 'Unity Architect',
+                                        desc: 'Defines game structure, performance targets, and technical roadmap'
+                                    },
+                                    {
+                                        role: 'Project Manager',
+                                        desc: 'Coordinates delivery, client sync, and milestone tracking'
+                                    },
+                                    {
+                                        role: 'UI/UX Designers',
+                                        desc: 'Game design, accessibility, interactive prototypes'
+                                    },
+                                    {role: 'Unity Engineers', desc: 'C# implementation, engine optimization, performance tuning'},
+                                ].map((r, i) => (
+                                    <div key={r.role}>
+                                        <div
+                                            className={`p-4 rounded-lg border ${isDayTime ? 'bg-white/95 border-slate-100' : 'bg-white/5 border-white/8'}`}>
+                                            <div className="flex items-start gap-4">
+                                                <div
+                                                    className="flex-none w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-br from-sky-400 to-cyan-400 text-white font-bold text-lg">{i + 1}</div>
+                                                <div>
+                                                    <div className="font-semibold text-sm">{r.role}</div>
+                                                    <div className="text-sm text-slate-500">{r.desc}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="mt-4">
+                                <Link href='/contact'>
+                                    <button
+                                        className='relative inline-flex items-center justify-start overflow-hidden group w-fit text-[0.85em]  border tracking-tighter  rounded-full py-2 px-6'>
+                                <span
+                                    className={`w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 ${isDayTime ? 'bg-black' : 'bg-white'} opacity-[3%]`}></span>
+                                        <span
+                                            className={`absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 ${isDayTime ? 'bg-black' : 'bg-white'} opacity-100 group-hover:-translate-x-8`}></span>
+                                        <span
+                                            className={`relative w-full text-left transition-colors duration-200 ease-in-out ${isDayTime ? 'text-black group-hover:text-gray-300' : 'text-white group-hover:text-gray-800'}`}>Work with our team <span
+                                            className={`text-[1.5em] leading-[0.7]`}> →</span></span>
+                                        <span
+                                            className={"absolute inset-0 border-[1px] border-gray-900 ${isDayTime ? 'border-black' : 'border-white'} rounded-full"}></span>
+                                    </button>
+                                </Link>
+                            </div>
+                        </div>
+
+                        <div
+                            className="relative flex flex-row lg:-ml-[2em] md:-ml-[2em] w-full h-auto max-w-full mx-auto gap-6">
+                            {/* Left image - larger */}
+                            <div className="flex-1 flex lg:-mr-[17.5em] md:-mr-[17.5em] justify-center items-start">
+                                <div
+                                    className={`relative rounded-2xl overflow-hidden border ${isDayTime ? 'bg-white/95 border-slate-100' : 'bg-white/6 border-white/8'} shadow-xl`}>
+                                    {/* Neon rim + ambient orbs */}
+                                    <div className="absolute inset-0 pointer-events-none rounded-2xl"
+                                         style={{boxShadow: isDayTime ? 'inset 0 0 40px rgba(34,211,238,0.06), 0 20px 60px rgba(59,130,246,0.05)' : 'inset 0 0 80px rgba(6,182,212,0.06), 0 30px 90px rgba(2,6,23,0.6)'}}/>
+                                    <div aria-hidden className="absolute inset-0 pointer-events-none">
+                                        <div
+                                            className="absolute -top-28 -left-20 w-[420px] h-[420px] rounded-full opacity-18"
+                                            style={{background: isDayTime ? 'radial-gradient(circle,#7dd3fc 0%, transparent 70%)' : 'radial-gradient(circle,#0891b2 0%, transparent 70%)'}}/>
+                                        <div
+                                            className="absolute -bottom-20 -right-16 w-[340px] h-[340px] rounded-full opacity-12"
+                                            style={{background: isDayTime ? 'radial-gradient(circle,#c7f9ff 0%, transparent 70%)' : 'radial-gradient(circle,#0369a1 0%, transparent 70%)'}}/>
+                                    </div>
+
+                                    <Image
+                                        src="/assets/hybrid/trip.jpg"
+                                        alt="Team at table"
+                                        width={1200}
+                                        height={800}
+                                        className="w-full h-auto object-cover rounded-2xl"
+                                    />
+
+                                    <div
+                                        className='absolute bottom-4 left-4 px-3 py-2 rounded-full backdrop-blur-md text-sm font-semibold'
+                                        style={{background: isDayTime ? 'rgba(255,255,255,0.85)' : 'rgba(8,10,20,0.6)'}}>
+                                        Development sprints
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Right image - smaller, offset vertically */}
+                            <div
+                                className="flex-1 flex justify-center lg:pl-[15em] md:pl-[15em] lg:-mr-[4em] items-start pt-12">
+                                <div
+                                    className={`relative rounded-2xl overflow-hidden border ${isDayTime ? 'bg-white/95 border-slate-100' : 'bg-white/6 border-white/8'} shadow-xl w-full max-w-[320px]`}>
+                                    <div className="absolute inset-0 pointer-events-none rounded-2xl"
+                                         style={{boxShadow: isDayTime ? 'inset 0 0 40px rgba(34,211,238,0.06)' : 'inset 0 0 60px rgba(6,182,212,0.05)'}}/>
+                                    <Image
+                                        src="/assets/hybrid/disc.jpg"
+                                        alt="Team discussion"
+                                        height={700}
+                                        width={320}
+                                        className="w-full h-auto object-cover rounded-2xl"
+                                    />
+                                    <div
+                                        className='absolute top-4 right-4 px-3 py-2 rounded-full backdrop-blur-md text-sm font-semibold'
+                                        style={{background: isDayTime ? 'rgba(255,255,255,0.85)' : 'rgba(8,10,20,0.6)'}}>
+                                        Code reviews
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 };

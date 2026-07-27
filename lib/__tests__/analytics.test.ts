@@ -31,8 +31,8 @@ describe('Analytics', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     // Setup default mocks for db.query and rawQuery
-    (db.query as any).mockResolvedValue({ rows: [] });
-    (rawQuery as any).mockResolvedValue({ rows: [] });
+    (db.query as unknown).mockResolvedValue({ rows: [] });
+    (rawQuery as unknown).mockResolvedValue({ rows: [] });
   });
 
   describe('trackEvent', () => {
@@ -47,8 +47,8 @@ describe('Analytics', () => {
         ip: '127.0.0.1',
       };
 
-      (redis.lpush as any).mockResolvedValue(1);
-      (redis.expire as any).mockResolvedValue(1);
+      (redis.lpush as unknown).mockResolvedValue(1);
+      (redis.expire as unknown).mockResolvedValue(1);
 
       const result = await trackEvent(event);
 
@@ -70,8 +70,8 @@ describe('Analytics', () => {
         userId: 'user-1',
       };
 
-      (redis.lpush as any).mockResolvedValue(1);
-      (redis.expire as any).mockResolvedValue(1);
+      (redis.lpush as unknown).mockResolvedValue(1);
+      (redis.expire as unknown).mockResolvedValue(1);
 
       const result = await trackEvent(event);
 
@@ -90,8 +90,8 @@ describe('Analytics', () => {
         ip: '127.0.0.1',
       };
 
-      (redis.lpush as any).mockResolvedValue(1);
-      (redis.expire as any).mockResolvedValue(1);
+      (redis.lpush as unknown).mockResolvedValue(1);
+      (redis.expire as unknown).mockResolvedValue(1);
 
       await trackEvent(event);
 
@@ -110,7 +110,7 @@ describe('Analytics', () => {
         ],
       };
 
-      (rawQuery as any).mockResolvedValue(mockResult);
+      (rawQuery as unknown).mockResolvedValue(mockResult);
 
       const stats = await getEventStats('30d');
 
@@ -120,7 +120,7 @@ describe('Analytics', () => {
     });
 
     it('should support different timeframes', async () => {
-      (rawQuery as any).mockResolvedValue({ rows: [] });
+      (rawQuery as unknown).mockResolvedValue({ rows: [] });
 
       await getEventStats('24h');
       await getEventStats('7d');
@@ -130,7 +130,7 @@ describe('Analytics', () => {
     });
 
     it('should return empty object on error', async () => {
-      (rawQuery as any).mockRejectedValue(new Error('DB error'));
+      (rawQuery as unknown).mockRejectedValue(new Error('DB error'));
 
       const stats = await getEventStats('30d');
 
@@ -148,7 +148,7 @@ describe('Analytics', () => {
         ],
       };
 
-      (rawQuery as any).mockResolvedValue(mockResult);
+      (rawQuery as unknown).mockResolvedValue(mockResult);
 
       const cohorts = await getCohortData('device', '30d');
 
@@ -165,7 +165,7 @@ describe('Analytics', () => {
         ],
       };
 
-      (rawQuery as any).mockResolvedValue(mockResult);
+      (rawQuery as unknown).mockResolvedValue(mockResult);
 
       const cohorts = await getCohortData('channel', '30d');
 
@@ -174,7 +174,7 @@ describe('Analytics', () => {
     });
 
     it('should return empty object on error', async () => {
-      (rawQuery as any).mockRejectedValue(new Error('DB error'));
+      (rawQuery as unknown).mockRejectedValue(new Error('DB error'));
 
       const cohorts = await getCohortData('property', '30d');
 
@@ -195,7 +195,7 @@ describe('Analytics', () => {
 
   describe('edge cases', () => {
     it('should handle empty results gracefully', async () => {
-      (rawQuery as any).mockResolvedValue({ rows: [] });
+      (rawQuery as unknown).mockResolvedValue({ rows: [] });
 
       const stats = await getEventStats('30d');
       expect(stats).toEqual({});
@@ -212,8 +212,8 @@ describe('Analytics', () => {
         ip: '127.0.0.1',
       };
 
-      (redis.lpush as any).mockResolvedValue(1);
-      (redis.expire as any).mockResolvedValue(1);
+      (redis.lpush as unknown).mockResolvedValue(1);
+      (redis.expire as unknown).mockResolvedValue(1);
 
       const result = await trackEvent(event);
       expect(result).toBeDefined();
