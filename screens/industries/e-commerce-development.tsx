@@ -486,7 +486,7 @@ const ECommerceDevelopment = () => {
                         {[
                             {label: 'Conversion', value: '+200%', desc: 'Avg. increase'},
                             {label: 'Cart Recovery', value: '45%', desc: 'Recovery rate'},
-                            {label: 'Response Time', value: '&lt;200ms', desc: 'API latency'},
+                            {label: 'Response Time', value: '<200ms', desc: 'API latency'},
                             {label: 'Uptime', value: '99.99%', desc: 'SLA guarantee'}
                         ].map((metric, idx) => (
                             <motion.div key={idx} initial={{opacity: 0, y: 10}} whileInView={{opacity: 1, y: 0}} 
