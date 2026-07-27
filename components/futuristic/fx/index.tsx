@@ -70,7 +70,7 @@ export function FxChip({
                        }: DayProp & {
     children: React.ReactNode;
     className?: string;
-    colorScheme?: 'teal' | 'purple' | 'cyan' | 'orange'
+    colorScheme?: 'teal' | 'purple' | 'cyan' | 'orange' | 'page-accent'
 }) {
     // Color scheme mapping for chip styles
     const chipClass = colorScheme === 'teal' ? '' : `gx-chip-${colorScheme}`;
@@ -141,7 +141,7 @@ export function FxButton({
     children: React.ReactNode;
     variant?: 'solid' | 'ghost';
     className?: string;
-    colorScheme?: 'teal' | 'purple' | 'cyan' | 'orange';
+    colorScheme?: 'teal' | 'purple' | 'cyan' | 'orange' | 'page-accent';
 }) {
     const base =
         'group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-3 text-[0.9em] font-[600] tracking-tight transition-all duration-300 grey-squish';
@@ -167,6 +167,11 @@ export function FxButton({
             solid: 'text-[#04110f] bg-gradient-to-r from-orange-400 to-orange-500 shadow-[0_10px_30px_-10px_rgba(249,115,22,.8)] hover:shadow-[0_16px_40px_-10px_rgba(249,115,22,.9)] hover:-translate-y-0.5',
             ghostLight: 'text-orange-800 border border-orange-700/30 hover:border-orange-600 hover:bg-orange-50',
             ghostDark: 'text-orange-100 border border-white/20 hover:border-orange-300/60 hover:bg-white/5'
+        },
+        'page-accent': {
+            solid: 'text-white bg-[var(--page-accent)] shadow-[0_10px_30px_-10px_rgba(var(--page-accent-rgb),0.8)] hover:shadow-[0_16px_40px_-10px_rgba(var(--page-accent-rgb),0.9)] hover:-translate-y-0.5',
+            ghostLight: 'text-[var(--page-accent)] border border-[rgba(var(--page-accent-rgb),0.3)] hover:border-[rgba(var(--page-accent-rgb),0.6)] hover:bg-[rgba(var(--page-accent-rgb),0.05)]',
+            ghostDark: 'text-[var(--page-accent)] border border-[rgba(var(--page-accent-rgb),0.3)] hover:border-[rgba(var(--page-accent-rgb),0.6)] hover:bg-[rgba(var(--page-accent-rgb),0.05)]'
         }
     };
 
@@ -525,7 +530,7 @@ export function FxStickyScrollSection({
     items: FxScrollItem[];
     activeId: string;
     onNavClickAction: (target: string) => void;
-    colorScheme?: 'teal' | 'purple' | 'cyan' | 'orange';
+    colorScheme?: 'teal' | 'purple' | 'cyan' | 'orange' | 'page-accent';
 }) {
     const mutedText = day ? 'text-gray-500' : 'text-white/45';
     const borderCol = day ? 'border-gray-200' : 'border-white/10';
@@ -589,6 +594,20 @@ export function FxStickyScrollSection({
             topGrad: 'via-orange-400/80',
             leftGrad: 'via-orange-400/20',
             orbGrad: 'bg-[radial-gradient(circle_at_top,rgba(249,115,22,0.08),transparent_38%)]',
+        },
+        'page-accent': {
+            rail: 'border-[rgba(var(--page-accent-rgb),0.15)] shadow-[0_0_60px_-20px_rgba(var(--page-accent-rgb),0.65)]',
+            grad1: 'bg-[radial-gradient(circle_at_top_left,rgba(var(--page-accent-rgb),0.18),transparent_46%)]',
+            grad2: 'via-[rgb(var(--page-accent-rgb))] via-opacity-80',
+            grad3: 'via-[rgb(var(--page-accent-rgb))] via-opacity-20',
+            active: 'bg-[rgba(var(--page-accent-rgb),0.1)] border-[rgba(var(--page-accent-rgb),0.3)] shadow-[0_0_24px_-8px_rgba(var(--page-accent-rgb),0.55)]',
+            hover: 'border-[rgba(var(--page-accent-rgb),0.15)] hover:bg-[rgba(var(--page-accent-rgb),0.05)]',
+            accent: 'text-[var(--page-accent)]',
+            cardBorder: 'border-[rgba(var(--page-accent-rgb),0.1)] shadow-[0_0_50px_-24px_rgba(var(--page-accent-rgb),0.35)]',
+            metricBorder: 'border-[rgba(var(--page-accent-rgb),0.08)]',
+            topGrad: 'via-[rgb(var(--page-accent-rgb))] via-opacity-80',
+            leftGrad: 'via-[rgb(var(--page-accent-rgb))] via-opacity-20',
+            orbGrad: 'bg-[radial-gradient(circle_at_top,rgba(var(--page-accent-rgb),0.08),transparent_38%)]',
         },
     };
 
