@@ -3,6 +3,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
 import Image from "next/image";
 import Link from "next/link";
+import {motion} from 'framer-motion';
 import {useIsDayTime} from '../../components/useIsDayTime';
 
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
@@ -389,21 +390,117 @@ const ECommerceDevelopment = () => {
                 ]}
             />
 
-            {/* Mid image*/}
-            <div id={'mid image'}
-                 className={'lg:-mt-[28em] md:-mt-[27em] sm:-mt-[3em] -mt-[3em] h-auto max-w-full w-full mx-auto'}>
-                <Image
-                    className={' object-fill'}
-                    src={'/assets/ecom/mid.jpg'}
-                    alt={'Middle Image'}
-                    width={2560}
-                    height={1440}
-                    style={{
-                        objectFit: "fill",
-                        objectPosition: "center",
-                    }}
-                />
-            </div>
+            {/* eCommerce Capabilities Showcase - Futuristic Layered Design */}
+            <section id={'ecommerce-showcase'} className={`relative py-20 lg:py-32 overflow-hidden ${isDayTime ? 'bg-white' : 'bg-black'}`}>
+                {/* Ambient gradient layers */}
+                <div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden">
+                    <div className="absolute -top-40 -right-32 w-[600px] h-[600px] rounded-full opacity-12"
+                         style={{background: isDayTime ? 'radial-gradient(circle, #ff005d 0%, transparent 70%)' : 'radial-gradient(circle, #ff005d 0%, transparent 70%)'}}/>
+                    <div className="absolute -bottom-32 -left-24 w-[500px] h-[500px] rounded-full opacity-8"
+                         style={{background: isDayTime ? 'radial-gradient(circle, #ff005d 0%, transparent 65%)' : 'radial-gradient(circle, #ff005d 0%, transparent 65%)'}}/>
+                </div>
+
+                {/* Content Container */}
+                <div className="relative z-10 max-w-[96em] mx-auto px-6 sm:px-8 lg:px-[4.6em]">
+                    {/* Section Header */}
+                    <div className="mb-20">
+                        <FxChip day={isDayTime} colorScheme="page-accent">PLATFORM CAPABILITIES</FxChip>
+                        <h2 className={`mt-6 text-[2.2em] md:text-[3em] lg:text-[3.6em] font-[700] leading-[1.1] tracking-tight ${isDayTime ? 'text-black' : 'text-white'}`}>
+                            Enterprise-Grade <span className="gx-gradient-text">Infrastructure</span>
+                        </h2>
+                        <p className={`mt-5 text-[1.05em] font-[300] leading-[1.6] max-w-3xl ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>
+                            Our eCommerce platform combines cutting-edge technology, proven design patterns, and enterprise reliability to deliver measurable business outcomes at scale.
+                        </p>
+                    </div>
+
+                    {/* Showcase Grid */}
+                    <div className="grid lg:grid-cols-3 gap-6 mb-12">
+                        {/* Primary Card - Platform Ecosystem */}
+                        <motion.div initial={{opacity: 0, y: 20}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.6}}
+                                    className="lg:col-span-2">
+                            <div className={`relative rounded-3xl overflow-hidden h-96 lg:h-[440px] group border backdrop-blur-sm
+                                ${isDayTime ? 'bg-white/40 border-gray-200/50' : 'bg-gradient-to-br from-slate-800/40 to-slate-900/30 border-white/8'}`}>
+                                <Image src={'/assets/ecom/mid.jpg'} alt={'Platform Architecture'} fill
+                                       className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700"/>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent pointer-events-none"/>
+
+                                {/* Info Overlay */}
+                                <div className="absolute bottom-0 left-0 right-0 p-8">
+                                    <div className="text-sm text-white/80 uppercase tracking-widest mb-2">Integrated Platform</div>
+                                    <h3 className="text-2xl lg:text-3xl font-bold text-white mb-3">Multi-Channel Commerce Engine</h3>
+                                    <div className="flex flex-wrap gap-2">
+                                        <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[var(--page-accent)] text-white">Omnichannel</span>
+                                        <span className="px-3 py-1 rounded-full text-xs font-semibold badge-page">Real-time Sync</span>
+                                        <span className="px-3 py-1 rounded-full text-xs font-semibold badge-page">99.99% Uptime</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* Secondary Cards Stack */}
+                        <div className="flex flex-col gap-6">
+                            {/* Tech Stack Card */}
+                            <motion.div initial={{opacity: 0, x: 20}} whileInView={{opacity: 1, x: 0}} viewport={{once: true}} transition={{delay: 0.15, duration: 0.6}}>
+                                <div className={`rounded-2xl p-6 backdrop-blur-sm border h-full ${isDayTime ? 'bg-white/50 border-gray-200/50' : 'bg-slate-800/50 border-white/8'}`}>
+                                    <div className="text-xs text-[var(--page-accent)] font-bold uppercase tracking-widest mb-3">Tech Stack</div>
+                                    <h4 className={`text-lg font-bold mb-4 ${isDayTime ? 'text-black' : 'text-white'}`}>Modern & Scalable</h4>
+                                    <ul className={`space-y-2 text-sm ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>
+                                        <li className="flex items-center gap-2">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-[var(--page-accent)]"/>
+                                            Next.js & React
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-[var(--page-accent)]"/>
+                                            Microservices API
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-[var(--page-accent)]"/>
+                                            GraphQL & REST
+                                        </li>
+                                    </ul>
+                                </div>
+                            </motion.div>
+
+                            {/* Performance Metrics Card */}
+                            <motion.div initial={{opacity: 0, x: 20}} whileInView={{opacity: 1, x: 0}} viewport={{once: true}} transition={{delay: 0.3, duration: 0.6}}>
+                                <div className={`rounded-2xl p-6 backdrop-blur-sm border h-full ${isDayTime ? 'bg-white/50 border-gray-200/50' : 'bg-slate-800/50 border-white/8'}`}>
+                                    <div className="text-xs text-[var(--page-accent)] font-bold uppercase tracking-widest mb-3">Performance</div>
+                                    <h4 className={`text-lg font-bold mb-4 ${isDayTime ? 'text-black' : 'text-white'}`}>Lightning Fast</h4>
+                                    <div className="space-y-3">
+                                        <div>
+                                            <div className="text-xs text-white/60 mb-1">Page Speed</div>
+                                            <div className="text-2xl font-bold text-[var(--page-accent)]">&lt;1.2s</div>
+                                        </div>
+                                        <div>
+                                            <div className="text-xs text-white/60 mb-1">Core Web Vitals</div>
+                                            <div className="text-sm text-green-400 font-semibold">All Green</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </div>
+                    </div>
+
+                    {/* Key Features Grid */}
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        {[
+                            {label: 'Conversion', value: '+200%', desc: 'Avg. increase'},
+                            {label: 'Cart Recovery', value: '45%', desc: 'Recovery rate'},
+                            {label: 'Response Time', value: '&lt;200ms', desc: 'API latency'},
+                            {label: 'Uptime', value: '99.99%', desc: 'SLA guarantee'}
+                        ].map((metric, idx) => (
+                            <motion.div key={idx} initial={{opacity: 0, y: 10}} whileInView={{opacity: 1, y: 0}} 
+                                       viewport={{once: true}} transition={{delay: 0.1 * idx, duration: 0.5}}>
+                                <div className={`rounded-xl p-4 backdrop-blur-sm border text-center ${isDayTime ? 'bg-white/30 border-gray-200/40' : 'bg-slate-800/30 border-white/6'}`}>
+                                    <div className="text-xs text-[var(--page-accent)] font-bold uppercase tracking-widest mb-2">{metric.label}</div>
+                                    <div className={`text-2xl font-bold mb-1 ${isDayTime ? 'text-black' : 'text-white'}`}>{metric.value}</div>
+                                    <div className={`text-xs ${isDayTime ? 'text-gray-600' : 'text-white/50'}`}>{metric.desc}</div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
         </div>
     );
