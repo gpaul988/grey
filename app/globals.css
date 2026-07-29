@@ -2,13 +2,18 @@
 
 @tailwind utilities;
 
+:root {
+    --page-accent: #38bdf8;
+    --page-accent-rgb: 56, 189, 248;
+}
+
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #2dd4bf; /* teal-400 */
+    background-color: var(--page-accent);
     border-radius: 8px;
 }
 
@@ -727,8 +732,8 @@ body::after {
     animation: gxGridPan 22s linear infinite;
 }
 @keyframes gxGridPan { from { transform: translateY(0); } to { transform: translateY(54px); } }
-[data-day="true"]  .gx-grid { --gx-grid-line: rgba(13,148,136,.10); }
-[data-day="false"] .gx-grid { --gx-grid-line: rgba(45,212,191,.09); }
+[data-day="true"]  .gx-grid { --gx-grid-line: rgba(56,189,248,.10); }
+[data-day="false"] .gx-grid { --gx-grid-line: rgba(14,165,233,.09); }
 
 /* --- Aurora / floating glow orbs --- */
 .gx-aurora { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
@@ -737,11 +742,11 @@ body::after {
     animation: gxFloatOrb 16s ease-in-out infinite;
 }
 .gx-aurora span:nth-child(1){ width: 30vmax; height: 30vmax; left: -6%; top: -8%;
-    background: radial-gradient(circle, rgba(20,184,166,.55), transparent 70%); animation-delay: 0s; }
+    background: radial-gradient(circle, rgba(14,165,233,.55), transparent 70%); animation-delay: 0s; }
 .gx-aurora span:nth-child(2){ width: 26vmax; height: 26vmax; right: -4%; top: 10%;
-    background: radial-gradient(circle, rgba(34,211,238,.40), transparent 70%); animation-delay: -5s; }
+    background: radial-gradient(circle, rgba(56,189,248,.40), transparent 70%); animation-delay: -5s; }
 .gx-aurora span:nth-child(3){ width: 24vmax; height: 24vmax; left: 35%; bottom: -10%;
-    background: radial-gradient(circle, rgba(45,212,191,.35), transparent 70%); animation-delay: -9s; }
+    background: radial-gradient(circle, rgba(125,211,252,.35), transparent 70%); animation-delay: -9s; }
 [data-day="true"] .gx-aurora span { opacity: .28; }
 @keyframes gxFloatOrb {
     0%,100% { transform: translate(0,0) scale(1); }
@@ -763,13 +768,13 @@ body::after {
     box-shadow: 0 1px 0 rgba(255,255,255,.06) inset, 0 20px 40px -24px rgba(0,0,0,.7);
 }
 [data-day="true"] .gx-card {
-    background: linear-gradient(160deg, rgba(255,255,255,.85), rgba(240,253,250,.6));
-    border: 1px solid rgba(13,148,136,.14);
-    box-shadow: 0 20px 40px -28px rgba(13,148,136,.35);
+    background: linear-gradient(160deg, rgba(255,255,255,.85), rgba(240,249,255,.6));
+    border: 1px solid rgba(56,189,248,.14);
+    box-shadow: 0 20px 40px -28px rgba(56,189,248,.35);
 }
 .gx-card:hover { transform: translateY(-6px); }
-[data-day="false"] .gx-card:hover { border-color: rgba(45,212,191,.45); box-shadow: 0 28px 60px -28px rgba(20,184,166,.55); }
-[data-day="true"]  .gx-card:hover { border-color: rgba(13,148,136,.4); box-shadow: 0 28px 60px -30px rgba(13,148,136,.45); }
+[data-day="false"] .gx-card:hover { border-color: rgba(56,189,248,.45); box-shadow: 0 28px 60px -28px rgba(14,165,233,.55); }
+[data-day="true"]  .gx-card:hover { border-color: rgba(56,189,248,.4); box-shadow: 0 28px 60px -30px rgba(56,189,248,.45); }
 
 /* sheen sweep on hover */
 .gx-card::after {
@@ -783,7 +788,7 @@ body::after {
 .gx-glow-border { position: relative; border-radius: 1.3rem; padding: 1px; }
 .gx-glow-border::before {
     content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
-    background: conic-gradient(from var(--gx-angle, 0deg), rgba(20,184,166,.0), rgba(34,211,238,.9), rgba(45,212,191,.0) 40%);
+    background: conic-gradient(from var(--gx-angle, 0deg), rgba(14,165,233,.0), rgba(56,189,248,.9), rgba(125,211,252,.0) 40%);
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
             mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor; mask-composite: exclude;
@@ -794,7 +799,7 @@ body::after {
 
 /* --- Gradient text + chip --- */
 .gx-gradient-text {
-    background: linear-gradient(120deg, #14b8a6, #22d3ee 55%, #2dd4bf);
+    background: linear-gradient(120deg, #38bdf8, #7dd3fc 55%, #0ea5e9);
     -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 .gx-chip {
@@ -802,9 +807,9 @@ body::after {
     padding: .35rem .85rem; font-size: .72rem; font-weight: 600; letter-spacing: .04em;
     border: 1px solid; backdrop-filter: blur(6px);
 }
-[data-day="false"] .gx-chip { color: #5eead4; background: rgba(20,184,166,.12); border-color: rgba(45,212,191,.3); }
-[data-day="true"]  .gx-chip { color: #0f766e; background: rgba(13,148,136,.10); border-color: rgba(13,148,136,.25); }
-.gx-chip .gx-dot { width: 7px; height: 7px; border-radius: 50%; background: #2dd4bf; box-shadow: 0 0 10px #2dd4bf; animation: gxPulse 2s ease-in-out infinite; }
+[data-day="false"] .gx-chip { color: #bae6fd; background: rgba(14,165,233,.12); border-color: rgba(56,189,248,.3); }
+[data-day="true"]  .gx-chip { color: #0c4a6e; background: rgba(56,189,248,.10); border-color: rgba(56,189,248,.25); }
+.gx-chip .gx-dot { width: 7px; height: 7px; border-radius: 50%; background: #38bdf8; box-shadow: 0 0 10px #38bdf8; animation: gxPulse 2s ease-in-out infinite; }
 
 /* --- Purple chip variant --- */
 .gx-chip-purple { }
@@ -814,9 +819,9 @@ body::after {
 
 /* --- Cyan chip variant --- */
 .gx-chip-cyan { }
-[data-day="false"] .gx-chip-cyan { color: #a5f3fc; background: rgba(34,211,238,.12); border-color: rgba(34,211,238,.3); }
-[data-day="true"]  .gx-chip-cyan { color: #0e7490; background: rgba(34,211,238,.10); border-color: rgba(34,211,238,.25); }
-.gx-chip-cyan .gx-dot-cyan { width: 7px; height: 7px; border-radius: 50%; background: #22d3ee; box-shadow: 0 0 10px #22d3ee; animation: gxPulse 2s ease-in-out infinite; }
+[data-day="false"] .gx-chip-cyan { color: #bae6fd; background: rgba(56,189,248,.12); border-color: rgba(56,189,248,.3); }
+[data-day="true"]  .gx-chip-cyan { color: #0c4a6e; background: rgba(56,189,248,.10); border-color: rgba(56,189,248,.25); }
+.gx-chip-cyan .gx-dot-cyan { width: 7px; height: 7px; border-radius: 50%; background: #38bdf8; box-shadow: 0 0 10px #38bdf8; animation: gxPulse 2s ease-in-out infinite; }
 
 /* --- Orange chip variant --- */
 .gx-chip-orange { }
@@ -836,7 +841,7 @@ body::after {
 .gx-scan { position: relative; overflow: hidden; }
 .gx-scan::before {
     content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2;
-    background: repeating-linear-gradient(transparent 0 3px, rgba(45,212,191,.05) 3px 4px);
+    background: repeating-linear-gradient(transparent 0 3px, rgba(56,189,248,.05) 3px 4px);
     mix-blend-mode: overlay;
 }
 
@@ -866,8 +871,8 @@ body::after {
     85% { transform: none; }
 }
 @keyframes gxNeonPulse {
-    0%,100% { box-shadow: 0 0 8px rgba(45,212,191,.45), 0 0 24px rgba(45,212,191,.2); }
-    50%      { box-shadow: 0 0 16px rgba(45,212,191,.9), 0 0 48px rgba(45,212,191,.4), 0 0 80px rgba(34,211,238,.2); }
+    0%,100% { box-shadow: 0 0 8px rgba(56,189,248,.45), 0 0 24px rgba(56,189,248,.2); }
+    50%      { box-shadow: 0 0 16px rgba(56,189,248,.9), 0 0 48px rgba(56,189,248,.4), 0 0 80px rgba(14,165,233,.2); }
 }
 @keyframes gxHologram {
     0%,100% { opacity: 1; transform: none; filter: none; }
@@ -934,12 +939,12 @@ body::after {
 }
 .gx-scanline::before {
     content: ""; position: absolute; inset: 0;
-    background: repeating-linear-gradient(transparent 0 2px, rgba(45,212,191,.035) 2px 3px);
+    background: repeating-linear-gradient(transparent 0 2px, rgba(56,189,248,.035) 2px 3px);
     mix-blend-mode: screen;
 }
 .gx-scanline::after {
     content: ""; position: absolute; left: 0; right: 0; height: 18%;
-    background: linear-gradient(180deg, transparent, rgba(45,212,191,.09) 50%, transparent);
+    background: linear-gradient(180deg, transparent, rgba(56,189,248,.09) 50%, transparent);
     filter: blur(1px);
     animation: gxScanLine 4.5s linear infinite;
 }
@@ -947,25 +952,25 @@ body::after {
 /* --- Holographic glass card (elevated) --- */
 .gx-hologram-card {
     position: relative; overflow: hidden; border-radius: 1.2rem;
-    background: linear-gradient(135deg, rgba(255,255,255,.07) 0%, rgba(45,212,191,.04) 50%, rgba(255,255,255,.03) 100%);
-    border: 1px solid rgba(45,212,191,.22);
+    background: linear-gradient(135deg, rgba(255,255,255,.07) 0%, rgba(56,189,248,.04) 50%, rgba(255,255,255,.03) 100%);
+    border: 1px solid rgba(56,189,248,.22);
     backdrop-filter: blur(16px) saturate(150%);
     -webkit-backdrop-filter: blur(16px) saturate(150%);
     box-shadow: 0 0 0 1px rgba(255,255,255,.04) inset,
                 0 20px 60px -24px rgba(0,0,0,.7),
-                0 0 40px -20px rgba(45,212,191,.25);
+                0 0 40px -20px rgba(56,189,248,.25);
     transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
 }
 .gx-hologram-card:hover {
     transform: translateY(-5px) scale(1.01);
-    border-color: rgba(45,212,191,.5);
+    border-color: rgba(56,189,248,.5);
     box-shadow: 0 0 0 1px rgba(255,255,255,.06) inset,
                 0 30px 80px -20px rgba(0,0,0,.8),
-                0 0 60px -10px rgba(45,212,191,.4);
+                0 0 60px -10px rgba(56,189,248,.4);
 }
 .gx-hologram-card::before {
     content: ""; position: absolute; top: 0; left: -60%; width: 50%; height: 100%;
-    background: linear-gradient(105deg, transparent, rgba(45,212,191,.10), transparent);
+    background: linear-gradient(105deg, transparent, rgba(56,189,248,.10), transparent);
     transform: skewX(-15deg);
     transition: left .6s ease; pointer-events: none;
 }
@@ -973,19 +978,19 @@ body::after {
 
 /* Day variant */
 [data-day="true"] .gx-hologram-card {
-    background: linear-gradient(135deg, rgba(255,255,255,.85) 0%, rgba(204,251,241,.5) 50%, rgba(255,255,255,.8) 100%);
-    border-color: rgba(13,148,136,.22);
-    box-shadow: 0 20px 50px -24px rgba(13,148,136,.25);
+    background: linear-gradient(135deg, rgba(255,255,255,.85) 0%, rgba(224,242,254,.5) 50%, rgba(255,255,255,.8) 100%);
+    border-color: rgba(56,189,248,.22);
+    box-shadow: 0 20px 50px -24px rgba(56,189,248,.25);
 }
 [data-day="true"] .gx-hologram-card:hover {
-    border-color: rgba(13,148,136,.5);
-    box-shadow: 0 30px 70px -20px rgba(13,148,136,.35);
+    border-color: rgba(56,189,248,.5);
+    box-shadow: 0 30px 70px -20px rgba(56,189,248,.35);
 }
 
 /* --- Neon border --- */
 .gx-neon-border {
-    border: 1px solid rgba(45,212,191,.5);
-    box-shadow: 0 0 8px rgba(45,212,191,.3), inset 0 0 8px rgba(45,212,191,.05);
+    border: 1px solid rgba(56,189,248,.5);
+    box-shadow: 0 0 8px rgba(56,189,248,.3), inset 0 0 8px rgba(56,189,248,.05);
     animation: gxNeonPulse 3s ease-in-out infinite;
 }
 
@@ -1008,14 +1013,14 @@ body::after {
 
 /* --- Orbit ring --- */
 .gx-orbit {
-    position: absolute; border-radius: 50%; border: 1px solid rgba(45,212,191,.18); pointer-events: none;
+    position: absolute; border-radius: 50%; border: 1px solid rgba(56,189,248,.18); pointer-events: none;
     animation: gxOrbitRing 18s linear infinite;
 }
 .gx-orbit-reverse { animation: gxOrbitRingReverse 12s linear infinite; }
 .gx-orbit::after {
     content: ""; position: absolute; top: -3px; left: 50%; margin-left: -3px;
     width: 6px; height: 6px; border-radius: 50%;
-    background: #2dd4bf; box-shadow: 0 0 12px #2dd4bf;
+    background: #38bdf8; box-shadow: 0 0 12px #38bdf8;
 }
 
 /* --- Noise / static overlay --- */
@@ -1032,7 +1037,7 @@ body::after {
 .gx-terminal-text {
     font-family: ui-monospace, 'Cascadia Code', 'JetBrains Mono', monospace;
     font-size: .8em; letter-spacing: .04em; line-height: 1.7;
-    color: #22d3ee;
+    color: #38bdf8;
 }
 
 /* --- Glitch hover text --- */
@@ -1044,11 +1049,11 @@ body::after {
 /* --- Data stream gradient animation --- */
 .gx-data-stream-bg {
     background: linear-gradient(180deg,
-        rgba(45,212,191,0) 0%,
-        rgba(45,212,191,.06) 25%,
-        rgba(45,212,191,.03) 50%,
-        rgba(45,212,191,.08) 75%,
-        rgba(45,212,191,0) 100%);
+        rgba(56,189,248,0) 0%,
+        rgba(56,189,248,.06) 25%,
+        rgba(56,189,248,.03) 50%,
+        rgba(56,189,248,.08) 75%,
+        rgba(56,189,248,0) 100%);
     background-size: 100% 400%;
     animation: gxDataStream 6s linear infinite;
 }
@@ -1064,28 +1069,28 @@ body::after {
 }
 .gx-corner-brackets::before {
     top: 0; left: 0;
-    border-top: 2px solid #2dd4bf; border-left: 2px solid #2dd4bf;
+    border-top: 2px solid #38bdf8; border-left: 2px solid #38bdf8;
 }
 .gx-corner-brackets::after {
     bottom: 0; right: 0;
-    border-bottom: 2px solid #2dd4bf; border-right: 2px solid #2dd4bf;
+    border-bottom: 2px solid #38bdf8; border-right: 2px solid #38bdf8;
 }
 
 /* --- Stat bar animation --- */
 .gx-stat-bar {
-    height: 3px; background: rgba(45,212,191,.15); border-radius: 9999px; overflow: hidden;
+    height: 3px; background: rgba(56,189,248,.15); border-radius: 9999px; overflow: hidden;
 }
 .gx-stat-bar-fill {
     height: 100%; border-radius: 9999px;
-    background: linear-gradient(90deg, #14b8a6, #22d3ee);
-    box-shadow: 0 0 8px rgba(34,211,238,.7);
+    background: linear-gradient(90deg, #38bdf8, #7dd3fc);
+    box-shadow: 0 0 8px rgba(56,189,248,.7);
     animation: gxStatBar 1.5s ease-out both;
 }
 
 /* --- Hero scan shimmer --- */
 .gx-hero-scan {
     position: absolute; left: 0; right: 0; height: 30%;
-    background: linear-gradient(180deg, transparent, rgba(34,211,238,.06) 50%, transparent);
+    background: linear-gradient(180deg, transparent, rgba(56,189,248,.06) 50%, transparent);
     filter: blur(2px); pointer-events: none;
     animation: gxHeroScanSlide 5s ease-in-out infinite;
 }

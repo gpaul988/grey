@@ -78,6 +78,27 @@ export async function POST(req: NextRequest) {
       console.error('Failed to send admin notification:', emailError);
     }
 
+    // Notify admin panel of new subscription (non-blocking)
+    try {
+      const adminSecret = process.env.ADMIN_API_SECRET || 'default-secret-key';
+      const baseUrl = process.env.ADMIN_BASE_URL || 'http://localhost:3000';
+      fetch(`${baseUrl}/admin/api/notify-submission`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-secret': adminSecret,
+        },
+        body: JSON.stringify({
+          action: 'create',
+          type: 'subscription',
+          email: email,
+          name: 'New Subscriber',
+        }),
+      }).catch(err => console.warn('[subscribe] Failed to notify admin panel:', err.message));
+    } catch (notifyErr) {
+      console.warn('[subscribe] Could not trigger admin notification:', notifyErr);
+    }
+
     return NextResponse.json(
       {
         success: true,

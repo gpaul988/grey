@@ -66,7 +66,7 @@ export function FxChip({
                            day,
                            children,
                            className = '',
-                           colorScheme = 'teal',
+                           colorScheme = 'page-accent',
                        }: DayProp & {
     children: React.ReactNode;
     className?: string;
@@ -93,6 +93,7 @@ export function FxSectionHeading({
                                      subtitle,
                                      align = 'left',
                                      className = '',
+                                     accentClassName = 'text-[var(--page-accent)]',
                                  }: DayProp & {
     eyebrow?: string;
     title: React.ReactNode;
@@ -100,6 +101,7 @@ export function FxSectionHeading({
     subtitle?: React.ReactNode;
     align?: 'left' | 'center';
     className?: string;
+    accentClassName?: string;
 }) {
     return (
         <motion.div
@@ -115,7 +117,7 @@ export function FxSectionHeading({
                 </div>
             )}
             <h2 className="text-[2em] md:text-[2.6em] lg:text-[3.2em] font-[700] leading-[1.1] tracking-tight">
-                {title} {accent && <span className="gx-gradient-text">{accent}</span>}
+                {title} {accent && <span className={`${accentClassName} bg-clip-text`}>{accent}</span>}
             </h2>
             {subtitle && (
                 <p className={`mt-4 text-[0.95em] lg:text-[1.05em] font-[300] leading-[1.6] ${day ? 'text-gray-600' : 'text-gray-300'}`}>
@@ -134,7 +136,7 @@ export function FxButton({
                              children,
                              variant = 'solid',
                              className = '',
-                             colorScheme = 'teal',
+                             colorScheme = 'page-accent',
                          }: DayProp & {
     href?: string;
     onClickAction?: () => void;
@@ -712,7 +714,7 @@ export function FxStickyScrollSection({
 
                     {/* Left sticky rail - fade out on last item */}
                     <aside
-                        className={`z-20 w-full lg:w-[460px] shrink-0 lg:sticky lg:top-[96px] lg:self-start transition-opacity duration-700 ease-in-out ${
+                        className={`z-20 w-full lg:w-[44%] lg:max-w-[500px] shrink-0 lg:sticky lg:top-[96px] lg:self-start transition-opacity duration-700 ease-in-out ${
                             (isEndVisible || activeId === items[items.length - 1]?.target) ? 'lg:opacity-0 lg:pointer-events-none' : 'lg:opacity-100'
                         }`}
                     >
@@ -729,28 +731,28 @@ export function FxStickyScrollSection({
 
                             <FxChip day={day} className="relative mb-5">{navLabel}</FxChip>
                             <h3 className={`relative text-[1.5em] lg:text-[2.3em] font-[700] leading-[1.05] tracking-tight ${day ? 'text-gray-900' : 'text-white'}`}>
-                                Command <span className="gx-gradient-text">stack</span>
+                                Command <span className={colors.accent}>stack</span>
                             </h3>
                             <p className={`relative mt-4 text-[0.75em] lg:text-[0.78em] font-[300] leading-[1.6] lg:leading-[1.7] ${day ? 'text-gray-600' : 'text-white/55'}`}>
                                 A guided experience for startup solutions, designed like a futuristic mission control
                                 panel.
                             </p>
 
-                            <div className="relative mt-6 space-y-1">
+                            <div className="relative mt-6 space-y-1.5">
                                 {items.map((item, index) => {
                                     const isActive = activeId === item.target;
                                     return (
                                         <button
                                             key={index}
                                             onClick={() => onNavClickAction(item.target)}
-                                            className={`group w-full text-left flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-300 border text-[0.82em] lg:text-[0.9em] ${
+                                            className={`group w-full text-left flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all duration-300 border text-[0.82em] lg:text-[0.9em] ${
                                                 isActive
                                                     ? colors.active
                                                     : `border-transparent ${colors.hover} ${mutedText}`
                                             }`}
                                         >
                                             <span
-                                                className={`text-[0.65em] lg:text-[0.7em] font-[700] tracking-wider tabular-nums shrink-0 ${isActive ? colors.accent : (day ? 'text-gray-400' : 'text-white/40')}`}>
+                                                className={`flex h-7 w-7 items-center justify-center rounded-full border text-[0.68em] font-[700] tabular-nums shrink-0 ${isActive ? `${colors.accent} border-current/60` : (day ? 'border-gray-200 text-gray-400' : 'border-white/10 text-white/40')}`}>
                                                 {item.id}
                                             </span>
                                             <span
@@ -772,7 +774,7 @@ export function FxStickyScrollSection({
                             <FxReveal key={index} delay={0.08 * index}>
                                 <div id={item.target} className="scroll-mt-28">
                                     <FxHoloCard day={day}
-                                                className={`p-4 lg:p-9 border ${colors.cardBorder} relative overflow-hidden`}>
+                                                className={`p-4 lg:p-9 border ${colors.cardBorder} relative overflow-hidden shadow-[0_0_45px_-22px_rgba(var(--page-accent-rgb),0.28)]`}>
                                         {/* Purple gradient overlay for color cohesion */}
                                         {colorScheme === 'purple' && (
                                             <div

@@ -20,6 +20,7 @@ import AnnouncementBarWrapper from "@/components/futuristic/AnnouncementBarWrapp
 import Preloader from "@/components/futuristic/Preloader";
 import CookieConsent from "@/components/futuristic/CookieConsent";
 import FloatingButton from "@/components/FloatingButton";
+import PageAccentProvider from "@/components/PageAccentProvider";
 
 
 //  -  -  -  Render on-demand instead of pre-rendering all pages at build  -  -  -  -  -  -  -  -  -  - 
@@ -177,6 +178,7 @@ export default async function RootLayout({
             className={`${merriweather.variable} ${roboto.variable} antialiased min-h-screen flex flex-col`}
         >
         <ThemeProvider>
+        <PageAccentProvider/>
         {/* First-load boot sequence  - shows once per session */}
         <Preloader/>
 

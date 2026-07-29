@@ -3,6 +3,7 @@ import nodemailer from 'nodemailer';
 import path from 'node:path';
 import fs from 'node:fs';
 import Database from 'better-sqlite3';
+import db from '../db';
 import {ensureApiAuth, requireRole, requirePermission} from '../middleware/authMiddleware';
 import {
     Users, Submissions, Leads, Clients, Projects, Tickets, TicketMessages,
@@ -11,7 +12,7 @@ import {
     Verification,
     Ads, Subscribers, Announcements, PageSeos, AnalyticsEvents, Media,
     PartnerInquiries, Faqs,
-    AuditSubmissions, CareerApplications, JobOpenings,
+    AuditSubmissions, CareerApplications, JobOpenings, Notifications,
     logActivity, nextInvoiceNumber, dashboardStats,
 } from '../models';
 import {slugify, str, toFloat, toInt, isEmail} from '../utils/helpers';
@@ -23,6 +24,54 @@ import {broadcast, broadcastStats} from './sse';
 import twoFaRoutes from './twofa';
 
 const api = express.Router();
+
+// ── Public endpoint for notifying about new submissions (uses secret key) ──────
+api.post('/notify-submission', (req: Request, res: Response) => {
+    const secret = process.env.ADMIN_API_SECRET || 'default-secret-key';
+    const provided = req.headers['x-admin-secret'] || req.body.secret;
+     
+    if (provided !== secret) {
+        return res.status(401).json({ok: false, message: 'Unauthorized'});
+    }
+     
+    try {
+        const body = req.body;
+        const { action, type, id, name, email } = body;
+         
+        // Create persistent notification
+        if (action === 'create') {
+            const title = type === 'submission' ? 'New Contact Form Submission' 
+                        : type === 'application' ? 'New Career Application'
+                        : type === 'subscription' ? 'New Newsletter Subscription'
+                        : 'New Notification';
+             
+            const message = type === 'submission' ? `New submission from ${name} (${email})`
+                          : type === 'application' ? `New application from ${name}`
+                          : type === 'subscription' ? `New subscriber: ${email}`
+                          : `New ${type}`;
+             
+            Notifications.create({
+                type: type as any,
+                title,
+                message,
+                entity_type: type,
+                entity_id: id || 0,
+                related_data: JSON.stringify({ name, email }),
+                status: 'unread',
+            });
+        }
+         
+        // Trigger a broadcast to all admin tabs about new submission
+        const data = body.data || {action: 'create', type: 'submission'};
+        broadcast('submission', data);
+        broadcastStats();
+        res.json({ok: true, message: 'Notification sent'});
+    } catch (err) {
+        console.error('[POST /notify-submission] Error:', err);
+        res.status(500).json({ok: false, message: 'Failed to send notification'});
+    }
+});
+
 api.use(ensureApiAuth);
 api.use('/2fa', twoFaRoutes);
 
@@ -82,6 +131,7 @@ api.patch('/submissions/:id', (req, res) => {
         db.close();
         
         logActivity({ ...actor(req), action: 'update', entity: 'submission', entity_id: id });
+        broadcastStats(); // Notify all admins of the update
         
         const updated = Submissions.find(id);
         ok(res, updated, 'Submission updated successfully');
@@ -97,6 +147,7 @@ api.delete('/submissions/:id', (req, res) => {
         if (!row) return fail(res, 'Submission not found', 404);
         Submissions.delete(id);
         logActivity({ ...actor(req), action: 'delete', entity: 'submission', entity_id: id });
+        broadcastStats(); // Notify all admins of the deletion
         ok(res, { id, deleted: true }, 'Submission deleted successfully');
     } catch (err) {
         console.error('[DELETE /submissions/:id]', err);
@@ -122,6 +173,7 @@ api.post('/submissions/bulk-delete', (req, res) => {
                 deleted++;
             }
         }
+        broadcastStats(); // Notify all admins that submissions were deleted
         ok(res, { deleted, total: numIds.length, failed: numIds.length - deleted }, `Deleted ${deleted} submission(s)`);
     } catch (err) {
         console.error('[POST /submissions/bulk-delete]', err);
@@ -936,6 +988,134 @@ api.post('/audit-submissions/bulk-delete', (req, res) => {
     } catch (err) {
         console.error('[POST /audit-submissions/bulk-delete]', err);
         fail(res, 'Failed to delete audit submissions', 500);
+    }
+});
+
+/* ---------------- Notifications (READ, UPDATE, DELETE) ---------------- */
+api.get('/notifications', (req, res) => {
+    try {
+        const status = str(req.query.status);
+        const limit = toInt(req.query.limit) || 50;
+         
+        // Ensure notifications table exists
+        db.exec(`
+            CREATE TABLE IF NOT EXISTS notifications (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                type TEXT NOT NULL,
+                title TEXT NOT NULL,
+                message TEXT NOT NULL,
+                entity_type TEXT,
+                entity_id INTEGER,
+                related_data TEXT,
+                status TEXT NOT NULL DEFAULT 'unread',
+                created_at TEXT NOT NULL DEFAULT (datetime('now'))
+            );
+            CREATE INDEX IF NOT EXISTS idx_notifications_status ON notifications(status);
+            CREATE INDEX IF NOT EXISTS idx_notifications_created ON notifications(created_at DESC);
+        `);
+         
+        let query = 'SELECT * FROM notifications WHERE 1=1';
+        const params: string[] = [];
+         
+        if (status) { 
+            query += ' AND status = ?'; 
+            params.push(status); 
+        }
+        query += ' ORDER BY created_at DESC LIMIT ?';
+        params.push(String(limit));
+         
+        const rows = db.prepare(query).all(...params);
+        ok(res, rows, 'Notifications retrieved');
+    } catch (error) {
+        console.error('[GET /notifications] Error:', error);
+        fail(res, 'Failed to fetch notifications', 500);
+    }
+});
+
+api.get('/notifications/:id', (req, res) => {
+    try {
+        const id = toInt(req.params.id);
+        const row = Notifications.find(id);
+        return row ? ok(res, row) : fail(res, 'Notification not found', 404);
+    } catch (error) {
+        console.error('[GET /notifications/:id] Error:', error);
+        fail(res, 'Failed to fetch notification', 500);
+    }
+});
+
+api.patch('/notifications/:id', (req, res) => {
+    try {
+        const id = toInt(req.params.id);
+        const row = Notifications.find(id);
+        if (!row) return fail(res, 'Notification not found', 404);
+         
+        const updates: Record<string, unknown> = {};
+        const allowedFields = ['status'];
+         
+        for (const field of allowedFields) {
+            if (field in req.body) {
+                updates[field] = req.body[field as keyof typeof req.body];
+            }
+        }
+         
+        if (Object.keys(updates).length === 0) {
+            return fail(res, 'No fields to update', 400);
+        }
+         
+        Notifications.update(id, updates);
+        const updated = Notifications.find(id);
+        ok(res, updated, 'Notification updated successfully');
+    } catch (err) {
+        console.error('[PATCH /notifications/:id]', err);
+        fail(res, 'Failed to update notification', 500);
+    }
+});
+
+api.delete('/notifications/:id', (req, res) => {
+    try {
+        const id = toInt(req.params.id);
+        const row = Notifications.find(id);
+        if (!row) return fail(res, 'Notification not found', 404);
+        Notifications.delete(id);
+        ok(res, { id, deleted: true }, 'Notification deleted successfully');
+    } catch (err) {
+        console.error('[DELETE /notifications/:id]', err);
+        fail(res, 'Failed to delete notification', 500);
+    }
+});
+
+api.post('/notifications/bulk-delete', (req, res) => {
+    try {
+        const { ids } = req.body as { ids: (number | string)[] };
+        if (!Array.isArray(ids) || ids.length === 0) {
+            return fail(res, 'ids must be a non-empty array', 400);
+        }
+        const numIds = ids.map(id => toInt(id)).filter(id => id > 0);
+        if (numIds.length === 0) {
+            return fail(res, 'No valid IDs provided', 400);
+        }
+        let deleted = 0;
+        for (const id of numIds) {
+            const row = Notifications.find(id);
+            if (row) {
+                Notifications.delete(id);
+                deleted++;
+            }
+        }
+        ok(res, { deleted, total: numIds.length, failed: numIds.length - deleted }, `Deleted ${deleted} notification(s)`);
+    } catch (err) {
+        console.error('[POST /notifications/bulk-delete]', err);
+        fail(res, 'Failed to delete notifications', 500);
+    }
+});
+
+api.post('/notifications/mark-all-read', (req, res) => {
+    try {
+        db.prepare("UPDATE notifications SET status = 'read' WHERE status = 'unread'").run();
+        ok(res, { message: 'All notifications marked as read' });
+    } catch (err) {
+        console.error('[POST /notifications/mark-all-read]', err);
+        fail(res, 'Failed to mark notifications as read', 500);
     }
 });
 
