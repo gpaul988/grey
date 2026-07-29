@@ -117,7 +117,7 @@ export default function ContactBusinessInfo({
 
                 {/* Business Hours and Response Time */}
                 <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="rounded-2xl bg-gray-50 p-5 border border-gray-100">
+                    <div className="rounded-2xl bg-gray-50 dark:bg-gray-800 p-5 border border-gray-100 dark:border-gray-700">
                         <div className="flex items-center gap-3 mb-2 text-teal-700">
                             <FaClock/>
                             <h4 className="font-bold">Business Hours</h4>
@@ -129,7 +129,7 @@ export default function ContactBusinessInfo({
                         </p>
                     </div>
 
-                    <div className="rounded-2xl bg-gray-50 p-5 border border-gray-100">
+                    <div className="rounded-2xl bg-gray-50 dark:bg-gray-800 p-5 border border-gray-100 dark:border-gray-700">
                         <div className="flex items-center gap-3 mb-2 text-teal-700">
                             <FaBolt/>
                             <h4 className="font-bold">Response Time</h4>

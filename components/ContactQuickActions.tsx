@@ -39,10 +39,10 @@ export default function ContactQuickActions({
                     </div>
                     <div>
                         <h3 className="text-xl font-bold mb-1">WhatsApp</h3>
-                        <p className="text-gray-600 mb-3">
+                        <p className="text-gray-600 dark:text-gray-300 mb-3">
                             Chat with us instantly for fast project discussions.
                         </p>
-                        <span className="inline-flex items-center gap-2 text-green-600 font-semibold">
+                        <span className="inline-flex items-center gap-2 text-green-600 dark:text-green-300 font-semibold">
               Start chat <FaWhatsapp/>
             </span>
                     </div>
@@ -67,10 +67,10 @@ export default function ContactQuickActions({
                     </div>
                     <div>
                         <h3 className="text-xl font-bold mb-1">Calendly</h3>
-                        <p className="text-gray-600 mb-3">
+                        <p className="text-gray-600 dark:text-gray-300 mb-3">
                             Book a discovery call at a time that works for you.
                         </p>
-                        <span className="inline-flex items-center gap-2 text-teal-600 font-semibold">
+                        <span className="inline-flex items-center gap-2 text-teal-600 dark:text-teal-300 font-semibold">
               Book now <SiCalendly/>
             </span>
                     </div>
@@ -92,10 +92,10 @@ export default function ContactQuickActions({
                     </div>
                     <div>
                         <h3 className="text-xl font-bold mb-1">Live Chat</h3>
-                        <p className="text-gray-600 mb-3">
+                        <p className="text-gray-600 dark:text-gray-300 mb-3">
                             Use the chat widget below for quick support and questions.
                         </p>
-                        <span className="inline-flex items-center gap-2 text-blue-600 font-semibold">
+                        <span className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-300 font-semibold">
               Chat available <FaComments/>
             </span>
                     </div>
