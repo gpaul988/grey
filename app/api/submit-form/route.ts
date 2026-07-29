@@ -198,6 +198,28 @@ export async function POST(req: NextRequest) {
       }
       
       db.close();
+      
+      // Notify admin panel of new submission (non-blocking)
+      try {
+        const adminSecret = process.env.ADMIN_API_SECRET || 'default-secret-key';
+        const baseUrl = process.env.ADMIN_BASE_URL || 'http://localhost:3000';
+        fetch(`${baseUrl}/admin/api/notify-submission`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-admin-secret': adminSecret,
+          },
+          body: JSON.stringify({
+            action: 'create',
+            type: 'submission',
+            id: submissionId,
+            name,
+            email: validatedEmail,
+          }),
+        }).catch(err => console.warn('[submit-form] Failed to notify admin panel:', err.message));
+      } catch (notifyErr) {
+        console.warn('[submit-form] Could not trigger admin notification:', notifyErr);
+      }
     } catch (dbErr: any) {
       console.error('[submit-form] Database error:', dbErr);
       console.error('[submit-form] Error message:', dbErr.message);
@@ -229,6 +251,28 @@ export async function POST(req: NextRequest) {
           }
           
           db.close();
+          
+          // Notify admin panel of new submission (non-blocking)
+          try {
+            const adminSecret = process.env.ADMIN_API_SECRET || 'default-secret-key';
+            const baseUrl = process.env.ADMIN_BASE_URL || 'http://localhost:3000';
+            fetch(`${baseUrl}/admin/api/notify-submission`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'x-admin-secret': adminSecret,
+              },
+              body: JSON.stringify({
+                action: 'create',
+                type: 'submission',
+                id: submissionId,
+                name,
+                email: validatedEmail,
+              }),
+            }).catch(err => console.warn('[submit-form] Failed to notify admin panel:', err.message));
+          } catch (notifyErr) {
+            console.warn('[submit-form] Could not trigger admin notification:', notifyErr);
+          }
         } catch (fallbackErr) {
           console.error('[submit-form] Fallback INSERT also failed:', fallbackErr);
           db.close();

@@ -470,3 +470,15 @@ export interface JobOpening {
     created_at: string;
     updated_at: string;
 }
+
+export interface Notification {
+    id: number;
+    type: 'submission' | 'application' | 'subscription' | 'inquiry' | string;
+    title: string;
+    message: string;
+    entity_type: string;
+    entity_id: number;
+    related_data: string | null; // JSON with name, email, etc
+    status: 'unread' | 'read';
+    created_at: string;
+}

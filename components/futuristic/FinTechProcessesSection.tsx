@@ -1,0 +1,409 @@
+'use client';
+
+import React, { useEffect, useRef, useState, useCallback } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
+
+/*  -  -  -  Process Data - FinTech Specific  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
+const FINTECH_PROCESSES = [
+  {
+    id: 'discovery',
+    label: 'Discovery',
+    title: 'The Discovery Phase',
+    tags: ['Workshops', 'Competitors Analysis', 'Flow Diagrams'],
+    image: '/assets/fin/stages/discovery.jpg',
+    color: '#00d9ff',
+    accent: 'from-cyan-400/20 to-blue-600/10',
+    description:
+      'Our discovery phase is a critical foundation in our fintech product development process, designed to ensure every solution is aligned with your business goals and market demands. We conduct in-depth requirements gathering and establish a strategic roadmap.',
+  },
+  {
+    id: 'engineers',
+    label: 'Engineering',
+    title: 'Dedicated FinTech Engineers',
+    tags: ['Project Scoping', 'Agile Development', 'Compliance Checks'],
+    image: '/assets/fin/stages/engineers.jpg',
+    color: '#7c3aed',
+    accent: 'from-violet-400/20 to-purple-600/10',
+    description:
+      'Our team of seasoned fintech engineers specialises in developing robust financial software, including custom trading platforms, mobile banking applications, and secure digital payment systems with deep industry expertise.',
+  },
+  {
+    id: 'security',
+    label: 'Security',
+    title: 'Security & Regulatory Compliance',
+    tags: ['Risk Assessment', 'Regulatory Alignment', 'Secure Development'],
+    image: '/assets/fin/stages/security.jpg',
+    color: '#f59e0b',
+    accent: 'from-amber-400/20 to-orange-600/10',
+    description:
+      'We provide end-to-end security and regulatory compliance services tailored to fintech software development, implementing industry-grade security protocols, advanced data privacy frameworks, and meeting regulatory standards such as PCI DSS and GDPR.',
+  },
+  {
+    id: 'devops',
+    label: 'DevOps',
+    title: 'DevOps & Infrastructure',
+    tags: ['CI/CD', 'Infrastructure as Code', 'Monitoring & Optimization'],
+    image: '/assets/fin/stages/devops.jpg',
+    color: '#10b981',
+    accent: 'from-green-400/20 to-emerald-600/10',
+    description:
+      'DevOps plays a critical role in fintech software development by accelerating product delivery, enhancing operational reliability, and supporting continuous improvement through automated testing, deployment, and monitoring.',
+  },
+  {
+    id: 'qa',
+    label: 'Quality Assurance',
+    title: 'Quality Assurance',
+    tags: ['Initial Audit', 'Performance Testing', 'Automated Testing'],
+    image: '/assets/fin/stages/qa.jpg',
+    color: '#ec4899',
+    accent: 'from-pink-400/20 to-rose-600/10',
+    description:
+      'Our QA services are essential to delivering secure, reliable, and high-performing fintech software. We begin with a comprehensive audit, followed by performance testing to evaluate system stability under different load conditions.',
+  },
+  {
+    id: 'product',
+    label: 'Product Development',
+    title: 'Product Development & Launch',
+    tags: ['Requirements Gathering', 'UI/UX Design', 'Agile Development'],
+    image: '/assets/fin/stages/product.jpg',
+    color: '#0ea5e9',
+    accent: 'from-sky-400/20 to-blue-600/10',
+    description:
+      'Our tailored fintech software development process is streamlined to deliver secure, user-centric, and results-driven solutions. We prioritise rigorous quality assurance, advanced security protocols, and strict regulatory compliance.',
+  },
+];
+
+/*  -  -  -  Animated orbit ring  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
+function OrbitRing({ color, size, duration, delay }: { color: string; size: number; duration: number; delay: number }) {
+  return (
+    <motion.div
+      className="absolute rounded-full border"
+      style={{
+        width: size,
+        height: size,
+        borderColor: color + '33',
+        left: '50%',
+        top: '50%',
+        x: '-50%',
+        y: '-50%',
+      }}
+      animate={{ rotate: 360 }}
+      transition={{ duration, delay, repeat: Infinity, ease: 'linear' }}
+    >
+      {/* Dot on the ring */}
+      <motion.div
+        className="absolute w-2 h-2 rounded-full"
+        style={{ background: color, top: -4, left: '50%', x: '-50%', boxShadow: `0 0 8px ${color}` }}
+      />
+    </motion.div>
+  );
+}
+
+/*  -  -  -  Counter badge  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
+function ProcessNumber({ n, color }: { n: number; color: string }) {
+  return (
+    <div
+      className="flex items-center justify-center w-10 h-10 rounded-full text-sm font-bold shrink-0"
+      style={{ background: color + '18', border: `1px solid ${color}44`, color }}
+    >
+      {String(n).padStart(2, '0')}
+    </div>
+  );
+}
+
+/*  -  -  -  Tag pill  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
+function Tag({ label, color }: { label: string; color: string }) {
+  return (
+    <span
+      className="px-3 py-1 text-[0.7em] font-medium rounded-full tracking-wide"
+      style={{ background: color + '15', border: `1px solid ${color}33`, color }}
+    >
+      {label}
+    </span>
+  );
+}
+
+/*  -  -  -  Main component  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
+export default function FinTechProcessesSection({ isDayTime = false }: { isDayTime?: boolean }) {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const rightPanelRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isFixed, setIsFixed] = useState(false);
+  const [isPast, setIsPast] = useState(false);
+  const [sectionBottom, setSectionBottom] = useState(0);
+
+  const bg = isDayTime ? '#ffffff' : '#000000';
+  const text = isDayTime ? '#111111' : '#f5f5f5';
+  const muted = isDayTime ? '#555' : '#888';
+
+  // Track active service based on scroll
+  const updateActiveService = useCallback(() => {
+    const serviceEls = FINTECH_PROCESSES.map((s) => document.getElementById(`proc-${s.id}`));
+    const mid = window.innerHeight * 0.45;
+    for (let i = serviceEls.length - 1; i >= 0; i--) {
+      const el = serviceEls[i];
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= mid) {
+          setActiveIndex(i);
+          break;
+        }
+      }
+    }
+  }, []);
+
+  // Track section bounds for fixed/absolute image
+  const updateImagePosition = useCallback(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const rect = section.getBoundingClientRect();
+    const within = rect.top <= 0 && rect.bottom >= window.innerHeight;
+    const past = rect.bottom < window.innerHeight;
+    setIsFixed(within);
+    setIsPast(past);
+    setSectionBottom(section.offsetTop + section.offsetHeight);
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => {
+      updateActiveService();
+      updateImagePosition();
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // initial
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [updateActiveService, updateImagePosition]);
+
+  const active = FINTECH_PROCESSES[activeIndex];
+
+  // Image panel positioning
+  const imagePanelStyle: React.CSSProperties = isPast
+    ? { position: 'absolute', bottom: 0, right: 0, width: '50%', height: '100vh' }
+    : isFixed
+    ? { position: 'fixed', top: 0, right: 0, width: '50%', height: '100vh' }
+    : { position: 'absolute', top: 0, right: 0, width: '50%', height: '100vh' };
+
+  return (
+    <section
+      ref={sectionRef}
+      id="fintech-process"
+      className="relative"
+      style={{ background: bg, color: text }}
+    >
+      {/*  -  -  Header  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
+      <div
+        className="relative border-b px-6 sm:px-10 lg:px-[4.6em] pt-24 pb-10 overflow-hidden"
+        style={{ borderColor: isDayTime ? '#e5e7eb' : '#1f2937' }}
+      >
+        {/* Animated grid bg */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `linear-gradient(${text} 1px, transparent 1px), linear-gradient(90deg, ${text} 1px, transparent 1px)`,
+            backgroundSize: '40px 40px',
+          }}
+        />
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <span
+            className="inline-block text-xs font-semibold uppercase tracking-[0.25em] mb-4 px-3 py-1 rounded-full"
+            style={{ background: active.color + '15', color: active.color, border: `1px solid ${active.color}33` }}
+          >
+            Our FinTech Process
+          </span>
+          <h2 className="text-[2.4em] sm:text-[3.2em] font-[700] leading-tight">Innovative, Custom & Bespoke FinTech Solutions</h2>
+          <p className="mt-3 text-[0.9em] max-w-lg" style={{ color: muted }}>
+            From discovery to launch—a proven methodology ensuring exceptional fintech products at every step.
+          </p>
+        </motion.div>
+
+        {/* Process nav dots (desktop) */}
+        <div className="hidden lg:flex items-center gap-2 mt-6">
+          {FINTECH_PROCESSES.map((s, i) => (
+            <button
+              key={s.id}
+              onClick={() => {
+                const el = document.getElementById(`proc-${s.id}`);
+                el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }}
+              className="transition-all duration-300 rounded-full"
+              style={{
+                width: activeIndex === i ? 28 : 8,
+                height: 8,
+                background: activeIndex === i ? s.color : (isDayTime ? '#d1d5db' : '#374151'),
+              }}
+              title={s.label}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/*  -  -  Body: Left scroll / Right fixed image  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
+      <div className="relative lg:grid lg:grid-cols-2">
+
+        {/* LEFT  - scrollable process entries */}
+        <div className="px-6 sm:px-10 lg:px-[4.6em] lg:pr-12 py-0 lg:pb-32">
+          {FINTECH_PROCESSES.map((proc, i) => (
+            <div
+              key={proc.id}
+              id={`proc-${proc.id}`}
+              className="relative py-16 lg:py-28 border-b last:border-b-0 group"
+              style={{ borderColor: isDayTime ? '#f3f4f6' : '#111827' }}
+            >
+              {/* Glow on left edge when active */}
+              <motion.div
+                className="absolute left-0 top-0 w-[3px] h-full rounded-full"
+                animate={{ background: activeIndex === i ? proc.color : 'rgba(0,0,0,0)' }}
+                transition={{ duration: 0.4 }}
+              />
+
+              {/* Content  - indent pl-6 so text clears the indicator bar */}
+              <div className="pl-6">
+
+              {/* Number + title row */}
+              <div className="flex items-center gap-4 mb-5">
+                <ProcessNumber n={i + 1} color={proc.color} />
+                <h3 className="text-[1.4em] sm:text-[1.6em] font-[600] leading-tight">{proc.title}</h3>
+              </div>
+
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2 mb-5">
+                {proc.tags.map((t) => (
+                  <Tag key={t} label={t} color={proc.color} />
+                ))}
+              </div>
+
+              {/* Description */}
+              <p className="text-[0.85em] leading-[1.7] mb-6 max-w-lg" style={{ color: muted }}>
+                {proc.description}
+              </p>
+
+              {/* Mobile image (shows only on small screens) */}
+              <div className="lg:hidden relative w-full h-48 mb-6 rounded-2xl overflow-hidden">
+                <Image src={proc.image} alt={proc.title} fill className="object-cover" />
+                <div className="absolute inset-0" style={{ background: `linear-gradient(135deg, ${proc.color}22, transparent)` }} />
+              </div>
+
+              {/* CTA */}
+              <Link href={`/industries/fintech#${proc.id}`}>
+                <motion.button
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="relative inline-flex items-center gap-3 px-6 py-3 rounded-full text-[0.82em] font-semibold tracking-wide overflow-hidden group/btn"
+                  style={{ border: `1px solid ${proc.color}55`, color: proc.color }}
+                >
+                  {/* Fill on hover */}
+                  <motion.span
+                    className="absolute inset-0 rounded-full"
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileHover={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                    style={{ background: proc.color + '18', originX: 0 }}
+                  />
+                  <span className="relative z-10">Explore Stage</span>
+                  <span className="relative z-10 text-[1.3em] leading-none">→</span>
+                </motion.button>
+              </Link>
+              </div>{/* /pl-6 */}
+            </div>
+          ))}
+        </div>
+
+        {/* RIGHT  - fixed image panel (desktop only) */}
+        <div className="hidden lg:block" style={{ height: `${FINTECH_PROCESSES.length * 520}px` }}>
+          <div style={imagePanelStyle} className="overflow-hidden">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active.id}
+                className="relative w-full h-full"
+                initial={{ opacity: 0, scale: 1.04 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.97 }}
+                transition={{ duration: 0.5, ease: 'easeInOut' }}
+              >
+                {/* Main image */}
+                <Image
+                  src={active.image}
+                  alt={active.title}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+
+                {/* Color overlay */}
+                <div
+                  className="absolute inset-0"
+                  style={{ background: `linear-gradient(135deg, ${active.color}25 0%, #00000088 100%)` }}
+                />
+
+                {/* Grid overlay */}
+                <div
+                  className="absolute inset-0 opacity-[0.06]"
+                  style={{
+                    backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`,
+                    backgroundSize: '30px 30px',
+                  }}
+                />
+
+                {/* Orbit rings */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <OrbitRing color={active.color} size={220} duration={12} delay={0} />
+                  <OrbitRing color={active.color} size={360} duration={20} delay={2} />
+                  <OrbitRing color={active.color} size={500} duration={30} delay={5} />
+                </div>
+
+                {/* Info overlay at bottom */}
+                <div className="absolute bottom-0 left-0 right-0 p-8">
+                  <div
+                    className="rounded-2xl p-6 backdrop-blur-md"
+                    style={{ background: 'rgba(0,0,0,0.55)', border: `1px solid ${active.color}33` }}
+                  >
+                    {/* Progress bar */}
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="flex-1 h-[2px] rounded-full" style={{ background: 'rgba(255,255,255,0.1)' }}>
+                        <motion.div
+                          className="h-full rounded-full"
+                          style={{ background: active.color }}
+                          initial={{ width: 0 }}
+                          animate={{ width: `${((activeIndex + 1) / FINTECH_PROCESSES.length) * 100}%` }}
+                          transition={{ duration: 0.6 }}
+                        />
+                      </div>
+                      <span className="text-[0.72em] font-mono text-white/50">
+                        {activeIndex + 1}/{FINTECH_PROCESSES.length}
+                      </span>
+                    </div>
+
+                    <motion.h4
+                      key={active.id + '-title'}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-white font-bold text-[1.1em] mb-1"
+                    >
+                      {active.title}
+                    </motion.h4>
+                    <motion.p
+                      key={active.id + '-desc'}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.15 }}
+                      className="text-white/60 text-[0.78em] leading-relaxed line-clamp-2"
+                    >
+                      {active.description}
+                    </motion.p>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

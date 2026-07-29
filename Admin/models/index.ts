@@ -6,7 +6,7 @@ import type {
     Invoice, CaseStudy, BlogPost, Conversation, Message, ActivityLog,
     ProjectBrief, Upload, Partner, ClientReview, PartnerInquiry, Faq,
     Ad, Subscriber, Announcement, PageSeo, AnalyticsEvent, MediaAsset,
-    AuditSubmission, CareerApplication, JobOpening,
+    AuditSubmission, CareerApplication, JobOpening, Notification,
 } from '../db/types';
 import {ClientsModel} from './clients';
 import {ClientStaffModel} from './clientStaff';
@@ -128,6 +128,10 @@ export const JobOpenings = createRepo<JobOpening>('job_openings', [
     'title', 'department', 'location', 'type', 'experience_level', 'salary_range',
     'description', 'responsibilities', 'requirements', 'nice_to_have', 'benefits',
     'status', 'deadline',
+]);
+
+export const Notifications = createRepo<Notification>('notifications', [
+    'type', 'title', 'message', 'entity_type', 'entity_id', 'related_data', 'status',
 ]);
 
 export const Conversations = createRepo<Conversation>('conversations', [

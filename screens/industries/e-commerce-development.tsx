@@ -105,8 +105,8 @@ const ECommerceDevelopment = () => {
             <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
                 {/* Video/Image Background */}
                 <ResponsiveVideoHero
-                    videoFallback="/assets/ecom/hero.mp4"
-                    posterImage="/assets/ecom/hero.jpg"
+                    videoFallback="/assets/ecom/ecom-hero.mp4"
+                    posterImage="/assets/ecom/mid.jpg"
                 />
 
                 {/* Grid & FX Background */}
@@ -574,13 +574,14 @@ const ECommerceDevelopment = () => {
             {/* ═══════════════════════════════════════════════════════════════════════ */}
             {/* SECTION 1: Development Process Timeline - Vertical Futuristic Flow */}
             {/* ═══════════════════════════════════════════════════════════════════════ */}
-            <section className={`relative py-24 lg:py-40 overflow-hidden ${isDayTime ? 'bg-gradient-to-b from-white to-gray-50' : 'bg-gradient-to-b from-slate-950 to-black'}`}>
+            <section
+                className={`relative py-24 lg:py-40 overflow-hidden ${isDayTime ? 'bg-gradient-to-b from-white to-gray-50' : 'bg-gradient-to-b from-slate-950 to-black'}`}>
                 <div aria-hidden className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-1/4 -left-40 w-80 h-80 rounded-full opacity-8"
                          style={{background: 'radial-gradient(circle, var(--page-accent), transparent 70%)'}}/>
                 </div>
 
-                <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
+                <div className="relative z-10 max-w-[100em] mx-auto px-6 sm:px-8 lg:px-12">
                     <FxReveal>
                         <FxChip day={isDayTime} colorScheme="page-accent">DEVELOPMENT PROCESS</FxChip>
                     </FxReveal>
@@ -590,60 +591,87 @@ const ECommerceDevelopment = () => {
                         </h2>
                     </FxReveal>
 
-                    <div className="mt-16 space-y-8">
-                        {[
-                            {
-                                num: '01',
-                                phase: 'Discovery & Strategy',
-                                details: 'Comprehensive stakeholder interviews, competitive analysis, and roadmap definition. We establish KPIs, success metrics, and technical architecture blueprints.',
-                                metrics: ['Market Research', 'User Research', 'Technical Audit']
-                            },
-                            {
-                                num: '02',
-                                phase: 'Design & Prototyping',
-                                details: 'Iterative wireframing, high-fidelity mockups, and interactive prototypes. Design systems are established with comprehensive documentation and component libraries.',
-                                metrics: ['Design System', 'Prototypes', 'User Testing']
-                            },
-                            {
-                                num: '03',
-                                phase: 'Development & Integration',
-                                details: 'Agile-sprint development with continuous integration. API development, database architecture, third-party integrations, and comprehensive automated testing.',
-                                metrics: ['API Development', 'CI/CD Pipeline', 'Quality Assurance']
-                            },
-                            {
-                                num: '04',
-                                phase: 'Testing & Optimization',
-                                details: 'Performance audits, security testing (OWASP), accessibility compliance (WCAG 2.1 AA), and load testing. Production-ready optimization and monitoring setup.',
-                                metrics: ['Performance', 'Security', 'Compliance']
-                            },
-                            {
-                                num: '05',
-                                phase: 'Launch & Support',
-                                details: 'Coordinated deployment across environments, real-time monitoring, incident response protocols, and 24/7 technical support during critical launch window.',
-                                metrics: ['Deployment', 'Monitoring', 'Support']
-                            }
-                        ].map((phase, idx) => (
-                            <motion.div key={idx} initial={{opacity: 0, x: -20}} whileInView={{opacity: 1, x: 0}}
-                                       viewport={{once: true}} transition={{delay: idx * 0.1}}>
-                                <div className={`flex gap-6 lg:gap-10 pb-8 border-l-2 pl-6 lg:pl-10 last:border-l-0 ${isDayTime ? 'border-gray-200' : 'border-white/10'}`}>
-                                    <div className="flex-shrink-0">
-                                        <div className={`w-16 h-16 rounded-full flex items-center justify-center font-bold text-lg border-2 backdrop-blur-sm
-                                            ${isDayTime ? 'bg-white text-black border-gray-300' : 'bg-slate-800 text-[var(--page-accent)] border-white/20'}`}>
-                                            {phase.num}
+                    <div className="mt-16 grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-start">
+                        <div className="space-y-8">
+                            {[
+                                {
+                                    num: '01',
+                                    phase: 'Discovery & Strategy',
+                                    details: 'We run executive workshops, customer journey audits, and technical architecture reviews to align product, design, engineering, and commercial goals. The result is a precise charter for scope, priorities, and measurable business success.',
+                                    metrics: ['Market Research', 'User Research', 'Technical Audit']
+                                },
+                                {
+                                    num: '02',
+                                    phase: 'Design & Prototyping',
+                                    details: 'Iterative wireframing, high-fidelity mockups, and interactive prototypes. Design systems are established with comprehensive documentation and component libraries.',
+                                    metrics: ['Design System', 'Prototypes', 'User Testing']
+                                },
+                                {
+                                    num: '03',
+                                    phase: 'Development & Integration',
+                                    details: 'Agile-sprint development with continuous integration. API development, database architecture, third-party integrations, and comprehensive automated testing.',
+                                    metrics: ['API Development', 'CI/CD Pipeline', 'Quality Assurance']
+                                },
+                                {
+                                    num: '04',
+                                    phase: 'Testing & Optimization',
+                                    details: 'Performance audits, security testing (OWASP), accessibility compliance (WCAG 2.1 AA), and load testing. Production-ready optimization and monitoring setup.',
+                                    metrics: ['Performance', 'Security', 'Compliance']
+                                },
+                                {
+                                    num: '05',
+                                    phase: 'Launch & Support',
+                                    details: 'Coordinated deployment across environments, real-time monitoring, incident response protocols, and 24/7 technical support during critical launch window.',
+                                    metrics: ['Deployment', 'Monitoring', 'Support']
+                                }
+                            ].map((phase, idx) => (
+                                <motion.div key={idx} initial={{opacity: 0, x: -20}} whileInView={{opacity: 1, x: 0}}
+                                            viewport={{once: true}} transition={{delay: idx * 0.1}}>
+                                    <div
+                                        className={`flex gap-6 lg:gap-10 pb-8 border-l-2 pl-6 lg:pl-10 last:border-l-0 ${isDayTime ? 'border-gray-200' : 'border-white/10'}`}>
+                                        <div className="flex-shrink-0">
+                                            <div className={`w-16 h-16 rounded-full flex items-center justify-center font-bold text-lg border-2 backdrop-blur-sm
+                                               ${isDayTime ? 'bg-white text-black border-gray-300' : 'bg-slate-800 text-[var(--page-accent)] border-white/20'}`}>
+                                                {phase.num}
+                                            </div>
+                                        </div>
+                                        <div className="flex-1 pt-1">
+                                            <h3 className={`text-xl lg:text-2xl font-bold mb-3 ${isDayTime ? 'text-black' : 'text-white'}`}>{phase.phase}</h3>
+                                            <p className={`mb-4 leading-relaxed ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>{phase.details}</p>
+                                            <div className="flex flex-wrap gap-2">
+                                                {phase.metrics.map((m, mi) => (
+                                                    <span key={mi}
+                                                          className="px-3 py-1 rounded-lg text-xs font-semibold badge-page">{m}</span>
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="flex-1 pt-1">
-                                        <h3 className={`text-xl lg:text-2xl font-bold mb-3 ${isDayTime ? 'text-black' : 'text-white'}`}>{phase.phase}</h3>
-                                        <p className={`mb-4 leading-relaxed ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>{phase.details}</p>
-                                        <div className="flex flex-wrap gap-2">
-                                            {phase.metrics.map((m, mi) => (
-                                                <span key={mi} className="px-3 py-1 rounded-lg text-xs font-semibold badge-page">{m}</span>
-                                            ))}
-                                        </div>
+                                </motion.div>
+                            ))}
+                        </div>
+
+                        <motion.div initial={{opacity: 0, x: 24}} whileInView={{opacity: 1, x: 0}}
+                                    viewport={{once: true}} transition={{duration: 0.7}} className="relative">
+                            <div
+                                className={`rounded-[2rem] overflow-hidden border backdrop-blur-xl shadow-[0_30px_80px_-25px_rgba(0,0,0,0.5)] ${isDayTime ? 'bg-white/80 border-gray-200/80' : 'bg-slate-900/60 border-white/10'}`}>
+                                <Image src="/assets/ads/hero.jpg" alt="High-end eCommerce architecture planning"
+                                       width={1200} height={900} className="w-full h-[420px] object-cover"/>
+                                <div
+                                    className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-transparent"/>
+                                <div className="absolute bottom-0 left-0 right-0 p-8">
+                                    <div className="text-xs uppercase tracking-[0.25em] text-white/70 mb-2">Strategic
+                                        Delivery
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-white">Designed for growth, engineered for
+                                        scale</h3>
+                                    <div className="mt-4 flex flex-wrap gap-2">
+                                        <span
+                                            className="px-3 py-1 rounded-full text-xs font-semibold bg-[var(--page-accent)] text-white">Architecture-first</span>
+                                        <span className="px-3 py-1 rounded-full text-xs font-semibold badge-page">Mission Critical</span>
                                     </div>
                                 </div>
-                            </motion.div>
-                        ))}
+                            </div>
+                        </motion.div>
                     </div>
                 </div>
             </section>
@@ -657,12 +685,13 @@ const ECommerceDevelopment = () => {
                          style={{background: 'radial-gradient(circle, var(--page-accent), transparent 70%)'}}/>
                 </div>
 
-                <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
+                <div className="relative z-10 max-w-[100em] mx-auto px-6 sm:px-8 lg:px-12">
                     <FxChip day={isDayTime} colorScheme="page-accent">TECHNOLOGY STACK</FxChip>
                     <h2 className={`mt-6 text-3xl lg:text-5xl font-bold leading-tight mb-4 ${isDayTime ? 'text-black' : 'text-white'}`}>
                         Modern & <span className="gx-gradient-text">Scalable</span>
                     </h2>
-                    <p className={`max-w-2xl ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>Built on battle-tested technologies selected for performance, scalability, and enterprise reliability.</p>
+                    <p className={`max-w-2xl ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>Built on battle-tested
+                        technologies selected for performance, scalability, and enterprise reliability.</p>
 
                     <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[
@@ -673,21 +702,71 @@ const ECommerceDevelopment = () => {
                             {name: 'Payments', tech: 'Stripe, PayPal, Square', icon: '💳', color: '#0070F0'},
                             {name: 'Infrastructure', tech: 'AWS, Docker, Kubernetes', icon: '☁️', color: '#FF9900'},
                         ].map((stack, idx) => (
-                            <motion.div key={idx} initial={{opacity: 0, scale: 0.9}} whileInView={{opacity: 1, scale: 1}}
-                                       viewport={{once: true}} transition={{delay: idx * 0.08}}>
-                                <div className={`relative rounded-2xl p-8 backdrop-blur-sm border overflow-hidden group cursor-pointer
+                            <motion.div key={idx} initial={{opacity: 0, scale: 0.9}}
+                                        whileInView={{opacity: 1, scale: 1}}
+                                        viewport={{once: true}} transition={{delay: idx * 0.08}}>
+                                <div className={`relative rounded-2xl p-8 backdrop-blur-sm border overflow-hidden group cursor-pointer min-h-[190px]
                                     ${isDayTime ? 'bg-white/60 border-gray-200/60' : 'bg-slate-800/50 border-white/10'}`}>
-                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                                         style={{background: `radial-gradient(circle at top right, rgba(${parseInt(stack.color.slice(1,3), 16)}, ${parseInt(stack.color.slice(3,5), 16)}, ${parseInt(stack.color.slice(5,7), 16)}, 0.15), transparent)`}}/>
-                                    
+                                    <div
+                                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                                        style={{background: `radial-gradient(circle at top right, rgba(${parseInt(stack.color.slice(1, 3), 16)}, ${parseInt(stack.color.slice(3, 5), 16)}, ${parseInt(stack.color.slice(5, 7), 16)}, 0.15), transparent)`}}/>
+
                                     <div className="relative z-10">
                                         <div className="text-4xl mb-4">{stack.icon}</div>
                                         <h3 className={`text-lg font-bold mb-2 ${isDayTime ? 'text-black' : 'text-white'}`}>{stack.name}</h3>
-                                        <p className={`text-sm ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>{stack.tech}</p>
+                                        <p className={`text-sm leading-relaxed ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>{stack.tech}</p>
                                     </div>
                                 </div>
                             </motion.div>
                         ))}
+                    </div>
+
+                    <div className="mt-12 grid lg:grid-cols-[0.95fr_1.05fr] gap-6 items-start">
+                        <motion.div initial={{opacity: 0, y: 18}} whileInView={{opacity: 1, y: 0}}
+                                    viewport={{once: true}} transition={{duration: 0.65}}>
+                            <div
+                                className={`rounded-[2rem] border overflow-hidden backdrop-blur-xl ${isDayTime ? 'bg-white/80 border-gray-200/80' : 'bg-slate-900/60 border-white/10'}`}>
+                                <Image src="/assets/comp/hero.jpg" alt="Modern commerce architecture" width={1400}
+                                       height={900} className="w-full h-[320px] object-cover"/>
+                                <div className="p-8">
+                                    <div
+                                        className="text-xs uppercase tracking-[0.26em] text-[var(--page-accent)] font-semibold mb-3">Composable
+                                        Systems
+                                    </div>
+                                    <h3 className={`text-2xl font-bold mb-3 ${isDayTime ? 'text-black' : 'text-white'}`}>Infrastructure
+                                        designed for real-time commerce</h3>
+                                    <p className={`leading-relaxed text-sm ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>Each
+                                        technology layer is selected for resilience, speed, and long-term
+                                        maintainability so your store can expand without replatforming.</p>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        <motion.div initial={{opacity: 0, y: 18}} whileInView={{opacity: 1, y: 0}}
+                                    viewport={{once: true}} transition={{delay: 0.12, duration: 0.65}}>
+                            <div
+                                className={`rounded-[2rem] border p-8 backdrop-blur-xl ${isDayTime ? 'bg-gradient-to-br from-white/90 to-gray-50/90 border-gray-200/80' : 'bg-gradient-to-br from-slate-900/60 to-slate-800/50 border-white/10'}`}>
+                                <div
+                                    className="text-xs uppercase tracking-[0.26em] text-[var(--page-accent)] font-semibold mb-3">Why
+                                    it matters
+                                </div>
+                                <h3 className={`text-2xl font-bold mb-5 ${isDayTime ? 'text-black' : 'text-white'}`}>Performance,
+                                    reliability, and flexibility in one stack</h3>
+                                <div className="space-y-4">
+                                    {[
+                                        'API-first integrations that keep storefronts, ERPs, PIMs, and CRMs in sync.',
+                                        'Global CDN and edge delivery to keep storefronts fast for every customer.',
+                                        'Observability tools that catch issues before they affect conversion or retention.'
+                                    ].map((item, index) => (
+                                        <div key={index} className="flex items-start gap-3">
+                                            <span
+                                                className="mt-1 h-2.5 w-2.5 rounded-full bg-[var(--page-accent)] flex-shrink-0"/>
+                                            <p className={`text-sm leading-relaxed ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>{item}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </motion.div>
                     </div>
                 </div>
             </section>
@@ -695,7 +774,8 @@ const ECommerceDevelopment = () => {
             {/* ═══════════════════════════════════════════════════════════════════════ */}
             {/* SECTION 3: Results & Impact - Dashboard Style Metrics */}
             {/* ═══════════════════════════════════════════════════════════════════════ */}
-            <section className={`relative py-24 lg:py-40 ${isDayTime ? 'bg-gradient-to-br from-gray-50 to-white' : 'bg-gradient-to-br from-slate-950 via-black to-slate-900'}`}>
+            <section
+                className={`relative py-24 lg:py-40 ${isDayTime ? 'bg-gradient-to-br from-gray-50 to-white' : 'bg-gradient-to-br from-slate-950 via-black to-slate-900'}`}>
                 <div aria-hidden className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-1/2 left-1/4 w-96 h-96 rounded-full opacity-5"
                          style={{background: 'radial-gradient(circle, var(--page-accent), transparent 70%)'}}/>
@@ -703,7 +783,7 @@ const ECommerceDevelopment = () => {
                          style={{background: 'radial-gradient(circle, var(--page-accent), transparent 70%)'}}/>
                 </div>
 
-                <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
+                <div className="relative z-10 max-w-[100em] mx-auto px-6 sm:px-8 lg:px-12">
                     <FxChip day={isDayTime} colorScheme="page-accent">CLIENT RESULTS</FxChip>
                     <h2 className={`mt-6 text-3xl lg:text-5xl font-bold leading-tight mb-4 ${isDayTime ? 'text-black' : 'text-white'}`}>
                         Proven <span className="gx-gradient-text">Business Impact</span>
@@ -717,13 +797,18 @@ const ECommerceDevelopment = () => {
                             {metric: '4.2s', label: 'Page Load Time', subtext: 'Industry leading'}
                         ].map((result, idx) => (
                             <motion.div key={idx} initial={{opacity: 0, y: 20}} whileInView={{opacity: 1, y: 0}}
-                                       viewport={{once: true}} transition={{delay: idx * 0.12}}>
+                                        viewport={{once: true}} transition={{delay: idx * 0.12}}>
                                 <div className={`relative rounded-2xl p-8 backdrop-blur-md border group overflow-hidden
                                     ${isDayTime ? 'bg-white/70 border-gray-200' : 'bg-gradient-to-br from-slate-800/60 to-slate-900/40 border-white/10'}`}>
-                                    <div className="absolute top-0 right-0 w-32 h-32 rounded-full opacity-0 group-hover:opacity-40 transition-opacity"
-                                         style={{background: 'radial-gradient(circle, var(--page-accent), transparent)', filter: 'blur(20px)'}}/>
+                                    <div
+                                        className="absolute top-0 right-0 w-32 h-32 rounded-full opacity-0 group-hover:opacity-40 transition-opacity"
+                                        style={{
+                                            background: 'radial-gradient(circle, var(--page-accent), transparent)',
+                                            filter: 'blur(20px)'
+                                        }}/>
                                     <div className="relative z-10">
-                                        <div className={`text-5xl font-black mb-3 ${isDayTime ? 'text-black' : 'text-[var(--page-accent)]'}`}>{result.metric}</div>
+                                        <div
+                                            className={`text-5xl font-black mb-3 ${isDayTime ? 'text-black' : 'text-[var(--page-accent)]'}`}>{result.metric}</div>
                                         <h3 className={`text-lg font-bold mb-2 ${isDayTime ? 'text-black' : 'text-white'}`}>{result.label}</h3>
                                         <p className={`text-sm ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>{result.subtext}</p>
                                     </div>
@@ -743,7 +828,7 @@ const ECommerceDevelopment = () => {
                          style={{background: 'radial-gradient(circle, var(--page-accent), transparent 70%)'}}/>
                 </div>
 
-                <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
+                <div className="relative z-10 max-w-[100em] mx-auto px-6 sm:px-8 lg:px-12">
                     <FxChip day={isDayTime} colorScheme="page-accent">INDUSTRY EXPERTISE</FxChip>
                     <h2 className={`mt-6 text-3xl lg:text-5xl font-bold leading-tight mb-6 ${isDayTime ? 'text-black' : 'text-white'}`}>
                         Vertical-Specific <span className="gx-gradient-text">Solutions</span>
@@ -751,50 +836,100 @@ const ECommerceDevelopment = () => {
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[
-                            {industry: 'Fashion & Beauty', expertise: 'Visual merchandising, size guides, AR try-ons', clientCount: '12+'},
-                            {industry: 'Electronics', expertise: 'Complex configurations, technical specs, warranties', clientCount: '18+'},
-                            {industry: 'Food & Beverage', expertise: 'Subscription models, inventory management, delivery', clientCount: '14+'},
-                            {industry: 'SaaS & Digital', expertise: 'License management, usage tracking, billing', clientCount: '22+'},
-                            {industry: 'B2B Wholesale', expertise: 'Volume pricing, custom catalogs, integrations', clientCount: '16+'},
-                            {industry: 'Luxury Goods', expertise: 'Exclusivity controls, VIP experiences, personalization', clientCount: '9+'}
+                            {
+                                industry: 'Fashion & Beauty',
+                                expertise: 'Visual merchandising, size guides, AR try-ons',
+                                clientCount: '12+'
+                            },
+                            {
+                                industry: 'Electronics',
+                                expertise: 'Complex configurations, technical specs, warranties',
+                                clientCount: '18+'
+                            },
+                            {
+                                industry: 'Food & Beverage',
+                                expertise: 'Subscription models, inventory management, delivery',
+                                clientCount: '14+'
+                            },
+                            {
+                                industry: 'SaaS & Digital',
+                                expertise: 'License management, usage tracking, billing',
+                                clientCount: '22+'
+                            },
+                            {
+                                industry: 'B2B Wholesale',
+                                expertise: 'Volume pricing, custom catalogs, integrations',
+                                clientCount: '16+'
+                            },
+                            {
+                                industry: 'Luxury Goods',
+                                expertise: 'Exclusivity controls, VIP experiences, personalization',
+                                clientCount: '9+'
+                            }
                         ].map((ind, idx) => (
                             <motion.div key={idx} initial={{opacity: 0, y: 24}} whileInView={{opacity: 1, y: 0}}
-                                       viewport={{once: true}} transition={{delay: idx * 0.1, type: 'spring', stiffness: 100}}>
+                                        viewport={{once: true}}
+                                        transition={{delay: idx * 0.1, type: 'spring', stiffness: 100}}>
                                 <div className={`relative rounded-2xl p-8 backdrop-blur-md border group cursor-pointer overflow-hidden h-full
                                     ${isDayTime ? 'bg-gradient-to-br from-gray-50 to-white border-gray-200' : 'bg-gradient-to-br from-slate-800/50 to-slate-900/40 border-white/10'}`}>
-                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                                         style={{background: 'radial-gradient(circle at top right, rgba(var(--page-accent-rgb), 0.15), transparent)'}}/>
-                                    
+                                    <div
+                                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                                        style={{background: 'radial-gradient(circle at top right, rgba(var(--page-accent-rgb), 0.15), transparent)'}}/>
+
                                     <div className="relative z-10">
                                         <h3 className={`text-xl font-bold mb-3 ${isDayTime ? 'text-black' : 'text-white'}`}>{ind.industry}</h3>
                                         <p className={`text-sm leading-relaxed mb-5 ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>{ind.expertise}</p>
-                                        <div className="pt-4 border-t border-[rgba(var(--page-accent-rgb),0.2)] flex items-center justify-between">
+                                        <div
+                                            className="pt-4 border-t border-[rgba(var(--page-accent-rgb),0.2)] flex items-center justify-between">
                                             <span className="text-xs text-[var(--page-accent)] font-semibold uppercase">Live Clients</span>
-                                            <span className={`text-lg font-bold ${isDayTime ? 'text-black' : 'text-white'}`}>{ind.clientCount}</span>
+                                            <span
+                                                className={`text-lg font-bold ${isDayTime ? 'text-black' : 'text-white'}`}>{ind.clientCount}</span>
                                         </div>
                                     </div>
                                 </div>
                             </motion.div>
                         ))}
                     </div>
+
+                    <motion.div initial={{opacity: 0, y: 20}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}}
+                                transition={{duration: 0.7}} className="mt-10">
+                        <div
+                            className={`rounded-[2rem] overflow-hidden border backdrop-blur-xl ${isDayTime ? 'bg-white/80 border-gray-200/80' : 'bg-slate-900/60 border-white/10'}`}>
+                            <Image src="/assets/wd/4.jpg" alt="Premium eCommerce design inspiration" width={1600}
+                                   height={900} className="w-full h-[320px] lg:h-[420px] object-cover"/>
+                            <div className="p-8 lg:p-10">
+                                <div
+                                    className="text-xs uppercase tracking-[0.26em] text-[var(--page-accent)] font-semibold mb-3">Editorial
+                                    Visual Direction
+                                </div>
+                                <h3 className={`text-2xl font-bold mb-3 ${isDayTime ? 'text-black' : 'text-white'}`}>Luxury-grade
+                                    experience systems for premium commerce</h3>
+                                <p className={`text-sm leading-relaxed max-w-3xl ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>From
+                                    immersive product storytelling to conversion-focused journeys, every experience is
+                                    designed to feel high-end, trustworthy, and unmistakably modern.</p>
+                            </div>
+                        </div>
+                    </motion.div>
                 </div>
             </section>
 
             {/* ═══════════════════════════════════════════════════════════════════════ */}
             {/* SECTION 5: Compliance & Security - Matrix Style */}
             {/* ═══════════════════════════════════════════════════════════════════════ */}
-            <section className={`relative py-24 lg:py-40 overflow-hidden ${isDayTime ? 'bg-gradient-to-b from-gray-50 to-white' : 'bg-gradient-to-b from-black to-slate-900'}`}>
+            <section
+                className={`relative py-24 lg:py-40 overflow-hidden ${isDayTime ? 'bg-gradient-to-b from-gray-50 to-white' : 'bg-gradient-to-b from-black to-slate-900'}`}>
                 <div aria-hidden className="absolute inset-0 pointer-events-none">
                     <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full opacity-6"
                          style={{background: 'radial-gradient(circle, var(--page-accent), transparent 70%)'}}/>
                 </div>
 
-                <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
+                <div className="relative z-10 max-w-[100em] mx-auto px-6 sm:px-8 lg:px-12">
                     <FxChip day={isDayTime} colorScheme="page-accent">SECURITY & COMPLIANCE</FxChip>
                     <h2 className={`mt-6 text-3xl lg:text-5xl font-bold leading-tight mb-4 ${isDayTime ? 'text-black' : 'text-white'}`}>
                         Enterprise-Grade <span className="gx-gradient-text">Protection</span>
                     </h2>
-                    <p className={`max-w-2xl mb-12 ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>We exceed industry standards in security, privacy, and regulatory compliance.</p>
+                    <p className={`max-w-2xl mb-12 ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>We exceed industry
+                        standards in security, privacy, and regulatory compliance.</p>
 
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {[
@@ -805,14 +940,19 @@ const ECommerceDevelopment = () => {
                             {cert: 'ISO 27001', level: 'Certified', desc: 'Information Security'},
                             {cert: 'WCAG', level: '2.1 AA', desc: 'Accessibility Standards'}
                         ].map((compliance, idx) => (
-                            <motion.div key={idx} initial={{opacity: 0, scale: 0.95}} whileInView={{opacity: 1, scale: 1}}
-                                       viewport={{once: true}} transition={{delay: idx * 0.08}}>
+                            <motion.div key={idx} initial={{opacity: 0, scale: 0.95}}
+                                        whileInView={{opacity: 1, scale: 1}}
+                                        viewport={{once: true}} transition={{delay: idx * 0.08}}>
                                 <div className={`rounded-xl p-6 backdrop-blur-sm border text-center group cursor-pointer overflow-hidden
                                     ${isDayTime ? 'bg-white/60 border-gray-200/50 hover:bg-white/80' : 'bg-slate-800/40 border-white/8 hover:bg-slate-800/60'} transition-colors duration-300`}>
-                                    <div className="text-sm text-[var(--page-accent)] font-bold uppercase tracking-wider mb-2">{compliance.cert}</div>
-                                    <div className={`text-2xl font-bold mb-2 ${isDayTime ? 'text-black' : 'text-white'}`}>{compliance.level}</div>
-                                    <div className={`text-xs ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>{compliance.desc}</div>
-                                    <div className="mt-4 w-full h-0.5 bg-gradient-to-r from-transparent via-[var(--page-accent)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity"/>
+                                    <div
+                                        className="text-sm text-[var(--page-accent)] font-bold uppercase tracking-wider mb-2">{compliance.cert}</div>
+                                    <div
+                                        className={`text-2xl font-bold mb-2 ${isDayTime ? 'text-black' : 'text-white'}`}>{compliance.level}</div>
+                                    <div
+                                        className={`text-xs ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>{compliance.desc}</div>
+                                    <div
+                                        className="mt-4 w-full h-0.5 bg-gradient-to-r from-transparent via-[var(--page-accent)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity"/>
                                 </div>
                             </motion.div>
                         ))}
@@ -825,29 +965,39 @@ const ECommerceDevelopment = () => {
             {/* ═══════════════════════════════════════════════════════════════════════ */}
             <section className={`relative py-32 lg:py-48 overflow-hidden ${isDayTime ? 'bg-white' : 'bg-black'}`}>
                 <div aria-hidden className="absolute inset-0 pointer-events-none">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full rounded-full opacity-10"
-                         style={{background: 'radial-gradient(circle, var(--page-accent), transparent 50%)', filter: 'blur(80px)'}}/>
+                    <div
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full rounded-full opacity-10"
+                        style={{
+                            background: 'radial-gradient(circle, var(--page-accent), transparent 50%)',
+                            filter: 'blur(80px)'
+                        }}/>
                 </div>
 
-                <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
-                    <motion.div initial={{opacity: 0, y: 20}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.8}}>
+                <div className="relative z-10 max-w-[100em] mx-auto px-6 sm:px-8 lg:px-12 text-center">
+                    <motion.div initial={{opacity: 0, y: 20}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}}
+                                transition={{duration: 0.8}}>
                         <FxChip day={isDayTime} colorScheme="page-accent">LET'S BUILD</FxChip>
                         <h2 className={`mt-8 text-4xl lg:text-6xl font-black leading-tight mb-6 ${isDayTime ? 'text-black' : 'text-white'}`}>
                             Your Next <span className="gx-gradient-text">eCommerce</span> Platform
                         </h2>
                     </motion.div>
 
-                    <motion.p initial={{opacity: 0, y: 10}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{delay: 0.2, duration: 0.8}}
-                             className={`text-lg lg:text-xl leading-relaxed mb-10 max-w-2xl mx-auto ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>
-                        From strategy to scale, we deliver enterprise-grade eCommerce solutions that drive measurable revenue growth. Let's discuss your next project.
+                    <motion.p initial={{opacity: 0, y: 10}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}}
+                              transition={{delay: 0.2, duration: 0.8}}
+                              className={`text-lg lg:text-xl leading-relaxed mb-10 max-w-2xl mx-auto ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>
+                        From strategy to scale, we deliver enterprise-grade eCommerce solutions that drive measurable
+                        revenue growth. Let's discuss your next project.
                     </motion.p>
 
-                    <motion.div initial={{opacity: 0, y: 15}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{delay: 0.4, duration: 0.8}}
-                               className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <motion.div initial={{opacity: 0, y: 15}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}}
+                                transition={{delay: 0.4, duration: 0.8}}
+                                className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Link href="/contact">
-                            <button className="group relative px-10 py-4 rounded-full text-lg font-semibold overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
-                                    style={{background: 'var(--page-accent)', color: '#fff'}}>
-                                <span className="absolute inset-0" style={{background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)'}}/>
+                            <button
+                                className="group relative px-10 py-4 rounded-full text-lg font-semibold overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+                                style={{background: 'var(--page-accent)', color: '#fff'}}>
+                                <span className="absolute inset-0"
+                                      style={{background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)'}}/>
                                 <span className="relative flex items-center gap-2">
                                     Start Your Project
                                     <span className="group-hover:translate-x-1 transition-transform">→</span>
@@ -862,8 +1012,9 @@ const ECommerceDevelopment = () => {
                         </Link>
                     </motion.div>
 
-                    <motion.div initial={{opacity: 0}} whileInView={{opacity: 1}} viewport={{once: true}} transition={{delay: 0.6, duration: 0.8}}
-                               className="mt-16 pt-16 border-t border-[rgba(var(--page-accent-rgb),0.1)]">
+                    <motion.div initial={{opacity: 0}} whileInView={{opacity: 1}} viewport={{once: true}}
+                                transition={{delay: 0.6, duration: 0.8}}
+                                className="mt-16 pt-16 border-t border-[rgba(var(--page-accent-rgb),0.1)]">
                         <p className={`text-sm uppercase tracking-widest font-semibold ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>
                             Trusted by leading brands worldwide
                         </p>
