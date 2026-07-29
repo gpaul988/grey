@@ -30,7 +30,7 @@ export default function ContactQuickActions({
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group rounded-2xl bg-white shadow-lg border border-gray-100 p-6 hover:shadow-2xl transition-all duration-300"
+                className="group rounded-2xl bg-white dark:bg-gray-900 shadow-lg dark:shadow-none border border-gray-100 dark:border-gray-700 p-6 hover:shadow-2xl dark:hover:shadow-2xl transition-all duration-300"
             >
                 <div className="flex items-start gap-4">
                     <div
@@ -58,7 +58,7 @@ export default function ContactQuickActions({
                 href={calendlyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group rounded-2xl bg-white shadow-lg border border-gray-100 p-6 hover:shadow-2xl transition-all duration-300"
+                className="group rounded-2xl bg-white dark:bg-gray-900 shadow-lg dark:shadow-none border border-gray-100 dark:border-gray-700 p-6 hover:shadow-2xl dark:hover:shadow-2xl transition-all duration-300"
             >
                 <div className="flex items-start gap-4">
                     <div
@@ -83,7 +83,7 @@ export default function ContactQuickActions({
                 whileInView={{opacity: 1, y: 0}}
                 viewport={{once: true, amount: 0.25}}
                 {...fadeUp}
-                className="group rounded-2xl bg-white shadow-lg border border-gray-100 p-6 hover:shadow-2xl transition-all duration-300"
+                className="group rounded-2xl bg-white dark:bg-gray-900 shadow-lg dark:shadow-none border border-gray-100 dark:border-gray-700 p-6 hover:shadow-2xl dark:hover:shadow-2xl transition-all duration-300"
             >
                 <div className="flex items-start gap-4">
                     <div

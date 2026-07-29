@@ -54,7 +54,7 @@ export default function ContactBusinessInfo({
             {...fadeUp}
             className="order-1 lg:order-2"
         >
-            <div className="bg-white rounded-2xl shadow-lg p-8 md:p-10 border border-gray-100">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg dark:shadow-none p-8 md:p-10 border border-gray-100 dark:border-gray-700">
                 <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-teal-700">Contact Us</h2>
 
                 <ul className="space-y-4 text-lg">
@@ -95,7 +95,7 @@ export default function ContactBusinessInfo({
 
                 <div className="mt-8">
                     <h3 className="font-bold text-xl mb-3 text-teal-700">Office</h3>
-                    <address className="not-italic text-base text-gray-700 leading-relaxed">
+                    <address className="not-italic text-base text-gray-700 dark:text-gray-200 leading-relaxed">
                         {companyName} <br/>
                         {address.line1} <br/>
                         {address.line2} <br/>
@@ -122,7 +122,7 @@ export default function ContactBusinessInfo({
                             <FaClock/>
                             <h4 className="font-bold">Business Hours</h4>
                         </div>
-                        <p className="text-gray-700 text-sm leading-relaxed">
+                        <p className="text-gray-700 dark:text-gray-200 text-sm leading-relaxed">
                             Monday - Saturday
                             <br/>
                             8:00 AM - 5:00 PM
@@ -134,7 +134,7 @@ export default function ContactBusinessInfo({
                             <FaBolt/>
                             <h4 className="font-bold">Response Time</h4>
                         </div>
-                        <p className="text-gray-700 text-sm leading-relaxed">
+                        <p className="text-gray-700 dark:text-gray-200 text-sm leading-relaxed">
                             Usually within 1 business hour
                         </p>
                     </div>
