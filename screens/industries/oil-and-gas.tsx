@@ -148,7 +148,7 @@ const OilAndGas = () => {
     const [isMounted, setIsMounted] = useState(false);
     useEffect(()=> setIsMounted(true), []);
     const fallbackScroll = useMotionValue(0);
-    const { scrollYProgress } = useScroll({ target: isMounted ? targetRef : undefined });
+    const { scrollYProgress } = useScroll({ target: isMounted && targetRef.current ? targetRef : undefined });
     const x = useTransform(scrollYProgress ?? fallbackScroll, [0, 1], ["0%", "-83%"]);
 
     // Floating button visibility hook

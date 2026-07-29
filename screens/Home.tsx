@@ -75,7 +75,7 @@ const Home = () => {
   const [whyMounted, setWhyMounted] = useState(false);
   useEffect(()=> setWhyMounted(true), []);
   const fallbackWhy = useMotionValue(0);
-  const { scrollYProgress } = useScroll({ target: whyMounted ? whyUsRef : undefined });
+  const { scrollYProgress } = useScroll({ target: whyMounted && whyUsRef.current ? whyUsRef : undefined });
   const whyX = useTransform(scrollYProgress ?? fallbackWhy, [0, 1], ['0%', '-62%']);
 
   useEffect(() => {
