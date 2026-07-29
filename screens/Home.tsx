@@ -18,6 +18,7 @@ import { useIsDayTime } from '../components/useIsDayTime';
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import ServicesSection from '@/components/futuristic/ServicesSection';
 import { FxBackground, FxChip, FxCard, FxButton, FxReveal } from '@/components/futuristic/fx';
+import AdBanner from '@/components/futuristic/AdBanner';
 
 const WHY_US = [
   {
@@ -201,6 +202,9 @@ const Home = () => {
 
       {/*  -  -  Services  -  -  */}
       <ServicesSection isDayTime={isDayTime} />
+
+      {/*  -  -  Featured Ads Banner  -  -  */}
+      <AdBanner placement="home_banner" />
 
       {/*  -  -  WHY US  - Full Cinematic Redesign  -  -  */}
       <section className={`relative overflow-hidden ${isDayTime ? 'bg-[#020f0d]' : 'bg-[#03060e]'} text-white`}>

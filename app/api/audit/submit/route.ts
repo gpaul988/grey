@@ -82,10 +82,34 @@ export async function POST(req: NextRequest) {
             throw new Error('Failed to create audit submission');
         }
 
+        const submissionId = result[0].id;
+
+        // Notify admin panel of new audit submission (non-blocking)
+        try {
+            const adminSecret = process.env.ADMIN_API_SECRET || 'default-secret-key';
+            const baseUrl = process.env.ADMIN_BASE_URL || 'http://localhost:3000';
+            fetch(`${baseUrl}/admin/api/notify-submission`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-admin-secret': adminSecret,
+                },
+                body: JSON.stringify({
+                    action: 'create',
+                    type: 'audit',
+                    id: submissionId,
+                    name: finalName,
+                    email: finalEmail,
+                }),
+            }).catch(err => console.warn('[audit/submit] Failed to notify admin panel:', err.message));
+        } catch (notifyErr) {
+            console.warn('[audit/submit] Could not trigger admin notification:', notifyErr);
+        }
+
         return NextResponse.json(
             {
                 success: true,
-                submissionId: result[0].id,
+                submissionId,
                 message: 'Audit request submitted successfully. Our team will contact you within 24 hours.',
             },
             { status: 201 }

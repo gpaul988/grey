@@ -58,6 +58,28 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        // Notify admin panel of new sale/payment (non-blocking)
+        try {
+            const adminSecret = process.env.ADMIN_API_SECRET || 'default-secret-key';
+            const baseUrl = process.env.ADMIN_BASE_URL || 'http://localhost:3000';
+            fetch(`${baseUrl}/admin/api/notify-submission`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-admin-secret': adminSecret,
+                },
+                body: JSON.stringify({
+                    action: 'create',
+                    type: 'sale',
+                    id: payment.id,
+                    name: 'New Sale',
+                    email: customerId,
+                }),
+            }).catch(err => console.warn('[store/payment/verify] Failed to notify admin panel:', err.message));
+        } catch (notifyErr) {
+            console.warn('[store/payment/verify] Could not trigger admin notification:', notifyErr);
+        }
+
         return NextResponse.json({
             success: true,
             payment: {

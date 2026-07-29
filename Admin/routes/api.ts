@@ -40,17 +40,38 @@ api.post('/notify-submission', (req: Request, res: Response) => {
          
         // Create persistent notification
         if (action === 'create') {
-            const title = type === 'submission' ? 'New Contact Form Submission' 
-                        : type === 'application' ? 'New Career Application'
-                        : type === 'subscription' ? 'New Newsletter Subscription'
-                        : 'New Notification';
+            const typeMap: Record<string, {title: string, message: string}> = {
+                submission: {
+                    title: 'New Contact Form Submission',
+                    message: `New submission from ${name} (${email})`
+                },
+                application: {
+                    title: 'New Career Application',
+                    message: `New application from ${name}`
+                },
+                subscription: {
+                    title: 'New Newsletter Subscription',
+                    message: `New subscriber: ${email}`
+                },
+                audit: {
+                    title: 'New Audit Request',
+                    message: `New audit request from ${name} (${email})`
+                },
+                sale: {
+                    title: 'New Sale',
+                    message: `New order placed for $${name || 'pending'}`
+                },
+                ad_click: {
+                    title: 'Ad Click Recorded',
+                    message: `Ad "${name}" was clicked`
+                }
+            };
+            
+            const notifData = typeMap[type] || { title: 'New Notification', message: `New ${type}` };
+            const title = notifData.title;
+            const message = notifData.message;
              
-            const message = type === 'submission' ? `New submission from ${name} (${email})`
-                          : type === 'application' ? `New application from ${name}`
-                          : type === 'subscription' ? `New subscriber: ${email}`
-                          : `New ${type}`;
-             
-            Notifications.create({
+            const notif = Notifications.create({
                 type: type as any,
                 title,
                 message,
@@ -59,11 +80,15 @@ api.post('/notify-submission', (req: Request, res: Response) => {
                 related_data: JSON.stringify({ name, email }),
                 status: 'unread',
             });
+            
+            // Broadcast notification event to all connected admin tabs
+            const unreadCount = (db.prepare("SELECT COUNT(*) as c FROM notifications WHERE status = 'unread'").get() as any)?.c || 0;
+            broadcast('notification', { action: 'create', title, message, type, unreadCount });
+            
+            // Also broadcast type-specific event for immediate page updates
+            broadcast(type, { action: 'create', type, title, message, id, name, email });
         }
          
-        // Trigger a broadcast to all admin tabs about new submission
-        const data = body.data || {action: 'create', type: 'submission'};
-        broadcast('submission', data);
         broadcastStats();
         res.json({ok: true, message: 'Notification sent'});
     } catch (err) {
@@ -766,7 +791,42 @@ api.post('/faqs/bulk-delete', (req, res) => {
     }
 });
 
-/* ---------------- Ads (DELETE + bulk-delete) ---------------- */
+/* ---------------- Ads (PATCH + DELETE + bulk-delete) ---------------- */
+api.patch('/ads/:id', (req, res) => {
+    try {
+        const id = toInt(req.params.id);
+        const row = Ads.find(id);
+        if (!row) return fail(res, 'Ad not found', 404);
+        
+        const updates: Record<string, unknown> = {};
+        const allowedFields = ['title', 'body', 'image', 'link_url', 'cta_label', 'placement', 'share_caption', 'variant', 'status', 'starts_at', 'ends_at', 'impressions', 'clicks', 'sort_order', 'active'];
+        
+        for (const field of allowedFields) {
+            if (field in req.body) {
+                let value = req.body[field as keyof typeof req.body];
+                // Convert boolean active field to 0/1 for SQLite
+                if (field === 'active' && typeof value === 'boolean') {
+                    value = value ? 1 : 0;
+                }
+                updates[field] = value;
+            }
+        }
+        
+        if (Object.keys(updates).length === 0) {
+            return fail(res, 'No fields to update', 400);
+        }
+        
+        Ads.update(id, updates);
+        logActivity({ ...actor(req), action: 'update', entity: 'ad', entity_id: id });
+        
+        const updated = Ads.find(id);
+        ok(res, updated, 'Ad updated successfully');
+    } catch (err) {
+        console.error('[PATCH /ads/:id] Error:', err instanceof Error ? err.message : String(err));
+        fail(res, 'Failed to update ad: ' + (err instanceof Error ? err.message : 'Unknown error'), 500);
+    }
+});
+
 api.delete('/ads/:id', (req, res) => {
     try {
         const id = toInt(req.params.id);

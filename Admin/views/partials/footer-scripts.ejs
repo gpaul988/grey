@@ -12,6 +12,20 @@
         let es;
         let retryDelay = 3000;
 
+        // Initialize notification badge on page load
+        function initNotificationBadge() {
+            fetch('/api/notifications?status=unread&limit=1')
+                .then(r => r.json())
+                .then(res => {
+                    if (res.ok && res.pagination) {
+                        updateBadge('.noti-icon-badge', res.pagination.total);
+                    }
+                })
+                .catch(() => {
+                    /* ignore fetch errors */
+                });
+        }
+
         function connect() {
             es = new EventSource('/admin/events');
 
@@ -72,6 +86,65 @@
                 }
             });
 
+            // ── New notification ────────────────────────────────────────────────
+            es.addEventListener('notification', (e) => {
+                try {
+                    const d = JSON.parse(e.data);
+                    if (d.action === 'create') {
+                        const {title, message, type} = d;
+                        showToast(title || 'Notification', message || 'You have a new notification', 'ti-bell', type || 'info');
+                        // Update notification badge
+                        updateBadge('.noti-icon-badge', d.unreadCount || 1);
+                        if (location.pathname.includes('/notifications')) {
+                            setTimeout(() => location.reload(), 1500);
+                        }
+                    }
+                } catch { /* ignore */
+                }
+            });
+
+            // ── New audit request ───────────────────────────────────────────────
+            es.addEventListener('audit', (e) => {
+                try {
+                    const d = JSON.parse(e.data);
+                    if (d.action === 'create') {
+                        showToast('New Audit Request', `Audit request from ${d.name || 'Someone'} received.`, 'ti-search-alt', 'info');
+                        if (location.pathname.includes('/audits')) {
+                            setTimeout(() => location.reload(), 1500);
+                        }
+                    }
+                } catch { /* ignore */
+                }
+            });
+
+            // ── New sale/payment ────────────────────────────────────────────────
+            es.addEventListener('sale', (e) => {
+                try {
+                    const d = JSON.parse(e.data);
+                    if (d.action === 'create') {
+                        showToast('New Sale', `New order #${d.id} received.`, 'ti-shopping-cart', 'success');
+                        if (location.pathname.includes('/orders') || location.pathname.includes('/sales')) {
+                            setTimeout(() => location.reload(), 1500);
+                        }
+                    }
+                } catch { /* ignore */
+                }
+            });
+
+            // ── Ad click tracked ────────────────────────────────────────────────
+            es.addEventListener('ad_click', (e) => {
+                try {
+                    const d = JSON.parse(e.data);
+                    if (d.action === 'create') {
+                        showToast('Ad Click', `Ad "${d.name}" was clicked.`, 'ti-pointer', 'warning');
+                        if (location.pathname.includes('/ads')) {
+                            setTimeout(() => location.reload(), 1500);
+                        }
+                    }
+                } catch { /* ignore */
+                }
+            });
+
             es.onerror = () => {
                 es.close();
                 // Exponential back-off: 3s → 6s → 12s → … capped at 60s
@@ -111,6 +184,7 @@
         }
 
         connect();
+        initNotificationBadge();
     })();
 </script>
 
