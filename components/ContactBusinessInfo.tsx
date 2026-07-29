@@ -4,6 +4,7 @@ import {motion} from 'framer-motion';
 import type {Transition} from 'framer-motion';
 import Link from 'next/link';
 import {FaClock, FaBolt} from 'react-icons/fa';
+import { useIsDayTime } from './useIsDayTime';
 
 const fadeUp: { transition: Transition } = {
     transition: {duration: 0.6, ease: [0.22, 1, 0.36, 1]}
@@ -46,6 +47,11 @@ export default function ContactBusinessInfo({
                                                 },
                                                 mapsLink = 'https://www.google.com/maps/place/Grey+InfoTech/@4.8296335,7.0918961,20z/data=!4m10!1m2!2m1!1sgrey+infotech!3m6!1s0x453603b184ab9def:0xb0873632272adac6!8m2!3d4.8296335!4d7.092231!15sCg1ncmV5IGluZm90ZWNokgEQc29mdHdhcmVfY29tcGFueeABAA!16s%2Fg%2F11vr8fcymy?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D'
                                             }: ContactBusinessInfoProps) {
+    const isDayTime = useIsDayTime();
+    const cardBase = `rounded-2xl shadow-lg p-8 md:p-10 border ${isDayTime ? 'bg-white border-gray-100 text-black' : 'bg-gray-900 border-gray-700 text-gray-100'}`;
+    const smallCard = `rounded-2xl p-5 border ${isDayTime ? 'bg-gray-50 border-gray-100 text-gray-700' : 'bg-gray-800 border-gray-700 text-gray-200'}`;
+    const linkCls = `text-teal-600 hover:underline focus:underline ${isDayTime ? '' : 'text-teal-300'}`;
+    return (
     return (
         <motion.aside
             initial={{opacity: 0, y: 28}}
@@ -54,7 +60,7 @@ export default function ContactBusinessInfo({
             {...fadeUp}
             className="order-1 lg:order-2"
         >
-            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg dark:shadow-none p-8 md:p-10 border border-gray-100 dark:border-gray-700">
+            <div className={cardBase}>
                 <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-teal-700">Contact Us</h2>
 
                 <ul className="space-y-4 text-lg">
@@ -62,7 +68,7 @@ export default function ContactBusinessInfo({
                         <strong>Project enquiries:</strong>{' '}
                         <a
                             href={`mailto:${email}`}
-                            className="text-teal-600 hover:underline focus:underline"
+                                                        className={linkCls}
                         >
                             {email}
                         </a>
@@ -71,7 +77,7 @@ export default function ContactBusinessInfo({
                         <strong>Recruitment:</strong>{' '}
                         <a
                             href={`mailto:${emailRecruiting}`}
-                            className="text-teal-600 hover:underline focus:underline"
+                                                        className={linkCls}
                         >
                             {emailRecruiting}
                         </a>
@@ -80,14 +86,14 @@ export default function ContactBusinessInfo({
                         <strong>Partnerships:</strong>{' '}
                         <a
                             href={`mailto:${emailPartnerships}`}
-                            className="text-teal-600 hover:underline focus:underline"
+                                                        className={linkCls}
                         >
                             {emailPartnerships}
                         </a>
                     </li>
                     <li>
                         <strong>Call:</strong>{' '}
-                        <a href={`tel:${phone}`} className="text-teal-600 hover:underline focus:underline">
+                        <a href={`tel:${phone}`} className={linkCls}>
                             {phone.replace('+', '')}
                         </a>
                     </li>
@@ -95,7 +101,7 @@ export default function ContactBusinessInfo({
 
                 <div className="mt-8">
                     <h3 className="font-bold text-xl mb-3 text-teal-700">Office</h3>
-                    <address className="not-italic text-base text-gray-700 dark:text-gray-200 leading-relaxed">
+                    <address className={`not-italic text-base ${isDayTime ? 'text-gray-700' : 'text-gray-200'} leading-relaxed`>
                         {companyName} <br/>
                         {address.line1} <br/>
                         {address.line2} <br/>
@@ -117,24 +123,24 @@ export default function ContactBusinessInfo({
 
                 {/* Business Hours and Response Time */}
                 <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="rounded-2xl bg-gray-50 dark:bg-gray-800 p-5 border border-gray-100 dark:border-gray-700">
+                    <div className={smallCard}>
                         <div className="flex items-center gap-3 mb-2 text-teal-700">
                             <FaClock/>
                             <h4 className="font-bold">Business Hours</h4>
                         </div>
-                        <p className="text-gray-700 dark:text-gray-200 text-sm leading-relaxed">
+                        <p className="text-sm leading-relaxed">
                             Monday - Saturday
                             <br/>
                             8:00 AM - 5:00 PM
                         </p>
                     </div>
 
-                    <div className="rounded-2xl bg-gray-50 dark:bg-gray-800 p-5 border border-gray-100 dark:border-gray-700">
+                    <div className={smallCard}>
                         <div className="flex items-center gap-3 mb-2 text-teal-700">
                             <FaBolt/>
                             <h4 className="font-bold">Response Time</h4>
                         </div>
-                        <p className="text-gray-700 dark:text-gray-200 text-sm leading-relaxed">
+                        <p className="text-sm leading-relaxed">
                             Usually within 1 business hour
                         </p>
                     </div>
