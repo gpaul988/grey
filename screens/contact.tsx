@@ -26,7 +26,7 @@ const Contact: React.FC = () => {
     const pageStyle = ({['--page-color']: pageColor} as unknown) as React.CSSProperties;
 
     const quickFacts = [
-        {icon: <Clock className="w-5 h-5"/>, label: 'Response Time', value: '< 1 hours'},
+        {icon: <Clock className="w-5 h-5"/>, label: 'Response Time', value: '< 1 hour'},
         {icon: <MapPin className="w-5 h-5"/>, label: 'HQ Location', value: 'Port Harcourt, NG'},
         {icon: <Zap className="w-5 h-5"/>, label: 'Project Start', value: 'Within 1 week'},
     ];

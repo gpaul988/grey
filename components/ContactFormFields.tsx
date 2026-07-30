@@ -1,5 +1,6 @@
 'use client';
 import React, {useState} from 'react';
+import { useIsDayTime } from './useIsDayTime';
 import {submitNotification, emailValid, boolString} from '@/lib/forms/api';
 
 const FORM_TYPE = 'ContactFormFields';
@@ -149,12 +150,16 @@ export default function ContactFormFields() {
         }
     };
 
-    const inputCls = 'w-full border p-2 rounded text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600';
+    const isDayTime = useIsDayTime();
+    const accentCls = isDayTime ? 'text-teal-700' : 'text-teal-300';
+    const inputCls = `w-full border p-2 rounded text-sm ${isDayTime ? 'bg-white text-gray-900 border-gray-300' : 'bg-gray-800 text-gray-100 border-gray-600'}`;
+    const cardCls = isDayTime ? 'space-y-4 p-6 bg-white rounded-md shadow border border-gray-100' : 'space-y-4 p-6 bg-gray-900 rounded-md shadow dark:shadow-none border border-gray-700';
+    const btnCls = `px-4 py-2 rounded text-sm w-full text-white ${isDayTime ? 'bg-teal-600 hover:bg-teal-700' : 'bg-teal-500 hover:bg-teal-600'}`;
     const selectOptions = (arr: string[]) => arr.map(o => <option key={o} value={o}>{o}</option>);
 
     return (
-        <form onSubmit={submit} className="space-y-4 p-6 bg-white dark:bg-gray-900 rounded-md shadow dark:shadow-none border border-gray-100 dark:border-gray-700">
-            <h2 className="font-semibold text-lg">Contact Form</h2>
+        <form onSubmit={submit} className={cardCls}>
+            <h2 className={`font-semibold text-lg ${accentCls}`}>Contact Form</h2>
             <div className="grid md:grid-cols-2 gap-4">
                 <input className={inputCls} placeholder="Name *" value={form.name}
                        onChange={e => setField('name', e.target.value)}/>
@@ -236,7 +241,7 @@ export default function ContactFormFields() {
                 <input type="checkbox" checked={form.privacyPolicy}
                        onChange={e => setField('privacyPolicy', e.target.checked)}/> Accept privacy policy *
             </label>
-            <button disabled={submitting} className="bg-teal-600 text-white px-4 py-2 rounded text-sm w-full">
+            <button disabled={submitting} className={btnCls}>
                 {submitting ? 'Submitting...' : 'Submit'}
             </button>
             {status.kind &&

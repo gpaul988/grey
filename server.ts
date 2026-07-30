@@ -21,6 +21,7 @@ import portalRoutes from './Admin/routes/portal';
 import {dashboardStats} from './Admin/models';
 import {
     securityHeaders,
+    cspMiddleware,
     globalLimiter,
     authLimiter,
     formLimiter,
@@ -61,8 +62,10 @@ app.set('layout', 'partials/layout-vertical');
 app.use(expressLayouts);
 
 // --- Security layer (audit C3, C4, C5) ---------------------------------------
-// Security headers + CSP on every response.
+// Security headers on every response.
 app.use(securityHeaders);
+// CSP - handled separately so it can be dev-friendly
+app.use(cspMiddleware);
 // Global flood protection (static assets are skipped inside the limiter).
 app.use(globalLimiter);
 // Strict limiters on the sensitive auth/form surfaces.

@@ -37,9 +37,6 @@ export default function AIChat() {
     const scrollRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    // Voice control removed
-
-
     useEffect(() => {
         scrollRef.current?.scrollTo({top: scrollRef.current.scrollHeight, behavior: 'smooth'});
     }, [messages, open]);
