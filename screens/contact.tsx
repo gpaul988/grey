@@ -58,7 +58,7 @@ const Contact: React.FC = () => {
 
                     <div className="relative z-10 px-8 md:px-12 lg:px-16 pb-12 pt-24 lg:pt-0">
                         <FxReveal>
-                            <FxChip day={false} className="mb-6" style={{color: 'var(--page-color)'}}>Get in Touch</FxChip>
+                            <FxChip day={false} className="mb-6" colorScheme="page-accent">Get in Touch</FxChip>
                             <FxGlitchText tag="h1" className="gx-hero-title text-white mb-6">
                                 Let&apos;s Build<br/>
                                 <span className="gx-gradient-text" style={{color: 'var(--page-color)'}}>Something Great</span>
@@ -111,7 +111,7 @@ const Contact: React.FC = () => {
                 <div
                     className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
                     <div>
-                        <FxChip day={isDayTime} style={{color: 'var(--page-color)'}}>GET IN TOUCH</FxChip>
+                        <FxChip day={isDayTime} colorScheme="page-accent">GET IN TOUCH</FxChip>
                     </div>
                     <div className="lg:-ml-[19em]">
                         <FxReveal>
@@ -138,7 +138,7 @@ const Contact: React.FC = () => {
                 className={`relative z-10 py-16 px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${dark ? 'bg-[#040b14]' : 'bg-gray-50'}`}>
                 <div className="max-w-[90rem] mx-auto">
                     <FxReveal className="mb-10">
-                        <FxChip day={isDayTime} className="mb-4" style={{color: 'var(--page-color)'}}>Fast Channels</FxChip>
+                        <FxChip day={isDayTime} className="mb-4" colorScheme="page-accent">Fast Channels</FxChip>
                         <h2 className={`text-[1.8em] md:text-[2.2em] font-[700] tracking-tight ${dark ? 'text-white' : 'text-gray-900'}`}>
                             Reach us your way
                         </h2>
@@ -153,7 +153,7 @@ const Contact: React.FC = () => {
                 <FxBackground day={isDayTime} grid={false} aurora={true} className="opacity-15"/>
                 <div className="max-w-[90rem] mx-auto relative z-10">
                     <FxReveal className="mb-12">
-                        <FxChip day={isDayTime} className="mb-4" style={{color: 'var(--page-color)'}}>Send a Message</FxChip>
+                        <FxChip day={isDayTime} className="mb-4" colorScheme="page-accent">Send a Message</FxChip>
                         <h2 className={`text-[1.8em] md:text-[2.4em] font-[700] tracking-tight ${dark ? 'text-white' : 'text-gray-900'}`}>
                             Drop us a line -<br/>
                             <span className="gx-gradient-text" style={{color: 'var(--page-color)'}}>we respond within hours.</span>
@@ -168,15 +168,19 @@ const Contact: React.FC = () => {
                             viewport={{once: true, amount: 0.2}}
                             transition={{duration: 0.6, ease: [0.22, 1, 0.36, 1]}}
                         >
-                            <FxHoloCard day={isDayTime} className="p-8" style={{borderLeft: `4px solid var(--page-color)`, paddingLeft: '1.25rem'}}>
-                                <ContactFormFields/>
-                            </FxHoloCard>
+                            <div style={{borderLeft: `4px solid var(--page-color)`, paddingLeft: '1.25rem'}}>
+                                <FxHoloCard day={isDayTime} className="p-8">
+                                    <ContactFormFields/>
+                                </FxHoloCard>
+                            </div>
                         </motion.div>
 
                         {/* Business info */}
-                        <FxHoloCard day={isDayTime} className="p-8" style={{borderLeft: `4px solid var(--page-color)`, paddingLeft: '1.25rem'}}>
-                            <ContactBusinessInfo/>
-                        </FxHoloCard>
+                        <div style={{borderLeft: `4px solid var(--page-color)`, paddingLeft: '1.25rem'}}>
+                            <FxHoloCard day={isDayTime} className="p-8">
+                                <ContactBusinessInfo/>
+                            </FxHoloCard>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -187,7 +191,7 @@ const Contact: React.FC = () => {
                 <FxBackground day={isDayTime} grid aurora={false} className="opacity-20"/>
                 <div className="relative z-10 max-w-[90rem] mx-auto">
                     <FxReveal className="mb-10">
-                        <FxChip day={isDayTime} className="mb-4" style={{color: 'var(--page-color)'}}>AI-Powered</FxChip>
+                        <FxChip day={isDayTime} className="mb-4" colorScheme="page-accent">AI-Powered</FxChip>
                         <h2 className={`text-[1.8em] md:text-[2.4em] font-[700] tracking-tight ${dark ? 'text-white' : 'text-gray-900'}`}>
                             Project Cost <span className="gx-gradient-text" style={{color: 'var(--page-color)'}}>Estimator</span>
                         </h2>
