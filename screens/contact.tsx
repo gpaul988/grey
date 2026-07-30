@@ -41,14 +41,14 @@ const Contact: React.FC = () => {
 
     return (
         <div
-            className={`min-h-screen transition-colors duration-500 ${dark ? 'text-white' : 'text-black'}`}
+            className={`min-h-screen transition-colors duration-500 ${dark ? 'bg-[#040b14] text-white' : 'bg-white text-black'}`}
             style={{['--page-color' as any]: pageColor}}>
 
             {/*  -  -  Split-screen Hero  -  -  */}
-            <section className={`relative overflow-hidden min-h-[78vh] flex flex-col lg:flex-row`} style={{backgroundColor: 'var(--page-color)'}}>
+            <section className={`relative overflow-hidden min-h-[78vh] flex flex-col lg:flex-row`}>
                 {/* Left panel  - dark FX side */}
                 <div
-                    className="relative flex-1 min-h-[50vh] lg:min-h-full flex flex-col justify-end bg-transparent overflow-hidden">
+                    className="relative flex-1 min-h-[50vh] lg:min-h-full flex flex-col justify-end bg-[#020c18] overflow-hidden">
                     <FxBackground day={false} grid aurora className="opacity-70"/>
                     <div className="gx-scanline pointer-events-none"/>
                     <div className="gx-hero-scan"/>
@@ -85,7 +85,7 @@ const Contact: React.FC = () => {
 
                 {/* Right panel  - terminal */}
                 <div
-                    className={`relative flex-1 flex flex-col justify-center items-center px-8 md:px-12 lg:px-14 py-16 bg-transparent overflow-hidden`}>
+                    className={`relative flex-1 flex flex-col justify-center items-center px-8 md:px-12 lg:px-14 py-16 ${dark ? 'bg-[#050e1a]' : 'bg-gray-900'} overflow-hidden`}>
                     {/* Subtle neon border */}
                     <div
                         className="absolute left-0 top-[20%] bottom-[20%] w-px bg-gradient-to-b from-transparent via-teal-500/50 to-transparent"/>
@@ -105,8 +105,7 @@ const Contact: React.FC = () => {
 
             {/*  -  -  Intro  -  -  */}
             <section
-                className={`pt-16 transition-colors duration-500 ${isDayTime ? 'text-black' : 'text-white'}`}
-                style={{backgroundColor: 'var(--page-color)'}}
+                className={`pt-16 transition-colors duration-500 ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}
             >
                 <FxBackground day={isDayTime}/>
                 <div
@@ -136,8 +135,7 @@ const Contact: React.FC = () => {
 
             {/*  -  -  Quick Actions  -  -  */}
             <section
-                className={`relative z-10 py-16 px-4 sm:px-6 md:px-10 lg:px-[4.5em]`}
-                style={{backgroundColor: 'var(--page-color)'}}>
+                className={`relative z-10 py-16 px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${dark ? 'bg-[#040b14]' : 'bg-gray-50'}`}>
                 <div className="max-w-[90rem] mx-auto">
                     <FxReveal className="mb-10">
                         <FxChip day={isDayTime} className="mb-4" style={{color: 'var(--page-color)'}}>Fast Channels</FxChip>
@@ -151,8 +149,7 @@ const Contact: React.FC = () => {
 
             {/*  -  -  Contact Form + Business Info  -  -  */}
             <section
-                className={`relative z-10 py-20 px-4 sm:px-6 md:px-10 lg:px-[4.5em]`}
-                style={{backgroundColor: 'var(--page-color)'}}>
+                className={`relative z-10 py-20 px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${dark ? 'bg-[#020c18]' : 'bg-white'}`}>
                 <FxBackground day={isDayTime} grid={false} aurora={true} className="opacity-15"/>
                 <div className="max-w-[90rem] mx-auto relative z-10">
                     <FxReveal className="mb-12">
@@ -186,8 +183,7 @@ const Contact: React.FC = () => {
 
             {/*  -  -  AI Estimator  -  -  */}
             <section
-                className={`relative py-20 px-4 sm:px-6 md:px-10 lg:px-[4.5em] overflow-hidden`}
-                style={{backgroundColor: 'var(--page-color)'}}>
+                className={`relative py-20 px-4 sm:px-6 md:px-10 lg:px-[4.5em] overflow-hidden ${dark ? 'bg-[#040b14]' : 'bg-gray-50'}`}>
                 <FxBackground day={isDayTime} grid aurora={false} className="opacity-20"/>
                 <div className="relative z-10 max-w-[90rem] mx-auto">
                     <FxReveal className="mb-10">
@@ -207,8 +203,7 @@ const Contact: React.FC = () => {
 
             {/*  -  -  Map  -  -  */}
             <section
-                className={`relative py-16 px-4 sm:px-6 md:px-10 lg:px-[4.5em]`}
-                style={{backgroundColor: 'var(--page-color)'}}>
+                className={`relative py-16 px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${dark ? 'bg-[#020c18]' : 'bg-white'}`}>
                 <div className="max-w-[90rem] mx-auto">
                     <FxReveal className="mb-8">
                         <div className="flex items-center gap-3 mb-2">
