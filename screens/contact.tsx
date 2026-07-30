@@ -23,6 +23,7 @@ const Contact: React.FC = () => {
     const isDayTime = useIsDayTime();
     const dark = !isDayTime;
     const pageColor = '#7C3AED';
+    const pageStyle = ({['--page-color']: pageColor} as unknown) as React.CSSProperties;
 
     const quickFacts = [
         {icon: <Clock className="w-5 h-5"/>, label: 'Response Time', value: '< 1 hours'},
@@ -42,7 +43,7 @@ const Contact: React.FC = () => {
     return (
         <div
             className={`contact-page min-h-screen transition-colors duration-500 ${dark ? 'bg-[#040b14] text-white' : 'bg-white text-black'}`}
-            style={{['--page-color' as any]: pageColor}}>
+            style={pageStyle}>
 
             {/*  -  -  Split-screen Hero  -  -  */}
             <section className={`relative overflow-hidden min-h-[78vh] flex flex-col lg:flex-row`}>
