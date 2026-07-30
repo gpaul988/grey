@@ -58,10 +58,10 @@ const Contact: React.FC = () => {
 
                     <div className="relative z-10 px-8 md:px-12 lg:px-16 pb-12 pt-24 lg:pt-0">
                         <FxReveal>
-                            <FxChip day={false} className="mb-6">Get in Touch</FxChip>
+                            <FxChip day={false} className="mb-6" style={{color: 'var(--page-color)'}}>Get in Touch</FxChip>
                             <FxGlitchText tag="h1" className="gx-hero-title text-white mb-6">
                                 Let&apos;s Build<br/>
-                                <span className="gx-gradient-text">Something Great</span>
+                                <span className="gx-gradient-text" style={{color: 'var(--page-color)'}}>Something Great</span>
                             </FxGlitchText>
                             <p className="text-white/60 text-[0.95em] leading-relaxed max-w-sm mb-8">
                                 Whether you have a project in mind, a business challenge to solve, or just want to
@@ -70,7 +70,7 @@ const Contact: React.FC = () => {
                             <div className="space-y-3">
                                 {quickFacts.map((f, i) => (
                                     <div key={i} className="flex items-center gap-4">
-                                        <div className="text-teal-400">{f.icon}</div>
+                                        <div style={{color: 'var(--page-color)'}}>{f.icon}</div>
                                         <div>
                                             <div
                                                 className="text-white/40 text-[0.65em] uppercase tracking-wider">{f.label}</div>
@@ -112,12 +112,12 @@ const Contact: React.FC = () => {
                 <div
                     className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
                     <div>
-                        <FxChip day={isDayTime}>GET IN TOUCH</FxChip>
+                        <FxChip day={isDayTime} style={{color: 'var(--page-color)'}}>GET IN TOUCH</FxChip>
                     </div>
                     <div className="lg:-ml-[19em]">
                         <FxReveal>
                             <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] lg:mt-[0.01em] rounded-none lg:tracking-normal tracking-tight leading-[1.3] lg:pb-10 pb-6">
-                                Let's<br/><span className="gx-gradient-text">Connect</span>
+                                Let's<br/><span className="gx-gradient-text" style={{color: 'var(--page-color)'}}>Connect</span>
                             </h3>
                         </FxReveal>
                         <FxReveal delay={0.1}>
@@ -140,7 +140,7 @@ const Contact: React.FC = () => {
                 style={{backgroundColor: 'var(--page-color)'}}>
                 <div className="max-w-[90rem] mx-auto">
                     <FxReveal className="mb-10">
-                        <FxChip day={isDayTime} className="mb-4">Fast Channels</FxChip>
+                        <FxChip day={isDayTime} className="mb-4" style={{color: 'var(--page-color)'}}>Fast Channels</FxChip>
                         <h2 className={`text-[1.8em] md:text-[2.2em] font-[700] tracking-tight ${dark ? 'text-white' : 'text-gray-900'}`}>
                             Reach us your way
                         </h2>
@@ -156,10 +156,10 @@ const Contact: React.FC = () => {
                 <FxBackground day={isDayTime} grid={false} aurora={true} className="opacity-15"/>
                 <div className="max-w-[90rem] mx-auto relative z-10">
                     <FxReveal className="mb-12">
-                        <FxChip day={isDayTime} className="mb-4">Send a Message</FxChip>
+                        <FxChip day={isDayTime} className="mb-4" style={{color: 'var(--page-color)'}}>Send a Message</FxChip>
                         <h2 className={`text-[1.8em] md:text-[2.4em] font-[700] tracking-tight ${dark ? 'text-white' : 'text-gray-900'}`}>
                             Drop us a line -<br/>
-                            <span className="gx-gradient-text">we respond within hours.</span>
+                            <span className="gx-gradient-text" style={{color: 'var(--page-color)'}}>we respond within hours.</span>
                         </h2>
                     </FxReveal>
 
@@ -191,9 +191,9 @@ const Contact: React.FC = () => {
                 <FxBackground day={isDayTime} grid aurora={false} className="opacity-20"/>
                 <div className="relative z-10 max-w-[90rem] mx-auto">
                     <FxReveal className="mb-10">
-                        <FxChip day={isDayTime} className="mb-4">AI-Powered</FxChip>
+                        <FxChip day={isDayTime} className="mb-4" style={{color: 'var(--page-color)'}}>AI-Powered</FxChip>
                         <h2 className={`text-[1.8em] md:text-[2.4em] font-[700] tracking-tight ${dark ? 'text-white' : 'text-gray-900'}`}>
-                            Project Cost <span className="gx-gradient-text">Estimator</span>
+                            Project Cost <span className="gx-gradient-text" style={{color: 'var(--page-color)'}}>Estimator</span>
                         </h2>
                         <p className={`text-[0.9em] mt-3 ${dark ? 'text-gray-400' : 'text-gray-500'}`}>
                             Get an instant AI-generated ballpark for your project before we even talk.
@@ -212,7 +212,7 @@ const Contact: React.FC = () => {
                 <div className="max-w-[90rem] mx-auto">
                     <FxReveal className="mb-8">
                         <div className="flex items-center gap-3 mb-2">
-                            <MapPin className={`w-5 h-5 ${dark ? 'text-teal-400' : 'text-teal-600'}`}/>
+                            <MapPin className="w-5 h-5" style={{color: 'var(--page-color)'}}/>
                             <h3 className={`text-[1.2em] font-[700] ${dark ? 'text-white' : 'text-gray-900'}`}>
                                 Find Us - Port Harcourt, Nigeria
                             </h3>
