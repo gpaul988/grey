@@ -168,15 +168,15 @@ const Contact: React.FC = () => {
                             viewport={{once: true, amount: 0.2}}
                             transition={{duration: 0.6, ease: [0.22, 1, 0.36, 1]}}
                         >
-                            <FxHoloCard day={isDayTime} className="p-8">
+                            <FxHoloCard day={isDayTime} className="p-8" style={{borderLeft: `4px solid var(--page-color)`, paddingLeft: '1.25rem'}}>
                                 <ContactFormFields/>
                             </FxHoloCard>
                         </motion.div>
 
                         {/* Business info */}
-                        <div>
+                        <FxHoloCard day={isDayTime} className="p-8" style={{borderLeft: `4px solid var(--page-color)`, paddingLeft: '1.25rem'}}>
                             <ContactBusinessInfo/>
-                        </div>
+                        </FxHoloCard>
                     </div>
                 </div>
             </section>
