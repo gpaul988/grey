@@ -12,7 +12,7 @@ export default function TawkOpenButton() {
     const [available, setAvailable] = useState(false);
 
     useEffect(() => {
-        const check = () => setAvailable(Boolean(window?.Tawk_API));
+        const check = () => setAvailable(Boolean(window?.Tawk_API) || process.env.NODE_ENV === 'development');
         check();
         const id = setInterval(check, 1000);
         return () => clearInterval(id);
@@ -22,11 +22,22 @@ export default function TawkOpenButton() {
 
     const openChat = () => {
         try {
-            window.Tawk_API?.maximize?.();
-            window.Tawk_API?.showWidget?.();
-            window.Tawk_API?.toggle?.();
+            if (window?.Tawk_API) {
+                window.Tawk_API?.maximize?.();
+                window.Tawk_API?.showWidget?.();
+                window.Tawk_API?.toggle?.();
+                return;
+            }
         } catch (e) {
             // ignore
+        }
+
+        // Fallback: open the tawk embed URL in a new tab (useful in dev/when launcher hidden)
+        const prop = process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID;
+        const wid = process.env.NEXT_PUBLIC_TAWK_WIDGET_ID;
+        if (prop && wid) {
+            const url = `https://embed.tawk.to/${prop}/${wid}`;
+            window.open(url, '_blank', 'noopener');
         }
     };
 
