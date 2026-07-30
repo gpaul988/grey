@@ -41,7 +41,7 @@ const Contact: React.FC = () => {
 
     return (
         <div
-            className={`min-h-screen transition-colors duration-500 ${dark ? 'bg-[#040b14] text-white' : 'bg-white text-black'}`}
+            className={`contact-page min-h-screen transition-colors duration-500 ${dark ? 'bg-[#040b14] text-white' : 'bg-white text-black'}`}
             style={{['--page-color' as any]: pageColor}}>
 
             {/*  -  -  Split-screen Hero  -  -  */}

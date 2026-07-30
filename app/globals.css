@@ -177,6 +177,48 @@ header {
 /* css */
 /* Add these rules (append to ../app/globals.css) */
 
+/* Contact page scoped accent rules */
+.contact-page {
+    --page-color: var(--page-accent);
+}
+
+.contact-page .gx-gradient-text,
+.contact-page .fx-chip,
+.contact-page .gx-hero-title,
+.contact-page h1, .contact-page h2, .contact-page h3, .contact-page h4 {
+    color: var(--page-color) !important;
+}
+
+.contact-page button,
+.contact-page .fx-button,
+.contact-page .btn {
+    background-color: var(--page-color) !important;
+    border-color: var(--page-color) !important;
+    color: white !important;
+}
+
+/* Keep ghost/outline variants readable */
+.contact-page .fx-button[variant="ghost"], .contact-page .fx-button.variant-ghost,
+.contact-page .btn.ghost {
+    background: transparent !important;
+    color: var(--page-color) !important;
+    border-color: var(--page-color) !important;
+}
+
+.contact-page .icon,
+.contact-page .map-pin,
+.contact-page svg {
+    color: var(--page-color) !important;
+    fill: currentColor !important;
+}
+
+.contact-page .fx-holo-card,
+.contact-page .holo-card {
+    --accent: var(--page-color);
+    box-shadow: 0 4px 20px rgba(var(--page-accent-rgb), 0.08);
+}
+
+
 @keyframes blob {
     0%, 100% {
         transform: translate(0, 0) scale(1);
