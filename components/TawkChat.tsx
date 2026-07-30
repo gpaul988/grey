@@ -35,8 +35,7 @@ export default function TawkChat({ propertyId, widgetId, offsetPx = 80 }: TawkCh
                     .join(' ');
                 return (
                     (args.length === 1 && args[0] === true) ||
-                    /Tawk\/Logger|i18next|Tawk_API|\$_Tawk|forEach|parseVisitorName|setVisitorInformation/i.test(joined) ||
-                    (typeof args[0] === 'string' && args[0].includes('is not a function'))
+                    /Tawk\/Logger|i18next|Tawk_API|\$_Tawk|forEach|parseVisitorName|setVisitorInformation|is not a function/i.test(joined)
                 );
             } catch { return false; }
         };
@@ -56,24 +55,39 @@ export default function TawkChat({ propertyId, widgetId, offsetPx = 80 }: TawkCh
         window.addEventListener('unhandledrejection', onRejection, true);
         window.addEventListener('error', onError, true);
 
+        //  -  -  Wrap window.onerror to catch unhandled exceptions from Tawk  -  -  -  -  -  -  -  -  -  -  -  
+        const originalOnError = window.onerror;
+        window.onerror = function(msg, url, line, col, err) {
+            const errMsg = String(msg ?? (err as {message?: string})?.message ?? '');
+            if (/tawk|twk|i18next|Tawk_API|\$_Tawk|is not a function/i.test(errMsg)) {
+                return true; // Suppress
+            }
+            return originalOnError?.call(window, msg, url, line, col, err) ?? false;
+        };
+
         //  -  -  Pre-init Tawk globals  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
         window.Tawk_API       = window.Tawk_API ?? {};
         window.Tawk_LoadStart = window.Tawk_LoadStart ?? new Date();
 
         //  -  -  Nudge launcher above FAB once loaded  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
         const nudge = () => {
-            document
-                .querySelectorAll<HTMLElement>('[id^="tawk-"], iframe[src*="tawk.to"]')
-                .forEach(el => {
-                    try {
-                        const rect = el.getBoundingClientRect();
-                        if (rect && rect.height < 120) {
-                            el.style.setProperty('bottom', `${offsetPx}px`, 'important');
+            try {
+                document
+                    .querySelectorAll<HTMLElement>('[id^="tawk-"], iframe[src*="tawk.to"]')
+                    .forEach(el => {
+                        try {
+                            if (!el) return;
+                            const rect = el.getBoundingClientRect();
+                            if (rect && rect.height < 120) {
+                                el.style.setProperty('bottom', `${offsetPx}px`, 'important');
+                            }
+                        } catch (e) {
+                            // ignore elements not fully available yet
                         }
-                    } catch (e) {
-                        // ignore elements not fully available yet
-                    }
-                });
+                    });
+            } catch (e) {
+                // ignore errors during nudge
+            }
         };
 
         const prevOnLoad = window.Tawk_API.onLoad as (() => void) | undefined;
@@ -89,25 +103,20 @@ export default function TawkChat({ propertyId, widgetId, offsetPx = 80 }: TawkCh
         // Using DOM injection (not Next/Script) so it always fires regardless
         // of Turbopack's script scheduling quirks.
         if (!document.getElementById('tawkto-embed')) {
-            console.info('[TawkChat] Injecting tawk.to script', {propertyId, widgetId});
             const s = document.createElement('script');
             s.id       = 'tawkto-embed';
             s.async    = true;
             s.src      = `https://embed.tawk.to/${propertyId}/${widgetId}`;
             s.charset  = 'UTF-8';
+            s.setAttribute('crossorigin', '*');
             document.head.appendChild(s);
-
-            // After 10s warn if embed didn't appear
-            setTimeout(() => {
-                const found = document.querySelector('[id^="tawk-"], iframe[src*="tawk.to"]');
-                if (!found) console.warn('[TawkChat] tawk embed not detected after 10s - check NEXT_PUBLIC_TAWK_* env vars and network');
-            }, 10000);
         }
 
         return () => {
             observer.disconnect();
             window.removeEventListener('unhandledrejection', onRejection, true);
             window.removeEventListener('error', onError, true);
+            window.onerror = originalOnError;
             console.error = originalError;
             console.warn  = originalWarn;
         };

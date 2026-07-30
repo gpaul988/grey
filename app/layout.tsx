@@ -12,7 +12,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import React from "react";
 import TawkChat from "@/components/TawkChat";
-import TawkOpenButton from "@/components/TawkOpenButton";
 import {OrganizationSchema, WebSiteSchema} from "@/components/StructuredData";
 import {themeInitScript, ThemeProvider} from "@/components/ThemeProvider";
 import AIChat from "@/components/AIChat";
@@ -224,7 +223,6 @@ export default async function RootLayout({
         )}
         <AIChat/>
         <CookieConsent/>
-        <TawkOpenButton/>
         <FloatingButton/>
         </ThemeProvider>
         </body>

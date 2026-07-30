@@ -189,7 +189,7 @@ const Healthcare = () => {
     const [isDesktop, setIsDesktop] = useState(false);
     // x-scroller
     const targetRef = useRef<HTMLDivElement | null>(null);
-    const {scrollYProgress} = useScroll({target: targetRef.current ? targetRef : undefined});
+    const {scrollYProgress} = useScroll({target: targetRef});
     const x = useTransform(scrollYProgress, [0, 1], ["0%", "-83%"]);
 
     // Floating button visibility hook

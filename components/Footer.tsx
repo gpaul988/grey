@@ -216,7 +216,8 @@ const Footer = () => {
                 UX/UI design, and digital strategy. From startups in Port Harcourt to established corporations across
                 Nigeria and abroad, we provide scalable solutions that enhance digital presence, improve customer
                 engagement, and drive measurable business growth.<br/><br/>
-                Our reputation is built on helping organizations -whether local SMEs in Rivers State or international B2B
+                Our reputation is built on helping organizations -whether local SMEs in Rivers State or international
+                B2B
                 and B2C clients -navigate digital transformation. For startups, we build minimum viable products (MVPs)
                 and support them from ideation to market launch, while for established companies, we deliver
                 enterprise-level platforms and digital strategies that create lasting competitive advantage.</p><br/>
@@ -282,7 +283,7 @@ const Footer = () => {
             {/* Futuristic animated accent bar (added) */}
             <div className="grey-accent-bar" aria-hidden="true"/>
             <footer
-                            className="relative z-20 overflow-hidden bg-black/75 text-white min-h-auto flex flex-col mx-auto w-full px-6 sm:px-12 md:px-20 lg:px-[4.6em]">
+                className="relative z-20 overflow-hidden bg-black/75 text-white min-h-auto flex flex-col mx-auto w-full px-6 sm:px-12 md:px-20 lg:px-[4.6em]">
                 {/* Holographic mesh blobs + neon scan (decorative, behind content) */}
                 <span className="grey-mesh m1" aria-hidden="true"/>
                 <span className="grey-mesh m2" aria-hidden="true"/>
@@ -444,7 +445,7 @@ const Footer = () => {
                                       className="grey-social text-gray-400 hover:text-white transition-colors">
                                     <FaTwitter size={20}/>
                                 </Link>
-                                <Link href="https://www.linkedin.com/company/greyinfotechltd"
+                                <Link href="https://www.linkedin.com/company/grey-infotech-limited"
                                       className="grey-social text-gray-400 hover:text-white transition-colors">
                                     <FaLinkedin size={20}/>
                                 </Link>

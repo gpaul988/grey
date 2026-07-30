@@ -12,7 +12,7 @@ const FINTECH_PROCESSES = [
     label: 'Discovery',
     title: 'The Discovery Phase',
     tags: ['Workshops', 'Competitors Analysis', 'Flow Diagrams'],
-    image: '/assets/fin/stages/discovery.jpg',
+    image: '/assets/fin/stages/The%20Discovery%20Phase.jpg',
     color: '#00d9ff',
     accent: 'from-cyan-400/20 to-blue-600/10',
     description:
@@ -23,7 +23,7 @@ const FINTECH_PROCESSES = [
     label: 'Engineering',
     title: 'Dedicated FinTech Engineers',
     tags: ['Project Scoping', 'Agile Development', 'Compliance Checks'],
-    image: '/assets/fin/stages/engineers.jpg',
+    image: '/assets/fin/stages/Dedicated%20FinTech%20Engineers.jpg',
     color: '#7c3aed',
     accent: 'from-violet-400/20 to-purple-600/10',
     description:
@@ -34,7 +34,7 @@ const FINTECH_PROCESSES = [
     label: 'Security',
     title: 'Security & Regulatory Compliance',
     tags: ['Risk Assessment', 'Regulatory Alignment', 'Secure Development'],
-    image: '/assets/fin/stages/security.jpg',
+    image: '/assets/fin/stages/Security%20%26%20Regulatory%20Compliance.jpg',
     color: '#f59e0b',
     accent: 'from-amber-400/20 to-orange-600/10',
     description:
@@ -45,7 +45,7 @@ const FINTECH_PROCESSES = [
     label: 'DevOps',
     title: 'DevOps & Infrastructure',
     tags: ['CI/CD', 'Infrastructure as Code', 'Monitoring & Optimization'],
-    image: '/assets/fin/stages/devops.jpg',
+    image: '/assets/fin/stages/DevOps.jpg',
     color: '#10b981',
     accent: 'from-green-400/20 to-emerald-600/10',
     description:
@@ -56,7 +56,7 @@ const FINTECH_PROCESSES = [
     label: 'Quality Assurance',
     title: 'Quality Assurance',
     tags: ['Initial Audit', 'Performance Testing', 'Automated Testing'],
-    image: '/assets/fin/stages/qa.jpg',
+    image: '/assets/fin/stages/Quality%20Assurance.jpg',
     color: '#ec4899',
     accent: 'from-pink-400/20 to-rose-600/10',
     description:
@@ -67,7 +67,7 @@ const FINTECH_PROCESSES = [
     label: 'Product Development',
     title: 'Product Development & Launch',
     tags: ['Requirements Gathering', 'UI/UX Design', 'Agile Development'],
-    image: '/assets/fin/stages/product.jpg',
+    image: '/assets/fin/stages/Product%20Development.jpg',
     color: '#0ea5e9',
     accent: 'from-sky-400/20 to-blue-600/10',
     description:

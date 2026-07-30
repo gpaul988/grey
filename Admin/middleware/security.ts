@@ -107,53 +107,28 @@ export function requireSessionSecret(name: string, _devFallback?: string): strin
  * Next.js bootstrap. Tightened but functional.
  */
 export const securityHeaders = helmet({
-    contentSecurityPolicy: {
-        useDefaults: true,
-        directives: {
-            'default-src': ["'self'"],
-            'script-src': [
-                "'self'",
-                "'unsafe-inline'", // Next.js inline bootstrap + EJS admin
-                "'unsafe-eval'",   // dev only; Next strips in prod build
-                'blob:',           // HMR (Hot Module Replacement) in development
-                'https://www.google.com',
-                'https://www.gstatic.com',
-                'https://embed.tawk.to',
-                'https://*.tawk.to',
-                'https://assets.calendly.com',
-                'https://cdn.jsdelivr.net',
-            ],
-            'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com', 'https://cdn.jsdelivr.net', 'https://embed.tawk.to', 'https://*.tawk.to'],
-            'font-src': ["'self'", 'data:', 'https://fonts.gstatic.com', 'https://*.tawk.to'],
-            'img-src': ["'self'", 'data:', 'blob:', 'https:'],
-            'connect-src': [
-                "'self'",
-                'https://*.tawk.to',
-                'wss://*.tawk.to',
-                'https://api.calendly.com',
-                'https://api.iconify.design',
-                'https://api.simplesvg.com',
-                'https://api.unisvg.com',
-            ],
-            'frame-src': [
-                "'self'",
-                'https://www.google.com',
-                'https://*.tawk.to',
-                'https://calendly.com',
-                'https://www.youtube.com',
-            ],
-            'object-src': ["'none'"],
-            'base-uri': ["'self'"],
-            'form-action': ["'self'"],
-            'frame-ancestors': ["'self'"],
-            'upgrade-insecure-requests': isProd ? [] : null,
-        },
-    },
+    contentSecurityPolicy: false, // Disabled - handled separately below
     crossOriginEmbedderPolicy: false, // allow third-party embeds (maps, chat)
     crossOriginResourcePolicy: {policy: 'cross-origin'},
     referrerPolicy: {policy: 'strict-origin-when-cross-origin'},
     hsts: isProd ? {maxAge: 63072000, includeSubDomains: true, preload: true} : false,
 });
+
+/**
+ * Development-friendly CSP that allows dynamic widget stylesheets
+ */
+export const cspMiddleware = (req: Request, res: Response, next: NextFunction) => {
+    const isDev = process.env.NODE_ENV !== 'production';
+    const cspHeader = isDev
+        ? "default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https:; style-src 'self' 'unsafe-inline' https: https://embed.tawk.to; font-src 'self' data: https:; img-src 'self' data: blob: https:; connect-src 'self' https: wss: wss://*.tawk.to; frame-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self';"
+        : "default-src 'self'; script-src 'self' 'unsafe-inline' blob: https://www.google.com https://www.gstatic.com https://embed.tawk.to https://*.tawk.to https://assets.calendly.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://embed.tawk.to; font-src 'self' data: https://fonts.gstatic.com https://*.tawk.to; img-src 'self' data: blob: https:; connect-src 'self' https://*.tawk.to wss://*.tawk.to https://api.calendly.com https://api.iconify.design https://api.simplesvg.com https://api.unisvg.com; frame-src 'self' https://www.google.com https://*.tawk.to https://calendly.com https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self';";
+    
+    res.setHeader('Content-Security-Policy', cspHeader);
+    if (!isDev && req.path === '/') {
+        console.log('[CSP] Production mode active');
+    }
+    next();
+};
 
 /** Global limiter — generous, just to blunt floods. */
 export const globalLimiter = rateLimit({

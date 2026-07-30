@@ -143,13 +143,19 @@ const OilAndGas = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [activeAcc, setActiveAcc] = useState<number | null>(null);
     const [isDesktop, setIsDesktop] = useState(false);
+    const [isHydrated, setIsHydrated] = useState(false);
+    useEffect(() => { setIsHydrated(true); }, []);
+    
     // x-scroller
     const targetRef = useRef<HTMLDivElement | null>(null);
-    const [isMounted, setIsMounted] = useState(false);
-    useEffect(()=> setIsMounted(true), []);
     const fallbackScroll = useMotionValue(0);
-    const { scrollYProgress } = useScroll({ target: isMounted && targetRef.current ? targetRef : undefined });
-    const x = useTransform(scrollYProgress ?? fallbackScroll, [0, 1], ["0%", "-83%"]);
+    try {
+      var { scrollYProgress: scrollYProgressValue } = useScroll({ target: targetRef });
+    } catch (e) {
+      var scrollYProgressValue = fallbackScroll;
+    }
+    const scrollYProgress = isHydrated ? (scrollYProgressValue ?? fallbackScroll) : fallbackScroll;
+    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-83%"]);
 
     // Floating button visibility hook
     useEffect(() => {
