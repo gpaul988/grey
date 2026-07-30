@@ -95,7 +95,6 @@ export default function TawkChat({ propertyId, widgetId, offsetPx = 80 }: TawkCh
             s.async    = true;
             s.src      = `https://embed.tawk.to/${propertyId}/${widgetId}`;
             s.charset  = 'UTF-8';
-            s.crossOrigin = 'anonymous';
             document.head.appendChild(s);
 
             // After 10s warn if embed didn't appear
