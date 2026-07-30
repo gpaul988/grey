@@ -24,9 +24,25 @@ export default function TawkChat({ propertyId, widgetId, offsetPx = 80 }: TawkCh
         if (injected.current) return;
         injected.current = true;
 
-        // Intentionally avoid overriding console.error/console.warn globally because
-        // third-party embeds (like Tawk) may rely on console behavior. Rely instead
-        // on window error / rejection handlers below to suppress known noisy errors.
+        //  -  -  Silence known Tawk internal noise  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
+        const originalError = console.error.bind(console);
+        const originalWarn  = console.warn.bind(console);
+
+        const isTawkNoise = (...args: unknown[]): boolean => {
+            try {
+                const joined = args
+                    .map(a => typeof a === 'string' ? a : String((a as {message?: string})?.message ?? a))
+                    .join(' ');
+                return (
+                    (args.length === 1 && args[0] === true) ||
+                    /Tawk\/Logger|i18next|Tawk_API|\$_Tawk|forEach|parseVisitorName|setVisitorInformation/i.test(joined) ||
+                    (typeof args[0] === 'string' && args[0].includes('is not a function'))
+                );
+            } catch { return false; }
+        };
+
+        console.error = (...args: unknown[]) => { if (!isTawkNoise(...args)) originalError(...args); };
+        console.warn  = (...args: unknown[]) => { if (!isTawkNoise(...args)) originalWarn(...args); };
 
         //  -  -  Suppress unhandled Tawk rejections & script errors  -  -  -  -  -  -  -  -  -  -  -  - 
         const onRejection = (e: PromiseRejectionEvent) => {
@@ -41,16 +57,6 @@ export default function TawkChat({ propertyId, widgetId, offsetPx = 80 }: TawkCh
         window.addEventListener('error', onError, true);
 
         //  -  -  Pre-init Tawk globals  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 
-        // Provide a tiny shim for `i18next` because the Tawk embed can call it
-        // as a function in some builds which causes `i18next is not a function`.
-        // The shim is harmless and exposes common methods used by Tawk.
-        if (!(window as any).i18next) {
-            const _shim: any = function () { return _shim; };
-            _shim.t = (k: string) => k;
-            _shim.init = () => {};
-            _shim.on = () => {};
-            (window as any).i18next = _shim;
-        }
         window.Tawk_API       = window.Tawk_API ?? {};
         window.Tawk_LoadStart = window.Tawk_LoadStart ?? new Date();
 
@@ -83,13 +89,20 @@ export default function TawkChat({ propertyId, widgetId, offsetPx = 80 }: TawkCh
         // Using DOM injection (not Next/Script) so it always fires regardless
         // of Turbopack's script scheduling quirks.
         if (!document.getElementById('tawkto-embed')) {
+            console.info('[TawkChat] Injecting tawk.to script', {propertyId, widgetId});
             const s = document.createElement('script');
             s.id       = 'tawkto-embed';
             s.async    = true;
             s.src      = `https://embed.tawk.to/${propertyId}/${widgetId}`;
             s.charset  = 'UTF-8';
-            s.setAttribute('crossorigin', '*');
+            s.crossOrigin = 'anonymous';
             document.head.appendChild(s);
+
+            // After 10s warn if embed didn't appear
+            setTimeout(() => {
+                const found = document.querySelector('[id^="tawk-"], iframe[src*="tawk.to"]');
+                if (!found) console.warn('[TawkChat] tawk embed not detected after 10s - check NEXT_PUBLIC_TAWK_* env vars and network');
+            }, 10000);
         }
 
         return () => {
