@@ -50,8 +50,9 @@ export default function ContactBusinessInfo({
     const isDayTime = useIsDayTime();
     const cardBase = `rounded-2xl shadow-lg p-8 md:p-10 border ${isDayTime ? 'bg-white border-gray-100 text-black' : 'bg-gray-900 border-gray-700 text-gray-100'}`;
     const smallCard = `rounded-2xl p-5 border ${isDayTime ? 'bg-gray-50 border-gray-100 text-gray-700' : 'bg-gray-800 border-gray-700 text-gray-200'}`;
-    const linkCls = `text-teal-600 hover:underline focus:underline ${isDayTime ? '' : 'text-teal-300'}`;
-    return (
+    const linkCls = 'contact-link hover:underline focus:underline';
+    const accentCls = 'contact-accent';
+    const btnCls = 'contact-btn inline-block mt-4 px-5 py-2 rounded-lg shadow transition';
     return (
         <motion.aside
             initial={{opacity: 0, y: 28}}
@@ -61,7 +62,7 @@ export default function ContactBusinessInfo({
             className="order-1 lg:order-2"
         >
             <div className={cardBase}>
-                <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-teal-700">Contact Us</h2>
+                <h2 className={`text-2xl sm:text-3xl font-bold mb-6 ${accentCls}`}>Contact Us</h2>
 
                 <ul className="space-y-4 text-lg">
                     <li>
@@ -100,8 +101,8 @@ export default function ContactBusinessInfo({
                 </ul>
 
                 <div className="mt-8">
-                    <h3 className="font-bold text-xl mb-3 text-teal-700">Office</h3>
-                    <address className={`not-italic text-base ${isDayTime ? 'text-gray-700' : 'text-gray-200'} leading-relaxed`>
+                    <h3 className={`font-bold text-xl mb-3 ${accentCls}`}>Office</h3>
+                    <address className={`not-italic text-base ${isDayTime ? 'text-gray-700' : 'text-gray-200'} leading-relaxed`}>
                         {companyName} <br/>
                         {address.line1} <br/>
                         {address.line2} <br/>
@@ -113,7 +114,7 @@ export default function ContactBusinessInfo({
 
                     <Link
                         href={mapsLink}
-                        className="inline-block mt-4 px-5 py-2 bg-teal-600 text-white rounded-lg shadow hover:bg-teal-700 transition"
+                        className={btnCls}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
@@ -124,7 +125,7 @@ export default function ContactBusinessInfo({
                 {/* Business Hours and Response Time */}
                 <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className={smallCard}>
-                        <div className="flex items-center gap-3 mb-2 text-teal-700">
+                        <div className={`flex items-center gap-3 mb-2 ${accentCls}`}>
                             <FaClock/>
                             <h4 className="font-bold">Business Hours</h4>
                         </div>
@@ -136,7 +137,7 @@ export default function ContactBusinessInfo({
                     </div>
 
                     <div className={smallCard}>
-                        <div className="flex items-center gap-3 mb-2 text-teal-700">
+                        <div className={`flex items-center gap-3 mb-2 ${accentCls}`}>
                             <FaBolt/>
                             <h4 className="font-bold">Response Time</h4>
                         </div>
