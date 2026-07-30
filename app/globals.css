@@ -218,6 +218,27 @@ header {
     box-shadow: 0 4px 20px rgba(var(--page-accent-rgb), 0.08);
 }
 
+/* Anchors and buttons inside business info */
+.contact-page a.contact-link {
+    color: var(--page-color) !important;
+}
+.contact-page a.contact-link:hover {
+    text-decoration: underline;
+}
+
+.contact-page .contact-btn {
+    background-color: var(--page-color) !important;
+    border-color: var(--page-color) !important;
+    color: white !important;
+}
+.contact-page .contact-btn:hover {
+    filter: brightness(0.95);
+}
+
+.contact-page .contact-accent {
+    color: var(--page-color) !important;
+}
+
 
 @keyframes blob {
     0%, 100% {
