@@ -14,6 +14,9 @@ let dbInstance: any = null;
  */
 function isSQLite(): boolean {
   const url = process.env.DATABASE_URL || '';
+  // Default to SQLite when DATABASE_URL is not provided to avoid requiring
+  // PostgreSQL configuration during build or simple local runs.
+  if (!url) return true;
   return url.startsWith('file:');
 }
 
