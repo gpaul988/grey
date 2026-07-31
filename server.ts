@@ -330,13 +330,15 @@ nextApp.prepare().then(() => {
                     ( (title ? 20 : 0) + (metaDesc ? 20 : 0) + (h1s.length ? 15 : 0) + (canonical ? 10 : 0) + (jsonLd.length ? 10 : 0) + (hasViewport ? 10 : 0) + (imagesMissingAlt.length === 0 ? 15 : 5) )
                 )));
                 return res.json({ ok: true, url: normalized, status, contentType, title, metaDescription: metaDesc, h1s, canonical, robots, viewport, jsonLdCount: jsonLd.length, imagesCount: imgs.length, imagesMissingAlt, linksCount: links.length, internalLinksCount: internalLinks.length, externalLinksCount: externalLinks.length, wordCount, mobileFriendly: hasViewport, score });
-            } catch (fetchErr:any) {
+            } catch (fetchErr: unknown) {
                 console.error('[seo-audit] fetch error', fetchErr);
-                return res.status(500).json({ ok: false, error: String(fetchErr) });
+                const msg = fetchErr instanceof Error ? fetchErr.message : String(fetchErr);
+                return res.status(500).json({ ok: false, error: msg });
             }
-        } catch (err:any) {
+        } catch (err: unknown) {
             console.error('[seo-audit] error', err);
-            return res.status(500).json({ ok: false, error: err.message || String(err) });
+            const msg = err instanceof Error ? err.message : String(err);
+            return res.status(500).json({ ok: false, error: msg });
         }
     });
 
