@@ -67,3 +67,5 @@ scripts/faqs-extracted.json
 Admin/data/.secrets.json
 .logs
 .playwright
+
+.env.local
