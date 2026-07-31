@@ -624,8 +624,9 @@ const Healthcare = () => {
         "Apps For Medical Professionals": ["/assets/health/professional.jpg"],
     };
     return (
-        <div style={{['--page-accent' as any]: '#2dd4bf', ['--page-accent-rgb' as any]: '45, 212, 191'}}
-             className={`${isDayTime ? 'bg-gradient-to-b from-teal-50 to-white' : 'bg-[#001f24]'} min-h-screen`}>
+        <div
+            style={( { ['--page-accent']: '#2dd4bf', ['--page-accent-rgb']: '45, 212, 191' } as React.CSSProperties & Record<string, string> )}
+            className={`${isDayTime ? 'bg-gradient-to-b from-teal-50 to-white' : 'bg-[#001f24]'} min-h-screen`}>
 
             {/* Unified Futuristic Healthcare Hero - Background Image/Video with overlay */}
             <section className="relative overflow-hidden lg:w-full lg:min-h-[90vh] lg:h-[720px] w-full h-[600px]">
