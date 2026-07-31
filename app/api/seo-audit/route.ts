@@ -4,13 +4,13 @@ import { JSDOM } from 'jsdom';
 export async function POST(request: Request) {
   try {
     const raw = await request.text();
-    let body: any = null;
+    let body: Record<string, unknown> | null = null;
     try {
-      body = JSON.parse(raw);
+      body = JSON.parse(raw) as Record<string, unknown>;
     } catch (e) {
       return NextResponse.json({ ok: false, error: 'Invalid JSON', rawBody: raw }, { status: 400 });
     }
-    const url = body?.url;
+    const url = body?.url as string | undefined;
     if (!url) return NextResponse.json({ ok: false, error: 'Missing url' }, { status: 400 });
 
     // Basic server-side fetch with a lightweight User-Agent
@@ -74,7 +74,8 @@ export async function POST(request: Request) {
       wordCount,
       score,
     });
-  } catch (err: any) {
-    return NextResponse.json({ ok: false, error: err?.message || String(err) }, { status: 500 });
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return NextResponse.json({ ok: false, error: msg }, { status: 500 });
   }
 }
