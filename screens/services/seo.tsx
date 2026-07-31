@@ -150,7 +150,7 @@ const Seo = () => {
     // Client-side SEO audit state & runner (works for same-origin or CORS-enabled targets)
     const [_auditUrl, setAuditUrl] = useState('');
     const [loading, setLoading] = useState(false);
-    const [result, setResult] = useState<any | null>(null);
+    const [result, setResult] = useState<Record<string, unknown> | null>(null);
     const [error, setError] = useState<string | null>(null);
 
     async function runAudit(inputUrl: string) {
@@ -180,8 +180,9 @@ const Seo = () => {
             if (!payload.ok) throw new Error(payload.error || 'Audit failed');
 
             setResult(payload);
-        } catch (e: any) {
-            setError(e.message || String(e));
+        } catch (err: unknown) {
+            const msg = err instanceof Error ? err.message : String(err);
+            setError(msg);
         } finally {
             setLoading(false);
         }
