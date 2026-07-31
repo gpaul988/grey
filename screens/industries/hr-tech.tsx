@@ -397,7 +397,8 @@ const integrations = [
 ];
 
 // Advanced Accordion Integration Component for 2-Column Layout (Compact Version)
-const AccordionIntegrationAdvanced = ({ integration, isDayTime, index }: { integration: any; isDayTime: boolean; index: number }) => {
+interface Integration { id: string; title: string; alt: string; logoLight: string; logoDark: string; description?: React.ReactNode | string; }
+const AccordionIntegrationAdvanced = ({ integration, isDayTime, index }: { integration: Integration; isDayTime: boolean; index: number }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -542,7 +543,7 @@ const AccordionIntegrationAdvanced = ({ integration, isDayTime, index }: { integ
 };
 
 // Futuristic Accordion Integration Component (Original - Full Featured)
-const AccordionIntegration = ({ integration, isDayTime, index }: { integration: any; isDayTime: boolean; index: number }) => {
+const AccordionIntegration = ({ integration, isDayTime, index }: { integration: Integration; isDayTime: boolean; index: number }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
