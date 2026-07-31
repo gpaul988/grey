@@ -3,6 +3,14 @@ import { createStorePayment, verifyStorePayment } from '@/lib/db/store-helpers';
 
 export async function POST(request: NextRequest) {
     try {
+        // Rate limiting per-IP to prevent abuse. Use Redis in production for cross-instance limits.
+        const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
+        const { checkRateLimit } = await import('@/app/lib/rate-limit');
+        const rl = checkRateLimit(`${ip}:store-payment-verify`);
+        if (!rl.allowed) {
+            return NextResponse.json({ error: 'Rate limit exceeded. Try again later.' }, { status: 429 });
+        }
+
         const { orderId, customerId, reference, amount, currency, provider, transactionId, paymentMethod, metadata } = await request.json();
 
         if (!orderId || !customerId || !reference || !amount || !provider) {
@@ -27,14 +35,24 @@ export async function POST(request: NextRequest) {
             });
         }
 
-        // In production: verify with payment gateway (Paystack, Flutterwave, etc.)
-        // For now, assume payment is verified (in production, call payment provider API)
-        const isVerified = true; // TODO: Call payment provider API
+        // Require internal admin secret or real gateway verification in production
+        let isVerified = false;
+        const adminSecretProvided = request.headers.get('x-admin-secret');
+        if (adminSecretProvided && adminSecretProvided === process.env.ADMIN_API_SECRET) {
+            // Internal trusted notification (e.g., from backend worker)
+            isVerified = true;
+        }
+
+        // Allow local debug bypass if explicitly enabled (DEV ONLY)
+        if (!isVerified && process.env.DEBUG_TRUST_PAYMENTS === 'true') {
+            isVerified = true;
+        }
 
         if (!isVerified) {
+            // TODO: Implement provider-specific verification (Stripe/PayPal) here.
             return NextResponse.json(
-                { error: 'Payment verification failed' },
-                { status: 400 }
+                { error: 'Payment verification requires provider integration or valid x-admin-secret header' },
+                { status: 403 }
             );
         }
 
