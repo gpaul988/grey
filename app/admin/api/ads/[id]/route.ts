@@ -82,7 +82,7 @@ export async function PATCH(
     ];
 
     const updates: string[] = [];
-    const values: any[] = [];
+    const values: unknown[] = [];
 
     for (const field of allowedFields) {
       if (field in body) {

@@ -10,7 +10,7 @@ function getDb() {
   return db;
 }
 
-export async function GET(req: NextRequest) {
+export async function GET(_req: NextRequest) {
   try {
     const db = getDb();
     const ads = db.prepare('SELECT * FROM ads ORDER BY sort_order ASC, id DESC').all();
