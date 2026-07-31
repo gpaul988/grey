@@ -14,7 +14,7 @@ function getDb() {
 export async function POST(req: NextRequest) {
   try {
     const contentType = req.headers.get('content-type') || '';
-    let body: Record<string, any> = {};
+    let body: Record<string, unknown> = {};
 
     if (contentType.includes('application/json')) {
       body = await req.json();
@@ -118,18 +118,14 @@ export async function POST(req: NextRequest) {
 
     // Insert into SQLite
     const db = getDb();
-    let submissionId: number;
-    let insertSubject: string;
-    let insertProjectType: string;
-    let insertBudget: string;
-    let insertMessage: string;
+    let submissionId: number | undefined;
     
     // Prepare values for insert before try block to avoid uninitialized use
-    const trimmedDescription = (message || additionalMessage || 'No description provided').trim();
-    insertSubject = timeline || subject || otherSubject || 'Not specified';
-    insertProjectType = projectType || otherProjectType || 'Not specified';
-    insertMessage = trimmedDescription;
-    insertBudget = budget || 'Not specified';
+    const trimmedDescription = (message || additionalMessage || 'No description provided').toString().trim();
+    const insertSubject = timeline || subject || otherSubject || 'Not specified';
+    const insertProjectType = projectType || otherProjectType || 'Not specified';
+    const insertMessage = trimmedDescription;
+    const insertBudget = budget || 'Not specified';
     
     try {
       
@@ -220,12 +216,13 @@ export async function POST(req: NextRequest) {
       } catch (notifyErr) {
         console.warn('[submit-form] Could not trigger admin notification:', notifyErr);
       }
-    } catch (dbErr: any) {
+    } catch (dbErr: unknown) {
       console.error('[submit-form] Database error:', dbErr);
-      console.error('[submit-form] Error message:', dbErr.message);
+      const dbErrMsg = dbErr instanceof Error ? dbErr.message : String(dbErr);
+      console.error('[submit-form] Error message:', dbErrMsg);
       
       // Try fallback with basic columns only
-      if (dbErr.message && dbErr.message.includes('no such column')) {
+      if (dbErrMsg && dbErrMsg.includes('no such column')) {
         try {
           console.log('[submit-form] Attempting fallback INSERT with basic columns');
           const fallbackStmt = db.prepare(`
@@ -326,12 +323,13 @@ export async function POST(req: NextRequest) {
           </div>
         `,
       });
-      console.log('[submit-form] Confirmation email sent successfully to:', email);
+      console.log('[submit-form] Confirmation email sent successfully to:', validatedEmail);
     } catch (emailErr) {
       console.error('[submit-form] Confirmation email failed:', emailErr);
     }
 
     console.log('[submit-form] Preparing to send admin notification to:', process.env.ADMIN_EMAIL || 'hello@greyinfotech.com.ng');
+    const safeRequirementFiles = Array.isArray(requirementFiles) ? (requirementFiles as string[]) : [];
     try {
       await send({
         to: process.env.ADMIN_EMAIL || 'hello@greyinfotech.com.ng',
@@ -362,7 +360,7 @@ export async function POST(req: NextRequest) {
               ${insertMessage || 'No description provided'}
             </blockquote>
             ${additionalMessage ? `<h3>Additional Notes:</h3><blockquote style="background:#f5f5f5;padding:10px;border-left:4px solid #059669;">${additionalMessage}</blockquote>` : ''}
-            ${requirementFiles && requirementFiles.length > 0 ? `<h3>Attached Files:</h3><ul>${requirementFiles.map((f: string) => `<li>${f}</li>`).join('')}</ul>` : ''}
+            ${safeRequirementFiles.length > 0 ? `<h3>Attached Files:</h3><ul>${safeRequirementFiles.map((f: string) => `<li>${f}</li>`).join('')}</ul>` : ''}
             <p><strong>Submission ID:</strong> #${submissionId}</p>
           </div>
         `,

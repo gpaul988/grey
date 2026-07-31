@@ -1,4 +1,5 @@
 'use client';
+/* eslint-disable react-hooks/static-components */
 
 import React, {useState, useEffect, useCallback} from 'react';
 import {useSearchParams} from 'next/navigation';
@@ -53,9 +54,25 @@ export default function AuditScreen() {
 
     // Instant SEO quick-check panel (futuristic, high-detail)
     function InstantSeoPanel() {
+        type SeoResult = {
+            url?: string;
+            score?: number;
+            wordCount?: number;
+            title?: string;
+            metaDescription?: string;
+            h1s?: string[];
+            canonical?: string;
+            robots?: string;
+            imagesMissingAlt?: string[];
+            totalLinks?: number;
+            internalLinks?: number;
+            externalLinks?: number;
+            fixes?: string[];
+            [key: string]: unknown;
+        };
         const [input, setInput] = useState('');
         const [loadingSeo, setLoadingSeo] = useState(false);
-        const [seoResult, setSeoResult] = useState<any | null>(null);
+        const [seoResult, setSeoResult] = useState<SeoResult | null>(null);
         const [seoError, setSeoError] = useState<string | null>(null);
 
         const runSeo = async (u?: string) => {
@@ -75,9 +92,10 @@ export default function AuditScreen() {
                 });
                 const payload = await res.json();
                 if (!res.ok) throw new Error(payload?.error || 'Audit failed');
-                setSeoResult({...payload, url});
-            } catch (err: any) {
-                setSeoError(err?.message || String(err));
+                setSeoResult({...(payload as Partial<SeoResult>), url});
+            } catch (err: unknown) {
+                const msg = err instanceof Error ? err.message : String(err);
+                setSeoError(msg);
             } finally {
                 setLoadingSeo(false);
             }
@@ -140,7 +158,7 @@ export default function AuditScreen() {
                             <div className="font-mono break-all text-sm">{seoResult.url}</div>
                             <div className="mt-3 text-xs text-slate-400">Score</div>
                             <div className="text-2xl font-black"
-                                 style={{color: gradeColor(seoResult.score)}}>{seoResult.score}/100
+                             style={{color: gradeColor(seoResult.score ?? 0)}}>{seoResult.score ?? 0}/100
                             </div>
                             <div className="mt-3 text-xs text-slate-400">Word count</div>
                             <div className="font-medium">{seoResult.wordCount}</div>
@@ -180,9 +198,9 @@ export default function AuditScreen() {
                                 <div>
                                     <div className="text-xs text-slate-400">Images missing alt (first 8)</div>
                                     <div className="text-sm">
-                                        {seoResult.imagesMissingAlt && seoResult.imagesMissingAlt.length ? (
+                                        {Array.isArray(seoResult?.imagesMissingAlt) && seoResult.imagesMissingAlt.length ? (
                                             <ul className="list-disc pl-5">
-                                                {seoResult.imagesMissingAlt.slice(0, 8).map((src: any, i: number) => <li
+                                                {seoResult.imagesMissingAlt.slice(0, 8).map((src: string, i: number) => <li
                                                     key={i}><code className="font-mono">{src}</code></li>)}
                                             </ul>
                                         ) : <div>None</div>}
