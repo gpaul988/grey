@@ -10,6 +10,8 @@ function getDb() {
   return db;
 }
 
+type AdRow = { id: number; title?: string; body?: string; image?: string; link_url?: string; cta_label?: string; placement?: string; share_caption?: string; variant?: string; starts_at?: string; ends_at?: string; sort_order?: number };
+
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -25,7 +27,7 @@ export async function POST(
     const db = getDb();
 
     // Get the ad to duplicate
-    const original = db.prepare('SELECT * FROM ads WHERE id = ?').get(id) as any;
+    const original = db.prepare('SELECT * FROM ads WHERE id = ?').get(id) as AdRow | undefined;
     if (!original) {
       db.close();
       return NextResponse.json({ ok: false, message: 'Ad not found' }, { status: 404 });
