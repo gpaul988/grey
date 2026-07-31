@@ -72,17 +72,18 @@ api.post('/notify-submission', (req: Request, res: Response) => {
             const message = notifData.message;
              
             const notif = Notifications.create({
-                type: type as any,
+                type: String(type),
                 title,
                 message,
-                entity_type: type,
+                entity_type: String(type),
                 entity_id: id || 0,
                 related_data: JSON.stringify({ name, email }),
                 status: 'unread',
             });
             
             // Broadcast notification event to all connected admin tabs
-            const unreadCount = (db.prepare("SELECT COUNT(*) as c FROM notifications WHERE status = 'unread'").get() as any)?.c || 0;
+            const row = db.prepare("SELECT COUNT(*) as c FROM notifications WHERE status = 'unread'").get() as { c?: number } | undefined;
+            const unreadCount = Number(row?.c ?? 0);
             broadcast('notification', { action: 'create', title, message, type, unreadCount });
             
             // Also broadcast type-specific event for immediate page updates
