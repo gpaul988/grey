@@ -3,7 +3,7 @@ import { Products, ProductCategories, ProductBrands, StoreSettings, Coupons, Pro
 // Stable Unsplash image URLs (resized) for catalog imagery.
 const img = (id: string) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=800&q=70`;
 
-export function seedStore(): void {
+export async function seedStore(): Promise<void> {
   // ── Categories ───────────────────────────────────────────────────────────
   const cats: Record<string, number> = {};
   const catData: { key: string; name: string; icon: string; desc: string }[] = [
@@ -17,16 +17,28 @@ export function seedStore(): void {
     { key: 'mobile-accessories', name: 'Mobile Accessories', icon: 'solar:headphones-round-bold-duotone', desc: 'Chargers, cases, earbuds & power banks' },
   ];
   for (const c of catData) {
-    const created = ProductCategories.create({ name: c.name, icon: c.icon, description: c.desc });
-    cats[c.key] = created.id;
+    const slug = slugify(c.name);
+    const existing = ProductCategories.findBySlug(slug);
+    if (existing) {
+      cats[c.key] = existing.id;
+    } else {
+      const created = ProductCategories.create({ name: c.name, icon: c.icon, description: c.desc });
+      cats[c.key] = created.id;
+    }
   }
 
   // ── Brands ───────────────────────────────────────────────────────────────
   const brands: Record<string, number> = {};
   const brandNames = ['Apple', 'Dell', 'HP', 'Lenovo', 'ASUS', 'Samsung', 'Acer', 'MSI', 'Microsoft', 'Google', 'Xiaomi', 'TECNO', 'Anker', 'Logitech', 'TP-Link', 'Cisco', 'Generic'];
   for (const b of brandNames) {
-    const created = ProductBrands.create({ name: b });
-    brands[b] = created.id;
+    const slug = slugify(b);
+    const existing = ProductBrands.findBySlug(slug);
+    if (existing) {
+      brands[b] = existing.id;
+    } else {
+      const created = ProductBrands.create({ name: b });
+      brands[b] = created.id;
+    }
   }
 
   // ── Products ─────────────────────────────────────────────────────────────
@@ -119,13 +131,22 @@ export function seedStore(): void {
     ProductReviews.create({ product_id: prod.id, reviewer_name: r.name, rating: r.rating, comment: r.comment });
     // approve them so they show on storefront
   });
-  // approve all reviews
-  (ProductReviews.all('pending') as { id: number }[]).forEach((r) => ProductReviews.approve(r.id));
+  // approve all reviews (handle sync or Promise-returning implementations)
+  const pending = await Promise.resolve((ProductReviews.all as any)('pending')) as { id: number }[];
+  for (const r of pending) {
+    await Promise.resolve((ProductReviews.approve as any)(r.id));
+  }
 
   // ── Coupons ──────────────────────────────────────────────────────────────
-  Coupons.create({ code: 'WELCOME10', type: 'percent', value: 10, min_subtotal: 50000, max_discount: 100000, status: 'active' });
-  Coupons.create({ code: 'GREY5000', type: 'fixed', value: 5000, min_subtotal: 100000, status: 'active' });
-  Coupons.create({ code: 'TECHWEEK', type: 'percent', value: 15, min_subtotal: 200000, max_discount: 150000, usage_limit: 100, status: 'active' });
+  if (!Coupons.findByCode('WELCOME10')) {
+    Coupons.create({ code: 'WELCOME10', type: 'percent', value: 10, min_subtotal: 50000, max_discount: 100000, status: 'active' });
+  }
+  if (!Coupons.findByCode('GREY5000')) {
+    Coupons.create({ code: 'GREY5000', type: 'fixed', value: 5000, min_subtotal: 100000, status: 'active' });
+  }
+  if (!Coupons.findByCode('TECHWEEK')) {
+    Coupons.create({ code: 'TECHWEEK', type: 'percent', value: 15, min_subtotal: 200000, max_discount: 150000, usage_limit: 100, status: 'active' });
+  }
 
   // ── Store settings: USD + bank transfer defaults ──────────────────────────
   StoreSettings.setMany({
