@@ -35,9 +35,10 @@ async function ensurePool() {
 }
 
 function toPositional(sql: string, params: any) {
-  // If params is an array or undefined, return as-is
+  // If params is an array or undefined, return as-is (but sanitize undefined -> null)
   if (Array.isArray(params) || !params) {
-    return { sql, params: params ?? [] };
+    const arr = (params ?? []).map((v: any) => v === undefined ? null : v);
+    return { sql, params: arr };
   }
   // If params is a scalar (number, string, etc.), wrap in array
   if (typeof params !== 'object') {
@@ -50,7 +51,10 @@ function toPositional(sql: string, params: any) {
     keys.push(key);
     return '?';
   });
-  const values = keys.map(k => params[k]);
+  const values = keys.map(k => {
+    const v = params[k];
+    return v === undefined ? null : v;
+  });
   return { sql: converted, params: values };
 }
 
