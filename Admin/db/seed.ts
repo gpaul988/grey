@@ -197,14 +197,26 @@ async function seed() {
     console.log('Invoices seeded.');
 
     // --- Case studies ---
-    CaseStudies.create({ title: 'Scaling TaskFlow to 50k Users', slug: 'scaling-taskflow', client: 'TaskFlow Inc', industry: 'SaaS', summary: 'How we re-architected TaskFlow for scale.', body: 'Full case study body...', image: '/assets/img/portfolio/1.jpg', results: '3x faster load, 50k MAU, 99.9% uptime', published: 1 });
-    CaseStudies.create({ title: 'NaijaPay Agent Network Launch', slug: 'naijapay-agent-network', client: 'NaijaPay', industry: 'Fintech', summary: 'A mobile wallet that onboarded 2,000 agents in 3 months.', body: 'Full case study body...', image: '/assets/img/portfolio/2.jpg', results: '2,000 agents, ₦400M processed', published: 1 });
+    // Case studies - idempotent by slug
+    if (!(await CaseStudies.findBy('slug', 'scaling-taskflow'))) {
+      await CaseStudies.create({ title: 'Scaling TaskFlow to 50k Users', slug: 'scaling-taskflow', client: 'TaskFlow Inc', industry: 'SaaS', summary: 'How we re-architected TaskFlow for scale.', body: 'Full case study body...', image: '/assets/img/portfolio/1.jpg', results: '3x faster load, 50k MAU, 99.9% uptime', published: 1 });
+    }
+    if (!(await CaseStudies.findBy('slug', 'naijapay-agent-network'))) {
+      await CaseStudies.create({ title: 'NaijaPay Agent Network Launch', slug: 'naijapay-agent-network', client: 'NaijaPay', industry: 'Fintech', summary: 'A mobile wallet that onboarded 2,000 agents in 3 months.', body: 'Full case study body...', image: '/assets/img/portfolio/2.jpg', results: '2,000 agents, ₦400M processed', published: 1 });
+    }
     console.log('Case studies seeded.');
 
     // --- Blog posts ---
-    BlogPosts.create({ title: 'Designing for Scale', slug: 'designing-for-scale', excerpt: 'Architectural patterns that keep products fast as they grow.', body: '<p>Content here...</p>', cover: '/assets/img/blog/1.jpg', author: 'Grey InfoTech', tags: JSON.stringify(['architecture', 'scaling']), status: 'published', published_at: '2026-03-12' });
-    BlogPosts.create({ title: 'Scope, MVP & Delivery', slug: 'scope-mvp-delivery', excerpt: 'How to scope an MVP that actually ships.', body: '<p>Content here...</p>', cover: '/assets/img/blog/2.jpg', author: 'Grey InfoTech', tags: JSON.stringify(['mvp', 'product']), status: 'published', published_at: '2026-04-02' });
-    BlogPosts.create({ title: 'Refactor vs Rebuild', slug: 'refactor-vs-rebuild', excerpt: 'When to refactor and when to start over.', body: '<p>Content here...</p>', cover: '/assets/img/blog/3.jpg', author: 'Grey InfoTech', tags: JSON.stringify(['engineering']), status: 'draft', published_at: null });
+    // Blog posts - idempotent by slug
+    if (!(await BlogPosts.findBy('slug', 'designing-for-scale'))) {
+      await BlogPosts.create({ title: 'Designing for Scale', slug: 'designing-for-scale', excerpt: 'Architectural patterns that keep products fast as they grow.', body: '<p>Content here...</p>', cover: '/assets/img/blog/1.jpg', author: 'Grey InfoTech', tags: JSON.stringify(['architecture', 'scaling']), status: 'published', published_at: '2026-03-12' });
+    }
+    if (!(await BlogPosts.findBy('slug', 'scope-mvp-delivery'))) {
+      await BlogPosts.create({ title: 'Scope, MVP & Delivery', slug: 'scope-mvp-delivery', excerpt: 'How to scope an MVP that actually ships.', body: '<p>Content here...</p>', cover: '/assets/img/blog/2.jpg', author: 'Grey InfoTech', tags: JSON.stringify(['mvp', 'product']), status: 'published', published_at: '2026-04-02' });
+    }
+    if (!(await BlogPosts.findBy('slug', 'refactor-vs-rebuild'))) {
+      await BlogPosts.create({ title: 'Refactor vs Rebuild', slug: 'refactor-vs-rebuild', excerpt: 'When to refactor and when to start over.', body: '<p>Content here...</p>', cover: '/assets/img/blog/3.jpg', author: 'Grey InfoTech', tags: JSON.stringify(['engineering']), status: 'draft', published_at: null });
+    }
     console.log('Blog posts seeded.');
 
     // --- Conversations / chat ---
