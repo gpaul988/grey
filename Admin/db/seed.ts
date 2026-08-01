@@ -208,16 +208,16 @@ async function seed() {
     console.log('Blog posts seeded.');
 
     // --- Conversations / chat ---
-    const conv1 = Conversations.create({ client_id: c1.id, subject: 'Weekly sync', last_message: 'Sounds great, talk then!', unread: 1 });
-    Messages.create({ conversation_id: conv1.id, sender: 'client', sender_name: 'Ada Okafor', body: 'Hi team, can we move our weekly sync to Thursday?' });
-    Messages.create({ conversation_id: conv1.id, sender: 'staff', sender_name: 'Project Manager', body: 'Sure, Thursday 3pm WAT works for us.' });
-    Messages.create({ conversation_id: conv1.id, sender: 'client', sender_name: 'Ada Okafor', body: 'Sounds great, talk then!' });
-    const conv2 = Conversations.create({ client_id: c2.id, subject: 'Proposal questions', last_message: 'I will review and revert.', unread: 0 });
-    Messages.create({ conversation_id: conv2.id, sender: 'client', sender_name: 'Tunde Bello', body: 'Got the proposal, a few questions on timeline.' });
-    Messages.create({ conversation_id: conv2.id, sender: 'staff', sender_name: 'Grey InfoTech Admin', body: 'Happy to walk you through it. I will review and revert.' });
+    const conv1 = await Conversations.create({ client_id: c1.id, subject: 'Weekly sync', last_message: 'Sounds great, talk then!', unread: 1 });
+    await Messages.create({ conversation_id: conv1.id, sender: 'client', sender_name: 'Ada Okafor', body: 'Hi team, can we move our weekly sync to Thursday?' });
+    await Messages.create({ conversation_id: conv1.id, sender: 'staff', sender_name: 'Project Manager', body: 'Sure, Thursday 3pm WAT works for us.' });
+    await Messages.create({ conversation_id: conv1.id, sender: 'client', sender_name: 'Ada Okafor', body: 'Sounds great, talk then!' });
+    const conv2 = await Conversations.create({ client_id: c2.id, subject: 'Proposal questions', last_message: 'I will review and revert.', unread: 0 });
+    await Messages.create({ conversation_id: conv2.id, sender: 'client', sender_name: 'Tunde Bello', body: 'Got the proposal, a few questions on timeline.' });
+    await Messages.create({ conversation_id: conv2.id, sender: 'staff', sender_name: 'Grey InfoTech Admin', body: 'Happy to walk you through it. I will review and revert.' });
     // Register the owning client as a participant in each conversation.
-    Participants.add({ conversation_id: conv1.id, participant_type: 'client', participant_id: c1.id, name: 'Ada Okafor' });
-    Participants.add({ conversation_id: conv2.id, participant_type: 'client', participant_id: c2.id, name: 'Tunde Bello' });
+    await Participants.add({ conversation_id: conv1.id, participant_type: 'client', participant_id: c1.id, name: 'Ada Okafor' });
+    await Participants.add({ conversation_id: conv2.id, participant_type: 'client', participant_id: c2.id, name: 'Tunde Bello' });
     console.log('Conversations seeded.');
 
     // --- Store catalog (products, brands, categories, coupons) ---
