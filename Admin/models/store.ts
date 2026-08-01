@@ -191,7 +191,16 @@ export const Products = {
       if (existing) return this.find(existing.id)!;
     }
 
-    const slug = slugify(data.name) + '-' + Math.random().toString(36).slice(2, 6);
+    // generate a slug and ensure uniqueness (avoid collisions)
+    const baseSlug = slugify(data.name);
+    let slug = baseSlug + '-' + Math.random().toString(36).slice(2, 6);
+    let attempts = 0;
+    while (this.findBySlug(slug)) {
+      attempts += 1;
+      slug = `${baseSlug}-${Math.random().toString(36).slice(2, 6)}${attempts > 1 ? '-' + attempts : ''}`;
+      if (attempts > 10) { slug = `${baseSlug}-${Date.now()}`; break; }
+    }
+
     const info = db.prepare(`
       INSERT INTO products (name, slug, sku, category_id, brand_id, description, specs, price, price_usd, compare_price, stock, images, thumbnail, status, featured, tags, weight)
       VALUES (@name, @slug, @sku, @category_id, @brand_id, @description, @specs, @price, @price_usd, @compare_price, @stock, @images, @thumbnail, @status, @featured, @tags, @weight)
@@ -216,6 +225,7 @@ export const Products = {
     });
     return this.find(Number(info.lastInsertRowid))!;
   },
+
 
 
   update(id: number, data: Partial<{
