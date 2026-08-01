@@ -749,7 +749,12 @@ export const Wishlists = {
     return !!db.prepare('SELECT 1 FROM wishlists WHERE customer_id = ? AND product_id = ?').get(customerId, productId);
   },
   add(customerId: number, productId: number): void {
-    db.prepare('INSERT OR IGNORE INTO wishlists (customer_id, product_id) VALUES (?, ?)').run(customerId, productId);
+    const isMy = (process.env.DB_TYPE || '').toLowerCase() === 'mysql';
+    if (isMy) {
+      db.prepare('INSERT IGNORE INTO wishlists (customer_id, product_id) VALUES (?, ?)').run(customerId, productId);
+    } else {
+      db.prepare('INSERT OR IGNORE INTO wishlists (customer_id, product_id) VALUES (?, ?)').run(customerId, productId);
+    }
   },
   remove(customerId: number, productId: number): void {
     db.prepare('DELETE FROM wishlists WHERE customer_id = ? AND product_id = ?').run(customerId, productId);

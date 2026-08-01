@@ -35,19 +35,22 @@ export const Participants = {
         name?: string;
         added_by?: string;
     }): ConversationParticipant {
-        const info = db
-            .prepare(
-                `INSERT OR IGNORE INTO conversation_participants
+        const isMy = (process.env.DB_TYPE || '').toLowerCase() === 'mysql';
+        const insertSql = isMy
+            ? `INSERT IGNORE INTO conversation_participants
                  (conversation_id, participant_type, participant_id, name, added_by)
                  VALUES (@conversation_id, @participant_type, @participant_id, @name, @added_by)`
-            )
-            .run({
-                conversation_id: data.conversation_id,
-                participant_type: data.participant_type,
-                participant_id: data.participant_id,
-                name: data.name || null,
-                added_by: data.added_by || null,
-            });
+            : `INSERT OR IGNORE INTO conversation_participants
+                 (conversation_id, participant_type, participant_id, name, added_by)
+                 VALUES (@conversation_id, @participant_type, @participant_id, @name, @added_by)`;
+
+        const info = db.prepare(insertSql).run({
+            conversation_id: data.conversation_id,
+            participant_type: data.participant_type,
+            participant_id: data.participant_id,
+            name: data.name || null,
+            added_by: data.added_by || null,
+        });
         return (
             (db.prepare('SELECT * FROM conversation_participants WHERE id = ?').get(Number(info.lastInsertRowid)) as
                 | ConversationParticipant
