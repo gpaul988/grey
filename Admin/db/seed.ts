@@ -93,13 +93,18 @@ function seedFaqs() {
 }
 
 async function seed() {
-    migrate();
-    console.log('Schema migrated.');
+    // Skip migration for MySQL (bootstrap:db:mysql already created schema)
+    if (process.env.DB_TYPE !== 'mysql') {
+        migrate();
+        console.log('Schema migrated.');
+    } else {
+        console.log('Schema already created by bootstrap:db:mysql (skipping migrate).');
+    }
 
-    if (Users.count() > 0) {
+    if ((await Users.count()) > 0) {
         console.log('Database already seeded — running idempotent admin repair instead of full seed.');
         await ensureCoreAdmins();
-        seedFaqs();
+        await seedFaqs();
         console.log('Admin repair done. (delete Admin/data/grey.db to re-seed from scratch)');
         return;
     }
@@ -107,7 +112,7 @@ async function seed() {
     // --- Super admin (CEO / founder) ---
     // Password comes from SEED_SUPERADMIN_PASSWORD env var (REQUIRED, no fallback)
     // Core admins are seeded VERIFIED + active so they can log in immediately.
-    const ceo = await Users.create({
+    const ceo = await Users.findOrCreate({
         name: 'Graham Sobiribo Paul',
         email: SEED_SUPERADMIN_EMAIL,
         password: SEED_SUPERADMIN_PASSWORD,
@@ -118,7 +123,7 @@ async function seed() {
     });
     console.log(`CEO super-admin seeded (${ceo.email}).`);
 
-    const admin = await Users.create({
+    const admin = await Users.findOrCreate({
         name: 'Grey InfoTech Admin',
         email: SEED_ADMIN_EMAIL,
         password: SEED_ADMIN_PASSWORD,
@@ -127,14 +132,14 @@ async function seed() {
         email_verified: true,
         status: 'active',
     });
-    const manager = await Users.create({
+    const manager = await Users.findOrCreate({
         name: 'Project Manager',
         email: SEED_MANAGER_EMAIL,
         password: SEED_MANAGER_PASSWORD,
         role: 'manager',
         email_verified: true,
     });
-    await Users.create({
+    await Users.findOrCreate({
         name: 'Support Agent',
         email: SEED_STAFF_EMAIL,
         password: SEED_STAFF_PASSWORD,
@@ -144,9 +149,9 @@ async function seed() {
     console.log('Users seeded.');
 
     // --- Clients ---
-    const c1 = await Clients.create({ name: 'Ada Okafor', email: 'ada@taskflow.io', company: 'TaskFlow Inc', phone: '+234 803 111 2222', password: 'ClientPass@2026', email_verified: true });
-    const c2 = await Clients.create({ name: 'Tunde Bello', email: 'tunde@naijapay.ng', company: 'NaijaPay', phone: '+234 805 333 4444', password: 'ClientPass@2026', email_verified: true });
-    const c3 = await Clients.create({ name: 'Grace Eze', email: 'grace@medlink.africa', company: 'MedLink Africa', phone: '+234 807 555 6666', password: 'ClientPass@2026', email_verified: true });
+    const c1 = Clients.findByEmail('ada@taskflow.io') ?? await Clients.create({ name: 'Ada Okafor', email: 'ada@taskflow.io', company: 'TaskFlow Inc', phone: '+234 803 111 2222', password: 'ClientPass@2026', email_verified: true });
+    const c2 = Clients.findByEmail('tunde@naijapay.ng') ?? await Clients.create({ name: 'Tunde Bello', email: 'tunde@naijapay.ng', company: 'NaijaPay', phone: '+234 805 333 4444', password: 'ClientPass@2026', email_verified: true });
+    const c3 = Clients.findByEmail('grace@medlink.africa') ?? await Clients.create({ name: 'Grace Eze', email: 'grace@medlink.africa', company: 'MedLink Africa', phone: '+234 807 555 6666', password: 'ClientPass@2026', email_verified: true });
     console.log('Clients seeded.');
 
     // --- Submissions (contact inbox) ---
@@ -178,17 +183,17 @@ async function seed() {
     console.log('Projects seeded.');
 
     // --- Tickets ---
-    const t1 = Tickets.create({ subject: 'Login page not loading on Safari', requester: 'Ada Okafor', requester_email: 'ada@taskflow.io', priority: 'high', status: 'open', assignee_id: manager.id, body: 'Users on Safari 17 see a blank login screen.' });
-    Tickets.create({ subject: 'Add CSV export to reports', requester: 'Tunde Bello', requester_email: 'tunde@naijapay.ng', priority: 'medium', status: 'pending', assignee_id: manager.id, body: 'Feature request: export transactions to CSV.' });
-    Tickets.create({ subject: 'Invoice email formatting broken', requester: 'Grace Eze', requester_email: 'grace@medlink.africa', priority: 'low', status: 'resolved', assignee_id: admin.id, body: 'Invoice emails render with broken layout in Outlook.' });
-    TicketMessages.create({ ticket_id: t1.id, author: 'Ada Okafor', is_staff: 0, body: 'It happens on every Safari device we tested.' });
-    TicketMessages.create({ ticket_id: t1.id, author: 'Project Manager', is_staff: 1, body: 'Reproduced. Investigating a CSS flexbox issue. Fix ETA today.' });
+    const t1 = await Tickets.create({ subject: 'Login page not loading on Safari', requester: 'Ada Okafor', requester_email: 'ada@taskflow.io', priority: 'high', status: 'open', assignee_id: manager.id, body: 'Users on Safari 17 see a blank login screen.' });
+    await Tickets.create({ subject: 'Add CSV export to reports', requester: 'Tunde Bello', requester_email: 'tunde@naijapay.ng', priority: 'medium', status: 'pending', assignee_id: manager.id, body: 'Feature request: export transactions to CSV.' });
+    await Tickets.create({ subject: 'Invoice email formatting broken', requester: 'Grace Eze', requester_email: 'grace@medlink.africa', priority: 'low', status: 'resolved', assignee_id: admin.id, body: 'Invoice emails render with broken layout in Outlook.' });
+    await TicketMessages.create({ ticket_id: t1.id, author: 'Ada Okafor', is_staff: 0, body: 'It happens on every Safari device we tested.' });
+    await TicketMessages.create({ ticket_id: t1.id, author: 'Project Manager', is_staff: 1, body: 'Reproduced. Investigating a CSS flexbox issue. Fix ETA today.' });
     console.log('Tickets seeded.');
 
     // --- Invoices ---
-    Invoices.create({ number: nextInvoiceNumber(), client_id: c1.id, client_name: 'TaskFlow Inc', client_email: 'ada@taskflow.io', amount: 9000, tax: 675, total: 9675, currency: 'USD', status: 'paid', issued_date: '2026-04-05', due_date: '2026-04-20', items: JSON.stringify([{ description: 'Milestone 1 — Design & Setup', qty: 1, rate: 9000 }]), notes: 'First milestone.' });
-    Invoices.create({ number: nextInvoiceNumber(), client_id: c1.id, client_name: 'TaskFlow Inc', client_email: 'ada@taskflow.io', amount: 9000, tax: 675, total: 9675, currency: 'USD', status: 'sent', issued_date: '2026-06-01', due_date: '2026-06-16', items: JSON.stringify([{ description: 'Milestone 2 — Core build', qty: 1, rate: 9000 }]), notes: '' });
-    Invoices.create({ number: nextInvoiceNumber(), client_id: c3.id, client_name: 'MedLink Africa', client_email: 'grace@medlink.africa', amount: 12000, tax: 900, total: 12900, currency: 'USD', status: 'overdue', issued_date: '2026-05-01', due_date: '2026-05-15', items: JSON.stringify([{ description: 'Discovery + Phase 1', qty: 1, rate: 12000 }]), notes: 'Follow up needed.' });
+    Invoices.create({ number: await nextInvoiceNumber(), client_id: c1.id, client_name: 'TaskFlow Inc', client_email: 'ada@taskflow.io', amount: 9000, tax: 675, total: 9675, currency: 'USD', status: 'paid', issued_date: '2026-04-05', due_date: '2026-04-20', items: JSON.stringify([{ description: 'Milestone 1 — Design & Setup', qty: 1, rate: 9000 }]), notes: 'First milestone.' });
+    Invoices.create({ number: await nextInvoiceNumber(), client_id: c1.id, client_name: 'TaskFlow Inc', client_email: 'ada@taskflow.io', amount: 9000, tax: 675, total: 9675, currency: 'USD', status: 'sent', issued_date: '2026-06-01', due_date: '2026-06-16', items: JSON.stringify([{ description: 'Milestone 2 — Core build', qty: 1, rate: 9000 }]), notes: '' });
+    Invoices.create({ number: await nextInvoiceNumber(), client_id: c3.id, client_name: 'MedLink Africa', client_email: 'grace@medlink.africa', amount: 12000, tax: 900, total: 12900, currency: 'USD', status: 'overdue', issued_date: '2026-05-01', due_date: '2026-05-15', items: JSON.stringify([{ description: 'Discovery + Phase 1', qty: 1, rate: 12000 }]), notes: 'Follow up needed.' });
     console.log('Invoices seeded.');
 
     // --- Case studies ---
@@ -216,7 +221,7 @@ async function seed() {
     console.log('Conversations seeded.');
 
     // --- Store catalog (products, brands, categories, coupons) ---
-    seedStore();
+    await seedStore();
 
     // --- Announcements (top bar notifications) ---
     Announcements.create({
