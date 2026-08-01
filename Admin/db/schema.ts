@@ -8,7 +8,8 @@ import type DatabaseType from 'better-sqlite3';
 export function migrate(database?: DatabaseType.Database): void {
 
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const db = database ?? (require('./index') as typeof import('./index')).default;
+    // Require the db module directly; index.ts exports via CommonJS (module.exports).
+    const db = database ?? require('./index');
     db.exec(`
         CREATE TABLE IF NOT EXISTS users
         (
