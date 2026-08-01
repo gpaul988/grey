@@ -3,6 +3,9 @@ import { Products, ProductCategories, ProductBrands, StoreSettings, Coupons, Pro
 // Stable Unsplash image URLs (resized) for catalog imagery.
 const img = (id: string) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=800&q=70`;
 
+// Local slugify helper (mirrors models/store.ts slugify)
+const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
 export async function seedStore(): Promise<void> {
   // ── Categories ───────────────────────────────────────────────────────────
   const cats: Record<string, number> = {};
