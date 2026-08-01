@@ -209,6 +209,84 @@ async function main() {
       entity_id INT,
       detail TEXT,
       created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;`,
+
+    `CREATE TABLE IF NOT EXISTS product_categories (
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      name VARCHAR(255) NOT NULL,
+      slug VARCHAR(191) NOT NULL UNIQUE,
+      parent_id INT NULL,
+      icon VARCHAR(255),
+      description TEXT,
+      sort_order INT NOT NULL DEFAULT 0,
+      created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;`,
+
+    `CREATE TABLE IF NOT EXISTS product_brands (
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      name VARCHAR(255) NOT NULL,
+      slug VARCHAR(191) NOT NULL UNIQUE,
+      logo VARCHAR(255),
+      description TEXT,
+      created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;`,
+
+    `CREATE TABLE IF NOT EXISTS products (
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      name VARCHAR(255) NOT NULL,
+      slug VARCHAR(191) NOT NULL UNIQUE,
+      sku VARCHAR(255) UNIQUE,
+      category_id INT NULL,
+      brand_id INT NULL,
+      description TEXT,
+      specs TEXT,
+      price DECIMAL(10,2) NOT NULL DEFAULT 0,
+      compare_price DECIMAL(10,2),
+      stock INT NOT NULL DEFAULT 0,
+      images TEXT,
+      thumbnail VARCHAR(255),
+      status VARCHAR(50) NOT NULL DEFAULT 'draft',
+      featured TINYINT NOT NULL DEFAULT 0,
+      tags TEXT,
+      weight DECIMAL(10,2),
+      created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;`,
+
+    `CREATE TABLE IF NOT EXISTS product_reviews (
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      product_id INT NOT NULL,
+      reviewer_name VARCHAR(255),
+      rating INT NOT NULL DEFAULT 5,
+      comment TEXT,
+      status VARCHAR(50) NOT NULL DEFAULT 'pending',
+      created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;`,
+
+    `CREATE TABLE IF NOT EXISTS coupons (
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      code VARCHAR(191) NOT NULL UNIQUE,
+      type VARCHAR(50) NOT NULL,
+      value DECIMAL(10,2) NOT NULL,
+      min_subtotal DECIMAL(10,2) NOT NULL DEFAULT 0,
+      max_discount DECIMAL(10,2),
+      usage_limit INT,
+      status VARCHAR(50) NOT NULL DEFAULT 'active',
+      created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;`,
+
+    `CREATE TABLE IF NOT EXISTS store_settings (
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      \`key\` VARCHAR(255) NOT NULL UNIQUE,
+      \`value\` VARCHAR(3000) NOT NULL DEFAULT '',
+      updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;`,
+
+    `CREATE TABLE IF NOT EXISTS wishlists (
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      customer_id INT NOT NULL,
+      product_id INT NOT NULL,
+      created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;`
   ];
 
