@@ -1,5 +1,9 @@
 import mysql from 'mysql2/promise';
 import path from 'node:path';
+import { execFile } from 'child_process';
+import util from 'util';
+
+const execFileP = util.promisify(execFile);
 
 const host = process.env.DB_HOST || '127.0.0.1';
 const user = process.env.DB_USER || 'root';
@@ -50,27 +54,70 @@ function toPositional(sql: string, params: any) {
   return { sql: converted, params: values };
 }
 
+let bootstrapAttempted = false;
+
 class Statement {
   sql: string;
   constructor(sql: string) { this.sql = sql; }
+
+  private async runOnceExecute(sqlText: string, params: any) {
+    const [rows] = await (pool as mysql.Pool).execute(sqlText, params ?? []);
+    return rows;
+  }
+
   async get(params?: any) {
     await ensurePool();
     const { sql, params: normalizedParams } = toPositional(this.sql, params);
-    const [rows] = await (pool as mysql.Pool).execute(sql, normalizedParams ?? []);
-    return (rows as any)[0];
+    try {
+      const rows = await this.runOnceExecute(sql, normalizedParams ?? []);
+      return (rows as any)[0];
+    } catch (err: any) {
+      if (!bootstrapAttempted && err && err.code === 'ER_NO_SUCH_TABLE') {
+        bootstrapAttempted = true;
+        // Run minimal bootstrap to create core tables, then retry once
+        const scriptPath = path.resolve(__dirname, '..', '..', 'scripts', 'bootstrap-db-mysql-minimal.js');
+        await execFileP(process.execPath, [scriptPath], { env: process.env, cwd: process.cwd() });
+        const rows = await this.runOnceExecute(sql, normalizedParams ?? []);
+        return (rows as any)[0];
+      }
+      throw err;
+    }
   }
+
   async all(params?: any) {
     await ensurePool();
     const { sql, params: normalizedParams } = toPositional(this.sql, params);
-    const [rows] = await (pool as mysql.Pool).execute(sql, normalizedParams ?? []);
-    return rows as any[];
+    try {
+      const rows = await this.runOnceExecute(sql, normalizedParams ?? []);
+      return rows as any[];
+    } catch (err: any) {
+      if (!bootstrapAttempted && err && err.code === 'ER_NO_SUCH_TABLE') {
+        bootstrapAttempted = true;
+        const scriptPath = path.resolve(__dirname, '..', '..', 'scripts', 'bootstrap-db-mysql-minimal.js');
+        await execFileP(process.execPath, [scriptPath], { env: process.env, cwd: process.cwd() });
+        const rows = await this.runOnceExecute(sql, normalizedParams ?? []);
+        return rows as any[];
+      }
+      throw err;
+    }
   }
+
   async run(params?: any) {
     await ensurePool();
     const { sql, params: normalizedParams } = toPositional(this.sql, params);
-    const [result] = await (pool as mysql.Pool).execute(sql, normalizedParams ?? []);
-    // result is OkPacket
-    return { lastInsertRowid: (result as any).insertId ?? 0, changes: (result as any).affectedRows ?? 0 };
+    try {
+      const [result] = await (pool as mysql.Pool).execute(sql, normalizedParams ?? []);
+      return { lastInsertRowid: (result as any).insertId ?? 0, changes: (result as any).affectedRows ?? 0 };
+    } catch (err: any) {
+      if (!bootstrapAttempted && err && err.code === 'ER_NO_SUCH_TABLE') {
+        bootstrapAttempted = true;
+        const scriptPath = path.resolve(__dirname, '..', '..', 'scripts', 'bootstrap-db-mysql-minimal.js');
+        await execFileP(process.execPath, [scriptPath], { env: process.env, cwd: process.cwd() });
+        const [result] = await (pool as mysql.Pool).execute(sql, normalizedParams ?? []);
+        return { lastInsertRowid: (result as any).insertId ?? 0, changes: (result as any).affectedRows ?? 0 };
+      }
+      throw err;
+    }
   }
 }
 
@@ -79,14 +126,36 @@ export function prepare(sql: string) { return new Statement(sql); }
 export async function query(sql: string, params?: any) {
   await ensurePool();
   const { sql: converted, params: normalizedParams } = toPositional(sql, params);
-  const [rows] = await (pool as mysql.Pool).execute(converted, normalizedParams ?? []);
-  return rows as any[];
+  try {
+    const [rows] = await (pool as mysql.Pool).execute(converted, normalizedParams ?? []);
+    return rows as any[];
+  } catch (err: any) {
+    if (!bootstrapAttempted && err && err.code === 'ER_NO_SUCH_TABLE') {
+      bootstrapAttempted = true;
+      const scriptPath = path.resolve(__dirname, '..', '..', 'scripts', 'bootstrap-db-mysql-minimal.js');
+      await execFileP(process.execPath, [scriptPath], { env: process.env, cwd: process.cwd() });
+      const [rows] = await (pool as mysql.Pool).execute(converted, normalizedParams ?? []);
+      return rows as any[];
+    }
+    throw err;
+  }
 }
 
 export async function exec(sql: string) {
   await ensurePool();
-  const [res] = await (pool as mysql.Pool).query(sql);
-  return res;
+  try {
+    const [res] = await (pool as mysql.Pool).query(sql);
+    return res;
+  } catch (err: any) {
+    if (!bootstrapAttempted && err && err.code === 'ER_NO_SUCH_TABLE') {
+      bootstrapAttempted = true;
+      const scriptPath = path.resolve(__dirname, '..', '..', 'scripts', 'bootstrap-db-mysql-minimal.js');
+      await execFileP(process.execPath, [scriptPath], { env: process.env, cwd: process.cwd() });
+      const [res] = await (pool as mysql.Pool).query(sql);
+      return res;
+    }
+    throw err;
+  }
 }
 
 export async function transaction(fn: (conn: { execute: any; query: any }) => Promise<void>) {
