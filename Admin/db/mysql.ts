@@ -11,23 +11,23 @@ let pool: mysql.Pool | null = null;
 
 async function ensurePool() {
   if (pool) return;
-  // Try creating a pool that connects to the configured database.
-  pool = mysql.createPool({ host, user, password, database, port, waitForConnections: true, connectionLimit: 10 });
+  // Try to open a short-lived connection to the target database. This surfaces ER_BAD_DB_ERROR
   try {
-    // quick test query to detect missing DB
-    await pool.query('SELECT 1');
+    const testConn = await mysql.createConnection({ host, user, password, database, port });
+    await testConn.ping();
+    await testConn.end();
   } catch (err: any) {
-    // If the database does not exist, create it via an admin connection and recreate the pool
     if (err && err.code === 'ER_BAD_DB_ERROR') {
+      // Database missing — create it using an admin connection
       const adminConn = await mysql.createConnection({ host, user, password, port });
       await adminConn.query(`CREATE DATABASE IF NOT EXISTS \`${database}\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci`);
       await adminConn.end();
-      // recreate pool pointing to the DB
-      pool = mysql.createPool({ host, user, password, database, port, waitForConnections: true, connectionLimit: 10 });
     } else {
       throw err;
     }
   }
+  // Now the DB exists (or was connectable). Create the pool.
+  pool = mysql.createPool({ host, user, password, database, port, waitForConnections: true, connectionLimit: 10 });
 }
 
 function toPositional(sql: string, params: any) {
