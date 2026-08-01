@@ -36,8 +36,8 @@ async function ensurePool() {
 
 function toPositional(sql: string, params: any) {
   // If params is an array or undefined, return as-is (but sanitize undefined -> null)
-  if (Array.isArray(params) || !params) {
-    const arr = (params ?? []).map((v: any) => v === undefined ? null : v);
+  if (Array.isArray(params) || params == null) {
+    const arr = Array.isArray(params) ? (params as any[]).map((v: any) => v === undefined ? null : v) : [];
     return { sql, params: arr };
   }
   // If params is a scalar (number, string, etc.), wrap in array
