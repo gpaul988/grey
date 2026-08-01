@@ -191,9 +191,9 @@ async function seed() {
     console.log('Tickets seeded.');
 
     // --- Invoices ---
-    Invoices.create({ number: await nextInvoiceNumber(), client_id: c1.id, client_name: 'TaskFlow Inc', client_email: 'ada@taskflow.io', amount: 9000, tax: 675, total: 9675, currency: 'USD', status: 'paid', issued_date: '2026-04-05', due_date: '2026-04-20', items: JSON.stringify([{ description: 'Milestone 1 — Design & Setup', qty: 1, rate: 9000 }]), notes: 'First milestone.' });
-    Invoices.create({ number: await nextInvoiceNumber(), client_id: c1.id, client_name: 'TaskFlow Inc', client_email: 'ada@taskflow.io', amount: 9000, tax: 675, total: 9675, currency: 'USD', status: 'sent', issued_date: '2026-06-01', due_date: '2026-06-16', items: JSON.stringify([{ description: 'Milestone 2 — Core build', qty: 1, rate: 9000 }]), notes: '' });
-    Invoices.create({ number: await nextInvoiceNumber(), client_id: c3.id, client_name: 'MedLink Africa', client_email: 'grace@medlink.africa', amount: 12000, tax: 900, total: 12900, currency: 'USD', status: 'overdue', issued_date: '2026-05-01', due_date: '2026-05-15', items: JSON.stringify([{ description: 'Discovery + Phase 1', qty: 1, rate: 12000 }]), notes: 'Follow up needed.' });
+    await Invoices.create({ number: await nextInvoiceNumber(), client_id: c1.id, client_name: 'TaskFlow Inc', client_email: 'ada@taskflow.io', amount: 9000, tax: 675, total: 9675, currency: 'USD', status: 'paid', issued_date: '2026-04-05', due_date: '2026-04-20', items: JSON.stringify([{ description: 'Milestone 1 — Design & Setup', qty: 1, rate: 9000 }]), notes: 'First milestone.' });
+    await Invoices.create({ number: await nextInvoiceNumber(), client_id: c1.id, client_name: 'TaskFlow Inc', client_email: 'ada@taskflow.io', amount: 9000, tax: 675, total: 9675, currency: 'USD', status: 'sent', issued_date: '2026-06-01', due_date: '2026-06-16', items: JSON.stringify([{ description: 'Milestone 2 — Core build', qty: 1, rate: 9000 }]), notes: '' });
+    await Invoices.create({ number: await nextInvoiceNumber(), client_id: c3.id, client_name: 'MedLink Africa', client_email: 'grace@medlink.africa', amount: 12000, tax: 900, total: 12900, currency: 'USD', status: 'overdue', issued_date: '2026-05-01', due_date: '2026-05-15', items: JSON.stringify([{ description: 'Discovery + Phase 1', qty: 1, rate: 12000 }]), notes: 'Follow up needed.' });
     console.log('Invoices seeded.');
 
     // --- Case studies ---
