@@ -185,6 +185,12 @@ export const Products = {
     stock?: number; images?: string[]; thumbnail?: string; status?: string;
     featured?: boolean; tags?: string[]; weight?: number; sku?: string; price_usd?: number | null;
   }): Product {
+    // If SKU provided and already exists, return existing product (idempotent)
+    if (data.sku) {
+      const existing = db.prepare('SELECT id FROM products WHERE sku = ?').get(data.sku) as { id: number } | undefined;
+      if (existing) return this.find(existing.id)!;
+    }
+
     const slug = slugify(data.name) + '-' + Math.random().toString(36).slice(2, 6);
     const info = db.prepare(`
       INSERT INTO products (name, slug, sku, category_id, brand_id, description, specs, price, price_usd, compare_price, stock, images, thumbnail, status, featured, tags, weight)
@@ -210,6 +216,7 @@ export const Products = {
     });
     return this.find(Number(info.lastInsertRowid))!;
   },
+
 
   update(id: number, data: Partial<{
     name: string; category_id: number | null; brand_id: number | null;

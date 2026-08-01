@@ -1,4 +1,5 @@
 import { Products, ProductCategories, ProductBrands, StoreSettings, Coupons, ProductReviews } from '../models';
+import db from '../db';
 
 // Stable Unsplash image URLs (resized) for catalog imagery.
 const img = (id: string) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=800&q=70`;
@@ -102,6 +103,15 @@ export async function seedStore(): Promise<void> {
 
   const createdIds: { id: number; name: string }[] = [];
   for (const p of products) {
+    // Skip if SKU already exists (idempotent)
+    if (p.sku) {
+      const existing = db.prepare('SELECT id, name FROM products WHERE sku = ?').get(p.sku) as { id: number; name: string } | undefined;
+      if (existing) {
+        createdIds.push({ id: existing.id, name: existing.name });
+        continue;
+      }
+    }
+
     const created = Products.create({
       name: p.name,
       category_id: cats[p.cat],
