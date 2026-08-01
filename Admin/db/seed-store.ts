@@ -102,12 +102,16 @@ export async function seedStore(): Promise<void> {
   ];
 
   const createdIds: { id: number; name: string }[] = [];
+  let createdCount = 0;
+  let skippedCount = 0;
   for (const p of products) {
     // Skip if SKU already exists (idempotent)
     if (p.sku) {
       const existing = db.prepare('SELECT id, name FROM products WHERE sku = ?').get(p.sku) as { id: number; name: string } | undefined;
       if (existing) {
         createdIds.push({ id: existing.id, name: existing.name });
+        skippedCount++;
+        console.log(`  SKIP product: sku=${p.sku} (exists id=${existing.id}, name=${existing.name})`);
         continue;
       }
     }
@@ -130,7 +134,10 @@ export async function seedStore(): Promise<void> {
       sku: p.sku,
     });
     createdIds.push({ id: created.id, name: created.name });
+    createdCount++;
+    console.log(`  CREATED product: id=${created.id} name="${created.name}" sku=${p.sku ?? 'N/A'}`);
   }
+  console.log(`  Products: created=${createdCount} skipped=${skippedCount} total=${createdCount + skippedCount}`);
 
   // ── Sample approved reviews ─────────────────────────────────────────────
   const sampleReviews = [
