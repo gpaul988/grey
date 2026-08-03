@@ -11,7 +11,9 @@ if (!fs.existsSync(DATA_DIR)) {
 
 export const DB_PATH = process.env.DB_PATH || path.join(DATA_DIR, 'grey.db');
 
-const DB_TYPE = (process.env.DB_TYPE || 'sqlite').toLowerCase();
+// Admin panel ALWAYS uses SQLite (isolated from store's MySQL)
+// DB_TYPE env var applies only to the store/Next.js app (lib/db.ts)
+const DB_TYPE = 'sqlite';
 
 // Internal getter for sqlite DB (lazy)
 let _sqliteDb: Database.Database | null = null;
@@ -22,7 +24,7 @@ function _initSqlite() {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { migrate } = require('./schema');
     migrate(_sqliteDb);
-    console.log('[DB] Connected and migrated (SQLite)');
+    console.log('[Admin DB] Connected and migrated (SQLite)');
 }
 
 function _getSqliteDb(): Database.Database {
