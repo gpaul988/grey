@@ -21,6 +21,8 @@ export default function ProductCard({ product }: { product: StoreProduct }) {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                 {off > 0 && <span className="absolute top-3 left-3 st-badge" style={{ background: 'rgba(239,68,68,.15)', color: '#f87171', borderColor: 'rgba(239,68,68,.3)' }}>-{off}%</span>}
                 {product.featured ? <span className="absolute top-3 right-3 st-badge">Featured</span> : null}
+                {product.product_type === 'software' && <span className="absolute bottom-3 left-3 st-badge" style={{ background: 'rgba(59,130,246,.15)', color: '#60a5fa', borderColor: 'rgba(59,130,246,.3)' }}>💾 Software</span>}
+                {product.product_type === 'hardware' && <span className="absolute bottom-3 left-3 st-badge" style={{ background: 'rgba(34,197,94,.15)', color: '#86efac', borderColor: 'rgba(34,197,94,.3)' }}>⚙️ Hardware</span>}
             </Link>
             <div className="p-4 flex flex-col flex-1">
                 <p className="text-[11px] uppercase tracking-wide text-[var(--st-muted)]">{product.brand_name}</p>

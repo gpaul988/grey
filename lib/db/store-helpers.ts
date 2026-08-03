@@ -12,6 +12,7 @@ import {
   storeProducts,
   storeCategories,
   storePasswordResetTokens,
+  storeSoftwareLicenses,
 } from './store-schema';
 import { eq, and, sql } from 'drizzle-orm';
 import bcrypt from 'bcryptjs';
@@ -336,3 +337,117 @@ export async function cleanupExpiredResetTokens() {
       sql`${storePasswordResetTokens.expiresAt} < ${now}`
     ));
 }
+
+/**
+ * Get product by slug
+ */
+export async function getProductBySlug(slug: string) {
+  const products = await db
+    .select()
+    .from(storeProducts)
+    .where(eq(storeProducts.slug, slug));
+  return products[0] || null;
+}
+
+/**
+ * Get all active products
+ */
+export async function getAllProducts(limit?: number, offset?: number) {
+  let query = db
+    .select()
+    .from(storeProducts)
+    .where(eq(storeProducts.isActive, true));
+  
+  if (limit) query = query.limit(limit);
+  if (offset) query = query.offset(offset);
+  
+  return query;
+}
+
+/**
+ * Get products by type (software or hardware)
+ */
+export async function getProductsByType(type: 'software' | 'hardware', limit?: number) {
+  let query = db
+    .select()
+    .from(storeProducts)
+    .where(and(
+      eq(storeProducts.isActive, true),
+      eq(storeProducts.productType, type)
+    ));
+  
+  if (limit) query = query.limit(limit);
+  return query;
+}
+
+/**
+ * Create software license key
+ */
+export async function createSoftwareLicense(data: {
+  orderId: number;
+  productId: number;
+  licenseKey: string;
+  maxActivations?: number;
+  expiresAt?: string;
+}) {
+  const result = await db.insert(storeSoftwareLicenses).values({
+    orderId: data.orderId,
+    productId: data.productId,
+    licenseKey: data.licenseKey,
+    maxActivations: data.maxActivations || 1,
+    expiresAt: data.expiresAt || null,
+    status: 'pending',
+  });
+  
+  return result;
+}
+
+/**
+ * Get software license by key
+ */
+export async function getSoftwareLicenseByKey(licenseKey: string) {
+  const licenses = await db
+    .select()
+    .from(storeSoftwareLicenses)
+    .where(eq(storeSoftwareLicenses.licenseKey, licenseKey));
+  
+  return licenses[0] || null;
+}
+
+/**
+ * Activate software license
+ */
+export async function activateSoftwareLicense(
+  licenseKey: string,
+  activationCode: string,
+  deviceInfo: Record<string, string>
+) {
+  const license = await getSoftwareLicenseByKey(licenseKey);
+  if (!license) return { success: false, error: 'License key not found' };
+  
+  if (license.status === 'revoked') {
+    return { success: false, error: 'License has been revoked' };
+  }
+  
+  if (license.expiresAt && new Date(license.expiresAt) < new Date()) {
+    return { success: false, error: 'License has expired' };
+  }
+  
+  if (license.activationCount! >= license.maxActivations!) {
+    return { success: false, error: 'Maximum activations reached' };
+  }
+  
+  await db
+    .update(storeSoftwareLicenses)
+    .set({
+      status: 'activated',
+      activationCode,
+      activationCount: (license.activationCount || 0) + 1,
+      activatedAt: new Date().toISOString(),
+      deviceInfo: JSON.stringify(deviceInfo),
+    })
+    .where(eq(storeSoftwareLicenses.licenseKey, licenseKey));
+  
+  return { success: true };
+}
+

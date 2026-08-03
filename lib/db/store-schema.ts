@@ -133,6 +133,11 @@ export const storeProducts = sqliteTable(
     isActive: integer('is_active', { mode: 'boolean' }).default(true),
     seoTitle: text('seo_title'),
     seoDescription: text('seo_description'),
+    productType: text('product_type').default('hardware'), // hardware | software
+    downloadUrl: text('download_url'), // URL for software downloads
+    licenseType: text('license_type'), // single | multiple | unlimited (for software)
+    licenseCount: integer('license_count'), // number of licenses included
+    supportEmail: text('support_email'), // support contact for software
     createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
     updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
   },
@@ -142,6 +147,7 @@ export const storeProducts = sqliteTable(
     categoryIdIdx: index('idx_store_products_category_id').on(table.categoryId),
     brandIdIdx: index('idx_store_products_brand_id').on(table.brandId),
     featuredIdx: index('idx_store_products_featured').on(table.featured),
+    productTypeIdx: index('idx_store_products_type').on(table.productType),
   })
 );
 
@@ -339,5 +345,34 @@ export const storePasswordResetTokens = sqliteTable(
     customerIdIdx: index('idx_store_password_reset_tokens_customer_id').on(table.customerId),
     emailIdx: index('idx_store_password_reset_tokens_email').on(table.email),
     expiresAtIdx: index('idx_store_password_reset_tokens_expires_at').on(table.expiresAt),
+  })
+);
+
+/**
+ * Store Software Licenses
+ * Tracks license keys and activation for software products
+ */
+export const storeSoftwareLicenses = sqliteTable(
+  'store_software_licenses',
+  {
+   id: integer('id').primaryKey({ autoIncrement: true }),
+   orderId: integer('order_id').notNull(),
+   productId: integer('product_id').notNull(),
+   licenseKey: text('license_key').notNull().unique(),
+   activationCode: text('activation_code'),
+   status: text('status').notNull().default('pending'), // pending | activated | expired | revoked
+   activatedAt: text('activated_at'),
+   expiresAt: text('expires_at'),
+   activationCount: integer('activation_count').default(0),
+   maxActivations: integer('max_activations').default(1),
+   deviceInfo: text('device_info').default('{}'), // JSON: hardware identifiers, device name, etc
+   createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+   updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+  },
+  (table) => ({
+   licenseKeyIdx: uniqueIndex('idx_software_licenses_key').on(table.licenseKey),
+   orderIdIdx: index('idx_software_licenses_order_id').on(table.orderId),
+   productIdIdx: index('idx_software_licenses_product_id').on(table.productId),
+   statusIdx: index('idx_software_licenses_status').on(table.status),
   })
 );

@@ -19,6 +19,11 @@ export interface StoreProduct {
     brand_name?: string;
     brand_slug?: string;
     rating?: number;
+    product_type?: 'hardware' | 'software';
+    download_url?: string | null;
+    license_type?: 'single' | 'multiple' | 'unlimited' | null;
+    license_count?: number | null;
+    support_email?: string | null;
 }
 
 export interface Category { id: number; name: string; slug: string; icon: string | null; }
