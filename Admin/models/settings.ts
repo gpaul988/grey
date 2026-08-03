@@ -27,7 +27,7 @@ function getStmt(name: string, query: string) {
     } else if (name === 'reset' && !stmtReset) {
         stmtReset = (db.prepare as any)(query);
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     const stmts: Record<string, any> = { get: stmtGet, upsert: stmtUpsert, all: stmtAll, reset: stmtReset };
     return stmts[name];
 }
@@ -55,7 +55,7 @@ export const SiteSettings = {
         const isMy = (process.env.DB_TYPE || '').toLowerCase() === 'mysql';
         const sql = isMy
             ? 'INSERT INTO site_settings (`key`, `value`, `updated_at`) VALUES (@key, @value, NOW()) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`), updated_at = NOW()'
-            : "INSERT INTO site_settings (key, value, updated_at) VALUES (@key, @value, datetime('now')) ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = datetime('now')";
+            : "INSERT INTO site_settings (key, value, updated_at) VALUES (@key, @value, NOW()) ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = NOW()";
         const stmt = getStmt('upsert', sql);
         await (stmt.run as any)({key, value});
     },

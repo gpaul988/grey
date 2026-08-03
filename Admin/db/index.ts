@@ -2,7 +2,6 @@ import path from 'node:path';
 import fs from 'node:fs';
 
  
-import Database from 'better-sqlite3';
 
 export const DATA_DIR = path.join(process.cwd(), 'Admin', 'data');
 if (!fs.existsSync(DATA_DIR)) {
@@ -11,24 +10,25 @@ if (!fs.existsSync(DATA_DIR)) {
 
 export const DB_PATH = process.env.DB_PATH || path.join(DATA_DIR, 'grey.db');
 
-// Admin panel ALWAYS uses SQLite (isolated from store's MySQL)
-// DB_TYPE env var applies only to the store/Next.js app (lib/db.ts)
-const DB_TYPE = 'sqlite';
+// Admin and Store now share the same database (MySQL or SQLite based on DB_TYPE env var)
+const DB_TYPE = (process.env.DB_TYPE || 'mysql').toLowerCase();
 
 // Internal getter for sqlite DB (lazy)
-let _sqliteDb: Database.Database | null = null;
+let sqliteDb: any = null;
 function _initSqlite() {
-    _sqliteDb = new Database(DB_PATH);
-    _sqliteDb.pragma('journal_mode = WAL');
-    _sqliteDb.pragma('foreign_keys = ON');
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const Database = require('better-sqlite3');
+    sqliteDb = new Database(DB_PATH);
+    sqliteDb.pragma('journal_mode = WAL');
+    sqliteDb.pragma('foreign_keys = ON');
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { migrate } = require('./schema');
-    migrate(_sqliteDb);
+    migrate(sqliteDb);
     console.log('[Admin DB] Connected and migrated (SQLite)');
 }
 
-function _getSqliteDb(): Database.Database {
-    if (!_sqliteDb) {
+function _getSqliteDb() {
+    if (!sqliteDb) {
         try {
             _initSqlite();
         } catch (err) {
@@ -47,7 +47,7 @@ function _getSqliteDb(): Database.Database {
             throw err;
         }
     }
-    return _sqliteDb as Database.Database;
+    return sqliteDb;
 }
 
 interface PreparedStatement {

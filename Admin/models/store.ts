@@ -242,7 +242,7 @@ export const Products = {
         description=@description, specs=@specs, price=@price, price_usd=@price_usd, compare_price=@compare_price,
         stock=@stock, images=@images, thumbnail=@thumbnail, status=@status,
         featured=@featured, tags=@tags, weight=@weight,
-        updated_at=datetime('now')
+        updated_at=NOW()
       WHERE id=@id
     `).run({
       id,
@@ -400,7 +400,7 @@ export const Customers = {
       UPDATE customers SET first_name=@first_name, last_name=@last_name, email=@email, phone=@phone,
         address=@address, city=@city, state=@state, country=@country, bio=@bio,
         date_of_birth=@date_of_birth, gender=@gender, avatar=@avatar, status=@status,
-        updated_at=datetime('now')
+        updated_at=NOW()
       WHERE id=@id
     `).run({
       id,
@@ -427,7 +427,7 @@ export const Customers = {
     return ok ? row : null;
   },
   touchLogin(id: number): void {
-    db.prepare("UPDATE customers SET last_login=datetime('now') WHERE id=?").run(id);
+    db.prepare("UPDATE customers SET last_login=NOW() WHERE id=?").run(id);
   },
 
   // ─── Password reset ────────────────────────────────────────────────────────
@@ -442,7 +442,7 @@ export const Customers = {
     const row = this.findByEmail(email);
     if (!row) return null;
     // Invalidate prior unused tokens for this customer.
-    db.prepare("UPDATE customer_password_resets SET used_at=datetime('now') WHERE customer_id=? AND used_at IS NULL").run(row.id);
+    db.prepare("UPDATE customer_password_resets SET used_at=NOW() WHERE customer_id=? AND used_at IS NULL").run(row.id);
     const token = crypto.randomBytes(32).toString('hex');
     db.prepare(
       "INSERT INTO customer_password_resets (customer_id, token_hash, expires_at) VALUES (?,?,datetime('now','+60 minutes'))",
@@ -455,7 +455,7 @@ export const Customers = {
     if (!token) return null;
     const rec = db
       .prepare(
-        "SELECT customer_id FROM customer_password_resets WHERE token_hash=? AND used_at IS NULL AND expires_at > datetime('now')",
+        "SELECT customer_id FROM customer_password_resets WHERE token_hash=? AND used_at IS NULL AND expires_at > NOW()",
       )
       .get(sha256(token)) as { customer_id: number } | undefined;
     return rec ? rec.customer_id : null;
@@ -467,8 +467,8 @@ export const Customers = {
     if (!customerId) return false;
     const hash = bcrypt.hashSync(newPassword, 12);
     const tx = db.transaction(() => {
-      db.prepare("UPDATE customers SET password_hash=?, updated_at=datetime('now') WHERE id=?").run(hash, customerId);
-      db.prepare("UPDATE customer_password_resets SET used_at=datetime('now') WHERE token_hash=? AND used_at IS NULL").run(sha256(token));
+      db.prepare("UPDATE customers SET password_hash=?, updated_at=NOW() WHERE id=?").run(hash, customerId);
+      db.prepare("UPDATE customer_password_resets SET used_at=NOW() WHERE token_hash=? AND used_at IS NULL").run(sha256(token));
     }) as () => void;
     tx();
     return true;
@@ -545,13 +545,13 @@ export const Orders = {
     return this.find(orderId)!;
   },
   updateStatus(id: number, status: string): void {
-    db.prepare("UPDATE orders SET status=@status, updated_at=datetime('now') WHERE id=@id").run({ id, status });
+    db.prepare("UPDATE orders SET status=@status, updated_at=NOW() WHERE id=@id").run({ id, status });
   },
   updatePayment(id: number, data: { payment_status: string; payment_method?: string; payment_gateway?: string; payment_ref?: string; payment_data?: object }): void {
     db.prepare(`
       UPDATE orders SET payment_status=@payment_status, payment_method=@payment_method,
         payment_gateway=@payment_gateway, payment_ref=@payment_ref, payment_data=@payment_data,
-        updated_at=datetime('now')
+        updated_at=NOW()
       WHERE id=@id
     `).run({
       id,
@@ -563,7 +563,7 @@ export const Orders = {
     });
   },
   updateStaffNotes(id: number, notes: string): void {
-    db.prepare("UPDATE orders SET staff_notes=@notes, updated_at=datetime('now') WHERE id=@id").run({ id, notes });
+    db.prepare("UPDATE orders SET staff_notes=@notes, updated_at=NOW() WHERE id=@id").run({ id, notes });
   },
   recent(limit = 10): Order[] {
     return db.prepare('SELECT * FROM orders ORDER BY created_at DESC LIMIT ?').all(limit) as Order[];
@@ -578,7 +578,7 @@ export const StoreSettings = {
     return row?.value ?? '';
   },
   set(key: string, value: string): void {
-    db.prepare(`INSERT INTO store_settings (key, value, updated_at) VALUES (@key, @value, datetime('now'))
+    db.prepare(`INSERT INTO store_settings (key, value, updated_at) VALUES (@key, @value, NOW())
       ON CONFLICT(key) DO UPDATE SET value=excluded.value, updated_at=excluded.updated_at`).run({ key, value });
   },
   getAll(): Record<string, string> {
@@ -586,7 +586,7 @@ export const StoreSettings = {
     return Object.fromEntries(rows.map((r) => [r.key, r.value]));
   },
   setMany(data: Record<string, string>): void {
-    const stmt = db.prepare(`INSERT INTO store_settings (key, value, updated_at) VALUES (@key, @value, datetime('now'))
+    const stmt = db.prepare(`INSERT INTO store_settings (key, value, updated_at) VALUES (@key, @value, NOW())
       ON CONFLICT(key) DO UPDATE SET value=excluded.value, updated_at=excluded.updated_at`);
     for (const [key, value] of Object.entries(data)) {
       stmt.run({ key, value });

@@ -28,7 +28,7 @@ export const Verification = {
     }): { token: string; code: string } {
         const purpose = args.purpose || 'verify';
         db.prepare(
-            `UPDATE email_verifications SET used_at = datetime('now')
+            `UPDATE email_verifications SET used_at = NOW()
              WHERE subject_type = ? AND subject_id = ? AND purpose = ? AND used_at IS NULL`
         ).run(args.subjectType, args.subjectId, purpose);
 
@@ -55,7 +55,7 @@ export const Verification = {
         const row = db
             .prepare(
                 `SELECT * FROM email_verifications
-                 WHERE token = ? AND used_at IS NULL AND expires_at > datetime('now')`
+                 WHERE token = ? AND used_at IS NULL AND expires_at > NOW()`
             )
             .get(token) as EmailVerification | undefined;
         return row ?? null;
@@ -65,7 +65,7 @@ export const Verification = {
     consume(token: string): EmailVerification | null {
         const row = this.peek(token);
         if (!row) return null;
-        db.prepare("UPDATE email_verifications SET used_at = datetime('now') WHERE id = ?").run(row.id);
+        db.prepare("UPDATE email_verifications SET used_at = NOW() WHERE id = ?").run(row.id);
         return row;
     },
 };

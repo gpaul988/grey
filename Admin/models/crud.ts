@@ -106,7 +106,7 @@ export function createRepo<T extends { id: number }>(table: string, columns: str
             if (keys.length === 0) return current;
             const setClause = keys.map((k) => `${k}=@${k}`).join(', ');
             const hasUpdatedAt = columns.includes('updated_at');
-            const stmt = db.prepare(`UPDATE ${table} SET ${setClause}${hasUpdatedAt ? ", updated_at=datetime('now')" : ''} WHERE id=@id`);
+            const stmt = db.prepare(`UPDATE ${table} SET ${setClause}${hasUpdatedAt ? ", updated_at=NOW()" : ''} WHERE id=@id`);
             (stmt.run as any)({ ...data, id } as Record<string, unknown> as never);
             return this.find(id);
         },

@@ -86,7 +86,7 @@ export const UsersModel = {
     /** Mark a user's email as verified and activate the account. */
     markVerified(id: number): SafeUser | null {
         db.prepare(
-            "UPDATE users SET email_verified=1, verified_at=datetime('now'), status='active', updated_at=datetime('now') WHERE id=@id"
+            "UPDATE users SET email_verified=1, verified_at=NOW(), status='active', updated_at=NOW() WHERE id=@id"
         ).run({ id });
         return this.find(id);
     },
@@ -95,7 +95,7 @@ export const UsersModel = {
     async setPassword(id: number, password: string): Promise<SafeUser | null> {
         const hash = await bcrypt.hash(password, 12);
         db.prepare(
-            "UPDATE users SET password_hash=@hash, email_verified=1, verified_at=datetime('now'), status='active', updated_at=datetime('now') WHERE id=@id"
+            "UPDATE users SET password_hash=@hash, email_verified=1, verified_at=NOW(), status='active', updated_at=NOW() WHERE id=@id"
         ).run({ id, hash });
         return this.find(id);
     },
@@ -109,7 +109,7 @@ export const UsersModel = {
         const password_hash = data.password ? await bcrypt.hash(data.password, 12) : current.password_hash;
         db.prepare(
             `UPDATE users SET name=@name, email=@email, role=@role, phone=@phone, status=@status,
-             avatar=@avatar, password_hash=@password_hash, updated_at=datetime('now') WHERE id=@id`
+             avatar=@avatar, password_hash=@password_hash, updated_at=NOW() WHERE id=@id`
         ).run({
             id,
             name: data.name ?? current.name,
@@ -130,7 +130,7 @@ export const UsersModel = {
     /** Save a user's per-feature permission overrides (JSON map or null to clear). */
     setPermissions(id: number, overrides: Record<string, boolean> | null): SafeUser | null {
         const json = overrides && Object.keys(overrides).length ? JSON.stringify(overrides) : null;
-        db.prepare("UPDATE users SET permissions=@permissions, updated_at=datetime('now') WHERE id=@id").run({ id, permissions: json });
+        db.prepare("UPDATE users SET permissions=@permissions, updated_at=NOW() WHERE id=@id").run({ id, permissions: json });
         return this.find(id);
     },
 

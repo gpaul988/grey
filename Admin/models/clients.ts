@@ -73,7 +73,7 @@ export const ClientsModel = {
 
     markVerified(id: number): SafeClient | null {
         db.prepare(
-            "UPDATE clients SET email_verified=1, verified_at=datetime('now'), status='active' WHERE id=?"
+            "UPDATE clients SET email_verified=1, verified_at=NOW(), status='active' WHERE id=?"
         ).run(id);
         return this.find(id);
     },
@@ -81,7 +81,7 @@ export const ClientsModel = {
     async setPassword(id: number, password: string): Promise<SafeClient | null> {
         const hash = await bcrypt.hash(password, 12);
         db.prepare(
-            "UPDATE clients SET password_hash=@hash, email_verified=1, verified_at=datetime('now'), status='active' WHERE id=@id"
+            "UPDATE clients SET password_hash=@hash, email_verified=1, verified_at=NOW(), status='active' WHERE id=@id"
         ).run({ id, hash });
         return this.find(id);
     },
@@ -133,7 +133,7 @@ export const ClientsModel = {
     },
 
     touchLogin(id: number): void {
-        db.prepare("UPDATE clients SET last_login = datetime('now') WHERE id = ?").run(id);
+        db.prepare("UPDATE clients SET last_login = NOW() WHERE id = ?").run(id);
     },
 
     /** Password login (optional path; magic-link is primary). */
@@ -165,11 +165,11 @@ export const ClientsModel = {
         const row = db
             .prepare(
                 `SELECT * FROM client_tokens
-                 WHERE token = ? AND used_at IS NULL AND expires_at > datetime('now')`
+                 WHERE token = ? AND used_at IS NULL AND expires_at > NOW()`
             )
             .get(token) as { id: number; client_id: number } | undefined;
         if (!row) return null;
-        db.prepare("UPDATE client_tokens SET used_at = datetime('now') WHERE id = ?").run(row.id);
+        db.prepare("UPDATE client_tokens SET used_at = NOW() WHERE id = ?").run(row.id);
         const client = this.findRaw(row.client_id);
         if (client) this.touchLogin(client.id);
         return client;

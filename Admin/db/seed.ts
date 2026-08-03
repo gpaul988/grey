@@ -320,7 +320,7 @@ async function ensureCoreAdmins() {
     // Reset password + activate + VERIFY these trusted built-in admins so they
     // can always log in (login now requires a verified email).
     const repairExisting = db.prepare(
-        "UPDATE users SET password_hash=@hash, status='active', email_verified=1, verified_at=COALESCE(verified_at, datetime('now')), updated_at=datetime('now') WHERE lower(email)=lower(@email)"
+        "UPDATE users SET password_hash=@hash, status='active', email_verified=1, verified_at=COALESCE(verified_at, NOW()), updated_at=NOW() WHERE lower(email)=lower(@email)"
     );
     for (const t of team) {
         const existing = Users.findByEmail(t.email);

@@ -1,5 +1,4 @@
 import { createRequire } from 'node:module';
-import type DatabaseType from 'better-sqlite3';
 
 const require = createRequire(import.meta.url);
 
@@ -17,549 +16,184 @@ export function migrate(database?: any): void {
     db.exec(`
         CREATE TABLE IF NOT EXISTS users
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            name
-            TEXT
-            NOT
-            NULL,
-            email
-            TEXT
-            NOT
-            NULL
-            UNIQUE,
-            password_hash
-            TEXT,     -- NULL = must set via verification link
-            role
-            TEXT
-            NOT
-            NULL
-            DEFAULT
-            'staff',  -- superadmin | admin | manager | staff
-            avatar
-            TEXT,
-            phone
-            TEXT,
-            status
-            TEXT
-            NOT
-            NULL
-            DEFAULT
-            'active', -- active | suspended
-            created_at
-            TEXT
-            NOT
-            NULL
-            DEFAULT (
-            datetime
-        (
-            'now'
-        )),
-            updated_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            email VARCHAR(255) NOT NULL UNIQUE,
+            password_hash VARCHAR(255),
+            role VARCHAR(50) NOT NULL DEFAULT 'staff',
+            avatar VARCHAR(255),
+            phone VARCHAR(20),
+            status VARCHAR(50) NOT NULL DEFAULT 'active',
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        );
 
         CREATE TABLE IF NOT EXISTS submissions
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            name
-            TEXT
-            NOT
-            NULL,
-            email
-            TEXT
-            NOT
-            NULL,
-            phone
-            TEXT,
-            subject
-            TEXT,
-            project_type
-            TEXT,
-            budget
-            TEXT,
-            message
-            TEXT,
-            source
-            TEXT
-            NOT
-            NULL
-            DEFAULT
-            'website',
-            status
-            TEXT
-            NOT
-            NULL
-            DEFAULT
-            'new', -- new | read | replied | archived | spam
-            created_at
-            TEXT
-            NOT
-            NULL
-            DEFAULT (
-            datetime
-        (
-            'now'
-        ))
-            );
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            email VARCHAR(255) NOT NULL,
+            phone VARCHAR(20),
+            subject VARCHAR(255),
+            project_type VARCHAR(100),
+            budget VARCHAR(100),
+            message TEXT,
+            source VARCHAR(50) NOT NULL DEFAULT 'website',
+            status VARCHAR(50) NOT NULL DEFAULT 'new',
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        );
 
         CREATE TABLE IF NOT EXISTS leads
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            name
-            TEXT
-            NOT
-            NULL,
-            email
-            TEXT
-            NOT
-            NULL,
-            company
-            TEXT,
-            phone
-            TEXT,
-            source
-            TEXT
-            NOT
-            NULL
-            DEFAULT
-            'website', -- website | referral | social | ads | other
-            stage
-            TEXT
-            NOT
-            NULL
-            DEFAULT
-            'new',     -- new | contacted | qualified | proposal | won | lost
-            value
-            REAL
-            NOT
-            NULL
-            DEFAULT
-            0,
-            owner_id
-            INTEGER
-            REFERENCES
-            users
-        (
-            id
-        ) ON DELETE SET NULL,
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            email VARCHAR(255) NOT NULL,
+            company VARCHAR(255),
+            phone VARCHAR(20),
+            source VARCHAR(50) NOT NULL DEFAULT 'website',
+            stage VARCHAR(50) NOT NULL DEFAULT 'new',
+            value DECIMAL(10,2) NOT NULL DEFAULT 0,
+            owner_id INT REFERENCES users(id) ON DELETE SET NULL,
             notes TEXT,
-            created_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        )),
-            updated_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        );
 
         CREATE TABLE IF NOT EXISTS clients
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            name
-            TEXT
-            NOT
-            NULL,
-            email
-            TEXT
-            NOT
-            NULL
-            UNIQUE,
-            company
-            TEXT,
-            phone
-            TEXT,
-            avatar
-            TEXT,
-            created_at
-            TEXT
-            NOT
-            NULL
-            DEFAULT (
-            datetime
-        (
-            'now'
-        ))
-            );
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            email VARCHAR(255) NOT NULL UNIQUE,
+            company VARCHAR(255),
+            phone VARCHAR(20),
+            avatar VARCHAR(255),
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        );
 
         CREATE TABLE IF NOT EXISTS projects
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            name
-            TEXT
-            NOT
-            NULL,
-            client_id
-            INTEGER
-            REFERENCES
-            clients
-        (
-            id
-        ) ON DELETE SET NULL,
-            client_name TEXT,
-            status TEXT NOT NULL DEFAULT 'planning', -- planning | active | on_hold | completed | cancelled
-            progress INTEGER NOT NULL DEFAULT 0,
-            budget REAL NOT NULL DEFAULT 0,
-            start_date TEXT,
-            end_date TEXT,
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            client_id INT REFERENCES clients(id) ON DELETE SET NULL,
+            client_name VARCHAR(255),
+            status VARCHAR(50) NOT NULL DEFAULT 'planning',
+            progress INT NOT NULL DEFAULT 0,
+            budget DECIMAL(10,2) NOT NULL DEFAULT 0,
+            start_date VARCHAR(255),
+            end_date VARCHAR(255),
             description TEXT,
-            manager_id INTEGER REFERENCES users
-        (
-            id
-        )
-          ON DELETE SET NULL,
-            created_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        )),
-            updated_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            manager_id INT REFERENCES users(id) ON DELETE SET NULL,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        );
 
         CREATE TABLE IF NOT EXISTS tickets
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            subject
-            TEXT
-            NOT
-            NULL,
-            requester
-            TEXT
-            NOT
-            NULL,
-            requester_email
-            TEXT,
-            priority
-            TEXT
-            NOT
-            NULL
-            DEFAULT
-            'medium', -- low | medium | high | urgent
-            status
-            TEXT
-            NOT
-            NULL
-            DEFAULT
-            'open',   -- open | pending | resolved | closed
-            assignee_id
-            INTEGER
-            REFERENCES
-            users
-        (
-            id
-        ) ON DELETE SET NULL,
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            subject VARCHAR(255) NOT NULL,
+            requester VARCHAR(255) NOT NULL,
+            requester_email VARCHAR(255),
+            priority VARCHAR(50) NOT NULL DEFAULT 'medium',
+            status VARCHAR(50) NOT NULL DEFAULT 'open',
+            assignee_id INT REFERENCES users(id) ON DELETE SET NULL,
             body TEXT,
-            created_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        )),
-            updated_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        );
 
         CREATE TABLE IF NOT EXISTS ticket_messages
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            ticket_id
-            INTEGER
-            NOT
-            NULL
-            REFERENCES
-            tickets
-        (
-            id
-        ) ON DELETE CASCADE,
-            author TEXT NOT NULL,
-            is_staff INTEGER NOT NULL DEFAULT 1,
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            ticket_id INT NOT NULL REFERENCES tickets(id) ON DELETE CASCADE,
+            author VARCHAR(255) NOT NULL,
+            is_staff INT NOT NULL DEFAULT 1,
             body TEXT NOT NULL,
-            created_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        );
 
         CREATE TABLE IF NOT EXISTS invoices
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            number
-            TEXT
-            NOT
-            NULL
-            UNIQUE,
-            client_id
-            INTEGER
-            REFERENCES
-            clients
-        (
-            id
-        ) ON DELETE SET NULL,
-            client_name TEXT NOT NULL,
-            client_email TEXT,
-            amount REAL NOT NULL DEFAULT 0,
-            tax REAL NOT NULL DEFAULT 0,
-            total REAL NOT NULL DEFAULT 0,
-            currency TEXT NOT NULL DEFAULT 'NGN',
-            status TEXT NOT NULL DEFAULT 'draft', -- draft | sent | paid | overdue | cancelled
-            issued_date TEXT,
-            due_date TEXT,
-            items TEXT NOT NULL DEFAULT '[]', -- JSON array of line items
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            number VARCHAR(255) NOT NULL UNIQUE,
+            client_id INT REFERENCES clients(id) ON DELETE SET NULL,
+            client_name VARCHAR(255) NOT NULL,
+            client_email VARCHAR(255),
+            amount DECIMAL(10,2) NOT NULL DEFAULT 0,
+            tax DECIMAL(10,2) NOT NULL DEFAULT 0,
+            total DECIMAL(10,2) NOT NULL DEFAULT 0,
+            currency VARCHAR(10) NOT NULL DEFAULT 'NGN',
+            status VARCHAR(50) NOT NULL DEFAULT 'draft',
+            issued_date VARCHAR(255),
+            due_date VARCHAR(255),
+            items JSON NOT NULL DEFAULT '[]',
             notes TEXT,
-            created_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        );
 
         CREATE TABLE IF NOT EXISTS case_studies
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            title
-            TEXT
-            NOT
-            NULL,
-            slug
-            TEXT
-            NOT
-            NULL
-            UNIQUE,
-            client
-            TEXT,
-            industry
-            TEXT,
-            summary
-            TEXT,
-            body
-            TEXT,
-            image
-            TEXT,
-            results
-            TEXT,
-            published
-            INTEGER
-            NOT
-            NULL
-            DEFAULT
-            0,
-            created_at
-            TEXT
-            NOT
-            NULL
-            DEFAULT (
-            datetime
-        (
-            'now'
-        )),
-            updated_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            title VARCHAR(255) NOT NULL,
+            slug VARCHAR(255) NOT NULL UNIQUE,
+            client VARCHAR(255),
+            industry VARCHAR(255),
+            summary TEXT,
+            body TEXT,
+            image VARCHAR(255),
+            results TEXT,
+            published INT NOT NULL DEFAULT 0,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        );
 
         CREATE TABLE IF NOT EXISTS blog_posts
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            title
-            TEXT
-            NOT
-            NULL,
-            slug
-            TEXT
-            NOT
-            NULL
-            UNIQUE,
-            excerpt
-            TEXT,
-            body
-            TEXT,
-            cover
-            TEXT,
-            author
-            TEXT
-            NOT
-            NULL
-            DEFAULT
-            'Grey InfoTech',
-            tags
-            TEXT
-            NOT
-            NULL
-            DEFAULT
-            '[]',    -- JSON array
-            status
-            TEXT
-            NOT
-            NULL
-            DEFAULT
-            'draft', -- draft | published
-            published_at
-            TEXT,
-            created_at
-            TEXT
-            NOT
-            NULL
-            DEFAULT (
-            datetime
-        (
-            'now'
-        )),
-            updated_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            title VARCHAR(255) NOT NULL,
+            slug VARCHAR(255) NOT NULL UNIQUE,
+            excerpt TEXT,
+            body TEXT,
+            cover VARCHAR(255),
+            author VARCHAR(255) NOT NULL DEFAULT 'Grey InfoTech',
+            tags JSON NOT NULL DEFAULT '[]',
+            status VARCHAR(50) NOT NULL DEFAULT 'draft',
+            published_at VARCHAR(255),
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        );
 
         CREATE TABLE IF NOT EXISTS conversations
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            client_id
-            INTEGER
-            REFERENCES
-            clients
-        (
-            id
-        ) ON DELETE CASCADE,
-            subject TEXT,
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            client_id INT REFERENCES clients(id) ON DELETE CASCADE,
+            subject VARCHAR(255),
             last_message TEXT,
-            unread INTEGER NOT NULL DEFAULT 0,
-            updated_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        )),
-            created_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            unread INT NOT NULL DEFAULT 0,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        );
 
         CREATE TABLE IF NOT EXISTS messages
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            conversation_id
-            INTEGER
-            NOT
-            NULL
-            REFERENCES
-            conversations
-        (
-            id
-        ) ON DELETE CASCADE,
-            sender TEXT NOT NULL, -- 'client' | 'staff'
-            sender_name TEXT,
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            conversation_id INT NOT NULL REFERENCES conversations(id) ON DELETE CASCADE,
+            sender VARCHAR(50) NOT NULL,
+            sender_name VARCHAR(255),
             body TEXT NOT NULL,
-            created_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        );
 
         CREATE TABLE IF NOT EXISTS activity_log
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            user_id
-            INTEGER
-            REFERENCES
-            users
-        (
-            id
-        ) ON DELETE SET NULL,
-            user_name TEXT,
-            action TEXT NOT NULL,
-            entity TEXT,
-            entity_id INTEGER,
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT REFERENCES users(id) ON DELETE SET NULL,
+            user_name VARCHAR(255),
+            action VARCHAR(255) NOT NULL,
+            entity VARCHAR(100),
+            entity_id INT,
             detail TEXT,
-            created_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        );
 
         CREATE INDEX IF NOT EXISTS idx_submissions_status ON submissions(status);
         CREATE INDEX IF NOT EXISTS idx_leads_stage ON leads(stage);
@@ -569,256 +203,104 @@ export function migrate(database?: any): void {
         CREATE INDEX IF NOT EXISTS idx_blog_status ON blog_posts(status);
         CREATE INDEX IF NOT EXISTS idx_messages_conv ON messages(conversation_id);
 
-        /* ---- Client portal auth: magic-link login tokens ---- */
         CREATE TABLE IF NOT EXISTS client_tokens
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            client_id
-            INTEGER
-            NOT
-            NULL
-            REFERENCES
-            clients
-        (
-            id
-        ) ON DELETE CASCADE,
-            token TEXT NOT NULL UNIQUE,
-            purpose TEXT NOT NULL DEFAULT 'login', -- login | invite
-            used_at TEXT,
-            expires_at TEXT NOT NULL,
-            created_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            client_id INT NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
+            token VARCHAR(255) NOT NULL UNIQUE,
+            purpose VARCHAR(50) NOT NULL DEFAULT 'login',
+            used_at VARCHAR(255),
+            expires_at VARCHAR(255) NOT NULL,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        );
         CREATE INDEX IF NOT EXISTS idx_client_tokens_token ON client_tokens(token);
 
-        /* ---- Project brief: what the client wants + design preferences ---- */
         CREATE TABLE IF NOT EXISTS project_briefs
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            client_id
-            INTEGER
-            NOT
-            NULL
-            REFERENCES
-            clients
-        (
-            id
-        ) ON DELETE CASCADE,
-            project_id INTEGER REFERENCES projects
-        (
-            id
-        )
-          ON DELETE SET NULL,
-            service TEXT,
-            title TEXT NOT NULL,
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            client_id INT NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
+            project_id INT REFERENCES projects(id) ON DELETE SET NULL,
+            service VARCHAR(255),
+            title VARCHAR(255) NOT NULL,
             goals TEXT,
             target_audience TEXT,
-            design_style TEXT,
-            color_prefs TEXT,
+            design_style VARCHAR(255),
+            color_prefs VARCHAR(255),
             references_links TEXT,
-            budget_range TEXT,
-            timeline TEXT,
+            budget_range VARCHAR(255),
+            timeline VARCHAR(255),
             details TEXT,
-            status TEXT NOT NULL DEFAULT 'submitted', -- submitted | reviewing | accepted | in_progress | done
-            created_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        )),
-            updated_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            status VARCHAR(50) NOT NULL DEFAULT 'submitted',
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        );
 
-        /* ---- Email verification / set-password tokens (team users + clients) ---- */
         CREATE TABLE IF NOT EXISTS email_verifications
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            subject_type
-            TEXT
-            NOT
-            NULL,     -- 'user' | 'client'
-            subject_id
-            INTEGER
-            NOT
-            NULL,
-            email
-            TEXT
-            NOT
-            NULL,
-            token
-            TEXT
-            NOT
-            NULL
-            UNIQUE,
-            code
-            TEXT
-            NOT
-            NULL,     -- human-readable unique verification ID
-            purpose
-            TEXT
-            NOT
-            NULL
-            DEFAULT
-            'verify', -- verify | set_password
-            used_at
-            TEXT,
-            expires_at
-            TEXT
-            NOT
-            NULL,
-            created_at
-            TEXT
-            NOT
-            NULL
-            DEFAULT (
-            datetime
-        (
-            'now'
-        ))
-            );
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            subject_type VARCHAR(50) NOT NULL,
+            subject_id INT NOT NULL,
+            email VARCHAR(255) NOT NULL,
+            token VARCHAR(255) NOT NULL UNIQUE,
+            code VARCHAR(255) NOT NULL,
+            purpose VARCHAR(50) NOT NULL DEFAULT 'verify',
+            used_at VARCHAR(255),
+            expires_at VARCHAR(255) NOT NULL,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        );
         CREATE INDEX IF NOT EXISTS idx_email_verifications_token ON email_verifications(token);
 
-        /* ---- Client staff sub-accounts (a client company's own team members) ---- */
         CREATE TABLE IF NOT EXISTS client_staff
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            client_id
-            INTEGER
-            NOT
-            NULL
-            REFERENCES
-            clients
-        (
-            id
-        ) ON DELETE CASCADE,
-            name TEXT NOT NULL,
-            email TEXT NOT NULL,
-            avatar TEXT,
-            password_hash TEXT,
-            role_title TEXT, -- free-text job title
-            status TEXT NOT NULL DEFAULT 'invited', -- invited | active | suspended
-            email_verified INTEGER NOT NULL DEFAULT 0,
-            last_login TEXT,
-            created_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        )),
-            UNIQUE
-        (
-            client_id,
-            email
-        )
-            );
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            client_id INT NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
+            name VARCHAR(255) NOT NULL,
+            email VARCHAR(255) NOT NULL,
+            avatar VARCHAR(255),
+            password_hash VARCHAR(255),
+            role_title VARCHAR(255),
+            status VARCHAR(50) NOT NULL DEFAULT 'invited',
+            email_verified INT NOT NULL DEFAULT 0,
+            last_login VARCHAR(255),
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE KEY unique_client_email (client_id, email)
+        );
         CREATE INDEX IF NOT EXISTS idx_client_staff_client ON client_staff(client_id);
 
-        /* ---- Conversation participants (client + their invited staff) ---- */
         CREATE TABLE IF NOT EXISTS conversation_participants
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            conversation_id
-            INTEGER
-            NOT
-            NULL
-            REFERENCES
-            conversations
-        (
-            id
-        ) ON DELETE CASCADE,
-            participant_type TEXT NOT NULL, -- 'client' | 'client_staff' | 'staff'
-            participant_id INTEGER NOT NULL,
-            name TEXT,
-            added_by TEXT,
-            created_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        )),
-            UNIQUE
-        (
-            conversation_id,
-            participant_type,
-            participant_id
-        )
-            );
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            conversation_id INT NOT NULL REFERENCES conversations(id) ON DELETE CASCADE,
+            participant_type VARCHAR(50) NOT NULL,
+            participant_id INT NOT NULL,
+            name VARCHAR(255),
+            added_by VARCHAR(255),
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE KEY unique_participant (conversation_id, participant_type, participant_id)
+        );
         CREATE INDEX IF NOT EXISTS idx_conv_participants_conv ON conversation_participants(conversation_id);
 
-        /* ---- File uploads attached to clients / projects / briefs ---- */
         CREATE TABLE IF NOT EXISTS uploads
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            client_id
-            INTEGER
-            REFERENCES
-            clients
-        (
-            id
-        ) ON DELETE CASCADE,
-            project_id INTEGER REFERENCES projects
-        (
-            id
-        )
-          ON DELETE SET NULL,
-            brief_id INTEGER REFERENCES project_briefs
-        (
-            id
-        )
-          ON DELETE SET NULL,
-            uploader TEXT NOT NULL DEFAULT 'client', -- client | staff
-            uploader_id INTEGER,
-            filename TEXT NOT NULL,
-            original TEXT NOT NULL,
-            mime TEXT,
-            size INTEGER NOT NULL DEFAULT 0,
-            url TEXT NOT NULL,
-            created_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            client_id INT REFERENCES clients(id) ON DELETE CASCADE,
+            project_id INT REFERENCES projects(id) ON DELETE SET NULL,
+            brief_id INT REFERENCES project_briefs(id) ON DELETE SET NULL,
+            uploader VARCHAR(50) NOT NULL DEFAULT 'client',
+            uploader_id INT,
+            filename VARCHAR(255) NOT NULL,
+            original VARCHAR(255) NOT NULL,
+            mime VARCHAR(100),
+            size INT NOT NULL DEFAULT 0,
+            url VARCHAR(255) NOT NULL,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        );
     `);
 
     /* ---------------- Idempotent column migrations ---------------- */
     const addColumnIfMissing = (table: string, column: string, definition: string): void => {
-        const cols = db.prepare(`PRAGMA table_info(${table})`).all() as { name: string }[];
-        if (!cols.some((c) => c.name === column)) {
+        const cols = db.prepare(`SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME=? AND TABLE_SCHEMA=DATABASE()`).all(table) as { COLUMN_NAME: string }[];
+        if (!cols.some((c) => c.COLUMN_NAME === column)) {
             db.exec(`ALTER TABLE ${table}
                 ADD COLUMN ${column} ${definition}`);
         }
@@ -864,8 +346,8 @@ export function migrate(database?: any): void {
 
     // ---- Store: multi-currency + coupons (added incrementally) ----
     const tableExists = (t: string): boolean =>
-        !!db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name=?").get(t);
-    if (tableExists('products')) addColumnIfMissing('products', 'price_usd', 'REAL');
+        !!db.prepare("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ?").get(t);
+    if (tableExists('products')) addColumnIfMissing('products', 'price_usd', 'DECIMAL(10,2)');
     if (tableExists('orders')) {
         addColumnIfMissing('orders', 'coupon_code', 'TEXT');
         addColumnIfMissing('orders', 'currency', "TEXT NOT NULL DEFAULT 'NGN'");
@@ -893,664 +375,336 @@ export function migrate(database?: any): void {
     db.exec(`
         CREATE TABLE IF NOT EXISTS site_settings
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            key
-            TEXT
-            NOT
-            NULL
-            UNIQUE,
-            value
-            TEXT
-            NOT
-            NULL
-            DEFAULT
-            '',
-            updated_at
-            TEXT
-            NOT
-            NULL
-            DEFAULT (
-            datetime
-        (
-            'now'
-        ))
-            );
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            key VARCHAR(255) NOT NULL UNIQUE,
+            value TEXT NOT NULL DEFAULT '',
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        );
     `);
 
     // ---- Store: new tables ----
     db.exec(`
         CREATE TABLE IF NOT EXISTS store_settings
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            key
-            TEXT
-            NOT
-            NULL
-            UNIQUE,
-            value
-            TEXT
-            NOT
-            NULL
-            DEFAULT
-            '',
-            updated_at
-            TEXT
-            NOT
-            NULL
-            DEFAULT (
-            datetime
-        (
-            'now'
-        ))
-            );
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            key VARCHAR(255) NOT NULL UNIQUE,
+            value TEXT NOT NULL DEFAULT '',
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        );
 
         CREATE TABLE IF NOT EXISTS product_categories
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            name
-            TEXT
-            NOT
-            NULL,
-            slug
-            TEXT
-            NOT
-            NULL
-            UNIQUE,
-            parent_id
-            INTEGER
-            REFERENCES
-            product_categories
-        (
-            id
-        ) ON DELETE SET NULL,
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            slug VARCHAR(255) NOT NULL UNIQUE,
+            parent_id INT REFERENCES product_categories(id) ON DELETE SET NULL,
             icon TEXT,
             description TEXT,
-            sort_order INTEGER NOT NULL DEFAULT 0,
-            created_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            sort_order INT NOT NULL DEFAULT 0,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        );
 
         CREATE TABLE IF NOT EXISTS product_brands
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            name
-            TEXT
-            NOT
-            NULL,
-            slug
-            TEXT
-            NOT
-            NULL
-            UNIQUE,
-            logo
-            TEXT,
-            description
-            TEXT,
-            created_at
-            TEXT
-            NOT
-            NULL
-            DEFAULT (
-            datetime
-        (
-            'now'
-        ))
-            );
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            slug VARCHAR(255) NOT NULL UNIQUE,
+            logo TEXT,
+            description TEXT,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        );
 
         CREATE TABLE IF NOT EXISTS products
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            name
-            TEXT
-            NOT
-            NULL,
-            slug
-            TEXT
-            NOT
-            NULL
-            UNIQUE,
-            sku
-            TEXT
-            UNIQUE,
-            category_id
-            INTEGER
-            REFERENCES
-            product_categories
-        (
-            id
-        ) ON DELETE SET NULL,
-            brand_id INTEGER REFERENCES product_brands
-        (
-            id
-        )
-          ON DELETE SET NULL,
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            slug VARCHAR(255) NOT NULL UNIQUE,
+            sku VARCHAR(255) UNIQUE,
+            category_id INT REFERENCES product_categories(id) ON DELETE SET NULL,
+            brand_id INT REFERENCES product_brands(id) ON DELETE SET NULL,
             description TEXT,
             specs TEXT NOT NULL DEFAULT '{}',
-            price REAL NOT NULL DEFAULT 0,
-            compare_price REAL,
-            stock INTEGER NOT NULL DEFAULT 0,
+            price DECIMAL(10,2) NOT NULL DEFAULT 0,
+            compare_price DECIMAL(10,2),
+            stock INT NOT NULL DEFAULT 0,
             images TEXT NOT NULL DEFAULT '[]',
             thumbnail TEXT,
-            status TEXT NOT NULL DEFAULT 'draft',
-            featured INTEGER NOT NULL DEFAULT 0,
+            status VARCHAR(50) NOT NULL DEFAULT 'draft',
+            featured INT NOT NULL DEFAULT 0,
             tags TEXT NOT NULL DEFAULT '[]',
-            weight REAL,
-            created_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        )),
-            updated_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            weight DECIMAL(10,2),
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        );
         CREATE INDEX IF NOT EXISTS idx_products_category ON products(category_id);
         CREATE INDEX IF NOT EXISTS idx_products_brand ON products(brand_id);
         CREATE INDEX IF NOT EXISTS idx_products_status ON products(status);
 
         CREATE TABLE IF NOT EXISTS customers
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            first_name
-            TEXT
-            NOT
-            NULL,
-            last_name
-            TEXT
-            NOT
-            NULL,
-            email
-            TEXT
-            UNIQUE,
-            phone
-            TEXT
-            NOT
-            NULL,
-            address
-            TEXT,
-            city
-            TEXT,
-            state
-            TEXT,
-            country
-            TEXT
-            NOT
-            NULL
-            DEFAULT
-            'Nigeria',
-            bio
-            TEXT,
-            date_of_birth
-            TEXT,
-            gender
-            TEXT,
-            avatar
-            TEXT,
-            password_hash
-            TEXT,
-            email_verified
-            INTEGER
-            NOT
-            NULL
-            DEFAULT
-            0,
-            verified_at
-            TEXT,
-            last_login
-            TEXT,
-            status
-            TEXT
-            NOT
-            NULL
-            DEFAULT
-            'active',
-            created_at
-            TEXT
-            NOT
-            NULL
-            DEFAULT (
-            datetime
-        (
-            'now'
-        )),
-            updated_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            first_name VARCHAR(255) NOT NULL,
+            last_name VARCHAR(255) NOT NULL,
+            email VARCHAR(255) UNIQUE,
+            phone VARCHAR(20) NOT NULL,
+            address TEXT,
+            city VARCHAR(100),
+            state VARCHAR(100),
+            country VARCHAR(100) NOT NULL DEFAULT 'Nigeria',
+            bio TEXT,
+            date_of_birth VARCHAR(255),
+            gender VARCHAR(50),
+            avatar VARCHAR(255),
+            password_hash VARCHAR(255),
+            email_verified INT NOT NULL DEFAULT 0,
+            verified_at VARCHAR(255),
+            last_login VARCHAR(255),
+            status VARCHAR(50) NOT NULL DEFAULT 'active',
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        );
         CREATE INDEX IF NOT EXISTS idx_customers_email ON customers(email);
         CREATE INDEX IF NOT EXISTS idx_customers_phone ON customers(phone);
 
         CREATE TABLE IF NOT EXISTS customer_password_resets
         (
-            id          INTEGER PRIMARY KEY AUTOINCREMENT,
-            customer_id INTEGER NOT NULL REFERENCES customers (id) ON DELETE CASCADE,
-            token_hash  TEXT    NOT NULL,
-            expires_at  TEXT    NOT NULL,
-            used_at     TEXT,
-            created_at  TEXT    NOT NULL DEFAULT (datetime('now'))
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            customer_id INT NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
+            token_hash VARCHAR(255) NOT NULL,
+            expires_at VARCHAR(255) NOT NULL,
+            used_at VARCHAR(255),
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         );
         CREATE INDEX IF NOT EXISTS idx_cpr_token ON customer_password_resets(token_hash);
         CREATE INDEX IF NOT EXISTS idx_cpr_customer ON customer_password_resets(customer_id);
 
         CREATE TABLE IF NOT EXISTS orders
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            order_number
-            TEXT
-            NOT
-            NULL
-            UNIQUE,
-            customer_id
-            INTEGER
-            REFERENCES
-            customers
-        (
-            id
-        ) ON DELETE SET NULL,
-            customer_type TEXT NOT NULL DEFAULT 'guest',
-            guest_name TEXT,
-            guest_email TEXT,
-            guest_phone TEXT,
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            order_number VARCHAR(255) NOT NULL UNIQUE,
+            customer_id INT REFERENCES customers(id) ON DELETE SET NULL,
+            customer_type VARCHAR(50) NOT NULL DEFAULT 'guest',
+            guest_name VARCHAR(255),
+            guest_email VARCHAR(255),
+            guest_phone VARCHAR(20),
             shipping_address TEXT NOT NULL DEFAULT '{}',
             billing_address TEXT NOT NULL DEFAULT '{}',
-            status TEXT NOT NULL DEFAULT 'pending',
-            payment_status TEXT NOT NULL DEFAULT 'unpaid',
-            payment_method TEXT,
-            payment_gateway TEXT,
-            payment_ref TEXT,
+            status VARCHAR(50) NOT NULL DEFAULT 'pending',
+            payment_status VARCHAR(50) NOT NULL DEFAULT 'unpaid',
+            payment_method VARCHAR(100),
+            payment_gateway VARCHAR(100),
+            payment_ref VARCHAR(255),
             payment_data TEXT NOT NULL DEFAULT '{}',
-            subtotal REAL NOT NULL DEFAULT 0,
-            shipping_fee REAL NOT NULL DEFAULT 0,
-            tax REAL NOT NULL DEFAULT 0,
-            discount REAL NOT NULL DEFAULT 0,
-            total REAL NOT NULL DEFAULT 0,
+            subtotal DECIMAL(10,2) NOT NULL DEFAULT 0,
+            shipping_fee DECIMAL(10,2) NOT NULL DEFAULT 0,
+            tax DECIMAL(10,2) NOT NULL DEFAULT 0,
+            discount DECIMAL(10,2) NOT NULL DEFAULT 0,
+            total DECIMAL(10,2) NOT NULL DEFAULT 0,
             notes TEXT,
             staff_notes TEXT,
-            created_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        )),
-            updated_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        );
         CREATE INDEX IF NOT EXISTS idx_orders_customer ON orders(customer_id);
         CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(status);
         CREATE INDEX IF NOT EXISTS idx_orders_payment_status ON orders(payment_status);
 
         CREATE TABLE IF NOT EXISTS order_items
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            order_id
-            INTEGER
-            NOT
-            NULL
-            REFERENCES
-            orders
-        (
-            id
-        ) ON DELETE CASCADE,
-            product_id INTEGER REFERENCES products
-        (
-            id
-        )
-          ON DELETE SET NULL,
-            product_name TEXT NOT NULL,
-            product_image TEXT,
-            product_sku TEXT,
-            quantity INTEGER NOT NULL DEFAULT 1,
-            unit_price REAL NOT NULL DEFAULT 0,
-            total_price REAL NOT NULL DEFAULT 0
-            );
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            order_id INT NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+            product_id INT REFERENCES products(id) ON DELETE SET NULL,
+            product_name VARCHAR(255) NOT NULL,
+            product_image VARCHAR(255),
+            product_sku VARCHAR(255),
+            quantity INT NOT NULL DEFAULT 1,
+            unit_price DECIMAL(10,2) NOT NULL DEFAULT 0,
+            total_price DECIMAL(10,2) NOT NULL DEFAULT 0
+        );
         CREATE INDEX IF NOT EXISTS idx_order_items_order ON order_items(order_id);
 
         CREATE TABLE IF NOT EXISTS cart_sessions
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            session_key
-            TEXT
-            NOT
-            NULL
-            UNIQUE,
-            items
-            TEXT
-            NOT
-            NULL
-            DEFAULT
-            '[]',
-            created_at
-            TEXT
-            NOT
-            NULL
-            DEFAULT (
-            datetime
-        (
-            'now'
-        )),
-            updated_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            session_key VARCHAR(255) NOT NULL UNIQUE,
+            items TEXT NOT NULL DEFAULT '[]',
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        );
 
         CREATE TABLE IF NOT EXISTS product_reviews
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            product_id
-            INTEGER
-            NOT
-            NULL
-            REFERENCES
-            products
-        (
-            id
-        ) ON DELETE CASCADE,
-            customer_id INTEGER REFERENCES customers
-        (
-            id
-        )
-          ON DELETE SET NULL,
-            reviewer_name TEXT NOT NULL,
-            rating INTEGER NOT NULL DEFAULT 5,
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            product_id INT NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+            customer_id INT REFERENCES customers(id) ON DELETE SET NULL,
+            reviewer_name VARCHAR(255) NOT NULL,
+            rating INT NOT NULL DEFAULT 5,
             comment TEXT,
-            status TEXT NOT NULL DEFAULT 'pending',
-            created_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        ))
-            );
+            status VARCHAR(50) NOT NULL DEFAULT 'pending',
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        );
         CREATE INDEX IF NOT EXISTS idx_reviews_product ON product_reviews(product_id);
 
         CREATE TABLE IF NOT EXISTS coupons
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            code
-            TEXT
-            NOT
-            NULL
-            UNIQUE,
-            type
-            TEXT
-            NOT
-            NULL
-            DEFAULT
-            'percent',
-            value
-            REAL
-            NOT
-            NULL
-            DEFAULT
-            0,
-            min_subtotal
-            REAL
-            NOT
-            NULL
-            DEFAULT
-            0,
-            max_discount
-            REAL,
-            usage_limit
-            INTEGER,
-            used_count
-            INTEGER
-            NOT
-            NULL
-            DEFAULT
-            0,
-            starts_at
-            TEXT,
-            expires_at
-            TEXT,
-            status
-            TEXT
-            NOT
-            NULL
-            DEFAULT
-            'active',
-            created_at
-            TEXT
-            NOT
-            NULL
-            DEFAULT (
-            datetime
-        (
-            'now'
-        ))
-            );
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            code VARCHAR(255) NOT NULL UNIQUE,
+            type VARCHAR(50) NOT NULL DEFAULT 'percent',
+            value DECIMAL(10,2) NOT NULL DEFAULT 0,
+            min_subtotal DECIMAL(10,2) NOT NULL DEFAULT 0,
+            max_discount DECIMAL(10,2),
+            usage_limit INT,
+            used_count INT NOT NULL DEFAULT 0,
+            starts_at VARCHAR(255),
+            expires_at VARCHAR(255),
+            status VARCHAR(50) NOT NULL DEFAULT 'active',
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        );
 
         CREATE TABLE IF NOT EXISTS wishlists
         (
-            id
-            INTEGER
-            PRIMARY
-            KEY
-            AUTOINCREMENT,
-            customer_id
-            INTEGER
-            NOT
-            NULL
-            REFERENCES
-            customers
-        (
-            id
-        ) ON DELETE CASCADE,
-            product_id INTEGER NOT NULL REFERENCES products
-        (
-            id
-        )
-          ON DELETE CASCADE,
-            created_at TEXT NOT NULL DEFAULT
-        (
-            datetime
-        (
-            'now'
-        )),
-            UNIQUE
-        (
-            customer_id,
-            product_id
-        )
-            );
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            customer_id INT NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
+            product_id INT NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE(customer_id, product_id)
+        );
     `);
 
     // ---- Content: Partners / Client logos + Client reviews (testimonials) ----
     db.exec(`
         CREATE TABLE IF NOT EXISTS partners
         (
-            id         INTEGER PRIMARY KEY AUTOINCREMENT,
-            name       TEXT    NOT NULL,
-            logo       TEXT    NOT NULL DEFAULT '',
-            url        TEXT    NOT NULL DEFAULT '',
-            sort_order INTEGER NOT NULL DEFAULT 0,
-            active     INTEGER NOT NULL DEFAULT 1,
-            created_at TEXT    NOT NULL DEFAULT (datetime('now')),
-            updated_at TEXT    NOT NULL DEFAULT (datetime('now'))
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            logo VARCHAR(255) NOT NULL DEFAULT '',
+            url VARCHAR(255) NOT NULL DEFAULT '',
+            sort_order INT NOT NULL DEFAULT 0,
+            active INT NOT NULL DEFAULT 1,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         );
 
         CREATE TABLE IF NOT EXISTS client_reviews
         (
-            id          INTEGER PRIMARY KEY AUTOINCREMENT,
-            author      TEXT    NOT NULL,
-            role        TEXT    NOT NULL DEFAULT '',
-            company     TEXT    NOT NULL DEFAULT '',
-            avatar      TEXT    NOT NULL DEFAULT '',
-            quote       TEXT    NOT NULL,
-            rating      INTEGER NOT NULL DEFAULT 5,
-            sort_order  INTEGER NOT NULL DEFAULT 0,
-            active      INTEGER NOT NULL DEFAULT 1,
-            created_at  TEXT    NOT NULL DEFAULT (datetime('now')),
-            updated_at  TEXT    NOT NULL DEFAULT (datetime('now'))
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            author VARCHAR(255) NOT NULL,
+            role VARCHAR(255) NOT NULL DEFAULT '',
+            company VARCHAR(255) NOT NULL DEFAULT '',
+            avatar VARCHAR(255) NOT NULL DEFAULT '',
+            quote TEXT NOT NULL,
+            rating INT NOT NULL DEFAULT 5,
+            sort_order INT NOT NULL DEFAULT 0,
+            active INT NOT NULL DEFAULT 1,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         );
 
         -- ---- Partnership inquiries (submitted from /partners page) ----
         CREATE TABLE IF NOT EXISTS partner_inquiries
         (
-            id               INTEGER PRIMARY KEY AUTOINCREMENT,
-            company          TEXT    NOT NULL,
-            contact_name     TEXT    NOT NULL,
-            email            TEXT    NOT NULL,
-            phone            TEXT,
-            website          TEXT,
-            country          TEXT,
-            reg_authority    TEXT,            -- e.g. CAC (Nigeria) or equivalent body
-            reg_number       TEXT,            -- registration / incorporation number
-            partnership_type TEXT,            -- Technology | Reseller | Referral | Strategic | Integration | Other
-            message          TEXT,
-            status           TEXT    NOT NULL DEFAULT 'new', -- new | reviewing | approved | declined | archived
-            created_at       TEXT    NOT NULL DEFAULT (datetime('now')),
-            updated_at       TEXT    NOT NULL DEFAULT (datetime('now'))
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            company VARCHAR(255) NOT NULL,
+            contact_name VARCHAR(255) NOT NULL,
+            email VARCHAR(255) NOT NULL,
+            phone VARCHAR(20),
+            website VARCHAR(255),
+            country VARCHAR(100),
+            reg_authority VARCHAR(255),            -- e.g. CAC (Nigeria) or equivalent body
+            reg_number VARCHAR(255),            -- registration / incorporation number
+            partnership_type VARCHAR(255),            -- Technology | Reseller | Referral | Strategic | Integration | Other
+            message TEXT,
+            status VARCHAR(50) NOT NULL DEFAULT 'new', -- new | reviewing | approved | declined | archived
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         );
 
         -- ---- FAQs (central FAQ page + admin CRUD) ----
         CREATE TABLE IF NOT EXISTS faqs
         (
-            id          INTEGER PRIMARY KEY AUTOINCREMENT,
-            question    TEXT    NOT NULL,
-            answer      TEXT    NOT NULL,
-            category    TEXT    NOT NULL DEFAULT 'General',
-            sort_order  INTEGER NOT NULL DEFAULT 0,
-            active      INTEGER NOT NULL DEFAULT 1,
-            created_at  TEXT    NOT NULL DEFAULT (datetime('now')),
-            updated_at  TEXT    NOT NULL DEFAULT (datetime('now'))
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            question TEXT NOT NULL,
+            answer TEXT NOT NULL,
+            category VARCHAR(100) NOT NULL DEFAULT 'General',
+            sort_order INT NOT NULL DEFAULT 0,
+            active INT NOT NULL DEFAULT 1,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         );
 
         -- ---- Ads / Adverts (frontend banners + social share) ----
         CREATE TABLE IF NOT EXISTS ads
         (
-            id            INTEGER PRIMARY KEY AUTOINCREMENT,
-            title         TEXT    NOT NULL,
-            body          TEXT    NOT NULL DEFAULT '',
-            image         TEXT    NOT NULL DEFAULT '',   -- upload URL or external URL
-            link_url      TEXT    NOT NULL DEFAULT '',   -- destination on CTA click
-            cta_label     TEXT    NOT NULL DEFAULT 'Learn more',
-            placement     TEXT    NOT NULL DEFAULT 'home_banner',
-            share_caption TEXT    NOT NULL DEFAULT '',   -- caption pushed to social share intents
-            variant       TEXT    NOT NULL DEFAULT 'gradient', -- gradient | image | minimal
-            status        TEXT    NOT NULL DEFAULT 'draft',    -- draft | published
-            starts_at     TEXT,
-            ends_at       TEXT,
-            impressions   INTEGER NOT NULL DEFAULT 0,
-            clicks        INTEGER NOT NULL DEFAULT 0,
-            sort_order    INTEGER NOT NULL DEFAULT 0,
-            active        INTEGER NOT NULL DEFAULT 1,
-            created_at    TEXT    NOT NULL DEFAULT (datetime('now')),
-            updated_at    TEXT    NOT NULL DEFAULT (datetime('now'))
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            title VARCHAR(255) NOT NULL,
+            body TEXT NOT NULL DEFAULT '',
+            image VARCHAR(255) NOT NULL DEFAULT '',   -- upload URL or external URL
+            link_url VARCHAR(255) NOT NULL DEFAULT '',   -- destination on CTA click
+            cta_label VARCHAR(255) NOT NULL DEFAULT 'Learn more',
+            placement VARCHAR(100) NOT NULL DEFAULT 'home_banner',
+            share_caption TEXT NOT NULL DEFAULT '',   -- caption pushed to social share intents
+            variant VARCHAR(50) NOT NULL DEFAULT 'gradient', -- gradient | image | minimal
+            status VARCHAR(50) NOT NULL DEFAULT 'draft',    -- draft | published
+            starts_at VARCHAR(255),
+            ends_at VARCHAR(255),
+            impressions INT NOT NULL DEFAULT 0,
+            clicks INT NOT NULL DEFAULT 0,
+            sort_order INT NOT NULL DEFAULT 0,
+            active INT NOT NULL DEFAULT 1,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         );
 
         -- ---- Newsletter subscribers ----
         CREATE TABLE IF NOT EXISTS subscribers
         (
-            id         INTEGER PRIMARY KEY AUTOINCREMENT,
-            email      TEXT    NOT NULL UNIQUE,
-            name       TEXT    NOT NULL DEFAULT '',
-            source     TEXT    NOT NULL DEFAULT 'footer',
-            status     TEXT    NOT NULL DEFAULT 'subscribed', -- subscribed | unsubscribed
-            created_at TEXT    NOT NULL DEFAULT (datetime('now')),
-            updated_at TEXT    NOT NULL DEFAULT (datetime('now'))
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            email VARCHAR(255) NOT NULL UNIQUE,
+            name VARCHAR(255) NOT NULL DEFAULT '',
+            source VARCHAR(100) NOT NULL DEFAULT 'footer',
+            status VARCHAR(50) NOT NULL DEFAULT 'subscribed', -- subscribed | unsubscribed
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         );
 
         -- ---- Site-wide announcement bar ----
         CREATE TABLE IF NOT EXISTS announcements
         (
-            id          INTEGER PRIMARY KEY AUTOINCREMENT,
-            message     TEXT    NOT NULL,
-            link_url    TEXT    NOT NULL DEFAULT '',
-            link_label  TEXT    NOT NULL DEFAULT '',
-            variant     TEXT    NOT NULL DEFAULT 'info', -- info | success | warning | promo
-            active      INTEGER NOT NULL DEFAULT 1,
-            starts_at   TEXT,
-            ends_at     TEXT,
-            created_at  TEXT    NOT NULL DEFAULT (datetime('now')),
-            updated_at  TEXT    NOT NULL DEFAULT (datetime('now'))
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            message TEXT NOT NULL,
+            link_url VARCHAR(255) NOT NULL DEFAULT '',
+            link_label VARCHAR(255) NOT NULL DEFAULT '',
+            variant VARCHAR(50) NOT NULL DEFAULT 'info', -- info | success | warning | promo
+            active INT NOT NULL DEFAULT 1,
+            starts_at VARCHAR(255),
+            ends_at VARCHAR(255),
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         );
 
         -- ---- Per-page SEO overrides ----
         CREATE TABLE IF NOT EXISTS page_seo
         (
-            id          INTEGER PRIMARY KEY AUTOINCREMENT,
-            path        TEXT    NOT NULL UNIQUE,
-            title       TEXT    NOT NULL DEFAULT '',
-            description TEXT    NOT NULL DEFAULT '',
-            keywords    TEXT    NOT NULL DEFAULT '',
-            og_image    TEXT    NOT NULL DEFAULT '',
-            updated_at  TEXT    NOT NULL DEFAULT (datetime('now')),
-            created_at  TEXT    NOT NULL DEFAULT (datetime('now'))
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            path VARCHAR(255) NOT NULL UNIQUE,
+            title VARCHAR(255) NOT NULL DEFAULT '',
+            description TEXT NOT NULL DEFAULT '',
+            keywords TEXT NOT NULL DEFAULT '',
+            og_image VARCHAR(255) NOT NULL DEFAULT '',
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         );
 
         -- ---- Lightweight analytics events ----
         CREATE TABLE IF NOT EXISTS analytics_events
         (
-            id         INTEGER PRIMARY KEY AUTOINCREMENT,
-            type       TEXT    NOT NULL DEFAULT 'pageview', -- pageview | click | conversion
-            path       TEXT    NOT NULL DEFAULT '',
-            ref        TEXT    NOT NULL DEFAULT '',
-            label      TEXT    NOT NULL DEFAULT '',
-            ua         TEXT    NOT NULL DEFAULT '',
-            created_at TEXT    NOT NULL DEFAULT (datetime('now'))
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            type VARCHAR(50) NOT NULL DEFAULT 'pageview', -- pageview | click | conversion
+            path VARCHAR(255) NOT NULL DEFAULT '',
+            ref VARCHAR(255) NOT NULL DEFAULT '',
+            label VARCHAR(255) NOT NULL DEFAULT '',
+            ua TEXT NOT NULL DEFAULT '',
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         );
         CREATE INDEX IF NOT EXISTS idx_analytics_created ON analytics_events(created_at);
         CREATE INDEX IF NOT EXISTS idx_analytics_type ON analytics_events(type);
@@ -1558,34 +712,34 @@ export function migrate(database?: any): void {
         -- ---- Media / asset library ----
         CREATE TABLE IF NOT EXISTS media
         (
-            id         INTEGER PRIMARY KEY AUTOINCREMENT,
-            url        TEXT    NOT NULL,
-            filename   TEXT    NOT NULL DEFAULT '',
-            mime       TEXT    NOT NULL DEFAULT '',
-            size       INTEGER NOT NULL DEFAULT 0,
-            alt        TEXT    NOT NULL DEFAULT '',
-            created_at TEXT    NOT NULL DEFAULT (datetime('now'))
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            url VARCHAR(255) NOT NULL,
+            filename VARCHAR(255) NOT NULL DEFAULT '',
+            mime VARCHAR(100) NOT NULL DEFAULT '',
+            size INT NOT NULL DEFAULT 0,
+            alt VARCHAR(255) NOT NULL DEFAULT '',
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         );
 
         -- ---- Website & GitHub audits ----
         CREATE TABLE IF NOT EXISTS audits
         (
-            id          INTEGER PRIMARY KEY AUTOINCREMENT,
-            website     TEXT,                           -- audited website URL
-            repo        TEXT,                           -- audited GitHub repo
-            overall_score INTEGER NOT NULL DEFAULT 0,  -- 0-100
-            grade       TEXT    NOT NULL DEFAULT 'F',  -- A-F
-            summary     TEXT    NOT NULL DEFAULT '',   -- verdict summary
-            sections    TEXT    NOT NULL DEFAULT '[]', -- JSON: AuditSection[]
-            findings    TEXT    NOT NULL DEFAULT '[]', -- JSON: all findings denormalized
-            external_id TEXT    NOT NULL UNIQUE,       -- nanoid() for shareable URLs
-            is_public   INTEGER NOT NULL DEFAULT 1,    -- 1=public, 0=private
-            view_count  INTEGER NOT NULL DEFAULT 0,    -- shareable link views
-            ip_address  TEXT,                          -- requester IP (for analytics)
-            user_agent  TEXT,                          -- requester user agent
-            expires_at  TEXT,                          -- auto-delete after 30 days
-            created_at  TEXT    NOT NULL DEFAULT (datetime('now')),
-            updated_at  TEXT    NOT NULL DEFAULT (datetime('now'))
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            website VARCHAR(255),                           -- audited website URL
+            repo VARCHAR(255),                           -- audited GitHub repo
+            overall_score INT NOT NULL DEFAULT 0,  -- 0-100
+            grade VARCHAR(10) NOT NULL DEFAULT 'F',  -- A-F
+            summary TEXT NOT NULL DEFAULT '',   -- verdict summary
+            sections TEXT NOT NULL DEFAULT '[]', -- JSON: AuditSection[]
+            findings TEXT NOT NULL DEFAULT '[]', -- JSON: all findings denormalized
+            external_id VARCHAR(255) NOT NULL UNIQUE,       -- nanoid() for shareable URLs
+            is_public INT NOT NULL DEFAULT 1,    -- 1=public, 0=private
+            view_count INT NOT NULL DEFAULT 0,    -- shareable link views
+            ip_address VARCHAR(45),                          -- requester IP (for analytics)
+            user_agent TEXT,                          -- requester user agent
+            expires_at VARCHAR(255),                          -- auto-delete after 30 days
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         );
         CREATE INDEX IF NOT EXISTS idx_audits_external_id ON audits(external_id);
         CREATE INDEX IF NOT EXISTS idx_audits_website ON audits(website);
@@ -1594,47 +748,47 @@ export function migrate(database?: any): void {
         CREATE INDEX IF NOT EXISTS idx_audits_expires ON audits(expires_at);
 
         CREATE TABLE IF NOT EXISTS audit_submissions (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_name TEXT NOT NULL,
-            user_email TEXT NOT NULL,
-            user_phone TEXT,
-            user_company TEXT,
-            audit_report_id TEXT,
-            website TEXT,
-            github_repo TEXT,
-            priority TEXT NOT NULL DEFAULT 'medium',
-            budget_estimate TEXT,
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_name VARCHAR(255) NOT NULL,
+            user_email VARCHAR(255) NOT NULL,
+            user_phone VARCHAR(20),
+            user_company VARCHAR(255),
+            audit_report_id VARCHAR(255),
+            website VARCHAR(255),
+            github_repo VARCHAR(255),
+            priority VARCHAR(50) NOT NULL DEFAULT 'medium',
+            budget_estimate VARCHAR(255),
             specific_issues TEXT,
-            preferred_contact TEXT NOT NULL DEFAULT 'email',
+            preferred_contact VARCHAR(50) NOT NULL DEFAULT 'email',
             audit_data TEXT NOT NULL DEFAULT '{}',
-            status TEXT NOT NULL DEFAULT 'new',
+            status VARCHAR(50) NOT NULL DEFAULT 'new',
             admin_notes TEXT,
             proposed_solution TEXT,
-            created_at TEXT NOT NULL DEFAULT (datetime('now')),
-            updated_at TEXT NOT NULL DEFAULT (datetime('now')),
-            responded_at TEXT
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            responded_at VARCHAR(255)
         );
         CREATE INDEX IF NOT EXISTS idx_audit_submissions_email ON audit_submissions(user_email);
         CREATE INDEX IF NOT EXISTS idx_audit_submissions_status ON audit_submissions(status);
 
         CREATE TABLE IF NOT EXISTS career_applications (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            form_type TEXT NOT NULL DEFAULT 'cv_submission', -- cv_submission | self_introduction
-            full_name TEXT NOT NULL,
-            email TEXT NOT NULL,
-            phone TEXT,
-            country TEXT,
-            role_interest TEXT,
-            experience_years TEXT,
-            linkedin_url TEXT,
-            portfolio_url TEXT,
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            form_type VARCHAR(50) NOT NULL DEFAULT 'cv_submission', -- cv_submission | self_introduction
+            full_name VARCHAR(255) NOT NULL,
+            email VARCHAR(255) NOT NULL,
+            phone VARCHAR(20),
+            country VARCHAR(100),
+            role_interest VARCHAR(255),
+            experience_years VARCHAR(100),
+            linkedin_url VARCHAR(255),
+            portfolio_url VARCHAR(255),
             cover_letter TEXT,
-            cv_path TEXT,
-            cv_filename TEXT,
-            status TEXT NOT NULL DEFAULT 'new', -- new | reviewed | shortlisted | rejected | archived
+            cv_path VARCHAR(255),
+            cv_filename VARCHAR(255),
+            status VARCHAR(50) NOT NULL DEFAULT 'new', -- new | reviewed | shortlisted | rejected | archived
             admin_notes TEXT,
-            created_at TEXT NOT NULL DEFAULT (datetime('now')),
-            updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         );
         CREATE INDEX IF NOT EXISTS idx_career_apps_email ON career_applications(email);
         CREATE INDEX IF NOT EXISTS idx_career_apps_status ON career_applications(status);
@@ -1642,22 +796,22 @@ export function migrate(database?: any): void {
 
         -- ---- Job Openings (career portal postings) ----
         CREATE TABLE IF NOT EXISTS job_openings (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT NOT NULL,
-            department TEXT NOT NULL DEFAULT '',
-            location TEXT NOT NULL DEFAULT 'Remote',
-            type TEXT NOT NULL DEFAULT 'full-time', -- full-time | part-time | contract | remote
-            experience_level TEXT NOT NULL DEFAULT '',
-            salary_range TEXT NOT NULL DEFAULT '',
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            title VARCHAR(255) NOT NULL,
+            department VARCHAR(255) NOT NULL DEFAULT '',
+            location VARCHAR(255) NOT NULL DEFAULT 'Remote',
+            type VARCHAR(50) NOT NULL DEFAULT 'full-time', -- full-time | part-time | contract | remote
+            experience_level VARCHAR(255) NOT NULL DEFAULT '',
+            salary_range VARCHAR(255) NOT NULL DEFAULT '',
             description TEXT NOT NULL DEFAULT '',
             responsibilities TEXT NOT NULL DEFAULT '[]', -- JSON array
             requirements TEXT NOT NULL DEFAULT '[]',     -- JSON array
             nice_to_have TEXT NOT NULL DEFAULT '[]',     -- JSON array
             benefits TEXT NOT NULL DEFAULT '[]',         -- JSON array
-            status TEXT NOT NULL DEFAULT 'draft',        -- draft | published | closed
-            deadline TEXT,
-            created_at TEXT NOT NULL DEFAULT (datetime('now')),
-            updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+            status VARCHAR(50) NOT NULL DEFAULT 'draft',        -- draft | published | closed
+            deadline VARCHAR(255),
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         );
         CREATE INDEX IF NOT EXISTS idx_job_openings_status ON job_openings(status);
     `);

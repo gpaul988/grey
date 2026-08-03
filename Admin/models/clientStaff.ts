@@ -88,7 +88,7 @@ export const ClientStaffModel = {
     },
 
     touchLogin(id: number): void {
-        db.prepare("UPDATE client_staff SET last_login = datetime('now') WHERE id = ?").run(id);
+        db.prepare("UPDATE client_staff SET last_login = NOW() WHERE id = ?").run(id);
     },
 
     async verifyPassword(email: string, password: string): Promise<ClientStaff | null> {

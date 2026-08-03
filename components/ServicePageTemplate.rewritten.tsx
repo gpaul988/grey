@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, react-hooks/static-components */
+/* eslint-disable react-hooks/static-components */
 'use client';
 import React, {useEffect, useMemo, useRef, useState, type ReactNode} from 'react';
 import Link from 'next/link';

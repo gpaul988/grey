@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '100', 10);
     const offset = parseInt(searchParams.get('offset') || '0', 10);
 
-    let whereConditions = [eq(storeProducts.isActive, true)];
+    const whereConditions = [eq(storeProducts.isActive, true)];
 
     if (category) {
       const cat = await db

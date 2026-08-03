@@ -3,7 +3,6 @@ import express, {type Request, type Response} from 'express';
 import nodemailer from 'nodemailer';
 import path from 'node:path';
 import fs from 'node:fs';
-import Database from 'better-sqlite3';
 import db from '../db';
 import {ensureApiAuth, requireRole, requirePermission} from '../middleware/authMiddleware';
 import {
@@ -146,15 +145,12 @@ api.patch('/submissions/:id', (req, res) => {
         }
         
         // Update the submission in the database
-        const dbPath = path.join(process.cwd(), 'Admin', 'data', 'grey.db');
-        const db = new Database(dbPath);
         const setClauses = Object.keys(updates).map(k => `${k} = ?`).join(', ');
         const values = Object.values(updates);
         values.push(id);
-        
+
         const stmt = db.prepare(`UPDATE submissions SET ${setClauses} WHERE id = ?`);
         stmt.run(...values);
-        db.close();
         
         logActivity({ ...actor(req), action: 'update', entity: 'submission', entity_id: id });
         broadcastStats(); // Notify all admins of the update
@@ -1071,7 +1067,7 @@ api.get('/notifications', (req, res) => {
                 entity_id INTEGER,
                 related_data TEXT,
                 status TEXT NOT NULL DEFAULT 'unread',
-                created_at TEXT NOT NULL DEFAULT (datetime('now'))
+                created_at TEXT NOT NULL DEFAULT (NOW())
             );
             CREATE INDEX IF NOT EXISTS idx_notifications_status ON notifications(status);
             CREATE INDEX IF NOT EXISTS idx_notifications_created ON notifications(created_at DESC);
