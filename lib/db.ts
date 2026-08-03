@@ -1,23 +1,47 @@
 import { drizzle as drizzlePg } from 'drizzle-orm/node-postgres';
-import { drizzle as drizzleSqlite } from 'drizzle-orm/better-sqlite3';
+import { drizzle as drizzleMysql } from 'drizzle-orm/mysql2';
 import { Pool } from 'pg';
-import Database from 'better-sqlite3';
+import mysql, { type Pool as MysqlPool } from 'mysql2/promise';
 import * as schema from './db/schema';
 
 let pgPool: Pool | null = null;
-let sqliteDb: Database.Database | null = null;
+let mysqlPool: MysqlPool | null = null;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let dbInstance: any = null;
 
 /**
- * Check if using SQLite (DATABASE_URL starts with 'file:')
+ * Check database type from environment
+ * Default: MySQL (not SQLite)
  */
-function isSQLite(): boolean {
-  const url = process.env.DATABASE_URL || '';
-  // Default to SQLite when DATABASE_URL is not provided to avoid requiring
-  // PostgreSQL configuration during build or simple local runs.
-  if (!url) return true;
-  return url.startsWith('file:');
+function getDbType(): 'mysql' | 'postgresql' | 'sqlite' {
+  const dbType = process.env.DB_TYPE || 'mysql';
+  return dbType.toLowerCase() as 'mysql' | 'postgresql' | 'sqlite';
+}
+
+/**
+ * Get or create MySQL connection pool
+ */
+export function getMysqlPool(): MysqlPool {
+  if (mysqlPool) return mysqlPool;
+
+  const host = process.env.DB_HOST || '127.0.0.1';
+  const user = process.env.DB_USER || 'root';
+  const password = process.env.DB_PASS || '';
+  const database = process.env.DB_NAME || 'grey';
+  const port = Number(process.env.DB_PORT || 3306);
+
+  mysqlPool = mysql.createPool({
+    host,
+    user,
+    password,
+    database,
+    port,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+  });
+
+  return mysqlPool;
 }
 
 /**
@@ -50,33 +74,20 @@ export function getPgPool(): Pool {
 }
 
 /**
- * Get or create SQLite connection
- */
-function getSqliteDb(): Database.Database {
-  if (sqliteDb) return sqliteDb;
-
-  const dbPath = (process.env.DATABASE_URL || 'file:./Admin/data/grey.db')
-    .replace('file:', '')
-    .replace('?', '');
-
-  sqliteDb = new Database(dbPath);
-  sqliteDb.pragma('journal_mode = WAL');
-  sqliteDb.pragma('foreign_keys = ON');
-
-  return sqliteDb;
-}
-
-/**
  * Get Drizzle ORM instance
  */
 export function getDb() {
   if (!dbInstance) {
-    if (isSQLite()) {
-      const db = getSqliteDb();
-      dbInstance = drizzleSqlite(db, { schema });
-    } else {
+    const dbType = getDbType();
+    
+    if (dbType === 'mysql') {
+      const pool = getMysqlPool();
+      dbInstance = drizzleMysql({ client: pool, schema, mode: 'default' });
+    } else if (dbType === 'postgresql') {
       const pool = getPgPool();
       dbInstance = drizzlePg({ client: pool, schema });
+    } else {
+      throw new Error(`Unsupported database type: ${dbType}`);
     }
   }
   return dbInstance;
@@ -92,39 +103,49 @@ export const db = getDb();
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function query(sql: string, params?: any[]) {
-  if (isSQLite()) {
-    const db = getSqliteDb();
-    const stmt = db.prepare(sql);
-    return stmt.all(params);
-  } else {
+  const dbType = getDbType();
+  
+  if (dbType === 'mysql') {
+    const pool = getMysqlPool();
+    const [rows] = await pool.execute(sql, params || []);
+    return rows;
+  } else if (dbType === 'postgresql') {
     const pool = getPgPool();
     const result = await pool.query(sql, params);
     return result.rows;
+  } else {
+    throw new Error(`Unsupported database type: ${dbType}`);
   }
 }
 
 /**
- * Get a single client connection (for transactions) - PostgreSQL only
+ * Get a single client connection (for transactions)
  */
 export async function getClient() {
-  if (isSQLite()) {
-    throw new Error('getClient() not supported for SQLite');
+  const dbType = getDbType();
+  
+  if (dbType === 'mysql') {
+    const pool = getMysqlPool();
+    return pool.getConnection();
+  } else if (dbType === 'postgresql') {
+    const pool = getPgPool();
+    return pool.connect();
+  } else {
+    throw new Error(`Unsupported database type: ${dbType}`);
   }
-  const pool = getPgPool();
-  return pool.connect();
 }
 
 /**
- * Close pool (cleanup on shutdown)
+ * Close all database connections (cleanup on shutdown)
  */
 export async function closePool(): Promise<void> {
+  if (mysqlPool) {
+    await mysqlPool.end();
+    mysqlPool = null;
+  }
   if (pgPool) {
     await pgPool.end();
     pgPool = null;
-  }
-  if (sqliteDb) {
-    sqliteDb.close();
-    sqliteDb = null;
   }
   dbInstance = null;
 }
@@ -132,8 +153,8 @@ export async function closePool(): Promise<void> {
 /**
  * Get database type
  */
-export function getDbType(): 'sqlite' | 'postgresql' {
-  return isSQLite() ? 'sqlite' : 'postgresql';
+export function getDatabaseType(): 'mysql' | 'postgresql' | 'sqlite' {
+  return getDbType();
 }
 
 export default db;

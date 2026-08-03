@@ -1,37 +1,39 @@
 /**
  * Store Schema - E-commerce tables for products, customers, orders, payments
- * Uses Drizzle ORM with SQLite
+ * Uses Drizzle ORM with MySQL
  */
 
 import {
-  sqliteTable,
-  integer,
+  mysqlTable,
+  int,
+  varchar,
   text,
-  real,
-  blob,
+  decimal,
+  boolean,
+  timestamp,
   index,
   uniqueIndex,
   primaryKey,
-} from 'drizzle-orm/sqlite-core';
+} from 'drizzle-orm/mysql-core';
 import { sql } from 'drizzle-orm';
 
 /**
  * Store Customers - customers for the e-commerce store
  */
-export const storeCustomers = sqliteTable(
+export const storeCustomers = mysqlTable(
   'store_customers',
   {
-    id: integer('id').primaryKey({ autoIncrement: true }),
-    email: text('email').notNull().unique(),
-    firstName: text('first_name').notNull(),
-    lastName: text('last_name').notNull(),
+    id: int('id').primaryKey().autoincrement(),
+    email: varchar('email', { length: 255 }).notNull().unique(),
+    firstName: varchar('first_name', { length: 100 }).notNull(),
+    lastName: varchar('last_name', { length: 100 }).notNull(),
     passwordHash: text('password_hash').notNull(),
-    phone: text('phone'),
-    defaultAddress: integer('default_address_id'),
-    status: text('status').notNull().default('active'), // active | inactive | suspended
-    emailVerified: integer('email_verified', { mode: 'boolean' }).default(false),
-    createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
-    updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    phone: varchar('phone', { length: 20 }),
+    defaultAddress: int('default_address_id'),
+    status: varchar('status', { length: 50 }).notNull().default('active'),
+    emailVerified: boolean('email_verified').default(false),
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    updatedAt: timestamp('updated_at').default(sql`CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP`).notNull(),
   },
   (table) => ({
     emailIdx: uniqueIndex('idx_store_customers_email').on(table.email),
@@ -42,20 +44,20 @@ export const storeCustomers = sqliteTable(
 /**
  * Store Customer Addresses
  */
-export const storeCustomerAddresses = sqliteTable(
+export const storeCustomerAddresses = mysqlTable(
   'store_customer_addresses',
   {
-    id: integer('id').primaryKey({ autoIncrement: true }),
-    customerId: integer('customer_id').notNull(),
-    type: text('type').notNull().default('shipping'), // shipping | billing
-    street: text('street').notNull(),
-    city: text('city').notNull(),
-    state: text('state').notNull(),
-    postalCode: text('postal_code').notNull(),
-    country: text('country').notNull().default('NG'),
-    isDefault: integer('is_default', { mode: 'boolean' }).default(false),
-    createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
-    updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    id: int('id').primaryKey().autoincrement(),
+    customerId: int('customer_id').notNull(),
+    type: varchar('type', { length: 50 }).notNull().default('shipping'), // shipping | billing
+    street: varchar('street', { length: 255 }).notNull(),
+    city: varchar('city', { length: 100 }).notNull(),
+    state: varchar('state', { length: 100 }).notNull(),
+    postalCode: varchar('postal_code', { length: 20 }).notNull(),
+    country: varchar('country', { length: 50 }).notNull().default('NG'),
+    isDefault: boolean('is_default').default(false),
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    updatedAt: timestamp('updated_at').default(sql`CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP`).notNull(),
   },
   (table) => ({
     customerIdIdx: index('idx_store_customer_addresses_customer_id').on(table.customerId),
@@ -65,19 +67,19 @@ export const storeCustomerAddresses = sqliteTable(
 /**
  * Store Categories
  */
-export const storeCategories = sqliteTable(
+export const storeCategories = mysqlTable(
   'store_categories',
   {
-    id: integer('id').primaryKey({ autoIncrement: true }),
-    name: text('name').notNull(),
-    slug: text('slug').notNull().unique(),
+    id: int('id').primaryKey().autoincrement(),
+    name: varchar('name', { length: 255 }).notNull(),
+    slug: varchar('slug', { length: 255 }).notNull().unique(),
     description: text('description'),
     image: text('image'),
-    parentId: integer('parent_id'), // for subcategories
-    sortOrder: integer('sort_order').default(0),
-    isActive: integer('is_active', { mode: 'boolean' }).default(true),
-    createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
-    updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    parentId: int('parent_id'), // for subcategories
+    sortOrder: int('sort_order').default(0),
+    isActive: boolean('is_active').default(true),
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    updatedAt: timestamp('updated_at').default(sql`CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP`).notNull(),
   },
   (table) => ({
     slugIdx: uniqueIndex('idx_store_categories_slug').on(table.slug),
@@ -88,18 +90,18 @@ export const storeCategories = sqliteTable(
 /**
  * Store Brands
  */
-export const storeBrands = sqliteTable(
+export const storeBrands = mysqlTable(
   'store_brands',
   {
-    id: integer('id').primaryKey({ autoIncrement: true }),
-    name: text('name').notNull().unique(),
-    slug: text('slug').notNull().unique(),
+    id: int('id').primaryKey().autoincrement(),
+    name: varchar('name', { length: 255 }).notNull().unique(),
+    slug: varchar('slug', { length: 255 }).notNull().unique(),
     description: text('description'),
     logo: text('logo'),
-    website: text('website'),
-    isActive: integer('is_active', { mode: 'boolean' }).default(true),
-    createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
-    updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    website: varchar('website', { length: 255 }),
+    isActive: boolean('is_active').default(true),
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    updatedAt: timestamp('updated_at').default(sql`CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP`).notNull(),
   },
   (table) => ({
     slugIdx: uniqueIndex('idx_store_brands_slug').on(table.slug),
@@ -109,37 +111,37 @@ export const storeBrands = sqliteTable(
 /**
  * Store Products
  */
-export const storeProducts = sqliteTable(
+export const storeProducts = mysqlTable(
   'store_products',
   {
-    id: integer('id').primaryKey({ autoIncrement: true }),
-    name: text('name').notNull(),
-    slug: text('slug').notNull().unique(),
-    sku: text('sku').unique(),
+    id: int('id').primaryKey().autoincrement(),
+    name: varchar('name', { length: 255 }).notNull(),
+    slug: varchar('slug', { length: 255 }).notNull().unique(),
+    sku: varchar('sku', { length: 100 }).unique(),
     description: text('description'),
-    categoryId: integer('category_id').notNull(),
-    brandId: integer('brand_id'),
-    price: real('price').notNull(), // store as REAL for decimal
-    priceUsd: real('price_usd'),
-    comparePrice: real('compare_price'),
-    stock: integer('stock').default(0),
-    rating: real('rating').default(0),
-    reviewCount: integer('review_count').default(0),
+    categoryId: int('category_id').notNull(),
+    brandId: int('brand_id'),
+    price: decimal('price', { precision: 10, scale: 2 }).notNull(),
+    priceUsd: decimal('price_usd', { precision: 10, scale: 2 }),
+    comparePrice: decimal('compare_price', { precision: 10, scale: 2 }),
+    stock: int('stock').default(0),
+    rating: decimal('rating', { precision: 3, scale: 2 }).default('0.00'),
+    reviewCount: int('review_count').default(0),
     images: text('images').default('[]'), // JSON string array of image URLs
     thumbnail: text('thumbnail'),
     specs: text('specs').default('{}'), // JSON string key-value specs
     tags: text('tags').default('[]'), // JSON string array of tags
-    featured: integer('featured', { mode: 'boolean' }).default(false),
-    isActive: integer('is_active', { mode: 'boolean' }).default(true),
-    seoTitle: text('seo_title'),
+    featured: boolean('featured').default(false),
+    isActive: boolean('is_active').default(true),
+    seoTitle: varchar('seo_title', { length: 255 }),
     seoDescription: text('seo_description'),
-    productType: text('product_type').default('hardware'), // hardware | software
+    productType: varchar('product_type', { length: 50 }).default('hardware'), // hardware | software
     downloadUrl: text('download_url'), // URL for software downloads
-    licenseType: text('license_type'), // single | multiple | unlimited (for software)
-    licenseCount: integer('license_count'), // number of licenses included
-    supportEmail: text('support_email'), // support contact for software
-    createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
-    updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    licenseType: varchar('license_type', { length: 50 }), // single | multiple | unlimited (for software)
+    licenseCount: int('license_count'), // number of licenses included
+    supportEmail: varchar('support_email', { length: 255 }), // support contact for software
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    updatedAt: timestamp('updated_at').default(sql`CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP`).notNull(),
   },
   (table) => ({
     slugIdx: uniqueIndex('idx_store_products_slug').on(table.slug),
@@ -154,21 +156,21 @@ export const storeProducts = sqliteTable(
 /**
  * Store Product Reviews
  */
-export const storeProductReviews = sqliteTable(
+export const storeProductReviews = mysqlTable(
   'store_product_reviews',
   {
-    id: integer('id').primaryKey({ autoIncrement: true }),
-    productId: integer('product_id').notNull(),
-    customerId: integer('customer_id').notNull(),
-    rating: integer('rating').notNull(), // 1-5
-    title: text('title'),
+    id: int('id').primaryKey().autoincrement(),
+    productId: int('product_id').notNull(),
+    customerId: int('customer_id').notNull(),
+    rating: int('rating').notNull(), // 1-5
+    title: varchar('title', { length: 255 }),
     content: text('content'),
-    isVerified: integer('is_verified', { mode: 'boolean' }).default(false), // verified purchase
-    helpful: integer('helpful').default(0),
-    unhelpful: integer('unhelpful').default(0),
-    status: text('status').notNull().default('pending'), // pending | approved | rejected
-    createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
-    updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    isVerified: boolean('is_verified').default(false), // verified purchase
+    helpful: int('helpful').default(0),
+    unhelpful: int('unhelpful').default(0),
+    status: varchar('status', { length: 50 }).notNull().default('pending'), // pending | approved | rejected
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    updatedAt: timestamp('updated_at').default(sql`CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP`).notNull(),
   },
   (table) => ({
     productIdIdx: index('idx_store_product_reviews_product_id').on(table.productId),
@@ -179,27 +181,27 @@ export const storeProductReviews = sqliteTable(
 /**
  * Store Orders
  */
-export const storeOrders = sqliteTable(
+export const storeOrders = mysqlTable(
   'store_orders',
   {
-    id: integer('id').primaryKey({ autoIncrement: true }),
-    orderNumber: text('order_number').notNull().unique(),
-    customerId: integer('customer_id').notNull(),
-    email: text('email').notNull(),
-    status: text('status').notNull().default('pending'), // pending | confirmed | shipped | delivered | cancelled
-    shippingAddressId: integer('shipping_address_id'),
-    billingAddressId: integer('billing_address_id'),
-    subtotal: real('subtotal').notNull(),
-    shippingCost: real('shipping_cost').default(0),
-    tax: real('tax').default(0),
-    total: real('total').notNull(),
-    currency: text('currency').default('NGN'),
-    paymentStatus: text('payment_status').default('pending'), // pending | completed | failed | refunded
-    shippingStatus: text('shipping_status').default('pending'), // pending | shipped | delivered | returned
+    id: int('id').primaryKey().autoincrement(),
+    orderNumber: varchar('order_number', { length: 100 }).notNull().unique(),
+    customerId: int('customer_id').notNull(),
+    email: varchar('email', { length: 255 }).notNull(),
+    status: varchar('status', { length: 50 }).notNull().default('pending'), // pending | confirmed | shipped | delivered | cancelled
+    shippingAddressId: int('shipping_address_id'),
+    billingAddressId: int('billing_address_id'),
+    subtotal: decimal('subtotal', { precision: 10, scale: 2 }).notNull(),
+    shippingCost: decimal('shipping_cost', { precision: 10, scale: 2 }).default('0.00'),
+    tax: decimal('tax', { precision: 10, scale: 2 }).default('0.00'),
+    total: decimal('total', { precision: 10, scale: 2 }).notNull(),
+    currency: varchar('currency', { length: 10 }).default('NGN'),
+    paymentStatus: varchar('payment_status', { length: 50 }).default('pending'), // pending | completed | failed | refunded
+    shippingStatus: varchar('shipping_status', { length: 50 }).default('pending'), // pending | shipped | delivered | returned
     notes: text('notes'),
     metadata: text('metadata').default('{}'), // JSON string
-    createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
-    updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    updatedAt: timestamp('updated_at').default(sql`CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP`).notNull(),
   },
   (table) => ({
     orderNumberIdx: uniqueIndex('idx_store_orders_order_number').on(table.orderNumber),
@@ -212,17 +214,17 @@ export const storeOrders = sqliteTable(
 /**
  * Store Order Items
  */
-export const storeOrderItems = sqliteTable(
+export const storeOrderItems = mysqlTable(
   'store_order_items',
   {
-    id: integer('id').primaryKey({ autoIncrement: true }),
-    orderId: integer('order_id').notNull(),
-    productId: integer('product_id').notNull(),
-    quantity: integer('quantity').notNull().default(1),
-    price: real('price').notNull(), // price at time of order
-    subtotal: real('subtotal').notNull(),
+    id: int('id').primaryKey().autoincrement(),
+    orderId: int('order_id').notNull(),
+    productId: int('product_id').notNull(),
+    quantity: int('quantity').notNull().default(1),
+    price: decimal('price', { precision: 10, scale: 2 }).notNull(), // price at time of order
+    subtotal: decimal('subtotal', { precision: 10, scale: 2 }).notNull(),
     metadata: text('metadata').default('{}'), // JSON string: selected options, etc
-    createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
   },
   (table) => ({
     orderIdIdx: index('idx_store_order_items_order_id').on(table.orderId),
@@ -233,22 +235,22 @@ export const storeOrderItems = sqliteTable(
 /**
  * Store Payments
  */
-export const storePayments = sqliteTable(
+export const storePayments = mysqlTable(
   'store_payments',
   {
-    id: integer('id').primaryKey({ autoIncrement: true }),
-    orderId: integer('order_id').notNull(),
-    customerId: integer('customer_id').notNull(),
-    amount: real('amount').notNull(),
-    currency: text('currency').default('NGN'),
-    provider: text('provider').notNull(), // paystack | flutterwave | bank_transfer
-    transactionId: text('transaction_id').notNull().unique(),
-    reference: text('reference'),
-    status: text('status').notNull().default('pending'), // pending | completed | failed | refunded
-    paymentMethod: text('payment_method'), // card | bank_transfer | ussd
+    id: int('id').primaryKey().autoincrement(),
+    orderId: int('order_id').notNull(),
+    customerId: int('customer_id').notNull(),
+    amount: decimal('amount', { precision: 10, scale: 2 }).notNull(),
+    currency: varchar('currency', { length: 10 }).default('NGN'),
+    provider: varchar('provider', { length: 100 }).notNull(), // paystack | flutterwave | bank_transfer
+    transactionId: varchar('transaction_id', { length: 255 }).notNull().unique(),
+    reference: varchar('reference', { length: 255 }),
+    status: varchar('status', { length: 50 }).notNull().default('pending'), // pending | completed | failed | refunded
+    paymentMethod: varchar('payment_method', { length: 50 }), // card | bank_transfer | ussd
     metadata: text('metadata').default('{}'), // JSON string: gateway response data
-    createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
-    updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    updatedAt: timestamp('updated_at').default(sql`CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP`).notNull(),
   },
   (table) => ({
     orderIdIdx: index('idx_store_payments_order_id').on(table.orderId),
@@ -261,22 +263,22 @@ export const storePayments = sqliteTable(
 /**
  * Store Coupons/Discounts
  */
-export const storeCoupons = sqliteTable(
+export const storeCoupons = mysqlTable(
   'store_coupons',
   {
-    id: integer('id').primaryKey({ autoIncrement: true }),
-    code: text('code').notNull().unique(),
+    id: int('id').primaryKey().autoincrement(),
+    code: varchar('code', { length: 100 }).notNull().unique(),
     description: text('description'),
-    discountType: text('discount_type').notNull(), // percentage | fixed
-    discountValue: real('discount_value').notNull(),
-    maxUses: integer('max_uses'),
-    currentUses: integer('current_uses').default(0),
-    minOrderValue: real('min_order_value'),
-    validFrom: text('valid_from').notNull(),
-    validTo: text('valid_to').notNull(),
-    isActive: integer('is_active', { mode: 'boolean' }).default(true),
-    createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
-    updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    discountType: varchar('discount_type', { length: 50 }).notNull(), // percentage | fixed
+    discountValue: decimal('discount_value', { precision: 10, scale: 2 }).notNull(),
+    maxUses: int('max_uses'),
+    currentUses: int('current_uses').default(0),
+    minOrderValue: decimal('min_order_value', { precision: 10, scale: 2 }),
+    validFrom: timestamp('valid_from').notNull(),
+    validTo: timestamp('valid_to').notNull(),
+    isActive: boolean('is_active').default(true),
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    updatedAt: timestamp('updated_at').default(sql`CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP`).notNull(),
   },
   (table) => ({
     codeIdx: uniqueIndex('idx_store_coupons_code').on(table.code),
@@ -286,17 +288,17 @@ export const storeCoupons = sqliteTable(
 /**
  * Store Cart Sessions (for abandoned carts)
  */
-export const storeCartSessions = sqliteTable(
+export const storeCartSessions = mysqlTable(
   'store_cart_sessions',
   {
-    id: integer('id').primaryKey({ autoIncrement: true }),
-    customerId: integer('customer_id'),
-    sessionId: text('session_id').unique(),
+    id: int('id').primaryKey().autoincrement(),
+    customerId: int('customer_id'),
+    sessionId: varchar('session_id', { length: 255 }).unique(),
     items: text('items').default('[]'), // JSON string: [{productId, quantity, price}, ...]
-    couponCode: text('coupon_code'),
-    expiresAt: text('expires_at').notNull(),
-    createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
-    updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    couponCode: varchar('coupon_code', { length: 100 }),
+    expiresAt: timestamp('expires_at').notNull(),
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    updatedAt: timestamp('updated_at').default(sql`CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP`).notNull(),
   },
   (table) => ({
     customerIdIdx: index('idx_store_cart_sessions_customer_id').on(table.customerId),
@@ -307,13 +309,13 @@ export const storeCartSessions = sqliteTable(
 /**
  * Store Wishlist
  */
-export const storeWishlists = sqliteTable(
+export const storeWishlists = mysqlTable(
   'store_wishlists',
   {
-    id: integer('id').primaryKey({ autoIncrement: true }),
-    customerId: integer('customer_id').notNull(),
-    productId: integer('product_id').notNull(),
-    createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    id: int('id').primaryKey().autoincrement(),
+    customerId: int('customer_id').notNull(),
+    productId: int('product_id').notNull(),
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
   },
   (table) => ({
     customerProductIdx: uniqueIndex('idx_store_wishlists_customer_product').on(
@@ -328,17 +330,17 @@ export const storeWishlists = sqliteTable(
  * Store Password Reset Tokens
  * Used for "forgot password" flow - securely store reset tokens with expiry
  */
-export const storePasswordResetTokens = sqliteTable(
+export const storePasswordResetTokens = mysqlTable(
   'store_password_reset_tokens',
   {
-    id: integer('id').primaryKey({ autoIncrement: true }),
-    customerId: integer('customer_id').notNull(),
-    email: text('email').notNull(),
-    token: text('token').notNull().unique(),
-    expiresAt: text('expires_at').notNull(),
-    used: integer('used', { mode: 'boolean' }).default(false),
-    usedAt: text('used_at'),
-    createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+    id: int('id').primaryKey().autoincrement(),
+    customerId: int('customer_id').notNull(),
+    email: varchar('email', { length: 255 }).notNull(),
+    token: varchar('token', { length: 255 }).notNull().unique(),
+    expiresAt: timestamp('expires_at').notNull(),
+    used: boolean('used').default(false),
+    usedAt: timestamp('used_at'),
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
   },
   (table) => ({
     tokenIdx: uniqueIndex('idx_store_password_reset_tokens_token').on(table.token),
@@ -352,22 +354,22 @@ export const storePasswordResetTokens = sqliteTable(
  * Store Software Licenses
  * Tracks license keys and activation for software products
  */
-export const storeSoftwareLicenses = sqliteTable(
+export const storeSoftwareLicenses = mysqlTable(
   'store_software_licenses',
   {
-   id: integer('id').primaryKey({ autoIncrement: true }),
-   orderId: integer('order_id').notNull(),
-   productId: integer('product_id').notNull(),
-   licenseKey: text('license_key').notNull().unique(),
-   activationCode: text('activation_code'),
-   status: text('status').notNull().default('pending'), // pending | activated | expired | revoked
-   activatedAt: text('activated_at'),
-   expiresAt: text('expires_at'),
-   activationCount: integer('activation_count').default(0),
-   maxActivations: integer('max_activations').default(1),
+   id: int('id').primaryKey().autoincrement(),
+   orderId: int('order_id').notNull(),
+   productId: int('product_id').notNull(),
+   licenseKey: varchar('license_key', { length: 255 }).notNull().unique(),
+   activationCode: varchar('activation_code', { length: 255 }),
+   status: varchar('status', { length: 50 }).notNull().default('pending'), // pending | activated | expired | revoked
+   activatedAt: timestamp('activated_at'),
+   expiresAt: timestamp('expires_at'),
+   activationCount: int('activation_count').default(0),
+   maxActivations: int('max_activations').default(1),
    deviceInfo: text('device_info').default('{}'), // JSON: hardware identifiers, device name, etc
-   createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
-   updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+   createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
+   updatedAt: timestamp('updated_at').default(sql`CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP`).notNull(),
   },
   (table) => ({
    licenseKeyIdx: uniqueIndex('idx_software_licenses_key').on(table.licenseKey),
