@@ -50,7 +50,7 @@ export async function GET(
       .leftJoin(storeBrands, eq(storeProducts.brandId, storeBrands.id))
       .where(and(eq(storeProducts.slug, slug), eq(storeProducts.isActive, true)))
       .limit(1)
-      .then((r: any[]) => r[0]);
+      .then((r: Record<string, unknown>[]) => r[0]);
 
     if (!product) {
       return NextResponse.json(
@@ -74,7 +74,7 @@ export async function GET(
     // Calculate rating
     const rating =
       reviews.length > 0
-        ? reviews.reduce((sum: number, r: any) => sum + r.rating, 0) / reviews.length
+        ? reviews.reduce((sum: number, r: Record<string, unknown>) => sum + (r.rating as number), 0) / reviews.length
         : product.rating || 0;
 
     return NextResponse.json({
@@ -85,7 +85,7 @@ export async function GET(
         tags: product.tags ? JSON.parse(product.tags) : [],
         rating: Math.round(rating * 10) / 10,
       },
-      reviews: reviews.map((r: any) => ({
+      reviews: reviews.map((r: Record<string, unknown>) => ({
         id: r.id,
         rating: r.rating,
         title: r.title,

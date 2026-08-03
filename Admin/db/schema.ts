@@ -8,6 +8,7 @@ const require = createRequire(import.meta.url);
  * Falls back to requiring ./index when called without an argument.
  * Accepts any database-like object (better-sqlite3 or MySQL adapter).
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function migrate(database?: any): void {
 
      

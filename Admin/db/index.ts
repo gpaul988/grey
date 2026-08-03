@@ -14,6 +14,7 @@ export const DB_PATH = process.env.DB_PATH || path.join(DATA_DIR, 'grey.db');
 const DB_TYPE = (process.env.DB_TYPE || 'mysql').toLowerCase();
 
 // Internal getter for sqlite DB (lazy)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let sqliteDb: any = null;
 function _initSqlite() {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
