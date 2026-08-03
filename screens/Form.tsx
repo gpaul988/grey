@@ -3,8 +3,10 @@
 
 import React, {useState} from 'react';
 import '@/app/globals.css';
+import { useIsDayTime } from '@/components/useIsDayTime';
 
 const Form: React.FC = () => {
+    const isDayTime = useIsDayTime();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [subject, setSubject] = useState('');
@@ -55,7 +57,7 @@ const Form: React.FC = () => {
     return (
         <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto">
             <input
-                className="border p-2 w-full"
+                className={`border p-2 w-full rounded ${isDayTime ? 'bg-white text-black border-gray-300' : 'bg-gray-800 text-white border-gray-600'}`}
                 value={name}
                 onChange={e => setName(e.target.value)}
                 placeholder="Name"
@@ -63,7 +65,7 @@ const Form: React.FC = () => {
                 disabled={loading}
             />
             <input
-                className="border p-2 w-full"
+                className={`border p-2 w-full rounded ${isDayTime ? 'bg-white text-black border-gray-300' : 'bg-gray-800 text-white border-gray-600'}`}
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 placeholder="Email"
@@ -72,14 +74,14 @@ const Form: React.FC = () => {
                 disabled={loading}
             />
             <input
-                className="border p-2 w-full"
+                className={`border p-2 w-full rounded ${isDayTime ? 'bg-white text-black border-gray-300' : 'bg-gray-800 text-white border-gray-600'}`}
                 value={subject}
                 onChange={e => setSubject(e.target.value)}
                 placeholder="Subject"
                 disabled={loading}
             />
             <textarea
-                className="border p-2 w-full"
+                className={`border p-2 w-full rounded ${isDayTime ? 'bg-white text-black border-gray-300' : 'bg-gray-800 text-white border-gray-600'}`}
                 value={message}
                 onChange={e => setMessage(e.target.value)}
                 placeholder="Message"
@@ -87,7 +89,7 @@ const Form: React.FC = () => {
             />
             <button
                 type="submit"
-                className="bg-blue-600 text-white px-4 py-2 rounded"
+                className={`${isDayTime ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-blue-500 hover:bg-blue-600 text-white'} px-4 py-2 rounded`}
                 disabled={loading}
             >
                 {loading ? 'Sending...' : 'Send'}

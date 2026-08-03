@@ -2,6 +2,7 @@
 
 import React, {useState, useMemo, useCallback} from 'react';
 import Head from 'next/head';
+import { useIsDayTime } from './useIsDayTime';
 
 const FORM_TYPE = 'QuoteRequest';
 const MAX_FILE_SIZE_MB = 20;
@@ -109,27 +110,36 @@ const CustomDropdown: React.FC<{
     className?: string;
 }> = ({options, value, onChange, placeholder, required, className}) => {
     const [open, setOpen] = useState(false);
+    const isDayTime = useIsDayTime();
+    const themeBg = isDayTime ? 'bg-white' : 'bg-gray-800';
+    const themeText = isDayTime ? 'text-gray-900' : 'text-gray-100';
+    const themeBorder = isDayTime ? 'border-gray-300' : 'border-gray-600';
+    const dropdownBg = isDayTime ? 'bg-white' : 'bg-gray-800';
+    const dropdownText = isDayTime ? 'text-gray-900' : 'text-gray-100';
+    const labelColor = isDayTime ? 'text-gray-700' : 'text-gray-300';
+    const hoverBg = isDayTime ? 'hover:bg-teal-50' : 'hover:bg-teal-900';
+    
     return (
         <div className="relative">
-            <label className={`block text-sm font-medium text-gray-700 mb-2 ${className || ''}`}>
+            <label className={`block text-sm font-medium ${labelColor} mb-2 ${className || ''}`}>
                 {placeholder} {required && <span className="text-red-500">*</span>}
             </label>
             <button
                 type="button"
-                className="w-full p-3 border-b border-gray-300 text-left bg-white"
+                className={`w-full p-3 border-b ${themeBorder} text-left ${themeBg} ${themeText}`}
                 onClick={() => setOpen(o => !o)}
             >
                 {value || `Select ${placeholder.toLowerCase()}`}
             </button>
             {open && (
                 <ul
-                    className="absolute z-10 w-full bg-white border rounded-lg shadow-lg mt-1 max-h-60 overflow-auto"
+                    className={`absolute z-10 w-full ${dropdownBg} border ${themeBorder} rounded-lg shadow-lg mt-1 max-h-60 overflow-auto`}
                     style={{msOverflowStyle: 'none', scrollbarWidth: 'none'}}
                 >
                     {options.map(option => (
                         <li
                             key={option}
-                            className="p-3 cursor-pointer hover:bg-teal-50"
+                            className={`p-3 cursor-pointer ${hoverBg} ${dropdownText}`}
                             onClick={() => {
                                 onChange(option);
                                 setOpen(false);
@@ -148,6 +158,18 @@ const CustomDropdown: React.FC<{
 };
 
 export default function QuoteRequest() {
+    const isDayTime = useIsDayTime();
+    const themeBg = isDayTime ? 'bg-gradient-to-br from-teal-50 via-white to-indigo-50' : 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900';
+    const themeText = isDayTime ? 'text-gray-900' : 'text-gray-100';
+    const themeSubtext = isDayTime ? 'text-gray-600' : 'text-gray-400';
+    const cardBg = isDayTime ? 'bg-white' : 'bg-gray-800';
+    const labelColor = isDayTime ? 'text-gray-700' : 'text-gray-300';
+    const inputBg = isDayTime ? 'bg-transparent' : 'bg-gray-900';
+    const inputBorder = isDayTime ? 'border-gray-300' : 'border-gray-600';
+    const stepActiveColor = isDayTime ? 'bg-teal-600 text-white' : 'bg-teal-600 text-white';
+    const stepInactiveColor = isDayTime ? 'bg-gray-200 text-gray-600' : 'bg-gray-700 text-gray-400';
+    const stepInactiveLabel = isDayTime ? 'text-gray-500' : 'text-gray-500';
+    
     const [formData, setFormData] = useState<QuoteFormData>({
         name: '',
         email: '',
@@ -354,11 +376,11 @@ export default function QuoteRequest() {
                 <meta name="description" content="Get a custom quote for your project from Grey InfoTech"/>
                 <meta name="form:type" content={FORM_TYPE}/>
             </Head>
-            <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-indigo-50 py-12">
+            <div className={`min-h-screen ${themeBg} py-12`}>
                 <div className="container mx-auto px-4 max-w-4xl">
                     <div className="text-center mb-12">
-                        <h1 className="text-4xl font-bold text-gray-900 mb-4">{FORM_TYPE}</h1>
-                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                        <h1 className={`text-4xl font-bold ${themeText} mb-4`}>{FORM_TYPE}</h1>
+                        <p className={`text-xl ${themeSubtext} max-w-2xl mx-auto`}>
                             Tell us about your project and we&apos;ll provide you with a detailed quote within 24 hours
                         </p>
                     </div>
@@ -368,14 +390,14 @@ export default function QuoteRequest() {
                                 <div key={step} className="flex items-center">
                                     <div
                                         className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
-                                            currentStep >= step ? 'bg-teal-600 text-white' : 'bg-gray-200 text-gray-600'
+                                            currentStep >= step ? stepActiveColor : stepInactiveColor
                                         }`}
                                     >
                                         {step}
                                     </div>
                                     <div
                                         className={`ml-3 text-sm font-medium ${
-                                            currentStep >= step ? 'text-teal-600' : 'text-gray-500'
+                                            currentStep >= step ? 'text-teal-600' : stepInactiveLabel
                                         }`}
                                     >
                                         {step === 1 && 'Contact Info'}
@@ -385,7 +407,7 @@ export default function QuoteRequest() {
                                     {step < 3 && (
                                         <div
                                             className={`hidden sm:block w-24 h-1 ml-4 ${
-                                                currentStep > step ? 'bg-teal-600' : 'bg-gray-200'
+                                                currentStep > step ? 'bg-teal-600' : isDayTime ? 'bg-gray-200' : 'bg-gray-700'
                                             }`}
                                         />
                                     )}
@@ -393,15 +415,15 @@ export default function QuoteRequest() {
                             ))}
                         </div>
                     </div>
-                    <div className="bg-white rounded-2xl shadow-xl p-8">
+                    <div className={`${cardBg} rounded-2xl shadow-xl p-8`}>
                         <form onSubmit={handleSubmit}>
                             <input type="hidden" name="formType" value={FORM_TYPE}/>
                             {currentStep === 1 && (
                                 <div className="space-y-6">
-                                    <h2 className="text-2xl font-semibold text-gray-900 mb-6">Contact Information</h2>
+                                    <h2 className={`text-2xl font-semibold ${themeText} mb-6`}>Contact Information</h2>
                                     <div className="grid md:grid-cols-2 gap-6">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            <label className={`block text-sm font-medium ${labelColor} mb-2`}>
                                                 Full Name <span className="text-red-500">*</span>
                                             </label>
                                             <input
@@ -410,12 +432,12 @@ export default function QuoteRequest() {
                                                 value={formData.name}
                                                 onChange={handleInputChange}
                                                 required
-                                                className="w-full p-3 border-b border-gray-300"
+                                                className={`w-full p-3 border-b ${inputBorder} ${inputBg} ${themeText}`}
                                                 placeholder="Enter your full name"
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            <label className={`block text-sm font-medium ${labelColor} mb-2`}>
                                                 Email Address <span className="text-red-500">*</span>
                                             </label>
                                             <input
@@ -424,7 +446,7 @@ export default function QuoteRequest() {
                                                 value={formData.email}
                                                 onChange={handleInputChange}
                                                 required
-                                                className="w-full p-3 border-b border-gray-300"
+                                                className={`w-full p-3 border-b ${inputBorder} ${inputBg} ${themeText}`}
                                                 placeholder="your.email@example.com"
                                             />
                                         </div>
@@ -432,18 +454,18 @@ export default function QuoteRequest() {
                                     <div className="grid md:grid-cols-2 gap-6">
                                         <div>
                                             <label
-                                                className="block text-sm font-medium text-gray-700 mb-2">Company</label>
+                                                className={`block text-sm font-medium ${labelColor} mb-2`}>Company</label>
                                             <input
                                                 type="text"
                                                 name="company"
                                                 value={formData.company}
                                                 onChange={handleInputChange}
-                                                className="w-full p-3 border-b border-gray-300"
+                                                className={`w-full p-3 border-b ${inputBorder} ${inputBg} ${themeText}`}
                                                 placeholder="Your company name"
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Phone
+                                            <label className={`block text-sm font-medium ${labelColor} mb-2`}>Phone
                                                 Number <span className="text-red-500">*</span></label>
                                             <input
                                                 type="tel"
@@ -451,7 +473,7 @@ export default function QuoteRequest() {
                                                 value={formData.phone}
                                                 onChange={handleInputChange}
                                                 required
-                                                className="w-full p-3 border-b border-gray-300"
+                                                className={`w-full p-3 border-b ${inputBorder} ${inputBg} ${themeText}`}
                                                 placeholder="+1 (555) 123-4567"
                                             />
                                         </div>
@@ -460,7 +482,7 @@ export default function QuoteRequest() {
                             )}
                             {currentStep === 2 && (
                                 <div className="space-y-6">
-                                    <h2 className="text-2xl font-semibold text-gray-900 mb-6">Project Details</h2>
+                                    <h2 className={`text-2xl font-semibold ${themeText} mb-6`}>Project Details</h2>
                                     <div>
                                         <CustomDropdown
                                             options={projectTypeOptions}
@@ -484,12 +506,12 @@ export default function QuoteRequest() {
                                     <div className="grid md:grid-cols-2 gap-6">
                                         <div>
                                             <label
-                                                className="block text-sm font-medium text-gray-700 mb-2">Currency</label>
+                                                className={`block text-sm font-medium ${labelColor} mb-2`}>Currency</label>
                                             <select
                                                 name="currency"
                                                 value={formData.currency}
                                                 onChange={handleInputChange}
-                                                className="w-full p-3 border-b border-gray-300"
+                                                className={`w-full p-3 border-b ${inputBorder} ${inputBg} ${themeText}`}
                                             >
                                                 <option value="USD">USD ($)</option>
                                                 <option value="EUR">EUR (€)</option>
@@ -501,7 +523,7 @@ export default function QuoteRequest() {
                                             </select>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            <label className={`block text-sm font-medium ${labelColor} mb-2`}>
                                                 Budget Range {formData.currency !== 'USD' && (
                                                 <span className="text-xs text-gray-500 ml-2">(Converted from USD)</span>
                                             )}
@@ -510,7 +532,7 @@ export default function QuoteRequest() {
                                                 name="budget"
                                                 value={formData.budget}
                                                 onChange={handleInputChange}
-                                                className="w-full p-3 border-b border-gray-300"
+                                                className={`w-full p-3 border-b ${inputBorder} ${inputBg} ${themeText}`}
                                             >
                                                 <option value="">Select budget range</option>
                                                 {budgetOptions.map((option, i) => (
@@ -520,13 +542,13 @@ export default function QuoteRequest() {
                                         </div>
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">Project
+                                        <label className={`block text-sm font-medium ${labelColor} mb-2`}>Project
                                             Timeline</label>
                                         <select
                                             name="timeline"
                                             value={formData.timeline}
                                             onChange={handleInputChange}
-                                            className="w-full p-3 border-b border-gray-300"
+                                            className={`w-full p-3 border-b ${inputBorder} ${inputBg} ${themeText}`}
                                         >
                                             <option value="">Select timeline</option>
                                             <option value="ASAP (Rush)">ASAP (Rush)</option>
@@ -541,9 +563,9 @@ export default function QuoteRequest() {
                             )}
                             {currentStep === 3 && (
                                 <div className="space-y-6">
-                                    <h2 className="text-2xl font-semibold text-gray-900 mb-6">Project Requirements</h2>
+                                    <h2 className={`text-2xl font-semibold ${themeText} mb-6`}>Project Requirements</h2>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        <label className={`block text-sm font-medium ${labelColor} mb-2`}>
                                             Project Description <span className="text-red-500">*</span>
                                         </label>
                                         <textarea
@@ -552,12 +574,12 @@ export default function QuoteRequest() {
                                             onChange={handleInputChange}
                                             rows={6}
                                             required
-                                            className="w-full p-3 border-b border-gray-300"
+                                            className={`w-full p-3 border-b ${inputBorder} ${inputBg} ${themeText}`}
                                             placeholder="Please provide a detailed description..."
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">Requirements
+                                        <label className={`block text-sm font-medium ${labelColor} mb-2`}>Requirements
                                             Documents</label>
                                         <div
                                             className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-teal-400 transition-colors">
@@ -632,8 +654,8 @@ export default function QuoteRequest() {
                             <div
                                 className={`mt-6 p-4 rounded-lg ${
                                     messageType === 'success'
-                                        ? 'bg-green-50 border border-green-200 text-green-700'
-                                        : 'bg-red-50 border border-red-200 text-red-700'
+                                        ? isDayTime ? 'bg-green-50 border border-green-200 text-green-700' : 'bg-green-900 border border-green-700 text-green-100'
+                                        : isDayTime ? 'bg-red-50 border border-red-200 text-red-700' : 'bg-red-900 border border-red-700 text-red-100'
                                 }`}
                             >
                                 <div className="flex items-center">

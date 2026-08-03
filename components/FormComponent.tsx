@@ -96,6 +96,11 @@ const CustomDropdown: React.FC<DropdownProps> = memo(({
     const [open, setOpen] = useState(false);
     const btnRef = useRef<HTMLButtonElement | null>(null);
     const listRef = useRef<HTMLUListElement | null>(null);
+    const isDayTime = useIsDayTime();
+    const themeBg = isDayTime ? 'bg-white' : 'bg-gray-800';
+    const themeText = isDayTime ? 'text-black' : 'text-white';
+    const themeBorder = isDayTime ? 'border-gray-300' : 'border-gray-600';
+    const dropdownListBg = isDayTime ? 'bg-white text-black' : 'bg-gray-800 text-white';
 
     const close = useCallback(() => setOpen(false), []);
     const toggle = useCallback(() => setOpen(o => !o), []);
@@ -128,7 +133,7 @@ const CustomDropdown: React.FC<DropdownProps> = memo(({
                 onClick={toggle}
                 aria-haspopup="listbox"
                 aria-expanded={open}
-                className={`w-full border-b border-gray-300 bg-transparent p-3 rounded-md text-left ${className}`}
+                className={`w-full border rounded-md p-3 text-left ${themeBg} ${themeText} ${themeBorder} border focus:outline-none focus:ring-2 focus:ring-teal-500`}
                 data-dd-trigger={placeholder}
             >
                 {value || placeholder}
@@ -137,7 +142,7 @@ const CustomDropdown: React.FC<DropdownProps> = memo(({
                 <ul
                     ref={listRef}
                     role="listbox"
-                    className="absolute z-10 w-full bg-white border rounded-md shadow-md mt-1 max-h-60 overflow-auto"
+                    className={`absolute z-10 w-full ${dropdownListBg} border rounded-md shadow-md mt-1 max-h-60 overflow-auto ${themeBorder} border`}
                     data-dd-list={placeholder}
                 >
                     {options.map(opt => (
@@ -156,7 +161,7 @@ const CustomDropdown: React.FC<DropdownProps> = memo(({
                                     close();
                                 }
                             }}
-                            className="p-2 cursor-pointer hover:bg-teal-500 hover:text-white focus:bg-teal-500 focus:text-white outline-none"
+                            className={`p-2 cursor-pointer ${isDayTime ? 'hover:bg-teal-100 hover:text-teal-700' : 'hover:bg-teal-600 hover:text-white'} focus:bg-teal-500 focus:text-white outline-none`}
                             data-dd-option={opt}
                         >
                             {opt}
@@ -305,7 +310,9 @@ const FormComponent: React.FC = () => {
     }, [formData, validate, buildErrorMessage, resetForm]);
 
     const themeText = isDayTime ? 'text-black' : 'text-white';
-    const inputCls = `w-full border-b border-gray-300 bg-transparent p-3 rounded-md focus:outline-none ${themeText}`;
+    const themeBg = isDayTime ? 'bg-white' : 'bg-gray-800';
+    const themeBorder = isDayTime ? 'border-gray-300' : 'border-gray-600';
+    const inputCls = `w-full border rounded p-3 focus:outline-none focus:ring-2 focus:ring-teal-500 ${themeBg} ${themeText} ${themeBorder} border`;
 
     return (
         <div
@@ -589,7 +596,7 @@ const FormComponent: React.FC = () => {
                         type="submit"
                         disabled={isSubmitting}
                         aria-busy={isSubmitting}
-                        className={`px-6 py-2 bg-teal-500 ${themeText} hover:bg-teal-600 rounded-md font-medium disabled:opacity-60`}
+                        className={`px-6 py-2 ${isDayTime ? 'bg-teal-600 hover:bg-teal-700' : 'bg-teal-500 hover:bg-teal-600'} text-white rounded-md font-medium disabled:opacity-60`}
                     >
                         {isSubmitting ? 'Submitting...' : 'Submit'}
                     </button>
