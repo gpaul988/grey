@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
         .from(storeCategories)
         .where(eq(storeCategories.slug, category))
         .limit(1)
-        .then((r: any[]) => r[0]);
+        .then((r: Record<string, unknown>[]) => r[0]);
       if (cat) {
         whereConditions.push(eq(storeProducts.categoryId, cat.id));
       }
@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
         .from(storeBrands)
         .where(eq(storeBrands.slug, brand))
         .limit(1)
-        .then((r: any[]) => r[0]);
+        .then((r: Record<string, unknown>[]) => r[0]);
       if (b) {
         whereConditions.push(eq(storeProducts.brandId, b.id));
       }
@@ -167,6 +167,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const result = await db.insert(storeProducts).values({
       name,
       slug,
@@ -194,7 +195,7 @@ export async function POST(request: NextRequest) {
       .from(storeProducts)
       .where(eq(storeProducts.slug, slug))
       .limit(1)
-      .then((r: any[]) => r[0]);
+      .then((r: Record<string, unknown>[]) => r[0]);
 
     if (!newProduct) {
       return NextResponse.json(
