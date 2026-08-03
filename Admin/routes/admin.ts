@@ -36,17 +36,22 @@ const canRenderView = async (viewName: string) => {
 const baseLocals = {fmtMoney: formatMoney, timeAgo};
 
 /* ---------------- Dashboard ---------------- */
-route.get('/dashboard', (_req: Request, res: Response) => {
-    const stats = dashboardStats();
+route.get('/dashboard', async (_req: Request, res: Response) => {
+    const stats = await dashboardStats();
+    const charts = await chartData(6);
+    const recentSubmissions = (await Submissions.all()).slice(0, 6);
+    const recentLeads = (await Leads.all()).slice(0, 6);
+    const activeProjects = (await Projects.where('status', 'active')).slice(0, 5);
+    const recentActivity = (await Activity.all()).slice(0, 8);
     res.render('index', {
         title: 'Dashboard',
         ...baseLocals,
         stats,
-        charts: chartData(6),
-        recentSubmissions: Submissions.all().slice(0, 6),
-        recentLeads: Leads.all().slice(0, 6),
-        activeProjects: Projects.where('status', 'active').slice(0, 5),
-        recentActivity: Activity.all().slice(0, 8),
+        charts,
+        recentSubmissions,
+        recentLeads,
+        activeProjects,
+        recentActivity,
     });
 });
 
@@ -55,42 +60,43 @@ route.get('/home', (_req, res) => res.redirect(adminPath('/dashboard')));
 route.get('/', (_req, res) => res.redirect(adminPath('/dashboard')));
 
 /* ---------------- Data-backed feature pages ---------------- */
-route.get('/submissions', requirePermission('submissions.view'), (_req, res) => {
-    res.render('apps-submissions', {title: 'Submissions', ...baseLocals, submissions: Submissions.all()});
+route.get('/submissions', requirePermission('submissions.view'), async (_req, res) => {
+    res.render('apps-submissions', {title: 'Submissions', ...baseLocals, submissions: await Submissions.all()});
 });
 
-route.get('/leads', requirePermission('leads.view'), (_req, res) => {
-    res.render('apps-leads', {title: 'Leads', ...baseLocals, leads: Leads.all(), users: Users.all()});
+route.get('/leads', requirePermission('leads.view'), async (_req, res) => {
+    res.render('apps-leads', {title: 'Leads', ...baseLocals, leads: await Leads.all(), users: await Users.all()});
 });
 
-route.get('/projects', requirePermission('projects.view'), (_req, res) => {
+route.get('/projects', requirePermission('projects.view'), async (_req, res) => {
     res.render('apps-projects', {
         title: 'Projects', ...baseLocals,
-        projects: Projects.all(),
-        clients: Clients.all(),
-        users: Users.all(),
+        projects: await Projects.all(),
+        clients: await Clients.all(),
+        users: await Users.all(),
     });
 });
 
-route.get('/tickets', requirePermission('tickets.view'), (_req, res) => {
-    res.render('apps-tickets', {title: 'Tickets', ...baseLocals, tickets: Tickets.all(), users: Users.all()});
+route.get('/tickets', requirePermission('tickets.view'), async (_req, res) => {
+    res.render('apps-tickets', {title: 'Tickets', ...baseLocals, tickets: await Tickets.all(), users: await Users.all()});
 });
 
-route.get('/ticket/:id', (req, res, next) => {
-    const ticket = Tickets.find(toInt(req.params.id));
+route.get('/ticket/:id', async (req, res, next) => {
+    const ticket = await Tickets.find(toInt(req.params.id));
     if (!ticket) return next();
+    const messages = (await TicketMessages.where('ticket_id', ticket.id)).reverse();
     res.render('apps-task-details', {
         title: ticket.subject, ...baseLocals, ticket,
-        messages: TicketMessages.where('ticket_id', ticket.id).reverse(),
+        messages,
     });
 });
 
-route.get('/invoices', requirePermission('invoices.view'), (_req, res) => {
-    res.render('apps-invoices', {title: 'Invoices', ...baseLocals, invoices: Invoices.all()});
+route.get('/invoices', requirePermission('invoices.view'), async (_req, res) => {
+    res.render('apps-invoices', {title: 'Invoices', ...baseLocals, invoices: await Invoices.all()});
 });
 
-route.get('/invoice/:id', (req, res, next) => {
-    const invoice = Invoices.find(toInt(req.params.id));
+route.get('/invoice/:id', async (req, res, next) => {
+    const invoice = await Invoices.find(toInt(req.params.id));
     if (!invoice) return next();
     res.render('apps-invoice-details', {
         title: invoice.number, ...baseLocals, invoice,
@@ -98,84 +104,84 @@ route.get('/invoice/:id', (req, res, next) => {
     });
 });
 
-route.get('/invoice-create', requirePermission('invoices.manage'), (_req, res) => {
-    res.render('apps-invoice-create', {title: 'Create Invoice', ...baseLocals, clients: Clients.all()});
+route.get('/invoice-create', requirePermission('invoices.manage'), async (_req, res) => {
+    res.render('apps-invoice-create', {title: 'Create Invoice', ...baseLocals, clients: await Clients.all()});
 });
 
-route.get('/clients', requirePermission('clients.view'), (_req, res) => {
-    res.render('apps-user-contacts', {title: 'Clients', ...baseLocals, clients: Clients.all()});
+route.get('/clients', requirePermission('clients.view'), async (_req, res) => {
+    res.render('apps-user-contacts', {title: 'Clients', ...baseLocals, clients: await Clients.all()});
 });
 
-route.get('/case-studies', requirePermission('casestudies.view'), (_req, res) => {
-    res.render('apps-case-studies', {title: 'Case Studies', ...baseLocals, caseStudies: CaseStudies.all()});
+route.get('/case-studies', requirePermission('casestudies.view'), async (_req, res) => {
+    res.render('apps-case-studies', {title: 'Case Studies', ...baseLocals, caseStudies: await CaseStudies.all()});
 });
 
-route.get('/blog', requirePermission('blog.view'), (_req, res) => {
-    res.render('apps-blog', {title: 'Blog', ...baseLocals, posts: BlogPosts.all()});
+route.get('/blog', requirePermission('blog.view'), async (_req, res) => {
+    res.render('apps-blog', {title: 'Blog', ...baseLocals, posts: await BlogPosts.all()});
 });
 
-route.get('/partners', requirePermission('blog.view'), (_req, res) => {
+route.get('/partners', requirePermission('blog.view'), async (_req, res) => {
     res.render('apps-partners', {
         title: 'Partners & Logos', ...baseLocals,
-        partners: Partners.all('sort_order ASC, id ASC')
+        partners: await Partners.all('sort_order ASC, id ASC')
     });
 });
 
 /* ---------------- Marketing & Growth ---------------- */
-route.get('/ads', requirePermission('blog.view'), (_req, res) => {
-    res.render('apps-ads', {title: 'Ads & Adverts', ...baseLocals, ads: Ads.all('sort_order ASC, id DESC')});
+route.get('/ads', requirePermission('blog.view'), async (_req, res) => {
+    res.render('apps-ads', {title: 'Ads & Adverts', ...baseLocals, ads: await Ads.all('sort_order ASC, id DESC')});
 });
-route.get('/faqs', requirePermission('blog.view'), (_req, res) => {
-    res.render('apps-faqs', {title: 'FAQ Manager', ...baseLocals, faqs: Faqs.all('sort_order ASC, id ASC')});
+route.get('/faqs', requirePermission('blog.view'), async (_req, res) => {
+    res.render('apps-faqs', {title: 'FAQ Manager', ...baseLocals, faqs: await Faqs.all('sort_order ASC, id ASC')});
 });
-route.get('/partner-inquiries', requirePermission('blog.view'), (_req, res) => {
+route.get('/partner-inquiries', requirePermission('blog.view'), async (_req, res) => {
     res.render('apps-partner-inquiries', {
         title: 'Partner Inquiries', ...baseLocals,
-        inquiries: PartnerInquiries.all('created_at DESC')
+        inquiries: await PartnerInquiries.all('created_at DESC')
     });
 });
-route.get('/subscribers', requirePermission('blog.view'), (_req, res) => {
+route.get('/subscribers', requirePermission('blog.view'), async (_req, res) => {
     res.render('apps-subscribers', {
         title: 'Subscribers', ...baseLocals,
-        subscribers: Subscribers.all('created_at DESC')
+        subscribers: await Subscribers.all('created_at DESC')
     });
 });
-route.get('/announcement', requirePermission('blog.view'), (_req, res) => {
+route.get('/announcement', requirePermission('blog.view'), async (_req, res) => {
     res.render('apps-announcement', {
         title: 'Announcement Bar', ...baseLocals,
-        announcements: Announcements.all('created_at DESC')
+        announcements: await Announcements.all('created_at DESC')
     });
 });
-route.get('/media', requirePermission('blog.view'), (_req, res) => {
-    res.render('apps-media', {title: 'Media Library', ...baseLocals, media: Media.all('created_at DESC')});
+route.get('/media', requirePermission('blog.view'), async (_req, res) => {
+    res.render('apps-media', {title: 'Media Library', ...baseLocals, media: await Media.all('created_at DESC')});
 });
-route.get('/seo', requirePermission('blog.view'), (_req, res) => {
-    res.render('apps-seo', {title: 'SEO Manager', ...baseLocals, seo: PageSeos.all('path ASC')});
+route.get('/seo', requirePermission('blog.view'), async (_req, res) => {
+    res.render('apps-seo', {title: 'SEO Manager', ...baseLocals, seo: await PageSeos.all('path ASC')});
 });
 route.get('/analytics', requirePermission('blog.view'), (_req, res) => {
     res.render('apps-analytics', {title: 'Analytics', ...baseLocals});
 });
-route.get('/reviews', requirePermission('blog.view'), (_req, res) => {
+route.get('/reviews', requirePermission('blog.view'), async (_req, res) => {
     res.render('apps-reviews', {
         title: 'Client Reviews', ...baseLocals,
-        reviews: ClientReviews.all('sort_order ASC, id ASC')
+        reviews: await ClientReviews.all('sort_order ASC, id ASC')
     });
 });
 
-route.get('/chat', (req, res) => {
-    const conversations = Conversations.all('updated_at DESC');
+route.get('/chat', async (req, res) => {
+    const conversations = await Conversations.all('updated_at DESC');
     const wanted = toInt(req.query.c);
     const active = (wanted && conversations.find((c) => c.id === wanted)) || conversations[0] || null;
-    if (active) Conversations.update(active.id, {unread: 0});
+    if (active) await Conversations.update(active.id, {unread: 0});
     res.render('apps-chat', {
         title: 'Client Chat', ...baseLocals, conversations,
         activeConversation: active,
-        messages: active ? Messages.where('conversation_id', active.id).reverse() : [],
+        messages: active ? (await Messages.where('conversation_id', active.id)).reverse() : [],
     });
 });
 
-route.get('/team', requirePermission('team.view'), (_req, res) => {
-    const users = Users.all();
+route.get('/team', requirePermission('team.view'), async (_req, res) => {
+    const users = await Users.all();
     const effective: Record<number, string[]> = {};
     for (const u of users) {
         effective[u.id] = Array.from(effectivePermissions(u.role, u.permissions));
@@ -187,32 +193,35 @@ route.get('/team', requirePermission('team.view'), (_req, res) => {
     });
 });
 
-route.get('/activity', requirePermission('activity.view'), (_req, res) => {
-    res.render('apps-activity', {title: 'Activity Log', ...baseLocals, activity: Activity.all().slice(0, 100)});
+route.get('/activity', requirePermission('activity.view'), async (_req, res) => {
+    const activity = (await Activity.all()).slice(0, 100);
+    res.render('apps-activity', {title: 'Activity Log', ...baseLocals, activity});
 });
 
 /* ================================================================
    JOB OPENINGS
    ================================================================ */
-route.get('/job-openings', requirePermission('submissions.view'), (_req, res) => {
+route.get('/job-openings', requirePermission('submissions.view'), async (_req, res) => {
+    const openings = await JobOpenings.all('created_at DESC');
     res.render('apps-job-openings', {
         title: 'Job Openings',
         ...baseLocals,
-        openings: JobOpenings.all('created_at DESC'),
+        openings,
     });
 });
 
 /* ================================================================
    CAREER APPLICATIONS
    ================================================================ */
-route.get('/career-applications', requirePermission('submissions.view'), (req, res) => {
+route.get('/career-applications', requirePermission('submissions.view'), async (req, res) => {
     const formType = str(req.query.form_type as string);
     const status   = str(req.query.status as string);
-    let applications = CareerApplications.all('created_at DESC');
+    let applications = await CareerApplications.all('created_at DESC');
     if (formType) applications = applications.filter((a: Record<string, unknown>) => a.form_type === formType);
     if (status)   applications = applications.filter((a: Record<string, unknown>) => a.status === status);
-    const cvCount   = CareerApplications.all().filter((a: Record<string, unknown>) => a.form_type === 'cv_submission').length;
-    const introCount = CareerApplications.all().filter((a: Record<string, unknown>) => a.form_type === 'self_introduction').length;
+    const allApps = await CareerApplications.all();
+    const cvCount   = allApps.filter((a: Record<string, unknown>) => a.form_type === 'cv_submission').length;
+    const introCount = allApps.filter((a: Record<string, unknown>) => a.form_type === 'self_introduction').length;
     res.render('apps-career-applications', {
         title: 'Career Applications',
         ...baseLocals,
@@ -225,8 +234,8 @@ route.get('/career-applications', requirePermission('submissions.view'), (req, r
 /* ================================================================
    AUDIT TOOL — passes real data to the view
    ================================================================ */
-route.get('/audit', (_req, res) => {
-    const allSubmissions = AuditSubmissions.all('created_at DESC');
+route.get('/audit', async (_req, res) => {
+    const allSubmissions = await AuditSubmissions.all('created_at DESC');
 
     // Fix requests = submitted via the "Request a Fix" modal (have specific_issues)
     const fixRequests = allSubmissions.filter(
@@ -256,13 +265,13 @@ route.get('/audit', (_req, res) => {
    actually persist AND register in the activity trail. Works for
    both fix requests and audit runs (same audit_submissions table).
    ================================================================ */
-route.post('/audit/update', (req: Request, res: Response) => {
+route.post('/audit/update', async (req: Request, res: Response) => {
     const id = toInt(req.body.id);
     if (!id) {
         return res.redirect(adminPath('/audit?err=Missing+submission+id'));
     }
 
-    const existing = AuditSubmissions.find(id);
+    const existing = await AuditSubmissions.find(id);
     if (!existing) {
         return res.redirect(adminPath('/audit?err=Submission+not+found'));
     }
@@ -288,7 +297,7 @@ route.post('/audit/update', (req: Request, res: Response) => {
         return res.redirect(adminPath('/audit?err=Nothing+to+update'));
     }
 
-    AuditSubmissions.update(id, updates);
+    await AuditSubmissions.update(id, updates);
 
     // Register the fix/resolution in the backend activity trail so it is
     // auditable — this is the "audit of the audit" the panel was missing.
@@ -314,8 +323,8 @@ route.post('/audit/update', (req: Request, res: Response) => {
     return res.redirect(adminPath('/audit?saved=1'));
 });
 
-route.get('/profile', (req, res) => {
-    const u = req.session.user ? Users.find(req.session.user.id) : null;
+route.get('/profile', async (req, res) => {
+    const u = req.session.user ? await Users.find(req.session.user.id) : null;
     res.render('apps-user-profile', {
         title: 'My Profile', ...baseLocals, profile: u,
         flash: typeof req.query.saved !== 'undefined' ? 'Profile updated.' : null,
@@ -352,11 +361,11 @@ route.post('/profile/avatar', (req, res) => {
 });
 
 /* ---------------- Site Settings ---------------- */
-route.get('/settings', requirePermission('settings.manage'), (_req, res) => {
+route.get('/settings', requirePermission('settings.manage'), async (_req, res) => {
     res.render('admin-settings', {
         title: 'Site Settings',
         ...baseLocals,
-        settings: SiteSettings.all(),
+        settings: await SiteSettings.all(),
         permissions: PERMISSIONS,
     });
 });

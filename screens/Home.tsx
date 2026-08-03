@@ -79,12 +79,8 @@ const Home = () => {
     }, []);
 
     const fallbackWhy = useMotionValue(0);
-    // Always call the hook at the same position (inside try-catch for safety)
-    try {
-        var {scrollYProgress: scrollYProgressValue} = useScroll({target: whyUsRef});
-    } catch (e) {
-        var scrollYProgressValue = fallbackWhy;
-    }
+    // Always call the hook at the same position — pass target only after hydration
+    const {scrollYProgress: scrollYProgressValue} = useScroll({target: isHydrated ? whyUsRef : undefined});
     const scrollYProgress = isHydrated ? (scrollYProgressValue ?? fallbackWhy) : fallbackWhy;
     const whyX = useTransform(scrollYProgress, [0, 1], ['0%', '-62%']);
 

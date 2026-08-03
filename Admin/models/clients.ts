@@ -18,13 +18,13 @@ export const ClientsModel = {
     },
 
     find(id: number): SafeClient | null {
-        const row = db.prepare('SELECT * FROM clients WHERE id = ?').get(id) as Client | undefined;
+        const row = db.prepare('SELECT * FROM clients WHERE id = @id').get({ id }) as Client | undefined;
         return row ? stripPassword(row) : null;
     },
 
     /** Raw record incl. password_hash — for auth flows only. */
     findRaw(id: number): Client | null {
-        return (db.prepare('SELECT * FROM clients WHERE id = ?').get(id) as Client | undefined) ?? null;
+        return (db.prepare('SELECT * FROM clients WHERE id = @id').get({ id }) as Client | undefined) ?? null;
     },
 
     findByEmail(email: string): Client | null {
@@ -49,6 +49,8 @@ export const ClientsModel = {
     }): Promise<SafeClient> {
         const hash = data.password ? await bcrypt.hash(data.password, 12) : null;
         const verified = data.email_verified ? 1 : 0;
+        const now = new Date();
+        const verifiedAt = verified ? (process.env.DB_TYPE === 'mysql' ? now.toISOString().slice(0,19).replace('T',' ') : now.toISOString()) : null;
         const info = db
             .prepare(
                 `INSERT INTO clients (name, email, company, phone, avatar, password_hash, status, email_verified, verified_at)
@@ -63,9 +65,10 @@ export const ClientsModel = {
                 password_hash: hash,
                 status: data.status || 'active',
                 email_verified: verified,
-                verified_at: verified ? new Date().toISOString() : null,
-            });
-        return this.find(Number(info.lastInsertRowid))!;
+                verified_at: verifiedAt,
+            }) as { lastInsertRowid?: number | bigint };
+        const id = Number(info.lastInsertRowid ?? 0);
+        return this.find(id)!;
     },
 
     markVerified(id: number): SafeClient | null {

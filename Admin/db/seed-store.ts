@@ -1,6 +1,11 @@
 import { Products, ProductCategories, ProductBrands, StoreSettings, Coupons, ProductReviews } from '../models';
 import db from '../db';
 
+interface ProductRow {
+  id: number;
+  name: string;
+}
+
 // Stable Unsplash image URLs (resized) for catalog imagery.
 const img = (id: string) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=800&q=70`;
 
@@ -107,7 +112,7 @@ export async function seedStore(): Promise<void> {
   for (const p of products) {
     // Skip if SKU already exists (idempotent)
     if (p.sku) {
-      const existing = db.prepare('SELECT id, name FROM products WHERE sku = ?').get(p.sku) as { id: number; name: string } | undefined;
+      const existing = (db.prepare('SELECT id, name FROM products WHERE sku = ?').get(p.sku) as ProductRow | undefined);
       if (existing) {
         createdIds.push({ id: existing.id, name: existing.name });
         skippedCount++;
@@ -152,9 +157,9 @@ export async function seedStore(): Promise<void> {
     // approve them so they show on storefront
   });
   // approve all reviews (handle sync or Promise-returning implementations)
-  const pending = await Promise.resolve((ProductReviews.all as any)('pending')) as { id: number }[];
+  const pending = await Promise.resolve((ProductReviews.all as (status: string) => { id: number }[] | Promise<{ id: number }[]>)('pending')) as { id: number }[];
   for (const r of pending) {
-    await Promise.resolve((ProductReviews.approve as any)(r.id));
+    await Promise.resolve((ProductReviews.approve as (id: number) => void | Promise<void>)(r.id));
   }
 
   // ── Coupons ──────────────────────────────────────────────────────────────

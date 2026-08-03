@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import db from '../db';
 import {createRepo} from './crud';
 import {UsersModel} from './users';  // Keep using SQLite version for now
@@ -180,11 +181,13 @@ export function logActivity(entry: {
 }
 
 /** Next invoice number, e.g. INV-2026-0007 */
-export function nextInvoiceNumber(): string {
+export async function nextInvoiceNumber(): Promise<string> {
     const year = new Date().getFullYear();
-    const count = (db.prepare(`SELECT COUNT(*) AS c
+    const stmt = db.prepare(`SELECT COUNT(*) AS c
                                FROM invoices
-                               WHERE number LIKE ?`).get(`INV-${year}-%`) as { c: number }).c;
+                               WHERE number LIKE ?`);
+    const row = await (stmt.get as any)(`INV-${year}-%`) as { c: number };
+    const count = row?.c ?? 0;
     return `INV-${year}-${String(count + 1).padStart(4, '0')}`;
 }
 
@@ -201,36 +204,33 @@ function lastNMonths(n: number): { key: string; label: string }[] {
 }
 
 /** Count rows of a table grouped by month (created_at) over the last N months. */
-function monthlyCounts(table: string, months: { key: string }[], dateCol = 'created_at'): number[] {
-    const rows = db
-        .prepare(`SELECT strftime('%Y-%m', ${dateCol}) AS m, COUNT(*) AS c
-                  FROM ${table}
-                  GROUP BY m`)
-        .all() as { m: string; c: number }[];
+async function monthlyCounts(table: string, months: { key: string }[], dateCol = 'created_at'): Promise<number[]> {
+    // Use SQLite strftime or MySQL DATE_FORMAT depending on DB_TYPE
+    const isMy = (process.env.DB_TYPE || '').toLowerCase() === 'mysql';
+    const dateExpr = isMy ? `DATE_FORMAT(${dateCol}, '%Y-%m')` : `strftime('%Y-%m', ${dateCol})`;
+    const stmt = db.prepare(`SELECT ${dateExpr} AS m, COUNT(*) AS c FROM ${table} GROUP BY m`);
+    const rows = await (stmt.all as any)() as { m: string; c: number }[];
     const map = new Map(rows.map((r) => [r.m, r.c]));
     return months.map((mm) => map.get(mm.key) ?? 0);
 }
 
 /** Sum a column of a table grouped by month over the last N months. */
-function monthlySum(table: string, column: string, months: {
+async function monthlySum(table: string, column: string, months: {
     key: string
-}[], where = '', dateCol = 'created_at'): number[] {
-    const rows = db
-        .prepare(
-            `SELECT strftime('%Y-%m', ${dateCol}) AS m, COALESCE(SUM(${column}), 0) AS s
-             FROM ${table} ${where ? `WHERE ${where}` : ''}
-             GROUP BY m`
-        )
-        .all() as { m: string; s: number }[];
+}[], where = '', dateCol = 'created_at'): Promise<number[]> {
+    const isMy = (process.env.DB_TYPE || '').toLowerCase() === 'mysql';
+    const dateExpr = isMy ? `DATE_FORMAT(${dateCol}, '%Y-%m')` : `strftime('%Y-%m', ${dateCol})`;
+    const whereClause = where ? `WHERE ${where}` : '';
+    const stmt = db.prepare(`SELECT ${dateExpr} AS m, COALESCE(SUM(${column}), 0) AS s FROM ${table} ${whereClause} GROUP BY m`);
+    const rows = await (stmt.all as any)() as { m: string; s: number }[];
     const map = new Map(rows.map((r) => [r.m, r.s]));
     return months.map((mm) => map.get(mm.key) ?? 0);
 }
 
 /** Count rows grouped by an arbitrary column (e.g. status). */
-function countsByColumn(table: string, column: string): Record<string, number> {
-    const rows = db.prepare(`SELECT ${column} AS k, COUNT(*) AS c
-                             FROM ${table}
-                             GROUP BY ${column}`).all() as { k: string; c: number }[];
+async function countsByColumn(table: string, column: string): Promise<Record<string, number>> {
+    const stmt = db.prepare(`SELECT ${column} AS k, COUNT(*) AS c FROM ${table} GROUP BY ${column}`);
+    const rows = await (stmt.all as any)() as { k: string; c: number }[];
     const out: Record<string, number> = {};
     for (const r of rows) out[r.k ?? 'unknown'] = r.c;
     return out;
@@ -240,22 +240,22 @@ function countsByColumn(table: string, column: string): Record<string, number> {
  * Time-series + breakdown data for the dashboard charts.
  * Returns plain arrays ready to JSON-embed for ApexCharts.
  */
-export function chartData(months = 6) {
+export async function chartData(months = 6) {
     const m = lastNMonths(months);
     const labels = m.map((x) => x.label);
 
     // Leads vs submissions over time (line/area).
-    const leadsSeries = monthlyCounts('leads', m);
-    const submissionsSeries = monthlyCounts('submissions', m);
+    const leadsSeries = await monthlyCounts('leads', m);
+    const submissionsSeries = await monthlyCounts('submissions', m);
 
     // Revenue: paid invoices total per month (area).
-    const revenueSeries = monthlySum('invoices', 'total', m, "status = 'paid'");
+    const revenueSeries = await monthlySum('invoices', 'total', m, "status = 'paid'");
 
     // Projects by status (donut).
-    const projectStatus = countsByColumn('projects', 'status');
+    const projectStatus = await countsByColumn('projects', 'status');
 
     // Tickets by status (bar).
-    const ticketStatus = countsByColumn('tickets', 'status');
+    const ticketStatus = await countsByColumn('tickets', 'status');
 
     return {
         labels,
@@ -268,19 +268,19 @@ export function chartData(months = 6) {
 }
 
 /** Aggregated numbers for the dashboard. */
-export function dashboardStats() {
-    const newSubmissions = Submissions.count("status = 'new'");
-    const totalLeads = Leads.count();
-    const openLeads = Leads.count("stage NOT IN ('won','lost')");
-    const wonValue = Leads.sum('value', "stage = 'won'");
-    const activeProjects = Projects.count("status = 'active'");
-    const totalProjects = Projects.count();
-    const openTickets = Tickets.count("status IN ('open','pending')");
-    const paidRevenue = Invoices.sum('total', "status = 'paid'");
-    const outstanding = Invoices.sum('total', "status IN ('sent','overdue')");
-    const totalClients = Clients.count();
-    const publishedPosts = BlogPosts.count("status = 'published'");
-    const unreadConvos = Conversations.count('unread > 0');
+export async function dashboardStats() {
+    const newSubmissions = await Submissions.count("status = 'new'");
+    const totalLeads = await Leads.count();
+    const openLeads = await Leads.count("stage NOT IN ('won','lost')");
+    const wonValue = await Leads.sum('value', "stage = 'won'");
+    const activeProjects = await Projects.count("status = 'active'");
+    const totalProjects = await Projects.count();
+    const openTickets = await Tickets.count("status IN ('open','pending')");
+    const paidRevenue = await Invoices.sum('total', "status = 'paid'");
+    const outstanding = await Invoices.sum('total', "status IN ('sent','overdue')");
+    const totalClients = await Clients.count();
+    const publishedPosts = await BlogPosts.count("status = 'published'");
+    const unreadConvos = await Conversations.count('unread > 0');
 
     return {
         newSubmissions, totalLeads, openLeads, wonValue,

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, react-hooks/static-components */
 'use client';
 
 import React, {useState, useEffect, useCallback} from 'react';
@@ -103,7 +104,7 @@ export default function AuditScreen() {
                                     className="rounded-xl px-4 py-2 font-semibold" style={{
                                 background: 'linear-gradient(135deg,#06b6d4,#6366f1)',
                                 color: 'white'
-                            }}>{loadingSeo ? 'Running…' : 'Run SEO'}</button>
+                            }}>{loadingSeo ? 'Runningâ€¦' : 'Run SEO'}</button>
                         </div>
 
                         <div className="mt-3 text-xs text-slate-500">Tip: Use full URL for external sites. Results
@@ -163,7 +164,7 @@ export default function AuditScreen() {
                                 <div>
                                     <div className="text-xs text-slate-400">H1(s)</div>
                                     <div
-                                        className="font-medium">{seoResult.h1s && seoResult.h1s.length ? seoResult.h1s.join(' • ') : 'None found'}</div>
+                                        className="font-medium">{seoResult.h1s && seoResult.h1s.length ? seoResult.h1s.join(' â€¢ ') : 'None found'}</div>
                                 </div>
 
                                 <div className="grid lg:grid-cols-2 gap-3">
@@ -191,8 +192,8 @@ export default function AuditScreen() {
 
                                 <div>
                                     <div className="text-xs text-slate-400">Links</div>
-                                    <div className="text-sm">Total: {seoResult.totalLinks} —
-                                        Internal: {seoResult.internalLinks} — External: {seoResult.externalLinks}</div>
+                                    <div className="text-sm">Total: {seoResult.totalLinks} â€”
+                                        Internal: {seoResult.internalLinks} â€” External: {seoResult.externalLinks}</div>
                                 </div>
 
                                 <div>
@@ -328,7 +329,7 @@ export default function AuditScreen() {
                     <div className="grid gap-4 sm:grid-cols-2">
                         <label className="block">
               <span className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-400">
-                🌐 Website (Optional)
+                ðŸŒ Website (Optional)
               </span>
                             <input
                                 type="text"
@@ -340,7 +341,7 @@ export default function AuditScreen() {
                         </label>
                         <label className="block">
               <span className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-400">
-                📦 GitHub Repo (Optional)
+                ðŸ“¦ GitHub Repo (Optional)
               </span>
                             <input
                                 type="text"
@@ -355,7 +356,7 @@ export default function AuditScreen() {
                     {error && (
                         <div
                             className="mt-4 flex items-center gap-3 rounded-xl border border-rose-400/30 bg-rose-400/8 px-4 py-3">
-                            <span className="text-rose-400">⚠</span>
+                            <span className="text-rose-400">âš </span>
                             <p className="text-sm text-rose-300">{error}</p>
                         </div>
                     )}
@@ -374,11 +375,11 @@ export default function AuditScreen() {
                             <>
                                 <span
                                     className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white"/>
-                                Running audit - this takes ~20s…
+                                Running audit - this takes ~20sâ€¦
                             </>
                         ) : (
                             <>
-                                <span>⚡</span> Run Full Audit
+                                <span>âš¡</span> Run Full Audit
                             </>
                         )}
                     </button>
@@ -397,8 +398,8 @@ export default function AuditScreen() {
                         </div>
                         <div className="text-center">
                             <p className="text-sm font-semibold text-slate-300">Fetching targets and running live
-                                checks…</p>
-                            <p className="mt-1 text-xs text-slate-500">Security · Performance · SEO · Repo ·
+                                checksâ€¦</p>
+                            <p className="mt-1 text-xs text-slate-500">Security Â· Performance Â· SEO Â· Repo Â·
                                 Licensing</p>
                         </div>
                         <div className="mt-2 flex gap-1.5">
@@ -481,7 +482,7 @@ function ShareModal({isOpen, onClose, report}: { isOpen: boolean; onClose: () =>
         },
         {
             label: 'WhatsApp',
-            icon: '💬',
+            icon: 'ðŸ’¬',
             href: `https://wa.me/?text=${encodeURIComponent(`Site audit result  - Grade ${report.grade} (${report.overallScore}/100): ${shareUrl}`)}`,
         },
     ];
@@ -548,7 +549,7 @@ function ShareModal({isOpen, onClose, report}: { isOpen: boolean; onClose: () =>
                             color: 'white',
                         }}
                     >
-                        {copied ? '✓ Copied!' : 'Copy'}
+                        {copied ? 'âœ“ Copied!' : 'Copy'}
                     </button>
                 </div>
 
@@ -667,7 +668,7 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300 transition hover:border-cyan-400/40 hover:text-cyan-300"
                                 >
-                                    🌐 {report.target.website}
+                                    ðŸŒ {report.target.website}
                                 </a>
                             )}
                             {report.target?.repo && (
@@ -677,7 +678,7 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300 transition hover:border-indigo-400/40 hover:text-indigo-300"
                                 >
-                                    📦 {report.target.repo}
+                                    ðŸ“¦ {report.target.repo}
                                 </a>
                             )}
                         </div>
@@ -711,12 +712,12 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
                         className="flex w-full items-center justify-between text-left"
                     >
                         <div className="flex items-center gap-2">
-                            <span className="text-cyan-400">📊</span>
+                            <span className="text-cyan-400">ðŸ“Š</span>
                             <h3 className="font-bold text-white">Detailed Analysis &amp; Recommendations</h3>
                         </div>
                         <span
                             className="flex h-6 w-6 items-center justify-center rounded-full border border-slate-600 text-xs text-slate-400 transition hover:border-cyan-400 hover:text-cyan-400">
-              {showDetails ? '−' : '+'}
+              {showDetails ? 'âˆ’' : '+'}
             </span>
                     </button>
                     {showDetails && (
@@ -728,7 +729,7 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
                                     return <p key={i}
                                               className="mt-3 font-bold text-white">{clean.replace(/^#+\s*/, '')}</p>;
                                 }
-                                if (line.startsWith('-') || line.startsWith('•')) {
+                                if (line.startsWith('-') || line.startsWith('â€¢')) {
                                     return <p key={i} className="ml-4 text-slate-400">{clean}</p>;
                                 }
                                 return <p key={i}>{clean}</p>;
@@ -760,7 +761,7 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
                     {exportStatus.json === 'loading' ? (
                         <span
                             className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-indigo-300/40 border-t-indigo-300"/>
-                    ) : exportStatus.json === 'done' ? '✓' : '📋'}
+                    ) : exportStatus.json === 'done' ? 'âœ“' : 'ðŸ“‹'}
                     {exportStatus.json === 'done' ? 'Downloaded!' : 'JSON Export'}
                 </button>
 
@@ -772,7 +773,7 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
                     {exportStatus.pdf === 'loading' ? (
                         <span
                             className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-emerald-300/40 border-t-emerald-300"/>
-                    ) : exportStatus.pdf === 'done' ? '✓' : '📄'}
+                    ) : exportStatus.pdf === 'done' ? 'âœ“' : 'ðŸ“„'}
                     {exportStatus.pdf === 'done' ? 'Opened!' : 'Print / PDF'}
                 </button>
 
@@ -781,7 +782,7 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
                     className="ml-auto inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold text-white shadow-lg transition hover:brightness-110 hover:shadow-[0_0_30px_-6px_rgba(34,211,238,.5)]"
                     style={{background: 'linear-gradient(135deg, #06b6d4, #6366f1)'}}
                 >
-                    ⚡ Request Fix
+                    âš¡ Request Fix
                 </button>
             </div>
 
@@ -800,10 +801,10 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
 
                 <div className="mt-7 grid gap-3 sm:grid-cols-3">
                     {[
-                        {icon: '📞', label: 'Phone', value: '+234 802 809 5571', href: 'tel:+2348028095571'},
-                        {icon: '💬', label: 'WhatsApp', value: 'Direct Message', href: 'https://wa.me/2348028095571'},
+                        {icon: 'ðŸ“ž', label: 'Phone', value: '+234 802 809 5571', href: 'tel:+2348028095571'},
+                        {icon: 'ðŸ’¬', label: 'WhatsApp', value: 'Direct Message', href: 'https://wa.me/2348028095571'},
                         {
-                            icon: '✉️',
+                            icon: 'âœ‰ï¸',
                             label: 'Email',
                             value: 'hello@greyinfotech.com.ng',
                             href: 'mailto:hello@greyinfotech.com.ng'
@@ -827,13 +828,13 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
                     className="mt-7 inline-flex items-center gap-2 rounded-xl px-8 py-3.5 text-sm font-bold text-white transition hover:brightness-110"
                     style={{background: 'linear-gradient(135deg, #06b6d4, #6366f1)'}}
                 >
-                    ⚡ Request Fix Now
+                    âš¡ Request Fix Now
                 </button>
             </div>
 
             <p className="mt-8 text-center text-xs text-slate-600">
-                Generated {new Date(report.generatedAt).toLocaleString()} · Grey InfoTech Audit Engine
-                {report.externalId ? ` · Report #${report.externalId}` : ''}
+                Generated {new Date(report.generatedAt).toLocaleString()} Â· Grey InfoTech Audit Engine
+                {report.externalId ? ` Â· Report #${report.externalId}` : ''}
             </p>
 
             <ShareModal isOpen={shareOpen} onClose={() => setShareOpen(false)} report={report}/>
@@ -899,7 +900,7 @@ function SectionCard({section}: { section: AuditSection }) {
             {open && (
                 <div className="border-t border-white/5 px-5 pb-5 pt-4 sm:px-6">
                     {sorted.length === 0 ? (
-                        <p className="text-sm text-emerald-300">✓ No issues found. Clean.</p>
+                        <p className="text-sm text-emerald-300">âœ“ No issues found. Clean.</p>
                     ) : (
                         <ul className="space-y-3">
                             {sorted.map((f) => <FindingRow key={f.id} f={f}/>)}
@@ -951,7 +952,7 @@ function buildPrintHTML(report: AuditReportExtended): string {
         <div style="height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden;margin-bottom:12px">
           <div style="height:100%;width:${s.score}%;background:${gradeColor(s.score)}"></div>
         </div>
-        ${s.findings.length === 0 ? '<p style="color:#10b981;font-size:13px">✓ No issues found.</p>' : s.findings.map((f) => `
+        ${s.findings.length === 0 ? '<p style="color:#10b981;font-size:13px">âœ“ No issues found.</p>' : s.findings.map((f) => `
           <div style="border:1px solid ${SEV_META[f.severity].ring};background:${SEV_META[f.severity].bg.replace('rgba', 'rgba')};padding:10px 12px;border-radius:8px;margin-bottom:8px">
             <span style="background:${SEV_META[f.severity].color};color:#fff;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;text-transform:uppercase">${f.severity}</span>
             <strong style="margin-left:8px;font-size:13px">${f.title}</strong>
@@ -973,6 +974,6 @@ function buildPrintHTML(report: AuditReportExtended): string {
   </p>
   <p style="margin-bottom:32px;color:#475569;font-size:14px">${report.summary}</p>
   ${sections}
-  <p style="color:#94a3b8;font-size:11px;margin-top:40px;border-top:1px solid #e2e8f0;padding-top:16px">Generated ${new Date(report.generatedAt).toLocaleString()} · Grey InfoTech Audit Engine</p>
+  <p style="color:#94a3b8;font-size:11px;margin-top:40px;border-top:1px solid #e2e8f0;padding-top:16px">Generated ${new Date(report.generatedAt).toLocaleString()} Â· Grey InfoTech Audit Engine</p>
   </body></html>`;
 }

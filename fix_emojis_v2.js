@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require('fs');
 const path = require('path');
 
@@ -17,26 +18,26 @@ const replacementMap = new Map([
 let lines = content.split('\n');
 for (let i = 0; i < lines.length; i++) {
   // Direct replacements
-  lines[i] = lines[i].replace(/ðŸ¢/g, '🏢');
-  lines[i] = lines[i].replace(/â˜ï¸/g, '☁️');
-  lines[i] = lines[i].replace(/ðŸ†/g, '🏆');
-  lines[i] = lines[i].replace(/â­/g, '⭐');
-  lines[i] = lines[i].replace(/ðŸ"ˆ/g, '📈');
-  lines[i] = lines[i].replace(/ðŸ§ /g, '🧠');
-  lines[i] = lines[i].replace(/âœ…/g, '✅');
-  lines[i] = lines[i].replace(/ðŸš€/g, '🚀');
-  lines[i] = lines[i].replace(/ðŸ"/g, '📋');
-  lines[i] = lines[i].replace(/ðŸŌ/g, '🌍');
-  lines[i] = lines[i].replace(/âš™ï¸/g, '⚙️');
-  lines[i] = lines[i].replace(/ðŸŎ¯/g, '🎯');
-  lines[i] = lines[i].replace(/ðŸ—ï¸/g, '🗣️');
-  lines[i] = lines[i].replace(/ðŸ"Š/g, '📊');
-  lines[i] = lines[i].replace(/âš¡/g, '⚡');
-  lines[i] = lines[i].replace(/ðŸ›¡ï¸/g, '🛡️');
-  lines[i] = lines[i].replace(/âœ¨/g, '✨');
-  lines[i] = lines[i].replace(/ðŸ'°/g, '💰');
-  lines[i] = lines[i].replace(/â€"/g, '–');
-  lines[i] = lines[i].replace(/â†/g, '↑');
+  lines[i] = lines[i].replace(/ÃƒÂ°Ã…Â¸Ã‚Â¢/g, 'Ã°Å¸ÂÂ¢');
+  lines[i] = lines[i].replace(/ÃƒÂ¢Ã‹Å“ÃƒÂ¯Ã‚Â¸/g, 'Ã¢ËœÂÃ¯Â¸Â');
+  lines[i] = lines[i].replace(/ÃƒÂ°Ã…Â¸Ã¢â‚¬Â /g, 'Ã°Å¸Ââ€ ');
+  lines[i] = lines[i].replace(/ÃƒÂ¢Ã‚Â­/g, 'Ã¢Â­Â');
+  lines[i] = lines[i].replace(/ÃƒÂ°Ã…Â¸"Ã‹â€ /g, 'Ã°Å¸â€œË†');
+  lines[i] = lines[i].replace(/ÃƒÂ°Ã…Â¸Ã‚Â§ /g, 'Ã°Å¸Â§Â ');
+  lines[i] = lines[i].replace(/ÃƒÂ¢Ã…â€œÃ¢â‚¬Â¦/g, 'Ã¢Å“â€¦');
+  lines[i] = lines[i].replace(/ÃƒÂ°Ã…Â¸Ã…Â¡Ã¢â€šÂ¬/g, 'Ã°Å¸Å¡â‚¬');
+  lines[i] = lines[i].replace(/ÃƒÂ°Ã…Â¸"/g, 'Ã°Å¸â€œâ€¹');
+  lines[i] = lines[i].replace(/ÃƒÂ°Ã…Â¸Ã…Å’/g, 'Ã°Å¸Å’Â');
+  lines[i] = lines[i].replace(/ÃƒÂ¢Ã…Â¡Ã¢â€žÂ¢ÃƒÂ¯Ã‚Â¸/g, 'Ã¢Å¡â„¢Ã¯Â¸Â');
+  lines[i] = lines[i].replace(/ÃƒÂ°Ã…Â¸Ã…Å½Ã‚Â¯/g, 'Ã°Å¸Å½Â¯');
+  lines[i] = lines[i].replace(/ÃƒÂ°Ã…Â¸Ã¢â‚¬â€ÃƒÂ¯Ã‚Â¸/g, 'Ã°Å¸â€”Â£Ã¯Â¸Â');
+  lines[i] = lines[i].replace(/ÃƒÂ°Ã…Â¸"Ã…Â /g, 'Ã°Å¸â€œÅ ');
+  lines[i] = lines[i].replace(/ÃƒÂ¢Ã…Â¡Ã‚Â¡/g, 'Ã¢Å¡Â¡');
+  lines[i] = lines[i].replace(/ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂºÃ‚Â¡ÃƒÂ¯Ã‚Â¸/g, 'Ã°Å¸â€ºÂ¡Ã¯Â¸Â');
+  lines[i] = lines[i].replace(/ÃƒÂ¢Ã…â€œÃ‚Â¨/g, 'Ã¢Å“Â¨');
+  lines[i] = lines[i].replace(/ÃƒÂ°Ã…Â¸'Ã‚Â°/g, 'Ã°Å¸â€™Â°');
+  lines[i] = lines[i].replace(/ÃƒÂ¢Ã¢â€šÂ¬"/g, 'Ã¢â‚¬â€œ');
+  lines[i] = lines[i].replace(/ÃƒÂ¢Ã¢â‚¬Â /g, 'Ã¢â€ â€˜');
 }
 
 content = lines.join('\n');

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require('fs');
 const path = require('path');
 
@@ -13,26 +14,26 @@ const beforeCount = content.length;
 
 // Based on our observation, these are UTF-8 mojibake sequences
 const replacements = [
-  ['ðŸ¢', '🏢'],   // building
-  ['â˜ï¸', '☁️'],   // cloud
-  ['ðŸ†', '🏆'],   // trophy
-  ['â­', '⭐'],   // star
-  ['ðŸ"ˆ', '📈'],   // chart
-  ['ðŸ§ ', '🧠'],   // brain
-  ['âœ…', '✅'],   // checkmark
-  ['ðŸš€', '🚀'],   // rocket
-  ['ðŸ"', '📋'],   // clipboard
-  ['ðŸŌ', '🌍'],   // earth
-  ['âš™ï¸', '⚙️'],   // gear
-  ['ðŸŎ¯', '🎯'],   // target
-  ['ðŸ—ï¸', '🗣️'],   // speech
-  ['ðŸ"Š', '📊'],   // chart
-  ['âš¡', '⚡'],   // lightning
-  ['ðŸ›¡ï¸', '🛡️'],   // shield
-  ['âœ¨', '✨'],   // sparkles
-  ['ðŸ'°', '💰'],   // money
-  ['â€"', '–'],    // dash
-  ['â†', '↑'],    // arrow
+  ['Ã°Å¸Â¢', 'ðŸ¢'],   // building
+  ['Ã¢ËœÃ¯Â¸', 'â˜ï¸'],   // cloud
+  ['Ã°Å¸â€ ', 'ðŸ†'],   // trophy
+  ['Ã¢Â­', 'â­'],   // star
+  ['Ã°Å¸"Ë†', 'ðŸ“ˆ'],   // chart
+  ['Ã°Å¸Â§ ', 'ðŸ§ '],   // brain
+  ['Ã¢Å“â€¦', 'âœ…'],   // checkmark
+  ['Ã°Å¸Å¡â‚¬', 'ðŸš€'],   // rocket
+  ['Ã°Å¸"', 'ðŸ“‹'],   // clipboard
+  ['Ã°Å¸ÅŒ', 'ðŸŒ'],   // earth
+  ['Ã¢Å¡â„¢Ã¯Â¸', 'âš™ï¸'],   // gear
+  ['Ã°Å¸ÅŽÂ¯', 'ðŸŽ¯'],   // target
+  ['Ã°Å¸â€”Ã¯Â¸', 'ðŸ—£ï¸'],   // speech
+  ['Ã°Å¸"Å ', 'ðŸ“Š'],   // chart
+  ['Ã¢Å¡Â¡', 'âš¡'],   // lightning
+  ['Ã°Å¸â€ºÂ¡Ã¯Â¸', 'ðŸ›¡ï¸'],   // shield
+  ['Ã¢Å“Â¨', 'âœ¨'],   // sparkles
+  ["Ã°Å¸'Â°", "ðŸ’°"],   // money
+  ['Ã¢â‚¬"', 'â€“'],    // dash
+  ['Ã¢â€ ', 'â†‘'],    // arrow
 ];
 
 replacements.forEach(([from, to]) => {
@@ -47,4 +48,4 @@ fs.writeFileSync(filepath, content, 'utf8');
 
 const afterCount = content.length;
 console.log(`File updated. Length changed from ${beforeCount} to ${afterCount}`);
-console.log('✓ All corrupted emoji sequences have been fixed!');
+console.log('âœ“ All corrupted emoji sequences have been fixed!');

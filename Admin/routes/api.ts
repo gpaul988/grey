@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import express, {type Request, type Response} from 'express';
 import nodemailer from 'nodemailer';
 import path from 'node:path';
@@ -25,7 +26,7 @@ import twoFaRoutes from './twofa';
 
 const api = express.Router();
 
-// ── Public endpoint for notifying about new submissions (uses secret key) ──────
+// â”€â”€ Public endpoint for notifying about new submissions (uses secret key) â”€â”€â”€â”€â”€â”€
 api.post('/notify-submission', (req: Request, res: Response) => {
     const secret = process.env.ADMIN_API_SECRET || 'default-secret-key';
     const provided = req.headers['x-admin-secret'] || req.body.secret;
@@ -244,6 +245,7 @@ api.post('/job-openings', (req, res) => {
         status: String(b.status || 'draft'),
         deadline: b.deadline ? String(b.deadline) : null,
     });
+    if (!job) return fail(res, 'Failed to create job opening', 500);
     logActivity({ ...actor(req), action: 'create', entity: 'job_opening', entity_id: job.id, detail: String(b.title) });
     ok(res, job, 'Job opening created');
 });
@@ -885,9 +887,10 @@ api.post('/announcements', (req, res) => {
             ends_at: ends_at || null,
             active: active ? 1 : 0,
         });
+            if (!announcement) return fail(res, 'Failed to create announcement', 500);
         
-        logActivity({ ...actor(req), action: 'create', entity: 'announcement', entity_id: announcement.id });
-        ok(res, announcement, 'Announcement created successfully');
+            logActivity({ ...actor(req), action: 'create', entity: 'announcement', entity_id: announcement.id });
+            ok(res, announcement, 'Announcement created successfully');
     } catch (err) {
         console.error('[POST /announcements]', err);
         fail(res, 'Failed to create announcement', 500);
@@ -1176,6 +1179,106 @@ api.post('/notifications/mark-all-read', (req, res) => {
     } catch (err) {
         console.error('[POST /notifications/mark-all-read]', err);
         fail(res, 'Failed to mark notifications as read', 500);
+    }
+});
+
+// Settings API
+api.get('/settings', ensureApiAuth, (req: Request, res: Response) => {
+    try {
+        const rows = db.prepare('SELECT key, value FROM site_settings ORDER BY key').all() as { key: string; value: string }[];
+        const settings: Record<string, string> = {};
+        rows.forEach(row => {
+            settings[row.key] = row.value;
+        });
+        ok(res, settings);
+    } catch (err) {
+        console.error('[GET /settings]', err);
+        fail(res, 'Failed to load settings', 500);
+    }
+});
+
+api.patch('/settings', ensureApiAuth, (req: Request, res: Response) => {
+    try {
+        const updates = req.body as Record<string, string>;
+        if (!updates || typeof updates !== 'object') {
+            return fail(res, 'Request body must be a JSON object', 400);
+        }
+
+        const upsert = db.prepare(`
+            INSERT INTO site_settings (key, value, updated_at)
+            VALUES (@key, @value, @timestamp)
+            ON CONFLICT(key) DO UPDATE SET value=@value, updated_at=@timestamp
+        `);
+
+        const timestamp = new Date().toISOString();
+        let saved = 0;
+
+        for (const [key, value] of Object.entries(updates)) {
+            if (!key || typeof value !== 'string') continue;
+            upsert.run({ key, value, timestamp });
+            saved++;
+        }
+
+        ok(res, { saved, total: Object.keys(updates).length }, `Saved ${saved} setting(s)`);
+    } catch (err) {
+        console.error('[PATCH /settings]', err);
+        fail(res, 'Failed to save settings', 500);
+    }
+});
+
+api.post('/settings/test-email', ensureApiAuth, async (req: Request, res: Response) => {
+    try {
+        // Get email from request body, session user, or settings
+        let recipient = str(req.body?.email || '').toLowerCase().trim();
+        
+        // Fallback to logged-in user's email
+        if (!recipient && req.session.user?.email) {
+            recipient = req.session.user.email.toLowerCase();
+        }
+        
+        // Last resort: fallback to admin email from env
+        if (!recipient && process.env.ADMIN_EMAIL) {
+            recipient = process.env.ADMIN_EMAIL.toLowerCase();
+        }
+        
+        if (!recipient || !isEmail(recipient)) {
+            console.error('[POST /settings/test-email] Invalid recipient:', { provided: req.body?.email, session: req.session.user?.email, env: process.env.ADMIN_EMAIL });
+            return fail(res, 'No valid recipient email. Please provide an email or log in.', 400);
+        }
+
+        // Test SMTP configuration
+        if (!smtpConfigured()) {
+            return fail(res, 'SMTP is not configured. Please set SMTP_HOST and other settings.', 400);
+        }
+
+        // Send a test email
+        const transporter = nodemailer.createTransport({
+            host: process.env.SMTP_HOST,
+            port: Number(process.env.SMTP_PORT || 587),
+            secure: process.env.SMTP_SECURE === 'true',
+            auth: {
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASSWORD,
+            },
+        });
+
+        await transporter.sendMail({
+            from: process.env.SMTP_FROM,
+            to: recipient,
+            subject: 'SMTP Test Email from Grey InfoTech Admin',
+            html: `
+                <h2>SMTP Configuration Test</h2>
+                <p>If you received this email, your SMTP settings are working correctly.</p>
+                <p><strong>Sent from:</strong> ${process.env.SMTP_FROM}</p>
+                <p><strong>Timestamp:</strong> ${new Date().toISOString()}</p>
+            `,
+        });
+
+        ok(res, { message: `Test email sent to ${recipient}` });
+    } catch (err) {
+        console.error('[POST /settings/test-email]', err);
+        const msg = err instanceof Error ? err.message : 'Failed to send test email';
+        fail(res, msg, 500);
     }
 });
 

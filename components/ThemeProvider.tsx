@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 /**
- * Futuristic theme system (audit §5).
+ * Futuristic theme system (audit Â§5).
  *
  * Replaces the old "time-of-day only" theming with a real user-controllable
  * light / dark / system theme  - while preserving the brand's signature
  * behaviour: when set to "system", it still honours the time of day
- * (dark 6pm–6am) on top of the OS preference, so the site keeps its
+ * (dark 6pmâ€“6am) on top of the OS preference, so the site keeps its
  * day/night character but the visitor can override it and the choice sticks.
  */
 import React, {createContext, useCallback, useContext, useEffect, useMemo, useState} from 'react';

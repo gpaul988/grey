@@ -51,8 +51,9 @@ export const ClientStaffModel = {
                 name: data.name,
                 email: data.email.toLowerCase(),
                 role_title: data.role_title || null,
-            });
-        return this.find(Number(info.lastInsertRowid))!;
+            }) as { lastInsertRowid?: number | bigint };
+        const id = Number(info.lastInsertRowid ?? 0);
+        return this.find(id)!;
     },
 
     update(id: number, data: { name?: string; role_title?: string; avatar?: string; status?: string }): SafeClientStaff | null {

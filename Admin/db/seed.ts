@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import db from './index';
+import db, { getDb } from './index';
 import { migrate } from './schema';
 import {
     Users, Submissions, Leads, Clients, Projects, Tickets, TicketMessages,
@@ -87,7 +87,7 @@ function seedFaqs() {
             insert.run({ question: r.question, answer: r.answer, category: r.category || 'General', sort_order: sort, ts: now });
             inserted++;
         }
-    });
+    }) as () => void;
     tx();
     console.log(`  FAQs seeded: +${inserted} new (total ${(db.prepare('SELECT COUNT(*) AS c FROM faqs').get() as { c: number }).c}).`);
 }
@@ -95,7 +95,8 @@ function seedFaqs() {
 async function seed() {
     // Skip migration for MySQL (bootstrap:db:mysql already created schema)
     if (process.env.DB_TYPE !== 'mysql') {
-        migrate();
+        // Ensure the DB is initialized before migrating
+        migrate(getDb());
         console.log('Schema migrated.');
     } else {
         console.log('Schema already created by bootstrap:db:mysql (skipping migrate).');
@@ -176,7 +177,7 @@ async function seed() {
     console.log('Leads seeded.');
 
     // --- Projects ---
-    const p1 = Projects.create({ name: 'TaskFlow SaaS Platform', client_id: c1.id, client_name: 'TaskFlow Inc', status: 'active', progress: 65, budget: 18000, start_date: '2026-04-01', end_date: '2026-08-15', description: 'Multi-tenant project management SaaS.', manager_id: manager.id });
+    Projects.create({ name: 'TaskFlow SaaS Platform', client_id: c1.id, client_name: 'TaskFlow Inc', status: 'active', progress: 65, budget: 18000, start_date: '2026-04-01', end_date: '2026-08-15', description: 'Multi-tenant project management SaaS.', manager_id: manager.id });
     Projects.create({ name: 'NaijaPay Mobile Wallet', client_id: c2.id, client_name: 'NaijaPay', status: 'planning', progress: 10, budget: 32000, start_date: '2026-06-10', end_date: '2026-11-30', description: 'Mobile wallet + agent network app.', manager_id: manager.id });
     Projects.create({ name: 'MedLink Telehealth Portal', client_id: c3.id, client_name: 'MedLink Africa', status: 'active', progress: 40, budget: 24000, start_date: '2026-05-01', end_date: '2026-09-20', description: 'Telehealth booking and records portal.', manager_id: admin.id });
     Projects.create({ name: 'Grey Corporate Site Revamp', client_id: null, client_name: 'Internal', status: 'completed', progress: 100, budget: 0, start_date: '2026-01-10', end_date: '2026-03-01', description: 'Company website overhaul.', manager_id: admin.id });
@@ -184,6 +185,7 @@ async function seed() {
 
     // --- Tickets ---
     const t1 = await Tickets.create({ subject: 'Login page not loading on Safari', requester: 'Ada Okafor', requester_email: 'ada@taskflow.io', priority: 'high', status: 'open', assignee_id: manager.id, body: 'Users on Safari 17 see a blank login screen.' });
+    if (!t1) throw new Error('Seed failed: could not create ticket t1');
     await Tickets.create({ subject: 'Add CSV export to reports', requester: 'Tunde Bello', requester_email: 'tunde@naijapay.ng', priority: 'medium', status: 'pending', assignee_id: manager.id, body: 'Feature request: export transactions to CSV.' });
     await Tickets.create({ subject: 'Invoice email formatting broken', requester: 'Grace Eze', requester_email: 'grace@medlink.africa', priority: 'low', status: 'resolved', assignee_id: admin.id, body: 'Invoice emails render with broken layout in Outlook.' });
     await TicketMessages.create({ ticket_id: t1.id, author: 'Ada Okafor', is_staff: 0, body: 'It happens on every Safari device we tested.' });
@@ -221,10 +223,12 @@ async function seed() {
 
     // --- Conversations / chat ---
     const conv1 = await Conversations.create({ client_id: c1.id, subject: 'Weekly sync', last_message: 'Sounds great, talk then!', unread: 1 });
+    if (!conv1) throw new Error('Seed failed: could not create conversation conv1');
     await Messages.create({ conversation_id: conv1.id, sender: 'client', sender_name: 'Ada Okafor', body: 'Hi team, can we move our weekly sync to Thursday?' });
     await Messages.create({ conversation_id: conv1.id, sender: 'staff', sender_name: 'Project Manager', body: 'Sure, Thursday 3pm WAT works for us.' });
     await Messages.create({ conversation_id: conv1.id, sender: 'client', sender_name: 'Ada Okafor', body: 'Sounds great, talk then!' });
     const conv2 = await Conversations.create({ client_id: c2.id, subject: 'Proposal questions', last_message: 'I will review and revert.', unread: 0 });
+    if (!conv2) throw new Error('Seed failed: could not create conversation conv2');
     await Messages.create({ conversation_id: conv2.id, sender: 'client', sender_name: 'Tunde Bello', body: 'Got the proposal, a few questions on timeline.' });
     await Messages.create({ conversation_id: conv2.id, sender: 'staff', sender_name: 'Grey InfoTech Admin', body: 'Happy to walk you through it. I will review and revert.' });
     // Register the owning client as a participant in each conversation.
@@ -332,5 +336,5 @@ async function ensureCoreAdmins() {
 }
 
 seed()
-    .then(() => { db.close(); process.exit(0); })
+    .then(() => { (db as { close?: () => void }).close?.(); process.exit(0); })
     .catch((err) => { console.error('Seed failed:', err); process.exit(1); });

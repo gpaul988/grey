@@ -79,6 +79,18 @@ async function main() {
       updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;`,
 
+    `CREATE TABLE IF NOT EXISTS notifications (
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      type VARCHAR(50) NOT NULL,
+      title VARCHAR(255) NOT NULL,
+      message TEXT NOT NULL,
+      entity_type VARCHAR(50),
+      entity_id INT,
+      related_data TEXT,
+      status VARCHAR(50) NOT NULL DEFAULT 'unread',
+      created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;`,
+
     `CREATE TABLE IF NOT EXISTS leads (
       id INT PRIMARY KEY AUTO_INCREMENT,
       name VARCHAR(255) NOT NULL,
@@ -301,6 +313,9 @@ async function main() {
 }
 
 main().catch(err => {
+  if (err && err.code === 'ER_ACCESS_DENIED_ERROR') {
+    console.error('[bootstrap:mysql:minimal] Access denied. Set DB_HOST, DB_USER, DB_PASS, DB_NAME, and DB_PORT for your MySQL server.');
+  }
   console.error('bootstrap:mysql:minimal failed:', err);
   process.exit(1);
 });

@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, prefer-const */
 import { NextRequest, NextResponse } from 'next/server';
 import Database from 'better-sqlite3';
 import path from 'path';
 import { send } from '@/lib/email';
+import { notifyAdminPanel } from '@/lib/admin-notify';
 
 function getDb() {
   const dbPath = path.join(process.cwd(), 'Admin', 'data', 'grey.db');
@@ -199,27 +201,7 @@ export async function POST(req: NextRequest) {
       
       db.close();
       
-      // Notify admin panel of new submission (non-blocking)
-      try {
-        const adminSecret = process.env.ADMIN_API_SECRET || 'default-secret-key';
-        const baseUrl = process.env.ADMIN_BASE_URL || 'http://localhost:3000';
-        fetch(`${baseUrl}/admin/api/notify-submission`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-admin-secret': adminSecret,
-          },
-          body: JSON.stringify({
-            action: 'create',
-            type: 'submission',
-            id: submissionId,
-            name,
-            email: validatedEmail,
-          }),
-        }).catch(err => console.warn('[submit-form] Failed to notify admin panel:', err.message));
-      } catch (notifyErr) {
-        console.warn('[submit-form] Could not trigger admin notification:', notifyErr);
-      }
+      notifyAdminPanel({ type: 'submission', id: submissionId, name: validatedName, email: validatedEmail });
     } catch (dbErr: any) {
       console.error('[submit-form] Database error:', dbErr);
       console.error('[submit-form] Error message:', dbErr.message);
@@ -252,27 +234,7 @@ export async function POST(req: NextRequest) {
           
           db.close();
           
-          // Notify admin panel of new submission (non-blocking)
-          try {
-            const adminSecret = process.env.ADMIN_API_SECRET || 'default-secret-key';
-            const baseUrl = process.env.ADMIN_BASE_URL || 'http://localhost:3000';
-            fetch(`${baseUrl}/admin/api/notify-submission`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'x-admin-secret': adminSecret,
-              },
-              body: JSON.stringify({
-                action: 'create',
-                type: 'submission',
-                id: submissionId,
-                name,
-                email: validatedEmail,
-              }),
-            }).catch(err => console.warn('[submit-form] Failed to notify admin panel:', err.message));
-          } catch (notifyErr) {
-            console.warn('[submit-form] Could not trigger admin notification:', notifyErr);
-          }
+          notifyAdminPanel({ type: 'submission', id: submissionId, name: validatedName, email: validatedEmail });
         } catch (fallbackErr) {
           console.error('[submit-form] Fallback INSERT also failed:', fallbackErr);
           db.close();
@@ -300,7 +262,7 @@ export async function POST(req: NextRequest) {
     try {
       await send({
         to: validatedEmail,
-        subject: '✅ We Received Your Message - Grey InfoTech',
+        subject: 'âœ… We Received Your Message - Grey InfoTech',
         html: `
           <div style="font-family:Arial,sans-serif;color:#333;max-width:600px;margin:0 auto;">
             <h2 style="color:#059669;">We Received Your Message</h2>
@@ -335,7 +297,7 @@ export async function POST(req: NextRequest) {
     try {
       await send({
         to: process.env.ADMIN_EMAIL || 'hello@greyinfotech.com.ng',
-        subject: `📋 New Contact Form Submission  - ${resolvedProjectType}`,
+        subject: `ðŸ“‹ New Contact Form Submission  - ${resolvedProjectType}`,
         html: `
           <div style="font-family:Arial,sans-serif;color:#333;max-width:600px;margin:0 auto;">
             <h2 style="color:#059669;">New Contact Form Submission</h2>

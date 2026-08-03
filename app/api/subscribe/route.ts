@@ -1,5 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
+import Database from 'better-sqlite3';
+import path from 'path';
 import { send } from '@/lib/email';
+import { notifyAdminPanel } from '@/lib/admin-notify';
+
+function getDb() {
+  const dbPath = path.join(process.cwd(), 'Admin', 'data', 'grey.db');
+  const db = new Database(dbPath);
+  db.pragma('journal_mode = WAL');
+  db.pragma('foreign_keys = ON');
+  return db;
+}
 
 /**
  * POST /api/subscribe
@@ -26,8 +37,33 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // TODO: Store subscription in database
-    // For now, just send confirmation email
+    const db = getDb();
+    db.exec(`
+      CREATE TABLE IF NOT EXISTS subscribers (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        email TEXT NOT NULL UNIQUE,
+        name TEXT NOT NULL DEFAULT 'Subscriber',
+        source TEXT NOT NULL DEFAULT 'website',
+        status TEXT NOT NULL DEFAULT 'active',
+        created_at TEXT NOT NULL DEFAULT (datetime('now')),
+        updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+      );
+    `);
+
+    const existing = db.prepare('SELECT id FROM subscribers WHERE email = ?').get(email);
+    if (existing) {
+      db.prepare(`
+        UPDATE subscribers
+        SET name = ?, source = ?, status = 'active', updated_at = datetime('now')
+        WHERE email = ?
+      `).run('Subscriber', source, email);
+    } else {
+      db.prepare(`
+        INSERT INTO subscribers (email, name, source, status)
+        VALUES (?, ?, ?, 'active')
+      `).run(email, 'Subscriber', source);
+    }
+    db.close();
 
     // Send welcome email to subscriber
     try {
@@ -78,26 +114,7 @@ export async function POST(req: NextRequest) {
       console.error('Failed to send admin notification:', emailError);
     }
 
-    // Notify admin panel of new subscription (non-blocking)
-    try {
-      const adminSecret = process.env.ADMIN_API_SECRET || 'default-secret-key';
-      const baseUrl = process.env.ADMIN_BASE_URL || 'http://localhost:3000';
-      fetch(`${baseUrl}/admin/api/notify-submission`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-admin-secret': adminSecret,
-        },
-        body: JSON.stringify({
-          action: 'create',
-          type: 'subscription',
-          email: email,
-          name: 'New Subscriber',
-        }),
-      }).catch(err => console.warn('[subscribe] Failed to notify admin panel:', err.message));
-    } catch (notifyErr) {
-      console.warn('[subscribe] Could not trigger admin notification:', notifyErr);
-    }
+    notifyAdminPanel({ type: 'subscription', email, name: 'New Subscriber' });
 
     return NextResponse.json(
       {

@@ -41,6 +41,13 @@ export const UsersModel = {
         // A null hash means "must set password via verification link".
         const hash = data.password ? await bcrypt.hash(data.password, 12) : null;
         const verified = data.email_verified ? 1 : 0;
+        // Format datetime based on DB type
+        const now = new Date();
+        const verifiedAt = verified 
+            ? (process.env.DB_TYPE === 'mysql' 
+                ? now.toISOString().slice(0, 19).replace('T', ' ')  // MySQL DATETIME format
+                : now.toISOString())  // SQLite ISO format
+            : null;
         const info = db
             .prepare(
                 `INSERT INTO users (name, email, password_hash, role, phone, avatar, status, email_verified, verified_at)
@@ -55,9 +62,25 @@ export const UsersModel = {
                 avatar: data.avatar || null,
                 status: data.status || (data.password ? 'active' : 'pending'),
                 email_verified: verified,
-                verified_at: verified ? new Date().toISOString() : null,
+                verified_at: verifiedAt,
             });
         return this.find(Number(info.lastInsertRowid))!;
+    },
+
+    /** Find existing user or create if not found (idempotent). */
+    async findOrCreate(data: {
+        name: string;
+        email: string;
+        password?: string;
+        role?: string;
+        phone?: string;
+        avatar?: string;
+        status?: string;
+        email_verified?: boolean;
+    }): Promise<SafeUser> {
+        const existing = this.findByEmail(data.email);
+        if (existing) return stripPassword(existing);
+        return this.create(data);
     },
 
     /** Mark a user's email as verified and activate the account. */

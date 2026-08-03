@@ -28,13 +28,15 @@
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:debug": "playwright test --debug",
-    "bootstrap:db": "node scripts/bootstrap-db.js"
+    "bootstrap:db": "node scripts/bootstrap-db.js",
+    "bootstrap:db:mysql": "node scripts/bootstrap-db-mysql-minimal.js"
   },
   "engines": {
     "node": "20.x",
     "npm": ">=10.0.0"
   },
   "dependencies": {
+  "mysql2": "^3.3.0",
     "@apollo/server": "^5.5.1",
     "@as-integrations/next": "^4.1.0",
     "@babel/parser": "^7.26.0",

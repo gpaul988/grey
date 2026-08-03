@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // IMPORTANT: must be the very first import so process.env is populated
 // (from config.env) before any module that reads env at import time runs.
 import './Admin/config/env';
@@ -72,12 +73,8 @@ app.use(globalLimiter);
 app.use(['/login', '/register', '/portal/login', `${ADMIN_BASE_PATH}/login`], authLimiter);
 app.use(['/api/submit-form', '/api/open-ticket'], formLimiter);
 
-// Serve legacy admin assets so existing EJS templates keep working.
-app.use('/css', express.static(path.join(adminPublicPath, 'css')));
-app.use('/js', express.static(path.join(adminPublicPath, 'js')));
-app.use('/images', express.static(path.join(adminPublicPath, 'images')));
-app.use('/vendor', express.static(path.join(adminPublicPath, 'vendor')));
-app.use('/fonts', express.static(path.join(adminPublicPath, 'fonts')));
+// Serve admin static assets (JS, CSS, fonts)
+app.use(express.static(adminPublicPath));
 
 // User-generated uploads (avatars, client files). Served read-only.
 app.use('/uploads', express.static(path.join(adminPublicPath, 'uploads')));
@@ -98,7 +95,7 @@ const SESSION_PATHS = [
 // Build a persistent SQLite-backed session store. Reuses the app's existing
 // better-sqlite3 connection. If the native module can't load (e.g. cPanel
 // before `npm rebuild better-sqlite3`), fall back to MemoryStore so the server
-// still boots — the fix is to rebuild the native module, not to crash.
+// still boots â€” the fix is to rebuild the native module, not to crash.
 function buildSessionStore(): session.Store | undefined {
     try {
         // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -134,14 +131,14 @@ app.use(
     SESSION_PATHS,
     session({
         name: 'grey.sid',
-        // Persistent SQLite session store — survives restarts, no memory leak.
+        // Persistent SQLite session store â€” survives restarts, no memory leak.
         // Reuses the app's existing better-sqlite3 connection (single handle).
         // Falls back to the default MemoryStore only if the native module isn't
         // built yet (cPanel cold start) so the server never fails to boot.
         store: buildSessionStore(),
         resave: false,
         saveUninitialized: false,
-        // Fail-fast secret — never silently falls back in production (audit C2).
+        // Fail-fast secret â€” never silently falls back in production (audit C2).
         secret: requireSessionSecret('SESSION_SECRET', 'grey-admin-session-dev-only'),
         cookie: {
             httpOnly: true,
@@ -191,13 +188,26 @@ app.use(SESSION_PATHS, (req, res, nextMiddleware) => {
     // Sidebar badge counts only when logged in. Never break the request.
     if (req.session.user) {
         try {
-            const stats = dashboardStats();
-
-            res.locals.navBadges = {
-                newSubmissions: stats.newSubmissions,
-                openTickets: stats.openTickets,
-                unreadConvos: stats.unreadConvos,
+            type DashboardStats = {
+                newSubmissions: number;
+                openTickets: number;
+                unreadConvos: number;
             };
+
+            const statsResult = dashboardStats() as DashboardStats | Promise<DashboardStats>;
+            const handleStats = (s: DashboardStats) => {
+                res.locals.navBadges = {
+                    newSubmissions: s.newSubmissions,
+                    openTickets: s.openTickets,
+                    unreadConvos: s.unreadConvos,
+                };
+            };
+            const maybePromise = statsResult as { then?: unknown };
+            if (statsResult && typeof maybePromise.then === 'function') {
+                void Promise.resolve(statsResult).then(handleStats).catch(() => { res.locals.navBadges = null; });
+            } else {
+                handleStats(statsResult as DashboardStats);
+            }
         } catch {
             res.locals.navBadges = null;
         }
@@ -208,7 +218,7 @@ app.use(SESSION_PATHS, (req, res, nextMiddleware) => {
     nextMiddleware();
 });
 
-// Server-Sent Events — real-time push to admin tabs (no polling needed).
+// Server-Sent Events â€” real-time push to admin tabs (no polling needed).
 app.use(ADMIN_BASE_PATH, sseRouter);
 
 // JSON CRUD API. Auth is enforced inside the router via ensureApiAuth.
@@ -228,7 +238,7 @@ app.use(ADMIN_BASE_PATH, ensureAuth, adminRoutes);
 // Clean 403 response when a CSRF token is missing/invalid (audit C3).
 app.use(csrfErrorHandler);
 
-// Global Express error handler — catches anything thrown inside route handlers
+// Global Express error handler â€” catches anything thrown inside route handlers
 // (multer size errors, body-parser errors, unexpected throws).
 // Must be LAST middleware (4-arg signature) so Express recognises it as an
 // error handler. Returns JSON for /api/* and HTML for everything else so
@@ -272,14 +282,14 @@ function getRequestUrl(req: express.Request): Parameters<typeof handle>[2] {
 // worker never dies silently (which shows Phusion's generic 500 page).
 process.on('unhandledRejection', (reason, promise) => {
     console.error('[server] Unhandled promise rejection:', reason, '\nAt:', promise);
-    // Do NOT exit — let the process keep serving other requests.
+    // Do NOT exit â€” let the process keep serving other requests.
 });
 
 process.on('uncaughtException', (err) => {
     console.error('[server] Uncaught exception:', err);
     // Do NOT exit for non-fatal errors. Only exit for truly unrecoverable ones.
     if ((err as NodeJS.ErrnoException).code === 'ERR_DLOPEN_FAILED') {
-        // Native module failure — log and continue (DB falls back to MemoryStore).
+        // Native module failure â€” log and continue (DB falls back to MemoryStore).
         return;
     }
 });
@@ -291,7 +301,7 @@ nextApp.prepare().then(() => {
     // NOTE: Express 5 ships path-to-regexp v8, which REMOVED support for the
     // bare `'*'` string pattern (it now throws "Missing parameter name at
     // index 1: *"). A pathless `app.use()` is the correct Express 5 way to
-    // register a final catch-all middleware — it matches every method and
+    // register a final catch-all middleware â€” it matches every method and
     // path, which is exactly what we want for delegating to Next.js.
     // Public SEO audit endpoint (server-side fetch to avoid CORS/CSP issues)
     app.post('/seo-audit', express.json(), async (req, res) => {
@@ -358,7 +368,7 @@ nextApp.prepare().then(() => {
         console.log(`> Admin API on http://${hostname}:${port}${ADMIN_BASE_PATH}/api`);
     });
 }).catch((err) => {
-    // Next.js failed to prepare — log the full error so it's visible in
+    // Next.js failed to prepare â€” log the full error so it's visible in
     // passenger.log, then exit so Passenger can restart with a clean state.
     console.error('[server] FATAL: Next.js failed to prepare:', err);
     process.exit(1);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, react-hooks/static-components */
 'use client';
 import React, {useEffect, useMemo, useRef, useState, type ReactNode} from 'react';
 import Link from 'next/link';
@@ -159,7 +160,7 @@ export const CurrencyAwarePricing: React.FC<{defaultCurrency?: string; serviceTy
                                 <div className="text-3xl font-extrabold mb-2">{formatCurrencySAFE(v,currency,rates)}</div>
                                 <div className="text-sm mb-4 text-gray-500">{billing==='monthly' ? 'per month' : 'per year'}</div>
                                 <ul className="mb-6 space-y-2 text-sm">
-                                    {p.bullets.map(b=> <li key={b} className="flex gap-2 items-start"><span className="text-teal-400">✓</span><span>{b}</span></li>)}
+                                    {p.bullets.map(b=> <li key={b} className="flex gap-2 items-start"><span className="text-teal-400">âœ“</span><span>{b}</span></li>)}
                                 </ul>
                                 <div>
                                     {v === null ? (

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
@@ -355,7 +356,7 @@ const Seo = () => {
                                             <span className="absolute inset-0" style={{
                                                 background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)'
                                             }}/>
-                                        <span className="relative">Request Free Audit →</span>
+                                        <span className="relative">Request Free Audit â†’</span>
                                     </button>
                                 </Link>
                                 <Link href="/portfolio">
@@ -645,7 +646,7 @@ const Seo = () => {
                                                     background: 'rgba(0,0,0,0.65)',
                                                     border: '1px solid rgba(45,212,191,0.35)'
                                                 }}>
-                                        - Market Audits · Technical SEO · Site Structure
+                                        - Market Audits Â· Technical SEO Â· Site Structure
                                     </motion.div>
                                 </div>
                                 <motion.div initial={{opacity: 0, x: 20}} whileInView={{opacity: 1, x: 0}}
@@ -697,7 +698,7 @@ const Seo = () => {
                                 <p className={`text-[0.88em] font-[400] mb-6 ${isDayTime ? 'text-white/60' : 'text-black/60'}`}>Ready
                                     to start with a data-driven audit?</p>
                                 <FxButton day={!isDayTime} href="/contact" variant="solid">Request an audit <span
-                                    className="text-[1.2em] leading-none ml-1">→</span></FxButton>
+                                    className="text-[1.2em] leading-none ml-1">â†’</span></FxButton>
                             </FxReveal>
                         </div>
                     </div>
@@ -756,7 +757,7 @@ const Seo = () => {
                                                     background: 'rgba(0,0,0,0.65)',
                                                     border: '1px solid rgba(45,212,191,0.35)'
                                                 }}>
-                                        - Topical Clusters · Intent Mapping · SERP Analysis
+                                        - Topical Clusters Â· Intent Mapping Â· SERP Analysis
                                     </motion.div>
                                 </div>
                                 <motion.div initial={{opacity: 0, x: 20}} whileInView={{opacity: 1, x: 0}}
@@ -808,7 +809,7 @@ const Seo = () => {
                                 <p className={`text-[0.88em] font-[400] mb-6 ${isDayTime ? 'text-black/60' : 'text-white/60'}`}>Ready
                                     to map your keyword strategy?</p>
                                 <FxButton day={!isDayTime} href="/contact" variant="solid">Discuss Keywords <span
-                                    className="text-[1.2em] leading-none ml-1">→</span></FxButton>
+                                    className="text-[1.2em] leading-none ml-1">â†’</span></FxButton>
                             </FxReveal>
                         </div>
                     </div>
@@ -866,7 +867,7 @@ const Seo = () => {
                                                     background: 'rgba(0,0,0,0.65)',
                                                     border: '1px solid rgba(45,212,191,0.35)'
                                                 }}>
-                                        - Backlink Analysis · Content Gaps · Position Tracking
+                                        - Backlink Analysis Â· Content Gaps Â· Position Tracking
                                     </motion.div>
                                 </div>
                                 <motion.div initial={{opacity: 0, x: 20}} whileInView={{opacity: 1, x: 0}}
@@ -897,7 +898,7 @@ const Seo = () => {
                             <FxReveal delay={0.18}>
                                 <p className={`text-[0.95em] leading-[1.8] mb-6 ${isDayTime ? 'text-white/75' : 'text-black/70'}`}>We
                                     map competitor structures, content strategies, and backlink profiles to identify
-                                    tactical opportunities. Our analyses reveal what’s working in your space and where
+                                    tactical opportunities. Our analyses reveal whatâ€™s working in your space and where
                                     to focus resources for maximum advantage.</p>
                             </FxReveal>
                             <FxReveal delay={0.24}>
@@ -917,7 +918,7 @@ const Seo = () => {
                                 <p className={`text-[0.88em] font-[400] mb-6 ${isDayTime ? 'text-white/60' : 'text-black/60'}`}>Want
                                     a competitor snapshot and prioritized action plan?</p>
                                 <FxButton day={!isDayTime} href="/contact" variant="solid">Request a snapshot <span
-                                    className="text-[1.2em] leading-none ml-1">→</span></FxButton>
+                                    className="text-[1.2em] leading-none ml-1">â†’</span></FxButton>
                             </FxReveal>
                         </div>
                     </div>
@@ -1011,7 +1012,7 @@ const Seo = () => {
                         {[
                             {
                                 title: 'Technical SEO Setup',
-                                icon: '⚙',
+                                icon: 'âš™',
                                 number: '01',
                                 details: [
                                     'Fix broken links, crawl errors, and indexing issues',
@@ -1024,7 +1025,7 @@ const Seo = () => {
                             },
                             {
                                 title: 'Content Enhancement',
-                                icon: '📄',
+                                icon: 'ðŸ“„',
                                 number: '02',
                                 details: [
                                     'Refine on-page content for target keywords',
@@ -1063,7 +1064,7 @@ const Seo = () => {
                                         {item.details.map((detail, idx) => (
                                             <li key={idx} className="flex gap-3">
                                                 <span
-                                                    className={`${isDayTime ? 'text-teal-400' : 'text-teal-600'} font-semibold flex-shrink-0`}>✓</span>
+                                                    className={`${isDayTime ? 'text-teal-400' : 'text-teal-600'} font-semibold flex-shrink-0`}>âœ“</span>
                                                 <span>{detail}</span>
                                             </li>
                                         ))}
@@ -1126,7 +1127,7 @@ const Seo = () => {
                                 </p>
                             </div>
                             <FxButton day={!isDayTime} href="/contact" variant="solid">
-                                Begin Implementation <span className="text-[1.2em] leading-none ml-1">→</span>
+                                Begin Implementation <span className="text-[1.2em] leading-none ml-1">â†’</span>
                             </FxButton>
                         </div>
                     </FxReveal>
@@ -1188,12 +1189,12 @@ const Seo = () => {
                             {
                                 number: '50+',
                                 label: 'Projects Delivered',
-                                icon: '✓',
+                                icon: 'âœ“',
                                 desc: 'Across industries and markets'
                             },
-                            {number: '8+', label: 'Years of Excellence', icon: '⭐', desc: 'Proven track record'},
-                            {number: '100%', label: 'Client Retention', icon: '🤝', desc: 'Long-term partnerships'},
-                            {number: '300%', label: 'Avg. ROI Growth', icon: '📈', desc: 'Measurable results'}
+                            {number: '8+', label: 'Years of Excellence', icon: 'â­', desc: 'Proven track record'},
+                            {number: '100%', label: 'Client Retention', icon: 'ðŸ¤', desc: 'Long-term partnerships'},
+                            {number: '300%', label: 'Avg. ROI Growth', icon: 'ðŸ“ˆ', desc: 'Measurable results'}
                         ].map((stat, i) => (
                             <FxReveal key={stat.label} delay={0.24 + i * 0.08}>
                                 <div
@@ -1215,7 +1216,7 @@ const Seo = () => {
                             <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
                                 <div>
                                     <div
-                                        className={`text-2xl mb-3 ${isDayTime ? 'text-teal-700' : 'text-teal-300'}`}>🎯
+                                        className={`text-2xl mb-3 ${isDayTime ? 'text-teal-700' : 'text-teal-300'}`}>ðŸŽ¯
                                     </div>
                                     <h4 className={`font-[600] mb-2 ${isDayTime ? 'text-black/90' : 'text-white/90'}`}>Results-Driven
                                         Strategy</h4>
@@ -1235,7 +1236,7 @@ const Seo = () => {
                                 </div>
                                 <div>
                                     <div
-                                        className={`text-2xl mb-3 ${isDayTime ? 'text-teal-700' : 'text-teal-300'}`}>🚀
+                                        className={`text-2xl mb-3 ${isDayTime ? 'text-teal-700' : 'text-teal-300'}`}>ðŸš€
                                     </div>
                                     <h4 className={`font-[600] mb-2 ${isDayTime ? 'text-black/90' : 'text-white/90'}`}>Scalable
                                         Excellence</h4>
@@ -1269,7 +1270,7 @@ const Seo = () => {
                                 </p>
                             </div>
                             <FxButton day={isDayTime} href="/contact" variant="solid">
-                                Start Partnership <span className="text-[1.2em] leading-none ml-1">→</span>
+                                Start Partnership <span className="text-[1.2em] leading-none ml-1">â†’</span>
                             </FxButton>
                         </div>
                     </FxReveal>
@@ -1315,7 +1316,7 @@ const Seo = () => {
                             <div className={`space-y-6`}>
                                 <div>
                                     <h3 className={`text-[1.2em] font-[700] mb-3 flex items-center gap-3 ${isDayTime ? 'text-teal-300' : 'text-teal-600'}`}>
-                                        <span className="text-2xl">📊</span> Comprehensive Benchmarking
+                                        <span className="text-2xl">ðŸ“Š</span> Comprehensive Benchmarking
                                     </h3>
                                     <p className={`text-[0.9em] leading-[1.6] ${isDayTime ? 'text-white/70' : 'text-black/70'}`}>
                                         Every engagement begins with a detailed competitive analysis and baseline
@@ -1325,7 +1326,7 @@ const Seo = () => {
                                 </div>
                                 <div>
                                     <h3 className={`text-[1.2em] font-[700] mb-3 flex items-center gap-3 ${isDayTime ? 'text-teal-300' : 'text-teal-600'}`}>
-                                        <span className="text-2xl">📈</span> Monthly Performance Reporting
+                                        <span className="text-2xl">ðŸ“ˆ</span> Monthly Performance Reporting
                                     </h3>
                                     <p className={`text-[0.9em] leading-[1.6] ${isDayTime ? 'text-white/70' : 'text-black/70'}`}>
                                         Transparent, detailed reports delivered monthly that showcase ranking progress,
@@ -1351,7 +1352,7 @@ const Seo = () => {
                                 <div
                                     className={`p-6 rounded-2xl backdrop-blur-md border ${isDayTime ? 'bg-white/5 border-teal-400/20' : 'bg-black/5 border-teal-700/20'}`}>
                                     <h4 className={`text-[1em] font-[600] mb-3 flex items-center gap-2 ${isDayTime ? 'text-teal-300' : 'text-teal-600'}`}>
-                                        <span>✓</span> Real-Time Dashboards
+                                        <span>âœ“</span> Real-Time Dashboards
                                     </h4>
                                     <p className={`text-[0.85em] ${isDayTime ? 'text-white/60' : 'text-black/60'}`}>Access
                                         live analytics dashboards tracking keywords, rankings, traffic, and conversions
@@ -1360,7 +1361,7 @@ const Seo = () => {
                                 <div
                                     className={`p-6 rounded-2xl backdrop-blur-md border ${isDayTime ? 'bg-white/5 border-teal-400/20' : 'bg-black/5 border-teal-700/20'}`}>
                                     <h4 className={`text-[1em] font-[600] mb-3 flex items-center gap-2 ${isDayTime ? 'text-teal-300' : 'text-teal-600'}`}>
-                                        <span>✓</span> Quarterly Strategy Sessions
+                                        <span>âœ“</span> Quarterly Strategy Sessions
                                     </h4>
                                     <p className={`text-[0.85em] ${isDayTime ? 'text-white/60' : 'text-black/60'}`}>Dedicated
                                         strategy reviews to evaluate quarterly progress, adjust tactics, and align
@@ -1369,7 +1370,7 @@ const Seo = () => {
                                 <div
                                     className={`p-6 rounded-2xl backdrop-blur-md border ${isDayTime ? 'bg-white/5 border-teal-400/20' : 'bg-black/5 border-teal-700/20'}`}>
                                     <h4 className={`text-[1em] font-[600] mb-3 flex items-center gap-2 ${isDayTime ? 'text-teal-300' : 'text-teal-600'}`}>
-                                        <span>✓</span> Custom KPI Tracking
+                                        <span>âœ“</span> Custom KPI Tracking
                                     </h4>
                                     <p className={`text-[0.85em] ${isDayTime ? 'text-white/60' : 'text-black/60'}`}>We
                                         measure what matters to you -revenue, qualified leads, market share growth, or
@@ -1378,7 +1379,7 @@ const Seo = () => {
                                 <div
                                     className={`p-6 rounded-2xl backdrop-blur-md border ${isDayTime ? 'bg-white/5 border-teal-400/20' : 'bg-black/5 border-teal-700/20'}`}>
                                     <h4 className={`text-[1em] font-[600] mb-3 flex items-center gap-2 ${isDayTime ? 'text-teal-300' : 'text-teal-600'}`}>
-                                        <span>✓</span> Competitive Intelligence
+                                        <span>âœ“</span> Competitive Intelligence
                                     </h4>
                                     <p className={`text-[0.85em] ${isDayTime ? 'text-white/60' : 'text-black/60'}`}>Ongoing
                                         monitoring of competitor strategies, ranking shifts, and market changes that
@@ -1435,7 +1436,7 @@ const Seo = () => {
                                 </p>
                             </div>
                             <FxButton day={!isDayTime} href="/audit" variant="solid">
-                                Request Free SEO Audit <span className="text-[1.2em] leading-none ml-1">→</span>
+                                Request Free SEO Audit <span className="text-[1.2em] leading-none ml-1">â†’</span>
                             </FxButton>
                         </div>
                     </FxReveal>
@@ -1600,7 +1601,7 @@ const Seo = () => {
                                       className={`lg:text-[3em] text-[1.5em] font-[600] tracking-tighter leading-[1.15] pb-6 ${isDayTime ? 'text-slate-100/50' : 'text-slate-800'}`}>
                             Ready to transform your SEO strategy?
                         </FxGlitchText>
-                        <FxButton day={false} href="/contact" variant="solid">Get started →</FxButton>
+                        <FxButton day={false} href="/contact" variant="solid">Get started â†’</FxButton>
                     </FxReveal>
                 </div>
             </div>

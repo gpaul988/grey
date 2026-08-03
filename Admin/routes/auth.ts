@@ -102,6 +102,13 @@ route.post('/login', redirectIfAuth, async (req: Request, res: Response) => {
         });
     }
 
+    // Admin/superadmin accounts should not get stranded behind verification
+    // if SMTP is misconfigured or the verification email was missed.
+    if (!matched.email_verified && (matched.role === 'admin' || matched.role === 'superadmin')) {
+        Users.markVerified(matched.id);
+        logActivity({ user_id: matched.id, user_name: matched.name, action: 'auto-verify-login', entity: 'auth' });
+    }
+
     // Unverified accounts cannot log in. Auto-resend a fresh verification link
     // and tell the user, with a button to resend again if needed.
     if (!matched.email_verified) {

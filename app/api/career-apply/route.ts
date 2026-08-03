@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Database from 'better-sqlite3';
 import path from 'path';
+import { notifyAdminPanel } from '@/lib/admin-notify';
 import fs from 'fs';
 import crypto from 'crypto';
 import { send } from '@/lib/email';
@@ -249,27 +250,7 @@ export async function POST(req: NextRequest) {
       console.error('[career-apply] admin email failed:', e);
     }
 
-    // Notify admin panel of new application (non-blocking)
-    try {
-      const adminSecret = process.env.ADMIN_API_SECRET || 'default-secret-key';
-      const baseUrl = process.env.ADMIN_BASE_URL || 'http://localhost:3000';
-      fetch(`${baseUrl}/admin/api/notify-submission`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-admin-secret': adminSecret,
-        },
-        body: JSON.stringify({
-          action: 'create',
-          type: 'application',
-          id: appId,
-          name: full_name,
-          email: email,
-        }),
-      }).catch(err => console.warn('[career-apply] Failed to notify admin panel:', err.message));
-    } catch (notifyErr) {
-      console.warn('[career-apply] Could not trigger admin notification:', notifyErr);
-    }
+    notifyAdminPanel({ type: 'application', id: appId, name: full_name, email });
 
     return NextResponse.json(
       {

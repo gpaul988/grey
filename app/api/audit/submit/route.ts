@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { auditSubmissions } from '@/lib/db/schema';
+import { notifyAdminPanel } from '@/lib/admin-notify';
 
 export async function POST(req: NextRequest) {
     try {
@@ -84,27 +85,7 @@ export async function POST(req: NextRequest) {
 
         const submissionId = result[0].id;
 
-        // Notify admin panel of new audit submission (non-blocking)
-        try {
-            const adminSecret = process.env.ADMIN_API_SECRET || 'default-secret-key';
-            const baseUrl = process.env.ADMIN_BASE_URL || 'http://localhost:3000';
-            fetch(`${baseUrl}/admin/api/notify-submission`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-admin-secret': adminSecret,
-                },
-                body: JSON.stringify({
-                    action: 'create',
-                    type: 'audit',
-                    id: submissionId,
-                    name: finalName,
-                    email: finalEmail,
-                }),
-            }).catch(err => console.warn('[audit/submit] Failed to notify admin panel:', err.message));
-        } catch (notifyErr) {
-            console.warn('[audit/submit] Could not trigger admin notification:', notifyErr);
-        }
+        notifyAdminPanel({ type: 'audit', id: submissionId, name: finalName, email: finalEmail });
 
         return NextResponse.json(
             {

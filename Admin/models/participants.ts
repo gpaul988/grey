@@ -50,9 +50,10 @@ export const Participants = {
             participant_id: data.participant_id,
             name: data.name || null,
             added_by: data.added_by || null,
-        });
+        }) as { lastInsertRowid?: number | bigint };
+        const id = Number(info.lastInsertRowid ?? 0);
         return (
-            (db.prepare('SELECT * FROM conversation_participants WHERE id = ?').get(Number(info.lastInsertRowid)) as
+            (db.prepare('SELECT * FROM conversation_participants WHERE id = ?').get(id) as
                 | ConversationParticipant
                 | undefined) ??
             (db

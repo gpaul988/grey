@@ -14,7 +14,9 @@ const BRAND = 'Grey InfoTech Ltd.';
 const TEAL = '#14b8a6';
 
 export function smtpConfigured(): boolean {
-    return Boolean(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS && process.env.SMTP_FROM);
+    // Support both SMTP_PASS and SMTP_PASSWORD env var names for compatibility
+    const pass = process.env.SMTP_PASS || process.env.SMTP_PASSWORD || process.env.SMTP_PASSWORD?.toString();
+    return Boolean(process.env.SMTP_HOST && process.env.SMTP_USER && pass && (process.env.SMTP_FROM || process.env.SMTP_USER));
 }
 
 /** The public origin used to build links inside emails. */
@@ -32,11 +34,12 @@ function transporter(): Transporter | null {
     if (!smtpConfigured()) return null;
     if (cached) return cached;
     const port = Number(process.env.SMTP_PORT || 587);
+    const pass = process.env.SMTP_PASS || process.env.SMTP_PASSWORD || '';
     cached = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
         port,
         secure: port === 465,
-        auth: {user: process.env.SMTP_USER, pass: process.env.SMTP_PASS},
+        auth: { user: process.env.SMTP_USER, pass },
     });
     return cached;
 }
@@ -69,7 +72,7 @@ export function emailButton(label: string, url: string): string {
  * Best-effort send. Returns true if actually delivered via SMTP, false if it
  * was only logged (no SMTP). Never throws — failures are swallowed & logged.
  */
-export async function sendMail(opts: { to: string; subject: string; html: string; text?: string }): Promise<boolean> {
+export async function sendMail(opts: { to: string; subject: string; html: string; text?: string; replyTo?: string }): Promise<boolean> {
     const tx = transporter();
     if (!tx) {
         console.warn(`[mailer] SMTP not configured — skipping send to ${opts.to}: "${opts.subject}"`);
@@ -78,6 +81,7 @@ export async function sendMail(opts: { to: string; subject: string; html: string
     try {
         const payload: SendMailOptions = {
             from: FROM,
+            replyTo: opts.replyTo || process.env.SMTP_REPLY_TO || process.env.SMTP_FROM,
             to: opts.to,
             subject: opts.subject,
             html: opts.html,

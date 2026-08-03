@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, {useEffect, useRef, useState} from 'react';
 import '@/app/globals.css'
@@ -5,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {AiFillCaretDown, AiFillCaretUp, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import {FaCode, FaPencilRuler, FaRocket, FaSearch, FaShieldAlt, FaVial,} from "react-icons/fa";
-import {AnimatePresence, motion, useScroll, useTransform} from "framer-motion";
+import {AnimatePresence, motion, useScroll, useTransform, useMotionValue} from "framer-motion";
 import {useIsDayTime} from '../../components/useIsDayTime';
 
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
@@ -113,7 +114,7 @@ const reasons = [
                 developing, and integrating tailored healthcare eCommerce solutions that streamline service offerings,
                 enable secure online transactions, and improve patient access. By leveraging these advanced
                 functionalities, we help healthcare providers strengthen their market position, drive revenue growth,
-                and deliver a seamless digital experience that meets the evolving expectations of today’s patients.
+                and deliver a seamless digital experience that meets the evolving expectations of todayâ€™s patients.
             </>
         ),
         images: ['/assets/health/healthcare ecommerce functionality.jpg']
@@ -166,7 +167,7 @@ const reasons = [
                 A fully customizable hospital management system enables healthcare organizations to optimize internal
                 workflows, improve resource allocation, and enhance overall operational efficiency across clinical,
                 administrative, and financial departments. Our team provides end-to-end support in selecting the most
-                suitable HMS tailored to your organization’s unique requirements, managing the deployment process, and
+                suitable HMS tailored to your organizationâ€™s unique requirements, managing the deployment process, and
                 fine-tuning system configurations to maximize performance and user adoption. We also design and
                 implement a secure, scalable IT infrastructure that protects sensitive patient and organizational data,
                 ensuring strict compliance with healthcare regulations such as HIPAA. By combining advanced technology
@@ -188,9 +189,12 @@ const Healthcare = () => {
     const [activeAcc, setActiveAcc] = useState<number | null>(null);
     const [isDesktop, setIsDesktop] = useState(false);
     // x-scroller
+    const [isHydrated, setIsHydrated] = useState(false);
+    useEffect(() => { setIsHydrated(true); }, []);
     const targetRef = useRef<HTMLDivElement | null>(null);
-    const {scrollYProgress} = useScroll({target: targetRef});
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-83%"]);
+    const fallbackScroll = useMotionValue(0);
+    const {scrollYProgress} = useScroll({ target: isHydrated ? targetRef : undefined });
+    const x = useTransform(scrollYProgress ?? fallbackScroll, [0, 1], ["0%", "-83%"]);
 
     // Floating button visibility hook
     useEffect(() => {
@@ -426,7 +430,7 @@ const Healthcare = () => {
                     confidentiality, reliability, and compliance in every solution we deliver. Our applications are
                     designed with a strong focus on patient safety and clinical efficacy, ensuring they meet the
                     stringent requirements of the healthcare industry. Guided by the International Medical Device
-                    Regulators Forum’s (IMDRF) Software as a Medical Device (SaMD) risk categories, we incorporate
+                    Regulators Forumâ€™s (IMDRF) Software as a Medical Device (SaMD) risk categories, we incorporate
                     robust risk management frameworks, secure data handling practices, and rigorous validation
                     processes. This commitment allows us to provide innovative, dependable healthcare applications that
                     not only enhance patient outcomes but also maintain full regulatory alignment and industry trust.
@@ -438,7 +442,7 @@ const Healthcare = () => {
                     Our medical app development process integrates advanced capabilities for capturing and analyzing
                     patient-generated health data, enabling providers to gain deeper insights into individual health
                     conditions and progress. By leveraging this data, healthcare professionals can design highly
-                    personalized treatment plans tailored to each patient’s unique needs, improving accuracy, adherence,
+                    personalized treatment plans tailored to each patientâ€™s unique needs, improving accuracy, adherence,
                     and overall effectiveness of care. Beyond individualized treatment, the continuous flow of real-time
                     patient data enhances clinical decision-making, supports preventive strategies, and contributes to
                     superior healthcare outcomes through more informed, data-driven insights.
@@ -657,7 +661,7 @@ const Healthcare = () => {
                     <FxBackground day={true} grid={true} aurora={true}/>
                 </div>
 
-                {/* Unified Healthcare Gradient Overlay (teal tones) — stronger to fully tint media */}
+                {/* Unified Healthcare Gradient Overlay (teal tones) â€” stronger to fully tint media */}
                 <div
                     className="absolute inset-0 bg-gradient-to-r from-[#013a36]/95 via-[#026d68]/85 to-[#028b82]/70 z-[2] mix-blend-multiply opacity-95"/>
                 <div
@@ -697,7 +701,7 @@ const Healthcare = () => {
                             <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
                                 Modern healthcare systems engineered for privacy, interoperability, and superior patient
                                 outcomes.
-                                From EMR integrations to AI-assistive workflows — built for compliance and performance.
+                                From EMR integrations to AI-assistive workflows â€” built for compliance and performance.
                             </p>
 
                             <div className="flex flex-wrap gap-2 mb-10 lg:mb-12">
@@ -717,7 +721,7 @@ const Healthcare = () => {
                                             <span className="absolute inset-0" style={{
                                                 background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)'
                                             }}/>
-                                        <span className="relative">Get a Consultation →</span>
+                                        <span className="relative">Get a Consultation â†’</span>
                                     </button>
                                 </Link>
                                 <Link href="/industries/healthcare#contact">
@@ -781,7 +785,7 @@ const Healthcare = () => {
                                         Our approach blends clinical empathy, strong security controls, and
                                         interoperable
                                         architectures. We design solutions that prioritise patient safety, data privacy,
-                                        and operational efficiency — from EMR integrations to telehealth platforms and
+                                        and operational efficiency â€” from EMR integrations to telehealth platforms and
                                         AI-augmented workflows.
                                     </p>
                                     <p>
@@ -1015,7 +1019,7 @@ const Healthcare = () => {
                                 <p>
                                     These healthcare management solutions are equipped with integrated modules for
                                     resource allocation, staff scheduling, billing, and electronic patient
-                                    records—ensuring a centralized and cohesive approach to operational oversight.
+                                    recordsâ€”ensuring a centralized and cohesive approach to operational oversight.
                                     By automating routine processes and minimizing the risk of administrative
                                     errors, they help reduce patient wait times, optimize staff productivity, and
                                     maintain regulatory compliance.
@@ -1044,7 +1048,7 @@ const Healthcare = () => {
                                 </p>
                                 <p className="mt-3">
                                     As a result, providers can deliver more accurate diagnoses, reduce delays in care,
-                                    and offer highly personalized, effective treatment—ultimately improving clinical
+                                    and offer highly personalized, effective treatmentâ€”ultimately improving clinical
                                     outcomes and patient satisfaction.
                                 </p>
                             </div>
@@ -1388,7 +1392,7 @@ const Healthcare = () => {
                                                                 {reason.title}
                                                             </h3>
                                                             <span
-                                                                className={`text-lg transition-transform duration-300 ${isActive ? 'translate-x-0 text-[var(--page-accent)]' : 'translate-x-0 text-slate-400 group-hover:translate-x-1'}`}>→</span>
+                                                                className={`text-lg transition-transform duration-300 ${isActive ? 'translate-x-0 text-[var(--page-accent)]' : 'translate-x-0 text-slate-400 group-hover:translate-x-1'}`}>â†’</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1493,7 +1497,7 @@ const Healthcare = () => {
                                         Ready to start the conversation?
                                     </h2>
                                     <p className={`mt-3 text-[0.95rem] leading-7 ${isDayTime ? 'text-slate-700' : 'text-slate-300'}`}>
-                                        Let’s turn your next healthcare product idea into a secure, high-performance
+                                        Letâ€™s turn your next healthcare product idea into a secure, high-performance
                                         platform designed for real-world clinical impact.
                                     </p>
                                 </div>
@@ -1504,7 +1508,7 @@ const Healthcare = () => {
                                             className={`absolute inset-0 -translate-x-full bg-[var(--page-accent)] transition-transform duration-500 group-hover:translate-x-full`}/>
                                         <span className="relative z-10 inline-flex items-center gap-3">
                                             Get started
-                                            <span className="text-[1.2em] leading-none">→</span>
+                                            <span className="text-[1.2em] leading-none">â†’</span>
                                         </span>
                                     </button>
                                 </Link>
@@ -1585,7 +1589,7 @@ const Healthcare = () => {
                                             >
                                                 <div className="flex items-center justify-between gap-3">
                                                     <span className={`text-[0.95rem] font-medium ${isDayTime ? 'text-white' : 'text-slate-900'}`}>{item}</span>
-                                                    <span className={`text-lg ${isDayTime ? 'text-teal-300' : 'text-teal-700'}`}>{active ? '▾' : '▸'}</span>
+                                                    <span className={`text-lg ${isDayTime ? 'text-teal-300' : 'text-teal-700'}`}>{active ? 'â–¾' : 'â–¸'}</span>
                                                 </div>
                                             </button>
                                         );
@@ -1746,7 +1750,7 @@ const Healthcare = () => {
                                 icon: isDayTime ? '/assets/health/icon/test.svg' : '/assets/health/icon/test1.svg',
                                 title: 'Comprehensive Training & Change Management',
                                 subtitle: 'User Adoption & Excellence',
-                                description: 'Successful healthcare software deployment extends far beyond technical implementation. We provide comprehensive end-user training, clinical workflow workshops, and change management consulting to ensure rapid adoption and maximum ROI. Our training programs are tailored to different user personas—from clinical staff and administrative personnel to IT teams—with role-specific curricula, hands-on simulations, and ongoing support resources. We develop detailed documentation, video tutorials, and knowledge bases that empower your teams to independently manage and optimize their systems. Our proactive change management strategies minimize disruption, address resistance to new workflows, and establish a culture of continuous improvement that maximizes the value of your investment.',
+                                description: 'Successful healthcare software deployment extends far beyond technical implementation. We provide comprehensive end-user training, clinical workflow workshops, and change management consulting to ensure rapid adoption and maximum ROI. Our training programs are tailored to different user personasâ€”from clinical staff and administrative personnel to IT teamsâ€”with role-specific curricula, hands-on simulations, and ongoing support resources. We develop detailed documentation, video tutorials, and knowledge bases that empower your teams to independently manage and optimize their systems. Our proactive change management strategies minimize disruption, address resistance to new workflows, and establish a culture of continuous improvement that maximizes the value of your investment.',
                                 features: ['Role-Based Training', 'Workflow Simulations', 'Documentation & Videos', 'Ongoing Support']
                             }
                         ].map((benefit, index) => (
@@ -1861,12 +1865,12 @@ const Healthcare = () => {
                                         {/* Feature Highlights */}
                                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
                                             {[
-                                                { label: 'HIPAA Compliant', icon: '✓' },
-                                                { label: 'Real-Time Data', icon: '⚡' },
-                                                { label: '99.99% Uptime', icon: '◆' },
-                                                { label: 'FHIR Enabled', icon: '≡' },
-                                                { label: 'AI-Powered', icon: '⟡' },
-                                                { label: 'Enterprise Scale', icon: '▲' }
+                                                { label: 'HIPAA Compliant', icon: 'âœ“' },
+                                                { label: 'Real-Time Data', icon: 'âš¡' },
+                                                { label: '99.99% Uptime', icon: 'â—†' },
+                                                { label: 'FHIR Enabled', icon: 'â‰¡' },
+                                                { label: 'AI-Powered', icon: 'âŸ¡' },
+                                                { label: 'Enterprise Scale', icon: 'â–²' }
                                             ].map((feature, idx) => (
                                                 <div key={idx} className="flex items-center gap-2">
                                                     <span className="text-[1.2em] text-[var(--page-accent)]">{feature.icon}</span>
@@ -1887,7 +1891,7 @@ const Healthcare = () => {
                                             </FxButton>
                                             <button className="group/secondary inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-white/30 text-white/90 font-[600] text-[0.9em] transition-all duration-300 hover:border-[var(--page-accent)] hover:text-[var(--page-accent)] hover:bg-white/5">
                                                 Explore Solutions
-                                                <span className="transition-transform group-hover/secondary:translate-x-1">→</span>
+                                                <span className="transition-transform group-hover/secondary:translate-x-1">â†’</span>
                                             </button>
                                         </div>
                                     </div>
@@ -2188,8 +2192,8 @@ const Healthcare = () => {
                                             {[
                                                 { label: 'Clinical UX', value: '02' },
                                                 { label: 'EMR Integration', value: '03' },
-                                                { label: 'Real-Time Sync', value: '⚡' },
-                                                { label: 'Analytics Engine', value: '📊' }
+                                                { label: 'Real-Time Sync', value: 'âš¡' },
+                                                { label: 'Analytics Engine', value: 'ðŸ“Š' }
                                             ].map((capability, idx) => (
                                                 <div key={idx} className={`rounded-xl p-3 border backdrop-blur-sm ${
                                                     isDayTime
@@ -2218,7 +2222,7 @@ const Healthcare = () => {
                                             </FxButton>
                                             <button className="group/secondary inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-white/30 text-white/90 font-[600] text-[0.9em] transition-all duration-300 hover:border-[var(--page-accent)] hover:text-[var(--page-accent)] hover:bg-white/5">
                                                 View Case Study
-                                                <span className="transition-transform group-hover/secondary:translate-x-1">→</span>
+                                                <span className="transition-transform group-hover/secondary:translate-x-1">â†’</span>
                                             </button>
                                         </div>
                                     </div>
@@ -2388,7 +2392,7 @@ const Healthcare = () => {
                                     {benefit.featured && (
                                         <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold text-white backdrop-blur-md"
                                              style={{background: 'linear-gradient(135deg, rgba(var(--page-accent-rgb),0.8), rgba(var(--page-accent-rgb),0.5))'}}>
-                                            ✦ Featured
+                                            âœ¦ Featured
                                         </div>
                                     )}
 
@@ -2443,7 +2447,7 @@ const Healthcare = () => {
                                         <div className="pt-4 border-t" style={{borderColor: isDayTime ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)'}}>
                                             <a href={`#${benefit.id}`} className={`inline-flex items-center gap-2 text-sm font-semibold group/link transition-all ${isDayTime ? 'text-slate-600 hover:text-black' : 'text-white/70 hover:text-white'}`}>
                                                 Learn more
-                                                <span className="transition-transform group-hover/link:translate-x-1">→</span>
+                                                <span className="transition-transform group-hover/link:translate-x-1">â†’</span>
                                             </a>
                                         </div>
                                     </div>
@@ -2501,7 +2505,7 @@ const Healthcare = () => {
                                 </p>
                                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                                     <FxButton day={!isDayTime} href="/contact" variant="solid">
-                                        Schedule a consultation →
+                                        Schedule a consultation â†’
                                     </FxButton>
                                     <FxButton day={!isDayTime} href="/portfolio" variant="ghost">
                                         View case studies
@@ -2624,7 +2628,7 @@ const Healthcare = () => {
                         <FxChip day={!isDayTime}>OUR APPROACH</FxChip>
                         <FxReveal>
                             <h2 className="text-[2.6em] lg:text-[4.2em] font-[800] leading-[1.04] tracking-tight mt-4 mb-4">
-                                How We Stand Out — <span style={{background: 'linear-gradient(to right, rgba(var(--page-accent-rgb),1), rgba(var(--page-accent-rgb),0.7))', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}} className="inline-block">Healthcare Excellence</span>
+                                How We Stand Out â€” <span style={{background: 'linear-gradient(to right, rgba(var(--page-accent-rgb),1), rgba(var(--page-accent-rgb),0.7))', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}} className="inline-block">Healthcare Excellence</span>
                             </h2>
                         </FxReveal>
                         <FxReveal delay={0.06}>
@@ -2634,27 +2638,27 @@ const Healthcare = () => {
                         </FxReveal>
                     </div>
 
-                    {/* Detailed process grid — rich cards */}
+                    {/* Detailed process grid â€” rich cards */}
                     <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6 lg:gap-8">
                         {[
                             {
                                 step: '01',
                                 title: 'Committed to Client Success',
-                                timeframe: '1–2 weeks',
+                                timeframe: '1â€“2 weeks',
                                 items: ['Stakeholder workshops', 'Requirements analysis', 'Healthcare compliance review', 'Solution architecture planning'],
                                 acceptance: 'Scope document, Requirements matrix, Project timeline'
                             },
                             {
                                 step: '02',
                                 title: 'Expertise You Can Trust',
-                                timeframe: '2–4 weeks',
+                                timeframe: '2â€“4 weeks',
                                 items: ['Domain expertise validation', 'Security & HIPAA assessment', 'Technology stack selection', 'Integration planning'],
                                 acceptance: 'Technical roadmap, Security protocols, Vendor evaluation'
                             },
                             {
                                 step: '03',
                                 title: 'Scalable Architecture',
-                                timeframe: '3–6 weeks',
+                                timeframe: '3â€“6 weeks',
                                 items: ['System design & modeling', 'Database architecture', 'API & microservices design', 'Performance planning'],
                                 acceptance: 'Architecture diagram, System specifications, Capacity plan'
                             },
@@ -2750,13 +2754,13 @@ const Healthcare = () => {
                                 <h4 className={`text-[1.05em] font-[700] ${isDayTime ? 'text-gray-800' : 'text-white/90'}`}>Ready to transform your healthcare delivery?</h4>
                                 <p className={`text-[0.95em] ${isDayTime ? 'text-gray-700' : 'text-white/70'}`}>We combine clinical expertise and engineering excellence to deliver secure, compliant, and impactful healthcare solutions. Book a discovery session to explore your transformation journey.</p>
                             </div>
-                            <FxButton day={!isDayTime} href="/contact" variant="solid" className="whitespace-nowrap">Book a discovery →</FxButton>
+                            <FxButton day={!isDayTime} href="/contact" variant="solid" className="whitespace-nowrap">Book a discovery â†’</FxButton>
                         </div>
                     </FxReveal>
                 </div>
             </section>
 
-            {/* Who is involved — Modern, collaborative teams */}
+            {/* Who is involved â€” Modern, collaborative teams */}
             <section id={'involved'}
                      className={`relative lg:pt-28 pt-12 lg:pb-28 pb-12 px-4 sm:px-6 lg:px-[4.6em] w-full max-w-full ${isDayTime ? 'text-slate-900' : 'text-white'}`}>
                 <div className="relative max-w-[96em] mx-auto">
@@ -2821,7 +2825,7 @@ const Healthcare = () => {
 
                             <div className="mt-4">
                                 <FxReveal delay={0.26}>
-                                    <FxButton day={!isDayTime} href="/contact" variant="solid">Work with our team →</FxButton>
+                                    <FxButton day={!isDayTime} href="/contact" variant="solid">Work with our team â†’</FxButton>
                                 </FxReveal>
                             </div>
                         </div>
@@ -2880,7 +2884,7 @@ const Healthcare = () => {
                                     <div
                                         className='absolute top-4 right-4 px-3 py-2 rounded-full backdrop-blur-md text-xs font-semibold text-white'
                                         style={{background: isDayTime ? 'rgba(255,255,255,0.85)' : 'rgba(8,10,20,0.6)', color: isDayTime ? 'black' : 'white'}}>
-                                        ✦ Expert Teams
+                                        âœ¦ Expert Teams
                                     </div>
                                 </div>
                             </div>

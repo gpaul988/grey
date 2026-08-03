@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, {useEffect, useRef, useState} from 'react';
 import {motion} from 'framer-motion';
@@ -13,7 +14,7 @@ import {FxBackground, FxChip, FxReveal, FxButton, FxHoloCard, FxStickyScrollSect
 
 const testimonials = [
     {
-        name: "Isabel Martínez",
+        name: "Isabel MartÃ­nez",
         title: "UX Lead, TaskFlow Inc.",
         message: (
             <>
@@ -30,7 +31,7 @@ const testimonials = [
             <>
                 Grey InfoTech completely reimagined our website with a sleek, user-centric design that reinforces our
                 credibility in the fintech space. The process was collaborative and efficient, and the end result is
-                something we’re truly proud to show clients and partners.
+                something weâ€™re truly proud to show clients and partners.
             </>
         ),
     },
@@ -74,7 +75,7 @@ const services = [
             {label: 'Conversion', value: '35%+', description: 'Increased applications'},
         ],
         deliverables: ['Custom design', 'Job listings integration', 'Application portal', 'Mobile optimised', 'SEO setup', 'Analytics tracking'],
-        timeline: '6–10 weeks',
+        timeline: '6â€“10 weeks',
         engagement: 'Fixed-price or Dedicated Team',
     },
     {
@@ -102,7 +103,7 @@ const services = [
             {label: 'Satisfaction', value: '4.8/5', description: 'Employee feedback'},
         ],
         deliverables: ['Custom portal design', 'Multi-module setup', 'SSO integration', 'Training materials', 'Support documentation', 'Change management'],
-        timeline: '10–14 weeks',
+        timeline: '10â€“14 weeks',
         engagement: 'Agile sprints or Dedicated Team',
     },
     {
@@ -131,7 +132,7 @@ const services = [
             {label: 'ROI Impact', value: '2.5x', description: 'Decision efficiency'},
         ],
         deliverables: ['Custom dashboards', 'Real-time reporting', 'Data visualisation', 'Predictive analytics', 'Export capabilities', 'Training program'],
-        timeline: '8–12 weeks',
+        timeline: '8â€“12 weeks',
         engagement: 'Fixed-price, Time & Materials, or Team',
     },
     {
@@ -159,7 +160,7 @@ const services = [
             {label: 'Coverage', value: '95%', description: 'Process automation'},
         ],
         deliverables: ['Workflow design', 'Process mapping', 'Automation setup', 'Compliance integration', 'Testing & QA', 'Go-live support'],
-        timeline: '8–12 weeks',
+        timeline: '8â€“12 weeks',
         engagement: 'Dedicated Team or Time & Materials',
     },
     {
@@ -186,7 +187,7 @@ const services = [
             {label: 'Retention', value: '45%+', description: 'Engagement impact'},
         ],
         deliverables: ['ATS implementation', 'Engagement platform', 'Custom workflows', 'Integration setup', 'User training', 'Support plan'],
-        timeline: '10–14 weeks',
+        timeline: '10â€“14 weeks',
         engagement: 'Dedicated Team or Agile sprints',
     },
     {
@@ -214,7 +215,7 @@ const services = [
             {label: 'Time to Fill', value: '21 days', description: 'Average reduction'},
         ],
         deliverables: ['Talent pipeline', 'Sourcing strategy', 'Candidate screening', 'Assessment tools', 'Employer branding', 'Analytics reports'],
-        timeline: '12–16 weeks',
+        timeline: '12â€“16 weeks',
         engagement: 'Dedicated Recruitment Team',
     },
 ];
@@ -252,7 +253,7 @@ const benefits = [
         title: "Customisation and Flexibility",
         feature: "Tailored Integrations",
         description:
-            "We believe in delivering solutions tailored to your specific business needs, ensuring every service we provide is adaptable, scalable, and aligned with your corporate environment. Our approach prioritises flexibility and strategic alignment, allowing us to create value-driven HR technology solutions that evolve with your organisation’s goals and workforce requirements.",
+            "We believe in delivering solutions tailored to your specific business needs, ensuring every service we provide is adaptable, scalable, and aligned with your corporate environment. Our approach prioritises flexibility and strategic alignment, allowing us to create value-driven HR technology solutions that evolve with your organisationâ€™s goals and workforce requirements.",
     },
     {
         id: "user-centric",
@@ -277,9 +278,9 @@ const benefits = [
 ];
 
 const benefitOutcomes: Record<string, {impact: string; time: string; compliance: string}> = {
-    expertise: {impact: '+30% Hiring Efficiency', time: '4–6 wks', compliance: 'GDPR-ready'},
-    customisation: {impact: '40% faster integrations', time: '6–10 wks', compliance: 'SAML/SSO'},
-    'user-centric': {impact: '+25% Adoption', time: '3–6 wks', compliance: 'WCAG AA'},
+    expertise: {impact: '+30% Hiring Efficiency', time: '4â€“6 wks', compliance: 'GDPR-ready'},
+    customisation: {impact: '40% faster integrations', time: '6â€“10 wks', compliance: 'SAML/SSO'},
+    'user-centric': {impact: '+25% Adoption', time: '3â€“6 wks', compliance: 'WCAG AA'},
     'continuous-support-development': {impact: '99.9% uptime', time: 'Ongoing', compliance: 'SLA-backed'},
 };
 
@@ -302,7 +303,7 @@ const integrations = [
         logoDark: "/assets/hr/broadbean.svg",
         imageOffset: "lg:-mt-[3em] md:-mt-[3em]",
         description:
-            "Broadbean is a robust platform designed for distributing job postings and sourcing candidates across diverse channels. By integrating Broadbean with your HR system, you streamline the process of publishing vacancies, ensuring broad reach to targeted talent pools. This integration also enables comprehensive tracking and analysis of each recruitment channel’s performance, allowing you to optimise your hiring strategy for maximum efficiency and impact.",
+            "Broadbean is a robust platform designed for distributing job postings and sourcing candidates across diverse channels. By integrating Broadbean with your HR system, you streamline the process of publishing vacancies, ensuring broad reach to targeted talent pools. This integration also enables comprehensive tracking and analysis of each recruitment channelâ€™s performance, allowing you to optimise your hiring strategy for maximum efficiency and impact.",
     },
     {
         id: "hubspot",
@@ -352,7 +353,7 @@ const integrations = [
         logoDark: "/assets/hr/workday.svg",
         imageOffset: "lg:-mt-[3em] md:-mt-[3em]",
         description:
-            "Workday Applicant Tracking System, a component of Workday’s comprehensive human capital management suite, offers seamless applicant tracking, job posting management, and recruitment data analysis. Integrating Workday ATS streamlines your hiring process, ensuring efficiency and cohesion from initial job posting through to candidate selection and onboarding, thereby enhancing overall recruitment effectiveness.",
+            "Workday Applicant Tracking System, a component of Workdayâ€™s comprehensive human capital management suite, offers seamless applicant tracking, job posting management, and recruitment data analysis. Integrating Workday ATS streamlines your hiring process, ensuring efficiency and cohesion from initial job posting through to candidate selection and onboarding, thereby enhancing overall recruitment effectiveness.",
     },
     {
         id: "indeed",
@@ -382,7 +383,7 @@ const integrations = [
         logoDark: "/assets/hr/jobberman.svg",
         imageOffset: "lg:-mt-[1em] md:-mt-[1em]",
         description:
-            "Jobberman is a leading job portal in West Africa, connecting employers with a vast network of qualified candidates across multiple industries. Integrating Jobberman into your recruitment process expands your reach within the regional talent market, enabling you to attract skilled professionals efficiently. This integration leverages Jobberman’s targeted job matching and extensive database to streamline hiring, improve candidate quality, and accelerate your recruitment outcomes.",
+            "Jobberman is a leading job portal in West Africa, connecting employers with a vast network of qualified candidates across multiple industries. Integrating Jobberman into your recruitment process expands your reach within the regional talent market, enabling you to attract skilled professionals efficiently. This integration leverages Jobbermanâ€™s targeted job matching and extensive database to streamline hiring, improve candidate quality, and accelerate your recruitment outcomes.",
     },
     {
         id: "workforce",
@@ -507,15 +508,15 @@ const AccordionIntegrationAdvanced = ({ integration, isDayTime, index }: { integ
                                     <h5 className={`text-xs font-bold uppercase tracking-wider mb-3 ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>Key Features</h5>
                                     <ul className={`space-y-2 ${isDayTime ? 'text-black/65' : 'text-white/70'}`}>
                                         <li className="flex items-start gap-2 text-xs">
-                                            <span className={`text-base flex-shrink-0 ${isDayTime ? 'text-purple-600' : 'text-purple-400'}`}>✦</span>
+                                            <span className={`text-base flex-shrink-0 ${isDayTime ? 'text-purple-600' : 'text-purple-400'}`}>âœ¦</span>
                                             <span>Enterprise-grade API reliability</span>
                                         </li>
                                         <li className="flex items-start gap-2 text-xs">
-                                            <span className={`text-base flex-shrink-0 ${isDayTime ? 'text-purple-600' : 'text-purple-400'}`}>✦</span>
+                                            <span className={`text-base flex-shrink-0 ${isDayTime ? 'text-purple-600' : 'text-purple-400'}`}>âœ¦</span>
                                             <span>Bidirectional data synchronization</span>
                                         </li>
                                         <li className="flex items-start gap-2 text-xs">
-                                            <span className={`text-base flex-shrink-0 ${isDayTime ? 'text-purple-600' : 'text-purple-400'}`}>✦</span>
+                                            <span className={`text-base flex-shrink-0 ${isDayTime ? 'text-purple-600' : 'text-purple-400'}`}>âœ¦</span>
                                             <span>Advanced compliance protocols</span>
                                         </li>
                                     </ul>
@@ -651,15 +652,15 @@ const AccordionIntegration = ({ integration, isDayTime, index }: { integration: 
                                         <h5 className={`text-xs font-bold uppercase tracking-wider mb-4 ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>Key Features</h5>
                                         <ul className={`space-y-2 ${isDayTime ? 'text-black/65' : 'text-white/70'}`}>
                                             <li className="flex items-start gap-3 text-sm">
-                                                <span className={`text-lg ${isDayTime ? 'text-purple-600' : 'text-purple-400'}`}>✦</span>
+                                                <span className={`text-lg ${isDayTime ? 'text-purple-600' : 'text-purple-400'}`}>âœ¦</span>
                                                 <span>Native API integration with enterprise-grade reliability</span>
                                             </li>
                                             <li className="flex items-start gap-3 text-sm">
-                                                <span className={`text-lg ${isDayTime ? 'text-purple-600' : 'text-purple-400'}`}>✦</span>
+                                                <span className={`text-lg ${isDayTime ? 'text-purple-600' : 'text-purple-400'}`}>âœ¦</span>
                                                 <span>Bidirectional data synchronization at scale</span>
                                             </li>
                                             <li className="flex items-start gap-3 text-sm">
-                                                <span className={`text-lg ${isDayTime ? 'text-purple-600' : 'text-purple-400'}`}>✦</span>
+                                                <span className={`text-lg ${isDayTime ? 'text-purple-600' : 'text-purple-400'}`}>âœ¦</span>
                                                 <span>Advanced security protocols and compliance standards</span>
                                             </li>
                                         </ul>
@@ -918,7 +919,7 @@ const HrTech = () => {
 
                             <p className="text-white/70 text-[0.85em] lg:text-[1.08em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
                                 Enterprise-grade HR software that streamlines hiring, onboarding, payroll, and
-                                performance management — designed for scale, security, and outstanding employee
+                                performance management â€” designed for scale, security, and outstanding employee
                                 experience.
                             </p>
 
@@ -942,7 +943,7 @@ const HrTech = () => {
                                    style={{background: pageAccent, color: '#fff'}}>
                                     <span className="absolute inset-0"
                                           style={{background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)'}}/>
-                                    <span className="relative">Start a project →</span>
+                                    <span className="relative">Start a project â†’</span>
                                 </Link>
                                 <Link href="/case-studies"
                                    className="px-8 py-3 rounded-full text-[0.85em] lg:text-[0.88em] font-semibold text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 whitespace-nowrap"
@@ -1031,8 +1032,8 @@ const HrTech = () => {
                                 className="grid lg:grid-cols-2 grid-cols-1 gap-6 mt-6 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
                                 <div className="space-y-4">
                                     <p>
-                                        In today’s competitive business landscape, integrating HR technology is
-                                        strategic — not optional. Our HR solutions prioritise security, scalability, and
+                                        In todayâ€™s competitive business landscape, integrating HR technology is
+                                        strategic â€” not optional. Our HR solutions prioritise security, scalability, and
                                         employee experience, ensuring your platforms support recruitment, onboarding,
                                         payroll, and performance at enterprise scale.
                                     </p>
@@ -1090,7 +1091,7 @@ const HrTech = () => {
                 day={isDayTime}
                 colorScheme="purple"
                 heading={<>HR Technology &<br className="lg:block md:block hidden"/>Marketing Services</>}
-                intro="We deliver end-to-end solutions that seamlessly integrate human resources functionality into your corporate website—covering everything from employee onboarding and performance tracking to benefits management, payroll systems, employee profiles, and beyond."
+                intro="We deliver end-to-end solutions that seamlessly integrate human resources functionality into your corporate websiteâ€”covering everything from employee onboarding and performance tracking to benefits management, payroll systems, employee profiles, and beyond."
                 navLabel="Our Services"
                 activeId={activeId}
                 onNavClickAction={scrollToSection}
@@ -1247,8 +1248,8 @@ const HrTech = () => {
                                     Modern HR Platform Architecture
                                 </h2>
                                 <p className="mt-3 text-sm lg:text-[1em] font-[300] text-white/85">
-                                    Secure, composable HR infrastructure—identity, payroll, performance, and
-                                    analytics—connected through realtime APIs and event-driven pipelines. Designed for
+                                    Secure, composable HR infrastructureâ€”identity, payroll, performance, and
+                                    analyticsâ€”connected through realtime APIs and event-driven pipelines. Designed for
                                     scale, observability and privacy.
                                 </p>
 
@@ -1282,7 +1283,7 @@ const HrTech = () => {
                                 <div
                                     className="p-3 rounded-lg bg-white/4 border border-white/6 backdrop-blur-sm text-center">
                                     <div className="text-[1.1em] font-extrabold"><span
-                                        style={{color: pageAccent}}>8–12</span> wks
+                                        style={{color: pageAccent}}>8â€“12</span> wks
                                     </div>
                                     <div className="text-xs mt-1">Typical timeline</div>
                                 </div>
@@ -1435,10 +1436,10 @@ const HrTech = () => {
                             <div className="mt-6 p-4 rounded-xl border border-white/6 bg-white/4 backdrop-blur-sm">
                                 <div className="text-sm font-semibold mb-2">Architecture at a glance</div>
                                 <ul className="text-xs space-y-1 text-slate-400">
-                                    <li>• API Gateway → Authentication & rate limiting</li>
-                                    <li>• Event Bus (Kafka/Pulsar) → Asynchronous workflows</li>
-                                    <li>• Microservices (stateless) → Horizontal scaling</li>
-                                    <li>• Data Warehouse & OLAP → Analytics & retention modelling</li>
+                                    <li>â€¢ API Gateway â†’ Authentication & rate limiting</li>
+                                    <li>â€¢ Event Bus (Kafka/Pulsar) â†’ Asynchronous workflows</li>
+                                    <li>â€¢ Microservices (stateless) â†’ Horizontal scaling</li>
+                                    <li>â€¢ Data Warehouse & OLAP â†’ Analytics & retention modelling</li>
                                 </ul>
                             </div>
                         </div>
@@ -1550,7 +1551,7 @@ const HrTech = () => {
                                 Collaborative HR Workspaces
                             </h3>
                             <p className="mt-3 text-sm text-slate-400 max-w-xl">
-                                Embed secure collaboration directly inside your HR platform — encrypted document vaults,
+                                Embed secure collaboration directly inside your HR platform â€” encrypted document vaults,
                                 role-based workflows, threaded feedback and realtime notifications. Built for
                                 auditability
                                 and scale, with enterprise-grade controls.
@@ -1599,7 +1600,7 @@ const HrTech = () => {
                                 <div
                                     className="absolute bottom-4 left-4 p-3 rounded-md bg-white/6 backdrop-blur-sm text-sm"
                                     style={{border: `1px solid rgba(${accentRgb},0.08)`}}>
-                                    Live collaboration • Encrypted • Audit-ready
+                                    Live collaboration â€¢ Encrypted â€¢ Audit-ready
                                 </div>
 
                                 {/* Micro overlay metrics */}
@@ -1625,7 +1626,7 @@ const HrTech = () => {
                 <div className="relative z-10 max-w-[95em] mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
                     <FxReveal>
                         <h2 className={`mb-6 lg:mb-12 text-[1.6em] lg:text-[3.2em] font-[700] tracking-tight ${isDayTime ? 'text-black' : 'text-white'}`}>
-                            Recruitment SEO — <span className="gx-gradient-text">Digital Discovery & Visibility</span>
+                            Recruitment SEO â€” <span className="gx-gradient-text">Digital Discovery & Visibility</span>
                         </h2>
                     </FxReveal>
 
@@ -1633,7 +1634,7 @@ const HrTech = () => {
                         <FxReveal>
                             <div className="space-y-4">
                                 <p className="text-[0.95em] font-[300] leading-[1.7] text-justify">
-                                    At Grey InfoTech, SEO is baked into every stage of development — from structured
+                                    At Grey InfoTech, SEO is baked into every stage of development â€” from structured
                                     job schema and accessible markup to fast, indexable templates and discoverable
                                     career listings. Our technical SEO playbooks ensure compliance with Google for Jobs
                                     and maximise candidate reach while preserving privacy and performance.
@@ -1669,7 +1670,7 @@ const HrTech = () => {
                                     </div>
                                     <div className="p-3 rounded-lg bg-white/4 border border-white/6 text-center">
                                         <div className="text-[1.1em] font-extrabold"><span
-                                            style={{color: pageAccent}}>4–8</span> wks
+                                            style={{color: pageAccent}}>4â€“8</span> wks
                                         </div>
                                         <div className="text-xs mt-1">Audit & fixes</div>
                                     </div>
@@ -1691,7 +1692,7 @@ const HrTech = () => {
                                     <div
                                         className="absolute bottom-4 left-4 p-3 rounded-md bg-white/6 backdrop-blur-sm text-sm"
                                         style={{border: `1px solid rgba(${accentRgb},0.08)`}}>
-                                        Structured markup • Fast index • Google for Jobs ready
+                                        Structured markup â€¢ Fast index â€¢ Google for Jobs ready
                                     </div>
 
                                     <div className="absolute top-4 right-4 flex gap-3">
@@ -1738,7 +1739,7 @@ const HrTech = () => {
                 </div>
             </section>
 
-            {/* Why Choose Us — Advanced Premium Benefits Grid */}
+            {/* Why Choose Us â€” Advanced Premium Benefits Grid */}
             <section
                 className={`relative lg:py-[4em] py-[2.5em] transition-colors duration-500 ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
                 {/* Subtle grid + aurora background using page accent */}
@@ -1797,7 +1798,7 @@ const HrTech = () => {
                                      style={{background: `linear-gradient(135deg, rgba(${accentRgb},0.12), rgba(${accentRgb},0.06)`}}/>
 
                                 {[{value: '98%', label: 'Indexing Accuracy'}, {
-                                    value: '4–8 wks',
+                                    value: '4â€“8 wks',
                                     label: 'Audit & Fixes'
                                 }, {value: 'Enterprise', label: 'Hosting'}, {
                                     value: 'Reliable',
@@ -1816,7 +1817,7 @@ const HrTech = () => {
                         </FxReveal>
                     </div>
 
-                    {/* Benefits grid — premium cards (3 columns on desktop) */}
+                    {/* Benefits grid â€” premium cards (3 columns on desktop) */}
                     <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 mt-6">
                         {benefits.map((b, i) => (
                             <FxReveal key={b.id} delay={0.08 + (i * 0.06)}>
@@ -1905,7 +1906,7 @@ const HrTech = () => {
                                         Futuristic HR Interfaces
                                     </h3>
                                     <p className={`mt-4 text-[0.95em] ${isDayTime ? 'text-black/70' : 'text-white/75'}`}>
-                                        A curated showcase of our premium HR product interfaces demonstrating clean information hierarchy, accessible interactions, and enterprise-ready integrations — presented with layered depth and cutting-edge visual treatments.
+                                        A curated showcase of our premium HR product interfaces demonstrating clean information hierarchy, accessible interactions, and enterprise-ready integrations â€” presented with layered depth and cutting-edge visual treatments.
                                     </p>
 
                                     <div className="mt-6 grid grid-cols-3 gap-3">
@@ -1932,9 +1933,9 @@ const HrTech = () => {
                                     </div>
 
                                     <ul className={`mt-6 space-y-2 text-sm ${isDayTime ? 'text-black/70' : 'text-white/70'}`}>
-                                        <li>• Talent Dashboard with real-time analytics</li>
-                                        <li>• Collaborative workflows for seamless onboarding</li>
-                                        <li>• Automated compliance and audit trails</li>
+                                        <li>â€¢ Talent Dashboard with real-time analytics</li>
+                                        <li>â€¢ Collaborative workflows for seamless onboarding</li>
+                                        <li>â€¢ Automated compliance and audit trails</li>
                                     </ul>
                                 </div>
                             </FxReveal>

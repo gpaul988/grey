@@ -1,13 +1,17 @@
+import { createRequire } from 'node:module';
 import type DatabaseType from 'better-sqlite3';
+
+const require = createRequire(import.meta.url);
 
 /**
  * Creates all tables if they do not exist. Idempotent — safe to run on every boot.
  * Accepts the db instance directly to avoid a circular-import race with ./index.
  * Falls back to requiring ./index when called without an argument.
+ * Accepts any database-like object (better-sqlite3 or MySQL adapter).
  */
-export function migrate(database?: DatabaseType.Database): void {
+export function migrate(database?: any): void {
 
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+     
     // Require the db module directly; index.ts exports via CommonJS (module.exports).
     const db = database ?? require('./index');
     db.exec(`

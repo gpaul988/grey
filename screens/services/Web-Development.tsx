@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React, {useEffect, useRef, useState} from 'react';
@@ -36,7 +37,7 @@ const reasons = [
         ),
         description: (
             <>
-                We've engineered 150+ web products across industries—from high-traffic consumer platforms to enterprise
+                We've engineered 150+ web products across industriesâ€”from high-traffic consumer platforms to enterprise
                 systems. Our team masters React, Node.js, and cloud infrastructure, delivering scalable applications
                 that perform under pressure. With deep experience in SEO optimization, PWA implementation, and database
                 design, we bring proven patterns and avoid costly mistakes.
@@ -69,7 +70,7 @@ const reasons = [
         description: (
             <>
                 We align completely with your business goals, establishing clear KPIs from day one. Our collaborative
-                process ensures transparency—weekly demos, shared metrics dashboards, and joint decision-making. We treat
+                process ensures transparencyâ€”weekly demos, shared metrics dashboards, and joint decision-making. We treat
                 your platform as our own, taking full responsibility for architectural decisions, code quality, and
                 long-term maintainability.
             </>
@@ -271,7 +272,7 @@ const WebDevelopment = () => {
                                             <span className="absolute inset-0" style={{
                                                 background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)'
                                             }}/>
-                                        <span className="relative">Start a project →</span>
+                                        <span className="relative">Start a project â†’</span>
                                     </button>
                                 </Link>
                                 <Link href="/portfolio">
@@ -381,7 +382,7 @@ const WebDevelopment = () => {
             <FxStickyScrollSection
                 day={isDayTime}
                 heading={<>Web<br/>development overview</>}
-                intro={"Comprehensive web engineering services engineered for measurable business outcomes. We provide end-to-end delivery from idea to scale—covering frontend engineering, backend API design, cloud infrastructure, performance optimization, and ongoing support. Each engagement includes clear deliverables, technology recommendations, KPI tracking, and defined engagement models (MVP, Sprint, or Retainer)."}
+                intro={"Comprehensive web engineering services engineered for measurable business outcomes. We provide end-to-end delivery from idea to scaleâ€”covering frontend engineering, backend API design, cloud infrastructure, performance optimization, and ongoing support. Each engagement includes clear deliverables, technology recommendations, KPI tracking, and defined engagement models (MVP, Sprint, or Retainer)."}
                 navLabel="Web Solutions"
                 activeId={activeId}
                 onNavClickAction={scrollToSection}
@@ -411,11 +412,11 @@ const WebDevelopment = () => {
                                     monitoring (RUM)</p>
                                 <h5 className="mt-3 font-[600]">KPIs we measure</h5>
                                 <ul className="mt-2 list-disc ml-6">
-                                    <li>LCP, FID/INP, CLS (target: LCP ≤ 2.5s, CLS &lt; 0.1)</li>
+                                    <li>LCP, FID/INP, CLS (target: LCP â‰¤ 2.5s, CLS &lt; 0.1)</li>
                                     <li>Accessibility score (WCAG AA compliance)</li>
                                     <li>Time-to-interactive and Time-to-first-byte</li>
                                 </ul>
-                                <p className="mt-3">Engagement: 4–8 week MVPs, 8–16 week redesigns, or ongoing component
+                                <p className="mt-3">Engagement: 4â€“8 week MVPs, 8â€“16 week redesigns, or ongoing component
                                     work under retainer for continuous improvement.</p>
                             </div>
                         ),
@@ -449,7 +450,7 @@ const WebDevelopment = () => {
                                     <li>Database query performance, cache hit ratio</li>
                                     <li>MTTR for incidents, deployment success rate</li>
                                 </ul>
-                                <p className="mt-3">Typical engagement: API-first MVPs (6–10 weeks), staged
+                                <p className="mt-3">Typical engagement: API-first MVPs (6â€“10 weeks), staged
                                     microservices (12+ weeks), or ongoing platform engineering retainers.</p>
                             </div>
                         ),
@@ -551,7 +552,7 @@ const WebDevelopment = () => {
                                     <li>Logging, metrics, tracing and SLO definitions</li>
                                 </ul>
                                 <p className="mt-3">We design for reliability, operability and cost efficiency. Typical
-                                    setup time: 2–6 weeks depending on complexity.</p>
+                                    setup time: 2â€“6 weeks depending on complexity.</p>
                             </div>
                         ),
                     },
@@ -587,7 +588,7 @@ const WebDevelopment = () => {
                                 design tokens for a consistent, futuristic brand language.</p>
                             <div className="mt-4 flex gap-3">
                                 <FxButton day={isDayTime} className="px-4 py-2 rounded-full bg-teal-400 text-black">Start
-                                    a project →</FxButton>
+                                    a project â†’</FxButton>
                                 <FxButton day={isDayTime} variant="ghost"
                                           className="px-4 py-2 rounded-full border border-white/12 text-white">View case
                                     studies</FxButton>
@@ -676,8 +677,8 @@ const WebDevelopment = () => {
                                                 <div className="text-[0.78em] text-gray-300 mb-1">Performance targets
                                                 </div>
                                                 <ul className="list-none pl-0">
-                                                    <li>Lighthouse: Performance ≥ 90 for core pages</li>
-                                                    <li>LCP ≤ 2.5s, TTFB targets per region</li>
+                                                    <li>Lighthouse: Performance â‰¥ 90 for core pages</li>
+                                                    <li>LCP â‰¤ 2.5s, TTFB targets per region</li>
                                                     <li>p95 API latency &lt; 200ms (cold/warm cache profiles)</li>
                                                 </ul>
                                             </div>
@@ -686,15 +687,15 @@ const WebDevelopment = () => {
                                         <div className="text-[0.9em] grid grid-cols-3 gap-3 mb-3">
                                             <div>
                                                 <div className="text-[0.78em] text-gray-300">Timeline</div>
-                                                <div>4–10 weeks</div>
+                                                <div>4â€“10 weeks</div>
                                             </div>
                                             <div>
                                                 <div className="text-[0.78em] text-gray-300">Team</div>
-                                                <div>1–3 engineers, 1 infra engineer</div>
+                                                <div>1â€“3 engineers, 1 infra engineer</div>
                                             </div>
                                             <div>
                                                 <div className="text-[0.78em] text-gray-300">Effort</div>
-                                                <div>~160–420 hours</div>
+                                                <div>~160â€“420 hours</div>
                                             </div>
                                         </div>
 
@@ -770,15 +771,15 @@ const WebDevelopment = () => {
                                         <div className="text-[0.9em] grid grid-cols-3 gap-3 mb-3">
                                             <div>
                                                 <div className="text-[0.78em] text-gray-300">Timeline</div>
-                                                <div>6–14 weeks</div>
+                                                <div>6â€“14 weeks</div>
                                             </div>
                                             <div>
                                                 <div className="text-[0.78em] text-gray-300">Team</div>
-                                                <div>2–4 backend engineers, 1 SRE</div>
+                                                <div>2â€“4 backend engineers, 1 SRE</div>
                                             </div>
                                             <div>
                                                 <div className="text-[0.78em] text-gray-300">Effort</div>
-                                                <div>~240–520 hours</div>
+                                                <div>~240â€“520 hours</div>
                                             </div>
                                         </div>
 
@@ -855,15 +856,15 @@ const WebDevelopment = () => {
                                         <div className="text-[0.9em] grid grid-cols-3 gap-3 mb-3">
                                             <div>
                                                 <div className="text-[0.78em] text-gray-300">Timeline</div>
-                                                <div>6–12 weeks</div>
+                                                <div>6â€“12 weeks</div>
                                             </div>
                                             <div>
                                                 <div className="text-[0.78em] text-gray-300">Team</div>
-                                                <div>2–3 backend engineers, 1 infra</div>
+                                                <div>2â€“3 backend engineers, 1 infra</div>
                                             </div>
                                             <div>
                                                 <div className="text-[0.78em] text-gray-300">Effort</div>
-                                                <div>~220–440 hours</div>
+                                                <div>~220â€“440 hours</div>
                                             </div>
                                         </div>
 
@@ -936,15 +937,15 @@ const WebDevelopment = () => {
                                         <div className="text-[0.9em] grid grid-cols-3 gap-3 mb-3">
                                             <div>
                                                 <div className="text-[0.78em] text-gray-300">Timeline</div>
-                                                <div>3–8 weeks</div>
+                                                <div>3â€“8 weeks</div>
                                             </div>
                                             <div>
                                                 <div className="text-[0.78em] text-gray-300">Team</div>
-                                                <div>1–2 engineers, 1 designer</div>
+                                                <div>1â€“2 engineers, 1 designer</div>
                                             </div>
                                             <div>
                                                 <div className="text-[0.78em] text-gray-300">Effort</div>
-                                                <div>~80–240 hours</div>
+                                                <div>~80â€“240 hours</div>
                                             </div>
                                         </div>
 
@@ -1015,15 +1016,15 @@ const WebDevelopment = () => {
                                         <div className="text-[0.9em] grid grid-cols-3 gap-3 mb-3">
                                             <div>
                                                 <div className="text-[0.78em] text-gray-300">Timeline</div>
-                                                <div>4–10 weeks</div>
+                                                <div>4â€“10 weeks</div>
                                             </div>
                                             <div>
                                                 <div className="text-[0.78em] text-gray-300">Team</div>
-                                                <div>1–3 engineers</div>
+                                                <div>1â€“3 engineers</div>
                                             </div>
                                             <div>
                                                 <div className="text-[0.78em] text-gray-300">Effort</div>
-                                                <div>~120–360 hours</div>
+                                                <div>~120â€“360 hours</div>
                                             </div>
                                         </div>
 
@@ -1095,15 +1096,15 @@ const WebDevelopment = () => {
                                         <div className="text-[0.9em] grid grid-cols-3 gap-3 mb-3">
                                             <div>
                                                 <div className="text-[0.78em] text-gray-300">Timeline</div>
-                                                <div>4–12 weeks</div>
+                                                <div>4â€“12 weeks</div>
                                             </div>
                                             <div>
                                                 <div className="text-[0.78em] text-gray-300">Team</div>
-                                                <div>1–3 engineers, 1 infra</div>
+                                                <div>1â€“3 engineers, 1 infra</div>
                                             </div>
                                             <div>
                                                 <div className="text-[0.78em] text-gray-300">Effort</div>
-                                                <div>~160–400 hours</div>
+                                                <div>~160â€“400 hours</div>
                                             </div>
                                         </div>
 
@@ -1221,7 +1222,7 @@ const WebDevelopment = () => {
                                                     Accessibility
                                                 </div>
                                                 <ul className="list-none pl-0">
-                                                    <li>Unit & integration coverage targets (≥70%)</li>
+                                                    <li>Unit & integration coverage targets (â‰¥70%)</li>
                                                     <li>OWASP checklist & dependency scanning</li>
                                                     <li>WCAG 2.1 AA baseline for core flows</li>
                                                 </ul>
@@ -1231,15 +1232,15 @@ const WebDevelopment = () => {
                                         <div className="mt-3 text-[0.9em] grid grid-cols-3 gap-3">
                                             <div>
                                                 <div className="text-[0.78em] text-gray-400 mb-1">Timeline</div>
-                                                <div>8–16 weeks (MVP → v1)</div>
+                                                <div>8â€“16 weeks (MVP â†’ v1)</div>
                                             </div>
                                             <div>
                                                 <div className="text-[0.78em] text-gray-400 mb-1">Team</div>
-                                                <div>2–4 engineers, 1 designer, 1 PM</div>
+                                                <div>2â€“4 engineers, 1 designer, 1 PM</div>
                                             </div>
                                             <div>
                                                 <div className="text-[0.78em] text-gray-400 mb-1">Estimated effort</div>
-                                                <div>~320–640 engineering hours</div>
+                                                <div>~320â€“640 engineering hours</div>
                                             </div>
                                         </div>
 
@@ -1323,15 +1324,15 @@ const WebDevelopment = () => {
                                         <div className="mt-3 text-[0.9em] grid grid-cols-3 gap-3">
                                             <div>
                                                 <div className="text-[0.78em] text-gray-400 mb-1">Timeline</div>
-                                                <div>6–12 weeks (MVP → v1)</div>
+                                                <div>6â€“12 weeks (MVP â†’ v1)</div>
                                             </div>
                                             <div>
                                                 <div className="text-[0.78em] text-gray-400 mb-1">Team</div>
-                                                <div>1–3 engineers, 1 designer</div>
+                                                <div>1â€“3 engineers, 1 designer</div>
                                             </div>
                                             <div>
                                                 <div className="text-[0.78em] text-gray-400 mb-1">Effort</div>
-                                                <div>~200–480 engineering hours</div>
+                                                <div>~200â€“480 engineering hours</div>
                                             </div>
                                         </div>
 
@@ -1477,15 +1478,15 @@ const WebDevelopment = () => {
                                         <div className="mt-3 text-[0.9em] grid grid-cols-3 gap-3">
                                             <div>
                                                 <div className="text-[0.78em] text-gray-400 mb-1">Timeline</div>
-                                                <div>4–10 weeks</div>
+                                                <div>4â€“10 weeks</div>
                                             </div>
                                             <div>
                                                 <div className="text-[0.78em] text-gray-400 mb-1">Team</div>
-                                                <div>1–2 engineers</div>
+                                                <div>1â€“2 engineers</div>
                                             </div>
                                             <div>
                                                 <div className="text-[0.78em] text-gray-400 mb-1">Effort</div>
-                                                <div>~120–320 hours</div>
+                                                <div>~120â€“320 hours</div>
                                             </div>
                                         </div>
 
@@ -2069,15 +2070,15 @@ const WebDevelopment = () => {
                                         <div className='mt-4 grid grid-cols-3 gap-3 text-[0.86em]'>
                                             <div>
                                                 <div className='text-[0.78em] text-gray-400'>Timeline</div>
-                                                <div>2–4 weeks (blueprint)</div>
+                                                <div>2â€“4 weeks (blueprint)</div>
                                             </div>
                                             <div>
                                                 <div className='text-[0.78em] text-gray-400'>Team</div>
-                                                <div>1 architect, 1–2 engineers</div>
+                                                <div>1 architect, 1â€“2 engineers</div>
                                             </div>
                                             <div>
                                                 <div className='text-[0.78em] text-gray-400'>Effort</div>
-                                                <div>~80–160 hours</div>
+                                                <div>~80â€“160 hours</div>
                                             </div>
                                         </div>
 
@@ -2094,7 +2095,7 @@ const WebDevelopment = () => {
                                         alerting configured from day one.</p>
                                     <div className='text-[0.82em]'>
                                         <div className='flex gap-2 items-center'><span
-                                            className='text-xs bg-teal-400/10 px-2 py-1 rounded'>SLO</span><span> LCP ≤ 2.5s target</span>
+                                            className='text-xs bg-teal-400/10 px-2 py-1 rounded'>SLO</span><span> LCP â‰¤ 2.5s target</span>
                                         </div>
                                         <div className='flex gap-2 items-center'><span
                                             className='text-xs bg-teal-400/10 px-2 py-1 rounded'>Alert</span><span> Error budget alerts in CI</span>
@@ -2175,12 +2176,12 @@ const WebDevelopment = () => {
                             {
                                 number: '50+',
                                 label: 'Projects Delivered',
-                                icon: '✓',
+                                icon: 'âœ“',
                                 desc: 'Across industries and markets'
                             },
-                            {number: '8+', label: 'Years of Excellence', icon: '⭐', desc: 'Proven track record'},
-                            {number: '100%', label: 'Client Retention', icon: '🤝', desc: 'Long-term partnerships'},
-                            {number: '300%', label: 'Avg. ROI Growth', icon: '📈', desc: 'Measurable results'}
+                            {number: '8+', label: 'Years of Excellence', icon: 'â­', desc: 'Proven track record'},
+                            {number: '100%', label: 'Client Retention', icon: 'ðŸ¤', desc: 'Long-term partnerships'},
+                            {number: '300%', label: 'Avg. ROI Growth', icon: 'ðŸ“ˆ', desc: 'Measurable results'}
                         ].map((stat, i) => (
                             <FxReveal key={stat.label} delay={0.24 + i * 0.08}>
                                 <div
@@ -2255,7 +2256,7 @@ const WebDevelopment = () => {
                                     Ready to build a product that performs?
                                 </FxGlitchText>
                                 <FxButton day={!isDayTime} href="/contact" variant="solid">Start Partnership
-                                    →</FxButton>
+                                    â†’</FxButton>
                             </FxReveal>
 
                         </div>

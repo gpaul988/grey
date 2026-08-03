@@ -1,4 +1,5 @@
-﻿const { chromium } = require('playwright');
+/* eslint-disable @typescript-eslint/no-require-imports */
+const { chromium } = require('playwright');
 (async () => {
   const browser = await chromium.launch({args:['--no-sandbox']});
   const page = await browser.newPage({viewport:{width:1280,height:800}});

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Database from 'better-sqlite3';
 import path from 'path';
+import { notifyAdminPanel } from '@/lib/admin-notify';
 
 /**
  * GET /api/ads?placement=home_banner
@@ -68,27 +69,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Ad not found' }, { status: 404 });
         }
 
-        // Notify admin panel of ad click (non-blocking)
-        try {
-            const adminSecret = process.env.ADMIN_API_SECRET || 'default-secret-key';
-            const baseUrl = process.env.ADMIN_BASE_URL || 'http://localhost:3000';
-            fetch(`${baseUrl}/admin/api/notify-submission`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-admin-secret': adminSecret,
-                },
-                body: JSON.stringify({
-                    action: 'create',
-                    type: 'ad_click',
-                    id: adId,
-                    name: ad.title || `Ad #${adId}`,
-                    email: 'ad-click',
-                }),
-            }).catch(err => console.warn('[ads/track] Failed to notify admin panel:', err.message));
-        } catch (notifyErr) {
-            console.warn('[ads/track] Could not trigger admin notification:', notifyErr);
-        }
+        notifyAdminPanel({ type: 'ad_click', id: adId, name: ad.title || `Ad #${adId}`, email: 'ad-click' });
 
         return NextResponse.json({
             ok: true,

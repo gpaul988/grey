@@ -222,8 +222,8 @@ export const Products = {
       featured: data.featured ? 1 : 0,
       tags: JSON.stringify(data.tags ?? []),
       weight: data.weight ?? null,
-    });
-    return this.find(Number(info.lastInsertRowid))!;
+    }) as { lastInsertRowid?: number | bigint };
+    return this.find(Number(info.lastInsertRowid ?? 0))!;
   },
 
 
@@ -302,8 +302,8 @@ export const ProductCategories = {
       name: data.name, slug, parent_id: data.parent_id ?? null,
       icon: data.icon ?? null, description: data.description ?? null,
       sort_order: data.sort_order ?? 0,
-    });
-    return this.find(Number(info.lastInsertRowid))!;
+    }) as { lastInsertRowid?: number | bigint };
+    return this.find(Number(info.lastInsertRowid ?? 0))!;
   },
   update(id: number, data: Partial<{ name: string; parent_id: number | null; icon: string; description: string; sort_order: number }>): ProductCategory | null {
     const cur = this.find(id);
@@ -334,8 +334,8 @@ export const ProductBrands = {
     const slug = slugify(data.name);
     const info = db.prepare(`INSERT INTO product_brands (name, slug, logo, description) VALUES (@name, @slug, @logo, @description)`).run({
       name: data.name, slug, logo: data.logo ?? null, description: data.description ?? null,
-    });
-    return this.find(Number(info.lastInsertRowid))!;
+    }) as { lastInsertRowid?: number | bigint };
+    return this.find(Number(info.lastInsertRowid ?? 0))!;
   },
   update(id: number, data: Partial<{ name: string; logo: string; description: string }>): ProductBrand | null {
     const cur = this.find(id);
@@ -386,8 +386,8 @@ export const Customers = {
       state: data.state ?? null, country: data.country ?? 'Nigeria',
       bio: data.bio ?? null, date_of_birth: data.date_of_birth ?? null,
       gender: data.gender ?? null, password_hash: hash,
-    });
-    return this.find(Number(info.lastInsertRowid))!;
+    }) as { lastInsertRowid?: number | bigint };
+    return this.find(Number(info.lastInsertRowid ?? 0))!;
   },
   update(id: number, data: Partial<{
     first_name: string; last_name: string; email: string; phone: string;
@@ -469,7 +469,7 @@ export const Customers = {
     const tx = db.transaction(() => {
       db.prepare("UPDATE customers SET password_hash=?, updated_at=datetime('now') WHERE id=?").run(hash, customerId);
       db.prepare("UPDATE customer_password_resets SET used_at=datetime('now') WHERE token_hash=? AND used_at IS NULL").run(sha256(token));
-    });
+    }) as () => void;
     tx();
     return true;
   },
@@ -533,8 +533,8 @@ export const Orders = {
       notes: data.notes ?? null,
       coupon_code: data.coupon_code ?? null,
       currency: data.currency ?? 'NGN',
-    });
-    const orderId = Number(info.lastInsertRowid);
+    }) as { lastInsertRowid?: number | bigint };
+    const orderId = Number(info.lastInsertRowid ?? 0);
     const insertItem = db.prepare(`
       INSERT INTO order_items (order_id, product_id, product_name, product_image, product_sku, quantity, unit_price, total_price)
       VALUES (@order_id, @product_id, @product_name, @product_image, @product_sku, @quantity, @unit_price, @total_price)
@@ -625,9 +625,9 @@ export const StoreSettings = {
 export const ProductReviews = {
   forProduct(productId: number, status?: string): unknown[] {
     if (status) {
-      return db.prepare('SELECT * FROM product_reviews WHERE product_id = ? AND status = ? ORDER BY created_at DESC').all(productId, status);
+      return db.prepare('SELECT * FROM product_reviews WHERE product_id = ? AND status = ? ORDER BY created_at DESC').all(productId, status) as unknown[];
     }
-    return db.prepare('SELECT * FROM product_reviews WHERE product_id = ? ORDER BY created_at DESC').all(productId);
+    return db.prepare('SELECT * FROM product_reviews WHERE product_id = ? ORDER BY created_at DESC').all(productId) as unknown[];
   },
   avgRating(productId: number): number {
     const row = db.prepare("SELECT AVG(rating) AS avg FROM product_reviews WHERE product_id = ? AND status = 'approved'").get(productId) as { avg: number | null };
@@ -643,8 +643,8 @@ export const ProductReviews = {
   approve(id: number): void { db.prepare("UPDATE product_reviews SET status='approved' WHERE id=?").run(id); },
   reject(id: number): void { db.prepare("UPDATE product_reviews SET status='rejected' WHERE id=?").run(id); },
   all(status?: string): unknown[] {
-    if (status) return db.prepare('SELECT r.*, p.name AS product_name FROM product_reviews r LEFT JOIN products p ON p.id = r.product_id WHERE r.status = ? ORDER BY r.created_at DESC').all(status);
-    return db.prepare('SELECT r.*, p.name AS product_name FROM product_reviews r LEFT JOIN products p ON p.id = r.product_id ORDER BY r.created_at DESC').all();
+    if (status) return db.prepare('SELECT r.*, p.name AS product_name FROM product_reviews r LEFT JOIN products p ON p.id = r.product_id WHERE r.status = ? ORDER BY r.created_at DESC').all(status) as unknown[];
+    return db.prepare('SELECT r.*, p.name AS product_name FROM product_reviews r LEFT JOIN products p ON p.id = r.product_id ORDER BY r.created_at DESC').all() as unknown[];
   },
 };
 
@@ -693,8 +693,8 @@ export const Coupons = {
       starts_at: data.starts_at ?? null,
       expires_at: data.expires_at ?? null,
       status: data.status ?? 'active',
-    });
-    return this.find(Number(info.lastInsertRowid))!;
+    }) as { lastInsertRowid?: number | bigint };
+    return this.find(Number(info.lastInsertRowid ?? 0))!;
   },
   update(id: number, data: Partial<{ code: string; type: string; value: number; min_subtotal: number; max_discount: number | null; usage_limit: number | null; starts_at: string | null; expires_at: string | null; status: string }>): Coupon | null {
     const cur = this.find(id);

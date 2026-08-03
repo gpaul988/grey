@@ -26,11 +26,7 @@ const BackendDevelopment = () => {
     // x-scroller
     const targetRef = useRef<HTMLDivElement | null>(null);
     const fallbackScroll = useMotionValue(0);
-    try {
-      var { scrollYProgress: scrollYProgressValue } = useScroll({ target: targetRef });
-    } catch (e) {
-      var scrollYProgressValue = fallbackScroll;
-    }
+    const { scrollYProgress: scrollYProgressValue } = useScroll({ target: isHydrated ? targetRef : undefined });
     const scrollYProgress = isHydrated ? (scrollYProgressValue ?? fallbackScroll) : fallbackScroll;
     const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
 
