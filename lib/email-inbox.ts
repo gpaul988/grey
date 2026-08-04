@@ -375,11 +375,11 @@ export function getEmailStats() {
   const db = getDb();
 
   const total = db.prepare('SELECT COUNT(*) as count FROM email_inbox').get() as { count: number };
-  const unread = db.prepare('SELECT COUNT(*) as count FROM email_inbox WHERE status = "unread"').get() as {
+  const unread = db.prepare("SELECT COUNT(*) as count FROM email_inbox WHERE status = 'unread'").get() as {
     count: number;
   };
-  const sent = db.prepare('SELECT COUNT(*) as count FROM email_log WHERE status = "sent"').get() as { count: number };
-  const failed = db.prepare('SELECT COUNT(*) as count FROM email_log WHERE status = "failed"').get() as {
+  const sent = db.prepare("SELECT COUNT(*) as count FROM email_log WHERE status = 'sent'").get() as { count: number };
+  const failed = db.prepare("SELECT COUNT(*) as count FROM email_log WHERE status = 'failed'").get() as {
     count: number;
   };
 

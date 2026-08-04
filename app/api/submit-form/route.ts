@@ -2,7 +2,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Database from 'better-sqlite3';
 import path from 'path';
-import { send } from '@/lib/email';
+import { sendConfirmationEmail, sendAdminNotification } from '@/lib/email-service';
+import { logSentEmail } from '@/lib/email-inbox';
 import { notifyAdminPanel } from '@/lib/admin-notify';
 
 function getDb() {
@@ -260,34 +261,21 @@ export async function POST(req: NextRequest) {
 
     console.log('[submit-form] Preparing to send confirmation email to:', validatedEmail);
     try {
-      await send({
+      const confirmationResult = await sendConfirmationEmail({
         to: validatedEmail,
-        subject: 'âœ… We Received Your Message - Grey InfoTech',
-        html: `
-          <div style="font-family:Arial,sans-serif;color:#333;max-width:600px;margin:0 auto;">
-            <h2 style="color:#059669;">We Received Your Message</h2>
-            <p>Hi <strong>${validatedName}</strong>,</p>
-            <p>Thank you for reaching out to Grey InfoTech! We will get back to you within 24 hours.</p>
-            <ul>
-              <li><strong>Email:</strong> ${validatedEmail}</li>
-              <li><strong>Phone:</strong> ${validatedTelephone}</li>
-              <li><strong>Company:</strong> ${companyName || 'Not specified'}</li>
-              <li><strong>Project Type:</strong> ${resolvedProjectType}</li>
-              <li><strong>Budget:</strong> ${insertBudget}</li>
-              <li><strong>Currency:</strong> ${currency || 'USD'}</li>
-              <li><strong>Timeline:</strong> ${timeline || 'Not specified'}</li>
-              <li><strong>Country:</strong> ${resolvedCountry}</li>
-              <li><strong>Industry:</strong> ${resolvedIndustry}</li>
-              <li><strong>Subject:</strong> ${resolvedSubject}</li>
-            </ul>
-            <h3>Project Description:</h3>
-            <p>${insertMessage}</p>
-            ${additionalMessage ? `<h3>Additional Notes:</h3><p>${additionalMessage}</p>` : ''}
-            <p><strong>Submission ID:</strong> #${submissionId}</p>
-            <p>Best regards,<br/><strong>Grey InfoTech Limited</strong></p>
-          </div>
-        `,
+        name: validatedName,
+        subject: '✅ We Received Your Message - Grey InfoTech',
+        submissionId: submissionId,
+        message: `Thank you for reaching out! Here are the details we received:\n\nProject Type: ${resolvedProjectType}\nBudget: ${insertBudget}\nTimeline: ${timeline || 'Not specified'}\n\nWe will get back to you within 24 hours.`
       });
+      
+      logSentEmail({
+        to: validatedEmail,
+        subject: '✅ We Received Your Message - Grey InfoTech',
+        messageId: confirmationResult.messageId,
+        error: confirmationResult.error
+      });
+      
       console.log('[submit-form] Confirmation email sent successfully to:', email);
     } catch (emailErr) {
       console.error('[submit-form] Confirmation email failed:', emailErr);
@@ -295,40 +283,51 @@ export async function POST(req: NextRequest) {
 
     console.log('[submit-form] Preparing to send admin notification to:', process.env.ADMIN_EMAIL || 'hello@greyinfotech.com.ng');
     try {
-      await send({
-        to: process.env.ADMIN_EMAIL || 'hello@greyinfotech.com.ng',
-        subject: `ðŸ“‹ New Contact Form Submission  - ${resolvedProjectType}`,
-        html: `
-          <div style="font-family:Arial,sans-serif;color:#333;max-width:600px;margin:0 auto;">
-            <h2 style="color:#059669;">New Contact Form Submission</h2>
-            <ul>
-              <li><strong>Name:</strong> ${validatedName}</li>
-              <li><strong>Email:</strong> ${validatedEmail}</li>
-              <li><strong>Phone:</strong> ${validatedTelephone}</li>
-              <li><strong>Company:</strong> ${companyName || 'Not specified'}</li>
-              <li><strong>Country:</strong> ${resolvedCountry}</li>
-              <li><strong>Company/Personal:</strong> ${companyOrPersonal || 'Not specified'}</li>
-              ${companySize ? `<li><strong>Company Size:</strong> ${companySize}</li>` : ''}
-              <li><strong>Project Type:</strong> ${resolvedProjectType}</li>
-              ${otherProjectType ? `<li><strong>Project Type (Other):</strong> ${otherProjectType}</li>` : ''}
-              <li><strong>Budget:</strong> ${insertBudget}</li>
-              <li><strong>Currency:</strong> ${currency || 'USD'}</li>
-              <li><strong>Timeline:</strong> ${timeline || 'Not specified'}</li>
-              <li><strong>Industry:</strong> ${resolvedIndustry}</li>
-              <li><strong>Subject:</strong> ${resolvedSubject}</li>
-              ${meeting ? `<li><strong>Meeting:</strong> ${meeting}</li>` : ''}
-              ${howDidYouHear ? `<li><strong>Source:</strong> ${howDidYouHear}${otherHowDidYouHear ? ` (${otherHowDidYouHear})` : ''}</li>` : ''}
-            </ul>
-            <h3>Project Description:</h3>
-            <blockquote style="background:#f5f5f5;padding:10px;border-left:4px solid #059669;">
-              ${insertMessage || 'No description provided'}
-            </blockquote>
-            ${additionalMessage ? `<h3>Additional Notes:</h3><blockquote style="background:#f5f5f5;padding:10px;border-left:4px solid #059669;">${additionalMessage}</blockquote>` : ''}
-            ${requirementFiles && requirementFiles.length > 0 ? `<h3>Attached Files:</h3><ul>${requirementFiles.map((f: string) => `<li>${f}</li>`).join('')}</ul>` : ''}
-            <p><strong>Submission ID:</strong> #${submissionId}</p>
-          </div>
-        `,
+      const adminHtml = `
+        <div style="font-family:Arial,sans-serif;color:#333;max-width:600px;margin:0 auto;">
+          <h2 style="color:#059669;">New Contact Form Submission</h2>
+          <ul>
+            <li><strong>Name:</strong> ${validatedName}</li>
+            <li><strong>Email:</strong> ${validatedEmail}</li>
+            <li><strong>Phone:</strong> ${validatedTelephone}</li>
+            <li><strong>Company:</strong> ${companyName || 'Not specified'}</li>
+            <li><strong>Country:</strong> ${resolvedCountry}</li>
+            <li><strong>Company/Personal:</strong> ${companyOrPersonal || 'Not specified'}</li>
+            ${companySize ? `<li><strong>Company Size:</strong> ${companySize}</li>` : ''}
+            <li><strong>Project Type:</strong> ${resolvedProjectType}</li>
+            ${otherProjectType ? `<li><strong>Project Type (Other):</strong> ${otherProjectType}</li>` : ''}
+            <li><strong>Budget:</strong> ${insertBudget}</li>
+            <li><strong>Currency:</strong> ${currency || 'USD'}</li>
+            <li><strong>Timeline:</strong> ${timeline || 'Not specified'}</li>
+            <li><strong>Industry:</strong> ${resolvedIndustry}</li>
+            <li><strong>Subject:</strong> ${resolvedSubject}</li>
+            ${meeting ? `<li><strong>Meeting:</strong> ${meeting}</li>` : ''}
+            ${howDidYouHear ? `<li><strong>Source:</strong> ${howDidYouHear}${otherHowDidYouHear ? ` (${otherHowDidYouHear})` : ''}</li>` : ''}
+          </ul>
+          <h3>Project Description:</h3>
+          <blockquote style="background:#f5f5f5;padding:10px;border-left:4px solid #059669;">
+            ${insertMessage || 'No description provided'}
+          </blockquote>
+          ${additionalMessage ? `<h3>Additional Notes:</h3><blockquote style="background:#f5f5f5;padding:10px;border-left:4px solid #059669;">${additionalMessage}</blockquote>` : ''}
+          ${requirementFiles && requirementFiles.length > 0 ? `<h3>Attached Files:</h3><ul>${requirementFiles.map((f: string) => `<li>${f}</li>`).join('')}</ul>` : ''}
+          <p><strong>Submission ID:</strong> #${submissionId}</p>
+          <p><strong>Reply To:</strong> ${validatedEmail}</p>
+        </div>
+      `;
+      
+      const adminNotificationResult = await sendAdminNotification({
+        subject: `📋 New Contact Form Submission - ${resolvedProjectType}`,
+        html: adminHtml,
+        replyTo: validatedEmail
       });
+      
+      logSentEmail({
+        to: process.env.ADMIN_EMAIL || 'hello@greyinfotech.com.ng',
+        subject: `📋 New Contact Form Submission - ${resolvedProjectType}`,
+        messageId: adminNotificationResult.messageId,
+        error: adminNotificationResult.error
+      });
+      
       console.log('[submit-form] Admin notification email sent successfully');
     } catch (emailErr) {
       console.error('[submit-form] Admin notification email failed:', emailErr);
