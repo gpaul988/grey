@@ -1,10 +1,10 @@
 /**
  * Email Inbox Management
- * Handles receiving, storing, and managing email replies
+ * Handles receiving, storing, and managing email replies using MySQL
  */
 
-import Database from 'better-sqlite3';
-import path from 'path';
+import { getMysqlPool } from './db';
+import { type Pool as MysqlPool } from 'mysql2/promise';
 
 export interface EmailInbox {
   id: string;
@@ -23,83 +23,95 @@ export interface EmailInbox {
   updatedAt: string;
 }
 
-let db: Database.Database | null = null;
+let pool: MysqlPool | null = null;
+let tablesInitialized = false;
 
 /**
- * Get database connection
+ * Get MySQL connection pool
  */
-function getDb(): Database.Database {
-  if (db) return db;
-
-  const dbPath = path.join(process.cwd(), 'Admin', 'data', 'grey.db');
-  db = new Database(dbPath);
-  db.pragma('journal_mode = WAL');
-  db.pragma('foreign_keys = ON');
-
-  // Initialize email tables
-  initializeEmailTables();
-
-  return db;
+function getPool(): MysqlPool {
+  if (!pool) {
+    pool = getMysqlPool();
+  }
+  return pool;
 }
 
 /**
- * Initialize email tables
+ * Initialize email tables (MySQL)
  */
-function initializeEmailTables(): void {
-  const database = getDb();
+async function initializeEmailTables(): Promise<void> {
+  if (tablesInitialized) return;
 
-  // Email log table
-  database.exec(`
-    CREATE TABLE IF NOT EXISTS email_log (
-      id TEXT PRIMARY KEY,
-      to_email TEXT NOT NULL,
-      subject TEXT,
-      status TEXT NOT NULL DEFAULT 'sent',
-      message_id TEXT UNIQUE,
-      error TEXT,
-      created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      retry_count INT DEFAULT 0
-    )
-  `);
+  const connection = await getPool().getConnection();
+  try {
+    // Email log table
+    await connection.query(`
+      CREATE TABLE IF NOT EXISTS email_log (
+        id VARCHAR(255) PRIMARY KEY,
+        to_email VARCHAR(255) NOT NULL,
+        subject VARCHAR(500),
+        status VARCHAR(50) NOT NULL DEFAULT 'sent',
+        message_id VARCHAR(255) UNIQUE,
+        error TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        retry_count INT DEFAULT 0,
+        INDEX idx_status (status),
+        INDEX idx_created (created_at)
+      )
+    `);
 
-  // Email inbox table (for received replies)
-  database.exec(`
-    CREATE TABLE IF NOT EXISTS email_inbox (
-      id TEXT PRIMARY KEY,
-      message_id TEXT UNIQUE NOT NULL,
-      from_email TEXT NOT NULL,
-      to_email TEXT NOT NULL,
-      subject TEXT,
-      body TEXT,
-      html_body TEXT,
-      status TEXT DEFAULT 'unread',
-      category TEXT DEFAULT 'other',
-      submission_id INT,
-      is_reply BOOLEAN DEFAULT 0,
-      reply_to_message_id TEXT,
-      created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (submission_id) REFERENCES submissions(id)
-    )
-  `);
+    // Email inbox table
+    await connection.query(`
+      CREATE TABLE IF NOT EXISTS email_inbox (
+        id VARCHAR(255) PRIMARY KEY,
+        message_id VARCHAR(255) UNIQUE NOT NULL,
+        from_email VARCHAR(255) NOT NULL,
+        to_email VARCHAR(255) NOT NULL,
+        subject VARCHAR(500),
+        body LONGTEXT,
+        html_body LONGTEXT,
+        status VARCHAR(50) DEFAULT 'unread',
+        category VARCHAR(50) DEFAULT 'other',
+        submission_id INT,
+        is_reply BOOLEAN DEFAULT 0,
+        reply_to_message_id VARCHAR(255),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        INDEX idx_status (status),
+        INDEX idx_submission (submission_id),
+        INDEX idx_created (created_at)
+      )
+    `);
 
-  // Email threads table
-  database.exec(`
-    CREATE TABLE IF NOT EXISTS email_threads (
-      id TEXT PRIMARY KEY,
-      submission_id INT NOT NULL,
-      subject TEXT,
-      participant_email TEXT,
-      message_count INT DEFAULT 0,
-      last_message_at DATETIME,
-      status TEXT DEFAULT 'open',
-      created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (submission_id) REFERENCES submissions(id)
-    )
-  `);
+    // Email threads table
+    await connection.query(`
+      CREATE TABLE IF NOT EXISTS email_threads (
+        id VARCHAR(255) PRIMARY KEY,
+        submission_id INT NOT NULL,
+        subject VARCHAR(500),
+        participant_email VARCHAR(255),
+        message_count INT DEFAULT 0,
+        last_message_at TIMESTAMP,
+        status VARCHAR(50) DEFAULT 'open',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        INDEX idx_submission (submission_id),
+        INDEX idx_status (status)
+      )
+    `);
+
+    tablesInitialized = true;
+    console.log('[EMAIL_INBOX] MySQL tables initialized');
+  } catch (error) {
+    console.error('[EMAIL_INBOX] Failed to initialize tables:', error);
+  } finally {
+    connection.release();
+  }
 }
+
+// Initialize tables on module load
+initializeEmailTables().catch(console.error);
 
 /**
  * Log sent email
@@ -110,22 +122,16 @@ export function logSentEmail(options: {
   messageId?: string;
   error?: string;
 }): void {
-  const db = getDb();
   const id = `sent-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+  const status = options.error ? 'failed' : 'sent';
 
-  const stmt = db.prepare(`
-    INSERT INTO email_log (id, to_email, subject, message_id, status, error)
-    VALUES (?, ?, ?, ?, ?, ?)
-  `);
-
-  stmt.run(
-    id,
-    options.to,
-    options.subject || '',
-    options.messageId || null,
-    options.error ? 'failed' : 'sent',
-    options.error || null,
-  );
+  getPool()
+    .query(
+      `INSERT INTO email_log (id, to_email, subject, message_id, status, error)
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      [id, options.to, options.subject || '', options.messageId || null, status, options.error || null]
+    )
+    .catch((err) => console.error('[EMAIL_LOG] Insert error:', err));
 
   console.log(`[EMAIL_LOG] Logged email to ${options.to} | ID: ${id}`);
 }
@@ -143,48 +149,42 @@ export function logReceivedEmail(options: {
   submissionId?: number;
   replyToMessageId?: string;
 }): string {
-  const db = getDb();
   const id = `inbox-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   const isReply = !!options.replyToMessageId;
 
-  const stmt = db.prepare(`
-    INSERT INTO email_inbox (
-      id, message_id, from_email, to_email, subject, body, html_body,
-      status, category, submission_id, is_reply, reply_to_message_id
+  getPool()
+    .query(
+      `INSERT INTO email_inbox (id, message_id, from_email, to_email, subject, body, html_body, is_reply, reply_to_message_id, submission_id)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        id,
+        options.messageId,
+        options.from,
+        options.to,
+        options.subject,
+        options.body,
+        options.htmlBody || null,
+        isReply ? 1 : 0,
+        options.replyToMessageId || null,
+        options.submissionId || null,
+      ]
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, 'unread', 'other', ?, ?, ?)
-  `);
+    .catch((err) => console.error('[EMAIL_INBOX] Insert error:', err));
 
-  stmt.run(
-    id,
-    options.messageId,
-    options.from,
-    options.to,
-    options.subject,
-    options.body,
-    options.htmlBody || null,
-    options.submissionId || null,
-    isReply ? 1 : 0,
-    options.replyToMessageId || null,
-  );
-
-  console.log(`[EMAIL_INBOX] Received email from ${options.from} | ID: ${id}`);
-
-  // Link to submission if available
   if (options.submissionId) {
     updateEmailThread(options.submissionId, options.from, options.subject);
   }
 
+  console.log(`[EMAIL_INBOX] Received email from ${options.from} | ID: ${id}`);
   return id;
 }
 
 /**
- * Get inbox emails
+ * Get inbox emails with optional filters
  */
 export function getInboxEmails(filters?: { status?: string; category?: string; limit?: number }): EmailInbox[] {
-  const db = getDb();
-
-  let query = 'SELECT * FROM email_inbox';
+  const limit = filters?.limit || 50;
+  let query = 'SELECT * FROM email_inbox WHERE 1=1';
   const params: any[] = [];
 
   if (filters?.status) {
@@ -197,30 +197,45 @@ export function getInboxEmails(filters?: { status?: string; category?: string; l
     params.push(filters.category);
   }
 
-  query += ' ORDER BY created_at DESC';
+  query += ' ORDER BY created_at DESC LIMIT ?';
+  params.push(limit);
 
-  if (filters?.limit) {
-    query += ' LIMIT ?';
-    params.push(filters.limit);
-  }
+  const result: EmailInbox[] = [];
+  getPool()
+    .query(query, params)
+    .then(([rows]) => {
+      (rows as any[]).forEach((row: any) => {
+        result.push({
+          id: row.id,
+          messageId: row.message_id,
+          from: row.from_email,
+          to: row.to_email,
+          subject: row.subject,
+          body: row.body,
+          htmlBody: row.html_body,
+          status: row.status,
+          category: row.category,
+          submissionId: row.submission_id,
+          isReply: !!row.is_reply,
+          replyToMessageId: row.reply_to_message_id,
+          createdAt: row.created_at,
+          updatedAt: row.updated_at,
+        });
+      });
+    })
+    .catch((err) => console.error('[EMAIL_INBOX] Query error:', err));
 
-  const stmt = db.prepare(query);
-  return stmt.all(...params) as EmailInbox[];
+  return result;
 }
 
 /**
  * Mark email as read
  */
 export function markEmailAsRead(emailId: string): void {
-  const db = getDb();
+  getPool()
+    .query('UPDATE email_inbox SET status = ?, updated_at = NOW() WHERE id = ?', ['read', emailId])
+    .catch((err) => console.error('[EMAIL_INBOX] Update error:', err));
 
-  const stmt = db.prepare(`
-    UPDATE email_inbox
-    SET status = 'read', updated_at = CURRENT_TIMESTAMP
-    WHERE id = ?
-  `);
-
-  stmt.run(emailId);
   console.log(`[EMAIL_INBOX] Marked ${emailId} as read`);
 }
 
@@ -228,15 +243,10 @@ export function markEmailAsRead(emailId: string): void {
  * Categorize email
  */
 export function categorizeEmail(emailId: string, category: 'submission' | 'support' | 'billing' | 'other'): void {
-  const db = getDb();
+  getPool()
+    .query('UPDATE email_inbox SET category = ?, updated_at = NOW() WHERE id = ?', [category, emailId])
+    .catch((err) => console.error('[EMAIL_INBOX] Update error:', err));
 
-  const stmt = db.prepare(`
-    UPDATE email_inbox
-    SET category = ?, updated_at = CURRENT_TIMESTAMP
-    WHERE id = ?
-  `);
-
-  stmt.run(category, emailId);
   console.log(`[EMAIL_INBOX] Categorized ${emailId} as ${category}`);
 }
 
@@ -244,15 +254,10 @@ export function categorizeEmail(emailId: string, category: 'submission' | 'suppo
  * Link email to submission
  */
 export function linkEmailToSubmission(emailId: string, submissionId: number): void {
-  const db = getDb();
+  getPool()
+    .query('UPDATE email_inbox SET submission_id = ?, updated_at = NOW() WHERE id = ?', [submissionId, emailId])
+    .catch((err) => console.error('[EMAIL_INBOX] Update error:', err));
 
-  const stmt = db.prepare(`
-    UPDATE email_inbox
-    SET submission_id = ?, updated_at = CURRENT_TIMESTAMP
-    WHERE id = ?
-  `);
-
-  stmt.run(submissionId, emailId);
   console.log(`[EMAIL_INBOX] Linked ${emailId} to submission #${submissionId}`);
 }
 
@@ -260,47 +265,58 @@ export function linkEmailToSubmission(emailId: string, submissionId: number): vo
  * Update email thread
  */
 export function updateEmailThread(submissionId: number, participantEmail: string, subject: string): void {
-  const db = getDb();
+  const id = `thread-${submissionId}-${participantEmail}`;
 
-  // Check if thread exists
-  const existing = db.prepare(`
-    SELECT id FROM email_threads WHERE submission_id = ? AND participant_email = ?
-  `).get(submissionId, participantEmail);
-
-  if (existing) {
-    // Update existing thread
-    const stmt = db.prepare(`
-      UPDATE email_threads
-      SET message_count = message_count + 1,
-          last_message_at = CURRENT_TIMESTAMP,
-          updated_at = CURRENT_TIMESTAMP
-      WHERE submission_id = ? AND participant_email = ?
-    `);
-    stmt.run(submissionId, participantEmail);
-  } else {
-    // Create new thread
-    const id = `thread-${submissionId}-${Date.now()}`;
-    const stmt = db.prepare(`
-      INSERT INTO email_threads (id, submission_id, subject, participant_email, message_count, last_message_at)
-      VALUES (?, ?, ?, ?, 1, CURRENT_TIMESTAMP)
-    `);
-    stmt.run(id, submissionId, subject, participantEmail);
-  }
+  getPool()
+    .query(
+      `INSERT INTO email_threads (id, submission_id, subject, participant_email, message_count, last_message_at, status)
+       VALUES (?, ?, ?, ?, 1, NOW(), 'open')
+       ON DUPLICATE KEY UPDATE
+       message_count = message_count + 1,
+       last_message_at = NOW(),
+       updated_at = NOW()`,
+      [id, submissionId, subject, participantEmail]
+    )
+    .catch((err) => console.error('[EMAIL_THREADS] Insert error:', err));
 }
 
 /**
  * Get email thread for submission
  */
 export function getEmailThread(submissionId: number) {
-  const db = getDb();
+  const thread: any[] = [];
+  const emails: EmailInbox[] = [];
 
-  const thread = db.prepare(`
-    SELECT * FROM email_threads WHERE submission_id = ?
-  `).all(submissionId);
+  getPool()
+    .query('SELECT * FROM email_threads WHERE submission_id = ?', [submissionId])
+    .then(([rows]) => {
+      thread.push(...(rows as any[]));
+    })
+    .catch((err) => console.error('[EMAIL_THREADS] Query error:', err));
 
-  const emails = db.prepare(`
-    SELECT * FROM email_inbox WHERE submission_id = ? ORDER BY created_at ASC
-  `).all(submissionId) as EmailInbox[];
+  getPool()
+    .query('SELECT * FROM email_inbox WHERE submission_id = ? ORDER BY created_at ASC', [submissionId])
+    .then(([rows]) => {
+      (rows as any[]).forEach((row: any) => {
+        emails.push({
+          id: row.id,
+          messageId: row.message_id,
+          from: row.from_email,
+          to: row.to_email,
+          subject: row.subject,
+          body: row.body,
+          htmlBody: row.html_body,
+          status: row.status,
+          category: row.category,
+          submissionId: row.submission_id,
+          isReply: !!row.is_reply,
+          replyToMessageId: row.reply_to_message_id,
+          createdAt: row.created_at,
+          updatedAt: row.updated_at,
+        });
+      });
+    })
+    .catch((err) => console.error('[EMAIL_INBOX] Query error:', err));
 
   return { thread, emails };
 }
@@ -309,28 +325,26 @@ export function getEmailThread(submissionId: number) {
  * Get unread email count
  */
 export function getUnreadEmailCount(): number {
-  const db = getDb();
+  let count = 0;
 
-  const result = db.prepare(`
-    SELECT COUNT(*) as count FROM email_inbox WHERE status = 'unread'
-  `).get() as { count: number };
+  getPool()
+    .query("SELECT COUNT(*) as count FROM email_inbox WHERE status = 'unread'")
+    .then(([rows]: [any[], any]) => {
+      count = rows[0]?.count || 0;
+    })
+    .catch((err) => console.error('[EMAIL_INBOX] Query error:', err));
 
-  return result.count;
+  return count;
 }
 
 /**
  * Delete email
  */
 export function deleteEmail(emailId: string): void {
-  const db = getDb();
+  getPool()
+    .query('UPDATE email_inbox SET status = ?, updated_at = NOW() WHERE id = ?', ['deleted', emailId])
+    .catch((err) => console.error('[EMAIL_INBOX] Update error:', err));
 
-  const stmt = db.prepare(`
-    UPDATE email_inbox
-    SET status = 'deleted', updated_at = CURRENT_TIMESTAMP
-    WHERE id = ?
-  `);
-
-  stmt.run(emailId);
   console.log(`[EMAIL_INBOX] Deleted ${emailId}`);
 }
 
@@ -338,15 +352,10 @@ export function deleteEmail(emailId: string): void {
  * Archive email
  */
 export function archiveEmail(emailId: string): void {
-  const db = getDb();
+  getPool()
+    .query('UPDATE email_inbox SET status = ?, updated_at = NOW() WHERE id = ?', ['archived', emailId])
+    .catch((err) => console.error('[EMAIL_INBOX] Update error:', err));
 
-  const stmt = db.prepare(`
-    UPDATE email_inbox
-    SET status = 'archived', updated_at = CURRENT_TIMESTAMP
-    WHERE id = ?
-  `);
-
-  stmt.run(emailId);
   console.log(`[EMAIL_INBOX] Archived ${emailId}`);
 }
 
@@ -354,45 +363,92 @@ export function archiveEmail(emailId: string): void {
  * Search emails
  */
 export function searchEmails(query: string): EmailInbox[] {
-  const db = getDb();
-
   const searchPattern = `%${query}%`;
+  const result: EmailInbox[] = [];
 
-  const stmt = db.prepare(`
-    SELECT * FROM email_inbox
-    WHERE subject LIKE ? OR body LIKE ? OR from_email LIKE ?
-    ORDER BY created_at DESC
-    LIMIT 50
-  `);
+  getPool()
+    .query(
+      `SELECT * FROM email_inbox
+       WHERE subject LIKE ? OR body LIKE ? OR from_email LIKE ?
+       ORDER BY created_at DESC
+       LIMIT 50`,
+      [searchPattern, searchPattern, searchPattern]
+    )
+    .then(([rows]) => {
+      (rows as any[]).forEach((row: any) => {
+        result.push({
+          id: row.id,
+          messageId: row.message_id,
+          from: row.from_email,
+          to: row.to_email,
+          subject: row.subject,
+          body: row.body,
+          htmlBody: row.html_body,
+          status: row.status,
+          category: row.category,
+          submissionId: row.submission_id,
+          isReply: !!row.is_reply,
+          replyToMessageId: row.reply_to_message_id,
+          createdAt: row.created_at,
+          updatedAt: row.updated_at,
+        });
+      });
+    })
+    .catch((err) => console.error('[EMAIL_INBOX] Query error:', err));
 
-  return stmt.all(searchPattern, searchPattern, searchPattern) as EmailInbox[];
+  return result;
 }
 
 /**
  * Get email statistics
  */
-export function getEmailStats() {
-  const db = getDb();
+export function getEmailStats(): {
+  received: number;
+  unread: number;
+  sent: number;
+  failed: number;
+} {
+  const stats = {
+    received: 0,
+    unread: 0,
+    sent: 0,
+    failed: 0,
+  };
 
-  const total = db.prepare('SELECT COUNT(*) as count FROM email_inbox').get() as { count: number };
-  const unread = db.prepare("SELECT COUNT(*) as count FROM email_inbox WHERE status = 'unread'").get() as {
-    count: number;
-  };
-  const sent = db.prepare("SELECT COUNT(*) as count FROM email_log WHERE status = 'sent'").get() as { count: number };
-  const failed = db.prepare("SELECT COUNT(*) as count FROM email_log WHERE status = 'failed'").get() as {
-    count: number;
-  };
+  // Query stats asynchronously
+  getPool()
+    .query('SELECT COUNT(*) as count FROM email_inbox')
+    .then(([rows]: [any[], any]) => {
+      stats.received = rows[0]?.count || 0;
+    })
+    .catch((err) => console.error('[EMAIL_INBOX] Query error:', err));
 
-  return {
-    received: total.count,
-    unread: unread.count,
-    sent: sent.count,
-    failed: failed.count,
-  };
+  getPool()
+    .query("SELECT COUNT(*) as count FROM email_inbox WHERE status = 'unread'")
+    .then(([rows]: [any[], any]) => {
+      stats.unread = rows[0]?.count || 0;
+    })
+    .catch((err) => console.error('[EMAIL_INBOX] Query error:', err));
+
+  getPool()
+    .query("SELECT COUNT(*) as count FROM email_log WHERE status = 'sent'")
+    .then(([rows]: [any[], any]) => {
+      stats.sent = rows[0]?.count || 0;
+    })
+    .catch((err) => console.error('[EMAIL_LOG] Query error:', err));
+
+  getPool()
+    .query("SELECT COUNT(*) as count FROM email_log WHERE status = 'failed'")
+    .then(([rows]: [any[], any]) => {
+      stats.failed = rows[0]?.count || 0;
+    })
+    .catch((err) => console.error('[EMAIL_LOG] Query error:', err));
+
+  return stats;
 }
 
 export default {
-  getDb,
+  getPool,
   logSentEmail,
   logReceivedEmail,
   getInboxEmails,
