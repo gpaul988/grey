@@ -1,0 +1,820 @@
+'use client';
+
+import React, {useEffect, useRef, useState} from 'react';
+import Slider from 'react-slick';
+import Image from 'next/image';
+import Link from 'next/link';
+import SocialProof from '@/components/SocialProof';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import CountUp from 'react-countup';
+import {AnimatePresence, motion} from 'framer-motion';
+import {useIsDayTime} from '../components/useIsDayTime';
+import {
+    FxBackground,
+    FxCard,
+    FxChip,
+    FxSectionHeading,
+    FxButton,
+    FxReveal,
+    FxHoloCard,
+    FxFrame,
+    FxStatBar,
+    FxGlitchText,
+    FxTerminal,
+    FxOrbit
+} from '@/components/futuristic/fx';
+
+// Our Approach
+const reasons = [
+    {
+        id: 1,
+        title: 'We Listen',
+        description: (
+            <>
+                Every project begins with a conversation -an opportunity for us to understand your goals, vision, and the
+                challenges that matter most to your business. At Grey InfoTech, we go beyond the technical brief to
+                uncover what truly drives value for you. By aligning our strategy with your priorities from the start,
+                we&apos;re able to design and deliver solutions that solve real problems, unlock new opportunities, and
+                create lasting impact.
+            </>
+        ),
+    },
+    {
+        id: 2,
+        title: 'We Strategize',
+        description: (
+            <>
+                We design smart, scalable solutions tailored to your business goals -whether you&#39;re launching a new
+                product, modernising legacy systems, or scaling operations. Our approach combines strategic thinking,
+                technical expertise, and industry insight to deliver platforms that are not only robust and
+                future-ready, but also aligned with your operational workflows and growth objectives.
+            </>
+        ),
+    },
+    {
+        id: 3,
+        title: 'We Create',
+        description: (
+            <>
+                Armed with insights, we move swiftly from strategy to execution -crafting intuitive designs, writing
+                robust code, and applying our technical expertise at every stage. With a blend of creativity and
+                precision, we build digital products that not only solve complex problems but also strengthen your
+                brand, enhance user experience, and drive measurable business results.
+            </>
+        ),
+    },
+    {
+        id: 4,
+        title: 'We Collaborate',
+        description: (
+            <>
+                We work closely with you at every stage of the project, ensuring clear communication, shared
+                understanding, and full transparency in every decision. By aligning with your goals and involving you in
+                key milestones, we create a collaborative environment where expectations are managed, challenges are
+                addressed early, and outcomes are consistently aligned with your business vision.
+            </>
+        ),
+    },
+    {
+        id: 5,
+        title: 'We Test (A lot)',
+        description: (
+            <>
+                Quality is at the core of everything we do. From day one, we integrate testing into every phase of
+                development to catch issues early and ensure reliability. Before launch, we rigorously test across
+                devices, browsers, and real-world scenarios -so your product performs flawlessly.
+            </>
+        ),
+    },
+    {
+        id: 6,
+        title: 'We Stick Around',
+        description: (
+            <>
+                The journey doesn&apos;t stop at launch -it&apos;s just the beginning. As technology evolves and your
+                business
+                grows, we stay by your side to adapt, optimise, and enhance your product. Whether it&apos;s adding new
+                features, improving performance, or scaling to meet new demands, we provide ongoing support to ensure
+                your solution remains future-ready.
+            </>
+        ),
+    },
+];
+
+const Company = () => {
+    const [isVisible, setIsVisible] = useState(false);
+    const sectionRef = useRef<HTMLDivElement>(null);
+    const [isBackgroundActive, setIsBackgroundActive] = useState(false);
+    const [activeIndex, setActiveIndex] = useState(1);
+
+    const isDayTime = useIsDayTime();
+
+    // Floating button
+    useEffect(() => {
+        const handleScroll = () => setIsVisible(window.scrollY > 200);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    // Introductory section invert
+    useEffect(() => {
+        const handleScroll = () => {
+            if (sectionRef.current) {
+                const {top, bottom} = sectionRef.current.getBoundingClientRect();
+                const wh = window.innerHeight;
+                setIsBackgroundActive(top < wh * -0.1 || bottom < wh * -0.1);
+            }
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    // Carousel cursor
+    const carouselRef = useRef<HTMLDivElement>(null);
+    const [cursorStyle, setCursorStyle] = useState({left: 0, top: 0});
+    const handleMouseMove = (e: React.MouseEvent) => setCursorStyle({left: e.clientX, top: e.clientY});
+    const handleMouseEnter = () => carouselRef.current?.classList.add('active');
+    const handleMouseLeave = () => carouselRef.current?.classList.remove('active');
+
+    // Approach auto-cycle (single interval  - do not duplicate)
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveIndex(prev => (prev % reasons.length) + 1);
+        }, 4000);
+        return () => clearInterval(interval);
+    }, [reasons.length]);
+
+    const stats = [
+        {label: 'Years Experience', value: 8, suffix: '+'},
+        {label: 'Team Members', value: 10, suffix: '+'},
+        {label: 'Products Launched', value: 150, suffix: '+'},
+        {label: 'Successful rebrands', value: 27, suffix: '+'},
+        {label: 'Increase in Website Traffic', value: 350, suffix: '%'},
+    ];
+
+    const values = [
+        {
+            num: '01',
+            label: 'Innovative',
+            body: 'We stay ahead by combining deep expertise with smart, forward-thinking solutions. Every project is guided by strategy, underpinned by innovation, and focused on delivering measurable results that align with your business goals and long-term vision.\n\nNo two challenges are the same, so we tailor every solution to your needs -ensuring performance, scalability, efficiency, and readiness for sustainable growth.'
+        },
+        {
+            num: '02',
+            label: 'Collaborative',
+            body: 'We are customer-centric at every level. Our top priority is solving problems through a collaborative approach that ensures clients are not just heard, but truly understood -resulting in solutions that align with their vision and needs.\n\nBy fostering open communication and genuine partnership, we build lasting relationships based on trust, transparency, and mutual respect.'
+        },
+        {
+            num: '03',
+            label: 'Adaptable',
+            body: "We're happy to embrace change. Whether it's a shift in project scope or evolving customer needs, we remain agile and adaptable -quick to respond, adjust, and deliver with confidence.\n\nBy staying ahead of trends and exploring emerging technologies, we ensure our clients are future-ready in a fast-changing digital landscape."
+        },
+        {
+            num: '04',
+            label: 'Accountable',
+            body: "We take ownership of every outcome -because accountability is key to building trust. Our clients can rely on us to deliver solutions that are on time, on brief, and aligned with their expectations.\n\nWith clear communication, proactive follow-through, and a focus on measurable results, we hold ourselves to the highest standards in every engagement."
+        },
+    ];
+
+    return (
+        <div className={`${isDayTime ? 'bg-white' : 'bg-black'} min-h-screen`}>
+
+            {/*  -  -  Hero  - extreme futuristic  -  -  */}
+            <div id="hero" className="relative w-full overflow-hidden min-h-screen flex flex-col justify-end">
+                {/* Background image */}
+                <div className="absolute inset-0">
+                    <Image
+                        src="/assets/comp/hero.jpg"
+                        alt="company"
+                        fill
+                        sizes="100vw"
+                        className="object-cover object-center"
+                        priority
+                    />
+                </div>
+
+                {/* Layered overlays */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/90"/>
+                <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"/>
+
+                {/* FX grid + aurora */}
+                <FxBackground day={false} grid aurora className="opacity-50"/>
+                {/* Scanline shimmer */}
+                <div className="gx-scanline pointer-events-none"/>
+                <div className="gx-hero-scan"/>
+                <div className="gx-noise-overlay"/>
+
+                {/* Orbit rings */}
+                <div className="gx-orbit pointer-events-none absolute"
+                     style={{width: '80vmax', height: '80vmax', top: '-30vmax', right: '-30vmax', opacity: .15}}/>
+                <div className="gx-orbit gx-orbit-reverse pointer-events-none absolute"
+                     style={{width: '50vmax', height: '50vmax', top: '-10vmax', right: '-5vmax', opacity: .10}}/>
+
+                {/* Content */}
+                <div
+                    className="relative z-10 max-w-auto mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.6em] pb-16 md:pb-20 lg:pb-28">
+                    <FxReveal>
+                        <div className="mb-5">
+                            <FxChip day={false}>Grey InfoTech Ltd · Port Harcourt, Nigeria</FxChip>
+                        </div>
+                        <div className="border-b border-white/20 pb-8 mb-8 ">
+                            <h1 className="gx-hero-title text-white gx-glitch">
+                                Power Your Digital<br/>
+                                <span className="gx-gradient-text">Transformation</span>
+                            </h1>
+                        </div>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 ">
+                            <div>
+                                <p className="text-white/50 text-[0.7em] uppercase tracking-[0.2em] mb-2 font-mono">Location</p>
+                                <p className="text-white/85 text-[0.95em]">Port Harcourt, Nigeria</p>
+                            </div>
+                            <div>
+                                <p className="text-white/75 text-[0.9em] leading-[1.6]">
+                                    Our success is built on collaboration. By working closely with our clients, we
+                                    achieve shared goals and consistently deliver outstanding results.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Stat chips */}
+                        <div className="flex flex-wrap gap-3 mt-8">
+                            {[
+                                {label: '8+ Yrs Experience'},
+                                {label: '150+ Products'},
+                                {label: '10+ Team Members'},
+                                {label: '15+ Industries'},
+                            ].map(s => (
+                                <span key={s.label} className="gx-data-pill">{s.label}</span>
+                            ))}
+                        </div>
+                    </FxReveal>
+                </div>
+            </div>
+
+            {/*  -  -  Introductory section  -  -  */}
+            <section
+                ref={sectionRef}
+                className={`pt-16 transition-colors duration-500 ${
+                    isBackgroundActive
+                        ? isDayTime ? 'bg-black text-white' : 'bg-white text-black'
+                        : isDayTime ? 'bg-white text-black' : 'bg-black text-white'
+                }`}
+            >
+                <FxBackground day={isDayTime}/>
+                <div
+                    className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
+                    <div>
+                        <FxChip day={!isBackgroundActive ? !isDayTime : isDayTime}>OUR CULTURE & MISSION</FxChip>
+                    </div>
+                    <div className="lg:-ml-[19em]">
+                        <FxReveal>
+                            <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] lg:mt-[0.01em] rounded-none lg:tracking-normal tracking-tight leading-[1.3] lg:pb-10 pb-6">
+                                Building<br/><span className="gx-gradient-text">Digital Excellence</span>
+                            </h3>
+                        </FxReveal>
+                        <FxReveal delay={0.1}>
+                            <div
+                                className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]">
+                                <div><p>At Grey InfoTech, we&apos;re driven by a passion for transforming ideas into
+                                    digital realities. We believe in building products that matter -solutions that solve
+                                    real problems, create lasting value, and drive meaningful impact for our clients and
+                                    their users.</p></div>
+                                <div><p>Our team brings diverse expertise and a shared commitment to delivering
+                                    outstanding results. We combine strategic thinking with technical excellence,
+                                    fostering a culture of innovation, collaboration, and accountability in everything
+                                    we build.</p></div>
+                            </div>
+                        </FxReveal>
+                    </div>
+                </div>
+            </section>
+
+            {/*  -  -  Top Image Carousel  -  -  */}
+            <div className={`${isDayTime ? 'bg-white' : 'bg-black'} lg:block md:block hidden`}>
+                <div id="top"
+                     className="relative lg:max-w-full w-full lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[6em] md:pb-[6em] pb-[2em] mx-auto h-auto">
+                    <div className="mx-auto w-full px-4 sm:px-6 md:px-10 lg:px-[4.6em]">
+                        <FxReveal>
+                            <div className={`grid lg:grid-cols-2 grid-cols-1 gap-6 lg:mb-8 mb-6 border-b pb-8 ${isDayTime ? 'border-gray-200 text-black' : 'border-white/10 text-white'}`}>
+                                <div>
+                                    <FxChip day={isDayTime} className="mb-4">Featured Work</FxChip>
+                                    <h3 className="lg:text-[2.8em] md:text-[2.3em] text-[1.6em] font-[700] tracking-tight leading-[1.1]">
+                                        Drag through our <span className="gx-gradient-text">digital space</span>
+                                    </h3>
+                                </div>
+                                <div className="flex items-end lg:justify-end">
+                                    <p className={`text-[0.875em] leading-[1.6] max-w-xl ${isDayTime ? 'text-gray-600' : 'text-white/55'}`}>
+                                        Explore the visual range of our work in a cinematic gallery built for motion,
+                                        depth, and discovery.
+                                    </p>
+                                </div>
+                            </div>
+                        </FxReveal>
+
+                        <FxFrame className="w-full">
+                            <div
+                                ref={carouselRef}
+                                className="carousel-container company-carousel relative"
+                                onMouseMove={handleMouseMove}
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}
+                            >
+                                <div className="custom-cursor"
+                                     style={{left: `${cursorStyle.left}px`, top: `${cursorStyle.top}px`}}>
+                                    <span>drag</span>
+                                    <span className="custom-cursor-arrow"> -</span>
+                                </div>
+
+                                <div className="absolute top-4 right-4 z-20 flex items-center gap-2 rounded-full border border-teal-400/20 bg-black/40 px-3 py-1.5 backdrop-blur-xl">
+                                    <span className="h-2 w-2 rounded-full bg-teal-400 animate-pulse"/>
+                                    <span className="text-[0.7em] uppercase tracking-[0.28em] text-white/80">Drag to explore</span>
+                                </div>
+
+                                <Slider
+                                    infinite
+                                    speed={700}
+                                    slidesToShow={1}
+                                    slidesToScroll={1}
+                                    autoplay
+                                    autoplaySpeed={4200}
+                                    pauseOnHover
+                                    draggable
+                                    swipeToSlide
+                                    arrows={false}
+                                    centerMode
+                                    centerPadding="0px"
+                                    className="company-carousel-slider"
+                                    responsive={[
+                                        {breakpoint: 1536, settings: {centerPadding: '0px'}},
+                                        {breakpoint: 1280, settings: {centerPadding: '0px'}},
+                                        {breakpoint: 1024, settings: {centerPadding: '0px'}},
+                                    ]}
+                                >
+                                    {[
+                                        {
+                                            src: '/assets/comp/6.jpg',
+                                            cls: '',
+                                            frameClass: 'h-[300px]',
+                                            shapeStyle: {borderRadius: '28% 72% 63% 37% / 42% 48% 52% 58%'}
+                                        },
+                                        {
+                                            src: '/assets/comp/3.jpg',
+                                            cls: 'translate-y-[0.5em]',
+                                            frameClass: 'h-[380px]',
+                                            shapeStyle: {clipPath: 'polygon(8% 0, 92% 0, 100% 12%, 100% 88%, 92% 100%, 8% 100%, 0 88%, 0 12%)'}
+                                        },
+                                        {
+                                            src: '/assets/comp/1.jpg',
+                                            cls: 'translate-y-[2.2em]',
+                                            frameClass: 'h-[330px]',
+                                            shapeStyle: {borderRadius: '44% 56% 37% 63% / 58% 39% 61% 42%'}
+                                        },
+                                        {
+                                            src: '/assets/comp/2.jpg',
+                                            cls: '',
+                                            frameClass: 'h-[420px]',
+                                            shapeStyle: {clipPath: 'polygon(50% 0, 100% 20%, 100% 80%, 50% 100%, 0 80%, 0 20%)'}
+                                        },
+                                        {
+                                            src: '/assets/comp/5.jpg',
+                                            cls: 'translate-y-[1.1em]',
+                                            frameClass: 'h-[310px]',
+                                            shapeStyle: {borderRadius: '18% 82% 24% 76% / 56% 30% 70% 44%'}
+                                        },
+                                        {
+                                            src: '/assets/comp/4.jpg',
+                                            cls: '',
+                                            frameClass: 'h-[395px]',
+                                            shapeStyle: {clipPath: 'polygon(0 12%, 12% 0, 88% 0, 100% 12%, 100% 88%, 88% 100%, 12% 100%, 0 88%)'}
+                                        },
+                                        {
+                                            src: '/assets/comp/7.jpg',
+                                            cls: 'translate-y-[0.5em]',
+                                            frameClass: 'h-[335px]',
+                                            shapeStyle: {borderRadius: '60% 40% 58% 42% / 40% 62% 38% 60%'}
+                                        },
+                                    ].map(({src, cls, frameClass, shapeStyle}, i) => (
+                                        <div key={i} className="px-0 py-2">
+                                            <div className={`relative mx-auto w-full max-w-[340px] overflow-hidden border border-white/10 bg-black/20 shadow-[0_20px_80px_-30px_rgba(45,212,191,0.45)] ${frameClass}`} style={shapeStyle}>
+                                                <div className="absolute inset-0 bg-gradient-to-tr from-teal-400/10 via-transparent to-fuchsia-500/10 opacity-70"/>
+                                                <div className="relative h-full w-full">
+                                                    <Image
+                                                        src={src}
+                                                        alt={`gallery-${i + 1}`}
+                                                        fill
+                                                        className={`carousel-image object-cover ${cls}`}
+                                                        sizes="(max-width: 1024px) 66vw, 340px"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </Slider>
+                            </div>
+                        </FxFrame>
+                    </div>
+                </div>
+            </div>
+
+            {/*  -  -  Mid image  -  -  */}
+            <div id="mid image" className="h-auto max-w-full w-full mx-auto">
+                <Image
+                    className="object-fill"
+                    src="/assets/comp/mid.jpg"
+                    alt="Middle Image"
+                    width={2560}
+                    height={1440}
+                    style={{objectFit: 'fill', objectPosition: 'center'}}
+                />
+            </div>
+
+            {/*  -  -  Our Mission  -  -  */}
+            <div className={`relative overflow-hidden ${isDayTime ? 'bg-slate-950' : 'bg-white'}`}>
+                <FxBackground day={false} grid aurora className="opacity-30"/>
+                <FxOrbit size={520} top="-120px" right="-160px" opacity={0.1} speed={34}/>
+                <div
+                    id="involved"
+                    className={`relative z-10 lg:pt-[6em] md:pt-[5em] pt-[2.5em] lg:pb-[6em] md:pb-[5em] pb-[3em] px-4 sm:px-6 lg:px-[4.6em] w-full max-w-full ${isDayTime ? 'text-white' : 'text-black'}`}
+                >
+                    <FxReveal>
+                        <div className="grid lg:grid-cols-2 grid-cols-1 gap-8 border-b border-white/10 pb-10 mb-12">
+                            <FxSectionHeading day={false} eyebrow="Our Mission" title="Building systems that move fast and scale cleanly"/>
+                            <p className="text-[0.875em] leading-[1.7] text-white/55 lg:pl-[5em] max-w-2xl">
+                                We turn ambitious ideas into dependable digital products by combining strategy,
+                                design, engineering, and long-term product thinking.
+                            </p>
+                        </div>
+                    </FxReveal>
+
+                    <div className="grid lg:grid-cols-2 grid-cols-1 gap-8 items-center">
+                        <FxHoloCard day={false} className="p-7 lg:p-8 h-full">
+                            <h2 className="text-[1.8em] lg:text-[2.5em] font-[700] tracking-tight leading-[1.1] text-white mb-5">
+                                Purpose, precision, and
+                                <span className="gx-gradient-text"> measurable impact</span>
+                            </h2>
+                            <p className="text-white/60 text-[0.9em] leading-[1.8] text-justify">
+                                We build for ambitious teams that need more than code. From discovery to delivery, we
+                                align every decision to product value, user experience, and technical resilience so
+                                growth never feels fragile.
+                            </p>
+                            <div className="grid sm:grid-cols-3 grid-cols-1 gap-3 mt-7">
+                                {['Strategy-first', 'Built to scale', 'Delivered with care'].map((item) => (
+                                    <div key={item} className="rounded-2xl border border-teal-400/10 bg-white/[0.03] px-4 py-3 text-[0.72em] uppercase tracking-[0.2em] text-teal-200/80">
+                                        {item}
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="mt-8">
+                                <FxButton day={false} href="/company">About Us</FxButton>
+                            </div>
+                        </FxHoloCard>
+
+                        <FxFrame className="w-full">
+                            <div className="relative grid grid-cols-2 gap-3 bg-white/[0.03] p-3">
+                                <div className="relative h-[310px] overflow-hidden rounded-[1.5rem]">
+                                    <Image src="/assets/comp/ai.jpg" alt="Mission visual one" fill className="object-cover"/>
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-teal-400/10"/>
+                                </div>
+                                <div className="relative h-[240px] translate-y-8 overflow-hidden rounded-[1.5rem]">
+                                    <Image src="/assets/comp/dvr.jpg" alt="Mission visual two" fill className="object-cover"/>
+                                    <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-fuchsia-400/10"/>
+                                </div>
+                            </div>
+                        </FxFrame>
+                    </div>
+                </div>
+            </div>
+
+            {/*  -  -  Our Vision  -  -  */}
+            <div className={`relative overflow-hidden ${isDayTime ? 'bg-white' : 'bg-slate-950'}`}>
+                <FxBackground day={false} grid={false} aurora className="opacity-20"/>
+                <FxOrbit size={460} top="80px" left="-140px" opacity={0.08} speed={28} reverse/>
+                <div
+                    className="relative z-10 lg:pt-[5em] md:pt-[5em] pt-[2.5em] lg:pb-[6em] md:pb-[5em] pb-[3em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em]">
+                    <div className="grid lg:grid-cols-2 grid-cols-1 gap-8 items-center">
+                        <FxFrame className="w-full">
+                            <div className="relative h-[460px] overflow-hidden rounded-[1.5rem]">
+                                <Image src="/assets/comp/vr.jpg" alt="Our Vision" fill className="object-cover"/>
+                                <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-cyan-400/10"/>
+                            </div>
+                        </FxFrame>
+                        <FxReveal>
+                            <div className="mb-4">
+                                <FxChip day={!isDayTime}>Our Vision</FxChip>
+                            </div>
+                            <h2 className={`text-[1.8em] md:text-[2.5em] lg:text-[3.2em] font-[700] tracking-tight leading-[1.1] mb-6 ${isDayTime ? 'text-black' : 'text-white'}`}>
+                                A future where technology
+                                <span className="gx-gradient-text"> compounds growth</span>
+                            </h2>
+                            <p className={`text-[0.9em] leading-[1.8] text-justify max-w-2xl ${isDayTime ? 'text-gray-600' : 'text-white/60'}`}>
+                                Our vision is to help businesses move faster, operate smarter, and stay ahead with
+                                software that is secure, elegant, and ready to evolve as the market changes.
+                            </p>
+                            <div className="grid sm:grid-cols-2 gap-3 mt-7 max-w-xl">
+                                {[
+                                    'Future-ready architecture',
+                                    'Scalable product thinking',
+                                    'Secure by design',
+                                    'Enduring technical partnership',
+                                ].map((item) => (
+                                    <div key={item} className={`rounded-2xl border px-4 py-4 text-[0.75em] uppercase tracking-[0.18em] ${isDayTime ? 'border-gray-200 bg-white text-gray-700' : 'border-white/10 bg-white/[0.03] text-white/75'}`}>
+                                        {item}
+                                    </div>
+                                ))}
+                            </div>
+                        </FxReveal>
+                    </div>
+                </div>
+            </div>
+
+            {/*  -  -  Trusted Digital Partners + CountUp  -  -  */}
+            <div className={`${isDayTime ? 'bg-white' : 'bg-black'}`}>
+                <div
+                    id="partners"
+                    className={`relative lg:py-20 md:py-20 lg:mb-20 md:mb-20 mb-5 max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${isDayTime ? 'text-black' : 'text-white'}`}
+                >
+                    <FxReveal>
+                        <div className="mb-4">
+                            <FxChip day={isDayTime}>Trusted Partner</FxChip>
+                        </div>
+                        <h1 className="gx-gradient-text text-[2em] sm:text-[3em] md:text-[4em] lg:text-[5em] font-[600] leading-[1.1] mb-[0.6em]">
+                            Your trusted <br className="lg:block md:block hidden"/>digital partner
+                        </h1>
+                        <p className="text-[0.873em] font-[300] leading-[1.5] text-justify lg:pr-[33em] mb-10">
+                            We specialize in crafting high-impact marketing websites, innovative web apps, and mobile
+                            applications that drive real results. From funded startups to established businesses,
+                            we&#39;ve
+                            helped a wide range of clients bring their digital products to life.
+                        </p>
+                    </FxReveal>
+                    <FxButton day={isDayTime} href="/contact">Start a project</FxButton>
+
+                    {/* Countup */}
+                    <div
+                        id="countup"
+                        className={`grid lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-3 grid-cols-1 text-center lg:mt-[3em] py-12 divide-x ${isDayTime ? 'divide-gray-200' : 'divide-gray-800'}`}
+                    >
+                        {stats.map((stat, index) => (
+                            <FxReveal key={index} delay={index * 0.08}>
+                                <div className="flex flex-col justify-center items-center">
+                                    <h2 className="lg:text-[3.2em] md:text-[3em] sm:text-[2em] text-[1.5em] font-[600] gx-gradient-text">
+                                        <CountUp end={stat.value} duration={2} suffix={stat.suffix || ''}/>
+                                    </h2>
+                                    <p className="text-[0.873em] font-[400] mt-1">{stat.label}</p>
+                                </div>
+                            </FxReveal>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {/*  -  -  Our Approach  -  -  */}
+            <div
+                className={`relative overflow-hidden ${isDayTime ? 'bg-slate-950' : 'bg-slate-50'} lg:pt-[5em] pt-[3em] lg:pb-[6em] pb-[3em]`}>
+                <FxBackground day={false} grid aurora className="opacity-50"/>
+                <FxOrbit size={600} top="-100px" right="-180px" opacity={0.12} speed={32}/>
+                <FxOrbit size={350} top="200px" left="-120px" opacity={0.09} speed={26} reverse/>
+
+                <div className="relative z-10 max-w-full w-full mx-auto px-4 sm:px-6 lg:px-[4.6em]">
+                    {/* Heading row */}
+                    <FxReveal>
+                        <div
+                            className={`grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 border-b border-white/10 pb-10 mb-12 ${isDayTime ? 'text-white' : 'text-black'}`}>
+                            <FxSectionHeading
+                                day={false}
+                                eyebrow="How We Work"
+                                title="Our Approach"
+                            />
+                            <p className="text-[0.873em] font-[400] lg:-mt-[0.2em] leading-[1.5] text-white/55 lg:-ml-[7em]">
+                                We&apos;re not just here to ship software  - we&apos;re here to make bold ideas happen.
+                                From ambitious
+                                startups to complex enterprise systems, we thrive on challenges that push the limits.
+                            </p>
+                        </div>
+                    </FxReveal>
+
+                    <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-8">
+                        {/* Left  - FxHoloCard accordion */}
+                        <div className="flex flex-col gap-3 lg:pr-[3em]">
+                            {reasons.map((reason, index) => {
+                                const isActive = index + 1 === activeIndex;
+                                return (
+                                    <FxHoloCard
+                                        key={reason.id}
+                                        day={false}
+                                        className={`p-5 transition-all duration-300 cursor-pointer ${isActive ? 'ring-1 ring-teal-400/40' : 'opacity-60 hover:opacity-90'}`}
+                                        onClick={() => setActiveIndex(index + 1)}
+                                    >
+                                        <h3 className={`leading-[1.2] lg:text-[1.1em] text-[1em] font-[600] mb-2 transition-all ${isActive ? 'text-teal-300' : 'text-white/55'}`}>
+                                            <span
+                                                className="font-mono text-[0.68em] mr-2 text-teal-500/50">{String(reason.id).padStart(2, '0')}</span>
+                                            {reason.title}
+                                        </h3>
+                                        <AnimatePresence initial={false}>
+                                            {isActive && (
+                                                <motion.p
+                                                    key={reason.id}
+                                                    initial={{opacity: 0, height: 0}}
+                                                    animate={{opacity: 1, height: 'auto'}}
+                                                    exit={{opacity: 0, height: 0}}
+                                                    transition={{duration: 0.3, ease: [0.22, 1, 0.36, 1]}}
+                                                    className={`text-[0.875em] leading-[1.6] overflow-hidden ${isDayTime ? 'text-white/55' : 'text-black/55'}`}
+                                                >
+                                                    {reason.description}
+                                                </motion.p>
+                                            )}
+                                        </AnimatePresence>
+                                    </FxHoloCard>
+                                );
+                            })}
+                        </div>
+
+                        {/* Right  - image */}
+                        <div className="lg:mt-[2em]">
+                            <FxFrame className="w-full">
+                                <Image src="/assets/comp/op.jpg" alt="Our Approach" width={660} height={480}
+                                       className="w-full h-auto rounded-xl object-cover"/>
+                            </FxFrame>
+                        </div>
+                    </div>
+
+                    {/* CTA */}
+                    <FxReveal className="mt-16 flex flex-col items-center justify-center text-center">
+                        <FxGlitchText tag="h2"
+                                      className="lg:text-[3em] text-[1.5em] font-[600] tracking-tighter leading-[1.15] pb-6 text-white">
+                            Ready to start the conversation?
+                        </FxGlitchText>
+                        <FxButton day={false} href="/contact" variant="solid">Get started →</FxButton>
+                    </FxReveal>
+                </div>
+            </div>
+
+            {/*  -  -  Our Values  -  -  */}
+            <div className={`-mt-[4em] ${isDayTime ? 'bg-white' : 'bg-black'}`}>
+                <div
+                    id="values"
+                    className={`relative lg:pt-[5em] md:pt-[5em] pt-[2em] lg:pb-[2.5em] md:pb-[2.5em] mb-[1em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em] ${isDayTime ? 'text-black' : 'text-white'}`}
+                >
+                    <FxReveal>
+                        <div className="mb-3">
+                            <FxChip day={isDayTime}>Core Values</FxChip>
+                        </div>
+                        <h1 className="lg:text-[5em] md:text-[5em] sm:text-[3em] text-[2em] font-[500] leading-[1.1] mb-[0.3em]">
+                            Our Values
+                        </h1>
+                        <p className="text-[0.873em] font-[300] leading-[1.4] text-justify mb-10">
+                            At Grey InfoTech, our values define how we work, innovate, and deliver value. We are{' '}
+                            <span className="font-[500]">Innovative</span>, constantly exploring new technologies to
+                            create
+                            smarter, future-ready solutions. We are <span className="font-[500]">Collaborative</span>,
+                            working closely with clients to align every solution with their business goals. We are{' '}
+                            <span className="font-[500]">Adaptable</span>, responding quickly to change and evolving
+                            needs.
+                            And we are <span className="font-[500]">Accountable</span>, taking full ownership of our
+                            work
+                            and delivering results you can trust.
+                        </p>
+                    </FxReveal>
+
+                    <div id="core-values"
+                         className="grid lg:grid-cols-4 md:grid-cols-4 grid-cols-1 gap-8 lg:mt-[3em] py-12">
+                        {values.map(({num, label, body}, i) => (
+                            <FxReveal key={num} delay={i * 0.1}>
+                                <FxCard day={isDayTime} className="border-l-2 border-teal-500/40 pb-[2.3em] pl-4 pt-2">
+                                    <div className="-mt-7">
+                                        <h1 className="-mb-4 font-[600] lg:text-[6em] md:text-[6em] text-[3em] -ml-[1.2em] gx-gradient-text">{num}</h1>
+                                        <h2 className="mb-4 font-[600] lg:text-[2em] md:text-[2em] text-[1em] -ml-[0.2em]">{label}</h2>
+                                        <p className="-mb-8 font-[300] text-[0.873em] text-justify leading-[1.5]">
+                                            {body.split('\n\n').map((para, pi) => (
+                                                <React.Fragment key={pi}>{para}{pi < body.split('\n\n').length - 1 && <>
+                                                    <br/><br/></>}</React.Fragment>
+                                            ))}
+                                        </p>
+                                    </div>
+                                </FxCard>
+                            </FxReveal>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {/*  -  -  Why Choose Grey InfoTech  - Interactive Card Grid  -  -  */}
+            <div className={`relative overflow-hidden ${isDayTime ? 'bg-[#020f0d]' : 'bg-white'}`}>
+                <FxBackground day={false} grid aurora className="opacity-50"/>
+                <div className="gx-noise-overlay pointer-events-none"/>
+                <div
+                    id="development-process"
+                    className="relative z-10 lg:pt-[5em] md:pt-[5em] pt-[2.5em] lg:pb-[5em] md:pb-[5em] pb-[2em] max-w-full w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5em]"
+                >
+                    <FxReveal className="mb-12">
+                        <FxChip day={false} className="mb-5">Why Us</FxChip>
+                        <div
+                            className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-4 border-b border-white/10 pb-8">
+                            <FxGlitchText tag="h2"
+                                          className="text-[2.2em] md:text-[3em] font-[800] leading-[1.1] tracking-tight text-white max-w-2xl">
+                                Why choose Grey InfoTech<br/>
+                                <span className="gx-gradient-text">for your next project?</span>
+                            </FxGlitchText>
+                            <p className="text-white/55 text-[0.9em] leading-relaxed max-w-md lg:text-right">
+                                Ignore functional. We create digital products that excite people and deliver the
+                                outcomes you require.
+                            </p>
+                        </div>
+                    </FxReveal>
+
+                    <motion.div
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+                        variants={{
+                            hidden: {opacity: 0},
+                            visible: {opacity: 1, transition: {staggerChildren: 0.08, delayChildren: 0.1}}
+                        }}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{once: true, amount: 0.1}}
+                    >
+                        {[
+                            {
+                                num: '01',
+                                title: "We're Experienced",
+                                accent: '#2dd4bf',
+                                body: "Deep, hands-on experience across a wide range of projects and industries. We draw on everything we've learned to deliver solutions that blend creativity, technical expertise, and practical strategy."
+                            },
+                            {
+                                num: '02',
+                                title: "We're Proactive",
+                                accent: '#06b6d4',
+                                body: "We don't just deliver on expectations  - we exceed them. Our approach means we anticipate challenges before they arise and consistently look for new opportunities to drive your project forward."
+                            },
+                            {
+                                num: '03',
+                                title: "We're Collaborative",
+                                accent: '#a855f7',
+                                body: "Collaboration means becoming a true partner who shares your vision, enthusiasm, and drive. We never lose sight of the people behind the projects."
+                            },
+                            {
+                                num: '04',
+                                title: "We're Invested",
+                                accent: '#22d3ee',
+                                body: "Your goals become our mission. We take ownership of outcomes  - not just delivery  - ensuring your investment results in long-term, compounding value."
+                            },
+                            {
+                                num: '05',
+                                title: "We're Transparent",
+                                accent: '#14b8a6',
+                                body: "No black boxes. You get live access to the dev environment, clear milestones, and proactive updates  - so you always know exactly where your project stands."
+                            },
+                            {
+                                num: '06',
+                                title: "We Stick Around",
+                                accent: '#0d9488',
+                                body: "The journey doesn't end at launch. As your business grows and technology evolves, we stay by your side  - adapting, optimising, and scaling your product."
+                            },
+                        ].map((card, i) => (
+                            <motion.div
+                                key={card.num}
+                                variants={{
+                                    hidden: {opacity: 0, y: 24},
+                                    visible: {opacity: 1, y: 0, transition: {duration: 0.5}}
+                                }}
+                            >
+                                <FxHoloCard day={false} className="p-7 h-full flex flex-col group cursor-default">
+                                    <div className="flex items-center justify-between mb-5">
+                                        <span
+                                            className="text-[0.65em] font-mono font-[700] uppercase tracking-[0.22em] px-3 py-1 rounded-full border"
+                                            style={{
+                                                color: card.accent,
+                                                borderColor: card.accent + '40',
+                                                background: card.accent + '12'
+                                            }}
+                                        >
+                                            {card.num}
+                                        </span>
+                                        <div
+                                            className="w-8 h-8 rounded-full opacity-20 group-hover:opacity-60 transition-opacity duration-300"
+                                            style={{background: `radial-gradient(circle, ${card.accent}, transparent)`}}/>
+                                    </div>
+                                    <h3 className="text-[1.15em] font-[700] tracking-tight text-white mb-3 group-hover:text-teal-300 transition-colors duration-300">
+                                        {card.title}
+                                    </h3>
+                                    <p className="text-white/55 text-[0.84em] leading-[1.7] flex-1">
+                                        {card.body}
+                                    </p>
+                                    <div
+                                        className="mt-5 h-[1px] w-0 group-hover:w-full transition-all duration-700 rounded-full"
+                                        style={{background: `linear-gradient(90deg, ${card.accent}00, ${card.accent}80, ${card.accent}00)`}}
+                                    />
+                                </FxHoloCard>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                </div>
+            </div>
+
+            <SocialProof page="about"/>
+        </div>
+    );
+};
+
+export default Company;
+
+

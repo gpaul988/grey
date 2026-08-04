@@ -1,0 +1,82 @@
+//
+// _badges.scss
+//
+
+// Soft Badge
+
+@each $state in map-keys($theme-colors) {
+    .badge-soft-#{$state} {
+        --#{$prefix}badge-color: var(--#{$prefix}#{$state});
+        background-color: var(--#{$prefix}#{$state}-bg-subtle);
+
+        &[href] {
+            color: var(--#{$prefix}#{$state});
+            text-decoration: none;
+            background-color: var(--#{$prefix}#{$state}-bg-subtle);
+
+            &:is(:hover, :focus) {
+                color: var(--#{$prefix}#{$state});
+                text-decoration: none;
+                background-color: var(--#{$prefix}#{$state}-bg-subtle);
+            }
+        }
+    }
+}
+
+// Outline badge
+@each $state in map-keys($theme-colors) {
+    .badge-outline-#{$state} {
+        --#{$prefix}badge-color: var(--#{$prefix}#{$state});
+        border: 1px solid var(--#{$prefix}#{$state});
+        background-color: transparent;
+
+        &[href] {
+            color: var(--#{$prefix}#{$state});
+            text-decoration: none;
+            background-color: var(--#{$prefix}#{$state}-bg-subtle);
+
+            &:is(:hover, :focus) {
+                color: var(--#{$prefix}#{$state});
+                text-decoration: none;
+                background-color: var(--#{$prefix}#{$state}-bg-subtle);
+            }
+        }
+    }
+}
+
+
+
+.badge {
+    vertical-align: middle;
+}
+
+/* Page/accent badge: use page-accent CSS variables when present */
+.badge-page,
+.bg-page-subtle {
+  background-color: rgba(var(--page-accent-rgb, 76,76,92), 0.12) !important;
+  color: var(--page-accent, $primary) !important;
+}
+
+.avatar-sm.bg-page-subtle {
+  background-color: rgba(var(--page-accent-rgb, 76,76,92), 0.12) !important;
+  color: var(--page-accent, $primary) !important;
+}
+
+.text-page {
+  color: var(--page-accent, $primary) !important;
+}
+
+/* Panels that pick up the page accent */
+.page-accent-panel {
+  border: 1px solid rgba(var(--page-accent-rgb, 76,76,92), 0.22) !important;
+  background-color: rgba(var(--page-accent-rgb, 76,76,92), 0.06) !important;
+}
+.page-accent-panel .page-accent-label,
+.page-accent-label {
+  color: var(--page-accent, $primary) !important;
+}
+
+.page-accent-panel-mobile {
+  border: 1px solid rgba(var(--page-accent-rgb, 76,76,92), 0.22) !important;
+  background-color: rgba(var(--page-accent-rgb, 76,76,92), 0.06) !important;
+}

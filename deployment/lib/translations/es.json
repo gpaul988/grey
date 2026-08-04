@@ -1,0 +1,39 @@
+{
+  "common": {
+    "hello": "Hola",
+    "welcome": "Bienvenido",
+    "selectLanguage": "Seleccionar Idioma",
+    "language": "Idioma"
+  },
+  "greeting": {
+    "morning": "Buenos días",
+    "afternoon": "Buenas tardes",
+    "evening": "Buenas noches",
+    "greeting": "¡{greeting}, {name}!",
+    "guestGreeting": "¡{greeting}!",
+    "enterName": "Ingresa tu nombre",
+    "save": "Guardar",
+    "cancel": "Cancelar"
+  },
+  "header": {
+    "services": "Servicios",
+    "industries": "Industrias",
+    "technologies": "Tecnologías",
+    "blog": "Blog",
+    "company": "Empresa",
+    "startups": "Startups",
+    "store": "Tienda",
+    "contact": "Contáctenos",
+    "startProject": "Inicia tu Proyecto"
+  },
+  "banner": {
+    "announcement": "Anuncio",
+    "learnMore": "Aprende más"
+  },
+  "footer": {
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "privacy": "Política de Privacidad",
+    "terms": "Términos de Servicio"
+  }
+}

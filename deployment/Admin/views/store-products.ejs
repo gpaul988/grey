@@ -1,0 +1,117 @@
+<%- contentFor('html_attribute') %>
+
+<%- contentFor('extra_css') %>
+<link href="/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+<link href="/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+
+<%- contentFor('content') %>
+
+<%- include('./partials/page-title', { title: 'Products', subtitle: 'Store' }) %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+                <h4 class="card-title mb-0">All Products <span class="badge bg-primary-subtle text-primary ms-1"><%= products.length %></span></h4>
+                <a href="/admin/store/products/new" class="btn btn-primary btn-sm">
+                    <i class="ti ti-plus me-1"></i> Add Product
+                </a>
+            </div>
+            <div class="card-body">
+                <table id="productsTable" class="table table-striped dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Brand</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% products.forEach(p => { %>
+                        <% let images = []; try { images = JSON.parse(p.images || '[]'); } catch(e) {} %>
+                        <tr>
+                            <td>
+                                <% if (p.thumbnail || images[0]) { %>
+                                <img src="<%= p.thumbnail || images[0] %>" alt="<%= p.name %>" class="rounded" style="width:48px;height:48px;object-fit:cover">
+                                <% } else { %>
+                                <div class="rounded bg-light d-flex align-items-center justify-content-center" style="width:48px;height:48px">
+                                    <i class="ti ti-photo text-muted"></i>
+                                </div>
+                                <% } %>
+                            </td>
+                            <td>
+                                <strong><%= p.name %></strong>
+                                <% if (p.sku) { %><br><small class="text-muted">SKU: <%= p.sku %></small><% } %>
+                            </td>
+                            <td><%= p.category_name || '—' %></td>
+                            <td><%= p.brand_name || '—' %></td>
+                            <td>
+                                <strong><%- fmtMoney(p.price) %></strong>
+                                <% if (p.compare_price && p.compare_price > p.price) { %>
+                                <br><small class="text-muted text-decoration-line-through"><%- fmtMoney(p.compare_price) %></small>
+                                <% } %>
+                            </td>
+                            <td>
+                                <span class="badge <%= p.stock > 10 ? 'bg-success-subtle text-success' : p.stock > 0 ? 'bg-warning-subtle text-warning' : 'bg-danger-subtle text-danger' %>">
+                                    <%= p.stock %> units
+                                </span>
+                            </td>
+                            <td>
+                                <% const sc = {active:'success',draft:'secondary',archived:'danger'}[p.status] || 'secondary' %>
+                                <span class="badge bg-<%= sc %>-subtle text-<%= sc %>"><%= p.status %></span>
+                                <% if (p.featured) { %><span class="badge bg-warning-subtle text-warning ms-1">Featured</span><% } %>
+                            </td>
+                            <td class="text-end">
+                                <a href="/admin/store/products/<%= p.id %>/edit" class="btn btn-sm btn-soft-primary me-1" title="Edit">
+                                    <i class="ti ti-pencil"></i>
+                                </a>
+                                <button class="btn btn-sm btn-soft-danger btn-del-product" data-id="<%= p.id %>" data-name="<%= p.name %>" title="Delete">
+                                    <i class="ti ti-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('extra_javascript') %>
+<script src="/vendor/datatables.net/js/dataTables.min.js"></script>
+<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+<script src="/vendor/sweetalert2/sweetalert2.min.js"></script>
+<script>
+(function(){
+    if (window.jQuery) {
+        jQuery('#productsTable').DataTable({ responsive: true, order: [[1,'asc']], columnDefs: [{ orderable: false, targets: [0, 7] }] });
+    }
+    document.querySelectorAll('.btn-del-product').forEach(function(btn){
+        btn.addEventListener('click', function(){
+            var id = btn.dataset.id, name = btn.dataset.name;
+            Swal.fire({
+                title: 'Delete product?',
+                text: name + ' will be permanently removed.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete'
+            }).then(function(r){
+                if (r.isConfirmed) {
+                    fetch('/admin/api/store/products/' + id, { method: 'DELETE' })
+                        .then(function(res){ return res.json(); })
+                        .then(function(d){ if (d.ok) location.reload(); else Swal.fire('Error', d.error || 'Failed', 'error'); });
+                }
+            });
+        });
+    });
+})();
+</script>

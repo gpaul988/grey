@@ -1,0 +1,336 @@
+<%- contentFor('html_attribute') %>
+<%- contentFor('extra_css') %>
+<style>
+    .gx-audit-input { background: rgba(255,255,255,.02); }
+    .gx-sev { display:inline-block; padding:.12rem .5rem; border-radius:.4rem; font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; }
+    .gx-sev-critical { color:#ff4d6d; background:rgba(255,77,109,.14); }
+    .gx-sev-high { color:#ff8a3d; background:rgba(255,138,61,.14); }
+    .gx-sev-medium { color:#e0a800; background:rgba(255,210,77,.16); }
+    .gx-sev-low { color:#3d7aff; background:rgba(122,162,255,.16); }
+    .gx-sev-pass { color:#1aa179; background:rgba(54,224,160,.16); }
+    .gx-finding { border:1px solid rgba(0,0,0,.06); border-radius:.6rem; padding:.7rem .85rem; margin-bottom:.55rem; }
+    .gx-ring { width:88px; height:88px; border-radius:50%; display:grid; place-items:center; }
+    .gx-ring-inner { width:70px; height:70px; border-radius:50%; display:grid; place-items:center; background:var(--bs-card-bg, #fff); }
+    .gx-bar { height:6px; border-radius:6px; background:rgba(0,0,0,.08); overflow:hidden; }
+    .gx-bar > span { display:block; height:100%; border-radius:6px; }
+</style>
+
+<%- contentFor('content') %>
+
+<%- include('./partials/page-title', { title: title, subtitle: 'Tools' }) %>
+
+<% if (typeof savedFlash !== 'undefined' && savedFlash) { %>
+    <div class="alert alert-success">Saved. The update was recorded and logged to the activity trail.</div>
+<% } %>
+<% if (typeof errFlash !== 'undefined' && errFlash) { %>
+    <div class="alert alert-danger"><%= errFlash %></div>
+<% } %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-1">Website &amp; GitHub Repo Audit</h4>
+                <p class="text-muted mb-3">Run live security, performance, SEO and engineering checks. Blunt findings, no sugar-coating.</p>
+                <form id="gxAuditForm" class="row g-2 align-items-end">
+                    <div class="col-md-5">
+                        <label class="form-label small fw-semibold">Website URL</label>
+                        <input type="url" id="gxWebsite" class="form-control gx-audit-input" placeholder="https://example.com">
+                    </div>
+                    <div class="col-md-5">
+                        <label class="form-label small fw-semibold">GitHub Repo URL</label>
+                        <input type="text" id="gxRepo" class="form-control gx-audit-input" placeholder="https://github.com/owner/repo">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" id="gxRun" class="btn btn-primary w-100">Run Audit</button>
+                    </div>
+                </form>
+                <div id="gxError" class="alert alert-danger mt-3 d-none mb-0"></div>
+                <div id="gxLoading" class="text-muted small mt-3 d-none">
+                    <span class="spinner-border spinner-border-sm me-1"></span> Running audit — up to ~20s…
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="gxResult"></div>
+
+<%
+    // Helpers (server-side render of stored submissions)
+    function _esc(v){ return String(v == null ? '' : v).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]); }); }
+    function _statusBadge(s){
+        var map = { 'new':'bg-primary', 'in_progress':'bg-warning text-dark', 'responded':'bg-info text-dark', 'resolved':'bg-success', 'closed':'bg-secondary' };
+        var cls = map[s] || 'bg-light text-dark';
+        return '<span class="badge ' + cls + '">' + _esc((s||'new').replace('_',' ')) + '</span>';
+    }
+    function _prioBadge(p){
+        var map = { 'critical':'bg-danger', 'high':'bg-danger', 'medium':'bg-warning text-dark', 'low':'bg-secondary' };
+        var cls = map[p] || 'bg-light text-dark';
+        return '<span class="badge ' + cls + '">' + _esc(p||'medium') + '</span>';
+    }
+    var STATUSES = ['new','in_progress','responded','resolved','closed'];
+    var _adminPath = (typeof adminPath === 'function') ? adminPath : function(p){ return p; };
+%>
+
+<!-- ============ FIX REQUESTS (submitted via "Request a Fix" modal) ============ -->
+<div class="row mt-1">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div>
+                        <h4 class="card-title mb-1">Fix Requests</h4>
+                        <p class="text-muted mb-0 small">Submitted from the public audit page. Update status to track resolution — it logs to the activity trail.</p>
+                    </div>
+                    <span class="badge bg-primary fs-6"><%= (typeof fixRequests !== 'undefined' ? fixRequests.length : 0) %></span>
+                </div>
+
+                <% if (typeof fixRequests === 'undefined' || fixRequests.length === 0) { %>
+                    <p class="text-muted small mb-0">No fix requests yet.</p>
+                <% } else { %>
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Requester</th><th>Target</th><th>Issues</th>
+                                <th>Priority</th><th>Budget</th><th>Status</th><th>Received</th><th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <% fixRequests.forEach(function(s){ %>
+                            <tr>
+                                <td>
+                                    <div class="fw-semibold"><%= s.user_name %></div>
+                                    <div class="small text-muted"><%= s.user_email %><% if (s.user_phone) { %> · <%= s.user_phone %><% } %></div>
+                                    <% if (s.user_company) { %><div class="small text-muted"><%= s.user_company %></div><% } %>
+                                </td>
+                                <td class="small">
+                                    <% if (s.website) { %><div>🌐 <a href="<%= s.website %>" target="_blank" rel="noopener"><%= s.website %></a></div><% } %>
+                                    <% if (s.github_repo) { %><div>📦 <a href="<%= s.github_repo %>" target="_blank" rel="noopener"><%= s.github_repo %></a></div><% } %>
+                                    <% if (s.audit_report_id) { %><div class="text-muted">Report: <%= s.audit_report_id %></div><% } %>
+                                </td>
+                                <td class="small" style="max-width:260px"><%= s.specific_issues %></td>
+                                <td><%- _prioBadge(s.priority) %></td>
+                                <td class="small"><%= s.budget_estimate || '—' %></td>
+                                <td><%- _statusBadge(s.status) %></td>
+                                <td class="small text-muted"><%= timeAgo(s.created_at) %></td>
+                                <td class="text-end">
+                                    <button class="btn btn-sm btn-soft-primary" type="button" data-bs-toggle="collapse" data-bs-target="#fix<%= s.id %>">Manage</button>
+                                </td>
+                            </tr>
+                            <tr class="collapse" id="fix<%= s.id %>">
+                                <td colspan="8" class="bg-light-subtle">
+                                    <form method="POST" action="<%= _adminPath('/audit/update') %>" class="row g-2 align-items-end py-2">
+                                        <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+                                        <input type="hidden" name="id" value="<%= s.id %>">
+                                        <div class="col-md-2">
+                                            <label class="form-label small fw-semibold mb-1">Status</label>
+                                            <select name="status" class="form-select form-select-sm">
+                                                <% STATUSES.forEach(function(st){ %>
+                                                    <option value="<%= st %>" <%= s.status === st ? 'selected' : '' %>><%= st.replace('_',' ') %></option>
+                                                <% }); %>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label small fw-semibold mb-1">Proposed solution</label>
+                                            <input type="text" name="proposed_solution" class="form-control form-control-sm" value="<%= s.proposed_solution || '' %>" placeholder="What we'll do to fix it">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label small fw-semibold mb-1">Internal notes</label>
+                                            <input type="text" name="admin_notes" class="form-control form-control-sm" value="<%= s.admin_notes || '' %>" placeholder="Notes (not shown to client)">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-sm btn-primary w-100">Save</button>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============ AUDIT RUNS (triggered by "Run Audit") ============ -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div>
+                        <h4 class="card-title mb-1">Audit Runs</h4>
+                        <p class="text-muted mb-0 small">Every audit executed from the public page or this panel is logged here. Click to view issues and fixes.</p>
+                    </div>
+                    <span class="badge bg-info text-dark fs-6"><%= (typeof auditRuns !== 'undefined' ? auditRuns.length : 0) %></span>
+                </div>
+
+                <% if (typeof auditRuns === 'undefined' || auditRuns.length === 0) { %>
+                    <p class="text-muted small mb-0">No audit runs recorded yet.</p>
+                <% } else { %>
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover align-middle mb-0">
+                        <thead><tr><th>Target</th><th>Score</th><th>Report ID</th><th>Status</th><th>When</th><th class="text-end">Action</th></tr></thead>
+                        <tbody>
+                        <% auditRuns.forEach(function(s){
+                            var ad = {}; try { ad = JSON.parse(s.audit_data || '{}'); } catch(e) {}
+                        %>
+                            <tr>
+                                <td class="small">
+                                    <% if (s.website) { %><div>🌐 <%= s.website %></div><% } %>
+                                    <% if (s.github_repo) { %><div>📦 <%= s.github_repo %></div><% } %>
+                                    <% if (!s.website && !s.github_repo) { %>—<% } %>
+                                </td>
+                                <td>
+                                    <% if (ad.grade) { %><span class="badge bg-dark"><%= ad.grade %> · <%= ad.overallScore %>/100</span><% } else { %>—<% } %>
+                                </td>
+                                <td class="small text-muted"><%= s.audit_report_id || '—' %></td>
+                                <td><%- _statusBadge(s.status) %></td>
+                                <td class="small text-muted"><%= timeAgo(s.created_at) %></td>
+                                <td class="text-end">
+                                    <button class="btn btn-sm btn-soft-primary" type="button" data-bs-toggle="collapse" data-bs-target="#audit<%= s.id %>">View Issues</button>
+                                </td>
+                            </tr>
+                            <tr class="collapse" id="audit<%= s.id %>">
+                                <td colspan="6" class="bg-light-subtle">
+                                    <div class="py-3">
+                                        <h6 class="fw-bold mb-3">Issues & Fixes</h6>
+                                        <% if (ad.sections && Array.isArray(ad.sections)) { %>
+                                            <% ad.sections.forEach(function(sec) { %>
+                                                <div class="mb-3">
+                                                    <div class="fw-semibold mb-2">
+                                                        <span class="badge bg-secondary"><%= sec.section %></span>
+                                                        <span class="small text-muted">Score: <%= sec.score %>/100</span>
+                                                    </div>
+                                                    <% if (sec.findings && sec.findings.length > 0) { %>
+                                                        <ul class="list-unstyled ms-2">
+                                                            <% sec.findings.forEach(function(f) { 
+                                                                var sevClass = {critical:'text-danger',high:'text-warning',medium:'text-info',low:'text-secondary',pass:'text-success'}[f.severity] || 'text-muted';
+                                                            %>
+                                                                <li class="mb-2">
+                                                                    <div class="<%= sevClass %> fw-semibold"><span class="badge bg-secondary-soft"><%= f.severity.toUpperCase() %></span> <%= f.title %></div>
+                                                                    <div class="small text-muted">Issue: <%= f.detail %></div>
+                                                                    <% if (f.fix) { %><div class="small mt-1"><strong>Fix:</strong> <%= f.fix %></div><% } %>
+                                                                    <% if (f.implementation) { %><div class="small mt-1"><strong>Implementation:</strong><br><code><%= f.implementation.substring(0, 200) %><%= f.implementation.length > 200 ? '...' : '' %></code></div><% } %>
+                                                                </li>
+                                                            <% }); %>
+                                                        </ul>
+                                                    <% } else { %>
+                                                        <p class="small text-success mb-0">✓ No issues in this section</p>
+                                                    <% } %>
+                                                </div>
+                                            <% }); %>
+                                        <% } else { %>
+                                            <p class="small text-muted">Findings data not available</p>
+                                        <% } %>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('extra_javascript') %>
+<script>
+(function () {
+    var form = document.getElementById('gxAuditForm');
+    var errBox = document.getElementById('gxError');
+    var loading = document.getElementById('gxLoading');
+    var result = document.getElementById('gxResult');
+    var runBtn = document.getElementById('gxRun');
+
+    function gradeColor(s) {
+        if (s >= 90) return '#1aa179';
+        if (s >= 70) return '#6c9a2e';
+        if (s >= 50) return '#cc9a00';
+        if (s >= 30) return '#cc6a1f';
+        return '#d6334f';
+    }
+    var SEV = ['critical','high','medium','low','pass'];
+    function sevRank(s){ return {critical:5,high:4,medium:3,low:2,pass:1}[s] || 0; }
+    function esc(t){ var d=document.createElement('div'); d.textContent=t==null?'':String(t); return d.innerHTML; }
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        errBox.classList.add('d-none');
+        result.innerHTML = '';
+        var website = document.getElementById('gxWebsite').value.trim();
+        var repo = document.getElementById('gxRepo').value.trim();
+        if (!website && !repo) {
+            errBox.textContent = 'Enter a website URL, a GitHub repo URL, or both.';
+            errBox.classList.remove('d-none');
+            return;
+        }
+        loading.classList.remove('d-none');
+        runBtn.disabled = true;
+        fetch('/api/audit/run', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            credentials: 'same-origin',
+            body: JSON.stringify({website: website, repo: repo}),
+        })
+        .then(function (r) { return r.json().then(function (j) { return {ok: r.ok, j: j}; }); })
+        .then(function (res) {
+            if (!res.ok) {
+                var msg = res.j.error || (res.j.errors && Object.values(res.j.errors)[0]) || 'Audit failed.';
+                throw new Error(msg);
+            }
+            render(res.j);
+        })
+        .catch(function (err) {
+            errBox.textContent = err.message || 'Audit failed. Try again.';
+            errBox.classList.remove('d-none');
+        })
+        .finally(function () {
+            loading.classList.add('d-none');
+            runBtn.disabled = false;
+        });
+    });
+
+    function render(rep) {
+        var c = gradeColor(rep.overallScore);
+        var deg = Math.round(rep.overallScore / 100 * 360);
+        var html = '';
+        html += '<div class="card"><div class="card-body d-flex flex-wrap align-items-center gap-3">';
+        html += '<div class="gx-ring" style="background:conic-gradient(' + c + ' ' + deg + 'deg, rgba(0,0,0,.08) ' + deg + 'deg)">';
+        html += '<div class="gx-ring-inner"><div class="text-center"><div class="fw-bold fs-4" style="color:' + c + '">' + esc(rep.grade) + '</div><div class="small text-muted">' + rep.overallScore + '/100</div></div></div></div>';
+        html += '<div class="flex-grow-1"><h5 class="mb-1">Overall verdict</h5><p class="text-muted mb-2">' + esc(rep.summary) + '</p>';
+        if (rep.target.website) html += '<span class="badge bg-light text-dark me-1">🌐 ' + esc(rep.target.website) + '</span>';
+        if (rep.target.repo) html += '<span class="badge bg-light text-dark">📦 ' + esc(rep.target.repo) + '</span>';
+        html += '</div></div></div>';
+
+        rep.sections.forEach(function (s) {
+            var sc = gradeColor(s.score);
+            html += '<div class="card"><div class="card-body">';
+            html += '<div class="d-flex justify-content-between align-items-center mb-2"><h5 class="mb-0">' + esc(s.name) + '</h5>';
+            html += '<span class="badge" style="color:' + sc + ';background:' + sc + '22">' + s.score + '/100</span></div>';
+            html += '<div class="gx-bar mb-3"><span style="width:' + s.score + '%;background:' + sc + '"></span></div>';
+            var fs = s.findings.slice().sort(function (a, b) { return sevRank(b.severity) - sevRank(a.severity); });
+            if (!fs.length) {
+                html += '<p class="text-success small mb-0">No issues found in this section. Clean.</p>';
+            } else {
+                fs.forEach(function (f) {
+                    html += '<div class="gx-finding"><div><span class="gx-sev gx-sev-' + f.severity + '">' + f.severity + '</span> <strong>' + esc(f.title) + '</strong></div>';
+                    html += '<div class="small text-muted mt-1">' + esc(f.detail) + '</div>';
+                    if (f.fix) html += '<div class="small mt-1"><strong>Fix:</strong> ' + esc(f.fix) + '</div>';
+                    html += '</div>';
+                });
+            }
+            html += '</div></div>';
+        });
+
+        html += '<p class="text-muted small text-center">Generated ' + new Date(rep.generatedAt).toLocaleString() + ' · Grey InfoTech Audit Engine</p>';
+        result.innerHTML = html;
+    }
+})();
+</script>

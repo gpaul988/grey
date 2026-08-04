@@ -1,0 +1,32 @@
+<%- contentFor('html_attribute') %>
+<%- contentFor('extra_css') %>
+<%- contentFor('content') %>
+
+<%- include('./partials/page-title', { title: title, subtitle: 'Administration' }) %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header"><h4 class="card-title mb-0">Activity Log</h4></div>
+            <div class="table-responsive">
+                <table class="table table-hover table-centered mb-0">
+                    <thead class="bg-light bg-opacity-50">
+                        <tr><th>User</th><th>Action</th><th>Entity</th><th>Detail</th><th>When</th></tr>
+                    </thead>
+                    <tbody>
+                        <% if (!activity.length) { %><tr><td colspan="5" class="text-center text-muted py-4">No activity recorded yet.</td></tr><% } %>
+                        <% activity.forEach((a) => { %>
+                        <tr>
+                            <td class="fw-medium"><%= a.user_name || 'System' %></td>
+                            <td><span class="badge text-capitalize bg-<%= a.action==='delete'?'danger':(a.action==='create'?'success':'info') %>-subtle text-<%= a.action==='delete'?'danger':(a.action==='create'?'success':'info') %>"><%= a.action %></span></td>
+                            <td class="text-capitalize"><%= (a.entity || '—').replace('_',' ') %><%= a.entity_id ? (' #' + a.entity_id) : '' %></td>
+                            <td class="text-muted"><%= a.detail || '—' %></td>
+                            <td class="text-muted fs-13" title="<%= a.created_at %>"><%= timeAgo(a.created_at) %></td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

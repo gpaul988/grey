@@ -1,0 +1,122 @@
+<%- contentFor('html_attribute') %>
+<%- contentFor('extra_css') %>
+<%- contentFor('content') %>
+
+<%- include('./partials/page-title', { title: title, subtitle: 'Delivery' }) %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h4 class="card-title mb-0">Projects <span class="badge bg-primary-subtle text-primary ms-1"><%= projects.length %></span></h4>
+                <div class="d-flex gap-2">
+                    <input type="search" id="searchBox" class="form-control form-control-sm" placeholder="Search..." style="width:200px;">
+                    <button class="btn btn-sm btn-primary" id="btnNew"><i class="ti ti-plus"></i> New Project</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-centered mb-0" id="tbl">
+                    <thead class="bg-light bg-opacity-50">
+                        <tr><th>Project</th><th>Client</th><th>Status</th><th style="width:160px;">Progress</th><th>Budget</th><th>Due</th><th class="text-end">Action</th></tr>
+                    </thead>
+                    <tbody>
+                        <% if (!projects.length) { %><tr><td colspan="7" class="text-center text-muted py-4">No projects yet.</td></tr><% } %>
+                        <% projects.forEach((p) => { const st=p.status; const sc = st==='active'?'success':(st==='completed'?'primary':(st==='on_hold'?'warning':(st==='cancelled'?'danger':'secondary'))); %>
+                        <tr data-search="<%= (p.name+' '+(p.client_name||'')).toLowerCase() %>">
+                            <td><div class="fw-medium"><%= p.name %></div><% if (p.description) { %><small class="text-muted"><%= p.description.slice(0,60) %></small><% } %></td>
+                            <td><%= p.client_name || '—' %></td>
+                            <td><span class="badge text-capitalize bg-<%= sc %>-subtle text-<%= sc %>"><%= st.replace('_',' ') %></span></td>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="progress flex-grow-1" style="height:6px;"><div class="progress-bar bg-<%= sc %>" style="width:<%= p.progress %>%"></div></div>
+                                    <small class="text-muted"><%= p.progress %>%</small>
+                                </div>
+                            </td>
+                            <td class="fw-medium"><%= fmtMoney(p.budget) %></td>
+                            <td class="text-muted fs-13"><%= p.end_date || '—' %></td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-soft-primary btn-edit"
+                                    data-id="<%= p.id %>" data-name="<%= p.name %>" data-client_id="<%= p.client_id||'' %>" data-client_name="<%= p.client_name||'' %>"
+                                    data-status="<%= p.status %>" data-progress="<%= p.progress %>" data-budget="<%= p.budget %>"
+                                    data-start="<%= p.start_date||'' %>" data-end="<%= p.end_date||'' %>" data-manager="<%= p.manager_id||'' %>"
+                                    data-desc="<%- (p.description||'').replace(/"/g,'&quot;') %>"><i class="ti ti-edit"></i></button>
+                                <button class="btn btn-sm btn-soft-danger btn-del" data-id="<%= p.id %>"><i class="ti ti-trash"></i></button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="pModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="mTitle">New Project</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <input type="hidden" id="f_id">
+                <div class="row g-3">
+                    <div class="col-md-8"><label class="form-label">Project name *</label><input id="f_name" class="form-control"></div>
+                    <div class="col-md-4"><label class="form-label">Status</label>
+                        <select id="f_status" class="form-select"><option value="planning">Planning</option><option value="active">Active</option><option value="on_hold">On hold</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option></select></div>
+                    <div class="col-md-6"><label class="form-label">Client</label>
+                        <select id="f_client" class="form-select"><option value="">— none —</option><% clients.forEach(c=>{ %><option value="<%= c.id %>" data-name="<%= c.name %>"><%= c.name %><%= c.company?(' ('+c.company+')'):'' %></option><% }) %></select></div>
+                    <div class="col-md-6"><label class="form-label">Manager</label>
+                        <select id="f_manager" class="form-select"><option value="">Unassigned</option><% users.forEach(u=>{ %><option value="<%= u.id %>"><%= u.name %></option><% }) %></select></div>
+                    <div class="col-md-4"><label class="form-label">Progress %</label><input id="f_progress" type="number" min="0" max="100" class="form-control" value="0"></div>
+                    <div class="col-md-4"><label class="form-label">Budget (NGN)</label><input id="f_budget" type="number" class="form-control" value="0"></div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-6"><label class="form-label">Start date</label><input id="f_start" type="date" class="form-control"></div>
+                    <div class="col-md-6"><label class="form-label">End date</label><input id="f_end" type="date" class="form-control"></div>
+                    <div class="col-12"><label class="form-label">Description</label><textarea id="f_desc" class="form-control" rows="3"></textarea></div>
+                </div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-light" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="btnSave">Save</button></div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('extra_javascript') %>
+<%- include('./partials/admin-api-helper') %>
+<script>
+(function () {
+    const modal = new bootstrap.Modal('#pModal');
+    const F = (id) => document.getElementById(id);
+    function open(d) {
+        F('f_id').value = d.id || '';
+        F('mTitle').textContent = d.id ? 'Edit Project' : 'New Project';
+        F('f_name').value = d.name || ''; F('f_status').value = d.status || 'planning';
+        F('f_client').value = d.client_id || ''; F('f_manager').value = d.manager || '';
+        F('f_progress').value = d.progress || 0; F('f_budget').value = d.budget || 0;
+        F('f_start').value = d.start || ''; F('f_end').value = d.end || ''; F('f_desc').value = d.desc || '';
+        modal.show();
+    }
+    F('btnNew').addEventListener('click', () => open({}));
+    document.querySelectorAll('.btn-edit').forEach(b => b.addEventListener('click', () => open(b.dataset)));
+    F('btnSave').addEventListener('click', async () => {
+        const id = F('f_id').value;
+        const sel = F('f_client').options[F('f_client').selectedIndex];
+        const payload = {
+            name: F('f_name').value.trim(), status: F('f_status').value,
+            client_id: F('f_client').value || null, client_name: F('f_client').value ? (sel.dataset.name || '') : '',
+            manager_id: F('f_manager').value || null,
+            progress: Number(F('f_progress').value) || 0, budget: Number(F('f_budget').value) || 0,
+            start_date: F('f_start').value || '', end_date: F('f_end').value || '', description: F('f_desc').value.trim(),
+        };
+        if (!payload.name) return AdminAPI.toast('Project name required', true);
+        const r = id ? await AdminAPI.patch('/projects/' + id, payload) : await AdminAPI.post('/projects', payload);
+        if (r.ok) { AdminAPI.toast(r.message); location.reload(); } else AdminAPI.toast(r.message, true);
+    });
+    document.querySelectorAll('.btn-del').forEach(b => b.addEventListener('click', async () => {
+        if (!confirm('Delete this project?')) return;
+        const r = await AdminAPI.del('/projects/' + b.dataset.id);
+        if (r.ok) { AdminAPI.toast('Deleted'); b.closest('tr').remove(); } else AdminAPI.toast(r.message, true);
+    }));
+    F('searchBox').addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase();
+        document.querySelectorAll('#tbl tbody tr[data-search]').forEach(tr => tr.style.display = (!q || tr.dataset.search.includes(q)) ? '' : 'none');
+    });
+})();
+</script>

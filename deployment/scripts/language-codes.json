@@ -1,0 +1,30 @@
+{
+  "languages": [
+    "af", "am", "ar", "bg", "bn", "bs", "ca", "cs", "cy", "da",
+    "de", "el", "en", "es", "et", "fa", "fi", "fr", "gu", "ha",
+    "he", "hi", "hr", "hu", "id", "ig", "it", "ja", "ka", "kk",
+    "km", "kn", "ko", "ku", "ky", "lo", "lt", "lv", "mk", "ml",
+    "mn", "mr", "ms", "mt", "my", "ne", "nl", "no", "or", "pa",
+    "pl", "ps", "pt", "ro", "ru", "sd", "si", "sk", "sl", "so",
+    "sq", "sv", "sw", "ta", "te", "tg", "th", "tl", "tr", "uk",
+    "ur", "uz", "vi", "xh", "yo", "zh-CN", "zh-TW", "zu"
+  ],
+  "languageNames": {
+    "af": "Afrikaans", "am": "Amharic", "ar": "Arabic", "bg": "Bulgarian", "bn": "Bengali",
+    "bs": "Bosnian", "ca": "Catalan", "cs": "Czech", "cy": "Welsh", "da": "Danish",
+    "de": "German", "el": "Greek", "en": "English", "es": "Spanish", "et": "Estonian",
+    "fa": "Persian", "fi": "Finnish", "fr": "French", "gu": "Gujarati", "ha": "Hausa",
+    "he": "Hebrew", "hi": "Hindi", "hr": "Croatian", "hu": "Hungarian", "id": "Indonesian",
+    "ig": "Igbo", "it": "Italian", "ja": "Japanese", "ka": "Georgian", "kk": "Kazakh",
+    "km": "Khmer", "kn": "Kannada", "ko": "Korean", "ku": "Kurdish", "ky": "Kyrgyz",
+    "lo": "Lao", "lt": "Lithuanian", "lv": "Latvian", "mk": "Macedonian", "ml": "Malayalam",
+    "mn": "Mongolian", "mr": "Marathi", "ms": "Malay", "mt": "Maltese", "my": "Burmese",
+    "ne": "Nepali", "nl": "Dutch", "no": "Norwegian", "or": "Odia", "pa": "Punjabi",
+    "pl": "Polish", "ps": "Pashto", "pt": "Portuguese", "ro": "Romanian", "ru": "Russian",
+    "sd": "Sindhi", "si": "Sinhala", "sk": "Slovak", "sl": "Slovenian", "so": "Somali",
+    "sq": "Albanian", "sv": "Swedish", "sw": "Swahili", "ta": "Tamil", "te": "Telugu",
+    "tg": "Tajik", "th": "Thai", "tl": "Tagalog", "tr": "Turkish", "uk": "Ukrainian",
+    "ur": "Urdu", "uz": "Uzbek", "vi": "Vietnamese", "xh": "Xhosa", "yo": "Yoruba",
+    "zh-CN": "Chinese (Simplified)", "zh-TW": "Chinese (Traditional)", "zu": "Zulu"
+  }
+}

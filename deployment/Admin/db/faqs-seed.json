@@ -1,0 +1,1976 @@
+[
+  {
+    "question": "How long does a typical project take?",
+    "answer": "Most websites ship in 4–8 weeks; full web/mobile apps run 8–16 weeks depending on scope. We share a clear timeline after the discovery call.",
+    "category": "General",
+    "sort_order": 0
+  },
+  {
+    "question": "How much does a project cost?",
+    "answer": "Pricing depends on scope and complexity. Simple sites start from a fixed package; custom platforms are quoted after discovery. Use our instant estimator for a ballpark.",
+    "category": "Pricing",
+    "sort_order": 1
+  },
+  {
+    "question": "Do you offer ongoing support and maintenance?",
+    "answer": "Yes. We offer monthly care plans covering updates, security, backups, monitoring and priority support.",
+    "category": "Support",
+    "sort_order": 2
+  },
+  {
+    "question": "What technologies do you work with?",
+    "answer": "React, Next.js, Node, Laravel, React Native, Flutter and more. We pick the stack that best fits your goals, not the other way round.",
+    "category": "General",
+    "sort_order": 3
+  },
+  {
+    "question": "Do you work with clients outside Nigeria?",
+    "answer": "Absolutely. We partner with startups and enterprises across Africa, Europe and North America, working async across time zones.",
+    "category": "General",
+    "sort_order": 4
+  },
+  {
+    "question": "How do payments work?",
+    "answer": "Typically milestone-based: a deposit to begin, then payments tied to delivery stages. Terms are agreed upfront in your proposal.",
+    "category": "Pricing",
+    "sort_order": 5
+  },
+  {
+    "question": "Who are Grey InfoTech?",
+    "answer": "Grey InfoTech is a vibrant digital agency based in Port Harcourt, Nigeria, established in 2018. We’re passionate about crafting stunning websites, building strong brands, creating dynamic eCommerce platforms, and developing innovative mobile apps. As a web, software development company, we also specialize in digital transformation and digital marketing strategies aiming to bring our clients’ visions to life with creativity and expertise.",
+    "category": "General",
+    "sort_order": 6
+  },
+  {
+    "question": "How do i get started with Grey InfoTech?",
+    "answer": "Getting started with Grey InfoTech is simple! You can reach out to us through our contact form, email, or phone number to discuss your project requirements. Once we understand your needs, we will provide you with a detailed proposal and timeline for your project. Upon your approval, we will begin the design and development process, keeping you informed and involved at every step. Our goal is to deliver a digital solution that exceeds your expectations and drives your business forward.",
+    "category": "General",
+    "sort_order": 7
+  },
+  {
+    "question": "Who are your typical clients?",
+    "answer": "We partner with a diverse array of clients, ranging from innovative startups to established enterprises across multiple industries, including retail, healthcare, education, finance, and technology. Whether you are a small business or a large corporation, we are dedicated to helping you achieve success and visibility in the digital landscape.",
+    "category": "General",
+    "sort_order": 8
+  },
+  {
+    "question": "Can you describe your web design process?",
+    "answer": "Certainly! Our web design process is both comprehensive and enjoyable. We begin by understanding your goals and vision, which allows us to plan the website’s structure and content effectively. Next, we move into the design phase, creating visually appealing mockups and prototypes. Once approved, we proceed to development, followed by thorough testing and the final launch. Throughout the process, we maintain open communication, ensuring that your feedback is integrated at every stage. On average, our projects are completed within 8-16 weeks.",
+    "category": "General",
+    "sort_order": 9
+  },
+  {
+    "question": "What type of website does Grey InfoTech create?",
+    "answer": "We specialize in creating a wide variety of websites, including sophisticated corporate sites, feature-rich eCommerce platforms, visually striking portfolio sites, engaging blogs, and custom web applications. Our designs are fully responsive, ensuring optimal performance and a seamless user experience across all devices, whether desktop, tablet, or smartphone.",
+    "category": "General",
+    "sort_order": 10
+  },
+  {
+    "question": "Which industry does Grey InfoTech serve?",
+    "answer": "We serve a diverse range of industries, including retail, healthcare, education, finance, technology, and non-profits. Our deep industry expertise enables us to customize our solutions to address the unique needs of each and every sector, ensuring that your digital presence is a true reflection of your business.",
+    "category": "General",
+    "sort_order": 11
+  },
+  {
+    "question": "What constitutes a successful web project?",
+    "answer": "A successful web project not only meets your objectives but also enhances user experience while excelling in performance, speed, security, and SEO. It should be scalable, easy to maintain, and seamlessly align with your brand identity. In essence, it's a project that goes beyond aesthetics driving tangible value and supporting the long-term success of your business.",
+    "category": "General",
+    "sort_order": 12
+  },
+  {
+    "question": "What services do web design agencies provide?",
+    "answer": "We provide a comprehensive suite of services, including website design and development, branding, eCommerce solutions, mobile app development, digital marketing strategies, SEO, and continuous support and maintenance. Whatever your digital requirements may be, we are equipped to meet them with expertise and dedication.",
+    "category": "General",
+    "sort_order": 13
+  },
+  {
+    "question": "Which companies benefit from using a web design agency?",
+    "answer": "Any company seeking to enhance its online presence can benefit from partnering with a web design agency. This includes businesses of all sizes and industries, whether you're just starting out or aiming to refresh or expand your digital footprint. We customize our services to help you achieve your digital goals efficiently and effectively.",
+    "category": "General",
+    "sort_order": 14
+  },
+  {
+    "question": "What is the cost of web design and web development services?",
+    "answer": "Our project budgets typically varies, depending on the complexity and scope of the work. Web applications and complex mobile apps may incur higher costs. We provide customized quotes to ensure you receive the best value for your investment.",
+    "category": "General",
+    "sort_order": 15
+  },
+  {
+    "question": "How long does it take to complete a project?",
+    "answer": "Our projects typically take 8 to 45 weeks from start to finish depending on the project type. This timeline encompasses understanding your requirements, planning, design, development, testing, and launch. More complex projects, such as custom web applications or large-scale eCommerce sites, may require additional time to ensure the highest quality and functionality.",
+    "category": "General",
+    "sort_order": 16
+  },
+  {
+    "question": "Can Grey InfoTech meet tight deadlines?",
+    "answer": "Absolutely! We recognize that some projects require fast delivery, and we are equipped to accommodate urgent needs. By prioritizing these projects and allocating the necessary resources, we ensure timely delivery without compromising on quality. Our proven track record demonstrates our ability to meet tight deadlines while consistently delivering outstanding results.",
+    "category": "General",
+    "sort_order": 17
+  },
+  {
+    "question": "What kind of support and maintenance do you offer after the website is launched?",
+    "answer": "We provide comprehensive support and maintenance services, including regular updates, security assessments, performance monitoring, and continuous technical assistance. Our aim is to ensure your website remains secure and operates efficiently long after launch. Additionally, we are ISO 27001 certified and Cyber Essentials qualified, so you can trust that your site’s security is in expert hands.",
+    "category": "General",
+    "sort_order": 18
+  },
+  {
+    "question": "How do you manage revisions and feedback during the design process?",
+    "answer": "We highly value feedback and actively involve you at every stage of the design process. Through feedback loops and iterative design, we continuously refine and enhance the project to ensure it aligns with your expectations. Your input is crucial, and we ensure it is fully integrated to deliver a final product that exceeds your vision.",
+    "category": "General",
+    "sort_order": 19
+  },
+  {
+    "question": "Are there extra costs for adding digital marketing services to web projects?",
+    "answer": "Yes, adding digital marketing services may incur additional costs. These services are aimed at boosting your online presence and driving measurable performance. We offer detailed quotes tailored to the specific strategies required, ensuring transparency and alignment with your business objectives.",
+    "category": "General",
+    "sort_order": 20
+  },
+  {
+    "question": "What is the role of a content management system (CMS) in web development?",
+    "answer": "A content management system (CMS) is a software application that helps manage and organize digital content. It allows users to easily create, edit, and update website content without the need for extensive technical knowledge. CMS platforms enable users to effortlessly update and modify content, making it easier for them to maintain and manage their website's information. They often provide features such as content management, version control, and user-friendly interface, streamlining the content management process and enhancing the overall user experience.",
+    "category": "General",
+    "sort_order": 21
+  },
+  {
+    "question": "What sets Grey InfoTech apart from other web design agencies?",
+    "answer": "At Grey InfoTech, we are committed to delivering exceptional digital solutions that drive success and innovation. Our team of skilled professionals is dedicated to providing personalized services that meet your unique needs and exceed your expectations. We combine creativity, expertise, and cutting-edge technologies to deliver high-quality websites, mobile apps, and digital marketing strategies that elevate your brand and engage your audience. Our focus on collaboration, transparency, and excellence sets us apart and ensures your project's success.",
+    "category": "General",
+    "sort_order": 22
+  },
+  {
+    "question": "What are the benefits of working with Grey InfoTech?",
+    "answer": "Working with Grey InfoTech offers numerous benefits, including access to a team of experienced professionals dedicated to your project's success. We provide personalized solutions tailored to your specific needs, ensuring that your digital presence stands out and drives results. Our commitment to quality, innovation, and client satisfaction sets us apart and ensures that your project is delivered on time and within budget. By partnering with Grey InfoTech, you gain a trusted digital partner that is invested in your success and dedicated to helping you achieve your goals.",
+    "category": "General",
+    "sort_order": 23
+  },
+  {
+    "question": "How can I learn more about Grey InfoTech's services?",
+    "answer": "To learn more about Grey InfoTech's services, you can explore our website, where you will find detailed information about our web design, web development, mobile app development, digital marketing, and branding services. You can also contact us directly to discuss your project requirements and learn how we can help you achieve your digital goals. Our team is always available to answer your questions and provide you with the information you need to make informed decisions about your digital projects.",
+    "category": "General",
+    "sort_order": 24
+  },
+  {
+    "question": "What is the best way to contact Grey InfoTech?",
+    "answer": "The best way to contact Grey InfoTech is through our website contact form, where you can provide details about your project and request a consultation. You can also reach out to us via email or phone to discuss your project requirements and learn more about our services. Our team is always available to answer your questions and provide you with the information you need to get started on your digital project.",
+    "category": "General",
+    "sort_order": 25
+  },
+  {
+    "question": "How much will it cost to develop my software or product?",
+    "answer": "The complexity, scale, and necessary features of your project all affect how much software development will cost. Grey InfoTech guarantees that you get the most out of your budget by providing clear pricing that is customized for startups. Following a discussion of your needs, we will send you a comprehensive quote. We also provide a thorough planning and discovery process for larger projects.",
+    "category": "Startups",
+    "sort_order": 26
+  },
+  {
+    "question": "How long will it take to develop my product?",
+    "answer": "The size and complexity of the project determine the timeline, but we put efficiency first without sacrificing quality. With complete product development schedules tailored to your objectives, we can provide an MVP for the majority of businesses in 8–12 weeks.",
+    "category": "Startups",
+    "sort_order": 27
+  },
+  {
+    "question": "Can you help us define our product’s requirements?",
+    "answer": "Of course. To help you clarify your vision, pinpoint important elements, and develop a roadmap that supports your corporate goals, we provide discovery workshops and consulting services. Our cooperative strategy guarantees clarity right away.",
+    "category": "Startups",
+    "sort_order": 28
+  },
+  {
+    "question": "Do you offer MVP development services?",
+    "answer": "Yes, MVP development is one of our specializations. We help businesses construct practical, scalable products with fundamental features to verify their concepts, attract customers, and secure financing.",
+    "category": "Startups",
+    "sort_order": 29
+  },
+  {
+    "question": "Do you provide ongoing support and maintenance?",
+    "answer": "Yes, we provide continuous support to make sure your product is safe, optimized, and up to date as your company expands. Long after launch, we're there to help with everything from problem repairs to product improvements.",
+    "category": "Startups",
+    "sort_order": 30
+  },
+  {
+    "question": "What’s your communication process?",
+    "answer": "We continue to communicate openly and cooperatively. Through progress meetings, agile sprints, and unambiguous documentation, you will receive regular updates. Jira and Slack are two more technologies we utilize to keep you updated at every stage.",
+    "category": "Startups",
+    "sort_order": 31
+  },
+  {
+    "question": "What is your project management approach?",
+    "answer": "To preserve flexibility and guarantee effective and transparent progress, we employ agile approaches. With this strategy, we can swiftly adjust and maintain the smooth progress of your project.",
+    "category": "Startups",
+    "sort_order": 32
+  },
+  {
+    "question": "What is your experience working with startups?",
+    "answer": "Among the many businesses we've worked with are success stories like <Link href='https://poawdltd.co.uk' className='font-[500]'>POAWD Ltd.</Link>, which grew with our assistance. Our team is a valued partner in developing creative, scalable solutions since we understand the particular difficulties faced by startups.",
+    "category": "Startups",
+    "sort_order": 33
+  },
+  {
+    "question": "Do you offer help with deployment and hosting?",
+    "answer": "To guarantee a successful launch, we do indeed manage hosting and deployment. Our services will help you select the best hosting option, be it AWS, Azure, or another platform, and we will oversee the entire deployment process.",
+    "category": "Startups",
+    "sort_order": 34
+  },
+  {
+    "question": "What technologies do you use?",
+    "answer": "We employ dependable, up-to-date technology that facilitate performance and scalability. React, Node.js, JavaScript, Python, and Laravel are all part of our tech stack, which guarantees that we provide solutions that are both high-quality and future-proof.",
+    "category": "Startups",
+    "sort_order": 35
+  },
+  {
+    "question": "What happens if the scope of the project changes?",
+    "answer": "When developing a startup, flexibility is essential. If the scope of your project changes, we'll work closely with you to evaluate the effects, revise budgets and schedules, and modify our strategy to make sure your new objectives are successfully achieved.",
+    "category": "Startups",
+    "sort_order": 36
+  },
+  {
+    "question": "How do you handle scalability?",
+    "answer": "We design everything we create to be scalable. To make sure your software can manage expansion—whether it is through additional users, new features, or wider markets—we employ strong architecture and cloud-based platforms.",
+    "category": "Startups",
+    "sort_order": 37
+  },
+  {
+    "question": "Can you help with design and user experience?",
+    "answer": "Of course. Our team comprises proficient UX/UI designers who craft user-friendly, captivating interfaces customized for your target audience. Our main goal is to produce designs that improve usability and increase client happiness.",
+    "category": "Startups",
+    "sort_order": 38
+  },
+  {
+    "question": "How do you ensure quality?",
+    "answer": "In order to guarantee that your software operates flawlessly, we adhere to strict QA and testing procedures, including automated and human testing. Every product we produce is optimized for dependability, speed, and user experience. Quality is at the core of us.",
+    "category": "Startups",
+    "sort_order": 39
+  },
+  {
+    "question": "Can you integrate with third-party tools or platforms?",
+    "answer": "Indeed, we specialize in smooth interfaces with analytics tools, CRMs, payment gateways, APIs, and more. To improve functionality, we make sure your software integrates seamlessly with current services.",
+    "category": "Startups",
+    "sort_order": 40
+  },
+  {
+    "question": "What processes are good candidates for automation?",
+    "answer": "High-volume, repetitive, rule-based tasks with clear inputs and outputs—data entry, reconciliation, reporting, approvals, onboarding and cross-system updates. During discovery we map your workflows and prioritise the ones with the strongest return.",
+    "category": "Industries",
+    "sort_order": 41
+  },
+  {
+    "question": "What is the difference between workflow automation and RPA?",
+    "answer": "Workflow automation orchestrates steps and handoffs across a process, usually via APIs. RPA uses software bots to operate existing applications—even those without APIs—mimicking user actions. We use whichever fits, and often combine them.",
+    "category": "Industries",
+    "sort_order": 42
+  },
+  {
+    "question": "Can automation use AI?",
+    "answer": "Yes. We add AI for tasks rules can\\u2019t handle alone—document understanding, classification, NLP and predictive decisioning—always with human oversight where decisions carry risk.",
+    "category": "Industries",
+    "sort_order": 43
+  },
+  {
+    "question": "Will automation integrate with our existing software?",
+    "answer": "Absolutely. We connect CRMs, ERPs, accounting, support tools and databases through APIs, webhooks and integration platforms so data flows automatically and stays in sync.",
+    "category": "Industries",
+    "sort_order": 44
+  },
+  {
+    "question": "How do you ensure automation is reliable and safe?",
+    "answer": "We build in logging, alerting, audit trails, error-handling and human-in-the-loop controls, then monitor and maintain the automation so it keeps running correctly as your systems and rules change.",
+    "category": "Industries",
+    "sort_order": 45
+  },
+  {
+    "question": "How quickly will we see results?",
+    "answer": "Many automations pay back within weeks of go-live by removing hours of manual work. We focus on high-ROI processes first so the value is visible early, then expand from there.",
+    "category": "Industries",
+    "sort_order": 46
+  },
+  {
+    "question": "What biotech and life-science software do you build?",
+    "answer": "LIMS and lab software, electronic lab notebooks, research data platforms, sample-tracking systems, bioinformatics pipelines, and compliant cloud platforms for managing and analysing biological and clinical data.",
+    "category": "Industries",
+    "sort_order": 47
+  },
+  {
+    "question": "Do you understand regulatory compliance?",
+    "answer": "Yes. We engineer with data integrity, auditability, validation and access control as core requirements, mindful of standards like GxP and HIPAA and relevant data-protection regulations. We work closely with your quality and compliance teams.",
+    "category": "Industries",
+    "sort_order": 48
+  },
+  {
+    "question": "Can you handle large genomic or research datasets?",
+    "answer": "Absolutely. We build automated bioinformatics pipelines and scalable cloud infrastructure designed to process high-volume biological data reliably and visualise results clearly.",
+    "category": "Industries",
+    "sort_order": 49
+  },
+  {
+    "question": "Can your software integrate with lab instruments?",
+    "answer": "Yes. We integrate with laboratory instruments and existing scientific tools so results flow automatically into your systems with full traceability, reducing manual transcription and error.",
+    "category": "Industries",
+    "sort_order": 50
+  },
+  {
+    "question": "How do you protect sensitive data?",
+    "answer": "Through encryption, strict access control, audit logging and secure cloud architecture, with attention to the privacy regulations governing health and research data, so your most sensitive information stays protected.",
+    "category": "Industries",
+    "sort_order": 51
+  },
+  {
+    "question": "Can you apply AI to our research data?",
+    "answer": "Yes. We use analytics and machine learning for pattern discovery, classification and prediction on complex datasets, surfacing insight that accelerates research while keeping results interpretable and trustworthy.",
+    "category": "Industries",
+    "sort_order": 52
+  },
+  {
+    "question": "What education software do you build?",
+    "answer": "Learning management systems, virtual classrooms, e-learning web and mobile apps, school and institution management systems, assessment tools, and analytics platforms—for schools, universities, training providers and EdTech startups.",
+    "category": "Industries",
+    "sort_order": 53
+  },
+  {
+    "question": "Can you build live virtual classrooms?",
+    "answer": "Yes. We develop live video classrooms with interactive whiteboards, chat, breakout rooms and recording, so teaching feels engaging in real time and remains available on demand.",
+    "category": "Industries",
+    "sort_order": 54
+  },
+  {
+    "question": "How do you keep learners engaged?",
+    "answer": "Through interactive content, gamification, microlearning, progress tracking and thoughtful UX—plus adaptive learning paths and analytics that personalise the experience and help educators support each learner.",
+    "category": "Industries",
+    "sort_order": 55
+  },
+  {
+    "question": "Do you build administrative features too?",
+    "answer": "Absolutely. We build the full administrative backbone—enrolment, attendance, scheduling, grading, fees, reporting and parent/teacher portals—so institutions run smoothly.",
+    "category": "Industries",
+    "sort_order": 56
+  },
+  {
+    "question": "How do you protect student data?",
+    "answer": "We apply strong security, encryption and access control, with attention to the privacy regulations governing student and minor data, so sensitive information stays protected.",
+    "category": "Industries",
+    "sort_order": 57
+  },
+  {
+    "question": "Can the platform handle exam-season traffic?",
+    "answer": "Yes. We architect scalable cloud infrastructure so your platform stays fast and reliable during exam periods, enrolment peaks and rapid growth.",
+    "category": "Industries",
+    "sort_order": 58
+  },
+  {
+    "question": "What is FinTech software development?",
+    "answer": "Scalability is a key driver of long-term success in FinTech software development, enabling platforms to adapt efficiently to increasing user demands, complex data flows, and evolving regulatory requirements. A scalable architecture ensures that financial services remain reliable, responsive, and secure as the business grows. It also supports faster product updates, integration of new features, and smooth user experiences. For FinTech companies, this translates to sustained performance, improved client retention, and the agility to seize new market opportunities while maintaining compliance and operational efficiency.",
+    "category": "Industries",
+    "sort_order": 59
+  },
+  {
+    "question": "Why would I need FinTech software development services?",
+    "answer": "Why choose FinTech software development services? In today’s fast-evolving financial landscape, they are essential for institutions and startups seeking a competitive edge. With the right development partner, you can digitise and optimise your operations, enhance financial management, ensure compliance, and elevate customer engagement. Tailor-made FinTech solutions deliver intuitive user experiences, seamless integrations, and agile scalability—empowering your business to innovate faster and serve clients better. In short, investing in FinTech software is a strategic move that drives efficiency, boosts growth, and future-proofs your business in the digital economy.",
+    "category": "Industries",
+    "sort_order": 60
+  },
+  {
+    "question": "How long does the FinTech software development process take?",
+    "answer": "The duration of FinTech <Link href='/services/Software-Development' className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}>software development</Link> varies based on project complexity, features, and integration needs. At Grey InfoTech, we start with a thorough discovery phase to define scope, technical requirements, compliance, and business goals, enabling us to create a tailored roadmap and provide a realistic timeline. Smaller MVPs typically take 8–16 weeks, while complex platforms may require several months. We use an agile approach with iterative sprints to maintain progress and incorporate client feedback promptly, ensuring transparency, alignment, and minimizing delays. Our focus is on delivering secure, scalable, and high-quality fintech solutions on time, fully aligned with your business objectives and regulatory requirements.",
+    "category": "Industries",
+    "sort_order": 61
+  },
+  {
+    "question": "Why is healthcare software development important?",
+    "answer": "Custom healthcare software development plays a pivotal role in transforming healthcare delivery by streamlining operations, enhancing patient care, and ensuring secure access to critical medical data. Tailored solutions empower healthcare providers to deliver more personalized and effective treatments, optimize resource utilization, and improve decision-making through real-time insights. By addressing the unique challenges of each organization, custom software not only drives operational efficiency but also strengthens patient engagement and fosters long-term improvements in care quality and outcomes.",
+    "category": "Industries",
+    "sort_order": 62
+  },
+  {
+    "question": "What types of software are commonly developed for healthcare?",
+    "answer": "Common types of healthcare software include electronic health record (EHR) systems, telemedicine platforms, diagnostic and imaging tools, hospital management systems, and patient engagement applications. Each of these solutions addresses a specific need within the healthcare ecosystem—EHRs centralize patient data for improved care coordination, telemedicine platforms enable remote consultations and continuous monitoring, diagnostic tools assist with accurate and timely decision-making, hospital management systems streamline administrative and clinical workflows, while patient engagement applications empower individuals to actively participate in managing their health. Together, these software solutions enhance efficiency, reduce costs, and ultimately improve patient outcomes.",
+    "category": "Industries",
+    "sort_order": 63
+  },
+  {
+    "question": "What are the key challenges in healthcare software development?",
+    "answer": "Key challenges in custom healthcare software development include maintaining the highest levels of **data security and patient privacy**, ensuring strict compliance with regulations such as **HIPAA, HL7, and GDPR**, and achieving seamless **integration with existing medical systems and third-party tools**. Additionally, developers must meet the sector’s **stringent requirements for accuracy, reliability, and interoperability**, as even minor errors can have critical consequences for patient outcomes. Balancing innovation with regulatory and operational constraints is essential to delivering safe, effective, and future-proof healthcare solutions.",
+    "category": "Industries",
+    "sort_order": 64
+  },
+  {
+    "question": "What logistics software do you build?",
+    "answer": "Transportation management systems, fleet and route optimisation, real-time tracking, warehouse management systems, supply-chain platforms, and driver and customer apps—for couriers, freight, distribution and e-commerce fulfilment.",
+    "category": "Industries",
+    "sort_order": 65
+  },
+  {
+    "question": "Can you provide real-time shipment tracking?",
+    "answer": "Yes. We integrate GPS and telematics to deliver live location, ETAs and proactive notifications, giving full visibility to your team and your customers and reducing support enquiries.",
+    "category": "Industries",
+    "sort_order": 66
+  },
+  {
+    "question": "How does route optimisation reduce cost?",
+    "answer": "By minimising distance and time, balancing loads and accounting for constraints, optimised routing increases deliveries per shift and cuts fuel and labour cost—savings that compound across your fleet.",
+    "category": "Industries",
+    "sort_order": 67
+  },
+  {
+    "question": "Can you integrate with our carriers and ERP?",
+    "answer": "Absolutely. We integrate with carriers, telematics devices, ERPs and e-commerce platforms so data flows automatically across your operation without manual re-entry.",
+    "category": "Industries",
+    "sort_order": 68
+  },
+  {
+    "question": "Do you build warehouse management features?",
+    "answer": "Yes. We build WMS capabilities—inventory, picking, packing, barcode/scanning workflows and stock accuracy—so fulfilment is fast, accurate and fully visible.",
+    "category": "Industries",
+    "sort_order": 69
+  },
+  {
+    "question": "Will the system scale with our network?",
+    "answer": "Yes. We architect resilient, scalable platforms that keep performing as your volumes, fleet and geographic coverage grow, because logistics cannot tolerate downtime.",
+    "category": "Industries",
+    "sort_order": 70
+  },
+  {
+    "question": "What music software do you build?",
+    "answer": "Streaming platforms, music and audio apps, artist and label tools, recommendation engines, royalty and rights-management systems, social and live music apps, and the audio infrastructure behind them—for streaming startups, creators and labels.",
+    "category": "Industries",
+    "sort_order": 71
+  },
+  {
+    "question": "How do you ensure smooth audio playback?",
+    "answer": "We use adaptive bitrate streaming and CDN-backed delivery so audio plays instantly and gaplessly across devices and connection speeds, with offline support where needed.",
+    "category": "Industries",
+    "sort_order": 72
+  },
+  {
+    "question": "Can you build music recommendations?",
+    "answer": "Yes. We engineer recommendation engines, curated playlists and powerful search using machine learning, surfacing the right tracks to keep listeners engaged and help artists get discovered.",
+    "category": "Industries",
+    "sort_order": 73
+  },
+  {
+    "question": "How do you handle royalties and rights?",
+    "answer": "We build systems that accurately track plays, calculate splits across rights-holders, and automate transparent payouts, helping keep your platform fair, trusted and compliant.",
+    "category": "Industries",
+    "sort_order": 74
+  },
+  {
+    "question": "Can you support millions of listeners?",
+    "answer": "Absolutely. We architect scalable cloud and streaming infrastructure that grows from launch to mass adoption without degrading playback quality.",
+    "category": "Industries",
+    "sort_order": 75
+  },
+  {
+    "question": "How is content protected?",
+    "answer": "We apply strong security and access controls to protect audio content and rights, and integrate secure payments for subscriptions and purchases.",
+    "category": "Industries",
+    "sort_order": 76
+  },
+  {
+    "question": "What is Vue.js used for?",
+    "answer": "Vue.js is a powerful and flexible JavaScript framework designed for building modern, interactive user interfaces and high-performing Single-Page Applications (SPAs). Its component-based architecture promotes code reusability, scalability, and maintainability—making it an ideal choice for businesses seeking efficient front-end solutions. Vue.js supports a wide range of development use cases, including custom web applications, dynamic dashboards, interactive platforms, Progressive Web Apps (PWAs), web-based games, and server-side rendered applications using frameworks like Nuxt.js. Its simplicity, combined with seamless integration capabilities, allows for faster development cycles and a reduced time-to-market, even in complex environments. Web applications built with Vue.js leverage core web technologies such as HTML, CSS, and JavaScript, and are hosted on web servers while accessed through standard browsers like Chrome, Firefox, and Safari. This approach ensures broad accessibility, responsive design, and consistent performance across devices—delivering an engaging and reliable user experience that supports long-term business growth.",
+    "category": "Industries",
+    "sort_order": 77
+  },
+  {
+    "question": "Why choose Vue.js for software development?",
+    "answer": "Vue.js stands out as a leading framework for modern <Link href='/services/Software-Development' className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}>software development</Link>, valued for its gentle learning curve, adaptability, and strong performance focus. Its modular, component-based architecture enables scalable, maintainable code—making it suitable for projects of any size, from lightweight interfaces to complex enterprise-grade systems. Backed by a vibrant community and extensive ecosystem, Vue.js supports seamless integration with existing technologies and third-party libraries, allowing for faster development cycles and streamlined workflows. This combination of flexibility, efficiency, and developer accessibility positions Vue.js as a strategic choice for businesses aiming to build robust, future-ready digital solutions.",
+    "category": "Industries",
+    "sort_order": 78
+  },
+  {
+    "question": "Can you build an MVP with Vue.js?",
+    "answer": "Vue.js is a highly effective framework for building Minimum Viable Products (<Link href='/services/MVP' className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}>MVPs</Link>), offering the simplicity, flexibility, and speed needed to bring early-stage ideas to market efficiently. Its intuitive syntax and rapid development capabilities allow teams to focus on core features, quickly prototype user interfaces, and iterate based on real-time user feedback. The component-based architecture promotes code reusability and scalability, making it easier to expand or refine the product as requirements evolve. Whether for a web application, single-page interface, or lightweight mobile app, Vue.js equips startups and businesses with the tools to validate concepts, reduce time-to-market, and showcase core functionality with minimal overhead.",
+    "category": "Industries",
+    "sort_order": 79
+  },
+  {
+    "question": "What kinds of on-demand apps do you build?",
+    "answer": "Ride-hailing and mobility, food and grocery delivery, home and professional services, healthcare-on-demand, courier and B2B logistics, and custom marketplaces. If it connects customers with providers in real time, we can build it.",
+    "category": "Industries",
+    "sort_order": 80
+  },
+  {
+    "question": "Do you build all the apps—customer, provider and admin?",
+    "answer": "Yes. We deliver the full ecosystem: the customer app, the provider/driver app, and the admin and operations console, all sharing one scalable back-end so the platform works as a coherent whole.",
+    "category": "Industries",
+    "sort_order": 81
+  },
+  {
+    "question": "How do you handle real-time tracking and dispatch?",
+    "answer": "We use geolocation, real-time messaging and routing to match requests with the nearest provider, optimise routes and give customers live tracking, keeping wait times low and utilisation high.",
+    "category": "Industries",
+    "sort_order": 82
+  },
+  {
+    "question": "Can the platform handle demand spikes?",
+    "answer": "Absolutely. We architect scalable cloud back-ends with load balancing, caching and autoscaling so your platform stays fast and reliable during rushes and rapid growth.",
+    "category": "Industries",
+    "sort_order": 83
+  },
+  {
+    "question": "How are payments handled?",
+    "answer": "We integrate secure in-app payments, wallets, split payments, surge pricing, tips, refunds and automated provider payouts, so money moves smoothly and transparently.",
+    "category": "Industries",
+    "sort_order": 84
+  },
+  {
+    "question": "Can you launch an MVP quickly then scale?",
+    "answer": "Yes. We can ship a focused MVP to validate your market fast, then grow the same platform with new features, regions and capacity as you scale—no costly rewrites.",
+    "category": "Industries",
+    "sort_order": 85
+  },
+  {
+    "question": "What real estate software do you build?",
+    "answer": "Property listing portals, property and tenancy management systems, agent and brokerage CRMs, virtual tour integrations, transaction and e-signature tools, and analytics platforms—for brokerages, property managers, developers and PropTech startups.",
+    "category": "Industries",
+    "sort_order": 86
+  },
+  {
+    "question": "Can you build virtual tours and 360° walkthroughs?",
+    "answer": "Yes. We integrate immersive virtual tours, 360° walkthroughs and video so properties can be explored remotely, widening your market reach and speeding up buyer decisions.",
+    "category": "Industries",
+    "sort_order": 87
+  },
+  {
+    "question": "Do you build property management features?",
+    "answer": "Absolutely. We build end-to-end management—listings, tenants, leases, maintenance requests, rent collection and reporting—so owners and managers control their portfolios from one platform.",
+    "category": "Industries",
+    "sort_order": 88
+  },
+  {
+    "question": "Can you handle online payments and e-signatures?",
+    "answer": "Yes. We integrate secure payments, e-signatures and document management so transactions complete faster with a clear, auditable record for all parties.",
+    "category": "Industries",
+    "sort_order": 89
+  },
+  {
+    "question": "Will the platform scale to large portfolios?",
+    "answer": "Yes. We architect scalable cloud infrastructure so your platform handles large portfolios, high listing volumes and heavy traffic without slowing down.",
+    "category": "Industries",
+    "sort_order": 90
+  },
+  {
+    "question": "What retail software do you build?",
+    "answer": "Point-of-sale systems, inventory and order management, e-commerce storefronts, omnichannel platforms, loyalty and personalisation, and analytics—for single stores, multi-location chains and D2C brands.",
+    "category": "Industries",
+    "sort_order": 91
+  },
+  {
+    "question": "What does omnichannel actually mean for my business?",
+    "answer": "It means your online and in-store channels share the same inventory, pricing, customer and order data in real time—so customers can buy online and collect in store, return anywhere, and feel recognised everywhere. We build that unified backbone.",
+    "category": "Industries",
+    "sort_order": 92
+  },
+  {
+    "question": "Will the POS work if the internet goes down?",
+    "answer": "Yes. We build POS that operates offline and syncs automatically when connectivity returns, so your shop floor keeps selling no matter what.",
+    "category": "Industries",
+    "sort_order": 93
+  },
+  {
+    "question": "Can you integrate payments securely?",
+    "answer": "Absolutely. We integrate secure payment providers to PCI standards, supporting cards, wallets and local payment methods online and in store.",
+    "category": "Industries",
+    "sort_order": 94
+  },
+  {
+    "question": "How do you handle peak-season traffic?",
+    "answer": "We architect scalable cloud infrastructure so your platform stays fast and reliable during Black Friday, flash sales and festive peaks, when performance matters most.",
+    "category": "Industries",
+    "sort_order": 95
+  },
+  {
+    "question": "Can you build loyalty and personalisation?",
+    "answer": "Yes. We build loyalty programs, targeted offers and recommendation engines that increase repeat purchases and customer lifetime value by making every shopper feel known.",
+    "category": "Industries",
+    "sort_order": 96
+  },
+  {
+    "question": "Can you take a SaaS from idea to launch?",
+    "answer": "Yes. We work end to end—from validating the concept and building a focused MVP through architecture, billing, deployment and scale. You get the same senior team across the whole journey, so you can launch fast and grow confidently.",
+    "category": "Industries",
+    "sort_order": 97
+  },
+  {
+    "question": "How do you handle subscription billing?",
+    "answer": "We integrate Stripe, Paystack and similar providers to support tiered plans, free trials, proration, usage-based metering and automated renewals. We also implement webhooks, invoicing, dunning for failed payments and revenue reporting so your billing stays accurate and resilient.",
+    "category": "Industries",
+    "sort_order": 98
+  },
+  {
+    "question": "Is the platform built to scale?",
+    "answer": "Absolutely. We use secure multi-tenant architecture, infrastructure-as-code, CI/CD pipelines, automated testing and monitoring so your product stays fast and reliable as your customer base and team expand.",
+    "category": "Industries",
+    "sort_order": 99
+  },
+  {
+    "question": "Can you make our product enterprise-ready?",
+    "answer": "Yes. We add SSO (SAML/OIDC), SCIM provisioning, granular permissions, audit logging and data export, and help you build the security posture needed to pass procurement and compliance reviews—without over-engineering before you need it.",
+    "category": "Industries",
+    "sort_order": 100
+  },
+  {
+    "question": "Do you provide a public API and integrations?",
+    "answer": "We build well-documented public APIs, webhooks and integration layers, including connectors to the tools your customers already use. This extends your reach and makes your product stickier and harder to replace.",
+    "category": "Industries",
+    "sort_order": 101
+  },
+  {
+    "question": "How do you help reduce churn?",
+    "answer": "We treat retention as a design problem. Through guided onboarding, contextual in-app nudges, lifecycle email and clear value dashboards, we shorten time-to-value and reduce early churn—the single biggest lever on SaaS growth.",
+    "category": "Industries",
+    "sort_order": 102
+  },
+  {
+    "question": "Can you handle real-time availability and pricing?",
+    "answer": "Yes. We build real-time availability, dynamic pricing and secure booking flows that stay accurate and fast even during flash sales and peak demand, with confirmations, flexible cancellation rules and abandoned-cart recovery built in.",
+    "category": "Industries",
+    "sort_order": 103
+  },
+  {
+    "question": "Do you integrate with OTAs and booking engines?",
+    "answer": "Absolutely. We connect with OTAs, GDS and channel managers using two-way sync so your inventory and rates stay consistent across every platform, preventing overbooking and rate-parity issues.",
+    "category": "Industries",
+    "sort_order": 104
+  },
+  {
+    "question": "Can you build guest-facing apps?",
+    "answer": "Yes. We develop guest apps for mobile check-in and check-out, in-stay service requests, digital room keys, concierge messaging and loyalty programmes that enhance the experience and reduce front-desk load.",
+    "category": "Industries",
+    "sort_order": 105
+  },
+  {
+    "question": "Do you support tour and activity operators?",
+    "answer": "We do. We build platforms for itinerary design, scheduling, capacity management, ticketing and digital vouchers, including multi-day packages, guide and resource allocation, and seasonal pricing.",
+    "category": "Industries",
+    "sort_order": 106
+  },
+  {
+    "question": "Can you provide revenue and occupancy analytics?",
+    "answer": "Yes. We build dashboards that surface occupancy, RevPAR, booking pace, channel performance and guest behaviour, with forecasting and reporting so you can price intelligently and anticipate demand.",
+    "category": "Industries",
+    "sort_order": 107
+  },
+  {
+    "question": "Will the platform scale through peak seasons?",
+    "answer": "Reliability at peak is a core design goal. We engineer for scale and resilience using scalable cloud infrastructure, caching and monitoring so your systems stay fast and dependable when demand spikes.",
+    "category": "Industries",
+    "sort_order": 108
+  },
+  {
+    "question": "Do you build both the hardware firmware and the cloud software?",
+    "answer": "Yes. We deliver the full IoT stack—embedded firmware on the device, secure connectivity, the cloud platform that ingests and processes data, and the dashboards or apps that present it. We can also work alongside your existing hardware partner.",
+    "category": "Services",
+    "sort_order": 109
+  },
+  {
+    "question": "Which cloud platforms do you use for IoT?",
+    "answer": "We work with AWS IoT, Azure IoT Hub and Google Cloud IoT, choosing based on your existing infrastructure, scale and budget. We design for device management, secure messaging and horizontal scale from the start.",
+    "category": "Services",
+    "sort_order": 110
+  },
+  {
+    "question": "How do you secure IoT devices?",
+    "answer": "Security is built in from day one: unique device identity, secure provisioning, encrypted transport (TLS), signed over-the-air updates, and continuous monitoring. We treat the device, network and cloud as one threat surface and harden each layer.",
+    "category": "Services",
+    "sort_order": 111
+  },
+  {
+    "question": "Can you support over-the-air (OTA) updates?",
+    "answer": "Absolutely. We design firmware and infrastructure for safe, signed OTA updates with rollback, so you can patch security issues and ship new features to your entire fleet without recalling devices.",
+    "category": "Services",
+    "sort_order": 112
+  },
+  {
+    "question": "What about edge computing and analytics?",
+    "answer": "Where latency, bandwidth or privacy require it, we push filtering, aggregation and even ML inference to the edge, then combine it with cloud analytics for predictive maintenance, anomaly detection and smarter automation.",
+    "category": "Services",
+    "sort_order": 113
+  },
+  {
+    "question": "Can you scale from a prototype to a large fleet?",
+    "answer": "Yes. We architect cloud back-ends to ingest and process millions of messages and manage large device fleets, so the prototype we build today scales cleanly into full production tomorrow.",
+    "category": "Services",
+    "sort_order": 114
+  },
+  {
+    "question": "What exactly is JavaScript?",
+    "answer": "JavaScript, powered by the high-performance V8 engine, has evolved into a comprehensive full-stack development environment through platforms like Node.js, enabling businesses to build scalable and efficient solutions across multiple domains. From web servers and APIs to microservices, desktop applications, and IoT devices, JavaScript offers a versatile framework that supports diverse project requirements. By unifying front-end and back-end development within a single language, it facilitates seamless code sharing and collaboration between teams, reducing complexity and development time. This streamlined approach not only accelerates time to market but also enhances maintainability and consistency across platforms, empowering organizations to deliver robust, high-performance digital solutions that drive growth and operational excellence.",
+    "category": "Services",
+    "sort_order": 115
+  },
+  {
+    "question": "Can JavaScript be employed for frontend or backend development?",
+    "answer": "JavaScript’s versatility as a runtime environment (RTE) lies in its seamless use across both <Link href='/services/frontend-development' className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}>front-end</Link> and <Link href='/services/backend-development' className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}>back-end</Link> development. On the back end, JavaScript excels at building server-side applications that efficiently handle numerous concurrent connections, making it ideal for <Link href='/services/Web-Application' className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}>web applications</Link>, chat platforms, online gaming servers, and other real-time solutions. On the front end, JavaScript plays a crucial role not only in crafting interactive user interfaces but also in streamlining development workflows. Tools such as Gulp, Babel, and Webpack leverage JavaScript to automate tasks like compiling CSS preprocessors, bundling scripts, and optimizing assets—enhancing build efficiency and accelerating time to market. This dual capability positions JavaScript as an indispensable technology for modern, full-stack development.",
+    "category": "Services",
+    "sort_order": 116
+  },
+  {
+    "question": "How much does it cost to scale a Javascript project?",
+    "answer": "The cost of developing a JavaScript application varies based on several key factors, including the project’s complexity, the range of features required, and the anticipated development timeline. Without a detailed understanding of your specific requirements, providing an accurate estimate is challenging. However, the investment for a fully developed JavaScript application typically begins at […], with final costs tailored to the unique scope and objectives of your project.",
+    "category": "Services",
+    "sort_order": 117
+  },
+  {
+    "question": "What is Laravel?",
+    "answer": "Laravel is a free, open-source <Link href={'/services/PHP-Development'} className={`relative border-b pb-[0.05em] ${ isDayTime ? 'border-gray-400 hover:border-black' : 'border-gray-800 hover:border-white' }`}>PHP</Link> framework designed to simplify and accelerate web application development. Built on the Model-View-Controller (MVC) architecture, it offers a clean and organized structure for managing application logic, user interfaces, and data. With built-in features like routing, authentication, and caching, Laravel reduces development time while ensuring scalability, security, and maintainability—making it an ideal choice for building modern, high-performing web applications.",
+    "category": "Services",
+    "sort_order": 118
+  },
+  {
+    "question": "What are some features of Laravel?",
+    "answer": "Laravel includes a range of powerful features that make it a top choice for web application development: <span className={'font-[600]'}>Eloquent ORM:</span> Allows developers to interact with databases using clean, expressive PHP syntax instead of raw SQL. <span className={'font-[600]'}>Blade Templates:</span> A flexible templating engine that enables dynamic content rendering and cleaner code structure. <span className={'font-[600]'}>MVC Architecture:</span> Separates business logic from presentation, making applications easier to manage and scale. <span className={'font-[600]'}>Artisan Command-Line Interface (CLI):</span> A built-in command-line tool that streamlines common development tasks like database migrations, code generation, and more.",
+    "category": "Services",
+    "sort_order": 119
+  },
+  {
+    "question": "What is the difference between PHP and Laravel?",
+    "answer": "PHP is a versatile scripting language commonly used for <Link href={'/services/Web-Development'} className={`relative border-b pb-[0.05em] ${ isDayTime ? 'border-gray-400 hover:border-black' : 'border-gray-800 hover:border-white' }`}>web development</Link>. Laravel is a robust web application framework built on PHP that enhances its capabilities by offering streamlined tools for routing, authentication, caching, and more. While PHP provides the foundation, Laravel accelerates development by simplifying complex tasks and improving application structure, making it an ideal choice for modern web solutions.",
+    "category": "Services",
+    "sort_order": 120
+  },
+  {
+    "question": "What is the difference between Laravel and Symfony?",
+    "answer": "Laravel and Symfony are leading PHP web application frameworks that provide essential features like routing, authentication, and caching. The key differences include:",
+    "category": "Services",
+    "sort_order": 121
+  },
+  {
+    "question": "How do I choose between Laravel and Symfony?",
+    "answer": "Choosing between Laravel and Symfony depends on your unique business objectives and project requirements. At Grey InfoTech, we have expertise in both frameworks and can provide tailored recommendations to ensure the best fit for your development needs.",
+    "category": "Services",
+    "sort_order": 122
+  },
+  {
+    "question": "Can I use Laravel for mobile app development?",
+    "answer": "Laravel serves as a powerful backend system for mobile applications. Although primarily a web framework, Laravel enables the development of RESTful APIs that <Link href={'/services/Mobile-Application-Development'} className={`relative border-b pb-[0.05em] ${ isDayTime ? 'border-gray-400 hover:border-black' : 'border-gray-800 hover:border-white' }`}>mobile apps</Link> can seamlessly communicate with. This approach allows businesses to reuse backend code efficiently, accelerating development timelines and reducing costs across both web and mobile platforms.",
+    "category": "Services",
+    "sort_order": 123
+  },
+  {
+    "question": "Is Laravel suitable for large-scale projects?",
+    "answer": "Yes, Laravel is a robust and versatile framework ideal for projects of all sizes, including large-scale applications. Its rich feature set and powerful tools support the development of complex, scalable solutions that can grow alongside your business needs.",
+    "category": "Services",
+    "sort_order": 124
+  },
+  {
+    "question": "Can Laravel be used to build websites?",
+    "answer": "Yes, Laravel is an excellent choice for building websites and software applications. We’ve successfully delivered numerous Laravel-powered content management systems and would be happy to share these case studies with you. Feel free to reach out anytime.",
+    "category": "Services",
+    "sort_order": 125
+  },
+  {
+    "question": "What is the difference between a prototype and a minimum viable product (MVP)?",
+    "answer": "A prototype is a preliminary visual or interactive model designed to explore ideas and gather feedback early in the design process. An MVP (Minimum Viable Product), on the other hand, is a functional version of the product that includes core features, allowing real users to test it in the market and provide valuable insights for further development.",
+    "category": "Services",
+    "sort_order": 126
+  },
+  {
+    "question": "How much does it cost to build an MVP?",
+    "answer": "The cost of developing an MVP varies based on the project’s scope, feature set, and technical complexity. To provide an accurate estimate, we assess your unique requirements—contact us for a personalised quote tailored to your business goals.",
+    "category": "Services",
+    "sort_order": 127
+  },
+  {
+    "question": "What are some good examples of Minimum Viable Products?",
+    "answer": "Dropbox, Uber, and Airbnb are well-known examples of successful MVPs—each began with a minimal version of their product to validate demand, gather user feedback, and refine their offering before scaling into globally recognised platforms.",
+    "category": "Services",
+    "sort_order": 128
+  },
+  {
+    "question": "Do you offer MVP app development services for enterprises?",
+    "answer": "Yes, we provide MVP development services for both startups and established enterprises, delivering scalable, secure, and market-ready solutions tailored to your specific business objectives and growth strategy.",
+    "category": "Services",
+    "sort_order": 129
+  },
+  {
+    "question": "What features should be prioritised during the MVP development process?",
+    "answer": "When prioritising MVP features, focus on those that directly solve your users’ most critical problems and align with your product’s core purpose. Choose features that are both technically feasible and essential to delivering immediate value. This approach not only ensures early user engagement but also provides meaningful feedback to guide future iterations and product growth.",
+    "category": "Services",
+    "sort_order": 130
+  },
+  {
+    "question": "What considerations are critical when <br className={'lg:block md:block hidden'}/>selecting a provider for MVP development?",
+    "answer": "Selecting the right MVP development provider is crucial to your product’s success. Look for a team with proven expertise, a strong portfolio of relevant projects, and clear, proactive communication. Equally important is their ability to understand your business goals and translate them into a strategic development roadmap. An experienced provider won't just execute your vision—they'll offer critical insights, anticipate challenges, and help refine your concept for maximum impact.",
+    "category": "Services",
+    "sort_order": 131
+  },
+  {
+    "question": "How much does mobile app development cost?",
+    "answer": "This is often the first question we’re asked—and the most difficult to answer upfront. The truth is, the cost depends on your app’s specific features, functionality, and overall scope. However, we follow a proven process to define the requirements collaboratively and help you arrive at a clear, realistic budget.",
+    "category": "Services",
+    "sort_order": 132
+  },
+  {
+    "question": "How long does it take to build an app?",
+    "answer": "The time required to develop an app depends on a range of factors, including the size and complexity of the project, the number of platforms (iOS, Android), and the specific features required. We’ve delivered apps under tight deadlines and across various devices. Through an initial consultation and a structured <Link href={'/services/discovery-phase'} className={`border-b pb-1 ${ isDayTime ? 'border-gray-300 hover:border-white' : 'border-gray-700 hover:border-black' }`}>discovery phase</Link>, we’ll gain a clear understanding of your needs and provide an accurate development timeline tailored to your project.",
+    "category": "Services",
+    "sort_order": 133
+  },
+  {
+    "question": "Who develops your apps?",
+    "answer": "All of our app development is carried out entirely in-house at our offices in Port Harcourt, Rivers State, Nigeria. We believe that maintaining full control over every stage of the development process is essential to delivering solutions of the highest quality. That’s why we don’t outsource any part of our work. Our in-house team ensures consistent communication, faster iteration, and full accountability from start to finish. As registered Apple and Android developers, we also manage the full deployment process—ensuring your app is successfully launched on both the Apple App Store and <Link href={'/services/seo'} className={`border-b pb-1 ${ isDayTime ? 'border-gray-300 hover:border-white' : 'border-gray-700 hover:border-black' }`}>Google</Link> Play, in compliance with platform requirements.",
+    "category": "Services",
+    "sort_order": 134
+  },
+  {
+    "question": "What is a native app?",
+    "answer": "A native app is a software application developed specifically for a particular platform—such as iOS or Android—using platform-specific programming languages and tools. These apps are installed directly on the user’s device and are optimized to take full advantage of native hardware and system capabilities, such as the camera, GPS, accelerometer, contacts, and more. Native apps typically deliver superior performance, responsiveness, and user experience compared to cross-platform alternatives.",
+    "category": "Services",
+    "sort_order": 135
+  },
+  {
+    "question": "What is a hybrid app?",
+    "answer": "Native apps are built specifically for a single platform (iOS or Android) using platform-specific languages and tools. They offer the best performance, access to all device features, and a seamless user experience. Hybrid apps, on the other hand, are developed using web technologies (like HTML, CSS, and JavaScript) and run inside a native container. While they can access some device capabilities and work across multiple platforms, they may have limitations in performance and responsiveness compared to fully native apps. The choice between native and hybrid depends on your project’s goals, timeline, and budget.",
+    "category": "Services",
+    "sort_order": 136
+  },
+  {
+    "question": "Which is better: native or hybrid apps?",
+    "answer": "The decision between native and hybrid apps largely depends on your app’s requirements, budget, and timeline. <ul className={'list-disc'}> <li> Native Apps: If performance, reliability, and superior user experience are critical—such as for apps requiring intensive graphics, real-time interactions, or heavy use of device features (e.g., gaming apps, advanced photo editing, or augmented reality apps)—native apps are typically the best choice. They offer optimal speed and responsiveness and are tailored to each platform, ensuring a smooth and immersive experience. </li> <li> Hybrid Apps: For apps that need to be developed and deployed quickly on both iOS and Android within a constrained budget, hybrid apps are often the better solution. They are built with a single codebase and can be launched across platforms more efficiently, making them ideal for apps with moderate functionality, such as e-commerce apps, informational apps, or news apps. Hybrid apps provide a faster time to market, though they may not match native apps in performance and advanced functionality. </li> </ul> By understanding your app’s core needs, you can determine which option is the most efficient and cost-effective for your project.",
+    "category": "Services",
+    "sort_order": 137
+  },
+  {
+    "question": "Are there any popular apps that are hybrid?",
+    "answer": "Yes, several high-profile apps—such as Instagram, Uber, Gmail, and Twitter—are built using hybrid technology. These applications require availability on both iOS and Android platforms to reach a wide audience and must be updated frequently to stay relevant and competitive. Hybrid solutions offer a significant advantage in this regard, as they enable faster development and streamlined updates across both platforms with a single codebase. This approach reduces time to market, cuts development costs, and ensures that updates are efficiently rolled out across all devices, making hybrid apps an ideal choice for businesses looking to maintain a strong digital presence while optimizing resources.",
+    "category": "Services",
+    "sort_order": 138
+  },
+  {
+    "question": "Can I switch from a hybrid app to a native app later?",
+    "answer": "Yes, it is possible to convert a hybrid app into a native app, but it requires rewriting the app using the native programming languages specific to each platform—Swift for iOS and Java/Kotlin for Android. This process can be both time-consuming and costly, as it involves developing separate codebases for each platform and ensuring full compatibility with device-specific features. While the conversion may provide enhanced performance and access to more platform-specific functionalities, it’s important to carefully consider the cost, timeline, and overall benefits before proceeding with such a transition.",
+    "category": "Services",
+    "sort_order": 139
+  },
+  {
+    "question": "Is it easier to maintain a native or a hybrid app?",
+    "answer": "Hybrid apps are generally easier to maintain because they rely on a single codebase that can be deployed across multiple platforms. This unified approach simplifies updates and bug fixes, making it more efficient to manage apps across both iOS and Android. Hybrid solutions can save time and resources in the long term, particularly for apps that don’t require complex, platform-specific features. On the other hand, native apps offer the advantage when it comes to quickly integrating the latest platform-specific features as soon as they are released. Since native apps are built using the platform’s native programming language, they are able to fully leverage new capabilities and updates from iOS or Android. However, this can make maintenance more time-consuming and resource-intensive, as updates and changes must be made separately for each platform.",
+    "category": "Services",
+    "sort_order": 140
+  },
+  {
+    "question": "Do hybrid apps have any performance issues?",
+    "answer": "Yes, hybrid apps can sometimes face performance challenges. Since they run through a &#34;middle-man&#34;—a web view that connects the app to the device’s native features—this can lead to slower performance compared to fully native apps, which are optimized for the specific platform. However, hybrid technologies are continuously evolving. Tools like React Native, Flutter, and Ionic are improving performance significantly, enabling hybrid apps to run more efficiently and handle more complex tasks. While hybrid apps may still have some limitations in terms of speed and responsiveness compared to native apps, these performance gaps are narrowing as the technology advances.",
+    "category": "Services",
+    "sort_order": 141
+  },
+  {
+    "question": "Are native apps more secure than hybrid apps?",
+    "answer": "Both native and hybrid apps can be built to be secure, but native apps generally have a slight edge in terms of security. This is because they have direct access to the underlying operating system, allowing for tighter control over security features such as encryption, authentication, and data protection. Since native apps are fully integrated with the platform’s security protocols, they can take advantage of the latest security measures offered by iOS and Android. That said, hybrid apps can also be highly secure if developed with the right precautions and strategies. By implementing strong encryption, secure APIs, and regular updates, hybrid apps can be made secure and compliant with industry standards. The key lies in careful planning and leveraging the latest hybrid development tools, which continue to improve in terms of security.",
+    "category": "Services",
+    "sort_order": 142
+  },
+  {
+    "question": "What are the advantages of using .NET for software development needs?",
+    "answer": "At Grey InfoTech, we position ourselves as your reliable digital partner—fully aligned with your business goals and committed to delivering measurable value. Our skilled .NET engineers integrate seamlessly with your team, fostering close collaboration, clear communication, and full transparency throughout the development lifecycle. We focus on building strong, results-driven partnerships that go beyond technical delivery, ensuring that every solution we develop supports your long-term objectives, accelerates your digital initiatives, and contributes to your overall business success.",
+    "category": "Services",
+    "sort_order": 143
+  },
+  {
+    "question": "How scalable is .NET and can it accommodate business growth?",
+    "answer": ".NET is a highly scalable and flexible framework, making it ideal for businesses aiming to grow and evolve efficiently. Its architecture allows our developers to build applications that seamlessly adapt to changing requirements and user demands, ensuring long-term reliability. As your workload increases, .NET maintains consistent performance and stability, enabling your systems to scale without disruption—supporting your growth without compromising speed, efficiency, or user experience.",
+    "category": "Services",
+    "sort_order": 144
+  },
+  {
+    "question": "Can .NET integrate with existing technology stacks and databases seamlessly?",
+    "answer": ".NET offers seamless integration with a wide range of technology stacks and databases, including Microsoft Azure, Microsoft SQL Server, and other enterprise-grade systems. Its interoperability with multiple programming languages—such as C#, F#, and VB.NET—makes it highly adaptable for diverse application needs and development environments. This flexibility allows businesses to build interconnected, scalable solutions that fit smoothly into their existing infrastructure while supporting future expansion and innovation.",
+    "category": "Services",
+    "sort_order": 145
+  },
+  {
+    "question": "What exactly is Next.js?",
+    "answer": "Next.js is a powerful open-source <Link href='/services/Web-Development' className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}> web development</Link> framework built on <Link href='/services/Nodejs-Development' className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}> Node.js</Link> and React, designed to streamline the creation of modern, high-performance web applications. It enables server-side rendering (SSR) and static site generation, offering enhanced speed, scalability, and SEO optimisation. With features like automatic code splitting, client-side routing, and simplified deployment, Next.js allows developers to build dynamic, user-friendly applications efficiently. Its flexibility and performance make it a preferred choice for businesses seeking fast, responsive, and scalable web solutions with minimal configuration.",
+    "category": "Services",
+    "sort_order": 146
+  },
+  {
+    "question": "Can Next.js be employed for frontend or backend development?",
+    "answer": "Next.js is primarily used for front-end development, enabling the creation of interactive, dynamic user interfaces with the power of React. However, its built-in support for server-side rendering (SSR) and API routes extends its functionality to the back end as well—making it a highly versatile framework for full-stack development. This combination allows businesses to build seamless, high-performance applications that handle both client-side experiences and server-side logic within a unified codebase.",
+    "category": "Services",
+    "sort_order": 147
+  },
+  {
+    "question": "How scalable are Next.js applications?",
+    "answer": "Next.js applications are built for scalability, making them ideal for growing businesses and high-traffic environments. With features like server-side rendering, automatic code splitting, and incremental static generation (ISG), Next.js ensures fast load times and optimal performance even under heavy user demand. Its efficient routing and data-fetching capabilities enable seamless handling of complex, large-scale projects. This flexibility makes Next.js a reliable framework for building dynamic, high-performing applications that evolve alongside your business needs.",
+    "category": "Services",
+    "sort_order": 148
+  },
+  {
+    "question": "How much does it cost to develop a Next.js project?",
+    "answer": "The cost of developing a Next.js application depends on several factors, including the complexity of the project, required features, and overall development timeline. Since every project is unique, it's challenging to provide an accurate estimate without understanding your specific requirements. Get in touch with us to discuss your goals, and we’ll offer a tailored quote based on your needs and budget.",
+    "category": "Services",
+    "sort_order": 149
+  },
+  {
+    "question": "What are the benefits of outsourcing Next.js?",
+    "answer": "Outsourcing Next.js development to the right partner brings numerous strategic advantages. It gives you access to highly skilled developers with deep expertise in the framework, without the overhead of managing in-house teams or infrastructure. This approach reduces operational costs, accelerates delivery timelines, and allows dedicated teams to stay focused on delivering quality outcomes. Additionally, outsourcing introduces fresh perspectives and innovative problem-solving, often resulting in more efficient and refined digital products. Most importantly, it offers the flexibility to scale your project as business needs evolve, ensuring agility throughout the development lifecycle.",
+    "category": "Services",
+    "sort_order": 150
+  },
+  {
+    "question": "Is Next.js still relevant in 2025?",
+    "answer": "As we move through 2025, Next.js continues to solidify its position as a leading web development framework. Its seamless React integration, advanced SEO optimisation, and cutting-edge features keep it at the forefront of modern web technologies. Backed by an active, innovative community and frequent updates, Next.js evolves to meet the shifting demands of the digital landscape. For businesses and developers focused on creating fast, dynamic, and user-centric web applications, Next.js remains an indispensable, future-ready platform built to adapt and scale with emerging trends.",
+    "category": "Services",
+    "sort_order": 151
+  },
+  {
+    "question": "What exactly is Node.js?",
+    "answer": "Node.js is an open-source, server-side runtime environment that allows developers to execute JavaScript outside the browser. Powered by Google Chrome’s V8 JavaScript engine, Node.js is known for its speed, scalability, and efficiency. It supports the development of a wide range of applications—from web servers and APIs to microservices, command-line tools, desktop applications, and even IoT solutions. Prior to the emergence of Node.js, JavaScript was primarily confined to client-side development. Node.js changed that by enabling JavaScript to run on the server side, allowing for unified full-stack development. This shared language across both frontend and backend not only streamlines workflows and boosts developer productivity but also reduces complexity and accelerates time-to-market for businesses.",
+    "category": "Services",
+    "sort_order": 152
+  },
+  {
+    "question": "Can Node.js be employed for frontend or backend?",
+    "answer": "One of Node.js’s greatest strengths lies in its versatility—it supports both frontend and backend development, making it one of the most powerful and flexible runtime environments available. On the backend, Node.js excels at building fast, scalable server-side applications that handle high volumes of concurrent connections with ease. This makes it ideal for developing web applications, real-time chat platforms, streaming services, online gaming servers, and other performance-intensive systems. On the frontend side, while Node.js doesn’t run in the browser, it plays a critical role in modern development workflows. Developers use Node.js for essential build processes such as compiling CSS preprocessors, bundling JavaScript modules, and optimising frontend assets. Widely adopted tools like Webpack, Babel, and Gulp run on the Node.js platform, enabling seamless, efficient frontend development. This dual capability streamlines project pipelines, improves team collaboration, and significantly accelerates development timelines.",
+    "category": "Services",
+    "sort_order": 153
+  },
+  {
+    "question": "How scalable are Node.js applications?",
+    "answer": "Node.js applications are widely recognised for their exceptional scalability, making them an ideal choice for businesses anticipating rapid growth or high traffic volumes. Thanks to its event-driven, non-blocking I/O model, Node.js can efficiently manage thousands of simultaneous connections without creating bottlenecks or performance degradation. This architecture is especially advantageous for real-time applications, streaming platforms, and APIs where responsiveness and throughput are critical. Scalability can be further enhanced by leveraging horizontal scaling—running multiple Node.js instances across different server nodes and distributing requests using load balancers. In addition, implementing intelligent caching strategies, including in-memory caches (such as Redis) and content delivery networks (CDNs), helps offload server resources and improve response times. However, to fully realise these benefits, careful attention must be given to system architecture, code efficiency, and ongoing performance optimisation. At Grey InfoTech, we ensure that every Node.js solution we develop is designed with scalability at its core, enabling your application to grow seamlessly with your business.",
+    "category": "Services",
+    "sort_order": 154
+  },
+  {
+    "question": "How much does it take to develop a Node.js project?",
+    "answer": "The cost of developing a Node.js application can vary significantly depending on several key factors. These include the complexity of the project, the number and type of features required, integration with third-party services, UI/UX design sophistication, and the overall development timeline. For instance, building a basic MVP (Minimum Viable Product) with core functionality will naturally cost less than developing a full-featured enterprise-grade platform with custom APIs, real-time communication features, or advanced security requirements. At Grey InfoTech, we believe in delivering maximum value for your investment. That's why we work closely with you from the beginning to understand your goals, prioritise features, and define a development roadmap that aligns with your budget and business objectives. While it’s challenging to provide a precise quote without first reviewing your project’s specifics, we’re happy to offer a tailored estimate once we understand your requirements. Our transparent pricing model ensures there are no surprises—just clear, strategic development aligned with measurable outcomes.",
+    "category": "Services",
+    "sort_order": 155
+  },
+  {
+    "question": "What are the benefits of outsourcing Node.JS?",
+    "answer": "Outsourcing your Node.js development can be a strategic move—if you choose the right partner. By working with Grey InfoTech, you gain immediate access to a dedicated team of skilled developers with deep expertise in building robust, high-performance Node.js applications. Our specialists bring industry best practices, innovative solutions, and technical precision to every project, ensuring faster delivery and reliable results. This allows your internal team to stay focused on core business priorities while we handle the heavy lifting of backend development. Beyond technical execution, our mature delivery process, streamlined communication, and commitment to quality mean your project progresses smoothly from start to finish. We ensure clear documentation, regular progress updates, and adherence to deadlines, giving you confidence that your software will meet the highest standards when it launches. Outsourcing to Grey InfoTech isn’t just about cost-efficiency—it’s about accelerating your development with a trusted, results-driven technology partner.",
+    "category": "Services",
+    "sort_order": 156
+  },
+  {
+    "question": "What development process do you follow?",
+    "answer": "At Grey InfoTech, we build Node.js applications using a proven methodology honed over years of hands-on experience across diverse industries. Our approach is built on a foundation of efficient, incremental development—designed to deliver reliable results while keeping complexity manageable. We’ve refined this process through numerous successful projects, ensuring that each phase is streamlined, transparent, and aligned with your organisation’s strategic goals. We understand that developing a software application can be both challenging and resource-intensive. That’s why we don’t just build—we partner with you throughout the entire journey. From the initial discovery phase to post-launch support, we provide expert guidance tailored to your business’s unique requirements. Our goal is to make the development process as smooth and effective as possible, ensuring your Node.js application is robust, scalable, and ready to deliver measurable impact.",
+    "category": "Services",
+    "sort_order": 157
+  },
+  {
+    "question": "Will I be assigned a specific project manager to look after my project?",
+    "answer": "Yes, Grey InfoTech assigns a dedicated project manager to every engagement to ensure your product development runs smoothly and transparently. Your project manager acts as your single point of contact, keeping you updated with progress reports, milestone tracking, and proactive communication throughout the entire development lifecycle. This allows you to stay closely informed and involved—without being overwhelmed by the day-to-day technical details. Our collaborative approach is built on open communication and accountability. We believe in creating a strong partnership with our clients by actively listening to feedback, aligning on priorities, and making decisions together. At Grey InfoTech, we view every project as a shared journey—and your input is not just welcome, it’s essential to delivering a successful outcome.",
+    "category": "Services",
+    "sort_order": 158
+  },
+  {
+    "question": "Is Node.js still relevant in 2023?",
+    "answer": "If you're exploring modern tech stacks, the answer is clear—Node.js remains highly relevant in 2025 and beyond. Leading global companies like PayPal, LinkedIn, Netflix, and Uber continue to rely on Node.js to build fast, scalable applications. Its ability to support both frontend and backend development with a unified tech stack makes it a go-to solution for high-performance, real-time applications across industries. Node.js’s popularity continues to grow thanks to its vast ecosystem, active community, and constant evolution. Innovations like GraphQL further highlight its potential—enabling more efficient data handling and faster API performance. With its proven track record, scalable architecture, and future-forward capabilities, Node.js is not just a current trend—it’s a strategic choice for any business building for tomorrow.",
+    "category": "Services",
+    "sort_order": 159
+  },
+  {
+    "question": "What is PHP and what is it used for?",
+    "answer": "PHP is a powerful open-source server-side scripting language widely used for building dynamic websites and robust web applications. Known for its flexibility and efficiency, PHP enables developers to process form data, manage sessions, interact with various databases, manipulate server files, and create secure, interactive digital experiences. Its adaptability makes it suitable for projects of all sizes—from small business websites to large-scale platforms like WordPress, Magento, and even Facebook. With strong community support, extensive libraries, and continuous updates, PHP remains a reliable and cost-effective choice for businesses seeking scalable, high-performance backend solutions.",
+    "category": "Services",
+    "sort_order": 160
+  },
+  {
+    "question": "How does PHP differ from other programming languages?",
+    "answer": "PHP differentiates itself through its user-friendly syntax, making it accessible to developers across all experience levels—from beginners to seasoned professionals. Its cross-platform compatibility allows it to run seamlessly on various operating systems and web servers, giving businesses greater flexibility in deployment. This adaptability, combined with its vast library support and strong community backing, makes PHP a practical and versatile choice for developing a wide range of web applications efficiently and cost-effectively.",
+    "category": "Services",
+    "sort_order": 161
+  },
+  {
+    "question": "What are the key features and benefits of using PHP?",
+    "answer": "The key features and benefits of PHP lie in its ability to rapidly build and deploy web applications, making it an ideal choice for businesses seeking quick turnaround times. Its open-source nature ensures cost-effectiveness, eliminating licensing fees while providing robust performance. PHP also offers seamless integration with popular databases like MySQL, PostgreSQL, and MongoDB, allowing for efficient data handling and scalability. Additionally, its extensive library of built-in extensions simplifies complex development tasks—enabling developers to create secure, feature-rich, and highly functional applications with minimal overhead. Backed by a large and active community, PHP continues to evolve, offering dependable support and continual innovation.",
+    "category": "Services",
+    "sort_order": 162
+  },
+  {
+    "question": "What are the best practices for secure PHP development?",
+    "answer": "Secure PHP development involves a proactive approach to mitigating vulnerabilities and protecting user data. This includes implementing strong validation and sanitization methods to prevent common threats like SQL injection, cross-site scripting (XSS), and cross-site request forgery (CSRF). Developers must also stay current with the latest PHP security patches and follow best practices in secure coding to avoid introducing flaws. Regular security audits, proper session management, and the use of encryption for sensitive data transmission and storage further strengthen application integrity. By prioritising these practices, businesses can build reliable PHP applications that safeguard both users and digital assets.",
+    "category": "Services",
+    "sort_order": 163
+  },
+  {
+    "question": "How can PHP be integrated with various databases and frameworks?",
+    "answer": "PHP is highly compatible with powerful frameworks like <Link href='/services/Laravel-Development' className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}> Laravel</Link> and Symfony, which streamline the development of complex, scalable web applications. Its seamless integration with a wide range of databases—including MySQL, PostgreSQL, and MongoDB—supports efficient data management and flexible backend architectures. Widely trusted by major platforms like WordPress and Facebook, PHP demonstrates proven reliability and adaptability, making it a cornerstone technology for robust, high-performing digital solutions across industries.",
+    "category": "Services",
+    "sort_order": 164
+  },
+  {
+    "question": "Which Python frameworks do you work with?",
+    "answer": "We work with Django, FastAPI and Flask for web and APIs, plus the broader data and ML ecosystem—Pandas, NumPy, scikit-learn, PyTorch, TensorFlow and Airflow. We pick the right tool for your performance, complexity and team needs.",
+    "category": "Services",
+    "sort_order": 165
+  },
+  {
+    "question": "Can you build machine learning into our product?",
+    "answer": "Yes. We handle the full ML lifecycle—data preparation, model training, evaluation, deployment behind reliable APIs, and monitoring in production—for use cases like forecasting, recommendation, classification, NLP and computer vision.",
+    "category": "Services",
+    "sort_order": 166
+  },
+  {
+    "question": "Is Python fast enough for high-traffic systems?",
+    "answer": "For most workloads, yes—especially with async frameworks like FastAPI, efficient data access, caching and horizontal scaling. Where raw CPU performance is critical, we optimise hot paths or integrate lower-level components, so Python rarely becomes the bottleneck.",
+    "category": "Services",
+    "sort_order": 167
+  },
+  {
+    "question": "Can you modernise our existing Python application?",
+    "answer": "Absolutely. We refactor legacy code, migrate to current Python versions and frameworks, add automated tests, and improve architecture and performance—bringing ageing systems up to modern standards safely.",
+    "category": "Services",
+    "sort_order": 168
+  },
+  {
+    "question": "Do you handle deployment and DevOps?",
+    "answer": "Yes. We containerise with Docker, build CI/CD pipelines, deploy to AWS, Azure or GCP, and set up monitoring, logging and autoscaling so your Python services stay reliable and observable in production.",
+    "category": "Services",
+    "sort_order": 169
+  },
+  {
+    "question": "Can you build data pipelines and automation?",
+    "answer": "Definitely. We design ETL and data pipelines with tools like Airflow and Pandas, and build automation for scraping, reporting, integrations and scheduled workflows that remove manual effort and reduce errors.",
+    "category": "Services",
+    "sort_order": 170
+  },
+  {
+    "question": "What is React Native and how does it work?",
+    "answer": "React Native is an open-source JavaScript framework developed by Meta (formerly Facebook) for building native mobile applications on both iOS and Android platforms. It enables developers to create apps with a truly native look and feel by leveraging the same design principles and UI components used in traditional native apps. Built on the foundation of React—a widely adopted JavaScript library for building user interfaces—React Native extends its capabilities by rendering UI elements directly to mobile platforms rather than the web, allowing for seamless cross-platform development without sacrificing performance or user experience.",
+    "category": "Services",
+    "sort_order": 171
+  },
+  {
+    "question": "Is React Native suitable for all types of mobile apps?",
+    "answer": "React Native is well-suited for developing a broad spectrum of mobile applications, including those with complex animations, rich user interactions, offline capabilities, and the need to manage large volumes of data efficiently. Its cross-platform approach accelerates development while maintaining a high-quality user experience. However, for applications that demand extensive platform-specific features or deep integration with custom hardware, React Native may present limitations, and native development could be a more appropriate choice.",
+    "category": "Services",
+    "sort_order": 172
+  },
+  {
+    "question": "What are the key benefits of using React Native?",
+    "answer": "The primary benefits of using React Native include its efficiency in cross-platform development through a single codebase, the ability to create reusable components that streamline development, and access to a vibrant developer community that continually enhances the framework. These advantages lead to faster development cycles and significant cost savings, making React Native an attractive choice for businesses aiming to deliver high-quality mobile applications quickly and economically.",
+    "category": "Services",
+    "sort_order": 173
+  },
+  {
+    "question": "Are there any drawbacks to using React Native?",
+    "answer": "Some potential drawbacks of using React Native include:",
+    "category": "Services",
+    "sort_order": 174
+  },
+  {
+    "question": "How does React Native differ from other Javascript frameworks?",
+    "answer": "React Native stands out by enabling development with a single codebase across multiple platforms, significantly streamlining the development process. Its component-based architecture, combined with a focus on native rendering, facilitates efficient workflows and seamless integration of native elements. Unlike some traditional JavaScript frameworks that require separate codebases for each platform, React Native reduces fragmentation and complexity, allowing for faster development cycles and easier maintenance.",
+    "category": "Services",
+    "sort_order": 175
+  },
+  {
+    "question": "How much does it cost to develop a React Native app?",
+    "answer": "The cost of developing a React Native app depends on several factors, including the app’s complexity, the number of features and screens, and the extent of custom development required. We collaborate closely with you to understand your business needs and establish a budget that aligns with your project goals, ensuring a cost-effective and tailored solution.",
+    "category": "Services",
+    "sort_order": 176
+  },
+  {
+    "question": "How long does it take to develop a custom React Native mobile application?",
+    "answer": "The timeline for developing a React Native app varies based on your project’s scope and complexity. Reach out to us, and we’ll be glad to discuss your specific requirements to provide a clear and accurate estimate for both development time and costs.",
+    "category": "Services",
+    "sort_order": 177
+  },
+  {
+    "question": "What is the difference between React.JS and React Native?",
+    "answer": "React.js and React Native, both developed by Meta (formerly Facebook), serve distinct purposes within application development. React.js is designed primarily for building dynamic web applications, focusing on creating user interfaces that render efficiently in browsers. In contrast, React Native leverages similar JavaScript and React principles to build mobile applications that deliver a native look and feel on iOS and Android devices, enabling cross-platform mobile development with a single codebase.",
+    "category": "Services",
+    "sort_order": 178
+  },
+  {
+    "question": "What is React.js and why use it?",
+    "answer": "React.js is a leading JavaScript library used for building modern, high-performing user interfaces. Its component-based architecture allows developers to create modular, reusable UI elements, significantly improving development speed and consistency. This approach not only streamlines the coding process but also simplifies long-term maintenance and scalability. React’s efficient rendering engine ensures optimal performance, even in complex and data-intensive applications. These capabilities make it a strategic choice for businesses seeking to develop robust, scalable, and user-friendly digital products that can adapt quickly to evolving market demands.",
+    "category": "Services",
+    "sort_order": 179
+  },
+  {
+    "question": "What are the key benefits of using React?",
+    "answer": "The key advantages of using React include its component-based architecture, which promotes code reusability and accelerates development timelines. Its virtual DOM enhances performance by efficiently updating only necessary elements, while unidirectional data flow ensures predictable and maintainable application behavior. Additionally, React benefits from a vast ecosystem and an active community, providing businesses with access to a wealth of tools, resources, and continuous innovation—making it a reliable foundation for scalable, high-quality digital solutions.",
+    "category": "Services",
+    "sort_order": 180
+  },
+  {
+    "question": "How does React differ from other Javascript frameworks?",
+    "answer": "React distinguishes itself through a combination of powerful features that enhance both development efficiency and application performance. Its use of a virtual DOM enables fast and responsive user interfaces by updating only the necessary components. The component-based structure encourages the creation of reusable UI elements, promoting consistency and reducing development time. React’s one-way data flow ensures predictable application behavior, simplifying debugging and maintenance. Moreover, its declarative programming style allows developers to focus on defining what the UI should look like, rather than how to implement every detail—resulting in cleaner, more maintainable code and a streamlined development process.",
+    "category": "Services",
+    "sort_order": 181
+  },
+  {
+    "question": "How does React handle data management?",
+    "answer": "In React, data flows in a single direction—from parent components to their child components—ensuring a clear and predictable structure for managing application state. When a parent component’s state changes, those updates are seamlessly propagated to its children, maintaining consistency throughout the user interface. For applications requiring more advanced state management, tools such as Redux can be integrated to handle complex state logic, enabling better control, scalability, and maintainability in larger or data-intensive projects.",
+    "category": "Services",
+    "sort_order": 182
+  },
+  {
+    "question": "Is React suitable for SEO-friendly applications?",
+    "answer": "Yes, React can be utilized on the server side to render the initial view of an application—a technique known as server-side rendering (SSR). This approach significantly enhances search engine visibility by delivering fully-rendered HTML content that can be easily indexed by search engines. By improving SEO performance and reducing initial load times, SSR ensures that applications are both discoverable and fast, which is especially beneficial for businesses looking to maximize their digital reach and user engagement from the outset.",
+    "category": "Services",
+    "sort_order": 183
+  },
+  {
+    "question": "How long does it take to develop a custom React solution?",
+    "answer": "The timeline for developing a custom React application depends on the scope, complexity, and specific requirements of your project. Smaller applications with standard features can be delivered relatively quickly, while more complex solutions may take longer to design, develop, and test thoroughly. Once we understand your goals and needs in more detail, we’ll provide a clear and realistic timeline tailored to your project. Just reach out for a quick, no-pressure consultation.",
+    "category": "Services",
+    "sort_order": 184
+  },
+  {
+    "question": "What is Ruby on Rails used for?",
+    "answer": "Ruby on Rails is a powerful and versatile <Link href='/services/Web-Development' className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}> web development</Link> framework widely adopted for building dynamic, feature-rich web applications. Known for its efficiency and developer-friendly conventions, Rails is used to create a wide variety of solutions, including content management systems (CMS), e-commerce platforms, customer relationship management (CRM) tools, project management applications, and other bespoke systems tailored to unique business needs. Its foundation on the Model-View-Controller (MVC) architecture, combined with a strong emphasis on convention over configuration, allows for rapid development without compromising code quality or scalability. This makes it particularly well-suited for businesses that require fast, reliable deployment of robust web applications. Whether you’re launching a startup or expanding enterprise operations, Ruby on Rails offers a flexible, maintainable, and user-friendly framework that supports growth and innovation across industries.",
+    "category": "Services",
+    "sort_order": 185
+  },
+  {
+    "question": "Why choose Ruby on Rails for web app development?",
+    "answer": "Choosing Ruby on Rails for your web application development is a strategic decision that combines efficiency, scalability, and cost-effectiveness. Its streamlined framework allows for faster development cycles, helping you bring products to market quickly without compromising on quality. With a strong emphasis on convention over configuration, Rails simplifies complex tasks and reduces development overhead. Backed by a vibrant community and extensive library of tools, our team can build robust, high-performing web apps that are easy to maintain and scale. Best of all, it supports long-term growth while keeping costs manageable—so you can focus on delivering an exceptional user experience that drives business success.",
+    "category": "Services",
+    "sort_order": 186
+  },
+  {
+    "question": "How long does it take to build a Ruby on Rails app?",
+    "answer": "The time required to build a Ruby on Rails application depends largely on the complexity, scope, and specific requirements of the project. A basic app with standard features may take a few weeks to a couple of months, whereas more complex, feature-rich applications—such as those involving custom integrations, third-party APIs, or advanced user roles—can take several months or more. Key factors that influence the timeline include the level of customisation, number of features, performance requirements, and integration with external systems. At Grey InfoTech, we streamline this process by working closely with you to define a clear project plan from the outset. With experienced Ruby on Rails developers, structured workflows, and ongoing collaboration, we help accelerate development while ensuring quality, scalability, and a smooth delivery.",
+    "category": "Services",
+    "sort_order": 187
+  },
+  {
+    "question": "Can you build a social app that scales to millions of users?",
+    "answer": "Yes. We architect for scale from the start—horizontally scalable services, efficient feed fan-out, caching, search, media CDNs and observability—so your platform grows smoothly from launch to millions of active users.",
+    "category": "Services",
+    "sort_order": 188
+  },
+  {
+    "question": "Do you implement real-time chat and feeds?",
+    "answer": "Absolutely. We use WebSockets and proven real-time infrastructure to deliver instant messaging, live feeds, presence and notifications that feel immediate even at high concurrency.",
+    "category": "Services",
+    "sort_order": 189
+  },
+  {
+    "question": "How do you handle content moderation and safety?",
+    "answer": "We build a full trust and safety layer: automated and manual moderation, reporting and blocking, spam and abuse prevention, privacy controls and admin tooling—protecting your community and brand.",
+    "category": "Services",
+    "sort_order": 190
+  },
+  {
+    "question": "Can you build for both web and mobile?",
+    "answer": "Yes. We build responsive web apps and native or cross-platform mobile apps (including Flutter and React Native), sharing a common API and real-time back-end so the experience is consistent everywhere.",
+    "category": "Services",
+    "sort_order": 191
+  },
+  {
+    "question": "What about monetisation?",
+    "answer": "We can integrate subscriptions, in-app purchases, ads, creator payouts and tipping, designing monetisation that fits your community without harming the experience that keeps users engaged.",
+    "category": "Services",
+    "sort_order": 192
+  },
+  {
+    "question": "How do you keep users engaged and retained?",
+    "answer": "We design engagement mechanics—personalised feeds, well-timed notifications, reactions, gamification and discovery—backed by analytics that show what works, so you can grow retention with data.",
+    "category": "Services",
+    "sort_order": 193
+  },
+  {
+    "question": "What is TypeScript used for?",
+    "answer": "TypeScript is a powerful programming language that enhances JavaScript by introducing static typing and advanced development tools. By enforcing type definitions, it helps identify errors early in the development cycle, reducing risks and improving overall code reliability. This structured approach not only strengthens code quality and maintainability but also makes managing complex software projects more efficient. In essence, TypeScript fortifies JavaScript, providing a robust, scalable foundation for building high-performing, enterprise-ready applications.",
+    "category": "Services",
+    "sort_order": 194
+  },
+  {
+    "question": "Why is enterprise web development moving toward TypeScript?",
+    "answer": "TypeScript is an ideal choice for large-scale enterprise web development, providing a robust foundation for creating high-quality, maintainable, and scalable applications. Its strong typing and built-in safety features minimize the risk of common coding errors, ensuring a reliable and stable codebase over the long term. By introducing a higher level of structure, code organization, and quality control, TypeScript enables teams to manage complex projects efficiently while supporting future growth. For enterprise-level initiatives where precision, scalability, and long-term viability are critical, TypeScript proves to be an invaluable technology.",
+    "category": "Services",
+    "sort_order": 195
+  },
+  {
+    "question": "How long does it take to develop a custom TypeScript solution?",
+    "answer": "The timeline for developing a bespoke TypeScript solution varies based on the scope, complexity, and specific features of your project. At Grey InfoTech, we prioritize transparency and efficiency, providing a clear and realistic estimate of development timelines early in the engagement. By assessing requirements upfront and aligning resources strategically, we ensure your project progresses smoothly, with milestones that keep delivery on track and support your business objectives.",
+    "category": "Services",
+    "sort_order": 196
+  },
+  {
+    "question": "What is a web app?",
+    "answer": "Web applications, or web apps, are software programs accessed through a web browser and hosted on remote servers. Unlike traditional desktop software, they don’t require installation, making them easily accessible from any device with an internet connection. This flexibility allows businesses to reach users across platforms—desktop, tablet, or mobile—without added complexity or setup. Built using technologies like HTML, CSS, and JavaScript, web apps run through browsers such as Chrome, Firefox, and Safari. The application logic and data are managed on a central server, while users interact through a web-based interface. This setup simplifies updates, reduces maintenance, and provides a cost-effective way for businesses to deliver reliable, scalable digital solutions.",
+    "category": "Services",
+    "sort_order": 197
+  },
+  {
+    "question": "Where are you located?",
+    "answer": "<span className={'text-start items-start lg:text-[1.4em] md:text-[1.4em] sm:text-base text-base font-[600]'}>Port Harcourt, Rivers State Office:</span> We are located at #9 Geoffrey Tata Close, Rumuewhara New Layout, off Eneka - Igwurita Road, Port Harcourt, 500102 Transport: From Eneka we are less than 5 mins drive From Tank we are less than 7 mins drive From Rumuokwurusi we are less than 15 mins drive From Eliozu bridge we are less than 25 mins drive",
+    "category": "Services",
+    "sort_order": 198
+  },
+  {
+    "question": "What are progressive web apps?",
+    "answer": "Progressive Web Apps (PWAs) are a modern approach to web application development that bridges the gap between traditional websites and native mobile applications. They are designed to deliver fast, reliable, and engaging user experiences across all platforms—desktop, tablet, and mobile—using just a web browser. Built with the latest web standards, PWAs allow businesses to offer app-like functionality without requiring users to download or install anything from an app store. This makes them a cost-effective, scalable, and efficient solution for companies aiming to reach a wider audience and improve digital engagement. PWAs offer a range of powerful features that benefit both users and businesses:",
+    "category": "Services",
+    "sort_order": 199
+  },
+  {
+    "question": "Do you offshore or outsource your web app development services?",
+    "answer": "Not at all. While you can outsource your web development project to us, we never outsource any part of our work. As a 100% Nigerian-based web development company with our office in Port Harcourt, Rivers State, all of our developers and engineering team are based locally. This ensures complete quality control, clear communication, and direct accountability—every project is handled in-house by our expert team here in Rivers State.",
+    "category": "Services",
+    "sort_order": 200
+  },
+  {
+    "question": "What is the difference between Web App Development <br className={'lg:block md:block hidden'}/>and Web Development?",
+    "answer": "<span className={'font-[500]'}>What is web development?</span> Web development is the process of creating and maintaining websites. It covers everything from building basic static pages to developing fully interactive, database-driven websites. It includes both front-end (what users see and interact with) and back-end (the server-side logic and infrastructure) development, ensuring a complete and functional web presence. <span className={'font-[500] mb-6'}>What is web application development?</span> Web application development is a specialised branch of web development focused on building application-like software that runs in a web browser. These web apps are typically more interactive, dynamic, and feature-rich than standard websites, often functioning like traditional desktop or mobile applications while being accessible via the internet. <span className={'font-[500] mb-6'}>What are the key differences in skills required for web development and web app development?</span> While both disciplines require a foundation in HTML, CSS, and JavaScript, web app development demands more advanced expertise. Developers must be proficient in front-end frameworks like React, Angular, or Vue, as well as back-end technologies such as Node.js, Laravel, or ASP.NET. Additionally, skills in database integration, API development, state management, and handling real-time user interactions are often essential for web app projects. <span className={'font-[500]'}>Can a web development company build a web app?</span> Yes, many web development companies are fully capable of building web applications—provided they have the right expertise and experience. Developing a robust, scalable web app requires a deeper level of technical know-how, including architectural planning, performance optimisation, and security best practices. It's important to choose a partner with proven experience in both web and web app development to ensure your solution is reliable, efficient, and future-ready.",
+    "category": "Services",
+    "sort_order": 201
+  },
+  {
+    "question": "How do web applications work?",
+    "answer": "Web applications are generally made up of two main components: the client side and the server side. The client-side component—often referred to as the front end—is the part users interact with directly in their web browser. The server-side component—also known as the back end—handles the behind-the-scenes logic, data processing, and database interactions, and runs on a remote web server. Together, these components work seamlessly to deliver interactive and dynamic user experiences over the internet.",
+    "category": "Services",
+    "sort_order": 202
+  },
+  {
+    "question": "What technologies are used to build web applications?",
+    "answer": "Web applications are built using a combination of front-end and back-end technologies. On the front end—the user-facing part—common tools include HTML, CSS, and JavaScript, along with modern frameworks like React, Angular, and Vue.js that enable rich, interactive user interfaces. On the back end, which handles the logic, data, and server operations, developers often use languages and frameworks such as PHP, Python (with Django or Flask), Ruby on Rails, Node.js, or Laravel. Databases like MySQL, PostgreSQL, and MongoDB are also commonly used to store and manage application data. These technologies work together to create powerful, scalable, and responsive web applications.",
+    "category": "Services",
+    "sort_order": 203
+  },
+  {
+    "question": "What are the advantages of web applications?",
+    "answer": "Web applications offer high accessibility, allowing users to access them from any internet-connected device—whether it's a desktop, tablet, or smartphone. Because they run in a web browser, there’s no need for installations or manual updates. This makes maintenance and deployment seamless, enabling businesses to roll out improvements and new features instantly, without disrupting the user experience.",
+    "category": "Services",
+    "sort_order": 204
+  },
+  {
+    "question": "What kind of websites does Grey InfoTech design and build?",
+    "answer": "Grey InfoTech designs and develops high-performing, custom websites tailored to support specific business objectives. We create everything from corporate websites, product landing pages, and e-commerce platforms to advanced web applications and internal business portals. Each website is built with your brand, audience, and conversion goals in mind.",
+    "category": "Services",
+    "sort_order": 205
+  },
+  {
+    "question": "How does web design help my business grow?",
+    "answer": "A professionally designed website acts as your digital storefront—it's often the first point of contact for customers. A well-designed website improves brand perception, enhances customer experience, builds credibility, and drives conversions. At Grey InfoTech, we focus on design that not only looks great but also helps your business achieve measurable outcomes like increased leads, sales, or engagement.",
+    "category": "Services",
+    "sort_order": 206
+  },
+  {
+    "question": "What industries do you work with?",
+    "answer": "We work with startups, SMEs, and enterprises across a variety of sectors, including technology, logistics, education, healthcare, finance, real estate, and professional services. Our team adapts design and functionality to meet the specific needs and expectations of your industry and customers.",
+    "category": "Services",
+    "sort_order": 207
+  },
+  {
+    "question": "What is included in Grey InfoTech’s web design service?",
+    "answer": "Our web design service includes:",
+    "category": "Services",
+    "sort_order": 208
+  },
+  {
+    "question": "How long does it take to design and launch a website?",
+    "answer": "Timelines vary depending on the project scope. A simple website with standard features can be delivered in 3 to 4 weeks, while larger or custom-built sites with advanced integrations may take 8 to 20+ weeks. We provide clear timelines after our initial discovery and planning phase.",
+    "category": "Services",
+    "sort_order": 209
+  },
+  {
+    "question": "Will my website be mobile-friendly and responsive?",
+    "answer": "Yes, all websites we design are mobile-responsive by default. We ensure your site delivers an excellent user experience on smartphones, tablets, laptops, and desktops—supporting all major browsers and devices.",
+    "category": "Services",
+    "sort_order": 210
+  },
+  {
+    "question": "Can you redesign my existing website?",
+    "answer": "Absolutely. We offer website redesign services that improve performance, update the user interface, and modernize your brand’s online presence—while keeping what’s working and upgrading what’s not. Redesign projects are treated with the same strategic care as new builds.",
+    "category": "Services",
+    "sort_order": 211
+  },
+  {
+    "question": "Will I be able to manage and update the website myself?",
+    "answer": "Yes. If you opt for a CMS-powered website (such as WordPress), we provide easy-to-use admin tools and training so your team can update content, images, blogs, and more—without needing technical expertise.",
+    "category": "Services",
+    "sort_order": 212
+  },
+  {
+    "question": "What kind of web development projects do you do?",
+    "answer": "From eCommerce platforms and CMS development to custom feature builds and third-party integrations—when it comes to web development, chances are we’ve done it. With experience across hundreds of projects, we’ve delivered everything from simple one-page WordPress sites to complex, large-scale eCommerce platforms for well-known brands. What sets us apart is our ability to take proven, reliable technologies and apply them creatively to deliver digital products that are not only robust and scalable, but truly impactful for your business.",
+    "category": "Services",
+    "sort_order": 213
+  },
+  {
+    "question": "Do you develop mobile apps?",
+    "answer": "Yes, we do. We develop high-quality mobile applications for both <Link href={'/services/ios-development'} className={`border-b pb-[0.05em] ${ isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black' }`}>iOS</Link> and Android, complete with the robust back-end systems and APIs needed to deliver seamless functionality. From initial planning and UI/UX design to full-stack development and deployment, we manage the entire process in-house. Whether you’re building a standalone app or extending an existing platform, we create fast, scalable, and user-friendly solutions tailored to your business needs.",
+    "category": "Services",
+    "sort_order": 214
+  },
+  {
+    "question": "What tech should my website or app be built on?",
+    "answer": "While some developers push their favourite tools, we believe that’s putting technology before purpose. There’s no single “right” tech—only the right tech for your unique goals. That’s why we take the time to understand your current stack, your long-term vision, and the features that matter most to your users. From there, we recommend the most efficient and scalable solution to bring your product to life—balancing performance, maintainability, and future growth.",
+    "category": "Services",
+    "sort_order": 215
+  },
+  {
+    "question": "Does web development affect SEO?",
+    "answer": "Web development and search engine performance are closely intertwined, especially as Google places increasing importance on page loading speed. Today, the speed and responsiveness of your website or application directly influence not only user experience but also your visibility in search results. A fast, well-optimized site helps attract and retain visitors, improves engagement, and ultimately drives more traffic and conversions. Investing in performance is no longer optional—it’s essential for staying competitive and discoverable in the digital landscape.",
+    "category": "Services",
+    "sort_order": 216
+  },
+  {
+    "question": "What types of AI solutions do you develop?",
+    "answer": "We build a wide range of AI-powered solutions, including:",
+    "category": "Services",
+    "sort_order": 217
+  },
+  {
+    "question": "How do I know if AI is right for my business?",
+    "answer": "If your business deals with large volumes of data, repetitive tasks, or requires real-time decision-making, AI can provide significant value. During our consultation, we assess your use case and advise whether AI will provide measurable ROI or if another tech solution is more suitable.",
+    "category": "Services",
+    "sort_order": 218
+  },
+  {
+    "question": "How long does it take to develop an AI solution?",
+    "answer": "Development timelines vary depending on project complexity, data availability, and required integrations. Typically:",
+    "category": "Services",
+    "sort_order": 219
+  },
+  {
+    "question": "Do I need to provide my own data?",
+    "answer": "In most cases, yes — AI models need data to learn. We’ll work with your existing data, help clean and prepare it, and where needed, supplement it with third-party datasets. If you don't have data, we can explore synthetic data or public sources depending on the use case.",
+    "category": "Services",
+    "sort_order": 220
+  },
+  {
+    "question": "How accurate are your AI models?",
+    "answer": "Accuracy depends on the quality and quantity of data, the problem being solved, and model complexity. We benchmark model performance throughout development and use continuous learning and optimization to improve results over time. Transparency and explainability are part of our delivery.",
+    "category": "Services",
+    "sort_order": 221
+  },
+  {
+    "question": "How do you ensure data privacy and compliance?",
+    "answer": "We follow strict data protection protocols aligned with regulations such as GDPR, HIPAA, and local laws. Our AI solutions are developed with security-first principles and anonymization techniques where applicable. All client data is handled with full confidentiality.",
+    "category": "Services",
+    "sort_order": 222
+  },
+  {
+    "question": "What industries do you serve with AI solutions?",
+    "answer": "We deliver tailored AI solutions across a wide range of industries, helping businesses solve real-world problems and drive innovation:",
+    "category": "Services",
+    "sort_order": 223
+  },
+  {
+    "question": "Do you provide post-launch support and maintenance?",
+    "answer": "Yes, at Grey InfoTech, our commitment doesn’t end at deployment. We offer comprehensive post-launch support, including system monitoring, model retraining, performance optimisation, and ongoing maintenance. As your data evolves, we ensure your AI models stay accurate, relevant, and aligned with your business objectives—delivering continuous value over time.",
+    "category": "Services",
+    "sort_order": 224
+  },
+  {
+    "question": "What types of Android applications does Grey InfoTech develop?",
+    "answer": "We develop a wide range of Android applications tailored to meet specific business needs across industries. This includes e-commerce platforms, on-demand service apps, enterprise tools, health and lifestyle apps, logistics solutions, educational platforms, and customer engagement applications. Whether you're building a standalone Android app or part of a larger digital strategy, we provide scalable, secure, and high-performance solutions.",
+    "category": "Services",
+    "sort_order": 225
+  },
+  {
+    "question": "Why should my business invest in Android app development?",
+    "answer": "Android powers over 70% of the global mobile market, making it essential for businesses targeting large or diverse audiences. Investing in Android development allows you to reach users across a wide variety of devices and regions. It offers greater flexibility, faster deployment to the Google Play Store, and robust integration with Google’s ecosystem (Maps, Firebase, Analytics, etc.), enabling advanced features and rich user experiences.",
+    "category": "Services",
+    "sort_order": 226
+  },
+  {
+    "question": "What is the development process for Android apps?",
+    "answer": "At Grey InfoTech follow a structured, agile development process that begins with understanding your business objectives and technical requirements. Our services include UX/UI design, native development using Kotlin or Java, rigorous QA testing, Play Store deployment, and ongoing post-launch support. We prioritize user experience, performance, and long-term scalability in every project.",
+    "category": "Services",
+    "sort_order": 227
+  },
+  {
+    "question": "How long does it take to develop an Android application?",
+    "answer": "The timeline depends on the complexity and scope of the app. A basic Android app typically takes 6 to 10 weeks, while mid-level and advanced apps with custom features, third-party integrations, or enterprise requirements may take 12 to 20+ weeks. We provide a clear project plan and timelines after the discovery phase.",
+    "category": "Services",
+    "sort_order": 228
+  },
+  {
+    "question": "What is the cost of developing an Android application?",
+    "answer": "The cost of Android app development is determined by your unique requirements, such as features, integrations, design complexity, and target audience. Instead of flat pricing, we offer custom proposals that reflect your business goals and technical needs. This ensures you receive maximum value for your investment. After an initial consultation, we provide a transparent estimate aligned with your budget and timeline.",
+    "category": "Services",
+    "sort_order": 229
+  },
+  {
+    "question": "Will Grey InfoTech help with publishing the app on the Google Play Store?",
+    "answer": "Absolutely. We handle all aspects of Play Store submission, including setting up your developer account, preparing assets (icons, screenshots, descriptions), compliance with Google’s policies, and managing updates post-launch.",
+    "category": "Services",
+    "sort_order": 230
+  },
+  {
+    "question": "Do you provide maintenance and updates after the app goes live?",
+    "answer": "Yes. We offer post-launch support packages that include app monitoring, bug fixing, performance optimization, security updates, and the rollout of new features. This ensures your Android app remains current, reliable, and aligned with evolving business goals.",
+    "category": "Services",
+    "sort_order": 231
+  },
+  {
+    "question": "Can the app integrate with my existing systems and third-party services?",
+    "answer": "Definitely. We specialize in integrating Android apps with internal business systems (ERP, CRM), payment gateways, geolocation services, push notifications, analytics platforms, and more. Our goal is to create a seamless and efficient digital experience that supports your workflows and customer engagement.",
+    "category": "Services",
+    "sort_order": 232
+  },
+  {
+    "question": "Why partner with Grey InfoTech for Android development?",
+    "answer": "With over a decade of experience delivering bespoke software solutions, Grey InfoTech combines deep technical expertise with business insight. Our Android development team is focused on delivering reliable, user-friendly, and scalable apps that help businesses innovate, operate more efficiently, and grow faster in a mobile-first world.",
+    "category": "Services",
+    "sort_order": 233
+  },
+  {
+    "question": "Who develops Angular?",
+    "answer": "Angular, developed and actively maintained by Google, stands as a highly reliable and mature framework supported by one of the world’s leading technology companies. This backing guarantees regular updates, security patches, and continuous enhancements aligned with the evolving web standards and developer needs. The strong and vibrant Angular ecosystem, including extensive tooling, libraries, and community support, ensures that your applications remain modern, scalable, and competitive in today’s fast-paced digital landscape. Partnering with Angular means investing in a future-proof technology that empowers your business with stability, innovation, and ongoing industry best practices.",
+    "category": "Services",
+    "sort_order": 234
+  },
+  {
+    "question": "What is Angular, and why was it introduced?",
+    "answer": "Angular is a robust, full-featured framework for building client-side applications that streamlines the development of sophisticated, high-performance web solutions. Designed with scalability and maintainability in mind, Angular empowers developers to create visually compelling and highly responsive user interfaces that deliver seamless user experiences across devices. Its comprehensive UI/UX development capabilities, combined with powerful tools for modular architecture and data binding, enable businesses to deploy efficient, secure, and scalable applications that meet modern digital demands and drive measurable value.",
+    "category": "Services",
+    "sort_order": 235
+  },
+  {
+    "question": "What are Single Page Applications (SPAs), and how do they work?",
+    "answer": "Single Page Applications (SPAs) are web applications that load a single HTML page initially and dynamically update content as users interact with the app. This approach significantly enhances performance by minimizing full-page reloads and delivering a smoother, more responsive user experience. SPAs enable faster navigation and seamless transitions, making them ideal for modern web applications focused on high interactivity and optimal usability.",
+    "category": "Services",
+    "sort_order": 236
+  },
+  {
+    "question": "How Grey InfoTech Elevates App Visibility in Stores?",
+    "answer": "Grey InfoTech enhances the discoverability and performance of your app by employing a comprehensive App Store Optimization strategy. Our approach includes meticulous optimization of app metadata, strategic keyword selection, and visually compelling assets, ensuring your app stands out in highly competitive marketplaces. Additionally, we implement continuous A/B testing and performance analysis to refine user engagement and conversion rates, aligning every element with user intent and market trends. By combining data-driven insights with industry best practices, we help your app achieve higher visibility, attract quality users, and maximize organic growth across both the App Store and Google Play.",
+    "category": "Services",
+    "sort_order": 237
+  },
+  {
+    "question": "Does ASO Impact Both iOS and Android?",
+    "answer": "Absolutely. Grey InfoTech implements App Store Optimization strategies specifically tailored to the unique algorithms and ranking factors of both Apple’s App Store and Google Play Store. By customizing approaches for each platform—ranging from metadata optimization and keyword strategy to visual assets and user engagement tactics—we ensure your app achieves maximum visibility, higher rankings, and increased downloads across both ecosystems.",
+    "category": "Services",
+    "sort_order": 238
+  },
+  {
+    "question": "How Often Should ASO Be Updated?",
+    "answer": "We recommend reviewing and updating your App Store Optimization strategy every 4 to 6 weeks to ensure optimal performance. Updates are guided by data-driven insights, seasonal trends, and shifts in user behavior, allowing your app to remain competitive, maintain high visibility, and continuously attract quality downloads. Regular optimization ensures that both metadata and visual assets are aligned with evolving market conditions and platform algorithm changes.",
+    "category": "Services",
+    "sort_order": 239
+  },
+  {
+    "question": "What is back-end development?",
+    "answer": "Back-end development refers to the server-side of application development. It involves creating and managing the infrastructure, databases, application logic, and APIs that power the functionality users experience on the front-end. It ensures that data is stored, processed, and delivered efficiently and securely behind the scenes.",
+    "category": "Services",
+    "sort_order": 240
+  },
+  {
+    "question": "How is back-end development different from front-end development?",
+    "answer": "Front-end development focuses on the user interface—what users see and interact with, such as layouts, buttons, and forms. Back-end development, on the other hand, handles the behind-the-scenes logic, server operations, database interactions, and APIs that power those visual elements and ensure the application functions reliably and securely.",
+    "category": "Services",
+    "sort_order": 241
+  },
+  {
+    "question": "Why is back-end development important?",
+    "answer": "Back-end development is the foundation of any robust application. It manages data processing, storage, and system communication—ensuring that everything works seamlessly behind the scenes. A strong back-end is essential for performance, reliability, and security, enabling your application to function efficiently and scale as your business grows.",
+    "category": "Services",
+    "sort_order": 242
+  },
+  {
+    "question": "What programming languages are used in back-end development?",
+    "answer": "Common programming languages for back-end development include <Link href={'/services/Python-Development'} className={`border-b pb-[0.1em] ${ isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black' }`}>Python</Link>, <Link href={'/services/Javascript'} className={`border-b pb-[0.1em] ${ isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black' }`}>Java</Link>, <Link href={'/services/PHP-Development'} className={`border-b pb-[0.1em] ${ isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black' }`}>PHP</Link>, <Link href={'/services/Ruby-on-Rails'} className={`border-b pb-[0.1em] ${ isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black' }`}>Ruby</Link>, <Link href={'/services/Nodejs-Development'} className={`border-b pb-[0.1em] ${ isDayTime ? 'border-gray-500 hover:border-white' : 'border-gray-500 hover:border-black' }`}>Node.js</Link> (JavaScript), and C#. Each language offers distinct advantages in terms of scalability, speed, or ecosystem support. The choice of language depends on your project’s specific needs, performance goals, and long-term scalability requirements.",
+    "category": "Services",
+    "sort_order": 243
+  },
+  {
+    "question": "What is an API and why is it important for the back-end?",
+    "answer": "An API (Application Programming Interface) enables communication between the back-end and other systems, such as the frontend or third-party services. It acts as a bridge, allowing data to be exchanged securely and efficiently. APIs are critical for enabling integrations, powering mobile and web apps, and ensuring that your platform can scale and evolve with new features or external tools.",
+    "category": "Services",
+    "sort_order": 244
+  },
+  {
+    "question": "How do you secure the back-end?",
+    "answer": "Securing the back-end involves a multi-layered approach, including data encryption, robust authentication and authorization protocols (such as OAuth and JWT), secure API development, input validation to prevent injection attacks, and the use of firewalls. Regular security audits and vulnerability assessments are also essential to identify and mitigate potential risks, ensuring your system remains safe and compliant.",
+    "category": "Services",
+    "sort_order": 245
+  },
+  {
+    "question": "How do you choose the right database for the back-end?",
+    "answer": "Choosing the right database depends on your application's data structure, performance needs, and scalability goals. Relational databases like MySQL or PostgreSQL are ideal for structured data and complex queries, while NoSQL databases like MongoDB offer flexibility for unstructured data and rapid scaling. We assess your business requirements to recommend the most suitable option for long-term performance and growth.",
+    "category": "Services",
+    "sort_order": 246
+  },
+  {
+    "question": "What is the role of DevOps in back-end development?",
+    "answer": "DevOps plays a crucial role in streamlining back-end development by automating processes and improving collaboration between development and operations teams. Practices like Continuous Integration/Continuous Deployment (CI/CD), automated testing, and containerisation with tools like Docker and Kubernetes enable faster releases, reduce downtime, and ensure scalable, reliable systems. This leads to more efficient development cycles and better-performing back-end infrastructure.",
+    "category": "Services",
+    "sort_order": 247
+  },
+  {
+    "question": "How is performance optimised in a back-end system?",
+    "answer": "Performance in back-end systems is optimised using strategies like caching with tools such as Redis or Memcached, implementing database indexing, and balancing traffic across servers. Additionally, writing efficient server-side logic and optimising database queries help ensure the system can handle high user loads while maintaining speed and responsiveness. These practices collectively enhance user experience and support business scalability.",
+    "category": "Services",
+    "sort_order": 248
+  },
+  {
+    "question": "How long does it take to build a back-end?",
+    "answer": "The development timeline depends on the complexity, required features, and third-party integrations. A basic back-end can be built in 6–24 weeks, while more advanced systems involving complex logic, APIs, and scalability considerations may take several months. Clear requirements and efficient planning help speed up delivery.",
+    "category": "Services",
+    "sort_order": 249
+  },
+  {
+    "question": "How much does back-end development cost?",
+    "answer": "The cost of back-end development varies based on the project’s scope, chosen technologies, team expertise, and complexity. Small-scale projects may start from a few thousand pounds, while enterprise-level systems with advanced features and integrations can range into tens of thousands. A detailed project brief helps provide an accurate estimate.",
+    "category": "Services",
+    "sort_order": 250
+  },
+  {
+    "question": "How do you integrate a new back-end with existing systems?",
+    "answer": "Integration involves designing or adapting APIs, synchronising databases, and ensuring seamless communication between the new back-end and existing systems. This requires careful planning, thorough testing, and often middleware or data mapping to ensure compatibility and minimise disruption.",
+    "category": "Services",
+    "sort_order": 251
+  },
+  {
+    "question": "What kind of support is required for a back-end?",
+    "answer": "Ongoing support for a back-end includes performance monitoring, security updates, bug fixes, and adapting to new business needs. It also involves server maintenance, database optimisation, and ensuring uptime, scalability, and compliance with evolving technical standards.",
+    "category": "Services",
+    "sort_order": 252
+  },
+  {
+    "question": "Do I build or buy back-end software?",
+    "answer": "It depends on your business needs, budget, and timeline. Building a custom back-end gives you full control, flexibility, and scalability tailored to your goals. Buying or using pre-built solutions can save time and cost upfront but may lack the adaptability or specific features your project requires. A hybrid approach is also possible—customising existing tools to suit your needs.",
+    "category": "Services",
+    "sort_order": 253
+  },
+  {
+    "question": "What is serverless architecture and is it suitable for all back-ends?",
+    "answer": "Serverless architecture lets you run backend code without managing server infrastructure—cloud providers automatically allocate resources as needed. It's ideal for lightweight, event-driven workloads (like image processing, form submissions, or notifications). However, it may not be suitable for applications requiring persistent connections, complex computations, or high-volume processing, where traditional server setups offer better control and performance.",
+    "category": "Services",
+    "sort_order": 254
+  },
+  {
+    "question": "How does cloud computing impact back-end development?",
+    "answer": "Cloud computing significantly enhances back-end development by providing on-demand infrastructure, scalability, and high availability. It simplifies resource provisioning, allows for rapid deployment, and supports automation through services like CI/CD pipelines. Developers can scale applications efficiently, reduce operational costs, and ensure better uptime using platforms like AWS, Azure, or Google Cloud.",
+    "category": "Services",
+    "sort_order": 255
+  },
+  {
+    "question": "What is the role of microservices in modern back-end development?",
+    "answer": "Microservices architecture divides the back-end into small, independent services, each responsible for a specific function. This modular approach improves scalability, enables faster development cycles, enhances fault isolation, and allows teams to use different technologies for different services. It’s ideal for complex applications that need to scale and evolve quickly.",
+    "category": "Services",
+    "sort_order": 256
+  },
+  {
+    "question": "How can AI and machine learning be added to the back-end?",
+    "answer": "AI and machine learning can be integrated into the back-end to enhance functionality such as data analysis, user personalisation, predictive analytics, and automation. The back-end processes data through trained ML models—either in real-time or in batches—and then delivers intelligent outputs like recommendations, classifications, or forecasts to the frontend or other systems. This adds value by enabling smarter, data-driven decision-making within the application.",
+    "category": "Services",
+    "sort_order": 257
+  },
+  {
+    "question": "Which blockchain platforms do you work with?",
+    "answer": "We work across Ethereum and EVM-compatible chains (Polygon, BSC, Arbitrum, Optimism), Solana, and permissioned ledgers like Hyperledger Fabric. We choose the right platform based on your performance, cost, finality and governance requirements rather than defaulting to a single ecosystem.",
+    "category": "Services",
+    "sort_order": 258
+  },
+  {
+    "question": "Do you audit smart contracts?",
+    "answer": "Yes. Every contract goes through automated static analysis, comprehensive unit and fuzz testing, invariant verification, and a structured manual security review before deployment. For high-value systems we also coordinate independent third-party audits and help you run a responsible disclosure or bug-bounty programme.",
+    "category": "Services",
+    "sort_order": 259
+  },
+  {
+    "question": "Can blockchain integrate with our existing systems?",
+    "answer": "Absolutely. We build APIs, oracles, indexers and middleware that bridge on-chain logic with your existing databases, ERPs, payment rails and back-office tools, so blockchain becomes part of your stack rather than an isolated silo.",
+    "category": "Services",
+    "sort_order": 260
+  },
+  {
+    "question": "How do you handle gas costs and scalability?",
+    "answer": "We optimise contract storage and execution paths, batch operations where possible, and use Layer-2 networks or app-chains when they fit. We benchmark gas usage throughout development so cost is a design constraint, not a surprise at launch.",
+    "category": "Services",
+    "sort_order": 261
+  },
+  {
+    "question": "Is blockchain the right solution for my problem?",
+    "answer": "Not always—and we will tell you honestly. During discovery we assess whether decentralisation genuinely adds value through trust, traceability or disintermediation. If a conventional database serves you better, we say so. We only recommend blockchain where it earns its place.",
+    "category": "Services",
+    "sort_order": 262
+  },
+  {
+    "question": "Do we own the code and keys?",
+    "answer": "Yes. You retain full ownership of all source code, deployment artefacts and cryptographic keys. We follow strict key-management practices and hand over complete documentation so your team can operate and extend the system independently.",
+    "category": "Services",
+    "sort_order": 263
+  },
+  {
+    "question": "Why should I partner with a custom CMS development company?",
+    "answer": "Engaging specialized custom CMS development expertise delivers strategically engineered solutions precisely calibrated to your organization's unique operational requirements and digital objectives. This partnership approach guarantees bespoke platform architecture designed for proportional growth capacity, enterprise-level security protocols, and frictionless interoperability with existing technology ecosystems. By leveraging purpose-built content management infrastructure rather than generic solutions, organizations achieve optimal alignment between technical capabilities and business imperatives, ensuring sustainable competitive positioning and maximized return on technology investments.",
+    "category": "Services",
+    "sort_order": 264
+  },
+  {
+    "question": "What are CMS website development services?",
+    "answer": "Comprehensive CMS website development services deliver end-to-end solutions spanning strategic architecture design, technical implementation, and ongoing platform maintenance. These services empower organizations to efficiently produce, modify, and orchestrate digital content through intuitive interfaces that eliminate barriers associated with complex technical expertise. By democratizing content management capabilities across business users, these platforms enable rapid response to market opportunities, reduce dependency on specialized IT resources, and accelerate time-to-market for critical digital initiatives while maintaining enterprise standards for quality, consistency, and brand governance.",
+    "category": "Services",
+    "sort_order": 265
+  },
+  {
+    "question": "What benefits can a CMS development company offer for scalability?",
+    "answer": "Expert CMS development organizations architect inherently scalable platforms engineered to evolve in lockstep with organizational expansion and strategic diversification. These elastic solutions accommodate progressive feature enhancement, absorb substantial traffic volume increases, and support multi-channel digital footprint extension while preserving optimal system performance and operational stability. Through modular frameworks and future-ready infrastructure design, these development partners ensure your content management ecosystem maintains responsiveness and reliability throughout growth phases, enabling confident pursuit of market opportunities without technical constraints or performance degradation that could impede business momentum or compromise user satisfaction.",
+    "category": "Services",
+    "sort_order": 266
+  },
+  {
+    "question": "How much does it cost to develop a custom CRM?",
+    "answer": "Custom CRM development investment varies based on system complexity, feature requirements, and organizational scope, typically ranging from $30,000 to $550,000. Small business CRM solutions with essential functionalities begin around $20,000, requiring approximately 8-12 weeks for development and deployment. Standard CRM platforms incorporating advanced automation, comprehensive analytics, and multi-system integration average $110,000, with implementation timelines of 4-6 months. Enterprise-grade complex CRM systems featuring extensive customization, sophisticated integrations, AI-driven analytics, and advanced security frameworks require investments up to $550,000, with development cycles of 6-12 months. These investment ranges encompass the complete development lifecycle including consultation, architecture design, development, rigorous testing, deployment, user training, and initial support, ensuring delivery of high-quality, scalable solutions that generate measurable business value and strong return on investment.",
+    "category": "Services",
+    "sort_order": 267
+  },
+  {
+    "question": "What is CRM development services?",
+    "answer": "CRM development services encompass the strategic design and implementation of custom CRM solutions precisely engineered to address your organization's unique operational requirements and business objectives. These comprehensive services enable systematic collection, centralization, and analysis of customer data across all touchpoints, providing actionable insights that drive informed decision-making and strategic initiatives. Our CRM solutions enhance customer engagement through personalized communications, automated workflows, and timely interactions that strengthen relationships and foster loyalty. By streamlining sales processes, marketing campaigns, and customer service operations, custom CRM systems eliminate inefficiencies, reduce administrative overhead, and empower teams to focus on high-value activities that directly impact revenue growth. The result is measurably improved business performance, operational efficiency, and elevated customer satisfaction that translates into sustained competitive advantage, increased customer lifetime value, and accelerated organizational growth in your market.",
+    "category": "Services",
+    "sort_order": 268
+  },
+  {
+    "question": "How can CRM improve customer service?",
+    "answer": "CRM systems significantly enhance customer service capabilities by centralizing comprehensive customer data into a unified platform, enabling service teams to access complete interaction histories, preferences, and account information instantly. This centralized visibility facilitates faster response times, more informed decision-making, and seamless communication across departments, ensuring that customers receive consistent, personalized service regardless of which team member they engage with. CRM platforms provide deep insights into customer needs, behaviors, and pain points through advanced analytics and reporting, empowering organizations to anticipate requirements proactively and deliver tailored solutions. By tracking all customer interactions across multiple channels—including phone, email, chat, and social media—CRM systems ensure continuity in service delivery and enable swift issue resolution through efficient case management and automated workflows. This comprehensive approach to customer relationship management elevates the overall customer experience, builds trust and loyalty, strengthens long-term relationships, and ultimately drives customer retention, satisfaction scores, and advocacy that contribute directly to sustained business growth and competitive differentiation in your market.",
+    "category": "Services",
+    "sort_order": 269
+  },
+  {
+    "question": "What is cross-platform app development?",
+    "answer": "Cross-platform mobile app development represents an innovative software creation methodology designed to build applications that deliver consistent, high-quality experiences across diverse operating systems and hardware configurations. This approach enables developers to architect and maintain a single, versatile codebase that seamlessly adapts to multiple platforms—including iOS, Android, and progressive web applications—without requiring platform-specific programming. By consolidating development efforts into one unified code repository, organizations achieve accelerated time-to-market, reduced development costs, simplified maintenance workflows, and guaranteed feature parity across all platforms, while maintaining the native-like performance and user experience that modern audiences demand.",
+    "category": "Services",
+    "sort_order": 270
+  },
+  {
+    "question": "How do Cross Platform Apps Work?",
+    "answer": "Cross-platform app development revolutionizes the software creation process by empowering businesses to distribute their applications across multiple operating systems and devices through a single, reusable codebase. Rather than investing resources in developing distinct versions of the same application using each platform's native programming languages and development environments—a traditionally costly and time-intensive approach—cross-platform methodology allows teams to write code once and deploy everywhere. This strategic advantage translates to substantial cost savings, accelerated market entry, consistent feature rollouts across platforms, and simplified ongoing maintenance, all while maintaining high-quality user experiences that rival native applications.",
+    "category": "Services",
+    "sort_order": 271
+  },
+  {
+    "question": "What is the market share of cross-platform development?",
+    "answer": "The global cross-platform application development framework market established a significant economic footprint in 2023, recording a market valuation of approximately US$ 120 billion as organizations worldwide increasingly prioritize unified development approaches over traditional platform-specific methodologies. Market research indicates sustained momentum with projections showing the industry will maintain a strong compound annual growth rate of 16.7% throughout the next five-year period and continue expanding thereafter. By 2033, the cross-platform development framework market is forecast to achieve a remarkable valuation of $546.7 billion, demonstrating the transformative impact of cross-platform technologies on the software development landscape. This substantial growth trajectory reflects multiple converging factors including rising demand for mobile-first solutions, the need for faster time-to-market, cost optimization pressures, and the continuous evolution of sophisticated frameworks that deliver near-native performance while maximizing code reusability across platforms.",
+    "category": "Services",
+    "sort_order": 272
+  },
+  {
+    "question": "In what ways does the discovery phase help mitigate project risks?",
+    "answer": "A well-executed discovery phase plays a critical role in reducing project risks by uncovering potential technical, strategic, or market-related challenges early in the process. This allows for the implementation of effective mitigation strategies and contingency plans before significant resources are committed. By clearly defining the project’s goals, scope, and requirements upfront, the discovery phase also minimises ambiguity, aligns stakeholders, and ensures that the entire team operates with a shared understanding—ultimately improving efficiency and increasing the likelihood of a successful outcome.",
+    "category": "Services",
+    "sort_order": 273
+  },
+  {
+    "question": "What essential outcomes are delivered during the software <br className={'lg:block md:block hidden'}/>discovery phase?",
+    "answer": "The key deliverables from a software discovery phase typically include a comprehensive solution document that outlines the product vision, objectives, and scope; a detailed system requirements specification defining functional and technical needs; a risk assessment and mitigation plan to address potential challenges; wireframes and interactive prototypes that visualise the user experience; and a project estimation and MVP development plan that breaks down timelines, costs, and feature priorities to guide development effectively.",
+    "category": "Services",
+    "sort_order": 274
+  },
+  {
+    "question": "How important is user feedback in shaping the discovery phase?",
+    "answer": "User feedback is essential during the discovery phase as it validates assumptions, uncovers user expectations, and highlights potential usability issues early on. By leveraging methods such as surveys, interviews, and usability testing, businesses gain direct insights into real user behaviour and preferences. This data-driven approach ensures the product or service is shaped around actual user needs, reducing the risk of costly revisions later and increasing the likelihood of market acceptance and long-term success.",
+    "category": "Services",
+    "sort_order": 275
+  },
+  {
+    "question": "Why choose Flutter over native development?",
+    "answer": "Flutter lets you ship to iOS, Android, web and desktop from one codebase, cutting development and maintenance cost while keeping near-native performance. It is ideal when you want a consistent experience everywhere and faster iteration. We will still recommend native if your app needs deep platform-specific capabilities we cannot serve well in Flutter.",
+    "category": "Services",
+    "sort_order": 276
+  },
+  {
+    "question": "Will my Flutter app feel native?",
+    "answer": "Yes. Flutter compiles to native ARM code and renders its own pixel-perfect UI, so apps run smoothly at 60–120fps and respect platform conventions. Users typically cannot tell a well-built Flutter app from a native one.",
+    "category": "Services",
+    "sort_order": 277
+  },
+  {
+    "question": "Can you publish to the App Store and Google Play?",
+    "answer": "Absolutely. We handle the full release process—signing, store listings, compliance and CI/CD pipelines—so your app reaches both stores reliably, with smooth update cycles afterwards.",
+    "category": "Services",
+    "sort_order": 278
+  },
+  {
+    "question": "Can you take over or improve an existing Flutter app?",
+    "answer": "Yes. We audit existing codebases, fix performance and architecture issues, add features and stabilise releases. We can also migrate older apps to current Flutter and Dart versions.",
+    "category": "Services",
+    "sort_order": 279
+  },
+  {
+    "question": "How do you ensure the app stays maintainable?",
+    "answer": "We use clean layered architecture, predictable state management (Riverpod or BLoC), dependency injection, automated tests and clear documentation, so your team or ours can extend the app confidently for years.",
+    "category": "Services",
+    "sort_order": 280
+  },
+  {
+    "question": "Do you provide support after launch?",
+    "answer": "Yes. We offer maintenance plans covering monitoring, bug fixes, OS and Flutter updates, and new feature development, keeping your app stable, secure and current.",
+    "category": "Services",
+    "sort_order": 281
+  },
+  {
+    "question": "Can you show examples of previous front-end projects you’ve worked on?",
+    "answer": "We’re proud of the diverse portfolio we’ve built at Grey InfoTech, featuring successful front-end projects across industries like retail, finance, healthcare, and technology. From custom e-commerce platforms and corporate websites to dynamic web applications, our work reflects a strong focus on user experience and performance. We’d be happy to share relevant case studies during our initial discussion, or you can explore our Recent Work section to see how we deliver results through thoughtful design and robust development.",
+    "category": "Services",
+    "sort_order": 282
+  },
+  {
+    "question": "Do you specialise in any industries or types of businesses?",
+    "answer": "At Grey InfoTech, we work across a wide range of sectors including e-commerce, education, healthcare, finance, technology, hospitality, and more. While we don’t limit ourselves to a single industry, we take the time to understand the unique goals and challenges of each client. Our tailored approach ensures we deliver the right solution—whether you’re a startup, SME, or enterprise. We’re flexible, collaborative, and results-driven. Visit our Sectors section to see how we support businesses like yours.",
+    "category": "Services",
+    "sort_order": 283
+  },
+  {
+    "question": "What makes your approach to front-end development unique?",
+    "answer": "Our approach is collaborative and user-centric. We take the time to understand your business, brand, and audience to craft a solution that truly fits. By combining clean, scalable code with modern technologies and intuitive design, we build robust, future-proof digital experiences. We’re also committed to accessibility, performance optimisation, and cross-device compatibility—ensuring your platform delivers the best possible experience for every user, every time.",
+    "category": "Services",
+    "sort_order": 284
+  },
+  {
+    "question": "Do you follow the latest industry trends and best practices?",
+    "answer": "Yes. At Grey InfoTech, we’re deeply committed to staying ahead of the curve with the latest industry trends, technologies, and best practices. Our team actively upskills by adopting new frameworks, tools, and modern development methodologies to ensure we deliver innovative, future-ready solutions. We place strong emphasis on responsive design, web accessibility, and performance optimisation—ensuring every product we deliver meets the highest standards of quality, usability, and technical excellence. This commitment to continuous improvement means your business benefits from digital solutions that are not only current, but also competitive and scalable.",
+    "category": "Services",
+    "sort_order": 285
+  },
+  {
+    "question": "Do you provide design services, or will you work with my design team?",
+    "answer": "We offer comprehensive UI/UX design services, but we’re equally comfortable collaborating with your in-house design team or an external agency. If you choose to partner with us for design, we’ll deliver a front-end that is not only visually compelling but also user-friendly, accessible, and aligned with your brand identity. If your designs are already in place, our team will expertly transform them into a responsive, high-performing front-end that brings your vision to life—seamlessly and at scale.",
+    "category": "Services",
+    "sort_order": 286
+  },
+  {
+    "question": "Can you make my website or app responsive across all devices?",
+    "answer": "Yes, responsiveness is a core focus of our development process. We design and build interfaces that perform seamlessly across all screen sizes—from desktops and tablets to smartphones. By applying responsive design principles, utilizing media queries, and leveraging modern frameworks like Flexbox and Grid, we ensure a consistent, optimized, and engaging user experience on every device, helping you reach and retain your audience effectively.",
+    "category": "Services",
+    "sort_order": 287
+  },
+  {
+    "question": "How do you ensure the user interface is intuitive and user-friendly?",
+    "answer": "We adopt a user-first approach, grounding all design decisions in thorough research and data analysis. Through wireframes, prototypes, and usability testing, we validate the interface before development begins, ensuring alignment with user needs. Our focus on clear navigation, accessibility, and responsive interactions creates platforms that are intuitive and easy to engage with—resulting in higher user satisfaction and improved conversion rates.",
+    "category": "Services",
+    "sort_order": 288
+  },
+  {
+    "question": "How do you optimise the front-end for performance?",
+    "answer": "We apply a range of proven performance optimisation techniques to deliver fast and smooth user experiences. These include code splitting to minimize initial load times, lazy loading for images and other assets to prioritize critical content, and minification of CSS, JavaScript, and HTML to reduce file sizes. We also optimise images using modern formats like WebP for faster loading, implement caching strategies to accelerate repeat visits, and configure assets for delivery through Content Delivery Networks (CDNs) to ensure global performance consistency. Together, these strategies enhance load speeds, improve user engagement, and boost SEO rankings—key factors in driving business growth.",
+    "category": "Services",
+    "sort_order": 289
+  },
+  {
+    "question": "How do you handle cross-browser compatibility?",
+    "answer": "We conduct comprehensive testing across all major browsers—Chrome, Safari, Firefox, Edge—and legacy browsers when necessary. Using tools like BrowserStack alongside manual testing on real devices, we ensure your platform delivers consistent performance and a flawless user experience, no matter the browser or device. This thorough approach helps safeguard your brand reputation and maximises user engagement.",
+    "category": "Services",
+    "sort_order": 290
+  },
+  {
+    "question": "What measures do you take to improve SEO for my website or app?",
+    "answer": "To improve SEO for your website or app, we implement best practices that enhance search engine visibility and user experience. This includes using semantic HTML to ensure clear content indexing, optimizing metadata, headings, and alt attributes for both accessibility and SEO, and prioritizing fast load times to boost Core Web Vitals performance. Additionally, we deliver fully responsive, mobile-friendly designs that comply with search engine requirements, and integrate structured data (such as Schema.org) to help search engines better understand and display your content. These measures collectively drive higher organic traffic and improve your online presence.",
+    "category": "Services",
+    "sort_order": 291
+  },
+  {
+    "question": "How do you ensure the front-end is secure?",
+    "answer": "At Grey InfoTech, security is integral to our front-end development process. We implement robust best practices to protect your platform from vulnerabilities and cyber threats. This includes thorough input validation to prevent cross-site scripting (XSS) and injection attacks, secure management of authentication tokens and sensitive data, and enforcing HTTPS protocols to ensure encrypted communications. Additionally, we configure Content Security Policies (CSP) to restrict unauthorized resource loading. By prioritizing these security measures, we safeguard your users and business reputation while maintaining compliance with industry standards.",
+    "category": "Services",
+    "sort_order": 292
+  },
+  {
+    "question": "Do you follow industry standards for secure development practices?",
+    "answer": "At Grey InfoTech, our front-end testing approach is comprehensive and quality-driven. We combine multiple layers of testing to ensure your platform is robust, user-friendly, and production-ready. This includes:",
+    "category": "Services",
+    "sort_order": 293
+  },
+  {
+    "question": "What is your approach to testing the front-end?",
+    "answer": "At Grey InfoTech, our front-end testing approach is comprehensive and quality-driven. We combine multiple layers of testing to ensure your platform is robust, user-friendly, and production-ready. This includes:",
+    "category": "Services",
+    "sort_order": 294
+  },
+  {
+    "question": "How do you handle bugs or issues found after deployment?",
+    "answer": "We provide comprehensive ongoing support and maintenance to ensure your platform remains reliable, secure, and optimised. Our team proactively monitors performance and security, allowing us to identify and resolve potential issues before they affect your users. We prioritise bug fixes based on impact and urgency, ensuring minimal disruption to your business. Additionally, we stay aligned with evolving technologies and platform updates to keep your front-end experience smooth, fast, and compatible over time. With Grey InfoTech, your digital solution is continuously supported and future-ready.",
+    "category": "Services",
+    "sort_order": 295
+  },
+  {
+    "question": "Can you help scale or upgrade my front-end in the future?",
+    "answer": "Yes, we design all our front-end solutions with scalability in mind. As your business grows and evolves, your platform should too. Whether you’re adding new features, expanding to support more users, or adopting emerging technologies, our front-end architecture is built to adapt. We ensure your codebase is modular, maintainable and future-proof—making it easier to scale without compromising performance, design consistency, or user experience. Grey InfoTech helps you stay ready for what’s next.",
+    "category": "Services",
+    "sort_order": 296
+  },
+  {
+    "question": "How much do your front-end development services cost?",
+    "answer": "Our pricing is tailored to the unique needs of each project. Factors such as complexity, functionality, integrations, and timelines all influence the cost. After an initial consultation to understand your goals and technical requirements, we provide a detailed proposal outlining the scope of work, timelines, and a transparent cost breakdown. We’re committed to offering competitive rates without compromising on quality, ensuring you receive exceptional value and a strong return on your investment.",
+    "category": "Services",
+    "sort_order": 297
+  },
+  {
+    "question": "What kind of iOS applications does Grey InfoTech develop?",
+    "answer": "we build custom iOS applications tailored to your specific business objectives. Our solutions cover a wide range of use cases, including customer-facing apps, enterprise productivity tools, mobile commerce platforms, booking systems, health & lifestyle apps, and smart integrations with wearable devices like the Apple Watch. Whether you're a startup looking to launch your MVP or an enterprise streamlining internal operations, we craft apps that align with your goals.",
+    "category": "Services",
+    "sort_order": 298
+  },
+  {
+    "question": "What is your approach to iOS app development?",
+    "answer": "We follow a strategic, end-to-end development process that includes consultation, UX/UI design, native development (using Swift and Objective-C), testing, deployment, and post-launch support. We work closely with your team to ensure that the app not only meets Apple’s strict standards but also delivers measurable business value through performance, usability, and scalability.",
+    "category": "Services",
+    "sort_order": 299
+  },
+  {
+    "question": "How long does it take to build an iOS application?",
+    "answer": "Project timelines depend on complexity, integrations, and scope. A basic iOS app with standard features typically takes 10 to 16 weeks, while more complex or enterprise-level solutions may require 18 weeks or more. We use agile methodologies to ensure timely delivery, with iterative updates and clear communication throughout.",
+    "category": "Services",
+    "sort_order": 300
+  },
+  {
+    "question": "What is the cost of developing an iOS application with Grey InfoTech?",
+    "answer": "The cost of developing an iOS application depends entirely on the scope, functionality, design requirements, and level of integration needed. At Grey InfoTech, we provide flexible pricing tailored to your business goals, project complexity, and timeline. Whether you need a basic MVP, a mid-range app with custom features, or a fully integrated enterprise solution, we offer transparent, client-driven estimates based on your specific needs and budget. After an initial consultation, we’ll provide a detailed proposal to help you plan effectively.",
+    "category": "Services",
+    "sort_order": 301
+  },
+  {
+    "question": "Can you support older iPhones and iPads as well as the latest devices?",
+    "answer": "Yes. We design apps that are backward-compatible with older models (e.g., iPhone 5s, iPhone 6) while fully optimized for the latest iPhones, iPads, and Apple Watches. This ensures your app is accessible to a wider audience and future-proofed for the Apple ecosystem.",
+    "category": "Services",
+    "sort_order": 302
+  },
+  {
+    "question": "Do you offer post-launch support and maintenance?",
+    "answer": "Yes. We provide ongoing support packages that include performance monitoring, bug fixes, iOS version updates, security patches, and feature enhancements. We act as a long-term partner, ensuring your app continues to evolve with your business.",
+    "category": "Services",
+    "sort_order": 303
+  },
+  {
+    "question": "Can the iOS app integrate with our existing software or business systems?",
+    "answer": "Definitely. We specialize in developing apps that integrate seamlessly with CRMs, ERPs, payment gateways, analytics tools, and other third-party APIs. We ensure your app works as an extension of your digital ecosystem, improving data flow, efficiency, and customer experience.",
+    "category": "Services",
+    "sort_order": 304
+  },
+  {
+    "question": "Why choose Grey InfoTech for iOS app development?",
+    "answer": "With over a decade of experience in custom software development, Grey InfoTech combines technical expertise with business insight. As certified Apple Developers, we are equipped to deliver high-quality, scalable iOS solutions that meet your specific business objectives—on time and within budget.",
+    "category": "Services",
+    "sort_order": 305
+  },
+  {
+    "question": "What exactly is Search Engine Optimisation (SEO)?",
+    "answer": "Search Engine Optimization (SEO) is a critical business strategy focused on increasing a website’s visibility and ranking within search engine results pages (SERPs) to drive qualified organic traffic. By applying targeted techniques that improve site relevance, authority, and <Link href='/services/ui-ux-design' className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-white' : 'hover:border-black'}`}>user experience</Link>, SEO helps businesses attract the right audience, enhance brand credibility, and ultimately increase conversions. This comprehensive approach involves ongoing analysis and optimization to ensure sustained performance and alignment with evolving search engine algorithms and market trends, making SEO an essential component for achieving long-term digital growth and competitive advantage.",
+    "category": "Services",
+    "sort_order": 306
+  },
+  {
+    "question": "Why is SEO important for my website?",
+    "answer": "SEO is essential because it enables search engines to accurately interpret your website’s content and intent, improving your chances of ranking higher for relevant queries. Achieving higher rankings boosts your online visibility, drives increased organic traffic, and enhances conversion opportunities. Ultimately, effective SEO supports your business growth by strengthening your digital presence and attracting valuable, intent-driven visitors to your site.",
+    "category": "Services",
+    "sort_order": 307
+  },
+  {
+    "question": "How long does it take to see results from SEO?",
+    "answer": "The timeline for seeing results from SEO depends on several variables, such as industry competition, the existing condition of your website, and the consistency of your SEO strategy. Typically, noticeable improvements in rankings and traffic begin to appear within 3 to 6 months, though this can vary. SEO is not a one-time task but a long-term investment that demands ongoing optimisation, regular performance tracking, and adaptability to evolving search engine algorithms and market dynamics to maintain and grow results over time.",
+    "category": "Services",
+    "sort_order": 308
+  },
+  {
+    "question": "How can I find the right partner for my project?",
+    "answer": "Finding the right partner for your game development project is critical to success. At Grey InfoTech, we bring years of experience and deep expertise in Unity technologies to the table. As a trusted Unity game development company, we’ve built a proven track record of delivering high-quality, impactful games across multiple platforms. With our skilled team and commitment to excellence, we’re the reliable partner you need to bring your vision to life.",
+    "category": "Services",
+    "sort_order": 309
+  },
+  {
+    "question": "Why would I choose Unity?",
+    "answer": "Unity stands out as a premier game development engine, known for its versatility, cross-platform compatibility, and powerful feature set. It empowers developers to create high-performance games across mobile, desktop, web, AR, and VR platforms. With its vast ecosystem of tools, plugins, and community support, Unity significantly accelerates development time while maintaining creative flexibility—making it an ideal choice for businesses looking to build engaging, scalable gaming experiences.",
+    "category": "Services",
+    "sort_order": 310
+  },
+  {
+    "question": "Why should I use Unity for game development?",
+    "answer": "Unity’s prominence in the game development industry is well-earned. It provides developers with a comprehensive ecosystem that combines performance optimisation, a user-friendly interface, and scalable architecture. These features enable efficient development cycles and ensure high-quality output. Whether you're targeting mobile, desktop, console, or VR platforms, Unity makes it possible to build engaging, immersive games that captivate players and drive business growth across diverse markets.",
+    "category": "Services",
+    "sort_order": 311
+  },
+  {
+    "question": "How do I hire Unity game developers?",
+    "answer": "Hiring Unity game developers becomes seamless when you partner with an experienced Unity game development company like Grey InfoTech. With a skilled team ready to turn your game concepts into engaging, high-performance experiences, we provide end-to-end development services that simplify the process and accelerate your path to market.",
+    "category": "Services",
+    "sort_order": 312
+  },
+  {
+    "question": "How long does it take to create a game with Unity?",
+    "answer": "Timelines vary based on project complexity, but Unity’s efficiency and adaptability help accelerate the development process. At Grey InfoTech, our seasoned team leverages these strengths to ensure timely delivery without compromising on quality—no matter the scale of your game.",
+    "category": "Services",
+    "sort_order": 313
+  },
+  {
+    "question": "How do I report a problem or raise a support ticket?",
+    "answer": "Use the contact form, email us at hello@greyinfotech.com.ng, or message us on WhatsApp. Include your project name and a clear description of the issue, and our team will create a ticket and respond promptly.",
+    "category": "Support",
+    "sort_order": 314
+  },
+  {
+    "question": "What are your support hours?",
+    "answer": "Our team is available Monday to Friday, 9:00am – 6:00pm (WAT). For urgent issues on active projects with a support agreement, we offer extended and priority response.",
+    "category": "Support",
+    "sort_order": 315
+  },
+  {
+    "question": "How quickly will I get a response?",
+    "answer": "We aim to acknowledge new requests within one business day. Priority and critical issues for clients on a support plan are handled faster, according to your agreed service levels.",
+    "category": "Support",
+    "sort_order": 316
+  },
+  {
+    "question": "Do you offer ongoing maintenance and support plans?",
+    "answer": "Yes. We provide flexible maintenance and support retainers covering updates, monitoring, bug fixes and improvements. Contact us to discuss a plan that fits your product.",
+    "category": "Support",
+    "sort_order": 317
+  },
+  {
+    "question": "I have a new project, not a support issue. Where do I start?",
+    "answer": "Head to our contact page or request a quote. Tell us about your idea and goals, and we will schedule a discovery call to map out the right approach.",
+    "category": "Support",
+    "sort_order": 318
+  },
+  {
+    "question": "What is HR technology?",
+    "answer": "HR technology encompasses the software and hardware solutions designed to automate and optimize human resources functions within an organization. These technologies cover a broad spectrum of HR activities, including recruitment, payroll processing, performance management, employee data administration, and compliance tracking. By leveraging HR technology, businesses can enhance operational efficiency, improve data accuracy, and streamline workflows, ultimately driving better workforce management and strategic decision-making.",
+    "category": "Industries",
+    "sort_order": 319
+  },
+  {
+    "question": "How can HR technology improve employee engagement?",
+    "answer": "HR technology enhances employee engagement by delivering robust tools for seamless communication, continuous feedback, and meaningful recognition. Additionally, it optimizes key HR processes such as onboarding, training, and benefits administration, making them more efficient, accessible, and user-centric—ultimately driving productivity and workforce satisfaction.",
+    "category": "Industries",
+    "sort_order": 320
+  },
+  {
+    "question": "What are the benefits of integrating HR technology into a corporate website?",
+    "answer": "Integrating HR technology into a corporate website delivers multiple advantages, including streamlined recruitment workflows, enhanced employee self-service options, and real-time access to essential HR services. It also strengthens data management and security while ensuring a consistent and seamless employee experience across all digital touchpoints.",
+    "category": "Industries",
+    "sort_order": 321
+  },
+  {
+    "question": "How does HR technology assist in the recruitment process?",
+    "answer": "HR technology greatly improves the recruitment process by automating critical tasks such as job posting, applicant tracking, candidate screening, and communication management. Furthermore, it offers advanced analytics and reporting capabilities, enabling organizations to measure recruitment effectiveness and optimize sourcing strategies.",
+    "category": "Industries",
+    "sort_order": 322
+  },
+  {
+    "question": "What should be considered when choosing an HR technology solution?",
+    "answer": "When selecting an HR technology solution, organizations must carefully assess several critical factors to ensure alignment with their strategic goals. Key considerations include a thorough understanding of the specific HR challenges and requirements unique to the business, as well as the solution’s ease of use and intuitive user interface to drive adoption. Equally important is the technology’s ability to seamlessly integrate with existing systems and workflows, ensuring operational continuity. Scalability and flexibility are essential to accommodate future growth and evolving business needs.",
+    "category": "Industries",
+    "sort_order": 323
+  },
+  {
+    "question": "Can HR technology help in compliance and regulatory requirements?",
+    "answer": "HR technology plays a crucial role in supporting compliance and regulatory adherence by automating record-keeping processes, maintaining data accuracy, and delivering timely notifications of legal and regulatory updates. This automation enables organizations to efficiently manage labor law requirements and other regulatory obligations, reducing risk and ensuring consistent compliance across all HR functions.",
+    "category": "Industries",
+    "sort_order": 324
+  },
+  {
+    "question": "How does HR technology impact data security?",
+    "answer": "HR technology solutions are typically equipped with advanced security features designed to safeguard sensitive employee information. These include data encryption, secure storage protocols, role-based access controls, and routine security audits. Such measures are essential for protecting confidential HR data, ensuring regulatory compliance, and maintaining employee trust in digital systems.",
+    "category": "Industries",
+    "sort_order": 325
+  },
+  {
+    "question": "Is HR technology suitable for small businesses?",
+    "answer": "Absolutely—HR technology solutions are designed to serve businesses of all sizes, including small and growing enterprises. Many platforms offer scalable features and flexible pricing models, allowing organizations to tailor functionality to their specific operational needs and budget constraints. This ensures that even smaller companies can leverage modern HR tools to drive efficiency and support growth.",
+    "category": "Industries",
+    "sort_order": 326
+  },
+  {
+    "question": "What is the future of HR technology?",
+    "answer": "The future of HR technology is poised to be shaped by greater integration of artificial intelligence, machine learning, and automation—enabling more intelligent, efficient, and predictive HR processes. Emerging trends also include the rise of employee experience platforms that personalize interactions, the use of advanced analytics to drive data-informed decision-making, and enhanced mobile accessibility to support a flexible, on-the-go workforce.",
+    "category": "Industries",
+    "sort_order": 327
+  },
+  {
+    "question": "How does HR technology facilitate remote work?",
+    "answer": "HR technology plays a vital role in enabling and supporting remote work by offering digital tools for virtual recruitment, online training, remote onboarding, performance management, and employee engagement—all accessible from any location. These capabilities help organizations maintain productivity, foster collaboration, and ensure a cohesive employee experience across geographically distributed teams.",
+    "category": "Industries",
+    "sort_order": 328
+  }
+]

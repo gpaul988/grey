@@ -1,0 +1,96 @@
+<%- contentFor('html_attribute') %>
+<%- contentFor('extra_css') %>
+<%- contentFor('content') %>
+
+<%- include('./partials/page-title', { title: title, subtitle: 'Directory' }) %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h4 class="card-title mb-0">Clients <span class="badge bg-primary-subtle text-primary ms-1"><%= clients.length %></span></h4>
+                <div class="d-flex gap-2">
+                    <input type="search" id="searchBox" class="form-control form-control-sm" placeholder="Search..." style="width:200px;">
+                    <button class="btn btn-sm btn-primary" id="btnNew"><i class="ti ti-plus"></i> Add Client</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-centered mb-0" id="tbl">
+                    <thead class="bg-light bg-opacity-50">
+                        <tr><th>Name</th><th>Company</th><th>Email</th><th>Phone</th><th>Added</th><th class="text-end">Action</th></tr>
+                    </thead>
+                    <tbody>
+                        <% if (!clients.length) { %><tr><td colspan="6" class="text-center text-muted py-4">No clients yet.</td></tr><% } %>
+                        <% clients.forEach((c) => { %>
+                        <tr data-search="<%= (c.name+' '+(c.company||'')+' '+c.email).toLowerCase() %>">
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="avatar-sm"><span class="avatar-title bg-primary-subtle text-primary rounded-circle"><%= c.name.charAt(0) %></span></span>
+                                    <span class="fw-medium"><%= c.name %></span>
+                                </div>
+                            </td>
+                            <td><%= c.company || '—' %></td>
+                            <td><%= c.email %></td>
+                            <td><%= c.phone || '—' %></td>
+                            <td class="text-muted fs-13"><%= timeAgo(c.created_at) %></td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-soft-primary btn-edit" data-id="<%= c.id %>" data-name="<%= c.name %>" data-company="<%= c.company||'' %>" data-email="<%= c.email %>" data-phone="<%= c.phone||'' %>"><i class="ti ti-edit"></i></button>
+                                <button class="btn btn-sm btn-soft-danger btn-del" data-id="<%= c.id %>"><i class="ti ti-trash"></i></button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="mTitle">Add Client</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <input type="hidden" id="f_id">
+                <div class="mb-3"><label class="form-label">Name *</label><input id="f_name" class="form-control"></div>
+                <div class="mb-3"><label class="form-label">Company</label><input id="f_company" class="form-control"></div>
+                <div class="mb-3"><label class="form-label">Email *</label><input id="f_email" type="email" class="form-control"></div>
+                <div class="mb-3"><label class="form-label">Phone</label><input id="f_phone" class="form-control"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-light" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="btnSave">Save</button></div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('extra_javascript') %>
+<%- include('./partials/admin-api-helper') %>
+<script>
+(function () {
+    const modal = new bootstrap.Modal('#cModal');
+    const F = (id) => document.getElementById(id);
+    function open(d) {
+        F('f_id').value = d.id || ''; F('mTitle').textContent = d.id ? 'Edit Client' : 'Add Client';
+        F('f_name').value = d.name || ''; F('f_company').value = d.company || '';
+        F('f_email').value = d.email || ''; F('f_phone').value = d.phone || '';
+        modal.show();
+    }
+    F('btnNew').addEventListener('click', () => open({}));
+    document.querySelectorAll('.btn-edit').forEach(b => b.addEventListener('click', () => open(b.dataset)));
+    F('btnSave').addEventListener('click', async () => {
+        const id = F('f_id').value;
+        const payload = { name: F('f_name').value.trim(), company: F('f_company').value.trim(), email: F('f_email').value.trim(), phone: F('f_phone').value.trim() };
+        if (!payload.name || !payload.email) return AdminAPI.toast('Name and email required', true);
+        const r = id ? await AdminAPI.patch('/clients/' + id, payload) : await AdminAPI.post('/clients', payload);
+        if (r.ok) { AdminAPI.toast(r.message); location.reload(); } else AdminAPI.toast(r.message, true);
+    });
+    document.querySelectorAll('.btn-del').forEach(b => b.addEventListener('click', async () => {
+        if (!confirm('Delete this client?')) return;
+        const r = await AdminAPI.del('/clients/' + b.dataset.id);
+        if (r.ok) { AdminAPI.toast('Deleted'); b.closest('tr').remove(); } else AdminAPI.toast(r.message, true);
+    }));
+    F('searchBox').addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase();
+        document.querySelectorAll('#tbl tbody tr[data-search]').forEach(tr => tr.style.display = (!q || tr.dataset.search.includes(q)) ? '' : 'none');
+    });
+})();
+</script>

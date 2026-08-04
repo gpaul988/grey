@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en" <%- (typeof html_attribute !== 'undefined' && html_attribute) || '' %>>
+
+<head>
+    <%- include('./title-meta') %>
+        <%- include ('./head-css') %>
+            <%- (typeof extra_css !== 'undefined' && extra_css) || '' %>
+</head>
+
+<body <%- (typeof body_attribute !== 'undefined' && body_attribute) || '' %>>
+
+     <%- (typeof content !== 'undefined' && content) || '' %>
+
+    <%- include ('./footer-scripts') %>
+    <%- (typeof extra_javascript !== 'undefined' && extra_javascript) || '' %>
+
+</body>
+
+</html>

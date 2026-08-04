@@ -1,0 +1,92 @@
+<%- contentFor('html_attribute') %>
+<%- contentFor('extra_css') %>
+<%- contentFor('content') %>
+
+<% const sc = invoice.status==='paid'?'success':(invoice.status==='overdue'?'danger':(invoice.status==='sent'?'info':(invoice.status==='cancelled'?'secondary':'warning'))); %>
+
+<%- include('./partials/page-title', { title: invoice.number, subtitle: 'Billing' }) %>
+
+<div class="row justify-content-center">
+    <div class="col-xl-9">
+        <div class="card">
+            <div class="card-body p-4" id="invoiceArea">
+                <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+                    <div>
+                        <img src="/logon.png" alt="Grey InfoTech" height="40" class="mb-2">
+                        <p class="mb-0 text-muted fs-13">Grey InfoTech<br>Nigeria<br>hello@greyinfotech.com.ng</p>
+                    </div>
+                    <div class="text-end">
+                        <h3 class="mb-1">INVOICE</h3>
+                        <p class="mb-1 fw-medium"><%= invoice.number %></p>
+                        <span class="badge text-capitalize bg-<%= sc %>-subtle text-<%= sc %>"><%= invoice.status %></span>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h6 class="text-muted text-uppercase fs-13">Bill To</h6>
+                        <p class="mb-0 fw-medium"><%= invoice.client_name %></p>
+                        <% if (invoice.client_email) { %><p class="mb-0 text-muted"><%= invoice.client_email %></p><% } %>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <p class="mb-1"><span class="text-muted">Issued:</span> <%= invoice.issued_date || '—' %></p>
+                        <p class="mb-0"><span class="text-muted">Due:</span> <%= invoice.due_date || '—' %></p>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="bg-light">
+                            <tr><th>Description</th><th class="text-end">Qty</th><th class="text-end">Rate</th><th class="text-end">Amount</th></tr>
+                        </thead>
+                        <tbody>
+                            <% if (!items.length) { %><tr><td colspan="4" class="text-center text-muted">No line items.</td></tr><% } %>
+                            <% items.forEach((it) => { %>
+                            <tr>
+                                <td><%= it.description %></td>
+                                <td class="text-end"><%= it.qty %></td>
+                                <td class="text-end"><%= fmtMoney(it.rate, invoice.currency) %></td>
+                                <td class="text-end"><%= fmtMoney((it.qty||0)*(it.rate||0), invoice.currency) %></td>
+                            </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row justify-content-end">
+                    <div class="col-md-4">
+                        <div class="d-flex justify-content-between"><span class="text-muted">Subtotal</span><span><%= fmtMoney(invoice.amount, invoice.currency) %></span></div>
+                        <div class="d-flex justify-content-between"><span class="text-muted">Tax</span><span><%= fmtMoney(invoice.tax, invoice.currency) %></span></div>
+                        <hr class="my-2">
+                        <div class="d-flex justify-content-between fw-bold fs-18"><span>Total</span><span><%= fmtMoney(invoice.total, invoice.currency) %></span></div>
+                    </div>
+                </div>
+
+                <% if (invoice.notes) { %>
+                <div class="mt-4"><h6 class="text-muted text-uppercase fs-13">Notes</h6><p class="mb-0"><%= invoice.notes %></p></div>
+                <% } %>
+            </div>
+            <div class="card-footer d-flex justify-content-between flex-wrap gap-2">
+                <a href="/admin/invoices" class="btn btn-light"><i class="ti ti-arrow-left"></i> Back</a>
+                <div class="d-flex gap-2 align-items-center">
+                    <select id="selStatus" class="form-select form-select-sm text-capitalize" style="width:auto;">
+                        <% ['draft','sent','paid','overdue','cancelled'].forEach(s=>{ %><option value="<%= s %>" <%= invoice.status===s?'selected':'' %>><%= s %></option><% }) %>
+                    </select>
+                    <button class="btn btn-soft-primary" id="btnStatus">Update status</button>
+                    <button class="btn btn-primary" onclick="window.print()"><i class="ti ti-printer"></i> Print</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('extra_javascript') %>
+<%- include('./partials/admin-api-helper') %>
+<script>
+(function () {
+    document.getElementById('btnStatus').addEventListener('click', async () => {
+        const r = await AdminAPI.patch('/invoices/<%= invoice.id %>', { status: document.getElementById('selStatus').value });
+        if (r.ok) { AdminAPI.toast('Status updated'); location.reload(); } else AdminAPI.toast(r.message, true);
+    });
+})();
+</script>

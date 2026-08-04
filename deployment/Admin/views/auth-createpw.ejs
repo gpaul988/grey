@@ -1,0 +1,91 @@
+<%- contentFor('html_attribute') %>
+
+<%- contentFor('extra_css') %>
+
+<%- contentFor('body_attribute') %>
+class="h-100"
+
+<%- contentFor('content') %>
+
+<div class="auth-bg d-flex min-vh-100">
+    <div class="row g-0 justify-content-center w-100 m-xxl-5 px-xxl-4 m-3">
+        <div class="col-xxl-3 col-lg-5 col-md-6">
+            <a href="/" class="auth-brand d-flex justify-content-center mb-2">
+                <img src="/images/logo-dark.png" alt="dark logo" height="26" class="logo-dark">
+                <img src="/images/logo.png" alt="logo light" height="26" class="logo-light">
+            </a>
+
+            <p class="fw-semibold mb-4 text-center text-muted fs-15">Grey InfoTech Admin</p>
+
+            <div class="card overflow-hidden p-xxl-4 p-3 mb-0">
+
+                <h4 class="fw-semibold mb-2 fs-20 text-center"><%= (typeof isResetPassword !== 'undefined' && isResetPassword) ? 'Reset Your Password' : 'Set Your Password' %></h4>
+                <% if (typeof isResetPassword !== 'undefined' && isResetPassword) { %>
+                    <p class="text-muted mb-3 text-center">Enter a new password below to reset your account.</p>
+                <% } else if (typeof name !== 'undefined' && name) { %>
+                    <p class="text-muted mb-3 text-center">Welcome, <strong><%= name %></strong>. Create a password to activate your account.</p>
+                <% } else { %>
+                    <p class="text-muted mb-3 text-center">Create a secure password to activate your account.</p>
+                <% } %>
+
+                <% if (typeof formError !== 'undefined' && formError) { %>
+                    <div class="alert alert-danger py-2"><%= formError %></div>
+                <% } %>
+                <% if (typeof formInfo !== 'undefined' && formInfo) { %>
+                    <div class="alert alert-info py-2"><%= formInfo %></div>
+                <% } %>
+
+                <form action="<%= (typeof isResetPassword !== 'undefined' && isResetPassword) ? '/admin/reset-password/' : '/set-password/' %><%= token %>" method="POST" class="text-start mb-3">
+                    <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+                    <div class="mb-3">
+                        <label class="form-label" for="password">New Password <small class="text-info ms-1">Min 8 characters</small></label>
+                        <div class="input-group">
+                            <input type="password" id="password" name="password" class="form-control" placeholder="New password" required minlength="8">
+                            <button type="button" class="btn btn-outline-secondary toggle-password" data-target="password" aria-label="Show password">
+                                <i class="ri-eye-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="confirmPassword">Confirm Password</label>
+                        <div class="input-group">
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Re-enter password" required minlength="8">
+                            <button type="button" class="btn btn-outline-secondary toggle-password" data-target="confirmPassword" aria-label="Show password">
+                                <i class="ri-eye-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mb-2 d-grid">
+                        <button class="btn btn-primary fw-semibold" type="submit"><%= (typeof isResetPassword !== 'undefined' && isResetPassword) ? 'Reset Password' : 'Set Password &amp; Verify' %></button>
+                    </div>
+                </form>
+                <script>
+                    document.querySelectorAll('.toggle-password').forEach(function (btn) {
+                        btn.addEventListener('click', function () {
+                            var input = document.getElementById(btn.getAttribute('data-target'));
+                            if (!input) return;
+                            var icon = btn.querySelector('i');
+                            if (input.type === 'password') {
+                                input.type = 'text';
+                                if (icon) icon.className = 'ri-eye-off-line';
+                                btn.setAttribute('aria-label', 'Hide password');
+                            } else {
+                                input.type = 'password';
+                                if (icon) icon.className = 'ri-eye-line';
+                                btn.setAttribute('aria-label', 'Show password');
+                            }
+                        });
+                    });
+                </script>
+
+                <p class="text-muted fs-14 mb-0 text-center">
+                    Back to <a href="<%= typeof loginPath !== 'undefined' ? loginPath : '/login' %>" class="fw-semibold text-primary ms-1">Login</a>
+                </p>
+            </div>
+
+            <p class="mt-3 text-center mb-0">
+                <%= new Date().getFullYear() %> © Grey InfoTech
+            </p>
+        </div>
+    </div>
+</div>

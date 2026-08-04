@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head><%- include('_head') %></head>
+<body class="d-flex align-items-center min-vh-100">
+  <div class="container" style="max-width:480px;">
+    <div class="text-center mb-4"><span class="brand fs-2">Grey InfoTech</span><div class="text-muted">Client Portal</div></div>
+    <div class="card p-4 shadow-sm text-center">
+      <% var ok = (typeof success !== 'undefined' && success) %>
+      <div class="mb-3">
+        <% if (ok) { %>
+          <i class="bi bi-check-circle-fill text-teal" style="font-size:3rem;"></i>
+        <% } else { %>
+          <i class="bi bi-exclamation-triangle-fill text-warning" style="font-size:3rem;"></i>
+        <% } %>
+      </div>
+      <h5 class="mb-2"><%= typeof heading !== 'undefined' ? heading : (ok ? 'Done' : 'Something went wrong') %></h5>
+      <p class="text-muted mb-4"><%= typeof message !== 'undefined' ? message : '' %></p>
+      <% var href = (typeof linkHref !== 'undefined' && linkHref) ? linkHref : '/portal/login' %>
+      <% var label = (typeof linkLabel !== 'undefined' && linkLabel) ? linkLabel : 'Go to sign in' %>
+      <a href="<%= href %>" class="btn btn-teal w-100 fw-semibold"><%= label %></a>
+    </div>
+    <p class="text-center text-muted small mt-3"><%= new Date().getFullYear() %> © Grey InfoTech</p>
+  </div>
+</body></html>

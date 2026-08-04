@@ -1,0 +1,340 @@
+<%
+const u = (typeof user !== 'undefined' && user) ? user : {name: 'Grey Admin', role: 'admin', avatar: null};
+const roleLabel = {admin: 'Administrator', manager: 'Manager', staff: 'Staff'}[u.role] || 'Staff';
+const avatar = u.avatar || '/images/users/avatar-1.jpg';
+const cur = (typeof activeNav !== 'undefined' && activeNav) ? activeNav : '';
+const isActive = (k) => cur === k ? ' active' : '';
+%>
+<!-- Sidenav Menu Start -->
+<div class="sidenav-menu">
+
+    <!-- Brand Logo -->
+    <a href="/admin/dashboard" class="logo">
+        <span class="logo-light">
+            <span class="logo-lg"><img src="/logo-dark.png" alt="Grey InfoTech logo"></span>
+            <span class="logo-sm"><img src="/logo-dark.png" alt="Grey InfoTech logo"></span>
+        </span>
+        <span class="logo-dark">
+            <span class="logo-lg"><img src="/logo-dark.png" alt="Grey InfoTech logo"></span>
+            <span class="logo-sm"><img src="/logo-dark.png" alt="Grey InfoTech logo"></span>
+        </span>
+    </a>
+
+    <!-- Sidebar Hover Menu Toggle Button -->
+    <button class="button-sm-hover">
+        <i class="ri-circle-line align-middle"></i>
+    </button>
+
+    <!-- Sidebar Menu Toggle Button -->
+    <button class="sidenav-toggle-button">
+        <i class="ri-menu-5-line fs-20"></i>
+    </button>
+
+    <!-- Full Sidebar Menu Close Button -->
+    <button class="button-close-fullsidebar">
+        <i class="ti ti-x align-middle"></i>
+    </button>
+
+    <div data-simplebar>
+
+        <!-- User -->
+        <div class="sidenav-user">
+            <div class="dropdown-center text-center">
+                <a class="topbar-link dropdown-toggle text-reset drop-arrow-none px-2" data-bs-toggle="dropdown"
+                   type="button" aria-haspopup="false" aria-expanded="false">
+                    <img src="<%= avatar %>" width="46" class="rounded-circle" alt="user-image">
+                    <span class="d-flex gap-1 sidenav-user-name my-2">
+                        <span>
+                            <span class="mb-0 fw-semibold lh-base fs-15"><%= u.name %></span>
+                            <p class="my-0 fs-13 text-muted"><%= roleLabel %></p>
+                        </span>
+                        <i class="ri-arrow-down-s-line d-block sidenav-user-arrow align-middle"></i>
+                    </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <div class="dropdown-header noti-title">
+                        <h6 class="text-overflow m-0">Welcome, <%= (u.name || '').split(' ')[0] %>!</h6>
+                    </div>
+                    <a href="/admin/profile" class="dropdown-item">
+                        <i class="ri-account-circle-line me-1 fs-16 align-middle"></i>
+                        <span class="align-middle">My Profile</span>
+                    </a>
+                    <a href="/admin/team" class="dropdown-item">
+                        <i class="ri-team-line me-1 fs-16 align-middle"></i>
+                        <span class="align-middle">Team</span>
+                    </a>
+                    <a href="/admin/activity" class="dropdown-item">
+                        <i class="ri-history-line me-1 fs-16 align-middle"></i>
+                        <span class="align-middle">Activity Log</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="/logout" class="dropdown-item active fw-semibold text-danger">
+                        <i class="ri-logout-box-line me-1 fs-16 align-middle"></i>
+                        <span class="align-middle">Sign Out</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!--- Sidenav Menu -->
+        <ul class="side-nav">
+            <li class="side-nav-title">Main</li>
+
+            <li class="side-nav-item">
+                <a href="/admin/dashboard" class="side-nav-link<%= isActive('dashboard') %>">
+                    <span class="menu-icon"><i class="ti ti-dashboard"></i></span>
+                    <span class="menu-text"> Dashboard </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/submissions" class="side-nav-link<%= isActive('submissions') %>">
+                    <span class="menu-icon"><i class="ti ti-mail-opened"></i></span>
+                    <span class="menu-text"> Form Submissions </span>
+                    <% if (typeof navBadges !== 'undefined' && navBadges && navBadges.newSubmissions) { %>
+                        <span class="badge bg-danger rounded-pill"
+                              data-badge="newSubmissions"><%= navBadges.newSubmissions %></span>
+                    <% } %>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/job-openings" class="side-nav-link<%= isActive('job-openings') %>">
+                    <span class="menu-icon"><i class="ti ti-news"></i></span>
+                    <span class="menu-text"> Job Openings </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/career-applications" class="side-nav-link<%= isActive('career-applications') %>">
+                    <span class="menu-icon"><i class="ti ti-briefcase"></i></span>
+                    <span class="menu-text"> Career Applications </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/leads" class="side-nav-link<%= isActive('leads') %>">
+                    <span class="menu-icon"><i class="ti ti-target-arrow"></i></span>
+                    <span class="menu-text"> Leads (CRM) </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/chat" class="side-nav-link<%= isActive('chat') %>">
+                    <span class="menu-icon"><i class="ti ti-message"></i></span>
+                    <span class="menu-text"> Client Chat </span>
+                    <% if (typeof navBadges !== 'undefined' && navBadges && navBadges.unreadConvos) { %>
+                        <span class="badge bg-primary rounded-pill"
+                              data-badge="unreadConvos"><%= navBadges.unreadConvos %></span>
+                    <% } %>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/audit" class="side-nav-link<%= isActive('audit') %>">
+                    <span class="menu-icon"><i class="ti ti-shield-search"></i></span>
+                    <span class="menu-text"> Audit Tool </span>
+                </a>
+            </li>
+
+            <li class="side-nav-title">Store</li>
+
+            <li class="side-nav-item">
+                <a href="/admin/store/products"
+                   class="side-nav-link<%= isActive('store/products') || isActive('store/product') ? ' active' : '' %>">
+                    <span class="menu-icon"><i class="ti ti-device-laptop"></i></span>
+                    <span class="menu-text"> Products </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/store/orders"
+                   class="side-nav-link<%= isActive('store/orders') || isActive('store/order') ? ' active' : '' %>">
+                    <span class="menu-icon"><i class="ti ti-shopping-cart"></i></span>
+                    <span class="menu-text"> Orders </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/store/customers"
+                   class="side-nav-link<%= isActive('store/customers') || isActive('store/customer') ? ' active' : '' %>">
+                    <span class="menu-icon"><i class="ti ti-users"></i></span>
+                    <span class="menu-text"> Customers </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/store/categories"
+                   class="side-nav-link<%= isActive('store/categories') ? ' active' : '' %>">
+                    <span class="menu-icon"><i class="ti ti-category"></i></span>
+                    <span class="menu-text"> Categories </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/store/brands" class="side-nav-link<%= isActive('store/brands') ? ' active' : '' %>">
+                    <span class="menu-icon"><i class="ti ti-building-store"></i></span>
+                    <span class="menu-text"> Brands </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/store/settings" class="side-nav-link<%= isActive('store/settings') ? ' active' : '' %>">
+                    <span class="menu-icon"><i class="ti ti-settings-2"></i></span>
+                    <span class="menu-text"> Store Settings </span>
+                </a>
+            </li>
+
+            <li class="side-nav-title">Operations</li>
+
+            <li class="side-nav-item">
+                <a href="/admin/projects" class="side-nav-link<%= isActive('projects') %>">
+                    <span class="menu-icon"><i class="ti ti-briefcase"></i></span>
+                    <span class="menu-text"> Projects </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/tickets" class="side-nav-link<%= isActive('tickets') %>">
+                    <span class="menu-icon"><i class="ti ti-ticket"></i></span>
+                    <span class="menu-text"> Support Tickets </span>
+                    <% if (typeof navBadges !== 'undefined' && navBadges && navBadges.openTickets) { %>
+                        <span class="badge bg-warning rounded-pill"
+                              data-badge="openTickets"><%= navBadges.openTickets %></span>
+                    <% } %>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/invoices" class="side-nav-link<%= isActive('invoices') %>">
+                    <span class="menu-icon"><i class="ti ti-file-invoice"></i></span>
+                    <span class="menu-text"> Invoices </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/clients" class="side-nav-link<%= isActive('clients') %>">
+                    <span class="menu-icon"><i class="ti ti-users"></i></span>
+                    <span class="menu-text"> Clients </span>
+                </a>
+            </li>
+
+            <li class="side-nav-title">Content</li>
+
+            <li class="side-nav-item">
+                <a href="/admin/case-studies" class="side-nav-link<%= isActive('case-studies') %>">
+                    <span class="menu-icon"><i class="ti ti-award"></i></span>
+                    <span class="menu-text"> Case Studies </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/blog" class="side-nav-link<%= isActive('blog') %>">
+                    <span class="menu-icon"><i class="ti ti-article"></i></span>
+                    <span class="menu-text"> Blog Posts </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/partners" class="side-nav-link<%= isActive('partners') %>">
+                    <span class="menu-icon"><i class="ti ti-building-store"></i></span>
+                    <span class="menu-text"> Partners &amp; Logos </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/reviews" class="side-nav-link<%= isActive('reviews') %>">
+                    <span class="menu-icon"><i class="ti ti-star"></i></span>
+                    <span class="menu-text"> Client Reviews </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="/admin/faqs" class="side-nav-link<%= isActive('faqs') %>">
+                    <span class="menu-icon"><i class="ti ti-help-circle"></i></span>
+                    <span class="menu-text"> FAQ Manager </span>
+                </a>
+            </li>
+
+            <li class="side-nav-title">Marketing &amp; Growth</li>
+            <li class="side-nav-item">
+                <a href="/admin/ads" class="side-nav-link<%= isActive('ads') %>">
+                    <span class="menu-icon"><i class="ti ti-speakerphone"></i></span>
+                    <span class="menu-text"> Ads &amp; Adverts </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="/admin/announcement" class="side-nav-link<%= isActive('announcement') %>">
+                    <span class="menu-icon"><i class="ti ti-bell-ringing"></i></span>
+                    <span class="menu-text"> Announcement Bar </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="/admin/partner-inquiries" class="side-nav-link<%= isActive('partner-inquiries') %>">
+                    <span class="menu-icon"><i class="ti ti-inbox"></i></span>
+                    <span class="menu-text"> Partner Inquiries </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="/admin/subscribers" class="side-nav-link<%= isActive('subscribers') %>">
+                    <span class="menu-icon"><i class="ti ti-mail-opened"></i></span>
+                    <span class="menu-text"> Subscribers </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="/admin/analytics" class="side-nav-link<%= isActive('analytics') %>">
+                    <span class="menu-icon"><i class="ti ti-chart-histogram"></i></span>
+                    <span class="menu-text"> Analytics </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="/admin/seo" class="side-nav-link<%= isActive('seo') %>">
+                    <span class="menu-icon"><i class="ti ti-world-search"></i></span>
+                    <span class="menu-text"> SEO Manager </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="/admin/media" class="side-nav-link<%= isActive('media') %>">
+                    <span class="menu-icon"><i class="ti ti-photo"></i></span>
+                    <span class="menu-text"> Media Library </span>
+                </a>
+            </li>
+
+            <% if (u.role === 'admin' || u.role === 'manager') { %>
+                <li class="side-nav-title">Administration</li>
+
+                <li class="side-nav-item">
+                    <a href="/admin/team" class="side-nav-link<%= isActive('team') %>">
+                        <span class="menu-icon"><i class="ti ti-user-shield"></i></span>
+                        <span class="menu-text"> Team </span>
+                    </a>
+                </li>
+
+                <li class="side-nav-item">
+                    <a href="/admin/activity" class="side-nav-link<%= isActive('activity') %>">
+                        <span class="menu-icon"><i class="ti ti-history"></i></span>
+                        <span class="menu-text"> Activity Log </span>
+                    </a>
+                </li>
+            <% } %>
+
+            <% if (u.role === 'admin' || u.role === 'superadmin') { %>
+                <li class="side-nav-item">
+                    <a href="/admin/settings" class="side-nav-link<%= isActive('settings') %>">
+                        <span class="menu-icon"><i class="ti ti-settings-2"></i></span>
+                        <span class="menu-text"> Settings </span>
+                    </a>
+                </li>
+            <% } %>
+
+            <li class="side-nav-item">
+                <a href="/admin/profile" class="side-nav-link<%= isActive('profile') %>">
+                    <span class="menu-icon"><i class="ti ti-user-circle"></i></span>
+                    <span class="menu-text"> My Profile </span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- Sidenav Menu End -->

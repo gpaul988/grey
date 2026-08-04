@@ -63,6 +63,12 @@ const nextConfig = {
     //   2. Upload the project INCLUDING the generated `.next` folder to cPanel.
     //   3. On cPanel run only `npm ci --omit=dev` + `npm start` (server.ts).
     // See scripts/build-and-deploy.sh and CPANEL_READY.md for the full steps.
+  async rewrites() {
+    return [
+      { source: '/startup', destination: '/Startups' },
+      { source: '/startups', destination: '/Startups' },
+    ];
+  },
 };
 
 module.exports = nextConfig;

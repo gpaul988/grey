@@ -1,0 +1,77 @@
+<%- contentFor('html_attribute') %>
+<%- contentFor('extra_css') %>
+<%- contentFor('content') %>
+
+<%- include('./partials/page-title', { title: title, subtitle: 'Content' }) %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h4 class="card-title mb-0"><i class="ti ti-help-circle me-1"></i> FAQs <span class="badge bg-primary-subtle text-primary ms-1"><%= faqs.length %></span></h4>
+                <button class="btn btn-sm btn-primary" id="btnNew"><i class="ti ti-plus"></i> Add FAQ</button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-centered mb-0 align-middle">
+                    <thead class="bg-light bg-opacity-50">
+                        <tr><th>Question</th><th style="width:140px">Category</th><th style="width:80px">Order</th><th style="width:90px">Active</th><th class="text-end" style="width:110px">Action</th></tr>
+                    </thead>
+                    <tbody>
+                        <% if (!faqs.length) { %><tr><td colspan="5" class="text-center text-muted py-4">No FAQs yet.</td></tr><% } %>
+                        <% faqs.forEach((f) => { %>
+                        <tr>
+                            <td class="fw-medium"><%= f.question %><div class="text-muted fs-12 text-truncate" style="max-width:420px"><%= f.answer %></div></td>
+                            <td><span class="badge bg-info-subtle text-info"><%= f.category %></span></td>
+                            <td><span class="badge bg-light text-dark"><%= f.sort_order %></span></td>
+                            <td><span class="badge bg-<%= f.active?'success':'secondary' %>-subtle text-<%= f.active?'success':'secondary' %>"><%= f.active?'Active':'Hidden' %></span></td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-soft-primary btn-edit" data-json="<%- JSON.stringify(f).replace(/"/g,'&quot;') %>"><i class="ti ti-edit"></i></button>
+                                <button class="btn btn-sm btn-soft-danger btn-del" data-id="<%= f.id %>"><i class="ti ti-trash"></i></button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="fModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header border-bottom"><h5 class="modal-title" id="mTitle">Add FAQ</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <input type="hidden" id="f_id">
+                <div class="row g-3">
+                    <div class="col-12"><label class="form-label fw-medium">Question <span class="text-danger">*</span></label><input id="f_q" class="form-control" placeholder="e.g. How long does a typical project take?"></div>
+                    <div class="col-12"><label class="form-label fw-medium">Answer <span class="text-danger">*</span></label><textarea id="f_a" class="form-control" rows="4"></textarea></div>
+                    <div class="col-md-6"><label class="form-label fw-medium">Category</label><input id="f_cat" class="form-control" list="catList" placeholder="General"><datalist id="catList"><option>General</option><option>Services</option><option>Pricing</option><option>Support</option><option>Process</option><option>Security</option></datalist></div>
+                    <div class="col-md-3"><label class="form-label fw-medium">Sort order</label><input id="f_sort" type="number" class="form-control" value="0"></div>
+                    <div class="col-md-3 d-flex align-items-end pb-2"><div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="f_active" checked><label class="form-check-label fw-medium" for="f_active">Active</label></div></div>
+                </div>
+            </div>
+            <div class="modal-footer border-top"><button class="btn btn-light" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="btnSave"><i class="ti ti-device-floppy me-1"></i>Save</button></div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('extra_javascript') %>
+<%- include('./partials/admin-api-helper') %>
+<script>
+(function () {
+    const modal = new bootstrap.Modal('#fModal'); const F = (id) => document.getElementById(id);
+    F('btnNew').addEventListener('click', () => { F('mTitle').textContent='Add FAQ'; F('f_id').value=''; F('f_q').value=''; F('f_a').value=''; F('f_cat').value='General'; F('f_sort').value='0'; F('f_active').checked=true; modal.show(); });
+    document.querySelectorAll('.btn-edit').forEach(b => b.addEventListener('click', () => {
+        const f = JSON.parse(b.dataset.json); F('mTitle').textContent='Edit FAQ'; F('f_id').value=f.id;
+        F('f_q').value=f.question||''; F('f_a').value=f.answer||''; F('f_cat').value=f.category||'General'; F('f_sort').value=f.sort_order||0; F('f_active').checked=f.active===1||f.active===true; modal.show();
+    }));
+    document.querySelectorAll('.btn-del').forEach(b => b.addEventListener('click', async () => { if (!confirm('Delete this FAQ?')) return; const r = await AdminAPI.del('/faqs/'+b.dataset.id); if (r.ok) location.reload(); else AdminAPI.toast(r.message||'Failed', true); }));
+    F('btnSave').addEventListener('click', async () => {
+        const payload = { question:F('f_q').value.trim(), answer:F('f_a').value.trim(), category:F('f_cat').value.trim()||'General', sort_order:parseInt(F('f_sort').value,10)||0, active:F('f_active').checked };
+        if (!payload.question || !payload.answer) return AdminAPI.toast('Question and answer required', true);
+        const id = F('f_id').value; const r = id ? await AdminAPI.patch('/faqs/'+id, payload) : await AdminAPI.post('/faqs', payload);
+        if (r.ok) location.reload(); else AdminAPI.toast(r.message||'Failed', true);
+    });
+})();
+</script>

@@ -1,0 +1,15 @@
+<nav class="portal-nav py-2 mb-4">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a href="/portal/dashboard" class="brand fs-4">Grey InfoTech <span class="text-muted fw-normal fs-6">Portal</span></a>
+    <div class="d-flex align-items-center gap-3">
+      <a href="/portal/dashboard" class="text-dark small"><i class="bi bi-grid"></i> Dashboard</a>
+      <a href="/portal/messages" class="text-dark small"><i class="bi bi-chat-dots"></i> Messages</a>
+      <% if (typeof me !== 'undefined' && me && me.kind === 'client') { %>
+        <a href="/portal/staff" class="text-dark small"><i class="bi bi-people"></i> My Team</a>
+      <% } %>
+      <% var navAvatar = (typeof me !== 'undefined' && me && me.avatar) ? me.avatar : '' %>
+      <% if (navAvatar) { %><img src="<%= navAvatar %>" class="avatar"><% } else { %><span class="avatar d-inline-flex align-items-center justify-content-center"><i class="bi bi-person"></i></span><% } %>
+      <a href="/portal/logout" class="btn btn-sm btn-outline-secondary">Logout</a>
+    </div>
+  </div>
+</nav>

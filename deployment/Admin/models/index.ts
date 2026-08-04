@@ -1,0 +1,290 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import db from '../db';
+import {createRepo} from './crud';
+import {UsersModel} from './users';  // Keep using SQLite version for now
+import type {
+    Submission, Lead, Project, Ticket, TicketMessage,
+    Invoice, CaseStudy, BlogPost, Conversation, Message, ActivityLog,
+    ProjectBrief, Upload, Partner, ClientReview, PartnerInquiry, Faq,
+    Ad, Subscriber, Announcement, PageSeo, AnalyticsEvent, MediaAsset,
+    AuditSubmission, CareerApplication, JobOpening, Notification,
+} from '../db/types';
+import {ClientsModel} from './clients';
+import {ClientStaffModel} from './clientStaff';
+import {Participants} from './participants';
+import {Verification} from './verification';
+
+export const Users = UsersModel;
+export {
+    Products,
+    ProductCategories,
+    ProductBrands,
+    Customers,
+    Orders,
+    StoreSettings,
+    ProductReviews,
+    Coupons,
+    Wishlists
+} from './store';
+export const Clients = ClientsModel;
+export const ClientStaff = ClientStaffModel;
+export {Participants, Verification};
+
+export {SiteSettings} from './settings';
+
+export const Submissions = createRepo<Submission>('submissions', [
+    'name', 'email', 'phone', 'subject', 'project_type', 'budget', 'message', 'source', 'status',
+]);
+
+export const Leads = createRepo<Lead>('leads', [
+    'name', 'email', 'company', 'phone', 'source', 'stage', 'value', 'owner_id', 'notes',
+]);
+
+export const Projects = createRepo<Project>('projects', [
+    'name', 'client_id', 'client_name', 'status', 'progress', 'budget', 'start_date', 'end_date', 'description', 'manager_id',
+]);
+
+export const Tickets = createRepo<Ticket>('tickets', [
+    'subject', 'requester', 'requester_email', 'priority', 'status', 'assignee_id', 'body',
+]);
+
+export const TicketMessages = createRepo<TicketMessage>('ticket_messages', [
+    'ticket_id', 'author', 'is_staff', 'body',
+]);
+
+export const Invoices = createRepo<Invoice>('invoices', [
+    'number', 'client_id', 'client_name', 'client_email', 'amount', 'tax', 'total', 'currency', 'status', 'issued_date', 'due_date', 'items', 'notes',
+]);
+
+export const CaseStudies = createRepo<CaseStudy>('case_studies', [
+    // original fields
+    'title', 'slug', 'client', 'industry', 'summary', 'body', 'image', 'results', 'published',
+    // extended fields (Lightflows /work-style template)
+    'hero_image', 'tagline', 'services', 'sections', 'website',
+]);
+
+export const BlogPosts = createRepo<BlogPost>('blog_posts', [
+    // original fields
+    'title', 'slug', 'excerpt', 'body', 'cover', 'author', 'tags', 'status', 'published_at',
+    // extended fields (Lightflows-style template)
+    'read_time', 'hero_image', 'author_avatar', 'author_role', 'sections',
+]);
+
+export const Partners = createRepo<Partner>('partners', [
+    'name', 'logo', 'url', 'sort_order', 'active',
+]);
+
+export const ClientReviews = createRepo<ClientReview>('client_reviews', [
+    'author', 'role', 'company', 'avatar', 'quote', 'rating', 'sort_order', 'active',
+]);
+
+export const PartnerInquiries = createRepo<PartnerInquiry>('partner_inquiries', [
+    'company', 'contact_name', 'email', 'phone', 'website', 'country',
+    'reg_authority', 'reg_number', 'partnership_type', 'message', 'status',
+]);
+
+export const Faqs = createRepo<Faq>('faqs', [
+    'question', 'answer', 'category', 'sort_order', 'active',
+]);
+
+export const Ads = createRepo<Ad>('ads', [
+    'title', 'body', 'image', 'link_url', 'cta_label', 'placement', 'share_caption',
+    'variant', 'status', 'starts_at', 'ends_at', 'impressions', 'clicks', 'sort_order', 'active',
+]);
+
+export const Subscribers = createRepo<Subscriber>('subscribers', [
+    'email', 'name', 'source', 'status',
+]);
+
+export const Announcements = createRepo<Announcement>('announcements', [
+    'message', 'link_url', 'link_label', 'variant', 'active', 'starts_at', 'ends_at',
+]);
+
+export const PageSeos = createRepo<PageSeo>('page_seo', [
+    'path', 'title', 'description', 'keywords', 'og_image',
+]);
+
+export const AnalyticsEvents = createRepo<AnalyticsEvent>('analytics_events', [
+    'type', 'path', 'ref', 'label', 'ua',
+]);
+
+export const Media = createRepo<MediaAsset>('media', [
+    'url', 'filename', 'mime', 'size', 'alt',
+]);
+
+export const AuditSubmissions = createRepo<AuditSubmission>('audit_submissions', [
+    'user_name', 'user_email', 'user_phone', 'user_company', 'audit_report_id',
+    'website', 'github_repo', 'priority', 'budget_estimate', 'specific_issues',
+    'preferred_contact', 'audit_data', 'status', 'admin_notes', 'proposed_solution',
+    'responded_at',
+]);
+
+export const CareerApplications = createRepo<CareerApplication>('career_applications', [
+    'form_type', 'full_name', 'email', 'phone', 'country', 'role_interest',
+    'experience_years', 'linkedin_url', 'portfolio_url', 'cover_letter',
+    'cv_path', 'cv_filename', 'job_opening_id', 'documents_paths', 'status', 'admin_notes',
+]);
+
+export const JobOpenings = createRepo<JobOpening>('job_openings', [
+    'title', 'department', 'location', 'type', 'experience_level', 'salary_range',
+    'description', 'responsibilities', 'requirements', 'nice_to_have', 'benefits',
+    'status', 'deadline',
+]);
+
+export const Notifications = createRepo<Notification>('notifications', [
+    'type', 'title', 'message', 'entity_type', 'entity_id', 'related_data', 'status',
+]);
+
+export const Conversations = createRepo<Conversation>('conversations', [
+    'client_id', 'subject', 'last_message', 'unread',
+]);
+
+export const Messages = createRepo<Message>('messages', [
+    'conversation_id', 'sender', 'sender_name', 'body',
+]);
+
+export const Activity = createRepo<ActivityLog>('activity_log', [
+    'user_id', 'user_name', 'action', 'entity', 'entity_id', 'detail',
+]);
+
+export const ProjectBriefs = createRepo<ProjectBrief>('project_briefs', [
+    'client_id', 'project_id', 'service', 'title', 'goals', 'target_audience',
+    'design_style', 'color_prefs', 'references_links', 'budget_range', 'timeline', 'details', 'status',
+]);
+
+export const Uploads = createRepo<Upload>('uploads', [
+    'client_id', 'project_id', 'brief_id', 'uploader', 'uploader_id',
+    'filename', 'original', 'mime', 'size', 'url',
+]);
+
+/** Record an audit-trail entry. Never throws into the request path. */
+export function logActivity(entry: {
+    user_id?: number | null;
+    user_name?: string | null;
+    action: string;
+    entity?: string;
+    entity_id?: number;
+    detail?: string;
+}): void {
+    try {
+        Activity.create({
+            user_id: entry.user_id ?? null,
+            user_name: entry.user_name ?? null,
+            action: entry.action,
+            entity: entry.entity ?? null,
+            entity_id: entry.entity_id ?? null,
+            detail: entry.detail ?? null,
+        });
+    } catch {
+        /* logging must never break the request */
+    }
+}
+
+/** Next invoice number, e.g. INV-2026-0007 */
+export async function nextInvoiceNumber(): Promise<string> {
+    const year = new Date().getFullYear();
+    const stmt = db.prepare(`SELECT COUNT(*) AS c
+                               FROM invoices
+                               WHERE number LIKE ?`);
+    const row = await (stmt.get as any)(`INV-${year}-%`) as { c: number };
+    const count = row?.c ?? 0;
+    return `INV-${year}-${String(count + 1).padStart(4, '0')}`;
+}
+
+/** Month labels for the last N months, oldest first, as YYYY-MM + pretty label. */
+function lastNMonths(n: number): { key: string; label: string }[] {
+    const out: { key: string; label: string }[] = [];
+    const now = new Date();
+    for (let i = n - 1; i >= 0; i--) {
+        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+        const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+        out.push({key, label: d.toLocaleString('en', {month: 'short'})});
+    }
+    return out;
+}
+
+/** Count rows of a table grouped by month (created_at) over the last N months. */
+async function monthlyCounts(table: string, months: { key: string }[], dateCol = 'created_at'): Promise<number[]> {
+    // Use SQLite strftime or MySQL DATE_FORMAT depending on DB_TYPE
+    const isMy = (process.env.DB_TYPE || '').toLowerCase() === 'mysql';
+    const dateExpr = isMy ? `DATE_FORMAT(${dateCol}, '%Y-%m')` : `strftime('%Y-%m', ${dateCol})`;
+    const stmt = db.prepare(`SELECT ${dateExpr} AS m, COUNT(*) AS c FROM ${table} GROUP BY m`);
+    const rows = await (stmt.all as any)() as { m: string; c: number }[];
+    const map = new Map(rows.map((r) => [r.m, r.c]));
+    return months.map((mm) => map.get(mm.key) ?? 0);
+}
+
+/** Sum a column of a table grouped by month over the last N months. */
+async function monthlySum(table: string, column: string, months: {
+    key: string
+}[], where = '', dateCol = 'created_at'): Promise<number[]> {
+    const isMy = (process.env.DB_TYPE || '').toLowerCase() === 'mysql';
+    const dateExpr = isMy ? `DATE_FORMAT(${dateCol}, '%Y-%m')` : `strftime('%Y-%m', ${dateCol})`;
+    const whereClause = where ? `WHERE ${where}` : '';
+    const stmt = db.prepare(`SELECT ${dateExpr} AS m, COALESCE(SUM(${column}), 0) AS s FROM ${table} ${whereClause} GROUP BY m`);
+    const rows = await (stmt.all as any)() as { m: string; s: number }[];
+    const map = new Map(rows.map((r) => [r.m, r.s]));
+    return months.map((mm) => map.get(mm.key) ?? 0);
+}
+
+/** Count rows grouped by an arbitrary column (e.g. status). */
+async function countsByColumn(table: string, column: string): Promise<Record<string, number>> {
+    const stmt = db.prepare(`SELECT ${column} AS k, COUNT(*) AS c FROM ${table} GROUP BY ${column}`);
+    const rows = await (stmt.all as any)() as { k: string; c: number }[];
+    const out: Record<string, number> = {};
+    for (const r of rows) out[r.k ?? 'unknown'] = r.c;
+    return out;
+}
+
+/**
+ * Time-series + breakdown data for the dashboard charts.
+ * Returns plain arrays ready to JSON-embed for ApexCharts.
+ */
+export async function chartData(months = 6) {
+    const m = lastNMonths(months);
+    const labels = m.map((x) => x.label);
+
+    // Leads vs submissions over time (line/area).
+    const leadsSeries = await monthlyCounts('leads', m);
+    const submissionsSeries = await monthlyCounts('submissions', m);
+
+    // Revenue: paid invoices total per month (area).
+    const revenueSeries = await monthlySum('invoices', 'total', m, "status = 'paid'");
+
+    // Projects by status (donut).
+    const projectStatus = await countsByColumn('projects', 'status');
+
+    // Tickets by status (bar).
+    const ticketStatus = await countsByColumn('tickets', 'status');
+
+    return {
+        labels,
+        leads: leadsSeries,
+        submissions: submissionsSeries,
+        revenue: revenueSeries,
+        projectStatus,
+        ticketStatus,
+    };
+}
+
+/** Aggregated numbers for the dashboard. */
+export async function dashboardStats() {
+    const newSubmissions = await Submissions.count("status = 'new'");
+    const totalLeads = await Leads.count();
+    const openLeads = await Leads.count("stage NOT IN ('won','lost')");
+    const wonValue = await Leads.sum('value', "stage = 'won'");
+    const activeProjects = await Projects.count("status = 'active'");
+    const totalProjects = await Projects.count();
+    const openTickets = await Tickets.count("status IN ('open','pending')");
+    const paidRevenue = await Invoices.sum('total', "status = 'paid'");
+    const outstanding = await Invoices.sum('total', "status IN ('sent','overdue')");
+    const totalClients = await Clients.count();
+    const publishedPosts = await BlogPosts.count("status = 'published'");
+    const unreadConvos = await Conversations.count('unread > 0');
+
+    return {
+        newSubmissions, totalLeads, openLeads, wonValue,
+        activeProjects, totalProjects, openTickets,
+        paidRevenue, outstanding, totalClients, publishedPosts, unreadConvos,
+    };
+}

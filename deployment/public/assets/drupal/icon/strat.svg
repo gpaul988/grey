@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="64"
+   height="64"
+   viewBox="0 0 64 64"
+   fill="none"
+   version="1.1"
+   id="svg157"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs161" />
+  <path
+     d="M 58.98,21.345 C 56.5034,15.0614 51.9112,9.83926 45.9957,6.57966 40.0803,3.32007 33.2126,2.22745 26.5776,3.49032 19.9426,4.75319 13.9566,8.29235 9.65217,13.4971 5.34778,18.7019 2.99509,25.2459 3.00001,32"
+     stroke="#000000"
+     stroke-width="2"
+     stroke-linejoin="round"
+     id="path147" />
+  <path
+     d="M 58.978,4.95905 60,21.351 44.311,15.897"
+     stroke="#000000"
+     stroke-width="2"
+     stroke-linejoin="round"
+     id="path149" />
+  <path
+     d="m 5.02,42.655 c 2.47663,6.2836 7.0688,11.5057 12.9843,14.7653 5.9155,3.2596 12.7831,4.3523 19.4181,3.0894 6.635,-1.2629 12.6211,-4.802 16.9254,-10.0068 C 58.6522,45.2981 61.0049,38.7541 61,32"
+     stroke="#000000"
+     stroke-width="2"
+     stroke-linejoin="round"
+     id="path151" />
+  <path
+     d="M 5.022,59.041 4,42.649 19.689,48.103"
+     stroke="#000000"
+     stroke-width="2"
+     stroke-linejoin="round"
+     id="path153" />
+  <path
+     d="M 33,19 22,35 H 32 L 31,45 42,29 H 32 Z"
+     fill="#D0D5DD"
+     stroke="#000000"
+     stroke-width="2"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     id="path155"
+     style="fill:#edeff2;fill-opacity:1" />
+</svg>

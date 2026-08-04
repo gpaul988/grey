@@ -1,0 +1,352 @@
+<%- contentFor('html_attribute') %>
+<%- contentFor('extra_css') %>
+<%- contentFor('content') %>
+
+<%- include('./partials/page-title', { title: title, subtitle: 'Talent Pipeline' }) %>
+
+<!-- Stats bar -->
+<div class="row g-3 mb-4">
+    <div class="col-sm-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body py-3 d-flex align-items-center gap-3">
+                <div class="avatar-sm bg-primary-subtle rounded-circle d-flex align-items-center justify-content-center flex-shrink-0">
+                    <i class="ti ti-briefcase fs-18 text-primary"></i>
+                </div>
+                <div>
+                    <div class="fw-bold fs-20"><%= applications.length %></div>
+                    <div class="text-muted fs-13">Total Applications</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body py-3 d-flex align-items-center gap-3">
+                <div class="avatar-sm bg-page-subtle rounded-circle d-flex align-items-center justify-content-center flex-shrink-0">
+                    <i class="ti ti-file-cv fs-18" style="color:#0d9488;"></i>
+                </div>
+                <div>
+                    <div class="fw-bold fs-20"><%= cvCount %></div>
+                    <div class="text-muted fs-13">CV Submissions</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body py-3 d-flex align-items-center gap-3">
+                <div class="avatar-sm bg-page-subtle rounded-circle d-flex align-items-center justify-content-center flex-shrink-0">
+                    <i class="ti ti-user-heart fs-18" style="color:#06b6d4;"></i>
+                </div>
+                <div>
+                    <div class="fw-bold fs-20"><%= introCount %></div>
+                    <div class="text-muted fs-13">Self Introductions</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h4 class="card-title mb-0">
+                    Career Applications
+                    <span class="badge bg-primary-subtle text-primary ms-1"><%= applications.length %></span>
+                </h4>
+                <div class="d-flex gap-2 flex-wrap">
+                    <select id="typeFilter" class="form-select form-select-sm" style="width:auto;">
+                        <option value="">All Types</option>
+                        <option value="cv_submission">CV Submissions</option>
+                        <option value="self_introduction">Self Introductions</option>
+                    </select>
+                    <select id="statusFilter" class="form-select form-select-sm" style="width:auto;">
+                        <option value="">All Statuses</option>
+                        <option value="new">New</option>
+                        <option value="reviewed">Reviewed</option>
+                        <option value="shortlisted">Shortlisted</option>
+                        <option value="rejected">Rejected</option>
+                        <option value="archived">Archived</option>
+                    </select>
+                    <input type="search" id="searchBox" class="form-control form-control-sm" placeholder="Search…" style="width:200px;">
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-centered mb-0" id="careerTable">
+                    <thead class="bg-light bg-opacity-50">
+                        <tr>
+                            <th>Applicant</th>
+                            <th>Type</th>
+                            <th>Role Interest</th>
+                            <th>Experience</th>
+                            <th>CV</th>
+                            <th>Status</th>
+                            <th>Received</th>
+                            <th class="text-end">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (!applications.length) { %>
+                        <tr><td colspan="8" class="text-center text-muted py-4">No applications yet.</td></tr>
+                        <% } %>
+                        <% applications.forEach((a) => { %>
+                        <tr
+                            data-id="<%= a.id %>"
+                            data-type="<%= a.form_type %>"
+                            data-status="<%= a.status %>"
+                            data-search="<%= (a.full_name + ' ' + a.email + ' ' + (a.role_interest||'') + ' ' + (a.cover_letter||'')).toLowerCase() %>"
+                        >
+                            <td>
+                                <div class="fw-medium"><%= a.full_name %></div>
+                                <small class="text-muted">
+                                    <%= a.email %>
+                                    <% if (a.phone) { %> · <%= a.phone %><% } %>
+                                    <% if (a.country) { %> · <%= a.country %><% } %>
+                                </small>
+                            </td>
+                            <td>
+                                <% if (a.form_type === 'cv_submission') { %>
+                                    <span class="badge badge-page">CV Submission</span>
+                                <% } else { %>
+                                    <span class="badge badge-page">Self Introduction</span>
+                                <% } %>
+                            </td>
+                            <td><%= a.role_interest || '—' %></td>
+                            <td><%= a.experience_years || '—' %></td>
+                            <td>
+                                <% if (a.cv_path) { %>
+                                    <a href="<%= a.cv_path %>" target="_blank" class="btn btn-xs btn-soft-primary" title="<%= a.cv_filename %>">
+                                        <i class="ti ti-download"></i> CV
+                                    </a>
+                                <% } else { %>
+                                    <span class="text-muted fs-13">—</span>
+                                <% } %>
+                            </td>
+                            <td>
+                                <span class="badge text-capitalize
+                                    bg-<%= a.status==='new' ? 'danger' : (a.status==='shortlisted' ? 'success' : (a.status==='reviewed' ? 'warning' : (a.status==='rejected' ? 'dark' : 'secondary'))) %>-subtle
+                                    text-<%= a.status==='new' ? 'danger' : (a.status==='shortlisted' ? 'success' : (a.status==='reviewed' ? 'warning' : (a.status==='rejected' ? 'dark' : 'secondary'))) %>">
+                                    <%= a.status %>
+                                </span>
+                            </td>
+                            <td class="text-muted fs-13"><%= timeAgo(a.created_at) %></td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-soft-primary btn-view-app"
+                                    data-id="<%= a.id %>"
+                                    data-name="<%= a.full_name %>"
+                                    data-email="<%= a.email %>"
+                                    data-phone="<%= a.phone || '' %>"
+                                    data-country="<%= a.country || '' %>"
+                                    data-type="<%= a.form_type %>"
+                                    data-role="<%= a.role_interest || '' %>"
+                                    data-exp="<%= a.experience_years || '' %>"
+                                    data-linkedin="<%= a.linkedin_url || '' %>"
+                                    data-portfolio="<%= a.portfolio_url || '' %>"
+                                    data-cv-path="<%= a.cv_path || '' %>"
+                                    data-cv-name="<%= a.cv_filename || '' %>"
+                                    data-letter="<%- (a.cover_letter||'').replace(/"/g,'&quot;') %>"
+                                    data-status="<%= a.status %>"
+                                    data-notes="<%- (a.admin_notes||'').replace(/"/g,'&quot;') %>"
+                                ><i class="ti ti-eye"></i></button>
+                                <button class="btn btn-sm btn-soft-danger btn-del-app" data-id="<%= a.id %>"><i class="ti ti-trash"></i></button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- View / Review Modal -->
+<div class="modal fade" id="appModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h5 class="modal-title mb-0" id="mModalTitle">Application Details</h5>
+                    <span id="mTypeBadge" class="badge mt-1"></span>
+                </div>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="mAppId">
+
+                <!-- Applicant info -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label class="form-label text-muted fs-13">Full Name</label>
+                        <p id="mName" class="fw-medium mb-0"></p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted fs-13">Email</label>
+                        <p id="mEmail" class="fw-medium mb-0"></p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted fs-13">Phone</label>
+                        <p id="mPhone" class="fw-medium mb-0"></p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted fs-13">Country</label>
+                        <p id="mCountry" class="fw-medium mb-0"></p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted fs-13">Role Interest</label>
+                        <p id="mRole" class="fw-medium mb-0"></p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted fs-13">Experience</label>
+                        <p id="mExp" class="fw-medium mb-0"></p>
+                    </div>
+                    <div class="col-md-6" id="mLinkedinRow">
+                        <label class="form-label text-muted fs-13">LinkedIn</label>
+                        <p id="mLinkedin" class="fw-medium mb-0"></p>
+                    </div>
+                    <div class="col-md-6" id="mPortfolioRow">
+                        <label class="form-label text-muted fs-13">Portfolio / GitHub</label>
+                        <p id="mPortfolio" class="fw-medium mb-0"></p>
+                    </div>
+                    <div class="col-12" id="mCvRow">
+                        <label class="form-label text-muted fs-13">CV / Resume</label>
+                        <p id="mCv" class="mb-0"></p>
+                    </div>
+                </div>
+
+                <!-- Cover letter / Introduction -->
+                <div class="mb-4">
+                    <label class="form-label text-muted fs-13" id="mLetterLabel">Cover Letter / Introduction</label>
+                    <div id="mLetter" class="border rounded p-3 bg-light bg-opacity-50" style="white-space:pre-wrap;max-height:250px;overflow-y:auto;font-size:13px;"></div>
+                </div>
+
+                <!-- Update status + notes -->
+                <div class="row g-3">
+                    <div class="col-md-5">
+                        <label class="form-label">Update Status</label>
+                        <select id="mStatus" class="form-select">
+                            <option value="new">New</option>
+                            <option value="reviewed">Reviewed</option>
+                            <option value="shortlisted">Shortlisted</option>
+                            <option value="rejected">Rejected</option>
+                            <option value="archived">Archived</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Admin Notes</label>
+                        <textarea id="mNotes" class="form-control" rows="3" placeholder="Internal notes about this applicant…"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="mReplyLink" class="btn btn-soft-success" target="_blank">
+                    <i class="ti ti-mail"></i> Reply by Email
+                </a>
+                <button class="btn btn-primary" id="mSaveBtn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('extra_javascript') %>
+<%- include('./partials/admin-api-helper') %>
+<script>
+(function () {
+    const modal = new bootstrap.Modal('#appModal');
+
+    // Open modal on view click
+    document.querySelectorAll('.btn-view-app').forEach((b) => b.addEventListener('click', () => {
+        const d = b.dataset;
+        document.getElementById('mAppId').value = d.id;
+        document.getElementById('mModalTitle').textContent = d.name;
+        document.getElementById('mName').textContent = d.name;
+        document.getElementById('mEmail').textContent = d.email;
+        document.getElementById('mPhone').textContent = d.phone || '—';
+        document.getElementById('mCountry').textContent = d.country || '—';
+        document.getElementById('mRole').textContent = d.role || '—';
+        document.getElementById('mExp').textContent = d.exp || '—';
+        document.getElementById('mStatus').value = d.status;
+        document.getElementById('mNotes').value = d.notes || '';
+        document.getElementById('mReplyLink').href =
+            'mailto:' + d.email + '?subject=Re: Your Application to Grey InfoTech';
+        document.getElementById('mLetter').textContent = d.letter || '—';
+
+        // Type badge
+        const badge = document.getElementById('mTypeBadge');
+        if (d.type === 'cv_submission') {
+            badge.textContent = 'CV Submission';
+        badge.className = 'badge mt-1 badge-page';
+            document.getElementById('mLetterLabel').textContent = 'Cover Letter';
+        } else {
+            badge.textContent = 'Self Introduction';
+        badge.className = 'badge mt-1 badge-page';
+            document.getElementById('mLetterLabel').textContent = 'Personal Introduction';
+        }
+
+        // LinkedIn
+        const li = document.getElementById('mLinkedin');
+        document.getElementById('mLinkedinRow').style.display = d.linkedin ? '' : 'none';
+        li.innerHTML = d.linkedin ? '<a href="' + d.linkedin + '" target="_blank">' + d.linkedin + '</a>' : '—';
+
+        // Portfolio
+        const pf = document.getElementById('mPortfolio');
+        document.getElementById('mPortfolioRow').style.display = d.portfolio ? '' : 'none';
+        pf.innerHTML = d.portfolio ? '<a href="' + d.portfolio + '" target="_blank">' + d.portfolio + '</a>' : '—';
+
+        // CV
+        const cvRow = document.getElementById('mCvRow');
+        const cvEl = document.getElementById('mCv');
+        if (d.cvPath) {
+            cvRow.style.display = '';
+            cvEl.innerHTML = '<a href="' + d.cvPath + '" target="_blank" class="btn btn-sm btn-soft-primary"><i class="ti ti-download me-1"></i>' + (d.cvName || 'Download CV') + '</a>';
+        } else {
+            cvRow.style.display = 'none';
+        }
+
+        modal.show();
+    }));
+
+    // Save status + notes
+    document.getElementById('mSaveBtn').addEventListener('click', async () => {
+        const id = document.getElementById('mAppId').value;
+        const status = document.getElementById('mStatus').value;
+        const notes = document.getElementById('mNotes').value;
+        const r = await AdminAPI.patch('/career-applications/' + id, { status, admin_notes: notes });
+        if (r.ok) {
+            AdminAPI.toast('Saved');
+            location.reload();
+        } else {
+            AdminAPI.toast(r.message || 'Error saving', true);
+        }
+    });
+
+    // Delete
+    document.querySelectorAll('.btn-del-app').forEach((b) => b.addEventListener('click', async () => {
+        if (!confirm('Permanently delete this application?')) return;
+        const r = await AdminAPI.del('/career-applications/' + b.dataset.id);
+        if (r.ok) {
+            AdminAPI.toast('Deleted');
+            b.closest('tr').remove();
+        } else {
+            AdminAPI.toast(r.message || 'Error deleting', true);
+        }
+    }));
+
+    // Filter + search
+    const apply = () => {
+        const type = document.getElementById('typeFilter').value;
+        const st   = document.getElementById('statusFilter').value;
+        const q    = document.getElementById('searchBox').value.toLowerCase();
+        document.querySelectorAll('#careerTable tbody tr[data-id]').forEach((tr) => {
+            const okType   = !type || tr.dataset.type   === type;
+            const okStatus = !st   || tr.dataset.status === st;
+            const okQ      = !q   || tr.dataset.search.includes(q);
+            tr.style.display = (okType && okStatus && okQ) ? '' : 'none';
+        });
+    };
+
+    document.getElementById('typeFilter').addEventListener('change', apply);
+    document.getElementById('statusFilter').addEventListener('change', apply);
+    document.getElementById('searchBox').addEventListener('input', apply);
+})();
+</script>

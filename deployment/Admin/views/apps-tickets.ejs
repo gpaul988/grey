@@ -1,0 +1,97 @@
+<%- contentFor('html_attribute') %>
+<%- contentFor('extra_css') %>
+<%- contentFor('content') %>
+
+<%- include('./partials/page-title', { title: title, subtitle: 'Support' }) %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h4 class="card-title mb-0">Support Tickets <span class="badge bg-primary-subtle text-primary ms-1"><%= tickets.length %></span></h4>
+                <div class="d-flex gap-2">
+                    <select id="statusFilter" class="form-select form-select-sm" style="width:auto;">
+                        <option value="">All</option><option value="open">Open</option><option value="pending">Pending</option><option value="resolved">Resolved</option><option value="closed">Closed</option>
+                    </select>
+                    <button class="btn btn-sm btn-primary" id="btnNew"><i class="ti ti-plus"></i> New Ticket</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-centered mb-0" id="tbl">
+                    <thead class="bg-light bg-opacity-50">
+                        <tr><th>Subject</th><th>Requester</th><th>Priority</th><th>Status</th><th>Assignee</th><th>Opened</th><th class="text-end">Action</th></tr>
+                    </thead>
+                    <tbody>
+                        <% if (!tickets.length) { %><tr><td colspan="7" class="text-center text-muted py-4">No tickets yet.</td></tr><% } %>
+                        <% tickets.forEach((t) => { const a = users.find(u=>u.id===t.assignee_id);
+                            const pc = t.priority==='urgent'?'danger':(t.priority==='high'?'warning':(t.priority==='low'?'secondary':'info'));
+                            const sc = t.status==='open'?'danger':(t.status==='pending'?'warning':(t.status==='resolved'?'success':'secondary')); %>
+                        <tr data-status="<%= t.status %>">
+                            <td><a href="/admin/ticket/<%= t.id %>" class="fw-medium text-reset"><%= t.subject %></a></td>
+                            <td><div><%= t.requester %></div><small class="text-muted"><%= t.requester_email || '' %></small></td>
+                            <td><span class="badge text-capitalize bg-<%= pc %>-subtle text-<%= pc %>"><%= t.priority %></span></td>
+                            <td><span class="badge text-capitalize bg-<%= sc %>-subtle text-<%= sc %>"><%= t.status %></span></td>
+                            <td><%= a ? a.name : '—' %></td>
+                            <td class="text-muted fs-13"><%= timeAgo(t.created_at) %></td>
+                            <td class="text-end">
+                                <a href="/admin/ticket/<%= t.id %>" class="btn btn-sm btn-soft-primary"><i class="ti ti-eye"></i></a>
+                                <button class="btn btn-sm btn-soft-danger btn-del" data-id="<%= t.id %>"><i class="ti ti-trash"></i></button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="tModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">New Ticket</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <div class="row g-3">
+                    <div class="col-12"><label class="form-label">Subject *</label><input id="f_subject" class="form-control"></div>
+                    <div class="col-md-6"><label class="form-label">Requester *</label><input id="f_requester" class="form-control"></div>
+                    <div class="col-md-6"><label class="form-label">Requester email</label><input id="f_email" type="email" class="form-control"></div>
+                    <div class="col-md-6"><label class="form-label">Priority</label>
+                        <select id="f_priority" class="form-select"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option><option value="urgent">Urgent</option></select></div>
+                    <div class="col-md-6"><label class="form-label">Assignee</label>
+                        <select id="f_assignee" class="form-select"><option value="">Unassigned</option><% users.forEach(u=>{ %><option value="<%= u.id %>"><%= u.name %></option><% }) %></select></div>
+                    <div class="col-12"><label class="form-label">Description</label><textarea id="f_body" class="form-control" rows="4"></textarea></div>
+                </div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-light" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="btnSave">Create</button></div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('extra_javascript') %>
+<%- include('./partials/admin-api-helper') %>
+<script>
+(function () {
+    const modal = new bootstrap.Modal('#tModal');
+    const F = (id) => document.getElementById(id);
+    F('btnNew').addEventListener('click', () => modal.show());
+    F('btnSave').addEventListener('click', async () => {
+        const payload = {
+            subject: F('f_subject').value.trim(), requester: F('f_requester').value.trim(),
+            requester_email: F('f_email').value.trim(), priority: F('f_priority').value,
+            assignee_id: F('f_assignee').value || null, body: F('f_body').value.trim(),
+        };
+        if (!payload.subject || !payload.requester) return AdminAPI.toast('Subject and requester required', true);
+        const r = await AdminAPI.post('/tickets', payload);
+        if (r.ok) { AdminAPI.toast(r.message); location.reload(); } else AdminAPI.toast(r.message, true);
+    });
+    document.querySelectorAll('.btn-del').forEach(b => b.addEventListener('click', async () => {
+        if (!confirm('Delete this ticket?')) return;
+        const r = await AdminAPI.del('/tickets/' + b.dataset.id);
+        if (r.ok) { AdminAPI.toast('Deleted'); b.closest('tr').remove(); } else AdminAPI.toast(r.message, true);
+    }));
+    F('statusFilter').addEventListener('change', (e) => {
+        const v = e.target.value;
+        document.querySelectorAll('#tbl tbody tr[data-status]').forEach(tr => tr.style.display = (!v || tr.dataset.status === v) ? '' : 'none');
+    });
+})();
+</script>

@@ -1,0 +1,158 @@
+<%- contentFor('html_attribute') %>
+<%- contentFor('extra_css') %>
+<%- contentFor('content') %>
+
+<%- include('./partials/page-title', { title: title, subtitle: 'Content' }) %>
+
+<!-- Placement card -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h4 class="card-title mb-0"><i class="ti ti-layout-grid me-1"></i> Show partner logos on pages</h4>
+                <button class="btn btn-sm btn-success" id="btnSavePlacement"><i class="ti ti-device-floppy"></i> Save placement</button>
+            </div>
+            <div class="card-body">
+                <p class="text-muted fs-13 mb-3">Tick the pages where the partner / client logo carousel should appear. A logo links to its website only if a URL is set.</p>
+                <div class="d-flex flex-wrap gap-3" id="placementBoxes">
+                    <% ['home','about','services','industries','portfolio'].forEach((pg) => { %>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input pl-page" type="checkbox" value="<%= pg %>" id="pl_<%= pg %>">
+                        <label class="form-check-label text-capitalize fw-medium" for="pl_<%= pg %>"><%= pg %></label>
+                    </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Partners list -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h4 class="card-title mb-0">Partners &amp; Clients <span class="badge bg-primary-subtle text-primary ms-1"><%= partners.length %></span></h4>
+                <button class="btn btn-sm btn-primary" id="btnNew"><i class="ti ti-plus"></i> Add partner</button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-centered mb-0">
+                    <thead class="bg-light bg-opacity-50">
+                        <tr><th style="width:90px">Logo</th><th>Name</th><th>Website</th><th>Order</th><th>Active</th><th class="text-end">Action</th></tr>
+                    </thead>
+                    <tbody>
+                        <% if (!partners.length) { %><tr><td colspan="6" class="text-center text-muted py-4">No partners yet.</td></tr><% } %>
+                        <% partners.forEach((p) => { %>
+                        <tr>
+                            <td>
+                                <% if (p.logo) { %><img src="<%= p.logo %>" alt="<%= p.name %>" style="max-height:34px;max-width:72px;object-fit:contain;background:#0f172a;border-radius:6px;padding:3px"><% } else { %><span class="text-muted fs-12">—</span><% } %>
+                            </td>
+                            <td class="fw-medium"><%= p.name %></td>
+                            <td>
+                                <% if (p.url) { %><a href="<%= p.url %>" target="_blank" rel="noopener" class="text-info text-truncate d-inline-block" style="max-width:240px"><%= p.url %></a><% } else { %><span class="text-muted fs-12">no link</span><% } %>
+                            </td>
+                            <td><span class="badge bg-light text-dark"><%= p.sort_order %></span></td>
+                            <td><span class="badge bg-<%= p.active?'success':'secondary' %>-subtle text-<%= p.active?'success':'secondary' %>"><%= p.active ? 'Active' : 'Hidden' %></span></td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-soft-primary btn-edit"
+                                    data-id="<%= p.id %>"
+                                    data-name="<%- (p.name||'').replace(/"/g,'&quot;') %>"
+                                    data-logo="<%- (p.logo||'').replace(/"/g,'&quot;') %>"
+                                    data-url="<%- (p.url||'').replace(/"/g,'&quot;') %>"
+                                    data-sort="<%= p.sort_order %>"
+                                    data-active="<%= p.active %>"><i class="ti ti-edit"></i></button>
+                                <button class="btn btn-sm btn-soft-danger btn-del" data-id="<%= p.id %>"><i class="ti ti-trash"></i></button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Partner Modal -->
+<div class="modal fade" id="pModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-bottom">
+                <h5 class="modal-title" id="mTitle">Add partner</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="f_id">
+                <div class="row g-3">
+                    <div class="col-12"><label class="form-label fw-medium">Name <span class="text-danger">*</span></label><input id="f_name" class="form-control" placeholder="e.g. Acme Corp"></div>
+                    <div class="col-12"><label class="form-label fw-medium">Logo image URL</label><input id="f_logo" class="form-control" placeholder="/assets/partners/acme.svg or https://..."><div class="form-text">Transparent PNG/SVG works best. Leave blank to show the name as text.</div></div>
+                    <div class="col-12"><label class="form-label fw-medium">Website URL <span class="text-muted fw-normal">(optional — logo links here if set)</span></label><input id="f_url" class="form-control" placeholder="https://acme.com"></div>
+                    <div class="col-6"><label class="form-label fw-medium">Sort order</label><input id="f_sort" type="number" class="form-control" value="0"></div>
+                    <div class="col-6 d-flex align-items-end pb-1">
+                        <div class="form-check form-switch ms-1">
+                            <input class="form-check-input" type="checkbox" id="f_active" checked>
+                            <label class="form-check-label fw-medium" for="f_active">Active</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-top">
+                <button class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" id="btnSave"><i class="ti ti-device-floppy me-1"></i>Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('extra_javascript') %>
+<%- include('./partials/admin-api-helper') %>
+<script>
+(function () {
+    const modal = new bootstrap.Modal('#pModal');
+    const F = (id) => document.getElementById(id);
+
+    /* ── placement ── */
+    AdminAPI.get('/content-placement').then((r) => {
+        if (!r.ok) return;
+        const on = (r.data.partners || []);
+        document.querySelectorAll('.pl-page').forEach((cb) => { cb.checked = on.includes(cb.value); });
+    });
+    F('btnSavePlacement').addEventListener('click', async () => {
+        const partners = Array.from(document.querySelectorAll('.pl-page')).filter(c => c.checked).map(c => c.value);
+        const r = await AdminAPI.post('/content-placement', { partners });
+        AdminAPI.toast(r.ok ? 'Placement saved' : (r.message || 'Failed'), !r.ok);
+    });
+
+    /* ── CRUD ── */
+    F('btnNew').addEventListener('click', () => {
+        F('mTitle').textContent = 'Add partner';
+        F('f_id').value = ''; F('f_name').value = ''; F('f_logo').value = '';
+        F('f_url').value = ''; F('f_sort').value = '0'; F('f_active').checked = true;
+        modal.show();
+    });
+    document.querySelectorAll('.btn-edit').forEach((b) => b.addEventListener('click', () => {
+        const d = b.dataset;
+        F('mTitle').textContent = 'Edit partner';
+        F('f_id').value = d.id; F('f_name').value = d.name || ''; F('f_logo').value = d.logo || '';
+        F('f_url').value = d.url || ''; F('f_sort').value = d.sort || '0'; F('f_active').checked = d.active === '1';
+        modal.show();
+    }));
+    document.querySelectorAll('.btn-del').forEach((b) => b.addEventListener('click', async () => {
+        if (!confirm('Delete this partner?')) return;
+        const r = await AdminAPI.del('/partners/' + b.dataset.id);
+        if (r.ok) location.reload(); else AdminAPI.toast(r.message || 'Failed', true);
+    }));
+    F('btnSave').addEventListener('click', async () => {
+        const payload = {
+            name: F('f_name').value.trim(),
+            logo: F('f_logo').value.trim(),
+            url: F('f_url').value.trim(),
+            sort_order: parseInt(F('f_sort').value, 10) || 0,
+            active: F('f_active').checked,
+        };
+        if (!payload.name) return AdminAPI.toast('Name is required', true);
+        const id = F('f_id').value;
+        const r = id ? await AdminAPI.patch('/partners/' + id, payload) : await AdminAPI.post('/partners', payload);
+        if (r.ok) location.reload(); else AdminAPI.toast(r.message || 'Failed', true);
+    });
+})();
+</script>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" <%- (typeof html_attribute !== 'undefined' ? html_attribute : '') %> >
+<head>
+    <%- include('./title-meta') %>
+    <%- (typeof extra_css !== 'undefined' ? extra_css : '') %>
+    <%- include ('./head-css') %>
+</head>
+
+<body <%- (typeof body_attribute !== 'undefined' ? body_attribute : '') %>>
+
+<div class="wrapper">
+    <%- include ('./menu') %>
+
+    <div class="page-content">
+
+        <div class="page-container">
+
+            <%- (typeof content !== 'undefined' ? content : '') %>
+
+        </div>
+
+        <%- include ('./footer') %>
+    </div>
+
+</div>
+
+<%- include('./customizer') %>
+
+<%- include ('./footer-scripts') %>
+<%- (typeof extra_javascript !== 'undefined' ? extra_javascript : '') %>
+
+
+<!-- SSE toast container (bottom-right) -->
+<div id="sse-toast-container"
+     class="toast-container position-fixed bottom-0 end-0 p-3"
+     style="z-index:1100;"></div>
+
+</body>
+</html>
