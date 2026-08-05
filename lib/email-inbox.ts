@@ -329,7 +329,7 @@ export function getUnreadEmailCount(): number {
 
   getPool()
     .query("SELECT COUNT(*) as count FROM email_inbox WHERE status = 'unread'")
-    .then(([rows]: [any[], any]) => {
+    .then(([rows]: any) => {
       count = rows[0]?.count || 0;
     })
     .catch((err) => console.error('[EMAIL_INBOX] Query error:', err));
@@ -418,28 +418,28 @@ export function getEmailStats(): {
   // Query stats asynchronously
   getPool()
     .query('SELECT COUNT(*) as count FROM email_inbox')
-    .then(([rows]: [any[], any]) => {
+    .then(([rows]: any) => {
       stats.received = rows[0]?.count || 0;
     })
     .catch((err) => console.error('[EMAIL_INBOX] Query error:', err));
 
   getPool()
     .query("SELECT COUNT(*) as count FROM email_inbox WHERE status = 'unread'")
-    .then(([rows]: [any[], any]) => {
+    .then(([rows]: any) => {
       stats.unread = rows[0]?.count || 0;
     })
     .catch((err) => console.error('[EMAIL_INBOX] Query error:', err));
 
   getPool()
     .query("SELECT COUNT(*) as count FROM email_log WHERE status = 'sent'")
-    .then(([rows]: [any[], any]) => {
+    .then(([rows]: any) => {
       stats.sent = rows[0]?.count || 0;
     })
     .catch((err) => console.error('[EMAIL_LOG] Query error:', err));
 
   getPool()
     .query("SELECT COUNT(*) as count FROM email_log WHERE status = 'failed'")
-    .then(([rows]: [any[], any]) => {
+    .then(([rows]: any) => {
       stats.failed = rows[0]?.count || 0;
     })
     .catch((err) => console.error('[EMAIL_LOG] Query error:', err));

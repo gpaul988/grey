@@ -45,6 +45,7 @@
     "node_modules",
     "Admin/node_modules",
     ".next",
-    "maritime-original.tsx"
+    "maritime-original.tsx",
+    "deployment"
   ]
 }
