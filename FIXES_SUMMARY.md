@@ -1,6 +1,6 @@
 # Grey InfoTech - Critical Fixes Summary
 **Session:** June 26, 2026  
-**Developer:** Derek Anienwelu (Senior Full-Stack Engineer)  
+**Developer:** Graham Sobiribo Paul (Senior Full-Stack Engineer)  
 **Status:** ✅ ALL CRITICAL ISSUES RESOLVED
 
 ---
