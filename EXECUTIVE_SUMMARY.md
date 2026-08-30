@@ -3,7 +3,7 @@
 **Project:** grey.git (7.5/10 → 9.5/10)  
 **Timeline:** 3 months (Jan-Jun 2026)  
 **Status:** ✅ PRODUCTION-READY  
-**Team:** Spencer Chike (Senior Full-Stack Dev, Nigeria)
+**Team:** Graham Sobiribo Paul (Senior Full-Stack Dev, Nigeria)
 
 ---
 
@@ -434,7 +434,7 @@ curl https://your-domain.com/api/health
 
 ## CONTACT & SUPPORT
 
-**Developer:** Spencer Chike  
+**Developer:** Graham Sobiribo Paul  
 **Location:** Nigeria  
 **Timezone:** WAT (UTC+1)  
 
