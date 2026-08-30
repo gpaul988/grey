@@ -331,6 +331,6 @@ import { PersonalizedGreeting } from '@/components/PersonalizedGreeting';
 
 ---
 
-**Spencer Chike** | Senior Full-Stack Developer | Grey InfoTech Limited
+** Graham Sobiribo Paul ** | Senior Full-Stack Developer | Grey InfoTech Limited
 **Date:** Thursday, June 18, 2026 | **Status:** ✅ COMPLETE
 
