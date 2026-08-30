@@ -295,7 +295,7 @@ const Footer = () => {
                 <div className="relative z-10 flex-1 py-12">
                     {/* Hero Section */}
                     <div
-                        className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 lg:gap-16 mx-auto lg:mb-14 md:mb-12 mb-8">
+                        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 lg:gap-16 lg:mb-14 md:mb-12 mb-8">
                         {/* Left – heading (takes 2/3 on md+) */}
                         <div className="order-1 md:col-span-2 text-start ">
                             <h1 className="lg:text-[5.5em] md:text-[3.5em] text-[1.5em] font-bold leading-none lg:mb-6 md:mb-4 mb-2">

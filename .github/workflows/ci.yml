@@ -7,7 +7,7 @@ on:
     branches: [main, develop]
 
 env:
-  NODE_VERSION: '24'
+  NODE_VERSION: '20'
   NODE_OPTIONS: --max-old-space-size=2048
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [24.x, 26.x]
+        node-version: [20.x, 24.x]
 
     steps:
       - name: Checkout code

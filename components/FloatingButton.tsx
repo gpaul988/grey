@@ -90,6 +90,13 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ className }) => {
     const handleOpenModal = () => setIsModalOpen(true);
     const handleCloseModal = () => setIsModalOpen(false);
 
+    const logAndOpenModal = () => {
+        try {
+            fetch('/api/_debug/log', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ event: 'floating_request_click', path: typeof window !== 'undefined' ? window.location.pathname : null, ts: new Date().toISOString() }) }).catch(() => {});
+        } catch (e) {}
+        handleOpenModal();
+    };
+
     // Determine button styling based on background with enhanced gradients
     const buttonBaseClasses = isDark
         ? 'bg-gradient-to-br from-cyan-500/25 via-teal-500/15 to-cyan-600/20 border-cyan-400/60 text-cyan-50 hover:text-cyan-100 hover:border-cyan-300/90 shadow-lg shadow-cyan-500/30 hover:shadow-2xl hover:shadow-cyan-400/40'
@@ -109,7 +116,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ className }) => {
             {/* Floating Action Button - Premium Futuristic Design */}
             <button
                 ref={buttonRef}
-                onClick={() => { try{ fetch('/api/_debug/log', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ event: 'floating_request_click', path: typeof window !== 'undefined' ? window.location.pathname : null, ts: new Date().toISOString() }) }).catch(()=>{}); } catch{} handleOpenModal(); }
+                onClick={logAndOpenModal}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={handleMouseLeave}
                 onMouseMove={handleMouseMove}

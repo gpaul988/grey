@@ -420,10 +420,6 @@ const HeaderContent: React.FC = () => {
         setIsCompanyOpen(false);
     };
 
-    if (pathname?.startsWith('/store')) {
-        return null;
-    }
-
     return (
         <>
             {/* Futuristic styles */}

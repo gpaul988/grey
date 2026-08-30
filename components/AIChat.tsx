@@ -45,6 +45,14 @@ export default function AIChat() {
         if (open) setTimeout(() => inputRef.current?.focus(), 250);
     }, [open]);
 
+    // log and toggle helper to avoid complex inline JSX
+    const logLauncherClick = () => {
+        try {
+            fetch('/api/_debug/log', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ event: 'ai_launcher_click', path: typeof window !== 'undefined' ? window.location.pathname : null, ts: new Date().toISOString() }) }).catch(() => {});
+        } catch (e) {}
+        setOpen((v) => !v);
+    };
+
     const send = useCallback(
         async (text: string) => {
             const q = text.trim();
@@ -124,7 +132,7 @@ export default function AIChat() {
             {/* Launcher */}
             <motion.button
                 aria-label="Open Grey AI assistant"
-                onClick={() => { try{ fetch('/api/_debug/log', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ event: 'ai_launcher_click', path: typeof window !== 'undefined' ? window.location.pathname : null, ts: new Date().toISOString() }) }).catch(()=>{}); } catch{} setOpen((v) => !v) }
+                onClick={logLauncherClick}
                 initial={false}
                 animate={{scale: 1, opacity: 1}}
                 transition={{delay: 0.6, type: 'spring', stiffness: 260, damping: 20}}

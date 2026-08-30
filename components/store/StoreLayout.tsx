@@ -6,6 +6,7 @@ import { useRouter } from '@/lib/routerCompat';
 import { useStore } from './StoreContext';
 import { displayUnit, formatPrice } from './lib';
 import { FiShoppingCart, FiSearch, FiUser, FiHeart, FiX, FiTrash2, FiMenu, FiGitMerge } from 'react-icons/fi';
+import Container from '@/components/Container';
 
 const NAV = [
     { label: 'All Products', href: '/store/products' },
@@ -113,40 +114,10 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
 
     return (
         <div className="store-root">
-            <header className="sticky top-0 z-[100]" style={{ background: 'rgba(11,15,20,.85)', backdropFilter: 'blur(12px)', borderBottom: '1px solid var(--st-border)' }}>
-                <div className="max-w-7xl mx-auto px-4">
-                    <div className="flex items-center gap-4 h-16">
-                        <button className="md:hidden st-link" onClick={() => setMenuOpen(!menuOpen)}><FiMenu size={22} /></button>
-                        <Link href="/store" className="font-extrabold text-xl tracking-tight shrink-0">
-                            Grey<span className="text-[var(--st-teal)]">TechStore</span>
-                        </Link>
-                        <form onSubmit={search} className="hidden md:flex flex-1 max-w-md relative">
-                            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search laptops, phones, servers…" className="st-input pr-10" />
-                            <button className="absolute right-3 top-1/2 -translate-y-1/2 st-link"><FiSearch /></button>
-                        </form>
-                        <div className="flex items-center gap-3 ml-auto">
-                            <CurrencyToggle />
-                            <Link href="/store/account/wishlist" className="st-link hidden sm:block" title="Wishlist"><FiHeart size={20} /></Link>
-                            <Link href={customer ? '/store/account' : '/store/account/login'} className="st-link" title="Account"><FiUser size={20} /></Link>
-                            <button onClick={() => setCartOpen(true)} className="relative st-link" title="Cart">
-                                <FiShoppingCart size={20} />
-                                {cartCount > 0 && <span className="absolute -top-2 -right-2 bg-[var(--st-teal)] text-[#04130f] text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">{cartCount}</span>}
-                            </button>
-                        </div>
-                    </div>
-                    <nav className={`${menuOpen ? 'flex' : 'hidden'} md:flex flex-col md:flex-row gap-1 md:gap-6 pb-3 md:pb-0 md:h-11 md:items-center text-sm`}>
-                        {NAV.map((n) => (
-                            <Link key={n.href} href={n.href} className="st-link py-1.5 font-medium">{n.label}</Link>
-                        ))}
-                        <Link href="/store/compare" className="st-link py-1.5 font-medium md:ml-auto flex items-center gap-1"><FiGitMerge size={14} /> Compare</Link>
-                    </nav>
-                </div>
-            </header>
-
-            <main className="max-w-7xl mx-auto px-4 py-8 min-h-[60vh]">{children}</main>
+            <main><Container className="py-8 min-h-[60vh]">{children}</Container></main>
 
             <footer style={{ background: 'var(--st-surface)', borderTop: '1px solid var(--st-border)' }} className="mt-16">
-                <div className="max-w-7xl mx-auto px-4 py-12 grid md:grid-cols-4 gap-8">
+                        <Container className="py-12 grid md:grid-cols-4 gap-8">
                     <div>
                         <p className="font-extrabold text-lg">Grey<span className="text-[var(--st-teal)]">TechStore</span></p>
                         <p className="text-[var(--st-muted)] text-sm mt-3">Nigeria&apos;s trusted store for laptops, desktops, servers, phones & accessories. Genuine products, nationwide delivery.</p>
@@ -175,7 +146,7 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
                             <li><Link href="/" className="st-link">← Main Website</Link></li>
                         </ul>
                     </div>
-                </div>
+                </Container>
                 <div className="border-t border-[var(--st-border)] py-5 text-center text-xs text-[var(--st-muted)]">
                     © {new Date().getFullYear()} Grey InfoTech Limited. All rights reserved.
                 </div>
