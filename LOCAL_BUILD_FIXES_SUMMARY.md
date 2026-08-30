@@ -127,7 +127,7 @@ git commit -m "Local build verified and tested"
 git push origin main
 
 # GitHub Actions will auto-deploy
-# Watch: https://github.com/gpaul988/grey/actions
+# Watch: https://github.com/grahamsobiribopaul/grey/actions
 ```
 
 ---

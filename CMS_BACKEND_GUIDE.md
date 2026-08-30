@@ -119,8 +119,8 @@ Response:
       "slug": "about-us",
       "content": "...",
       "published": true,
-      "createdAt": "2026-06-21T...",
-      "updatedAt": "2026-06-21T..."
+      "createdAt": "2026-08-30 13:23:18T...",
+      "updatedAt": "2026-08-30 13:23:18T..."
     }
   ]
 }
@@ -351,5 +351,5 @@ For issues:
 
 ---
 
-**Last Updated:** June 21, 2026
+**Last Updated:** 2026-08-30 13:23:18
 **Version:** 2.0 (Backend Only)

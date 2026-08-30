@@ -154,7 +154,7 @@ npm start
 ### Issue: FAQs page shows empty
 
 **Check:**
-1. FAQs table created: Check database with `psql` or SQLite Browser
+1. FAQs table created: 2026-08-30 13:23:18`psql` or SQLite Browser
 2. FAQ data seeded: Run migration again
 3. API returns data: `curl http://localhost:3000/api/faqs`
 

@@ -26,7 +26,7 @@ const NextjsDevelopment = () => (
         solutionsHeading={<>Next.js <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                Grey InfoTech delivers comprehensive Next.js development across 180+ applications with 90%+ Core Web Vitals and 99.8% uptime. From API routes and incremental static regeneration to edge middleware and edge functions, we build full-stack solutions managing $200M+ in transactions. 25+ enterprise adoptions and 99% client satisfaction demonstrate our expertise in performance-driven development.
+                Graham Sobiribo Paul delivers comprehensive Next.js development across 180+ applications with 90%+ Core Web Vitals and 99.8% uptime. From API routes and incremental static regeneration to edge middleware and edge functions, we build full-stack solutions managing $200M+ in transactions. 25+ enterprise adoptions and 99% client satisfaction demonstrate our expertise in performance-driven development.
             </>
         }
         solutions={[
@@ -85,7 +85,7 @@ const NextjsDevelopment = () => (
             },
         ]}
         ctaHeading={<>Build high-performance applications <br className={'lg:block md:block hidden'}/>with Next.js</>}
-        ctaBody={<>Grey InfoTech delivers 180+ Next.js applications with 90%+ Core Web Vitals and 99.8%+ uptime. From full-stack applications managing $200M+ GMV to edge-powered global platforms, we achieve 99% client satisfaction across 25+ enterprise adoptions. Let's build your next generation application together.</>}
+        ctaBody={<>Graham Sobiribo Paul delivers 180+ Next.js applications with 90%+ Core Web Vitals and 99.8%+ uptime. From full-stack applications managing $200M+ GMV to edge-powered global platforms, we achieve 99% client satisfaction across 25+ enterprise adoptions. Let's build your next generation application together.</>}
         stats={[
             {label: 'Years Experience', value: 5, suffix: '+'},
             {label: 'Team Members', value: 14, suffix: '+'},
@@ -94,7 +94,7 @@ const NextjsDevelopment = () => (
             {label: 'Client Satisfaction', value: 99, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Ahmed Hassan', title: 'Founder, FastTrack Commerce', message: <>Next.js platform from Grey InfoTech increased our checkout conversion rate by 35% through 90%+ Core Web Vitals performance improvements. Page loads dropped by 60%. Their expertise with API routes and edge functions delivered exceptional results. Highly recommend for eCommerce.</>,},
+            {name: 'Ahmed Hassan', title: 'Founder, FastTrack Commerce', message: <>Next.js platform from Graham Sobiribo Paul increased our checkout conversion rate by 35% through 90%+ Core Web Vitals performance improvements. Page loads dropped by 60%. Their expertise with API routes and edge functions delivered exceptional results. Highly recommend for eCommerce.</>,},
             {name: 'Zainab Mohammed', title: 'Tech Lead, DataFlow Analytics', message: <>Complex analytics portal handling millions of data points. Their ISR implementation delivers real-time content updates at scale. 99.8% uptime maintained consistently. Exceptional technical leadership and reliability. A true partnership in driving our business growth.</>,},
             {name: 'Chioma Adeyemi', title: 'Product Manager, SaaS Innovations', message: <>Full Next.js migration managing $200M+ transaction volume. Development velocity doubled, infrastructure costs reduced 40%, uptime improved to 99.8%. Their team's expertise with edge functions and API routes was instrumental. Outstanding execution and strategic partnership throughout.</>,},
         ]}

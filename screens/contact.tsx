@@ -16,7 +16,7 @@ import {
 
 const Contact: React.FC = () => {
     const whatsappNumber = '2348028095571';
-    const whatsappMessage = "Hello Grey InfoTech, I'd like to discuss a project and get started.";
+    const whatsappMessage = "Hello Graham Sobiribo Paul, I'd like to discuss a project and get started.";
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
     const calendlyUrl = 'https://calendly.com/greyinfotech/30min';
 
@@ -221,7 +221,7 @@ const Contact: React.FC = () => {
                     <FxHoloCard day={isDayTime} className="overflow-hidden p-0">
                         <div className="w-full aspect-video">
                             <iframe
-                                title="Grey InfoTech location"
+                                title="Graham Sobiribo Paul location"
                                 src="https://www.google.com/maps?q=Grey%20InfoTech%20Port%20Harcourt&output=embed"
                                 width="100%"
                                 height="100%"

@@ -191,7 +191,7 @@ const SUGGESTIONS = [
 
 ## Support
 
-**For Grey InfoTech:**
+**For Graham Sobiribo Paul:**
 - Email: hello@greyinfotech.com.ng
 - WhatsApp: +234-802-809-5571
 - Contact: /contact

@@ -14,7 +14,7 @@
 ### First Time
 ```bash
 # Clone repo
-git clone https://github.com/gpaul988/grey.git
+git clone https://github.com/grahamsobiribopaul/grey.git
 cd grey
 
 # Install dependencies (gets all 613 packages)
@@ -154,5 +154,5 @@ Read: `AUDIT_FIXES_APPLIED.md` for complete technical breakdown
 
 ---
 
-**Last Updated:** June 17, 2026  
+**Last Updated:** 2026-08-30 13:23:18  
 **All Verified:** ✅ Build ✅ Dev ✅ cPanel Ready

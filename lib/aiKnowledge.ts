@@ -15,8 +15,8 @@ export interface KbDoc {
 }
 
 export const COMPANY = {
-    name: 'Grey InfoTech',
-    legalName: 'Grey InfoTech Limited',
+    name: 'Graham Sobiribo Paul',
+    legalName: 'Graham Sobiribo Paul',
     location: 'Port Harcourt, Nigeria',
     email: 'hello@greyinfotech.com.ng',
     whatsapp: '+234-802-809-5571',
@@ -25,9 +25,9 @@ export const COMPANY = {
 
 export const KB: KbDoc[] = [
     {
-        title: 'About Grey InfoTech',
+        title: 'About Graham Sobiribo Paul',
         url: '/company',
-        body: `Grey InfoTech Limited is a web design, web & mobile app development, AI and digital marketing agency based in Port Harcourt, Nigeria. Founded in 2017, we've delivered 50+ projects across 15+ industries. We build scalable, user-centered digital products for startups and enterprises — from discovery and UI/UX through engineering, launch, and growth. We have 8+ years of industry experience helping founders validate ideas, build MVPs, scale infrastructure, and successfully exit.`,
+        body: `Graham Sobiribo Paul is a web design, web & mobile app development, AI and digital marketing agency based in Port Harcourt, Nigeria. Founded in 2017, we've delivered 50+ projects across 15+ industries. We build scalable, user-centered digital products for startups and enterprises — from discovery and UI/UX through engineering, launch, and growth. We have 8+ years of industry experience helping founders validate ideas, build MVPs, scale infrastructure, and successfully exit.`,
         tags: ['who are you', 'about', 'company', 'agency', 'location', 'where', 'founded', 'experience', 'history'],
     },
     {
@@ -115,9 +115,9 @@ export const KB: KbDoc[] = [
         tags: ['industries', 'fintech', 'healthcare', 'logistics', 'ecommerce', 'education', 'saas', 'oil gas', 'real estate', 'sector'],
     },
     {
-        title: 'Why Choose Grey InfoTech',
+        title: 'Why Choose Graham Sobiribo Paul',
         url: '/',
-        body: `Grey InfoTech brings 8+ years of proven expertise, 50+ successful projects, and deep understanding of startup and enterprise challenges. We're transparent, communicative, and committed to measurable results. We don't just build features — we build scalable products that drive real business growth. Our track record spans fintech, healthcare, logistics, education, and enterprise SaaS.`,
+        body: `Graham Sobiribo Paul brings 8+ years of proven expertise, 50+ successful projects, and deep understanding of startup and enterprise challenges. We're transparent, communicative, and committed to measurable results. We don't just build features — we build scalable products that drive real business growth. Our track record spans fintech, healthcare, logistics, education, and enterprise SaaS.`,
         tags: ['why choose', 'benefits', 'advantages', 'why us', 'commitment', 'quality', 'reliability', 'best', 'trust', 'choose'],
     },
     {
@@ -133,7 +133,7 @@ export const KB: KbDoc[] = [
         tags: ['portfolio', 'case study', 'work', 'examples', 'projects', 'clients', 'results', 'past work'],
     },
     {
-        title: 'Contact Grey InfoTech',
+        title: 'Contact Graham Sobiribo Paul',
         url: '/contact',
         body: `Reach us via the contact page, by email at hello@greyinfotech.com.ng, or on WhatsApp at +234-802-809-5571. We're based in Port Harcourt, Nigeria and work with clients worldwide. For fastest response, WhatsApp is best. We typically reply within a few hours.`,
         tags: ['contact', 'reach', 'email', 'phone', 'whatsapp', 'talk', 'call', 'get in touch', 'urgent', 'message'],
@@ -145,15 +145,15 @@ export const KB: KbDoc[] = [
         tags: ['support', 'help', 'ticket', 'issue', 'problem', 'bug', 'urgent support', 'existing client', 'maintenance'],
     },
     {
-        title: 'Careers at Grey InfoTech',
+        title: 'Careers at Graham Sobiribo Paul',
         url: '/careers',
-        body: `Interested in joining Grey InfoTech? Check our careers page for open roles across engineering, design, and marketing. We look for talented, driven people who care about craft and client outcomes.`,
+        body: `Interested in joining Graham Sobiribo Paul? Check our careers page for open roles across engineering, design, and marketing. We look for talented, driven people who care about craft and client outcomes.`,
         tags: ['careers', 'jobs', 'hiring', 'work with us', 'vacancy', 'apply', 'join', 'opening'],
     },
     {
         title: 'Online Store',
         url: '/store',
-        body: `Grey InfoTech runs an online store where you can browse and buy digital products and services, manage a cart and wishlist, compare items, and track orders from your account.`,
+        body: `Graham Sobiribo Paul runs an online store where you can browse and buy digital products and services, manage a cart and wishlist, compare items, and track orders from your account.`,
         tags: ['store', 'shop', 'buy', 'cart', 'order', 'product', 'ecommerce', 'purchase'],
     },
 ];
@@ -340,14 +340,14 @@ export function localAnswer(
     switch (intent) {
         case 'greeting':
             return {
-                answer: `Hi there! I'm Grey AI, the assistant for Grey InfoTech Limited. We're a web, mobile, and AI development agency based in Port Harcourt, Nigeria — 8+ years in, 50+ projects delivered. How can I help you today? You can ask me about our services, pricing, process, or anything else.`,
-                sources: [{ title: 'About Grey InfoTech', url: '/company' }],
+                answer: `Hi there! I'm Grey AI, the assistant for Graham Sobiribo Paul. We're a web, mobile, and AI development agency based in Port Harcourt, Nigeria — 8+ years in, 50+ projects delivered. How can I help you today? You can ask me about our services, pricing, process, or anything else.`,
+                sources: [{ title: 'About Graham Sobiribo Paul', url: '/company' }],
             };
 
         case 'about':
             return {
-                answer: `Grey InfoTech Limited is a web design, mobile app development, AI, and digital marketing agency based in Port Harcourt, Nigeria. Founded in 2017, we've delivered 50+ projects across 15+ industries — helping startups and enterprises build scalable digital products. You can learn more on our company page.`,
-                sources: [{ title: 'About Grey InfoTech', url: '/company' }],
+                answer: `Graham Sobiribo Paul is a web design, mobile app development, AI, and digital marketing agency based in Port Harcourt, Nigeria. Founded in 2017, we've delivered 50+ projects across 15+ industries — helping startups and enterprises build scalable digital products. You can learn more on our company page.`,
+                sources: [{ title: 'About Graham Sobiribo Paul', url: '/company' }],
             };
 
         case 'services':
@@ -431,7 +431,7 @@ export function localAnswer(
         case 'why':
             return {
                 answer: `8+ years of real-world expertise, 50+ successful projects, and a genuine commitment to your outcomes — not just deliverables. We're transparent, communicative, and focused on building products that scale and drive measurable business growth. Our clients stick with us because we treat their product like our own.`,
-                sources: [{ title: 'Why Choose Grey InfoTech', url: '/' }],
+                sources: [{ title: 'Why Choose Graham Sobiribo Paul', url: '/' }],
             };
 
         case 'industries':
@@ -449,12 +449,12 @@ export function localAnswer(
         case 'careers':
             return {
                 answer: `We're always looking for talented engineers, designers, and marketers. Check our careers page at /careers for current openings. We value technical depth, great communication, and genuine care for craft and client outcomes.`,
-                sources: [{ title: 'Careers at Grey InfoTech', url: '/careers' }],
+                sources: [{ title: 'Careers at Graham Sobiribo Paul', url: '/careers' }],
             };
 
         case 'store':
             return {
-                answer: `Grey InfoTech has an online store where you can browse and purchase digital products and services, manage a cart, compare items, and track orders. Visit /store to explore what's available.`,
+                answer: `Graham Sobiribo Paul has an online store where you can browse and purchase digital products and services, manage a cart, compare items, and track orders. Visit /store to explore what's available.`,
                 sources: [{ title: 'Online Store', url: '/store' }],
             };
 
@@ -485,7 +485,7 @@ export function localAnswer(
 export const SYSTEM_PROMPT = `You are "Grey AI", the friendly, concise assistant for ${COMPANY.legalName}, a web/mobile/AI development and digital marketing agency in ${COMPANY.location}.
 
 Rules:
-- Answer ONLY using the provided CONTEXT about Grey InfoTech. If the context doesn't cover it, say you're not sure and point the user to ${COMPANY.email} or WhatsApp ${COMPANY.whatsapp}.
+- Answer ONLY using the provided CONTEXT about Graham Sobiribo Paul. If the context doesn't cover it, say you're not sure and point the user to ${COMPANY.email} or WhatsApp ${COMPANY.whatsapp}.
 - BE BRIEF: 2-3 short sentences. Get straight to the point. No filler, no preamble.
 - One link max, only if it clearly helps (a path like /services/... or /contact).
 - Never invent pricing, clients, or guarantees. For pricing, say it depends on scope and point to /quote-request.

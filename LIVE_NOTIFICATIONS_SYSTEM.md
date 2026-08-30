@@ -90,7 +90,7 @@ EventSource listener → showToast() → updateBadge()
 ↓
 // 7. Admin sees:
 //  - Toast notification appears
-//  - Badge count updated: .noti-icon-badge shows "3"
+//  - Badge count updated: 2026-08-30 13:23:18"3"
 //  - If on /notifications page, page auto-reloads in 1.5s
 ```
 
@@ -312,5 +312,5 @@ SMTP_PASS=your-app-password
 
 ---
 
-**Last Updated**: 2026-07-29
+**Last Updated**: 2026-08-30 13:23:18
 **Status**: ✅ LIVE & TESTED

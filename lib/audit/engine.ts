@@ -496,7 +496,7 @@ async function auditRepo(input: string): Promise<AuditSection[]> {
                         severity: 'critical',
                         detail: `"${input}" is not a valid GitHub repo URL or owner/repo slug.`,
                         fix: 'Use https://github.com/owner/repo or owner/repo.',
-                        implementation: 'Valid formats: "https://github.com/gpaul988/grey" or "gpaul988/grey"',
+                        implementation: 'Valid formats: "https://github.com/grahamsobiribopaul/grey" or "grahamsobiribopaul/grey"',
                     },
                 ],
             },

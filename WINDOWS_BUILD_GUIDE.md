@@ -60,7 +60,7 @@ npm run build        # ✅ Works
 
 1. **Clone the repo**
    ```bash
-   git clone https://github.com/gpaul988/grey.git
+   git clone https://github.com/grahamsobiribopaul/grey.git
    cd grey
    ```
 

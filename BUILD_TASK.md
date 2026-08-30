@@ -62,7 +62,7 @@
 
 ### Verify + push
 - [ ] tsc --noEmit, build, preview screenshots
-- [ ] commit + push as gpaul988 (ask_secrets GITHUB_TOKEN)
+- [ ] commit + push as grahamsobiribopaul (ask_secrets GITHUB_TOKEN)
 
 ## SESSION UPDATE (verified live)
 - [x] 5 frontend API routes (ads, subscribe, announcement, faqs, track) — all 200, persist OK
@@ -76,7 +76,7 @@
 - [x] Admin /ads + /analytics verified rendering with live data (impressions tracking works)
 - [ ] AWAITING USER: inline-FAQ migration approach (seed copy? scope?)
 - [ ] npm run build (kill dev first)
-- [ ] commit + push as gpaul988
+- [ ] commit + push as grahamsobiribopaul
 
 ## INLINE FAQ MIGRATION — DONE [verified]
 - [x] Extracted 321+10 Q&A from 51 files (patterns A=prop, B=jsx, C=array, hr-tech=question/answer array)
@@ -88,4 +88,4 @@
 - [x] Verified: homepage 0 FAQ, service page 0 FAQ, /api/faqs=329, /faq renders all categories incl. migrated Services
 - scripts: extract-faqs.mjs, seed-faqs.mjs, remove-faqs-propA.mjs, remove-faqs-jsxB.mjs, cleanup-faq-hooks.mjs
 - backup: /tmp/screens-backup-1781484930
-## NEXT: npm run build (kill dev) -> commit + push gpaul988
+## NEXT: npm run build (kill dev) -> commit + push grahamsobiribopaul

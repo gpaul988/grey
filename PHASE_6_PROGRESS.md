@@ -4,11 +4,11 @@
 
 | Phase | Feature | Status | Commit | Est Hours | Date |
 |-------|---------|--------|--------|-----------|------|
-| 6.1 | GraphQL API (Apollo Server) | ✅ DONE | cf04fa4d | 6-8h | 2026-06-17 |
-| 6.2 | Full-text Search (PostgreSQL FTS) | ✅ DONE | 95b54235 | 4-6h | 2026-06-17 |
-| 6.3 | Webhooks & Event Streaming | ✅ DONE | bd0d1f16 | 5-7h | 2026-06-17 |
-| 6.4 | i18n Localization (10+ languages) | ✅ DONE | e987eae8 | 5-8h | 2026-06-18 |
-| 6.5 | Free Voice AI (Whisper+Ollama+Piper) | ✅ DONE | fa5ac600 | 8-10h | 2026-06-18 |
+| 6.1 | GraphQL API (Apollo Server) | ✅ DONE | cf04fa4d | 6-8h | 2026-08-30 13:23:18 |
+| 6.2 | Full-text Search (PostgreSQL FTS) | ✅ DONE | 95b54235 | 4-6h | 2026-08-30 13:23:18 |
+| 6.3 | Webhooks & Event Streaming | ✅ DONE | bd0d1f16 | 5-7h | 2026-08-30 13:23:18 |
+| 6.4 | i18n Localization (10+ languages) | ✅ DONE | e987eae8 | 5-8h | 2026-08-30 13:23:18 |
+| 6.5 | Free Voice AI (Whisper+Ollama+Piper) | ✅ DONE | fa5ac600 | 8-10h | 2026-08-30 13:23:18 |
 
 **Total Completed:** ~28-39 hours of work
 

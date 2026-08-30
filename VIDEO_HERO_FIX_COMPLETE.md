@@ -1,6 +1,6 @@
 # Video Hero Component Fix - COMPLETE
 
-**Date:** June 18, 2026  
+**Date:** 2026-08-30 13:23:18  
 **Commit:** `c0810940b` - "fix: add home hero video assets and refactor to ResponsiveVideoHero component"  
 **Status:** ✅ Deployed & pushed to main
 
@@ -62,7 +62,7 @@
 ## Git Status
 - **Commit:** c0810940b
 - **Branch:** main
-- **Status:** Pushed to github.com:gpaul988/grey.git
+- **Status:** Pushed to github.com:grahamsobiribopaul/grey.git
 - **Changes:** 4 files changed, 50 insertions(+), 41 deletions(-)
 
 ---

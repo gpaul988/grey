@@ -12,8 +12,7 @@ const Consulting = () => (
         eyebrow="Strategic technology guidance for growth"
         introHeading={<>Clarity From<br className="lg:block md:block hidden" />Complexity</>}
         introBody={[
-            <>Technology decisions made today lock in the trajectory of your business for years. At Grey
-            InfoTech we provide the strategic counsel and hands-on expertise to help you make those decisions
+            <>Technology decisions made today lock in the trajectory of your business for years. At Graham Sobiribo Paul we provide the strategic counsel and hands-on expertise to help you make those decisions
             with confidence. Whether you are a startup choosing a founding tech stack, a scale-up navigating a
             re-platform, or an enterprise modernising legacy systems, our consultants combine deep engineering
             knowledge with commercial acumen to give you recommendations that are practical, not theoretical.</>,
@@ -24,7 +23,7 @@ const Consulting = () => (
             grounded in what actually works in production, not just what looks good on paper.</>,
         ]}
         solutionsHeading={<>Consulting<br className="lg:block md:block hidden" />Services</>}
-        solutionsIntro="From technology strategy to hands-on architecture review, Grey InfoTech consulting helps you make better decisions faster and build with confidence."
+        solutionsIntro="From technology strategy to hands-on architecture review, Graham Sobiribo Paul consulting helps you make better decisions faster and build with confidence."
         solutions={[
             {
                 id: '01', title: 'Technology Strategy & Roadmapping', target: 'TS',

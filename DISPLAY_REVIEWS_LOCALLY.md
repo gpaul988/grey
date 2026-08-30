@@ -22,7 +22,7 @@ sqlite3 Admin/data/grey.db
 
 -- Insert 3 sample reviews
 INSERT INTO client_reviews (author, role, company, avatar, quote, rating, active) VALUES
-  ('Ahmed Hassan', 'Founder', 'Innovation Hub Lagos', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ahmed', 'Grey InfoTech transformed our business!', 5, 1),
+  ('Ahmed Hassan', 'Founder', 'Innovation Hub Lagos', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ahmed', 'Graham Sobiribo Paul transformed our business!', 5, 1),
   ('Chioma Adeyemi', 'Product Manager', 'Digital Africa', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Chioma', 'Delivered on time and within budget.', 5, 1),
   ('John Okafor', 'CEO', 'TechStart Nigeria', 'https://api.dicebear.com/7.x/avataaars/svg?seed=John', 'Professional team, built our 50K+ user app!', 5, 1);
 

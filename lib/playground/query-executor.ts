@@ -220,8 +220,8 @@ const simulateRESTCall = async (
 
   const mockResponses: Record<string, unknown> = {
     GET: { status: 200, message: 'Success' },
-    POST: { status: 201, id: Math.random(), created: true },
-    PUT: { status: 200, updated: true },
+    POST: { status: 201, id: Math.random(), created: new Date().toISOString() },
+    PUT: { status: 200, updated: new Date().toISOString() },
     DELETE: { status: 204, deleted: true },
     PATCH: { status: 200, patched: true },
   };

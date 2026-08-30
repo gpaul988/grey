@@ -1,4 +1,4 @@
-# Deploying Grey InfoTech to cPanel — File Manager only (no SSH)
+# Deploying Graham Sobiribo Paul to cPanel — File Manager only (no SSH)
 
 Target: **greyinfotech.com.ng** · Node **20** · cPanel "Setup Node.js App".
 
@@ -54,7 +54,7 @@ SMTP_HOST=greyinfotech.com.ng
 SMTP_PORT=465
 SMTP_USER=hello@greyinfotech.com.ng
 SMTP_PASS=<mailbox password>
-SMTP_FROM=Grey InfoTech <hello@greyinfotech.com.ng>
+SMTP_FROM=Graham Sobiribo Paul <hello@greyinfotech.com.ng>
 ```
 
 Do NOT set PORT (Passenger sets it). For SESSION_SECRET, any long random string

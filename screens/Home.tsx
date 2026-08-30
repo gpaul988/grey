@@ -161,7 +161,7 @@ const Home = () => {
                             <span className={`${isHydrated && isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>Platforms for<br/>Modern Businesses</span>
                         </h1><br/><br/>
                         <h3 className={`grey-parallax-soft ${isHydrated && isDayTime ? 'text-teal-500' : 'text-white'} contents lg:text-[17.4px] leading-[1.18] font-[400]`}>
-                            Grey InfoTech Limited builds secure, scalable web applications, SaaS platforms, and
+                            Graham Sobiribo Paul builds secure, scalable web applications, SaaS platforms, and
                             enterprise software solutions for startups and growing businesses across Africa and
                             globally.
                         </h3>
@@ -262,7 +262,7 @@ const Home = () => {
                         </h2>
                         <p className="text-white/55 max-w-2xl text-[0.95em] leading-[1.8] mb-16">
                             We&apos;ve built, scaled, and exited digital products across industries. Here&apos;s why
-                            forward-thinking teams trust Grey InfoTech with their most critical builds.
+                            forward-thinking teams trust Graham Sobiribo Paul with their most critical builds.
                         </p>
                     </FxReveal>
 
@@ -518,8 +518,7 @@ const Home = () => {
                             <span className={isDayTime ? 'text-white/40' : 'text-teal-900/40'}>Brands Worldwide.</span>
                         </h3>
                         <p className={`text-[0.95em] max-w-2xl font-[300] leading-[1.7] mb-16 ${isDayTime ? 'text-white/55' : 'text-teal-900/60'}`}>
-                            Our proven track record speaks volumes. See why companies across industries choose Grey
-                            InfoTech for digital excellence.
+                            Our proven track record speaks volumes. See why companies across industries choose Graham Sobiribo Paul for digital excellence.
                         </p>
                     </FxReveal>
 

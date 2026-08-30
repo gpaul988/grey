@@ -1093,7 +1093,7 @@ const CrmDevelopment = () => {
                                 <div>
                                     <p>
                                         Modern CRM platforms are the cornerstone of customer-centric organizations. At
-                                        Grey InfoTech, our CRM experts deliver enterprise-grade solutions that
+                                        Graham Sobiribo Paul, our CRM experts deliver enterprise-grade solutions that
                                         revolutionize how you manage customer relationships, streamline sales processes,
                                         and optimize marketing campaigns. From custom CRM development to seamless
                                         integration with your existing systems, we architect comprehensive platforms
@@ -1496,7 +1496,7 @@ const CrmDevelopment = () => {
                 </div>
             </div>
 
-            {/* WHy Choos Grey InfoTech As Your CRM Development Company */}
+            {/* WHy Choos Graham Sobiribo Paul As Your CRM Development Company */}
             <div
                 className={`lg:pt-[2em] md:pt-[2em] pt-[1em] lg:pb-[2em] md:pb-[2em] pb-[1em] ${isDayTime ? 'bg-white' : 'bg-black'}`}>
                 <div id={'backend technology'}
@@ -1517,7 +1517,7 @@ const CrmDevelopment = () => {
                         </div>
                         <div className='lg:-ml-[7.8em]'>
                             <p className='text-[0.873em] font-[300] lg:-mt-[0.2em] rounded-none leading-[1.5]'>
-                                Grey InfoTech delivers enterprise CRM solutions backed by proven expertise and a
+                                Graham Sobiribo Paul delivers enterprise CRM solutions backed by proven expertise and a
                                 distinguished track record of successful implementations. Our specialized team combines
                                 deep industry knowledge with advanced technical capabilities to architect systems that
                                 exceed functionality benchmarks and drive user adoption. We are committed to innovation

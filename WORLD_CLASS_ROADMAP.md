@@ -717,4 +717,4 @@ npm install @sanity/client
 
 **Document prepared by:** Graham Sobiribo Paul
 **Target audience:** Technical leadership, product team  
-**Last updated:** June 17, 2026
+**Last updated:** 2026-08-30 13:23:18

@@ -2,9 +2,9 @@
 > Build locally/CI and upload the prebuilt `.next`. See **DEPLOY_CPANEL_PREBUILT.md**.
 
 # PRODUCTION DEPLOYMENT PLAN - GREY PROJECT
-**Last Updated**: June 19, 2026  
+**Last Updated**: 2026-08-30 13:23:18  
 **Status**: Ready for cPanel Node.js Deployment  
-**Auditor**: Graham Paul (Senior Full-Stack Engineer)
+**Auditor**: Graham Sobiribo Paul (Senior Full-Stack Engineer)
 
 ---
 
@@ -421,7 +421,7 @@ done
 ```bash
 # In cPanel Node.js App Manager
 # Enable "Git Integration"
-# Enter: https://github.com/gpaul988/grey.git
+# Enter: https://github.com/grahamsobiribopaul/grey.git
 # Branch: main
 # Deploy button will clone the repo
 ```

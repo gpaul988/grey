@@ -1,4 +1,4 @@
-# Deploying Grey InfoTech to cPanel (Node.js / Passenger)
+# Deploying Graham Sobiribo Paul to cPanel (Node.js / Passenger)
 
 This app runs locally with `tsx server.ts` — a custom Express server that serves
 **both** the Next.js frontend and the `/admin` EJS panel. cPanel can run it, but

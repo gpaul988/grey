@@ -37,7 +37,7 @@ const FAQS = [
 
 const Support: React.FC = () => {
     const whatsappNumber = '2348028095571';
-    const whatsappMessage = 'Hello Grey InfoTech, I need support with my project.';
+    const whatsappMessage = 'Hello Graham Sobiribo Paul, I need support with my project.';
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
     const isDayTime = useIsDayTime();

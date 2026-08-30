@@ -10,7 +10,7 @@ const path = require('path');
 
 const dbPath = path.join(__dirname, '..', 'Admin', 'data', 'grey.db');
 
-console.log('📊 Grey InfoTech Demo Data Setup');
+console.log('📊 Graham Sobiribo Paul Demo Data Setup');
 console.log('================================\n');
 
 try {
@@ -51,7 +51,7 @@ try {
             role: 'Founder',
             company: 'Innovation Hub Lagos',
             avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ahmed',
-            quote: 'Grey InfoTech transformed our business with exceptional web development. Highly recommended!',
+            quote: 'Graham Sobiribo Paul transformed our business with exceptional web development. Highly recommended!',
             rating: 5,
         },
         {

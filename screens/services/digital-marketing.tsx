@@ -1456,7 +1456,7 @@ const DigitalMarketing = () => {
                             <p className={`text-xl ${isDayTime ? 'text-gray-500' : 'text-gray-400'} mb-8 max-w-2xl mx-auto`}>Join
                                 the elite companies that
                                 trust
-                                Grey InfoTech to revolutionize their digital presence</p>
+                                Graham Sobiribo Paul to revolutionize their digital presence</p>
                             <div className="flex flex-wrap justify-center gap-4">
                                 <Link href="/contact"
                                       className={`px-8 py-3 rounded-full font-bold ${isDayTime ? 'bg-gray-900 text-white hover:bg-gray-800' : 'bg-white text-black hover:bg-gray-100'} transition-colors`}>

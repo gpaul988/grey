@@ -69,7 +69,7 @@ It also applies when an individual is officially representing the community in p
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the project maintainers at:
 
 **Email:** [contact method to be added by maintainers]  
-**GitHub:** Report through private issues or direct message to @gpaul988
+**GitHub:** Report through private issues or direct message to @grahamsobiribopaul
 
 All complaints will be reviewed and investigated promptly and fairly. All maintainers are obligated to respect the privacy and security of the person reporting an incident.
 

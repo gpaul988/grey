@@ -355,7 +355,7 @@ const AppStoreOptimization = () => {
                                 </div>
                                 <div>
                                     <p>
-                                        Grey InfoTech pairs proprietary data pipelines with proven Brandformance
+                                        Graham Sobiribo Paul pairs proprietary data pipelines with proven Brandformance
                                         frameworks to align visibility, conversion, and retention. The outcome is
                                         scalable organic growth across markets through precise, measurable
                                         optimization.

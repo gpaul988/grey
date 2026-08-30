@@ -57,7 +57,7 @@ fetch('/admin/api/job-openings', {
     nice_to_have: ["Next.js", "GraphQL"],
     benefits: ["Health insurance", "Remote work"],
     status: "published",  // ⚠️ IMPORTANT: Must be "published" to show on frontend!
-    deadline: "2024-12-31"
+    deadline: "2026-08-30 13:23:18"
   })
 })
 ```

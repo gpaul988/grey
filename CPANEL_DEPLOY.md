@@ -1,4 +1,4 @@
-# Grey InfoTech — cPanel Deployment (Simplified)
+# Graham Sobiribo Paul — cPanel Deployment (Simplified)
 
 ## The Problem
 
@@ -123,5 +123,5 @@ npm rebuild better-sqlite3 --build-from-source
 
 ---
 
-**Last updated:** 2026-06-16  
+**Last updated:** 2026-08-30 13:23:18  
 **Tested on:** cPanel with Node.js 20

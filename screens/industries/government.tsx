@@ -14,7 +14,7 @@ const GovernmentIndustry = () => (
         introBody={[
             <>Governments face a unique technology challenge: serving citizens across every demographic, device
             and connectivity level while meeting strict security, accessibility and compliance requirements.
-            At Grey InfoTech we design and build government digital services that put citizens at the centre -
+            At Graham Sobiribo Paul we design and build government digital services that put citizens at the centre -
             simple interfaces, inclusive design, fast performance and secure data handling. We work across
             federal, state and local government, understanding the procurement, compliance and change management
             constraints of the public sector.</>,
@@ -26,7 +26,7 @@ const GovernmentIndustry = () => (
             continuity for the citizens who depend on them.</>,
         ]}
         solutionsHeading={<>Government<br className="lg:block md:block hidden" />Technology Solutions</>}
-        solutionsIntro="From citizen portals to data analytics and legacy modernisation, Grey InfoTech builds government technology that works for every citizen."
+        solutionsIntro="From citizen portals to data analytics and legacy modernisation, Graham Sobiribo Paul builds government technology that works for every citizen."
         solutions={[
             {
                 id: '01', title: 'Citizen Service Portals', target: 'CP',
@@ -82,7 +82,7 @@ const GovernmentIndustry = () => (
             },
         ]}
         ctaHeading={<>Technology<br className="lg:block md:block hidden" />in public service</>}
-        ctaBody="When government technology works properly, millions of citizens benefit. Grey InfoTech builds public sector digital services that are reliable, inclusive and trusted."/>
+        ctaBody="When government technology works properly, millions of citizens benefit. Graham Sobiribo Paul builds public sector digital services that are reliable, inclusive and trusted."/>
 );
 
 export default GovernmentIndustry;

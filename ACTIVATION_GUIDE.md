@@ -180,7 +180,7 @@ curl http://localhost:3000/api/health
   "status": "ok",
   "database": "connected",
   "redis": "connected",
-  "timestamp": "2026-06-18T..."
+  "timestamp": "2026-08-30 13:23:18T..."
 }
 ```
 

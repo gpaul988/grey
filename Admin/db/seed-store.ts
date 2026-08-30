@@ -135,7 +135,7 @@ export function seedStore(): void {
     'payment.bank_transfer.enabled': '1',
     'payment.bank_transfer.bank_name': 'Zenith Bank',
     'payment.bank_transfer.account_number': '1234567890',
-    'payment.bank_transfer.account_name': 'Grey InfoTech Ltd',
+    'payment.bank_transfer.account_name': 'Graham Sobiribo Paul Ltd',
   });
 
   console.log(`Store seeded: ${products.length} products, ${catData.length} categories, ${brandNames.length} brands, 3 coupons.`);

@@ -250,5 +250,5 @@ ADMIN_JWT_SECRET=<your-secret>
 
 ---
 
-Last updated: 2025-01-17
+Last updated: 2026-08-30 13:23:18
 Status: ✅ Production Ready

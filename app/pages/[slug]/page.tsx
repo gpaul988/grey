@@ -158,7 +158,7 @@ export default function CMSPageViewer() {
           {/* Footer */}
           <div className="mt-12 pt-8 border-t border-slate-700/50">
             <p className="text-slate-500 text-sm">
-              © {new Date().getFullYear()} Grey InfoTech Limited. All rights reserved.
+              © {new Date().getFullYear()} Graham Sobiribo Paul. All rights reserved.
             </p>
           </div>
         </article>

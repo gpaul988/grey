@@ -115,7 +115,7 @@ Form Fields:
   * Remote work
   * Professional development budget
 - Status: "published" ← IMPORTANT!
-- Deadline: "2024-12-31" (or leave empty)
+- Deadline: "2026-08-30 13:23:18" (or leave empty)
 
 Click "Save"
 ```

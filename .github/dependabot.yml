@@ -9,7 +9,7 @@ updates:
       time: "03:00"
     open-pull-requests-limit: 5
     reviewers:
-      - "gpaul988"
+      - "grahamsobiribopaul"
     allow:
       - dependency-type: "all"
     commit-message:
@@ -25,4 +25,4 @@ updates:
       day: "monday"
       time: "04:00"
     reviewers:
-      - "gpaul988"
+      - "grahamsobiribopaul"

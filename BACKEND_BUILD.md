@@ -1,4 +1,4 @@
-# Grey InfoTech Admin Backend — Build Status
+# Graham Sobiribo Paul Admin Backend — Build Status
 
 ## STATUS: ✅ COMPLETE & TESTED
 
@@ -33,7 +33,7 @@ database-backed admin running alongside the public Next.js site on a single serv
 ## Cleanup done
 - Deleted broken Next.js App-Router admin (`app/admin/*`, `app/api/admin/*`, `app/login/`, `app/lib/adminAuth.ts`).
 - Deleted redundant compiled dupes: `server.js`, `Admin/routes/{admin,auth,route}.js`, `Admin/routes/route.ts`.
-- `.gitignore` updated: `Admin/data/*.db*`, nested node_modules, `config.env`.
+- `.gitignore` updated:2026-08-30 13:23:18`Admin/data/*.db*`, nested node_modules, `config.env`.
 - npm scripts: `dev`, `start`, `seed`, `seed:reset`.
 
 ## Notes / low-priority follow-ups

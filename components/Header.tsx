@@ -420,7 +420,6 @@ const HeaderContent: React.FC = () => {
         setIsCompanyOpen(false);
     };
 
-
     if (pathname?.startsWith('/store')) {
         return null;
     }
@@ -556,14 +555,14 @@ const HeaderContent: React.FC = () => {
                             <span className="grey-scanline" aria-hidden="true"/>
                         </>
                     )}
-                    <div className="container max-w-full relative z-10 mx-auto w-full h-auto px-4 lg:px-[4.6em]">
+                    <div className="max-w-7xl mx-auto px-4">
                         <div className="flex items-center justify-between h-auto gap-3 md:gap-4">
                             {/* Logo */}
                             <div suppressHydrationWarning={true} className="shrink-0 grey-logo-orbit">
                                 <Link href="/#">
                                     <Image
                                         src="/logon.png"
-                                        alt="Grey InfoTech Logo"
+                                        alt="Graham Sobiribo Paul Logo"
                                         width={300}
                                         height={50}
                                         className="h-5 w-auto md:h-8 lg:h-10 object-contain"
@@ -813,7 +812,7 @@ const HeaderContent: React.FC = () => {
                                     <Link href={'#'}>
                                         <Image
                                             src={'/logon.png'}
-                                            alt="Grey InfoTech"
+                                            alt="Graham Sobiribo Paul"
                                             width={300}
                                             height={80}
                                             className="h-5 w-auto md:h-8 lg:h-10 object-contain"

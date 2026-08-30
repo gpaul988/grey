@@ -72,7 +72,7 @@ npm run dev           # frontend at http://localhost:3000
 ```
 
 ## Verified routes (dev + prod)
-- `/` 200 (homepage "Grey InfoTech Ltd."), `/services` `/store` `/contact` `/blog` `/portfolio` 200
+- `/` 200 (homepage "Graham Sobiribo Paul"), `/services` `/store` `/contact` `/blog` `/portfolio` 200
 - `/admin` 302 → login, `/login` 200
 - `/api/i18n/en` 200, `POST /api/ai/chat` 200
 - `tsc --noEmit` exit 0

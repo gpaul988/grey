@@ -33,7 +33,7 @@ const reasons = [
         description: (
             <>
                 Every project begins with a conversation -an opportunity for us to understand your goals, vision, and the
-                challenges that matter most to your business. At Grey InfoTech, we go beyond the technical brief to
+                challenges that matter most to your business. At Graham Sobiribo Paul, we go beyond the technical brief to
                 uncover what truly drives value for you. By aligning our strategy with your priorities from the start,
                 we&apos;re able to design and deliver solutions that solve real problems, unlock new opportunities, and
                 create lasting impact.
@@ -215,7 +215,7 @@ const Company = () => {
                     className="relative z-10 max-w-auto mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.6em] pb-16 md:pb-20 lg:pb-28">
                     <FxReveal>
                         <div className="mb-5">
-                            <FxChip day={false}>Grey InfoTech Ltd · Port Harcourt, Nigeria</FxChip>
+                            <FxChip day={false}>Graham Sobiribo Paul Ltd · Port Harcourt, Nigeria</FxChip>
                         </div>
                         <div className="border-b border-white/20 pb-8 mb-8 ">
                             <h1 className="gx-hero-title text-white gx-glitch">
@@ -275,7 +275,7 @@ const Company = () => {
                         <FxReveal delay={0.1}>
                             <div
                                 className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]">
-                                <div><p>At Grey InfoTech, we&apos;re driven by a passion for transforming ideas into
+                                <div><p>At Graham Sobiribo Paul, we&apos;re driven by a passion for transforming ideas into
                                     digital realities. We believe in building products that matter -solutions that solve
                                     real problems, create lasting value, and drive meaningful impact for our clients and
                                     their users.</p></div>
@@ -663,7 +663,7 @@ const Company = () => {
                             Our Values
                         </h1>
                         <p className="text-[0.873em] font-[300] leading-[1.4] text-justify mb-10">
-                            At Grey InfoTech, our values define how we work, innovate, and deliver value. We are{' '}
+                            At Graham Sobiribo Paul, our values define how we work, innovate, and deliver value. We are{' '}
                             <span className="font-[500]">Innovative</span>, constantly exploring new technologies to
                             create
                             smarter, future-ready solutions. We are <span className="font-[500]">Collaborative</span>,
@@ -698,7 +698,7 @@ const Company = () => {
                 </div>
             </div>
 
-            {/*  -  -  Why Choose Grey InfoTech  - Interactive Card Grid  -  -  */}
+            {/*  -  -  Why Choose Graham Sobiribo Paul  - Interactive Card Grid  -  -  */}
             <div className={`relative overflow-hidden ${isDayTime ? 'bg-[#020f0d]' : 'bg-white'}`}>
                 <FxBackground day={false} grid aurora className="opacity-50"/>
                 <div className="gx-noise-overlay pointer-events-none"/>
@@ -712,7 +712,7 @@ const Company = () => {
                             className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-4 border-b border-white/10 pb-8">
                             <FxGlitchText tag="h2"
                                           className="text-[2.2em] md:text-[3em] font-[800] leading-[1.1] tracking-tight text-white max-w-2xl">
-                                Why choose Grey InfoTech<br/>
+                                Why choose Graham Sobiribo Paul<br/>
                                 <span className="gx-gradient-text">for your next project?</span>
                             </FxGlitchText>
                             <p className="text-white/55 text-[0.9em] leading-relaxed max-w-md lg:text-right">

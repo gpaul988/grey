@@ -4,7 +4,7 @@
 
 COMMIT DETAILS:
   ID: d2c395e8
-  Author: gpaul988 <gpaul988@users.noreply.github.com>
+  Author: grahamsobiribopaul <grahamsobiribopaul@users.noreply.github.com>
   Date: Wed Jun 17 13:38:14 2026
   Branch: main
   Status: ✅ Committed locally, ready to push
@@ -25,7 +25,7 @@ FILES COMMITTED (24):
     - package-lock.json (dependency updates)
 
   Created:
-    - .nextignore
+    2026-08-30 13:17:34
     - build-manifests/ (8 essential manifest files)
     - 7 documentation files
     - 2 verification logs
@@ -133,11 +133,11 @@ Option 1: Using GitHub Token (Recommended)
 
 Option 2: Using SSH
   1. Set up SSH key in ~/.ssh/
-  2. Update remote: git remote set-url origin git@github.com:gpaul988/grey.git
+  2. Update remote: git remote set-url origin git@github.com:grahamsobiribopaul/grey.git
   3. Run: git push origin main
 
 Current Status:
-  Remote: origin = https://github.com/gpaul988/grey.git
+  Remote: origin = https://github.com/grahamsobiribopaul/grey.git
   Branch: main
   Commit: Ready to push
   Changes: 24 files, 5653 insertions(+), 40 deletions(-)
@@ -147,7 +147,7 @@ Push Command:
 
 Expected Result:
   Commit d2c395e8 will be live on GitHub
-  All changes visible at: https://github.com/gpaul988/grey/commit/d2c395e8
+  All changes visible at: https://github.com/grahamsobiribopaul/grey/commit/d2c395e8
 
 ================================================================================
                           DOCUMENTATION

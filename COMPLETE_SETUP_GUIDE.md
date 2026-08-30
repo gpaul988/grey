@@ -50,7 +50,7 @@ node scripts/setup-demo-data.js
 
 **Output:**
 ```
-📊 Grey InfoTech Demo Data Setup
+📊 Graham Sobiribo Paul Demo Data Setup
 ================================
 
 📌 Setting up Partners...

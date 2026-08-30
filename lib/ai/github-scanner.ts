@@ -142,7 +142,7 @@ export const getPopularRepos = async (topic: string, limit: number = 10): Promis
         stars: Math.floor(Math.random() * 100000),
         language: ['TypeScript', 'JavaScript', 'Python'][Math.floor(Math.random() * 3)],
         topics: [topic],
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),
         size: Math.floor(Math.random() * 50000),
         openIssues: Math.floor(Math.random() * 200),
         forks: Math.floor(Math.random() * 10000),

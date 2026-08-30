@@ -37,7 +37,7 @@ sqlite3 Admin/data/grey.db
 
 -- Insert 2 test reviews
 INSERT INTO client_reviews (author, role, company, quote, rating, active) VALUES
-  ('Ahmed Hassan', 'Founder', 'Innovation Hub Lagos', 'Grey InfoTech built our app. Excellent work!', 5, 1),
+  ('Ahmed Hassan', 'Founder', 'Innovation Hub Lagos', 'Graham Sobiribo Paul built our app. Excellent work!', 5, 1),
   ('Chioma Adeyemi', 'CEO', 'Digital Africa', 'Professional team, delivered on time and budget.', 5, 1);
 
 -- Verify

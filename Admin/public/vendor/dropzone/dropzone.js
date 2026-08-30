@@ -3012,7 +3012,7 @@ $a601ff30f483e917$var$ExifRestore.initClass();
  *
  * Author: Diego Perini (diego.perini at gmail.com)
  * Summary: cross-browser wrapper for DOMContentLoaded
- * Updated: 20101020
+ * Updated: 2026-08-30 13:17:34
  * License: MIT
  * Version: 1.2
  *

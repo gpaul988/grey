@@ -9,8 +9,8 @@ import nodemailer, {type Transporter, type SendMailOptions} from 'nodemailer';
  * the DB regardless). This mirrors the contact-form's best-effort approach.
  */
 
-const FROM = process.env.SMTP_FROM || 'Grey InfoTech <hello@greyinfotech.com.ng>';
-const BRAND = 'Grey InfoTech Ltd.';
+const FROM = process.env.SMTP_FROM || 'Graham Sobiribo Paul <hello@greyinfotech.com.ng>';
+const BRAND = 'Graham Sobiribo Paul';
 const TEAL = '#14b8a6';
 
 export function smtpConfigured(): boolean {
@@ -41,7 +41,7 @@ function transporter(): Transporter | null {
     return cached;
 }
 
-/** Wrap inner HTML in the standard Grey InfoTech email shell. */
+/** Wrap inner HTML in the standard Graham Sobiribo Paul email shell. */
 export function emailShell(title: string, innerHtml: string): string {
     return `
   <div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#222;max-width:560px;margin:0 auto;padding:24px;border:1px solid #eee;border-radius:12px;">

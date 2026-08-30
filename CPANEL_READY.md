@@ -4,7 +4,7 @@
 # GREY PROJECT - CPANEL DEPLOYMENT READY ✅
 
 **Status**: Production-ready for cPanel Node.js Deployment  
-**Last Updated**: June 19, 2026  
+**Last Updated**: 2026-08-30 13:23:18  
 **Verified**: All critical issues fixed, all tests passing
 
 ---
@@ -48,7 +48,7 @@
 # In cPanel Node.js App Manager:
 1. Click "Create New Application"
 2. Select "Enable Git Integration"
-3. Paste: https://github.com/gpaul988/grey.git
+3. Paste: https://github.com/grahamsobiribopaul/grey.git
 4. Branch: main
 5. Click Deploy
 ```
@@ -470,8 +470,8 @@ bash scripts/cpanel-deploy.sh # Automated deployment
 ```
 
 ### GitHub Repository
-- Issues: https://github.com/gpaul988/grey/issues
-- Docs: https://github.com/gpaul988/grey
+- Issues: https://github.com/grahamsobiribopaul/grey/issues
+- Docs: https://github.com/grahamsobiribopaul/grey
 
 ---
 
@@ -521,4 +521,4 @@ Questions? Check `PRODUCTION_DEPLOYMENT_PLAN.md` for detailed answers.
 - ✅ Production Ready: YES
 
 **Commit Hash**: Check Git log for audit fixes  
-**Last Verified**: June 19, 2026
+**Last Verified**: 2026-08-30 13:23:18

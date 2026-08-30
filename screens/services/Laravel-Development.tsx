@@ -19,7 +19,7 @@ const LaravelDevelopment = () => (
         introBody={[
             <>
                 Laravel is one of the most elegant and expressive PHP frameworks available, trusted by enterprises worldwide 
-                for building scalable, maintainable web applications. At Grey InfoTech, we harness Laravel's powerful features 
+                for building scalable, maintainable web applications. At Graham Sobiribo Paul, we harness Laravel's powerful features 
                 including Eloquent ORM, Blade templating, and comprehensive ecosystem tools to engineer robust back-ends and 
                 applications that are clean, scalable, and a pleasure to maintain. From high-throughput APIs to complex business 
                 logic, we deliver Laravel solutions backed by rigorous testing and thoughtful architecture.
@@ -34,7 +34,7 @@ const LaravelDevelopment = () => (
         solutionsHeading={<>Laravel <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From content management systems and business applications to API development and legacy modernization, Grey InfoTech 
+                From content management systems and business applications to API development and legacy modernization, Graham Sobiribo Paul 
                 delivers comprehensive Laravel development services. Based in Nigeria and working globally, we build performant, 
                 well-tested Laravel systems that scale and turn complex requirements into reliable software.
             </>
@@ -107,7 +107,7 @@ const LaravelDevelopment = () => (
             },
         ]}
         ctaHeading={<>Build powerful <br className={'lg:block md:block hidden'}/>with Laravel</>}
-        ctaBody={<>From scalable content platforms and business applications to legacy modernization, Grey InfoTech delivers Laravel 
+        ctaBody={<>From scalable content platforms and business applications to legacy modernization, Graham Sobiribo Paul delivers Laravel 
             systems that perform and endure. Let's turn your toughest requirements into clean, reliable software.</>}
         stats={[
             {label: 'Years Experience', value: 7, suffix: '+'},
@@ -117,7 +117,7 @@ const LaravelDevelopment = () => (
             {label: 'Client Satisfaction', value: 97, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Emeka Ukaegbu', title: 'Director, ContentHub Nigeria', message: <>Grey InfoTech built our entire CMS in Laravel. The system is robust, easy to maintain, and has handled our growth effortlessly.</>},
+            {name: 'Emeka Ukaegbu', title: 'Director, ContentHub Nigeria', message: <>Graham Sobiribo Paul built our entire CMS in Laravel. The system is robust, easy to maintain, and has handled our growth effortlessly.</>},
             {name: 'Folake Adeyemi', title: 'CTO, Business Solutions Ltd', message: <>Their Laravel expertise transformed our legacy system into a modern, scalable application. Great architecture and excellent support.</>},
             {name: 'Seun Oluwaseun', title: 'Founder, E-Commerce Platform', message: <>The team delivered a high-performing e-commerce platform in Laravel that handles thousands of daily transactions reliably.</>},
         ]}

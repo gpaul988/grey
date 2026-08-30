@@ -196,20 +196,20 @@ export async function POST(req: NextRequest) {
     try {
       await send({
         to: email,
-        subject: `✅ Application Received  - Grey InfoTech`,
+        subject: `✅ Application Received  - Graham Sobiribo Paul`,
         html: `
           <div style="font-family:Arial,sans-serif;color:#333;max-width:600px;margin:0 auto;border-radius:8px;overflow:hidden;">
             <div style="background:linear-gradient(135deg,#0f172a,#0d9488);padding:32px;text-align:center;">
-              <h1 style="color:#fff;margin:0;font-size:24px;">Grey InfoTech</h1>
+              <h1 style="color:#fff;margin:0;font-size:24px;">Graham Sobiribo Paul</h1>
               <p style="color:#99f6e4;margin:8px 0 0;font-size:14px;">${typeLabel} Received</p>
             </div>
             <div style="padding:32px;">
               <p>Hi <strong>${full_name}</strong>,</p>
-              <p>Thank you for ${isJobApplication ? 'applying' : isCV ? 'submitting your CV' : 'introducing yourself'} to Grey InfoTech. We've received your application and our team will review it carefully.</p>
+              <p>Thank you for ${isJobApplication ? 'applying' : isCV ? 'submitting your CV' : 'introducing yourself'} to Graham Sobiribo Paul. We've received your application and our team will review it carefully.</p>
               ${role_interest ? `<p><strong>Role of Interest:</strong> ${role_interest}</p>` : ''}
               <p>We'll be in touch if your profile matches an upcoming opportunity.</p>
               <p style="color:#6b7280;font-size:13px;"><strong>Application ID:</strong> #${appId}</p>
-              <p>Best regards,<br/><strong>The Grey InfoTech Team</strong></p>
+              <p>Best regards,<br/><strong>The Graham Sobiribo Paul Team</strong></p>
             </div>
           </div>
         `,

@@ -1,6 +1,6 @@
 # Phase 8: Deployment Guide
 
-**Date:** June 18, 2026  
+**Date:** 2026-08-30 13:23:18  
 **Status:** ✅ Complete  
 **Timeline:** ~3 hours
 
@@ -121,7 +121,7 @@ MIXPANEL_TOKEN=...
 curl https://yourdomain.com/api/health
 # Expected: { "status": "ok" }
 
-curl https://yourdomain.com/api/audit/gpaul988/grey
+curl https://yourdomain.com/api/audit/grahamsobiribopaul/grey
 # Expected: Audit report with Grade A
 ```
 
@@ -374,7 +374,7 @@ pm2 monit
 ### API Health
 ```bash
 curl https://yourdomain.com/api/health
-curl https://yourdomain.com/api/audit/gpaul988/grey
+curl https://yourdomain.com/api/audit/grahamsobiribopaul/grey
 ```
 
 ---

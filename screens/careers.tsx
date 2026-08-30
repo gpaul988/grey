@@ -565,7 +565,7 @@ function JobApplyModal({ job, isDayTime, onClose }: JobApplyModalProps) {
                                 <div className={divider}><span className={sectionBadge}>05</span>
                                     <span className={sectionLabel}>Cover Letter <span className={`normal-case font-[400] ${dark ? 'text-gray-600' : 'text-gray-400'}`}>(optional)</span></span></div>
                                 <textarea className={`${inputCls} min-h-[160px] resize-y`}
-                                    placeholder={`Tell us why you'd be a great fit for the ${job.title} role at Grey InfoTech.`}
+                                    placeholder={`Tell us why you'd be a great fit for the ${job.title} role at Graham Sobiribo Paul.`}
                                     value={form.cover_letter} onChange={set('cover_letter')} rows={6} />
                             </div>
 
@@ -786,7 +786,7 @@ function ApplyForm({ isDayTime, onClose }: { isDayTime: boolean; onClose: () => 
                         <div className={divider}><span className={sectionBadge}>05</span>
                             <span className={sectionLabel}>Cover Letter <span className={`normal-case font-[400] ${dark ? 'text-gray-600' : 'text-gray-400'}`}>(optional)</span></span></div>
                         <textarea className={`${inputCls} min-h-[160px] resize-y`}
-                            placeholder="Tell us why you'd be a great fit for Grey InfoTech."
+                            placeholder="Tell us why you'd be a great fit for Graham Sobiribo Paul."
                             value={form.cover_letter} onChange={set('cover_letter')} rows={6} />
                     </div>
 
@@ -920,7 +920,7 @@ function IntroduceForm({ isDayTime, onClose }: { isDayTime: boolean; onClose: ()
                 </div>
                 <div className="lg:col-span-2">
                     <FxTerminal day={isDayTime} lines={[
-                        '# grey infotech  - talent radar',
+                        '# Graham Sobiribo Paul  - talent radar',
                         'npm run meet-the-team', '',
                         '> Scanning incoming profile...',
                         '> Indexing skills...',
@@ -996,7 +996,7 @@ function IntroduceForm({ isDayTime, onClose }: { isDayTime: boolean; onClose: ()
                             <span className={sectionLabel}>Your Introduction <span className="text-red-400 normal-case font-[500] tracking-normal">*</span></span></div>
                         <div className="relative">
                             <textarea className={`${inputCls} min-h-[200px] resize-y`}
-                                placeholder="Tell us about yourself  - what you've built, what drives you, why you're excited about Grey InfoTech, and what you bring to the table."
+                                placeholder="Tell us about yourself  - what you've built, what drives you, why you're excited about Graham Sobiribo Paul, and what you bring to the table."
                                 value={form.cover_letter} onChange={set('cover_letter')} rows={8} required />
                             <span className={`absolute bottom-3 right-4 text-[0.72em] tabular-nums ${
                                 charCount < 50 ? 'text-red-400/60' : dark ? 'text-gray-600' : 'text-gray-400'
@@ -1252,7 +1252,7 @@ const Careers: React.FC = () => {
             <section className="relative overflow-hidden min-h-[76vh] flex flex-col justify-end">
                 <Image
                     src="/assets/header/careers.jpg"
-                    alt="Careers at Grey InfoTech"
+                    alt="Careers at Graham Sobiribo Paul"
                     fill sizes="100vw"
                     style={{ objectFit: 'cover', objectPosition: 'center' }}
                     priority className="absolute inset-0"
@@ -1270,7 +1270,7 @@ const Careers: React.FC = () => {
                             <FxChip day={false} className="mb-5">We're Hiring</FxChip>
                             <div className="border-b border-white/20 pb-7 mb-7 max-w-4xl">
                                 <h1 className="gx-hero-title text-white gx-glitch">
-                                    Jobs at{' '}<span className="gx-gradient-text">Grey InfoTech</span>
+                                    Jobs at{' '}<span className="gx-gradient-text">Graham Sobiribo Paul</span>
                                 </h1>
                             </div>
                             <p className="text-white/70 text-base md:text-lg max-w-2xl leading-relaxed mb-8">
@@ -1400,7 +1400,7 @@ const Careers: React.FC = () => {
                     <FxReveal>
                         <FxSectionHeading
                             day={false}
-                            eyebrow="Why Grey InfoTech"
+                            eyebrow="Why Graham Sobiribo Paul"
                             title="A place where great work happens"
                             subtitle="We build software people love  - in an environment where craft, honesty, and ambition are the default."
                             align="center" className="mb-16 mx-auto"

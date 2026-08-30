@@ -472,7 +472,7 @@ function ShareModal({isOpen, onClose, report}: { isOpen: boolean; onClose: () =>
         {
             label: 'Twitter / X',
             icon: ' - ',
-            href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out this site audit by Grey InfoTech  - Score: ${report.grade} (${report.overallScore}/100)`)}&url=${encodeURIComponent(shareUrl)}`,
+            href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out this site audit by Graham Sobiribo Paul  - Score: ${report.grade} (${report.overallScore}/100)`)}&url=${encodeURIComponent(shareUrl)}`,
         },
         {
             label: 'LinkedIn',
@@ -832,7 +832,7 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
             </div>
 
             <p className="mt-8 text-center text-xs text-slate-600">
-                Generated {new Date(report.generatedAt).toLocaleString()} · Grey InfoTech Audit Engine
+                Generated {new Date(report.generatedAt).toLocaleString()} · Graham Sobiribo Paul Audit Engine
                 {report.externalId ? ` · Report #${report.externalId}` : ''}
             </p>
 
@@ -962,7 +962,7 @@ function buildPrintHTML(report: AuditReportExtended): string {
         )
         .join('');
 
-    return `<!DOCTYPE html><html><head><title>Audit Report  - Grey InfoTech</title>
+    return `<!DOCTYPE html><html><head><title>Audit Report  - Graham Sobiribo Paul</title>
   <style>body{font-family:system-ui,sans-serif;max-width:900px;margin:0 auto;padding:40px 24px;color:#1e293b}h1{font-size:28px;font-weight:900;margin-bottom:4px}@media print{button{display:none}}</style>
   </head><body>
   <h1>Audit Report</h1>
@@ -973,6 +973,6 @@ function buildPrintHTML(report: AuditReportExtended): string {
   </p>
   <p style="margin-bottom:32px;color:#475569;font-size:14px">${report.summary}</p>
   ${sections}
-  <p style="color:#94a3b8;font-size:11px;margin-top:40px;border-top:1px solid #e2e8f0;padding-top:16px">Generated ${new Date(report.generatedAt).toLocaleString()} · Grey InfoTech Audit Engine</p>
+  <p style="color:#94a3b8;font-size:11px;margin-top:40px;border-top:1px solid #e2e8f0;padding-top:16px">Generated ${new Date(report.generatedAt).toLocaleString()} · Graham Sobiribo Paul Audit Engine</p>
   </body></html>`;
 }

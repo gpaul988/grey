@@ -107,7 +107,7 @@ npm run test:e2e
 ## Verification
 
 Check that all 14 E2E tests pass in GitHub Actions:
-1. Go to: https://github.com/gpaul988/grey/actions
+1. Go to: https://github.com/grahamsobiribopaul/grey/actions
 2. Find latest run for commit `6f4415c1`
 3. Look for ✅ "Test & Type Check" job
 4. Scroll to "Run E2E tests" step

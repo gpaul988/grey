@@ -16,7 +16,7 @@ const Port = () => (
         introHeading={<>Port Digitalisation<br className="lg:block md:block hidden"/>and Operational Excellence</>}
         introBody={[
             <>
-                Ports are the linchpin of global trade. Grey InfoTech designs terminal operating systems and orchestration platforms that synchronise cranes, yard planning, hinterland movements and customs workflows. Our solutions reduce dwell time, speed cargo handover and automate repetitive manual tasks that introduce delays.
+                Ports are the linchpin of global trade. Graham Sobiribo Paul designs terminal operating systems and orchestration platforms that synchronise cranes, yard planning, hinterland movements and customs workflows. Our solutions reduce dwell time, speed cargo handover and automate repetitive manual tasks that introduce delays.
             </>,
             <>
                 With real-time telemetry, predictive yard planning and AI-assisted gate processing, terminals can achieve higher throughput with the same footprint. Integrations with carriers, customs and inland logistics allow automated clearance and prioritisation of high-value cargo, while digital twins enable operational simulation and continuous improvement.

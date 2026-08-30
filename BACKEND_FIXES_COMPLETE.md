@@ -201,7 +201,7 @@ user_name: "admin"
 action: "delete"
 entity: "job_opening"
 entity_id: 1
-created_at: 2026-07-01 03:14:27
+created_at: 2026-08-30 13:23:18
 ```
 
 View activity:
@@ -262,7 +262,7 @@ If upgrading from old version:
 4. **Scheduled Deletion**: Delete with grace period
    ```
    POST /api/{entity}/schedule-delete
-   body: { ids, deleteAt: '2026-07-08' }
+   body: { ids, deleteAt: '2026-08-30 13:23:18' }
    ```
 
 5. **Rate Limiting**: Prevent abuse of delete operations
@@ -302,7 +302,7 @@ For issues or questions:
 
 ---
 
-**Implementation Date**: 2026-07-01
+**Implementation Date**: 2026-08-30 13:23:18
 **Files Modified**: 6
 **New Functionality**: Bulk delete + enhanced error handling
 **Lines of Code Added**: ~350

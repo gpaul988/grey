@@ -218,6 +218,6 @@ window.Tawk_LoadStart                          // Load start timestamp
 
 ---
 
-Last updated: 2025-01-17
+Last updated: 2026-08-30 13:23:18
 Component: `components/TawkChat.tsx`
 Config: `.env.example` + cPanel Environment Variables

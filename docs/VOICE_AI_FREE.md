@@ -285,7 +285,7 @@ Response:
 {
   "system": {
     "allComponentsReady": true,
-    "timestamp": "2026-06-18T12:34:56Z"
+    "timestamp": "2026-08-30 13:23:18"
   },
   "components": {
     "whisper": {

@@ -171,7 +171,7 @@ export const ENTITIES: EntityDef[] = [
       { name: 'excerpt', label: 'Excerpt', type: 'textarea' },
       { name: 'body', label: 'Body', type: 'textarea' },
       { name: 'cover', label: 'Cover image URL', type: 'url' },
-      { name: 'author', label: 'Author', type: 'text', default: 'Grey InfoTech' },
+      { name: 'author', label: 'Author', type: 'text', default: 'Graham Sobiribo Paul' },
       { name: 'tags', label: 'Tags', type: 'tags', help: 'Comma-separated' },
       {
         name: 'status', label: 'Status', type: 'select', default: 'draft',

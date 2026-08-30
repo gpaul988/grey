@@ -89,7 +89,7 @@ GET /api/content?page=home
         role: "CEO",
         company: "TechStart Nigeria",
         avatar: "https://api.dicebear.com/...",
-        quote: "Grey InfoTech is amazing!",
+        quote: "Graham Sobiribo Paul is amazing!",
         rating: 5
       },
       // ... more reviews

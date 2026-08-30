@@ -124,13 +124,13 @@ export default function AIChat() {
             {/* Launcher */}
             <motion.button
                 aria-label="Open Grey AI assistant"
-                onClick={() => setOpen((v) => !v)}
-                initial={{scale: 0, opacity: 0}}
+                onClick={() => { try{ fetch('/api/_debug/log', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ event: 'ai_launcher_click', path: typeof window !== 'undefined' ? window.location.pathname : null, ts: new Date().toISOString() }) }).catch(()=>{}); } catch{} setOpen((v) => !v) }
+                initial={false}
                 animate={{scale: 1, opacity: 1}}
                 transition={{delay: 0.6, type: 'spring', stiffness: 260, damping: 20}}
                 whileHover={{scale: 1.06}}
                 whileTap={{scale: 0.94}}
-                className="fixed bottom-5 left-5 z-[90] flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-teal-400 via-cyan-500 to-indigo-600 text-white shadow-[0_8px_30px_rgba(20,184,166,0.45)] ring-1 ring-white/20"
+                className="fixed bottom-5 left-5 z-[140] flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-teal-400 via-cyan-500 to-indigo-600 text-white shadow-[0_8px_30px_rgba(20,184,166,0.45)] ring-1 ring-white/20"
             >
                 <AnimatePresence mode="wait">
                     {open ? (
@@ -155,7 +155,7 @@ export default function AIChat() {
             <AnimatePresence>
                 {open && (
                     <motion.div
-                        initial={{opacity: 0, y: 24, scale: 0.96}}
+                        initial={false}
                         animate={{opacity: 1, y: 0, scale: 1}}
                         exit={{opacity: 0, y: 24, scale: 0.96}}
                         transition={{type: 'spring', stiffness: 300, damping: 26}}

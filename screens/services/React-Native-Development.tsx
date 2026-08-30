@@ -19,7 +19,7 @@ const ReactNativeDevelopment = () => (
         introBody={[
             <>
                 React Native enables startups and enterprises to build high-quality iOS and Android applications from a single
-                JavaScript codebase. At Grey InfoTech we harness React Native's code-sharing capabilities and native performance
+                JavaScript codebase. At Graham Sobiribo Paul we harness React Native's code-sharing capabilities and native performance
                 to deliver cross-platform apps that feel genuinely native. Whether launching an MVP, scaling a successful startup,
                 or building multi-platform services, React Native dramatically reduces development time and cost while maintaining
                 excellent user experiences. Our expertise spans navigation patterns, native module integration, and performance optimization.
@@ -35,7 +35,7 @@ const ReactNativeDevelopment = () => (
         solutionsHeading={<>React Native <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From MVP launches to fully-scaled multi-platform services, Grey InfoTech delivers comprehensive React Native development.
+                From MVP launches to fully-scaled multi-platform services, Graham Sobiribo Paul delivers comprehensive React Native development.
                 Code-sharing efficiency combined with native performance creates applications that work brilliantly on iOS and Android
                 while maximizing your development investment.
             </>
@@ -91,7 +91,7 @@ const ReactNativeDevelopment = () => (
             },
         ]}
         ctaHeading={<>Launch mobile apps faster <br className={'lg:block md:block hidden'}/>with React Native</>}
-        ctaBody={<>From MVP launches to multi-platform services, Grey InfoTech delivers React Native solutions that reach iOS and Android users with minimal development overhead. Let's bring your mobile vision to life faster and more cost-effectively.</>}
+        ctaBody={<>From MVP launches to multi-platform services, Graham Sobiribo Paul delivers React Native solutions that reach iOS and Android users with minimal development overhead. Let's bring your mobile vision to life faster and more cost-effectively.</>}
         stats={[
             {label: 'Years Experience', value: 6, suffix: '+'},
             {label: 'Team Members', value: 11, suffix: '+'},
@@ -100,8 +100,8 @@ const ReactNativeDevelopment = () => (
             {label: 'Client Satisfaction', value: 97, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Amara Okafor', title: 'Founder, Fintech Startup', message: <>Grey InfoTech built our MVP in React Native and we launched on both platforms in 6 weeks. The team was incredibly responsive to feedback. We saved 60% compared to native development.</>},
-            {name: 'Jatin Patel', title: 'Product Manager, Delivery App', message: <>React Native from Grey InfoTech powers our iOS and Android apps reaching 500k users. Performance is excellent and the development velocity lets us ship new features weekly.</>},
+            {name: 'Amara Okafor', title: 'Founder, Fintech Startup', message: <>Graham Sobiribo Paul built our MVP in React Native and we launched on both platforms in 6 weeks. The team was incredibly responsive to feedback. We saved 60% compared to native development.</>},
+            {name: 'Jatin Patel', title: 'Product Manager, Delivery App', message: <>React Native from Graham Sobiribo Paul powers our iOS and Android apps reaching 500k users. Performance is excellent and the development velocity lets us ship new features weekly.</>},
             {name: 'Sarah Mitchell', title: 'CEO, Social Platform', message: <>They understood our need to scale quickly. React Native was the right choice and their execution was flawless. We're now at 2M users with a small team maintaining both platforms.</>},
         ]}
         verticalSolutions={[

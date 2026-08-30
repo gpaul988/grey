@@ -18,7 +18,7 @@ const Saas = () => (
         introBody={[
             <>
                 Building a SaaS business is about far more than shipping features. It is about reliability,
-                retention and a product that compounds in value as your customer base grows. At Grey InfoTech we
+                retention and a product that compounds in value as your customer base grows. At Graham Sobiribo Paul we
                 build SaaS platforms across the entire lifecycle -from a focused, validated MVP through to a
                 hardened, multi-tenant product serving thousands of accounts. We help founders, product teams and
                 established enterprises turn an idea into recurring revenue, designing secure tenant isolation,
@@ -42,7 +42,7 @@ const Saas = () => (
         solutionsIntro={
             <>
                 From multi-tenant architecture and subscription billing to product analytics and enterprise
-                readiness, Grey InfoTech delivers a complete SaaS capability. Based in Nigeria and serving
+                readiness, Graham Sobiribo Paul delivers a complete SaaS capability. Based in Nigeria and serving
                 clients worldwide, we build secure, scalable, revenue-ready platforms that turn product vision
                 into recurring revenue -without compromising on performance or customer experience.
             </>
@@ -127,8 +127,7 @@ const Saas = () => (
             },
         ]}
         ctaHeading={<>Turn your idea <br className={'lg:block md:block hidden'}/>into recurring revenue</>}
-        ctaBody={<>From multi-tenant architecture and billing to onboarding and enterprise readiness, Grey
-            InfoTech builds SaaS products that acquire, activate and retain. Let&apos;s scope your product, model
+        ctaBody={<>From multi-tenant architecture and billing to onboarding and enterprise readiness, Graham Sobiribo Paul builds SaaS products that acquire, activate and retain. Let&apos;s scope your product, model
             the economics, and ship something customers keep paying for.</>}
         stats={[
             {label: 'Years Experience', value: 8, suffix: '+'},
@@ -138,9 +137,9 @@ const Saas = () => (
             {label: 'Client Satisfaction', value: 98, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Ifeoma Nwankwo', title: 'Founder, FlowDesk', message: <>Grey InfoTech took our SaaS from idea to launch in record time. Billing, dashboards and onboarding all just work -and it scales effortlessly. They thought about our churn and conversion, not just the feature list.</>},
+            {name: 'Ifeoma Nwankwo', title: 'Founder, FlowDesk', message: <>Graham Sobiribo Paul took our SaaS from idea to launch in record time. Billing, dashboards and onboarding all just work -and it scales effortlessly. They thought about our churn and conversion, not just the feature list.</>},
             {name: 'Peter Ofori', title: 'CTO, MetricLab', message: <>Their multi-tenant architecture and observability set us up for growth from day one. Our churn dropped thanks to the onboarding flows they designed, and the billing system has never let us down.</>},
-            {name: 'Sarah Mensah', title: 'CEO, TeamPulse', message: <>When enterprise deals started landing, Grey InfoTech added SSO, audit logs and granular permissions fast. They made us procurement-ready without slowing the team down. Genuinely a partner, not just a vendor.</>},
+            {name: 'Sarah Mensah', title: 'CEO, TeamPulse', message: <>When enterprise deals started landing, Graham Sobiribo Paul added SSO, audit logs and granular permissions fast. They made us procurement-ready without slowing the team down. Genuinely a partner, not just a vendor.</>},
         ]}
     />
 );

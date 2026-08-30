@@ -839,7 +839,7 @@ function createMarkers(markers, isRecentlyCreated) {
         cy: point.y,
         group: _this._markersGroup,
         marker: config,
-        isRecentlyCreated: isRecentlyCreated
+        isRecentlyCreated: 2026-08-30 13:17:34
       });
 
       // Check for marker duplication

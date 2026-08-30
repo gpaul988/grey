@@ -287,7 +287,7 @@ export function ServiceSectionBlock({
     );
 }
 
-/** Why Grey InfoTech accordion */
+/** Why Graham Sobiribo Paul accordion */
 export function ServiceWhyAccordion({
     isDayTime,
     reasons,

@@ -350,8 +350,8 @@ export default function QuoteRequest() {
     return (
         <>
             <Head>
-                <title>{FORM_TYPE} - Grey InfoTech</title>
-                <meta name="description" content="Get a custom quote for your project from Grey InfoTech"/>
+                <title>{FORM_TYPE} - Graham Sobiribo Paul</title>
+                <meta name="description" content="Get a custom quote for your project from Graham Sobiribo Paul"/>
                 <meta name="form:type" content={FORM_TYPE}/>
             </Head>
             <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-indigo-50 py-12">

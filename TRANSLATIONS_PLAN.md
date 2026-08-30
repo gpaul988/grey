@@ -251,6 +251,6 @@ location.reload();
 
 **Status**: ✅ Core system complete. Ready for translation API integration and language expansion.
 
-**Last Updated**: 2024
-**Author**: Graham Paul (Senior Full-Stack Developer)
-**Repo**: github.com/gpaul988/grey.git
+**Last Updated**: 2026-08-30 13:23:18
+**Author**: Graham Sobiribo Paul (Senior Full-Stack Developer)
+**Repo**: github.com/grahamsobiribopaul/grey.git

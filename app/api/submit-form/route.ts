@@ -300,12 +300,12 @@ export async function POST(req: NextRequest) {
     try {
       await send({
         to: validatedEmail,
-        subject: '✅ We Received Your Message - Grey InfoTech',
+        subject: '✅ We Received Your Message - Graham Sobiribo Paul',
         html: `
           <div style="font-family:Arial,sans-serif;color:#333;max-width:600px;margin:0 auto;">
             <h2 style="color:#059669;">We Received Your Message</h2>
             <p>Hi <strong>${validatedName}</strong>,</p>
-            <p>Thank you for reaching out to Grey InfoTech! We will get back to you within 24 hours.</p>
+            <p>Thank you for reaching out to Graham Sobiribo Paul! We will get back to you within 24 hours.</p>
             <ul>
               <li><strong>Email:</strong> ${validatedEmail}</li>
               <li><strong>Phone:</strong> ${validatedTelephone}</li>
@@ -322,7 +322,7 @@ export async function POST(req: NextRequest) {
             <p>${insertMessage}</p>
             ${additionalMessage ? `<h3>Additional Notes:</h3><p>${additionalMessage}</p>` : ''}
             <p><strong>Submission ID:</strong> #${submissionId}</p>
-            <p>Best regards,<br/><strong>Grey InfoTech Limited</strong></p>
+            <p>Best regards,<br/><strong>Graham Sobiribo Paul</strong></p>
           </div>
         `,
       });

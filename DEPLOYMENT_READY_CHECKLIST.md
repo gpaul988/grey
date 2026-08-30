@@ -108,7 +108,7 @@ Expected output:
 
 ### Local Machine
 ```bash
-git clone https://github.com/gpaul988/grey.git
+git clone https://github.com/grahamsobiribopaul/grey.git
 cd grey
 npm install
 npm run build
@@ -164,6 +164,6 @@ If you need help:
 
 **Status:** ✅ READY FOR PRODUCTION
 
-**Date:** June 17, 2026  
+**Date:** 2026-08-30 13:23:18  
 **Engineer:** Graham Sobiribo Paul (Senior Full-Stack Developer)  
-**Repository:** https://github.com/gpaul988/grey.git
+**Repository:** https://github.com/grahamsobiribopaul/grey.git

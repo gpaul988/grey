@@ -721,7 +721,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
             {/* Terminal */}
             <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-[4.5em] pb-12">
                 <FxTerminal day={!isDayTime}
-                            lines={["# Grey InfoTech - innovation ships", "Build complete", "Deployed to edge"]}/>
+                            lines={["# Graham Sobiribo Paul - innovation ships", "Build complete", "Deployed to edge"]}/>
             </div>
 
         </div>

@@ -1,5 +1,5 @@
 /* ============================================================================
-   GREY INFOTECH — FUTURISTIC ADMIN ENHANCER  (additive, dependency-free)
+   Graham Sobiribo Paul — FUTURISTIC ADMIN ENHANCER  (additive, dependency-free)
    - Command palette (Ctrl/Cmd + K)
    - Cursor spotlight (desktop, pointer: fine)
    - Magnetic ripple on primary buttons

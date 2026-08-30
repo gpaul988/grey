@@ -75,7 +75,7 @@ npm --version   # Should be 10.x or higher
 
 ### Step 1: Clone the latest repo
 ```bash
-git clone https://github.com/gpaul988/grey.git my-grey-build
+git clone https://github.com/grahamsobiribopaul/grey.git my-grey-build
 cd my-grey-build
 git pull origin main  # Ensure you have latest code
 ```
@@ -123,7 +123,7 @@ npm run start:next
 ```bash
 # Your GitHub Actions will auto-deploy, but if manual:
 git push origin main
-# Check https://github.com/gpaul988/grey/actions
+# Check https://github.com/grahamsobiribopaul/grey/actions
 ```
 
 ---
@@ -310,5 +310,5 @@ If build still fails:
 
 ---
 
-**Last Updated:** June 21, 2026  
+**Last Updated:** 2026-08-30 13:23:18  
 **Status:** ✅ PRODUCTION READY - All code-level errors resolved

@@ -14,7 +14,7 @@ const DrupalDevelopment = () => (
         introBody={[
             <>Drupal is the platform of choice for governments, universities, media organisations and large
             enterprises that need robust content modelling, fine-grained permissions and the flexibility to
-            build highly customised digital experiences. At Grey InfoTech our Drupal developers bring deep
+            build highly customised digital experiences. At Graham Sobiribo Paul our Drupal developers bring deep
             expertise in custom module development, headless Drupal architectures, complex content migrations
             and Drupal performance at scale. We build Drupal solutions that match the complexity of your
             editorial workflows and content governance requirements.</>,
@@ -26,7 +26,7 @@ const DrupalDevelopment = () => (
             that your team can maintain and extend confidently.</>,
         ]}
         solutionsHeading={<>Drupal<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From custom module development to headless architecture and enterprise migrations, Grey InfoTech builds Drupal solutions that scale with your organisation."
+        solutionsIntro="From custom module development to headless architecture and enterprise migrations, Graham Sobiribo Paul builds Drupal solutions that scale with your organisation."
         solutions={[
             {
                 id: '01', title: 'Custom Module Development', target: 'CM',
@@ -84,7 +84,7 @@ const DrupalDevelopment = () => (
             },
         ]}
         ctaHeading={<>Drupal that<br className="lg:block md:block hidden" />handles serious scale</>}
-        ctaBody="When your content requirements outgrow simpler platforms, Drupal -implemented correctly -is unmatched. Grey InfoTech builds Drupal solutions that editorial teams love."
+        ctaBody="When your content requirements outgrow simpler platforms, Drupal -implemented correctly -is unmatched. Graham Sobiribo Paul builds Drupal solutions that editorial teams love."
         verticalSolutions={[
             {
                 id: 'vs1',

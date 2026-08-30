@@ -173,7 +173,7 @@ grep "correlation-id-123" /var/log/grey/combined.log | jq .
 ### Log Format
 ```json
 {
-  "timestamp": "2024-06-17 21:05:35.123",
+  "timestamp": "2026-08-30 13:23:18",
   "level": "info",
   "message": "Incoming request",
   "method": "POST",
@@ -260,4 +260,4 @@ grep SENTRY .env.local
 
 ---
 
-Last updated: June 17, 2026 | Phase 1 Complete ✅
+Last updated: 2026-08-30 13:23:18| Phase 1 Complete ✅

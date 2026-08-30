@@ -1,7 +1,7 @@
 # DEVELOPMENT GUIDE - GREY PROJECT
-**Last Updated**: June 19, 2026  
+**Last Updated**: 2026-08-30 13:23:18  
 **For**: Senior Full-Stack Developers  
-**Project**: Grey InfoTech Service Platform
+**Project**: Graham Sobiribo Paul Service Platform
 
 ---
 
@@ -11,7 +11,7 @@
 
 ```bash
 # 1. Clone and install
-git clone https://github.com/gpaul988/grey.git
+git clone https://github.com/grahamsobiribopaul/grey.git
 cd grey
 npm install
 

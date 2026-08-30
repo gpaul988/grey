@@ -119,7 +119,7 @@ async function seed() {
     console.log(`CEO super-admin seeded (${ceo.email}).`);
 
     const admin = await Users.create({
-        name: 'Grey InfoTech Admin',
+        name: 'Graham Sobiribo Paul Admin',
         email: SEED_ADMIN_EMAIL,
         password: SEED_ADMIN_PASSWORD,
         role: 'admin',
@@ -197,9 +197,9 @@ async function seed() {
     console.log('Case studies seeded.');
 
     // --- Blog posts ---
-    BlogPosts.create({ title: 'Designing for Scale', slug: 'designing-for-scale', excerpt: 'Architectural patterns that keep products fast as they grow.', body: '<p>Content here...</p>', cover: '/assets/img/blog/1.jpg', author: 'Grey InfoTech', tags: JSON.stringify(['architecture', 'scaling']), status: 'published', published_at: '2026-03-12' });
-    BlogPosts.create({ title: 'Scope, MVP & Delivery', slug: 'scope-mvp-delivery', excerpt: 'How to scope an MVP that actually ships.', body: '<p>Content here...</p>', cover: '/assets/img/blog/2.jpg', author: 'Grey InfoTech', tags: JSON.stringify(['mvp', 'product']), status: 'published', published_at: '2026-04-02' });
-    BlogPosts.create({ title: 'Refactor vs Rebuild', slug: 'refactor-vs-rebuild', excerpt: 'When to refactor and when to start over.', body: '<p>Content here...</p>', cover: '/assets/img/blog/3.jpg', author: 'Grey InfoTech', tags: JSON.stringify(['engineering']), status: 'draft', published_at: null });
+    BlogPosts.create({ title: 'Designing for Scale', slug: 'designing-for-scale', excerpt: 'Architectural patterns that keep products fast as they grow.', body: '<p>Content here...</p>', cover: '/assets/img/blog/1.jpg', author: 'Graham Sobiribo Paul', tags: JSON.stringify(['architecture', 'scaling']), status: 'published', published_at: '2026-03-12' });
+    BlogPosts.create({ title: 'Scope, MVP & Delivery', slug: 'scope-mvp-delivery', excerpt: 'How to scope an MVP that actually ships.', body: '<p>Content here...</p>', cover: '/assets/img/blog/2.jpg', author: 'Graham Sobiribo Paul', tags: JSON.stringify(['mvp', 'product']), status: 'published', published_at: '2026-04-02' });
+    BlogPosts.create({ title: 'Refactor vs Rebuild', slug: 'refactor-vs-rebuild', excerpt: 'When to refactor and when to start over.', body: '<p>Content here...</p>', cover: '/assets/img/blog/3.jpg', author: 'Graham Sobiribo Paul', tags: JSON.stringify(['engineering']), status: 'draft', published_at: null });
     console.log('Blog posts seeded.');
 
     // --- Conversations / chat ---
@@ -209,7 +209,7 @@ async function seed() {
     Messages.create({ conversation_id: conv1.id, sender: 'client', sender_name: 'Ada Okafor', body: 'Sounds great, talk then!' });
     const conv2 = Conversations.create({ client_id: c2.id, subject: 'Proposal questions', last_message: 'I will review and revert.', unread: 0 });
     Messages.create({ conversation_id: conv2.id, sender: 'client', sender_name: 'Tunde Bello', body: 'Got the proposal, a few questions on timeline.' });
-    Messages.create({ conversation_id: conv2.id, sender: 'staff', sender_name: 'Grey InfoTech Admin', body: 'Happy to walk you through it. I will review and revert.' });
+    Messages.create({ conversation_id: conv2.id, sender: 'staff', sender_name: 'Graham Sobiribo Paul Admin', body: 'Happy to walk you through it. I will review and revert.' });
     // Register the owning client as a participant in each conversation.
     Participants.add({ conversation_id: conv1.id, participant_type: 'client', participant_id: c1.id, name: 'Ada Okafor' });
     Participants.add({ conversation_id: conv2.id, participant_type: 'client', participant_id: c2.id, name: 'Tunde Bello' });
@@ -291,7 +291,7 @@ async function seed() {
 async function ensureCoreAdmins() {
     const team: { name: string; email: string; password: string; role: string }[] = [
         { name: 'Graham Sobiribo Paul', email: SEED_SUPERADMIN_EMAIL, password: SEED_SUPERADMIN_PASSWORD, role: 'superadmin' },
-        { name: 'Grey InfoTech Admin', email: SEED_ADMIN_EMAIL, password: SEED_ADMIN_PASSWORD, role: 'admin' },
+        { name: 'Graham Sobiribo Paul Admin', email: SEED_ADMIN_EMAIL, password: SEED_ADMIN_PASSWORD, role: 'admin' },
         { name: 'Project Manager', email: SEED_MANAGER_EMAIL, password: SEED_MANAGER_PASSWORD, role: 'manager' },
         { name: 'Support Agent', email: SEED_STAFF_EMAIL, password: SEED_STAFF_PASSWORD, role: 'staff' },
     ];

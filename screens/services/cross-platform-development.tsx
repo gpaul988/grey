@@ -21,7 +21,7 @@ const CrossPlatformDevelopment = () => (
         introHeading={<>Best <span className={'text-[#0ef0dd]'}>Cross-Platform App</span> Development Services</>}
         introBody={[
             <>
-                At Grey InfoTech, we solve the strategic challenges organisations face when developing applications
+                At Graham Sobiribo Paul, we solve the strategic challenges organisations face when developing applications
                 across fragmented device ecosystems. Traditional platform-specific development creates duplicated
                 codebases, extended timelines, and escalating costs. We eliminate these limitations through expert
                 cross-platform development leveraging{' '}
@@ -50,7 +50,7 @@ const CrossPlatformDevelopment = () => (
         solutionsHeading={<>Cross-Platform <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From strategic consulting to enterprise integration, Grey InfoTech delivers the complete
+                From strategic consulting to enterprise integration, Graham Sobiribo Paul delivers the complete
                 cross-platform development stack. Based in Nigeria and serving clients globally, we build
                 scalable, high-performance applications that run flawlessly across every device and OS.
             </>

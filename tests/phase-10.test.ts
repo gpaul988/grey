@@ -358,7 +358,7 @@ describe('Phase 10: Admin Dashboard Enhancements', () => {
           reviews: 89,
           webhooks: 234,
         },
-        lastUpdated: new Date(),
+        lastUpdated: new Date('2026-08-30T13:17:34'),
       };
 
       expect(dashboard.metrics).toHaveProperty('users');

@@ -1,4 +1,4 @@
-# cPanel Deployment Guide — Grey Infotech
+# cPanel Deployment Guide — Graham Sobiribo Paul
 
 ## After every `git pull` on cPanel
 

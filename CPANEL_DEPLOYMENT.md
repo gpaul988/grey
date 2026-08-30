@@ -4,7 +4,7 @@
 
 1. **Clone repo on cPanel:**
 ```bash
-git clone https://github.com/gpaul988/grey.git
+git clone https://github.com/grahamsobiribopaul/grey.git
 cd grey
 ```
 
@@ -136,4 +136,4 @@ tail -f app.log | grep -E "ERROR|WARN"
 - [ ] Deploy to cPanel
 - [ ] Monitor for errors in first 24hrs
 
-**Questions?** Contact: gpaul988@greyinfotech.com.ng
+**Questions?** Contact: grahamsobiribopaul@greyinfotech.com.ng

@@ -123,7 +123,7 @@ Content-Type: application/json
   "nice_to_have": ["Docker"],
   "benefits": ["Health insurance"],
   "status": "published",
-  "deadline": "2024-12-31"
+  "deadline": "2026-08-30 13:23:18"
 }
 
 Response:

@@ -1,5 +1,6 @@
 import type {Metadata, Viewport} from "next";
 import Script from "next/script";
+import ClientOnlyWidgets from '@/components/ClientOnlyWidgets';
 // Google fonts
 import {Merriweather, Roboto} from "next/font/google";
 // NOTE: next/font/google fetches font metadata from Google at startup.
@@ -14,12 +15,10 @@ import React from "react";
 import TawkChat from "@/components/TawkChat";
 import {OrganizationSchema, WebSiteSchema} from "@/components/StructuredData";
 import {themeInitScript, ThemeProvider} from "@/components/ThemeProvider";
-import AIChat from "@/components/AIChat";
 import {SITE} from "@/lib/seo";
 import AnnouncementBarWrapper from "@/components/futuristic/AnnouncementBarWrapper";
 import Preloader from "@/components/futuristic/Preloader";
 import CookieConsent from "@/components/futuristic/CookieConsent";
-import FloatingButton from "@/components/FloatingButton";
 import PageAccentProvider from "@/components/PageAccentProvider";
 
 
@@ -221,9 +220,8 @@ export default async function RootLayout({
                 </div>
             )
         )}
-        <AIChat/>
+        <ClientOnlyWidgets/>
         <CookieConsent/>
-        <FloatingButton/>
         </ThemeProvider>
         </body>
         </html>

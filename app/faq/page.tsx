@@ -3,7 +3,7 @@ import {buildMetadata} from '@/lib/seo';
 import Screen from '@/screens/faq';
 
 export const metadata: Metadata = buildMetadata('/faq', {
-    title: 'FAQs - Web Development, Mobile Apps, Digital Services | Grey InfoTech',
+    title: 'FAQs - Web Development, Mobile Apps, Digital Services | Graham Sobiribo Paul',
     description:
         'Find answers to frequently asked questions about web design, mobile app development, SEO, digital marketing, project timelines, pricing, and support. Get clarity on our process and services.',
     keywords: ['faq', 'frequently asked questions', 'web development', 'mobile apps', 'digital services'],
@@ -21,7 +21,7 @@ export default function Page() {
                         mainEntity: [
                             {
                                 '@type': 'Question',
-                                name: 'What services does Grey InfoTech offer?',
+                                name: 'What services does Graham Sobiribo Paul offer?',
                                 acceptedAnswer: {
                                     '@type': 'Answer',
                                     text: 'We offer web design & development, mobile app development, UI/UX design, digital marketing, and SEO services.',

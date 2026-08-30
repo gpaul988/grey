@@ -155,6 +155,49 @@ db.exec(`
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))
   );
+
+  CREATE TABLE IF NOT EXISTS career_applications (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    form_type TEXT NOT NULL DEFAULT 'cv_submission',
+    full_name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone TEXT,
+    country TEXT,
+    role_interest TEXT,
+    experience_years TEXT,
+    linkedin_url TEXT,
+    portfolio_url TEXT,
+    cover_letter TEXT,
+    cv_path TEXT,
+    cv_filename TEXT,
+    status TEXT NOT NULL DEFAULT 'new',
+    admin_notes TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+  CREATE INDEX IF NOT EXISTS idx_career_apps_email ON career_applications(email);
+  CREATE INDEX IF NOT EXISTS idx_career_apps_status ON career_applications(status);
+  CREATE INDEX IF NOT EXISTS idx_career_apps_type ON career_applications(form_type);
+
+  CREATE TABLE IF NOT EXISTS job_openings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    department TEXT NOT NULL DEFAULT '',
+    location TEXT NOT NULL DEFAULT 'Remote',
+    type TEXT NOT NULL DEFAULT 'full-time',
+    experience_level TEXT NOT NULL DEFAULT '',
+    salary_range TEXT NOT NULL DEFAULT '',
+    description TEXT NOT NULL DEFAULT '',
+    responsibilities TEXT NOT NULL DEFAULT '[]',
+    requirements TEXT NOT NULL DEFAULT '[]',
+    nice_to_have TEXT NOT NULL DEFAULT '[]',
+    benefits TEXT NOT NULL DEFAULT '[]',
+    status TEXT NOT NULL DEFAULT 'draft',
+    deadline TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+  CREATE INDEX IF NOT EXISTS idx_job_openings_status ON job_openings(status);
 `);
 console.log('[bootstrap] Tables created/verified');
 
@@ -169,7 +212,7 @@ if (faqCount === 0) {
     ['What technologies do you work with?', 'React, Next.js, Node, Laravel, React Native, Flutter and more. We pick the stack that best fits your goals, not the other way round.', 'General', 3],
     ['Do you work with clients outside Nigeria?', 'Absolutely. We partner with startups and enterprises across Africa, Europe and North America, working async across time zones.', 'General', 4],
     ['How do payments work?', 'Typically milestone-based: a deposit to begin, then payments tied to delivery stages. Terms are agreed upfront in your proposal.', 'Pricing', 5],
-    ['Who are Grey InfoTech?', 'Grey InfoTech is a digital agency based in Port Harcourt, Nigeria, established in 2018. We craft stunning websites, build strong brands, create dynamic eCommerce platforms, and develop innovative mobile apps.', 'General', 6],
+    ['Who are Graham Sobiribo Paul?', 'Graham Sobiribo Paul is a digital agency based in Port Harcourt, Nigeria, established in 2018. We craft stunning websites, build strong brands, create dynamic eCommerce platforms, and develop innovative mobile apps.', 'General', 6],
     ['What industries do you serve?', 'We work across fintech, healthcare, retail, logistics, education, real estate, hospitality and more.', 'General', 7],
     ['Can you redesign my existing website?', 'Yes — redesigns are one of our most popular services. We audit your current site and rebuild it for performance, accessibility, and conversions.', 'Services', 8],
     ['Do you provide SEO services?', 'Yes. Every site we build follows SEO best practices. We also offer dedicated SEO campaigns — technical SEO, content strategy, and link building.', 'Services', 9],
@@ -204,10 +247,10 @@ const reviewCount = db.prepare('SELECT COUNT(*) as n FROM client_reviews').get()
 if (reviewCount === 0) {
   const insertReview = db.prepare('INSERT INTO client_reviews (author, role, company, avatar, quote, rating, sort_order, active) VALUES (?, ?, ?, ?, ?, ?, ?, 1)');
   const reviews = [
-    ['Chidi Okafor', 'CEO', 'FastPay Nigeria', '', 'Grey InfoTech completely transformed our digital presence. Our conversion rate doubled within 3 months of launch.', 5, 1],
+    ['Chidi Okafor', 'CEO', 'FastPay Nigeria', '', 'Graham Sobiribo Paul completely transformed our digital presence. Our conversion rate doubled within 3 months of launch.', 5, 1],
     ['Amara Nwosu', 'Head of Product', 'HealthLink Africa', '', 'Professional team, clean code, on-time delivery. Exactly what we needed for our patient portal.', 5, 2],
     ['James Adeyemi', 'CTO', 'LogiHub Ltd', '', 'They built our entire logistics platform from scratch. The system handles 10,000+ daily transactions without a hitch.', 5, 3],
-    ['Fatima Al-Hassan', 'Founder', 'EduReach', '', 'Grey InfoTech understood our vision immediately. Our e-learning platform is now used by 50,000+ students across West Africa.', 5, 4],
+    ['Fatima Al-Hassan', 'Founder', 'EduReach', '', 'Graham Sobiribo Paul understood our vision immediately. Our e-learning platform is now used by 50,000+ students across West Africa.', 5, 4],
     ['Emeka Obi', 'Managing Director', 'Crestview Properties', '', 'From design to deployment, the team was exceptional. Our real estate portal looks and performs better than competitors with 10x our budget.', 5, 5],
   ];
   const insertMany = db.transaction((rows) => { for (const r of rows) insertReview.run(...r); });
@@ -215,6 +258,121 @@ if (reviewCount === 0) {
   console.log('[bootstrap] Seeded', reviews.length, 'client reviews');
 } else {
   console.log('[bootstrap] Reviews already seeded (' + reviewCount + ' rows), skipping');
+}
+
+// ── Seed store catalog (idempotent) ───────────────────────────────────────
+const storeTableSql = `
+  CREATE TABLE IF NOT EXISTS store_settings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    key TEXT NOT NULL UNIQUE,
+    value TEXT NOT NULL DEFAULT '',
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE TABLE IF NOT EXISTS product_categories (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    slug TEXT NOT NULL UNIQUE,
+    parent_id INTEGER,
+    icon TEXT,
+    description TEXT,
+    sort_order INTEGER NOT NULL DEFAULT 0,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE TABLE IF NOT EXISTS product_brands (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    slug TEXT NOT NULL UNIQUE,
+    logo TEXT,
+    description TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE TABLE IF NOT EXISTS products (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    slug TEXT NOT NULL UNIQUE,
+    sku TEXT UNIQUE,
+    category_id INTEGER,
+    brand_id INTEGER,
+    description TEXT,
+    specs TEXT NOT NULL DEFAULT '{}',
+    price REAL NOT NULL DEFAULT 0,
+    compare_price REAL,
+    stock INTEGER NOT NULL DEFAULT 0,
+    images TEXT NOT NULL DEFAULT '[]',
+    thumbnail TEXT,
+    status TEXT NOT NULL DEFAULT 'draft',
+    featured INTEGER NOT NULL DEFAULT 0,
+    tags TEXT NOT NULL DEFAULT '[]',
+    weight REAL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE TABLE IF NOT EXISTS product_reviews (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    product_id INTEGER NOT NULL,
+    customer_id INTEGER,
+    reviewer_name TEXT NOT NULL,
+    rating INTEGER NOT NULL DEFAULT 5,
+    comment TEXT,
+    status TEXT NOT NULL DEFAULT 'pending',
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+`;
+db.exec(storeTableSql);
+
+const storeCategoryCount = db.prepare('SELECT COUNT(*) as n FROM product_categories').get().n;
+if (storeCategoryCount === 0) {
+  const categoryStmt = db.prepare('INSERT INTO product_categories (name, slug, icon, description, sort_order) VALUES (?, ?, ?, ?, ?)');
+  const categories = [
+    ['Laptops', 'laptops', 'laptop', 'Business, gaming & ultrabook laptops', 0],
+    ['Desktops', 'desktops', 'monitor', 'Workstations, all-in-ones & gaming rigs', 1],
+    ['Mobile Phones', 'phones', 'smartphone', 'Flagship & budget smartphones', 2],
+    ['Tablets', 'tablets', 'tablet', 'Tablets & 2-in-1 devices', 3],
+    ['Networking', 'networking', 'wifi', 'Routers, switches & access points', 4],
+  ];
+  categories.forEach(([name, slug, icon, description, order]) => categoryStmt.run(name, slug, icon, description, order));
+
+  const brandStmt = db.prepare('INSERT INTO product_brands (name, slug, description) VALUES (?, ?, ?)');
+  const brands = [
+    ['Apple', 'apple', 'Apple products'],
+    ['Dell', 'dell', 'Dell business tech'],
+    ['HP', 'hp', 'HP devices'],
+    ['Samsung', 'samsung', 'Samsung electronics'],
+    ['TP-Link', 'tp-link', 'Networking essentials'],
+  ];
+  brands.forEach(([name, slug, description]) => brandStmt.run(name, slug, description));
+
+  const categoryMap = {};
+  db.prepare('SELECT id, slug FROM product_categories').all().forEach((row) => { categoryMap[row.slug] = row.id; });
+  const brandMap = {};
+  db.prepare('SELECT id, slug FROM product_brands').all().forEach((row) => { brandMap[row.slug] = row.id; });
+
+  const productStmt = db.prepare(`
+    INSERT INTO products (name, slug, sku, category_id, brand_id, description, specs, price, compare_price, stock, images, thumbnail, status, featured, tags)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  const products = [
+    ['MacBook Pro 14" M3 Pro', 'macbook-pro-14-m3-pro', 'MBP14-M3P', 'laptops', 'apple', 'Premium business laptop for performance and portability.', '{"Chip":"Apple M3 Pro","RAM":"18GB","Storage":"512GB SSD"}', 2850000, 3100000, 12, '["https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=70"]', 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=70', 'active', 1, '["premium","creator"]'],
+    ['Dell XPS 15', 'dell-xps-15', 'XPS15-9530', 'laptops', 'dell', 'Elegant laptop for work, creative projects, and everyday productivity.', '{"CPU":"Intel Core i7-13700H","RAM":"16GB","Storage":"1TB SSD"}', 1950000, 2200000, 18, '["https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=800&q=70"]', 'https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=800&q=70', 'active', 1, '["business"]'],
+    ['Samsung Galaxy S24 Ultra', 'samsung-galaxy-s24-ultra', 'SGS24-U-256', 'phones', 'samsung', 'Premium flagship mobile phone with pro-grade camera and AI features.', '{"Chip":"Snapdragon 8 Gen 3","RAM":"12GB","Storage":"256GB"}', 1580000, 1750000, 28, '["https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=70"]', 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=70', 'active', 1, '["flagship"]'],
+    ['TP-Link Archer AX73 Router', 'tp-link-archer-ax73-router', 'ARCHER-AX73', 'networking', 'tp-link', 'Fast Wi-Fi 6 router for dependable home and office networks.', '{"Standard":"Wi-Fi 6","Ports":"4 Gigabit LAN","Coverage":"Up to 3000 sq ft"}', 95000, 110000, 60, '["https://images.unsplash.com/photo-1606904825846-647eb07f5be2?auto=format&fit=crop&w=800&q=70"]', 'https://images.unsplash.com/photo-1606904825846-647eb07f5be2?auto=format&fit=crop&w=800&q=70', 'active', 0, '["wifi"]'],
+  ];
+
+  products.forEach(([name, slug, sku, categorySlug, brandSlug, description, specs, price, comparePrice, stock, images, thumbnail, status, featured, tags]) => {
+    productStmt.run(name, slug, sku, categoryMap[categorySlug], brandMap[brandSlug], description, specs, Number(price), Number(comparePrice), Number(stock), images, thumbnail, status, Number(featured), tags);
+  });
+
+  const reviewStmt = db.prepare('INSERT INTO product_reviews (product_id, reviewer_name, rating, comment, status) VALUES (?, ?, ?, ?, ?)');
+  reviewStmt.run(1, 'Chinedu O.', 5, 'Arrived next day in Lagos. Genuine product, great packaging.', 'approved');
+  reviewStmt.run(2, 'Amara N.', 4, 'Works perfectly. Wish it came with a free case but overall happy.', 'approved');
+  console.log('[bootstrap] Seeded store catalog');
+} else {
+  console.log('[bootstrap] Store catalog already seeded (' + storeCategoryCount.n + ' categories), skipping');
 }
 
 // ── Seed Sample Ad (idempotent) ────────────────────────────────────────────
@@ -230,7 +388,7 @@ if (adCount === 0) {
     '/audit',
     'Claim Your Free Audit',
     'home_banner',
-    'I just claimed a free website audit from Grey InfoTech! greyinf.com/grey',
+    'I just claimed a free website audit from Graham Sobiribo Paul! greyinf.com/grey',
     'gradient',
     'published'
   );

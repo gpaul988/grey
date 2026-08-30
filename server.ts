@@ -246,6 +246,48 @@ app.use((err: Error & { status?: number; code?: string }, req: express.Request, 
     }
 });
 
+async function proxyStoreRoute(req: express.Request, res: express.Response, routePath: string, method: 'GET' | 'POST' | 'HEAD', options?: { slug?: string }) {
+    const imported = await import(routePath);
+    const handlerModule = imported.default ?? imported;
+    const routeHandler = handlerModule?.[method] ?? handlerModule?.default?.[method] ?? handlerModule?.GET ?? handlerModule?.default?.GET;
+    if (!routeHandler || typeof routeHandler !== 'function') {
+        return res.status(500).json({ ok: false, error: 'Store route handler unavailable' });
+    }
+
+    const headerEntries = Object.entries(req.headers || {}).filter(([, value]) => value != null) as [string, string | string[]][];
+    const headers = new Headers();
+    for (const [key, value] of headerEntries) {
+        const normalized = Array.isArray(value) ? value.join(',') : String(value);
+        if (key.toLowerCase() !== 'host') {
+            headers.set(key, normalized);
+        }
+    }
+
+    const targetUrl = new URL(req.originalUrl || req.url || '/', `http://${req.headers.host || hostname}`);
+    const requestInit: RequestInit = {
+        method,
+        headers,
+    };
+
+    if (method !== 'GET' && method !== 'HEAD') {
+        const body = req.body && Object.keys(req.body).length ? req.body : {};
+        requestInit.body = JSON.stringify(body);
+    }
+
+    const request = new Request(targetUrl.toString(), requestInit);
+    const response = await routeHandler(request, {
+        params: Promise.resolve(options ?? {}),
+    });
+
+    for (const [key, value] of response.headers.entries()) {
+        if (key.toLowerCase() === 'content-length' || key.toLowerCase() === 'transfer-encoding') continue;
+        res.setHeader(key, value);
+    }
+
+    const bodyText = await response.text();
+    res.status(response.status).send(bodyText);
+}
+
 function getRequestUrl(req: express.Request): Parameters<typeof handle>[2] {
     // Next's request handler expects the legacy `UrlWithParsedQuery` shape
     // (pathname + a parsed query object). The deprecated `url.parse(url, true)`
@@ -339,6 +381,127 @@ nextApp.prepare().then(() => {
             return res.status(500).json({ ok: false, error: err.message || String(err) });
         }
     });
+
+    app.get('/api/store/products', async (req, res, next) => {
+        try {
+            await proxyStoreRoute(req, res, './app/api/store/products/route.ts', 'GET');
+        } catch (error) {
+            console.error('[store-api] list route failed', error);
+            next(error);
+        }
+    });
+
+    app.get('/api/store/products/:slug', async (req, res, next) => {
+        try {
+            await proxyStoreRoute(req, res, './app/api/store/products/[slug]/route.ts', 'GET', { slug: String(req.params.slug || '') });
+        } catch (error) {
+            console.error('[store-api] detail route failed', error);
+            next(error);
+        }
+    });
+
+    app.post('/api/store/products/:slug', express.json(), async (req, res, next) => {
+        try {
+            await proxyStoreRoute(req, res, './app/api/store/products/[slug]/route.ts', 'POST', { slug: String(req.params.slug || '') });
+        } catch (error) {
+            console.error('[store-api] review route failed', error);
+            next(error);
+        }
+    });
+
+    function renderStoreShell(page: 'list' | 'detail', slug?: string) {
+        const title = page === 'detail' && slug ? 'Product: ' + slug : 'Grey TechStore';
+        const script = `
+            async function fetchJson(url) {
+              const response = await fetch(url, { credentials: 'same-origin' });
+              const data = await response.json();
+              if (!response.ok) throw new Error(data.error || 'Request failed');
+              return data;
+            }
+
+            function money(value) {
+              return new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(value);
+            }
+
+            function renderList(data) {
+              const app = document.getElementById('app');
+              const products = data.products || [];
+              app.innerHTML = '<div><h2>Featured tech products</h2><div class="grid">' + products.map(function(p) {
+                return '<div class="card"><img class="thumb" src="' + (p.thumbnail || p.images && p.images[0] || '') + '" alt="' + p.name + '" /><h3><a href="/store/products/' + p.slug + '">' + p.name + '</a></h3><p class="muted">' + (p.brand_name || '') + '</p><div class="price">' + money(p.price) + '</div><p>' + (p.description || '').slice(0, 110) + '</p></div>';
+              }).join('') + '</div></div>';
+            }
+
+            function renderDetail(data) {
+              const app = document.getElementById('app');
+              const product = data.product;
+              if (!product) {
+                app.innerHTML = '<p>Product not found.</p>';
+                return;
+              }
+              app.innerHTML = '<div class="card"><p><a href="/store">← Back to store</a></p><h2>' + product.name + '</h2><img class="thumb" src="' + (product.thumbnail || product.images && product.images[0] || '') + '" alt="' + product.name + '" /><div class="price">' + money(product.price) + '</div><p>' + (product.description || '') + '</p><p>Stock: ' + product.stock + '</p></div>';
+            }
+
+            const path = window.location.pathname;
+            if (path.startsWith('/store/products/') && path.split('/').filter(Boolean).length > 2) {
+              const slug = path.split('/').pop();
+              fetchJson('/api/store/products/' + encodeURIComponent(slug))
+                .then(renderDetail)
+                .catch(function(error) {
+                  document.getElementById('app').innerHTML = '<p>Product could not be loaded.</p>';
+                  console.error(error);
+                });
+            } else {
+              fetchJson('/api/store/products')
+                .then(renderList)
+                .catch(function(error) {
+                  document.getElementById('app').innerHTML = '<p>Products could not be loaded.</p>';
+                  console.error(error);
+                });
+            }
+        `;
+
+        return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${title}</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #071019; color: #e5eefb; margin: 0; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 24px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .card { background: #101b2a; border: 1px solid #1c2940; border-radius: 14px; padding: 16px; }
+    .thumb { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; }
+    a { color: #6ee7ff; text-decoration: none; }
+    .price { color: #7cf7ad; font-weight: 700; }
+    .muted { color: #9fb3c7; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Grey TechStore</h1>
+    <div id="app">Loading products...</div>
+  </div>
+  <script>${script}</script>
+</body>
+</html>`;
+    }
+
+    // NOTE: Removed explicit Express handlers for the store pages so Next.js
+    // App Router (app/) can render them using the global app/layout.tsx which
+    // provides the full site Header and Footer. The previous inline shell
+    // (renderStoreShell) produced a minimal standalone storefront that
+    // omitted the normal site chrome. Let the catch-all handler below
+    // delegate these routes to Next instead.
+    // app.get(['/store', '/store/products'], async (req, res) => {
+    //     res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    //     res.status(200).send(renderStoreShell('list'));
+    // });
+
+    // app.get('/store/products/:slug', async (req, res) => {
+    //     res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    //     res.status(200).send(renderStoreShell('detail', String(req.params.slug || '')));
+    // });
 
     app.use(async (req, res) => {
         try {

@@ -106,7 +106,7 @@ export default function FaqScreen() {
                                 </FxGlitchText>
                             </div>
                             <p className="text-white/55 max-w-2xl text-[0.95em] leading-relaxed">
-                                Everything about working with Grey InfoTech  - process, pricing, timelines and support.
+                                Everything about working with Graham Sobiribo Paul  - process, pricing, timelines and support.
                                 Can&apos;t find an answer?{' '}
                                 <Link href="/contact" className="text-teal-400 hover:text-teal-300 underline underline-offset-4 transition-colors">
                                     Talk to us

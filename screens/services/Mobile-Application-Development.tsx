@@ -19,7 +19,7 @@ const MobileApplicationDevelopment = () => (
         introHeading={<>Mobile Development <br className={'lg:block md:block hidden'}/>Built for User Acquisition</>}
         introBody={[
             <>
-                Mobile applications are the front door to your business. At Grey InfoTech, we engineer native iOS (Swift) and
+                Mobile applications are the front door to your business. At Graham Sobiribo Paul, we engineer native iOS (Swift) and
                 Android (Kotlin) applications, as well as cross-platform solutions using React Native. Our mobile experts focus
                 on app store optimization (ASO), user acquisition funnels, push notification strategies, and offline-first
                 capabilities. From startup MVPs to apps serving millions of users monthly, we deliver applications that grow.
@@ -34,7 +34,7 @@ const MobileApplicationDevelopment = () => (
         solutionsHeading={<>Mobile Development <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From native iOS and Android development to cross-platform solutions and scalable backends, Grey InfoTech delivers
+                From native iOS and Android development to cross-platform solutions and scalable backends, Graham Sobiribo Paul delivers
                 comprehensive mobile engineering services. We specialize in high-performance applications, app store optimization,
                 user acquisition, and post-launch growth acceleration that drive engagement and measurable business results.
             </>
@@ -108,7 +108,7 @@ const MobileApplicationDevelopment = () => (
             },
         ]}
         ctaHeading={<>Build apps that <br className={'lg:block md:block hidden'}/>millions love and use daily</>}
-        ctaBody={<>From consumer apps serving millions of users to enterprise solutions with offline capabilities, Grey InfoTech
+        ctaBody={<>From consumer apps serving millions of users to enterprise solutions with offline capabilities, Graham Sobiribo Paul
             delivers high-performance mobile applications. ASO expertise, push notification optimization, and post-launch growth
             acceleration ensure your app succeeds. Let''s build something remarkable.</>}
         stats={[
@@ -119,7 +119,7 @@ const MobileApplicationDevelopment = () => (
             {label: 'User Retention Rate', value: 85, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Adekunle Obi', title: 'CEO, Consumer App Startup', message: <>Grey InfoTech''s app hit 2M downloads in year one. Their ASO expertise and post-launch optimization drove 350% growth. The team''s attention to user retention is outstanding.</>},
+            {name: 'Adekunle Obi', title: 'CEO, Consumer App Startup', message: <>Graham Sobiribo Paul''s app hit 2M downloads in year one. Their ASO expertise and post-launch optimization drove 350% growth. The team''s attention to user retention is outstanding.</>},
             {name: 'Toyin Adeyemi', title: 'VP Product, Enterprise SaaS', message: <>They built our enterprise mobile app with offline-first architecture and 99.9% uptime. Users migrated immediately from our legacy solution. Best technical partnership we''ve had.</>},
             {name: 'Kunle Okonkwo', title: 'Founder, FinTech Mobile App', message: <>The app achieved 4.8 stars with 85%+ monthly retention. Their push notification strategy and in-app analytics expertise transformed our user engagement metrics.</>},
         ]}

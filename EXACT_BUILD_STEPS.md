@@ -106,7 +106,7 @@ Delta compression using up to 8 threads.
 Compressing objects: 100% (1/1), done.
 Writing objects: 100% (1/1), 250 bytes | 250.00 KiB/s, done.
 Total 1 (delta 0), reused 0 (delta 0)
-To https://github.com/gpaul988/grey.git
+To https://github.com/grahamsobiribopaul/grey.git
    abc1234..def5678  main -> main
 ```
 
@@ -115,7 +115,7 @@ GitHub Actions will automatically:
 2. ✅ Build the project
 3. ✅ Deploy to cPanel
 
-Check progress: https://github.com/gpaul988/grey/actions
+Check progress: https://github.com/grahamsobiribopaul/grey/actions
 
 ---
 
@@ -230,7 +230,7 @@ When you `git push origin main`, GitHub Actions will deploy:
 
 **Deployment time:** 2-5 minutes
 
-**Check status:** https://github.com/gpaul988/grey/actions
+**Check status:** https://github.com/grahamsobiribopaul/grey/actions
 
 ---
 

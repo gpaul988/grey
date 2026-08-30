@@ -14,7 +14,7 @@ const AgriTechIndustry = () => (
         introBody={[
             <>Agriculture is the foundation of African economies, and technology has the power to transform
             productivity across the entire value chain -from seed selection and soil management through
-            to harvest, storage, processing and market access. At Grey InfoTech we build agricultural
+            to harvest, storage, processing and market access. At Graham Sobiribo Paul we build agricultural
             technology platforms that solve the real problems facing African farmers: market fragmentation,
             input access, weather risk, post-harvest losses and financial exclusion. We design for the
             mobile-first, often-offline reality of smallholder agriculture.</>,
@@ -26,7 +26,7 @@ const AgriTechIndustry = () => (
             and low-spec devices.</>,
         ]}
         solutionsHeading={<>AgriTech<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From farm management tools to agricultural marketplaces and supply chain traceability, Grey InfoTech builds technology that works for farmers and the businesses that serve them."
+        solutionsIntro="From farm management tools to agricultural marketplaces and supply chain traceability, Graham Sobiribo Paul builds technology that works for farmers and the businesses that serve them."
         solutions={[
             {
                 id: '01', title: 'Farm Management Platforms', target: 'FM',
@@ -84,7 +84,7 @@ const AgriTechIndustry = () => (
             },
         ]}
         ctaHeading={<>Technology that<br className="lg:block md:block hidden" />feeds the future</>}
-        ctaBody="Agriculture is Africa's greatest economic opportunity. Grey InfoTech builds the technology that makes the food system more productive, transparent and equitable for every participant."/>
+        ctaBody="Agriculture is Africa's greatest economic opportunity. Graham Sobiribo Paul builds the technology that makes the food system more productive, transparent and equitable for every participant."/>
 );
 
 export default AgriTechIndustry;

@@ -17,7 +17,7 @@ const Music = () => (
         introHeading={<>Music Technology <br className={'lg:block md:block hidden'}/>How We Amplify It</>}
         introBody={[
             <>
-                Music lives online now -streamed, shared, discovered and monetised through software. Grey InfoTech
+                Music lives online now -streamed, shared, discovered and monetised through software. Graham Sobiribo Paul
                 builds the platforms that power it. We develop music streaming services, artist and label tools,
                 social music apps, royalty and distribution systems, and the audio infrastructure that delivers
                 flawless playback at scale. From smart recommendations and curated playlists to live streaming
@@ -38,7 +38,7 @@ const Music = () => (
         solutionsHeading={<>Music <br className={'lg:block md:block hidden'}/>Software <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From streaming platforms and artist tools to royalty systems, Grey InfoTech builds music software
+                From streaming platforms and artist tools to royalty systems, Graham Sobiribo Paul builds music software
                 that performs. Based in Nigeria and serving clients globally, we engineer flawless playback,
                 smart discovery and fair payouts at scale.
             </>
@@ -110,10 +110,10 @@ const Music = () => (
             },
         ]}
         ctaHeading={<>Build the sound <br className={'lg:block md:block hidden'}/>of tomorrow</>}
-        ctaBody={<>From streaming platforms and artist tools to royalty systems, Grey InfoTech builds music
+        ctaBody={<>From streaming platforms and artist tools to royalty systems, Graham Sobiribo Paul builds music
             software that delights listeners and empowers creators. Let&apos;s bring your music platform to life.</>}
         testimonials={[
-            {name: 'Tega Okoro', title: 'Founder, AfroWave', message: <>Grey InfoTech built our streaming platform with flawless playback and smart recommendations. Our listeners stay engaged for hours and artists love the analytics.</>},
+            {name: 'Tega Okoro', title: 'Founder, AfroWave', message: <>Graham Sobiribo Paul built our streaming platform with flawless playback and smart recommendations. Our listeners stay engaged for hours and artists love the analytics.</>},
             {name: 'Naledi Khumalo', title: 'CEO, SoundLink', message: <>Their royalty system finally gave our artists transparent, accurate payouts. That trust transformed our relationships with creators.</>},
             {name: 'Ibrahim Sule', title: 'Product Lead, LiveBeat', message: <>The live music and fan-engagement features they built created a real community around our app. Streaming scales effortlessly even during big drops.</>},
         ]}

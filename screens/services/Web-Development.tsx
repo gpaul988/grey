@@ -25,7 +25,7 @@ import {
 } from '@/components/futuristic/fx';
 import ServiceHero from '@/components/futuristic/ServiceHero';
 import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
-// why grey infotech
+// why Graham Sobiribo Paul
 const reasons = [
     {
         id: 1,
@@ -179,7 +179,7 @@ const WebDevelopment = () => {
         {label: 'Successful Rebrands', value: 27, suffix: '+'},
         {label: 'Avg Website Traffic Growth', value: 350, suffix: '%'},
     ];
-    // Why Grey InfoTech Hook
+    // Why Graham Sobiribo Paul Hook
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveIndex(prevIndex => (prevIndex % reasons.length) + 1);
@@ -2198,7 +2198,7 @@ const WebDevelopment = () => {
                     <FxReveal delay={0.56}>
                         <div
                             className={`rounded-2xl p-6 transition-all duration-300 ${isDayTime ? 'bg-black/3 border-teal-700/15' : 'bg-white/10 border-teal-400/15'}`}>
-                            <h3 className="text-[1.3em] font-[700] mb-6">Why Choose Grey InfoTech for Web Development</h3>
+                            <h3 className="text-[1.3em] font-[700] mb-6">Why Choose Graham Sobiribo Paul for Web Development</h3>
 
                             <div className="grid lg:grid-cols-2 grid-cols-1 gap-8">
                                 {/* Left  - FxHoloCard accordion */}
@@ -2241,7 +2241,7 @@ const WebDevelopment = () => {
                                     <FxFrame className="w-full">
                                         <Image
                                             src={(reasons as any)[activeIndex - 1]?.images?.[0] || '/assets/fin/grey.jpg'}
-                                            alt="Why Grey InfoTech for Web Development"
+                                            alt="Why Graham Sobiribo Paul for Web Development"
                                             width={660} height={380}
                                             className="w-full h-auto rounded-xl object-cover"/>
                                     </FxFrame>

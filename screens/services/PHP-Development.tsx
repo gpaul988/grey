@@ -19,7 +19,7 @@ const PHPDevelopment = () => (
         introBody={[
             <>
                 PHP powers over 77% of the web, from WordPress and Drupal to enterprise applications handling millions
-                of transactions. At Grey InfoTech we harness PHP's versatility to build content platforms, business
+                of transactions. At Graham Sobiribo Paul we harness PHP's versatility to build content platforms, business
                 applications, and high-performance web systems. Whether using Laravel for rapid development, Symfony for
                 enterprise applications, or custom solutions, we engineer robust, scalable applications backed by rigorous
                 testing and clean architecture. Our expertise spans both modern PHP frameworks and legacy system modernization.
@@ -36,7 +36,7 @@ const PHPDevelopment = () => (
         solutionsIntro={
             <>
                 From content management systems and eCommerce platforms to business applications and legacy modernization,
-                Grey InfoTech delivers comprehensive PHP development. Based in Nigeria and working globally, we build performant,
+                Graham Sobiribo Paul delivers comprehensive PHP development. Based in Nigeria and working globally, we build performant,
                 well-tested PHP systems that power millions of websites and applications worldwide.
             </>
         }
@@ -91,7 +91,7 @@ const PHPDevelopment = () => (
             },
         ]}
         ctaHeading={<>Build reliable systems <br className={'lg:block md:block hidden'}/>with PHP</>}
-        ctaBody={<>From content management and eCommerce to business applications and legacy modernization, Grey InfoTech delivers PHP solutions that work. Let's transform your vision into reliable, scalable applications that power your business.</>}
+        ctaBody={<>From content management and eCommerce to business applications and legacy modernization, Graham Sobiribo Paul delivers PHP solutions that work. Let's transform your vision into reliable, scalable applications that power your business.</>}
         stats={[
             {label: 'Years Experience', value: 12, suffix: '+'},
             {label: 'Team Members', value: 14, suffix: '+'},
@@ -100,9 +100,9 @@ const PHPDevelopment = () => (
             {label: 'Client Satisfaction', value: 96, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Ngozi Chiwendu', title: 'Publisher, Digital Content Hub', message: <>Grey InfoTech built our WordPress platform that now serves millions of monthly visitors. Reliable, fast, and easy to manage. Highly recommend them.</>},
+            {name: 'Ngozi Chiwendu', title: 'Publisher, Digital Content Hub', message: <>Graham Sobiribo Paul built our WordPress platform that now serves millions of monthly visitors. Reliable, fast, and easy to manage. Highly recommend them.</>},
             {name: 'Hassan Malik', title: 'CEO, Online Marketplace', message: <>They took our outdated PHP codebase and modernized it to Laravel while maintaining 100% uptime. The improvements in speed and maintainability are night and day.</>},
-            {name: 'Sophia Rodriguez', title: 'Founder, B2B Platform', message: <>Custom PHP development from Grey InfoTech powers our B2B marketplace. The API integrations are seamless, the performance is excellent, and their support is fantastic.</>},
+            {name: 'Sophia Rodriguez', title: 'Founder, B2B Platform', message: <>Custom PHP development from Graham Sobiribo Paul powers our B2B marketplace. The API integrations are seamless, the performance is excellent, and their support is fantastic.</>},
         ]}
         verticalSolutions={[
             {

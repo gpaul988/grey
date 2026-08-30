@@ -259,7 +259,7 @@ const HybridAppDevelopment = () => {
                             <div
                                 className="grid lg:grid-cols-2 grid-cols-1 gap-6 mt-6 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
                                 <div className="space-y-4">
-                                    <p>At Grey InfoTech, we specialize in developing high-performance hybrid
+                                    <p>At Graham Sobiribo Paul, we specialize in developing high-performance hybrid
                                         applications that provide seamless experiences across all major platforms—iOS,
                                         Android, and web. By combining the strengths of native app functionality with
                                         the flexibility of web technologies, we offer a cost-effective solution that
@@ -668,7 +668,7 @@ const HybridAppDevelopment = () => {
                                         <div
                                             className={`mt-8 pt-8 border-t ${isDayTime ? 'border-gray-200/40' : 'border-white/10'}`}>
                                             <p className={`text-[0.8em] leading-[1.6] ${isDayTime ? 'text-gray-700' : 'text-white/60'}`}>
-                                                At Grey InfoTech, we leverage cutting-edge frameworks to deliver
+                                                At Graham Sobiribo Paul, we leverage cutting-edge frameworks to deliver
                                                 high-performance, native-quality applications that scale with your
                                                 business.
                                             </p>
@@ -866,7 +866,7 @@ const HybridAppDevelopment = () => {
                                     performance and visual appeal.
                                 </p>
                                 <p className="mt-3">
-                                    At Grey InfoTech, we use React Native to serve businesses of all sizes and
+                                    At Graham Sobiribo Paul, we use React Native to serve businesses of all sizes and
                                     industries—from startups to enterprises. Whether you're launching a new product,
                                     enhancing an existing app, or expanding to new platforms, our team ensures your
                                     application is fast, user-friendly, and built for scale. We leverage industry best
@@ -907,7 +907,7 @@ const HybridAppDevelopment = () => {
                                     Angular, Ionic is ideal for creating responsive, high-performance apps.
                                 </p>
                                 <p className="mt-3">
-                                    At Grey InfoTech, we leverage Ionic to build fast, stylish applications tailored to
+                                    At Graham Sobiribo Paul, we leverage Ionic to build fast, stylish applications tailored to
                                     your business goals—whether you're launching a simple utility app or a complex
                                     feature-rich platform. Our team ensures your app delivers a consistent user
                                     experience across devices, helping you reach a wider audience without sacrificing
@@ -947,7 +947,7 @@ const HybridAppDevelopment = () => {
                                     and rapid iteration.
                                 </p>
                                 <p className="mt-3">
-                                    At Grey InfoTech, we specialize in building visually rich Flutter applications that
+                                    At Graham Sobiribo Paul, we specialize in building visually rich Flutter applications that
                                     deliver pixel-perfect designs and smooth 60-120fps performance. Our expertise spans
                                     from high-fidelity e-commerce apps to complex fintech solutions, ensuring your
                                     Flutter app stands out in the market while maintaining enterprise-grade reliability.
@@ -979,8 +979,7 @@ const HybridAppDevelopment = () => {
                         body: (
                             <div>
                                 <p>
-                                    If you're looking to transition from a native app to a hybrid solution, Grey
-                                    InfoTech can help streamline the process. Migrating to a hybrid app offers strategic
+                                    If you're looking to transition from a native app to a hybrid solution, Graham Sobiribo Paul can help streamline the process. Migrating to a hybrid app offers strategic
                                     advantages—reduced development and maintenance costs, faster updates, and the
                                     ability to reach iOS and Android users from a single codebase. Our team has
                                     successfully migrated 25+ apps with zero production incidents.
@@ -1019,7 +1018,7 @@ const HybridAppDevelopment = () => {
                         body: (
                             <div>
                                 <p>
-                                    Performance is critical for user retention and app store rankings. Grey InfoTech
+                                    Performance is critical for user retention and app store rankings. Graham Sobiribo Paul
                                     provides comprehensive performance optimization services for hybrid apps, focusing
                                     on load times, frame rates, memory usage, and battery consumption. We use
                                     industry-standard profiling tools and best practices to transform sluggish apps into
@@ -1059,7 +1058,7 @@ const HybridAppDevelopment = () => {
                             <div>
                                 <p>
                                     Building an app is only the beginning—ongoing maintenance is essential to keep it
-                                    secure, optimised, and aligned with evolving user expectations. At Grey InfoTech, we
+                                    secure, optimised, and aligned with evolving user expectations. At Graham Sobiribo Paul, we
                                     provide continuous hybrid app maintenance services to ensure your app remains
                                     functional, compatible with the latest platform updates, and delivers a seamless
                                     user experience.
@@ -1120,7 +1119,7 @@ const HybridAppDevelopment = () => {
                                     <br/>into <span className="gx-gradient-text">reality?</span>
                                 </h2>
                                 <p className="mt-6 text-[1em] font-[300] leading-[1.7] text-white/75 max-w-xl">
-                                    Whether you're building a new hybrid app or elevating an existing one, Grey InfoTech
+                                    Whether you're building a new hybrid app or elevating an existing one, Graham Sobiribo Paul
                                     partners with you to deliver world-class solutions. Our expertise spans React
                                     Native, Flutter, Ionic, and beyond—all tailored to your unique goals.
                                 </p>
@@ -1455,7 +1454,7 @@ const HybridAppDevelopment = () => {
 
                             <div className={`p-4 rounded-xl backdrop-blur-sm ${isDayTime ? 'bg-white/80 border border-slate-100/30' : 'bg-black/40 border border-white/12'}`}>
                                 <p className='text-[0.92em] font-[400] lg:-mt-[0.2em] md:-mt-[0.2em] text-justify leading-[1.6]'>
-                                    Hybrid app development requires a specialized, cross-functional team working in tight synchronization. At Grey InfoTech, our collaborative teams deliver premium applications across React Native, Flutter, and Ionic. A dedicated project manager coordinates timelines and priorities, while our experienced hybrid developers architect robust, performant applications using modern frameworks. Our UI/UX designers craft interfaces that ensure consistent user experiences across platforms.
+                                    Hybrid app development requires a specialized, cross-functional team working in tight synchronization. At Graham Sobiribo Paul, our collaborative teams deliver premium applications across React Native, Flutter, and Ionic. A dedicated project manager coordinates timelines and priorities, while our experienced hybrid developers architect robust, performant applications using modern frameworks. Our UI/UX designers craft interfaces that ensure consistent user experiences across platforms.
                                 </p>
 
                                 <p className='text-[0.92em] font-[400] mt-4 text-justify leading-[1.6]'>

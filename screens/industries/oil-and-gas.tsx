@@ -101,7 +101,7 @@ const reasons = [
         ),
         description: (
             <>
-                Grey InfoTech is a trusted outsourcing partner for leading players in the oil and gas sector, bringing
+                Graham Sobiribo Paul is a trusted outsourcing partner for leading players in the oil and gas sector, bringing
                 nearly a decade of industry-specific experience. We design world-class exploration and production (E&P)
                 software that maximizes operational efficiency, optimizes workflows, and enhances risk management across
                 the entire value chain. Our solutions cover every stage of upstream, midstream, and downstream
@@ -263,7 +263,7 @@ const OilAndGas = () => {
             title: "OIL & GAS ANALYSIS SOFTWARE",
             heading: "Oil & Gas Analysis Software",
             description: (<>
-                For the analytical side of business, Grey InfoTech delivers advanced data management and analytics
+                For the analytical side of business, Graham Sobiribo Paul delivers advanced data management and analytics
                 solutions designed to transform raw information into actionable intelligence, enabling faster and more
                 accurate decision-making. These tools not only streamline workflows but also uncover hidden patterns,
                 identify operational trends, and provide predictive insights to support future planning. By empowering
@@ -309,7 +309,7 @@ const OilAndGas = () => {
             title: "FIELD SERVICE MANAGEMENT SOFTWARE",
             heading: "Field Service Management Software",
             description: (<>
-                Grey InfoTech is a specialized oil and gas software company focused on automating both routine and
+                Graham Sobiribo Paul is a specialized oil and gas software company focused on automating both routine and
                 complex operational tasks to drive efficiency and performance. We build intelligent solutions that
                 streamline scheduling, dispatching, and field operation tracking, enabling faster response times,
                 reduced downtime, and higher productivity across assets. In addition, our team develops secure,
@@ -324,7 +324,7 @@ const OilAndGas = () => {
             title: "ASSETS MANAGEMENT SYSTEMS",
             heading: "Assets Management Systems",
             description: (<>
-                Grey InfoTech helps oil and gas companies efficiently track, manage, and optimize assets across their
+                Graham Sobiribo Paul helps oil and gas companies efficiently track, manage, and optimize assets across their
                 entire lifecycle, ensuring maximum utilization, reduced downtime, and lower maintenance costs. Our asset
                 management software provides a centralized platform with comprehensive asset data, performance insights,
                 and predictive maintenance capabilities, empowering decision-makers with the information needed to
@@ -339,7 +339,7 @@ const OilAndGas = () => {
             title: "ENERGY MANAGEMENT SOLUTIONS",
             heading: "Energy Management Solutions",
             description: (<>
-                At Grey InfoTech, we design oil and gas software solutions centered on advanced energy management
+                At Graham Sobiribo Paul, we design oil and gas software solutions centered on advanced energy management
                 functionality and compliance with industry-specific protocols. Our systems enable organizations to
                 monitor and optimize energy consumption in real time, reduce waste, and drive operational efficiency,
                 while ensuring adherence to stringent environmental and regulatory requirements. By integrating
@@ -354,7 +354,7 @@ const OilAndGas = () => {
             title: "INTEGRATED REFINERY INFORMATION SYSTEM (IRIS)",
             heading: "Integrated Refinery Information System (IRIS)",
             description: (<>
-                At Grey InfoTech, we design oil and gas software solutions centered on advanced energy management
+                At Graham Sobiribo Paul, we design oil and gas software solutions centered on advanced energy management
                 functionality and compliance with industry-specific protocols. Our systems enable organizations to
                 monitor and optimize energy consumption in real time, reduce waste, and drive operational efficiency,
                 while ensuring adherence to stringent environmental and regulatory requirements. By integrating
@@ -698,7 +698,7 @@ const OilAndGas = () => {
                                 className='grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]'>
                                 <div>
                                     <p>
-                                        At Grey InfoTech, we specialize in driving operational efficiency and
+                                        At Graham Sobiribo Paul, we specialize in driving operational efficiency and
                                         competitive advantage across every stage of oil and gas production. Our tailored
                                         solutions span upstream, midstream, and downstream operations, designed for
                                         scalability and aligned with your unique business needs. Whether developing
@@ -1490,7 +1490,7 @@ const OilAndGas = () => {
                             className={'text-teal-600'}>Spectrum</span>
                         </h1>
                         <p className={'text-justify text-[0.87em] font-[300] leading-normal mx-auto max-w-5xl'}>
-                            Grey InfoTech provides end-to-end oil and gas software solutions -covering production,
+                            Graham Sobiribo Paul provides end-to-end oil and gas software solutions -covering production,
                             operations, energy management, data analytics, and ERP systems -engineered to directly
                             support your strategic business objectives. With a focus on scalability, security, and
                             efficiency, our solutions are built to optimize critical processes, enhance operational
@@ -1639,7 +1639,7 @@ const OilAndGas = () => {
                                 className={'text-teal-600'}>Medical Software</span> & <span
                                 className={'text-teal-600'}>Apps</span></h1>
                         <p className="text-justify  mt-4 text-[0.87em] font-[300] mx-auto">
-                            At Grey InfoTech Ltd., we deliver advanced medical app solutions that are fully
+                            At Graham Sobiribo Paul, we deliver advanced medical app solutions that are fully
                             customizable,
                             highly adaptable, and built for scalability to meet the evolving demands of modern
                             healthcare.
@@ -1826,7 +1826,7 @@ const OilAndGas = () => {
                     <div>
                         <p className='text-[0.85em] lg:-ml-[3em] md:-ml-[3em] font-[400] justify-center text-justify leading-[1.2] tracking-normal'>
                             Modern healthcare extends well beyond traditional clinical settings, reaching patients in
-                            their homes, workplaces, schools, and virtually anywhere care is needed. At Grey InfoTech,
+                            their homes, workplaces, schools, and virtually anywhere care is needed. At Graham Sobiribo Paul,
                             we enable this transformation by developing robust telehealth platforms that provide secure
                             video consultations, remote patient monitoring, and seamless communication between providers
                             and patients. Our solutions are designed to expand access to care, simplify operational
@@ -1847,7 +1847,7 @@ const OilAndGas = () => {
                     <div>
                         <p className='text-[0.85em] lg:-ml-[3em] md:-ml-[3em] font-[400] justify-center text-justify leading-[1.2] tracking-normal'>
                             Staying compliant with evolving healthcare regulations is a top priority, yet it often
-                            presents significant challenges for providers and organizations. At Grey InfoTech, we
+                            presents significant challenges for providers and organizations. At Graham Sobiribo Paul, we
                             simplify this complexity by delivering solutions that automate documentation, maintain
                             detailed audit trails, and streamline compliance reporting. Our tools are designed to align
                             with both local and international standards, ensuring data security and regulatory adherence
@@ -1869,7 +1869,7 @@ const OilAndGas = () => {
                     <div>
                         <p className='text-[0.85em] lg:-ml-[3em] md:-ml-[3em] font-[400] justify-center text-justify leading-[1.2] tracking-normal'>
                             Disconnected and fragmented data poses risks not only to the quality of care but also to the
-                            security of sensitive health information. At Grey InfoTech, we develop integrated EHR
+                            security of sensitive health information. At Graham Sobiribo Paul, we develop integrated EHR
                             systems that consolidate patient histories, lab results, prescriptions, contact details, and
                             clinical notes into a single, secure, and easily accessible hub. By centralizing critical
                             information, we enable seamless care coordination, reduce duplication of work, minimize
@@ -1941,7 +1941,7 @@ const OilAndGas = () => {
                                         ),
                                         description: (
                                             <>
-                                                At Grey InfoTech, we define our success by the measurable impact we
+                                                At Graham Sobiribo Paul, we define our success by the measurable impact we
                                                 create for our clients. Our team is committed to delivering tailored
                                                 healthcare software solutions that align with your organization’s goals,
                                                 improve operational efficiency, and enhance patient outcomes. By
@@ -2133,7 +2133,7 @@ const OilAndGas = () => {
                             who is involved <br className={'lg:block md:block hidden'}/>in the process
                         </h2>
                         <p className='text-[0.85em] font-[400] lg:-mt-[0.2em] md:-mt-[0.2em] text-justify  leading-[1.5]'>
-                            At Grey InfoTech, our Vue.js development services are executed by a highly skilled team
+                            At Graham Sobiribo Paul, our Vue.js development services are executed by a highly skilled team
                             committed to building modern, efficient, and scalable applications. A dedicated project
                             manager leads the engagement, ensuring clear communication, progress tracking, and alignment
                             with your business goals. Vue.js developers focus on building responsive front-end

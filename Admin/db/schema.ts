@@ -439,7 +439,7 @@ export function migrate(database?: DatabaseType.Database): void {
             NOT
             NULL
             DEFAULT
-            'Grey InfoTech',
+            'Graham Sobiribo Paul',
             tags
             TEXT
             NOT

@@ -208,7 +208,7 @@ const Footer = () => {
     const scrollingMessages = [
         (<>
             <h5>Web Design Agency in Port Harcourt, Nigeria</h5><br/>
-            <p>Grey InfoTech is a leading web design and digital agency in Port Harcourt, Rivers State, Nigeria, trusted
+            <p>Graham Sobiribo Paul is a leading web design and digital agency in Port Harcourt, Rivers State, Nigeria, trusted
                 by businesses locally and internationally. Since our establishment in 2018, we have been at the
                 forefront of delivering innovative, user-centric digital solutions that empower organizations to compete
                 effectively in today’s global economy.<br/><br/>
@@ -222,7 +222,7 @@ const Footer = () => {
                 and support them from ideation to market launch, while for established companies, we deliver
                 enterprise-level platforms and digital strategies that create lasting competitive advantage.</p><br/>
             <h5>Web Design & Development Services</h5><br/>
-            <p>As one of the most recognized web design companies in Port Harcourt, Nigeria, Grey InfoTech delivers
+            <p>As one of the most recognized web design companies in Port Harcourt, Nigeria, Graham Sobiribo Paul delivers
                 bespoke websites and digital platforms that combine creativity with technical precision. Our solutions
                 include corporate websites, e-commerce platforms, mobile-responsive websites, and custom web
                 applications, all designed to align with business goals and deliver measurable ROI.<br/><br/>
@@ -233,7 +233,7 @@ const Footer = () => {
                 company outsourcing development, we provide flexible, future-ready solutions that adapt to your needs.
             </p><br/><br/>
             <h5>Our Process</h5><br/>
-            <p>Every successful digital project begins with a clear strategy. At Grey InfoTech, our process starts with
+            <p>Every successful digital project begins with a clear strategy. At Graham Sobiribo Paul, our process starts with
                 market research, competitor analysis, and customer insights to ensure every project is positioned for
                 success. We define project goals, objectives, and KPIs in collaboration with our clients, ensuring
                 alignment from concept to delivery.<br/><br/>
@@ -246,7 +246,7 @@ const Footer = () => {
                 user feedback, and implement data-driven improvements, ensuring that our clients’ platforms remain
                 competitive both locally and internationally.</p><br/><br/>
             <h5>Digital Marketing & SEO Services</h5><br/>
-            <p>Grey InfoTech is more than a design and development company -we are also a trusted digital marketing and
+            <p>Graham Sobiribo Paul is more than a design and development company -we are also a trusted digital marketing and
                 SEO agency in Port Harcourt, Nigeria. We understand that visibility is critical for business success,
                 and we deliver strategies that help our clients rank higher, attract qualified leads, and convert
                 traffic into customers.<br/><br/>
@@ -256,16 +256,16 @@ const Footer = () => {
                 development services, we ensure that every website we build is optimized for both users and search
                 engines.<br/><br/>
                 We provide data-driven reports, analytics, and performance tracking, giving clients full transparency on
-                traffic growth, search rankings, and conversion rates. With Grey InfoTech as your digital partner, your
+                traffic growth, search rankings, and conversion rates. With Graham Sobiribo Paul as your digital partner, your
                 business gains both visibility and long-term growth potential.</p><br/><br/>
             <h5>Commitment to Local and Global Innovation</h5><br/>
-            <p>At Grey InfoTech, we are committed to innovation and excellence. As one of the fastest-growing web design
+            <p>At Graham Sobiribo Paul, we are committed to innovation and excellence. As one of the fastest-growing web design
                 agencies in Nigeria, we continue to invest in emerging technologies and artificial intelligence to
                 create smarter, more adaptive solutions. Our vision is to empower businesses in Port Harcourt, across
                 Nigeria, and worldwide with digital platforms that deliver real business impact.<br/><br/>
                 We remain the trusted partner for organizations seeking to establish or expand their digital presence.
                 Whether you are a local business in Port Harcourt, an SME in Nigeria, or an international enterprise
-                seeking a reliable web design and development partner in Africa, Grey InfoTech provides the expertise,
+                seeking a reliable web design and development partner in Africa, Graham Sobiribo Paul provides the expertise,
                 professionalism, and results needed to succeed in today’s digital economy.</p><br/>
         </>)
     ];
@@ -336,7 +336,7 @@ const Footer = () => {
                                 <Link href="/#">
                                     <Image
                                         src={'/footer.svg'}
-                                        alt="Grey InfoTech Logo"
+                                        alt="Graham Sobiribo Paul Logo"
                                         width={300}
                                         height={80}
                                         className="h-20 w-auto md:h-24 lg:h-32 object-contain"
@@ -535,7 +535,7 @@ const Footer = () => {
 
                             {/* Copyright */}
                             <div className="mb-2 md:mb-0">
-                                <p><Link href='#'>Grey InfoTech</Link> © 2017 - 2026</p>
+                                <p><Link href='#'>Graham Sobiribo Paul</Link> © 2026</p>
                             </div>
                         </div>
                     </div>

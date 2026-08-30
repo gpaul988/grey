@@ -49,7 +49,7 @@ const reasons = [
         focusPoints: ['Player experience', 'Retention design', 'Launch readiness'],
         description: (
             <>
-                With Grey InfoTech as your partner, you gain access to a deep well of technical expertise, creative
+                With Graham Sobiribo Paul as your partner, you gain access to a deep well of technical expertise, creative
                 innovation, and global industry insight. We collaborate closely with you to transform your ideas into
                 games that don’t just meet expectations; they exceed them. Our goal is to deliver experiences that
                 captivate users and drive commercial success, setting new benchmarks for quality and performance in the
@@ -68,7 +68,7 @@ const reasons = [
             <>
                 Our deep expertise in Unity technologies allows us to fully harness its capabilities, from delivering
                 stunning visuals to optimising game performance. We leverage Unity’s robust features to craft
-                engaging, scalable, and high-performing games that align with your goals. With Grey InfoTech, your
+                engaging, scalable, and high-performing games that align with your goals. With Graham Sobiribo Paul, your
                 vision is
                 transformed into a seamless, immersive experience that exceeds expectations and drives results.
             </>
@@ -585,8 +585,7 @@ const UnityDevelopment = () => {
 
                             <p className="text-white/70 text-[0.9em] lg:text-[1.05em] leading-[1.65] mb-8 lg:mb-10 font-[300]">
                                 From high-performance multiplayer systems to photoreal visuals and XR experiences â€”
-                                Grey
-                                InfoTech
+                                Graham Sobiribo Paul
                                 engineers deliver robust, scalable Unity projects designed for long-term success and
                                 measurable impact.
                             </p>
@@ -900,7 +899,7 @@ const UnityDevelopment = () => {
             <FxStickyScrollSection
                 day={isDayTime}
                 heading={<>Our Unity<br/>development solutions</>}
-                intro={"At Grey InfoTech, we use Unity to build immersive, cross-platform applications and games that support real business goals — from user engagement to training, marketing, or product innovation. Our teams combine creative design with engineering rigour to deliver production-ready systems at speed."}
+                intro={"At Graham Sobiribo Paul, we use Unity to build immersive, cross-platform applications and games that support real business goals — from user engagement to training, marketing, or product innovation. Our teams combine creative design with engineering rigour to deliver production-ready systems at speed."}
                 navLabel={"Unity Solutions"}
                 activeId={activeId}
                 onNavClickAction={scrollToSection}
@@ -1076,7 +1075,7 @@ const UnityDevelopment = () => {
                                 </h2>
 
                                 <p className={`mt-5 max-w-2xl text-[0.95rem] leading-[1.8] ${isDayTime ? 'text-slate-300' : 'text-slate-700'}`}>
-                                    Grey InfoTech brings together product thinking, technical architecture, and
+                                    Graham Sobiribo Paul brings together product thinking, technical architecture, and
                                     production
                                     discipline to build Unity experiences that feel premium from the first interaction
                                     to
@@ -1281,7 +1280,7 @@ const UnityDevelopment = () => {
                 </div>
             </section>
 
-            {/* Reasons to partner with Grey InfoTech */}
+            {/* Reasons to partner with Graham Sobiribo Paul */}
             <section
                 className={`relative overflow-hidden py-20 lg:py-24 ${isDayTime ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'}`}>
                 <div className="absolute inset-0 overflow-hidden">
@@ -1305,7 +1304,7 @@ const UnityDevelopment = () => {
                             </div>
                             <h2 className={`mt-6 text-3xl font-[700] leading-[1.05] tracking-tight md:text-4xl lg:text-[3.2rem] ${isDayTime ? 'text-white' : 'text-slate-950'}`}>
                                 Reasons to partner with <span
-                                className={`bg-gradient-to-r ${isDayTime ? 'from-cyan-300 via-blue-400 to-slate-100' : 'from-slate-700 via-slate-900 to-slate-950'} bg-clip-text text-transparent`}>Grey InfoTech</span>
+                                className={`bg-gradient-to-r ${isDayTime ? 'from-cyan-300 via-blue-400 to-slate-100' : 'from-slate-700 via-slate-900 to-slate-950'} bg-clip-text text-transparent`}>Graham Sobiribo Paul</span>
                             </h2>
                             <p className={`mt-4 max-w-2xl text-[0.96rem] leading-[1.8] ${isDayTime ? 'text-slate-300' : 'text-slate-700'}`}>
                                 We combine product thinking, engineering excellence, and launch discipline to create
