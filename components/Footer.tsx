@@ -294,8 +294,8 @@ const Footer = () => {
                         </div>
 
                         {/* Discovery Column */}
-                        <div className="text-base font-medium mb-4 order-2 md:order-2">
-                            <ul className="space-y-3 text-white">
+                        <div className="text-[0.75rem] font-medium mb-4 order-2 md:order-2">
+                            <ul className="space-y-1 text-white">
                                 <li><Link href="/services/ui-ux-design" className="text-white hover:text-white transition-colors">UX
                                     & UI design</Link>
                                 </li>
@@ -328,8 +328,8 @@ const Footer = () => {
                         </div>
 
                         {/* Work Column */}
-                        <div className="text-base font-medium mb-4 order-2 md:order-2">
-                            <ul className="space-y-3 text-white">
+                        <div className="text-[0.75rem] font-medium mb-4 order-2 md:order-2">
+                            <ul className="space-y-1 text-white">
                                 <li><Link href="/company" className="text-white hover:text-white transition-colors">Company</Link>
                                 </li>
                                 <li><Link href="/case-studies" className="text-white hover:text-white transition-colors">Case
@@ -357,8 +357,8 @@ const Footer = () => {
                         </div>
 
                         {/* For Startups Column */}
-                        <div className="text-base font-medium mb-4 order-2 md:order-2">
-                            <ul className="space-y-3 text-white">
+                        <div className="text-[0.75rem] font-medium mb-4 order-2 md:order-2">
+                            <ul className="space-y-1 text-white">
                                 <li><Link href="/Startups" className="text-white hover:text-white transition-colors">For
                                     startups</Link>
                                 </li>

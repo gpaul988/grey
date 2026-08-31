@@ -1,0 +1,161 @@
+<%- contentFor('html_attribute') %>
+
+<%- contentFor('content') %>
+
+    <%- include('./partials/page-title', {title: 'Store Dashboard', subtitle: 'Overview'}) %>
+
+    <div class="row g-3 mb-4">
+        <div class="col-lg-3 col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-muted small">Total Orders</span>
+                        <span class="badge bg-primary-subtle text-primary"><%= summary.totalOrders %></span>
+                    </div>
+                    <h3 class="mb-0"><%= summary.totalOrders %></h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-muted small">Paid Revenue</span>
+                        <span class="badge bg-success-subtle text-success">Live</span>
+                    </div>
+                    <h3 class="mb-0"><%- fmtMoney(summary.totalRevenue) %></h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-muted small">Units Sold</span>
+                        <span class="badge bg-info-subtle text-info">All time</span>
+                    </div>
+                    <h3 class="mb-0"><%= summary.soldUnits %></h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-muted small">Stock on Hand</span>
+                        <span class="badge bg-warning-subtle text-warning">Units</span>
+                    </div>
+                    <h3 class="mb-0"><%= summary.totalStockUnits %></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card h-100 border-primary-subtle">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="text-muted mb-0">Receipt Center</h6>
+                        <span class="badge bg-primary-subtle text-primary">Visible</span>
+                    </div>
+                    <% if (recentOrders && recentOrders.length) { %>
+                        <p class="mb-2 text-muted small">Latest order: #<%= recentOrders[0].order_number %></p>
+                        <a href="/admin/store/orders/<%= recentOrders[0].id %>" class="btn btn-primary btn-sm w-100">Open latest receipt</a>
+                    <% } else { %>
+                        <p class="mb-2 text-muted small">No paid orders yet. Create an order first to see the receipt action.</p>
+                        <a href="/admin/store/orders" class="btn btn-outline-primary btn-sm w-100">View orders</a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h6 class="text-muted mb-2">Delivery Status</h6>
+                    <div class="d-flex justify-content-between mb-2"><span>Delivered</span><strong class="text-success"><%= summary.delivered %></strong></div>
+                    <div class="d-flex justify-content-between mb-2"><span>On route</span><strong class="text-primary"><%= summary.onRoute %></strong></div>
+                    <div class="d-flex justify-content-between"><span>Pending</span><strong class="text-warning"><%= summary.pendingOrders %></strong></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h6 class="text-muted mb-2">Inventory</h6>
+                    <div class="d-flex justify-content-between mb-2"><span>Active products</span><strong><%= summary.activeProducts %></strong></div>
+                    <div class="d-flex justify-content-between mb-2"><span>Low stock</span><strong class="text-danger"><%= summary.lowStockProducts %></strong></div>
+                    <div class="d-flex justify-content-between"><span>Stock value</span><strong><%- fmtMoney(summary.totalStockValue) %></strong></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h6 class="text-muted mb-2">Payment Overview</h6>
+                    <div class="d-flex justify-content-between mb-2"><span>Paid orders</span><strong class="text-success"><%= summary.paidOrders %></strong></div>
+                    <div class="d-flex justify-content-between mb-2"><span>Avg. order value</span><strong><%- fmtMoney(summary.totalOrders ? summary.totalRevenue / summary.totalOrders : 0) %></strong></div>
+                    <div class="d-flex justify-content-between"><span>Order value</span><strong><%- fmtMoney(summary.totalRevenue) %></strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Recent Orders</h5>
+                    <a href="/admin/store/orders" class="btn btn-sm btn-soft-primary">View all</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table mb-0 align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Order #</th>
+                                    <th>Customer</th>
+                                    <th>Status</th>
+                                    <th>Total</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% recentOrders.forEach((order) => { %>
+                                <tr>
+                                    <td><a href="/admin/store/orders/<%= order.id %>" class="text-primary fw-semibold">#<%= order.order_number %></a></td>
+                                    <td><%= order.customer_type === 'guest' ? (order.guest_name || 'Guest') : 'Account Customer' %></td>
+                                    <td>
+                                        <% const sClass = {pending:'warning',confirmed:'info',processing:'primary',shipped:'info',delivered:'success',cancelled:'danger',refunded:'secondary'}[order.status] || 'secondary'; %>
+                                        <span class="badge bg-<%= sClass %>-subtle text-<%= sClass %>"><%= order.status %></span>
+                                    </td>
+                                    <td><strong><%- fmtMoney(order.total) %></strong></td>
+                                    <td><small class="text-muted"><%= new Date(order.created_at).toLocaleDateString('en-NG', {day:'numeric',month:'short',year:'numeric'}) %></small></td>
+                                </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-header"><h5 class="card-title mb-0">Top Stock</h5></div>
+                <div class="card-body">
+                    <% products.forEach((product) => { %>
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <div>
+                                <div class="fw-semibold"><%= product.name %></div>
+                                <small class="text-muted"><%= product.stock %> left</small>
+                            </div>
+                            <span class="badge <%= product.stock > 10 ? 'bg-success-subtle text-success' : product.stock > 0 ? 'bg-warning-subtle text-warning' : 'bg-danger-subtle text-danger' %>"><%= product.stock %></span>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<%- contentFor('extra_javascript') %>
