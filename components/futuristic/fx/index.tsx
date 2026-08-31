@@ -66,15 +66,16 @@ export function FxChip({
                            day,
                            children,
                            className = '',
-                           colorScheme = 'page-accent',
+                           colorScheme = 'teal',
                        }: DayProp & {
     children: React.ReactNode;
     className?: string;
-    colorScheme?: 'teal' | 'purple' | 'cyan' | 'orange' | 'page-accent'
+    colorScheme?: 'teal' | string; // fallback to teal for any legacy values
 }) {
-    // Color scheme mapping for chip styles
-    const chipClass = colorScheme === 'teal' ? '' : `gx-chip-${colorScheme}`;
-    const dotClass = colorScheme === 'teal' ? 'gx-dot' : `gx-dot-${colorScheme}`;
+    // Only teal is the supported color scheme; other values will render as teal for safety.
+    // Color scheme mapping for chip styles — force teal for everything
+    const chipClass = '';
+    const dotClass = 'gx-dot';
 
     return (
         <span data-day={day ? 'true' : 'false'} className={`gx-chip ${chipClass} ${className}`}>
@@ -136,48 +137,34 @@ export function FxButton({
                              children,
                              variant = 'solid',
                              className = '',
-                             colorScheme = 'page-accent',
+                             colorScheme = 'teal',
                          }: DayProp & {
     href?: string;
     onClickAction?: () => void;
     children: React.ReactNode;
     variant?: 'solid' | 'ghost';
     className?: string;
-    colorScheme?: 'teal' | 'purple' | 'cyan' | 'orange' | 'page-accent';
+    colorScheme?: 'teal' | string; // fallback: treat other values as teal
 }) {
     const base =
         'group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-3 text-[0.9em] font-[600] tracking-tight transition-all duration-300 grey-squish';
 
-    // Color scheme mapping for buttons
+    // Color scheme mapping for buttons — only teal (page-accent falls back to teal)
     const colorMap = {
         teal: {
-            solid: 'text-[#04110f] bg-gradient-to-r from-teal-400 to-cyan-400 shadow-[0_10px_30px_-10px_rgba(34,211,238,.8)] hover:shadow-[0_16px_40px_-10px_rgba(45,212,191,.9)] hover:-translate-y-0.5',
-            ghostLight: 'text-teal-800 border border-teal-700/30 hover:border-teal-600 hover:bg-teal-50',
-            ghostDark: 'text-teal-100 border border-white/20 hover:border-teal-300/60 hover:bg-white/5'
-        },
-        purple: {
-            solid: 'text-[#04110f] bg-gradient-to-r from-purple-400 to-purple-500 shadow-[0_10px_30px_-10px_rgba(168,85,247,.8)] hover:shadow-[0_16px_40px_-10px_rgba(139,92,246,.9)] hover:-translate-y-0.5',
-            ghostLight: 'text-purple-800 border border-purple-700/30 hover:border-purple-600 hover:bg-purple-50',
-            ghostDark: 'text-purple-100 border border-white/20 hover:border-purple-300/60 hover:bg-white/5'
-        },
-        cyan: {
-            solid: 'text-[#04110f] bg-gradient-to-r from-cyan-400 to-blue-400 shadow-[0_10px_30px_-10px_rgba(34,211,238,.8)] hover:shadow-[0_16px_40px_-10px_rgba(34,211,238,.9)] hover:-translate-y-0.5',
-            ghostLight: 'text-cyan-800 border border-cyan-700/30 hover:border-cyan-600 hover:bg-cyan-50',
-            ghostDark: 'text-cyan-100 border border-white/20 hover:border-cyan-300/60 hover:bg-white/5'
-        },
-        orange: {
-            solid: 'text-[#04110f] bg-gradient-to-r from-orange-400 to-orange-500 shadow-[0_10px_30px_-10px_rgba(249,115,22,.8)] hover:shadow-[0_16px_40px_-10px_rgba(249,115,22,.9)] hover:-translate-y-0.5',
-            ghostLight: 'text-orange-800 border border-orange-700/30 hover:border-orange-600 hover:bg-orange-50',
-            ghostDark: 'text-orange-100 border border-white/20 hover:border-orange-300/60 hover:bg-white/5'
+            solid: 'text-white bg-teal-400/60 shadow-[0_10px_30px_-10px_rgba(20,184,166,0.35)] hover:shadow-[0_16px_40px_-10px_rgba(20,184,166,0.55)] hover:-translate-y-0.5',
+            ghostLight: 'text-[#0d9488] border border-[#0d9488]/20 hover:border-[#0d9488]/40 hover:bg-[#e6fffb]',
+            ghostDark: 'text-[#ecfeff] border border-white/10 hover:border-[#0d9488]/40 hover:bg-white/5'
         },
         'page-accent': {
-            solid: 'text-white bg-[var(--page-accent)] shadow-[0_10px_30px_-10px_rgba(var(--page-accent-rgb),0.8)] hover:shadow-[0_16px_40px_-10px_rgba(var(--page-accent-rgb),0.9)] hover:-translate-y-0.5',
-            ghostLight: 'text-[var(--page-accent)] border border-[rgba(var(--page-accent-rgb),0.3)] hover:border-[rgba(var(--page-accent-rgb),0.6)] hover:bg-[rgba(var(--page-accent-rgb),0.05)]',
-            ghostDark: 'text-[var(--page-accent)] border border-[rgba(var(--page-accent-rgb),0.3)] hover:border-[rgba(var(--page-accent-rgb),0.6)] hover:bg-[rgba(var(--page-accent-rgb),0.05)]'
+            // page-accent uses the same teal mapping to ensure consistency across the app
+            solid: 'text-white bg-gradient-to-r from-[#14b8a6] to-[#0d9488] shadow-[0_10px_30px_-10px_rgba(20,184,166,0.35)] hover:shadow-[0_16px_40px_-10px_rgba(20,184,166,0.55)] hover:-translate-y-0.5',
+            ghostLight: 'text-[#0d9488] border border-[#0d9488]/20 hover:border-[#0d9488]/40 hover:bg-[#e6fffb]',
+            ghostDark: 'text-[#ecfeff] border border-white/10 hover:border-[#0d9488]/40 hover:bg-white/5'
         }
     };
 
-    const colors = colorMap[colorScheme];
+    const colors = colorMap[colorScheme as keyof typeof colorMap] || colorMap.teal;
     const styles =
         variant === 'solid'
             ? colors.solid

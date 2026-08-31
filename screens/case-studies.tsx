@@ -125,7 +125,7 @@ const CaseStudies: React.FC = () => {
                                     <span className="gx-gradient-text">Work</span>
                                 </h1>
                             </div>
-                            <p className="text-white/65 text-base md:text-lg max-w-2xl leading-relaxed mb-8">
+                            <p className={`${isDayTime ? 'text-black' : 'text-white'} text-base md:text-lg max-w-2xl leading-relaxed mb-8`}>
                                 Real-world challenges, deliberate decisions, and outcomes that move the needle.
                             </p>
                             {/* Stat chips */}
@@ -164,7 +164,7 @@ const CaseStudies: React.FC = () => {
                         <div className="lg:-ml-[19em]">
                             <FxReveal>
                                 <h3 className="lg:text-[3.5em] md:text-[3em] text-[2em] font-[700] lg:mt-[0.01em] rounded-none lg:tracking-normal tracking-tight leading-[1.3] lg:pb-10 pb-6">
-                                    Proven<br/><span className="gx-gradient-text">Impact</span>
+                                    Proven <span className="gx-gradient-text">Impact</span>
                                 </h3>
                             </FxReveal>
                             <FxReveal delay={0.1}>
