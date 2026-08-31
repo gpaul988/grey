@@ -150,7 +150,7 @@ const Partners: React.FC = () => {
                             <p className="text-white/65 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
                                 We partner with technology innovators, cloud leaders, resellers and integrators to
                                 deliver outcomes no single company could build alone. Join the network powering
-                                Graham Sobiribo Paul's solutions across Africa and beyond.
+                                Grey InfoTech's solutions across Africa and beyond.
                             </p>
                             <div className="flex flex-wrap items-center justify-center gap-4">
                                 <FxButton day={false} href="#apply" variant="solid">Become a Partner</FxButton>

@@ -17,7 +17,7 @@ const testReviews = [
         role: 'Founder',
         company: 'Innovation Hub Lagos',
         avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ahmed',
-        quote: 'Graham Sobiribo Paul transformed our business with exceptional web development. Highly recommended!',
+        quote: 'Grey InfoTech transformed our business with exceptional web development. Highly recommended!',
         rating: 5,
     },
     {

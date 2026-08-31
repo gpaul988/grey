@@ -11,12 +11,12 @@ const isActive = (k) => cur === k ? ' active' : '';
     <!-- Brand Logo -->
     <a href="/admin/dashboard" class="logo">
         <span class="logo-light">
-            <span class="logo-lg"><img src="/logo-dark.png" alt="Graham Sobiribo Paul logo"></span>
-            <span class="logo-sm"><img src="/logo-dark.png" alt="Graham Sobiribo Paul logo"></span>
+            <span class="logo-lg"><img src="/logo-dark.png" alt="Grey InfoTech logo"></span>
+            <span class="logo-sm"><img src="/logo-dark.png" alt="Grey InfoTech logo"></span>
         </span>
         <span class="logo-dark">
-            <span class="logo-lg"><img src="/logo-dark.png" alt="Graham Sobiribo Paul logo"></span>
-            <span class="logo-sm"><img src="/logo-dark.png" alt="Graham Sobiribo Paul logo"></span>
+            <span class="logo-lg"><img src="/logo-dark.png" alt="Grey InfoTech logo"></span>
+            <span class="logo-sm"><img src="/logo-dark.png" alt="Grey InfoTech logo"></span>
         </span>
     </a>
 
@@ -138,6 +138,13 @@ const isActive = (k) => cur === k ? ' active' : '';
             </li>
 
             <li class="side-nav-title">Store</li>
+
+            <li class="side-nav-item">
+                <a href="/admin/store" class="side-nav-link<%= isActive('store') || isActive('store/dashboard') ? ' active' : '' %>">
+                    <span class="menu-icon"><i class="ti ti-layout-dashboard"></i></span>
+                    <span class="menu-text"> Dashboard </span>
+                </a>
+            </li>
 
             <li class="side-nav-item">
                 <a href="/admin/store/products"

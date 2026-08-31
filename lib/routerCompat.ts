@@ -12,11 +12,12 @@
  * Usage: replace `import {useRouter} from 'next/router'`
  *        with    `import {useRouter} from '@/lib/routerCompat'`
  */
-import {useEffect, useMemo, useState} from 'react';
+import {useMemo} from 'react';
 import {
     useRouter as useAppRouter,
     usePathname,
     useParams,
+    useSearchParams,
 } from 'next/navigation';
 
 /** Pages Router-style URL object accepted by push/replace for back-compat. */
@@ -44,29 +45,16 @@ export function useRouter() {
     const pathname = usePathname();
     const params = useParams();
 
-    // Read search params from the URL on the client AFTER mount instead of via
-    // `useSearchParams()`. Calling `useSearchParams()` at render time forces a
-    // CSR bailout and requires every consuming page to be wrapped in a Suspense
-    // boundary, which broke static prerendering across the site. Reading them
-    // post-mount keeps the same `router.query` surface without the bailout.
-    const [search, setSearch] = useState<URLSearchParams | null>(null);
-    useEffect(() => {
-        const read = () => setSearch(new URLSearchParams(window.location.search));
-        read();
-        window.addEventListener('popstate', read);
-        return () => window.removeEventListener('popstate', read);
-    }, [pathname]);
+    const searchParams = useSearchParams();
 
     return useMemo(() => {
         // Merge dynamic params + search params into a single query object,
         // mirroring the old Pages Router `router.query`.
         const query: Record<string, string | string[]> = {...(params as Record<string, string | string[]>)};
-        if (search) {
-            for (const [k, v] of search.entries()) {
-                query[k] = v;
-            }
-        }
-        const qs = search?.toString();
+        searchParams.forEach((value, key) => {
+            query[key] = value;
+        });
+        const qs = searchParams.toString();
         const asPath = qs ? `${pathname}?${qs}` : pathname || '/';
 
         return {
@@ -86,7 +74,7 @@ export function useRouter() {
                 if (typeof window !== 'undefined') window.location.reload();
             },
         };
-    }, [router, pathname, search, params]);
+    }, [router, pathname, searchParams, params]);
 }
 
 export default useRouter;

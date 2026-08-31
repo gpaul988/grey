@@ -1,6 +1,5 @@
 import type {Metadata, Viewport} from "next";
 import Script from "next/script";
-import ClientOnlyWidgets from '@/components/ClientOnlyWidgets';
 // Google fonts
 import {Merriweather, Roboto} from "next/font/google";
 // NOTE: next/font/google fetches font metadata from Google at startup.
@@ -62,7 +61,7 @@ export const metadata: Metadata = {
     // FIX: title template so child pages get "Page | Grey InfoTech" automatically
     title: {
         default:
-            "Grey InfoTech Ltd. - Web Design & Development Agency | Port Harcourt, Nigeria",
+            "Grey InfoTech - Web Design & Development Agency | Port Harcourt, Nigeria",
         template: "%s | Grey InfoTech",
     },
 
@@ -84,7 +83,7 @@ export const metadata: Metadata = {
 
     authors: [{name: "Grey InfoTech", url: SITE.url}],
     creator: "Grey InfoTech",
-    publisher: "Grey InfoTech Ltd.",
+    publisher: "Grey InfoTech",
 
     alternates: {canonical: SITE.url},
 
@@ -166,6 +165,7 @@ export default async function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning style={{overflowX: 'hidden', '--ann-bar-height': '0px'} as React.CSSProperties}>
         <head>
+            <Script id="store-favicon" strategy="beforeInteractive">{`(function(){try{if(typeof location!=='undefined'&&location.pathname&&location.pathname.startsWith('/store')){var l=document.querySelector("link[rel~='icon']");if(!l){l=document.createElement('link');l.rel='icon';document.head.appendChild(l);}l.href='/techstore.svg';var a=document.querySelector("link[rel='apple-touch-icon']");if(!a){a=document.createElement('link');a.rel='apple-touch-icon';document.head.appendChild(a);}a.href='/techstore.svg';}}catch(e){console.error(e);}})();`}</Script>
             {/* FIX (FOUC): set the theme class before first paint */}
             <Script
                 id="theme-init"
@@ -220,7 +220,6 @@ export default async function RootLayout({
                 </div>
             )
         )}
-        <ClientOnlyWidgets/>
         <CookieConsent/>
         </ThemeProvider>
         </body>

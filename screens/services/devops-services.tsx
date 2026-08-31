@@ -12,7 +12,7 @@ const DevOpsServices = () => (
         eyebrow="Ship faster. Break less. Scale effortlessly."
         introHeading={<>DevOps That<br className="lg:block md:block hidden" />Eliminates Friction</>}
         introBody={[
-            <>Great software dies on the altar of slow deployments. At Graham Sobiribo Paul our DevOps practice removes
+            <>Great software dies on the altar of slow deployments. At Grey InfoTech our DevOps practice removes
             the friction between writing code and running it in production. We design CI/CD pipelines that
             build, test, scan and deploy automatically, infrastructure-as-code stacks that version-control your
             entire environment, and platform-engineering layers that give your developers self-service tools
@@ -25,7 +25,7 @@ const DevOpsServices = () => (
             satisfaction.</>,
         ]}
         solutionsHeading={<>DevOps<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From CI/CD pipelines to full platform engineering, Graham Sobiribo Paul delivers DevOps capabilities that make your engineering team dramatically more productive."
+        solutionsIntro="From CI/CD pipelines to full platform engineering, Grey InfoTech delivers DevOps capabilities that make your engineering team dramatically more productive."
         solutions={[
             {
                 id: '01', title: 'CI/CD Pipeline Design', target: 'CI',

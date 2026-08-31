@@ -92,6 +92,7 @@
                     <button class="btn btn-success w-100 mt-2" onclick="confirmPayment()"><i class="ti ti-check me-1"></i>Confirm Payment (Bank Transfer)</button>
                     <small class="text-muted d-block mt-1">Marks the order paid &amp; confirmed once the customer's transfer reflects.</small>
                     <% } %>
+                    <button class="btn btn-outline-primary w-100 mt-2" onclick="sendReceipt()"><i class="ti ti-mail me-1"></i>Send Receipt Email</button>
                 </div>
             </div>
 
@@ -140,39 +141,40 @@
     </div>
 
 <%- contentFor('extra_javascript') %>
+<%- include('./partials/admin-api-helper') %>
 <script>
 function updateStatus() {
     const status = document.getElementById('orderStatus').value;
     const payment_status = document.getElementById('paymentStatus').value;
-    fetch('/admin/api/store/orders/<%= order.id %>/status', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ status, payment_status })
-    }).then(r=>r.json()).then(d => {
+    window.AdminAPI.post('/store/orders/<%= order.id %>/status', { status, payment_status }).then(d => {
         if(d.ok) { Swal.fire('Updated!','Order status updated.','success').then(()=>location.reload()); }
-        else Swal.fire('Error', d.error, 'error');
+        else Swal.fire('Error', d.message || d.error, 'error');
     });
 }
 function confirmPayment() {
     Swal.fire({ title: 'Confirm payment?', text: 'This marks the order as paid and confirmed.', icon: 'question', showCancelButton: true, confirmButtonText: 'Yes, confirm' }).then(res => {
         if(!res.isConfirmed) return;
-        fetch('/admin/api/store/orders/<%= order.id %>/confirm-payment', { method: 'POST', headers: {'Content-Type':'application/json'} })
-            .then(r=>r.json()).then(d => {
-                if(d.ok) Swal.fire('Confirmed!','Payment confirmed.','success').then(()=>location.reload());
-                else Swal.fire('Error', d.error, 'error');
+        window.AdminAPI.post('/store/orders/<%= order.id %>/confirm-payment', {}).then(d => {
+                if(d.ok) Swal.fire('Confirmed!','Payment confirmed and receipt sent.','success').then(()=>location.reload());
+                else Swal.fire('Error', d.message || d.error, 'error');
+            });
+    });
+}
+function sendReceipt() {
+    Swal.fire({ title: 'Send receipt?', text: 'Email the customer a branded payment receipt for this order.', icon: 'question', showCancelButton: true, confirmButtonText: 'Send now' }).then(res => {
+        if(!res.isConfirmed) return;
+        window.AdminAPI.post('/store/orders/<%= order.id %>/send-receipt', {}).then(d => {
+                if(d.ok) Swal.fire('Sent!','Receipt email sent successfully.','success');
+                else Swal.fire('Error', d.message || d.error, 'error');
             });
     });
 }
 document.getElementById('notesForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const notes = document.getElementById('staffNotes').value;
-    fetch('/admin/api/store/orders/<%= order.id %>/notes', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ notes })
-    }).then(r=>r.json()).then(d => {
+    window.AdminAPI.post('/store/orders/<%= order.id %>/notes', { notes }).then(d => {
         if(d.ok) Swal.fire('Saved','Notes saved.','success');
-        else Swal.fire('Error',d.error,'error');
+        else Swal.fire('Error',d.message || d.error,'error');
     });
 });
 </script>

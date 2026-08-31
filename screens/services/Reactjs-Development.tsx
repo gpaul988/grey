@@ -19,7 +19,7 @@ const ReactjsDevelopment = () => (
         introBody={[
             <>
                 React powers some of the world's most interactive applications -SaaS dashboards, real-time collaboration tools,
-                e-commerce platforms, and complex data visualizations. At Graham Sobiribo Paul we harness React's component model and
+                e-commerce platforms, and complex data visualizations. At Grey InfoTech we harness React's component model and
                 modern JavaScript to build user interfaces that are fast, responsive, and a pleasure to use. Whether building from scratch
                 or enhancing existing applications, our React expertise delivers interfaces that engage users and drive business metrics.
                 We stay current with the latest React patterns, hooks, and best practices to build maintainable, scalable applications.
@@ -36,7 +36,7 @@ const ReactjsDevelopment = () => (
         solutionsIntro={
             <>
                 From SaaS dashboards and real-time applications to e-commerce platforms and data-heavy interfaces,
-                Graham Sobiribo Paul delivers comprehensive React development. Component-driven architecture and modern JavaScript
+                Grey InfoTech delivers comprehensive React development. Component-driven architecture and modern JavaScript
                 create interfaces that are fast, scalable, and delightful to use.
             </>
         }
@@ -91,7 +91,7 @@ const ReactjsDevelopment = () => (
             },
         ]}
         ctaHeading={<>Build engaging interfaces <br className={'lg:block md:block hidden'}/>with React</>}
-        ctaBody={<>From SaaS dashboards and real-time applications to e-commerce platforms and interactive data visualizations, Graham Sobiribo Paul delivers React solutions that engage users and drive business metrics. Let's build something amazing together.</>}
+        ctaBody={<>From SaaS dashboards and real-time applications to e-commerce platforms and interactive data visualizations, Grey InfoTech delivers React solutions that engage users and drive business metrics. Let's build something amazing together.</>}
         stats={[
             {label: 'Years Experience', value: 9, suffix: '+'},
             {label: 'Team Members', value: 15, suffix: '+'},
@@ -100,9 +100,9 @@ const ReactjsDevelopment = () => (
             {label: 'Client Satisfaction', value: 99, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Kofi Asante', title: 'CEO, Analytics SaaS', message: <>Graham Sobiribo Paul built our analytics dashboard and it's phenomenal. Real-time updates, beautiful visualizations, and the performance is incredible. Our users love it and engagement metrics have soared.</>},
+            {name: 'Kofi Asante', title: 'CEO, Analytics SaaS', message: <>Grey InfoTech built our analytics dashboard and it's phenomenal. Real-time updates, beautiful visualizations, and the performance is incredible. Our users love it and engagement metrics have soared.</>},
             {name: 'Priya Sharma', title: 'Founder, E-commerce Platform', message: <>Their React expertise transformed our online store. Conversion rates increased 40% after the redesign. The team understood e-commerce challenges and delivered solutions that actually drive sales.</>},
-            {name: 'Marcus Johnson', title: 'Product Lead, Collaboration Tool', message: <>Real-time collaboration features from Graham Sobiribo Paul's React implementation are seamless. Users can collaborate effortlessly and performance never suffers even with thousands of concurrent edits. Excellent work.</>},
+            {name: 'Marcus Johnson', title: 'Product Lead, Collaboration Tool', message: <>Real-time collaboration features from Grey InfoTech's React implementation are seamless. Users can collaborate effortlessly and performance never suffers even with thousands of concurrent edits. Excellent work.</>},
         ]}
         verticalSolutions={[
             {

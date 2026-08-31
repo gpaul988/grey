@@ -194,7 +194,7 @@ export default function CareerApplyScreen() {
                                         <input
                                             type="text"
                                             className={inputCls}
-                                            placeholder="Sobiribo Graham"
+                                            placeholder="Your full name"
                                             value={form.full_name}
                                             onChange={set('full_name')}
                                             required
@@ -343,7 +343,7 @@ export default function CareerApplyScreen() {
                                 </div>
                                 <textarea
                                     className={`${inputCls} min-h-[160px] resize-y`}
-                                    placeholder="Tell us why you'd be a great fit for Graham Sobiribo Paul. What excites you about what we build?"
+                                    placeholder="Tell us why you'd be a great fit for Grey InfoTech. What excites you about what we build?"
                                     value={form.cover_letter}
                                     onChange={set('cover_letter')}
                                     rows={6}

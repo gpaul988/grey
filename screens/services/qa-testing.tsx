@@ -13,7 +13,7 @@ const QATesting = () => (
         introHeading={<>Ship With<br className="lg:block md:block hidden" />Confidence</>}
         introBody={[
             <>Quality assurance is not a gate at the end of development -it is a discipline woven through
-            the entire engineering process. At Graham Sobiribo Paul our QA engineers embed alongside your development
+            the entire engineering process. At Grey InfoTech our QA engineers embed alongside your development
             teams, writing tests in parallel with code, automating regression suites and defining acceptance
             criteria before features are built. This shift-left approach means defects are caught when they
             are cheapest to fix and releases go out with documented evidence of their quality.</>,
@@ -25,7 +25,7 @@ const QATesting = () => (
             improvement in software quality.</>,
         ]}
         solutionsHeading={<>QA &amp; Testing<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From manual exploratory testing to full CI-integrated automation frameworks, Graham Sobiribo Paul provides the quality assurance capability your product deserves."
+        solutionsIntro="From manual exploratory testing to full CI-integrated automation frameworks, Grey InfoTech provides the quality assurance capability your product deserves."
         solutions={[
             {
                 id: '01', title: 'Manual & Exploratory Testing', target: 'MT',
@@ -79,7 +79,7 @@ const QATesting = () => (
             },
         ]}
         ctaHeading={<>Quality is not<br className="lg:block md:block hidden" />optional</>}
-        ctaBody="Every bug that reaches production costs 10 - more to fix than one caught in development. Graham Sobiribo Paul makes quality a competitive advantage, not an afterthought."
+        ctaBody="Every bug that reaches production costs 10 - more to fix than one caught in development. Grey InfoTech makes quality a competitive advantage, not an afterthought."
         verticalSolutions={[
             {
                 id: 'vs1',

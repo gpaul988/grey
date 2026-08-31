@@ -32,13 +32,13 @@ function Core({pointer}: {pointer: React.MutableRefObject<{x: number; y: number}
         <group>
             <mesh ref={glow} scale={1.55}>
                 <icosahedronGeometry args={[1, 1]} />
-                <meshBasicMaterial color="#0e7490" wireframe transparent opacity={0.12} />
+                <meshBasicMaterial color="#0f766e" wireframe transparent opacity={0.12} />
             </mesh>
             <mesh ref={mesh}>
                 <icosahedronGeometry args={[1, 2]} />
                 <meshStandardMaterial
-                    color="#06b6d4"
-                    emissive="#0891b2"
+                    color="#0f766e"
+                    emissive="#115e59"
                     emissiveIntensity={0.5}
                     metalness={0.7}
                     roughness={0.25}
@@ -77,7 +77,7 @@ function Particles({count = 700}: {count?: number}) {
             <bufferGeometry>
                 <bufferAttribute attach="attributes-position" args={[positions, 3]} />
             </bufferGeometry>
-            <pointsMaterial size={0.025} color="#a855f7" transparent opacity={0.75} sizeAttenuation />
+            <pointsMaterial size={0.025} color="#0f766e" transparent opacity={0.75} sizeAttenuation />
         </points>
     );
 }
@@ -106,8 +106,8 @@ export default function WebGLScene({particleCount = 700}: {particleCount?: numbe
                 style={{width: '100%', height: '100%'}}
             >
                 <ambientLight intensity={0.6} />
-                <pointLight position={[5, 5, 5]} intensity={1.2} color="#22d3ee" />
-                <pointLight position={[-5, -3, 2]} intensity={0.8} color="#a855f7" />
+                <pointLight position={[5, 5, 5]} intensity={1.2} color="#0f766e" />
+                <pointLight position={[-5, -3, 2]} intensity={0.8} color="#115e59" />
                 <Core pointer={pointer} />
                 <Particles count={particleCount} />
             </Canvas>

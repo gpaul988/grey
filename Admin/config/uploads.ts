@@ -125,3 +125,17 @@ export const productUpload = multer({
         else cb(new Error('Only image files are allowed'));
     },
 });
+
+/** Multer instance for product demo video uploads (25 MB cap, common video types). */
+export const productVideoUpload = multer({
+    storage: multer.diskStorage({
+        destination: (_req, _file, cb) => cb(null, ensureUploadDir('products')),
+        filename: (_req, file, cb) => cb(null, safeName(file.originalname)),
+    }),
+    limits: { fileSize: 25 * 1024 * 1024 },
+    fileFilter: (_req, file, cb) => {
+        const allowed = ['video/mp4', 'video/webm', 'video/quicktime', 'video/x-msvideo'];
+        if (allowed.includes(file.mimetype)) cb(null, true);
+        else cb(new Error('Only MP4, WebM, MOV, or AVI video files are allowed'));
+    },
+});

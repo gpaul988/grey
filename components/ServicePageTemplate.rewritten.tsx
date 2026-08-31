@@ -8,7 +8,6 @@ import {AnimatePresence, motion} from 'framer-motion';
 import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import VerticalSolutionsAccordion from '@/components/VerticalSolutionsAccordion';
 import {useIsDayTime} from './useIsDayTime';
-import Container from '@/components/Container';
 import {
     FxBackground,
     FxChip,
@@ -131,7 +130,7 @@ export const CurrencyAwarePricing: React.FC<{defaultCurrency?: string; serviceTy
 
     return (
         <section className="py-12">
-            <Container>
+            <div className="max-w-7xl mx-auto px-6">
                 <div className="flex items-center justify-between mb-6">
                     <div>
                         <h3 className={`text-2xl font-bold ${isDay ? 'text-gray-900' : 'text-white'}`}>Transparent Pricing</h3>
@@ -175,7 +174,7 @@ export const CurrencyAwarePricing: React.FC<{defaultCurrency?: string; serviceTy
                 </div>
 
                 <div className={`mt-6 p-4 rounded ${isDay? 'bg-gray-50 border' : 'bg-white/5 border'}`}>All plans include support and regular updates.</div>
-                </Container>
+            </div>
         </section>
     )
 }

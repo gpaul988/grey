@@ -18,7 +18,7 @@ const Retail = () => (
         introBody={[
             <>
                 Today&apos;s shoppers move fluidly between online and in-store, and they expect a seamless,
-                personalised experience at every touchpoint. Graham Sobiribo Paul builds the retail technology that
+                personalised experience at every touchpoint. Grey InfoTech builds the retail technology that
                 delivers it. We develop point-of-sale systems, inventory and order management, e-commerce
                 storefronts and the omnichannel platforms that tie them together -so a customer can browse online,
                 buy in store, return anywhere, and feel known throughout. From single-store retailers to
@@ -38,7 +38,7 @@ const Retail = () => (
         solutionsHeading={<>Retail <br className={'lg:block md:block hidden'}/>Software <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From POS and inventory to e-commerce and omnichannel, Graham Sobiribo Paul builds retail software that
+                From POS and inventory to e-commerce and omnichannel, Grey InfoTech builds retail software that
                 sells. Based in Nigeria and serving clients globally, we unify online and in-store into one
                 seamless, data-driven experience.
             </>
@@ -110,11 +110,11 @@ const Retail = () => (
             },
         ]}
         ctaHeading={<>Sell everywhere, <br className={'lg:block md:block hidden'}/>seamlessly</>}
-        ctaBody={<>From POS and inventory to e-commerce and omnichannel, Graham Sobiribo Paul builds retail software that
+        ctaBody={<>From POS and inventory to e-commerce and omnichannel, Grey InfoTech builds retail software that
             grows sales and unifies your operation. Let&apos;s create a shopping experience customers love -online and
             in store.</>}
         testimonials={[
-            {name: 'Adaeze Nnamdi', title: 'Founder, StyleHub', message: <>Graham Sobiribo Paul unified our online store and physical shops onto one platform. Inventory finally matches reality and customers can buy online, collect in store. Sales are up across the board.</>},
+            {name: 'Adaeze Nnamdi', title: 'Founder, StyleHub', message: <>Grey InfoTech unified our online store and physical shops onto one platform. Inventory finally matches reality and customers can buy online, collect in store. Sales are up across the board.</>},
             {name: 'Sipho Dlamini', title: 'Retail Director, MartPlus', message: <>Their POS and inventory system works flawlessly across all our branches -even offline. The real-time stock visibility ended our overselling problems for good.</>},
             {name: 'Ngozi Eze', title: 'CEO, GlowCart', message: <>The loyalty and personalisation features they built noticeably lifted repeat purchases, and the platform sailed through our last Black Friday without a hiccup.</>},
         ]}

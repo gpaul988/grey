@@ -124,7 +124,7 @@ export async function sendAuditConfirmation(options: {
     <p>Thank you for submitting your audit request. We've received your information and will review it shortly.</p>
     <p><strong>Audit ID:</strong> ${options.auditId}</p>
     <p>You can check the status of your audit request using this ID.</p>
-    <p>Best regards,<br>Graham Sobiribo Paul Team</p>
+    <p>Best regards,<br>Grey InfoTech Team</p>
   `;
 
   return send({

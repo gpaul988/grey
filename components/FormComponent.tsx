@@ -562,7 +562,7 @@ const FormComponent: React.FC = () => {
                         aria-invalid={!!errors.privacyPolicy}
                     />
                     <span className={`ml-3 text-sm ${themeText}`}>
-            I understand that Graham Sobiribo Paul Ltd will securely hold my data in accordance with their privacy policy.
+            I understand that Grey InfoTech Ltd will securely hold my data in accordance with their privacy policy.
           </span>
                 </div>
                 {errors.privacyPolicy && (

@@ -16,7 +16,7 @@ const Maritime = () => (
         introHeading={<>Maritime Technology<br className="lg:block md:block hidden"/>and Innovation</>}
         introBody={[
             <>
-                The maritime sector is entering a new era of automation, digital-first operations and data-driven decision making. Graham Sobiribo Paul builds the software backbone for modern shipping and maritime logistics: voyage optimisation, predictive maintenance for fleets, AIS and sensor aggregation, and secure gateways for satellite and terrestrial telemetry. Our platforms improve berth utilisation, reduce fuel consumption and provide live cargo visibility across multimodal legs.
+                The maritime sector is entering a new era of automation, digital-first operations and data-driven decision making. Grey InfoTech builds the software backbone for modern shipping and maritime logistics: voyage optimisation, predictive maintenance for fleets, AIS and sensor aggregation, and secure gateways for satellite and terrestrial telemetry. Our platforms improve berth utilisation, reduce fuel consumption and provide live cargo visibility across multimodal legs.
             </>,
             <>
                 We design hardened, low-bandwidth systems that operate reliably at sea and in port -offline-first dashboards, secure sync, and edge analytics that process sensor data locally before sending summaries to cloud decision platforms. Coupled with ML-driven ETA and demand forecasting, our solutions cut waiting times and demurrage costs while improving environmental performance through smarter routing and hybrid propulsion management.

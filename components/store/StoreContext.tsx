@@ -9,6 +9,7 @@ export interface Customer { id: number; first_name: string; last_name: string; e
 interface StoreState {
     cart: CartLine[];
     compare: StoreProduct[];
+    recent: StoreProduct[];
     currency: Currency;
     usdRate: number;
     usdEnabled: boolean;
@@ -30,6 +31,8 @@ interface StoreState {
     refreshAuth: () => Promise<void>;
     toggleWishlist: (id: number) => Promise<void>;
     isWishlisted: (id: number) => boolean;
+    addRecentlyViewed: (p: StoreProduct) => void;
+    clearRecentlyViewed: () => void;
 }
 
 const Ctx = createContext<StoreState | null>(null);
@@ -43,10 +46,13 @@ export function useStore(): StoreState {
 const LS_CART = 'grey_cart';
 const LS_COMPARE = 'grey_compare';
 const LS_CURRENCY = 'grey_currency';
+const LS_WISHLIST = 'grey_wishlist';
+const LS_RECENT = 'grey_recently_viewed';
 
 export function StoreProvider({ children, usdRate = 1600, usdEnabled = true }: { children: React.ReactNode; usdRate?: number; usdEnabled?: boolean; }) {
     const [cart, setCart] = useState<CartLine[]>([]);
     const [compare, setCompare] = useState<StoreProduct[]>([]);
+    const [recent, setRecent] = useState<StoreProduct[]>([]);
     const [currency, setCurrencyState] = useState<Currency>('NGN');
     const [customer, setCustomer] = useState<Customer | null>(null);
     const [wishlistIds, setWishlistIds] = useState<number[]>([]);
@@ -60,6 +66,10 @@ export function StoreProvider({ children, usdRate = 1600, usdEnabled = true }: {
             if (c) setCart(JSON.parse(c));
             const cmp = localStorage.getItem(LS_COMPARE);
             if (cmp) setCompare(JSON.parse(cmp));
+            const rec = localStorage.getItem(LS_RECENT);
+            if (rec) setRecent(JSON.parse(rec));
+            const wish = localStorage.getItem(LS_WISHLIST);
+            if (wish) setWishlistIds(JSON.parse(wish));
             const cur = localStorage.getItem(LS_CURRENCY) as Currency | null;
             if (cur && usdEnabled) setCurrencyState(cur);
         } catch { /* noop */ }
@@ -68,6 +78,8 @@ export function StoreProvider({ children, usdRate = 1600, usdEnabled = true }: {
 
     useEffect(() => { if (hydrated) localStorage.setItem(LS_CART, JSON.stringify(cart)); }, [cart, hydrated]);
     useEffect(() => { if (hydrated) localStorage.setItem(LS_COMPARE, JSON.stringify(compare)); }, [compare, hydrated]);
+    useEffect(() => { if (hydrated) localStorage.setItem(LS_RECENT, JSON.stringify(recent)); }, [recent, hydrated]);
+    useEffect(() => { if (hydrated) localStorage.setItem(LS_WISHLIST, JSON.stringify(wishlistIds)); }, [wishlistIds, hydrated]);
     useEffect(() => { if (hydrated) localStorage.setItem(LS_CURRENCY, currency); }, [currency, hydrated]);
 
     const refreshAuth = useCallback(async () => {
@@ -106,23 +118,45 @@ export function StoreProvider({ children, usdRate = 1600, usdEnabled = true }: {
     const setCurrency = useCallback((c: Currency) => { if (c === 'NGN' || usdEnabled) setCurrencyState(c); }, [usdEnabled]);
 
     const toggleWishlist = useCallback(async (id: number) => {
-        if (!customer) { window.location.href = '/store/account/login?next=' + encodeURIComponent(window.location.pathname); return; }
-        const r = await api<{ ids: number[] }>('/api/store/wishlist', { method: 'POST', body: JSON.stringify({ product_id: id }) });
-        setWishlistIds(r.ids);
-    }, [customer]);
+        const next = wishlistIds.includes(id)
+            ? wishlistIds.filter((value) => value !== id)
+            : [...wishlistIds, id];
+        setWishlistIds(next);
+
+        if (!customer) {
+            return;
+        }
+
+        try {
+            const r = await api<{ ids: number[] }>('/api/store/wishlist', { method: 'POST', body: JSON.stringify({ product_id: id }) });
+            setWishlistIds(r.ids);
+        } catch {
+            setWishlistIds(next);
+        }
+    }, [customer, wishlistIds]);
 
     const isWishlisted = useCallback((id: number) => wishlistIds.includes(id), [wishlistIds]);
+
+    const addRecentlyViewed = useCallback((p: StoreProduct) => {
+        setRecent((prev) => {
+            const next = prev.filter((item) => item.id !== p.id);
+            return [p, ...next].slice(0, 6);
+        });
+    }, []);
+
+    const clearRecentlyViewed = useCallback(() => setRecent([]), []);
 
     const cartCount = cart.reduce((s, l) => s + l.quantity, 0);
     const cartSubtotal = cart.reduce((s, l) => s + l.product.price * l.quantity, 0);
 
     return (
         <Ctx.Provider value={{
-            cart, compare, currency, usdRate, usdEnabled, customer, wishlistIds,
+            cart, compare, recent, currency, usdRate, usdEnabled, customer, wishlistIds,
             addToCart, removeFromCart, setQty, clearCart,
             toggleCompare, removeCompare, clearCompare,
             setCurrency, cartCount, cartSubtotal, cartOpen, setCartOpen,
             setCustomer, refreshAuth, toggleWishlist, isWishlisted,
+            addRecentlyViewed, clearRecentlyViewed,
         }}>
             {children}
         </Ctx.Provider>

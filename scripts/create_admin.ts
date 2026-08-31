@@ -2,8 +2,8 @@ import db from '../Admin/db';
 import bcrypt from 'bcryptjs';
 
 async function createAdmin() {
-  const email = 'graham@greyinfotech.com.ng';
-  const password = '1Uriel2Sobiribo3';
+  const email = 'admin@greyinfotech.com.ng';
+  const password = '1GreyInfoTech2';
 
   try {
     // Delete existing user if any
@@ -18,7 +18,7 @@ async function createAdmin() {
       INSERT INTO users (name, email, password_hash, role, status, email_verified, verified_at, created_at, updated_at)
       VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
     `).run(
-      'Graham (SuperAdmin)',
+      'Grey InfoTech (SuperAdmin)',
       email.toLowerCase(),
       hash,
       'admin',
@@ -28,8 +28,8 @@ async function createAdmin() {
     );
 
     console.log('✅ SUPERADMIN USER CREATED');
-    console.log('📧 Email: graham@greyinfotech.com.ng');
-    console.log('🔑 Password: 1Uriel2Sobiribo3');
+    console.log('📧 Email: admin@greyinfotech.com.ng');
+    console.log('🔑 Password: 1GreyInfoTech2');
     console.log('👤 Role: admin (superadmin)');
     console.log('✓ Email verified: YES');
     console.log('✓ Status: active');

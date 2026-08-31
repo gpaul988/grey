@@ -17,7 +17,7 @@ const NodejsDevelopment = () => (
         introHeading={<>Node.js Development <br className={'lg:block md:block hidden'}/>APIs, Microservices, and Real-time Systems</>}
         introBody={[
             <>
-                Node.js powers some of the world's most demanding systems handling 10M+ requests daily. At Graham Sobiribo Paul with 9+ years of specialization, we harness Node.js's event-driven architecture and non-blocking I/O to build backends processing $100M+ in transactions with 99.9%+ uptime. Using Express, NestJS, and advanced microservices patterns, we engineer robust REST and GraphQL APIs achieving sub-100ms response times, real-time services with WebSocket integration, and complex business logic backed by rigorous testing. Our 16+ dedicated backend engineers have delivered 250+ backend services maintaining 99.2% uptime across enterprise deployments.
+                Node.js powers some of the world's most demanding systems handling 10M+ requests daily. At Grey InfoTech with 9+ years of specialization, we harness Node.js's event-driven architecture and non-blocking I/O to build backends processing $100M+ in transactions with 99.9%+ uptime. Using Express, NestJS, and advanced microservices patterns, we engineer robust REST and GraphQL APIs achieving sub-100ms response times, real-time services with WebSocket integration, and complex business logic backed by rigorous testing. Our 16+ dedicated backend engineers have delivered 250+ backend services maintaining 99.2% uptime across enterprise deployments.
             </>,
             <>
                 Beyond traditional APIs, Node.js excels at real-time applications where instant communication and responsiveness drive competitive advantage. We build streaming platforms, collaborative tools, IoT backends, and event-driven systems reacting instantly to data and user actions. With Docker, Kubernetes, CI/CD pipelines, and cloud infrastructure on AWS, Azure, and GCP, we containerize, deploy, and operate Node.js services reliably. Comprehensive monitoring, logging, autoscaling, and disaster recovery ensure your systems remain fast, observable, and resilient under demanding production loads.
@@ -26,7 +26,7 @@ const NodejsDevelopment = () => (
         solutionsHeading={<>Node.js <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                Graham Sobiribo Paul delivers comprehensive Node.js development across 250+ backend services handling 10M+ daily requests with 99.9%+ uptime. From scalable API architecture to microservices patterns, event-driven systems, and real-time platforms, we process $100M+ in transactions maintaining sub-100ms response times. 99.2% uptime and 350+ projects demonstrate our expertise in enterprise-grade backend development.
+                Grey InfoTech delivers comprehensive Node.js development across 250+ backend services handling 10M+ daily requests with 99.9%+ uptime. From scalable API architecture to microservices patterns, event-driven systems, and real-time platforms, we process $100M+ in transactions maintaining sub-100ms response times. 99.2% uptime and 350+ projects demonstrate our expertise in enterprise-grade backend development.
             </>
         }
         solutions={[
@@ -80,7 +80,7 @@ const NodejsDevelopment = () => (
             },
         ]}
         ctaHeading={<>Build scalable, enterprise-grade <br className={'lg:block md:block hidden'}/>backend infrastructure with Node.js</>}
-        ctaBody={<>Graham Sobiribo Paul delivers 250+ backend services handling 10M+ requests/day with 99.9%+ uptime. From REST/GraphQL APIs to microservices and real-time platforms, we process $100M+ in transactions maintaining sub-100ms latency. Let's build your next-generation backend together.</>}
+        ctaBody={<>Grey InfoTech delivers 250+ backend services handling 10M+ requests/day with 99.9%+ uptime. From REST/GraphQL APIs to microservices and real-time platforms, we process $100M+ in transactions maintaining sub-100ms latency. Let's build your next-generation backend together.</>}
         stats={[
             {label: 'Years Experience', value: 9, suffix: '+'},
             {label: 'Team Members', value: 16, suffix: '+'},
@@ -89,8 +89,8 @@ const NodejsDevelopment = () => (
             {label: 'Uptime Guarantee', value: 99.2, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Ibrahim Okonkwo', title: 'CTO, RealTime Systems', message: <>Node.js platform from Graham Sobiribo Paul scales to millions of concurrent connections with 99.9%+ uptime. Their microservices architecture handles 10M+ requests/day with sub-100ms latency. Technical expertise at enterprise scale is exceptional. Highly recommended.</>,},
-            {name: 'Fatima Al-Rashid', title: 'Founder, StreamData Platform', message: <>Real-time data streaming platform processing $100M+ in transactions. Graham Sobiribo Paul's Node.js expertise delivered 99.2% uptime with minimal infrastructure costs. Their engineering quality and reliability are outstanding. True partnership in driving platform success.</>,},
+            {name: 'Ibrahim Okonkwo', title: 'CTO, RealTime Systems', message: <>Node.js platform from Grey InfoTech scales to millions of concurrent connections with 99.9%+ uptime. Their microservices architecture handles 10M+ requests/day with sub-100ms latency. Technical expertise at enterprise scale is exceptional. Highly recommended.</>,},
+            {name: 'Fatima Al-Rashid', title: 'Founder, StreamData Platform', message: <>Real-time data streaming platform processing $100M+ in transactions. Grey InfoTech's Node.js expertise delivered 99.2% uptime with minimal infrastructure costs. Their engineering quality and reliability are outstanding. True partnership in driving platform success.</>,},
             {name: 'David Chen', title: 'Product Lead, Collaborative Tools', message: <>WebSocket implementation handles thousands of concurrent users across 250+ backend services. Zero downtime despite massive scale. Their Node.js specialists understand performance optimization and operational excellence at the highest level. Excellent technical partnership.</>,},
         ]}
         verticalSolutions={[

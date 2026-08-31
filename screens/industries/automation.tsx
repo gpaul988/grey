@@ -18,7 +18,7 @@ const Automation = () => (
         introBody={[
             <>
                 Every business runs on processes -and too many of them still rely on manual, repetitive work that
-                drains time, introduces errors and frustrates skilled people. Graham Sobiribo Paul builds automation
+                drains time, introduces errors and frustrates skilled people. Grey InfoTech builds automation
                 that takes that burden away. We map your workflows, identify where automation delivers the
                 greatest return, and build the software -workflow engines, robotic process automation, AI-driven
                 decisioning and system integrations -that runs the routine reliably so your team can focus on the
@@ -38,7 +38,7 @@ const Automation = () => (
         solutionsHeading={<>Automation <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From workflow automation and RPA to AI-driven processes and integrations, Graham Sobiribo Paul delivers
+                From workflow automation and RPA to AI-driven processes and integrations, Grey InfoTech delivers
                 automation that works. Based in Nigeria and serving clients globally, we eliminate manual effort
                 and connect your systems -turning operational friction into measurable efficiency.
             </>
@@ -110,11 +110,11 @@ const Automation = () => (
             },
         ]}
         ctaHeading={<>Automate what <br className={'lg:block md:block hidden'}/>slows you down</>}
-        ctaBody={<>From workflow automation and RPA to AI-driven processes, Graham Sobiribo Paul eliminates manual effort
+        ctaBody={<>From workflow automation and RPA to AI-driven processes, Grey InfoTech eliminates manual effort
             and connects your systems. Let&apos;s find your biggest time-drains and turn them into measurable
             efficiency.</>}
         testimonials={[
-            {name: 'Ifeanyi Okeke', title: 'Operations Director, LedgerPro', message: <>Graham Sobiribo Paul automated our invoice reconciliation with RPA and document AI. What took a team two days now runs overnight, error-free. The ROI was obvious within a month.</>},
+            {name: 'Ifeanyi Okeke', title: 'Operations Director, LedgerPro', message: <>Grey InfoTech automated our invoice reconciliation with RPA and document AI. What took a team two days now runs overnight, error-free. The ROI was obvious within a month.</>},
             {name: 'Sarah Mutua', title: 'Head of Ops, CareConnect', message: <>They connected our CRM, scheduling and billing so data flows automatically. No more re-keying, far fewer mistakes, and our staff focus on patients instead of paperwork.</>},
             {name: 'Tobi Ogunleye', title: 'CEO, SwiftClaims', message: <>Their AI-driven claims automation transformed our turnaround times. Reliable, auditable and genuinely intelligent where it needs to be.</>},
         ]}

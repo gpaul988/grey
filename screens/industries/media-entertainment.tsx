@@ -14,7 +14,7 @@ const MediaEntertainmentIndustry = () => (
         introBody={[
             <>The media and entertainment industry has been transformed by streaming, social platforms and
             creator economies -and the technology that powers successful media businesses is increasingly
-            complex. At Graham Sobiribo Paul we build the platforms, tools and infrastructure that help content
+            complex. At Grey InfoTech we build the platforms, tools and infrastructure that help content
             creators, broadcasters, publishers and entertainment companies deliver compelling experiences
             to their audiences. From video streaming platforms to digital publishing systems and creator
             monetisation tools, we engineer for engagement and scale.</>,
@@ -27,7 +27,7 @@ const MediaEntertainmentIndustry = () => (
             considerations in our media platform designs.</>,
         ]}
         solutionsHeading={<>Media &amp; Entertainment<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From video streaming platforms to creator monetisation tools and audience analytics, Graham Sobiribo Paul builds media technology that audiences love and businesses scale on."
+        solutionsIntro="From video streaming platforms to creator monetisation tools and audience analytics, Grey InfoTech builds media technology that audiences love and businesses scale on."
         solutions={[
             {
                 id: '01', title: 'Video Streaming Platforms', target: 'VS',
@@ -85,7 +85,7 @@ const MediaEntertainmentIndustry = () => (
             },
         ]}
         ctaHeading={<>Technology that<br className="lg:block md:block hidden" />entertains at scale</>}
-        ctaBody="Great content deserves great technology. Graham Sobiribo Paul builds the platforms that bring your stories to millions -reliably, beautifully and on every screen."/>
+        ctaBody="Great content deserves great technology. Grey InfoTech builds the platforms that bring your stories to millions -reliably, beautifully and on every screen."/>
 );
 
 export default MediaEntertainmentIndustry;

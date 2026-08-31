@@ -798,7 +798,7 @@ const Healthcare = () => {
                                 </div>
                                 <div className="space-y-4">
                                     <p>
-                                        From discovery and architecture to deployment and support, Graham Sobiribo Paul
+                                        From discovery and architecture to deployment and support, Grey InfoTech
                                         builds solutions that adapt to clinical workflows and scale across
                                         organisations.
                                     </p>
@@ -2052,7 +2052,7 @@ const Healthcare = () => {
                                 className={'text-teal-600'}>Medical Software</span> & <span
                                 className={'text-teal-600'}>Apps</span></h1>
                         <p className="text-justify  mt-4 text-[0.87em] font-[300] mx-auto">
-                            At Graham Sobiribo Paul, we deliver advanced medical app solutions that are fully
+                            At Grey InfoTech, we deliver advanced medical app solutions that are fully
                             customizable,
                             highly adaptable, and built for scalability to meet the evolving demands of modern
                             healthcare.

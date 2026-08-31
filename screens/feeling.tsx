@@ -316,7 +316,7 @@ export default function GreyInfoTechProcess(): React.ReactElement {
                         90 DAYS
                     </h1>
                     <p className={`text-xl ${isDay ? 'text-gray-200' : 'text-gray-700'} max-w-3xl mx-auto leading-relaxed`}>
-                        Graham Sobiribo Paul&apos;s process transforming businesses into digital powerhouses.
+                        Grey InfoTech&apos;s process transforming businesses into digital powerhouses.
                     </p>
 
                     <div className="flex justify-center items-center gap-4 pt-8">
@@ -390,7 +390,7 @@ export default function GreyInfoTechProcess(): React.ReactElement {
                         <h3 className="text-4xl sm:text-5xl font-black mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">Ready
                             to Launch?</h3>
                         <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">Join the elite companies that trust
-                            Graham Sobiribo Paul to revolutionize their digital presence</p>
+                            Grey InfoTech to revolutionize their digital presence</p>
                         <div className="flex justify-center gap-4">
                             <button onClick={() => setIsPlaying((s) => !s)}
                                     className="px-6 py-3 rounded-full bg-white text-black font-bold">

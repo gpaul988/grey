@@ -19,7 +19,7 @@ const RubyOnRails = () => (
         introBody={[
             <>
                 Ruby on Rails powers some of the fastest-growing startups and platforms -from Airbnb and Shopify to GitHub and Hulu.
-                At Graham Sobiribo Paul we harness Rails's "convention over configuration" philosophy and rich ecosystem to build MVPs and
+                At Grey InfoTech we harness Rails's "convention over configuration" philosophy and rich ecosystem to build MVPs and
                 complete platforms in record time. Rails enables small teams to do what would require much larger teams with other
                 frameworks. Whether proving an idea, launching a startup, or scaling existing platforms, our Rails expertise delivers
                 applications that combine development speed with reliability and maintainability.
@@ -35,7 +35,7 @@ const RubyOnRails = () => (
         solutionsHeading={<>Ruby on Rails <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From rapid MVP development to fully-scaled startup platforms, Graham Sobiribo Paul delivers comprehensive Ruby on Rails development.
+                From rapid MVP development to fully-scaled startup platforms, Grey InfoTech delivers comprehensive Ruby on Rails development.
                 Convention-driven architecture and battle-tested patterns enable fast development without sacrificing quality or maintainability.
             </>
         }
@@ -90,7 +90,7 @@ const RubyOnRails = () => (
             },
         ]}
         ctaHeading={<>Launch your startup <br className={'lg:block md:block hidden'}/>with Rails</>}
-        ctaBody={<>From rapid MVP development to fully-scaled startup platforms, Graham Sobiribo Paul delivers Ruby on Rails solutions that combine development speed with reliability and scalability. Let's turn your vision into a market-ready platform faster than you thought possible.</>}
+        ctaBody={<>From rapid MVP development to fully-scaled startup platforms, Grey InfoTech delivers Ruby on Rails solutions that combine development speed with reliability and scalability. Let's turn your vision into a market-ready platform faster than you thought possible.</>}
         stats={[
             {label: 'Years Experience', value: 9, suffix: '+'},
             {label: 'Team Members', value: 12, suffix: '+'},
@@ -99,9 +99,9 @@ const RubyOnRails = () => (
             {label: 'Client Satisfaction', value: 97, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'David Mensah', title: 'Founder, Tech Startup', message: <>Graham Sobiribo Paul's Rails expertise got our MVP to market in 8 weeks. The platform handles our growth seamlessly and the code quality is exceptional. Best decision we made for our startup.</>},
+            {name: 'David Mensah', title: 'Founder, Tech Startup', message: <>Grey InfoTech's Rails expertise got our MVP to market in 8 weeks. The platform handles our growth seamlessly and the code quality is exceptional. Best decision we made for our startup.</>},
             {name: 'Elena Vasquez', title: 'CEO, Marketplace Platform', message: <>They built our two-sided marketplace on Rails and it scales beautifully. From concept to 100k users took less than a year. Their understanding of Rails and startup challenges was invaluable.</>},
-            {name: 'Raj Patel', title: 'Product Manager, SaaS Company', message: <>Rails development from Graham Sobiribo Paul powers our SaaS platform. The productivity advantages are incredible -features that would take weeks elsewhere ship in days. Highly recommended.</>},
+            {name: 'Raj Patel', title: 'Product Manager, SaaS Company', message: <>Rails development from Grey InfoTech powers our SaaS platform. The productivity advantages are incredible -features that would take weeks elsewhere ship in days. Highly recommended.</>},
         ]}
         verticalSolutions={[
             {

@@ -61,13 +61,13 @@ const DataProtectionPolicy = () => {
                         Data Controller:
                     </p>
                     <p className="text-[15px] text-gray-600 mb-6">
-                        Graham Sobiribo Paul has determined the purposes for which and the way in which, your Personal
+                        Grey InfoTech has determined the purposes for which and the way in which, your Personal
                         Data
                         is processed. The Data Controller has overall responsibility for compliance with the Data
                         Protection
                         Laws. Any questions about the operation of this Notice or any concerns that the Notice has not
                         been
-                        followed should be referred in the first instance to Graham Sobiribo Paul at 26 Alpha Garden
+                        followed should be referred in the first instance to Grey InfoTech at 26 Alpha Garden
                         Estate,
                         Akpajo Farm Road, Akpajo-Eleme, Rivers State - 501101, Nigeria.
                     </p>
@@ -75,7 +75,7 @@ const DataProtectionPolicy = () => {
                         Privacy Manager:
                     </p>
                     <p className="text-[15px] text-gray-600 mb-6">
-                        Graham Sobiribo Paul has an appointed officer who is responsible for awareness- raising, training staff
+                        Grey InfoTech has an appointed officer who is responsible for awareness- raising, training staff
                         and
                         informing and advising the Data Controller, Data Processors and Data Users how to ensure
                         compliance

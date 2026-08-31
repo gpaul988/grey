@@ -439,7 +439,7 @@ export function migrate(database?: DatabaseType.Database): void {
             NOT
             NULL
             DEFAULT
-            'Graham Sobiribo Paul',
+            'Grey InfoTech',
             tags
             TEXT
             NOT
@@ -860,7 +860,11 @@ export function migrate(database?: DatabaseType.Database): void {
     // ---- Store: multi-currency + coupons (added incrementally) ----
     const tableExists = (t: string): boolean =>
         !!db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name=?").get(t);
-    if (tableExists('products')) addColumnIfMissing('products', 'price_usd', 'REAL');
+    if (tableExists('products')) {
+        addColumnIfMissing('products', 'price_usd', 'REAL');
+        addColumnIfMissing('products', 'video_url', 'TEXT');
+        addColumnIfMissing('products', 'flash_sale', 'INTEGER NOT NULL DEFAULT 0');
+    }
     if (tableExists('orders')) {
         addColumnIfMissing('orders', 'coupon_code', 'TEXT');
         addColumnIfMissing('orders', 'currency', "TEXT NOT NULL DEFAULT 'NGN'");
@@ -1050,6 +1054,7 @@ export function migrate(database?: DatabaseType.Database): void {
             stock INTEGER NOT NULL DEFAULT 0,
             images TEXT NOT NULL DEFAULT '[]',
             thumbnail TEXT,
+            video_url TEXT,
             status TEXT NOT NULL DEFAULT 'draft',
             featured INTEGER NOT NULL DEFAULT 0,
             tags TEXT NOT NULL DEFAULT '[]',
@@ -1689,4 +1694,9 @@ export function migrate(database?: DatabaseType.Database): void {
     for (const [key, value] of Object.entries(defaultSettings)) {
         insertSetting.run({key, value});
     }
+
+    // ---- Store product flash-sale scheduling columns ----
+    addColumnIfMissing('products', 'flash_sale_starts', 'TEXT');
+    addColumnIfMissing('products', 'flash_sale_ends', 'TEXT');
+
 }

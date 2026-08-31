@@ -1428,7 +1428,7 @@ const DiscoveryPhase = () => {
                     <div className="grid lg:grid-cols-2 gap-12 items-start">
                         <div>
                             <h1 className="text-[2.6em] lg:text-[4em] font-extrabold leading-tight tracking-tight mb-4">Your Strategic Digital Innovation Partner</h1>
-                            <p className="text-[1em] text-slate-400 leading-relaxed mb-6">Graham Sobiribo Paul fuses strategic foresight with engineering precision to design platforms that scale, adapt, and lead markets. Our discovery engagements surface the highest-leverage opportunities, validate hypotheses with rapid prototypes, and produce executable roadmaps that reduce time-to-market.</p>
+                            <p className="text-[1em] text-slate-400 leading-relaxed mb-6">Grey InfoTech fuses strategic foresight with engineering precision to design platforms that scale, adapt, and lead markets. Our discovery engagements surface the highest-leverage opportunities, validate hypotheses with rapid prototypes, and produce executable roadmaps that reduce time-to-market.</p>
 
                             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6">
                                 <li className="flex items-start gap-3">

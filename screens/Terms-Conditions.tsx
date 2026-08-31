@@ -20,13 +20,13 @@ const TermsConditions: React.FC = () => {
                     <p className="text-[15px] text-gray-600 mb-6">
                         Welcome to our website. If you continue to browse and use this website, you are agreeing to
                         comply with and be bound by the following terms and conditions of use, which together with our
-                        privacy policy govern Graham Sobiribo Paul’s relationship with you in relation to this website.
+                        privacy policy govern Grey InfoTech’s relationship with you in relation to this website.
                     </p>
                     <p className="text-[15px] text-gray-600 mb-6">
                         If you disagree with any part of these terms and conditions, please do not use our website.
                     </p>
                     <p className="text-[15px] text-gray-600 mb-6">
-                        The term ‘Graham Sobiribo Paul’ or ‘us’ or ‘we’ refers to the owner of the website, whose
+                        The term ‘Grey InfoTech’ or ‘us’ or ‘we’ refers to the owner of the website, whose
                         registered office is at 26 Alpha Gardens Estate, Akpajo Farm Road, Akpapjo-Eleme, Rivers State -
                         501101, Nigeria. Our company registration number is 1953845. The term ‘you’ refers to the user
                         or viewer of our website.
@@ -77,7 +77,7 @@ const TermsConditions: React.FC = () => {
                         Your use of this website and any dispute arising out of such use of the website is subject to
                         the laws of Nigeria.
                     </p>
-                    <h1 className="lg:text-5xl md:text-4xl text-2xl font-bold text-gray-800 mb-6">Graham Sobiribo Paul Terms and Conditions</h1>
+                    <h1 className="lg:text-5xl md:text-4xl text-2xl font-bold text-gray-800 mb-6">Grey InfoTech Terms and Conditions</h1>
                     <p className='text-[17px] text-gray-600 font-medium mb-6'>
                         1.<a className='text-black font-bold'>DEFINITION</a>
                     </p>
@@ -85,7 +85,7 @@ const TermsConditions: React.FC = () => {
                         <a className='font-bold text-black'>Acceptance:</a> the acceptance by Client of a Deliverable;
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        <a className='font-bold text-black'>Client Materials:</a> the materials provided to Graham Sobiribo Paul
+                        <a className='font-bold text-black'>Client Materials:</a> the materials provided to Grey InfoTech
                         by (or on behalf of) Client from time to time hereunder;
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
@@ -113,7 +113,7 @@ const TermsConditions: React.FC = () => {
                     <p className='text-[15px] text-gray-600 mb-6'>
                         <a className='font-bold text-black'>Developer Tools:</a> content and materials (including any
                         software)
-                        owned and/or controlled by Graham Sobiribo Paul prior to the date of this Agreement, which for the
+                        owned and/or controlled by Grey InfoTech prior to the date of this Agreement, which for the
                         avoidance of
                         doubt shall include all Intellectual Property Rights therein;
                     </p>
@@ -127,12 +127,12 @@ const TermsConditions: React.FC = () => {
                         similar rights;
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        <a className='font-bold text-black'>Project:</a> the provision by Graham Sobiribo Paul of the Services
+                        <a className='font-bold text-black'>Project:</a> the provision by Grey InfoTech of the Services
                         for a particular
                         purpose as detailed in the applicable Statement of Work;
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        <a className='font-bold text-black'>Services:</a> the services provided by Graham Sobiribo Paul
+                        <a className='font-bold text-black'>Services:</a> the services provided by Grey InfoTech
                         pursuant to this Agreement;
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
@@ -155,45 +155,45 @@ const TermsConditions: React.FC = () => {
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
                         <a className='font-bold text-black'>Third Party Materials:</a> any content or software not
-                        created or owned by Client or Graham Sobiribo Paul;
+                        created or owned by Client or Grey InfoTech;
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
                         <a className='font-bold text-black'>Timetable:</a> the timetable for provision of the Services
                         listed in the Statement of Work.
                     </p>
                     <p className='text-[17px] text-gray-600 font-medium mb-7'>
-                        2.<a className='text-black font-bold'>Graham Sobiribo Paul OBLIGATIONS</a>
+                        2.<a className='text-black font-bold'>Grey InfoTech OBLIGATIONS</a>
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        In consideration of the Fees, Graham Sobiribo Paul agrees to provide the Services as detailed in the
+                        In consideration of the Fees, Grey InfoTech agrees to provide the Services as detailed in the
                         applicable Statement of Work and in accordance with these Terms and Conditions.
                     </p>
                     <p className='text-[17px] text-gray-600 font-medium mb-7'>
                         3.<a className='text-black font-bold'>CLIENT OBLIGATIONS</a>
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        3.1 Client acknowledges that Graham Sobiribo Paul’ ability to provide the Services is dependent upon
+                        3.1 Client acknowledges that Grey InfoTech’ ability to provide the Services is dependent upon
                         the
                         full and timely cooperation of Client (which Client agrees to provide) as well as the accuracy
                         and completeness of the design specifications and other information and data Client provides to
-                        Graham Sobiribo Paul. Accordingly, Client shall:
+                        Grey InfoTech. Accordingly, Client shall:
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
                         3.1.1 pay the Fees promptly when due in accordance with the Applicable Statement of Work;
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        3.1.2. Client will notify Graham Sobiribo Paul of any changes to services in writing, giving 30 days’
+                        3.1.2. Client will notify Grey InfoTech of any changes to services in writing, giving 30 days’
                         notice. During the notice period, fees shall be charged at the rate before the notice.
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        3.1.3 promptly deliver to Graham Sobiribo Paul all required drafts, concepts, text, graphics, logos,
+                        3.1.3 promptly deliver to Grey InfoTech all required drafts, concepts, text, graphics, logos,
                         photographs, images, moving images, sound, illustrations and other materials for use in
                         accordance with this Agreement in the agreed format and ensure that it is correct and up to
                         date; and
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
                         3.1.4 where any materials are supplied by Client or a third party for the purposes of a Project,
-                        timely deliver (or procure the timely delivery of) such materials to Graham Sobiribo Paul (and where
+                        timely deliver (or procure the timely delivery of) such materials to Grey InfoTech (and where
                         Client fails to provide, or is delayed in providing any such materials, the Timetable shall be
                         suspended or adjusted accordingly).
                     </p>
@@ -201,30 +201,30 @@ const TermsConditions: React.FC = () => {
                         4.<a className='text-black font-bold'>TESTING AND ACCEPTANCE OF SOFTWARE</a>
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        4.1 Following (each) delivery of Software, Graham Sobiribo Paul shall provide Client with a test
+                        4.1 Following (each) delivery of Software, Grey InfoTech shall provide Client with a test
                         version
                         or temporary URL where the Software can be viewed and tested. If in the course of acceptance
                         testing the Software fails to substantially comply with the Specification, Client shall promptly
-                        advise Graham Sobiribo Paul in writing detailing all present Defects. On receipt of notice, Graham Sobiribo Paul shall
+                        advise Grey InfoTech in writing detailing all present Defects. On receipt of notice, Grey InfoTech shall
                         investigate and make appropriate changes or corrections necessary to correct existing Defects.
                         Following such changes Client shall re-test the Software and, if no Defects are detected, Client
                         shall confirm Acceptance. If further Defects are detected, another round of correction and
                         subsequent re-test shall be conducted (each such round of correction and testing being known
                         as an “<a className='text-black font-bold'>Iteration</a>”) until such time as the Defects are
                         remedied and upon which Client shall confirm Acceptance. For the avoidance of doubt,
-                        Graham Sobiribo Paul shall have no obligation to make any changes or corrections where this would
+                        Grey InfoTech shall have no obligation to make any changes or corrections where this would
                         result in the Software operating in a manner not required under the Specification.
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
                         4.2 If any failure to pass an acceptance test results from a Defect which is caused by an act or
-                        omission of Client or by one of Client’s sub-contractors or agents for which Graham Sobiribo Paul has
+                        omission of Client or by one of Client’s sub-contractors or agents for which Grey InfoTech has
                         no
                         responsibility or by any Third Party Materials, Acceptance of the Software shall be deemed to
-                        have taken place notwithstanding such non-Graham Sobiribo Paul Defect(s). If so requested, Client shall
-                        pay Graham Sobiribo Paul in full for all such additional services and products at Graham Sobiribo Paul’
+                        have taken place notwithstanding such non-Grey InfoTech Defect(s). If so requested, Client shall
+                        pay Grey InfoTech in full for all such additional services and products at Grey InfoTech’
                         then-current
                         fees and prices. If a delay in achieving an Acceptance is due to any cause beyond the reasonable
-                        control of Graham Sobiribo Paul, the relevant agreed date for delivery shall be deferred.
+                        control of Grey InfoTech, the relevant agreed date for delivery shall be deferred.
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
                         4.2.1 Acceptance shall be deemed to have taken place upon the occurrence of any of the following
@@ -236,7 +236,7 @@ const TermsConditions: React.FC = () => {
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
                         4.2.3 Client delays the start of relevant acceptance tests or any retest for a period of five
-                        (5) days from the date when Graham Sobiribo Paul is ready to commence tests or retests; or
+                        (5) days from the date when Grey InfoTech is ready to commence tests or retests; or
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
                         4.2.4 Client unreasonably delays confirming an Acceptance for more than three (3) business days.
@@ -255,7 +255,7 @@ const TermsConditions: React.FC = () => {
                         pitch materials and other instructions received from Client from time to time, which will assist
                         in defining the requirements and limitations of the Deliverables. The parties acknowledge and
                         agree that some aspects of the Deliverables and Specification will develop during the project,
-                        however, any requirements that Graham Sobiribo Paul reasonably believes are outside of scope, will be
+                        however, any requirements that Grey InfoTech reasonably believes are outside of scope, will be
                         dealt
                         with as a change under Clauses 5.2 and 5.3 below.
                     </p>
@@ -264,19 +264,19 @@ const TermsConditions: React.FC = () => {
                         and shall be subject to each party’s approval in writing.
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        5.3 Client may request in writing that Graham Sobiribo Paul cancel or amend any plans, schedules or
+                        5.3 Client may request in writing that Grey InfoTech cancel or amend any plans, schedules or
                         work
-                        in progress in relation to the Services and Graham Sobiribo Paul will use reasonable endeavours to
+                        in progress in relation to the Services and Grey InfoTech will use reasonable endeavours to
                         comply
                         with any such request or, where appropriate, use reasonable endeavours to agree changes to the
                         Specification, Deliverables, pricing, timetable and any other relevant terms. For the avoidance
                         of doubt, in the event of any resulting amendment the Fees payable by Client may be increased as
                         reasonably commensurate with such changes to the Services, provided that in no event shall the
                         Fees be reduced below the agreed minimum amount (if any) and provided that in any event Client
-                        shall reimburse Graham Sobiribo Paul for all charges and/or expenses incurred by Graham Sobiribo Paul and/or
+                        shall reimburse Grey InfoTech for all charges and/or expenses incurred by Grey InfoTech and/or
                         to
-                        which Graham Sobiribo Paul is or was committed in relation to the Services at the time of amendment (or
-                        cancellation or termination) of this Agreement, including any charges imposed on Graham Sobiribo Paul
+                        which Grey InfoTech is or was committed in relation to the Services at the time of amendment (or
+                        cancellation or termination) of this Agreement, including any charges imposed on Grey InfoTech
                         by
                         third parties arising therefrom.
                     </p>
@@ -284,17 +284,17 @@ const TermsConditions: React.FC = () => {
                         6.<a className='text-black font-bold'>PROJECT MANAGEMENT</a>
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        6.1 Client shall nominate and notify to Graham Sobiribo Paul a named individual who shall be available
+                        6.1 Client shall nominate and notify to Grey InfoTech a named individual who shall be available
                         to
-                        respond to Graham Sobiribo Paul’ enquiries and who shall manage the receipt of the Services. Such
+                        respond to Grey InfoTech’ enquiries and who shall manage the receipt of the Services. Such
                         individual shall act promptly and fairly at all times and in particular shall remain reasonably
                         available and contactable at all time as reasonably required for the requirements of the
                         project.
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        6.2 Client acknowledges and agrees that Graham Sobiribo Paul’ business hours are 8:00am to 6:00pm on
+                        6.2 Client acknowledges and agrees that Grey InfoTech’ business hours are 8:00am to 6:00pm on
                         any
-                        working day other than a Saturday, a Sunday or public or bank holiday in Nigeria, and Graham Sobiribo Paul
+                        working day other than a Saturday, a Sunday or public or bank holiday in Nigeria, and Grey InfoTech
                         will not normally perform services or respond to communications outside of these hours (unless
                         by
                         prior written agreement of the parties).
@@ -303,13 +303,13 @@ const TermsConditions: React.FC = () => {
                         7.<a className='text-black font-bold'>FEES AND PAYMENT</a>
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        7.1 In consideration of the Services, Client shall pay to Graham Sobiribo Paul the Fees (excluding any
+                        7.1 In consideration of the Services, Client shall pay to Grey InfoTech the Fees (excluding any
                         and
                         all applicable VAT and similar taxes, transfer charges and/or approved expenses), according to
-                        the terms of payment as listed in the applicable Statement of Work and Graham Sobiribo Paul’ invoices.
+                        the terms of payment as listed in the applicable Statement of Work and Grey InfoTech’ invoices.
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        7.2 Client shall pay the sums set out in Graham Sobiribo Paul’ invoices in each case within fourteen
+                        7.2 Client shall pay the sums set out in Grey InfoTech’ invoices in each case within fourteen
                         (14)
                         days of the date of the relevant invoice.
                     </p>
@@ -320,7 +320,7 @@ const TermsConditions: React.FC = () => {
                         otherwise agreed in writing.
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        7.4 If Client fails to pay any amount payable by it under this Agreement, Graham Sobiribo Paul shall be
+                        7.4 If Client fails to pay any amount payable by it under this Agreement, Grey InfoTech shall be
                         entitled to charge interest on the overdue amount, payable forthwith on demand from the due date
                         up to the date of actual payment, after as well as before judgment, at the rate of 8% per annum
                         above the base rate for the time being of Kuda Microfinance Bank, CLear Junction limited or
@@ -333,14 +333,14 @@ const TermsConditions: React.FC = () => {
                     <p className='text-[15px] text-gray-600 mb-6'>
                         8.1 Save for Developer Tools and/or any Third Party Software (and subject always to full payment
                         of all sums payable under the relevant Statement of Work), all Intellectual Property Rights in
-                        the Software and other Deliverables developed by Graham Sobiribo Paul hereunder shall be assigned to,
+                        the Software and other Deliverables developed by Grey InfoTech hereunder shall be assigned to,
                         and
                         shall be the property of, Client.
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
                         8.2 Any Third Party Software used within Deliverables (including Open Source materials) will be
                         supplied in accordance with the relevant licensor’s standard terms. Upon Acceptance and subject
-                        to compliance by Client with the terms herein, Graham Sobiribo Paul shall grant to Client a
+                        to compliance by Client with the terms herein, Grey InfoTech shall grant to Client a
                         non-exclusive,
                         non-transferable sub-licence to use all Developers Tools incorporated within the Deliverables
                         for
@@ -357,7 +357,7 @@ const TermsConditions: React.FC = () => {
                         Agreement.
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        9.2 Graham Sobiribo Paul warrants:
+                        9.2 Grey InfoTech warrants:
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
                         9.2.1 that it shall perform the Services with reasonable care and skill in accordance with
@@ -372,7 +372,7 @@ const TermsConditions: React.FC = () => {
                         9.2.3 the Software will perform in accordance with the Specification for a period of sixty days
                         (60) days from Acceptance (and if the Software does not so perform, than, absent fault of
                         Client,
-                        Graham Sobiribo Paul shall take action to ensure that the Software complies with the Specification
+                        Grey InfoTech shall take action to ensure that the Software complies with the Specification
                         and/or
                         provide a reasonably-suitable replacement).
                     </p>
@@ -382,15 +382,15 @@ const TermsConditions: React.FC = () => {
                         any negligent act or omission of Client or a third party.
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        9.4 Graham Sobiribo Paul shall indemnify Client against all damages, losses and expenses arising as a
+                        9.4 Grey InfoTech shall indemnify Client against all damages, losses and expenses arising as a
                         result
                         of any action or claim that use by Client of the Software in accordance with the terms herein
                         infringes any Intellectual Property Rights of a third party.
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        9.5 Client shall indemnify Graham Sobiribo Paul against all damages, losses and expenses arising as a
+                        9.5 Client shall indemnify Grey InfoTech against all damages, losses and expenses arising as a
                         result
-                        of any action or claim that any use by Graham Sobiribo Paul of Client Materials infringes any
+                        of any action or claim that any use by Grey InfoTech of Client Materials infringes any
                         Intellectual
                         Property Rights of a third party.
                     </p>
@@ -419,7 +419,7 @@ const TermsConditions: React.FC = () => {
                         to applicable local law, regulation, industry guidelines or other requirements (including
                         without
                         limitation NCC Guidelines for use of advertising content) and that, unless specifically
-                        requested in writing and agreed by the parties, Graham Sobiribo Paul shall provide no legal
+                        requested in writing and agreed by the parties, Grey InfoTech shall provide no legal
                         information,
                         guidance or advice in relation to any such requirements or restrictions.
                     </p>
@@ -433,19 +433,19 @@ const TermsConditions: React.FC = () => {
                         or limited under applicable law.
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        10.2 Graham Sobiribo Paul shall not be liable to Client for any damage to or loss of software, content or
+                        10.2 Grey InfoTech shall not be liable to Client for any damage to or loss of software, content or
                         data, loss of profit, anticipated profits, revenues, anticipated savings, goodwill or business
                         opportunity, or for any indirect or consequential loss or damage.
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        10.3 Subject to Clause 10.1, Graham Sobiribo Paul’ aggregate liability in respect of claims based on
+                        10.3 Subject to Clause 10.1, Grey InfoTech’ aggregate liability in respect of claims based on
                         events
                         arising out of or in connection with this Agreement or any collateral contract, whether in
                         contract or tort (including negligence) or otherwise, shall in no circumstances exceed the
-                        total sums actually received by Graham Sobiribo Paul hereunder.
+                        total sums actually received by Grey InfoTech hereunder.
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        10.4 This Agreement sets out the full extent of Graham Sobiribo Paul’ obligations and liabilities in
+                        10.4 This Agreement sets out the full extent of Grey InfoTech’ obligations and liabilities in
                         respect
                         of the supply of the Services. All conditions, warranties or other terms concerning the Services
                         which might otherwise be implied into this Agreement or any collateral contract (whether by
@@ -528,14 +528,14 @@ const TermsConditions: React.FC = () => {
                         gives the other prompt written notice of the requirement.
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        12.5 Client acknowledges that Graham Sobiribo Paul shall not at any time give advice or direction in
+                        12.5 Client acknowledges that Grey InfoTech shall not at any time give advice or direction in
                         relation
                         to any regulatory or legal matters, or security requirements or best practice, including in
                         relation
                         to Data Protection, privacy, contract terms or payment processing requirements and/or PCI
                         compliance.
                         Client confirms and agrees that it shall take its own advice and be solely responsible (to the
-                        exclusion of Graham Sobiribo Paul) in relation to all such matters (including without limitation the
+                        exclusion of Grey InfoTech) in relation to all such matters (including without limitation the
                         vetting
                         or selection of and third parties or Third Party Software and the integration of the
                         Deliverables
@@ -557,7 +557,7 @@ const TermsConditions: React.FC = () => {
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
                         13.2 Client may not assign or transfer any of its rights or obligations under this Agreement
-                        without the prior written consent of Graham Sobiribo Paul.
+                        without the prior written consent of Grey InfoTech.
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
                         13.3 This Agreement is made for the benefit of the parties to it and is not intended to benefit,
@@ -582,10 +582,10 @@ const TermsConditions: React.FC = () => {
                         of this Agreement intact.
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
-                        13.7 Client shall not, without the prior written consent of Graham Sobiribo Paul, at any time during Term
-                        and for twelve months thereafter, solicit or entice away from Graham Sobiribo Paul or employ or attempt to
+                        13.7 Client shall not, without the prior written consent of Grey InfoTech, at any time during Term
+                        and for twelve months thereafter, solicit or entice away from Grey InfoTech or employ or attempt to
                         employ or engage any person who is, or has been, engaged as an employee, consultant or subcontractor
-                        of Graham Sobiribo Paul in the provision of the Services.
+                        of Grey InfoTech in the provision of the Services.
                     </p>
                     <p className='text-[15px] text-gray-600 mb-6'>
                         13.8 This Agreement may not be modified or amended except in writing by a duly authorised representative

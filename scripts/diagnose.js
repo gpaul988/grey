@@ -10,7 +10,7 @@ const path = require('path');
 
 const dbPath = path.join(__dirname, '..', 'Admin', 'data', 'grey.db');
 
-console.log('🔍 Graham Sobiribo Paul Data Diagnostic');
+console.log('🔍 Grey InfoTech Data Diagnostic');
 console.log('================================\n');
 
 try {

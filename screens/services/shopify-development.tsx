@@ -13,7 +13,7 @@ const ShopifyDevelopment = () => (
         introHeading={<>Shopify Stores<br className="lg:block md:block hidden" />Built to Sell</>}
         introBody={[
             <>Shopify powers over four million online stores, but the difference between a store that converts
-            and one that frustrates lies entirely in implementation quality. At Graham Sobiribo Paul our Shopify
+            and one that frustrates lies entirely in implementation quality. At Grey InfoTech our Shopify
             specialists build custom themes, apps and Hydrogen/Remix headless storefronts that deliver the
             brand experience your customers expect and the conversion rates your business demands. We have
             built Shopify stores across fashion, electronics, health, food and B2B -understanding the unique
@@ -26,7 +26,7 @@ const ShopifyDevelopment = () => (
             from WooCommerce or Magento, we deliver it with speed and quality.</>,
         ]}
         solutionsHeading={<>Shopify<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From custom theme development to headless Hydrogen storefronts and private apps, Graham Sobiribo Paul builds Shopify experiences that turn visitors into loyal customers."
+        solutionsIntro="From custom theme development to headless Hydrogen storefronts and private apps, Grey InfoTech builds Shopify experiences that turn visitors into loyal customers."
         solutions={[
             {
                 id: '01', title: 'Custom Theme Development', target: 'CT',
@@ -83,7 +83,7 @@ const ShopifyDevelopment = () => (
             },
         ]}
         ctaHeading={<>A Shopify store<br className="lg:block md:block hidden" />that earns its keep</>}
-        ctaBody="A beautiful store that doesn't convert is just expensive decoration. Graham Sobiribo Paul builds Shopify experiences engineered to generate revenue from day one."
+        ctaBody="A beautiful store that doesn't convert is just expensive decoration. Grey InfoTech builds Shopify experiences engineered to generate revenue from day one."
         verticalSolutions={[
             {
                 id: 'vs1',

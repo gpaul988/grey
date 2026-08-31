@@ -113,7 +113,7 @@ const AiDevelopmentServices = () => {
             title: 'Creative Innovation',
             description: (
                 <>
-                    Innovation drives everything we do at Graham Sobiribo Paul. Whether it’s integrating the latest
+                    Innovation drives everything we do at Grey InfoTech. Whether it’s integrating the latest
                     technologies, enhancing user experiences, or building robust, scalable backends, we’re always
                     looking for smarter, more effective ways to give your business a competitive edge. Our team combines
                     creative thinking with technical expertise to develop solutions that not only look great and
@@ -145,7 +145,7 @@ const AiDevelopmentServices = () => {
             description: (
                 <>
                     From day one, you’ll experience a service culture grounded in professionalism, responsiveness, and
-                    transparency. At Graham Sobiribo Paul, we prioritize clear and consistent communication, keeping you
+                    transparency. At Grey InfoTech, we prioritize clear and consistent communication, keeping you
                     informed at every stage of the development process. Our team is committed to staying on schedule,
                     proactively managing expectations, and addressing challenges before they become issues -ensuring a
                     seamless, collaborative, and stress-free experience from concept to launch.
@@ -158,7 +158,7 @@ const AiDevelopmentServices = () => {
             title: 'Scalability Of Services',
             description: (
                 <>
-                    As your business expands, your software requirements evolve too. At Graham Sobiribo Paul, we provide
+                    As your business expands, your software requirements evolve too. At Grey InfoTech, we provide
                     flexible and scalable solutions tailored to every stage -from Minimum Viable Products (MVPs) for
                     startups to robust, enterprise-grade systems. Our modular development approach allows your
                     applications to grow seamlessly with your organization, minimizing costly rebuilds and enabling
@@ -174,7 +174,7 @@ const AiDevelopmentServices = () => {
                 <>
                     We go beyond simply executing tasks - we become your strategic partner. By taking a proactive
                     approach, we anticipate your needs, recommend improvements, and offer valuable insights throughout
-                    the development journey. With Graham Sobiribo Paul, you’re not just hiring a vendor; you’re gaining a
+                    the development journey. With Grey InfoTech, you’re not just hiring a vendor; you’re gaining a
                     dedicated technology partner fully invested in driving your success.
                 </>
             ),
@@ -182,7 +182,7 @@ const AiDevelopmentServices = () => {
         },
     ];
 
-    // Why Graham Sobiribo Paul For Your App Project Hook
+    // Why Grey InfoTech For Your App Project Hook
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveIndex(prevIndex => (prevIndex % reasons.length) + 1);
@@ -511,7 +511,7 @@ const AiDevelopmentServices = () => {
                                 className="grid lg:grid-cols-2 grid-cols-1 gap-6 mt-6 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
                                 <div className="space-y-4">
                                     <p>
-                                        AI isn't magic — it's engineering. Graham Sobiribo Paul combines rigorous data
+                                        AI isn't magic — it's engineering. Grey InfoTech combines rigorous data
                                         practices,
                                         robust model engineering, and production-grade MLOps to turn prototypes into
                                         reliable, scalable systems. We prioritise observability, performance, and
@@ -532,7 +532,7 @@ const AiDevelopmentServices = () => {
                                 <div className="space-y-4">
                                     <p>
                                         Whether you need bespoke NLP, computer vision, recommendation systems, or
-                                        intelligent automation, Graham Sobiribo Paul builds end-to-end solutions tailored to
+                                        intelligent automation, Grey InfoTech builds end-to-end solutions tailored to
                                         your business. We design for latency, cost, and scalability while preserving
                                         model accuracy and interpretability.
                                     </p>
@@ -1704,7 +1704,7 @@ const AiDevelopmentServices = () => {
                 <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(45deg,rgba(255,255,255,0.02) 0 1px, transparent 1px 6px)] mix-blend-overlay opacity-10" />
             </section>
 
-            {/* Why Graham Sobiribo Paul - Premium Enterprise AI Partnership */}
+            {/* Why Grey InfoTech - Premium Enterprise AI Partnership */}
             <div className={`${isDayTime ? 'bg-white' : 'bg-black'} relative overflow-hidden`}>
                 <div
                     className={`relative mx-auto w-full max-w-full px-4 sm:px-6 md:px-10 lg:px-[4.5em] xl:px-[4.5em] 2xl:px-[4.5em] lg:pt-[8em] lg:pb-[8em] md:pt-[6em] md:pb-[6em] pt-[3em] pb-[3em]`}>
@@ -1741,7 +1741,7 @@ const AiDevelopmentServices = () => {
                             }`}>
                                 Why <span className="gx-gradient-text">Enterprise & Scale</span><br
                                 className="hidden lg:block"/>
-                                Choose Graham Sobiribo Paul
+                                Choose Grey InfoTech
                             </h2>
                         </FxReveal>
                         <FxReveal delay={0.1}>
@@ -2035,7 +2035,7 @@ const AiDevelopmentServices = () => {
                                 <p className={`text-[1.05em] lg:text-[1.3em] leading-8 mb-10 max-w-3xl mx-auto ${
                                     isDayTime ? 'text-slate-700' : 'text-slate-300'
                                 }`}>
-                                    Let's explore how Graham Sobiribo Paul's rapid delivery model can unlock measurable product
+                                    Let's explore how Grey InfoTech's rapid delivery model can unlock measurable product
                                     value quickly for your startup. Schedule a confidential consultation with our
                                     leadership team today.
                                 </p>

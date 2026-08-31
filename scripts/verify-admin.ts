@@ -3,7 +3,7 @@
  *
  * Marks the standard team accounts as email-verified + active so they can log
  * in immediately. Safe to run any number of times. Does NOT touch the
- * superadmin (graham@), which activates itself via its set-password link.
+ * superadmin (admin@), which activates itself via its set-password link.
  *
  * Usage (local):    npx tsx scripts/verify-admin.ts
  * Usage (cPanel):   node --import tsx scripts/verify-admin.ts

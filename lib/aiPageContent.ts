@@ -12,7 +12,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Our Approach",
         "url": "/our-approach",
-        "body": "Graham Sobiribo Paul follows a clear delivery approach: discovery, design, build, launch and grow. We scope lean, validate with users, and iterate so projects ship on time and on budget.",
+        "body": "Grey InfoTech follows a clear delivery approach: discovery, design, build, launch and grow. We scope lean, validate with users, and iterate so projects ship on time and on budget.",
         "tags": [
             "approach",
             "process",
@@ -35,7 +35,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Portfolio",
         "url": "/portfolio",
-        "body": "Browse Graham Sobiribo Paul projects and outcomes across web, mobile and enterprise platforms in our portfolio at /portfolio.",
+        "body": "Browse Grey InfoTech projects and outcomes across web, mobile and enterprise platforms in our portfolio at /portfolio.",
         "tags": [
             "portfolio",
             "work",
@@ -46,7 +46,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Blog",
         "url": "/blog",
-        "body": "The Graham Sobiribo Paul blog shares insights on web/mobile development, AI, design and digital marketing. Read at /blog.",
+        "body": "The Grey InfoTech blog shares insights on web/mobile development, AI, design and digital marketing. Read at /blog.",
         "tags": [
             "blog",
             "articles",
@@ -57,7 +57,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Careers",
         "url": "/careers",
-        "body": "Join Graham Sobiribo Paul — open roles across engineering, design and marketing. Apply at /careers.",
+        "body": "Join Grey InfoTech — open roles across engineering, design and marketing. Apply at /careers.",
         "tags": [
             "careers",
             "jobs",
@@ -69,7 +69,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Partners",
         "url": "/partners",
-        "body": "Graham Sobiribo Paul welcomes partnerships and integrations. Explore partnership paths and apply (we collect your company, contact, partnership type, website, CAC/registration number and message) at /partners.",
+        "body": "Grey InfoTech welcomes partnerships and integrations. Explore partnership paths and apply (we collect your company, contact, partnership type, website, CAC/registration number and message) at /partners.",
         "tags": [
             "partner",
             "partnership",
@@ -96,7 +96,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Contact",
         "url": "/contact",
-        "body": "Reach Graham Sobiribo Paul via /contact, email hello@greyinfotech.com.ng, or WhatsApp +234-802-809-5571. Based in Port Harcourt, Nigeria, serving clients worldwide.",
+        "body": "Reach Grey InfoTech via /contact, email hello@greyinfotech.com.ng, or WhatsApp +234-802-809-5571. Based in Port Harcourt, Nigeria, serving clients worldwide.",
         "tags": [
             "contact",
             "email",
@@ -120,7 +120,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Online Store",
         "url": "/store",
-        "body": "Browse and buy products and digital services in the Graham Sobiribo Paul store — cart, wishlist, compare and order tracking at /store.",
+        "body": "Browse and buy products and digital services in the Grey InfoTech store — cart, wishlist, compare and order tracking at /store.",
         "tags": [
             "store",
             "shop",
@@ -133,7 +133,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Company",
         "url": "/company",
-        "body": "Graham Sobiribo Paul is a web, mobile, AI and digital marketing agency founded in 2017 in Port Harcourt, Nigeria. We build scalable, user-centered products for startups and enterprises.",
+        "body": "Grey InfoTech is a web, mobile, AI and digital marketing agency founded in 2017 in Port Harcourt, Nigeria. We build scalable, user-centered products for startups and enterprises.",
         "tags": [
             "company",
             "about",
@@ -145,7 +145,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "IoT Development Service",
         "url": "/services/IoT-Development",
-        "body": "Graham Sobiribo Paul offers IoT Development as part of our software, web, mobile, AI and digital services. We deliver iot development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/IoT-Development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers IoT Development as part of our software, web, mobile, AI and digital services. We deliver iot development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/IoT-Development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "iot-development",
@@ -156,7 +156,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Javascript Service",
         "url": "/services/Javascript",
-        "body": "Graham Sobiribo Paul offers Javascript as part of our software, web, mobile, AI and digital services. We deliver javascript end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Javascript or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Javascript as part of our software, web, mobile, AI and digital services. We deliver javascript end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Javascript or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "javascript",
@@ -166,7 +166,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Laravel Development Service",
         "url": "/services/Laravel-Development",
-        "body": "Graham Sobiribo Paul offers Laravel Development as part of our software, web, mobile, AI and digital services. We deliver laravel development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Laravel-Development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Laravel Development as part of our software, web, mobile, AI and digital services. We deliver laravel development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Laravel-Development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "laravel-development",
@@ -177,7 +177,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "MVP Service",
         "url": "/services/MVP",
-        "body": "Graham Sobiribo Paul offers MVP as part of our software, web, mobile, AI and digital services. We deliver mvp end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/MVP or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers MVP as part of our software, web, mobile, AI and digital services. We deliver mvp end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/MVP or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "mvp",
@@ -187,7 +187,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Mobile Application Development Service",
         "url": "/services/Mobile-Application-Development",
-        "body": "Graham Sobiribo Paul offers Mobile Application Development as part of our software, web, mobile, AI and digital services. We deliver mobile application development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Mobile-Application-Development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Mobile Application Development as part of our software, web, mobile, AI and digital services. We deliver mobile application development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Mobile-Application-Development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "mobile-application-development",
@@ -199,7 +199,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Net Development Service",
         "url": "/services/Net-Development",
-        "body": "Graham Sobiribo Paul offers Net Development as part of our software, web, mobile, AI and digital services. We deliver net development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Net-Development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Net Development as part of our software, web, mobile, AI and digital services. We deliver net development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Net-Development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "net-development",
@@ -210,7 +210,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Nextjs Development Service",
         "url": "/services/Nextjs-Development",
-        "body": "Graham Sobiribo Paul offers Nextjs Development as part of our software, web, mobile, AI and digital services. We deliver nextjs development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Nextjs-Development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Nextjs Development as part of our software, web, mobile, AI and digital services. We deliver nextjs development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Nextjs-Development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "nextjs-development",
@@ -221,7 +221,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Nodejs Development Service",
         "url": "/services/Nodejs-Development",
-        "body": "Graham Sobiribo Paul offers Nodejs Development as part of our software, web, mobile, AI and digital services. We deliver nodejs development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Nodejs-Development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Nodejs Development as part of our software, web, mobile, AI and digital services. We deliver nodejs development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Nodejs-Development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "nodejs-development",
@@ -232,7 +232,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "PHP Development Service",
         "url": "/services/PHP-Development",
-        "body": "Graham Sobiribo Paul offers PHP Development as part of our software, web, mobile, AI and digital services. We deliver php development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/PHP-Development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers PHP Development as part of our software, web, mobile, AI and digital services. We deliver php development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/PHP-Development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "php-development",
@@ -243,7 +243,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Python Development Service",
         "url": "/services/Python-Development",
-        "body": "Graham Sobiribo Paul offers Python Development as part of our software, web, mobile, AI and digital services. We deliver python development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Python-Development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Python Development as part of our software, web, mobile, AI and digital services. We deliver python development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Python-Development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "python-development",
@@ -254,7 +254,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "React Native Development Service",
         "url": "/services/React-Native-Development",
-        "body": "Graham Sobiribo Paul offers React Native Development as part of our software, web, mobile, AI and digital services. We deliver react native development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/React-Native-Development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers React Native Development as part of our software, web, mobile, AI and digital services. We deliver react native development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/React-Native-Development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "react-native-development",
@@ -266,7 +266,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Reactjs Development Service",
         "url": "/services/Reactjs-Development",
-        "body": "Graham Sobiribo Paul offers Reactjs Development as part of our software, web, mobile, AI and digital services. We deliver reactjs development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Reactjs-Development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Reactjs Development as part of our software, web, mobile, AI and digital services. We deliver reactjs development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Reactjs-Development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "reactjs-development",
@@ -277,7 +277,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Ruby On Rails Service",
         "url": "/services/Ruby-on-Rails",
-        "body": "Graham Sobiribo Paul offers Ruby On Rails as part of our software, web, mobile, AI and digital services. We deliver ruby on rails end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Ruby-on-Rails or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Ruby On Rails as part of our software, web, mobile, AI and digital services. We deliver ruby on rails end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Ruby-on-Rails or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "ruby-on-rails",
@@ -289,7 +289,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Social Networking Service",
         "url": "/services/Social-Networking",
-        "body": "Graham Sobiribo Paul offers Social Networking as part of our software, web, mobile, AI and digital services. We deliver social networking end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Social-Networking or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Social Networking as part of our software, web, mobile, AI and digital services. We deliver social networking end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Social-Networking or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "social-networking",
@@ -300,7 +300,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Software Development Service",
         "url": "/services/Software-Development",
-        "body": "Graham Sobiribo Paul offers Software Development as part of our software, web, mobile, AI and digital services. We deliver software development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Software-Development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Software Development as part of our software, web, mobile, AI and digital services. We deliver software development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Software-Development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "software-development",
@@ -311,7 +311,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Typescript Service",
         "url": "/services/Typescript",
-        "body": "Graham Sobiribo Paul offers Typescript as part of our software, web, mobile, AI and digital services. We deliver typescript end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Typescript or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Typescript as part of our software, web, mobile, AI and digital services. We deliver typescript end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Typescript or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "typescript",
@@ -321,7 +321,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Vuejs Development Service",
         "url": "/services/Vuejs-Development",
-        "body": "Graham Sobiribo Paul offers Vuejs Development as part of our software, web, mobile, AI and digital services. We deliver vuejs development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Vuejs-Development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Vuejs Development as part of our software, web, mobile, AI and digital services. We deliver vuejs development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Vuejs-Development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "vuejs-development",
@@ -332,7 +332,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Web Application Service",
         "url": "/services/Web-Application",
-        "body": "Graham Sobiribo Paul offers Web Application as part of our software, web, mobile, AI and digital services. We deliver web application end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Web-Application or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Web Application as part of our software, web, mobile, AI and digital services. We deliver web application end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Web-Application or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "web-application",
@@ -343,7 +343,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Web Design Service",
         "url": "/services/Web-Design",
-        "body": "Graham Sobiribo Paul offers Web Design as part of our software, web, mobile, AI and digital services. We deliver web design end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Web-Design or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Web Design as part of our software, web, mobile, AI and digital services. We deliver web design end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Web-Design or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "web-design",
@@ -354,7 +354,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Web Development Service",
         "url": "/services/Web-Development",
-        "body": "Graham Sobiribo Paul offers Web Development as part of our software, web, mobile, AI and digital services. We deliver web development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Web-Development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Web Development as part of our software, web, mobile, AI and digital services. We deliver web development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/Web-Development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "web-development",
@@ -365,7 +365,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Ai Development Services Service",
         "url": "/services/ai-development-services",
-        "body": "Graham Sobiribo Paul offers Ai Development Services as part of our software, web, mobile, AI and digital services. We deliver ai development services end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/ai-development-services or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Ai Development Services as part of our software, web, mobile, AI and digital services. We deliver ai development services end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/ai-development-services or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "ai-development-services",
@@ -377,7 +377,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Android Development Service",
         "url": "/services/android-development",
-        "body": "Graham Sobiribo Paul offers Android Development as part of our software, web, mobile, AI and digital services. We deliver android development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/android-development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Android Development as part of our software, web, mobile, AI and digital services. We deliver android development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/android-development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "android-development",
@@ -388,7 +388,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Angular Development Service",
         "url": "/services/angular-development",
-        "body": "Graham Sobiribo Paul offers Angular Development as part of our software, web, mobile, AI and digital services. We deliver angular development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/angular-development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Angular Development as part of our software, web, mobile, AI and digital services. We deliver angular development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/angular-development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "angular-development",
@@ -399,7 +399,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "App Store Optimization Service",
         "url": "/services/app-store-optimization",
-        "body": "Graham Sobiribo Paul offers App Store Optimization as part of our software, web, mobile, AI and digital services. We deliver app store optimization end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/app-store-optimization or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers App Store Optimization as part of our software, web, mobile, AI and digital services. We deliver app store optimization end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/app-store-optimization or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "app-store-optimization",
@@ -411,7 +411,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Backend Development Service",
         "url": "/services/backend-development",
-        "body": "Graham Sobiribo Paul offers Backend Development as part of our software, web, mobile, AI and digital services. We deliver backend development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/backend-development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Backend Development as part of our software, web, mobile, AI and digital services. We deliver backend development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/backend-development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "backend-development",
@@ -422,7 +422,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Blockchain Development Service",
         "url": "/services/blockchain-development",
-        "body": "Graham Sobiribo Paul offers Blockchain Development as part of our software, web, mobile, AI and digital services. We deliver blockchain development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/blockchain-development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Blockchain Development as part of our software, web, mobile, AI and digital services. We deliver blockchain development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/blockchain-development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "blockchain-development",
@@ -433,7 +433,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Branding Service",
         "url": "/services/branding",
-        "body": "Graham Sobiribo Paul offers Branding as part of our software, web, mobile, AI and digital services. We deliver branding end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/branding or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Branding as part of our software, web, mobile, AI and digital services. We deliver branding end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/branding or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "branding",
@@ -443,7 +443,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Cms Development Service",
         "url": "/services/cms-development",
-        "body": "Graham Sobiribo Paul offers Cms Development as part of our software, web, mobile, AI and digital services. We deliver cms development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/cms-development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Cms Development as part of our software, web, mobile, AI and digital services. We deliver cms development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/cms-development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "cms-development",
@@ -454,7 +454,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Crm Development Service",
         "url": "/services/crm-development",
-        "body": "Graham Sobiribo Paul offers Crm Development as part of our software, web, mobile, AI and digital services. We deliver crm development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/crm-development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Crm Development as part of our software, web, mobile, AI and digital services. We deliver crm development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/crm-development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "crm-development",
@@ -465,7 +465,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Cross Platform Development Service",
         "url": "/services/cross-platform-development",
-        "body": "Graham Sobiribo Paul offers Cross Platform Development as part of our software, web, mobile, AI and digital services. We deliver cross platform development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/cross-platform-development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Cross Platform Development as part of our software, web, mobile, AI and digital services. We deliver cross platform development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/cross-platform-development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "cross-platform-development",
@@ -477,7 +477,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Digital Marketing Service",
         "url": "/services/digital-marketing",
-        "body": "Graham Sobiribo Paul offers Digital Marketing as part of our software, web, mobile, AI and digital services. We deliver digital marketing end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/digital-marketing or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Digital Marketing as part of our software, web, mobile, AI and digital services. We deliver digital marketing end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/digital-marketing or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "digital-marketing",
@@ -488,7 +488,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Discovery Phase Service",
         "url": "/services/discovery-phase",
-        "body": "Graham Sobiribo Paul offers Discovery Phase as part of our software, web, mobile, AI and digital services. We deliver discovery phase end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/discovery-phase or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Discovery Phase as part of our software, web, mobile, AI and digital services. We deliver discovery phase end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/discovery-phase or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "discovery-phase",
@@ -499,7 +499,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Erp Development Service",
         "url": "/services/erp-development",
-        "body": "Graham Sobiribo Paul offers Erp Development as part of our software, web, mobile, AI and digital services. We deliver erp development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/erp-development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Erp Development as part of our software, web, mobile, AI and digital services. We deliver erp development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/erp-development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "erp-development",
@@ -510,7 +510,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Flutter Development Service",
         "url": "/services/flutter-development",
-        "body": "Graham Sobiribo Paul offers Flutter Development as part of our software, web, mobile, AI and digital services. We deliver flutter development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/flutter-development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Flutter Development as part of our software, web, mobile, AI and digital services. We deliver flutter development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/flutter-development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "flutter-development",
@@ -521,7 +521,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Frontend Development Service",
         "url": "/services/frontend-development",
-        "body": "Graham Sobiribo Paul offers Frontend Development as part of our software, web, mobile, AI and digital services. We deliver frontend development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/frontend-development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Frontend Development as part of our software, web, mobile, AI and digital services. We deliver frontend development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/frontend-development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "frontend-development",
@@ -532,7 +532,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Hybrid App Development Service",
         "url": "/services/hybrid-app-development",
-        "body": "Graham Sobiribo Paul offers Hybrid App Development as part of our software, web, mobile, AI and digital services. We deliver hybrid app development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/hybrid-app-development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Hybrid App Development as part of our software, web, mobile, AI and digital services. We deliver hybrid app development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/hybrid-app-development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "hybrid-app-development",
@@ -544,7 +544,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Ios Development Service",
         "url": "/services/ios-development",
-        "body": "Graham Sobiribo Paul offers Ios Development as part of our software, web, mobile, AI and digital services. We deliver ios development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/ios-development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Ios Development as part of our software, web, mobile, AI and digital services. We deliver ios development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/ios-development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "ios-development",
@@ -555,7 +555,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Seo Service",
         "url": "/services/seo",
-        "body": "Graham Sobiribo Paul offers Seo as part of our software, web, mobile, AI and digital services. We deliver seo end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/seo or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Seo as part of our software, web, mobile, AI and digital services. We deliver seo end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/seo or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "seo",
@@ -565,7 +565,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Ui Ux Design Service",
         "url": "/services/ui-ux-design",
-        "body": "Graham Sobiribo Paul offers Ui Ux Design as part of our software, web, mobile, AI and digital services. We deliver ui ux design end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/ui-ux-design or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Ui Ux Design as part of our software, web, mobile, AI and digital services. We deliver ui ux design end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/ui-ux-design or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "ui-ux-design",
@@ -577,7 +577,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Unity Development Service",
         "url": "/services/unity-development",
-        "body": "Graham Sobiribo Paul offers Unity Development as part of our software, web, mobile, AI and digital services. We deliver unity development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/unity-development or request a tailored quote at /quote-request.",
+        "body": "Grey InfoTech offers Unity Development as part of our software, web, mobile, AI and digital services. We deliver unity development end-to-end — from discovery and design through engineering, launch and ongoing support — for startups and enterprises. Learn more at /services/unity-development or request a tailored quote at /quote-request.",
         "tags": [
             "service",
             "unity-development",
@@ -588,7 +588,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Automation Industry Solutions",
         "url": "/industries/automation",
-        "body": "Graham Sobiribo Paul builds tailored digital products for the Automation industry — web, mobile, AI and platform solutions aligned to automation workflows, compliance and growth. See /industries/automation for examples and capabilities.",
+        "body": "Grey InfoTech builds tailored digital products for the Automation industry — web, mobile, AI and platform solutions aligned to automation workflows, compliance and growth. See /industries/automation for examples and capabilities.",
         "tags": [
             "industry",
             "automation",
@@ -598,7 +598,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Biotech Industry Solutions",
         "url": "/industries/biotech",
-        "body": "Graham Sobiribo Paul builds tailored digital products for the Biotech industry — web, mobile, AI and platform solutions aligned to biotech workflows, compliance and growth. See /industries/biotech for examples and capabilities.",
+        "body": "Grey InfoTech builds tailored digital products for the Biotech industry — web, mobile, AI and platform solutions aligned to biotech workflows, compliance and growth. See /industries/biotech for examples and capabilities.",
         "tags": [
             "industry",
             "biotech",
@@ -608,7 +608,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "E Commerce Development Industry Solutions",
         "url": "/industries/e-commerce-development",
-        "body": "Graham Sobiribo Paul builds tailored digital products for the E Commerce Development industry — web, mobile, AI and platform solutions aligned to e commerce development workflows, compliance and growth. See /industries/e-commerce-development for examples and capabilities.",
+        "body": "Grey InfoTech builds tailored digital products for the E Commerce Development industry — web, mobile, AI and platform solutions aligned to e commerce development workflows, compliance and growth. See /industries/e-commerce-development for examples and capabilities.",
         "tags": [
             "industry",
             "e-commerce-development",
@@ -620,7 +620,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Education Industry Solutions",
         "url": "/industries/education",
-        "body": "Graham Sobiribo Paul builds tailored digital products for the Education industry — web, mobile, AI and platform solutions aligned to education workflows, compliance and growth. See /industries/education for examples and capabilities.",
+        "body": "Grey InfoTech builds tailored digital products for the Education industry — web, mobile, AI and platform solutions aligned to education workflows, compliance and growth. See /industries/education for examples and capabilities.",
         "tags": [
             "industry",
             "education",
@@ -630,7 +630,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Fintech Industry Solutions",
         "url": "/industries/fintech",
-        "body": "Graham Sobiribo Paul builds tailored digital products for the Fintech industry — web, mobile, AI and platform solutions aligned to fintech workflows, compliance and growth. See /industries/fintech for examples and capabilities.",
+        "body": "Grey InfoTech builds tailored digital products for the Fintech industry — web, mobile, AI and platform solutions aligned to fintech workflows, compliance and growth. See /industries/fintech for examples and capabilities.",
         "tags": [
             "industry",
             "fintech",
@@ -640,7 +640,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Healthcare Industry Solutions",
         "url": "/industries/healthcare",
-        "body": "Graham Sobiribo Paul builds tailored digital products for the Healthcare industry — web, mobile, AI and platform solutions aligned to healthcare workflows, compliance and growth. See /industries/healthcare for examples and capabilities.",
+        "body": "Grey InfoTech builds tailored digital products for the Healthcare industry — web, mobile, AI and platform solutions aligned to healthcare workflows, compliance and growth. See /industries/healthcare for examples and capabilities.",
         "tags": [
             "industry",
             "healthcare",
@@ -650,7 +650,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Hr Tech Industry Solutions",
         "url": "/industries/hr-tech",
-        "body": "Graham Sobiribo Paul builds tailored digital products for the Hr Tech industry — web, mobile, AI and platform solutions aligned to hr tech workflows, compliance and growth. See /industries/hr-tech for examples and capabilities.",
+        "body": "Grey InfoTech builds tailored digital products for the Hr Tech industry — web, mobile, AI and platform solutions aligned to hr tech workflows, compliance and growth. See /industries/hr-tech for examples and capabilities.",
         "tags": [
             "industry",
             "hr-tech",
@@ -661,7 +661,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Logistics Industry Solutions",
         "url": "/industries/logistics",
-        "body": "Graham Sobiribo Paul builds tailored digital products for the Logistics industry — web, mobile, AI and platform solutions aligned to logistics workflows, compliance and growth. See /industries/logistics for examples and capabilities.",
+        "body": "Grey InfoTech builds tailored digital products for the Logistics industry — web, mobile, AI and platform solutions aligned to logistics workflows, compliance and growth. See /industries/logistics for examples and capabilities.",
         "tags": [
             "industry",
             "logistics",
@@ -671,7 +671,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Music Industry Solutions",
         "url": "/industries/music",
-        "body": "Graham Sobiribo Paul builds tailored digital products for the Music industry — web, mobile, AI and platform solutions aligned to music workflows, compliance and growth. See /industries/music for examples and capabilities.",
+        "body": "Grey InfoTech builds tailored digital products for the Music industry — web, mobile, AI and platform solutions aligned to music workflows, compliance and growth. See /industries/music for examples and capabilities.",
         "tags": [
             "industry",
             "music",
@@ -681,7 +681,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Oil And Gas Industry Solutions",
         "url": "/industries/oil-and-gas",
-        "body": "Graham Sobiribo Paul builds tailored digital products for the Oil And Gas industry — web, mobile, AI and platform solutions aligned to oil and gas workflows, compliance and growth. See /industries/oil-and-gas for examples and capabilities.",
+        "body": "Grey InfoTech builds tailored digital products for the Oil And Gas industry — web, mobile, AI and platform solutions aligned to oil and gas workflows, compliance and growth. See /industries/oil-and-gas for examples and capabilities.",
         "tags": [
             "industry",
             "oil-and-gas",
@@ -693,7 +693,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Ondemand Industry Solutions",
         "url": "/industries/ondemand",
-        "body": "Graham Sobiribo Paul builds tailored digital products for the Ondemand industry — web, mobile, AI and platform solutions aligned to ondemand workflows, compliance and growth. See /industries/ondemand for examples and capabilities.",
+        "body": "Grey InfoTech builds tailored digital products for the Ondemand industry — web, mobile, AI and platform solutions aligned to ondemand workflows, compliance and growth. See /industries/ondemand for examples and capabilities.",
         "tags": [
             "industry",
             "ondemand",
@@ -703,7 +703,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Real Estate Industry Solutions",
         "url": "/industries/real-estate",
-        "body": "Graham Sobiribo Paul builds tailored digital products for the Real Estate industry — web, mobile, AI and platform solutions aligned to real estate workflows, compliance and growth. See /industries/real-estate for examples and capabilities.",
+        "body": "Grey InfoTech builds tailored digital products for the Real Estate industry — web, mobile, AI and platform solutions aligned to real estate workflows, compliance and growth. See /industries/real-estate for examples and capabilities.",
         "tags": [
             "industry",
             "real-estate",
@@ -714,7 +714,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Retail Industry Solutions",
         "url": "/industries/retail",
-        "body": "Graham Sobiribo Paul builds tailored digital products for the Retail industry — web, mobile, AI and platform solutions aligned to retail workflows, compliance and growth. See /industries/retail for examples and capabilities.",
+        "body": "Grey InfoTech builds tailored digital products for the Retail industry — web, mobile, AI and platform solutions aligned to retail workflows, compliance and growth. See /industries/retail for examples and capabilities.",
         "tags": [
             "industry",
             "retail",
@@ -724,7 +724,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Saas Industry Solutions",
         "url": "/industries/saas",
-        "body": "Graham Sobiribo Paul builds tailored digital products for the Saas industry — web, mobile, AI and platform solutions aligned to saas workflows, compliance and growth. See /industries/saas for examples and capabilities.",
+        "body": "Grey InfoTech builds tailored digital products for the Saas industry — web, mobile, AI and platform solutions aligned to saas workflows, compliance and growth. See /industries/saas for examples and capabilities.",
         "tags": [
             "industry",
             "saas",
@@ -734,7 +734,7 @@ export const PAGE_KB: KbDoc[] = [
     {
         "title": "Travel And Hospitality Industry Solutions",
         "url": "/industries/travel-and-hospitality",
-        "body": "Graham Sobiribo Paul builds tailored digital products for the Travel And Hospitality industry — web, mobile, AI and platform solutions aligned to travel and hospitality workflows, compliance and growth. See /industries/travel-and-hospitality for examples and capabilities.",
+        "body": "Grey InfoTech builds tailored digital products for the Travel And Hospitality industry — web, mobile, AI and platform solutions aligned to travel and hospitality workflows, compliance and growth. See /industries/travel-and-hospitality for examples and capabilities.",
         "tags": [
             "industry",
             "travel-and-hospitality",

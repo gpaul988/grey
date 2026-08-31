@@ -14,7 +14,7 @@ const MagentoDevelopment = () => (
         introBody={[
             <>Magento and Adobe Commerce remain the platform of choice for enterprises that need catalogue
             depth, multi-store management, complex pricing rules and the extensibility to build highly
-            customised commerce experiences. At Graham Sobiribo Paul our Magento developers bring hands-on
+            customised commerce experiences. At Grey InfoTech our Magento developers bring hands-on
             expertise across Magento Open Source and Adobe Commerce -building custom modules, optimising
             performance, executing upgrades and integrating with the ERP, OMS and marketing systems
             that enterprise commerce demands.</>,
@@ -27,7 +27,7 @@ const MagentoDevelopment = () => (
             under load and is maintainable by your team long-term.</>,
         ]}
         solutionsHeading={<>Magento<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From custom module development to full Adobe Commerce implementations and performance engineering, Graham Sobiribo Paul delivers Magento expertise at every level."
+        solutionsIntro="From custom module development to full Adobe Commerce implementations and performance engineering, Grey InfoTech delivers Magento expertise at every level."
         solutions={[
             {
                 id: '01', title: 'Custom Module Development', target: 'CM',
@@ -84,7 +84,7 @@ const MagentoDevelopment = () => (
             },
         ]}
         ctaHeading={<>Commerce at<br className="lg:block md:block hidden" />any scale</>}
-        ctaBody="Magento rewards proper engineering. Graham Sobiribo Paul builds Adobe Commerce and Magento solutions that handle enterprise catalogue complexity and peak traffic without flinching."
+        ctaBody="Magento rewards proper engineering. Grey InfoTech builds Adobe Commerce and Magento solutions that handle enterprise catalogue complexity and peak traffic without flinching."
         verticalSolutions={[
             {
                 id: 'vs1',

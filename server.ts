@@ -288,28 +288,6 @@ async function proxyStoreRoute(req: express.Request, res: express.Response, rout
     res.status(response.status).send(bodyText);
 }
 
-function getRequestUrl(req: express.Request): Parameters<typeof handle>[2] {
-    // Next's request handler expects the legacy `UrlWithParsedQuery` shape
-    // (pathname + a parsed query object). The deprecated `url.parse(url, true)`
-    // produced exactly that, but Node now emits a DEP0169 security warning for
-    // it. Build the same shape from the modern WHATWG `URL` API instead so the
-    // warning is gone and the behaviour stays identical for Next.js.
-    const raw = req.originalUrl || req.url || '/';
-    const parsed = new URL(raw, `http://${req.headers.host || hostname}`);
-    const query: Record<string, string | string[]> = {};
-    for (const key of parsed.searchParams.keys()) {
-        if (key in query) continue;
-        const all = parsed.searchParams.getAll(key);
-        query[key] = all.length > 1 ? all : all[0];
-    }
-    return {
-        pathname: parsed.pathname,
-        query,
-        search: parsed.search || null,
-        href: parsed.pathname + parsed.search,
-    } as Parameters<typeof handle>[2];
-}
-
 // Global safety net: catch any unhandled promise rejections so the Passenger
 // worker never dies silently (which shows Phusion's generic 500 page).
 process.on('unhandledRejection', (reason, promise) => {
@@ -409,14 +387,37 @@ nextApp.prepare().then(() => {
         }
     });
 
+    app.get('/startups', (req, res, next) => {
+        const originalUrl = String(req.originalUrl || req.url || '/');
+        if (originalUrl !== '/startups' && originalUrl !== '/Startups') {
+            return next();
+        }
+        if (originalUrl === '/Startups') {
+            return next();
+        }
+        const target = new URL(originalUrl, `http://${req.headers.host || hostname}`);
+        target.pathname = '/Startups';
+        res.redirect(308, `${target.pathname}${target.search}`);
+    });
+
     // Inline legacy store shell removed. Next.js App Router (app/) now renders /store routes with the
     // global app/layout.tsx (Header/Footer). Keeping server-side proxy routes for the store API above and
     // delegating page rendering to Next's handler below.
 
     app.use(async (req, res) => {
+        console.log('[server] final-catchall hit:', req.method, req.originalUrl || req.url);
         try {
-            const parsedUrl = getRequestUrl(req);
-            await handle(req, res, parsedUrl);
+            const raw = req.originalUrl || req.url || '/';
+            const parsed = new URL(raw, `http://${req.headers.host || hostname}`);
+            const parsedUrl = {
+                pathname: parsed.pathname,
+                query: Object.fromEntries(parsed.searchParams.entries()),
+                search: parsed.search || null,
+                href: parsed.pathname + parsed.search,
+            };
+            console.log('[server] delegating to Next:', parsedUrl.pathname, parsedUrl.search);
+            await handle(req, res, parsedUrl as Parameters<typeof handle>[2]);
+            console.log('[server] Next handler returned for:', req.originalUrl || req.url);
         } catch (error) {
             console.error('Error handling request:', req.url, error);
             if (!res.headersSent) {

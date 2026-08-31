@@ -9,8 +9,8 @@ import nodemailer, {type Transporter, type SendMailOptions} from 'nodemailer';
  * the DB regardless). This mirrors the contact-form's best-effort approach.
  */
 
-const FROM = process.env.SMTP_FROM || 'Graham Sobiribo Paul <hello@greyinfotech.com.ng>';
-const BRAND = 'Graham Sobiribo Paul';
+const FROM = process.env.SMTP_FROM || 'Grey InfoTech <hello@greyinfotech.com.ng>';
+const BRAND = 'Grey InfoTech';
 const TEAL = '#14b8a6';
 
 export function smtpConfigured(): boolean {
@@ -41,11 +41,19 @@ function transporter(): Transporter | null {
     return cached;
 }
 
-/** Wrap inner HTML in the standard Graham Sobiribo Paul email shell. */
+/** Best-effort logo URL for branded email templates. */
+export function brandLogoUrl(): string {
+   const configured = process.env.BRAND_LOGO_URL || process.env.LOGO_URL || '';
+   if (configured) return configured.startsWith('http') ? configured : `${appOrigin()}${configured.startsWith('/') ? configured : `/${configured}`}`;
+   return `${appOrigin()}/images/logo-sm.png`;
+}
+
+/** Wrap inner HTML in the standard Grey InfoTech email shell. */
 export function emailShell(title: string, innerHtml: string): string {
-    return `
+   return `
   <div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#222;max-width:560px;margin:0 auto;padding:24px;border:1px solid #eee;border-radius:12px;">
     <div style="text-align:center;margin-bottom:18px;">
+      <img src="${brandLogoUrl()}" alt="${BRAND} logo" style="max-height:48px;max-width:180px;display:block;margin:0 auto 12px;object-fit:contain;" />
       <span style="font-size:20px;font-weight:700;color:${TEAL};">${BRAND}</span>
     </div>
     <h2 style="font-size:18px;color:#111;margin:0 0 14px;">${title}</h2>
@@ -161,6 +169,59 @@ export async function sendClientLoginLink(args: { to: string; name: string; toke
       ${emailButton('Sign in to portal', url)}
       <p style="font-size:13px;color:#888;">This link expires in 30 minutes and can be used once.</p>`;
     return sendMail({to: args.to, subject: `Your ${BRAND} portal sign-in link`, html: emailShell('Sign in', inner)});
+}
+
+export async function sendOrderReceiptEmail(args: {
+    to: string;
+    name: string;
+    orderNumber: string;
+    orderDate: string;
+    items: Array<{ name: string; quantity: number; unitPrice: number; total: number }>;
+    subtotal: number;
+    shippingFee: number;
+    discount: number;
+    total: number;
+    paymentMethod?: string;
+    paymentRef?: string;
+}): Promise<boolean> {
+    const itemRows = args.items.map((item) => `
+      <tr>
+        <td style="padding:10px 8px;border-bottom:1px solid #eef2f7;">${item.name}</td>
+        <td style="padding:10px 8px;border-bottom:1px solid #eef2f7;text-align:center;">${item.quantity}</td>
+        <td style="padding:10px 8px;border-bottom:1px solid #eef2f7;text-align:right;">${new Intl.NumberFormat('en-NG', {style:'currency', currency:'NGN'}).format(item.unitPrice)}</td>
+        <td style="padding:10px 8px;border-bottom:1px solid #eef2f7;text-align:right;">${new Intl.NumberFormat('en-NG', {style:'currency', currency:'NGN'}).format(item.total)}</td>
+      </tr>`).join('');
+    const paymentLine = args.paymentMethod ? `<p><strong>Payment method:</strong> ${args.paymentMethod}</p>` : '';
+    const refLine = args.paymentRef ? `<p><strong>Reference:</strong> ${args.paymentRef}</p>` : '';
+    const inner = `
+      <p>Hi ${args.name},</p>
+      <p>Thank you for your purchase. Your payment was successfully received.</p>
+      <p><strong>Order:</strong> ${args.orderNumber} &middot; <strong>Date:</strong> ${args.orderDate}</p>
+      ${paymentLine}
+      ${refLine}
+      <table style="width:100%;border-collapse:collapse;margin:18px 0;">
+        <thead>
+          <tr style="background:#f5f7fb;color:#334155;font-size:13px;">
+            <th style="padding:10px 8px;text-align:left;">Item</th>
+            <th style="padding:10px 8px;text-align:center;">Qty</th>
+            <th style="padding:10px 8px;text-align:right;">Unit Price</th>
+            <th style="padding:10px 8px;text-align:right;">Total</th>
+          </tr>
+        </thead>
+        <tbody>${itemRows}</tbody>
+      </table>
+      <div style="margin-left:auto;max-width:260px;">
+        <p style="display:flex;justify-content:space-between;gap:12px;margin:6px 0;"><span>Subtotal</span><strong>${new Intl.NumberFormat('en-NG', {style:'currency', currency:'NGN'}).format(args.subtotal)}</strong></p>
+        <p style="display:flex;justify-content:space-between;gap:12px;margin:6px 0;"><span>Shipping</span><strong>${new Intl.NumberFormat('en-NG', {style:'currency', currency:'NGN'}).format(args.shippingFee)}</strong></p>
+        <p style="display:flex;justify-content:space-between;gap:12px;margin:6px 0;"><span>Discount</span><strong>-${new Intl.NumberFormat('en-NG', {style:'currency', currency:'NGN'}).format(args.discount)}</strong></p>
+        <p style="display:flex;justify-content:space-between;gap:12px;margin:10px 0 0;border-top:1px solid #e2e8f0;padding-top:8px;"><span>Total</span><strong>${new Intl.NumberFormat('en-NG', {style:'currency', currency:'NGN'}).format(args.total)}</strong></p>
+      </div>
+      <p style="font-size:13px;color:#64748b;">We will send another email once your order is shipped or delivered.</p>`;
+    return sendMail({
+        to: args.to,
+        subject: `Receipt for order ${args.orderNumber}`,
+        html: emailShell('Purchase receipt', inner),
+    });
 }
 
 /** Notify a client-staff member they were added to a project conversation. */

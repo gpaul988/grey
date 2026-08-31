@@ -13,7 +13,7 @@ const GolangDevelopment = () => (
         introHeading={<>When Performance<br className="lg:block md:block hidden" />Is Non-Negotiable</>}
         introBody={[
             <>Go was designed for the problems that matter most in production -high concurrency, fast startup,
-            minimal memory footprint and simple deployment. At Graham Sobiribo Paul our Go engineers build the
+            minimal memory footprint and simple deployment. At Grey InfoTech our Go engineers build the
             backend services, microservices, CLI tools and infrastructure software that power demanding
             systems where performance and reliability are non-negotiable. We use Go where it delivers real
             competitive advantage: API gateways, real-time data processors, DevOps tooling and
@@ -26,7 +26,7 @@ const GolangDevelopment = () => (
             and extend.</>,
         ]}
         solutionsHeading={<>Go Development<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From high-throughput APIs to distributed systems and CLI tooling, Graham Sobiribo Paul builds Go software that performs under real-world production load."
+        solutionsIntro="From high-throughput APIs to distributed systems and CLI tooling, Grey InfoTech builds Go software that performs under real-world production load."
         solutions={[
             {
                 id: '01', title: 'REST & gRPC APIs', target: 'API',
@@ -81,7 +81,7 @@ const GolangDevelopment = () => (
             },
         ]}
         ctaHeading={<>Performance<br className="lg:block md:block hidden" />delivered in Go</>}
-        ctaBody="When your system needs to handle serious load without serious hardware costs, Go is the answer. Graham Sobiribo Paul builds Go services that perform at scale."
+        ctaBody="When your system needs to handle serious load without serious hardware costs, Go is the answer. Grey InfoTech builds Go services that perform at scale."
         verticalSolutions={[
             {
                 id: 'vs1',

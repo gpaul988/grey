@@ -278,7 +278,7 @@ const Branding = () => {
                                     <p>
                                         Strong branding is one of the most powerful tools for building business success.
                                         In a competitive marketplace, a distinctive and cohesive brand identity sets you
-                                        apart, builds customer trust, and creates lasting emotional connections. At Graham Sobiribo Paul, our branding experts craft unique brand identities that reflect your
+                                        apart, builds customer trust, and creates lasting emotional connections. At Grey InfoTech, our branding experts craft unique brand identities that reflect your
                                         vision,
                                         values, and competitive advantage -from logo design and brand strategy to
                                         comprehensive

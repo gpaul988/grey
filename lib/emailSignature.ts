@@ -1,5 +1,5 @@
 /**
- * Shared Graham Sobiribo Paul email signature — the SAME signature used by the AI
+ * Shared Grey InfoTech email signature — the SAME signature used by the AI
  * estimator auto-response (see pages/api/submit-form.ts). Centralised so every
  * transactional email (contact, partnership, etc.) renders an identical,
  * on-brand footer.
@@ -7,7 +7,7 @@
 
 export const GREY_SIGNATURE_HTML = `
   <div style="margin-top:20px; padding-top:15px; font-size:10px; color:#555;">
-    <strong style="font-size:16px; color:#14b8a6;">Graham Sobiribo Paul Team</strong><br/><br/>
+    <strong style="font-size:16px; color:#14b8a6;">Grey InfoTech Team</strong><br/><br/>
     <a href="mailto:hello@greyinfotech.com.ng" style="color:#0072c6;">hello@greyinfotech.com.ng</a><br/>
     9 Godfery Tata Close, Rumuewhara New Layout, Off Eneka - Igwuruta Road,<br/>
     Port Harcourt, Rivers State, Nigeria<br/>
@@ -31,7 +31,7 @@ export const GREY_SIGNATURE_HTML = `
 `;
 
 export const GREY_SIGNATURE_TEXT = `
-Graham Sobiribo Paul Team
+Grey InfoTech Team
 
 hello@greyinfotech.com.ng
 9 Godfery Tata Close, Rumuewhara New Layout, Off Eneka - Igwuruta Road, Port Harcourt, Rivers State, Nigeria

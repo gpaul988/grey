@@ -22,7 +22,7 @@ const IoTDevelopment = () => (
             <>
                 The Internet of Things turns physical products into intelligent, connected systems -but delivering
                 IoT well demands expertise across firmware, connectivity, cloud and analytics, all working as one.
-                Graham Sobiribo Paul builds complete IoT solutions: we engineer the embedded firmware on the device,
+                Grey InfoTech builds complete IoT solutions: we engineer the embedded firmware on the device,
                 the secure protocols that move data, the cloud platform that ingests and processes it at scale,
                 and the dashboards and mobile apps that put insight in front of the people who act on it. Whether
                 you are launching a smart consumer product, instrumenting a factory floor, or building a fleet of
@@ -41,7 +41,7 @@ const IoTDevelopment = () => (
         solutionsHeading={<>IoT <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From embedded firmware to cloud platforms and analytics, Graham Sobiribo Paul delivers the full IoT
+                From embedded firmware to cloud platforms and analytics, Grey InfoTech delivers the full IoT
                 stack. Based in Nigeria and serving clients globally, we build secure, scalable connected
                 products that bridge hardware and software -turning devices and sensor data into measurable
                 business value.
@@ -116,7 +116,7 @@ const IoTDevelopment = () => (
             },
         ]}
         ctaHeading={<>Bring your devices <br className={'lg:block md:block hidden'}/>online</>}
-        ctaBody={<>From firmware to cloud dashboards, Graham Sobiribo Paul builds secure, scalable IoT systems that turn
+        ctaBody={<>From firmware to cloud dashboards, Grey InfoTech builds secure, scalable IoT systems that turn
             connected devices into actionable intelligence. Let&apos;s engineer a connected product your customers
             and operators can rely on.</>}
         stats={[
@@ -127,7 +127,7 @@ const IoTDevelopment = () => (
             {label: 'Client Satisfaction', value: 98, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Chidi Anyaoku', title: 'Operations Director, AgroSense', message: <>Graham Sobiribo Paul built our agricultural sensor platform end to end -firmware, connectivity and dashboards. We now monitor soil and climate data across hundreds of farms in real time.</>},
+            {name: 'Chidi Anyaoku', title: 'Operations Director, AgroSense', message: <>Grey InfoTech built our agricultural sensor platform end to end -firmware, connectivity and dashboards. We now monitor soil and climate data across hundreds of farms in real time.</>},
             {name: 'Lerato Molefe', title: 'CTO, SmartMeter Africa', message: <>Their security-first approach to OTA updates and device identity gave us total confidence rolling out tens of thousands of connected meters. Rock-solid and scalable.</>},
             {name: 'Emeka Nwosu', title: 'Plant Manager, FabriX Industries', message: <>The predictive-maintenance system they built cut our unplanned downtime dramatically. Edge analytics flag issues before they become failures. Genuinely transformative.</>},
         ]}

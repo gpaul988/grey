@@ -13,7 +13,7 @@ const DataAnalytics = () => (
         introHeading={<>From Raw Data<br className="lg:block md:block hidden" />To Real Decisions</>}
         introBody={[
             <>Data is only valuable when it is accurate, accessible and interpretable by the people who need
-            to act on it. At Graham Sobiribo Paul we build the full data stack -ingestion pipelines, warehouses,
+            to act on it. At Grey InfoTech we build the full data stack -ingestion pipelines, warehouses,
             transformation layers, analytical models and self-service dashboards -that turn fragmented data
             sources into a single source of truth your entire organisation can trust. Whether you are starting
             from spreadsheets or scaling a mature data platform, we meet you where you are.</>,
@@ -24,7 +24,7 @@ const DataAnalytics = () => (
             that your analysts love using and your leadership trusts for critical decisions.</>,
         ]}
         solutionsHeading={<>Data &amp; Analytics<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From data engineering foundations to executive dashboards and predictive models, Graham Sobiribo Paul builds the full data capability your organisation needs."
+        solutionsIntro="From data engineering foundations to executive dashboards and predictive models, Grey InfoTech builds the full data capability your organisation needs."
         solutions={[
             {
                 id: '01', title: 'Data Engineering & Pipelines', target: 'DE',
@@ -78,7 +78,7 @@ const DataAnalytics = () => (
             },
         ]}
         ctaHeading={<>Your data,<br className="lg:block md:block hidden" />finally working</>}
-        ctaBody="Stop making decisions based on gut feel or broken spreadsheets. Graham Sobiribo Paul builds the data platform that makes every team in your organisation smarter."
+        ctaBody="Stop making decisions based on gut feel or broken spreadsheets. Grey InfoTech builds the data platform that makes every team in your organisation smarter."
         verticalSolutions={[
             {
                 id: 'vs1',

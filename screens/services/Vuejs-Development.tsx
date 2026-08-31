@@ -17,7 +17,7 @@ const VueJsDevelopment = () => (
         introHeading={<>Vue.js & Nuxt Development <br className={'lg:block md:block hidden'}/>From Interactive UIs to Full-Stack Applications</>}
         introBody={[
             <>
-                Vue.js offers an elegant yet powerful framework for building interactive user interfaces at scale. At Graham Sobiribo Paul we harness Vue's Composition API, reactive data binding, and component system to deliver 200+ high-performance applications. From sophisticated single-page applications to real-time data dashboards maintaining 95%+ performance scores, Vue enables developers to build maintainable solutions that scale seamlessly. Nuxt.js extends Vue with server-side rendering and static generation, delivering superior SEO and 40+ production deployments managing mission-critical data flows.
+                Vue.js offers an elegant yet powerful framework for building interactive user interfaces at scale. At Grey InfoTech we harness Vue's Composition API, reactive data binding, and component system to deliver 200+ high-performance applications. From sophisticated single-page applications to real-time data dashboards maintaining 95%+ performance scores, Vue enables developers to build maintainable solutions that scale seamlessly. Nuxt.js extends Vue with server-side rendering and static generation, delivering superior SEO and 40+ production deployments managing mission-critical data flows.
             </>,
             <>
                 Vue.js combines React's component flexibility with Angular's architectural patterns while maintaining elegant simplicity. The Composition API enables code reusability across 300+ projects. Nuxt.js layers server-side rendering and static generation on Vue, creating applications that load instantly while maintaining 4.7+ average user ratings. We build progressive web apps delivering offline functionality, interactive dashboards processing real-time data, and single-page applications competing with native apps. Our 6+ years of specialized experience, 12+ dedicated team members, and 98% client satisfaction rate ensure your Vue.js investment delivers measurable results and long-term scalability.
@@ -26,7 +26,7 @@ const VueJsDevelopment = () => (
         solutionsHeading={<>Vue.js & Nuxt <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                Graham Sobiribo Paul delivers comprehensive Vue.js and Nuxt solutions for 200+ projects with 95%+ performance optimization. From progressive web apps and interactive dashboards to Nuxt full-stack applications, our Vue expertise ensures 4.7+ average user ratings and 98% client satisfaction. Composition API, reactive data binding, and server-side rendering drive measurable business results.
+                Grey InfoTech delivers comprehensive Vue.js and Nuxt solutions for 200+ projects with 95%+ performance optimization. From progressive web apps and interactive dashboards to Nuxt full-stack applications, our Vue expertise ensures 4.7+ average user ratings and 98% client satisfaction. Composition API, reactive data binding, and server-side rendering drive measurable business results.
             </>
         }
         solutions={[
@@ -80,7 +80,7 @@ const VueJsDevelopment = () => (
             },
         ]}
         ctaHeading={<>Build high-performance applications <br className={'lg:block md:block hidden'}/>with Vue.js & Nuxt</>}
-        ctaBody={<>Graham Sobiribo Paul delivers 200+ Vue.js applications with 95%+ performance scores and 40+ Nuxt full-stack deployments. From interactive dashboards to progressive web apps, we achieve 98% client satisfaction and 4.7+ user ratings. Let's build your next generation application together.</>}
+        ctaBody={<>Grey InfoTech delivers 200+ Vue.js applications with 95%+ performance scores and 40+ Nuxt full-stack deployments. From interactive dashboards to progressive web apps, we achieve 98% client satisfaction and 4.7+ user ratings. Let's build your next generation application together.</>}
         stats={[
             {label: 'Years Experience', value: 6, suffix: '+'},
             {label: 'Team Members', value: 12, suffix: '+'},
@@ -89,9 +89,9 @@ const VueJsDevelopment = () => (
             {label: 'Client Satisfaction', value: 98, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Marco Rossi', title: 'CTO, Analytics Company', message: <>Vue.js dashboard from Graham Sobiribo Paul delivers 95%+ Core Web Vitals with real-time data processing. Performance improvements reduced our bounce rate by 40% and user engagement metrics increased significantly. Exceptional execution and outstanding support.</>,},
+            {name: 'Marco Rossi', title: 'CTO, Analytics Company', message: <>Vue.js dashboard from Grey InfoTech delivers 95%+ Core Web Vitals with real-time data processing. Performance improvements reduced our bounce rate by 40% and user engagement metrics increased significantly. Exceptional execution and outstanding support.</>,},
             {name: 'Zainab Aminu', title: 'Founder, Productivity App', message: <>Their Nuxt.js PWA works flawlessly offline with 4.7-star user ratings. Users in low-connectivity regions can now work uninterrupted. 30% faster feature delivery using their component library. Great partnership and excellent technical leadership.</>,},
-            {name: 'Jean-Luc Moreau', title: 'Product Lead, Collaboration Platform', message: <>Vue.js real-time collaboration features from Graham Sobiribo Paul deliver instant updates with native-like performance. User engagement increased 50% and platform stability improved dramatically. Outstanding technical expertise and reliable partnership.</>,},
+            {name: 'Jean-Luc Moreau', title: 'Product Lead, Collaboration Platform', message: <>Vue.js real-time collaboration features from Grey InfoTech deliver instant updates with native-like performance. User engagement increased 50% and platform stability improved dramatically. Outstanding technical expertise and reliable partnership.</>,},
         ]}
         verticalSolutions={[
             {

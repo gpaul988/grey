@@ -9,8 +9,8 @@
 import type {Metadata} from 'next';
 
 export const SITE = {
-    name: 'Graham Sobiribo Paul',
-    legalName: 'Graham Sobiribo Paul',
+    name: 'Grey InfoTech',
+    legalName: 'Grey InfoTech',
     url: 'https://greyinfotech.com.ng',
     locale: 'en_NG',
     twitter: '@greyinfotechltd',
@@ -89,73 +89,73 @@ const industryLabel = (slug: string) => {
 /** Static, hand-tuned entries for top-level pages. */
 const STATIC: Record<string, SeoEntry> = {
     '/': {
-        title: 'Graham Sobiribo Paul — Web Design, App Development & AI Solutions | Port Harcourt, Nigeria',
+        title: 'Grey InfoTech — Web Design, App Development & AI Solutions | Port Harcourt, Nigeria',
         description:
-            'Graham Sobiribo Paul is a future-focused web design, web & mobile app development, AI and digital marketing agency in Port Harcourt, Nigeria. We build scalable, user-centered digital products for startups and enterprises.',
+            'Grey InfoTech is a future-focused web design, web & mobile app development, AI and digital marketing agency in Port Harcourt, Nigeria. We build scalable, user-centered digital products for startups and enterprises.',
         keywords: ['web design Port Harcourt', 'app development Nigeria', 'AI development', 'software company Nigeria'],
     },
     '/company': {
-        title: 'About Graham Sobiribo Paul — Our Story, Team & Mission',
-        description: 'Meet the team behind Graham Sobiribo Paul. Eight years building award-winning digital products across fintech, healthcare, e-commerce and more.',
+        title: 'About Grey InfoTech — Our Story, Team & Mission',
+        description: 'Meet the team behind Grey InfoTech. Eight years building award-winning digital products across fintech, healthcare, e-commerce and more.',
     },
     '/our-approach': {
-        title: 'Our Approach — How Graham Sobiribo Paul Builds Products',
-        description: 'Discovery, design, engineering and growth. See the proven, transparent process behind every Graham Sobiribo Paul project.',
+        title: 'Our Approach — How Grey InfoTech Builds Products',
+        description: 'Discovery, design, engineering and growth. See the proven, transparent process behind every Grey InfoTech project.',
     },
     '/startups': {
         title: 'Startup Development Services — From Idea to Launch',
-        description: 'End-to-end product development for startups: MVPs, scalable architecture, design and go-to-market support from Graham Sobiribo Paul.',
+        description: 'End-to-end product development for startups: MVPs, scalable architecture, design and go-to-market support from Grey InfoTech.',
     },
     '/portfolio': {
-        title: 'Portfolio — Selected Work by Graham Sobiribo Paul',
-        description: 'Explore web, mobile and AI products engineered by Graham Sobiribo Paul for clients across industries.',
+        title: 'Portfolio — Selected Work by Grey InfoTech',
+        description: 'Explore web, mobile and AI products engineered by Grey InfoTech for clients across industries.',
     },
     '/case-studies': {
-        title: 'Case Studies — Real Results from Graham Sobiribo Paul',
-        description: 'In-depth case studies showing how Graham Sobiribo Paul delivers measurable business outcomes through technology.',
+        title: 'Case Studies — Real Results from Grey InfoTech',
+        description: 'In-depth case studies showing how Grey InfoTech delivers measurable business outcomes through technology.',
     },
     '/blog': {
         title: 'Blog — Engineering, Design & Growth Insights',
-        description: 'Practical articles on software engineering, product design, AI and digital growth from the Graham Sobiribo Paul team.',
+        description: 'Practical articles on software engineering, product design, AI and digital growth from the Grey InfoTech team.',
     },
     '/careers': {
-        title: 'Careers — Build the Future with Graham Sobiribo Paul',
-        description: 'Join a team of engineers, designers and strategists shipping world-class digital products. See open roles at Graham Sobiribo Paul.',
+        title: 'Careers — Build the Future with Grey InfoTech',
+        description: 'Join a team of engineers, designers and strategists shipping world-class digital products. See open roles at Grey InfoTech.',
     },
     '/contact': {
-        title: 'Contact Graham Sobiribo Paul — Let’s Build Something',
-        description: 'Reach Graham Sobiribo Paul by WhatsApp, Calendly, live chat or our contact form. Based in Port Harcourt, serving clients worldwide.',
+        title: 'Contact Grey InfoTech — Let’s Build Something',
+        description: 'Reach Grey InfoTech by WhatsApp, Calendly, live chat or our contact form. Based in Port Harcourt, serving clients worldwide.',
     },
     '/partners': {
-        title: 'Partner With Graham Sobiribo Paul — Join Our Ecosystem',
-        description: 'Become a technology, cloud, reseller, referral or integration partner of Graham Sobiribo Paul. Apply to join our partner ecosystem powering solutions across Africa and beyond.',
-        keywords: ['Graham Sobiribo Paul partners', 'technology partnership Nigeria', 'reseller program', 'integration partner', 'partner ecosystem'],
+        title: 'Partner With Grey InfoTech — Join Our Ecosystem',
+        description: 'Become a technology, cloud, reseller, referral or integration partner of Grey InfoTech. Apply to join our partner ecosystem powering solutions across Africa and beyond.',
+        keywords: ['Grey InfoTech partners', 'technology partnership Nigeria', 'reseller program', 'integration partner', 'partner ecosystem'],
     },
     '/faq': {
-        title: 'FAQ — Frequently Asked Questions | Graham Sobiribo Paul',
-        description: 'Answers about Graham Sobiribo Paul\u2019s services, process, pricing, timelines and support. Find what you need or talk to our team.',
-        keywords: ['Graham Sobiribo Paul FAQ', 'web development questions', 'pricing FAQ', 'support questions Nigeria'],
+        title: 'FAQ — Frequently Asked Questions | Grey InfoTech',
+        description: 'Answers about Grey InfoTech\u2019s services, process, pricing, timelines and support. Find what you need or talk to our team.',
+        keywords: ['Grey InfoTech FAQ', 'web development questions', 'pricing FAQ', 'support questions Nigeria'],
     },
     '/support': {
-        title: 'Support — Help & Assistance | Graham Sobiribo Paul',
-        description: 'Get help, open a ticket and find answers. Graham Sobiribo Paul support is here for you.',
+        title: 'Support — Help & Assistance | Grey InfoTech',
+        description: 'Get help, open a ticket and find answers. Grey InfoTech support is here for you.',
     },
     '/open-ticket': {
-        title: 'Open a Support Ticket | Graham Sobiribo Paul',
+        title: 'Open a Support Ticket | Grey InfoTech',
         description: 'Submit a support request and our team will get back to you quickly.',
     },
     '/quote-request': {
-        title: 'Request a Quote | Graham Sobiribo Paul',
-        description: 'Tell us about your project and get a tailored quote from Graham Sobiribo Paul.',
+        title: 'Request a Quote | Grey InfoTech',
+        description: 'Tell us about your project and get a tailored quote from Grey InfoTech.',
     },
     '/links': {
-        title: 'Links | Graham Sobiribo Paul',
-        description: 'Quick links to Graham Sobiribo Paul resources and channels.',
+        title: 'Links | Grey InfoTech',
+        description: 'Quick links to Grey InfoTech resources and channels.',
     },
-    '/terms-conditions': {title: 'Terms & Conditions | Graham Sobiribo Paul', description: 'Terms and conditions for using Graham Sobiribo Paul services and website.', noindex: false},
-    '/cookies-policy': {title: 'Cookies Policy | Graham Sobiribo Paul', description: 'How Graham Sobiribo Paul uses cookies and similar technologies.'},
-    '/data-protection-policy': {title: 'Data Protection Policy | Graham Sobiribo Paul', description: 'Graham Sobiribo Paul’s data protection and privacy commitments, aligned with the NDPR.'},
-    '/store': {title: 'Store — Software, Templates & Digital Products | Graham Sobiribo Paul', description: 'Browse and buy digital products, templates and tools built by Graham Sobiribo Paul.'},
+    '/terms-conditions': {title: 'Terms & Conditions | Grey InfoTech', description: 'Terms and conditions for using Grey InfoTech services and website.', noindex: false},
+    '/cookies-policy': {title: 'Cookies Policy | Grey InfoTech', description: 'How Grey InfoTech uses cookies and similar technologies.'},
+    '/data-protection-policy': {title: 'Data Protection Policy | Grey InfoTech', description: 'Grey InfoTech’s data protection and privacy commitments, aligned with the NDPR.'},
+    '/store': {title: 'Store — Software, Templates & Digital Products | Grey InfoTech', description: 'Browse and buy digital products, templates and tools built by Grey InfoTech.'},
 };
 
 /** Build the full registry once. */
@@ -165,16 +165,16 @@ function buildRegistry(): Record<string, SeoEntry> {
         const label = serviceLabel(slug);
         reg[`/services/${slug}`] = {
             title: `${label} — Expert ${label.replace(' Development', '').replace(' Services', '')} Company`,
-            description: `Professional ${label.toLowerCase()} services from Graham Sobiribo Paul. Scalable, secure and beautifully engineered solutions tailored to your business goals.`,
-            keywords: [label, `${label} Nigeria`, `${label} Port Harcourt`, 'Graham Sobiribo Paul'],
+            description: `Professional ${label.toLowerCase()} services from Grey InfoTech. Scalable, secure and beautifully engineered solutions tailored to your business goals.`,
+            keywords: [label, `${label} Nigeria`, `${label} Port Harcourt`, 'Grey InfoTech'],
         };
     }
     for (const slug of INDUSTRY_SLUGS) {
         const label = industryLabel(slug);
         reg[`/industries/${slug}`] = {
             title: `${label} Software Development — Industry Solutions`,
-            description: `Custom ${label} technology solutions by Graham Sobiribo Paul. Domain-aware engineering for the ${label.toLowerCase()} sector.`,
-            keywords: [`${label} software`, `${label} app development`, 'Graham Sobiribo Paul'],
+            description: `Custom ${label} technology solutions by Grey InfoTech. Domain-aware engineering for the ${label.toLowerCase()} sector.`,
+            keywords: [`${label} software`, `${label} app development`, 'Grey InfoTech'],
         };
     }
     return reg;
@@ -185,7 +185,7 @@ export const SEO_REGISTRY = buildRegistry();
 export function getSeo(path: string): SeoEntry {
     return (
         SEO_REGISTRY[path] || {
-            title: titleize(path.replace(/^\//, '') || 'Graham Sobiribo Paul'),
+            title: titleize(path.replace(/^\//, '') || 'Grey InfoTech'),
             description: SITE.legalName + ' — building scalable, future-ready digital products.',
         }
     );

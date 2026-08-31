@@ -13,7 +13,7 @@ const ConstructionIndustry = () => (
         introHeading={<>Building the<br className="lg:block md:block hidden" />Digital Infrastructure</>}
         introBody={[
             <>Construction and real estate are among the largest sectors of the African economy and among
-            the least digitised. Graham Sobiribo Paul builds technology that changes that -project management
+            the least digitised. Grey InfoTech builds technology that changes that -project management
             platforms that give developers and contractors real-time visibility of progress, cost and
             risk; PropTech solutions that streamline property search, transaction and management; and
             the data infrastructure that helps planners, investors and developers make better decisions.
@@ -28,7 +28,7 @@ const ConstructionIndustry = () => (
             patterns of the housing market.</>,
         ]}
         solutionsHeading={<>Construction &amp; PropTech<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From construction project management to property marketplaces and smart building technology, Graham Sobiribo Paul builds digital infrastructure for the built environment."
+        solutionsIntro="From construction project management to property marketplaces and smart building technology, Grey InfoTech builds digital infrastructure for the built environment."
         solutions={[
             {
                 id: '01', title: 'Construction Project Management', target: 'CP',
@@ -89,7 +89,7 @@ const ConstructionIndustry = () => (
             },
         ]}
         ctaHeading={<>Build smarter.<br className="lg:block md:block hidden" />Develop faster.</>}
-        ctaBody="The construction and property sector is overdue for digital transformation. Graham Sobiribo Paul builds the platforms that make African development more efficient, transparent and investable."/>
+        ctaBody="The construction and property sector is overdue for digital transformation. Grey InfoTech builds the platforms that make African development more efficient, transparent and investable."/>
 );
 
 export default ConstructionIndustry;

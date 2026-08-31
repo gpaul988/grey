@@ -18,7 +18,7 @@ const Logistics = () => (
         introBody={[
             <>
                 Logistics is a business of margins, timing and visibility -and software is what turns chaos into
-                coordination. Graham Sobiribo Paul builds the systems that move goods efficiently: transportation
+                coordination. Grey InfoTech builds the systems that move goods efficiently: transportation
                 management, fleet and route optimisation, real-time shipment tracking, warehouse management and
                 supply-chain platforms that give you control end to end. We connect dispatchers, drivers,
                 warehouse teams and customers in one coordinated flow, automating the manual work that creates
@@ -39,7 +39,7 @@ const Logistics = () => (
         solutionsHeading={<>Logistics <br className={'lg:block md:block hidden'}/>Software <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From fleet and route optimisation to warehouse and supply-chain systems, Graham Sobiribo Paul delivers
+                From fleet and route optimisation to warehouse and supply-chain systems, Grey InfoTech delivers
                 logistics software that performs. Based in Nigeria and serving clients globally, we build
                 connected, data-driven platforms that cut cost and deliver on time.
             </>
@@ -111,11 +111,11 @@ const Logistics = () => (
             },
         ]}
         ctaHeading={<>Move goods <br className={'lg:block md:block hidden'}/>smarter</>}
-        ctaBody={<>From fleet and route optimisation to real-time tracking and warehouse systems, Graham Sobiribo Paul
+        ctaBody={<>From fleet and route optimisation to real-time tracking and warehouse systems, Grey InfoTech
             builds logistics software that cuts cost and delivers on time. Let&apos;s bring visibility and efficiency
             to your supply chain.</>}
         testimonials={[
-            {name: 'Emeka Obi', title: 'Operations Head, SwiftHaul', message: <>Graham Sobiribo Paul built our TMS and route optimisation, and our fuel costs dropped while deliveries per day went up. Real-time tracking ended the constant where-is-my-shipment calls.</>},
+            {name: 'Emeka Obi', title: 'Operations Head, SwiftHaul', message: <>Grey InfoTech built our TMS and route optimisation, and our fuel costs dropped while deliveries per day went up. Real-time tracking ended the constant where-is-my-shipment calls.</>},
             {name: 'Lerato Dube', title: 'CEO, CargoLink', message: <>Their warehouse and supply-chain platform gave us visibility we never had. Stock accuracy improved dramatically and fulfilment is far faster.</>},
             {name: 'Ahmed Bello', title: 'Logistics Manager, FreightPro', message: <>They integrated all our carriers and telematics into one dashboard. Our dispatchers finally have everything in one place, and it scales with our growth.</>},
         ]}

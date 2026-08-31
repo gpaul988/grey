@@ -17,7 +17,7 @@ const testimonials = [
         title: "UX Lead, TaskFlow Inc.",
         message: (
             <>
-                Graham Sobiribo Paul delivered a clean, modern web design that perfectly aligns with our brand and enhances
+                Grey InfoTech delivered a clean, modern web design that perfectly aligns with our brand and enhances
                 user experience. Their design team was creative, attentive, and always open to feedback. Our product now
                 looks as polished as it performs.
             </>
@@ -28,7 +28,7 @@ const testimonials = [
         title: "Director of Digital Experience, PayCore Solutions",
         message: (
             <>
-                Graham Sobiribo Paul completely reimagined our website with a sleek, user-centric design that reinforces our
+                Grey InfoTech completely reimagined our website with a sleek, user-centric design that reinforces our
                 credibility in the fintech space. The process was collaborative and efficient, and the end result is
                 something we’re truly proud to show clients and partners.
             </>
@@ -39,7 +39,7 @@ const testimonials = [
         title: "VP of Product, PropEdge Technologies",
         message: (
             <>
-                We came to Graham Sobiribo Paul with a cluttered and outdated interface. They gave our platform a fresh,
+                We came to Grey InfoTech with a cluttered and outdated interface. They gave our platform a fresh,
                 intuitive design that not only looks great but also improved engagement and usability. Their work speaks
                 for itself - sharp, professional, and conversion-focused.
             </>
@@ -58,7 +58,7 @@ const services = [
                 <p>
                     Your careers website is a vital component of your talent acquisition strategy, serving as a key
                     touchpoint for prospective candidates. Statistics show that nearly every successful hire will visit
-                    your site at least once. At Graham Sobiribo Paul, we focus on creating recruitment websites that are
+                    your site at least once. At Grey InfoTech, we focus on creating recruitment websites that are
                     professionally designed, fully optimised for speed, accessibility, and mobile responsiveness,
                     ensuring a seamless user experience across all devices.
                 </p>
@@ -199,7 +199,7 @@ const services = [
                 <p>
                     Talent acquisition is a strategic function focused not only on sourcing qualified candidates but on
                     identifying individuals whose capabilities, values, and ambitions align with your organisation's
-                    vision and culture. At Graham Sobiribo Paul, we develop and execute tailored recruitment strategies that
+                    vision and culture. At Grey InfoTech, we develop and execute tailored recruitment strategies that
                     combine industry expertise, technology-driven sourcing tools, and data insights.
                 </p>
                 <p className="mt-3">
@@ -1297,10 +1297,10 @@ const HrTech = () => {
                 </FxHoloCard>
             </section>
 
-            {/* What Graham Sobiribo Paul Does - Deeply detailed futuristic breakdown */}
+            {/* What Grey InfoTech Does - Deeply detailed futuristic breakdown */}
             <section
                 className={`relative overflow-visible lg:py-20 ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}
-                aria-label="What Graham Sobiribo Paul Does">
+                aria-label="What Grey InfoTech Does">
                 <FxHoloCard day={isDayTime}
                             className="relative max-w-[95em] w-full mx-auto p-8 lg:p-12">
 
@@ -1335,7 +1335,7 @@ const HrTech = () => {
                             </h3>
 
                             <p className="text-[1em] font-[300] leading-[1.7] text-justify max-w-2xl">
-                                Graham Sobiribo Paul architects enterprise HR platforms with production-grade practices and
+                                Grey InfoTech architects enterprise HR platforms with production-grade practices and
                                 engineering rigor. Solutions are built API-first, backed by event streams for realtime
                                 orchestration (Kafka / Pulsar), persisted in resilient datastores with sensible sharding
                                 and
@@ -1633,7 +1633,7 @@ const HrTech = () => {
                         <FxReveal>
                             <div className="space-y-4">
                                 <p className="text-[0.95em] font-[300] leading-[1.7] text-justify">
-                                    At Graham Sobiribo Paul, SEO is baked into every stage of development — from structured
+                                    At Grey InfoTech, SEO is baked into every stage of development — from structured
                                     job schema and accessible markup to fast, indexable templates and discoverable
                                     career listings. Our technical SEO playbooks ensure compliance with Google for Jobs
                                     and maximise candidate reach while preserving privacy and performance.

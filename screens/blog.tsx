@@ -44,7 +44,7 @@ const Blog = () => {
                     <div
                         className="absolute right-0 top-0 w-[55%] h-full opacity-30"
                         style={{
-                            background: 'linear-gradient(135deg, transparent 40%, #0d9488 100%)',
+                            background: 'linear-gradient(135deg, transparent 40%, rgba(var(--page-accent-rgb), 1) 100%)',
                             clipPath: 'polygon(30% 0%, 100% 0%, 100% 100%, 0% 100%)',
                         }}
                     />

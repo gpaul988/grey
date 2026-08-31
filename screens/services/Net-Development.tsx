@@ -19,7 +19,7 @@ const NetDevelopment = () => (
         introBody={[
             <>
                 .NET is a powerful, modern framework trusted by enterprises worldwide for building scalable, secure applications. 
-                At Graham Sobiribo Paul, we leverage .NET and C# to engineer complex enterprise systems, cloud-native microservices, and 
+                At Grey InfoTech, we leverage .NET and C# to engineer complex enterprise systems, cloud-native microservices, and 
                 high-performance APIs that handle high transaction volumes and integrate seamlessly with existing systems. From 
                 monolithic applications to distributed microservices architectures, we deliver .NET solutions backed by rigorous 
                 testing and thoughtful architecture.
@@ -35,7 +35,7 @@ const NetDevelopment = () => (
         solutionsHeading={<>.NET Development <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From enterprise applications and cloud services to microservices and APIs, Graham Sobiribo Paul delivers comprehensive .NET 
+                From enterprise applications and cloud services to microservices and APIs, Grey InfoTech delivers comprehensive .NET 
                 development services. We engineer robust, scalable systems that handle complex business requirements and drive enterprise 
                 success.
             </>
@@ -103,7 +103,7 @@ const NetDevelopment = () => (
             },
         ]}
         ctaHeading={<>Build enterprise-scale <br className={'lg:block md:block hidden'}/>with .NET</>}
-        ctaBody={<>From complex enterprise systems and cloud services to microservices and APIs, Graham Sobiribo Paul delivers .NET solutions 
+        ctaBody={<>From complex enterprise systems and cloud services to microservices and APIs, Grey InfoTech delivers .NET solutions 
             that perform and scale. Let's build the next generation of your enterprise platform.</>}
         stats={[
             {label: 'Years Experience', value: 9, suffix: '+'},
@@ -113,7 +113,7 @@ const NetDevelopment = () => (
             {label: 'Client Satisfaction', value: 98, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Olawale Okafor', title: 'CIO, Financial Services Corp', message: <>Graham Sobiribo Paul migrated our legacy systems to modern .NET microservices. The architecture is excellent, and the performance improvements are significant.</>},
+            {name: 'Olawale Okafor', title: 'CIO, Financial Services Corp', message: <>Grey InfoTech migrated our legacy systems to modern .NET microservices. The architecture is excellent, and the performance improvements are significant.</>},
             {name: 'Chioma Udeze', title: 'VP Engineering, Tech Enterprise', message: <>Their .NET expertise helped us build a scalable, cloud-native platform on Azure that handles millions of transactions daily.</>},
             {name: 'Femi Adebayo', title: 'Director, Enterprise Solutions', message: <>The team's .NET development capabilities are outstanding. They delivered a complex enterprise system that exceeded our performance expectations.</>},
         ]}

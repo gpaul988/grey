@@ -6,13 +6,32 @@ import {
     Coupons, logActivity,
 } from '../models';
 import { formatMoney, timeAgo, toInt } from '../utils/helpers';
-import { productUpload, publicUrl } from '../config/uploads';
+import { productUpload, productVideoUpload, publicUrl } from '../config/uploads';
 
 const route = express.Router();
 const baseLocals = { fmtMoney: formatMoney, timeAgo };
 
 const actor = (req: Request) => ({ user_id: req.session.user?.id ?? null, user_name: req.session.user?.name ?? null });
 const parseTags = (s: string): string[] => (s || '').split(',').map((t) => t.trim()).filter(Boolean);
+
+// ─── Dashboard ───────────────────────────────────────────────────────────────
+
+route.get('/', requirePermission('store.view'), (_req, res) => {
+    const summary = Orders.dashboardSummary();
+    const recentOrders = Orders.recent(6).map((order) => {
+        const itemCount = (db.prepare('SELECT COUNT(*) AS c FROM order_items WHERE order_id = ?').get(order.id) as { c: number }).c;
+        return { ...order, item_count: itemCount };
+    });
+    res.render('store-dashboard', {
+        title: 'Store Dashboard',
+        ...baseLocals,
+        summary,
+        recentOrders,
+        products: Products.all().slice(0, 6),
+    });
+});
+
+route.get('/dashboard', requirePermission('store.view'), (req, res) => res.redirect('/admin/store'));
 
 // ─── Products ────────────────────────────────────────────────────────────────
 
@@ -29,33 +48,41 @@ route.get('/products/new', requirePermission('store.manage'), (_req, res) => {
 
 route.post('/products/new', requirePermission('store.manage'), (req: Request, res: Response) => {
     productUpload.array('product_images', 8)(req, res, () => {
-        const files = (req.files as { filename: string }[]) || [];
-        const images = files.map((f) => publicUrl('products', f.filename));
-        const specs: Record<string, string> = {};
-        const keys = ([] as string[]).concat(req.body.spec_key || []);
-        const vals = ([] as string[]).concat(req.body.spec_val || []);
-        keys.forEach((k, i) => { if (k && k.trim()) specs[k.trim()] = (vals[i] || '').trim(); });
+        productVideoUpload.single('product_video')(req, res, () => {
+            const imageFiles = (req.files as { filename: string }[]) || [];
+            const videoFile = (req as Request & { file?: { filename: string } }).file;
+            const images = imageFiles.map((f) => publicUrl('products', f.filename));
+            const videoUrl = videoFile ? publicUrl('products', videoFile.filename) : (typeof req.body.video_url === 'string' ? req.body.video_url : undefined);
+            const specs: Record<string, string> = {};
+            const keys = ([] as string[]).concat(req.body.spec_key || []);
+            const vals = ([] as string[]).concat(req.body.spec_val || []);
+            keys.forEach((k, i) => { if (k && k.trim()) specs[k.trim()] = (vals[i] || '').trim(); });
 
-        const product = Products.create({
-            name: req.body.name,
-            sku: req.body.sku || undefined,
-            category_id: req.body.category_id ? toInt(req.body.category_id) : null,
-            brand_id: req.body.brand_id ? toInt(req.body.brand_id) : null,
-            description: req.body.description || '',
-            specs,
-            price: parseFloat(req.body.price) || 0,
-            price_usd: req.body.price_usd ? parseFloat(req.body.price_usd) : null,
-            compare_price: req.body.compare_price ? parseFloat(req.body.compare_price) : null,
-            stock: parseInt(req.body.stock, 10) || 0,
-            images,
-            thumbnail: images[0] || undefined,
-            status: req.body.status || 'draft',
-            featured: req.body.featured === '1',
-            tags: parseTags(req.body.tags),
-            weight: req.body.weight ? parseFloat(req.body.weight) : undefined,
+            const product = Products.create({
+                name: req.body.name,
+                sku: req.body.sku || undefined,
+                category_id: req.body.category_id ? toInt(req.body.category_id) : null,
+                brand_id: req.body.brand_id ? toInt(req.body.brand_id) : null,
+                description: req.body.description || '',
+                specs,
+                price: parseFloat(req.body.price) || 0,
+                price_usd: req.body.price_usd ? parseFloat(req.body.price_usd) : null,
+                compare_price: req.body.compare_price ? parseFloat(req.body.compare_price) : null,
+                stock: parseInt(req.body.stock, 10) || 0,
+                images,
+                thumbnail: images[0] || undefined,
+                video_url: videoUrl,
+                status: req.body.status || 'draft',
+                featured: req.body.featured === '1',
+                flash_sale: req.body.flash_sale === '1',
+                flash_sale_starts: (typeof req.body.flash_sale_starts === 'string' && req.body.flash_sale_starts) ? new Date(req.body.flash_sale_starts).toISOString() : null,
+                flash_sale_ends: (typeof req.body.flash_sale_ends === 'string' && req.body.flash_sale_ends) ? new Date(req.body.flash_sale_ends).toISOString() : null,
+                tags: parseTags(req.body.tags),
+                weight: req.body.weight ? parseFloat(req.body.weight) : undefined,
+            });
+            logActivity({ ...actor(req), action: 'create', entity: 'product', entity_id: product.id, detail: product.name });
+            res.redirect('/admin/store/products');
         });
-        logActivity({ ...actor(req), action: 'create', entity: 'product', entity_id: product.id, detail: product.name });
-        res.redirect('/admin/store/products');
     });
 });
 
@@ -70,37 +97,45 @@ route.get('/products/:id/edit', requirePermission('store.manage'), (req, res) =>
 
 route.post('/products/:id/edit', requirePermission('store.manage'), (req: Request, res: Response) => {
     productUpload.array('product_images', 8)(req, res, () => {
-        const id = toInt(req.params.id);
-        const files = (req.files as { filename: string }[]) || [];
-        const newImages = files.map((f) => publicUrl('products', f.filename));
-        const existing = ([] as string[]).concat(req.body.existing_images || []);
-        const images = [...existing, ...newImages];
+        productVideoUpload.single('product_video')(req, res, () => {
+            const id = toInt(req.params.id);
+            const files = (req.files as { filename: string }[]) || [];
+            const newImages = files.map((f) => publicUrl('products', f.filename));
+            const existing = ([] as string[]).concat(req.body.existing_images || []);
+            const images = [...existing, ...newImages];
+            const videoFile = (req as Request & { file?: { filename: string } }).file;
+            const videoUrl = videoFile ? publicUrl('products', videoFile.filename) : (typeof req.body.video_url === 'string' ? req.body.video_url : undefined);
 
-        const specs: Record<string, string> = {};
-        const keys = ([] as string[]).concat(req.body.spec_key || []);
-        const vals = ([] as string[]).concat(req.body.spec_val || []);
-        keys.forEach((k, i) => { if (k && k.trim()) specs[k.trim()] = (vals[i] || '').trim(); });
+            const specs: Record<string, string> = {};
+            const keys = ([] as string[]).concat(req.body.spec_key || []);
+            const vals = ([] as string[]).concat(req.body.spec_val || []);
+            keys.forEach((k, i) => { if (k && k.trim()) specs[k.trim()] = (vals[i] || '').trim(); });
 
-        Products.update(id, {
-            name: req.body.name,
-            sku: req.body.sku || undefined,
-            category_id: req.body.category_id ? toInt(req.body.category_id) : null,
-            brand_id: req.body.brand_id ? toInt(req.body.brand_id) : null,
-            description: req.body.description || '',
-            specs,
-            price: parseFloat(req.body.price) || 0,
-            price_usd: req.body.price_usd ? parseFloat(req.body.price_usd) : null,
-            compare_price: req.body.compare_price ? parseFloat(req.body.compare_price) : null,
-            stock: parseInt(req.body.stock, 10) || 0,
-            images,
-            thumbnail: images[0],
-            status: req.body.status || 'draft',
-            featured: req.body.featured === '1',
-            tags: parseTags(req.body.tags),
-            weight: req.body.weight ? parseFloat(req.body.weight) : undefined,
+            Products.update(id, {
+                name: req.body.name,
+                sku: req.body.sku || undefined,
+                category_id: req.body.category_id ? toInt(req.body.category_id) : null,
+                brand_id: req.body.brand_id ? toInt(req.body.brand_id) : null,
+                description: req.body.description || '',
+                specs,
+                price: parseFloat(req.body.price) || 0,
+                price_usd: req.body.price_usd ? parseFloat(req.body.price_usd) : null,
+                compare_price: req.body.compare_price ? parseFloat(req.body.compare_price) : null,
+                stock: parseInt(req.body.stock, 10) || 0,
+                images,
+                thumbnail: images[0],
+                video_url: videoUrl,
+                status: req.body.status || 'draft',
+                featured: req.body.featured === '1',
+                flash_sale: req.body.flash_sale === '1',
+                flash_sale_starts: (typeof req.body.flash_sale_starts === 'string' && req.body.flash_sale_starts) ? new Date(req.body.flash_sale_starts).toISOString() : null,
+                flash_sale_ends: (typeof req.body.flash_sale_ends === 'string' && req.body.flash_sale_ends) ? new Date(req.body.flash_sale_ends).toISOString() : null,
+                tags: parseTags(req.body.tags),
+                weight: req.body.weight ? parseFloat(req.body.weight) : undefined,
+            });
+            logActivity({ ...actor(req), action: 'update', entity: 'product', entity_id: id, detail: req.body.name });
+            res.redirect('/admin/store/products');
         });
-        logActivity({ ...actor(req), action: 'update', entity: 'product', entity_id: id, detail: req.body.name });
-        res.redirect('/admin/store/products');
     });
 });
 

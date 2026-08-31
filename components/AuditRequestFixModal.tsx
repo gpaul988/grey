@@ -158,7 +158,7 @@ export function AuditRequestFixModal({
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl border border-cyan-400/30 bg-gradient-to-br from-slate-900 via-slate-900/95 to-slate-950 shadow-[0_0_80px_-20px_rgba(6,182,212,.35)]"
+        className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl border border-teal-400/30 bg-gradient-to-br from-slate-900 via-slate-900/95 to-slate-950 shadow-[0_0_80px_-20px_rgba(var(--page-accent-rgb),.35)]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

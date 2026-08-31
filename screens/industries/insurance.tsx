@@ -14,7 +14,7 @@ const InsuranceIndustry = () => (
         introBody={[
             <>The insurance industry is undergoing its most significant technology transformation in decades -
             driven by embedded insurance, usage-based products, AI underwriting and the expectation of
-            consumer-grade digital experiences. At Graham Sobiribo Paul we build the platforms that put insurers
+            consumer-grade digital experiences. At Grey InfoTech we build the platforms that put insurers
             and brokers ahead of this change. From policy administration systems and claims workflows to
             customer-facing portals and API distribution layers, we engineer the insurance technology stack
             for the next decade.</>,
@@ -26,7 +26,7 @@ const InsuranceIndustry = () => (
             product configurations and the data granularity that modern actuarial teams demand.</>,
         ]}
         solutionsHeading={<>Insurance<br className="lg:block md:block hidden" />Technology Solutions</>}
-        solutionsIntro="From policy administration to claims automation and InsurTech API platforms, Graham Sobiribo Paul engineers insurance systems that reduce cost, improve experience and grow revenue."
+        solutionsIntro="From policy administration to claims automation and InsurTech API platforms, Grey InfoTech engineers insurance systems that reduce cost, improve experience and grow revenue."
         solutions={[
             {
                 id: '01', title: 'Policy Administration Systems', target: 'PA',
@@ -83,7 +83,7 @@ const InsuranceIndustry = () => (
             },
         ]}
         ctaHeading={<>InsurTech that<br className="lg:block md:block hidden" />writes the future</>}
-        ctaBody="The insurance market rewards those who modernise earliest. Graham Sobiribo Paul builds insurance technology that reduces costs, delights customers and opens new distribution channels."/>
+        ctaBody="The insurance market rewards those who modernise earliest. Grey InfoTech builds insurance technology that reduces costs, delights customers and opens new distribution channels."/>
 );
 
 export default InsuranceIndustry;

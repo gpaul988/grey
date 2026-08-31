@@ -20,7 +20,7 @@ const BlockchainDevelopment = () => (
         introHeading={<>Demystifying Blockchain <br className={'lg:block md:block hidden'}/>How We Engineer Trust</>}
         introBody={[
             <React.Fragment key="intro-1">
-                At the forefront of decentralized innovation, Graham Sobiribo Paul engineers production-grade distributed ledger systems that prioritize security, determinism and operational resilience. We design modular architectures—combining layer-2 rollups, verifiable compute, and robust key-management—to deliver provable integrity, low-latency settlement and auditable state transitions. Our approach integrates formal verification, static analysis, comprehensive unit and fuzz testing, and staged on-chain upgrade patterns so contracts move safely from testnets to mainnet. We architect middleware—indexers, oracles, cryptographic attestation layers—and privacy-preserving primitives (zkSNARKs/zk-STARKs) where confidentiality is required, enabling compliant data-sharing without sacrificing verifiability.
+                At the forefront of decentralized innovation, Grey InfoTech engineers production-grade distributed ledger systems that prioritize security, determinism and operational resilience. We design modular architectures—combining layer-2 rollups, verifiable compute, and robust key-management—to deliver provable integrity, low-latency settlement and auditable state transitions. Our approach integrates formal verification, static analysis, comprehensive unit and fuzz testing, and staged on-chain upgrade patterns so contracts move safely from testnets to mainnet. We architect middleware—indexers, oracles, cryptographic attestation layers—and privacy-preserving primitives (zkSNARKs/zk-STARKs) where confidentiality is required, enabling compliant data-sharing without sacrificing verifiability.
             </React.Fragment>,
             <React.Fragment key="intro-2">
                 We operationalize blockchain for enterprise: CI/CD for smart contracts, infrastructure-as-code for validator and node fleets, observability for MEV and mempool monitoring, and automated incident playbooks. Cross-chain composability (bridges, message relayers, canonical proofs) and account-abstraction strategies are evaluated against threat models to balance UX and security. Our delivery pairs protocol engineers with senior backend and DevOps leads to ensure on-chain components are first-class citizens in your existing systems—governance models, tokenomics, legal compliance and auditability included—so decentralised platforms become durable, auditable business infrastructure.
@@ -31,7 +31,7 @@ const BlockchainDevelopment = () => (
         solutionsIntro={
             <>
                 From smart contracts and decentralised applications to enterprise ledgers and token economies,
-                Graham Sobiribo Paul delivers a complete blockchain capability. Based in Nigeria and serving clients
+                Grey InfoTech delivers a complete blockchain capability. Based in Nigeria and serving clients
                 worldwide, we build secure, audited, gas-efficient systems that turn distributed-ledger
                 technology into measurable business value -without compromising on compliance or reliability.
             </>
@@ -119,7 +119,7 @@ const BlockchainDevelopment = () => (
             },
         ]}
         ctaHeading={<>Build on <br className={'lg:block md:block hidden'}/>decentralised rails</>}
-        ctaBody={<>From smart contracts and DeFi to tokenisation and enterprise ledgers, Graham Sobiribo Paul turns
+        ctaBody={<>From smart contracts and DeFi to tokenisation and enterprise ledgers, Grey InfoTech turns
             blockchain ambition into secure, production-ready systems. Let&apos;s scope your idea, model the risks,
             and ship something your users -and your auditors -can trust.</>}
         stats={[
@@ -133,7 +133,7 @@ const BlockchainDevelopment = () => (
             {
                 name: 'Obinna Eze',
                 title: 'CEO, ProTask Hub',
-                message: <>Graham Sobiribo Paul delivered our token platform with airtight smart contracts and clear
+                message: <>Grey InfoTech delivered our token platform with airtight smart contracts and clear
                     documentation. Their security-first approach gave our investors real confidence, and the audit trail
                     made fundraising far smoother.</>
             },

@@ -19,7 +19,7 @@ const PythonDevelopment = () => (
         introHeading={<>Python Development <br className={'lg:block md:block hidden'}/>APIs, Data Science, and AI/ML</>}
         introBody={[
             <>
-                Python powers enterprise systems handling data science, machine learning, and complex business logic. With 8+ years of specialized expertise, Graham Sobiribo Paul has delivered 200+ Python projects including 50+ production ML models achieving 95%+ accuracy. Using Django, FastAPI, and Flask, we engineer REST and GraphQL APIs, 30+ enterprise data pipelines, and automation systems. Our 14+ dedicated Python engineers combine clean architecture, rigorous testing, and thoughtful design to build backend services, data platforms, and intelligent systems that scale reliably with your business.
+                Python powers enterprise systems handling data science, machine learning, and complex business logic. With 8+ years of specialized expertise, Grey InfoTech has delivered 200+ Python projects including 50+ production ML models achieving 95%+ accuracy. Using Django, FastAPI, and Flask, we engineer REST and GraphQL APIs, 30+ enterprise data pipelines, and automation systems. Our 14+ dedicated Python engineers combine clean architecture, rigorous testing, and thoughtful design to build backend services, data platforms, and intelligent systems that scale reliably with your business.
             </>,
             <>
                 Beyond traditional web backends, Python enables data-driven competitive advantage. We build ETL pipelines processing massive data volumes, machine learning models powering predictions and recommendations, and automation eliminating repetitive workflows. With 300+ total solutions delivered, Pandas, NumPy, scikit-learn, PyTorch, and TensorFlow expertise, combined with production-grade containerization, CI/CD pipelines, and cloud infrastructure, we deliver Python systems that perform under load, scale with demand, and integrate seamlessly across your technology stack. From data engineering to AI deployment, we transform complex requirements into reliable, maintainable production systems.
@@ -28,7 +28,7 @@ const PythonDevelopment = () => (
         solutionsHeading={<>Python <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From web APIs and data engineering to automation and machine learning, Graham Sobiribo Paul delivers the
+                From web APIs and data engineering to automation and machine learning, Grey InfoTech delivers the
                 full breadth of Python development. Based in Nigeria and working globally, we build performant,
                 well-tested Python systems that scale -turning complex requirements into reliable software.
             </>
@@ -103,7 +103,7 @@ const PythonDevelopment = () => (
             },
         ]}
         ctaHeading={<>Build smarter <br className={'lg:block md:block hidden'}/>with Python</>}
-        ctaBody={<>From scalable APIs and data pipelines to automation and machine learning, Graham Sobiribo Paul delivers
+        ctaBody={<>From scalable APIs and data pipelines to automation and machine learning, Grey InfoTech delivers
             Python systems that perform and endure. Let&apos;s turn your toughest requirements into clean, reliable
             software.</>}
         stats={[
@@ -114,7 +114,7 @@ const PythonDevelopment = () => (
             {label: 'Client Satisfaction', value: 98, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Ngozi Okafor', title: 'Head of Data, InsightLab', message: <>Graham Sobiribo Paul built our entire data platform in Python -pipelines, APIs and ML models. Reliable, well-tested and genuinely scalable. Our analysts finally trust the data.</>},
+            {name: 'Ngozi Okafor', title: 'Head of Data, InsightLab', message: <>Grey InfoTech built our entire data platform in Python -pipelines, APIs and ML models. Reliable, well-tested and genuinely scalable. Our analysts finally trust the data.</>},
             {name: 'Yusuf Abdullahi', title: 'CTO, RouteWise', message: <>Their FastAPI back-end handles our peak traffic effortlessly. Clean architecture, great documentation, and they delivered exactly on time.</>},
             {name: 'Aisha Bello', title: 'Founder, ShopSense AI', message: <>The recommendation engine they built in Python lifted our conversion noticeably. They took us from notebook prototype to production-grade ML serving real users.</>},
         ]}

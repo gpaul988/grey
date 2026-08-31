@@ -37,7 +37,7 @@ const FAQS = [
 
 const Support: React.FC = () => {
     const whatsappNumber = '2348028095571';
-    const whatsappMessage = 'Hello Graham Sobiribo Paul, I need support with my project.';
+    const whatsappMessage = 'Hello Grey InfoTech, I need support with my project.';
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
     const isDayTime = useIsDayTime();
@@ -53,7 +53,7 @@ const Support: React.FC = () => {
             cta: 'Message us',
             href: whatsappUrl,
             external: true,
-            accent: '#25d366',
+            accent: 'var(--brand-color)',
         },
         {
             icon: <FaEnvelope className="text-2xl" />,
@@ -62,7 +62,7 @@ const Support: React.FC = () => {
             cta: 'hello@greyinfotech.com.ng',
             href: 'mailto:hello@greyinfotech.com.ng',
             external: true,
-            accent: '#2dd4bf',
+            accent: 'var(--brand-color)',
         },
         {
             icon: <FaTicketAlt className="text-2xl" />,
@@ -71,7 +71,7 @@ const Support: React.FC = () => {
             cta: 'Open a ticket',
             href: '/open-ticket',
             external: false,
-            accent: '#a855f7',
+            accent: 'var(--brand-color)',
         },
         {
             icon: <FaPhoneAlt className="text-2xl" />,
@@ -80,7 +80,7 @@ const Support: React.FC = () => {
             cta: '+234 802 809 5571',
             href: 'tel:+2348028095571',
             external: true,
-            accent: '#06b6d4',
+            accent: 'var(--brand-color)',
         },
     ];
 
@@ -182,17 +182,17 @@ const Support: React.FC = () => {
                         <FxChip day={isDayTime} className="mb-6">Resources</FxChip>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                             {[
-                                { href: '/case-studies', icon: <FaBook className="text-xl" />, title: 'Case Studies', desc: `See how we've solved problems for other clients.`, accent: '#2dd4bf' },
-                                { href: '/blog', icon: <FaQuestionCircle className="text-xl" />, title: 'Guides & Articles', desc: 'Tips, insights and how-tos from our team.', accent: '#a855f7' },
+                                { href: '/case-studies', icon: <FaBook className="text-xl" />, title: 'Case Studies', desc: `See how we've solved problems for other clients.`, accent: 'var(--brand-color)' },
+                                { href: '/blog', icon: <FaQuestionCircle className="text-xl" />, title: 'Guides & Articles', desc: 'Tips, insights and how-tos from our team.', accent: 'var(--brand-color)' },
                             ].map((r, i) => (
                                 <FxReveal key={r.title} delay={0.08 * i}>
                                     <Link href={r.href} className="block">
                                         <FxHoloCard day={isDayTime} className="p-6 flex items-start gap-4 group">
-                                            <div className="shrink-0 w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: r.accent + '18', color: r.accent }}>
+                                            <div className="shrink-0 w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'rgba(var(--page-accent-rgb), 0.12)', color: 'var(--brand-color)' }}>
                                                 {r.icon}
                                             </div>
                                             <div>
-                                                <h3 className={`text-[1em] font-[700] mb-1 group-hover:text-teal-400 transition-colors ${dark ? 'text-white' : 'text-gray-900'}`}>{r.title}</h3>
+                                                <h3 className={`text-[1em] font-[700] mb-1 group-hover:text-brand transition-colors ${dark ? 'text-white' : 'text-gray-900'}`}>{r.title}</h3>
                                                 <p className={`text-[0.82em] leading-relaxed ${dark ? 'text-gray-400' : 'text-gray-600'}`}>{r.desc}</p>
                                             </div>
                                         </FxHoloCard>
@@ -206,11 +206,11 @@ const Support: React.FC = () => {
                                     className="block w-full"
                                 >
                                     <FxHoloCard day={isDayTime} className="p-6 flex items-start gap-4 group cursor-pointer hover:scale-105 transition-transform">
-                                        <div className="shrink-0 w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: '#06b6d418', color: '#06b6d4' }}>
+                                        <div className="shrink-0 w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'rgba(var(--page-accent-rgb), 0.12)', color: 'var(--brand-color)' }}>
                                             <FaTicketAlt className="text-xl" />
                                         </div>
                                         <div>
-                                            <h3 className={`text-[1em] font-[700] mb-1 group-hover:text-teal-400 transition-colors ${dark ? 'text-white' : 'text-gray-900'}`}>Request a Quote</h3>
+                                            <h3 className={`text-[1em] font-[700] mb-1 group-hover:text-brand transition-colors ${dark ? 'text-white' : 'text-gray-900'}`}>Request a Quote</h3>
                                             <p className={`text-[0.82em] leading-relaxed ${dark ? 'text-gray-400' : 'text-gray-600'}`}>Starting something new? Tell us about it.</p>
                                         </div>
                                     </FxHoloCard>
@@ -242,7 +242,7 @@ const Support: React.FC = () => {
                                                 <motion.span
                                                     animate={{ rotate: isOpen ? 45 : 0 }}
                                                     transition={{ duration: 0.25 }}
-                                                    className={`text-[1.6em] leading-none shrink-0 transition-colors ${isOpen ? 'text-teal-400' : dark ? 'text-gray-500' : 'text-gray-400'}`}
+                                                    className={`text-[1.6em] leading-none shrink-0 transition-colors ${isOpen ? 'text-brand' : dark ? 'text-gray-500' : 'text-gray-400'}`}
                                                 >
                                                     +
                                                 </motion.span>

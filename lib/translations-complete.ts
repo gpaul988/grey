@@ -1,5 +1,5 @@
 /**
- * Complete translations for Graham Sobiribo Paul
+ * Complete translations for Grey InfoTech
  * Covers: UI (nav, buttons, labels) + Content sections (hero, services, testimonials, CTA)
  */
 
@@ -36,7 +36,7 @@ const translations: Record<string, TranslationDict> = {
       title3: 'Digital',
       title4: 'Platforms for',
       title5: 'Modern Businesses',
-      description: 'Graham Sobiribo Paul builds secure, scalable web applications, SaaS platforms, and enterprise software solutions for startups and growing businesses across Africa and globally.',
+      description: 'Grey InfoTech builds secure, scalable web applications, SaaS platforms, and enterprise software solutions for startups and growing businesses across Africa and globally.',
       cta: 'Get Started',
       scroll: 'Scroll to explore',
     },
@@ -77,7 +77,7 @@ const translations: Record<string, TranslationDict> = {
       privacy: 'Privacy Policy',
       terms: 'Terms of Service',
       followUs: 'Follow Us',
-      copyright: '© 2024 Graham Sobiribo Paul. All rights reserved.',
+      copyright: '© 2024 Grey InfoTech. All rights reserved.',
     },
     // Page sections
     page: {
@@ -131,7 +131,7 @@ const translations: Record<string, TranslationDict> = {
       title3: 'Plataformas',
       title4: 'Digitales para',
       title5: 'Negocios Modernos',
-      description: 'Graham Sobiribo Paul construye aplicaciones web seguras y escalables, plataformas SaaS y soluciones de software empresarial para startups y negocios en crecimiento en África y a nivel mundial.',
+      description: 'Grey InfoTech construye aplicaciones web seguras y escalables, plataformas SaaS y soluciones de software empresarial para startups y negocios en crecimiento en África y a nivel mundial.',
       cta: 'Comenzar',
       scroll: 'Desplázate para explorar',
     },
@@ -168,7 +168,7 @@ const translations: Record<string, TranslationDict> = {
       privacy: 'Política de Privacidad',
       terms: 'Términos de Servicio',
       followUs: 'Síguenos',
-      copyright: '© 2024 Graham Sobiribo Paul. Todos los derechos reservados.',
+      copyright: '© 2024 Grey InfoTech. Todos los derechos reservados.',
     },
     page: {
       yourDigitalPartner: 'TU SOCIO DIGITAL',
@@ -220,7 +220,7 @@ const translations: Record<string, TranslationDict> = {
       title3: 'Digitale',
       title4: 'Évolutive pour',
       title5: 'Entreprises Modernes',
-      description: 'Graham Sobiribo Paul crée des applications web sécurisées et évolutives, des plateformes SaaS et des solutions logicielles d\'entreprise pour les startups et les entreprises en croissance en Afrique et à l\'échelle mondiale.',
+      description: 'Grey InfoTech crée des applications web sécurisées et évolutives, des plateformes SaaS et des solutions logicielles d\'entreprise pour les startups et les entreprises en croissance en Afrique et à l\'échelle mondiale.',
       cta: 'Commencer',
       scroll: 'Faites défiler pour explorer',
     },
@@ -257,7 +257,7 @@ const translations: Record<string, TranslationDict> = {
       privacy: 'Politique de Confidentialité',
       terms: 'Conditions d\'Utilisation',
       followUs: 'Nous Suivre',
-      copyright: '© 2024 Graham Sobiribo Paul. Tous les droits réservés.',
+      copyright: '© 2024 Grey InfoTech. Tous les droits réservés.',
     },
     common: {
       learnMore: 'En Savoir Plus',
@@ -296,7 +296,7 @@ const translations: Record<string, TranslationDict> = {
       title3: 'Digitale',
       title4: 'Plattformen für',
       title5: 'Moderne Geschäfte',
-      description: 'Graham Sobiribo Paul erstellt sichere, skalierbare Webanwendungen, SaaS-Plattformen und Enterprise-Softwarelösungen für Startups und wachsende Unternehmen in Afrika und weltweit.',
+      description: 'Grey InfoTech erstellt sichere, skalierbare Webanwendungen, SaaS-Plattformen und Enterprise-Softwarelösungen für Startups und wachsende Unternehmen in Afrika und weltweit.',
       cta: 'Loslegen',
       scroll: 'Scrollen zum Erkunden',
     },
@@ -333,7 +333,7 @@ const translations: Record<string, TranslationDict> = {
       privacy: 'Datenschutzrichtlinie',
       terms: 'Nutzungsbedingungen',
       followUs: 'Folgen Sie Uns',
-      copyright: '© 2024 Graham Sobiribo Paul. Alle Rechte vorbehalten.',
+      copyright: '© 2024 Grey InfoTech. Alle Rechte vorbehalten.',
     },
     page: {
       yourDigitalPartner: "IHR DIGITALER PARTNER",
@@ -385,7 +385,7 @@ const translations: Record<string, TranslationDict> = {
       title3: 'Digitais',
       title4: 'Escaláveis para',
       title5: 'Negócios Modernos',
-      description: 'A Graham Sobiribo Paul constrói aplicações web seguras e escaláveis, plataformas SaaS e soluções de software empresarial para startups e negócios em crescimento na África e globalmente.',
+      description: 'A Grey InfoTech constrói aplicações web seguras e escaláveis, plataformas SaaS e soluções de software empresarial para startups e negócios em crescimento na África e globalmente.',
       cta: 'Comece Agora',
       scroll: 'Role para explorar',
     },
@@ -422,7 +422,7 @@ const translations: Record<string, TranslationDict> = {
       privacy: 'Política de Privacidade',
       terms: 'Termos de Serviço',
       followUs: 'Nos Siga',
-      copyright: '© 2024 Graham Sobiribo Paul. Todos os direitos reservados.',
+      copyright: '© 2024 Grey InfoTech. Todos os direitos reservados.',
     },
     common: {
       learnMore: 'Saiba Mais',
@@ -461,7 +461,7 @@ const translations: Record<string, TranslationDict> = {
       title3: '数字',
       title4: '平台为',
       title5: '现代企业',
-      description: 'Graham Sobiribo Paul 为非洲和全球的初创公司和成长中的企业构建安全、可扩展的 Web 应用程序、SaaS 平台和企业软件解决方案。',
+      description: 'Grey InfoTech 为非洲和全球的初创公司和成长中的企业构建安全、可扩展的 Web 应用程序、SaaS 平台和企业软件解决方案。',
       cta: '立即开始',
       scroll: '向下滚动浏览',
     },
@@ -498,7 +498,7 @@ const translations: Record<string, TranslationDict> = {
       privacy: '隐私政策',
       terms: '服务条款',
       followUs: '跟随我们',
-      copyright: '© 2024 Graham Sobiribo Paul。版权所有。',
+      copyright: '© 2024 Grey InfoTech。版权所有。',
     },
     common: {
       learnMore: '了解更多',
@@ -537,7 +537,7 @@ const translations: Record<string, TranslationDict> = {
       title3: 'デジタル',
       title4: 'プラットフォーム',
       title5: '現代ビジネス向け',
-      description: 'Graham Sobiribo Paul は、アフリカおよび世界中のスタートアップと成長中の企業向けに、安全でスケーラブルな Web アプリケーション、SaaS プラットフォーム、エンタープライズ ソフトウェア ソリューションを構築します。',
+      description: 'Grey InfoTech は、アフリカおよび世界中のスタートアップと成長中の企業向けに、安全でスケーラブルな Web アプリケーション、SaaS プラットフォーム、エンタープライズ ソフトウェア ソリューションを構築します。',
       cta: 'はじめる',
       scroll: 'スクロールして探索',
     },
@@ -574,7 +574,7 @@ const translations: Record<string, TranslationDict> = {
       privacy: 'プライバシー ポリシー',
       terms: '利用規約',
       followUs: 'フォローする',
-      copyright: '© 2024 Graham Sobiribo Paul。著作権所有。',
+      copyright: '© 2024 Grey InfoTech。著作権所有。',
     },
     common: {
       learnMore: '詳しく知る',
@@ -613,7 +613,7 @@ const translations: Record<string, TranslationDict> = {
       title3: 'Цифровые',
       title4: 'Платформы для',
       title5: 'Современного Бизнеса',
-      description: 'Graham Sobiribo Paul создает безопасные масштабируемые веб-приложения, платформы SaaS и корпоративные программные решения для стартапов и растущих компаний в Африке и по всему миру.',
+      description: 'Grey InfoTech создает безопасные масштабируемые веб-приложения, платформы SaaS и корпоративные программные решения для стартапов и растущих компаний в Африке и по всему миру.',
       cta: 'Начать',
       scroll: 'Прокрутите для изучения',
     },
@@ -650,7 +650,7 @@ const translations: Record<string, TranslationDict> = {
       privacy: 'Политика конфиденциальности',
       terms: 'Условия обслуживания',
       followUs: 'Следите за нами',
-      copyright: '© 2024 Graham Sobiribo Paul. Все права защищены.',
+      copyright: '© 2024 Grey InfoTech. Все права защищены.',
     },
     common: {
       learnMore: 'Узнать больше',
@@ -689,7 +689,7 @@ const translations: Record<string, TranslationDict> = {
       title3: 'رقمية',
       title4: 'قابلة للتوسع',
       title5: 'للأعمال الحديثة',
-      description: 'تبني Graham Sobiribo Paul تطبيقات ويب آمنة وقابلة للتوسع ومنصات SaaS وحلول البرامج الخاصة بالمؤسسات للشركات الناشئة والشركات الناشئة في أفريقيا وعالميًا.',
+      description: 'تبني Grey InfoTech تطبيقات ويب آمنة وقابلة للتوسع ومنصات SaaS وحلول البرامج الخاصة بالمؤسسات للشركات الناشئة والشركات الناشئة في أفريقيا وعالميًا.',
       cta: 'ابدأ الآن',
       scroll: 'قم بالتمرير للاستكشاف',
     },
@@ -726,7 +726,7 @@ const translations: Record<string, TranslationDict> = {
       privacy: 'سياسة الخصوصية',
       terms: 'شروط الخدمة',
       followUs: 'تابعنا',
-      copyright: '© 2024 Graham Sobiribo Paul. جميع الحقوق محفوظة.',
+      copyright: '© 2024 Grey InfoTech. جميع الحقوق محفوظة.',
     },
     common: {
       learnMore: 'تعرف على المزيد',
@@ -765,7 +765,7 @@ const translations: Record<string, TranslationDict> = {
       title3: 'Digitali',
       title4: 'Scalabili per',
       title5: 'Aziende Moderne',
-      description: 'Graham Sobiribo Paul crea applicazioni web sicure e scalabili, piattaforme SaaS e soluzioni software aziendali per startup e aziende in crescita in Africa e a livello mondiale.',
+      description: 'Grey InfoTech crea applicazioni web sicure e scalabili, piattaforme SaaS e soluzioni software aziendali per startup e aziende in crescita in Africa e a livello mondiale.',
       cta: 'Inizia Subito',
       scroll: 'Scorri per esplorare',
     },
@@ -802,7 +802,7 @@ const translations: Record<string, TranslationDict> = {
       privacy: 'Informativa sulla Privacy',
       terms: 'Termini di Servizio',
       followUs: 'Seguici',
-      copyright: '© 2024 Graham Sobiribo Paul. Tutti i diritti riservati.',
+      copyright: '© 2024 Grey InfoTech. Tutti i diritti riservati.',
     },
     common: {
       learnMore: 'Scopri di Più',
@@ -841,7 +841,7 @@ const translations: Record<string, TranslationDict> = {
       title3: '디지털',
       title4: '플랫폼',
       title5: '현대 비즈니스를 위해',
-      description: 'Graham Sobiribo Paul는 아프리카 및 전 세계의 스타트업과 성장 중인 기업을 위해 안전하고 확장 가능한 웹 애플리케이션, SaaS 플랫폼 및 엔터프라이즈 소프트웨어 솔루션을 구축합니다.',
+      description: 'Grey InfoTech는 아프리카 및 전 세계의 스타트업과 성장 중인 기업을 위해 안전하고 확장 가능한 웹 애플리케이션, SaaS 플랫폼 및 엔터프라이즈 소프트웨어 솔루션을 구축합니다.',
       cta: '지금 시작',
       scroll: '스크롤하여 탐색',
     },
@@ -878,7 +878,7 @@ const translations: Record<string, TranslationDict> = {
       privacy: '개인정보 보호정책',
       terms: '서비스 약관',
       followUs: '팔로우',
-      copyright: '© 2024 Graham Sobiribo Paul. 저작권 소유.',
+      copyright: '© 2024 Grey InfoTech. 저작권 소유.',
     },
     common: {
       learnMore: '자세히 알아보기',
@@ -917,7 +917,7 @@ const translations: Record<string, TranslationDict> = {
       title3: 'डिजिटल',
       title4: 'प्लेटफॉर्म',
       title5: 'आधुनिक व्यवसाय के लिए',
-      description: 'Graham Sobiribo Paul अफ्रीका और विश्व भर में स्टार्टअप और बढ़ती हुई कंपनियों के लिए सुरक्षित, स्केलेबल वेब एप्लिकेशन, SaaS प्लेटफॉर्म और एंटरप्राइज सॉफ्टवेयर समाधान बनाता है।',
+      description: 'Grey InfoTech अफ्रीका और विश्व भर में स्टार्टअप और बढ़ती हुई कंपनियों के लिए सुरक्षित, स्केलेबल वेब एप्लिकेशन, SaaS प्लेटफॉर्म और एंटरप्राइज सॉफ्टवेयर समाधान बनाता है।',
       cta: 'अभी शुरू करें',
       scroll: 'अन्वेषण के लिए स्क्रॉल करें',
     },
@@ -954,7 +954,7 @@ const translations: Record<string, TranslationDict> = {
       privacy: 'गोपनीयता नीति',
       terms: 'सेवा की शर्तें',
       followUs: 'हमें फॉलो करें',
-      copyright: '© 2024 Graham Sobiribo Paul। सर्वाधिकार सुरक्षित।',
+      copyright: '© 2024 Grey InfoTech। सर्वाधिकार सुरक्षित।',
     },
     common: {
       learnMore: 'और जानें',

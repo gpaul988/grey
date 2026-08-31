@@ -33,11 +33,11 @@ export async function POST(req: NextRequest) {
     try {
       await send({
         to: email,
-        subject: '✅ Welcome to Graham Sobiribo Paul Newsletter',
+        subject: '✅ Welcome to Grey InfoTech Newsletter',
         html: `
           <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #059669;">Thank You for Subscribing!</h2>
-            <p>Welcome to the Graham Sobiribo Paul newsletter. We share updates on:</p>
+            <p>Welcome to the Grey InfoTech newsletter. We share updates on:</p>
             <ul>
               <li>Latest web & mobile development trends</li>
               <li>Project case studies and success stories</li>
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
             </ul>
             <p>You'll hear from us soon with exclusive insights and updates.</p>
             <p>Best regards,<br/>
-            <strong>Graham Sobiribo Paul</strong><br/>
+            <strong>Grey InfoTech</strong><br/>
             Port Harcourt, Nigeria<br/>
             <a href="https://greyinf.com/grey">https://greyinf.com/grey</a></p>
           </div>

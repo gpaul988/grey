@@ -21,7 +21,7 @@ const FlutterDevelopment = () => (
         introBody={[
             <>
                 Flutter lets teams ship a single, high-performance codebase to iOS, Android, web and desktop -and
-                Graham Sobiribo Paul uses it to help businesses reach every user faster and at a fraction of the cost of
+                Grey InfoTech uses it to help businesses reach every user faster and at a fraction of the cost of
                 building separate native apps. We design pixel-perfect interfaces that feel native on each
                 platform, backed by clean Dart architecture and robust state management. From early-stage MVPs
                 that need to validate an idea quickly, to mature products serving thousands of daily users, we
@@ -41,7 +41,7 @@ const FlutterDevelopment = () => (
         solutionsHeading={<>Flutter <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                Graham Sobiribo Paul delivers the full Flutter lifecycle -from UI/UX and architecture to native
+                Grey InfoTech delivers the full Flutter lifecycle -from UI/UX and architecture to native
                 integrations, store deployment and ongoing support. Based in Nigeria and working globally, we
                 help startups and enterprises launch cross-platform products that are fast, beautiful and built
                 to last.
@@ -116,7 +116,7 @@ const FlutterDevelopment = () => (
             },
         ]}
         ctaHeading={<>Ship to every <br className={'lg:block md:block hidden'}/>platform at once</>}
-        ctaBody={<>Whether you&apos;re validating an MVP or scaling a product to thousands of users, Graham Sobiribo Paul
+        ctaBody={<>Whether you&apos;re validating an MVP or scaling a product to thousands of users, Grey InfoTech
             builds Flutter apps that are fast, beautiful and maintainable. One codebase, every platform -let&apos;s
             bring your app to life.</>}
         stats={[
@@ -127,7 +127,7 @@ const FlutterDevelopment = () => (
             {label: 'Client Satisfaction', value: 98, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Tunde Bakare', title: 'Founder, MarketMate', message: <>Graham Sobiribo Paul delivered our marketplace app on iOS and Android from one Flutter codebase, on schedule and on budget. The animations and performance genuinely impressed our investors.</>},
+            {name: 'Tunde Bakare', title: 'Founder, MarketMate', message: <>Grey InfoTech delivered our marketplace app on iOS and Android from one Flutter codebase, on schedule and on budget. The animations and performance genuinely impressed our investors.</>},
             {name: 'Grace Mwangi', title: 'Product Lead, FitLoop', message: <>They rebuilt our fitness app in Flutter and the difference is night and day -smoother, faster, and we now ship updates to both stores at the same time.</>},
             {name: 'Samuel Adeyemi', title: 'CTO, PaySwift', message: <>Their architecture and testing discipline meant our payments app scaled cleanly from MVP to tens of thousands of users without a rewrite. A genuinely senior team.</>},
         ]}

@@ -19,7 +19,7 @@ const MVP = () => (
         introBody={[
             <>
                 Launching a startup requires speed, precision, and strategic thinking. An MVP is your opportunity to validate 
-                your core idea with real users before investing in full-scale development. At Graham Sobiribo Paul, we specialize in 
+                your core idea with real users before investing in full-scale development. At Grey InfoTech, we specialize in 
                 rapid MVP development that gets your product to market quickly, captures early adopters, and generates the 
                 market feedback and traction needed to attract investment. We focus on essential features, clean architecture, 
                 and reliable infrastructure to create products that prove concept viability.
@@ -35,7 +35,7 @@ const MVP = () => (
         solutionsHeading={<>MVP Development <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From concept validation and rapid prototyping to market testing and scaling, Graham Sobiribo Paul delivers comprehensive 
+                From concept validation and rapid prototyping to market testing and scaling, Grey InfoTech delivers comprehensive 
                 MVP development services designed for startup success. We transform your vision into a focused, market-ready product 
                 that proves business value and attracts investment.
             </>
@@ -105,7 +105,7 @@ const MVP = () => (
             },
         ]}
         ctaHeading={<>Launch your product <br className={'lg:block md:block hidden'}/>with confidence</>}
-        ctaBody={<>From concept validation to market testing to product launch, Graham Sobiribo Paul delivers MVPs that prove business 
+        ctaBody={<>From concept validation to market testing to product launch, Grey InfoTech delivers MVPs that prove business 
             value and attract investment. Let's validate your idea and accelerate your path to success.</>}
         stats={[
             {label: 'Years Experience', value: 6, suffix: '+'},
@@ -115,9 +115,9 @@ const MVP = () => (
             {label: 'Client Success Rate', value: 94, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Chinedu Obi', title: 'Founder, TechStart Accelerator', message: <>Graham Sobiribo Paul delivered our MVP in just 8 weeks. The product is solid, users love it, and we've already raised Series A funding.</>},
+            {name: 'Chinedu Obi', title: 'Founder, TechStart Accelerator', message: <>Grey InfoTech delivered our MVP in just 8 weeks. The product is solid, users love it, and we've already raised Series A funding.</>},
             {name: 'Blessing Ifeoma', title: 'CEO, FinTech Startup', message: <>Their rapid development process is impressive. We went from idea to market in record time, and the quality is exceptional for an MVP.</>},
-            {name: 'Tunde Adekunle', title: 'Founder, E-Learning Platform', message: <>Graham Sobiribo Paul understood our startup constraints and delivered a lean, effective MVP that helped us validate our market hypothesis quickly.</>},
+            {name: 'Tunde Adekunle', title: 'Founder, E-Learning Platform', message: <>Grey InfoTech understood our startup constraints and delivered a lean, effective MVP that helped us validate our market hypothesis quickly.</>},
         ]}
         verticalSolutions={[
             {

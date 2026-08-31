@@ -235,7 +235,7 @@ const HeaderContent: React.FC = () => {
         {label: 'Technologies', href: '/technologies', hasSubmenu: true},
         {label: 'Blog', href: '/blog'},
         {label: 'Company', href: '/company', hasSubmenu: true},
-        {label: 'Startups', href: '/startups'},
+        {label: 'Startups', href: '/Startups'},
         {label: 'Store', href: '/store'},
         {label: 'Contact us', href: '/contact'},
     ];
@@ -420,6 +420,11 @@ const HeaderContent: React.FC = () => {
         setIsCompanyOpen(false);
     };
 
+
+    if (pathname?.startsWith('/store')) {
+        return null;
+    }
+
     return (
         <>
             {/* Futuristic styles */}
@@ -551,14 +556,14 @@ const HeaderContent: React.FC = () => {
                             <span className="grey-scanline" aria-hidden="true"/>
                         </>
                     )}
-                    <div className="max-w-7xl mx-auto px-4">
+                    <div className="container max-w-full relative z-10 mx-auto w-full h-auto px-4 lg:px-[4.6em]">
                         <div className="flex items-center justify-between h-auto gap-3 md:gap-4">
                             {/* Logo */}
                             <div suppressHydrationWarning={true} className="shrink-0 grey-logo-orbit">
-                                <Link href="/#">
+                                <Link href="/">
                                     <Image
                                         src="/logon.png"
-                                        alt="Graham Sobiribo Paul Logo"
+                                        alt="Grey InfoTech Logo"
                                         width={300}
                                         height={50}
                                         className="h-5 w-auto md:h-8 lg:h-10 object-contain"
@@ -582,7 +587,7 @@ const HeaderContent: React.FC = () => {
                                                     onMouseLeave={handleServicesMouseLeave}
                                                 >
                                                     <button
-                                                        className={`grey-nav-neon text-white hover:text-gray-300 transition-colors duration-200 text-base font-normal relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300 hover:after:w-full ${isActiveRoute(item.href) ? 'border-b-2 border-white after:w-full' : ''}`}
+                                                        className={`grey-nav-neon text-white hover:text-white transition-colors duration-200 text-base font-normal relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300 hover:after:w-full ${isActiveRoute(item.href) ? 'border-b-2 border-white after:w-full' : ''}`}
                                                         aria-expanded={isServicesOpen}
                                                         aria-haspopup="true"
                                                         type="button"
@@ -597,7 +602,7 @@ const HeaderContent: React.FC = () => {
                                                             {servicesSubmenuSections.map((section, sectionIndex) => (
                                                                 <div key={section.title || `section-${sectionIndex}`}
                                                                      className="flex-1 p-2 space-y-2">
-                                                                    <h3 className="text-teal-300 text-[0.7em] font-thin uppercase tracking-widest mb-2">
+                                                                    <h3 className="text-white/70 text-[0.7em] font-thin uppercase tracking-widest mb-2">
                                                                         {section.title}
                                                                     </h3>
                                                                     <ul className="space-y-2">
@@ -605,7 +610,7 @@ const HeaderContent: React.FC = () => {
                                                                             <li key={item.name || `item-${itemIndex}`}>
                                                                                 <Link
                                                                                     href={item.href}
-                                                                                    className={`group block text-white hover:text-teal-200 transition-colors duration-200 ${isActiveRoute(item.href) ? 'text-teal-200' : ''}`}
+                                                                                    className={`group block text-white hover:text-white transition-colors duration-200 ${isActiveRoute(item.href) ? 'text-white' : ''}`}
                                                                                 >
                                                                                 <span
                                                                                     className="text-base font-light leading-relaxed group-hover:translate-x-1 transition-transform duration-200 inline-block">
@@ -633,7 +638,7 @@ const HeaderContent: React.FC = () => {
                                                     onMouseLeave={handleIndustriesMouseLeave}
                                                 >
                                                     <button
-                                                        className={`grey-nav-neon text-white hover:text-gray-300 transition-colors duration-200 text-base font-normal relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300 hover:after:w-full ${isActiveRoute(item.href) ? 'border-b-2 border-white after:w-full' : ''}`}
+                                                        className={`grey-nav-neon text-white hover:text-white transition-colors duration-200 text-base font-normal relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300 hover:after:w-full ${isActiveRoute(item.href) ? 'border-b-2 border-white after:w-full' : ''}`}
                                                         aria-expanded={isIndustriesOpen}
                                                         aria-haspopup="true"
                                                         type="button"
@@ -653,7 +658,7 @@ const HeaderContent: React.FC = () => {
                                                                             <li key={item.name || `industry-item-${itemIndex}`}>
                                                                                 <Link
                                                                                     href={item.href}
-                                                                                    className={`group block text-white hover:text-teal-200 transition-colors duration-200 ${isActiveRoute(item.href) ? 'text-teal-200' : ''}`}
+                                                                                    className={`group block text-white hover:text-white transition-colors duration-200 ${isActiveRoute(item.href) ? 'text-white' : ''}`}
                                                                                 >
                                                                                 <span
                                                                                     className="text-base font-light leading-relaxed group-hover:translate-x-1 transition-transform duration-200 inline-block">
@@ -681,7 +686,7 @@ const HeaderContent: React.FC = () => {
                                                     onMouseLeave={handleTechnologiesMouseLeave}
                                                 >
                                                     <button
-                                                        className={`grey-nav-neon text-white hover:text-gray-300 transition-colors duration-200 text-base font-normal relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300 hover:after:w-full ${isActiveRoute(item.href) ? 'border-b-2 border-white after:w-full' : ''}`}
+                                                        className={`grey-nav-neon text-white hover:text-white transition-colors duration-200 text-base font-normal relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300 hover:after:w-full ${isActiveRoute(item.href) ? 'border-b-2 border-white after:w-full' : ''}`}
                                                         aria-expanded={isTechnologiesOpen}
                                                         aria-haspopup="true"
                                                         type="button"
@@ -701,7 +706,7 @@ const HeaderContent: React.FC = () => {
                                                                             <li key={item.name || `tech-item-${itemIndex}`}>
                                                                                 <Link
                                                                                     href={item.href}
-                                                                                    className={`group block text-white hover:text-teal-200 transition-colors duration-200 ${isActiveRoute(item.href) ? 'text-teal-200' : ''}`}
+                                                                                    className={`group block text-white hover:text-white transition-colors duration-200 ${isActiveRoute(item.href) ? 'text-white' : ''}`}
                                                                                 >
                                                                                 <span
                                                                                     className="text-base font-light leading-relaxed group-hover:translate-x-1 transition-transform duration-200 inline-block">
@@ -723,7 +728,7 @@ const HeaderContent: React.FC = () => {
                                             <Link
                                                 key={item.label}
                                                 href={item.href}
-                                                className={`text-white hover:text-cyan-300 transition-colors duration-200 text-base font-normal relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-cyan-400 after:to-purple-500 after:rounded-full after:shadow-[0_0_8px_rgba(56,189,248,0.6)] after:transition-all after:duration-300 hover:after:w-full ${isActiveRoute(item.href) ? 'after:w-full' : ''}`}
+                                                className={`text-white hover:text-white transition-colors duration-200 text-base font-normal relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:rounded-full after:transition-all after:duration-300 hover:after:w-full ${isActiveRoute(item.href) ? 'after:w-full' : ''}`}
                                             >
                                                 {item.label}
                                             </Link>
@@ -758,7 +763,7 @@ const HeaderContent: React.FC = () => {
                                     <ThemeToggle className="scale-90" layoutGroupId="theme-glow-mobile"/>
                                     <button
                                         type="button"
-                                        className="text-white hover:text-gray-300 focus:outline-none focus:text-gray-300 transition-colors duration-200"
+                                        className="text-white hover:text-white focus:outline-none focus:text-white transition-colors duration-200"
                                         onClick={toggleMobileMenu}
                                         aria-expanded={isMobileMenuOpen}
                                         aria-label="Toggle mobile menu"
@@ -797,7 +802,7 @@ const HeaderContent: React.FC = () => {
                                 <div className="flex justify-end">
                                     <button
                                         onClick={toggleMobileMenu}
-                                        className="text-white hover:text-gray-300 transition-colors duration-200"
+                                        className="text-white hover:text-white transition-colors duration-200"
                                         aria-label="Close mobile menu"
                                         type="button"
                                     >
@@ -808,7 +813,7 @@ const HeaderContent: React.FC = () => {
                                     <Link href={'#'}>
                                         <Image
                                             src={'/logon.png'}
-                                            alt="Graham Sobiribo Paul"
+                                            alt="Grey InfoTech"
                                             width={300}
                                             height={80}
                                             className="h-5 w-auto md:h-8 lg:h-10 object-contain"
@@ -831,7 +836,7 @@ const HeaderContent: React.FC = () => {
                                         {item.hasSubmenu ? (
                                             <div>
                                                 <button
-                                                    className="flex items-center justify-between w-full text-white hover:text-gray-300 transition-colors duration-200 text-[1.5em] font-normal"
+                                                    className="flex items-center justify-between w-full text-white hover:text-white transition-colors duration-200 text-[1.5em] font-normal"
                                                     onClick={() => {
                                                         if (item.label === 'Services') setIsMobileServicesOpen(!isMobileServicesOpen);
                                                         else if (item.label === 'Industries') setIsMobileIndustriesOpen(!isMobileIndustriesOpen);
@@ -884,7 +889,7 @@ const HeaderContent: React.FC = () => {
                                                         <div key={section.title || `mobile-section-${sectionIndex}`}
                                                              className="ml-4">
                                                             {section.title && (
-                                                                <h4 className="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-3">
+                                                                <h4 className="text-white text-xs font-semibold uppercase tracking-wider mb-3">
                                                                     {section.title}
                                                                 </h4>
                                                             )}
@@ -893,7 +898,7 @@ const HeaderContent: React.FC = () => {
                                                                     <li key={subItem.name || `mobile-item-${itemIndex}`}>
                                                                         <Link
                                                                             href={subItem.href}
-                                                                            className={`block text-gray-300 hover:text-white transition-colors duration-200 text-sm py-1 ${
+                                                                            className={`block text-white hover:text-white transition-colors duration-200 text-sm py-1 ${
                                                                                 isActiveRoute(subItem.href) ? 'text-white' : ''
                                                                             }`}
                                                                             onClick={toggleMobileMenu}
@@ -910,8 +915,8 @@ const HeaderContent: React.FC = () => {
                                         ) : (
                                             <Link
                                                 href={item.href}
-                                                className={`block text-white hover:text-gray-300 transition-colors duration-200 text-[1.5em] font-normal py-1 ${
-                                                    isActiveRoute(item.href) ? 'text-gray-300' : ''
+                                                className={`block text-white hover:text-white transition-colors duration-200 text-[1.5em] font-normal py-1 ${
+                                                    isActiveRoute(item.href) ? 'text-white' : ''
                                                 }`}
                                                 onClick={toggleMobileMenu}
                                             >

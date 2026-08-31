@@ -81,7 +81,10 @@
                         </td>
                         <td><small><%= new Date(o.created_at).toLocaleDateString('en-NG', {day:'numeric',month:'short',year:'numeric'}) %></small></td>
                         <td>
-                            <a href="/admin/store/orders/<%= o.id %>" class="btn btn-sm btn-soft-primary">View</a>
+                            <div class="d-flex gap-2 flex-wrap">
+                                <a href="/admin/store/orders/<%= o.id %>" class="btn btn-sm btn-soft-primary">View</a>
+                                <button type="button" class="btn btn-sm btn-soft-success" onclick="sendReceipt(<%= o.id %>)">Receipt</button>
+                            </div>
                         </td>
                     </tr>
                     <% }) %>
@@ -91,8 +94,26 @@
     </div>
 
 <%- contentFor('extra_javascript') %>
+<%- include('./partials/admin-api-helper') %>
 <script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
 <script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 <script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
-<script>$(function(){ $('#ordersTable').DataTable({ responsive:true, order:[[6,'desc']], columnDefs:[{orderable:false,targets:[7]}] }); });</script>
+<script>
+function sendReceipt(orderId) {
+    Swal.fire({
+        title: 'Send receipt?',
+        text: 'This will email the customer a copy of the order receipt.',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Send receipt'
+    }).then((res) => {
+        if (!res.isConfirmed) return;
+        window.AdminAPI.post('/store/orders/' + orderId + '/send-receipt', {}).then((d) => {
+            if (d.ok) Swal.fire('Sent!', 'Receipt email sent successfully.', 'success');
+            else Swal.fire('Error', d.message || d.error || 'Could not send receipt', 'error');
+        }).catch(() => Swal.fire('Error', 'Could not send receipt', 'error'));
+    });
+}
+$(function(){ $('#ordersTable').DataTable({ responsive:true, order:[[6,'desc']], columnDefs:[{orderable:false,targets:[7]}] }); });
+</script>

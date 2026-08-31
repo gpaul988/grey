@@ -105,8 +105,8 @@
                     <!-- Author Tab -->
                     <div class="tab-pane fade" id="tab-author">
                         <div class="row g-3">
-                            <div class="col-md-6"><label class="form-label fw-medium">Author name</label><input id="f_author" class="form-control" value="Graham Sobiribo Paul" placeholder="Full name"></div>
-                            <div class="col-md-6"><label class="form-label fw-medium">Author role / title</label><input id="f_author_role" class="form-control" placeholder="e.g. Head of Product, Graham Sobiribo Paul"></div>
+                            <div class="col-md-6"><label class="form-label fw-medium">Author name</label><input id="f_author" class="form-control" value="Grey InfoTech" placeholder="Full name"></div>
+                            <div class="col-md-6"><label class="form-label fw-medium">Author role / title</label><input id="f_author_role" class="form-control" placeholder="e.g. Head of Product, Grey InfoTech"></div>
                             <div class="col-12"><label class="form-label fw-medium">Author avatar URL</label><input id="f_author_avatar" class="form-control" placeholder="/assets/team/...">
                                 <div class="mt-2" id="avatarPreviewWrap" style="display:none">
                                     <img id="avatarPreview" src="" alt="Avatar preview" class="rounded-circle" width="48" height="48" style="object-fit:cover; border:2px solid #dee2e6;">
@@ -221,7 +221,7 @@
         F('f_id').value = d.id || '';
         F('mTitle').textContent = d.id ? 'Edit Post' : 'New Post';
         F('f_title').value = d.title || '';
-        F('f_author').value = d.author || 'Graham Sobiribo Paul';
+        F('f_author').value = d.author || 'Grey InfoTech';
         F('f_author_role').value = d.authorRole || d['author-role'] || '';
         F('f_author_avatar').value = d.authorAvatar || d['author-avatar'] || '';
         if (F('f_author_avatar').value) { F('avatarPreview').src = F('f_author_avatar').value; F('avatarPreviewWrap').style.display='block'; }

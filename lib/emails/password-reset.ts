@@ -51,7 +51,7 @@ export function generatePasswordResetEmail({
           </p>
           
           <div class="footer">
-            <p>© ${new Date().getFullYear()} Graham Sobiribo Paul. All rights reserved.</p>
+            <p>© ${new Date().getFullYear()} Grey InfoTech. All rights reserved.</p>
           </div>
         </div>
       </body>

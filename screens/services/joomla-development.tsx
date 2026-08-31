@@ -13,7 +13,7 @@ const JoomlaDevelopment = () => (
         introHeading={<>Joomla Built<br className="lg:block md:block hidden" />for the Long Haul</>}
         introBody={[
             <>Joomla powers millions of websites worldwide, and its flexibility makes it the platform of choice
-            for complex portals, multilingual sites and community platforms. At Graham Sobiribo Paul our Joomla
+            for complex portals, multilingual sites and community platforms. At Grey InfoTech our Joomla
             developers bring deep expertise across custom component development, template creation, migration
             and performance optimisation. Whether you are building a new Joomla site from scratch, extending
             an existing one, or migrating from an older version, we deliver solutions that are fast, secure
@@ -26,7 +26,7 @@ const JoomlaDevelopment = () => (
             configurations and regular update pipelines so your site stays protected.</>,
         ]}
         solutionsHeading={<>Joomla<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From custom components to full enterprise portals, Graham Sobiribo Paul delivers Joomla development that's clean, fast and built to last."
+        solutionsIntro="From custom components to full enterprise portals, Grey InfoTech delivers Joomla development that's clean, fast and built to last."
         solutions={[
             {
                 id: '01', title: 'Custom Component & Plugin Development', target: 'CC',
@@ -79,7 +79,7 @@ const JoomlaDevelopment = () => (
             },
         ]}
         ctaHeading={<>Joomla done<br className="lg:block md:block hidden" />properly</>}
-        ctaBody="Joomla rewards expertise. Graham Sobiribo Paul builds Joomla sites that perform, stay secure and empower your editors to manage content without developer help."
+        ctaBody="Joomla rewards expertise. Grey InfoTech builds Joomla sites that perform, stay secure and empower your editors to manage content without developer help."
         verticalSolutions={[
             {
                 id: 'vs1',

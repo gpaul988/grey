@@ -4,7 +4,7 @@
 
 COMMIT DETAILS:
   ID: d2c395e8
-  Author: grahamsobiribopaul <grahamsobiribopaul@users.noreply.github.com>
+  Author: Graham Sobiribo Paul <graham@grahamsobiribopaul.com.ng>
   Date: Wed Jun 17 13:38:14 2026
   Branch: main
   Status: ✅ Committed locally, ready to push

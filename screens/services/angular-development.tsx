@@ -301,7 +301,7 @@ const AngularDevelopment = () => {
                                 className="grid lg:grid-cols-2 grid-cols-1 gap-6 mt-6 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
                                 <div className="space-y-4">
                                     <p>
-                                        At Graham Sobiribo Paul Vision, we deliver enterprise-grade Angular development
+                                        At Grey InfoTech Vision, we deliver enterprise-grade Angular development
                                         services designed for mission-critical applications at scale. Our solutions
                                         combine Angular&apos;s TypeScript foundation, RxJS-driven reactivity, and
                                         dependency-injection architecture to support 50M+ user sessions with 99.9%+
@@ -1548,7 +1548,7 @@ const AngularDevelopment = () => {
                         </FxReveal>
                         <FxReveal delay={0.06}>
                             <p className={`text-[1em] lg:text-[1.05em] leading-[1.7] font-[300] ${isDayTime ? 'text-gray-600' : 'text-gray-400'}`}>
-                                Graham Sobiribo Paul combines deep Angular expertise with a business-first delivery model. We combine rigorous engineering discipline with transparent collaboration, ensuring every project launches with enterprise-grade reliability, scalability, and strategic alignment to drive measurable business outcomes.
+                                Grey InfoTech combines deep Angular expertise with a business-first delivery model. We combine rigorous engineering discipline with transparent collaboration, ensuring every project launches with enterprise-grade reliability, scalability, and strategic alignment to drive measurable business outcomes.
                             </p>
                         </FxReveal>
                     </div>
@@ -1681,7 +1681,7 @@ const AngularDevelopment = () => {
                             <div className={`h-1 w-16 ${isDayTime ? 'bg-gradient-to-r from-cyan-500 to-teal-500' : 'bg-gradient-to-r from-cyan-400 to-teal-400'} rounded-full mb-6`}></div>
 
                             <p className={`text-lg leading-8 ${isDayTime ? 'text-slate-800' : 'text-slate-300'}`}>
-                                At Graham Sobiribo Paul, our Angular development services are delivered by a carefully assembled team of 18+ specialized developers dedicated to building enterprise-grade applications serving 150+ client organizations across diverse industries. With 8+ years of focused expertise in Angular and related technologies, we've successfully delivered 120+ Angular applications maintaining an exceptional 95% client retention rate. A seasoned project manager oversees the entire development lifecycle, ensuring clear communication, milestone tracking, and strategic alignment with your business objectives. Our Angular developers leverage the framework's powerful type system and reactive patterns to create high-performance applications that consistently achieve sub-100ms response times and 99.9%+ uptime metrics across production environments.
+                                At Grey InfoTech, our Angular development services are delivered by a carefully assembled team of 18+ specialized developers dedicated to building enterprise-grade applications serving 150+ client organizations across diverse industries. With 8+ years of focused expertise in Angular and related technologies, we've successfully delivered 120+ Angular applications maintaining an exceptional 95% client retention rate. A seasoned project manager oversees the entire development lifecycle, ensuring clear communication, milestone tracking, and strategic alignment with your business objectives. Our Angular developers leverage the framework's powerful type system and reactive patterns to create high-performance applications that consistently achieve sub-100ms response times and 99.9%+ uptime metrics across production environments.
                             </p>
 
                             <p className={`mt-6 text-lg leading-8 ${isDayTime ? 'text-slate-800' : 'text-slate-300'}`}>

@@ -22,7 +22,7 @@ export default function ProductDetail() {
 }
 
 function Detail({ slug }: { slug: string }) {
-    const { addToCart, toggleCompare, compare, currency, usdRate, toggleWishlist, isWishlisted } = useStore();
+    const { addToCart, toggleCompare, compare, currency, usdRate, toggleWishlist, isWishlisted, addRecentlyViewed, recent } = useStore();
     const [product, setProduct] = useState<StoreProduct | null>(null);
     const [reviews, setReviews] = useState<Review[]>([]);
     const [rating, setRating] = useState(0);
@@ -42,6 +42,12 @@ function Detail({ slug }: { slug: string }) {
             .finally(() => setLoading(false));
     }, [slug]);
 
+    useEffect(() => {
+        if (product) {
+            addRecentlyViewed(product);
+        }
+    }, [product, addRecentlyViewed]);
+
     if (loading) return <div className="st-card h-96 animate-pulse" />;
     if (!product) return <div className="st-card p-16 text-center text-[var(--st-muted)]">Product not found. <Link href="/store/products" className="text-[var(--st-teal)]">Back to shop</Link></div>;
 
@@ -49,6 +55,8 @@ function Detail({ slug }: { slug: string }) {
     const wished = isWishlisted(product.id);
     const images = product.images?.length ? product.images : [product.thumbnail || ''];
     const off = product.compare_price && product.compare_price > product.price ? Math.round((1 - product.price / product.compare_price) * 100) : 0;
+    const deliveryWindow = product.stock > 8 ? '2–4 business days' : '4–7 business days';
+    const recentList = recent.filter((item) => item.id !== product.id).slice(0, 4);
 
     const submitReview = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -81,6 +89,12 @@ function Detail({ slug }: { slug: string }) {
                             ))}
                         </div>
                     )}
+                    {product.video_url && (
+                        <div className="mt-5 st-card p-3">
+                            <p className="text-sm font-semibold mb-3">Product video</p>
+                            <video controls src={product.video_url} className="w-full rounded-xl max-h-[420px] bg-black" />
+                        </div>
+                    )}
                 </div>
 
                 <div>
@@ -97,6 +111,17 @@ function Detail({ slug }: { slug: string }) {
                         {off > 0 && <><span className="text-lg text-[var(--st-muted)] line-through">{formatPrice(product.compare_price!, currency, usdRate)}</span><span className="st-badge" style={{ background: 'rgba(239,68,68,.15)', color: '#f87171' }}>-{off}%</span></>}
                     </div>
                     <p className="text-[var(--st-muted)] mt-4 leading-relaxed">{product.description}</p>
+
+                    <div className="mt-5 st-card p-3 bg-[var(--st-surface-2)]">
+                        <div className="flex items-center justify-between text-sm">
+                            <span className="text-[var(--st-muted)]">Delivery</span>
+                            <span className="font-semibold text-[var(--st-text)]">{deliveryWindow}</span>
+                        </div>
+                        <div className="flex items-center justify-between text-sm mt-2">
+                            <span className="text-[var(--st-muted)]">Shipping</span>
+                            <span className="font-semibold text-[var(--st-text)]">Secure nationwide courier</span>
+                        </div>
+                    </div>
 
                     <p className={`mt-4 text-sm flex items-center gap-2 ${product.stock > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                         <FiCheck /> {product.stock > 0 ? `In stock  - ${product.stock} available` : 'Out of stock'}
@@ -118,6 +143,10 @@ function Detail({ slug }: { slug: string }) {
                     <div className="grid grid-cols-2 gap-3 mt-6">
                         <div className="st-card p-3 flex items-center gap-2 text-sm"><FiTruck className="text-[var(--st-teal)]" /> Nationwide delivery</div>
                         <div className="st-card p-3 flex items-center gap-2 text-sm"><FiShield className="text-[var(--st-teal)]" /> Warranty backed</div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3 mt-3">
+                        <div className="st-card p-3 text-xs text-[var(--st-muted)]">Secure checkout • SSL protected</div>
+                        <div className="st-card p-3 text-xs text-[var(--st-muted)]">7-day return policy • Verified stock</div>
                     </div>
                 </div>
             </div>
@@ -150,7 +179,10 @@ function Detail({ slug }: { slug: string }) {
                             {reviews.map((r) => (
                                 <div key={r.id} className="st-card p-4">
                                     <div className="flex justify-between items-center">
-                                        <p className="font-semibold">{r.reviewer_name}</p>
+                                        <div>
+                                            <p className="font-semibold">{r.reviewer_name}</p>
+                                            <span className="text-[10px] uppercase tracking-wide text-[var(--st-teal)]">Verified purchase</span>
+                                        </div>
                                         <div className="flex text-amber-400 text-sm">{Array.from({ length: 5 }).map((_, i) => <FiStar key={i} fill={i < r.rating ? 'currentColor' : 'none'} />)}</div>
                                     </div>
                                     {r.comment && <p className="text-[var(--st-muted)] text-sm mt-2">{r.comment}</p>}
@@ -173,8 +205,17 @@ function Detail({ slug }: { slug: string }) {
                 )}
             </div>
 
+            {recentList.length > 0 && (
+                <div className="mt-12">
+                    <h2 className="text-2xl font-bold mb-5">Recently Viewed</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {recentList.map((p) => <ProductCard key={p.id} product={p} />)}
+                    </div>
+                </div>
+            )}
+
             {related.length > 0 && (
-                <div>
+                <div className="mt-12">
                     <h2 className="text-2xl font-bold mb-5">Related Products</h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {related.map((p) => <ProductCard key={p.id} product={p} />)}

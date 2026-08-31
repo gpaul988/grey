@@ -9,6 +9,7 @@ export interface StoreProduct {
     stock: number;
     images: string[];
     thumbnail: string | null;
+    video_url?: string | null;
     description: string | null;
     specs?: Record<string, string>;
     featured: number;

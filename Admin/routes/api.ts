@@ -17,7 +17,7 @@ import {
 } from '../models';
 import {slugify, str, toFloat, toInt, isEmail} from '../utils/helpers';
 import {adUpload, mediaUpload, publicUrl} from '../config/uploads';
-import {sendSetPasswordEmail, smtpConfigured, appOrigin} from '../utils/mailer';
+import {sendSetPasswordEmail, smtpConfigured, appOrigin, sendOrderReceiptEmail} from '../utils/mailer';
 import {ALL_KEYS, roleDefaults, type Role} from '../config/permissions';
 import {SiteSettings} from '../models/settings';
 import {broadcast, broadcastStats} from './sse';
@@ -111,6 +111,122 @@ const actor = (req: Request) => ({
 
 /* ---------------- Dashboard ---------------- */
 api.get('/stats', (_req, res) => ok(res, dashboardStats()));
+
+/* ---------------- Store dashboard actions ---------------- */
+api.post('/store/orders/:id/status', (req, res) => {
+    const id = toInt(req.params.id);
+    const order = Orders.find(id);
+    if (!order) return fail(res, 'Order not found', 404);
+    const status = String(req.body.status || order.status);
+    const paymentStatus = String(req.body.payment_status || order.payment_status);
+    Orders.updateStatus(id, status);
+    Orders.updatePayment(id, {
+        payment_status: paymentStatus,
+        payment_method: req.body.payment_method || order.payment_method,
+        payment_gateway: req.body.payment_gateway || order.payment_gateway,
+        payment_ref: req.body.payment_ref || order.payment_ref,
+        payment_data: typeof req.body.payment_data === 'object' ? req.body.payment_data : (order.payment_data ? JSON.parse(order.payment_data || '{}') : {}),
+    });
+    logActivity({ ...actor(req), action: 'update', entity: 'order', entity_id: id, detail: `status=${status}; payment=${paymentStatus}` });
+    ok(res, { ok: true, message: 'Order updated' }, 'Order updated successfully');
+});
+
+api.post('/store/orders/:id/confirm-payment', async (req, res) => {
+    const id = toInt(req.params.id);
+    const order = Orders.find(id);
+    if (!order) return fail(res, 'Order not found', 404);
+    if (order.payment_status === 'paid') {
+        return ok(res, { ok: true, alreadyPaid: true }, 'Payment already confirmed');
+    }
+    const gateway = String(req.body.gateway || order.payment_gateway || 'manual');
+    const reference = String(req.body.reference || order.payment_ref || `MANUAL-${order.order_number}`);
+    Orders.updatePayment(id, {
+        payment_status: 'paid',
+        payment_method: order.payment_method || 'bank_transfer',
+        payment_gateway: gateway,
+        payment_ref: reference,
+        payment_data: { confirmed_by: req.session.user?.name || 'admin', confirmed_at: new Date().toISOString() },
+    });
+    Orders.updateStatus(id, 'confirmed');
+    if (order.coupon_code) {
+        try { Coupons.incrementUsage(order.coupon_code); } catch { /* noop */ }
+    }
+
+    const customer = order.customer_id ? Customers.find(order.customer_id) : null;
+    const customerEmail = customer?.email || order.guest_email || '';
+    const customerName = customer ? `${customer.first_name} ${customer.last_name}`.trim() : (order.guest_name || 'Customer');
+    if (customerEmail) {
+        const items = Orders.itemsFor(id).map((item) => ({
+            name: item.product_name,
+            quantity: item.quantity,
+            unitPrice: item.unit_price,
+            total: item.total_price,
+        }));
+        await sendOrderReceiptEmail({
+            to: customerEmail,
+            name: customerName,
+            orderNumber: order.order_number,
+            orderDate: new Date(order.created_at).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric' }),
+            items,
+            subtotal: order.subtotal,
+            shippingFee: order.shipping_fee,
+            discount: order.discount,
+            total: order.total,
+            paymentMethod: order.payment_method || 'bank_transfer',
+            paymentRef: reference,
+        });
+    }
+
+    logActivity({ ...actor(req), action: 'update', entity: 'order', entity_id: id, detail: `payment confirmed via ${gateway}` });
+    ok(res, { ok: true }, 'Payment confirmed and receipt sent');
+});
+
+api.post('/store/orders/:id/notes', (req, res) => {
+    const id = toInt(req.params.id);
+    const order = Orders.find(id);
+    if (!order) return fail(res, 'Order not found', 404);
+    const notes = String(req.body.notes ?? order.staff_notes ?? '');
+    Orders.updateStaffNotes(id, notes);
+    ok(res, { ok: true }, 'Notes saved');
+});
+
+api.post('/store/orders/:id/send-receipt', async (req, res) => {
+    const id = toInt(req.params.id);
+    const order = Orders.find(id);
+    if (!order) return fail(res, 'Order not found', 404);
+
+    const customer = order.customer_id ? Customers.find(order.customer_id) : null;
+    const customerEmail = customer?.email || order.guest_email || '';
+    const customerName = customer ? `${customer.first_name} ${customer.last_name}`.trim() : (order.guest_name || 'Customer');
+
+    if (!customerEmail) return fail(res, 'No customer email available for this order', 400);
+
+    const items = Orders.itemsFor(id).map((item) => ({
+        name: item.product_name,
+        quantity: item.quantity,
+        unitPrice: item.unit_price,
+        total: item.total_price,
+    }));
+
+    const sent = await sendOrderReceiptEmail({
+        to: customerEmail,
+        name: customerName,
+        orderNumber: order.order_number,
+        orderDate: new Date(order.created_at).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric' }),
+        items,
+        subtotal: order.subtotal,
+        shippingFee: order.shipping_fee,
+        discount: order.discount,
+        total: order.total,
+        paymentMethod: order.payment_method || 'manual',
+        paymentRef: order.payment_ref || 'manual-confirmation',
+    });
+
+    if (!sent) return fail(res, 'Receipt email could not be sent. Check SMTP configuration.', 500);
+
+    logActivity({ ...actor(req), action: 'send', entity: 'order_receipt', entity_id: id, detail: `Receipt sent to ${customerEmail}` });
+    ok(res, { ok: true }, 'Receipt email sent successfully');
+});
 
 /* ---------------- Submissions ---------------- */
 api.get('/submissions', (req, res) => {

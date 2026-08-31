@@ -18,7 +18,7 @@ const Education = () => (
         introBody={[
             <>
                 Education is being reinvented by technology, and learners now expect engaging, personalised,
-                always-available experiences. Graham Sobiribo Paul builds the platforms that deliver them. We develop
+                always-available experiences. Grey InfoTech builds the platforms that deliver them. We develop
                 learning management systems, e-learning apps, virtual classrooms and school management software
                 that make teaching and learning more effective -interactive content, assessments, progress
                 tracking, live and recorded classes, and analytics that show educators exactly how their
@@ -40,7 +40,7 @@ const Education = () => (
         solutionsHeading={<>Education <br className={'lg:block md:block hidden'}/>Software <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From LMS platforms and virtual classrooms to school management and e-learning apps, Graham Sobiribo Paul
+                From LMS platforms and virtual classrooms to school management and e-learning apps, Grey InfoTech
                 builds EdTech that works. Based in Nigeria and serving clients globally, we engineer engaging,
                 accessible and scalable learning experiences.
             </>
@@ -112,11 +112,11 @@ const Education = () => (
             },
         ]}
         ctaHeading={<>Build the future <br className={'lg:block md:block hidden'}/>of learning</>}
-        ctaBody={<>From LMS platforms and virtual classrooms to school management systems, Graham Sobiribo Paul builds
+        ctaBody={<>From LMS platforms and virtual classrooms to school management systems, Grey InfoTech builds
             EdTech that engages learners and empowers educators. Let&apos;s create a learning experience that
             delivers real outcomes.</>}
         testimonials={[
-            {name: 'Funmi Adebayo', title: 'Founder, LearnBridge', message: <>Graham Sobiribo Paul built our LMS and mobile app, and engagement soared. Course completion rates are the best we&apos;ve ever seen. They clearly understand learners.</>},
+            {name: 'Funmi Adebayo', title: 'Founder, LearnBridge', message: <>Grey InfoTech built our LMS and mobile app, and engagement soared. Course completion rates are the best we&apos;ve ever seen. They clearly understand learners.</>},
             {name: 'Joseph Mwangi', title: 'IT Director, Summit Academy', message: <>Their school management system transformed our admin -enrolment, grading and parent portals all in one place. It even held up flawlessly through exam season.</>},
             {name: 'Aisha Garba', title: 'CEO, SkillUp Africa', message: <>The virtual classroom platform they built feels alive -live video, whiteboards, recordings. Our trainers and students love it, and it scales beautifully.</>},
         ]}

@@ -20,7 +20,7 @@ const SocialNetworking = () => (
         introBody={[
             <>
                 A great social network lives or dies on engagement and trust -and both depend on engineering done
-                right. Graham Sobiribo Paul builds social and community platforms end to end: real-time feeds, messaging,
+                right. Grey InfoTech builds social and community platforms end to end: real-time feeds, messaging,
                 profiles, content sharing, notifications and discovery, all wrapped in interfaces that feel fast
                 and effortless. We design the data models, APIs and real-time infrastructure that let
                 conversations flow instantly, and we architect from the start for the scale every social product
@@ -41,7 +41,7 @@ const SocialNetworking = () => (
             className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From real-time feeds and messaging to moderation and scale, Graham Sobiribo Paul delivers the full social
+                From real-time feeds and messaging to moderation and scale, Grey InfoTech delivers the full social
                 platform stack. Based in Nigeria and working globally, we build community products that are fast,
                 safe and engaging -engineered to grow from launch to millions of users.
             </>
@@ -113,7 +113,7 @@ const SocialNetworking = () => (
             },
         ]}
         ctaHeading={<>Launch a community <br className={'lg:block md:block hidden'}/>that thrives</>}
-        ctaBody={<>From real-time feeds and chat to moderation and scale, Graham Sobiribo Paul builds social platforms
+        ctaBody={<>From real-time feeds and chat to moderation and scale, Grey InfoTech builds social platforms
             engineered to engage and grow. Let&apos;s build a community your users love -and that&apos;s ready for the
             day it takes off.</>}
         stats={[
@@ -127,7 +127,7 @@ const SocialNetworking = () => (
             {
                 name: 'Kemi Adewale',
                 title: 'Founder, NaijaConnect',
-                message: <>Graham Sobiribo Paul built our social platform from scratch -feeds, chat, moderation, the lot. It
+                message: <>Grey InfoTech built our social platform from scratch -feeds, chat, moderation, the lot. It
                     scaled effortlessly when we went viral, and the safety tooling kept our community healthy.</>
             },
             {

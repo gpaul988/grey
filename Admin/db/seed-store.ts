@@ -4,8 +4,8 @@ import { Products, ProductCategories, ProductBrands, StoreSettings, Coupons, Pro
 const img = (id: string) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=800&q=70`;
 
 export function seedStore(): void {
-  // ── Categories ───────────────────────────────────────────────────────────
-  const cats: Record<string, number> = {};
+  try {
+  // Prevent repeated seeding from creating duplicated catalog entries.
   const catData: { key: string; name: string; icon: string; desc: string }[] = [
     { key: 'laptops', name: 'Laptops', icon: 'solar:laptop-bold-duotone', desc: 'Business, gaming & ultrabook laptops' },
     { key: 'desktops', name: 'Desktops', icon: 'solar:monitor-bold-duotone', desc: 'Workstations, all-in-ones & gaming rigs' },
@@ -16,17 +16,56 @@ export function seedStore(): void {
     { key: 'computer-accessories', name: 'Computer Accessories', icon: 'solar:keyboard-bold-duotone', desc: 'Keyboards, mice, monitors & storage' },
     { key: 'mobile-accessories', name: 'Mobile Accessories', icon: 'solar:headphones-round-bold-duotone', desc: 'Chargers, cases, earbuds & power banks' },
   ];
+
+  const existingCategories = new Map(ProductCategories.all().map((c) => [c.slug, c]));
+  const existingBrands = new Map(ProductBrands.all().map((b) => [b.slug, b]));
+  const currentProducts = Products.all();
+  const couponSeeds: Array<{
+    code: string;
+    type: 'percent' | 'fixed';
+    value: number;
+    min_subtotal: number;
+    max_discount?: number | null;
+    usage_limit?: number | null;
+    status: 'active' | 'inactive';
+  }> = [
+    { code: 'WELCOME10', type: 'percent', value: 10, min_subtotal: 50000, max_discount: 100000, status: 'active' },
+    { code: 'GREY5000', type: 'fixed', value: 5000, min_subtotal: 100000, status: 'active' },
+    { code: 'TECHWEEK', type: 'percent', value: 15, min_subtotal: 200000, max_discount: 150000, usage_limit: 100, status: 'active' },
+  ];
+
+  const couponsReady = couponSeeds.every((coupon) => !!Coupons.findByCode(coupon.code));
+  const needsSeeding = currentProducts.length < 20 || existingCategories.size < catData.length || existingBrands.size < 18 || !couponsReady;
+  if (!needsSeeding) {
+    return;
+  }
+
+  // ── Categories ───────────────────────────────────────────────────────────
+  const cats: Record<string, number> = {};
   for (const c of catData) {
+    const existing = existingCategories.get(c.key) ?? ProductCategories.findBySlug(c.key);
+    if (existing) {
+      cats[c.key] = existing.id;
+      continue;
+    }
     const created = ProductCategories.create({ name: c.name, icon: c.icon, description: c.desc });
     cats[c.key] = created.id;
+    existingCategories.set(created.slug, created);
   }
 
   // ── Brands ───────────────────────────────────────────────────────────────
   const brands: Record<string, number> = {};
   const brandNames = ['Apple', 'Dell', 'HP', 'Lenovo', 'ASUS', 'Samsung', 'Acer', 'MSI', 'Microsoft', 'Google', 'Xiaomi', 'TECNO', 'Anker', 'Logitech', 'TP-Link', 'Cisco', 'Generic'];
   for (const b of brandNames) {
+    const slug = b.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const existing = existingBrands.get(slug) ?? ProductBrands.findBySlug(slug);
+    if (existing) {
+      brands[b] = existing.id;
+      continue;
+    }
     const created = ProductBrands.create({ name: b });
     brands[b] = created.id;
+    existingBrands.set(created.slug, created);
   }
 
   // ── Products ─────────────────────────────────────────────────────────────
@@ -85,8 +124,12 @@ export function seedStore(): void {
     { name: 'Apple AirPods Pro (2nd Gen)', cat: 'mobile-accessories', brand: 'Apple', price: 280000, price_usd: 249, compare: 310000, stock: 35, featured: true, img: img('1600294037681-c80b4cb5b434'), sku: 'AIRPODS-PRO-2', desc: 'Next-level Active Noise Cancellation with Adaptive Audio.', specs: { Chip: 'H2', ANC: 'Adaptive', Battery: '6 hrs (30 w/ case)', Case: 'USB-C MagSafe' } },
   ];
 
+  const existingProducts = Products.all();
+  const existingProductNames = new Set(existingProducts.map((p) => p.name.toLowerCase()));
+  const existingProductSkus = new Set(existingProducts.map((p) => p.sku?.toLowerCase() ?? '').filter(Boolean));
   const createdIds: { id: number; name: string }[] = [];
   for (const p of products) {
+    if (existingProductNames.has(p.name.toLowerCase()) || existingProductSkus.has((p.sku || '').toLowerCase())) continue;
     const created = Products.create({
       name: p.name,
       category_id: cats[p.cat],
@@ -105,6 +148,8 @@ export function seedStore(): void {
       sku: p.sku,
     });
     createdIds.push({ id: created.id, name: created.name });
+    existingProductNames.add(created.name.toLowerCase());
+    if (created.sku) existingProductSkus.add(created.sku.toLowerCase());
   }
 
   // ── Sample approved reviews ─────────────────────────────────────────────
@@ -123,9 +168,18 @@ export function seedStore(): void {
   (ProductReviews.all('pending') as { id: number }[]).forEach((r) => ProductReviews.approve(r.id));
 
   // ── Coupons ──────────────────────────────────────────────────────────────
-  Coupons.create({ code: 'WELCOME10', type: 'percent', value: 10, min_subtotal: 50000, max_discount: 100000, status: 'active' });
-  Coupons.create({ code: 'GREY5000', type: 'fixed', value: 5000, min_subtotal: 100000, status: 'active' });
-  Coupons.create({ code: 'TECHWEEK', type: 'percent', value: 15, min_subtotal: 200000, max_discount: 150000, usage_limit: 100, status: 'active' });
+  for (const coupon of couponSeeds) {
+    if (Coupons.findByCode(coupon.code)) continue;
+    Coupons.create({
+      code: coupon.code,
+      type: coupon.type,
+      value: coupon.value,
+      min_subtotal: coupon.min_subtotal,
+      max_discount: coupon.max_discount ?? null,
+      usage_limit: coupon.usage_limit ?? null,
+      status: coupon.status,
+    });
+  }
 
   // ── Store settings: USD + bank transfer defaults ──────────────────────────
   StoreSettings.setMany({
@@ -135,8 +189,12 @@ export function seedStore(): void {
     'payment.bank_transfer.enabled': '1',
     'payment.bank_transfer.bank_name': 'Zenith Bank',
     'payment.bank_transfer.account_number': '1234567890',
-    'payment.bank_transfer.account_name': 'Graham Sobiribo Paul Ltd',
+    'payment.bank_transfer.account_name': 'Grey InfoTech Ltd',
   });
 
   console.log(`Store seeded: ${products.length} products, ${catData.length} categories, ${brandNames.length} brands, 3 coupons.`);
+  } catch (err) {
+    console.error('[seedStore] Unhandled error', err && (err as any).stack ? (err as any).stack : err);
+    throw err;
+  }
 }

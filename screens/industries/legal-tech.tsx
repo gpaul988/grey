@@ -14,7 +14,7 @@ const LegalTechIndustry = () => (
         introBody={[
             <>The legal profession is at an inflection point. Clients expect faster responses, transparent
             billing and digital access to their matters. Firms that embrace technology win clients and
-            run more profitably. At Graham Sobiribo Paul we build legal technology platforms -practice management
+            run more profitably. At Grey InfoTech we build legal technology platforms -practice management
             systems, contract lifecycle management, legal research tools, document automation and client
             portals -that give law firms and legal departments the productivity gains they need to compete
             in a changing market.</>,
@@ -26,7 +26,7 @@ const LegalTechIndustry = () => (
             practice.</>,
         ]}
         solutionsHeading={<>LegalTech<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From practice management to contract automation and AI legal research, Graham Sobiribo Paul builds technology that makes legal professionals more productive and clients better served."
+        solutionsIntro="From practice management to contract automation and AI legal research, Grey InfoTech builds technology that makes legal professionals more productive and clients better served."
         solutions={[
             {
                 id: '01', title: 'Practice Management Systems', target: 'PM',
@@ -81,7 +81,7 @@ const LegalTechIndustry = () => (
             },
         ]}
         ctaHeading={<>Legal work,<br className="lg:block md:block hidden" />done smarter</>}
-        ctaBody="The firms that invest in technology today will define the legal market tomorrow. Graham Sobiribo Paul builds legal technology that multiplies what your lawyers can accomplish."/>
+        ctaBody="The firms that invest in technology today will define the legal market tomorrow. Grey InfoTech builds legal technology that multiplies what your lawyers can accomplish."/>
 );
 
 export default LegalTechIndustry;

@@ -28,7 +28,9 @@
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:debug": "playwright test --debug",
-    "bootstrap:db": "node scripts/bootstrap-db.js"
+    "bootstrap:db": "node scripts/bootstrap-db.js",
+    "smoke:flashsale": "node scripts/ci/smoke-flashsale.js",
+    "test:flashsale-api": "node scripts/test/flashsale-api.js"
   },
   "engines": {
     "node": "20.x",
@@ -55,7 +57,7 @@
     "@vitest/ui": "^4.1.9",
     "babel-plugin-react-compiler": "1.0.0",
     "bcryptjs": "^3.0.3",
-    "better-sqlite3": "12.9.0",
+    "better-sqlite3": "^12.9.0",
     "better-sqlite3-session-store": "^0.1.0",
     "connect-redis": "^9.0.0",
     "cookie-parser": "^1.4.7",

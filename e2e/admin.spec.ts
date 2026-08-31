@@ -2,35 +2,51 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Admin Dashboard E2E', () => {
   test('Admin login flow', async ({ page }) => {
+    // Use env vars when available (CI/runner can supply these)
+    const adminEmail = process.env.ADMIN_EMAIL || 'hello@greyinfotech.com.ng';
+    const adminPassword = process.env.ADMIN_PASSWORD || '1Uriel2Graham3';
+
     // Navigate to admin login
     await page.goto('/admin/login');
     
     // Check login form exists
+    await expect(page.locator('input[name="email"]')).toBeVisible();
     await expect(page.locator('input[name="password"]')).toBeVisible();
     
-    // Enter password
-    await page.locator('input[name="password"]').fill('test-admin-password');
+    // Enter credentials
+    await page.locator('input[name="email"]').fill(adminEmail);
+    await page.locator('input[name="password"]').fill(adminPassword);
     
     // Submit form - use more specific selector (main content area)
     await page.locator('main button[type="submit"], [role="main"] button[type="submit"]').first().click();
     
-    // Should redirect to dashboard (or show error if invalid)
-    await page.waitForTimeout(500);
+    // Should redirect to dashboard (or back to login on failure)
+    await page.waitForLoadState('networkidle');
     const url = page.url();
-    expect(['http://localhost:3000/admin', 'http://localhost:3000/admin/login']).toContain(url);
+    expect(url).toMatch(/\/admin(\/|$)/);
   });
 
+  async function programmaticLogin(page) {
+    const adminEmail = process.env.ADMIN_EMAIL || 'hello@greyinfotech.com.ng';
+    const adminPassword = process.env.ADMIN_PASSWORD || '1Uriel2Graham3';
+    // Perform a fetch in browser context to let the server set the session cookie
+    await page.goto('/admin/login');
+    await page.evaluate(async (creds) => {
+      const { email, password } = creds;
+      const body = new URLSearchParams();
+      body.set('email', email);
+      body.set('password', password);
+      await fetch('/admin/login', { method: 'POST', body: body.toString(), headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, credentials: 'include' });
+    }, { email: adminEmail, password: adminPassword });
+  }
+
   test('Dashboard layout loads', async ({ page }) => {
-    // Set token BEFORE navigating (prevents auth redirect race condition)
-    await page.addInitScript(() => {
-      localStorage.setItem('admin-token', 'test-token-123');
-    });
-    
+    await programmaticLogin(page);
     await page.goto('/admin');
-    
+
     // Check header exists
     await expect(page.locator('h1:has-text("Admin Dashboard")')).toBeVisible({ timeout: 5000 });
-    
+
     // Check metric cards exist - use main content area selector
     await expect(page.locator('[id="main-content"] text=Total Users, main text=Total Users').first()).toBeVisible();
     await expect(page.locator('[id="main-content"] text=Total Revenue, main text=Total Revenue').first()).toBeVisible();

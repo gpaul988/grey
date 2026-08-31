@@ -13,7 +13,7 @@ const WordPressDevelopment = () => (
         introHeading={<>WordPress That<br className="lg:block md:block hidden" />Works Seriously Hard</>}
         introBody={[
             <>WordPress powers 40% of the web, but most WordPress sites are held back by bloated themes, poorly
-            written plugins and performance that degrades under real traffic. At Graham Sobiribo Paul we build custom
+            written plugins and performance that degrades under real traffic. At Grey InfoTech we build custom
             WordPress solutions from the ground up -clean custom themes, purpose-built plugins, performant
             hosting configurations and headless architectures that use WordPress as a content API for modern
             frontends. Our WordPress is lean, fast and built to last.</>,
@@ -25,7 +25,7 @@ const WordPressDevelopment = () => (
             team is fully self-sufficient from day one.</>,
         ]}
         solutionsHeading={<>WordPress<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From custom themes and plugins to headless WordPress and WooCommerce -Graham Sobiribo Paul builds WordPress experiences that perform and empower your editors."
+        solutionsIntro="From custom themes and plugins to headless WordPress and WooCommerce -Grey InfoTech builds WordPress experiences that perform and empower your editors."
         solutions={[
             {
                 id: '01', title: 'Custom Theme Development', target: 'CT',
@@ -83,7 +83,7 @@ const WordPressDevelopment = () => (
             },
         ]}
         ctaHeading={<>WordPress that<br className="lg:block md:block hidden" />won&apos;t let you down</>}
-        ctaBody="Properly built WordPress is fast, secure and a joy to manage. Graham Sobiribo Paul builds WordPress sites that your editors love and your users never notice -because they just work."
+        ctaBody="Properly built WordPress is fast, secure and a joy to manage. Grey InfoTech builds WordPress sites that your editors love and your users never notice -because they just work."
         verticalSolutions={[
             {
                 id: 'vs1',

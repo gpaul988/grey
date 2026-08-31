@@ -37,8 +37,8 @@ export async function generateTwoFactorSecret(
   email: string
 ): Promise<TwoFactorSetup> {
   const secret = speakeasy.generateSecret({
-    name: `Graham Sobiribo Paul (${email})`,
-    issuer: 'Graham Sobiribo Paul',
+    name: `Grey InfoTech (${email})`,
+    issuer: 'Grey InfoTech',
     length: 32,
   });
 

@@ -1,4 +1,5 @@
-import { StoreSettings, Orders, Coupons } from '../Admin/models';
+import { StoreSettings, Orders, Coupons, Customers } from '../Admin/models';
+import { sendOrderReceiptEmail } from '../Admin/utils/mailer';
 
 // Re-export payment configuration
 export { getPaymentConfig, type PaymentConfig, type PaymentGateway } from './payments/config';
@@ -26,6 +27,32 @@ export function markOrderPaid(orderNumber: string, gateway: string, reference: s
     Orders.updateStatus(order.id, 'confirmed');
     if (order.coupon_code) {
         try { Coupons.incrementUsage(order.coupon_code); } catch { /* noop */ }
+    }
+
+    const customer = order.customer_id ? Customers.find(order.customer_id) : null;
+    const customerEmail = customer?.email || order.guest_email || '';
+    const customerName = customer ? `${customer.first_name} ${customer.last_name}`.trim() : (order.guest_name || 'Customer');
+    const receiptItems = Orders.itemsFor(order.id).map((item) => ({
+        name: item.product_name,
+        quantity: item.quantity,
+        unitPrice: item.unit_price,
+        total: item.total_price,
+    }));
+
+    if (customerEmail) {
+        void sendOrderReceiptEmail({
+            to: customerEmail,
+            name: customerName,
+            orderNumber: order.order_number,
+            orderDate: new Date(order.created_at).toLocaleDateString('en-NG', {day: 'numeric', month: 'short', year: 'numeric'}),
+            items: receiptItems,
+            subtotal: order.subtotal,
+            shippingFee: order.shipping_fee,
+            discount: order.discount,
+            total: order.total,
+            paymentMethod: order.payment_method || gateway,
+            paymentRef: reference,
+        });
     }
 }
 

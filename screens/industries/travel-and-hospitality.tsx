@@ -19,7 +19,7 @@ const TravelAndHospitality = () => (
         introBody={[
             <>
                 Travel and hospitality are, above all, about experience -and great software is what makes that
-                experience feel effortless. At Graham Sobiribo Paul we build booking and reservation platforms, hotel
+                experience feel effortless. At Grey InfoTech we build booking and reservation platforms, hotel
                 and property management systems, and guest-facing apps that delight travellers while
                 streamlining the operations behind the scenes. From the first search and booking through to
                 check-in, in-stay services and post-stay loyalty, we help operators deliver the kind of journeys
@@ -42,7 +42,7 @@ const TravelAndHospitality = () => (
         solutionsHeading={<>Our Travel & <br className={'lg:block md:block hidden'}/>Hospitality <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From booking platforms and property management to guest apps and OTA integrations, Graham Sobiribo Paul delivers a complete travel and hospitality technology capability. Based in Nigeria and
+                From booking platforms and property management to guest apps and OTA integrations, Grey InfoTech delivers a complete travel and hospitality technology capability. Based in Nigeria and
                 serving clients worldwide, we build secure, scalable, real-time systems that turn seamless
                 digital experiences into higher occupancy, smoother operations and loyal, returning guests.
             </>
@@ -123,7 +123,7 @@ const TravelAndHospitality = () => (
             },
         ]}
         ctaHeading={<>Build journeys <br className={'lg:block md:block hidden'}/>guests remember</>}
-        ctaBody={<>From booking platforms and property management to guest apps and OTA integrations, Graham Sobiribo Paul turns travel and hospitality ambition into reliable, scalable technology. Let&apos;s map
+        ctaBody={<>From booking platforms and property management to guest apps and OTA integrations, Grey InfoTech turns travel and hospitality ambition into reliable, scalable technology. Let&apos;s map
             your guest journey and build software that fills rooms and earns loyalty.</>}
         stats={[
             {label: 'Years Experience', value: 8, suffix: '+'},
@@ -133,7 +133,7 @@ const TravelAndHospitality = () => (
             {label: 'Client Satisfaction', value: 98, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Amara Okeke', title: 'GM, Lagos Bay Hotels', message: <>Graham Sobiribo Paul built our booking platform and PMS. Operations are smoother, double-bookings are gone, and our guests love the mobile check-in. Our occupancy is up and the front desk finally has time to focus on guests.</>},
+            {name: 'Amara Okeke', title: 'GM, Lagos Bay Hotels', message: <>Grey InfoTech built our booking platform and PMS. Operations are smoother, double-bookings are gone, and our guests love the mobile check-in. Our occupancy is up and the front desk finally has time to focus on guests.</>},
             {name: 'Thabo Nkosi', title: 'Founder, SafariStay', message: <>Their OTA integrations keep our availability perfectly synced everywhere. Bookings went up and our team spends far less time on manual updates. The analytics dashboard changed how we price entirely.</>},
             {name: 'Chioma Adeyemi', title: 'Operations Director, Coastline Tours', message: <>The tour platform they built handles our multi-day itineraries, capacity and vouchers flawlessly. What used to be spreadsheets and chaos is now one clean system the whole team trusts.</>},
         ]}

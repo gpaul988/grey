@@ -101,7 +101,7 @@ export default function AuditScreen() {
                                    placeholder="example.com or /path or https://example.com"/>
                             <button onClick={() => runSeo()} disabled={loadingSeo}
                                     className="rounded-xl px-4 py-2 font-semibold" style={{
-                                background: 'linear-gradient(135deg,#06b6d4,#6366f1)',
+                                background: 'linear-gradient(135deg, rgba(var(--page-accent-rgb), 1), rgba(var(--page-accent-rgb), 0.8))',
                                 color: 'white'
                             }}>{loadingSeo ? 'Running…' : 'Run SEO'}</button>
                         </div>
@@ -364,11 +364,11 @@ export default function AuditScreen() {
                         type="submit"
                         disabled={loading}
                         className="relative mt-6 inline-flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-xl px-6 py-4 text-sm font-bold text-white transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
-                        style={{background: 'linear-gradient(135deg, #06b6d4, #6366f1)'}}
+                        style={{background: 'linear-gradient(135deg, rgba(var(--page-accent-rgb), 1), rgba(var(--page-accent-rgb), 0.72))'}}
                     >
             <span
                 className="pointer-events-none absolute inset-0 opacity-0 transition-opacity hover:opacity-100"
-                style={{background: 'linear-gradient(135deg, #06b6d4aa, #6366f1aa)'}}
+                style={{background: 'linear-gradient(135deg, rgba(var(--page-accent-rgb), 0.75), rgba(var(--page-accent-rgb), 0.45))'}}
             />
                         {loading ? (
                             <>
@@ -472,7 +472,7 @@ function ShareModal({isOpen, onClose, report}: { isOpen: boolean; onClose: () =>
         {
             label: 'Twitter / X',
             icon: ' - ',
-            href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out this site audit by Graham Sobiribo Paul  - Score: ${report.grade} (${report.overallScore}/100)`)}&url=${encodeURIComponent(shareUrl)}`,
+            href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out this site audit by Grey InfoTech  - Score: ${report.grade} (${report.overallScore}/100)`)}&url=${encodeURIComponent(shareUrl)}`,
         },
         {
             label: 'LinkedIn',
@@ -544,7 +544,7 @@ function ShareModal({isOpen, onClose, report}: { isOpen: boolean; onClose: () =>
                         onClick={handleCopy}
                         className="flex-shrink-0 rounded-lg px-4 py-2.5 text-sm font-semibold transition"
                         style={{
-                            background: copied ? '#36e0a0' : 'linear-gradient(135deg, #06b6d4, #6366f1)',
+                            background: copied ? 'var(--brand-color)' : 'linear-gradient(135deg, rgba(var(--page-accent-rgb), 1), rgba(var(--page-accent-rgb), 0.8))',
                             color: 'white',
                         }}
                     >
@@ -778,8 +778,8 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
 
                 <button
                     onClick={onRequestFix}
-                    className="ml-auto inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold text-white shadow-lg transition hover:brightness-110 hover:shadow-[0_0_30px_-6px_rgba(34,211,238,.5)]"
-                    style={{background: 'linear-gradient(135deg, #06b6d4, #6366f1)'}}
+                    className="ml-auto inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold text-white shadow-lg transition hover:brightness-110 hover:shadow-[0_0_30px_-6px_rgba(var(--page-accent-rgb),0.45)]"
+                    style={{background: 'linear-gradient(135deg, rgba(var(--page-accent-rgb), 1), rgba(var(--page-accent-rgb), 0.72))'}}
                 >
                     ⚡ Request Fix
                 </button>
@@ -787,9 +787,9 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
 
             {/*  -  -  Support CTA  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
             <div
-                className="mt-12 overflow-hidden rounded-2xl border border-cyan-400/30 bg-gradient-to-br from-cyan-500/8 via-indigo-500/5 to-transparent p-8 text-center">
+                className="mt-12 overflow-hidden rounded-2xl border border-teal-400/30 bg-gradient-to-br from-teal-500/8 via-teal-500/5 to-transparent p-8 text-center">
                 <div
-                    className="mb-2 inline-block rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-cyan-400">
+                className="mb-2 inline-block rounded-full border border-teal-400/20 bg-teal-500/5 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-teal-400">
                     Expert Remediation
                 </div>
                 <h3 className="mt-2 text-2xl font-bold text-white">Need Help Fixing These Issues?</h3>
@@ -814,10 +814,10 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
                             href={c.href}
                             target={c.href.startsWith('http') ? '_blank' : undefined}
                             rel="noopener noreferrer"
-                            className="group rounded-xl border border-white/10 bg-white/5 p-4 text-center transition hover:border-cyan-400/30 hover:bg-white/10"
+                            className="group rounded-xl border border-white/10 bg-white/5 p-4 text-center transition hover:border-teal-400/30 hover:bg-white/10"
                         >
-                            <p className="text-sm font-semibold text-cyan-300">{c.icon} {c.label}</p>
-                            <p className="mt-1 text-sm text-white group-hover:text-cyan-200 transition">{c.value}</p>
+                            <p className="text-sm font-semibold text-teal-300">{c.icon} {c.label}</p>
+                            <p className="mt-1 text-sm text-white group-hover:text-teal-200 transition">{c.value}</p>
                         </a>
                     ))}
                 </div>
@@ -825,14 +825,14 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
                 <button
                     onClick={onRequestFix}
                     className="mt-7 inline-flex items-center gap-2 rounded-xl px-8 py-3.5 text-sm font-bold text-white transition hover:brightness-110"
-                    style={{background: 'linear-gradient(135deg, #06b6d4, #6366f1)'}}
+                    style={{background: 'linear-gradient(135deg, rgba(var(--page-accent-rgb), 1), rgba(var(--page-accent-rgb), 0.72))'}}
                 >
                     ⚡ Request Fix Now
                 </button>
             </div>
 
             <p className="mt-8 text-center text-xs text-slate-600">
-                Generated {new Date(report.generatedAt).toLocaleString()} · Graham Sobiribo Paul Audit Engine
+                Generated {new Date(report.generatedAt).toLocaleString()} · Grey InfoTech Audit Engine
                 {report.externalId ? ` · Report #${report.externalId}` : ''}
             </p>
 
@@ -962,7 +962,7 @@ function buildPrintHTML(report: AuditReportExtended): string {
         )
         .join('');
 
-    return `<!DOCTYPE html><html><head><title>Audit Report  - Graham Sobiribo Paul</title>
+    return `<!DOCTYPE html><html><head><title>Audit Report  - Grey InfoTech</title>
   <style>body{font-family:system-ui,sans-serif;max-width:900px;margin:0 auto;padding:40px 24px;color:#1e293b}h1{font-size:28px;font-weight:900;margin-bottom:4px}@media print{button{display:none}}</style>
   </head><body>
   <h1>Audit Report</h1>
@@ -973,6 +973,6 @@ function buildPrintHTML(report: AuditReportExtended): string {
   </p>
   <p style="margin-bottom:32px;color:#475569;font-size:14px">${report.summary}</p>
   ${sections}
-  <p style="color:#94a3b8;font-size:11px;margin-top:40px;border-top:1px solid #e2e8f0;padding-top:16px">Generated ${new Date(report.generatedAt).toLocaleString()} · Graham Sobiribo Paul Audit Engine</p>
+  <p style="color:#94a3b8;font-size:11px;margin-top:40px;border-top:1px solid #e2e8f0;padding-top:16px">Generated ${new Date(report.generatedAt).toLocaleString()} · Grey InfoTech Audit Engine</p>
   </body></html>`;
 }

@@ -3,7 +3,7 @@ import { buildMetadata } from '@/lib/seo';
 import Link from 'next/link';
 
 export const metadata: Metadata = buildMetadata('/industries', {
-  title: 'Industries | Graham Sobiribo Paul',
+  title: 'Industries | Grey InfoTech',
   description: 'Solutions for various industries including fintech, healthcare, e-commerce, and more.',
 });
 
