@@ -19,6 +19,7 @@ import AnnouncementBarWrapper from "@/components/futuristic/AnnouncementBarWrapp
 import Preloader from "@/components/futuristic/Preloader";
 import CookieConsent from "@/components/futuristic/CookieConsent";
 import PageAccentProvider from "@/components/PageAccentProvider";
+import FrontendActionButtons from "@/components/FrontendActionButtons";
 
 
 //  -  -  -  Render on-demand instead of pre-rendering all pages at build  -  -  -  -  -  -  -  -  -  - 
@@ -203,6 +204,8 @@ export default async function RootLayout({
         <main id="main-content" className="flex-1">{children}</main>
 
         <Footer/>
+
+        <FrontendActionButtons />
 
         {/* Live human chat (Tawk) + AI assistant run side-by-side */}
         {process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID && process.env.NEXT_PUBLIC_TAWK_WIDGET_ID ? (

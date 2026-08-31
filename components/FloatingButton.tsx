@@ -91,19 +91,14 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ className }) => {
     const handleOpenModal = () => setIsModalOpen(true);
     const handleCloseModal = () => setIsModalOpen(false);
 
-    // Determine button styling based on background with enhanced gradients
-    const buttonBaseClasses = isDark
-        ? 'bg-gradient-to-br from-cyan-500/25 via-teal-500/15 to-cyan-600/20 border-cyan-400/60 text-cyan-50 hover:text-cyan-100 hover:border-cyan-300/90 shadow-lg shadow-cyan-500/30 hover:shadow-2xl hover:shadow-cyan-400/40'
-        : 'bg-gradient-to-br from-slate-900/85 via-slate-800/75 to-slate-900/85 border-slate-700/70 text-slate-100 hover:text-white hover:border-slate-600/90 shadow-lg shadow-slate-900/40 hover:shadow-2xl hover:shadow-slate-800/50';
+    // Brand-aligned CTA styling: clear teal/cyan palette, strong contrast,
+    // no over-blur or low-contrast dark-on-dark text.
+    const buttonBaseClasses =
+        'bg-teal-500 border-teal-400 text-white hover:text-white hover:border-teal-300 shadow-[0_12px_28px_rgba(20,184,166,0.34)] hover:shadow-[0_16px_34px_rgba(20,184,166,0.4)]';
 
-    // Enhanced multi-layer glow effect
     const glowClasses = isHovered
-        ? isDark
-            ? 'after:absolute after:inset-0 after:-z-10 after:rounded-full after:blur-2xl after:bg-gradient-to-br after:from-cyan-400/50 after:to-teal-400/30 after:opacity-100 before:z-10'
-            : 'after:absolute after:inset-0 after:-z-10 after:rounded-full after:blur-2xl after:bg-gradient-to-br after:from-slate-700/60 after:to-slate-600/40 after:opacity-100'
-        : isDark
-            ? 'after:absolute after:inset-0 after:-z-10 after:rounded-full after:blur-xl after:bg-gradient-to-br after:from-cyan-500/25 after:to-teal-500/15 after:opacity-70'
-            : 'after:absolute after:inset-0 after:-z-10 after:rounded-full after:blur-xl after:bg-gradient-to-br after:from-slate-600/35 after:to-slate-700/25 after:opacity-70';
+        ? 'after:absolute after:inset-0 after:-z-10 after:rounded-full after:bg-gradient-to-r after:from-cyan-300/40 after:to-teal-300/20 after:opacity-100 before:z-10'
+        : 'after:absolute after:inset-0 after:-z-10 after:rounded-full after:bg-gradient-to-r after:from-cyan-300/20 after:to-teal-300/10 after:opacity-80';
 
     return (
         <>
@@ -120,24 +115,23 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ className }) => {
                 className={`
                     ${className ?? ''} 
                     ${glowClasses}
-                    rounded-full text-[1em] lg:flex hidden font-semibold 
+                    rounded-full text-[0.95em] lg:flex hidden font-semibold 
                     py-[0.7em] px-[1.2em] border-2 transition-all duration-300 
-                    text-white backdrop-blur-lg
+                    text-white
                     fixed bottom-8 right-8 z-50 
                     shadow-2xl group items-center justify-center gap-2
                     overflow-hidden
                     before:absolute before:inset-0 before:rounded-full before:border-2 
                     before:border-transparent before:bg-gradient-to-r 
-                    before:from-transparent before:via-white/15 before:to-transparent
+                    before:from-transparent before:via-white/18 before:to-transparent
                     before:translate-x-[-100%] hover:before:translate-x-[100%]
                     before:transition-transform before:duration-[800ms]
                     before:pointer-events-none
                     ${buttonBaseClasses}
-                    hover:backdrop-blur-xl
                     hover:scale-110 hover:-translate-y-2
                     active:scale-95 active:-translate-y-0
                     focus:outline-none focus:ring-2 focus:ring-offset-2
-                    ${isDark ? 'focus:ring-cyan-400/60 focus:ring-offset-slate-900/40' : 'focus:ring-slate-500/60 focus:ring-offset-white/40'}
+                    focus:ring-cyan-300/80 focus:ring-offset-white/20
                     transform-gpu
                 `}
                 aria-label="Request a quote for your project - Premium Enterprise Solutions"
@@ -168,7 +162,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ className }) => {
                 </div>
 
                 {/* Text with advanced gradient effect */}
-                <span className={`text-[0.95em] font-bold tracking-widest relative z-10 transition-all duration-300 ${isDark ? 'bg-gradient-to-r from-cyan-100 via-teal-100 to-cyan-50 bg-clip-text text-transparent group-hover:from-cyan-50 group-hover:via-teal-50 group-hover:to-cyan-100' : 'bg-gradient-to-r from-slate-50 via-white to-slate-100 bg-clip-text text-transparent group-hover:from-white group-hover:via-slate-50 group-hover:to-white'}`}>
+                <span className="relative z-10 text-[0.95em] font-bold tracking-[0.18em] text-white transition-all duration-300">
                     REQUEST
                 </span>
 
