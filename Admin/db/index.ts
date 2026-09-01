@@ -48,7 +48,7 @@ function getDb(): Database.Database {
     return db;
 }
 
-export default new Proxy({} as Database.Database, {
+const dbProxy = new Proxy({} as Database.Database, {
     get(target, prop) {
         return Reflect.get(getDb(), prop as string | symbol);
     },
@@ -56,5 +56,7 @@ export default new Proxy({} as Database.Database, {
         return Reflect.set(getDb(), prop as string | symbol, value);
     },
 });
+
+export default dbProxy;
 
 export { DB_PATH, DATA_DIR, getDb };

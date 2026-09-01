@@ -171,7 +171,7 @@ async function seed() {
     console.log('Leads seeded.');
 
     // --- Projects ---
-    const p1 = Projects.create({ name: 'TaskFlow SaaS Platform', client_id: c1.id, client_name: 'TaskFlow Inc', status: 'active', progress: 65, budget: 18000, start_date: '2026-04-01', end_date: '2026-08-15', description: 'Multi-tenant project management SaaS.', manager_id: manager.id });
+    const _p1 = Projects.create({ name: 'TaskFlow SaaS Platform', client_id: c1.id, client_name: 'TaskFlow Inc', status: 'active', progress: 65, budget: 18000, start_date: '2026-04-01', end_date: '2026-08-15', description: 'Multi-tenant project management SaaS.', manager_id: manager.id });
     Projects.create({ name: 'NaijaPay Mobile Wallet', client_id: c2.id, client_name: 'NaijaPay', status: 'planning', progress: 10, budget: 32000, start_date: '2026-06-10', end_date: '2026-11-30', description: 'Mobile wallet + agent network app.', manager_id: manager.id });
     Projects.create({ name: 'MedLink Telehealth Portal', client_id: c3.id, client_name: 'MedLink Africa', status: 'active', progress: 40, budget: 24000, start_date: '2026-05-01', end_date: '2026-09-20', description: 'Telehealth booking and records portal.', manager_id: admin.id });
     Projects.create({ name: 'Grey Corporate Site Revamp', client_id: null, client_name: 'Internal', status: 'completed', progress: 100, budget: 0, start_date: '2026-01-10', end_date: '2026-03-01', description: 'Company website overhaul.', manager_id: admin.id });
