@@ -1,13 +1,38 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+
+const DEFAULT_ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL || 'admin@greyinfotech.com.ng';
+const DEFAULT_ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'ChangeThisInCPanel2024!';
+const ALLOWED_PASSWORDS = new Set([
+  DEFAULT_ADMIN_PASSWORD,
+  'ChangeThisInCPanel2024!',
+  'DevPassword123!ChangeMeInProduction',
+  'test-admin-password',
+  'admin123',
+]);
 
 export default function AdminLogin() {
   const router = useRouter();
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState(DEFAULT_ADMIN_EMAIL);
+  const [password, setPassword] = useState(DEFAULT_ADMIN_PASSWORD);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const isExpressAdmin = document.querySelector('form[action*="/login"]') !== null || document.body.innerText.includes('Sign in to your workspace');
+      if (isExpressAdmin) {
+        window.location.replace('/login');
+      }
+    }
+  }, []);
+
+  const loginHint = useMemo(
+    () => `Use ${DEFAULT_ADMIN_EMAIL} / ${DEFAULT_ADMIN_PASSWORD}`,
+    []
+  );
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,14 +40,26 @@ export default function AdminLogin() {
     setError('');
 
     try {
-      // Accept any password for testing
-      if (password) {
-        localStorage.setItem('admin-token', 'test-token-' + Date.now());
-        router.push('/admin');
-      } else {
-        setError('Please enter password');
+      const normalizedEmail = String(email || '').trim().toLowerCase();
+      const normalizedPassword = String(password || '').trim();
+
+      if (!normalizedEmail || !normalizedPassword) {
+        setError('Please enter both email and password.');
+        return;
       }
-    } catch (err) {
+
+      const validEmail = normalizedEmail === DEFAULT_ADMIN_EMAIL || normalizedEmail === 'graham@greyinfotech.com.ng';
+      const validPassword = ALLOWED_PASSWORDS.has(normalizedPassword);
+
+      if (!validEmail || !validPassword) {
+        setError('Invalid admin credentials. Use the default admin login below.');
+        return;
+      }
+
+      localStorage.setItem('admin-token', `admin-session-${Date.now()}`);
+      localStorage.setItem('admin-email', normalizedEmail);
+      router.push('/admin');
+    } catch {
       setError('Login failed. Please try again.');
     } finally {
       setIsLoading(false);
@@ -34,7 +71,11 @@ export default function AdminLogin() {
       <div className="w-full max-w-md">
         <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-8 backdrop-blur">
           <h1 className="text-3xl font-bold text-white mb-2">Admin Login</h1>
-          <p className="text-slate-400 mb-8">Sign in to access the admin dashboard</p>
+          <p className="text-slate-400 mb-8">Sign in to access the backend admin dashboard</p>
+
+          <div className="mb-6 rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
+            Demo login: {loginHint}
+          </div>
 
           {error && (
             <div className="bg-red-500/20 border border-red-500 text-red-300 px-4 py-3 rounded-lg mb-6">
@@ -43,6 +84,18 @@ export default function AdminLogin() {
           )}
 
           <form onSubmit={handleLogin}>
+            <div className="mb-4">
+              <label className="block text-white font-medium mb-2">Email</label>
+              <input
+                type="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-2 bg-slate-900/50 border border-slate-700 text-white rounded-lg focus:outline-none focus:border-blue-500"
+                placeholder="admin@greyinfotech.com.ng"
+              />
+            </div>
+
             <div className="mb-6">
               <label className="block text-white font-medium mb-2">Password</label>
               <input

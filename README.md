@@ -1,133 +1,36 @@
-# Grey
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Grey is a full-stack digital agency and commerce platform built with Next.js, Express, and SQLite. It combines a polished marketing website, a store experience, and a feature-rich admin backend for managing content, orders, users, SEO, submissions, and business operations.
+## Getting Started
 
-## Overview
-
-This project is designed to support:
-
-- A premium public-facing website for Grey InfoTech
-- Service, industry, blog, FAQ, and company pages
-- A storefront and product catalog experience
-- An admin dashboard for operations and management
-- Store analytics for stock, sales, orders, and delivery status
-- Automatic receipt email generation for successful payments
-- Lead capture, contact forms, CRM-like data collection, and audit tools
-
-## Tech stack
-
-- Next.js 16
-- React 19
-- Express + EJS admin views
-- TypeScript and Tailwind CSS
-- SQLite for local data persistence
-- Nodemailer / email integration
-- CSRF-protected admin APIs and session handling
-- Playwright and Vitest for automated checks
-
-## Project structure
-
-```bash
-.
-├── app/                  # Next.js app routes and frontend pages
-├── Admin/                # Express admin, EJS views, data models, mailer, APIs
-├── components/           # Shared frontend components
-├── screens/              # Page-level screen components
-├── lib/                  # Shared logic, SEO, payments, email helpers
-├── public/               # Static assets and generated branding files
-├── scripts/              # Setup, migration, and utility scripts
-├── tests/                # Test suites
-├── e2e/                  # End-to-end Playwright tests
-├── server.ts             # Main Express + Next.js bootstrap server
-├── package.json          # Scripts and dependencies
-├── config.env.example    # Sample env file for app configuration
-├── .env.example          # Sample environment file
-└── README.md             # Project documentation
-```
-
-## Prerequisites
-
-- Node.js 20+
-- npm 10+
-- Git
-
-## Getting started
-
-1. Clone the repository.
-2. Install dependencies:
-
-```bash
-npm install
-```
-
-3. Configure environment variables:
-
-```bash
-cp config.env.example config.env
-# and optionally
-cp .env.example .env
-```
-
-4. Start the application in development mode:
+First, run the development server:
 
 ```bash
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-The app runs locally at:
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-- Frontend: http://localhost:3000
-- Admin: http://localhost:3000/admin
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## Available scripts
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-```bash
-npm run dev          # start the Express + Next.js dev server
-npm run dev:next     # run only the Next.js dev server
-npm run build        # production build
-npm run start        # production server
-npm run lint         # run ESLint
-npm run test         # run Vitest
-npm run test:e2e     # run Playwright end-to-end tests
-npm run seed         # seed base data
-npm run seed:reset   # reset database and reseed
-npm run bootstrap:db # bootstrap required DB structure
-```
+## Learn More
 
-## Admin and store features
+To learn more about Next.js, take a look at the following resources:
 
-- Admin dashboard and management portal
-- Store analytics for revenue, stock, sold units, and delivery status
-- Orders and payment flow management
-- Customer receipt sending after successful payment
-- Role-based admin views and session-protected endpoints
-- Business forms, audit tracking, and support workflows
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## Environment notes
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-The project expects environment variables for:
+## Deploy on Vercel
 
-- application URL settings
-- admin session/security settings
-- database configuration
-- SMTP/email delivery values
-- payment provider configuration where enabled
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Update `config.env` or `.env` with the relevant values before running production builds or live deployments.
-
-## Production
-
-```bash
-npm run build
-npm run start
-```
-
-## Notes
-
-- This project is a hybrid of frontend marketing pages and backend business tooling in one app.
-- Local development is SQLite-based and designed for easy setup.
-- For real customer email delivery or payment processing, configure valid provider credentials in your environment settings.
-
-## License
-
-This project is distributed under the repository's existing license terms.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

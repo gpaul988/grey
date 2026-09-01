@@ -116,31 +116,32 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
         <div className="store-root">
             <header className="store-header" aria-label="Store header">
                 <Container className="flex items-center justify-between py-4">
-                    <Link href="/store" className="inline-flex items-center gap-3" aria-label="Go to store home">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src="/techlogo.svg" alt="Grey TechStore" className="h-10 w-auto" />
-                    </Link>
+                    <div className="flex items-center gap-4">
+                        <Link href="/store" className="inline-flex items-center gap-3" aria-label="Go to store home">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src="/techlogo.svg" alt="Grey TechStore" className="h-10 w-auto" />
+                        </Link>
+                    </div>
 
-                    <nav className="hidden md:flex items-center gap-6" aria-label="Store main navigation">
+                    <nav className="hidden lg:flex items-center gap-6" aria-label="Store main navigation">
                         {NAV.map((n) => (
-                            <Link key={n.href} href={n.href} className="st-link font-medium">{n.label}</Link>
+                            <Link key={n.href} href={n.href} className="st-link font-medium text-sm">{n.label}</Link>
                         ))}
                     </nav>
 
-                    <form onSubmit={search} className="search-wrap ml-4" role="search" aria-label="Search products">
-                        <input value={q} onChange={(e) => setQ((e.target as HTMLInputElement).value)} placeholder="Search products, categories or brands" className="st-input px-3 py-2" aria-label="Search products" />
-                        <button type="submit" className="st-btn px-4 py-2" aria-label="Search"><FiSearch /></button>
-                    </form>
+                    <div className="flex items-center gap-3 ml-4">
+                        <form onSubmit={search} className="flex items-center bg-[var(--st-surface-2)] rounded-full overflow-hidden px-2 py-1" role="search" aria-label="Search products">
+                            <input value={q} onChange={(e) => setQ((e.target as HTMLInputElement).value)} placeholder="Search products, categories, brands" className="st-input bg-transparent border-0 px-2 py-1 text-sm" aria-label="Search products" />
+                            <button type="submit" className="st-btn px-3 py-1" aria-label="Search"><FiSearch /></button>
+                        </form>
 
-                    <div className="flex items-center gap-3">
                         <CurrencyToggle />
-                        <Link href="/store/products" className="hidden md:inline-block st-btn px-4 py-2">Shop Now</Link>
                         <button onClick={() => setCartOpen(true)} className="relative st-link" aria-label="Open cart">
                             <FiShoppingCart />
                             {cartCount > 0 && <span className="absolute -top-2 -right-2 bg-[var(--st-teal)] text-black rounded-full text-xs px-2">{cartCount}</span>}
                         </button>
-                        <Link href="/store/account" className="st-link" aria-label="Account"><FiUser /></Link>
-                        <button className="md:hidden st-link" onClick={() => setMenuOpen(true)} aria-label="Open menu"><FiMenu /></button>
+                        <Link href="/store/account" className="st-link ml-1" aria-label="Account"><FiUser /></Link>
+                        <button className="md:hidden st-link ml-1" onClick={() => setMenuOpen(true)} aria-label="Open menu"><FiMenu /></button>
                     </div>
                 </Container>
             </header>
@@ -217,7 +218,7 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
                         <div className="text-[var(--st-muted)] text-xs">Follow us: <a href="#" className="st-link">Twitter</a> • <a href="#" className="st-link">LinkedIn</a></div>
                     </div>
                 </div>
-            </footer>
+            </div>
 
             <CartDrawer />
             <CompareBar />

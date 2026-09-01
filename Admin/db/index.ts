@@ -2,6 +2,10 @@ import Database from 'better-sqlite3';
 import path from 'node:path';
 import fs from 'node:fs';
 
+const DEFAULT_ADMIN_EMAIL = process.env.SEED_ADMIN_EMAIL || 'admin@greyinfotech.com.ng';
+const DEFAULT_SUPERADMIN_EMAIL = 'graham@greyinfotech.com.ng';
+const DEFAULT_ADMIN_PASSWORD = process.env.SEED_ADMIN_PASSWORD || process.env.ADMIN_PASSWORD || 'ChangeThisInCPanel2024!';
+
 const DATA_DIR = path.join(process.cwd(), 'Admin', 'data');
 if (!fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -24,6 +28,45 @@ function getDb(): Database.Database {
             // eslint-disable-next-line @typescript-eslint/no-require-imports
             const { migrate } = require('./schema') as typeof import('./schema');
             migrate(db);
+
+            const bcrypt = require('bcryptjs') as typeof import('bcryptjs');
+            const existingUsers = (db.prepare('SELECT COUNT(*) AS c FROM users').get() as { c: number }).c;
+            if (existingUsers === 0) {
+                const now = new Date().toISOString();
+                const adminHash = bcrypt.hashSync(DEFAULT_ADMIN_PASSWORD, 12);
+                const superHash = bcrypt.hashSync(DEFAULT_ADMIN_PASSWORD, 12);
+                db.prepare(`
+                    INSERT INTO users (name, email, password_hash, role, phone, avatar, status, email_verified, verified_at, created_at, updated_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?)
+                `).run(
+                    'Graham Sobiribo Paul',
+                    DEFAULT_SUPERADMIN_EMAIL,
+                    superHash,
+                    'superadmin',
+                    null,
+                    null,
+                    'active',
+                    now,
+                    now,
+                    now,
+                );
+                db.prepare(`
+                    INSERT INTO users (name, email, password_hash, role, phone, avatar, status, email_verified, verified_at, created_at, updated_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?)
+                `).run(
+                    'Graham Sobiribo Paul Admin',
+                    DEFAULT_ADMIN_EMAIL,
+                    adminHash,
+                    'admin',
+                    null,
+                    null,
+                    'active',
+                    now,
+                    now,
+                    now,
+                );
+                console.log('[DB] Seeded default admin account:', DEFAULT_ADMIN_EMAIL, 'with fallback development password.');
+            }
             
             console.log('[DB] Connected and migrated');
         } catch (err) {

@@ -52,6 +52,20 @@
                                 <small class="text-muted">Used to convert ₦ prices to USD when no override is set.</small>
                             </div>
                         </div>
+                        <hr>
+                        <div class="row align-items-end">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label d-block">Black Friday</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="black_friday_active" value="1" <%= s['black_friday_active'] === '1' ? 'checked' : '' %>>
+                                    <label class="form-check-label">Enable site-wide Black Friday sale</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Black Friday discount (%)</label>
+                                <input type="number" min="0" max="100" name="black_friday_discount" class="form-control" value="<%= s['black_friday_discount'] || '0' %>" step="1">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

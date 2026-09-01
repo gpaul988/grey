@@ -5,7 +5,7 @@ import { useRouter } from '@/lib/routerCompat';
 import Link from 'next/link';
 import StoreShell, { ConfigContext } from '@/components/store/StoreShell';
 import { useStore } from '@/components/store/StoreContext';
-import { api, formatPrice } from '@/components/store/lib';
+import { api, effectiveAmount, formatPrice } from '@/components/store/lib';
 import { FiTag, FiCheck, FiLock } from 'react-icons/fi';
 
 export default function CheckoutPage() {
@@ -15,7 +15,7 @@ export default function CheckoutPage() {
 function CheckoutInner() {
     const router = useRouter();
     const config = useContext(ConfigContext);
-    const { cart, cartSubtotal, clearCart, currency, usdRate, customer } = useStore();
+    const { cart, cartSubtotal, clearCart, currency, usdRate, customer, settings } = useStore();
 
     const [form, setForm] = useState({
         first_name: '', last_name: '', email: '', phone: '',
@@ -198,7 +198,7 @@ function CheckoutInner() {
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img src={l.product.thumbnail || ''} alt="" className="w-12 h-12 rounded-lg object-cover" />
                                 <div className="flex-1 min-w-0"><p className="truncate">{l.product.name}</p><p className="text-[var(--st-muted)]"> -{l.quantity}</p></div>
-                                <span>{formatPrice(l.product.price * l.quantity, currency, usdRate)}</span>
+                                <span>{formatPrice(effectiveAmount(l.product, settings).amount * l.quantity, currency, usdRate, effectiveAmount(l.product, settings).usdOverride)}</span>
                             </div>
                         ))}
                     </div>

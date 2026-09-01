@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import StoreShell from '@/components/store/StoreShell';
 import { useStore } from '@/components/store/StoreContext';
-import { displayUnit, formatPrice } from '@/components/store/lib';
+import { displayUnit, effectiveAmount, formatPrice } from '@/components/store/lib';
 import { FiTrash2, FiMinus, FiPlus, FiArrowRight, FiShoppingBag } from 'react-icons/fi';
 
 export default function CartPage() {
@@ -12,7 +12,7 @@ export default function CartPage() {
 }
 
 function CartInner() {
-    const { cart, removeFromCart, setQty, cartSubtotal, currency, usdRate } = useStore();
+    const { cart, removeFromCart, setQty, cartSubtotal, currency, usdRate, settings } = useStore();
 
     if (cart.length === 0) return (
         <div className="st-card p-16 text-center">
@@ -35,7 +35,12 @@ function CartInner() {
                             <div className="flex-1 min-w-0">
                                 <Link href={`/store/products/${l.product.slug}`} className="font-semibold hover:text-[var(--st-teal)]">{l.product.name}</Link>
                                 <p className="text-xs text-[var(--st-muted)]">{l.product.brand_name}</p>
-                                <p className="text-[var(--st-teal)] font-bold mt-1">{displayUnit(l.product, currency, usdRate)}</p>
+                                <p className="text-[var(--st-teal)] font-bold mt-1">{displayUnit(l.product, currency, usdRate, settings)}</p>
+                                {effectiveAmount(l.product, settings).promotion && (
+                                    <p className="text-xs font-semibold mt-1 inline-block px-2 py-0.5 rounded bg-red-500/20 text-red-400">
+                                        {effectiveAmount(l.product, settings).promotion === 'flash_sale' ? '🔥 Flash Sale' : '🛍️ Black Friday'}
+                                    </p>
+                                )}
                                 <div className="flex items-center gap-3 mt-2">
                                     <div className="flex items-center st-card">
                                         <button onClick={() => setQty(l.product.id, l.quantity - 1)} className="px-2.5 py-1.5 st-link"><FiMinus size={14} /></button>
@@ -45,7 +50,7 @@ function CartInner() {
                                     <button onClick={() => removeFromCart(l.product.id)} className="st-link flex items-center gap-1 text-sm"><FiTrash2 size={14} /> Remove</button>
                                 </div>
                             </div>
-                            <div className="text-right font-bold shrink-0">{formatPrice(l.product.price * l.quantity, currency, usdRate)}</div>
+                            <div className="text-right font-bold shrink-0">{formatPrice(effectiveAmount(l.product, settings).amount * l.quantity, currency, usdRate, effectiveAmount(l.product, settings).usdOverride)}</div>
                         </div>
                     ))}
                 </div>

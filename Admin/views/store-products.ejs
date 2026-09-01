@@ -27,6 +27,7 @@
                             <th>Brand</th>
                             <th>Price</th>
                             <th>Stock</th>
+                            <th>Promo</th>
                             <th>Status</th>
                             <th class="text-end">Actions</th>
                         </tr>
@@ -60,6 +61,13 @@
                                 <span class="badge <%= p.stock > 10 ? 'bg-success-subtle text-success' : p.stock > 0 ? 'bg-warning-subtle text-warning' : 'bg-danger-subtle text-danger' %>">
                                     <%= p.stock %> units
                                 </span>
+                            </td>
+                            <td>
+                                <% if (p.flash_sale) { %>
+                                <span class="badge bg-danger-subtle text-danger"><i class="ti ti-flame me-1"></i>Flash</span>
+                                <% } else { %>
+                                <span class="text-muted">—</span>
+                                <% } %>
                             </td>
                             <td>
                                 <% const sc = {active:'success',draft:'secondary',archived:'danger'}[p.status] || 'secondary' %>

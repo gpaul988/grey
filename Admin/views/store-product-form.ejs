@@ -82,17 +82,6 @@
                         <label class="form-label">Upload New Images</label>
                         <input type="file" name="product_images" class="form-control" accept="image/*" multiple>
                         <small class="text-muted">Max 8 images. First image becomes thumbnail.</small>
-
-                        <div class="mt-3">
-                            <label class="form-label">Product Video URL</label>
-                            <input type="url" name="video_url" class="form-control" value="<%= product?.video_url || '' %>" placeholder="https://...mp4 or a hosted video URL">
-                            <small class="text-muted">You can also upload a short demo video below.</small>
-                        </div>
-                        <div class="mt-3">
-                            <label class="form-label">Upload Product Video</label>
-                            <input type="file" name="product_video" class="form-control" accept="video/mp4,video/webm,video/quicktime,video/x-msvideo">
-                            <small class="text-muted">Optional single product video. If both URL and file are supplied, the uploaded file is used.</small>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -165,20 +154,6 @@
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" name="featured" id="featuredToggle" value="1" <%= product?.featured ? 'checked' : '' %>>
                             <label class="form-check-label" for="featuredToggle">Featured Product</label>
-                        </div>
-                        <div class="form-check form-switch mt-2">
-                            <input class="form-check-input" type="checkbox" name="flash_sale" id="flashSaleToggle" value="1" <%= product?.flash_sale ? 'checked' : '' %>>
-                            <label class="form-check-label" for="flashSaleToggle">Flash Sale</label>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-md-6 mb-2">
-                                <label class="form-label">Flash Sale Starts</label>
-                                <input type="datetime-local" name="flash_sale_starts" class="form-control" value="<%= product?.flash_sale_starts ? (function(d){ const dt = new Date(d); const pad = (n)=>('0'+n).slice(-2); return dt.getFullYear() + '-' + pad(dt.getMonth()+1) + '-' + pad(dt.getDate()) + 'T' + pad(dt.getHours()) + ':' + pad(dt.getMinutes()); })(product.flash_sale_starts) : '' %>">
-                            </div>
-                            <div class="col-md-6 mb-2">
-                                <label class="form-label">Flash Sale Ends</label>
-                                <input type="datetime-local" name="flash_sale_ends" class="form-control" value="<%= product?.flash_sale_ends ? (function(d){ const dt = new Date(d); const pad = (n)=>('0'+n).slice(-2); return dt.getFullYear() + '-' + pad(dt.getMonth()+1) + '-' + pad(dt.getDate()) + 'T' + pad(dt.getHours()) + ':' + pad(dt.getMinutes()); })(product.flash_sale_ends) : '' %>">
-                            </div>
                         </div>
                     </div>
                 </div>

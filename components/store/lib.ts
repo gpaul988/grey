@@ -20,6 +20,49 @@ export interface StoreProduct {
     brand_name?: string;
     brand_slug?: string;
     rating?: number;
+    // Flash sale fields (added by backend)
+    flash_sale?: number;
+    flash_sale_starts?: string | null;
+    flash_sale_ends?: string | null;
+    flash_sale_price?: number | null;
+}
+
+export interface StoreSettings {
+    black_friday_active?: boolean;
+    black_friday_discount?: number;
+}
+
+function isFlashSaleActive(p: StoreProduct): boolean {
+    if (Number(p.flash_sale ?? 0) !== 1) return false;
+    const now = Date.now();
+    const start = p.flash_sale_starts ? Date.parse(p.flash_sale_starts) : NaN;
+    const end = p.flash_sale_ends ? Date.parse(p.flash_sale_ends) : NaN;
+    if (!Number.isNaN(start) && now < start) return false;
+    if (!Number.isNaN(end) && now > end) return false;
+    return true;
+}
+
+export function effectiveAmount(p: StoreProduct, settings?: StoreSettings) {
+    let amount = p.price ?? 0;
+    let usdOverride = p.price_usd ?? null;
+
+    if (isFlashSaleActive(p) && typeof p.flash_sale_price === 'number' && !isNaN(p.flash_sale_price) && p.flash_sale_price > 0) {
+        amount = p.flash_sale_price;
+        if (typeof usdOverride === 'number' && !isNaN(usdOverride)) {
+            usdOverride = Math.round(usdOverride * (amount / (p.price || amount || 1)));
+        }
+        return { amount, usdOverride, promotion: 'flash_sale' };
+    }
+
+    if (settings?.black_friday_active && (settings.black_friday_discount ?? 0) > 0) {
+        const disc = Math.max(0, Math.min(100, settings.black_friday_discount!));
+        const factor = (100 - disc) / 100;
+        amount = Math.round(amount * factor);
+        if (typeof usdOverride === 'number' && !isNaN(usdOverride)) usdOverride = Math.round(usdOverride * factor);
+        return { amount, usdOverride, promotion: 'black_friday' };
+    }
+
+    return { amount, usdOverride, promotion: null };
 }
 
 export interface Category { id: number; name: string; slug: string; icon: string | null; }
@@ -35,8 +78,9 @@ export function formatPrice(amountNgn: number, currency: Currency, usdRate: numb
     return '₦' + Math.round(amountNgn).toLocaleString('en-NG');
 }
 
-export function displayUnit(p: StoreProduct, currency: Currency, usdRate: number): string {
-    return formatPrice(p.price, currency, usdRate, currency === 'USD' ? p.price_usd : null);
+export function displayUnit(p: StoreProduct, currency: Currency, usdRate: number, settings?: StoreSettings): string {
+    const eff = effectiveAmount(p, settings);
+    return formatPrice(eff.amount, currency, usdRate, currency === 'USD' ? eff.usdOverride : null);
 }
 
 export async function api<T = unknown>(path: string, opts?: RequestInit): Promise<T> {

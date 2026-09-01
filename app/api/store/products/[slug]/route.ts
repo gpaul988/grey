@@ -51,7 +51,11 @@ function parseJsonObject<T = Record<string, string>>(value: string | null | unde
   }
 }
 
+const DEFAULT_PRODUCT_IMAGE = '/techlogo.svg';
+
 function normalizeProduct(row: DBProductRow) {
+  const images = parseJsonArray<string>(row.images, []);
+  const thumbnail = row.thumbnail ?? images[0] ?? DEFAULT_PRODUCT_IMAGE;
   return {
     id: row.id,
     name: row.name,
@@ -60,9 +64,9 @@ function normalizeProduct(row: DBProductRow) {
     price: Number(row.price ?? 0),
     price_usd: row.price_usd ?? null,
     compare_price: row.compare_price ?? null,
-    stock: Number(row.stock ?? 0),
-    images: parseJsonArray<string>(row.images, []),
-    thumbnail: row.thumbnail ?? null,
+    stock: Math.max(0, Number(row.stock ?? 0)),
+    images,
+    thumbnail,
     description: row.description ?? null,
     specs: parseJsonObject<Record<string, string>>(row.specs, {}),
     featured: Number(row.featured ?? 0),

@@ -1059,6 +1059,10 @@ export function migrate(database?: DatabaseType.Database): void {
             featured INTEGER NOT NULL DEFAULT 0,
             tags TEXT NOT NULL DEFAULT '[]',
             weight REAL,
+            flash_sale INTEGER NOT NULL DEFAULT 0,
+            flash_sale_starts TEXT,
+            flash_sale_ends TEXT,
+            flash_sale_price REAL,
             created_at TEXT NOT NULL DEFAULT
         (
             datetime
@@ -1675,6 +1679,8 @@ export function migrate(database?: DatabaseType.Database): void {
         'store.tax_rate': '0',
         'store.usd_enabled': '1',
         'store.usd_rate': '1600',
+        'black_friday_active': '0',
+        'black_friday_discount': '0',
         'payment.paystack.enabled': '0',
         'payment.paystack.public_key': '',
         'payment.paystack.secret_key': '',

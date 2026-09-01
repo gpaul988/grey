@@ -1,0 +1,36 @@
+# Run from repo root in PowerShell: .\scripts\seed-promos.ps1
+# This script generates SQL to enable Black Friday and create 3 sample flash sales
+# It will write Admin\data\seed-promos.sql. Execute that file against your sqlite DB:
+#   sqlite3 Admin\data\grey.db < Admin\data\seed-promos.sql
+
+$now = [DateTime]::UtcNow
+$starts = $now.AddMinutes(-5).ToString('yyyy-MM-ddTHH:mm:ss.fffZ')
+$ends = $now.AddHours(48).ToString('yyyy-MM-ddTHH:mm:ss.fffZ')
+
+$sql = @"
+-- Enable Black Friday
+INSERT OR REPLACE INTO store_settings (key, value, updated_at) VALUES ('black_friday_active', '1', datetime('now'));
+INSERT OR REPLACE INTO store_settings (key, value, updated_at) VALUES ('black_friday_discount', '20', datetime('now'));
+
+-- Set flash sales for three products (slugs must match existing products)
+-- macbook-pro-14-m3-pro: 10% off
+UPDATE products SET flash_sale = 1, flash_sale_starts = '$starts', flash_sale_ends = '$ends', flash_sale_price = ROUND(price * 0.90) WHERE slug = 'macbook-pro-14-m3-pro';
+-- dell-xps-15: 15% off
+UPDATE products SET flash_sale = 1, flash_sale_starts = '$starts', flash_sale_ends = '$ends', flash_sale_price = ROUND(price * 0.85) WHERE slug = 'dell-xps-15';
+-- samsung-galaxy-s24-ultra: 12% off
+UPDATE products SET flash_sale = 1, flash_sale_starts = '$starts', flash_sale_ends = '$ends', flash_sale_price = ROUND(price * 0.88) WHERE slug = 'samsung-galaxy-s24-ultra';
+
+-- Optional: list affected rows when run with sqlite3 CLI
+/*
+SELECT key, value FROM store_settings WHERE key LIKE 'black_friday%';
+SELECT slug, flash_sale, flash_sale_price, flash_sale_starts, flash_sale_ends FROM products WHERE slug IN (
+  'macbook-pro-14-m3-pro','dell-xps-15','samsung-galaxy-s24-ultra'
+);
+*/
+"@
+
+$dest = Join-Path -Path (Join-Path (Get-Location) 'Admin\data') -ChildPath 'seed-promos.sql'
+Set-Content -Path $dest -Value $sql -Encoding UTF8
+Write-Output "Wrote SQL to: $dest"
+Write-Output "To apply locally, run (requires sqlite3): sqlite3 Admin\data\grey.db < Admin\data\seed-promos.sql"
+Write-Output "If sqlite3 is not available, open the generated SQL file and apply using your DB tool."

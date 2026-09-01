@@ -55,6 +55,7 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@vitest/ui": "^4.1.9",
+    "axe-core": "^4.13.0",
     "babel-plugin-react-compiler": "1.0.0",
     "bcryptjs": "^3.0.3",
     "better-sqlite3": "^12.9.0",

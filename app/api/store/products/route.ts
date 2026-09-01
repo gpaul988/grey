@@ -33,6 +33,8 @@ interface DBProductRow {
   created_at?: string | null;
 }
 
+const DEFAULT_PRODUCT_IMAGE = '/techlogo.svg';
+
 function parseJsonArray<T = unknown>(value: string | null | undefined, fallback: T[] = []): T[] {
   if (!value) return fallback;
   try {
@@ -241,30 +243,34 @@ export async function GET(request: NextRequest) {
         ORDER BY p.created_at DESC
       `).all() as DBProductRow[];
 
-      let list: ProductDTO[] = products.map((product) => ({
-        id: product.id,
-        name: product.name,
-        slug: product.slug,
-        sku: product.sku ?? null,
-        price: Number(product.price ?? 0),
-        price_usd: product.price_usd ?? null,
-        compare_price: product.compare_price ?? null,
-        stock: Number(product.stock ?? 0),
-        images: parseJsonArray<string>(product.images, []),
-        thumbnail: product.thumbnail ?? null,
-        description: product.description ?? null,
-        specs: parseJsonObject<Record<string, string>>(product.specs, {}),
-        featured: Number(product.featured ?? 0),
-        tags: parseJsonArray<string>(product.tags, []),
-        category_id: product.category_id ?? null,
-        category_name: product.category_name ?? undefined,
-        category_slug: product.category_slug ?? undefined,
-        brand_id: product.brand_id ?? null,
-        brand_name: product.brand_name ?? undefined,
-        brand_slug: product.brand_slug ?? undefined,
-        rating: Number(product.rating ?? 0),
-        created_at: product.created_at ?? null,
-      }));
+      let list: ProductDTO[] = products.map((product) => {
+      const images = parseJsonArray<string>(product.images, []);
+      const thumbnail = product.thumbnail ?? images[0] ?? DEFAULT_PRODUCT_IMAGE;
+      return {
+      id: product.id,
+      name: product.name,
+      slug: product.slug,
+      sku: product.sku ?? null,
+      price: Number(product.price ?? 0),
+      price_usd: product.price_usd ?? null,
+      compare_price: product.compare_price ?? null,
+      stock: Math.max(0, Number(product.stock ?? 0)),
+      images,
+      thumbnail,
+      description: product.description ?? null,
+      specs: parseJsonObject<Record<string, string>>(product.specs, {}),
+      featured: Number(product.featured ?? 0),
+      tags: parseJsonArray<string>(product.tags, []),
+      category_id: product.category_id ?? null,
+      category_name: product.category_name ?? undefined,
+      category_slug: product.category_slug ?? undefined,
+      brand_id: product.brand_id ?? null,
+      brand_name: product.brand_name ?? undefined,
+      brand_slug: product.brand_slug ?? undefined,
+      rating: Number(product.rating ?? 0),
+      created_at: product.created_at ?? null,
+      };
+      });
 
       if (category) {
         const normalized = category.trim();
