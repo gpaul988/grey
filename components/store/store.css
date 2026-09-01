@@ -79,9 +79,9 @@
 .st-fade { animation: st-fade-up .5s ease both; }
 
 /* Header and footer polish */
-.store-header { backdrop-filter: blur(6px); background: linear-gradient(180deg, rgba(18,24,33,0.6), rgba(18,24,33,0.45)); border-bottom: 1px solid rgba(45,212,191,0.06); box-shadow: 0 8px 30px rgba(2,6,23,0.6); }
-.store-header img { height: 44px; width: auto; filter: drop-shadow(0 6px 14px rgba(10,16,20,0.45)); }
-.store-header .search-wrap { display: flex; align-items: center; flex: 1; max-width: 640px; }
+.store-header { backdrop-filter: blur(8px); background: linear-gradient(180deg, rgba(16,22,28,0.72), rgba(12,16,20,0.60)); border-bottom: 1px solid rgba(45,212,191,0.06); box-shadow: 0 12px 40px rgba(2,6,23,0.65); z-index:50; }
+.store-header img { height: 44px; width: auto; filter: drop-shadow(0 8px 18px rgba(2,8,20,0.6)); }
+.store-header .search-wrap { display: flex; align-items: center; flex: 1; max-width: 720px; }
 .store-header .search-wrap .st-input { border-radius: 10px 0 0 10px; border-right: 0; }
 .store-header .search-wrap button { border-radius: 0 10px 10px 0; }
 
