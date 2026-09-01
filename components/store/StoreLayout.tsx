@@ -114,12 +114,37 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
 
     return (
         <div className="store-root">
+            <header style={{ background: 'var(--st-surface)', borderBottom: '1px solid var(--st-border)' }}>
+                <Container className="flex items-center justify-between py-4">
+                    <Link href="/store" className="inline-flex items-center gap-3">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src="/techlogo.svg" alt="Grey TechStore" className="h-10 w-auto" />
+                    </Link>
+
+                    <form onSubmit={search} className="flex items-center flex-1 max-w-xl mx-4">
+                        <input value={q} onChange={(e) => setQ((e.target as HTMLInputElement).value)} placeholder="Search products, categories or brands" className="w-full px-3 py-2 rounded-l border border-r-0" />
+                        <button type="submit" className="st-btn px-4 py-2"><FiSearch /></button>
+                    </form>
+
+                    <div className="flex items-center gap-3">
+                        <button onClick={() => setCartOpen(true)} className="relative st-link" aria-label="Open cart">
+                            <FiShoppingCart />
+                            {cartCount > 0 && <span className="absolute -top-2 -right-2 bg-[var(--st-teal)] text-black rounded-full text-xs px-2">{cartCount}</span>}
+                        </button>
+                        <Link href="/store/account" className="st-link" aria-label="Account"><FiUser /></Link>
+                    </div>
+                </Container>
+            </header>
+
             <main><Container className="py-8 min-h-[60vh]">{children}</Container></main>
 
             <footer style={{ background: 'var(--st-surface)', borderTop: '1px solid var(--st-border)' }} className="mt-16">
                         <Container className="py-12 grid md:grid-cols-4 gap-8">
                     <div>
-                        <p className="font-extrabold text-lg">Grey<span className="text-[var(--st-teal)]">TechStore</span></p>
+                        <Link href="/store" className="inline-flex items-center gap-3">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src="/techlogo.svg" alt="Grey TechStore" className="h-12 w-auto" />
+                        </Link>
                         <p className="text-[var(--st-muted)] text-sm mt-3">Nigeria&apos;s trusted store for laptops, desktops, servers, phones & accessories. Genuine products, nationwide delivery.</p>
                     </div>
                     <div>
