@@ -1,0 +1,168 @@
+0	undefined	undefined	.sr-only
+0	undefined	undefined	.z-50.relative:nth-child(1) > .grey-nav-neon[aria-haspopup="true"][type="button"] > .font-normal.text-base
+0	undefined	undefined	.p-2.space-y-2.flex-1:nth-child(1) > .text-\[0\.7em\].font-thin.tracking-widest
+0	undefined	undefined	.left-\[-4em\] > .p-4.gap-2.flex > .p-2.space-y-2.flex-1:nth-child(1) > ul > li:nth-child(1) > .group.block.transition-colors > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	a[href$="branding"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	.group.block[href$="cms-development"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	a[href$="crm-development"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	a[href$="digital-marketing"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	a[href$="erp-development"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	.group.block[href$="seo"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	a[href$="Social-Networking"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	.group.block[href$="ui-ux-design"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	.group.block[href$="Web-Application"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	.group.block[href$="Web-Design"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	.group.block[href$="Web-Development"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	.p-2.space-y-2.flex-1:nth-child(2) > .text-\[0\.7em\].font-thin.tracking-widest
+0	undefined	undefined	a[href$="android-development"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	.left-\[-4em\] > .p-4.gap-2.flex > .p-2.space-y-2.flex-1:nth-child(2) > ul > li:nth-child(2) > .group.block.transition-colors > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	a[href$="cloud-solutions"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	.left-\[-4em\] > .p-4.gap-2.flex > .p-2.space-y-2.flex-1:nth-child(2) > ul > li:nth-child(4) > .group.block.transition-colors > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	a[href$="cybersecurity"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	a[href$="flutter-development"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	.left-\[-4em\] > .p-4.gap-2.flex > .p-2.space-y-2.flex-1:nth-child(2) > ul > li:nth-child(7) > .group.block.transition-colors > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	a[href$="ios-development"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	a[href$="IoT-Development"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	.p-2.space-y-2.flex-1:nth-child(2) > ul > li:nth-child(10) > .group.block.transition-colors > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	a[href$="MVP"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	a[href$="Software-Development"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	.p-2.space-y-2.flex-1:nth-child(3) > .text-\[0\.7em\].font-thin.tracking-widest
+0	undefined	undefined	a[href$="consulting"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	a[href$="data-analytics"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	a[href$="devops-services"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	a[href$="discovery-phase"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	.left-\[-4em\] > .p-4.gap-2.flex > .p-2.space-y-2.flex-1:nth-child(3) > ul > li:nth-child(5) > .group.block.transition-colors > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	a[href$="qa-testing"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	.p-2.space-y-2.flex-1:nth-child(3) > ul > li:nth-child(7) > .group.block.transition-colors > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	.group.block[href$="unity-development"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	.p-2.space-y-2.flex-1:nth-child(4) > .text-\[0\.7em\].font-thin.tracking-widest
+0	undefined	undefined	a[href$="drupal-development"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	a[href$="joomla-development"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	a[href$="magento-development"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	a[href$="shopify-development"] > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	.left-\[-4em\] > .p-4.gap-2.flex > .p-2.space-y-2.flex-1:nth-child(4) > ul > li:nth-child(5) > .group.block.transition-colors > .group-hover\:translate-x-1.font-light.inline-block
+0	undefined	undefined	.py-2.px-4.rounded-xl:nth-child(2)
+0	undefined	undefined	.mt-6
+1	#ffffff	#ffffff	kbd
+1	#ffffff	#ffffff	.text-\[11px\]
+1	#ffffff	#ffffff	.text-5xl
+1	#ffffff	#ffffff	.bg-clip-text
+1	#ffffff	#ffffff	.mt-5
+1	#ffffff	#ffffff	.border-slate-700\/60.bg-slate-800\/50.py-1:nth-child(1)
+1	#ffffff	#ffffff	.border-slate-700\/60.bg-slate-800\/50.py-1:nth-child(2)
+1	#ffffff	#ffffff	.border-slate-700\/60.bg-slate-800\/50.py-1:nth-child(3)
+1	#ffffff	#ffffff	.border-slate-700\/60.bg-slate-800\/50.py-1:nth-child(4)
+1	#ffffff	#ffffff	.border-slate-700\/60.bg-slate-800\/50.py-1:nth-child(5)
+1	#ffffff	#ffffff	.border-slate-700\/60.bg-slate-800\/50.py-1:nth-child(6)
+1	#ffffff	#ffffff	.mb-3 > h3
+1	#ffffff	#ffffff	.mb-4.text-slate-300
+1	#ffffff	#ffffff	.mt-3.text-slate-400.text-xs
+1	#ffffff	#ffffff	.border-white\/6 > .text-xs.text-slate-300
+1	#ffffff	#ffffff	.grid-cols-2 > .text-sm:nth-child(1)
+1	#ffffff	#ffffff	.font-mono.text-right.text-sm:nth-child(2)
+1	#ffffff	#ffffff	.text-sm:nth-child(3)
+1	#ffffff	#ffffff	.font-mono.text-right.text-sm:nth-child(4)
+1	#ffffff	#ffffff	.text-sm:nth-child(5)
+1	#ffffff	#ffffff	.font-mono.text-right.text-sm:nth-child(6)
+1	#ffffff	#ffffff	.text-sm:nth-child(7)
+1	#ffffff	#ffffff	.font-mono.text-right.text-sm:nth-child(8)
+1	#ffffff	#ffffff	.mb-5.text-slate-400.tracking-wider
+1	#ffffff	#ffffff	label:nth-child(1) > .tracking-wider.uppercase.mb-2
+1	#ffffff	#ffffff	label:nth-child(2) > .tracking-wider.uppercase.mb-2
+1	#ffffff	#ffffff	.lg\:text-\[5\.5em\]
+1	#ffffff	#ffffff	.text-teal-400:nth-child(2)
+1	#ffffff	#ffffff	.text-\[0\.87em\]
+1	#ffffff	#ffffff	.text-\[0\.8em\]
+1	#ffffff	#ffffff	.text-\[0\.85em\]
+1	#ffffff	#ffffff	.text-\[0\.85em\] > .text-teal-400
+1	#ffffff	#ffffff	.mt-0\.5
+1	#ffffff	#ffffff	.md\:mb-0.mb-2 > p
+1	#ffffff	#ffffff	.whitespace-normal:nth-child(1) > h5:nth-child(1)
+1	#ffffff	#ffffff	.whitespace-normal:nth-child(1) > .text-white\/85:nth-child(3)
+1	#ffffff	#ffffff	.whitespace-normal:nth-child(1) > h5:nth-child(5)
+2.38	#9e9eff	#ffffff	a[href$="agritech"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="automation"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="biotech"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="construction"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	.z-50.relative:nth-child(2) > .left-\[-1\.2em\].top-full.transform > .p-4.gap-2.flex > .p-2.space-y-2.flex-1:nth-child(1) > .space-y-3 > li:nth-child(5) > .group.block.transition-colors > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="education"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	.group.block[href$="fintech"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="government"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	.group.block[href$="healthcare"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	.group.block[href$="hr-tech"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="insurance"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="legal-tech"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="logistics"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="maritime"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	.p-2.space-y-2.flex-1:nth-child(3) > .space-y-3 > li:nth-child(3) > .group.block.transition-colors > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="music"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="oil-and-gas"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="ondemand"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="port"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="real-estate"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="retail"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="saas"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="sports-tech"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	.p-2.space-y-2.flex-1:nth-child(4) > .space-y-3 > li:nth-child(6) > .group.block.transition-colors > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="frontend-development"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="Reactjs-Development"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="Nextjs-Development"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="angular-development"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="Vuejs-Development"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="Javascript"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="Typescript"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	.p-2.space-y-2.flex-1:nth-child(1) > .space-y-3 > li:nth-child(8) > .group.block.transition-colors > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="backend-development"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="Nodejs-Development"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="Python-Development"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="PHP-Development"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	.group.block[href$="Laravel-Development"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="Net-Development"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="Ruby-on-Rails"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="golang-development"] > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	.space-y-3 > li:nth-child(9) > .group.block.transition-colors > .group-hover\:translate-x-1.font-light.inline-block
+2.38	#9e9eff	#ffffff	a[href$="blog"]
+2.38	#9e9eff	#ffffff	.after\:rounded-full.after\:bottom-0[href$="company"]
+2.38	#9e9eff	#ffffff	.after\:rounded-full.after\:bottom-0[href$="Startups"]
+2.38	#9e9eff	#ffffff	a[href$="store"]
+2.38	#9e9eff	#ffffff	.after\:rounded-full.after\:bottom-0[href$="contact"]
+2.38	#9e9eff	#ffffff	.lg\:text-\[2em\]
+2.38	#9e9eff	#ffffff	.lg\:text-\[2em\] > span
+2.38	#9e9eff	#ffffff	li:nth-child(1) > .transition-colors[href$="ui-ux-design"]
+2.38	#9e9eff	#ffffff	li:nth-child(2) > .transition-colors[href$="Web-Application"]
+2.38	#9e9eff	#ffffff	.text-\[0\.75rem\].md\:order-2.order-2:nth-child(2) > .space-y-1 > li:nth-child(3) > .transition-colors
+2.38	#9e9eff	#ffffff	li:nth-child(4) > .transition-colors[href$="Web-Design"]
+2.38	#9e9eff	#ffffff	li:nth-child(5) > .transition-colors[href$="Web-Development"]
+2.38	#9e9eff	#ffffff	li:nth-child(6) > .transition-colors[href$="unity-development"]
+2.38	#9e9eff	#ffffff	.space-y-1 > li:nth-child(7) > .transition-colors[href$="seo"]
+2.38	#9e9eff	#ffffff	li:nth-child(8) > .transition-colors[href$="Laravel-Development"]
+2.38	#9e9eff	#ffffff	li:nth-child(9) > .transition-colors[href$="cms-development"]
+2.38	#9e9eff	#ffffff	li:nth-child(1) > .transition-colors[href$="company"]
+2.38	#9e9eff	#ffffff	a[href$="case-studies"]
+2.38	#9e9eff	#ffffff	a[href$="careers"]
+2.38	#9e9eff	#ffffff	li:nth-child(4) > .transition-colors[href$="contact"]
+2.38	#9e9eff	#ffffff	a[href$="partners"]
+2.38	#9e9eff	#ffffff	a[href$="support"]
+2.38	#9e9eff	#ffffff	a[href$="audit"]
+2.38	#9e9eff	#ffffff	a[href$="faq"]
+2.38	#9e9eff	#ffffff	li:nth-child(1) > .transition-colors[href$="Startups"]
+2.38	#9e9eff	#ffffff	li:nth-child(2) > .transition-colors[href$="fintech"]
+2.38	#9e9eff	#ffffff	li:nth-child(3) > .transition-colors[href$="hr-tech"]
+2.38	#9e9eff	#ffffff	li:nth-child(4) > .transition-colors[href$="healthcare"]
+2.38	#9e9eff	#ffffff	a[href$="terms-conditions"]
+2.38	#9e9eff	#ffffff	a[href$="cookies-policy"]
+2.38	#9e9eff	#ffffff	a[href$="data-protection-policy"]
+2.38	#9e9eff	#ffffff	a[href$="links"]
+2.38	#9e9eff	#ffffff	.md\:justify-start > a:nth-child(5)
+2.38	#9e9eff	#ffffff	p > a[href$="company"]
+5.32	#ffffff	#6b6b6b	.z-50.relative:nth-child(2) > .grey-nav-neon[aria-haspopup="true"][type="button"] > .font-normal.text-base
+5.32	#ffffff	#6b6b6b	.z-50.relative:nth-child(3) > .grey-nav-neon[aria-haspopup="true"][type="button"] > .font-normal.text-base
+5.32	#ffffff	#6b6b6b	.hover\:text-teal-300
+5.32	#ffffff	#6b6b6b	.from-teal-500
+5.32	#ffffff	#6b6b6b	.grey-totop
+5.32	#ffffff	#6b6b6b	.tracking-\[0\.18em\]
+11.2	#ffffff	#3b3b3b	.grey-search__input
+11.2	#ffffff	#3b3b3b	.bg-black\/20
+11.2	#ffffff	#3b3b3b	label:nth-child(1) > .py-3.placeholder-white\/60.focus\:border-teal-400\/60
+11.2	#ffffff	#3b3b3b	input[placeholder="owner/repo or full URL"]
+11.2	#ffffff	#3b3b3b	.min-w-0

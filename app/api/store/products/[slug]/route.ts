@@ -4,6 +4,33 @@ import path from 'node:path';
 
 const DB_PATH = path.join(process.cwd(), 'Admin', 'data', 'grey.db');
 
+interface DBProductRow {
+  id: number;
+  name: string;
+  slug: string;
+  sku?: string | null;
+  price?: number | null;
+  price_usd?: number | null;
+  compare_price?: number | null;
+  stock?: number | null;
+  images?: string | null;
+  thumbnail?: string | null;
+  description?: string | null;
+  specs?: string | null;
+  featured?: number | null;
+  tags?: string | null;
+  category_id?: number | null;
+  category_name?: string | null;
+  category_slug?: string | null;
+  brand_id?: number | null;
+  brand_name?: string | null;
+  brand_slug?: string | null;
+  rating?: number | null;
+  created_at?: string | null;
+}
+
+interface DBReviewRow { id: number; reviewer_name?: string | null; rating?: number | null; comment?: string | null; created_at?: string | null; }
+
 function parseJsonArray<T = unknown>(value: string | null | undefined, fallback: T[] = []): T[] {
   if (!value) return fallback;
   try {
@@ -24,7 +51,7 @@ function parseJsonObject<T = Record<string, string>>(value: string | null | unde
   }
 }
 
-function normalizeProduct(row: any) {
+function normalizeProduct(row: DBProductRow) {
   return {
     id: row.id,
     name: row.name,
@@ -65,7 +92,7 @@ export async function GET(
         LEFT JOIN product_categories pc ON pc.id = p.category_id
         LEFT JOIN product_brands pb ON pb.id = p.brand_id
         WHERE p.slug = ? AND p.status = 'active'
-      `).get(slug) as any | undefined;
+      `).get(slug) as DBProductRow | undefined;
 
       if (!productRow) {
         return NextResponse.json({ error: 'Product not found' }, { status: 404 });
@@ -77,7 +104,7 @@ export async function GET(
         FROM product_reviews
         WHERE product_id = ? AND status IN ('approved', 'pending')
         ORDER BY created_at DESC
-      `).all(product.id) as any[];
+      `).all(product.id) as DBReviewRow[];
 
       const normalizedReviews = reviews.map((review) => ({
         id: review.id,
@@ -99,7 +126,7 @@ export async function GET(
         WHERE p.status = 'active' AND p.id != ? AND (p.category_id = ? OR p.brand_id = ?)
         ORDER BY p.created_at DESC
         LIMIT 4
-      `).all(product.id, product.category_id, product.brand_id) as any[];
+      `).all(product.id, product.category_id, product.brand_id) as DBProductRow[];
 
       return NextResponse.json({
         product,
