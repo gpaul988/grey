@@ -104,6 +104,98 @@ route.post('/products/:id/edit', requirePermission('store.manage'), (req: Reques
     });
 });
 
+// ─── Store Dashboard (Analytics) ──────────────────────────────────────────────
+
+route.get('/dashboard', requirePermission('store.view'), (_req, res) => {
+    res.render('store-dashboard', { title: 'Store Dashboard', ...baseLocals });
+});
+
+route.get('/dashboard/data', requirePermission('store.view'), (_req, res) => {
+    try {
+        // Sales by day (last 30 days)
+        const sales = db.prepare(`
+            SELECT date(created_at) AS day, SUM(total) AS total
+            FROM orders
+            WHERE status != 'cancelled'
+            GROUP BY date(created_at)
+            ORDER BY date(created_at) ASC
+        `).all() as Array<{ day: string; total: number }>;
+
+        // Category distribution (Nightingale / Rose)
+        const categories = db.prepare(`
+            SELECT pc.name AS category, SUM(oi.quantity) AS value
+            FROM order_items oi
+            JOIN orders o ON oi.order_id = o.id
+            JOIN products p ON oi.product_id = p.id
+            LEFT JOIN product_categories pc ON p.category_id = pc.id
+            GROUP BY pc.name
+            ORDER BY value DESC
+            LIMIT 10
+        `).all() as Array<{ category: string; value: number }>;
+
+        // Radar: simple product metrics (avg order value, avg items, total_customers, total_orders)
+        const stats = db.prepare(`
+            SELECT
+              (SELECT COUNT(*) FROM orders WHERE status != 'cancelled') AS total_orders,
+              (SELECT COUNT(DISTINCT customer_id) FROM orders WHERE customer_id IS NOT NULL) AS total_customers,
+              (SELECT COALESCE(AVG(total),0) FROM orders WHERE status != 'cancelled') AS avg_order_value,
+              (SELECT COALESCE(AVG((SELECT SUM(quantity) FROM order_items WHERE order_id = orders.id)),0) FROM orders WHERE status != 'cancelled') AS avg_items_per_order
+        `).get() as any;
+
+        // Density: sales by hour of day (0-23)
+        const density = db.prepare(`
+            SELECT strftime('%H', created_at) AS hour, SUM(total) AS total
+            FROM orders
+            WHERE status != 'cancelled'
+            GROUP BY hour
+            ORDER BY hour ASC
+        `).all() as Array<{ hour: string; total: number }>;
+
+        // Connection map: counts by customer state (link Rivers State -> other states)
+        const byState = db.prepare(`
+            SELECT c.state AS state, COUNT(DISTINCT o.id) AS orders
+            FROM customers c
+            JOIN orders o ON o.customer_id = c.id
+            GROUP BY c.state
+            ORDER BY orders DESC
+        `).all() as Array<{ state: string; orders: number }>;
+
+        // Build nodes and links for simple connection graph
+        const nodes: any[] = [{ id: 'Nigeria', name: 'Nigeria', value: 0 }, { id: 'Rivers State', name: 'Rivers State', value: 0 }];
+        const links: any[] = [];
+        let nigeriaTotal = 0;
+        byState.forEach((r) => {
+            const stateName = r.state || 'Unknown';
+            const nodeId = stateName;
+            nodes.push({ id: nodeId, name: stateName, value: r.orders });
+            links.push({ source: 'Rivers State', target: nodeId, value: r.orders });
+            links.push({ source: 'Nigeria', target: nodeId, value: r.orders });
+            nigeriaTotal += r.orders;
+            if (stateName === 'Rivers State') {
+                // reflect Rivers node value
+                nodes.find((n) => n.id === 'Rivers State').value = r.orders;
+            }
+        });
+        nodes.find((n) => n.id === 'Nigeria').value = nigeriaTotal;
+
+        // Prepare area chart data
+        const salesByDay = sales.map((s) => ({ day: s.day, total: s.total }));
+
+        // Prepare radar dataset
+        const radar = [
+            { name: 'avg_order_value', value: Number(stats.avg_order_value || 0) },
+            { name: 'avg_items_per_order', value: Number(stats.avg_items_per_order || 0) },
+            { name: 'total_customers', value: Number(stats.total_customers || 0) },
+            { name: 'total_orders', value: Number(stats.total_orders || 0) },
+        ];
+
+        res.json({ salesByDay, categories, radar, density, connection: { nodes, links } });
+    } catch (err) {
+        console.error('[Dashboard Data]', err);
+        res.status(500).json({ error: 'Failed to load dashboard data' });
+    }
+});
+
 // ─── Orders ──────────────────────────────────────────────────────────────────
 
 route.get('/orders', requirePermission('store.view'), (_req, res) => {

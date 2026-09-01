@@ -138,7 +138,7 @@ const isActive = (k) => cur === k ? ' active' : '';
             </li>
 
             <li class="side-nav-title">Store</li>
-
+ 
             <li class="side-nav-item">
                 <a href="/admin/store" class="side-nav-link<%= isActive('store') || isActive('store/dashboard') ? ' active' : '' %>">
                     <span class="menu-icon"><i class="ti ti-layout-dashboard"></i></span>
@@ -151,6 +151,13 @@ const isActive = (k) => cur === k ? ' active' : '';
                    class="side-nav-link<%= isActive('store/products') || isActive('store/product') ? ' active' : '' %>">
                     <span class="menu-icon"><i class="ti ti-device-laptop"></i></span>
                     <span class="menu-text"> Products </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/store/dashboard" class="side-nav-link<%= isActive('store/dashboard') ? ' active' : '' %>">
+                    <span class="menu-icon"><i class="ti ti-chart-pie"></i></span>
+                    <span class="menu-text"> Store Dashboard </span>
                 </a>
             </li>
 
