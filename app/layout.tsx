@@ -173,6 +173,8 @@ export default async function RootLayout({
                 strategy="beforeInteractive"
                 dangerouslySetInnerHTML={{__html: themeInitScript}}
             />
+            {/* Fallback title to ensure document has a title for accessibility tools */}
+            <title>Grey InfoTech</title>
         </head>
         <body
             className={`${merriweather.variable} ${roboto.variable} antialiased min-h-screen flex flex-col`}
