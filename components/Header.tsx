@@ -1,10 +1,10 @@
 'use client';
 
-import React, {useEffect, useState, useRef, Suspense} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {usePathname} from "next/navigation";
-import {ChevronDown, Menu, X, Globe} from "lucide-react";
+import {ChevronDown, Menu, X} from "lucide-react";
 import {FormComponent} from "@/components/FormComponent";
 import ThemeToggle from "@/components/ThemeToggle";
 import SiteSearch from "@/components/SiteSearch";
@@ -185,19 +185,7 @@ const HeaderContent: React.FC = () => {
         }, 150);
     };
 
-    const handleCompanyMouseEnter = (): void => {
-        if (timeoutRef.current) clearTimeout(timeoutRef.current);
-        setIsCompanyOpen(true);
-        setIsServicesOpen(false);
-        setIsIndustriesOpen(false);
-        setIsTechnologiesOpen(false);
-    };
 
-    const handleCompanyMouseLeave = (): void => {
-        timeoutRef.current = setTimeout(() => {
-            setIsCompanyOpen(false);
-        }, 150);
-    };
 
     const handleIndustriesMouseEnter = (): void => {
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
