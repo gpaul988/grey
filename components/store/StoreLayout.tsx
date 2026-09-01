@@ -114,16 +114,16 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
 
     return (
         <div className="store-root">
-            <header style={{ background: 'var(--st-surface)', borderBottom: '1px solid var(--st-border)' }}>
+            <header className="store-header" aria-label="Store header">
                 <Container className="flex items-center justify-between py-4">
-                    <Link href="/store" className="inline-flex items-center gap-3">
+                    <Link href="/store" className="inline-flex items-center gap-3" aria-label="Go to store home">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src="/techlogo.svg" alt="Grey TechStore" className="h-10 w-auto" />
                     </Link>
 
-                    <form onSubmit={search} className="flex items-center flex-1 max-w-xl mx-4">
-                        <input value={q} onChange={(e) => setQ((e.target as HTMLInputElement).value)} placeholder="Search products, categories or brands" className="w-full px-3 py-2 rounded-l border border-r-0" />
-                        <button type="submit" className="st-btn px-4 py-2"><FiSearch /></button>
+                    <form onSubmit={search} className="search-wrap" role="search" aria-label="Search products">
+                        <input value={q} onChange={(e) => setQ((e.target as HTMLInputElement).value)} placeholder="Search products, categories or brands" className="st-input px-3 py-2" aria-label="Search products" />
+                        <button type="submit" className="st-btn px-4 py-2" aria-label="Search"><FiSearch /></button>
                     </form>
 
                     <div className="flex items-center gap-3">
@@ -138,10 +138,10 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
 
             <main><Container className="py-8 min-h-[60vh]">{children}</Container></main>
 
-            <footer style={{ background: 'var(--st-surface)', borderTop: '1px solid var(--st-border)' }} className="mt-16">
+            <footer className="store-footer mt-16" role="contentinfo">
                         <Container className="py-12 grid md:grid-cols-4 gap-8">
-                    <div>
-                        <Link href="/store" className="inline-flex items-center gap-3">
+                    <div className="footer-logo">
+                        <Link href="/store" className="inline-flex items-center gap-3" aria-label="Grey TechStore home">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img src="/techlogo.svg" alt="Grey TechStore" className="h-12 w-auto" />
                         </Link>
