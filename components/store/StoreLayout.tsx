@@ -1,17 +1,15 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
-
-interface StoreLayoutProps { children: React.ReactNode; hasFlashSale?: boolean; }
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from '@/lib/routerCompat';
 import { useStore } from './StoreContext';
 import { displayUnit, formatPrice } from './lib';
 import { FiShoppingCart, FiSearch, FiUser, FiHeart, FiX, FiTrash2, FiMenu, FiGitMerge } from 'react-icons/fi';
+import Container from '@/components/Container';
 
 const NAV = [
     { label: 'All Products', href: '/store/products' },
-    { label: 'Flash Sale', href: '/store/products?flashsale=1' },
     { label: 'Laptops', href: '/store/products?category=laptops' },
     { label: 'Phones', href: '/store/products?category=phones' },
     { label: 'Servers', href: '/store/products?category=servers' },
@@ -103,58 +101,11 @@ function CompareBar() {
     );
 }
 
-export default function StoreLayout({ children, hasFlashSale }: StoreLayoutProps) {
-    const { cartCount, setCartOpen, customer, cartSubtotal, currency, usdRate } = useStore();
+export default function StoreLayout({ children }: { children: React.ReactNode }) {
+    const { cartCount, setCartOpen, customer } = useStore();
     const router = useRouter();
     const [q, setQ] = useState('');
     const [menuOpen, setMenuOpen] = useState(false);
-    const [showHeader, setShowHeader] = useState(true);
-    const menuBtnRef = useRef<HTMLButtonElement | null>(null);
-    const navRef = useRef<HTMLElement | null>(null);
-
-    React.useEffect(() => {
-        // Use pageYOffset for better cross-browser consistency
-        let lastY = typeof window !== 'undefined' ? window.pageYOffset : 0;
-        let ticking = false;
-        const threshold = 8; // small movement tolerance
-        const onScroll = () => {
-            const y = typeof window !== 'undefined' ? window.pageYOffset : 0;
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    const delta = y - lastY;
-                    if (Math.abs(delta) > threshold) {
-                        // If scrolling down and past a reasonable offset, hide header
-                        if (delta > 0 && y > 120) {
-                            setShowHeader(false);
-                        } else {
-                            // scrolling up or near top -> show header
-                            setShowHeader(true);
-                        }
-                        lastY = y;
-                    }
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        };
-        window.addEventListener('scroll', onScroll, { passive: true });
-        return () => window.removeEventListener('scroll', onScroll);
-    }, []);
-
-    // Focus management: when menu opens, move focus to first focusable item; when it closes, return focus to the button.
-    React.useEffect(() => {
-        if (menuOpen) {
-            // give the nav a moment to render then focus
-            const t = setTimeout(() => {
-                const first = navRef.current?.querySelector<HTMLButtonElement | HTMLAnchorElement>('a,button,[tabindex]');
-                if (first) first.focus();
-            }, 60);
-            return () => clearTimeout(t);
-        } else {
-            // return focus to menu button when menu closes
-            menuBtnRef.current?.focus();
-        }
-    }, [menuOpen]);
 
     const search = (e: React.FormEvent) => {
         e.preventDefault();
@@ -163,67 +114,12 @@ export default function StoreLayout({ children, hasFlashSale }: StoreLayoutProps
 
     return (
         <div className="store-root">
-            <header className={`sticky top-0 z-[100] transition-transform duration-200 ${showHeader ? 'translate-y-0' : '-translate-y-full'}`} style={{ background: 'rgba(11,15,20,.85)', backdropFilter: 'blur(12px)', borderBottom: '1px solid var(--st-border)' }}>
-                <div className="max-w-7xl mx-auto px-4" style={{ maxWidth: 'calc(80rem * 1.4)' }}>
-                    <div className="flex items-center gap-4 h-16">
-                        <button ref={menuBtnRef} className="md:hidden st-link" onClick={() => setMenuOpen(!menuOpen)} aria-controls="store-main-nav" aria-expanded={menuOpen} aria-haspopup="true" aria-label={menuOpen ? 'Close menu' : 'Open menu'} onKeyDown={(e) => { if (e.key === 'Escape') setMenuOpen(false); }}><FiMenu size={22} /></button>
-                        <Link href="/store" className="flex items-center gap-3 font-extrabold text-xl tracking-tight shrink-0">
-                                                    <img src="/techlogo.svg" alt="Grey TechStore logo" className="h-10 w-auto sm:h-14 md:h-16 lg:h-20 xl:h-24" />
-                        </Link>
-                        <form onSubmit={search} className="hidden md:flex flex-1 max-w-md relative">
-                            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search laptops, phones, servers…" className="st-input pr-10" />
-                            <button className="absolute right-3 top-1/2 -translate-y-1/2 st-link"><FiSearch /></button>
-                        </form>
-                        <div className="flex items-center gap-3 ml-auto">
-                            <CurrencyToggle />
-                            <Link href="/store/account/wishlist" className="st-link hidden sm:block" title="Wishlist"><FiHeart size={20} /></Link>
-                            <Link href={customer ? '/store/account' : '/store/account/login'} className="st-link" title="Account"><FiUser size={20} /></Link>
-                            <button onClick={() => setCartOpen(true)} className="relative st-link" title="Cart">
-                                <FiShoppingCart size={20} />
-                                {cartCount > 0 && <span className="absolute -top-2 -right-2 bg-[var(--st-teal)] text-[#04130f] text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">{cartCount}</span>}
-                            </button>
-                        </div>
-                    </div>
-                    <nav ref={navRef} id="store-main-nav" role="navigation" className={`${menuOpen ? 'flex' : 'hidden'} md:flex flex-col md:flex-row gap-2 md:gap-6 pb-3 md:pb-0 md:h-11 md:items-center text-sm md:flex-wrap md:justify-between`} aria-hidden={!menuOpen && true}>
-                        {NAV.map((n) => (
-                            <Link key={n.href} href={n.href} className="st-link py-1.5 font-medium">{n.label}</Link>
-                        ))}
-                        <Link href="/store/compare" className="st-link py-1.5 font-medium md:ml-auto flex items-center gap-1"><FiGitMerge size={14} /> Compare</Link>
-                    </nav>
-                </div>
-            </header>
-
-            <main className="max-w-7xl mx-auto px-4 py-10 min-h-[60vh] shadow-sm rounded-md" style={{ maxWidth: 'calc(80rem * 1.25)' }}>
-                {hasFlashSale && (
-                    <div className="max-w-7xl mx-auto px-4 mb-6">
-                        <Link href="/store/flash-sale" className="block w-full text-center py-3 rounded-md font-semibold text-sm" style={{ background: 'linear-gradient(90deg,#ff7a18,#af002d)', color: '#fff' }}>
-                            🔥 Flash Sale — Click to view deals
-                        </Link>
-                    </div>
-                )}
-                {children}
-            </main>
-
-            {cartCount > 0 && (
-                <div className="fixed bottom-0 left-0 right-0 z-[110] md:hidden" style={{ background: 'rgba(11,15,20,.96)', borderTop: '1px solid var(--st-border)' }}>
-                    <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-                        <div>
-                            <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--st-muted)]">Cart</p>
-                            <p className="font-semibold text-sm">{cartCount} item{cartCount > 1 ? 's' : ''} · {formatPrice(cartSubtotal, currency, usdRate)}</p>
-                        </div>
-                        <button onClick={() => setCartOpen(true)} className="st-btn px-4 py-2 text-sm">Review</button>
-                    </div>
-                </div>
-            )}
+            <main><Container className="py-8 min-h-[60vh]">{children}</Container></main>
 
             <footer style={{ background: 'var(--st-surface)', borderTop: '1px solid var(--st-border)' }} className="mt-16">
-                <div className="max-w-7xl mx-auto px-4 py-12 grid md:grid-cols-4 gap-8" style={{ maxWidth: 'calc(80rem * 1.4)' }}>
+                        <Container className="py-12 grid md:grid-cols-4 gap-8">
                     <div>
-                        <div className="flex items-center gap-3 mb-3">
-                                                    <Link href="/store" className="inline-flex items-center">
-                                                                                                            <img src="/techlogo.svg" alt="Grey TechStore logo" className="h-16 w-auto sm:h-20 md:h-24 lg:h-28" onClick={() => router.push('/store')} style={{ cursor: 'pointer' }} />
-                                                    </Link>
-                                                </div>
+                        <p className="font-extrabold text-lg">Grey<span className="text-[var(--st-teal)]">TechStore</span></p>
                         <p className="text-[var(--st-muted)] text-sm mt-3">Nigeria&apos;s trusted store for laptops, desktops, servers, phones & accessories. Genuine products, nationwide delivery.</p>
                     </div>
                     <div>
@@ -250,9 +146,9 @@ export default function StoreLayout({ children, hasFlashSale }: StoreLayoutProps
                             <li><Link href="/" className="st-link">← Main Website</Link></li>
                         </ul>
                     </div>
-                </div>
+                </Container>
                 <div className="border-t border-[var(--st-border)] py-5 text-center text-xs text-[var(--st-muted)]">
-                    © {new Date().getFullYear()} Grey InfoTech. All rights reserved.
+                    © {new Date().getFullYear()} Grey InfoTech Limited. All rights reserved.
                 </div>
             </footer>
 
