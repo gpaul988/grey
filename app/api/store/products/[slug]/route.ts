@@ -63,7 +63,6 @@ function normalizeProduct(row: DBProductRow) {
     stock: Number(row.stock ?? 0),
     images: parseJsonArray<string>(row.images, []),
     thumbnail: row.thumbnail ?? null,
-    video_url: row.video_url ?? null,
     description: row.description ?? null,
     specs: parseJsonObject<Record<string, string>>(row.specs, {}),
     featured: Number(row.featured ?? 0),

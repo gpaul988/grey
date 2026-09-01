@@ -4,6 +4,35 @@ import path from 'node:path';
 
 const DB_PATH = path.join(process.cwd(), 'Admin', 'data', 'grey.db');
 
+// Types for DB rows returned by better-sqlite3
+interface DBCategoryRow { id: number; name: string; slug: string; icon?: string | null; }
+interface DBBrandRow { id: number; name: string; slug: string; }
+interface DBProductRow {
+  id: number;
+  name: string;
+  slug: string;
+  sku?: string | null;
+  price?: number | null;
+  // Optional legacy USD price column (may not exist in older DBs)
+  price_usd?: number | null;
+  compare_price?: number | null;
+  stock?: number | null;
+  images?: string | null;
+  thumbnail?: string | null;
+  description?: string | null;
+  specs?: string | null;
+  featured?: number | null;
+  tags?: string | null;
+  category_id?: number | null;
+  category_name?: string | null;
+  category_slug?: string | null;
+  brand_id?: number | null;
+  brand_name?: string | null;
+  brand_slug?: string | null;
+  rating?: number | null;
+  created_at?: string | null;
+}
+
 function parseJsonArray<T = unknown>(value: string | null | undefined, fallback: T[] = []): T[] {
   if (!value) return fallback;
   try {
@@ -114,7 +143,9 @@ function ensureCatalog() {
       brands.forEach(([slug, name]) => brandStmt.run(name, slug, `${name} catalog items`));
 
       const brandMap: Record<string, number> = {};
-      db.prepare('SELECT id, slug FROM product_brands').all().forEach((row: any) => {
+      db.prepare('SELECT id, slug FROM product_brands').all() as DBBrandRow[]; 
+      const brandRows = db.prepare('SELECT id, slug FROM product_brands').all() as DBBrandRow[];
+      brandRows.forEach((row) => {
         brandMap[row.slug] = row.id;
       });
 
@@ -131,7 +162,8 @@ function ensureCatalog() {
       ] as const;
 
       const categoryLookup: Record<string, number> = {};
-      db.prepare('SELECT id, slug FROM product_categories').all().forEach((row: any) => {
+      const categoryRows = db.prepare('SELECT id, slug FROM product_categories').all() as DBCategoryRow[];
+      categoryRows.forEach((row) => {
         categoryLookup[row.slug] = row.id;
       });
 
@@ -160,6 +192,31 @@ function ensureCatalog() {
   }
 }
 
+interface ProductDTO {
+  id: number;
+  name: string;
+  slug: string;
+  sku: string | null;
+  price: number;
+  price_usd?: number | null;
+  compare_price: number | null;
+  stock: number;
+  images: string[];
+  thumbnail: string | null;
+  description: string | null;
+  specs: Record<string, string>;
+  featured: number;
+  tags: string[];
+  category_id: number | null;
+  category_name?: string;
+  category_slug?: string;
+  brand_id: number | null;
+  brand_name?: string;
+  brand_slug?: string;
+  rating: number;
+  created_at?: string | null;
+}
+
 export async function GET(request: NextRequest) {
   try {
     ensureCatalog();
@@ -172,8 +229,8 @@ export async function GET(request: NextRequest) {
 
     const db = new Database(DB_PATH);
     try {
-      const categories = db.prepare('SELECT id, name, slug, icon FROM product_categories ORDER BY sort_order ASC, name ASC').all() as any[];
-      const brands = db.prepare('SELECT id, name, slug FROM product_brands ORDER BY name ASC').all() as any[];
+      const categories = db.prepare('SELECT id, name, slug, icon FROM product_categories ORDER BY sort_order ASC, name ASC').all() as DBCategoryRow[];
+      const brands = db.prepare('SELECT id, name, slug FROM product_brands ORDER BY name ASC').all() as DBBrandRow[];
 
       const products = db.prepare(`
         SELECT p.*, pc.name AS category_name, pc.slug AS category_slug, pb.name AS brand_name, pb.slug AS brand_slug
@@ -182,9 +239,9 @@ export async function GET(request: NextRequest) {
         LEFT JOIN product_brands pb ON pb.id = p.brand_id
         WHERE p.status = 'active'
         ORDER BY p.created_at DESC
-      `).all() as any[];
+      `).all() as DBProductRow[];
 
-      let list = products.map((product) => ({
+      let list: ProductDTO[] = products.map((product) => ({
         id: product.id,
         name: product.name,
         slug: product.slug,
@@ -229,7 +286,7 @@ export async function GET(request: NextRequest) {
         list = list.filter((item) => Number(item.featured) === 1);
       }
 
-      list.sort((a: any, b: any) => {
+      list.sort((a, b) => {
         switch (sort) {
           case 'price_asc': return a.price - b.price;
           case 'price_desc': return b.price - a.price;
