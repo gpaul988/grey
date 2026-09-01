@@ -121,20 +121,54 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
                         <img src="/techlogo.svg" alt="Grey TechStore" className="h-10 w-auto" />
                     </Link>
 
-                    <form onSubmit={search} className="search-wrap" role="search" aria-label="Search products">
+                    <nav className="hidden md:flex items-center gap-6" aria-label="Store main navigation">
+                        {NAV.map((n) => (
+                            <Link key={n.href} href={n.href} className="st-link font-medium">{n.label}</Link>
+                        ))}
+                    </nav>
+
+                    <form onSubmit={search} className="search-wrap ml-4" role="search" aria-label="Search products">
                         <input value={q} onChange={(e) => setQ((e.target as HTMLInputElement).value)} placeholder="Search products, categories or brands" className="st-input px-3 py-2" aria-label="Search products" />
                         <button type="submit" className="st-btn px-4 py-2" aria-label="Search"><FiSearch /></button>
                     </form>
 
                     <div className="flex items-center gap-3">
+                        <CurrencyToggle />
+                        <Link href="/store/products" className="hidden md:inline-block st-btn px-4 py-2">Shop Now</Link>
                         <button onClick={() => setCartOpen(true)} className="relative st-link" aria-label="Open cart">
                             <FiShoppingCart />
                             {cartCount > 0 && <span className="absolute -top-2 -right-2 bg-[var(--st-teal)] text-black rounded-full text-xs px-2">{cartCount}</span>}
                         </button>
                         <Link href="/store/account" className="st-link" aria-label="Account"><FiUser /></Link>
+                        <button className="md:hidden st-link" onClick={() => setMenuOpen(true)} aria-label="Open menu"><FiMenu /></button>
                     </div>
                 </Container>
             </header>
+
+            {/* Mobile menu overlay */}
+            {menuOpen && (
+                <div className="fixed inset-0 z-[130]">
+                    <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
+                    <aside className="absolute left-0 top-0 w-full max-w-xs h-full bg-[var(--st-surface)] p-5 st-fade">
+                        <div className="flex items-center justify-between mb-4">
+                            <Link href="/store" className="inline-flex items-center gap-3" onClick={() => setMenuOpen(false)}>
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src="/techlogo.svg" alt="Grey TechStore" className="h-8 w-auto" />
+                            </Link>
+                            <button onClick={() => setMenuOpen(false)} className="st-link" aria-label="Close menu"><FiX /></button>
+                        </div>
+                        <nav className="flex flex-col gap-3">
+                            {NAV.map((n) => <Link key={n.href} href={n.href} className="st-link py-2" onClick={() => setMenuOpen(false)}>{n.label}</Link>)}
+                        </nav>
+                        <div className="mt-6">
+                            <form onSubmit={(e) => { e.preventDefault(); router.push(`/store/products?search=${encodeURIComponent(q)}`); setMenuOpen(false); }}>
+                                <label htmlFor="mobile-search" className="sr-only">Search products</label>
+                                <input id="mobile-search" value={q} onChange={(e) => setQ((e.target as HTMLInputElement).value)} placeholder="Search products" className="st-input w-full" />
+                            </form>
+                        </div>
+                    </aside>
+                </div>
+            )}
 
             <main><Container className="py-8 min-h-[60vh]">{children}</Container></main>
 
@@ -172,8 +206,16 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
                         </ul>
                     </div>
                 </Container>
-                <div className="border-t border-[var(--st-border)] py-5 text-center text-xs text-[var(--st-muted)]">
-                    © {new Date().getFullYear()} Grey InfoTech Limited. All rights reserved.
+                <div className="border-t border-[var(--st-border)] py-6 flex flex-col md:flex-row items-center justify-between gap-4 px-4">
+                    <div className="text-xs text-[var(--st-muted)]">© {new Date().getFullYear()} Grey InfoTech Limited. All rights reserved.</div>
+                    <div className="flex items-center gap-3">
+                        <form onSubmit={(e) => { e.preventDefault(); /* TODO: wire subscription */ }} className="subscribe flex items-center">
+                            <label htmlFor="subscribe-email" className="sr-only">Subscribe</label>
+                            <input id="subscribe-email" type="email" placeholder="Your email" className="st-input" />
+                            <button type="submit" className="st-btn ml-2">Subscribe</button>
+                        </form>
+                        <div className="text-[var(--st-muted)] text-xs">Follow us: <a href="#" className="st-link">Twitter</a> • <a href="#" className="st-link">LinkedIn</a></div>
+                    </div>
                 </div>
             </footer>
 
