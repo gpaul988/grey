@@ -10,6 +10,7 @@ import ResponsiveVideoHero from '@/components/ResponsiveVideoHero';
 import FuturisticDevelopmentProcess from '@/components/FuturisticDevelopmentProcess';
 import VerticalSolutionsAccordion from '@/components/VerticalSolutionsAccordion';
 import {useIsDayTime} from './useIsDayTime';
+import Container from '@/components/Container';
 import {
     FxBackground,
     FxChip,
@@ -204,7 +205,7 @@ export const CurrencyAwarePricing: React.FC<{
 
     return (
         <section suppressHydrationWarning className="py-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div><Container>
                 <div className="flex items-center justify-between mb-8">
                     <div>
                         <h3 className={`text-2xl font-bold ${isDayTimeLocal ? 'text-gray-900' : 'text-white'}`}>Transparent
@@ -246,9 +247,10 @@ export const CurrencyAwarePricing: React.FC<{
                         )
                     })}
                 </div>
+                </Container>
             </div>
         </section>
-    )
+    );
 }
 
 const ServicePageTemplate: React.FC<ServicePageProps> = ({
@@ -721,7 +723,7 @@ const ServicePageTemplate: React.FC<ServicePageProps> = ({
             {/* Terminal */}
             <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-[4.5em] pb-12">
                 <FxTerminal day={!isDayTime}
-                            lines={["# Grey InfoTech - innovation ships", "Build complete", "Deployed to edge"]}/>
+                            lines={["# Graham Sobiribo Paul - innovation ships", "Build complete", "Deployed to edge"]}/>
             </div>
 
         </div>

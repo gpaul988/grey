@@ -3,6 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import Database from 'better-sqlite3';
 
+type SqliteDb = InstanceType<typeof Database>;
+
 const DB_PATH = path.join(process.cwd(), 'Admin', 'data', 'grey.db');
 const ORDERS_PATH = path.join(process.cwd(), 'Admin', 'data', 'orders.json');
 
@@ -15,7 +17,7 @@ function makeOrderNumber() {
   return 'ORD' + Date.now().toString(36).toUpperCase() + '-' + Math.floor(Math.random() * 9000 + 1000);
 }
 
-function tableExists(db: Database, name: string) {
+function tableExists(db: SqliteDb, name: string) {
   try {
     const r = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name = ?").get(name);
     return !!r;

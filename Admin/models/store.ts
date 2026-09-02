@@ -21,10 +21,15 @@ export interface Product {
   stock: number;
   images: string; // JSON
   thumbnail: string | null;
+  video_url: string | null;
   status: 'draft' | 'active' | 'archived';
   featured: number;
   tags: string; // JSON
   weight: number | null;
+  flash_sale: number;
+  flash_sale_starts: string | null;
+  flash_sale_ends: string | null;
+  flash_sale_price: number | null;
   created_at: string;
   updated_at: string;
   // joined
@@ -182,13 +187,14 @@ export const Products = {
   create(data: {
     name: string; category_id?: number | null; brand_id?: number | null;
     description?: string; specs?: object; price: number; compare_price?: number | null;
-    stock?: number; images?: string[]; thumbnail?: string; status?: string;
+    stock?: number; images?: string[]; thumbnail?: string; video_url?: string | null; status?: string;
     featured?: boolean; tags?: string[]; weight?: number; sku?: string; price_usd?: number | null;
+    flash_sale?: boolean; flash_sale_starts?: string | null; flash_sale_ends?: string | null; flash_sale_price?: number | null;
   }): Product {
     const slug = slugify(data.name) + '-' + Math.random().toString(36).slice(2, 6);
     const info = db.prepare(`
-      INSERT INTO products (name, slug, sku, category_id, brand_id, description, specs, price, price_usd, compare_price, stock, images, thumbnail, status, featured, tags, weight)
-      VALUES (@name, @slug, @sku, @category_id, @brand_id, @description, @specs, @price, @price_usd, @compare_price, @stock, @images, @thumbnail, @status, @featured, @tags, @weight)
+      INSERT INTO products (name, slug, sku, category_id, brand_id, description, specs, price, price_usd, compare_price, stock, images, thumbnail, video_url, status, featured, tags, weight, flash_sale, flash_sale_starts, flash_sale_ends, flash_sale_price)
+      VALUES (@name, @slug, @sku, @category_id, @brand_id, @description, @specs, @price, @price_usd, @compare_price, @stock, @images, @thumbnail, @video_url, @status, @featured, @tags, @weight, @flash_sale, @flash_sale_starts, @flash_sale_ends, @flash_sale_price)
     `).run({
       name: data.name,
       slug,
@@ -203,10 +209,15 @@ export const Products = {
       stock: data.stock ?? 0,
       images: JSON.stringify(data.images ?? []),
       thumbnail: data.thumbnail ?? null,
+      video_url: data.video_url ?? null,
       status: data.status ?? 'draft',
       featured: data.featured ? 1 : 0,
       tags: JSON.stringify(data.tags ?? []),
       weight: data.weight ?? null,
+      flash_sale: data.flash_sale ? 1 : 0,
+      flash_sale_starts: data.flash_sale_starts ?? null,
+      flash_sale_ends: data.flash_sale_ends ?? null,
+      flash_sale_price: data.flash_sale_price ?? null,
     });
     return this.find(Number(info.lastInsertRowid))!;
   },
@@ -214,8 +225,9 @@ export const Products = {
   update(id: number, data: Partial<{
     name: string; category_id: number | null; brand_id: number | null;
     description: string; specs: object; price: number; compare_price: number | null;
-    stock: number; images: string[]; thumbnail: string; status: string;
+    stock: number; images: string[]; thumbnail: string; video_url: string | null; status: string;
     featured: boolean; tags: string[]; weight: number; sku: string; price_usd: number | null;
+    flash_sale: boolean; flash_sale_starts: string | null; flash_sale_ends: string | null; flash_sale_price: number | null;
   }>): Product | null {
     const cur = this.find(id);
     if (!cur) return null;
@@ -223,8 +235,9 @@ export const Products = {
       UPDATE products SET
         name=@name, sku=@sku, category_id=@category_id, brand_id=@brand_id,
         description=@description, specs=@specs, price=@price, price_usd=@price_usd, compare_price=@compare_price,
-        stock=@stock, images=@images, thumbnail=@thumbnail, status=@status,
+        stock=@stock, images=@images, thumbnail=@thumbnail, video_url=@video_url, status=@status,
         featured=@featured, tags=@tags, weight=@weight,
+        flash_sale=@flash_sale, flash_sale_starts=@flash_sale_starts, flash_sale_ends=@flash_sale_ends, flash_sale_price=@flash_sale_price,
         updated_at=datetime('now')
       WHERE id=@id
     `).run({
@@ -241,10 +254,15 @@ export const Products = {
       stock: data.stock !== undefined ? data.stock : cur.stock,
       images: data.images ? JSON.stringify(data.images) : cur.images,
       thumbnail: data.thumbnail ?? cur.thumbnail,
+      video_url: data.video_url !== undefined ? data.video_url : cur.video_url,
       status: data.status ?? cur.status,
       featured: data.featured !== undefined ? (data.featured ? 1 : 0) : cur.featured,
       tags: data.tags ? JSON.stringify(data.tags) : cur.tags,
       weight: data.weight !== undefined ? data.weight : cur.weight,
+      flash_sale: data.flash_sale !== undefined ? (data.flash_sale ? 1 : 0) : cur.flash_sale,
+      flash_sale_starts: data.flash_sale_starts !== undefined ? data.flash_sale_starts : cur.flash_sale_starts,
+      flash_sale_ends: data.flash_sale_ends !== undefined ? data.flash_sale_ends : cur.flash_sale_ends,
+      flash_sale_price: data.flash_sale_price !== undefined ? data.flash_sale_price : cur.flash_sale_price,
     });
     return this.find(id);
   },

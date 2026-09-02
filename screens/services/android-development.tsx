@@ -889,7 +889,7 @@ const AndroidDevelopment = () => {
 
                             <div className={`p-4 rounded-xl backdrop-blur-sm ${isDayTime ? 'bg-white/80 border border-slate-100/30' : 'bg-black/40 border border-white/12'}`}>
                                 <p className='text-[0.92em] font-[400] lg:-mt-[0.2em] md:-mt-[0.2em] text-justify leading-[1.6]'>
-                                    Android projects at Grey InfoTech are delivered by cross-functional teams blending product strategy, design thinking and engineering excellence. Each engagement is owner-led and outcome-focused — from discovery workshops through to sustainable operations. Communication is transparent, iteration is theory-driven, and every milestone ties back to measurable KPIs.
+                                    Android projects at Graham Sobiribo Paul are delivered by cross-functional teams blending product strategy, design thinking and engineering excellence. Each engagement is owner-led and outcome-focused — from discovery workshops through to sustainable operations. Communication is transparent, iteration is theory-driven, and every milestone ties back to measurable KPIs.
                                 </p>
 
                                 <p className='text-[0.92em] font-[400] mt-4 text-justify leading-[1.6]'>

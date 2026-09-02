@@ -312,16 +312,16 @@ export default function ServicesSection({ isDayTime = false }: { isDayTime?: boo
               {/* Mobile image (shows only on small screens) */}
               <div className="lg:hidden relative w-full h-48 mb-6 rounded-2xl overflow-hidden">
                 <Image src={svc.image} alt={svc.title} fill className="object-cover" />
-                <div className="absolute inset-0" style={{ background: `linear-gradient(135deg, ${svc.color}18, transparent)` }} />
+                <div className="absolute inset-0" style={{ background: `linear-gradient(135deg, ${svc.color}22, transparent)` }} />
               </div>
 
               {/* CTA */}
               <Link href={svc.href}>
                 <motion.button
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
-                  className="relative inline-flex items-center gap-3 px-5 py-2.5 rounded-full text-[0.82em] font-semibold tracking-wide overflow-hidden group/btn bg-transparent"
-                  style={{ border: `1px solid ${svc.color}28`, color: svc.color }}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="relative inline-flex items-center gap-3 px-6 py-3 rounded-full text-[0.82em] font-semibold tracking-wide overflow-hidden group/btn"
+                  style={{ border: `1px solid ${svc.color}55`, color: svc.color }}
                 >
                   {/* Fill on hover */}
                   <motion.span
@@ -386,8 +386,8 @@ export default function ServicesSection({ isDayTime = false }: { isDayTime?: boo
                 {/* Info overlay at bottom */}
                 <div className="absolute bottom-0 left-0 right-0 p-8">
                   <div
-                    className="rounded-2xl p-6 backdrop-blur-sm"
-                    style={{ background: 'rgba(15, 23, 42, 0.20)', border: `1px solid ${active.color}22` }}
+                    className="rounded-2xl p-6 backdrop-blur-md"
+                    style={{ background: 'rgba(0,0,0,0.55)', border: `1px solid ${active.color}33` }}
                   >
                     {/* Progress bar */}
                     <div className="flex items-center gap-3 mb-4">

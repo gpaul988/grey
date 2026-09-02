@@ -3,6 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import Database from 'better-sqlite3';
 
+type SqliteDb = InstanceType<typeof Database>;
+
 // Protect this endpoint: provide ADMIN_MIGRATE_TOKEN env var and pass it in X-Admin-Token header.
 // In development, token is optional for convenience.
 
@@ -14,7 +16,7 @@ function ensureDataDir(p: string) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
 
-function tableExists(db: Database, name: string) {
+function tableExists(db: SqliteDb, name: string) {
   try { return !!db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name = ?").get(name); } catch { return false; }
 }
 

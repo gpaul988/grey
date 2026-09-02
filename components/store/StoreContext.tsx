@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
-import { api, type StoreProduct, type Currency } from './lib';
+import { api, type StoreProduct, type Currency, effectiveAmount, type StoreSettings } from './lib';
 
 export interface CartLine { product: StoreProduct; quantity: number; }
 export interface Customer { id: number; first_name: string; last_name: string; email: string | null; phone: string; address: string | null; city: string | null; state: string | null; country: string; }
@@ -14,6 +14,7 @@ interface StoreState {
     usdEnabled: boolean;
     customer: Customer | null;
     wishlistIds: number[];
+    settings?: StoreSettings;
     addToCart: (p: StoreProduct, qty?: number) => void;
     removeFromCart: (id: number) => void;
     setQty: (id: number, qty: number) => void;
@@ -50,6 +51,7 @@ export function StoreProvider({ children, usdRate = 1600, usdEnabled = true }: {
     const [currency, setCurrencyState] = useState<Currency>('NGN');
     const [customer, setCustomer] = useState<Customer | null>(null);
     const [wishlistIds, setWishlistIds] = useState<number[]>([]);
+    const [settings, setSettings] = useState<StoreSettings | undefined>(undefined);
     const [cartOpen, setCartOpen] = useState(false);
     const [hydrated, setHydrated] = useState(false);
 
@@ -79,6 +81,21 @@ export function StoreProvider({ children, usdRate = 1600, usdEnabled = true }: {
     }, []);
 
     useEffect(() => { refreshAuth(); }, [refreshAuth]);
+
+    // Load store settings (Black Friday flags, etc) from a dedicated promos endpoint for reliability
+    useEffect(() => {
+        (async () => {
+            try {
+                const r = await api<{
+                    store_settings?: { black_friday_active?: boolean; black_friday_discount?: number };
+                }>('/api/store/promos');
+                if (r && (r as any).store_settings) setSettings({
+                    black_friday_active: !!(r as any).store_settings.black_friday_active,
+                    black_friday_discount: Number((r as any).store_settings.black_friday_discount || 0),
+                });
+            } catch (err) { console.warn('Failed to load store promos', err); }
+        })();
+    }, []);
 
     const addToCart = useCallback((p: StoreProduct, qty = 1) => {
         setCart((prev) => {
@@ -114,11 +131,14 @@ export function StoreProvider({ children, usdRate = 1600, usdEnabled = true }: {
     const isWishlisted = useCallback((id: number) => wishlistIds.includes(id), [wishlistIds]);
 
     const cartCount = cart.reduce((s, l) => s + l.quantity, 0);
-    const cartSubtotal = cart.reduce((s, l) => s + l.product.price * l.quantity, 0);
+    const cartSubtotal = cart.reduce((s, l) => {
+        const eff = effectiveAmount(l.product, settings);
+        return s + eff.amount * l.quantity;
+    }, 0);
 
     return (
         <Ctx.Provider value={{
-            cart, compare, currency, usdRate, usdEnabled, customer, wishlistIds,
+        cart, compare, currency, usdRate, usdEnabled, customer, wishlistIds, settings,
             addToCart, removeFromCart, setQty, clearCart,
             toggleCompare, removeCompare, clearCompare,
             setCurrency, cartCount, cartSubtotal, cartOpen, setCartOpen,

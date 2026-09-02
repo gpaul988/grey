@@ -2,14 +2,25 @@ import fs from 'fs';
 import path from 'path';
 import Database from 'better-sqlite3';
 
+type SqliteDb = InstanceType<typeof Database>;
+
 function getDbPath() {
   return process.env.GREY_DB_PATH || path.join(process.cwd(), 'Admin', 'data', 'grey.db');
 }
 
-function tableExists(db: Database, name: string) {
+function tableExists(db: SqliteDb, name: string) {
   try {
     const r = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name = ?").get(name);
     return !!r;
+  } catch {
+    return false;
+  }
+}
+
+function columnExists(db: SqliteDb, tableName: string, columnName: string) {
+  try {
+    const rows = db.prepare(`PRAGMA table_info(${tableName})`).all() as Array<{ name: string }>;
+    return rows.some((row) => row.name === columnName);
   } catch {
     return false;
   }
@@ -23,7 +34,9 @@ export type LineItem = { id: number; quantity: number };
 
 export function processOrderToDb(body: any, normalizedItems: LineItem[], shipping_cost: number, tax: number, payment_method: string, customer_email: string) {
   const dbPath = getDbPath();
-  if (!fs.existsSync(dbPath)) throw new Error('DB_NOT_FOUND');
+  // Prevent Turbopack from tracing the whole filesystem here by opting out of static analysis
+  // The runtime will still check for DB existence on the server.
+  if (!fs.existsSync(/*turbopackIgnore: true*/ dbPath)) throw new Error('DB_NOT_FOUND');
   const db = new Database(dbPath);
   try {
     const prodTable = tableExists(db, 'store_products') ? 'store_products' : (tableExists(db, 'products') ? 'products' : null);
@@ -35,16 +48,29 @@ export function processOrderToDb(body: any, normalizedItems: LineItem[], shippin
       throw new Error('MISSING_TABLES');
     }
 
-    // Fetch store settings (Black Friday) into memory
-    const settingsRows = db.prepare("SELECT key, value FROM store_settings").all() as Array<{key:string,value:string}>;
-    const storeSettings: Record<string,string> = {};
-    settingsRows.forEach(r => { storeSettings[r.key] = r.value; });
+    // Fetch store settings (Black Friday) into memory when the table exists.
+    const storeSettings: Record<string, string> = {};
+    if (tableExists(db, 'store_settings')) {
+      const settingsRows = db.prepare('SELECT key, value FROM store_settings').all() as Array<{ key: string; value: string }>;
+      settingsRows.forEach((r) => { storeSettings[r.key] = r.value; });
+    }
 
     const blackFridayActive = storeSettings['black_friday_active'] === '1' || storeSettings['black_friday_active'] === 'true';
     const blackFridayDiscount = Number(storeSettings['black_friday_discount'] || 0);
 
-    // select extra flash sale fields when querying products
-    const getProduct = db.prepare(`SELECT id, price, price_usd, stock, flash_sale, flash_sale_starts, flash_sale_ends, flash_sale_price FROM ${prodTable} WHERE id = ?`);
+    const productFieldList = [
+      'id',
+      'price',
+      'stock',
+      ...(columnExists(db, prodTable, 'price_usd') ? ['price_usd'] : []),
+      ...(columnExists(db, prodTable, 'flash_sale') ? ['flash_sale'] : []),
+      ...(columnExists(db, prodTable, 'flash_sale_starts') ? ['flash_sale_starts'] : []),
+      ...(columnExists(db, prodTable, 'flash_sale_ends') ? ['flash_sale_ends'] : []),
+      ...(columnExists(db, prodTable, 'flash_sale_price') ? ['flash_sale_price'] : []),
+    ];
+
+    // select extra flash sale fields when querying products, guarding for missing columns
+    const getProduct = db.prepare(`SELECT ${productFieldList.join(', ')} FROM ${prodTable} WHERE id = ?`);
     const insertOrder = db.prepare(`INSERT INTO ${ordersTable} (order_number, customer_id, email, status, subtotal, shipping_cost, tax, total, currency, metadata, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))`);
     const insertOrderItem = db.prepare(`INSERT INTO ${orderItemsTable} (order_id, product_id, quantity, price, subtotal, metadata, created_at) VALUES (?, ?, ?, ?, ?, ?, datetime('now'))`);
     const updateStock = db.prepare(`UPDATE ${prodTable} SET stock = stock - ? WHERE id = ? AND stock >= ?`);

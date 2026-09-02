@@ -11,6 +11,7 @@ import CountUp from 'react-countup';
 import {FaStar, FaGoogle, FaLinkedin} from 'react-icons/fa6';
 import {FaFileAlt} from 'react-icons/fa';
 import AIProjectEstimator from '@/components/AIProjectEstimator';
+import WebGLHero from '@/components/futuristic/WebGLHero';
 import {usePersonalization} from '@/components/futuristic/PersonalizationProvider';
 import {getAutoUserName} from '@/lib/get-user-name';
 import {useIsDayTime} from '../components/useIsDayTime';
@@ -25,42 +26,42 @@ const WHY_US = [
         title: 'Battle-Tested Expertise',
         body: 'Over 8 years shipping real products  - MVPs, SaaS platforms, enterprise systems  - across 15+ industries. We\'ve solved the hard problems so you don\'t have to.',
         icon: ' - ',
-        color: '#2b98a3',
+        color: '#2dd4bf',
     },
     {
         num: '02',
         title: 'Strategy-First Engineering',
         body: 'We combine business strategy with deep technical craft. Every line of code is deliberate, every architecture decision is aligned with your growth roadmap.',
         icon: ' - ',
-        color: '#1d6f77',
+        color: '#06b6d4',
     },
     {
         num: '03',
         title: 'Radical Transparency',
         body: 'No black boxes. You see the roadmap, the progress, the blockers  - in real time. We hold ourselves accountable to outcomes, not just deliverables.',
         icon: ' - ',
-        color: '#5a9da3',
+        color: '#7c3aed',
     },
     {
         num: '04',
         title: 'Built to Scale',
         body: 'Architecture designed for where your business is going, not just where it is today. Clean code, cloud-native infra, and performance at every layer.',
         icon: ' - ',
-        color: '#123d42',
+        color: '#f59e0b',
     },
     {
         num: '05',
         title: 'End-to-End Ownership',
         body: 'From discovery to deployment and beyond. We don\'t hand off and disappear  - we stay invested in your product\'s long-term success.',
         icon: '⬡',
-        color: '#4aa7ae',
+        color: '#10b981',
     },
     {
         num: '06',
         title: 'Africa-Grade Resilience',
         body: 'Built for real-world conditions: intermittent connectivity, diverse devices, payment systems. Software that works everywhere, for everyone.',
         icon: '⬢',
-        color: '#6f8690',
+        color: '#ef4444',
     },
 ];
 
@@ -133,48 +134,42 @@ const Home = () => {
                     videoDesktop="/assets/hero/hero.mp4"
                     videoMobile="/assets/hero/hero.mp4"
                     posterImage="/assets/hero/hero.mp4"
-                    overlayOpacity={0.15}
+                    overlayOpacity={0.3}
                     heights={{
                         mobile: 'h-[600px] sm:h-[650px]',
                         tablet: 'md:h-[720px]',
-                        desktop: 'lg:h-[780px] xl:h-[820px]',
+                        desktop: 'lg:h-[850px] xl:h-[850px]',
                     }}
                     className="pb-6 rounded-none"
                 >
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(45,212,191,0.18),transparent_32%),linear-gradient(135deg,rgba(15,23,42,0.18),rgba(15,23,42,0.4))]" />
-                    <div className="relative z-10 mt-24 flex flex-col justify-center items-start text-start lg:max-w-[90em] text-white">
+                    <WebGLHero className="absolute inset-0 z-[5] opacity-60 pointer-events-none mix-blend-screen"/>
+                    <div
+                        className="relative z-10 mt-24 flex flex-col justify-center items-start text-start lg:max-w-[90em] text-white">
                         <br/><br/>
                         {isMounted && (
-                            <span className="premium-pill grey-parallax-soft mb-4 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-900 bg-white/70 border-white/40">
-                                <span className="h-2 w-2 rounded-full bg-[#14b8a6] animate-pulse"/>
+                            <span
+                                className={`grey-parallax-soft inline-flex items-center gap-2 rounded-full px-3 py-1 mb-2 text-xs font-medium backdrop-blur-sm border ${isHydrated && isDayTime ? 'bg-white/40 border-teal-700/30 text-teal-900' : 'bg-white/10 border-white/20 text-teal-100'}`}>
+                <span className="h-1.5 w-1.5 rounded-full bg-teal-400 animate-pulse"/>
                                 {userName ? `${greetingMessage}, ${userName}!` : greetingMessage}
-                            </span>
+              </span>
                         )}
-                        <h1 className="grey-parallax-mid text-white lg:text-[78px] text-[44px] lg:leading-[0.96] md:leading-[1] leading-[1.08] font-[700] tracking-[-0.06em] lg:mb-6">
+                        <h1 className={`grey-parallax-mid ${isHydrated && isDayTime ? 'text-black' : 'text-white'} lg:text-[87px] text-[45px] lg:leading-[1.1] md:leading-[1.1] leading-[1.2] font-[600] lg:mb-6`}>
                             <br/>
-                            <span className="block text-white">Engineering</span>
-                            <span className="block mt-2 text-[#dffaf5]">Scalable digital</span>
-                            <span className="block mt-2 text-[#99f5e5]">
-                                products for <br className="hidden lg:block"/>modern businesses
-                            </span>
-                        </h1>
-                        <h3 className="grey-parallax-soft max-w-3xl text-white/85 lg:text-[17px] leading-[1.8] font-[400] mt-5">
-                            Grey InfoTech designs and builds secure, scalable web applications, SaaS platforms,
-                            and digital systems for businesses that want clarity, momentum, and measurable growth.
+                            <span
+                                className={`${isHydrated && isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>Engineering</span><br/>Scalable
+                            Digital<br/>
+                            <span className={`${isHydrated && isDayTime ? 'text-teal-800' : 'text-teal-200'}`}>Platforms for<br/>Modern Businesses</span>
+                        </h1><br/><br/>
+                        <h3 className={`grey-parallax-soft ${isHydrated && isDayTime ? 'text-teal-500' : 'text-white'} contents lg:text-[17.4px] leading-[1.18] font-[400]`}>
+                            Graham Sobiribo Paul builds secure, scalable web applications, SaaS platforms, and
+                            enterprise software solutions for startups and growing businesses across Africa and
+                            globally.
                         </h3>
-                        <div className="mt-8 flex flex-wrap items-center gap-4">
-                            <Link href="/contact" className="inline-flex items-center justify-center rounded-full bg-[#2dd4bf] px-6 py-3 text-sm font-semibold text-slate-900 shadow-[0_16px_36px_rgba(45,212,191,0.25)] transition hover:-translate-y-0.5 hover:shadow-[0_20px_42px_rgba(45,212,191,0.34)]">
-                                Book a strategy call
-                            </Link>
-                            <Link href="/case-studies" className="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/8 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-white/45">
-                                View case studies
-                            </Link>
-                        </div>
                     </div>
                     <div
                         className="absolute bottom-6 left-5/6 transform -translate-x-1/2 flex flex-col items-center z-10">
                         <LiaLongArrowAltDownSolid
-                            className="text-white text-5xl text-center transition-transform duration-500 ease-in-out hover:scale-125 cursor-pointer"
+                            className={`${isHydrated && isDayTime ? 'text-black' : 'text-white'} text-5xl text-center transition-transform duration-500 ease-in-out hover:scale-125 cursor-pointer`}
                             onClick={scrollToContent}
                         />
                     </div>
@@ -184,12 +179,16 @@ const Home = () => {
             {/*  -  -  Intro  -  -  */}
             <section
                 ref={sectionRef}
-                data-bg="Light"
-                className="pt-16 bg-[#f5fbfb] text-slate-900 transition-colors duration-500"
+                data-bg={isBackgroundActive ? (isDayTime ? 'Dark' : 'Light') : (isDayTime ? 'Light' : 'Dark')}
+                className={`pt-16 transition-colors duration-500 ${
+                    isBackgroundActive
+                        ? isDayTime ? 'bg-black text-white' : 'bg-white text-black'
+                        : isDayTime ? 'bg-white text-black' : 'bg-black text-white'
+                }`}
             >
-                <FxBackground day={true}/>
+                <FxBackground day={isDayTime}/>
                 <div
-                    className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-24 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
+                    className="relative z-10 grid lg:grid-cols-2 grid-cols-1 lg:gap-14 gap-6 lg:pt-20 pt-6 lg:pb-32 pb-6 mx-auto px-6 sm:px-6 md:px-10 lg:px-[4.6em] xl:px-[4.6em] 2xl:px-[4.6em]">
                     <div>
                         <FxChip day={!isBackgroundActive ? !isDayTime : isDayTime}>YOUR DIGITAL PARTNER</FxChip>
                     </div>
@@ -229,25 +228,41 @@ const Home = () => {
             <AdBanner placement="home_banner"/>
 
             {/*  -  -  WHY US  - Full Cinematic Redesign  -  -  */}
-            <section className="relative overflow-hidden bg-[#f7fbfb] text-slate-900">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(45,212,191,0.08),transparent_32%),linear-gradient(180deg,#f7fbfb,white)]" />
+            <section className={`relative overflow-hidden ${isDayTime ? 'bg-[#020f0d]' : 'bg-[#03060e]'} text-white`}>
+                {/* Animated grid */}
+                <div className="pointer-events-none absolute inset-0" style={{
+                    backgroundImage: `linear-gradient(rgba(45,212,191,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(45,212,191,0.05) 1px, transparent 1px)`,
+                    backgroundSize: '48px 48px',
+                }}/>
+                {/* Aurora blobs */}
+                <div className="pointer-events-none absolute inset-0 overflow-hidden">
+                    <div className="absolute -top-60 -left-40 w-[800px] h-[800px] rounded-full opacity-15"
+                         style={{background: 'radial-gradient(circle, #0d9488 0%, transparent 70%)'}}/>
+                    <div className="absolute -bottom-60 -right-40 w-[700px] h-[700px] rounded-full opacity-10"
+                         style={{background: 'radial-gradient(circle, #2563eb 0%, transparent 70%)'}}/>
+                    <div
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-08"
+                        style={{background: 'radial-gradient(circle, #7c3aed 0%, transparent 70%)'}}/>
+                </div>
+                {/* Scan line */}
+                <div className="gx-scanline pointer-events-none"/>
 
                 <div className="relative z-10 max-w-[90em] mx-auto px-6 sm:px-8 lg:px-[4.6em] py-28 lg:py-40">
 
                     {/* Header */}
                     <FxReveal>
                         <div className="flex items-center gap-5 mb-6">
-                            <FxChip day={true}>WHY CHOOSE US</FxChip>
-                            <div className="flex-1 h-px bg-slate-200"/>
-                            <span className="font-mono text-[0.68em] tracking-[0.2em] text-slate-400 uppercase">8+ yrs proven</span>
+                            <FxChip day={false}>WHY CHOOSE US</FxChip>
+                            <div className="flex-1 h-px bg-white/10"/>
+                            <span className="font-mono text-[0.68em] tracking-widest text-white/25">8+ YRS PROVEN</span>
                         </div>
-                        <h2 className="text-[2.6em] lg:text-[4em] font-[800] leading-[1.08] tracking-[-0.05em] mb-6 text-slate-900">
+                        <h2 className="text-[2.8em] lg:text-[4.5em] font-[800] leading-[1.05] tracking-tight mb-6">
                             Not just a vendor.<br/>
-                            <span className="text-[#0f766e]">Your competitive edge.</span>
+                            <span className="gx-gradient-text">Your competitive edge.</span>
                         </h2>
-                        <p className="max-w-2xl text-[0.95em] leading-[1.8] mb-16 text-slate-600">
+                        <p className="text-white/55 max-w-2xl text-[0.95em] leading-[1.8] mb-16">
                             We&apos;ve built, scaled, and exited digital products across industries. Here&apos;s why
-                            forward-thinking teams trust Grey InfoTech with their most critical builds.
+                            forward-thinking teams trust Graham Sobiribo Paul with their most critical builds.
                         </p>
                     </FxReveal>
 
@@ -273,7 +288,7 @@ const Home = () => {
                                     <motion.div
                                         layoutId="why-glow"
                                         className="absolute inset-0 rounded-2xl"
-                                        style={{boxShadow: `inset 0 0 0 1px ${item.color}25`}}
+                                        style={{boxShadow: `inset 0 0 40px -15px ${item.color}30`}}
                                         transition={{type: 'spring', stiffness: 120, damping: 20}}
                                     />
                                 )}
@@ -288,8 +303,8 @@ const Home = () => {
                                         transition={{duration: 1.2, ease: 'easeInOut'}}
                                     >{item.icon}</motion.span>
                                 </div>
-                                <h3 className="text-[1.08em] font-[700] mb-3 tracking-tight text-slate-900">{item.title}</h3>
-                                <p className="text-[0.83em] leading-[1.7] text-slate-600">{item.body}</p>
+                                <h3 className="text-[1.1em] font-[700] mb-3 tracking-tight text-white">{item.title}</h3>
+                                <p className="text-white/55 text-[0.83em] leading-[1.7]">{item.body}</p>
                                 {/* Bottom accent line */}
                                 <div
                                     className="mt-5 h-[2px] w-0 group-hover:w-full transition-all duration-700 rounded-full"
@@ -302,10 +317,10 @@ const Home = () => {
 
                     {/* Horizontal scroll  - extended feature strip */}
                     <FxReveal>
-                        <div className="rounded-[28px] border border-slate-200 bg-white/80 p-8 lg:p-12 overflow-hidden shadow-[0_18px_50px_rgba(15,23,42,0.04)]">
+                        <div className="border border-white/08 rounded-3xl p-8 lg:p-12 overflow-hidden">
                             <div className="flex items-center gap-4 mb-10">
-                                <span className="text-[0.7em] font-[700] uppercase tracking-[0.22em] text-[#0f766e]">What sets us apart</span>
-                                <div className="flex-1 h-px bg-slate-200"/>
+                                <span className="text-[0.7em] font-[700] uppercase tracking-[0.25em] text-teal-400">WHAT SETS US APART</span>
+                                <div className="flex-1 h-px bg-white/08"/>
                             </div>
                             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
                                 {[
@@ -322,9 +337,11 @@ const Home = () => {
                                         viewport={{once: true}}
                                         transition={{delay: i * 0.1 + 0.2}}
                                     >
-                                        <div className="text-[3em] font-[900] text-[#0f172a] leading-none mb-1">{s.val}</div>
-                                        <div className="text-slate-700 text-[0.82em] font-[600] mb-0.5">{s.label}</div>
-                                        <div className="text-slate-400 text-[0.68em] uppercase tracking-[0.15em]">{s.sub}</div>
+                                        <div
+                                            className="text-[3em] font-[900] gx-gradient-text leading-none mb-1">{s.val}</div>
+                                        <div className="text-white/70 text-[0.82em] font-[600] mb-0.5">{s.label}</div>
+                                        <div
+                                            className="text-white/30 text-[0.68em] uppercase tracking-wider">{s.sub}</div>
                                     </motion.div>
                                 ))}
                             </div>
@@ -343,16 +360,17 @@ const Home = () => {
             </section>
 
             {/*  -  -  Digital Adventure  -  -  */}
-            <section id="Adventure-section" className="relative overflow-hidden bg-[#f7fbfb] text-slate-900">
-                <div className="pointer-events-none absolute inset-0 opacity-40" style={{
-                    backgroundImage: 'linear-gradient(rgba(15,118,110,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(15,118,110,0.04) 1px, transparent 1px)',
-                    backgroundSize: '42px 42px',
+            <section id="Adventure-section"
+                     className={`relative overflow-hidden ${isDayTime ? 'bg-black text-white' : 'bg-white text-black'}`}>
+                <div className="pointer-events-none absolute inset-0" style={{
+                    backgroundImage: `linear-gradient(${isDayTime ? 'rgba(45,212,191,0.06)' : 'rgba(13,148,136,0.07)'} 1px, transparent 1px), linear-gradient(90deg, ${isDayTime ? 'rgba(45,212,191,0.06)' : 'rgba(13,148,136,0.07)'} 1px, transparent 1px)`,
+                    backgroundSize: '44px 44px',
                 }}/>
                 <div className="pointer-events-none absolute inset-0 overflow-hidden">
                     <div className="absolute -top-40 -right-32 w-[600px] h-[600px] rounded-full opacity-20"
-                         style={{background: 'radial-gradient(circle, rgba(43,152,163,0.7) 0%, transparent 70%)'}}/>
+                         style={{background: 'radial-gradient(circle, #2dd4bf 0%, transparent 70%)'}}/>
                     <div className="absolute -bottom-32 -left-24 w-[480px] h-[480px] rounded-full opacity-10"
-                         style={{background: 'radial-gradient(circle, rgba(18,61,66,0.8) 0%, transparent 70%)'}}/>
+                         style={{background: 'radial-gradient(circle, #06b6d4 0%, transparent 70%)'}}/>
                 </div>
 
                 <div className="relative z-10 max-w-[90em] mx-auto px-6 sm:px-8 lg:px-[4.6em] py-28 lg:py-36">
@@ -369,29 +387,29 @@ const Home = () => {
                         <FxReveal>
                             <div className="relative">
                                 <div
-                                    className="absolute -top-3 -left-3 w-8 h-8 border-t-2 border-l-2 border-[#2b98a3] rounded-tl-sm z-10"/>
+                                    className="absolute -top-3 -left-3 w-8 h-8 border-t-2 border-l-2 border-teal-400 rounded-tl-sm z-10"/>
                                 <div
-                                    className="absolute -top-3 -right-3 w-8 h-8 border-t-2 border-r-2 border-[#2b98a3] rounded-tr-sm z-10"/>
+                                    className="absolute -top-3 -right-3 w-8 h-8 border-t-2 border-r-2 border-teal-400 rounded-tr-sm z-10"/>
                                 <div
-                                    className="absolute -bottom-3 -left-3 w-8 h-8 border-b-2 border-l-2 border-[#2b98a3] rounded-bl-sm z-10"/>
+                                    className="absolute -bottom-3 -left-3 w-8 h-8 border-b-2 border-l-2 border-teal-400 rounded-bl-sm z-10"/>
                                 <div
-                                    className="absolute -bottom-3 -right-3 w-8 h-8 border-b-2 border-r-2 border-[#2b98a3] rounded-br-sm z-10"/>
+                                    className="absolute -bottom-3 -right-3 w-8 h-8 border-b-2 border-r-2 border-teal-400 rounded-br-sm z-10"/>
                                 <div className="absolute inset-0 rounded-2xl opacity-40"
-                                     style={{boxShadow: '0 0 60px -10px rgba(43,152,163,0.38)'}}/>
+                                     style={{boxShadow: '0 0 60px -10px rgba(45,212,191,0.5)'}}/>
                                 <div className="relative overflow-hidden rounded-2xl">
                                     <Image src="/assets/startup/startup.jpg" alt="startup development" width={600}
                                            height={440} className="w-full object-cover" style={{height: 'auto'}}/>
                                     <div className="absolute inset-0 pointer-events-none"
-                                         style={{background: 'linear-gradient(135deg, rgba(43,152,163,0.11) 0%, transparent 60%)'}}/>
+                                         style={{background: 'linear-gradient(135deg, rgba(45,212,191,0.12) 0%, transparent 60%)'}}/>
                                     <div className="absolute inset-0 pointer-events-none"
-                                         style={{backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(43,152,163,0.03) 3px, rgba(43,152,163,0.03) 4px)'}}/>
+                                         style={{backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(45,212,191,0.03) 3px, rgba(45,212,191,0.03) 4px)'}}/>
                                     <div className="absolute bottom-5 left-5">
                                         <motion.div initial={{opacity: 0, y: 10}} whileInView={{opacity: 1, y: 0}}
                                                     viewport={{once: true}} transition={{delay: 0.4}}
-                                                    className="px-4 py-2 rounded-full backdrop-blur-md text-[0.72em] font-semibold tracking-wider text-[#dfeff0]"
+                                                    className="px-4 py-2 rounded-full backdrop-blur-md text-[0.72em] font-semibold tracking-wider text-teal-300"
                                                     style={{
-                                                        background: 'rgba(18,61,66,0.7)',
-                                                        border: '1px solid rgba(43,152,163,0.36)'
+                                                        background: 'rgba(0,0,0,0.65)',
+                                                        border: '1px solid rgba(45,212,191,0.35)'
                                                     }}>
                                             - MVPs · Platforms · Scale
                                         </motion.div>
@@ -404,13 +422,14 @@ const Home = () => {
                                     <div className="rounded-2xl px-5 py-4 backdrop-blur-xl text-center min-w-[110px]"
                                          style={{
                                              background: isDayTime ? 'rgba(15,15,15,0.85)' : 'rgba(255,255,255,0.85)',
-                                             border: '1px solid rgba(43,152,163,0.35)'
+                                             border: '1px solid rgba(45,212,191,0.35)'
                                          }}>
-                                        <div className="text-[2em] font-[900] text-[#2b98a3] leading-none">50+</div>
+                                        <div className="text-[2em] font-[900] text-teal-400 leading-none">50+</div>
                                         <div
                                             className={`text-[0.65em] font-[600] tracking-widest mt-1 uppercase ${isDayTime ? 'text-white/60' : 'text-black/60'}`}>Projects
                                         </div>
-                                    </div>                                </motion.div>
+                                    </div>
+                                </motion.div>
                             </div>
                         </FxReveal>
 
@@ -440,7 +459,7 @@ const Home = () => {
                                 <div className="flex flex-wrap gap-3 mb-10">
                                     {['MVP Development', 'SaaS Platforms', 'Enterprise Scale', 'Startup-to-Exit'].map(item => (
                                         <span key={item}
-                                             className={`px-4 py-1.5 rounded-full text-[0.75em] font-[600] tracking-wide border ${isDayTime ? 'border-[#2b98a3]/30 text-[#2b98a3] bg-[#2b98a3]/10' : 'border-[#123d42]/30 text-[#123d42] bg-[#2b98a3]/5'}`}>{item}</span>
+                                              className={`px-4 py-1.5 rounded-full text-[0.75em] font-[600] tracking-wide border ${isDayTime ? 'border-teal-400/30 text-teal-300 bg-teal-400/08' : 'border-teal-700/30 text-teal-700 bg-teal-700/06'}`}>{item}</span>
                                     ))}
                                 </div>
                             </FxReveal>
@@ -477,29 +496,29 @@ const Home = () => {
 
             {/*  -  -  Trust Signals  -  -  */}
             <section
-                className={`relative overflow-hidden ${isDayTime ? 'bg-[#f4fbfb] text-[#102124]' : 'bg-[#eef9fa] text-[#123d42]'}`}>
+                className={`relative overflow-hidden ${isDayTime ? 'bg-[#020f0d] text-white' : 'bg-teal-50 text-teal-900'}`}>
                 <div className="pointer-events-none absolute inset-0 opacity-[0.04]" style={{
-                    backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, #2b98a3 2px, #2b98a3 3px)',
+                    backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, #2dd4bf 2px, #2dd4bf 3px)',
                     backgroundSize: '100% 3px'
                 }}/>
                 <div className="pointer-events-none absolute inset-0 overflow-hidden">
                     <div
                         className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[400px] rounded-full opacity-20 blur-3xl"
-                        style={{background: 'radial-gradient(ellipse, rgba(43,152,163,0.8) 0%, transparent 70%)'}}/>
+                        style={{background: 'radial-gradient(ellipse, #14b8a6 0%, transparent 70%)'}}/>
                 </div>
 
                 <div className="relative z-10 mx-auto px-6 sm:px-8 lg:px-[4.6em] lg:max-w-[90em] py-28 lg:py-36">
                     <FxReveal>
                         <div className="flex items-center gap-4 mb-6">
                             <FxChip day={isDayTime}>TRUST SIGNALS</FxChip>
-                            <div className={`flex-1 h-px ${isDayTime ? 'bg-[#123d42]/15' : 'bg-[#123d42]/15'}`}/>
+                            <div className={`flex-1 h-px ${isDayTime ? 'bg-white/10' : 'bg-teal-900/15'}`}/>
                         </div>
                         <h3 className="text-[2.4em] lg:text-[3.5em] font-[700] leading-[1.1] tracking-tight mb-5">
                             Trusted by <span className="gx-gradient-text">Forward-Thinking</span><br/>
-                            <span className={isDayTime ? 'text-[#123d42]/60' : 'text-[#123d42]/60'}>Brands Worldwide.</span>
+                            <span className={isDayTime ? 'text-white/40' : 'text-teal-900/40'}>Brands Worldwide.</span>
                         </h3>
-                        <p className={`text-[0.95em] max-w-2xl font-[300] leading-[1.7] mb-16 ${isDayTime ? 'text-[#123d42]/75' : 'text-[#123d42]/70'}`}>
-                            Our proven track record speaks volumes. See why companies across industries choose Grey InfoTech for digital excellence.
+                        <p className={`text-[0.95em] max-w-2xl font-[300] leading-[1.7] mb-16 ${isDayTime ? 'text-white/55' : 'text-teal-900/60'}`}>
+                            Our proven track record speaks volumes. See why companies across industries choose Graham Sobiribo Paul for digital excellence.
                         </p>
                     </FxReveal>
 
@@ -522,7 +541,7 @@ const Home = () => {
                                         variants={{hidden: {opacity: 0, y: 20}, visible: {opacity: 1, y: 0}}}
                                         transition={{type: 'spring', stiffness: 130, damping: 22}} whileHover={{y: -6}}>
                                 <div
-                                    className={`text-[1.8em] mb-3 ${isDayTime ? 'text-[#2b98a3]/70' : 'text-[#123d42]/70'}`}>{item.icon}</div>
+                                    className={`text-[1.8em] mb-3 ${isDayTime ? 'text-teal-400/60' : 'text-teal-600/60'}`}>{item.icon}</div>
                                 <div
                                     className="text-[2.8em] lg:text-[3.6em] font-[900] leading-none tracking-tight gx-gradient-text">
                                     <CountUp start={0} end={item.value} duration={2.5}
@@ -530,10 +549,10 @@ const Home = () => {
                                              suffix={item.suffix ?? ''}/>
                                 </div>
                                 <div
-                                    className={`text-[0.78em] font-[600] tracking-wider uppercase mt-2 ${isDayTime ? 'text-white/50' : 'text-[#123d42]/70'}`}>{item.label}</div>
-                                <motion.div className="absolute inset-0 rounded-[1.1rem] border border-[#2b98a3]/0"
-                                            initial={{borderColor: 'rgba(43,152,163,0)'}}
-                                            whileInView={{borderColor: ['rgba(43,152,163,0.5)', 'rgba(43,152,163,0)']}}
+                                    className={`text-[0.78em] font-[600] tracking-wider uppercase mt-2 ${isDayTime ? 'text-white/50' : 'text-teal-800/60'}`}>{item.label}</div>
+                                <motion.div className="absolute inset-0 rounded-[1.1rem] border border-teal-400/0"
+                                            initial={{borderColor: 'rgba(45,212,191,0)'}}
+                                            whileInView={{borderColor: ['rgba(45,212,191,0.6)', 'rgba(45,212,191,0)']}}
                                             viewport={{once: true}}
                                             transition={{delay: idx * 0.1 + 0.3, duration: 1.4}}/>
                             </motion.div>
@@ -542,11 +561,11 @@ const Home = () => {
 
                     <FxReveal delay={0.2}>
                         <div
-                            className={`rounded-3xl border p-8 lg:p-12 ${isDayTime ? 'border-white/10 bg-white/[0.03]' : 'border-[#123d42]/15 bg-[#123d42]/[0.03]'}`}>
+                            className={`rounded-3xl border p-8 lg:p-12 ${isDayTime ? 'border-white/10 bg-white/[0.03]' : 'border-teal-900/15 bg-teal-900/[0.03]'}`}>
                             <div className="flex items-center gap-3 mb-8">
                                 <span
-                                    className={`text-[0.72em] font-[700] uppercase tracking-[0.25em] ${isDayTime ? 'text-[#2b98a3]' : 'text-[#123d42]'}`}>VERIFIED ACROSS PLATFORMS</span>
-                                <div className={`flex-1 h-px ${isDayTime ? 'bg-white/10' : 'bg-[#123d42]/15'}`}/>
+                                    className={`text-[0.72em] font-[700] uppercase tracking-[0.25em] ${isDayTime ? 'text-teal-400' : 'text-teal-700'}`}>VERIFIED ACROSS PLATFORMS</span>
+                                <div className={`flex-1 h-px ${isDayTime ? 'bg-white/10' : 'bg-teal-900/15'}`}/>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                                 {[
@@ -558,18 +577,18 @@ const Home = () => {
                                         color: '#f97316'
                                     },
                                     {
-                                        href: 'https://share.google/pipNkXFTArrLdTX1B',
+                                        href: 'https://google.com',
                                         icon: <FaGoogle/>,
                                         label: 'Google Reviews',
                                         sub: '4.9★ Rating',
-                                        color: '#2b98a3'
+                                        color: '#2dd4bf'
                                     },
                                     {
                                         href: 'https://www.linkedin.com/company/grey-infotech-limited',
                                         icon: <FaLinkedin/>,
                                         label: 'LinkedIn',
                                         sub: 'Endorsed Leaders',
-                                        color: '#1d6f77'
+                                        color: '#0ea5e9'
                                     },
                                     {
                                         href: '/case-studies',
@@ -602,7 +621,7 @@ const Home = () => {
                                             {badge.icon}
                                         </motion.div>
                                         <div
-                                            className={`font-[700] text-[0.95em] mb-1 ${isDayTime ? 'text-white' : 'text-[#123d42]'}`}>{badge.label}</div>
+                                            className={`font-[700] text-[0.95em] mb-1 ${isDayTime ? 'text-white' : 'text-teal-900'}`}>{badge.label}</div>
                                         <div className="text-[0.75em]"
                                              style={{color: badge.color + 'cc'}}>{badge.sub}</div>
                                         <div
@@ -618,7 +637,7 @@ const Home = () => {
 
             {/*  -  -  AI Estimator  -  -  */}
             <div
-                className={`relative -mt-18 py-16 mx-auto px-4 sm:px-[2em] md:px-[3.2em] lg:px-[4.6em] mb-8 max-w-full w-full h-auto ${isDayTime ? 'bg-[#edf9fa] text-[#123d42]' : 'bg-[#0d1d1f] text-white'}`}>
+                className={`relative -mt-18 py-16 mx-auto px-4 sm:px-[2em] md:px-[3.2em] lg:px-[4.6em] mb-8 max-w-full w-full h-auto ${isDayTime ? 'bg-teal-100 text-teal-900' : 'bg-teal-950 text-white'}`}>
                 <AIProjectEstimator/>
             </div>
 

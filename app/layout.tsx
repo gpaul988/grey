@@ -1,5 +1,4 @@
 import type {Metadata, Viewport} from "next";
-import Script from "next/script";
 // Google fonts
 import {Merriweather, Roboto} from "next/font/google";
 // NOTE: next/font/google fetches font metadata from Google at startup.
@@ -13,13 +12,13 @@ import Footer from "@/components/Footer";
 import React from "react";
 import TawkChat from "@/components/TawkChat";
 import {OrganizationSchema, WebSiteSchema} from "@/components/StructuredData";
-import {themeInitScript, ThemeProvider} from "@/components/ThemeProvider";
+import {ThemeProvider} from "@/components/ThemeProvider";
+import ThemeScript from "@/components/ThemeScript";
 import {SITE} from "@/lib/seo";
-import AnnouncementBarWrapper from "@/components/futuristic/AnnouncementBarWrapper";
 import Preloader from "@/components/futuristic/Preloader";
 import CookieConsent from "@/components/futuristic/CookieConsent";
 import PageAccentProvider from "@/components/PageAccentProvider";
-import FrontendActionButtons from "@/components/FrontendActionButtons";
+import FrontendVisibilityGate from "@/components/FrontendVisibilityGate";
 
 
 //  -  -  -  Render on-demand instead of pre-rendering all pages at build  -  -  -  -  -  -  -  -  -  - 
@@ -62,7 +61,7 @@ export const metadata: Metadata = {
     // FIX: title template so child pages get "Page | Grey InfoTech" automatically
     title: {
         default:
-            "Grey InfoTech - Web Design & Development Agency | Port Harcourt, Nigeria",
+            "Grey InfoTech Ltd. - Web Design & Development Agency | Port Harcourt, Nigeria",
         template: "%s | Grey InfoTech",
     },
 
@@ -84,7 +83,7 @@ export const metadata: Metadata = {
 
     authors: [{name: "Grey InfoTech", url: SITE.url}],
     creator: "Grey InfoTech",
-    publisher: "Grey InfoTech",
+    publisher: "Grey InfoTech Ltd.",
 
     alternates: {canonical: SITE.url},
 
@@ -166,19 +165,13 @@ export default async function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning style={{overflowX: 'hidden', '--ann-bar-height': '0px'} as React.CSSProperties}>
         <head>
-            <Script id="store-favicon" strategy="beforeInteractive">{`(function(){try{if(typeof location!=='undefined'&&location.pathname&&location.pathname.startsWith('/store')){var l=document.querySelector("link[rel~='icon']");if(!l){l=document.createElement('link');l.rel='icon';document.head.appendChild(l);}l.href='/techstore.svg';var a=document.querySelector("link[rel='apple-touch-icon']");if(!a){a=document.createElement('link');a.rel='apple-touch-icon';document.head.appendChild(a);}a.href='/techstore.svg';}}catch(e){console.error(e);}})();`}</Script>
-            {/* FIX (FOUC): set the theme class before first paint */}
-            <Script
-                id="theme-init"
-                strategy="beforeInteractive"
-                dangerouslySetInnerHTML={{__html: themeInitScript}}
-            />
             {/* Fallback title to ensure document has a title for accessibility tools */}
             <title>Grey InfoTech</title>
         </head>
         <body
             className={`${merriweather.variable} ${roboto.variable} antialiased min-h-screen flex flex-col`}
         >
+        <ThemeScript />
         <ThemeProvider>
         <PageAccentProvider/>
         {/* First-load boot sequence  - shows once per session */}
@@ -196,8 +189,8 @@ export default async function RootLayout({
         <OrganizationSchema socialLinks={[...SITE.socials]}/>
         <WebSiteSchema/>
 
-        {/* Schedule-aware promo / announcement strip above the header */}
-        <AnnouncementBarWrapper/>
+        {/* Main-frontend only widgets: announcement bar, Grey AI, request button */}
+        <FrontendVisibilityGate/>
 
         {/* Header with language switcher in navbar */}
         <Header/>
@@ -206,8 +199,6 @@ export default async function RootLayout({
         <main id="main-content" className="flex-1">{children}</main>
 
         <Footer/>
-
-        <FrontendActionButtons />
 
         {/* Live human chat (Tawk) + AI assistant run side-by-side */}
         {process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID && process.env.NEXT_PUBLIC_TAWK_WIDGET_ID ? (

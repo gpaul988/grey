@@ -14,7 +14,7 @@ const SportsTechIndustry = () => (
         introBody={[
             <>Sport is no longer just about what happens on the pitch. Data analytics, fan engagement
             platforms, digital ticketing, athlete tracking and fantasy sports are reshaping how sport is
-            played, watched and monetised. At Grey InfoTech we build sports technology that serves clubs,
+            played, watched and monetised. At Graham Sobiribo Paul we build sports technology that serves clubs,
             federations, sports media companies and sports betting operators -engineering the digital
             infrastructure that connects athletes, coaches, fans and commercial partners in a seamless
             digital ecosystem.</>,
@@ -26,7 +26,7 @@ const SportsTechIndustry = () => (
             the continent.</>,
         ]}
         solutionsHeading={<>Sports Technology<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From fan engagement apps to sports analytics platforms and digital ticketing, Grey InfoTech builds sports technology that monetises fandom and elevates athletic performance."
+        solutionsIntro="From fan engagement apps to sports analytics platforms and digital ticketing, Graham Sobiribo Paul builds sports technology that monetises fandom and elevates athletic performance."
         solutions={[
             {
                 id: '01', title: 'Fan Engagement Platforms', target: 'FE',
@@ -83,7 +83,7 @@ const SportsTechIndustry = () => (
             },
         ]}
         ctaHeading={<>Where sport meets<br className="lg:block md:block hidden" />technology</>}
-        ctaBody="The sports organisations that invest in digital infrastructure today are building the loyal, data-rich fan relationships that will define the next decade. Grey InfoTech makes it happen."/>
+        ctaBody="The sports organisations that invest in digital infrastructure today are building the loyal, data-rich fan relationships that will define the next decade. Graham Sobiribo Paul makes it happen."/>
 );
 
 export default SportsTechIndustry;

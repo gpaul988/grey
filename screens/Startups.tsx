@@ -217,14 +217,14 @@ const Startups = () => {
                                 className="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 font-[300] text-justify text-[0.873em] tracking-normal leading-[1.5]">
                                 <div>
                                     <p>Our specialty at <Link href='/#'
-                                                              className={`border-b-[0.1em] ${isDayTime ? 'border-gray-800' : 'border-gray-300'}`}>Grey InfoTech</Link> is turning innovative concepts into digital products that are
+                                                              className={`border-b-[0.1em] ${isDayTime ? 'border-gray-800' : 'border-gray-300'}`}>Graham Sobiribo Paul</Link> is turning innovative concepts into digital products that are
                                         profitable. We have years of experience working with startups, so we are aware
                                         of the particular difficulties they face, such as limited funding, short
                                         turnaround times, and the requirement for scalable solutions.</p>
                                 </div>
                                 <div>
                                     <p>Our customized strategy blends state-of-the-art technology, creative thinking,
-                                        and a strong dedication to your development. Grey InfoTech is your success
+                                        and a strong dedication to your development. Graham Sobiribo Paul is your success
                                         partner whether you&apos;re scaling your business or creating an <Link
                                             href='/services/MVP' className='border-b-[0.1em] border-gray-300'>MVP</Link>.
                                     </p>
@@ -356,7 +356,7 @@ const Startups = () => {
                     <div className="absolute -top-40 -right-32 w-[600px] h-[600px] rounded-full opacity-20"
                          style={{background: 'radial-gradient(circle, #2dd4bf 0%, transparent 70%)'}}/>
                     <div className="absolute -bottom-32 -left-24 w-[480px] h-[480px] rounded-full opacity-10"
-                         style={{background: 'radial-gradient(circle, rgba(var(--page-accent-rgb), 0.9) 0%, transparent 70%)'}}/>
+                         style={{background: 'radial-gradient(circle, #06b6d4 0%, transparent 70%)'}}/>
                 </div>
 
                 <div className="relative z-10 max-w-[90em] mx-auto px-6 sm:px-8 lg:px-[4.6em]">
@@ -480,7 +480,7 @@ const Startups = () => {
                 </div>
             </div>
 
-            {/*  -  -  Why Grey InfoTech  - Company-style approach  -  -  */}
+            {/*  -  -  Why Graham Sobiribo Paul  - Company-style approach  -  -  */}
             <div
                 className={`relative overflow-hidden ${isDayTime ? 'bg-slate-950' : 'bg-slate-50'} lg:pt-[5em] pt-[3em] lg:pb-[6em] pb-[3em]`}>
                 <FxBackground day={false} grid aurora className="opacity-50"/>
@@ -495,7 +495,7 @@ const Startups = () => {
                             <FxSectionHeading
                                 day={false}
                                 eyebrow="Why Us"
-                                title="Why Grey InfoTech for your startup"
+                                title="Why Graham Sobiribo Paul for your startup"
                             />
                             <p className={`text-[0.873em] font-[400] lg:-mt-[0.2em] leading-[1.5] lg:-ml-[7em] ${isDayTime ? 'text-slate-300/5' : 'text-slate-500'}`}>
                                 We blend startup speed with enterprise discipline so you get a partner that understands
@@ -543,7 +543,7 @@ const Startups = () => {
                         {/* Right  - image */}
                         <div className="">
                             <FxFrame className="w-full">
-                                <Image src="/assets/startup/mockup.jpg" alt="Why Grey InfoTech for your startup"
+                                <Image src="/assets/startup/mockup.jpg" alt="Why Graham Sobiribo Paul for your startup"
                                        width={660} height={280}
                                        className="w-full h-auto rounded-xl object-cover"/>
                             </FxFrame>

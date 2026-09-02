@@ -1,4 +1,4 @@
-﻿import type {Metadata} from 'next';
+import type {Metadata} from 'next';
 import {buildMetadata} from '@/lib/seo';
 import Screen from '@/screens/Startups';
 

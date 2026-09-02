@@ -1,0 +1,75 @@
+<%- contentFor('html_attribute') %>
+
+<%- contentFor('content') %>
+
+    <%- include('./partials/page-title', { title: 'Flash Sale', subtitle: 'Store' }) %>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <h4 class="card-title mb-0">Active Flash Sale Products</h4>
+                    <span class="badge bg-danger-subtle text-danger"><%= count %> active</span>
+                </div>
+                <div class="card-body">
+                    <% if (!products.length) { %>
+                        <div class="alert alert-info mb-0">
+                            No flash-sale products are active right now. Enable flash sale pricing from a product and save the dates/discounted price.
+                        </div>
+                    <% } else { %>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Flash Price</th>
+                                        <th>Starts</th>
+                                        <th>Ends</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% products.forEach((p) => { %>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <div class="rounded bg-light d-flex align-items-center justify-content-center" style="width:42px;height:42px;overflow:hidden">
+                                                        <% const imgs = []; try { imgs = JSON.parse(p.images || '[]'); } catch (e) {} %>
+                                                        <% if (imgs[0]) { %>
+                                                            <img src="<%= imgs[0] %>" alt="<%= p.name %>" style="width:100%;height:100%;object-fit:cover">
+                                                        <% } else { %>
+                                                            <i class="ti ti-package text-muted"></i>
+                                                        <% } %>
+                                                    </div>
+                                                    <div>
+                                                        <div class="fw-semibold"><%= p.name %></div>
+                                                        <small class="text-muted"><%= p.category_name || 'Uncategorized' %></small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><%- fmtMoney(p.price) %></td>
+                                            <td>
+                                                <% if (p.flash_sale_price) { %>
+                                                    <span class="fw-semibold text-danger"><%- fmtMoney(p.flash_sale_price) %></span>
+                                                <% } else { %>
+                                                    <span class="text-muted">—</span>
+                                                <% } %>
+                                            </td>
+                                            <td><%= p.flash_sale_starts ? new Date(p.flash_sale_starts).toLocaleString() : '—' %></td>
+                                            <td><%= p.flash_sale_ends ? new Date(p.flash_sale_ends).toLocaleString() : '—' %></td>
+                                            <td>
+                                                <a href="/admin/store/products/<%= p.id %>/edit" class="btn btn-sm btn-primary">Edit</a>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<%- contentFor('extra_javascript') %>

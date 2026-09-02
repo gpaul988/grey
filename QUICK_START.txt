@@ -70,10 +70,10 @@ Documentation:
     
     SMTP_HOST=smtp.gmail.com
     SMTP_PORT=587
-    SMTP_USER=your-email@grahamsobiribopaul.com.ng
+    SMTP_USER=your-email@greyinfotech.com.ng
     SMTP_PASSWORD=your-app-password
-    SMTP_FROM=noreply@grahamsobiribopaul.com.ng
-    ADMIN_EMAIL=hello@grahamsobiribopaul.com.ng
+    SMTP_FROM=noreply@greyinfotech.com.ng
+    ADMIN_EMAIL=hello@greyinfotech.com.ng
 
 2️⃣  RUN MIGRATION (if using PostgreSQL)
     

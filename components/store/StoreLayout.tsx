@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from '@/lib/routerCompat';
 import { useStore } from './StoreContext';
@@ -106,42 +106,89 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
     const router = useRouter();
     const [q, setQ] = useState('');
     const [menuOpen, setMenuOpen] = useState(false);
+    const [headerVisible, setHeaderVisible] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
+    const suggestedTerms = [
+        { label: 'Gaming laptops', value: 'gaming laptops' },
+        { label: 'Business desktops', value: 'desktops' },
+        { label: 'Flagship phones', value: 'phones' },
+        { label: 'Accessories', value: 'accessories' },
+        { label: 'Enterprise servers', value: 'servers' },
+    ];
+
+    useEffect(() => {
+        const onScroll = () => {
+            const currentY = window.scrollY;
+            setLastScrollY((prev) => {
+                const shouldHide = currentY > 12 && currentY > prev;
+                setHeaderVisible(!shouldHide);
+                return currentY;
+            });
+        };
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
+
+    const visibleSuggestions = q.trim()
+        ? suggestedTerms.filter((item) => item.label.toLowerCase().includes(q.trim().toLowerCase()) || item.value.toLowerCase().includes(q.trim().toLowerCase()))
+        : suggestedTerms.slice(0, 4);
 
     const search = (e: React.FormEvent) => {
         e.preventDefault();
-        router.push(`/store/products?search=${encodeURIComponent(q)}`);
+        const value = q.trim() || 'featured';
+        router.push(`/store/products?search=${encodeURIComponent(value)}`);
     };
 
     return (
         <div className="store-root">
-            <header className="store-header" aria-label="Store header">
-                <Container className="flex items-center justify-between py-4">
-                    <div className="flex items-center gap-4">
+            <header className={`store-header ${headerVisible ? 'store-header-visible' : 'store-header-hidden'}`} aria-label="Store header">
+                <Container className="flex items-center justify-between gap-3 py-3 sm:py-4" style={{ maxWidth: 'min(1755px, calc(100vw - 20px))' }}>
+                    <div className="flex min-w-0 items-center gap-3 sm:gap-4">
                         <Link href="/store" className="inline-flex items-center gap-3" aria-label="Go to store home">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src="/techlogo.svg" alt="Grey TechStore" className="h-10 w-auto" />
+                            <img src="/techlogo.svg" alt="Grey TechStore" className="h-[42px] sm:h-[52px] lg:h-[62px] w-auto" />
                         </Link>
                     </div>
 
-                    <nav className="hidden lg:flex items-center gap-6" aria-label="Store main navigation">
+                    <nav className="hidden lg:flex items-center gap-2 xl:gap-4" aria-label="Store main navigation">
                         {NAV.map((n) => (
-                            <Link key={n.href} href={n.href} className="st-link font-medium text-sm">{n.label}</Link>
+                            <Link key={n.href} href={n.href} className="st-link font-medium text-xs xl:text-sm">{n.label}</Link>
                         ))}
                     </nav>
 
-                    <div className="flex items-center gap-3 ml-4">
-                        <form onSubmit={search} className="flex items-center bg-[var(--st-surface-2)] rounded-full overflow-hidden px-2 py-1" role="search" aria-label="Search products">
-                            <input value={q} onChange={(e) => setQ((e.target as HTMLInputElement).value)} placeholder="Search products, categories, brands" className="st-input bg-transparent border-0 px-2 py-1 text-sm" aria-label="Search products" />
-                            <button type="submit" className="st-btn px-3 py-1" aria-label="Search"><FiSearch /></button>
-                        </form>
+                    <div className="flex items-center justify-end gap-2 sm:gap-3 ml-auto">
+                        <div className="hidden md:block relative">
+                            <form onSubmit={search} className="flex items-center bg-[var(--st-surface-2)] rounded-full overflow-hidden px-2 py-1 min-w-0" role="search" aria-label="Search products">
+                                <input value={q} onChange={(e) => setQ((e.target as HTMLInputElement).value)} placeholder="Search products, categories, brands" className="st-input bg-transparent border-0 px-2 py-1 text-sm min-w-0 w-[180px] xl:w-[240px]" aria-label="Search products" />
+                                <button type="submit" className="st-btn px-3 py-1 shrink-0" aria-label="Search"><FiSearch /></button>
+                            </form>
+                            {visibleSuggestions.length > 0 && (
+                                <div className="search-suggestions absolute left-0 right-0 top-[calc(100%+10px)] z-40 min-w-[280px] rounded-2xl border border-[var(--st-border)] bg-[rgba(10,14,20,0.96)] p-2 shadow-2xl shadow-cyan-500/10">
+                                    {visibleSuggestions.map((item) => (
+                                        <button
+                                            key={item.value}
+                                            type="button"
+                                            onClick={() => {
+                                                setQ(item.value);
+                                                router.push(`/store/products?search=${encodeURIComponent(item.value)}`);
+                                            }}
+                                            className="block w-full text-left rounded-xl px-3 py-2 text-sm text-[var(--st-muted)] hover:bg-[var(--st-surface-2)] hover:text-[var(--st-teal)]"
+                                        >
+                                            {item.label}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
 
-                        <CurrencyToggle />
-                        <button onClick={() => setCartOpen(true)} className="relative st-link" aria-label="Open cart">
+                        <div className="hidden sm:flex items-center"><CurrencyToggle /></div>
+                        <button onClick={() => setCartOpen(true)} className="relative st-link flex-shrink-0" aria-label="Open cart">
                             <FiShoppingCart />
                             {cartCount > 0 && <span className="absolute -top-2 -right-2 bg-[var(--st-teal)] text-black rounded-full text-xs px-2">{cartCount}</span>}
                         </button>
-                        <Link href="/store/account" className="st-link ml-1" aria-label="Account"><FiUser /></Link>
-                        <button className="md:hidden st-link ml-1" onClick={() => setMenuOpen(true)} aria-label="Open menu"><FiMenu /></button>
+                        <Link href="/store/account" className="st-link ml-0.5 flex-shrink-0" aria-label="Account"><FiUser /></Link>
+                        <button className="md:hidden st-link ml-0.5 flex-shrink-0" onClick={() => setMenuOpen(true)} aria-label="Open menu"><FiMenu /></button>
                     </div>
                 </Container>
             </header>
@@ -171,14 +218,14 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
                 </div>
             )}
 
-            <main><Container className="py-8 min-h-[60vh]">{children}</Container></main>
+            <div className="store-main"><Container className="py-6 sm:py-8 min-h-[60vh]" style={{ maxWidth: 'min(1606px, calc(100vw - 20px))' }}>{children}</Container></div>
 
-            <footer className="store-footer mt-16" role="contentinfo">
-                        <Container className="py-12 grid md:grid-cols-4 gap-8">
+            <div className="store-footer mt-12 sm:mt-16" aria-label="Store footer">
+                        <Container className="py-8 sm:py-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4" style={{ maxWidth: 'min(1755px, calc(100vw - 20px))' }}>
                     <div className="footer-logo">
                         <Link href="/store" className="inline-flex items-center gap-3" aria-label="Grey TechStore home">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src="/techlogo.svg" alt="Grey TechStore" className="h-12 w-auto" />
+                            <img src="/techlogo.svg" alt="Grey TechStore" className="h-[67px] w-auto" />
                         </Link>
                         <p className="text-[var(--st-muted)] text-sm mt-3">Nigeria&apos;s trusted store for laptops, desktops, servers, phones & accessories. Genuine products, nationwide delivery.</p>
                     </div>
@@ -194,6 +241,8 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
                             <li><Link href="/store/account" className="st-link">My Account</Link></li>
                             <li><Link href="/store/account/orders" className="st-link">My Orders</Link></li>
                             <li><Link href="/store/account/wishlist" className="st-link">Wishlist</Link></li>
+                            <li><Link href="/store/loyalty" className="st-link">Loyalty</Link></li>
+                            <li><Link href="/store/referrals" className="st-link">Referrals</Link></li>
                             <li><Link href="/store/compare" className="st-link">Compare</Link></li>
                         </ul>
                     </div>

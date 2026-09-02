@@ -26,6 +26,10 @@ interface DBProductRow {
   brand_name?: string | null;
   brand_slug?: string | null;
   rating?: number | null;
+  flash_sale?: number | null;
+  flash_sale_starts?: string | null;
+  flash_sale_ends?: string | null;
+  flash_sale_price?: number | null;
   created_at?: string | null;
 }
 
@@ -67,6 +71,7 @@ function normalizeProduct(row: DBProductRow) {
     stock: Math.max(0, Number(row.stock ?? 0)),
     images,
     thumbnail,
+    video_url: (row as any).video_url ?? null,
     description: row.description ?? null,
     specs: parseJsonObject<Record<string, string>>(row.specs, {}),
     featured: Number(row.featured ?? 0),
@@ -78,6 +83,10 @@ function normalizeProduct(row: DBProductRow) {
     brand_name: row.brand_name ?? undefined,
     brand_slug: row.brand_slug ?? undefined,
     rating: Number(row.rating ?? 0),
+    flash_sale: Number(row.flash_sale ?? 0),
+    flash_sale_starts: row.flash_sale_starts ?? null,
+    flash_sale_ends: row.flash_sale_ends ?? null,
+    flash_sale_price: row.flash_sale_price ?? null,
   };
 }
 

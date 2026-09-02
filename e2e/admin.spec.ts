@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 
 test.describe('Admin Dashboard E2E', () => {
   test('Admin login flow', async ({ page }) => {
@@ -26,7 +26,7 @@ test.describe('Admin Dashboard E2E', () => {
     expect(url).toMatch(/\/admin(\/|$)/);
   });
 
-  async function programmaticLogin(page) {
+  async function programmaticLogin(page: Page) {
     const adminEmail = process.env.ADMIN_EMAIL || 'hello@greyinfotech.com.ng';
     const adminPassword = process.env.ADMIN_PASSWORD || '1Uriel2Graham3';
     // Perform a fetch in browser context to let the server set the session cookie

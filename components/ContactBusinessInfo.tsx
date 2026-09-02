@@ -34,7 +34,7 @@ export default function ContactBusinessInfo({
                                                 emailRecruiting = 'jobs@greyinfotech.com.ng',
                                                 emailPartnerships = 'partners@greyinfotech.com.ng',
                                                 phone = '+2348028095571',
-                                                companyName = 'Grey InfoTech',
+                                                companyName = 'Graham Sobiribo Paul',
                                                 address = {
                                                     line1: '9 Godfery Tata Close,',
                                                     line2: 'Rumuewhara New Layout,',

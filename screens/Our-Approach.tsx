@@ -16,7 +16,7 @@ const steps = [
         subtitle: 'First Contact',
         body: 'From your initial call or message, we get to understand your requirements, budget, and timescale. We dive straight into what matters  - your goals  - so we can align from day one.',
         tags: ['Discovery Call', 'Budget Scoping', 'Timeline'],
-        accent: '#0f766e',
+        accent: '#2dd4bf',
     },
     {
         num: '02',
@@ -25,7 +25,7 @@ const steps = [
         body: 'The discovery phase unlocks the full picture. We explore your business, competitors, market trends, and technical landscape. Everything gets factored in  - deadlines, growth goals, user needs  - before we agree on exact specifications.',
         tags: ['Competitor Review', 'Tech Audit', 'Spec Sign-off'],
         link: { href: '/services/discovery-phase', label: 'Learn about Discovery →' },
-        accent: '#0f766e',
+        accent: '#06b6d4',
     },
     {
         num: '03',
@@ -34,7 +34,7 @@ const steps = [
         body: "Fast, fun, and collaborative. We create fully interactive mockups of key pages  - establishing color systems, messaging hierarchy, and high-conversion UI patterns  - before a single line of code is written.",
         tags: ['Wireframes', 'UI Mockups', 'Design System'],
         link: { href: '/services/ui-ux-design', label: 'See our UI/UX work →' },
-        accent: '#115e59',
+        accent: '#a855f7',
     },
     {
         num: '04',
@@ -43,7 +43,7 @@ const steps = [
         body: 'Once specs and designs are agreed, we move into build. You get live access to the dev environment at every stage. We use the right technology for your project  - no stack religion, just the best tools for the job.',
         tags: ['Agile Sprints', 'Dev Preview', 'API Integration'],
         link: { href: '/services/Web-Development', label: 'Web Development services →' },
-        accent: '#14b8a6',
+        accent: '#22d3ee',
     },
     {
         num: '05',
@@ -51,7 +51,7 @@ const steps = [
         subtitle: 'Quality Gate',
         body: 'Rigorous QA is baked in from day one. We test across all devices, browsers, and real-world scenarios  - including accessibility, performance, and edge cases  - before any launch is considered.',
         tags: ['Cross-browser', 'Accessibility', 'Performance'],
-        accent: '#0f766e',
+        accent: '#2dd4bf',
     },
     {
         num: '06',
@@ -59,7 +59,7 @@ const steps = [
         subtitle: 'Go Live',
         body: "When defects are resolved, code is validated, and everything passes our checklist  - we go live. Launch is not the end; it's the beginning of a post-launch feedback loop.",
         tags: ['Deployment', 'DNS Migration', 'Monitoring'],
-        accent: '#115e59',
+        accent: '#14b8a6',
     },
     {
         num: '07',

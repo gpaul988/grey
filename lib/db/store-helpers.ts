@@ -12,6 +12,9 @@ import {
   storeProducts,
   storeCategories,
   storePasswordResetTokens,
+  storeWishlists,
+  storeCartSessions,
+  storeCustomerAddresses,
 } from './store-schema';
 import { eq, and, sql } from 'drizzle-orm';
 import bcrypt from 'bcryptjs';
@@ -335,4 +338,251 @@ export async function cleanupExpiredResetTokens() {
       eq(storePasswordResetTokens.used, false),
       sql`${storePasswordResetTokens.expiresAt} < ${now}`
     ));
+}
+
+export async function getStoreCustomerWishlist(customerId: number) {
+  const rows = await db
+    .select({ productId: storeWishlists.productId })
+    .from(storeWishlists)
+    .where(eq(storeWishlists.customerId, customerId));
+
+  return rows.map((row: any) => row.productId);
+}
+
+export async function toggleStoreCustomerWishlist(customerId: number, productId: number) {
+  const existing = await db
+    .select({ id: storeWishlists.id })
+    .from(storeWishlists)
+    .where(and(
+      eq(storeWishlists.customerId, customerId),
+      eq(storeWishlists.productId, productId)
+    ));
+
+  if (existing.length > 0) {
+    await db
+      .delete(storeWishlists)
+      .where(and(
+        eq(storeWishlists.customerId, customerId),
+        eq(storeWishlists.productId, productId)
+      ));
+    return getStoreCustomerWishlist(customerId);
+  }
+
+  await db.insert(storeWishlists).values({ customerId, productId });
+  return getStoreCustomerWishlist(customerId);
+}
+
+export async function saveStoreCartSession({
+  customerId,
+  sessionId,
+  items,
+  couponCode,
+}: {
+  customerId?: number | null;
+  sessionId?: string | null;
+  items: Array<{ productId: number; quantity: number; price?: number }>;
+  couponCode?: string | null;
+}) {
+  const payload = JSON.stringify(items ?? []);
+  const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
+
+  const existing = sessionId
+    ? await db.select().from(storeCartSessions).where(eq(storeCartSessions.sessionId, sessionId))
+    : (customerId ? await db.select().from(storeCartSessions).where(eq(storeCartSessions.customerId, customerId)) : []);
+
+  if (existing.length > 0) {
+    const row = existing[0];
+    await db
+      .update(storeCartSessions)
+      .set({
+        customerId: customerId ?? row.customerId,
+        items: payload,
+        couponCode: couponCode ?? row.couponCode,
+        expiresAt,
+        updatedAt: new Date().toISOString(),
+      })
+      .where(eq(storeCartSessions.id, row.id));
+
+    return { ...row, items: payload, couponCode: couponCode ?? row.couponCode, expiresAt };
+  }
+
+  const inserted = await db.insert(storeCartSessions).values({
+    customerId: customerId ?? null,
+    sessionId: sessionId ?? `cart_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+    items: payload,
+    couponCode: couponCode ?? null,
+    expiresAt,
+  });
+
+  const id = Number((inserted as any).lastInsertRowid ?? 0);
+  const row = id ? await db.select().from(storeCartSessions).where(eq(storeCartSessions.id, id)) : [];
+  return row[0] ?? null;
+}
+
+export async function getStoreCartSession({ customerId, sessionId }: { customerId?: number | null; sessionId?: string | null }) {
+  if (customerId) {
+    const rows = await db.select().from(storeCartSessions).where(eq(storeCartSessions.customerId, customerId));
+    if (rows[0]) return rows[0];
+  }
+  if (sessionId) {
+    const rows = await db.select().from(storeCartSessions).where(eq(storeCartSessions.sessionId, sessionId));
+    if (rows[0]) return rows[0];
+  }
+  return null;
+}
+
+export async function getStoreCustomerOrders(customerId: number) {
+  const orders = await db
+    .select()
+    .from(storeOrders)
+    .where(eq(storeOrders.customerId, customerId))
+    .orderBy(sql`${storeOrders.createdAt} DESC`);
+
+  const rows = await Promise.all(orders.map(async (order: any) => {
+    const items = await db
+      .select({
+        id: storeOrderItems.id,
+        productId: storeOrderItems.productId,
+        productName: storeProducts.name,
+        productImage: storeProducts.thumbnail,
+        quantity: storeOrderItems.quantity,
+        unitPrice: storeOrderItems.price,
+        totalPrice: storeOrderItems.subtotal,
+      })
+      .from(storeOrderItems)
+      .leftJoin(storeProducts, eq(storeOrderItems.productId, storeProducts.id))
+      .where(eq(storeOrderItems.orderId, order.id));
+
+    return {
+      id: order.id,
+      order_number: order.orderNumber,
+      status: order.status,
+      payment_status: order.paymentStatus,
+      total: order.total,
+      currency: order.currency,
+      created_at: order.createdAt,
+      items,
+    };
+  }));
+
+  return rows;
+}
+
+export async function getStoreOrderByRef(orderNumber: string) {
+  const orders = await db.select().from(storeOrders).where(eq(storeOrders.orderNumber, orderNumber));
+  const order = orders[0];
+  if (!order) return null;
+
+  const items = await db
+    .select({
+      id: storeOrderItems.id,
+      product_name: storeProducts.name,
+      product_image: storeProducts.thumbnail,
+      quantity: storeOrderItems.quantity,
+      unit_price: storeOrderItems.price,
+      total_price: storeOrderItems.subtotal,
+    })
+    .from(storeOrderItems)
+    .leftJoin(storeProducts, eq(storeOrderItems.productId, storeProducts.id))
+    .where(eq(storeOrderItems.orderId, order.id));
+
+  const customer = order.customerId ? await getStoreCustomerById(order.customerId) : null;
+  const addresses = customer ? await db.select().from(storeCustomerAddresses).where(eq(storeCustomerAddresses.customerId, customer.id)) : [];
+  const defaultAddress = addresses.find((addr: any) => addr.isDefault) ?? addresses[0] ?? null;
+
+  return {
+    id: order.id,
+    order_number: order.orderNumber,
+    status: order.status,
+    payment_status: order.paymentStatus,
+    payment_method: order.paymentStatus === 'pending' ? 'bank_transfer' : 'online',
+    subtotal: order.subtotal,
+    shipping_fee: order.shippingCost,
+    tax: order.tax,
+    discount: 0,
+    total: order.total,
+    currency: order.currency,
+    coupon_code: null,
+    created_at: order.createdAt,
+    shipping_address: defaultAddress ? {
+      first_name: customer?.firstName ?? '',
+      last_name: customer?.lastName ?? '',
+      phone: customer?.phone ?? '',
+      address: defaultAddress.street,
+      city: defaultAddress.city,
+      state: defaultAddress.state,
+    } : {
+      first_name: customer?.firstName ?? '',
+      last_name: customer?.lastName ?? '',
+      phone: customer?.phone ?? '',
+      address: '',
+      city: '',
+      state: '',
+    },
+    items,
+  };
+}
+
+export async function updateStoreOrderStatus(orderId: number, patch: {
+  status?: string;
+  paymentStatus?: string;
+  shippingStatus?: string;
+  notes?: string | null;
+}) {
+  const current = await db.select().from(storeOrders).where(eq(storeOrders.id, orderId));
+  const existing = current[0];
+  if (!existing) return null;
+
+  await db
+    .update(storeOrders)
+    .set({
+      status: patch.status ?? existing.status,
+      paymentStatus: patch.paymentStatus ?? existing.paymentStatus,
+      shippingStatus: patch.shippingStatus ?? existing.shippingStatus,
+      notes: patch.notes ?? existing.notes,
+      updatedAt: new Date().toISOString(),
+    })
+    .where(eq(storeOrders.id, orderId));
+
+  return getStoreOrderByRef(existing.orderNumber);
+}
+
+export async function updateStorePaymentStatus(
+  transactionId: string,
+  status: 'pending' | 'completed' | 'failed' | 'refunded',
+  metadata?: Record<string, any>
+) {
+  const payments = await db
+    .select()
+    .from(storePayments)
+    .where(eq(storePayments.transactionId, transactionId));
+
+  const payment = payments[0];
+  if (!payment) return null;
+
+  await db
+    .update(storePayments)
+    .set({
+      status,
+      metadata: JSON.stringify(metadata ?? {}),
+      updatedAt: new Date().toISOString(),
+    })
+    .where(eq(storePayments.transactionId, transactionId));
+
+  if (payment.orderId) {
+    const orderRows = await db.select().from(storeOrders).where(eq(storeOrders.id, payment.orderId));
+    const currentOrder = orderRows[0];
+    const nextOrderStatus = status === 'completed' ? 'confirmed' : (currentOrder?.status ?? 'pending');
+
+    await db
+      .update(storeOrders)
+      .set({
+        paymentStatus: status === 'completed' ? 'completed' : status === 'failed' ? 'failed' : 'pending',
+        status: nextOrderStatus,
+        updatedAt: new Date().toISOString(),
+      })
+      .where(eq(storeOrders.id, payment.orderId));
+  }
+
+  return payment;
 }

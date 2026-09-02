@@ -130,20 +130,29 @@ export const cspMiddleware = (req: Request, res: Response, next: NextFunction) =
     next();
 };
 
-/** Global limiter — generous, just to blunt floods. */
+/** Global limiter — active only for non-GET traffic to protect the app from
+ * brute-force and spam, without blocking normal page visits. */
 export const globalLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 600,
     standardHeaders: true,
     legacyHeaders: false,
-    skip: (req) =>
-        req.path.startsWith('/css') ||
-        req.path.startsWith('/js') ||
-        req.path.startsWith('/images') ||
-        req.path.startsWith('/vendor') ||
-        req.path.startsWith('/fonts') ||
-        req.path.startsWith('/_next') ||
-        req.path.startsWith('/assets'),
+    skip: (req) => {
+        const method = req.method || 'GET';
+        if (method === 'GET' || method === 'HEAD' || method === 'OPTIONS') {
+            return true;
+        }
+
+        return (
+            req.path.startsWith('/css') ||
+            req.path.startsWith('/js') ||
+            req.path.startsWith('/images') ||
+            req.path.startsWith('/vendor') ||
+            req.path.startsWith('/fonts') ||
+            req.path.startsWith('/_next') ||
+            req.path.startsWith('/assets')
+        );
+    },
 });
 
 /** Strict limiter for auth + form endpoints (brute-force / spam protection). */

@@ -138,7 +138,7 @@ export default function AIChat() {
                 transition={{delay: 0.6, type: 'spring', stiffness: 260, damping: 20}}
                 whileHover={{scale: 1.06}}
                 whileTap={{scale: 0.94}}
-                className="fixed bottom-5 left-5 z-[140] flex h-14 w-14 items-center justify-center rounded-full border border-white/25 bg-teal-500 text-white shadow-[0_12px_30px_rgba(20,184,166,0.38)] ring-1 ring-teal-200/25"
+                className="fixed bottom-5 left-5 z-[140] flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-teal-400 via-cyan-500 to-indigo-600 text-white shadow-[0_8px_30px_rgba(20,184,166,0.45)] ring-1 ring-white/20"
             >
                 <AnimatePresence mode="wait">
                     {open ? (

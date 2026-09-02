@@ -7,7 +7,7 @@ PROJECT:   Graham Sobiribo Paul - Web Redesign & Modernization
 PHASE:     7 (Geolocation & Globalization)
 STATUS:    ✅ COMPLETE & PRODUCTION-READY
 DATE:      Thursday, June 18, 2026
-ENGINEER:  Graham Sobiribo Paul (Senior Full-Stack Developer)
+ENGINEER:  Spencer Chike (Senior Full-Stack Developer)
 LOCATION:  Lagos, Nigeria
 
 ================================================================================
@@ -467,7 +467,7 @@ Next: Deploy to cPanel Node.js environment.
 ================================================================================
 
 Project:    Graham Sobiribo Paul - Phase 7: Geolocation & Globalization
-Engineer:   Graham Sobiribo Paul (Senior Full-Stack Developer, Nigeria)
+Engineer:   Spencer Chike (Senior Full-Stack Developer, Nigeria)
 Completed:  Thursday, June 18, 2026
 Status:     ✅ COMPLETE
 Quality:    World-class, second to none

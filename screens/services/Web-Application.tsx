@@ -26,7 +26,7 @@ import {
 import ServiceHero from '@/components/futuristic/ServiceHero';
 import ServiceCapabilities from '@/components/futuristic/ServiceCapabilities';
 
-// Why Grey InfoTech — comprehensive reasons
+// Why Graham Sobiribo Paul — comprehensive reasons
 const reasons = [
     {
         id: 1,

@@ -248,7 +248,7 @@ const IosDevelopment = () => {
                             <div
                                 className="grid lg:grid-cols-2 grid-cols-1 gap-6 mt-6 font-[300] text-justify text-[0.95em] md:text-[1.05em] leading-relaxed">
                                 <div className="space-y-4">
-                                    <p>Native iOS development unlocks the full potential of Apple's ecosystem. At Grey InfoTech, we specialize in crafting high-performance apps using Swift and SwiftUI that deliver exceptional user experiences. Our approach maximizes device capabilities—GPS, sensors, cameras, biometrics—to create innovative solutions that drive real business value.</p>
+                                    <p>Native iOS development unlocks the full potential of Apple's ecosystem. At Graham Sobiribo Paul, we specialize in crafting high-performance apps using Swift and SwiftUI that deliver exceptional user experiences. Our approach maximizes device capabilities—GPS, sensors, cameras, biometrics—to create innovative solutions that drive real business value.</p>
                                     <p>We follow rigorous best practices: thorough requirements analysis, architecture design, secure implementation, comprehensive testing, and iterative refinement. Every feature is intentionally crafted to be intuitive, performant, and aligned with Apple's Human Interface Guidelines, ensuring your app stands out in the App Store.</p>
                                     <div className="flex flex-wrap gap-3 mt-4">
                                         {['Swift Development', 'App Store Optimization', 'Hardware Integration', 'Security & Privacy'].map((p) => (
@@ -1113,7 +1113,7 @@ const IosDevelopment = () => {
                             <div
                                 className={`p-4 rounded-xl backdrop-blur-sm ${isDayTime ? 'bg-white/80 border border-slate-100/30' : 'bg-black/40 border border-white/12'}`}>
                                 <p className='text-[0.92em] font-[400] lg:-mt-[0.2em] md:-mt-[0.2em] text-justify leading-[1.6]'>
-                                    iOS app development is a specialized, collaborative process that demands expertise across mobile architecture, native frameworks, and Apple's evolving ecosystem. At Grey InfoTech, our cross-functional teams work in tight synchronization to deliver premium applications. A dedicated project manager coordinates priorities, timelines, and client feedback, while our skilled iOS developers architect robust, performant applications using Swift and modern frameworks. Our UI/UX designers craft interfaces that align with Human Interface Guidelines, ensuring intuitive navigation and visual polish.
+                                    iOS app development is a specialized, collaborative process that demands expertise across mobile architecture, native frameworks, and Apple's evolving ecosystem. At Graham Sobiribo Paul, our cross-functional teams work in tight synchronization to deliver premium applications. A dedicated project manager coordinates priorities, timelines, and client feedback, while our skilled iOS developers architect robust, performant applications using Swift and modern frameworks. Our UI/UX designers craft interfaces that align with Human Interface Guidelines, ensuring intuitive navigation and visual polish.
                                 </p>
 
                                 <p className='text-[0.92em] font-[400] mt-4 text-justify leading-[1.6]'>

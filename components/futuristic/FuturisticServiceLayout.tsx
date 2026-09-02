@@ -124,14 +124,14 @@ export default function FuturisticServiceLayout({
                             </FxReveal>
 
                             <FxReveal delay={0.1}>
-                                <FxHoloCard day={false} className="p-6 bg-white/[0.02] border border-white/5">
+                                <FxHoloCard day={false} className="p-6 bg-white/[0.04] border border-white/10">
                                     <div className="flex items-center justify-between mb-5">
                                         <span className="text-[0.68em] uppercase tracking-[0.24em] text-white/45">Focus</span>
                                         <span className="h-2 w-2 rounded-full bg-teal-400 animate-pulse" />
                                     </div>
                                     <div className="grid gap-3">
                                         {stats.slice(0, 3).map((s) => (
-                                            <div key={s.label} className="rounded-xl border border-white/5 bg-transparent px-4 py-3 flex items-center justify-between">
+                                            <div key={s.label} className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 flex items-center justify-between">
                                                 <span className="text-white/55 text-[0.72em] uppercase tracking-[0.18em]">{s.label}</span>
                                                 <span className="text-[1.15em] font-[800] text-teal-300">{s.value}</span>
                                             </div>
@@ -159,8 +159,8 @@ export default function FuturisticServiceLayout({
 
                             {/* Sidebar nav */}
                             <aside className="hidden lg:block w-64 shrink-0">
-                                <div className="gx-sticky-nav rounded-[1.25rem] border border-white/5 bg-transparent p-5 backdrop-blur-sm">
-                                    <div className={`text-[0.68em] uppercase tracking-[0.18em] font-[700] mb-4 ${dark ? 'text-teal-400/70' : 'text-teal-600/70'}`}>
+                                <div className="gx-sticky-nav rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-5 backdrop-blur-xl">
+                                    <div className={`text-[0.68em] uppercase tracking-[0.18em] font-[700] mb-4 ${dark ? 'text-teal-400/60' : 'text-teal-600/60'}`}>
                                         On This Page
                                     </div>
                                     <nav className="space-y-1">
@@ -168,10 +168,10 @@ export default function FuturisticServiceLayout({
                                             <button
                                                 key={id}
                                                 onClick={() => onNavClickAction?.(id)}
-                                                className={`w-full text-left px-4 py-3 rounded-xl text-[0.82em] font-[500] transition-all duration-200 border ${
+                                                className={`w-full text-left px-4 py-3 rounded-2xl text-[0.82em] font-[500] transition-all duration-200 border ${
                                                     activeId === id
-                                                        ? 'border-teal-400/20 text-teal-300 ' + (dark ? 'bg-teal-400/05' : 'bg-teal-50/70')
-                                                        : 'border-transparent ' + (dark ? 'text-gray-400 hover:text-white hover:border-white/10 hover:bg-white/[0.02]' : 'text-gray-500 hover:text-black hover:border-teal-400/20 hover:bg-white/60')
+                                                        ? 'border-teal-400/40 text-teal-300 ' + (dark ? 'bg-teal-400/08' : 'bg-teal-50')
+                                                        : 'border-transparent ' + (dark ? 'text-gray-400 hover:text-white hover:border-teal-400/30 hover:bg-white/[0.03]' : 'text-gray-500 hover:text-black hover:border-teal-400/30 hover:bg-white')
                                                 }`}
                                             >
                                                 {label}
@@ -189,7 +189,7 @@ export default function FuturisticServiceLayout({
                                     )}
 
                                     {/* Sidebar CTA */}
-                                    <div className={`mt-8 p-4 rounded-xl border ${dark ? 'border-white/10 bg-white/[0.02]' : 'border-teal-100 bg-teal-50/80'}`}>
+                                    <div className={`mt-8 p-4 rounded-2xl border ${dark ? 'border-teal-400/20 bg-teal-400/05' : 'border-teal-200 bg-teal-50'}`}>
                                         <p className={`text-[0.75em] font-[500] mb-3 ${dark ? 'text-gray-300' : 'text-gray-700'}`}>
                                             Ready to get started?
                                         </p>
@@ -287,7 +287,7 @@ export function ServiceSectionBlock({
     );
 }
 
-/** Why Grey InfoTech accordion */
+/** Why Graham Sobiribo Paul accordion */
 export function ServiceWhyAccordion({
     isDayTime,
     reasons,

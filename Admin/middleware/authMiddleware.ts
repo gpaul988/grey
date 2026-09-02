@@ -40,7 +40,7 @@ export const requireRole = (...roles: string[]) => (req: Request, res: Response,
 
 /** Bounce already-logged-in users away from auth pages. */
 export const redirectIfAuth = (req: Request, res: Response, next: NextFunction) => {
-    if (req.session.user) return res.redirect(adminPath('/dashboard'));
+    if (req.session.user) return res.redirect(adminPath('/store/dashboard'));
     return next();
 };
 

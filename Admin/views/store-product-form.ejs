@@ -63,8 +63,10 @@
                 </div>
 
                 <div class="card mb-3">
-                    <div class="card-header"><h5 class="card-title mb-0">Images</h5></div>
+                    <div class="card-header"><h5 class="card-title mb-0">Media</h5></div>
                     <div class="card-body">
+                        <!-- IMAGES SECTION -->
+                        <h6 class="mb-3">Images <span class="badge bg-info">Multiple</span></h6>
                         <% const imgs = JSON.parse(product?.images || '[]'); %>
                         <% if(imgs.length > 0) { %>
                         <div class="row g-2 mb-3" id="existingImages">
@@ -81,7 +83,30 @@
                         <% } %>
                         <label class="form-label">Upload New Images</label>
                         <input type="file" name="product_images" class="form-control" accept="image/*" multiple>
-                        <small class="text-muted">Max 8 images. First image becomes thumbnail.</small>
+                        <small class="text-muted d-block mb-3">Max 8 images. First becomes thumbnail.</small>
+
+                        <!-- VIDEO SECTION -->
+                        <hr class="my-3">
+                        <h6 class="mb-3">Product Video <span class="badge bg-info">Optional</span></h6>
+                        <% if(product?.video_url) { %>
+                        <div class="mb-3">
+                            <p class="text-muted small mb-2">Current video:</p>
+                            <video src="<%= product.video_url %>" controls style="width:100%;max-width:300px;height:auto;max-height:200px;" class="rounded border mb-2"></video>
+                            <button type="button" class="btn btn-sm btn-danger" onclick="clearVideoUrl()">Remove Video</button>
+                            <input type="hidden" name="remove_video" id="removeVideoFlag" value="0">
+                        </div>
+                        <% } %>
+                        <label class="form-label">Upload Video or Enter URL</label>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-8">
+                                <input type="url" name="video_url" class="form-control" placeholder="YouTube, Vimeo, or direct video URL" value="<%= product?.video_url || '' %>">
+                                <small class="text-muted d-block mt-1">Or upload a video file below. URL takes precedence.</small>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="file" name="product_video" class="form-control" accept="video/*" id="videoFileInput">
+                                <small class="text-muted">MP4, WebM, max 50MB</small>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -107,6 +132,30 @@
                         <div class="mb-3">
                             <label class="form-label">Stock Quantity <span class="text-danger">*</span></label>
                             <input type="number" name="stock" class="form-control" value="<%= product?.stock ?? 0 %>" min="0" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-header"><h5 class="card-title mb-0">Flash Sale</h5></div>
+                    <div class="card-body">
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" name="flash_sale" id="flashSaleToggle" value="1" <%= product?.flash_sale ? 'checked' : '' %>>
+                            <label class="form-check-label" for="flashSaleToggle">Enable flash sale pricing</label>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Flash sale start</label>
+                                <input type="datetime-local" name="flash_sale_starts" class="form-control" value="<%= product?.flash_sale_starts ? product.flash_sale_starts.slice(0,16) : '' %>">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Flash sale end</label>
+                                <input type="datetime-local" name="flash_sale_ends" class="form-control" value="<%= product?.flash_sale_ends ? product.flash_sale_ends.slice(0,16) : '' %>">
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <label class="form-label">Flash sale price (₦)</label>
+                            <input type="number" name="flash_sale_price" class="form-control" value="<%= product?.flash_sale_price || '' %>" min="0" step="0.01" placeholder="Optional discounted price">
                         </div>
                     </div>
                 </div>
@@ -178,5 +227,9 @@ function addSpec() {
 function removeExistingImage(i, url) {
     document.getElementById('img-'+i)?.remove();
     document.getElementById('ei-'+i)?.remove();
+}
+function clearVideoUrl() {
+    document.querySelector('input[name="video_url"]').value = '';
+    document.getElementById('removeVideoFlag').value = '1';
 }
 </script>

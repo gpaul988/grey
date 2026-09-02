@@ -1,4 +1,5 @@
 export const ADMIN_BASE_PATH = '/admin';
+export const LEGACY_STORE_DASHBOARD_PATH = `${ADMIN_BASE_PATH}/store/dashboard`;
 
 // Public-facing auth URLs live at the site root (e.g. /login) instead of
 // under /admin, so the footer "login" link points to a clean /login URL.

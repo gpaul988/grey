@@ -129,10 +129,10 @@ ENVIRONMENT VARIABLES REQUIRED
 Email Configuration (Required for forms to send emails):
   SMTP_HOST=smtp.gmail.com
   SMTP_PORT=587
-  SMTP_USER=your-email@grahamsobiribopaul.com.ng
+  SMTP_USER=your-email@greyinfotech.com.ng
   SMTP_PASSWORD=your-app-password
-  SMTP_FROM=noreply@grahamsobiribopaul.com.ng
-  ADMIN_EMAIL=admin@grahamsobiribopaul.com.ng
+  SMTP_FROM=noreply@greyinfotech.com.ng
+  ADMIN_EMAIL=admin@greyinfotech.com.ng
 
 Security (Optional but recommended):
   ADMIN_API_TOKEN=your-secure-token-here

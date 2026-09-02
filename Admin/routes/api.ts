@@ -100,6 +100,13 @@ api.post('/notify-submission', (req: Request, res: Response) => {
 api.use(ensureApiAuth);
 api.use('/2fa', twoFaRoutes);
 
+// Session info for admin UI (server-side authoritative)
+api.get('/session', (req, res) => {
+    if (!req.session || !req.session.user) return res.json({ ok: true, data: null });
+    const u = req.session.user;
+    return res.json({ ok: true, data: { id: u.id, name: u.name, role: u.role } });
+});
+
 const ok = (res: Response, data: unknown = null, message = 'OK') =>
     res.json({ok: true, message, data});
 const fail = (res: Response, message: string, status = 400) =>

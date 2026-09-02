@@ -185,7 +185,7 @@ export default function CareerIntroduceScreen() {
                         <FxTerminal
                             day={isDayTime}
                             lines={[
-                                '# Grey InfoTech  - talent radar',
+                                '# Graham Sobiribo Paul  - talent radar',
                                 'npm run meet-the-team',
                                 '',
                                 '> Scanning incoming profile...',
@@ -219,7 +219,7 @@ export default function CareerIntroduceScreen() {
                                 <div className="grid md:grid-cols-2 gap-5">
                                     <div>
                                         <label className={labelCls}>Full Name <span className="text-red-400">*</span></label>
-                                        <input type="text" className={inputCls} placeholder="Your full name"
+                                        <input type="text" className={inputCls} placeholder="Sobiribo Graham"
                                             value={form.full_name} onChange={set('full_name')} required />
                                     </div>
                                     <div>
@@ -315,7 +315,7 @@ export default function CareerIntroduceScreen() {
                                 <div className="relative">
                                     <textarea
                                         className={`${inputCls} min-h-[200px] resize-y`}
-                                        placeholder="Tell us about yourself  - what you've built, what drives you, why you're excited about what Grey InfoTech does, and what you bring to the table. Be genuine. We read every message."
+                                        placeholder="Tell us about yourself  - what you've built, what drives you, why you're excited about what Graham Sobiribo Paul does, and what you bring to the table. Be genuine. We read every message."
                                         value={form.cover_letter}
                                         onChange={set('cover_letter')}
                                         rows={8}

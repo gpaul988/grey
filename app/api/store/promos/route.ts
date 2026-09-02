@@ -20,6 +20,7 @@ export async function GET(_req: NextRequest) {
       settingsRows.forEach((r) => (settings[r.key] = r.value));
       const blackFridayActive = settings['black_friday_active'] === '1' || settings['black_friday_active'] === 'true';
       const blackFridayDiscount = Number(settings['black_friday_discount'] || 0);
+      const globalFlashActive = settings['flash_sales_active'] === '1' || settings['flash_sales_active'] === 'true';
 
       // load products that have flash_sale flag set (server-side filter)
       const rows = db
@@ -31,7 +32,7 @@ export async function GET(_req: NextRequest) {
       for (const r of rows) {
         const start = r.flash_sale_starts ? Date.parse(r.flash_sale_starts) : NaN;
         const end = r.flash_sale_ends ? Date.parse(r.flash_sale_ends) : NaN;
-        const active = (Number(r.flash_sale || 0) === 1) && (Number.isNaN(start) || now >= start) && (Number.isNaN(end) || now <= end);
+        const active = globalFlashActive && (Number(r.flash_sale || 0) === 1) && (Number.isNaN(start) || now >= start) && (Number.isNaN(end) || now <= end);
         const base = Number(r.price || 0);
         let effective = base;
         let promo: string | null = null;

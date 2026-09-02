@@ -130,6 +130,7 @@ route.post('/login', redirectIfAuth, async (req: Request, res: Response) => {
     const user = matched;
 
     req.session.user = { id: user.id, name: user.name, email: user.email, role: user.role, avatar: user.avatar };
+    // Removed client-readable role/name cookies; UI must use /admin/api/session for auth info.
     logActivity({ user_id: user.id, user_name: user.name, action: 'login', entity: 'auth' });
     return req.session.save(() => res.redirect(adminPath('/dashboard')));
 });

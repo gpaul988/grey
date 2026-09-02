@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import '../../components/store/store.css';
 import { StoreProvider } from './StoreContext';
-// StoreLayout intentionally not imported here to avoid double header/footer when app-level layout provides it
+import StoreLayout from './StoreLayout';
 
 export interface PaymentConfig {
     currency: string;
@@ -34,13 +34,11 @@ export default function StoreShell({ children, title }: { children: React.ReactN
         <ConfigContext.Provider value={config}>
             <Head>
                 <title>{title ? `${title} | Grey TechStore` : 'Grey TechStore  - Laptops, Phones, Servers & More'}</title>
-                <link rel="icon" href="/techstore.svg" type="image/svg+xml" />
-                <link rel="apple-touch-icon" href="/techstore.svg" />
+                <link rel="icon" href="/favicon.ico" />
                 <meta name="description" content="Grey TechStore  - Nigeria's trusted store for laptops, desktops, servers, phones and accessories." />
-                <meta name="theme-color" content="#0b0f14" />
             </Head>
             <StoreProvider usdRate={config?.usd_rate ?? 1600} usdEnabled={config?.usd_enabled ?? true}>
-                {children}
+                <StoreLayout>{children}</StoreLayout>
             </StoreProvider>
         </ConfigContext.Provider>
     );

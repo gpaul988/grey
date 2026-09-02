@@ -40,8 +40,8 @@ describe('checkout processor', () => {
     // verify stock decremented
     const db2 = new Database(tmp, { readonly: true });
     try {
-      const row = db2.prepare('SELECT stock FROM store_products WHERE id = ?').get(1);
-      expect(row.stock).toBe(3);
+      const row = db2.prepare('SELECT stock FROM store_products WHERE id = ?').get(1) as { stock: number } | undefined;
+      expect(row?.stock).toBe(3);
     } finally { db2.close(); }
 
     // cleanup

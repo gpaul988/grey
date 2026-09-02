@@ -12,7 +12,7 @@ const CloudSolutions = () => (
         eyebrow="Cloud-first architecture for modern businesses"
         introHeading={<>Engineered for Scale<br className="lg:block md:block hidden" />Built for Resilience</>}
         introBody={[
-            <>Cloud is no longer a destination -it is the operating model. At Grey InfoTech we design and deliver
+            <>Cloud is no longer a destination -it is the operating model. At Graham Sobiribo Paul we design and deliver
             cloud architectures that match your workload characteristics, compliance requirements and cost profile.
             Whether you are lifting legacy systems off on-premise hardware, re-platforming monoliths into
             microservices, or building cloud-native from day one, we provide the engineering depth to do it right.
@@ -25,7 +25,7 @@ const CloudSolutions = () => (
             is cloud infrastructure that performs predictably, costs less to operate and scales on demand.</>,
         ]}
         solutionsHeading={<>Cloud<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From lift-and-shift migrations to cloud-native architectures, Grey InfoTech delivers the full cloud stack -designed for scale, security and speed."
+        solutionsIntro="From lift-and-shift migrations to cloud-native architectures, Graham Sobiribo Paul delivers the full cloud stack -designed for scale, security and speed."
         solutions={[
             {
                 id: '01', title: 'Cloud Architecture & Design', target: 'CA',
@@ -77,7 +77,7 @@ const CloudSolutions = () => (
             },
         ]}
         ctaHeading={<>Your cloud,<br className="lg:block md:block hidden" />perfected</>}
-        ctaBody="Ready to move faster, spend less, and scale on demand? Grey InfoTech designs and operates cloud infrastructure that grows with your business."
+        ctaBody="Ready to move faster, spend less, and scale on demand? Graham Sobiribo Paul designs and operates cloud infrastructure that grows with your business."
         verticalSolutions={[
             {
                 id: 'vs1',

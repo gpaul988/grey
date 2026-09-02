@@ -13,7 +13,7 @@ const SalesforceDevelopment = () => (
         introHeading={<>Salesforce That<br className="lg:block md:block hidden" />Fits Your Business</>}
         introBody={[
             <>Salesforce is the world&apos;s leading CRM, but out-of-the-box configuration rarely matches the
-            nuance of a real business process. At Grey InfoTech our certified Salesforce developers and
+            nuance of a real business process. At Graham Sobiribo Paul our certified Salesforce developers and
             architects customise, integrate and optimise the platform to match exactly how your teams sell,
             service and operate. We bring deep expertise in Sales Cloud, Service Cloud, Marketing Cloud,
             Experience Cloud and Salesforce Platform -delivering solutions that drive adoption rather than
@@ -26,7 +26,7 @@ const SalesforceDevelopment = () => (
             software project.</>,
         ]}
         solutionsHeading={<>Salesforce<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From fresh implementations to complex custom development and integrations, Grey InfoTech builds Salesforce solutions that your teams actually use."
+        solutionsIntro="From fresh implementations to complex custom development and integrations, Graham Sobiribo Paul builds Salesforce solutions that your teams actually use."
         solutions={[
             {
                 id: '01', title: 'Salesforce Implementation', target: 'SI',
@@ -80,7 +80,7 @@ const SalesforceDevelopment = () => (
             },
         ]}
         ctaHeading={<>Salesforce that<br className="lg:block md:block hidden" />drives revenue</>}
-        ctaBody="Your CRM should be your competitive advantage, not a system your team works around. Grey InfoTech builds Salesforce solutions that match your process perfectly."
+        ctaBody="Your CRM should be your competitive advantage, not a system your team works around. Graham Sobiribo Paul builds Salesforce solutions that match your process perfectly."
         verticalSolutions={[
             {
                 id: 'vs1',

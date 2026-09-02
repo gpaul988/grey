@@ -6,7 +6,7 @@ import Link from 'next/link';
 import StoreShell from '@/components/store/StoreShell';
 import ProductCard from '@/components/store/ProductCard';
 import { useStore } from '@/components/store/StoreContext';
-import { api, displayUnit, formatPrice, type StoreProduct } from '@/components/store/lib';
+import { api, displayUnit, effectiveAmount, formatPrice, type StoreProduct } from '@/components/store/lib';
 import { FiHeart, FiGitMerge, FiStar, FiCheck, FiTruck, FiShield, FiMinus, FiPlus } from 'react-icons/fi';
 
 interface Review { id: number; reviewer_name: string; rating: number; comment: string | null; created_at: string; }
@@ -22,7 +22,7 @@ export default function ProductDetail() {
 }
 
 function Detail({ slug }: { slug: string }) {
-    const { addToCart, toggleCompare, compare, currency, usdRate, toggleWishlist, isWishlisted } = useStore();
+    const { addToCart, toggleCompare, compare, currency, usdRate, toggleWishlist, isWishlisted, settings } = useStore();
     const [product, setProduct] = useState<StoreProduct | null>(null);
     const [reviews, setReviews] = useState<Review[]>([]);
     const [rating, setRating] = useState(0);
@@ -48,7 +48,22 @@ function Detail({ slug }: { slug: string }) {
     const inCompare = compare.some((p) => p.id === product.id);
     const wished = isWishlisted(product.id);
     const images = product.images?.length ? product.images : [product.thumbnail || ''];
-    const off = product.compare_price && product.compare_price > product.price ? Math.round((1 - product.price / product.compare_price) * 100) : 0;
+    const sale = effectiveAmount(product, settings);
+    const off = product.compare_price && product.compare_price > sale.amount ? Math.round((1 - sale.amount / product.compare_price) * 100) : 0;
+     
+    // Flash sale countdown
+    const getTimeRemaining = () => {
+        if (!product.flash_sale_ends) return null;
+        const end = Date.parse(product.flash_sale_ends);
+        if (Number.isNaN(end)) return null;
+        const now = Date.now();
+        if (now > end) return null;
+        const diff = end - now;
+        const hours = Math.floor(diff / 3600000);
+        const mins = Math.floor((diff % 3600000) / 60000);
+        return hours > 0 ? `${hours}h ${mins}m left` : `${mins}m left`;
+    };
+    const timeLeft = getTimeRemaining();
 
     const submitReview = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -67,7 +82,7 @@ function Detail({ slug }: { slug: string }) {
 
             <div className="grid md:grid-cols-2 gap-8 mb-12">
                 <div>
-                    <div className="st-card overflow-hidden aspect-square bg-[var(--st-surface-2)]">
+                    <div className="st-card overflow-hidden aspect-square bg-[var(--st-surface-2)] relative">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={images[activeImg]} alt={product.name} className="w-full h-full object-cover" />
                     </div>
@@ -79,6 +94,11 @@ function Detail({ slug }: { slug: string }) {
                                     <img src={im} alt="" className="w-full h-full object-cover" />
                                 </button>
                             ))}
+                        </div>
+                    )}
+                    {product.video_url && (
+                        <div className="st-card overflow-hidden rounded-lg mt-3">
+                            <video src={product.video_url} controls className="w-full h-auto max-h-64 bg-black" />
                         </div>
                     )}
                 </div>
@@ -93,9 +113,17 @@ function Detail({ slug }: { slug: string }) {
                         </div>
                     )}
                     <div className="flex items-end gap-3 mt-4">
-                        <span className="text-3xl font-extrabold text-[var(--st-teal)]">{displayUnit(product, currency, usdRate)}</span>
-                        {off > 0 && <><span className="text-lg text-[var(--st-muted)] line-through">{formatPrice(product.compare_price!, currency, usdRate)}</span><span className="st-badge" style={{ background: 'rgba(239,68,68,.15)', color: '#f87171' }}>-{off}%</span></>}
+                        <span className="text-3xl font-extrabold text-[var(--st-teal)]">{displayUnit(product, currency, usdRate, settings)}</span>
+                        {off > 0 && <><span className="text-lg text-[var(--st-muted)] line-through">{formatPrice(product.compare_price!, currency, usdRate, product.price_usd ?? null)}</span><span className="st-badge" style={{ background: 'rgba(239,68,68,.15)', color: '#f87171' }}>-{off}%</span></>}
                     </div>
+                    {(sale.promotion === 'flash_sale' || sale.promotion === 'black_friday') && (
+                        <div className="mt-3 flex flex-col gap-2">
+                            <div className="inline-flex items-center gap-2 rounded-full border border-red-400/60 bg-red-500/15 px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.12em] text-red-400">
+                                {sale.promotion === 'flash_sale' ? '🔥 Flash Sale' : '🛍️ Black Friday'}
+                            </div>
+                            {timeLeft && <p className="text-xs font-semibold text-orange-400">⏱️ {timeLeft}</p>}
+                        </div>
+                    )}
                     <p className="text-[var(--st-muted)] mt-4 leading-relaxed">{product.description}</p>
 
                     <p className={`mt-4 text-sm flex items-center gap-2 ${product.stock > 0 ? 'text-emerald-400' : 'text-red-400'}`}>

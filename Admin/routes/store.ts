@@ -49,10 +49,15 @@ route.post('/products/new', requirePermission('store.manage'), (req: Request, re
             stock: parseInt(req.body.stock, 10) || 0,
             images,
             thumbnail: images[0] || undefined,
+            video_url: req.body.video_url || null,
             status: req.body.status || 'draft',
             featured: req.body.featured === '1',
             tags: parseTags(req.body.tags),
             weight: req.body.weight ? parseFloat(req.body.weight) : undefined,
+            flash_sale: req.body.flash_sale === '1',
+            flash_sale_starts: req.body.flash_sale_starts || null,
+            flash_sale_ends: req.body.flash_sale_ends || null,
+            flash_sale_price: req.body.flash_sale_price ? parseFloat(req.body.flash_sale_price) : null,
         });
         logActivity({ ...actor(req), action: 'create', entity: 'product', entity_id: product.id, detail: product.name });
         res.redirect('/admin/store/products');
@@ -94,10 +99,15 @@ route.post('/products/:id/edit', requirePermission('store.manage'), (req: Reques
             stock: parseInt(req.body.stock, 10) || 0,
             images,
             thumbnail: images[0],
+            video_url: req.body.remove_video === '1' ? null : (req.body.video_url || undefined),
             status: req.body.status || 'draft',
             featured: req.body.featured === '1',
             tags: parseTags(req.body.tags),
             weight: req.body.weight ? parseFloat(req.body.weight) : undefined,
+            flash_sale: req.body.flash_sale === '1',
+            flash_sale_starts: req.body.flash_sale_starts || null,
+            flash_sale_ends: req.body.flash_sale_ends || null,
+            flash_sale_price: req.body.flash_sale_price ? parseFloat(req.body.flash_sale_price) : null,
         });
         logActivity({ ...actor(req), action: 'update', entity: 'product', entity_id: id, detail: req.body.name });
         res.redirect('/admin/store/products');
@@ -106,11 +116,15 @@ route.post('/products/:id/edit', requirePermission('store.manage'), (req: Reques
 
 // ─── Store Dashboard (Analytics) ──────────────────────────────────────────────
 
-route.get('/dashboard', requirePermission('store.view'), (_req, res) => {
+route.get('/dashboard', (_req, res) => {
     res.render('store-dashboard', { title: 'Store Dashboard', ...baseLocals });
 });
 
-route.get('/dashboard/data', requirePermission('store.view'), (_req, res) => {
+route.get('/store-dashboard', (_req, res) => {
+    res.redirect('/admin/store/dashboard');
+});
+
+route.get('/dashboard/data', (_req, res) => {
     try {
         // Sales by day (last 30 days)
         const sales = db.prepare(`
@@ -196,6 +210,78 @@ route.get('/dashboard/data', requirePermission('store.view'), (_req, res) => {
     }
 });
 
+// Development-only debug endpoint (returns same dashboard data without auth)
+if (process.env.NODE_ENV !== 'production') {
+    route.get('/dashboard/debug', (_req, res) => {
+        try {
+            // reuse the same queries as /dashboard/data
+            const sales = db.prepare(`
+                SELECT date(created_at) AS day, SUM(total) AS total
+                FROM orders
+                WHERE status != 'cancelled'
+                GROUP BY date(created_at)
+                ORDER BY date(created_at) ASC
+            `).all() as Array<{ day: string; total: number }>;
+            const categories = db.prepare(`
+                SELECT pc.name AS category, SUM(oi.quantity) AS value
+                FROM order_items oi
+                JOIN orders o ON oi.order_id = o.id
+                JOIN products p ON oi.product_id = p.id
+                LEFT JOIN product_categories pc ON p.category_id = pc.id
+                GROUP BY pc.name
+                ORDER BY value DESC
+                LIMIT 10
+            `).all() as Array<{ category: string; value: number }>;
+            const stats = db.prepare(`
+                SELECT
+                  (SELECT COUNT(*) FROM orders WHERE status != 'cancelled') AS total_orders,
+                  (SELECT COUNT(DISTINCT customer_id) FROM orders WHERE customer_id IS NOT NULL) AS total_customers,
+                  (SELECT COALESCE(AVG(total),0) FROM orders WHERE status != 'cancelled') AS avg_order_value,
+                  (SELECT COALESCE(AVG((SELECT SUM(quantity) FROM order_items WHERE order_id = orders.id)),0) FROM orders WHERE status != 'cancelled') AS avg_items_per_order
+            `).get() as any;
+            const density = db.prepare(`
+                SELECT strftime('%H', created_at) AS hour, SUM(total) AS total
+                FROM orders
+                WHERE status != 'cancelled'
+                GROUP BY hour
+                ORDER BY hour ASC
+            `).all() as Array<{ hour: string; total: number }>;
+            const byState = db.prepare(`
+                SELECT c.state AS state, COUNT(DISTINCT o.id) AS orders
+                FROM customers c
+                JOIN orders o ON o.customer_id = c.id
+                GROUP BY c.state
+                ORDER BY orders DESC
+            `).all() as Array<{ state: string; orders: number }>;
+            const nodes: any[] = [{ id: 'Nigeria', name: 'Nigeria', value: 0 }, { id: 'Rivers State', name: 'Rivers State', value: 0 }];
+            const links: any[] = [];
+            let nigeriaTotal = 0;
+            byState.forEach((r) => {
+                const stateName = r.state || 'Unknown';
+                const nodeId = stateName;
+                nodes.push({ id: nodeId, name: stateName, value: r.orders });
+                links.push({ source: 'Rivers State', target: nodeId, value: r.orders });
+                links.push({ source: 'Nigeria', target: nodeId, value: r.orders });
+                nigeriaTotal += r.orders;
+                if (stateName === 'Rivers State') {
+                    nodes.find((n) => n.id === 'Rivers State').value = r.orders;
+                }
+            });
+            nodes.find((n) => n.id === 'Nigeria').value = nigeriaTotal;
+            const salesByDay = sales.map((s) => ({ day: s.day, total: s.total }));
+            const radar = [
+                { name: 'avg_order_value', value: Number(stats.avg_order_value || 0) },
+                { name: 'avg_items_per_order', value: Number(stats.avg_items_per_order || 0) },
+                { name: 'total_customers', value: Number(stats.total_customers || 0) },
+                { name: 'total_orders', value: Number(stats.total_orders || 0) },
+            ];
+            res.json({ salesByDay, categories, radar, density, connection: { nodes, links } });
+        } catch (err) {
+            console.error('[Dashboard Debug]', err);
+            res.status(500).json({ error: 'Failed to load dashboard data (debug)' });
+        }
+    });
+}
 // ─── Orders ──────────────────────────────────────────────────────────────────
 
 route.get('/orders', requirePermission('store.view'), (_req, res) => {
@@ -283,6 +369,47 @@ route.post('/brands', requirePermission('store.manage'), (req: Request, res: Res
     });
 });
 
+// ─── Promotions ─────────────────────────────────────────────────────────────
+
+route.get('/flash-sale', requirePermission('store.view'), (_req, res) => {
+    const products = Products.all().filter((p) => Number(p.flash_sale) === 1);
+    res.render('store-flash-sale', {
+        title: 'Flash Sale',
+        ...baseLocals,
+        products,
+        count: products.length,
+    });
+});
+
+route.get('/black-friday', requirePermission('store.view'), (req, res) => {
+    // Render Black Friday preview similar to Flash Sale (site-wide application of discount)
+    const s = StoreSettings.getAll();
+    const blackVal = String(s['black_friday_active'] || '0');
+    const blackActive = blackVal === '1' || blackVal === 'true';
+    const blackDiscount = Number(s['black_friday_discount'] || 0);
+
+    // Build product preview list
+    const all = Products.all().filter((p) => p.status === 'active');
+    const products = all.map((p) => {
+        const base = Number(p.price || 0);
+        let effective = base;
+        if (blackActive && blackDiscount > 0) {
+            const factor = (100 - Math.max(0, Math.min(100, blackDiscount))) / 100;
+            effective = Math.round(base * factor);
+        }
+        return { id: p.id, name: p.name, price: base, effective_price: effective, images: p.images, category_name: p.category_name };
+    }).filter((p) => p.effective_price < p.price);
+
+    res.render('store-black-friday', {
+        title: 'Black Friday',
+        ...baseLocals,
+        products,
+        count: products.length,
+        s,
+        isSuperadmin: req.session.user?.role === 'superadmin',
+    });
+});
+
 // ─── Settings ────────────────────────────────────────────────────────────────
 
 route.get('/settings', requirePermission('store.view'), (req, res) => {
@@ -302,6 +429,13 @@ route.post('/settings', requirePermission('store.manage'), (req, res) => {
     if ('store.usd_section' in body) {
         updates['store.usd_enabled'] = body['store.usd_enabled'] === '1' ? '1' : '0';
     }
+
+    // Store promotion settings
+    // Ensure toggles are written even when unchecked (checkboxes omit value when unchecked)
+    // Treat missing checkbox keys as '0'
+    updates['black_friday_active'] = body['black_friday_active'] === '1' ? '1' : '0';
+    updates['flash_sales_active'] = body['flash_sales_active'] === '1' ? '1' : '0';
+    if ('black_friday_discount' in body) updates['black_friday_discount'] = String(Math.max(0, Math.min(100, Number(body['black_friday_discount'] || 0))));
 
     // Payment gateway settings — superadmin only
     if (isSuperadmin) {

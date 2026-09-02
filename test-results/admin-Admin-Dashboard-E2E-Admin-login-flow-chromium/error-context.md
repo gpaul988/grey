@@ -7,26 +7,15 @@
 # Test info
 
 - Name: admin.spec.ts >> Admin Dashboard E2E >> Admin login flow
-- Location: e2e\admin.spec.ts:4:7
+- Location: e2e/admin.spec.ts:4:7
 
 # Error details
 
 ```
-Error: expect(locator).toBeVisible() failed
-
-Locator: locator('input[name="email"]')
-Expected: visible
-Timeout: 5000ms
-Error: element(s) not found
-
+Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/admin/login
 Call log:
-  - Expect "toBeVisible" with timeout 5000ms
-  - waiting for locator('input[name="email"]')
+  - navigating to "http://localhost:3000/admin/login", waiting until "load"
 
-```
-
-```yaml
-- text: "{\"error\":\"Too many attempts. Please wait a few minutes and try again.\"}"
 ```
 
 # Test source
@@ -36,114 +25,107 @@ Call log:
   2   | 
   3   | test.describe('Admin Dashboard E2E', () => {
   4   |   test('Admin login flow', async ({ page }) => {
-  5   |     // Use env vars when available (CI/runner can supply these)
-  6   |     const adminEmail = process.env.ADMIN_EMAIL || 'graham@grahamspaul.com.ng';
-  7   |     const adminPassword = process.env.ADMIN_PASSWORD || '1Uriel2Graham3';
-  8   | 
-  9   |     // Navigate to admin login
-  10  |     await page.goto('/admin/login');
-  11  |     
-  12  |     // Check login form exists
-> 13  |     await expect(page.locator('input[name="email"]')).toBeVisible();
-      |                                                       ^ Error: expect(locator).toBeVisible() failed
-  14  |     await expect(page.locator('input[name="password"]')).toBeVisible();
-  15  |     
-  16  |     // Enter credentials
-  17  |     await page.locator('input[name="email"]').fill(adminEmail);
-  18  |     await page.locator('input[name="password"]').fill(adminPassword);
-  19  |     
-  20  |     // Submit form - use more specific selector (main content area)
-  21  |     await page.locator('main button[type="submit"], [role="main"] button[type="submit"]').first().click();
-  22  |     
-  23  |     // Should redirect to dashboard (or back to login on failure)
-  24  |     await page.waitForLoadState('networkidle');
-  25  |     const url = page.url();
-  26  |     expect(url).toMatch(/\/admin(\/|$)/);
-  27  |   });
-  28  | 
-  29  |   async function programmaticLogin(page) {
-  30  |     const adminEmail = process.env.ADMIN_EMAIL || 'graham@grahamspaul.com.ng';
-  31  |     const adminPassword = process.env.ADMIN_PASSWORD || '1Uriel2Graham3';
-  32  |     // Perform a fetch in browser context to let the server set the session cookie
-  33  |     await page.goto('/admin/login');
-  34  |     await page.evaluate(async (creds) => {
-  35  |       const { email, password } = creds;
-  36  |       const body = new URLSearchParams();
-  37  |       body.set('email', email);
-  38  |       body.set('password', password);
-  39  |       await fetch('/admin/login', { method: 'POST', body: body.toString(), headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, credentials: 'include' });
-  40  |     }, { email: adminEmail, password: adminPassword });
-  41  |   }
-  42  | 
-  43  |   test('Dashboard layout loads', async ({ page }) => {
-  44  |     await programmaticLogin(page);
+  5   |     // Navigate to admin login
+> 6   |     await page.goto('/admin/login');
+      |                ^ Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/admin/login
+  7   |     
+  8   |     // Check login form exists
+  9   |     await expect(page.locator('input[name="password"]')).toBeVisible();
+  10  |     
+  11  |     // Enter password
+  12  |     await page.locator('input[name="password"]').fill('test-admin-password');
+  13  |     
+  14  |     // Submit form
+  15  |     await page.locator('button[type="submit"]').click();
+  16  |     
+  17  |     // Should redirect to dashboard (or show error if invalid)
+  18  |     await page.waitForTimeout(500);
+  19  |     const url = page.url();
+  20  |     expect(['http://localhost:3000/admin', 'http://localhost:3000/admin/login']).toContain(url);
+  21  |   });
+  22  | 
+  23  |   test('Dashboard layout loads', async ({ page }) => {
+  24  |     // Set token BEFORE navigating (prevents auth redirect race condition)
+  25  |     await page.addInitScript(() => {
+  26  |       localStorage.setItem('admin-token', 'test-token-123');
+  27  |     });
+  28  |     
+  29  |     await page.goto('/admin');
+  30  |     
+  31  |     // Check header exists
+  32  |     await expect(page.locator('text=Admin Dashboard')).toBeVisible({ timeout: 5000 });
+  33  |     
+  34  |     // Check metric cards exist
+  35  |     await expect(page.locator('text=Total Users')).toBeVisible();
+  36  |     await expect(page.locator('text=Total Revenue')).toBeVisible();
+  37  |     await expect(page.locator('text=Services')).toBeVisible();
+  38  |     await expect(page.locator('text=Audit Score')).toBeVisible();
+  39  |   });
+  40  | 
+  41  |   test('Dashboard charts render', async ({ page }) => {
+  42  |     await page.addInitScript(() => {
+  43  |       localStorage.setItem('admin-token', 'test-token-123');
+  44  |     });
   45  |     await page.goto('/admin');
-  46  | 
-  47  |     // Check header exists
-  48  |     await expect(page.locator('h1:has-text("Admin Dashboard")')).toBeVisible({ timeout: 5000 });
-  49  | 
-  50  |     // Check metric cards exist - use main content area selector
-  51  |     await expect(page.locator('[id="main-content"] text=Total Users, main text=Total Users').first()).toBeVisible();
-  52  |     await expect(page.locator('[id="main-content"] text=Total Revenue, main text=Total Revenue').first()).toBeVisible();
-  53  |     await expect(page.locator('[id="main-content"] text=Services').first()).toBeVisible();
-  54  |     await expect(page.locator('[id="main-content"] text=Audit Score, main text=Audit Score').first()).toBeVisible();
-  55  |   });
-  56  | 
-  57  |   test('Dashboard charts render', async ({ page }) => {
-  58  |     await page.addInitScript(() => {
-  59  |       localStorage.setItem('admin-token', 'test-token-123');
-  60  |     });
-  61  |     await page.goto('/admin');
-  62  |     
-  63  |     // Check charts section exists
-  64  |     await expect(page.locator('h2:has-text("Analytics & Insights")')).toBeVisible({ timeout: 5000 });
-  65  |     
-  66  |     // Check chart titles
-  67  |     await expect(page.locator('[id="main-content"] h3:has-text("User Growth"), main h3:has-text("User Growth")').first()).toBeVisible();
-  68  |     await expect(page.locator('[id="main-content"] h3:has-text("Revenue Breakdown"), main h3:has-text("Revenue Breakdown")').first()).toBeVisible();
-  69  |     await expect(page.locator('[id="main-content"] h3:has-text("Service Popularity"), main h3:has-text("Service Popularity")').first()).toBeVisible();
-  70  |     await expect(page.locator('[id="main-content"] h3:has-text("Conversion Funnel"), main h3:has-text("Conversion Funnel")').first()).toBeVisible();
-  71  |     await expect(page.locator('[id="main-content"] h3:has-text("Daily Audit Rate"), main h3:has-text("Daily Audit Rate")').first()).toBeVisible();
-  72  |     await expect(page.locator('[id="main-content"] h3:has-text("Top Search Queries"), main h3:has-text("Top Search Queries")').first()).toBeVisible();
-  73  |   });
-  74  | 
-  75  |   test('Export CSV button works', async ({ page }) => {
-  76  |     await page.addInitScript(() => {
-  77  |       localStorage.setItem('admin-token', 'test-token-123');
-  78  |     });
-  79  |     await page.goto('/admin');
-  80  |     
-  81  |     // Find and click CSV export button - use main content area
-  82  |     const csvButton = page.locator('[id="main-content"] button:has-text("Export CSV"), main button:has-text("Export CSV")').first();
-  83  |     await expect(csvButton).toBeVisible({ timeout: 5000 });
-  84  |     
-  85  |     // Setup download listener - but don't fail if download doesn't happen (may be blocked in CI)
-  86  |     const downloadPromise = page.waitForEvent('download').catch(() => null);
-  87  |     await csvButton.click();
-  88  |     
-  89  |     // Try to verify download started, but don't fail if it times out
-  90  |     try {
-  91  |       const download = await Promise.race([
-  92  |         downloadPromise,
-  93  |         new Promise((_, reject) => setTimeout(() => reject('timeout'), 5000))
-  94  |       ]);
-  95  |       if (download) {
-  96  |         expect((download as any).suggestedFilename()).toMatch(/dashboard-export-\d{4}-\d{2}-\d{2}\.csv/);
-  97  |       }
-  98  |     } catch {
-  99  |       // Downloads may not work in CI environment - that's ok
-  100 |       console.log('Download test skipped (CI environment)');
-  101 |     }
-  102 |   });
-  103 | 
-  104 |   test('Export PDF button exists', async ({ page }) => {
-  105 |     await page.addInitScript(() => {
-  106 |       localStorage.setItem('admin-token', 'test-token-123');
-  107 |     });
-  108 |     await page.goto('/admin');
-  109 |     
-  110 |     // Find PDF export button
-  111 |     const pdfButton = page.locator('[id="main-content"] button:has-text("Export PDF"), main button:has-text("Export PDF")').first();
-  112 |     await expect(pdfButton).toBeVisible({ timeout: 5000 });
-  113 |   });
+  46  |     
+  47  |     // Check charts section exists
+  48  |     await expect(page.locator('text=Analytics & Insights')).toBeVisible({ timeout: 5000 });
+  49  |     
+  50  |     // Check chart titles
+  51  |     await expect(page.locator('text=User Growth')).toBeVisible();
+  52  |     await expect(page.locator('text=Revenue Breakdown')).toBeVisible();
+  53  |     await expect(page.locator('text=Service Popularity')).toBeVisible();
+  54  |     await expect(page.locator('text=Conversion Funnel')).toBeVisible();
+  55  |     await expect(page.locator('text=Daily Audit Rate')).toBeVisible();
+  56  |     await expect(page.locator('text=Top Search Queries')).toBeVisible();
+  57  |   });
+  58  | 
+  59  |   test('Export CSV button works', async ({ page }) => {
+  60  |     await page.addInitScript(() => {
+  61  |       localStorage.setItem('admin-token', 'test-token-123');
+  62  |     });
+  63  |     await page.goto('/admin');
+  64  |     
+  65  |     // Find and click CSV export button
+  66  |     const csvButton = page.locator('button:has-text("Export CSV")');
+  67  |     await expect(csvButton).toBeVisible({ timeout: 5000 });
+  68  |     
+  69  |     // Setup download listener
+  70  |     const downloadPromise = page.waitForEvent('download');
+  71  |     await csvButton.click();
+  72  |     
+  73  |     // Verify download started
+  74  |     const download = await downloadPromise;
+  75  |     expect(download.suggestedFilename()).toMatch(/dashboard-export-\d{4}-\d{2}-\d{2}\.csv/);
+  76  |   });
+  77  | 
+  78  |   test('Export PDF button exists', async ({ page }) => {
+  79  |     await page.addInitScript(() => {
+  80  |       localStorage.setItem('admin-token', 'test-token-123');
+  81  |     });
+  82  |     await page.goto('/admin');
+  83  |     
+  84  |     // Find PDF export button
+  85  |     const pdfButton = page.locator('button:has-text("Export PDF")');
+  86  |     await expect(pdfButton).toBeVisible({ timeout: 5000 });
+  87  |   });
+  88  | 
+  89  |   test('Navigation to FAQs page', async ({ page }) => {
+  90  |     await page.addInitScript(() => {
+  91  |       localStorage.setItem('admin-token', 'test-token-123');
+  92  |     });
+  93  |     await page.goto('/admin');
+  94  |     
+  95  |     // Find and click FAQs link
+  96  |     const faqsLink = page.locator('a[href="/admin/faqs"]');
+  97  |     await expect(faqsLink).toBeVisible({ timeout: 5000 });
+  98  |     await faqsLink.click();
+  99  |     
+  100 |     // Should navigate to FAQs page (also needs token)
+  101 |     await page.addInitScript(() => {
+  102 |       localStorage.setItem('admin-token', 'test-token-123');
+  103 |     });
+  104 |     await expect(page).toHaveURL('/admin/faqs');
+  105 |   });
+  106 | 
 ```

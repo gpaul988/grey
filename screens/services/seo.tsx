@@ -211,7 +211,7 @@ const Seo = () => {
             title: 'Bespoke Solutions',
             description: (
                 <>
-                    At Grey InfoTech, we reject the one-size-fits-all approach. Instead, we invest time in understanding
+                    At Graham Sobiribo Paul, we reject the one-size-fits-all approach. Instead, we invest time in understanding
                     your specific business objectives, user expectations, and industry dynamics to craft
                     tailored <Link href='/services/Mobile-Application-Development'
                                    className={`border-b-[1px] border-gray-500 ${isDayTime ? 'hover:border-black' : 'hover:border-white'}`}>mobile
@@ -1211,7 +1211,7 @@ const Seo = () => {
                     <FxReveal delay={0.56}>
                         <div
                             className={`p-8 rounded-2xl backdrop-blur-md border ${isDayTime ? 'bg-black/3 border-teal-700/15' : 'bg-white/3 border-teal-400/15'}`}>
-                            <h3 className="text-[1.3em] font-[700] mb-6">Why Grey InfoTech for SEO</h3>
+                            <h3 className="text-[1.3em] font-[700] mb-6">Why Graham Sobiribo Paul for SEO</h3>
                             <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
                                 <div>
                                     <div
@@ -1521,7 +1521,7 @@ const Seo = () => {
                 />
             </div>
 
-            {/* Why Grey InfoTech  - Professional approach */}
+            {/* Why Graham Sobiribo Paul  - Professional approach */}
             <div
                 className={`relative overflow-hidden ${isDayTime ? 'bg-slate-950' : 'bg-slate-50'} lg:pt-[5em] pt-[3em] lg:pb-[6em] pb-[3em]`}>
                 <FxBackground day={false} grid aurora className="opacity-50"/>
@@ -1536,7 +1536,7 @@ const Seo = () => {
                             <FxSectionHeading
                                 day={false}
                                 eyebrow="Why Us"
-                                title="Why Grey InfoTech for SEO"
+                                title="Why Graham Sobiribo Paul for SEO"
                             />
                             <p className={`text-[0.873em] font-[400] lg:-mt-[0.2em] leading-[1.5] lg:-ml-[7em] ${isDayTime ? 'text-grey-100' : 'text-black'}`}>
                                 We combine SEO expertise with strategic insights to drive measurable results. From
@@ -1587,7 +1587,7 @@ const Seo = () => {
                         <div className="">
                             <FxFrame className="w-full">
                                 <Image src={reasons[activeIndex - 1]?.images?.[0] || '/assets/fin/grey.jpg'}
-                                       alt="Why Grey InfoTech for SEO"
+                                       alt="Why Graham Sobiribo Paul for SEO"
                                        width={660} height={280}
                                        className="w-full h-auto rounded-xl object-cover"/>
                             </FxFrame>

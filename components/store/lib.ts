@@ -20,6 +20,7 @@ export interface StoreProduct {
     brand_name?: string;
     brand_slug?: string;
     rating?: number;
+    promotion?: string | null;
     // Flash sale fields (added by backend)
     flash_sale?: number;
     flash_sale_starts?: string | null;
@@ -30,6 +31,7 @@ export interface StoreProduct {
 export interface StoreSettings {
     black_friday_active?: boolean;
     black_friday_discount?: number;
+    flash_sales_active?: boolean;
 }
 
 function isFlashSaleActive(p: StoreProduct): boolean {

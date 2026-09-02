@@ -199,8 +199,8 @@ function PartnersCarousel({partners}: {partners: Partner[]}) {
                 :global(.sp-logo-link:hover .sp-logo-card),
                 :global(.sp-logo-card:hover) {
                     transform: translateY(-4px);
-                    border-color: rgba(var(--page-accent-rgb), 0.5);
-                    box-shadow: 0 12px 36px -14px rgba(var(--page-accent-rgb), 0.45);
+                    border-color: rgba(56, 189, 248, 0.5);
+                    box-shadow: 0 12px 36px -14px rgba(56, 189, 248, 0.45);
                 }
                 :global(.sp-logo-img) {
                     height: 100%;
@@ -332,7 +332,7 @@ function ReviewsSlider({reviews}: {reviews: Review[]}) {
                     background: rgba(15, 23, 42, 0.45);
                     backdrop-filter: blur(14px) saturate(140%);
                     border: 1px solid rgba(148, 163, 184, 0.18);
-                    box-shadow: 0 24px 60px -30px rgba(var(--page-accent-rgb), 0.3);
+                    box-shadow: 0 24px 60px -30px rgba(56, 189, 248, 0.3);
                     animation: sp-fade 0.5s ease;
                 }
                 @keyframes sp-fade {
@@ -360,7 +360,7 @@ function ReviewsSlider({reviews}: {reviews: Review[]}) {
                     height: 48px;
                     border-radius: 9999px;
                     object-fit: cover;
-                    border: 2px solid rgba(var(--page-accent-rgb), 0.4);
+                    border: 2px solid rgba(56, 189, 248, 0.4);
                 }
                 .sp-avatar-fallback {
                     display: flex;
@@ -369,7 +369,7 @@ function ReviewsSlider({reviews}: {reviews: Review[]}) {
                     font-weight: 700;
                     font-size: 1.1rem;
                     color: #fff;
-                    background: linear-gradient(135deg, rgba(var(--page-accent-rgb), 1), rgba(var(--page-accent-rgb), 0.8));
+                    background: linear-gradient(135deg, #06b6d4, #a855f7);
                 }
                 .sp-meta { text-align: left; display: flex; flex-direction: column; }
                 .sp-name { font-weight: 700; }
@@ -394,8 +394,8 @@ function ReviewsSlider({reviews}: {reviews: Review[]}) {
                     transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
                 }
                 .sp-arrow:hover {
-                    border-color: rgba(var(--page-accent-rgb), 0.6);
-                    background: rgba(var(--page-accent-rgb), 0.12);
+                    border-color: rgba(56, 189, 248, 0.6);
+                    background: rgba(56, 189, 248, 0.12);
                     transform: scale(1.06);
                 }
                 .sp-dots { display: flex; gap: 0.5rem; }
@@ -411,7 +411,7 @@ function ReviewsSlider({reviews}: {reviews: Review[]}) {
                 }
                 .sp-dot.on {
                     width: 26px;
-                    background: linear-gradient(90deg, rgba(var(--page-accent-rgb), 1), rgba(var(--page-accent-rgb), 0.8));
+                    background: linear-gradient(90deg, #22d3ee, #a855f7);
                 }
                 @media (max-width: 640px) {
                     .sp-quote { font-size: 1.08rem; }

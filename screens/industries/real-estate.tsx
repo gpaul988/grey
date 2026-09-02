@@ -17,7 +17,7 @@ const RealEstate = () => (
         introHeading={<>Real Estate Technology <br className={'lg:block md:block hidden'}/>How We Power Property</>}
         introBody={[
             <>
-                Property is one of the world&apos;s largest markets, and it&apos;s being reshaped by software. Grey InfoTech builds the platforms that move it -listing portals with rich search, property and tenancy
+                Property is one of the world&apos;s largest markets, and it&apos;s being reshaped by software. Graham Sobiribo Paul builds the platforms that move it -listing portals with rich search, property and tenancy
                 management systems, agent CRMs, virtual tours and the transaction tools that turn browsing into
                 deals. We connect buyers, sellers, renters, agents and property managers in one seamless digital
                 experience, replacing fragmented spreadsheets, paperwork and phone calls with platforms that are
@@ -38,7 +38,7 @@ const RealEstate = () => (
         solutionsHeading={<>Real Estate <br className={'lg:block md:block hidden'}/>Software <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From listing portals and property management to CRM and virtual tours, Grey InfoTech builds
+                From listing portals and property management to CRM and virtual tours, Graham Sobiribo Paul builds
                 PropTech that performs. Based in Nigeria and serving clients globally, we connect every party in
                 the property journey with seamless, data-driven software.
             </>
@@ -110,10 +110,10 @@ const RealEstate = () => (
             },
         ]}
         ctaHeading={<>Move property <br className={'lg:block md:block hidden'}/>faster</>}
-        ctaBody={<>From listing portals and property management to CRM and virtual tours, Grey InfoTech builds
+        ctaBody={<>From listing portals and property management to CRM and virtual tours, Graham Sobiribo Paul builds
             PropTech that closes deals and streamlines operations. Let&apos;s transform how you do property.</>}
         testimonials={[
-            {name: 'Chinwe Okafor', title: 'MD, PrimeHomes Realty', message: <>Grey InfoTech built our listing portal and agent CRM, and our lead conversion jumped. The map search and virtual tours genuinely set us apart from competitors.</>},
+            {name: 'Chinwe Okafor', title: 'MD, PrimeHomes Realty', message: <>Graham Sobiribo Paul built our listing portal and agent CRM, and our lead conversion jumped. The map search and virtual tours genuinely set us apart from competitors.</>},
             {name: 'Thabo Nkosi', title: 'Founder, RentEase', message: <>Their property management platform put listings, tenants, maintenance and rent collection in one place. Our admin workload dropped dramatically.</>},
             {name: 'Yetunde Lawal', title: 'CEO, UrbanNest', message: <>The virtual tours they integrated let us sell units remotely to diaspora buyers. It opened a whole new market for us, and the platform scales beautifully.</>},
         ]}

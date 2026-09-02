@@ -85,14 +85,14 @@ export default function AuditScreen() {
 
         return (
             <section
-                className="mt-8 mb-8 rounded-2xl border border-white/8 bg-teal-500/10 p-6 shadow-lg">
+                className="mt-8 mb-8 rounded-2xl border border-white/8 bg-gradient-to-br from-slate-900/70 to-slate-950/80 p-6 shadow-lg">
                 <div className="flex items-start gap-6">
                     <div className="flex-1">
                         <div className="flex items-center gap-3 mb-3">
                             <div className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse"/>
                             <h3 className="text-lg font-bold">Instant SEO Console</h3>
                         </div>
-                        <p className="text-sm text-slate-300 mb-4">Run a focused, high-fidelity SEO check instantly.
+                        <p className="text-sm text-slate-400 mb-4">Run a focused, high-fidelity SEO check instantly.
                             Uses server-side crawling to avoid browser CORS/CSP limits.</p>
 
                         <div className="flex gap-3">
@@ -101,12 +101,12 @@ export default function AuditScreen() {
                                    placeholder="example.com or /path or https://example.com"/>
                             <button onClick={() => runSeo()} disabled={loadingSeo}
                                     className="rounded-xl px-4 py-2 font-semibold" style={{
-                                                                    background: 'linear-gradient(135deg, #2dd4bf, #14b8a6)',
+                                background: 'linear-gradient(135deg,#06b6d4,#6366f1)',
                                 color: 'white'
                             }}>{loadingSeo ? 'Running…' : 'Run SEO'}</button>
                         </div>
 
-                        <div className="mt-3 text-xs text-slate-400">Tip: Use full URL for external sites. Results
+                        <div className="mt-3 text-xs text-slate-500">Tip: Use full URL for external sites. Results
                             include title, meta, H1s, canonical, robots, images missing alt, link counts, word count,
                             and an automated score with prioritized fixes.
                         </div>
@@ -114,8 +114,8 @@ export default function AuditScreen() {
 
                     <div className="w-72 hidden sm:block">
                         <div
-                            className="rounded-xl border border-white/6 p-3 bg-teal-400/30">
-                            <div className="text-xs text-slate-300">Quick Metrics</div>
+                            className="rounded-xl border border-white/6 p-3 bg-gradient-to-b from-white/3 to-transparent">
+                            <div className="text-xs text-slate-400">Quick Metrics</div>
                             <div className="mt-3 grid grid-cols-2 gap-2">
                                 <div className="text-sm">Live audit</div>
                                 <div className="font-mono text-right text-sm">Server</div>
@@ -136,49 +136,49 @@ export default function AuditScreen() {
                 {seoResult && (
                     <div className="mt-5 grid lg:grid-cols-3 gap-4">
                         <div className="p-3 rounded-lg border bg-black/20">
-                            <div className="text-xs text-slate-300">URL</div>
+                            <div className="text-xs text-slate-400">URL</div>
                             <div className="font-mono break-all text-sm">{seoResult.url}</div>
-                            <div className="mt-3 text-xs text-slate-300">Score</div>
+                            <div className="mt-3 text-xs text-slate-400">Score</div>
                             <div className="text-2xl font-black"
                                  style={{color: gradeColor(seoResult.score)}}>{seoResult.score}/100
                             </div>
-                            <div className="mt-3 text-xs text-slate-300">Word count</div>
+                            <div className="mt-3 text-xs text-slate-400">Word count</div>
                             <div className="font-medium">{seoResult.wordCount}</div>
                         </div>
 
                         <div className="lg:col-span-2 p-3 rounded-lg border bg-black/10">
                             <div className="grid gap-3">
                                 <div>
-                                    <div className="text-xs text-slate-300">Title</div>
+                                    <div className="text-xs text-slate-400">Title</div>
                                     <div
                                         className={`font-semibold ${!seoResult.title ? 'text-rose-400' : ''}`}>{seoResult.title || 'Missing'}</div>
                                 </div>
 
                                 <div>
-                                    <div className="text-xs text-slate-300">Meta description</div>
+                                    <div className="text-xs text-slate-400">Meta description</div>
                                     <div
                                         className={`${!seoResult.metaDescription ? 'text-rose-400' : ''}`}>{seoResult.metaDescription || 'Missing'}</div>
                                 </div>
 
                                 <div>
-                                    <div className="text-xs text-slate-300">H1(s)</div>
+                                    <div className="text-xs text-slate-400">H1(s)</div>
                                     <div
                                         className="font-medium">{seoResult.h1s && seoResult.h1s.length ? seoResult.h1s.join(' • ') : 'None found'}</div>
                                 </div>
 
                                 <div className="grid lg:grid-cols-2 gap-3">
                                     <div>
-                                        <div className="text-xs text-slate-300">Canonical</div>
+                                        <div className="text-xs text-slate-400">Canonical</div>
                                         <div>{seoResult.canonical || 'Not set'}</div>
                                     </div>
                                     <div>
-                                        <div className="text-xs text-slate-300">Robots</div>
+                                        <div className="text-xs text-slate-400">Robots</div>
                                         <div>{seoResult.robots || 'Not specified'}</div>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <div className="text-xs text-slate-300">Images missing alt (first 8)</div>
+                                    <div className="text-xs text-slate-400">Images missing alt (first 8)</div>
                                     <div className="text-sm">
                                         {seoResult.imagesMissingAlt && seoResult.imagesMissingAlt.length ? (
                                             <ul className="list-disc pl-5">
@@ -190,13 +190,13 @@ export default function AuditScreen() {
                                 </div>
 
                                 <div>
-                                    <div className="text-xs text-slate-300">Links</div>
+                                    <div className="text-xs text-slate-400">Links</div>
                                     <div className="text-sm">Total: {seoResult.totalLinks} —
                                         Internal: {seoResult.internalLinks} — External: {seoResult.externalLinks}</div>
                                 </div>
 
                                 <div>
-                                    <div className="text-xs text-slate-300">Automated Prioritized Fixes</div>
+                                    <div className="text-xs text-slate-400">Automated Prioritized Fixes</div>
                                     <ol className="list-decimal pl-5 text-sm">
                                         {(!seoResult.title || !seoResult.metaDescription) &&
                                             <li>Add meaningful title and meta description focusing on primary
@@ -256,7 +256,7 @@ export default function AuditScreen() {
     }, [website, repo]);
 
     return (
-        <main className="relative z-20 min-h-screen pb-24 pt-48">
+        <main className="relative min-h-screen pb-24 pt-48">
             {/* Background grid */}
             <div
                 className="pointer-events-none fixed inset-0 opacity-[0.04]"
@@ -278,19 +278,21 @@ export default function AuditScreen() {
                 <header className="mb-14 text-center">
                     <div
                         className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-400/25 bg-cyan-400/5 px-5 py-1.5">
-                        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-slate-50"/>
-                        <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-50">
+                        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-400"/>
+                        <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-cyan-400">
               Grey Audit Engine v2.0
             </span>
                     </div>
                     <h1 className={`text-5xl font-black tracking-tight sm:text-6xl ${isDayTime ? 'text-slate-800' : 'text-white'}`}>
                         Brutally honest{' '}
                         <span
-                            className="bg-clip-text text-teal-500">
+                            className="bg-clip-text text-transparent"
+                            style={{backgroundImage: 'linear-gradient(135deg, #00f5d4, #818cf8)'}}
+                        >
               site & repo audit
             </span>
                     </h1>
-                    <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-slate-300">
+                    <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-slate-400">
                         Drop a live website and/or GitHub repository. We run security, performance, SEO, and
                         engineering checks - then tell you exactly what&apos;s broken. No sugar-coating.
                     </p>
@@ -300,7 +302,7 @@ export default function AuditScreen() {
                         {['TLS & Security Headers', 'SEO Analysis', 'Performance Signals', 'Repo Health', 'Licensing', 'CI/CD Checks'].map((f) => (
                             <span
                                 key={f}
-                                className="rounded-full border border-slate-700/60 bg-slate-800/50 px-3 py-1 text-xs font-medium text-slate-300"
+                                className="rounded-full border border-slate-700/60 bg-slate-800/50 px-3 py-1 text-xs font-medium text-slate-400"
                             >
                 {f}
               </span>
@@ -312,19 +314,20 @@ export default function AuditScreen() {
                 <InstantSeoPanel/>
                 <form
                     onSubmit={handleRun}
-                    className="relative mx-auto max-w-3xl overflow-hidden rounded-2xl border border-white/10 bg-teal-500/10 p-6 shadow-2xl backdrop-blur-md sm:p-8"
+                    className="relative mx-auto max-w-3xl overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-950/80 p-6 shadow-2xl backdrop-blur-md sm:p-8"
                 >
                     {/* corner accent */}
+                    <div className="pointer-events-none absolute left-0 top-0 h-24 w-24 rounded-br-full bg-cyan-500/5"/>
                     <div
-                        className="pointer-events-none absolute bottom-0 right-0 h-16 w-16 rounded-tl-full bg-indigo-300/5"/>
+                        className="pointer-events-none absolute bottom-0 right-0 h-16 w-16 rounded-tl-full bg-indigo-500/5"/>
 
-                    <p className="mb-5 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                    <p className="mb-5 text-xs font-semibold uppercase tracking-wider text-slate-500">
                         Enter a domain, full website URL, and/or GitHub repository
                     </p>
 
                     <div className="grid gap-4 sm:grid-cols-2">
                         <label className="block">
-                                      <span className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-300">
+              <span className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-400">
                 🌐 Website (Optional)
               </span>
                             <input
@@ -332,11 +335,11 @@ export default function AuditScreen() {
                                 value={website}
                                 onChange={(e) => setWebsite(e.target.value)}
                                 placeholder="example.com or https://example.com"
-                                                            className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20"
+                                className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white placeholder-slate-600 outline-none transition focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20"
                             />
                         </label>
                         <label className="block">
-                                      <span className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-300">
+              <span className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-400">
                 📦 GitHub Repo (Optional)
               </span>
                             <input
@@ -344,7 +347,7 @@ export default function AuditScreen() {
                                 value={repo}
                                 onChange={(e) => setRepo(e.target.value)}
                                 placeholder="owner/repo or full URL"
-                                                            className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20"
+                                className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white placeholder-slate-600 outline-none transition focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20"
                             />
                         </label>
                     </div>
@@ -361,11 +364,11 @@ export default function AuditScreen() {
                         type="submit"
                         disabled={loading}
                         className="relative mt-6 inline-flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-xl px-6 py-4 text-sm font-bold text-white transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
-                        style={{background: 'linear-gradient(135deg, #2dd4bf, #14b8a6)'}}
+                        style={{background: 'linear-gradient(135deg, #06b6d4, #6366f1)'}}
                     >
             <span
                 className="pointer-events-none absolute inset-0 opacity-0 transition-opacity hover:opacity-100"
-                style={{background: 'linear-gradient(135deg, rgba(45,212,191,0.75), rgba(20,184,166,0.45))'}}
+                style={{background: 'linear-gradient(135deg, #06b6d4aa, #6366f1aa)'}}
             />
                         {loading ? (
                             <>
@@ -395,7 +398,7 @@ export default function AuditScreen() {
                         <div className="text-center">
                             <p className="text-sm font-semibold text-slate-300">Fetching targets and running live
                                 checks…</p>
-                            <p className="mt-1 text-xs text-slate-400">Security · Performance · SEO · Repo ·
+                            <p className="mt-1 text-xs text-slate-500">Security · Performance · SEO · Repo ·
                                 Licensing</p>
                         </div>
                         <div className="mt-2 flex gap-1.5">
@@ -467,9 +470,9 @@ function ShareModal({isOpen, onClose, report}: { isOpen: boolean; onClose: () =>
 
     const shareLinks = [
         {
-            label: 'X',
-            icon: 'X',
-            href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out this site audit by Grey InfoTech — score: ${report.grade} (${report.overallScore}/100)`)}&url=${encodeURIComponent(shareUrl)}`,
+            label: 'Twitter / X',
+            icon: ' - ',
+            href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out this site audit by Graham Sobiribo Paul  - Score: ${report.grade} (${report.overallScore}/100)`)}&url=${encodeURIComponent(shareUrl)}`,
         },
         {
             label: 'LinkedIn',
@@ -478,8 +481,8 @@ function ShareModal({isOpen, onClose, report}: { isOpen: boolean; onClose: () =>
         },
         {
             label: 'WhatsApp',
-            icon: 'WA',
-            href: `https://wa.me/?text=${encodeURIComponent(`Site audit result — grade ${report.grade} (${report.overallScore}/100): ${shareUrl}`)}`,
+            icon: '💬',
+            href: `https://wa.me/?text=${encodeURIComponent(`Site audit result  - Grade ${report.grade} (${report.overallScore}/100): ${shareUrl}`)}`,
         },
     ];
 
@@ -494,18 +497,17 @@ function ShareModal({isOpen, onClose, report}: { isOpen: boolean; onClose: () =>
             >
                 <button
                     onClick={onClose}
-                    aria-label="Close share modal"
-                    className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-lg text-slate-300 transition hover:bg-white/10 hover:text-white"
+                    className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition hover:bg-white/10 hover:text-white"
                 >
-                    ✕
+                    -
                 </button>
 
                 <div className="mb-6">
                     <div className="mb-2 flex items-center gap-2">
-                        <span className="text-xl">🔗</span>
+                        <span className="text-xl"> --</span>
                         <h3 className="text-xl font-bold text-white">Share Report</h3>
                     </div>
-                    <p className="text-sm text-slate-300">
+                    <p className="text-sm text-slate-400">
                         Share this audit report with your team or clients.
                     </p>
                 </div>
@@ -514,19 +516,19 @@ function ShareModal({isOpen, onClose, report}: { isOpen: boolean; onClose: () =>
                 <div className="mb-6 rounded-xl border border-white/10 bg-white/5 p-4">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-xs text-slate-400">Overall Grade</p>
+                            <p className="text-xs text-slate-500">Overall Grade</p>
                             <p className="text-2xl font-black" style={{color: gradeColor(report.overallScore)}}>
                                 {report.grade}
                             </p>
                         </div>
                         <div className="text-right">
-                            <p className="text-xs text-slate-400">Score</p>
+                            <p className="text-xs text-slate-500">Score</p>
                             <p className="text-2xl font-black text-white">{report.overallScore}<span
-                                                            className="text-sm text-slate-400">/100</span></p>
+                                className="text-sm text-slate-500">/100</span></p>
                         </div>
                     </div>
                     {report.target?.website && (
-                                            <p className="mt-2 truncate text-xs text-slate-400">{report.target.website}</p>
+                        <p className="mt-2 truncate text-xs text-slate-500">{report.target.website}</p>
                     )}
                 </div>
 
@@ -542,7 +544,7 @@ function ShareModal({isOpen, onClose, report}: { isOpen: boolean; onClose: () =>
                         onClick={handleCopy}
                         className="flex-shrink-0 rounded-lg px-4 py-2.5 text-sm font-semibold transition"
                         style={{
-                            background: copied ? 'var(--brand-color)' : 'linear-gradient(135deg, rgba(var(--page-accent-rgb), 1), rgba(var(--page-accent-rgb), 0.8))',
+                            background: copied ? '#36e0a0' : 'linear-gradient(135deg, #06b6d4, #6366f1)',
                             color: 'white',
                         }}
                     >
@@ -651,7 +653,7 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
                 <div className="flex flex-col items-center gap-8 sm:flex-row">
                     <ScoreRing score={report.overallScore} grade={report.grade}/>
                     <div className="flex-1 text-center sm:text-left">
-                        <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-slate-400">Overall
+                        <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-slate-500">Overall
                             Verdict</p>
                         <h2 className="text-3xl font-black text-white">Grade {report.grade}</h2>
                         <p className="mt-2 max-w-lg text-sm leading-relaxed text-slate-300">{report.summary}</p>
@@ -695,7 +697,7 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
                             style={{borderColor: s.color + '30', background: s.color + '08'}}
                         >
                             <p className="text-2xl font-black" style={{color: s.color}}>{s.value}</p>
-                            <p className="mt-0.5 text-xs text-slate-400">{s.label}</p>
+                            <p className="mt-0.5 text-xs text-slate-500">{s.label}</p>
                         </div>
                     ))}
                 </div>
@@ -713,7 +715,7 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
                             <h3 className="font-bold text-white">Detailed Analysis &amp; Recommendations</h3>
                         </div>
                         <span
-                            className="flex h-6 w-6 items-center justify-center rounded-full border border-slate-600 text-xs text-slate-300 transition hover:border-cyan-400 hover:text-cyan-400">
+                            className="flex h-6 w-6 items-center justify-center rounded-full border border-slate-600 text-xs text-slate-400 transition hover:border-cyan-400 hover:text-cyan-400">
               {showDetails ? '−' : '+'}
             </span>
                     </button>
@@ -727,7 +729,7 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
                                               className="mt-3 font-bold text-white">{clean.replace(/^#+\s*/, '')}</p>;
                                 }
                                 if (line.startsWith('-') || line.startsWith('•')) {
-                                    return <p key={i} className="ml-4 text-slate-300">{clean}</p>;
+                                    return <p key={i} className="ml-4 text-slate-400">{clean}</p>;
                                 }
                                 return <p key={i}>{clean}</p>;
                             })}
@@ -747,8 +749,7 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
                     onClick={() => setShareOpen(true)}
                     className="inline-flex items-center gap-2 rounded-xl border border-cyan-400/40 bg-cyan-400/8 px-5 py-2.5 text-sm font-semibold text-cyan-300 transition hover:bg-cyan-400/15 hover:shadow-[0_0_20px_-6px_rgba(34,211,238,.4)]"
                 >
-                <span className="text-sm">🔗</span>
-                <span>Share Report</span>
+                    -- Share Report
                 </button>
 
                 <button
@@ -777,8 +778,8 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
 
                 <button
                     onClick={onRequestFix}
-                    className="ml-auto inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold text-white shadow-lg transition hover:brightness-110 hover:shadow-[0_0_30px_-6px_rgba(var(--page-accent-rgb),0.45)]"
-                    style={{background: 'linear-gradient(135deg, #2dd4bf, #14b8a6)'}}
+                    className="ml-auto inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold text-white shadow-lg transition hover:brightness-110 hover:shadow-[0_0_30px_-6px_rgba(34,211,238,.5)]"
+                    style={{background: 'linear-gradient(135deg, #06b6d4, #6366f1)'}}
                 >
                     ⚡ Request Fix
                 </button>
@@ -786,13 +787,13 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
 
             {/*  -  -  Support CTA  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */}
             <div
-                className="mt-12 overflow-hidden rounded-2xl border border-teal-400/30 bg-gradient-to-br from-teal-500/8 via-teal-500/5 to-transparent p-8 text-center">
+                className="mt-12 overflow-hidden rounded-2xl border border-cyan-400/30 bg-gradient-to-br from-cyan-500/8 via-indigo-500/5 to-transparent p-8 text-center">
                 <div
-                className="mb-2 inline-block rounded-full border border-teal-400/20 bg-teal-500/5 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-teal-400">
+                    className="mb-2 inline-block rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-cyan-400">
                     Expert Remediation
                 </div>
                 <h3 className="mt-2 text-2xl font-bold text-white">Need Help Fixing These Issues?</h3>
-                <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-slate-300">
+                <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-slate-400">
                     Our senior full-stack team turns audit findings into production-grade software - security hardening,
                     performance optimization, architecture refactoring, and more.
                 </p>
@@ -813,10 +814,10 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
                             href={c.href}
                             target={c.href.startsWith('http') ? '_blank' : undefined}
                             rel="noopener noreferrer"
-                            className="group rounded-xl border border-white/10 bg-white/5 p-4 text-center transition hover:border-teal-400/30 hover:bg-white/10"
+                            className="group rounded-xl border border-white/10 bg-white/5 p-4 text-center transition hover:border-cyan-400/30 hover:bg-white/10"
                         >
-                            <p className="text-sm font-semibold text-teal-300">{c.icon} {c.label}</p>
-                            <p className="mt-1 text-sm text-white group-hover:text-teal-200 transition">{c.value}</p>
+                            <p className="text-sm font-semibold text-cyan-300">{c.icon} {c.label}</p>
+                            <p className="mt-1 text-sm text-white group-hover:text-cyan-200 transition">{c.value}</p>
                         </a>
                     ))}
                 </div>
@@ -824,14 +825,14 @@ function Report({report, onRequestFix}: { report: AuditReportExtended; onRequest
                 <button
                     onClick={onRequestFix}
                     className="mt-7 inline-flex items-center gap-2 rounded-xl px-8 py-3.5 text-sm font-bold text-white transition hover:brightness-110"
-                    style={{background: 'linear-gradient(135deg, #2dd4bf, #14b8a6)'}}
+                    style={{background: 'linear-gradient(135deg, #06b6d4, #6366f1)'}}
                 >
                     ⚡ Request Fix Now
                 </button>
             </div>
 
             <p className="mt-8 text-center text-xs text-slate-600">
-                Generated {new Date(report.generatedAt).toLocaleString()} · Grey InfoTech Audit Engine
+                Generated {new Date(report.generatedAt).toLocaleString()} · Graham Sobiribo Paul Audit Engine
                 {report.externalId ? ` · Report #${report.externalId}` : ''}
             </p>
 
@@ -857,7 +858,7 @@ function ScoreRing({score, grade}: { score: number; grade: string }) {
             <div className="grid h-[112px] w-[112px] place-items-center rounded-full bg-[#080c18]">
                 <div className="text-center">
                     <span className="block text-4xl font-black" style={{color}}>{grade}</span>
-                    <span className="text-xs text-slate-400">{score}/100</span>
+                    <span className="text-xs text-slate-500">{score}/100</span>
                 </div>
             </div>
         </div>
@@ -891,7 +892,7 @@ function SectionCard({section}: { section: AuditSection }) {
                         <div className="h-full rounded-full transition-all"
                              style={{width: `${section.score}%`, background: color}}/>
                     </div>
-                    <span className="text-xs text-slate-400">{open ? '−' : '+'}</span>
+                    <span className="text-xs text-slate-500">{open ? ' - ' : ' - '}</span>
                 </div>
             </button>
 
@@ -961,7 +962,7 @@ function buildPrintHTML(report: AuditReportExtended): string {
         )
         .join('');
 
-    return `<!DOCTYPE html><html><head><title>Audit Report  - Grey InfoTech</title>
+    return `<!DOCTYPE html><html><head><title>Audit Report  - Graham Sobiribo Paul</title>
   <style>body{font-family:system-ui,sans-serif;max-width:900px;margin:0 auto;padding:40px 24px;color:#1e293b}h1{font-size:28px;font-weight:900;margin-bottom:4px}@media print{button{display:none}}</style>
   </head><body>
   <h1>Audit Report</h1>
@@ -972,6 +973,6 @@ function buildPrintHTML(report: AuditReportExtended): string {
   </p>
   <p style="margin-bottom:32px;color:#475569;font-size:14px">${report.summary}</p>
   ${sections}
-  <p style="color:#94a3b8;font-size:11px;margin-top:40px;border-top:1px solid #e2e8f0;padding-top:16px">Generated ${new Date(report.generatedAt).toLocaleString()} · Grey InfoTech Audit Engine</p>
+  <p style="color:#94a3b8;font-size:11px;margin-top:40px;border-top:1px solid #e2e8f0;padding-top:16px">Generated ${new Date(report.generatedAt).toLocaleString()} · Graham Sobiribo Paul Audit Engine</p>
   </body></html>`;
 }

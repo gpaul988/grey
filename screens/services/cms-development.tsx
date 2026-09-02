@@ -909,7 +909,7 @@ const CmsDevelopment = () => {
                                 <div>
                                     <p>
                                         Enterprise-grade CMS solutions are critical for modern organizations managing
-                                        complex content ecosystems. At Grey InfoTech, our CMS experts deliver custom
+                                        complex content ecosystems. At Graham Sobiribo Paul, our CMS experts deliver custom
                                         architectures that support multi-channel content distribution, automated
                                         workflows, and comprehensive governance frameworks. From headless CMS
                                         implementations to traditional platforms, we architect solutions that streamline
@@ -1681,7 +1681,7 @@ const CmsDevelopment = () => {
                 </div>
             </div>
 
-            {/* why Choos Grey InfoTech */}
+            {/* why Choos Graham Sobiribo Paul */}
             <div
                 className={`h-auto border-b border-white max-w-full w-full mx-auto ${isDayTime ? 'bg-white' : 'bg-black'}`}>
                 <div
@@ -1706,7 +1706,7 @@ const CmsDevelopment = () => {
                                 for <span className={'text-[#0ef0dd]'}>CMS Development</span>
                             </h2>
                             <p className='text-[0.85em] font-[400] tracking-normal text-justify  leading-[1.5] lg:mr-[9em] md:mr-[9em]'>
-                                Partner with Grey InfoTech to deploy enterprise-grade content management solutions that
+                                Partner with Graham Sobiribo Paul to deploy enterprise-grade content management solutions that
                                 deliver measurable competitive advantages through intelligent scalability aligned with
                                 your organizational trajectory. Our specialized development team architects robust CMS
                                 platforms featuring instantaneous content deployment capabilities, sophisticated
@@ -1716,7 +1716,7 @@ const CmsDevelopment = () => {
                                 address your distinct operational requirements while maximizing performance efficiency
                                 and elevating user engagement metrics. Through dedicated consultative support and
                                 cutting-edge technological innovation, we empower organizations to strengthen their
-                                digital ecosystem, optimize content workflows, and accelerate revenue growth. Trust Grey InfoTech to transform your content management infrastructure into a strategic enabler
+                                digital ecosystem, optimize content workflows, and accelerate revenue growth. Trust Graham Sobiribo Paul to transform your content management infrastructure into a strategic enabler
                                 that consistently advances core business objectives and drives long-term market success.
                             </p>
                         </div>

@@ -13,7 +13,7 @@ const Cybersecurity = () => (
         introHeading={<>Security Is<br className="lg:block md:block hidden" />An Engineering Problem</>}
         introBody={[
             <>Cyber threats are not abstract -they are persistent, sophisticated and targeted at businesses of
-            every size. At Grey InfoTech we approach security as an engineering discipline, embedding controls
+            every size. At Graham Sobiribo Paul we approach security as an engineering discipline, embedding controls
             into development workflows and infrastructure rather than layering on tools after the fact. Our
             security team combines offensive security expertise with defensive architecture knowledge, so we
             understand how attackers think and design systems that are genuinely difficult to compromise.</>,
@@ -25,7 +25,7 @@ const Cybersecurity = () => (
             can act on immediately.</>,
         ]}
         solutionsHeading={<>Cybersecurity<br className="lg:block md:block hidden" />Solutions</>}
-        solutionsIntro="From penetration testing to full security programmes, Grey InfoTech builds defences that hold under real-world attack conditions."
+        solutionsIntro="From penetration testing to full security programmes, Graham Sobiribo Paul builds defences that hold under real-world attack conditions."
         solutions={[
             {
                 id: '01', title: 'Penetration Testing', target: 'PT',
@@ -80,7 +80,7 @@ const Cybersecurity = () => (
             },
         ]}
         ctaHeading={<>Security that<br className="lg:block md:block hidden" />never sleeps</>}
-        ctaBody="Every day without proper security is a day your business is exposed. Grey InfoTech builds defences that protect what you have built and the customers who trust you."
+        ctaBody="Every day without proper security is a day your business is exposed. Graham Sobiribo Paul builds defences that protect what you have built and the customers who trust you."
         verticalSolutions={[
             {
                 id: 'vs1',

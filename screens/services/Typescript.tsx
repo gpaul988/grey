@@ -19,7 +19,7 @@ const Typescript = () => (
         introBody={[
             <>
                 TypeScript transforms JavaScript with a powerful type system that catches errors before they reach production.
-                At Grey InfoTech we harness TypeScript's capabilities to build large-scale systems and enterprise platforms where
+                At Graham Sobiribo Paul we harness TypeScript's capabilities to build large-scale systems and enterprise platforms where
                 reliability and maintainability matter. TypeScript catches bugs at compile-time, enables superior IDE support and
                 developer experience, and makes large codebases navigable. Whether building microservices, data pipelines, or complex
                 applications, TypeScript provides the safety and tooling needed for teams to collaborate effectively and scale code.
@@ -36,7 +36,7 @@ const Typescript = () => (
         solutionsIntro={
             <>
                 From microservices and backend systems to frontend applications and CLIs,
-                Grey InfoTech delivers comprehensive TypeScript development. Type-safety combined with JavaScript's flexibility
+                Graham Sobiribo Paul delivers comprehensive TypeScript development. Type-safety combined with JavaScript's flexibility
                 creates scalable, maintainable systems suitable for enterprise environments.
             </>
         }
@@ -91,7 +91,7 @@ const Typescript = () => (
             },
         ]}
         ctaHeading={<>Build scalable systems <br className={'lg:block md:block hidden'}/>with TypeScript</>}
-        ctaBody={<>From microservices and APIs to full-stack applications and data systems, Grey InfoTech delivers TypeScript solutions that combine type-safety with JavaScript flexibility. Let's build software that scales with your team and grows with your business.</>}
+        ctaBody={<>From microservices and APIs to full-stack applications and data systems, Graham Sobiribo Paul delivers TypeScript solutions that combine type-safety with JavaScript flexibility. Let's build software that scales with your team and grows with your business.</>}
         stats={[
             {label: 'Years Experience', value: 8, suffix: '+'},
             {label: 'Team Members', value: 14, suffix: '+'},
@@ -100,9 +100,9 @@ const Typescript = () => (
             {label: 'Client Satisfaction', value: 99, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Robert Kim', title: 'Tech Lead, Fintech Company', message: <>TypeScript development from Grey InfoTech eliminated entire categories of production bugs. The type safety gave us confidence to refactor aggressively. Code quality improved dramatically and developer velocity increased.</>},
+            {name: 'Robert Kim', title: 'Tech Lead, Fintech Company', message: <>TypeScript development from Graham Sobiribo Paul eliminated entire categories of production bugs. The type safety gave us confidence to refactor aggressively. Code quality improved dramatically and developer velocity increased.</>},
             {name: 'Adeline Dupont', title: 'CTO, SaaS Platform', message: <>Their full-stack TypeScript architecture unified our frontend and backend. Shared types prevent integration bugs. The coherence and type safety made scaling our team much easier.</>},
-            {name: 'Vikram Singh', title: 'Founder, Data Platform', message: <>TypeScript microservices from Grey InfoTech scale beautifully. Service contracts are type-safe so we evolve APIs confidently. The developer experience is exceptional and code maintainability is outstanding.</>},
+            {name: 'Vikram Singh', title: 'Founder, Data Platform', message: <>TypeScript microservices from Graham Sobiribo Paul scale beautifully. Service contracts are type-safe so we evolve APIs confidently. The developer experience is exceptional and code maintainability is outstanding.</>},
         ]}
         verticalSolutions={[
             {

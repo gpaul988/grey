@@ -11,7 +11,7 @@ export async function generateMetadata({params}: {params: Promise<{slug: string}
     const post = getBlogPostBySlug(slug);
     if (!post) return buildMetadata('/blog');
     return buildMetadata('/blog/' + slug, {
-        title: post.title + '  - Grey InfoTech Blog',
+        title: post.title + '  - Graham Sobiribo Paul Blog',
         description: post.excerpt || post.title,
         image: post.heroImage,
     });

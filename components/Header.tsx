@@ -55,6 +55,15 @@ const HeaderContent: React.FC = () => {
     const isDayTime = useIsDayTime();
     const pathname = usePathname();
 
+    // Hide global header on dedicated store pages to avoid visual/header interference
+    if (typeof pathname === 'string' && (
+        pathname === '/store' || pathname.startsWith('/store/') ||
+        pathname === '/flash-sale' || pathname.startsWith('/flash-sale') ||
+        pathname === '/black-friday' || pathname.startsWith('/black-friday')
+    )) {
+        return null;
+    }
+
     const companyRef = useRef<HTMLDivElement>(null);
     const servicesRef = useRef<HTMLDivElement>(null);
     const industriesRef = useRef<HTMLDivElement>(null);

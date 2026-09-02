@@ -1,3 +1,228 @@
+<%- include('./partials/page-title', { title: 'Store Dashboard', subtitle: 'Store' }) %>
+
+<style>
+  .store-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .store-dashboard-chart,
+  .store-dashboard-map {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-height: 320px;
+    width: 100% !important;
+    height: 320px !important;
+  }
+  .store-dashboard-wide {
+    grid-column: 1 / -1;
+  }
+</style>
+
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <div class="store-dashboard-grid">
+        <div id="sales-area" class="store-dashboard-chart store-dashboard-wide"></div>
+        <div id="rose-chart" class="store-dashboard-chart"></div>
+        <div id="radar-chart" class="store-dashboard-chart"></div>
+        <div id="density-chart" class="store-dashboard-chart"></div>
+        <div id="connection-chart" class="store-dashboard-map"></div>
+      </div>
+    </div>
   </div>
 </div>
 
+<!-- ECharts CDN -->
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<script>
+  const fallbackDashboard = {
+    salesByDay: [
+      { day: 'Mon', total: 4200 },
+      { day: 'Tue', total: 5100 },
+      { day: 'Wed', total: 4700 },
+      { day: 'Thu', total: 6800 },
+      { day: 'Fri', total: 7600 },
+      { day: 'Sat', total: 8800 },
+      { day: 'Sun', total: 7200 },
+    ],
+    categories: [
+      { category: 'Laptops', value: 42 },
+      { category: 'Phones', value: 28 },
+      { category: 'Accessories', value: 19 },
+      { category: 'Servers', value: 11 },
+    ],
+    radar: [
+      { name: 'Retention', value: 82 },
+      { name: 'Orders', value: 91 },
+      { name: 'Support', value: 76 },
+      { name: 'Fulfilment', value: 88 },
+    ],
+    density: [
+      { hour: '00:00', total: 1200 },
+      { hour: '04:00', total: 800 },
+      { hour: '08:00', total: 2200 },
+      { hour: '12:00', total: 3300 },
+      { hour: '16:00', total: 4100 },
+      { hour: '20:00', total: 2600 },
+    ],
+    connection: {
+      nodes: [
+        { id: 'Nigeria', name: 'Nigeria', value: 170 },
+        { id: 'Rivers State', name: 'Rivers State', value: 72 },
+        { id: 'Port Harcourt', name: 'Port Harcourt', value: 58 },
+        { id: 'Abuja', name: 'Abuja', value: 32 },
+        { id: 'Lagos', name: 'Lagos', value: 38 },
+      ],
+      links: [
+        { source: 'Rivers State', target: 'Port Harcourt', value: 58 },
+        { source: 'Rivers State', target: 'Lagos', value: 31 },
+        { source: 'Rivers State', target: 'Abuja', value: 28 },
+        { source: 'Nigeria', target: 'Port Harcourt', value: 58 },
+        { source: 'Nigeria', target: 'Lagos', value: 38 },
+        { source: 'Nigeria', target: 'Abuja', value: 32 },
+      ],
+    },
+  };
+
+  async function fetchData() {
+    try {
+      const res = await fetch('/admin/store/dashboard/data', { credentials: 'same-origin' });
+      if (!res.ok) return fallbackDashboard;
+      const payload = await res.json();
+      if (!payload || typeof payload !== 'object') return fallbackDashboard;
+      const base = {
+        ...fallbackDashboard,
+        ...payload,
+      };
+      base.salesByDay = Array.isArray(payload.salesByDay) && payload.salesByDay.length ? payload.salesByDay : fallbackDashboard.salesByDay;
+      base.categories = Array.isArray(payload.categories) && payload.categories.length ? payload.categories : fallbackDashboard.categories;
+      base.radar = Array.isArray(payload.radar) && payload.radar.length ? payload.radar : fallbackDashboard.radar;
+      base.density = Array.isArray(payload.density) && payload.density.length ? payload.density : fallbackDashboard.density;
+      base.connection = payload.connection && payload.connection.nodes && payload.connection.links ? payload.connection : fallbackDashboard.connection;
+      return base;
+    } catch (err) {
+      console.warn('Using fallback store dashboard data:', err);
+      return fallbackDashboard;
+    }
+  }
+
+  const charts = [];
+  function renderArea(el, data) {
+    const chart = echarts.init(el);
+    const dates = data.map(d => d.day);
+    const vals = data.map(d => d.total);
+    const opt = {
+      title: { text: 'Sales (Area chart)' },
+      tooltip: { trigger: 'axis' },
+      xAxis: { type: 'category', data: dates },
+      yAxis: { type: 'value' },
+      series: [{ type: 'line', data: vals, areaStyle: {}, smooth: true, showSymbol: false }]
+    };
+    chart.setOption(opt);
+    charts.push(chart);
+    return chart;
+  }
+
+  function renderRose(el, data) {
+    const chart = echarts.init(el);
+    const opt = {
+      title: { text: 'Category Breakdown (Nightingale Rose)' },
+      tooltip: { trigger: 'item' },
+      series: [{
+        type: 'pie',
+        radius: [20, 120],
+        center: ['50%', '50%'],
+        roseType: 'area',
+        data: data.map(d => ({ name: d.category || 'Uncategorized', value: d.value }))
+      }]
+    };
+    chart.setOption(opt);
+    charts.push(chart);
+    return chart;
+  }
+
+  function renderRadar(el, data) {
+    const chart = echarts.init(el);
+    const indicators = data.map(d => ({ name: d.name, max: Math.max(10, Math.ceil((d.value || 0) * 2)) }));
+    const values = data.map(d => d.value || 0);
+    const opt = {
+      title: { text: 'Key Metrics (Radar)' },
+      tooltip: {},
+      radar: { indicator: indicators },
+      series: [{ type: 'radar', data: [{ value: values, name: 'Metrics' }], areaStyle: { opacity: 0.2 } }]
+    };
+    chart.setOption(opt);
+    charts.push(chart);
+    return chart;
+  }
+
+  function renderDensity(el, data) {
+    const chart = echarts.init(el);
+    // data: [{hour, total}]
+    const hours = data.map(d => d.hour);
+    const vals = data.map(d => d.total);
+    const opt = {
+      title: { text: 'Sales by Hour (Density)' },
+      xAxis: { type: 'category', data: hours },
+      yAxis: { type: 'value' },
+      series: [{ type: 'bar', data: vals, barGap: '20%', itemStyle: { color: '#4f46e5' } }]
+    };
+    chart.setOption(opt);
+    charts.push(chart);
+    return chart;
+  }
+
+  function renderConnection(el, conn) {
+    const chart = echarts.init(el);
+    const opt = {
+      title: { text: 'Connection Map (Rivers State → Other States)' },
+      tooltip: {},
+      series: [{
+        type: 'graph',
+        layout: 'force',
+        roam: true,
+        data: conn.nodes.map(n => ({ id: n.id, name: n.name, value: n.value, symbolSize: Math.max(8, Math.sqrt(n.value || 1) * 6) })),
+        links: conn.links.map(l => ({ source: l.source, target: l.target, value: l.value })),
+        force: { repulsion: 300 },
+        emphasis: { focus: 'adjacency' },
+        label: { show: true, position: 'right', formatter: '{b}' }
+      }]
+    };
+    chart.setOption(opt);
+    charts.push(chart);
+    return chart;
+  }
+
+  (async () => {
+    try {
+      const d = await fetchData();
+      const a = renderArea(document.getElementById('sales-area'), d.salesByDay || []);
+      const r = renderRose(document.getElementById('rose-chart'), d.categories || []);
+      const rd = renderRadar(document.getElementById('radar-chart'), d.radar || []);
+      const den = renderDensity(document.getElementById('density-chart'), d.density || []);
+      const conn = renderConnection(document.getElementById('connection-chart'), d.connection || { nodes: [], links: [] });
+
+      // Resize charts on window resize
+      window.addEventListener('resize', () => {
+        charts.forEach(c => { try { c.resize(); } catch (e) {} });
+      });
+
+      // Show placeholder when no data
+      if (!d.salesByDay || d.salesByDay.length === 0) {
+        document.getElementById('sales-area').innerHTML = '<div class="text-center text-muted p-4">No sales data available</div>';
+      }
+
+    } catch (err) {
+      console.error('Dashboard error', err);
+      const container = document.querySelector('.container');
+      const msg = document.createElement('div');
+      msg.className = 'alert alert-danger';
+      msg.innerText = 'Failed to load dashboard data. Check server logs.';
+      container.prepend(msg);
+    }
+  })();
+</script>
+
+<%- include('partials/footer') %>

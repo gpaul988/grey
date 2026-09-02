@@ -95,14 +95,21 @@ function ensureCatalog() {
           description TEXT,
           specs TEXT NOT NULL DEFAULT '{}',
           price REAL NOT NULL DEFAULT 0,
+          price_usd REAL,
           compare_price REAL,
           stock INTEGER NOT NULL DEFAULT 0,
           images TEXT NOT NULL DEFAULT '[]',
           thumbnail TEXT,
+          video_url TEXT,
           status TEXT NOT NULL DEFAULT 'draft',
           featured INTEGER NOT NULL DEFAULT 0,
           tags TEXT NOT NULL DEFAULT '[]',
           weight REAL,
+          -- flash sale fields for per-product promotions
+          flash_sale INTEGER NOT NULL DEFAULT 0,
+          flash_sale_starts TEXT,
+          flash_sale_ends TEXT,
+          flash_sale_price REAL,
           created_at TEXT NOT NULL DEFAULT (datetime('now')),
           updated_at TEXT NOT NULL DEFAULT (datetime('now'))
         );
@@ -118,6 +125,21 @@ function ensureCatalog() {
         );
       `);
     }
+
+    // If the products table exists but is missing price_usd or video_url columns (older DBs), add them.
+    const cols = db.prepare("PRAGMA table_info('products')").all() as Array<{ name: string }>;
+    const colNames = new Set(cols.map(c => c.name));
+    if (!colNames.has('price_usd')) db.prepare('ALTER TABLE products ADD COLUMN price_usd REAL').run();
+    if (!colNames.has('video_url')) db.prepare("ALTER TABLE products ADD COLUMN video_url TEXT").run();
+    if (!colNames.has('flash_sale')) db.prepare('ALTER TABLE products ADD COLUMN flash_sale INTEGER NOT NULL DEFAULT 0').run();
+    if (!colNames.has('flash_sale_starts')) db.prepare("ALTER TABLE products ADD COLUMN flash_sale_starts TEXT").run();
+    if (!colNames.has('flash_sale_ends')) db.prepare("ALTER TABLE products ADD COLUMN flash_sale_ends TEXT").run();
+    if (!colNames.has('flash_sale_price')) db.prepare('ALTER TABLE products ADD COLUMN flash_sale_price REAL').run();
+
+    // Ensure store_settings contains Black Friday keys for site-wide promotions.
+    const ensureSetting = db.prepare('INSERT OR IGNORE INTO store_settings (key, value) VALUES (?, ?)');
+    ensureSetting.run('black_friday_active', '0');
+    ensureSetting.run('black_friday_discount', '0');
 
     const categoryCount = db.prepare('SELECT COUNT(*) AS c FROM product_categories').get() as { c: number };
     if (categoryCount.c === 0) {
@@ -145,7 +167,6 @@ function ensureCatalog() {
       brands.forEach(([slug, name]) => brandStmt.run(name, slug, `${name} catalog items`));
 
       const brandMap: Record<string, number> = {};
-      db.prepare('SELECT id, slug FROM product_brands').all() as DBBrandRow[]; 
       const brandRows = db.prepare('SELECT id, slug FROM product_brands').all() as DBBrandRow[];
       brandRows.forEach((row) => {
         brandMap[row.slug] = row.id;
@@ -205,6 +226,7 @@ interface ProductDTO {
   stock: number;
   images: string[];
   thumbnail: string | null;
+  video_url?: string | null;
   description: string | null;
   specs: Record<string, string>;
   featured: number;
@@ -216,6 +238,11 @@ interface ProductDTO {
   brand_name?: string;
   brand_slug?: string;
   rating: number;
+  // Flash sale fields
+  flash_sale: number;
+  flash_sale_starts?: string | null;
+  flash_sale_ends?: string | null;
+  flash_sale_price?: number | null;
   created_at?: string | null;
 }
 
@@ -227,6 +254,8 @@ export async function GET(request: NextRequest) {
     const brand = searchParams.get('brand');
     const search = searchParams.get('search');
     const featured = searchParams.get('featured');
+    const minPrice = searchParams.get('minPrice');
+    const maxPrice = searchParams.get('maxPrice');
     const sort = searchParams.get('sort') || 'latest';
 
     const db = new Database(DB_PATH);
@@ -257,6 +286,7 @@ export async function GET(request: NextRequest) {
       stock: Math.max(0, Number(product.stock ?? 0)),
       images,
       thumbnail,
+      video_url: (product as any).video_url ?? null,
       description: product.description ?? null,
       specs: parseJsonObject<Record<string, string>>(product.specs, {}),
       featured: Number(product.featured ?? 0),
@@ -268,9 +298,22 @@ export async function GET(request: NextRequest) {
       brand_name: product.brand_name ?? undefined,
       brand_slug: product.brand_slug ?? undefined,
       rating: Number(product.rating ?? 0),
-      created_at: product.created_at ?? null,
-      };
-      });
+            // map flash sale fields if present
+            flash_sale: Number((product as any).flash_sale ?? 0),
+            flash_sale_starts: (product as any).flash_sale_starts ?? null,
+            flash_sale_ends: (product as any).flash_sale_ends ?? null,
+            flash_sale_price: (product as any).flash_sale_price ?? null,
+            created_at: product.created_at ?? null,
+            };
+            });
+
+            // Load store settings (including Black Friday flags)
+            const settingsRows = db.prepare('SELECT key, value FROM store_settings').all() as Array<{key:string,value:string}>;
+            const settings: Record<string,string> = {};
+            settingsRows.forEach(r => { settings[r.key] = r.value; });
+            const blackFridayActive = settings['black_friday_active'] === '1' || settings['black_friday_active'] === 'true';
+            const blackFridayDiscount = Number(settings['black_friday_discount'] || 0);
+            const globalFlashActive = settings['flash_sales_active'] === '1' || settings['flash_sales_active'] === 'true';
 
       if (category) {
         const normalized = category.trim();
@@ -291,6 +334,31 @@ export async function GET(request: NextRequest) {
       if (featured === 'true' || featured === '1') {
         list = list.filter((item) => Number(item.featured) === 1);
       }
+      if (minPrice) {
+        const val = Number(minPrice);
+        if (!Number.isNaN(val)) list = list.filter((item) => Number(item.price || 0) >= val);
+      }
+      if (maxPrice) {
+        const val = Number(maxPrice);
+        if (!Number.isNaN(val)) list = list.filter((item) => Number(item.price || 0) <= val);
+      }
+
+      // Compute effective price & promotion per product so Black Friday applies site-wide
+      list = list.map((item) => {
+        const now = Date.now();
+        let effective = Number(item.price || 0);
+        let promo: string | null = null;
+        const flashActive = globalFlashActive && Number(item.flash_sale || 0) === 1 && (!item.flash_sale_starts || isNaN(Date.parse(item.flash_sale_starts)) || now >= Date.parse(item.flash_sale_starts)) && (!item.flash_sale_ends || isNaN(Date.parse(item.flash_sale_ends)) || now <= Date.parse(item.flash_sale_ends));
+        if (flashActive && typeof item.flash_sale_price === 'number' && !isNaN(item.flash_sale_price) && item.flash_sale_price > 0) {
+          effective = Math.round(Number(item.flash_sale_price));
+          promo = 'flash_sale';
+        } else if (blackFridayActive && blackFridayDiscount > 0) {
+          const factor = (100 - Math.max(0, Math.min(100, blackFridayDiscount))) / 100;
+          effective = Math.round(Number(item.price || 0) * factor);
+          promo = 'black_friday';
+        }
+        return { ...item, effective_price: effective, promotion: promo };
+      });
 
       list.sort((a, b) => {
         switch (sort) {
@@ -305,7 +373,12 @@ export async function GET(request: NextRequest) {
         products: list,
         categories: categories.map((item) => ({ id: item.id, name: item.name, slug: item.slug, icon: item.icon ?? null })),
         brands: brands.map((item) => ({ id: item.id, name: item.name, slug: item.slug })),
-      });
+              store_settings: {
+                black_friday_active: blackFridayActive,
+                black_friday_discount: blackFridayDiscount,
+                flash_sales_active: globalFlashActive,
+              },
+            });
     } finally {
       db.close();
     }

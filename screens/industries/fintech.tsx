@@ -157,7 +157,7 @@ const Fintech = () => {
         }
     };
 
-    // Why Grey InfoTech for your app project 
+    // Why Graham Sobiribo Paul for your app project 
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveIndex((prevIndex) => (prevIndex + 1) % reasons.length);
@@ -371,7 +371,7 @@ const Fintech = () => {
                                 <div className="space-y-4">
                                     <p>Fintech experiences demand more than attractive interfaces—they require secure
                                         foundations, compliant workflows, and carefully engineered systems that perform
-                                        under pressure. At Grey InfoTech, we design and build financial products that
+                                        under pressure. At Graham Sobiribo Paul, we design and build financial products that
                                         earn trust from the first interaction onward.</p>
                                     <p>Our team combines product strategy, modern architecture, and specialized
                                         engineering to create digital banking, payments, and lending solutions that stay
@@ -821,7 +821,7 @@ const Fintech = () => {
                             </FxReveal>
                             <FxReveal delay={0.18}>
                                 <p className={`text-[0.95em] leading-[1.8] mb-6 ${isDayTime ? 'text-black/75' : 'text-white/70'}`}>
-                                    Data science experts at Grey InfoTech specialise in transforming complex datasets
+                                    Data science experts at Graham Sobiribo Paul specialise in transforming complex datasets
                                     into actionable insights by leveraging advanced AI and machine learning models.
                                     Using powerful tools like PowerBI, Tableau, and Google Looker Studio, we deliver
                                     real-time, data-driven intelligence that drives smarter business decisions.
@@ -959,7 +959,7 @@ const Fintech = () => {
                                 </h2>
                             </FxReveal>
                             <FxReveal delay={0.18}>
-                                <p className={`text-[0.95em] leading-[1.8] mb-6 ${isDayTime ? 'text-black/75' : 'text-white/70'}`}>Grey InfoTech helps entrepreneurs and businesses turn product concepts into scalable
+                                <p className={`text-[0.95em] leading-[1.8] mb-6 ${isDayTime ? 'text-black/75' : 'text-white/70'}`}>Graham Sobiribo Paul helps entrepreneurs and businesses turn product concepts into scalable
                                     fintech platforms. From product strategy and MVP development to scaling and
                                     compliance, our team supports every stage of your journey.</p>
                             </FxReveal>
@@ -1007,7 +1007,7 @@ const Fintech = () => {
                 </div>
             </div>
 
-            {/* Why Grey InfoTech — Futuristic Showcase */}
+            {/* Why Graham Sobiribo Paul — Futuristic Showcase */}
             <section
                 className={`relative overflow-hidden ${isDayTime ? 'bg-white text-black' : 'bg-black text-white'}`}>
                 <FxBackground day={isDayTime} grid={true} aurora={true}/>
@@ -1028,7 +1028,7 @@ const Fintech = () => {
                         <FxReveal className="lg:order-1">
                             <div>
                                 <h2 className='lg:text-[3.2em] text-[2em] font-[700] tracking-tight leading-[1.1] mb-2'>Why
-                                    Grey InfoTech</h2>
+                                    Graham Sobiribo Paul</h2>
                                 <p className={`text-[0.95em] mb-8 leading-[1.7] ${isDayTime ? 'text-black/70' : 'text-white/70'}`}>
                                     Trusted expertise, proven results. We deliver tailored fintech solutions that drive
                                     real impact.
@@ -1088,7 +1088,7 @@ const Fintech = () => {
                                             >
                                                 <Image
                                                     src={reasons[activeIndex - 1]?.images?.[0] || '/assets/fin/grey.jpg'}
-                                                    alt={'Why Grey InfoTech'}
+                                                    alt={'Why Graham Sobiribo Paul'}
                                                     fill
                                                     className="object-cover"
                                                 />
@@ -1160,7 +1160,7 @@ const Fintech = () => {
                             <h3 className='lg:text-[2.4em] text-[1.5em] font-[700] tracking-tight leading-[1.2] mb-6'>Ready
                                 to Transform Your Vision?</h3>
                             <p className={`text-[0.95em] max-w-2xl mx-auto mb-8 ${isDayTime ? 'text-black/70' : 'text-white/70'}`}>Partner
-                                with Grey InfoTech to build secure, scalable fintech solutions that drive growth and
+                                with Graham Sobiribo Paul to build secure, scalable fintech solutions that drive growth and
                                 innovation.</p>
                             <Link href='/contact'>
                                 <FxButton day={!isDayTime} variant="solid">Start a project <span

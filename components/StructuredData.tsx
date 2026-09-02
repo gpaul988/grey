@@ -10,7 +10,7 @@ export function OrganizationSchema({
     const schema = {
         "@context": "https://schema.org",
         "@type": "Organization",
-        name: "Grey InfoTech",
+        name: "Graham Sobiribo Paul",
         url: "https://greyinfotech.com.ng",
         logo: "https://greyinfotech.com.ng/logo.png",
         description:
@@ -50,7 +50,7 @@ export function WebSiteSchema() {
     const schema = {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        name: "Grey InfoTech",
+        name: "Graham Sobiribo Paul",
         url: "https://greyinfotech.com.ng",
         potentialAction: {
             "@type": "SearchAction",

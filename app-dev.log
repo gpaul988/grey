@@ -1,0 +1,1002 @@
+◇ injected env (9) from config.env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+◇ injected env (0) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+◇ injected env (0) from config.env // tip: ⌘ enable debugging { debug: true }
+[DB] Connected and migrated
+✓ Running next.config.js took 82ms
+Sentry Logger [log]: Initializing SDK...
+Sentry Logger [log]: Initializing Sentry: process: 36676, thread: main.
+Sentry Logger [log]: SDK initialized from CommonJS
+Sentry Logger [log]: @opentelemetry/api: Registered a global for diag v1.9.1.
+Sentry Logger [log]: @opentelemetry/api: Registered a global for trace v1.9.1.
+Sentry Logger [log]: @opentelemetry/api: Registered a global for propagation v1.9.1.
+Sentry Logger [log]: @opentelemetry/api: Registered a global for context v1.9.1.
+Sentry Logger [log]: SDK successfully initialized
+> Ready on http://localhost:3000
+> Admin on http://localhost:3000/admin
+> Admin API on http://localhost:3000/admin/api
+2026-09-01 20:05:09.146 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/hmr?id=r7ICnW8n5YT-AKaWwI536",
+  "ip": "::ffff:127.0.0.1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:09.146",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289509144-rfzl8eaiu"
+}
+[server] final-catchall hit: GET /_next/hmr?id=r7ICnW8n5YT-AKaWwI536
+[server] delegating to Next: /_next/hmr ?id=r7ICnW8n5YT-AKaWwI536
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 8dd5f1bb938950ac
+○ Compiling /_not-found/page ...
+2026-09-01 20:05:14.488 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/store",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-GB) WindowsPowerShell/5.1.26100.9278",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:14.488",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289514488-kz37ko2td"
+}
+[server] final-catchall hit: GET /store
+[server] delegating to Next: /store null
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: bcac33ba4a453b70
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: 993f5e43d02bc771
+  parent ID: 8dd5f1bb938950ac
+  root ID: 8dd5f1bb938950ac
+  root op: http.server
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 993f5e43d02bc771
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /_not-found
+  ID: 8523e52a6890f51d
+  parent ID: 8dd5f1bb938950ac
+  root ID: 8dd5f1bb938950ac
+  root op: http.server
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: a37d907344815bfb
+  parent ID: 8523e52a6890f51d
+  root ID: 8dd5f1bb938950ac
+  root op: http.server
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: function.nextjs
+  name: resolve root layout server component
+  ID: 9e85dd9aecb35e22
+  parent ID: a37d907344815bfb
+  root ID: 8dd5f1bb938950ac
+  root op: http.server
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 9e85dd9aecb35e22
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: function.nextjs
+  name: resolve page server component "/_not-found"
+  ID: a6b9b189c63b01ea
+  parent ID: a37d907344815bfb
+  root ID: 8dd5f1bb938950ac
+  root op: http.server
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/_not-found"" with ID a6b9b189c63b01ea
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID a37d907344815bfb
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /_not-found" with ID 8523e52a6890f51d
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 9fefd5284287847b
+  parent ID: 8523e52a6890f51d
+  root ID: 8dd5f1bb938950ac
+  root op: http.server
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 9fefd5284287847b
+ GET /_next/hmr?id=r7ICnW8n5YT-AKaWwI536 404 in 15.1s (next.js: 13.2s, application-code: 1903ms)
+Sentry Logger [log]: [Tracing] Finishing "http.server" root span "GET /_not-found" with ID 8dd5f1bb938950ac
+[server] Next handler returned for: /_next/hmr?id=r7ICnW8n5YT-AKaWwI536
+Sentry Logger [log]: Ignoring span http.server - GET /_not-found because it matches `ignoreSpans`.
+Sentry Logger [log]: Recording outcome: "before_send:transaction"
+Sentry Logger [log]: Recording outcome: "before_send:span" (7 times)
+Sentry Logger [log]: before send for type `transaction` returned `null`, will not send event.
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: aaa7ee200b5fd883
+  parent ID: bcac33ba4a453b70
+  root ID: bcac33ba4a453b70
+  root op: http.server
+  root description: /store
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID aaa7ee200b5fd883
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /store
+  ID: 8012bfd3745d6ee8
+  parent ID: bcac33ba4a453b70
+  root ID: bcac33ba4a453b70
+  root op: http.server
+  root description: /store
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 84f0d487ed0d9749
+  parent ID: 8012bfd3745d6ee8
+  root ID: bcac33ba4a453b70
+  root op: http.server
+  root description: /store
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: function.nextjs
+  name: resolve root layout server component
+  ID: a79bee9d9476ce5a
+  parent ID: 84f0d487ed0d9749
+  root ID: bcac33ba4a453b70
+  root op: http.server
+  root description: /store
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID a79bee9d9476ce5a
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: function.nextjs
+  name: resolve page server component "/store"
+  ID: 97f49a8a1a2b3d17
+  parent ID: 84f0d487ed0d9749
+  root ID: bcac33ba4a453b70
+  root op: http.server
+  root description: /store
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/store"" with ID 97f49a8a1a2b3d17
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 84f0d487ed0d9749
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /store" with ID 8012bfd3745d6ee8
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: af494bf0b814c527
+  parent ID: 8012bfd3745d6ee8
+  root ID: bcac33ba4a453b70
+  root op: http.server
+  root description: /store
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID af494bf0b814c527
+ GET /store 200 in 10.6s (next.js: 10.3s, application-code: 307ms)
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: 8f3d8e93b8c0b947
+  parent ID: 8012bfd3745d6ee8
+  root ID: bcac33ba4a453b70
+  root op: http.server
+  root description: /store
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID 8f3d8e93b8c0b947
+Sentry Logger [log]: [Tracing] Finishing "http.server" root span "GET /store" with ID bcac33ba4a453b70
+[server] Next handler returned for: /store
+2026-09-01 20:05:25.870 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/store",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:25.870",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289525870-yz0b5o9mj"
+}
+[server] final-catchall hit: GET /store
+[server] delegating to Next: /store null
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 83613466c9249252
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: b7668f9d22dd051f
+  parent ID: 83613466c9249252
+  root ID: 83613466c9249252
+  root op: http.server
+  root description: /store
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID b7668f9d22dd051f
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /store
+  ID: 9faa23f938c4eddf
+  parent ID: 83613466c9249252
+  root ID: 83613466c9249252
+  root op: http.server
+  root description: /store
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 8c35da3335efd02b
+  parent ID: 9faa23f938c4eddf
+  root ID: 83613466c9249252
+  root op: http.server
+  root description: /store
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: function.nextjs
+  name: resolve root layout server component
+  ID: bc9eda49c76f54bc
+  parent ID: 8c35da3335efd02b
+  root ID: 83613466c9249252
+  root op: http.server
+  root description: /store
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID bc9eda49c76f54bc
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: function.nextjs
+  name: resolve page server component "/store"
+  ID: 9084b8702529d454
+  parent ID: 8c35da3335efd02b
+  root ID: 83613466c9249252
+  root op: http.server
+  root description: /store
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/store"" with ID 9084b8702529d454
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 8c35da3335efd02b
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /store" with ID 9faa23f938c4eddf
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 9470aed7457526d8
+  parent ID: 9faa23f938c4eddf
+  root ID: 83613466c9249252
+  root op: http.server
+  root description: /store
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 9470aed7457526d8
+Sentry Logger [log]: [Tracing] Finishing "http.server" root span "GET /store" with ID 83613466c9249252
+[server] Next handler returned for: /store
+ GET /store 200 in 224ms (next.js: 16ms, application-code: 208ms)
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: a7707672383d6390
+  parent ID: 9faa23f938c4eddf
+  root ID: 83613466c9249252
+  root op: http.server
+  root description: GET /store
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID a7707672383d6390
+2026-09-01 20:05:26.136 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/techlogo.svg",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.136",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526136-dlzn7c19p"
+}
+[server] final-catchall hit: GET /techlogo.svg
+[server] delegating to Next: /techlogo.svg null
+2026-09-01 20:05:26.146 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/%5Broot-of-the-server%5D__0x5turq._.css",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.146",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526145-p0oycdddh"
+}
+[server] final-catchall hit: GET /_next/static/chunks/%5Broot-of-the-server%5D__0x5turq._.css
+[server] delegating to Next: /_next/static/chunks/%5Broot-of-the-server%5D__0x5turq._.css null
+2026-09-01 20:05:26.160 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/components_store_store_1jvihij.css",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.160",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526160-bckjx5knc"
+}
+[server] final-catchall hit: GET /_next/static/chunks/components_store_store_1jvihij.css
+[server] delegating to Next: /_next/static/chunks/components_store_store_1jvihij.css null
+[server] Next handler returned for: /techlogo.svg
+2026-09-01 20:05:26.183 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/manifest.json",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.183",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526182-zrg049l37"
+}
+[server] final-catchall hit: GET /manifest.json
+[server] delegating to Next: /manifest.json null
+[server] Next handler returned for: /manifest.json
+[server] Next handler returned for: /_next/static/chunks/components_store_store_1jvihij.css
+[server] Next handler returned for: /_next/static/chunks/%5Broot-of-the-server%5D__0x5turq._.css
+2026-09-01 20:05:26.243 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1di75ot._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.243",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526242-dfxjyrrev"
+}
+[server] final-catchall hit: GET /_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1di75ot._.js
+[server] delegating to Next: /_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1di75ot._.js null
+2026-09-01 20:05:26.255 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.255",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526254-uv9egh0jl"
+}
+[server] final-catchall hit: GET /_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js
+[server] delegating to Next: /_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js null
+2026-09-01 20:05:26.268 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.268",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526268-7xcw29rto"
+}
+[server] final-catchall hit: GET /_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js
+[server] delegating to Next: /_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js null
+[server] Next handler returned for: /_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1di75ot._.js
+2026-09-01 20:05:26.322 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.322",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526322-zrswfvrco"
+}
+[server] final-catchall hit: GET /_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js
+[server] delegating to Next: /_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js null
+[server] Next handler returned for: /_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js
+[server] Next handler returned for: /_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js
+[server] Next handler returned for: /_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js
+2026-09-01 20:05:26.395 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.395",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526395-gotdd8cvy"
+}
+[server] final-catchall hit: GET /_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js
+[server] delegating to Next: /_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js null
+[server] Next handler returned for: /_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js
+2026-09-01 20:05:26.430 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_next_dist_client_0_90u2t._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.430",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526430-gm3n9dymx"
+}
+[server] final-catchall hit: GET /_next/static/chunks/node_modules_next_dist_client_0_90u2t._.js
+[server] delegating to Next: /_next/static/chunks/node_modules_next_dist_client_0_90u2t._.js null
+2026-09-01 20:05:26.458 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.458",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526457-ns22utwi8"
+}
+[server] final-catchall hit: GET /_next/static/chunks/node_modules_next_dist_1e8vcs8._.js
+[server] delegating to Next: /_next/static/chunks/node_modules_next_dist_1e8vcs8._.js null
+2026-09-01 20:05:26.486 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.486",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526486-1bn7esjx6"
+}
+[server] final-catchall hit: GET /_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js
+[server] delegating to Next: /_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js null
+[server] Next handler returned for: /_next/static/chunks/node_modules_next_dist_1e8vcs8._.js
+[server] Next handler returned for: /_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js
+2026-09-01 20:05:26.517 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/_1anvha4._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.517",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526516-g6949eq03"
+}
+[server] final-catchall hit: GET /_next/static/chunks/_1anvha4._.js
+[server] delegating to Next: /_next/static/chunks/_1anvha4._.js null
+2026-09-01 20:05:26.529 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/turbopack-_08bm286._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.529",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526529-a801yhjy2"
+}
+[server] final-catchall hit: GET /_next/static/chunks/turbopack-_08bm286._.js
+[server] delegating to Next: /_next/static/chunks/turbopack-_08bm286._.js null
+[server] Next handler returned for: /_next/static/chunks/_1anvha4._.js
+2026-09-01 20:05:26.546 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/_1spardu._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.546",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526546-4oaetar7w"
+}
+[server] final-catchall hit: GET /_next/static/chunks/_1spardu._.js
+[server] delegating to Next: /_next/static/chunks/_1spardu._.js null
+[server] Next handler returned for: /_next/static/chunks/_1spardu._.js
+[server] Next handler returned for: /_next/static/chunks/turbopack-_08bm286._.js
+[server] Next handler returned for: /_next/static/chunks/node_modules_next_dist_client_0_90u2t._.js
+2026-09-01 20:05:26.593 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/_0ifib3j._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.593",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526593-ymen16i7t"
+}
+[server] final-catchall hit: GET /_next/static/chunks/_0ifib3j._.js
+[server] delegating to Next: /_next/static/chunks/_0ifib3j._.js null
+2026-09-01 20:05:26.601 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_next_1o573kz._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.601",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526600-o5lo0oy4e"
+}
+[server] final-catchall hit: GET /_next/static/chunks/node_modules_next_1o573kz._.js
+[server] delegating to Next: /_next/static/chunks/node_modules_next_1o573kz._.js null
+2026-09-01 20:05:26.611 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_motion-dom_dist_es_0g6cuzy._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.611",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526611-p0l270wqp"
+}
+[server] final-catchall hit: GET /_next/static/chunks/node_modules_motion-dom_dist_es_0g6cuzy._.js
+[server] delegating to Next: /_next/static/chunks/node_modules_motion-dom_dist_es_0g6cuzy._.js null
+[server] Next handler returned for: /_next/static/chunks/node_modules_next_1o573kz._.js
+[server] Next handler returned for: /_next/static/chunks/_0ifib3j._.js
+[server] Next handler returned for: /_next/static/chunks/node_modules_motion-dom_dist_es_0g6cuzy._.js
+2026-09-01 20:05:26.902 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.902",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526902-wk2vuztxf"
+}
+[server] final-catchall hit: GET /_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js
+[server] delegating to Next: /_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js null
+2026-09-01 20:05:26.912 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_react-icons_fa6_index_mjs_0_ulevj._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.912",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526912-1gep2tyb4"
+}
+[server] final-catchall hit: GET /_next/static/chunks/node_modules_react-icons_fa6_index_mjs_0_ulevj._.js
+[server] delegating to Next: /_next/static/chunks/node_modules_react-icons_fa6_index_mjs_0_ulevj._.js null
+2026-09-01 20:05:26.924 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_react-icons_bs_index_mjs_13s_i73._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:26.924",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289526924-08wum1bnk"
+}
+[server] final-catchall hit: GET /_next/static/chunks/node_modules_react-icons_bs_index_mjs_13s_i73._.js
+[server] delegating to Next: /_next/static/chunks/node_modules_react-icons_bs_index_mjs_13s_i73._.js null
+[server] Next handler returned for: /_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js
+[server] Next handler returned for: /_next/static/chunks/node_modules_react-icons_bs_index_mjs_13s_i73._.js
+[server] Next handler returned for: /_next/static/chunks/node_modules_react-icons_fa6_index_mjs_0_ulevj._.js
+2026-09-01 20:05:27.155 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_react-icons_lib_11_gx9i._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:27.155",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289527155-v6rsr70yx"
+}
+[server] final-catchall hit: GET /_next/static/chunks/node_modules_react-icons_lib_11_gx9i._.js
+[server] delegating to Next: /_next/static/chunks/node_modules_react-icons_lib_11_gx9i._.js null
+2026-09-01 20:05:27.168 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_1dp6kob._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:27.168",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289527168-68a0f64e1"
+}
+[server] final-catchall hit: GET /_next/static/chunks/node_modules_1dp6kob._.js
+[server] delegating to Next: /_next/static/chunks/node_modules_1dp6kob._.js null
+[server] Next handler returned for: /_next/static/chunks/node_modules_react-icons_lib_11_gx9i._.js
+[server] Next handler returned for: /_next/static/chunks/node_modules_1dp6kob._.js
+2026-09-01 20:05:27.193 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/app_error_tsx_01qd85j._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:27.193",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289527192-1ed3t98hl"
+}
+[server] final-catchall hit: GET /_next/static/chunks/app_error_tsx_01qd85j._.js
+[server] delegating to Next: /_next/static/chunks/app_error_tsx_01qd85j._.js null
+2026-09-01 20:05:27.202 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/_0i5-uxl._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:27.202",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289527202-b89umda84"
+}
+[server] final-catchall hit: GET /_next/static/chunks/_0i5-uxl._.js
+[server] delegating to Next: /_next/static/chunks/_0i5-uxl._.js null
+[server] Next handler returned for: /_next/static/chunks/app_error_tsx_01qd85j._.js
+[server] Next handler returned for: /_next/static/chunks/_0i5-uxl._.js
+2026-09-01 20:05:27.228 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/node_modules_11k67ji._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:27.228",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289527227-sr8scqhtr"
+}
+[server] final-catchall hit: GET /_next/static/chunks/node_modules_11k67ji._.js
+[server] delegating to Next: /_next/static/chunks/node_modules_11k67ji._.js null
+2026-09-01 20:05:27.237 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1mojsay._.js",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:27.237",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289527237-snkzcm7ct"
+}
+[server] final-catchall hit: GET /_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1mojsay._.js
+[server] delegating to Next: /_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1mojsay._.js null
+[server] Next handler returned for: /_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1mojsay._.js
+[server] Next handler returned for: /_next/static/chunks/node_modules_11k67ji._.js
+2026-09-01 20:05:27.354 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/favicon.svg",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:27.354",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289527354-5bnb5vu9t"
+}
+[server] final-catchall hit: GET /favicon.svg
+[server] delegating to Next: /favicon.svg null
+2026-09-01 20:05:27.364 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/icons/icon-192.png",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:27.364",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289527364-h2jc05y62"
+}
+[server] final-catchall hit: GET /icons/icon-192.png
+[server] delegating to Next: /icons/icon-192.png null
+[server] Next handler returned for: /favicon.svg
+[server] Next handler returned for: /icons/icon-192.png
+2026-09-01 20:05:27.407 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/favicon.ico",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:27.407",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289527407-78wgurj4i"
+}
+[server] final-catchall hit: GET /favicon.ico
+[server] delegating to Next: /favicon.ico null
+[server] Next handler returned for: /favicon.ico
+2026-09-01 20:05:27.671 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/api/store/auth/me",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:27.671",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289527671-ibyl8nfa9"
+}
+[server] final-catchall hit: GET /api/store/auth/me
+[server] delegating to Next: /api/store/auth/me null
+2026-09-01 20:05:27.680 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/api/store/promos",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:27.680",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289527680-y3x4xsqnk"
+}
+[server] final-catchall hit: GET /api/store/promos
+[server] delegating to Next: /api/store/promos null
+2026-09-01 20:05:27.690 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/api/store/payment-config",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:27.690",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289527690-dk4hpvq78"
+}
+[server] final-catchall hit: GET /api/store/payment-config
+[server] delegating to Next: /api/store/payment-config null
+2026-09-01 20:05:27.700 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/api/store/products",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:27.700",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289527700-zedgo5j7u"
+}
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 9494fa29e80e3661
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 8ab579efee5cf20a
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 85483e834848b8f2
+2026-09-01 20:05:27.921 [[32minfo[39m] Request completed {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/api/store/products",
+  "statusCode": 200,
+  "duration": 0,
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Request completed",
+  "timestamp": "2026-09-01 20:05:27.921",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289527700-zedgo5j7u"
+}
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: a0fc35f6f36e6aa8
+  parent ID: 85483e834848b8f2
+  root ID: 85483e834848b8f2
+  root op: http.server
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID a0fc35f6f36e6aa8
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /_not-found
+  ID: 8562331f2f921e4b
+  parent ID: 85483e834848b8f2
+  root ID: 85483e834848b8f2
+  root op: http.server
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: b1a286b25fb13247
+  parent ID: 8562331f2f921e4b
+  root ID: 85483e834848b8f2
+  root op: http.server
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: function.nextjs
+  name: resolve root layout server component
+  ID: 82b3631a407bbb58
+  parent ID: b1a286b25fb13247
+  root ID: 85483e834848b8f2
+  root op: http.server
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID 82b3631a407bbb58
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: function.nextjs
+  name: resolve page server component "/_not-found"
+  ID: b6016a69d8ad9a6c
+  parent ID: b1a286b25fb13247
+  root ID: 85483e834848b8f2
+  root op: http.server
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/_not-found"" with ID b6016a69d8ad9a6c
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID b1a286b25fb13247
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /_not-found" with ID 8562331f2f921e4b
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 9a2ecd85df5a2be3
+  parent ID: 8562331f2f921e4b
+  root ID: 85483e834848b8f2
+  root op: http.server
+  root description: /_not-found
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 9a2ecd85df5a2be3
+Sentry Logger [log]: [Tracing] Finishing "http.server" root span "GET /_not-found" with ID 85483e834848b8f2
+[server] Next handler returned for: /api/store/auth/me
+Sentry Logger [log]: Ignoring span http.server - GET /_not-found because it matches `ignoreSpans`.
+Sentry Logger [log]: Recording outcome: "before_send:transaction"
+Sentry Logger [log]: Recording outcome: "before_send:span" (7 times)
+Sentry Logger [log]: before send for type `transaction` returned `null`, will not send event.
+ GET /api/store/auth/me 404 in 590ms (next.js: 208ms, application-code: 382ms)
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: bf7238056276fdce
+  parent ID: 8562331f2f921e4b
+  root ID: 85483e834848b8f2
+  root op: http.server
+  root description: GET /_not-found
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID bf7238056276fdce
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: 96e766b51f9fd5fb
+  parent ID: 9494fa29e80e3661
+  root ID: 9494fa29e80e3661
+  root op: http.server
+  root description: /api/store/promos
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 96e766b51f9fd5fb
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: executing api route (app) /api/store/promos
+  ID: 901f6e9b3e9a9ea4
+  parent ID: 9494fa29e80e3661
+  root ID: 9494fa29e80e3661
+  root op: http.server
+  root description: /api/store/promos
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "executing api route (app) /api/store/promos" with ID 901f6e9b3e9a9ea4
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: bad110304ac6e87d
+  parent ID: 9494fa29e80e3661
+  root ID: 9494fa29e80e3661
+  root op: http.server
+  root description: /api/store/promos
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID bad110304ac6e87d
+ GET /api/store/promos 200 in 1305ms (next.js: 1229ms, application-code: 75ms)
+Sentry Logger [log]: [Tracing] Finishing "http.server" root span "GET /api/store/promos" with ID 9494fa29e80e3661
+[server] Next handler returned for: /api/store/promos
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: 885fb4068c09c630
+  parent ID: 8ab579efee5cf20a
+  root ID: 8ab579efee5cf20a
+  root op: http.server
+  root description: /api/store/payment-config
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID 885fb4068c09c630
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: executing api route (app) /api/store/payment-config
+  ID: b6f1ff88a5fcb4d4
+  parent ID: 8ab579efee5cf20a
+  root ID: 8ab579efee5cf20a
+  root op: http.server
+  root description: /api/store/payment-config
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "executing api route (app) /api/store/payment-config" with ID b6f1ff88a5fcb4d4
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 885d6157d7ab3baa
+  parent ID: 8ab579efee5cf20a
+  root ID: 8ab579efee5cf20a
+  root op: http.server
+  root description: /api/store/payment-config
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 885d6157d7ab3baa
+ GET /api/store/payment-config 200 in 1439ms (next.js: 1411ms, application-code: 28ms)
+Sentry Logger [log]: [Tracing] Finishing "http.server" root span "GET /api/store/payment-config" with ID 8ab579efee5cf20a
+[server] Next handler returned for: /api/store/payment-config
+2026-09-01 20:05:29.169 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/logon.png",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:29.169",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289529169-xlsrf5ggx"
+}
+[server] final-catchall hit: GET /logon.png
+[server] delegating to Next: /logon.png null
+[server] Next handler returned for: /logon.png
+2026-09-01 20:05:34.914 [[32minfo[39m] Incoming request {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/admin/login",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-GB) WindowsPowerShell/5.1.26100.9278",
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Incoming request",
+  "timestamp": "2026-09-01 20:05:34.914",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289534913-uyw0qfyr1"
+}
+2026-09-01 20:05:34.935 [[32minfo[39m] Request completed {
+  "service": "grey-infotech",
+  "method": "GET",
+  "url": "/login",
+  "statusCode": 200,
+  "duration": 0,
+  "level": "\u001b[32minfo\u001b[39m",
+  "message": "Request completed",
+  "timestamp": "2026-09-01 20:05:34.935",
+  "pid": 36676,
+  "env": "development",
+  "correlationId": "1788289534913-uyw0qfyr1"
+}

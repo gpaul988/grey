@@ -19,7 +19,7 @@ const Ondemand = () => (
         introBody={[
             <>
                 The on-demand economy has reset customer expectations -people now expect to summon rides, food,
-                services and goods in a few taps, tracked in real time. Grey InfoTech builds the platforms that
+                services and goods in a few taps, tracked in real time. Graham Sobiribo Paul builds the platforms that
                 meet that expectation. We engineer multi-sided marketplaces that connect customers with
                 providers, with real-time matching and dispatch, live tracking, in-app payments and the seamless
                 experience that turns first-time users into loyal regulars. From Uber-style mobility and food
@@ -40,7 +40,7 @@ const Ondemand = () => (
             className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From customer and provider apps to dispatch, payments and analytics, Grey InfoTech delivers the
+                From customer and provider apps to dispatch, payments and analytics, Graham Sobiribo Paul delivers the
                 complete on-demand platform. Based in Nigeria and serving clients globally, we build real-time
                 marketplaces that scale -connecting demand and supply seamlessly.
             </>
@@ -112,14 +112,14 @@ const Ondemand = () => (
             },
         ]}
         ctaHeading={<>Launch your <br className={'lg:block md:block hidden'}/>on-demand platform</>}
-        ctaBody={<>From ride-hailing and delivery to home services and beyond, Grey InfoTech builds on-demand
+        ctaBody={<>From ride-hailing and delivery to home services and beyond, Graham Sobiribo Paul builds on-demand
             platforms that connect demand and supply in real time. Let&apos;s bring convenience to your customers -and
             scale to your business.</>}
         testimonials={[
             {
                 name: 'Bola Akintola',
                 title: 'Founder, RideNaija',
-                message: <>Grey InfoTech built our ride-hailing platform -rider app, driver app and dispatch -and it
+                message: <>Graham Sobiribo Paul built our ride-hailing platform -rider app, driver app and dispatch -and it
                     handled launch-day demand without a hitch. Real-time tracking works flawlessly.</>
             },
             {

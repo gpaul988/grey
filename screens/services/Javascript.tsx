@@ -21,7 +21,7 @@ const Javascript = () => (
                 JavaScript is a foundational technology in modern web development, trusted by businesses across 
                 sectors including fintech, healthcare, real estate, and e-commerce. Its versatility enables the 
                 creation of highly interactive, user-centric experiences through dynamic content rendering, real-time 
-                form validation, animations, and seamless multimedia integration. At Grey InfoTech, we develop responsive 
+                form validation, animations, and seamless multimedia integration. At Graham Sobiribo Paul, we develop responsive 
                 designs, enhance interactivity, and ensure seamless functionality across all devices. From sleek marketing 
                 sites to complex web applications, our solutions are built for performance, scalability, and engagement.
             </>,
@@ -37,7 +37,7 @@ const Javascript = () => (
         solutionsIntro={
             <>
                 From front-end development and custom applications to API integration and legacy modernization, 
-                Grey InfoTech delivers comprehensive JavaScript development services. Based in Nigeria and working globally, 
+                Graham Sobiribo Paul delivers comprehensive JavaScript development services. Based in Nigeria and working globally, 
                 we engineer scalable, well-tested JavaScript systems that turn complex requirements into reliable software.
             </>
         }
@@ -54,7 +54,7 @@ const Javascript = () => (
                 id: '02', title: 'JavaScript App Development', target: 'JSAD',
                 tags: ['Cross Platform Apps', 'React Native', 'Consistent Performance'],
                 body: <>By leveraging powerful frameworks like Electron for desktop and React Native for mobile, our 
-                    developers at Grey InfoTech create applications that run seamlessly across multiple platforms from a 
+                    developers at Graham Sobiribo Paul create applications that run seamlessly across multiple platforms from a 
                     single codebase. This streamlined approach accelerates development timelines, reduces costs, and ensures 
                     consistent performance and user experience across devices.</>,
             },
@@ -92,7 +92,7 @@ const Javascript = () => (
             {
                 id: '07', title: 'JavaScript Maintenance & Support', target: 'JSMS',
                 tags: ['Reliability', 'Continuous Updates', '24/7 Monitoring'],
-                body: <>Launching your JavaScript application marks the start of its lifecycle. At Grey InfoTech, we offer 
+                body: <>Launching your JavaScript application marks the start of its lifecycle. At Graham Sobiribo Paul, we offer 
                     comprehensive post-launch support, including bug fixes, performance optimisation, feature enhancements, and 
                     security patches. With 24/7 monitoring and assistance, we ensure your application remains reliable and aligned 
                     with evolving business needs.</>,
@@ -100,7 +100,7 @@ const Javascript = () => (
             {
                 id: '08', title: 'JavaScript Consulting Services', target: 'JSCS',
                 tags: ['Strategic Guidance', 'Risk Migration', 'Tech Optimisation'],
-                body: <>Ensure your JavaScript application becomes a high-performing, value-driven asset by partnering with Grey InfoTech. We provide end-to-end support from strategic planning and development to testing, risk mitigation, 
+                body: <>Ensure your JavaScript application becomes a high-performing, value-driven asset by partnering with Graham Sobiribo Paul. We provide end-to-end support from strategic planning and development to testing, risk mitigation, 
                     and scalable deployment, taking a thorough, data-informed approach to design custom solutions that drive efficiency 
                     and innovation.</>,
             },
@@ -108,7 +108,7 @@ const Javascript = () => (
         reasons={[
             {
                 id: 1, title: 'Business-Oriented Development', image: '/assets/services/Development.jpg',
-                description: <>At Grey InfoTech, our approach to JavaScript development is rooted in understanding your 
+                description: <>At Graham Sobiribo Paul, our approach to JavaScript development is rooted in understanding your 
                     organization's strategic goals. We engineer scalable, maintainable solutions that align with your long-term 
                     vision and deliver measurable business outcomes.</>,
             },
@@ -132,7 +132,7 @@ const Javascript = () => (
             },
         ]}
         ctaHeading={<>Build dynamic <br className={'lg:block md:block hidden'}/>with JavaScript</>}
-        ctaBody={<>From scalable APIs and responsive front-ends to full-stack applications and real-time systems, Grey InfoTech 
+        ctaBody={<>From scalable APIs and responsive front-ends to full-stack applications and real-time systems, Graham Sobiribo Paul 
             delivers JavaScript solutions that perform and endure. Let's turn your vision into high-performing software.</>}
         stats={[
             {label: 'Years Experience', value: 8, suffix: '+'},
@@ -142,7 +142,7 @@ const Javascript = () => (
             {label: 'Client Satisfaction', value: 98, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Amara Okonkwo', title: 'Product Lead, TechStart Nigeria', message: <>Grey InfoTech rebuilt our entire platform in React. The code is clean, the performance is exceptional, and the team delivered ahead of schedule.</>},
+            {name: 'Amara Okonkwo', title: 'Product Lead, TechStart Nigeria', message: <>Graham Sobiribo Paul rebuilt our entire platform in React. The code is clean, the performance is exceptional, and the team delivered ahead of schedule.</>},
             {name: 'Chidi Nwafor', title: 'CTO, FinanceFlow', message: <>Their Node.js back-end handles our peak traffic effortlessly. Great architecture, excellent documentation, and they stayed aligned with our timeline.</>},
             {name: 'Zainab Hassan', title: 'Founder, ShopNow App', message: <>The JavaScript team transformed our legacy jQuery app into a modern React application. Our users love the speed improvements and new features.</>},
         ]}

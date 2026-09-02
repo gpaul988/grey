@@ -118,7 +118,7 @@ const Partners: React.FC = () => {
             {/*  -  -  Hero  - extreme futuristic  -  -  */}
             <section
                 ref={heroRef}
-                className="relative isolate overflow-hidden min-h-[80vh] flex flex-col justify-end bg-teal-300/20"
+                className="relative isolate overflow-hidden min-h-[80vh] flex flex-col justify-end"
             >
                 {/* FX background */}
                 <FxBackground day={false} grid aurora className="opacity-65" />
@@ -135,7 +135,7 @@ const Partners: React.FC = () => {
                 <div className="gx-orbit gx-orbit-reverse pointer-events-none absolute" style={{ width: '50vmax', height: '50vmax', top: '-12vmax', right: '-6vmax', opacity: .12 }} />
 
                 {/* Content */}
-                <div className="top-14 gx-page-hero-content relative z-10">
+                <div className="gx-page-hero-content relative z-10">
                     <div className="max-w-[90rem] mx-auto text-center">
                         <FxReveal>
                             <FxChip day={false} className="mb-7">
@@ -150,13 +150,13 @@ const Partners: React.FC = () => {
                             <p className="text-white/65 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
                                 We partner with technology innovators, cloud leaders, resellers and integrators to
                                 deliver outcomes no single company could build alone. Join the network powering
-                                Grey InfoTech's solutions across Africa and beyond.
+                                Graham Sobiribo Paul's solutions across Africa and beyond.
                             </p>
                             <div className="flex flex-wrap items-center justify-center gap-4">
-                                                            <FxButton day={false} href="#apply" variant="solid" className="bg-teal-500 hover:bg-teal-600 text-white">Become a Partner</FxButton>
+                                <FxButton day={false} href="#apply" variant="solid">Become a Partner</FxButton>
                                 <a
                                     href="#ecosystem"
-                                                                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold border border-transparent text-white transition"
+                                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold border border-white/20 text-white/90 hover:text-white hover:border-white/40 transition"
                                 >
                                     Explore the Ecosystem
                                 </a>
@@ -333,7 +333,7 @@ const Partners: React.FC = () => {
                                 <button
                                     type="submit"
                                     disabled={status === 'sending'}
-                                    className="w-full inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl font-semibold bg-teal-400/60 text-white disabled:opacity-60 hover:shadow-[0_12px_40px_rgba(45,212,191,.4)] transition-shadow"
+                                    className="w-full inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl font-semibold bg-gradient-to-r from-teal-500 to-cyan-500 text-white disabled:opacity-60 hover:shadow-[0_12px_40px_rgba(45,212,191,.4)] transition-shadow"
                                 >
                                     {status === 'sending' ? 'Sending…' : 'Submit partnership request'}
                                     {status !== 'sending' && <FaArrowRight />}

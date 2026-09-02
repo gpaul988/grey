@@ -18,7 +18,7 @@ const SoftwareDevelopment = () => (
         introHeading={<>Software Development <br className={'lg:block md:block hidden'}/>Problems to Solutions</>}
         introBody={[
             <>
-                Software development is fundamentally about solving business problems. At Grey InfoTech we partner with organizations
+                Software development is fundamentally about solving business problems. At Graham Sobiribo Paul we partner with organizations
                 to understand their challenges, design solutions, and deliver reliable software that creates value. Whether building
                 custom enterprise systems, business applications, or specialized tools, our expertise spans technologies, industries,
                 and problem domains. We combine technical excellence with business acumen to deliver solutions that work.
@@ -33,7 +33,7 @@ const SoftwareDevelopment = () => (
         solutionsHeading={<>Software <br className={'lg:block md:block hidden'}/>Development <br className={'lg:block md:block hidden'}/>Solutions</>}
         solutionsIntro={
             <>
-                From custom enterprise systems to specialized business applications, Grey InfoTech delivers comprehensive software development.
+                From custom enterprise systems to specialized business applications, Graham Sobiribo Paul delivers comprehensive software development.
                 Problem-focused approach combined with technical excellence creates software that solves real business challenges and delivers measurable value.
             </>
         }
@@ -88,7 +88,7 @@ const SoftwareDevelopment = () => (
             },
         ]}
         ctaHeading={<>Transform with custom <br className={'lg:block md:block hidden'}/>software solutions</>}
-        ctaBody={<>From enterprise systems and business applications to specialized tools and integrations, Grey InfoTech delivers custom software that solves real business challenges. Let's build something that creates lasting value for your organization.</>}
+        ctaBody={<>From enterprise systems and business applications to specialized tools and integrations, Graham Sobiribo Paul delivers custom software that solves real business challenges. Let's build something that creates lasting value for your organization.</>}
         stats={[
             {label: 'Years Experience', value: 15, suffix: '+'},
             {label: 'Team Members', value: 20, suffix: '+'},
@@ -97,9 +97,9 @@ const SoftwareDevelopment = () => (
             {label: 'Client Satisfaction', value: 98, suffix: '%'},
         ]}
         testimonials={[
-            {name: 'Grace Osei', title: 'CIO, Financial Services Company', message: <>Grey InfoTech built our core banking system and it's been rock-solid for 5 years. Reliability, security, and performance are exceptional. They truly understood our enterprise requirements.</>},
+            {name: 'Grace Osei', title: 'CIO, Financial Services Company', message: <>Graham Sobiribo Paul built our core banking system and it's been rock-solid for 5 years. Reliability, security, and performance are exceptional. They truly understood our enterprise requirements.</>},
             {name: 'Thomas Weber', title: 'VP Operations, Manufacturing Company', message: <>Their automation solution eliminated 60% of manual data entry and reduced errors dramatically. The ROI was clear in the first month. Excellent implementation and ongoing support.</>},
-            {name: 'Amina Hassan', title: 'CEO, Healthcare Provider', message: <>Custom software from Grey InfoTech improved patient data management and operational efficiency significantly. They understood healthcare complexity and delivered a HIPAA-compliant solution that works perfectly for our practices.</>},
+            {name: 'Amina Hassan', title: 'CEO, Healthcare Provider', message: <>Custom software from Graham Sobiribo Paul improved patient data management and operational efficiency significantly. They understood healthcare complexity and delivered a HIPAA-compliant solution that works perfectly for our practices.</>},
         ]}
         verticalSolutions={[
             {

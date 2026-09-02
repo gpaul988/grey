@@ -317,7 +317,7 @@ describe('Flash Sale & Black Friday Features', () => {
     });
 
     test('should allow per-product flash sale configuration', () => {
-      const product = {
+      const product: any = {
         id: 1,
         name: 'Laptop',
         price: 1000000,

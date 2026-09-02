@@ -288,7 +288,7 @@ export default function BlogPostPage() {
                                 </div>
                                 <div>
                                     <p className={`font-semibold text-sm ${isDayTime ? 'text-gray-900' : 'text-white'}`}>{meta.author}</p>
-                                    <p className={`text-xs ${isDayTime ? 'text-gray-500' : 'text-gray-400'}`}>{meta.authorRole || 'Grey InfoTech Editorial'} · {meta.publishedAt}</p>
+                                    <p className={`text-xs ${isDayTime ? 'text-gray-500' : 'text-gray-400'}`}>{meta.authorRole || 'Graham Sobiribo Paul Editorial'} · {meta.publishedAt}</p>
                                 </div>
                             </div>
                             <div className="relative flex items-center gap-2">

@@ -3,9 +3,21 @@ import { db } from '@/lib/db';
 import { auditSubmissions } from '@/lib/db/schema';
 import { eq, desc } from 'drizzle-orm';
 
+import { NextRequest, NextResponse } from 'next/server';
+import { db } from '@/lib/db';
+import { auditSubmissions } from '@/lib/db/schema';
+import { eq, desc } from 'drizzle-orm';
+import { getServerSession } from '@/lib/admin/server-auth';
+import type { NextRequest as NR } from 'next/server';
+import { canAccess } from '@/lib/admin/access';
+import { logActivity } from '@/Admin/models';
+
 // GET all audit submissions
 export async function GET(req: NextRequest) {
   try {
+    const sess = await getServerSession(req as NR);
+    if (!sess || !sess.user) return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
+    if (!canAccess(sess.user.role, 'review_audits')) return NextResponse.json({ ok: false, error: 'Forbidden' }, { status: 403 });
 
     const searchParams = req.nextUrl.searchParams;
     const status = searchParams.get('status');
@@ -43,6 +55,9 @@ export async function GET(req: NextRequest) {
 // UPDATE submission status/notes
 export async function PATCH(req: NextRequest) {
   try {
+    const sess = await getServerSession(req as NR);
+    if (!sess || !sess.user) return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
+    if (!canAccess(sess.user.role, 'review_audits')) return NextResponse.json({ ok: false, error: 'Forbidden' }, { status: 403 });
 
     const body = await req.json();
     const { id, status, adminNotes, proposedSolution } = body;
@@ -79,6 +94,8 @@ export async function PATCH(req: NextRequest) {
       );
     }
 
+    logActivity({ user_id: sess.user.id, user_name: sess.user.name, action: 'update', entity: 'audit_submission', entity_id: parseInt(id), detail: `Updated audit submission ${id}` });
+
     return NextResponse.json(
       {
         success: true,
@@ -98,6 +115,9 @@ export async function PATCH(req: NextRequest) {
 // DELETE submission
 export async function DELETE(req: NextRequest) {
   try {
+    const sess = await getServerSession(req as NR);
+    if (!sess || !sess.user) return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
+    if (!canAccess(sess.user.role, 'review_audits')) return NextResponse.json({ ok: false, error: 'Forbidden' }, { status: 403 });
 
     const searchParams = req.nextUrl.searchParams;
     const id = searchParams.get('id');
@@ -112,6 +132,8 @@ export async function DELETE(req: NextRequest) {
     await db
       .delete(auditSubmissions)
       .where(eq(auditSubmissions.id, parseInt(id)));
+
+    logActivity({ user_id: sess.user.id, user_name: sess.user.name, action: 'delete', entity: 'audit_submission', entity_id: parseInt(id), detail: `Deleted audit submission ${id}` });
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {

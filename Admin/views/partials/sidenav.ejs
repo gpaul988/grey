@@ -11,12 +11,12 @@ const isActive = (k) => cur === k ? ' active' : '';
     <!-- Brand Logo -->
     <a href="/admin/dashboard" class="logo">
         <span class="logo-light">
-            <span class="logo-lg"><img src="/logo-dark.png" alt="Grey InfoTech logo"></span>
-            <span class="logo-sm"><img src="/logo-dark.png" alt="Grey InfoTech logo"></span>
+            <span class="logo-lg"><img src="/logo-dark.png" alt="Graham Sobiribo Paul logo"></span>
+            <span class="logo-sm"><img src="/logo-dark.png" alt="Graham Sobiribo Paul logo"></span>
         </span>
         <span class="logo-dark">
-            <span class="logo-lg"><img src="/logo-dark.png" alt="Grey InfoTech logo"></span>
-            <span class="logo-sm"><img src="/logo-dark.png" alt="Grey InfoTech logo"></span>
+            <span class="logo-lg"><img src="/logo-dark.png" alt="Graham Sobiribo Paul logo"></span>
+            <span class="logo-sm"><img src="/logo-dark.png" alt="Graham Sobiribo Paul logo"></span>
         </span>
     </a>
 
@@ -138,11 +138,26 @@ const isActive = (k) => cur === k ? ' active' : '';
             </li>
 
             <li class="side-nav-title">Store</li>
- 
+
             <li class="side-nav-item">
-                <a href="/admin/store" class="side-nav-link<%= isActive('store') || isActive('store/dashboard') ? ' active' : '' %>">
-                    <span class="menu-icon"><i class="ti ti-layout-dashboard"></i></span>
+                <a href="/admin/store/dashboard"
+                   class="side-nav-link<%= isActive('store/dashboard') || isActive('store-dashboard') ? ' active' : '' %>">
+                    <span class="menu-icon"><i class="ti ti-chart-dots"></i></span>
                     <span class="menu-text"> Dashboard </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/store/flash-sale" class="side-nav-link<%= isActive('store/flash-sale') ? ' active' : '' %>">
+                    <span class="menu-icon"><i class="ti ti-ticket"></i></span>
+                    <span class="menu-text"> Flash Sale </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="/admin/store/black-friday" class="side-nav-link<%= isActive('store/black-friday') || isActive('store/settings') ? ' active' : '' %>">
+                    <span class="menu-icon"><i class="ti ti-badge-percent"></i></span>
+                    <span class="menu-text"> Black Friday </span>
                 </a>
             </li>
 
@@ -151,13 +166,6 @@ const isActive = (k) => cur === k ? ' active' : '';
                    class="side-nav-link<%= isActive('store/products') || isActive('store/product') ? ' active' : '' %>">
                     <span class="menu-icon"><i class="ti ti-device-laptop"></i></span>
                     <span class="menu-text"> Products </span>
-                </a>
-            </li>
-
-            <li class="side-nav-item">
-                <a href="/admin/store/dashboard" class="side-nav-link<%= isActive('store/dashboard') ? ' active' : '' %>">
-                    <span class="menu-icon"><i class="ti ti-chart-pie"></i></span>
-                    <span class="menu-text"> Store Dashboard </span>
                 </a>
             </li>
 
